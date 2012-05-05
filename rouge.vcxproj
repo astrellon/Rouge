@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphic.h" />
+    <ClInclude Include="json_importer.h" />
     <ClInclude Include="json_value.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="tile.h" />

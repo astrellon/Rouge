@@ -1,14 +1,5 @@
 #pragma once
-/*
-#define JV_NULL	0
-#define JV_UNDEF	1
-#define JV_INT	2
-#define JV_FLOAT	3
-#define JV_BOOL	4
-#define JV_STR	5
-#define JV_OBJ	6
-#define JV_ARR	7
-*/
+
 enum JsonType {
 	JV_NULL,
 	JV_UNDEF,
@@ -25,20 +16,7 @@ enum JsonType {
 #include <vector>
 
 using namespace std;
-/*
-#define ALT_REFS(type, refmap, value, retain)	\
-	map<type, int>::iterator iter;	\
-	iter = refmap.find(value);	\
-	if (iter != refmap.end()) {	\
-		int count = iter->second + (retain ? 1 : -1);	\
-		if (count <= 0) {	\
-			type ptr = iter->first;	\
-			refmap.erase(iter);	\
-			printf("Deleting refernce to %s\n", #type);	\
-			delete ptr;	\
-		}	\
-	}
-	*/
+
 class JsonValue;
 
 typedef map<string, JsonValue> JsonObject;
@@ -52,6 +30,24 @@ typedef union {
 	JsonObject *o;
 	JsonArray *a;
 } JsonUnion;
+
+#define ALT_REFS(type, refMap, value, retain)	\
+	map<const type *, int>::iterator iter;	\
+	iter = refMap.find(value);	\
+	if (iter != refMap.end()) {	\
+		int count = iter->second + (retain ? 1 : -1);	\
+		if (count <= 0) {	\
+			const type *ptr = iter->first;	\
+			refMap.erase(iter);	\
+			delete ptr;	\
+		}	\
+		else {	\
+			iter->second = count;	\
+		}	\
+	}	\
+	else if (retain) {	\
+		refMap[value] = 1;	\
+	}
 
 class JsonValue {
 public:
@@ -256,40 +252,19 @@ protected:
 	}
 
 	void altStrRef(const string *str, bool retain) {
-		altRefs<string>(sStrRefs, str, retain);
+		ALT_REFS(string, sStrRefs, str, retain);
 	}
 	void altObjRef(const JsonObject *obj, bool retain) {
-		altRefs<JsonObject>(sObjRefs, obj, retain);
+		ALT_REFS(JsonObject, sObjRefs, obj, retain);
 	}
 	void altArrRef(const JsonArray *arr, bool retain) {
-		altRefs<JsonArray>(sArrRefs, arr, retain);
+		ALT_REFS(JsonArray, sArrRefs, arr, retain);
 	}
 
 private:
 	static map<const string *, int> sStrRefs;
 	static map<const JsonObject *, int> sObjRefs;
 	static map<const JsonArray *, int> sArrRefs;
-
-	template <class T>
-	void altRefs(map<const T *, int> &refMap, const T *value, bool retain) {
-		map<const T *, int>::iterator iter;
-		iter = refMap.find(value);
-		if (iter != refMap.end()) {
-			int count = iter->second + (retain ? 1 : -1);
-			if (count <= 0) {
-				const T *ptr = iter->first;
-				refMap.erase(iter);
-				printf("Deleting refernce to %s\n", typeid(T).name());
-				delete ptr;
-			}
-			else {
-				iter->second = count;
-			}
-		}
-		else if (retain) {
-			refMap[value] = 1;
-		}
-	}
 
 };
 

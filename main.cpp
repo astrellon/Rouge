@@ -1,30 +1,16 @@
 #include <stdio.h>
 #include "tokeniser.h"
 #include "json_value.h"
+#include "json_importer.h"
 
 #include <iostream>
 
 int main() {
-	
-	JsonValue i = 5;
-	JsonValue f = 3.4f;
-	string ss = "Hello";
-	JsonValue s = ss;
 
-	{
-	JsonObject *obj = new JsonObject();
-	JsonValue o(obj);
-	(*obj)["name"] = "Alan";
-	(*obj)["age"] = 23.4f;
-	
-	printf("Object: %s, %f\n", o["name"].getCStr(), o["age"].getFloat());
-	}
-	/*Tokeniser tok("{\"name\": \"Alan\", \"age\": 5.6}");
-	const char *token = tok.nextToken();
-	while(token != NULL) {
-		printf("Token: >%s<\n", token);
-		token = tok.nextToken();
-	}*/
+	const char *input = "{\"name\": \"Alan\", \"age\": 5.6}";
+	JsonValue inputObj = JsonImporter::import(input);
+
+	printf("Imported: %s, %f\n", inputObj["name"].getCStr(), inputObj["age"].getFloat());
 
 	std::cin.get();
 
