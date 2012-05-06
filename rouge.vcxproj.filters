@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="json_importer.cpp">
+    <ClCompile Include="json_value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -39,9 +39,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tokeniser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json_importer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
