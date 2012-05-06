@@ -129,9 +129,15 @@ public:
 		return mType;
 	}
 	int getInt() const {
+		if (mType == JV_FLOAT) {
+			return static_cast<int>(mContent.f);
+		}
 		return mContent.i;
 	}
 	float getFloat() const {
+		if (mType == JV_INT) {
+			return static_cast<float>(mContent.i);
+		}
 		return mContent.f;
 	}
 	bool getBool() const {
@@ -141,7 +147,7 @@ public:
 		return mContent.s;
 	}
 	const char *getCStr() {
-		if (mType == JV_STR) {
+		if (mType == JV_STR && mContent.s != NULL) {
 			return mContent.s->c_str();
 		}
 		return NULL;
@@ -234,6 +240,10 @@ public:
 	}
 	
 	static JsonValue JsonUndef;
+
+	void display() {
+		displayValue(*this, 1);
+	}
 	
 protected:
 	JsonType mType;
@@ -261,14 +271,52 @@ protected:
 		ALT_REFS(JsonArray, sArrRefs, arr, retain);
 	}
 
+	void displayValue(JsonValue &value, int depth) {
+		
+		JsonObject::iterator oiter;
+		JsonArray::iterator aiter;
+		switch (value.mType) {
+		case JV_BOOL:
+			printf("%s\n", (value.getBool() ? "true" : "false"));
+			break;
+		case JV_STR:
+			printf("%s\n", value.getCStr());
+			break;
+		case JV_INT:
+			printf("%d\n", value.getInt());
+			break;
+		case JV_FLOAT:
+			printf("%f\n", value.getFloat());
+			break;
+		case JV_OBJ:
+			oiter = value.getObj()->begin();
+			printf("{\n");
+			
+			for (;oiter != value.getObj()->end(); ++oiter) {
+				printf("%*c %s = ", depth * 2, ' ', oiter->first.c_str());
+				displayValue(oiter->second, depth + 1);
+			}
+			printf("%*c}\n", (depth - 1) * 2, ' ');
+			break;
+		case JV_ARR:
+			aiter = value.getArr()->begin();
+			printf("[\n");
+			
+			for (;aiter != value.getArr()->end(); ++aiter) {
+				printf("%*c", depth * 2, ' ');
+				displayValue(*aiter, depth + 1);
+			}
+			printf("%*c]\n", (depth - 1) * 2, ' ');
+			break;
+		default:
+			printf("<Unknown Type>\n");
+			break;
+		}
+	}
+
 private:
 	static map<const string *, int> sStrRefs;
 	static map<const JsonObject *, int> sObjRefs;
 	static map<const JsonArray *, int> sArrRefs;
 
 };
-
-JsonValue JsonValue::JsonUndef;
-map<const string *, int> JsonValue::sStrRefs;
-map<const JsonObject *, int> JsonValue::sObjRefs;
-map<const JsonArray *, int> JsonValue::sArrRefs;
