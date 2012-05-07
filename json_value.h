@@ -69,7 +69,7 @@ public:
 	JsonValue(const JsonValue &val);
 	~JsonValue();
 	
-	int getType() const;
+	JsonType getType() const;
 	int getInt() const;
 	float getFloat() const;
 	bool getBool() const;
@@ -128,9 +128,9 @@ private:
 	void displayDepth(ostream &stream, int depth);
 
 	static char getChar(const char *token);
-
+	static const char *nextToken(Tokeniser &tokeniser, bool skipComments = true);
 };
 
 #ifdef _ANDROID
-#	include "json_value.cpp";
+#	include "json_value.cpp"
 #endif

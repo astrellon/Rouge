@@ -81,7 +81,7 @@ JsonValue::~JsonValue() {
 	checkRefs(false);
 }
 
-int JsonValue::getType() const {
+JsonType JsonValue::getType() const {
 	return mType;
 }
 int JsonValue::getInt() const {
@@ -228,6 +228,7 @@ void JsonValue::altArrRef(const JsonArray *arr, bool retain) {
 
 void JsonValue::displayValue(ostream &stream, JsonValue &value, int depth) {
 		
+	JsonObject *jObj = NULL;
 	JsonObject::iterator oiter;
 	JsonArray::iterator aiter;
 	bool first = true;
@@ -251,10 +252,19 @@ void JsonValue::displayValue(ostream &stream, JsonValue &value, int depth) {
 		stream << value.getFloat();
 		break;
 	case JV_OBJ:
-		oiter = value.getObj()->begin();
-		stream << "{\n";
+		jObj = value.getObj();
+		
+		stream << "{";
+		oiter = jObj->find("__comment");
+		if (oiter != jObj->end() && oiter->second.getType() == JV_STR) {
+			stream << " /* " << *oiter->second.getStr() << " */";
+		}
+		stream << '\n';
 			
-		for (;oiter != value.getObj()->end(); ++oiter) {
+		for (oiter = jObj->begin() ;oiter != jObj->end(); ++oiter) {
+			if (oiter->first.compare("__comment") == 0) {
+				continue;
+			}
 			if (!first) {
 				stream << ",\n";
 			}
@@ -262,6 +272,10 @@ void JsonValue::displayValue(ostream &stream, JsonValue &value, int depth) {
 			stream << oiter->first << ": ";
 			displayValue(stream, oiter->second, depth + 1);
 			first = false;
+			JsonType ot = oiter->second.getType();
+			if (ot == JV_ARR || ot == JV_OBJ) {
+				stream << " /* end " << oiter->first << " */";
+			}
 		}
 		stream << '\n';
 		displayDepth(stream, depth - 1);
@@ -292,7 +306,7 @@ void JsonValue::displayValue(ostream &stream, JsonValue &value, int depth) {
 JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken) {
 	const char *token = startToken;
 	if (token == NULL) {
-		token = tokeniser.nextToken();
+		token = nextToken(tokeniser);
 	}
 	if (token == NULL) {
 		return JsonValue();
@@ -300,10 +314,31 @@ JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken)
 		
 	char ch = getChar(token);
 	if (ch == '{') {
-		token = tokeniser.nextToken();
-		ch = getChar(token);
+		token = nextToken(tokeniser, false);
+		if (token != NULL) {
+			ch = getChar(token);
+		}
 		string valueName;
 		JsonObject *obj = new JsonObject();
+		
+		if (ch == '/') {
+			token += 2;
+			if (token[0] == ' ') {
+				token++;
+			}
+			string cmtStr = token;
+			size_t e = cmtStr.size() - 1;
+			if (cmtStr[e] == '/' && cmtStr[e - 1] == '*') {
+				int offset = -1;
+				if (cmtStr[e - 2] == ' ') {
+					offset--;
+				}
+				cmtStr = cmtStr.substr(0, e + offset);
+			}
+			(*obj)["__comment"] = cmtStr;
+			token = nextToken(tokeniser);
+			ch = getChar(token);
+		}
 
 		while (token != NULL && ch != '}') {
 			if (ch == '"' || ch == '\'') {
@@ -313,14 +348,14 @@ JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken)
 				valueName = token;
 			}
 			// Should be a ':'
-			tokeniser.nextToken();
+			nextToken(tokeniser);	
 
 			(*obj)[valueName] = import_object(tokeniser);
 
-			token = tokeniser.nextToken();
+			token = nextToken(tokeniser);
 			ch = getChar(token);
 			if (ch == ',') {
-				token = tokeniser.nextToken();
+				token = nextToken(tokeniser);
 				ch = getChar(token);
 			}
 		}
@@ -329,18 +364,19 @@ JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken)
 	}
 	else if(ch == '[') {
 
-		token = tokeniser.nextToken();
+		token = nextToken(tokeniser);
 		ch = getChar(token);
 
 		JsonArray *arr = new JsonArray();
 
 		while(token != NULL && ch != ']') {
+			 
 			arr->push_back(import_object(tokeniser, token));
 
-			token = tokeniser.nextToken();
+			token = nextToken(tokeniser);
 			ch = getChar(token);
 			if (ch == ',') {
-				token = tokeniser.nextToken();
+				token = nextToken(tokeniser);
 				ch = getChar(token);
 			}
 		}
@@ -377,4 +413,13 @@ char JsonValue::getChar(const char *token) {
 		return token[0];
 	}
 	return '\0';
+}
+
+const char *JsonValue::nextToken(Tokeniser &tokeniser, bool skipComments) {
+	const char *token = tokeniser.nextToken();
+	while(skipComments && token != NULL && token[0] == '/') {
+		printf("Comment: %s\n", token);
+		token = tokeniser.nextToken();
+	}
+	return token;
 }
