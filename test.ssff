@@ -1,0 +1,25 @@
+{	// Test map
+	map: {
+		width: 40,
+		height: 30,
+		
+		data: [
+			[
+				{	// 0, 0
+					tile: "grass"
+				},
+				{	// 1, 0
+					tile: "grass"
+				}
+			], 
+			[
+				{	// 0, 1
+					tile: "stone"
+				},
+				{	// 1, 1
+					tile: "dirt"
+				}
+			]
+		]	// end data
+	}	// end map
+}
