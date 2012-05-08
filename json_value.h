@@ -1,5 +1,16 @@
 #pragma once
 
+#include <string>
+#include <map>
+#include <vector>
+#include <iostream>
+#include <ostream>
+
+#include "tokeniser.h"
+
+namespace am {
+namespace util {
+
 enum JsonType {
 	JV_NULL,
 	JV_UNDEF,
@@ -10,14 +21,6 @@ enum JsonType {
 	JV_OBJ,
 	JV_ARR
 };
-
-#include <string>
-#include <map>
-#include <vector>
-#include <iostream>
-#include <ostream>
-
-#include "tokeniser.h"
 
 using namespace std;
 
@@ -98,6 +101,9 @@ public:
 	bool has(const char *i) const;
 	bool has(const string &i) const;
 
+	bool has(const char *i, JsonType type) const;
+	bool has(const string &i, JsonType type) const;
+
 	JsonValue &operator=(const JsonValue &rhs);
 	
 	static JsonValue JsonUndef;
@@ -130,6 +136,9 @@ private:
 	static char getChar(const char *token);
 	static const char *nextToken(Tokeniser &tokeniser, bool skipComments = true);
 };
+
+}
+}
 
 #ifdef _ANDROID
 #	include "json_value.cpp"

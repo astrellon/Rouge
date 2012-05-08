@@ -60,10 +60,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="tile_instance.cpp" />
+    <ClCompile Include="tokeniser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="json_value.h" />
     <ClInclude Include="map.h" />

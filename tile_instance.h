@@ -1,38 +1,35 @@
 #pragma once
 
-#include "tile.h"
+namespace am {
+namespace base {
+
+class Tile;
 
 class TileInstance {
 public:
-	TileInstance(Tile *tile) : mTile(tile), mXpos(0), mYpos(0) {
-	}
-	TileInstance(Tile *tile, int x, int y) : mTile(tile), mXpos(x), mYpos(y) {
-	}
-	~TileInstance() {
-	}
+	TileInstance();
+	TileInstance(Tile *tile);
+	TileInstance(Tile *tile, int x, int y);
+	~TileInstance();
 	
-	int getX() const {
-		return mXpos;
-	}
-	int getY() const {
-		return mYpos;
-	}
+	int getX() const;
+	int getY() const;
 	
-	void setPos(int x, int y) {
-		mXpos = x;
-		mYpos = y;
-	}
+	void setPos(int x, int y);
 	
-	Tile *getTile() {
-		return mTile;
-	}
-	void setTile(Tile *tile) {
-		mTile = tile;
-	}
+	Tile *getTile();
+	void setTile(Tile *tile);
 	
 protected:
 	Tile *mTile;
 
 	int mXpos;
 	int mYpos;
+};
+
 }
+}
+
+#ifdef _ANDROID
+#	include "tile_instance.cpp"
+#endif

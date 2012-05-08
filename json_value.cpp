@@ -2,16 +2,21 @@
 #	include "json_value.h"
 #endif
 
+namespace am {
+namespace util {
+
 JsonValue JsonValue::JsonUndef;
 map<const string *, int> JsonValue::sStrRefs;
 map<const JsonObject *, int> JsonValue::sObjRefs;
 map<const JsonArray *, int> JsonValue::sArrRefs;
 
-JsonValue::JsonValue() {
-	mType = JV_UNDEF;
+JsonValue::JsonValue() :
+	mType(JV_UNDEF)
+{
 }
-JsonValue::JsonValue(JsonType type) {
-	mType = type;
+JsonValue::JsonValue(JsonType type) :
+	mType(type)
+{
 	if (type == JV_ARR) {
 		mContent.a = new JsonArray();
 		altArrRef(mContent.a, true);
@@ -24,53 +29,62 @@ JsonValue::JsonValue(JsonType type) {
 		mContent.i = 0;
 	}
 }
-JsonValue::JsonValue(int val) {
-	mType = JV_INT;
+JsonValue::JsonValue(int val) :
+	mType(JV_INT)
+{
 	mContent.i = val;
 }
-JsonValue::JsonValue(float val) {
-	mType = JV_FLOAT;
+JsonValue::JsonValue(float val) :
+	mType(JV_FLOAT)
+{
 	mContent.f = val;
 }
-JsonValue::JsonValue(bool val) {
-	mType = JV_BOOL;
+JsonValue::JsonValue(bool val) :
+	mType(JV_BOOL)
+{
 	mContent.b = val;
 }
-JsonValue::JsonValue(const char *val) {
-	mType = JV_STR;
+JsonValue::JsonValue(const char *val) :
+	mType(JV_STR)
+{
 	string *str = new string();
 	*str = val;
 	altStrRef(str, true);
 	mContent.s = str;
 }
-JsonValue::JsonValue(const string &val) {
-	mType = JV_STR;
+JsonValue::JsonValue(const string &val) :
+	mType(JV_STR)
+{
 	string *str = new string();
 	*str = val;
 	altStrRef(str, true);
 	mContent.s = str;
 }
-JsonValue::JsonValue(const JsonArray &val) {
-	mType = JV_ARR;
+JsonValue::JsonValue(const JsonArray &val) :
+	mType(JV_ARR)
+{
 	JsonArray *arr = new JsonArray();
 	*arr = val;
 	altArrRef(arr, true);
 	mContent.a = arr;
 }
-JsonValue::JsonValue(const JsonObject &val) {
-	mType = JV_OBJ;
+JsonValue::JsonValue(const JsonObject &val) :
+	mType(JV_OBJ)
+{
 	JsonObject *obj = new JsonObject();
 	*obj = val;
 	altObjRef(obj, true);
 	mContent.o = obj;
 }
-JsonValue::JsonValue(JsonArray *val) {
-	mType = JV_ARR;
+JsonValue::JsonValue(JsonArray *val) :
+	mType(JV_ARR)
+{
 	altArrRef(val, true);
 	mContent.a = val;
 }
-JsonValue::JsonValue(JsonObject *val) {
-	mType = JV_OBJ;
+JsonValue::JsonValue(JsonObject *val) :
+	mType(JV_OBJ)
+{
 	altObjRef(val, true);
 	mContent.o = val;
 }
@@ -182,6 +196,22 @@ bool JsonValue::has(const char *i) const {
 bool JsonValue::has(const string &i) const {
 	if (mType == JV_OBJ) {
 		return mContent.o->find(i) != mContent.o->end();
+	}
+	return false;
+}
+
+bool JsonValue::has(const char *i, JsonType type) const {
+	return has(string(i), type);
+}
+bool JsonValue::has(const string &i, JsonType type) const {
+	if (mType == JV_OBJ) {
+		JsonObject::iterator it = mContent.o->find(i);
+		if (it == mContent.o->end()) {
+			return false;
+		}
+		if (it->second.getType() == type) {
+			return true;
+		}
 	}
 	return false;
 }
@@ -422,4 +452,7 @@ const char *JsonValue::nextToken(Tokeniser &tokeniser, bool skipComments) {
 		token = tokeniser.nextToken();
 	}
 	return token;
+}
+
+}
 }
