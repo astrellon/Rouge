@@ -4,6 +4,7 @@
 
 #include "map.h"
 #include "json_value.h"
+#include "tile_instance.h"
 
 #include <stdio.h>
 
@@ -51,13 +52,45 @@ int Game::loadMap(const string &filename) {
 	int mapWidth = -1;
 	int mapHeight = -1;
 
+	loaded.display();
+
 	if (loaded.has("map", JV_OBJ)) {
 		JsonValue mapData = loaded["map"];
-		if (mapData.has("width", JV_INT)) {
-			mapWidth = mapData["width"].getInt();
-		}
-		if (mapData.has("height", JV_INT)) {
-			mapHeight = mapData["height"].getInt();
+		
+		if (mapData.has("data", JV_ARR)) {
+			JsonArray *mapRows = mapData["data"].getArr();
+			mapHeight = static_cast<int>(mapRows->size());
+
+			int y = -1;
+
+			JsonArray::iterator row;
+			for (row = mapRows->begin(); row != mapRows->end(); ++row) {
+				y++;
+
+				if (row->getType() != JV_ARR) {
+					printf("Error in map data!\n");
+					break;
+				}
+				JsonArray *mapCols = row->getArr();
+				JsonArray::iterator col;
+
+				int x = -1;
+				for (col = mapCols->begin(); col != mapCols->end(); ++col) {
+					x++;
+					if (col->getType() != JV_OBJ) {
+						printf("Map tile instance not an object: '%s'\n", col->getTypeName());
+						break;
+					}
+					if (!col->has("tile", JV_STR)) {
+						printf("Map tile instance does not have a tile property!\n");
+						break;
+					}
+					
+					JsonObject *tileInstObj = col->getObj();
+					printf("Tile instance: '%s' at %d, %d\n", col->at("tile").getCStr(), x, y);
+					//TileInstance *tileInst = new TileInstance(
+				}
+			}
 		}
 	}
 

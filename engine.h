@@ -26,7 +26,6 @@ public:
 
 protected:
 
-	//void registerTiles();
 	void registerTile(Tile *t);
 	void deregisterTiles();
 

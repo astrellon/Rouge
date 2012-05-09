@@ -1,8 +1,5 @@
 {	// Test map
 	map: {
-		width: 40,
-		height: 30,
-		
 		data: [
 			[
 				{	// 0, 0

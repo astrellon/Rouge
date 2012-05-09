@@ -54,18 +54,25 @@ void Tile::loadDef(JsonObject &value) {
 			continue;
 		}
 
-		if (!parseDef(iter->first.c_str(), iter->second)) {
+		int parseResult = parseDef(iter->first.c_str(), iter->second);
+		if (parseResult == -1) {
 			printf("Unable to parse tile property: '%s'\n", iter->first.c_str());
+		}
+		else if(parseResult == -2) {
+			printf("Value was not of expected type: '%s'\n", iter->first.c_str());
 		}
 	}
 }
 
-bool Tile::parseDef(const char *name, JsonValue &value) {
-	if (strcmp(name, "fullName") == 0 && value.getType() == JV_STR) {
+int Tile::parseDef(const char *name, JsonValue &value) {
+	if (strcmp(name, "fullName") == 0) {
+		if (value.getType() != JV_STR) {
+			return -2;
+		}
 		setFullName(value.getCStr());
-		return true;
+		return 0;
 	}
-	return false;
+	return -1;
 }
 
 }

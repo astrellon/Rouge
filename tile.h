@@ -35,7 +35,7 @@ protected:
 	string mFullName;
 	Graphic *mGraphic;
 
-	bool parseDef(const char *name, JsonValue &value);
+	int parseDef(const char *name, JsonValue &value);
 };
 
 }
