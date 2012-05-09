@@ -12,9 +12,10 @@ using namespace am::util;
 namespace am {
 namespace base {
 
-Game::Game() :
+Game::Game(Engine *engine) :
 	mMap(NULL),
-	mMapFilename("")
+	mMapFilename(""),
+	mEngine(engine)
 {
 
 }
@@ -32,20 +33,20 @@ Map *Game::getMap() {
 int Game::loadMap(const string &filename) {
 	mMapFilename = filename;
 
-	FILE *file = fopen(filename.c_str(), "r");
-	if (file == NULL) {
-		return -1;
+	JsonValue loaded = JsonValue::import_from_file(filename.c_str());
+	if (loaded.getType() == JV_INT) {
+		int error = loaded.getInt();
+		if (error == -1) {
+			printf("Unable to load map '%s'\n", filename.c_str());
+			return -1;
+		}
+		if (error == -2) {
+			printf("Unable to allocate space for input map '%s'\n", filename.c_str());
+			return -2;
+		}
+		printf("Unknown error for input map '%s': %d\n", filename.c_str(), error);
+		return error;
 	}
-
-	fseek(file, 0, SEEK_END);
-	long fileLen = ftell(file);
-	rewind(file);
-
-	char *buff = new char[fileLen + 1];
-	fread(buff, 1, fileLen, file);
-	buff[fileLen] = '\0';
-
-	JsonValue loaded = JsonValue::import(buff);
 
 	int mapWidth = -1;
 	int mapHeight = -1;

@@ -73,6 +73,7 @@ public:
 	~JsonValue();
 	
 	JsonType getType() const;
+	const char *getTypeName() const;
 	int getInt() const;
 	float getFloat() const;
 	bool getBool() const;
@@ -111,6 +112,7 @@ public:
 	void display(ostream &stream = cout);
 
 	static JsonValue import(const char *str);
+	static JsonValue import_from_file(const char *filename);
 	
 protected:
 	JsonType mType;
@@ -130,6 +132,7 @@ private:
 	static map<const string *, int> sStrRefs;
 	static map<const JsonObject *, int> sObjRefs;
 	static map<const JsonArray *, int> sArrRefs;
+	static const char *sTypeNames[];
 
 	void displayDepth(ostream &stream, int depth);
 

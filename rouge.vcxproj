@@ -60,6 +60,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="main.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="tokeniser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="json_value.h" />

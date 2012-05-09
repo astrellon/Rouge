@@ -1,0 +1,11 @@
+{	// Tile definitions
+	grass: {
+		fullName: "Grass"
+	},
+	dirt: {
+		fullName: "Dirt"
+	},
+	stone: {
+		fullName: "Stone"
+	}
+}

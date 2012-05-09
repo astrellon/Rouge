@@ -9,6 +9,9 @@ JsonValue JsonValue::JsonUndef;
 map<const string *, int> JsonValue::sStrRefs;
 map<const JsonObject *, int> JsonValue::sObjRefs;
 map<const JsonArray *, int> JsonValue::sArrRefs;
+const char *JsonValue::sTypeNames[] = {
+	"Null", "Undefined", "Integer", "Float", "Boolean"
+	"String", "Object", "Array", "BAD_JSON_TYPE"};
 
 JsonValue::JsonValue() :
 	mType(JV_UNDEF)
@@ -97,6 +100,9 @@ JsonValue::~JsonValue() {
 
 JsonType JsonValue::getType() const {
 	return mType;
+}
+const char *JsonValue::getTypeName() const {
+	return sTypeNames[mType];
 }
 int JsonValue::getInt() const {
 	if (mType == JV_FLOAT) {
@@ -430,6 +436,30 @@ JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken)
 		}
 	}
 	return JsonValue();
+}
+
+JsonValue JsonValue::import_from_file(const char *filename) {
+	FILE *file = fopen(filename, "r");
+	if (file == NULL) {
+		return JsonValue(-1);
+	}
+
+	fseek(file, 0, SEEK_END);
+	long fileLen = ftell(file);
+	rewind(file);
+
+	char *buff = new char[fileLen + 1];
+	if (buff == NULL) {
+		return JsonValue(-2);
+	}
+	fread(buff, 1, fileLen, file);
+	buff[fileLen] = '\0';
+
+	JsonValue loaded = JsonValue::import(buff);
+
+	delete buff;
+
+	return loaded;
 }
 
 void JsonValue::displayDepth(ostream &stream, int depth) {

@@ -8,10 +8,11 @@ namespace am {
 namespace base {
 
 class Map;
+class Engine;
 
 class Game {
 public:
-	Game();
+	Game(Engine *engine);
 	~Game();
 
 	void setMap(Map *map);
@@ -24,6 +25,8 @@ protected:
 	Map *mMap;
 
 	string mMapFilename;
+
+	Engine *mEngine;
 };
 
 }
