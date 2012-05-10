@@ -1,0 +1,55 @@
+const int MAX_NUM_OBJECTS = 249;
+
+const vec4 colourRed = 		vec4(1.0f, 0.0f, 0.0f, 1.0f);
+const vec4 colourGreen = 	vec4(0.0f, 1.0f, 0.0f, 1.0f);
+const vec4 colourBlue = 	vec4(0.0f, 0.0f, 1.0f, 1.0f);
+const vec4 colourWhite = 	vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+uniform vec3 cameraPosition;
+uniform vec4 objectPositions[MAX_NUM_OBJECTS];
+uniform float userSphere;
+
+varying vec3 fragmentNormal;
+varying vec3 cameraVector;
+varying vec4 objectColour;
+
+void
+main()
+{
+	fragmentNormal = gl_Vertex.xyz;
+	
+	if(gl_InstanceID == 0 && userSphere > 0.0f)
+	{
+		objectColour = colourWhite;
+		
+		gl_Vertex.x *= userSphere;
+		gl_Vertex.y *= userSphere;
+		gl_Vertex.z *= userSphere;
+	}
+	else
+	{
+		int mod = gl_InstanceID % 3;
+		if(mod == 0)
+		{
+			objectColour = colourRed;
+			gl_Vertex.x *= 0.5f;
+			gl_Vertex.y *= 0.5f;
+			gl_Vertex.z *= 0.5f;
+		}
+		else if(mod == 1)
+		{
+			objectColour = colourGreen;
+		}
+		else
+		{
+			objectColour = colourBlue;
+			gl_Vertex.x *= 1.5f;
+			gl_Vertex.y *= 1.5f;
+			gl_Vertex.z *= 1.5f;
+		}
+	}
+	
+	gl_Vertex.xyz += objectPositions[gl_InstanceID].xyz;
+	cameraVector = cameraPosition - gl_Vertex.xyz;
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+}
