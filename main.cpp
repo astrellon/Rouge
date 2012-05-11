@@ -21,7 +21,7 @@ float camRotateX = 0.0f, camRotateY = 0.0f;
 bool displayError = false;
 
 // Rendering related
-int screenWidth = 800, screenHeight = 600;
+int screenWidth = 600, screenHeight = 400;
 TextField txtInstructions;
 
 float g_cameraPosition[3];
@@ -31,15 +31,17 @@ float g_lightDirection[3];
 // sphere mesh.
 void glInit(void) 
 {
-	glClearColor (0.0, 0.0, 0.0, 0.0);
+	glClearColor (0.0, 0.3, 0.4, 0.0);
 	// Enable texture for the text fields.
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
 }
+
+am::base::Texture testTex;
 
 void init()
 {
@@ -49,9 +51,8 @@ void init()
 	// Initialize OpenGL
 	glInit();
 
-	// Give the scene a starting number of spheres.
-	//changeSphereCount(INITIAL_SPHERE_COUNT);
-	
+	testTex.loadFromFile("data/font.png");
+
 	// Create an image ID for our font texture.
 	ILubyte fontId = ilGenImage();
 	ilBindImage(fontId);
@@ -117,8 +118,22 @@ void display(void)
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//glBlendFunc(GL_ONE, GL_ONE);
-		txtInstructions.render((screenWidth - txtInstructions.getTextureWidth()) / 2.0f, (screenHeight - txtInstructions.getTextureHeight()) / 2.0f);
+		//txtInstructions.render((screenWidth - txtInstructions.getTextureWidth()) / 2.0f, (screenHeight - txtInstructions.getTextureHeight()) / 2.0f);
+
+		static float xx = 0;
+		static float yy = 0;
+
+		glPushMatrix();
+		glTranslatef(xx, yy++, 0);
+		glBindTexture(GL_TEXTURE_2D, testTex.getTextureId());
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2i(0, 0);
+			glTexCoord2f(1, 0);	glVertex2i(128, 0);
+			glTexCoord2f(1, 1);	glVertex2i(128,  -128);
+			glTexCoord2f(0, 1);	glVertex2i(0,  -128);
+		glEnd();
+
+		glPopMatrix();
 
 		glFlush();
 		return;

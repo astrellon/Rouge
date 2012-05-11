@@ -103,6 +103,7 @@ void TextField::updateTexture()
 	ilBindImage(m_image_id);
 
 	m_texture_width = (int)ceil(m_char_width) * m_text.length();
+	m_texture_width = 512;
 	m_texture_height = (int)ceil(m_char_height);
 
 	ilTexImage(m_texture_width, m_texture_height, 1, bpp, IL_RGBA, IL_UNSIGNED_BYTE, NULL);
@@ -118,7 +119,7 @@ void TextField::updateTexture()
 	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_texture_width, m_texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-
+	//glTexImage2D(GL_TEXTURE_2D, 0, 3, m_texture_width, m_texture_height, 0, GL_RGB, GL_UNSIGNED_BYTE, ilGetData());
 	ilDeleteImage(m_image_id);
 	
 	m_dirty = false;
