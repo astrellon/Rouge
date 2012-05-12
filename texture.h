@@ -10,6 +10,27 @@ using namespace std;
 namespace am {
 namespace base {
 
+class Texture;
+
+class TextureManager {
+public:
+	TextureManager();
+	~TextureManager();
+
+	Texture *getLoadedTexture(const char *filename);
+	void assignLoadedTexture(const char *filename, Texture *texture);
+	void removeLoadedTexture(const char *filename);
+	bool altTextureRef(GLuint textureId, int ref);
+
+private:
+	typedef map<string, Texture *> StoredTextureMap;
+	typedef map<GLuint, int> TextureRefCountMap;
+
+	StoredTextureMap mLoadedTextures;
+	TextureRefCountMap mTextureRefCounts;
+	bool mValid;
+};
+
 class Texture {
 public:
 	Texture();
@@ -24,6 +45,9 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getBytesPerPixel() const;
+
+	Texture &operator=(const Texture &rhs);
+	Texture &operator=(const Texture *rhs);
 	
 protected:
 	GLuint mTextureId;
@@ -32,23 +56,15 @@ protected:
 	int mWidth;
 	int mHeight;
 	int mBytesPerPixel;
-	int mRefCount;
+
+	string mFilename;
 
 	void destroy();
 
+	void assign(const Texture &rhs);
+
 private:
-
-
-	//typedef pair<GLuint, int> StoredTextureId;
-	//typedef map<string, StoredTextureId> StoredTextureMap;
-	typedef map<string, GLuint> StoredTextureMap;
-	typedef map<GLuint, int> TextureRefCountMap;
-
-	static StoredTextureMap sLoadedTextures;
-	static TextureRefCountMap sTextureRefCounts;
-
-	static GLuint getLoadedTexture(const char *filename);
-	static void altTextureRef(GLuint textureId, int ref);
+	static TextureManager sTextureManager;
 
 };
 

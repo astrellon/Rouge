@@ -36,9 +36,9 @@ void glInit(void)
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CCW);
+	/*glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);*/
 }
 
 am::base::Texture testTex;
@@ -51,10 +51,13 @@ void init()
 	// Initialize OpenGL
 	glInit();
 
+	//am::base::Texture tex("data/font.png");
+
 	testTex.loadFromFile("data/font.png");
+	//am::base::Texture testTex2("data/font.png");
 
 	// Create an image ID for our font texture.
-	ILubyte fontId = ilGenImage();
+	/*ILubyte fontId = ilGenImage();
 	ilBindImage(fontId);
 
 	if(!ilLoad(IL_PNG, "data/font.png"))
@@ -66,7 +69,7 @@ void init()
 		txtInstructions.setFontId(fontId);
 		txtInstructions.setColour(0xFFFFAA);
 		txtInstructions.setText("Press +/- to add or remove spheres. 1 - 9 to set sphere size.");
-	}
+	}*/
 }
 
 // Setup the projection matrix for perspective.
@@ -114,7 +117,7 @@ void display(void)
 	
 	//if(displayError)
 	//{
-		orthographicView();
+		/*orthographicView();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -135,7 +138,7 @@ void display(void)
 
 		glPopMatrix();
 
-		glFlush();
+		glFlush();*/
 		return;
 	//}
 	

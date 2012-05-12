@@ -5,7 +5,85 @@
 namespace am {
 namespace base {
 
-StoredTextureMap Texture::sLoadedTextures;
+TextureManager Texture::sTextureManager;
+
+TextureManager::TextureManager() :
+	mValid(true)
+{
+
+}
+TextureManager::~TextureManager()
+{
+	mValid = false;
+}
+
+bool TextureManager::altTextureRef(GLuint textureId, int ref)
+{
+	if (!mValid)
+	{
+		return false;
+	}
+	if (ref == 0) 
+	{
+		return false;
+	}
+	
+	TextureRefCountMap::iterator iter = mTextureRefCounts.find(textureId);
+	if (iter == mTextureRefCounts.end())
+	{
+		if (ref > 0)
+		{
+			mTextureRefCounts[textureId] = ref;
+		}
+		return false;
+	}
+
+	iter->second += ref;
+	if (iter->second <= 0)
+	{
+		glDeleteTextures(1, &iter->first);
+		return true;
+	}
+	return false;
+}
+
+void TextureManager::assignLoadedTexture(const char *filename, Texture *texture)
+{
+	if (!mValid)
+	{
+		return;
+	}
+	mLoadedTextures[string(filename)] = texture;
+}
+void TextureManager::removeLoadedTexture(const char *filename)
+{
+	if (!mValid)
+	{
+		return;
+	}
+	StoredTextureMap::iterator iter = mLoadedTextures.find(string(filename));
+	if (iter != mLoadedTextures.end())
+	{
+		mLoadedTextures.erase(iter);
+	}
+}
+
+Texture *TextureManager::getLoadedTexture(const char *filename)
+{
+	if (!mValid)
+	{
+		return NULL;
+	}
+	string fileStr = filename;
+	StoredTextureMap::iterator iter = mLoadedTextures.find(fileStr);
+	if (iter == mLoadedTextures.end())
+	{
+		return NULL;
+	}
+	return iter->second;
+}
+
+
 
 Texture::Texture() :
 	mTextureId(0),
@@ -25,24 +103,35 @@ Texture::Texture(const char *filename) :
 {
 	loadFromFile(filename);
 }
-Texture::~Texture() {
+Texture::~Texture()
+{
 	destroy();
 }
 
-int Texture::loadFromFile(const char *filename) {
+int Texture::loadFromFile(const char *filename)
+{
 
-	if (filename == NULL || filename[0] == '\0') {
+	if (filename == NULL || filename[0] == '\0')
+	{
 		return -1;
 	}
 
 	destroy();
 
-	const Texture *storedTexture = getLoadedTexture(filename);
+	const Texture *storedTexture = sTextureManager.getLoadedTexture(filename);
+	if (storedTexture != NULL)
+	{
+		assign(*storedTexture);
+		return 0;
+	}
+
+	mFilename = filename;
 
 	ILuint imgLoad = ilGenImage();
 	ilBindImage(imgLoad);
 
-	if (!ilLoadImage(filename)) {
+	if (!ilLoadImage(filename))
+	{
 		return -2;
 	}
 
@@ -57,7 +146,8 @@ int Texture::loadFromFile(const char *filename) {
 	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	int format = GL_RGBA;
-	if (mBytesPerPixel == 3) {
+	if (mBytesPerPixel == 3)
+	{
 		format = GL_RGB;
 	}
 
@@ -67,9 +157,15 @@ int Texture::loadFromFile(const char *filename) {
 
 	mLoaded = true;
 
+	Texture *stored = new Texture();
+	stored->assign(*this);
+
+	sTextureManager.assignLoadedTexture(filename, stored);
+
 	return 0;
 }
-GLuint Texture::getTextureId() const {
+GLuint Texture::getTextureId() const
+{
 	return mTextureId;
 }
 
@@ -86,6 +182,28 @@ int Texture::getBytesPerPixel() const
 	return mBytesPerPixel;
 }
 
+Texture &Texture::operator=(const Texture &rhs)
+{
+	assign(rhs);
+	return *this;
+}
+Texture &Texture::operator=(const Texture *rhs)
+{
+	assign(*rhs);
+	return *this;
+}
+
+void Texture::assign(const Texture &rhs)
+{
+	mTextureId = rhs.mTextureId;
+	mLoaded = rhs.mLoaded;
+	mWidth = rhs.mWidth;
+	mHeight = rhs.mHeight;
+	mBytesPerPixel = rhs.mBytesPerPixel;
+	mFilename = rhs.mFilename;
+	sTextureManager.altTextureRef(mTextureId, 1);
+}
+
 
 void Texture::destroy() 
 {
@@ -93,26 +211,13 @@ void Texture::destroy()
 		return;
 	}
 
-	altTextureRef(mTextureId, -1);
+	if (sTextureManager.altTextureRef(mTextureId, -1))
+	{
+		sTextureManager.removeLoadedTexture(mFilename.c_str());
+	}
 
 	mLoaded = false;
 	mTextureId = 0;
-}
-
-void Texture::altTextureRef(GLuint textureId, int ref)
-{
-	if (ref == 0) {
-		return;
-	}
-	TextureRefCountMap::iterator iter = sTextureRefCounts.find(textureId);
-	if (iter == sTextureRefCounts.end()) {
-		return;
-	}
-
-	iter->second += ref;
-	if (iter->second <= 0) {
-		glDeleteTextures(1, &iter->first);
-	}
 }
 
 }
