@@ -1,0 +1,7 @@
+{	// Font definitions
+	basic: {
+		texture: "data/font.png",
+		fixedWidth: false,
+		utf: false
+	}
+}

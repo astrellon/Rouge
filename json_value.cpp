@@ -422,6 +422,12 @@ JsonValue JsonValue::import_object(Tokeniser &tokeniser, const char *startToken)
 	else if(ch == '"' || ch == '\'') {
 		return JsonValue(token + 1);
 	}
+	else if(ch == 't' || ch == 'T') {
+		return JsonValue(true);
+	}
+	else if(ch == 'f' || ch == 'F') {
+		return JsonValue(false);
+	}
 	else {
 		string num = token;
 		if (num.find('.') == string::npos) {

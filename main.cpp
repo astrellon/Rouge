@@ -41,7 +41,8 @@ void glInit(void)
 	glFrontFace(GL_CW);*/
 }
 
-am::base::Texture testTex;
+am::ui::Font font;
+am::ui::TextField textField;
 
 void init()
 {
@@ -51,25 +52,11 @@ void init()
 	// Initialize OpenGL
 	glInit();
 
-	//am::base::Texture tex("data/font.png");
+	am::util::JsonValue loaded = am::util::JsonValue::import_from_file("data/fontDefs.ssff");
+	font.loadDef(loaded["basic"]);
 
-	testTex.loadFromFile("data/font.png");
-	//am::base::Texture testTex2("data/font.png");
-
-	// Create an image ID for our font texture.
-	/*ILubyte fontId = ilGenImage();
-	ilBindImage(fontId);
-
-	if(!ilLoad(IL_PNG, "data/font.png"))
-	{
-		MessageBox(NULL, "Unable to load font texture.\nThere will be no interface.", "Could not load font.", MB_OK);
-	}
-	else
-	{
-		txtInstructions.setFontId(fontId);
-		txtInstructions.setColour(0xFFFFAA);
-		txtInstructions.setText("Press +/- to add or remove spheres. 1 - 9 to set sphere size.");
-	}*/
+	textField.setFont(&font);
+	textField.setText(string("Hello there Melli, how are you today?"));
 }
 
 // Setup the projection matrix for perspective.
@@ -114,34 +101,14 @@ void display(void)
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	
-	//if(displayError)
-	//{
-		/*orthographicView();
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//txtInstructions.render((screenWidth - txtInstructions.getTextureWidth()) / 2.0f, (screenHeight - txtInstructions.getTextureHeight()) / 2.0f);
+	orthographicView();
+	textField.render(0, 0);
 
-		static float xx = 0;
-		static float yy = 0;
+	glFlush();
 
-		glPushMatrix();
-		glTranslatef(xx, yy++, 0);
-		glBindTexture(GL_TEXTURE_2D, testTex.getTextureId());
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2i(0, 0);
-			glTexCoord2f(1, 0);	glVertex2i(128, 0);
-			glTexCoord2f(1, 1);	glVertex2i(128,  -128);
-			glTexCoord2f(0, 1);	glVertex2i(0,  -128);
-		glEnd();
+	return;
 
-		glPopMatrix();
-
-		glFlush();*/
-		return;
-	//}
-	
 	glPushMatrix();
 
 	// Setup the navigation
@@ -149,12 +116,6 @@ void display(void)
 	glRotatef(camRotateX, 1, 0, 0);
 	glRotatef(camRotateY, 0, 1, 0);
 	//glTranslated(0, ROOM_SIZE, 0);
-
-	glBegin(GL_TRIANGLES);
-		glColor3f(1, 0, 0);	glVertex2f(-50, 0);
-		glColor3f(0, 1, 0);	glVertex2f(50, 0);
-		glColor3f(0, 0, 1);	glVertex2f(0, 50);
-	glEnd();
 
 	// Setup drawing for the scene.
 	perspectiveView();

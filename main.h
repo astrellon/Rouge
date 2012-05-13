@@ -26,5 +26,6 @@ using namespace std;
 #include "texture.h"
 #include "TextField.h"
 #include "shader.h"
-
+#include "font.h"
+#include "text_field.h"
 #include "NeHeGL.h"

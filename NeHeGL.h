@@ -379,7 +379,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	ZeroMemory (&window, sizeof (GL_Window));							// Make Sure Memory Is Zeroed
 	window.keys					= &keys;								// Window Key Structure
 	window.init.application		= &application;							// Window Application
-	window.init.title			= "CSE4GPP Assignment Part 1: Alan Lawrey 15547299";	// Window Title
+	window.init.title			= "AM Rouge Game";						// Window Title
 	window.init.width			= 1024;									// Window Width
 	window.init.height			= 768;									// Window Height
 	window.init.bitsPerPixel	= 24;									// Bits Per Pixel

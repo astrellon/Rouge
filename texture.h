@@ -45,6 +45,7 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getBytesPerPixel() const;
+	int getGlFormat() const;
 
 	Texture &operator=(const Texture &rhs);
 	Texture &operator=(const Texture *rhs);
@@ -56,6 +57,7 @@ protected:
 	int mWidth;
 	int mHeight;
 	int mBytesPerPixel;
+	int mGlFormat;
 
 	string mFilename;
 
