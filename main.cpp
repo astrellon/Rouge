@@ -193,6 +193,15 @@ void terminateApplication (GL_Window* window)							// Terminate The Application
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//am::ui::WinWrap win;
+	//win.init(hInstance);
+
 	am::ui::WinWrap win;
-	win.init(hInstance);
+	win.setSize(600, 400);
+	win.setPosition(50, 50);
+	win.setTitle("Hello!");
+
+	win.startLoop(hInstance);
+
+	// Shut down!
 }

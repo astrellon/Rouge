@@ -3,7 +3,13 @@
 namespace am {
 namespace ui {
 
-	WinWrap::WinWrap()
+	WinWrap::WinWrap() :
+		mHWnd(NULL),
+		mWidth(-1),
+		mHeight(-1),
+		mXpos(0),
+		mYpos(0),
+		mRunning(false)
 	{
 	
 	}
@@ -12,8 +18,85 @@ namespace ui {
 
 	}
 
-	int WinWrap::init(HINSTANCE hInstance)
+	void WinWrap::setSize(int width, int height)
 	{
+		mWidth = width;
+		mHeight = height;
+		updatePosSize();
+	}
+	void WinWrap::setPosition(int x, int y)
+	{
+		mXpos = x;
+		mYpos = y;
+		updatePosSize();
+	}
+
+	int WinWrap::getWidth() const
+	{
+		return mWidth;
+	}
+	int WinWrap::getHeight() const
+	{
+		return mHeight;
+	}
+
+	int WinWrap::getX() const
+	{
+		return mXpos;
+	}
+	int WinWrap::getY() const
+	{
+		return mYpos;
+	}
+
+	void WinWrap::setTitle(const string &title)
+	{
+		mTitle = title;
+		if (mHWnd != NULL)
+		{
+			SetWindowText(mHWnd, mTitle.c_str());
+		}
+	}
+	string WinWrap::getTitle() const
+	{
+		return mTitle;
+	}
+
+	void WinWrap::reshape(int width, int height)
+	{
+
+	}
+	
+	bool WinWrap::isProgramRunning() const
+	{
+		return mProgramRunning;
+	}
+	void WinWrap::setProgramRunning(bool running)
+	{
+		PostMessage (mHWnd, WM_QUIT, 0, 0);
+		mProgramRunning = running;
+	}
+
+	void WinWrap::setHWnd(HWND hWnd)
+	{
+		mHWnd = hWnd;
+	}
+	HWND WinWrap::getHWnd()
+	{
+		return mHWnd;
+	}
+
+	bool WinWrap::isRunning() const
+	{
+		return mRunning;
+	}
+	int WinWrap::startLoop(HINSTANCE hInstance)
+	{
+		if (mRunning)
+		{
+			return 1;
+		}
+
 		Application			application;									// Application Structure
 		GL_Window			window;											// Window Structure
 		Keys				keys;											// Key Structure
@@ -46,8 +129,10 @@ namespace ui {
 		}
 		window.init.height = mHeight;
 
-		window.init.bitsPerPixel	= 24;
-		window.init.isFullScreen	= FALSE;
+		window.init.bitsPerPixel = 24;
+		window.init.isFullScreen = FALSE;
+
+		window.winWrap = this;
 
 		ZeroMemory (&keys, sizeof (Keys));
 
@@ -58,7 +143,111 @@ namespace ui {
 			MessageBox (HWND_DESKTOP, "Error Registering Window Class!", "Error", MB_OK | MB_ICONEXCLAMATION);
 			return -1;														// Terminate Application
 		}
+
+		//GL_Window* window = (GL_Window*)(GetWindowLong (mHWnd, GWL_USERDATA));
+		//Keys keys;
+		//BOOL isMessagePumpActive;
+		//MSG msg;
+		//DWORD tickCount;
+
+		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
+		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
+		{
+			// Create A Window
+			//window.init.isFullScreen = g_createFullScreen;					// Set Init Param Of Window Creation To Fullscreen?
+			if (CreateWindowGL (&window) == TRUE)							// Was Window Creation Successful?
+			{
+				//init();
+
+				mKeysDown = window.keys->keyDown;
+
+				isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
+				while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
+				{
+					// Success Creating Window.  Check For Window Messages
+					if (PeekMessage (&msg, window.hWnd, 0, 0, PM_REMOVE) != 0)
+					{
+						// Check For WM_QUIT Message
+						if (msg.message != WM_QUIT)						// Is The Message A WM_QUIT Message?
+						{
+							DispatchMessage (&msg);						// If Not, Dispatch The Message
+						}
+						else											// Otherwise (If Message Is WM_QUIT)
+						{
+							isMessagePumpActive = FALSE;				// Terminate The Message Pump
+						}
+					}
+					else												// If There Are No Messages
+					{
+						int diff = 25;
+						if (window.isVisible == FALSE)					// If Window Is Not Visible
+						{
+							diff = 100;
+							WaitMessage ();								// Application Is Minimized Wait For A Message
+						}
+						else											// If Window Is Visible
+						{
+							// Process Application Loop
+							tickCount = GetTickCount ();				// Get The Tick Count
+
+							//update(tickCount - window.lastTickCount);
+
+							//int diff = tickCount - window.lastTickCount;
+							diff -= tickCount - window.lastTickCount;
+							if(diff < 10)
+								diff = 10;
+							//Update (tickCount - window.lastTickCount);	// Update The Counter
+							window.lastTickCount = tickCount;			// Set Last Count To Current Count
+							//display ();									// Draw Our Scene
+
+							SwapBuffers (window.hDC);					// Swap Buffers (Double Buffering)
+						}
+
+						Sleep(diff);
+					}
+				}
+
+				// Application Is Finished
+				//deinit ();											// User Defined DeInitialization
+
+				DestroyWindowGL (&window);									// Destroy The Active Window
+			}
+			else															// If Window Creation Failed
+			{
+				// Error Creating Window
+				MessageBox (HWND_DESKTOP, "Error Creating OpenGL Window", "Error", MB_OK | MB_ICONEXCLAMATION);
+				mProgramRunning = FALSE;									// Terminate The Loop
+			}
+
+			UnregisterClass (application.className, application.hInstance);		// UnRegister Window Class
+		}
+		return 0;
 	}
+
+	void WinWrap::stopLoop()
+	{
+		if (!mRunning)
+		{
+			return;
+		}
+
+		mProgramRunning = false;
+		mRunning = false;
+	}
+
+	void WinWrap::updatePosSize()
+	{
+		if (mHWnd == NULL)
+		{
+			return;
+		}
+
+		SetWindowPos(mHWnd, NULL,
+			mXpos, mYpos,
+			mWidth, mHeight,
+			SWP_SHOWWINDOW);
+	}
+
 
 	BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel)	// Change The Screen Resolution
 	{
@@ -146,6 +335,8 @@ namespace ui {
 			return FALSE;													// If Not Return False
 		}
 
+		window->winWrap->setHWnd(window->hWnd);
+
 		window->hDC = GetDC (window->hWnd);									// Grab A Device Context For This Window
 		if (window->hDC == 0)												// Did We Get A Device Context?
 		{
@@ -203,7 +394,7 @@ namespace ui {
 		ShowWindow (window->hWnd, SW_NORMAL);								// Make The Window Visible
 		window->isVisible = TRUE;											// Set isVisible To True
 
-		//reshape(window->init.width, window->init.height);					// Reshape Our GL Window
+		window->winWrap->reshape(window->init.width, window->init.height);					// Reshape Our GL Window
 
 		ZeroMemory (window->keys, sizeof (Keys));							// Clear All Keys
 
@@ -271,7 +462,7 @@ namespace ui {
 
 			case WM_CLOSE:													// Closing The Window
 				//terminateApplication(window);								// Terminate The Application
-				window->winWrap->setRunning(false);
+				window->winWrap->setProgramRunning(false);
 			return 0;														// Return
 
 			case WM_SIZE:													// Size Action Has Taken Place
@@ -324,7 +515,7 @@ namespace ui {
 		return DefWindowProc (hWnd, uMsg, wParam, lParam);					// Pass Unhandled Messages To DefWindowProc
 	}
 
-	BOOL WinWrap::RegisterWindowClass (Application* application)						// Register A Window Class For This Application.
+	BOOL RegisterWindowClass (Application* application)						// Register A Window Class For This Application.
 	{																		// TRUE If Successful
 		// Register A Window Class
 		WNDCLASSEX windowClass;												// Window Class

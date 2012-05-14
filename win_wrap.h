@@ -33,8 +33,8 @@ public:
 	WinWrap();
 	~WinWrap();
 
-	int setSize(int width, int height);
-	int setPosition(int x, int y);
+	void setSize(int width, int height);
+	void setPosition(int x, int y);
 
 	int getWidth() const;
 	int getHeight() const;
@@ -47,10 +47,15 @@ public:
 
 	void reshape(int width, int height);
 	
-	bool isRunning() const;
-	void setRunning(bool running);
+	bool isProgramRunning() const;
+	void setProgramRunning(bool running);
 
-	int init(HINSTANCE hInstance);
+	void setHWnd(HWND hWnd);
+	HWND getHWnd();
+
+	bool isRunning() const;
+	int startLoop(HINSTANCE hInstance);
+	void stopLoop();
 
 protected:
 
@@ -59,6 +64,14 @@ protected:
 	int mHeight;
 	int mXpos;
 	int mYpos;
+	bool mProgramRunning;
+	bool mRunning;
+
+	HWND mHWnd;
+
+	BOOL *mKeysDown;
+
+	void updatePosSize();
 
 };
 
