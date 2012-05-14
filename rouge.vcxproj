@@ -83,28 +83,29 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
-    <ClCompile Include="TextField.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="text_field.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tokeniser.cpp" />
+    <ClCompile Include="win_wrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gfx_engine.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="json_value.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="NeHeGL.h" />
-    <ClInclude Include="TextField.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="text_field.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />
+    <ClInclude Include="win_wrap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

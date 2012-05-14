@@ -1,6 +1,3 @@
-// CSE4GPP Assignment part 1 2011
-// Alan Lawrey 15547299
-
 #pragma once
 
 // Program uses sprintf.
@@ -14,18 +11,13 @@
 #include "IL\il.h"
 #include <stdlib.h>
 
-// Sets that we always have to define the boost::throw_exception function.
-//#define BOOST_NO_EXCEPTIONS
-
-//#include <boost\thread\thread.hpp>
-//#include <time.h>
 #include <iostream>
 
 using namespace std;
 
 #include "texture.h"
-#include "TextField.h"
 #include "shader.h"
 #include "font.h"
 #include "text_field.h"
-#include "NeHeGL.h"
+//#include "NeHeGL.h"
+#include "win_wrap.h"

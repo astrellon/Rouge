@@ -380,8 +380,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	window.keys					= &keys;								// Window Key Structure
 	window.init.application		= &application;							// Window Application
 	window.init.title			= "AM Rouge Game";						// Window Title
-	window.init.width			= 1024;									// Window Width
-	window.init.height			= 768;									// Window Height
+	window.init.width			= 800;									// Window Width
+	window.init.height			= 500;									// Window Height
 	window.init.bitsPerPixel	= 24;									// Bits Per Pixel
 	window.init.isFullScreen	= FALSE;									// Fullscreen? (Set To TRUE)
 

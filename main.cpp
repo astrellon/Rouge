@@ -1,11 +1,3 @@
-// CSE4GPP Assignment part 1
-// Alan Lawrey 15547299
-
-// Main file that defines the render function, physics function, initialization
-// of spheres and OpenGL.
-//
-// All code related to WinMain is in NeHeGL.h.
-
 #include "main.h"
 
 // Navigation related
@@ -22,7 +14,7 @@ bool displayError = false;
 
 // Rendering related
 int screenWidth = 600, screenHeight = 400;
-TextField txtInstructions;
+//TextField txtInstructions;
 
 float g_cameraPosition[3];
 float g_lightDirection[3];
@@ -185,7 +177,7 @@ void keyboardFunc(BOOL *keys, int key)
 		}*/
 	}
 }
-
+/*
 // Sets that the program should finish.
 void deinit()
 {
@@ -197,4 +189,10 @@ void terminateApplication (GL_Window* window)							// Terminate The Application
 	PostMessage (window->hWnd, WM_QUIT, 0, 0);							// Send A WM_QUIT Message
 	programRunning = FALSE;											// Stop Looping Of The Program
 	
+}*/
+
+int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+	am::ui::WinWrap win;
+	win.init(hInstance);
 }
