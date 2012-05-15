@@ -1,55 +1,59 @@
-#include "win_wrap.h"
+#include "win_system.h"
+
+#include "game_system.h"
 
 namespace am {
-namespace ui {
+namespace sys {
 
-	WinWrap::WinWrap() :
+	WinSystem::WinSystem() :
 		mHWnd(NULL),
+		mHInstance(NULL),
 		mWidth(-1),
 		mHeight(-1),
 		mXpos(0),
 		mYpos(0),
-		mRunning(false)
+		mRunning(false),
+		mGameSystem(NULL)
 	{
 	
 	}
-	WinWrap::~WinWrap()
+	WinSystem::~WinSystem()
 	{
 
 	}
 
-	void WinWrap::setSize(int width, int height)
+	void WinSystem::setSize(int width, int height)
 	{
 		mWidth = width;
 		mHeight = height;
 		updatePosSize();
 	}
-	void WinWrap::setPosition(int x, int y)
+	void WinSystem::setPosition(int x, int y)
 	{
 		mXpos = x;
 		mYpos = y;
 		updatePosSize();
 	}
 
-	int WinWrap::getWidth() const
+	int WinSystem::getWidth() const
 	{
 		return mWidth;
 	}
-	int WinWrap::getHeight() const
+	int WinSystem::getHeight() const
 	{
 		return mHeight;
 	}
 
-	int WinWrap::getX() const
+	int WinSystem::getX() const
 	{
 		return mXpos;
 	}
-	int WinWrap::getY() const
+	int WinSystem::getY() const
 	{
 		return mYpos;
 	}
 
-	void WinWrap::setTitle(const string &title)
+	void WinSystem::setTitle(const char *title)
 	{
 		mTitle = title;
 		if (mHWnd != NULL)
@@ -57,40 +61,75 @@ namespace ui {
 			SetWindowText(mHWnd, mTitle.c_str());
 		}
 	}
-	string WinWrap::getTitle() const
+	const char *WinSystem::getTitle() const
 	{
-		return mTitle;
+		return mTitle.c_str();
 	}
 
-	void WinWrap::reshape(int width, int height)
+	void WinSystem::init()
 	{
-
+		mGameSystem->init();
 	}
+	void WinSystem::reshape(int width, int height)
+	{
+		mGameSystem->reshape(width, height);
+	}
+	void WinSystem::update(unsigned long dt)
+	{
+		mGameSystem->update(dt);
+	}
+	void WinSystem::display()
+	{
+		mGameSystem->display();
+	}
+	void WinSystem::deinit()
+	{
+		mGameSystem->deinit();
+	}
+
 	
-	bool WinWrap::isProgramRunning() const
+	bool WinSystem::isProgramRunning() const
 	{
 		return mProgramRunning;
 	}
-	void WinWrap::setProgramRunning(bool running)
+	void WinSystem::setProgramRunning(bool running)
 	{
 		PostMessage (mHWnd, WM_QUIT, 0, 0);
 		mProgramRunning = running;
 	}
 
-	void WinWrap::setHWnd(HWND hWnd)
+	void WinSystem::setHWnd(HWND hWnd)
 	{
 		mHWnd = hWnd;
 	}
-	HWND WinWrap::getHWnd()
+	HWND WinSystem::getHWnd()
 	{
 		return mHWnd;
 	}
 
-	bool WinWrap::isRunning() const
+	void WinSystem::setHInstance(HINSTANCE hInstance)
+	{
+		mHInstance = hInstance;
+	}
+	HINSTANCE WinSystem::getHInstance()
+	{
+		return mHInstance;
+	}
+
+	void WinSystem::setGameSystem(GameSystem *system)
+	{
+		mGameSystem = system;
+	}
+	GameSystem *WinSystem::getGameSystem()
+	{
+		return mGameSystem;
+	}
+
+	bool WinSystem::isRunning() const
 	{
 		return mRunning;
 	}
-	int WinWrap::startLoop(HINSTANCE hInstance)
+	int WinSystem::startLoop()
 	{
 		if (mRunning)
 		{
@@ -106,7 +145,7 @@ namespace ui {
 
 		// Fill Out Application Data
 		application.className = "OpenGL";
-		application.hInstance = hInstance;
+		application.hInstance = mHInstance;
 
 		// Fill Out Window
 		ZeroMemory (&window, sizeof (GL_Window));
@@ -132,7 +171,7 @@ namespace ui {
 		window.init.bitsPerPixel = 24;
 		window.init.isFullScreen = FALSE;
 
-		window.winWrap = this;
+		window.winSystem = this;
 
 		ZeroMemory (&keys, sizeof (Keys));
 
@@ -141,90 +180,83 @@ namespace ui {
 		{
 			// Failure
 			MessageBox (HWND_DESKTOP, "Error Registering Window Class!", "Error", MB_OK | MB_ICONEXCLAMATION);
-			return -1;														// Terminate Application
+			return -1;
 		}
 
-		//GL_Window* window = (GL_Window*)(GetWindowLong (mHWnd, GWL_USERDATA));
-		//Keys keys;
-		//BOOL isMessagePumpActive;
-		//MSG msg;
-		//DWORD tickCount;
+		if (CreateWindowGL (&window) == FALSE)
+		{
+			// Failure
+			MessageBox (HWND_DESKTOP, "Error Creating Window Class!", "Error", MB_OK | MB_ICONEXCLAMATION);
+			return -1;
+		}
 
 		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
 		{
-			// Create A Window
-			//window.init.isFullScreen = g_createFullScreen;					// Set Init Param Of Window Creation To Fullscreen?
-			if (CreateWindowGL (&window) == TRUE)							// Was Window Creation Successful?
+			window.winSystem->init();
+
+			mKeysDown = window.keys->keyDown;
+
+			isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
+			while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
 			{
-				//init();
-
-				mKeysDown = window.keys->keyDown;
-
-				isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
-				while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
+				// Success Creating Window.  Check For Window Messages
+				if (PeekMessage (&msg, window.hWnd, 0, 0, PM_REMOVE) != 0)
 				{
-					// Success Creating Window.  Check For Window Messages
-					if (PeekMessage (&msg, window.hWnd, 0, 0, PM_REMOVE) != 0)
+					// Check For WM_QUIT Message
+					if (msg.message != WM_QUIT)						// Is The Message A WM_QUIT Message?
 					{
-						// Check For WM_QUIT Message
-						if (msg.message != WM_QUIT)						// Is The Message A WM_QUIT Message?
-						{
-							DispatchMessage (&msg);						// If Not, Dispatch The Message
-						}
-						else											// Otherwise (If Message Is WM_QUIT)
-						{
-							isMessagePumpActive = FALSE;				// Terminate The Message Pump
-						}
+						DispatchMessage (&msg);						// If Not, Dispatch The Message
 					}
-					else												// If There Are No Messages
+					else											// Otherwise (If Message Is WM_QUIT)
 					{
-						int diff = 25;
-						if (window.isVisible == FALSE)					// If Window Is Not Visible
-						{
-							diff = 100;
-							WaitMessage ();								// Application Is Minimized Wait For A Message
-						}
-						else											// If Window Is Visible
-						{
-							// Process Application Loop
-							tickCount = GetTickCount ();				// Get The Tick Count
-
-							//update(tickCount - window.lastTickCount);
-
-							//int diff = tickCount - window.lastTickCount;
-							diff -= tickCount - window.lastTickCount;
-							if(diff < 10)
-								diff = 10;
-							//Update (tickCount - window.lastTickCount);	// Update The Counter
-							window.lastTickCount = tickCount;			// Set Last Count To Current Count
-							//display ();									// Draw Our Scene
-
-							SwapBuffers (window.hDC);					// Swap Buffers (Double Buffering)
-						}
-
-						Sleep(diff);
+						isMessagePumpActive = FALSE;				// Terminate The Message Pump
 					}
 				}
+				else												// If There Are No Messages
+				{
+					int diff = 25;
+					if (window.isVisible == FALSE)					// If Window Is Not Visible
+					{
+						diff = 100;
+						WaitMessage ();								// Application Is Minimized Wait For A Message
+					}
+					else											// If Window Is Visible
+					{
+						// Process Application Loop
+						tickCount = GetTickCount ();				// Get The Tick Count
 
-				// Application Is Finished
-				//deinit ();											// User Defined DeInitialization
+						window.winSystem->update(tickCount - window.lastTickCount);
 
-				DestroyWindowGL (&window);									// Destroy The Active Window
+						//int diff = tickCount - window.lastTickCount;
+						diff -= tickCount - window.lastTickCount;
+						if(diff < 10)
+						{
+							diff = 10;
+						}
+
+						window.lastTickCount = tickCount;			// Set Last Count To Current Count
+						
+						window.winSystem->display();									// Draw Our Scene
+
+						SwapBuffers (window.hDC);					// Swap Buffers (Double Buffering)
+					}
+
+					Sleep(diff);
+				}
 			}
-			else															// If Window Creation Failed
-			{
-				// Error Creating Window
-				MessageBox (HWND_DESKTOP, "Error Creating OpenGL Window", "Error", MB_OK | MB_ICONEXCLAMATION);
-				mProgramRunning = FALSE;									// Terminate The Loop
-			}
+
+			// Application Is Finished
+			window.winSystem->deinit();											// User Defined DeInitialization
+
+			DestroyWindowGL (&window);									// Destroy The Active Window
 
 			UnregisterClass (application.className, application.hInstance);		// UnRegister Window Class
 		}
 		return 0;
 	}
 
-	void WinWrap::stopLoop()
+	void WinSystem::stopLoop()
 	{
 		if (!mRunning)
 		{
@@ -235,7 +267,7 @@ namespace ui {
 		mRunning = false;
 	}
 
-	void WinWrap::updatePosSize()
+	void WinSystem::updatePosSize()
 	{
 		if (mHWnd == NULL)
 		{
@@ -335,7 +367,7 @@ namespace ui {
 			return FALSE;													// If Not Return False
 		}
 
-		window->winWrap->setHWnd(window->hWnd);
+		window->winSystem->setHWnd(window->hWnd);
 
 		window->hDC = GetDC (window->hWnd);									// Grab A Device Context For This Window
 		if (window->hDC == 0)												// Did We Get A Device Context?
@@ -394,7 +426,7 @@ namespace ui {
 		ShowWindow (window->hWnd, SW_NORMAL);								// Make The Window Visible
 		window->isVisible = TRUE;											// Set isVisible To True
 
-		window->winWrap->reshape(window->init.width, window->init.height);					// Reshape Our GL Window
+		window->winSystem->reshape(window->init.width, window->init.height);					// Reshape Our GL Window
 
 		ZeroMemory (window->keys, sizeof (Keys));							// Clear All Keys
 
@@ -462,7 +494,7 @@ namespace ui {
 
 			case WM_CLOSE:													// Closing The Window
 				//terminateApplication(window);								// Terminate The Application
-				window->winWrap->setProgramRunning(false);
+				window->winSystem->setProgramRunning(false);
 			return 0;														// Return
 
 			case WM_SIZE:													// Size Action Has Taken Place
@@ -475,13 +507,13 @@ namespace ui {
 					case SIZE_MAXIMIZED:									// Was Window Maximized?
 						window->isVisible = TRUE;							// Set isVisible To True
 						//reshape (LOWORD (lParam), HIWORD (lParam));		// Reshape Window - LoWord=Width, HiWord=Height
-						window->winWrap->reshape(LOWORD(lParam), HIWORD(lParam));
+						window->winSystem->reshape(LOWORD(lParam), HIWORD(lParam));
 					return 0;												// Return
 
 					case SIZE_RESTORED:										// Was Window Restored?
 						window->isVisible = TRUE;							// Set isVisible To True
 						//reshape (LOWORD (lParam), HIWORD (lParam));		// Reshape Window - LoWord=Width, HiWord=Height
-						window->winWrap->reshape(LOWORD(lParam), HIWORD(lParam));
+						window->winSystem->reshape(LOWORD(lParam), HIWORD(lParam));
 					return 0;												// Return
 				}
 			break;

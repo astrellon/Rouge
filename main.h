@@ -20,4 +20,8 @@ using namespace std;
 #include "font.h"
 #include "text_field.h"
 //#include "NeHeGL.h"
-#include "win_wrap.h"
+#include "win_system.h"
+#include "game_system.h"
+
+#include "gfx_engine.h"
+#include "engine.h"

@@ -9,11 +9,17 @@ public:
 	~GfxEngine();
 
 	void init();
-	void perspective();
-	void orthographic();
+	void deinit();
+	void setPerspective();
+	void setOrthographic();
+	
+	void display();
+	void reshape(int width, int height);
 
 protected:
 
+	int mScreenWidth;
+	int mScreenHeight;
 };
 
 }

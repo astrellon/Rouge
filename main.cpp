@@ -6,7 +6,7 @@ bool mouseLeftDown = false;
 bool mouseRightDown = false;
 float zoom = 90;
 float camRotateX = 0.0f, camRotateY = 0.0f;
-
+/*
 // Should an error occur during initialization, such as SSE not being
 // supported during execution of an SSE build. This will be set to true
 // and the program will only display an error message.
@@ -30,9 +30,9 @@ void glInit(void)
 	
 	/*glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);*/
-}
-
+	glFrontFace(GL_CW);
+}*/
+/*
 am::ui::Font font;
 am::ui::TextField textField;
 
@@ -49,8 +49,8 @@ void init()
 
 	textField.setFont(&font);
 	textField.setText(string("Hello there Melli, how are you today?"));
-}
-
+}*/
+/*
 // Setup the projection matrix for perspective.
 // Used to render the scene.
 void perspectiveView()
@@ -79,16 +79,17 @@ void orthographicView()
 	
 	glMatrixMode(GL_MODELVIEW);
 }
-
+*/
 // Called before every render.
+/*
 void update(DWORD milli)
 {
 	if(displayError)
 		return;
 
 	static DWORD time = 0;
-}
-
+}*/
+/*
 void display(void)
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -121,7 +122,7 @@ void reshape (int w, int h)
 	screenHeight = h;
 	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 }
-
+*/
 void mouseFunc(int mouseButton, int x, int y)
 {
 	// If we are pressing a mouse button that was different to the last
@@ -177,31 +178,23 @@ void keyboardFunc(BOOL *keys, int key)
 		}*/
 	}
 }
-/*
-// Sets that the program should finish.
-void deinit()
-{
-	programRunning = FALSE;
-}
-
-void terminateApplication (GL_Window* window)							// Terminate The Application
-{
-	PostMessage (window->hWnd, WM_QUIT, 0, 0);							// Send A WM_QUIT Message
-	programRunning = FALSE;											// Stop Looping Of The Program
-	
-}*/
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//am::ui::WinWrap win;
-	//win.init(hInstance);
+	am::base::Engine engine;
+	am::ui::GfxEngine gfxEngine;
 
-	am::ui::WinWrap win;
-	win.setSize(600, 400);
-	win.setPosition(50, 50);
-	win.setTitle("Hello!");
+	am::sys::WinSystem win;
+	win.setHInstance(hInstance);
 
-	win.startLoop(hInstance);
+	am::sys::GameSystem gameSystem(&win, &engine, &gfxEngine);
+	win.setGameSystem(&gameSystem);
+
+	gameSystem.setSize(600, 400);
+	gameSystem.setPosition(50, 50);
+	gameSystem.setTitle("Hello!");
+
+	gameSystem.startLoop();
 
 	// Shut down!
 }

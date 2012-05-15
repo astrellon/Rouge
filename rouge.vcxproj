@@ -80,6 +80,8 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_system.cpp" />
+    <ClCompile Include="gfx_engine.cpp" />
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
@@ -88,14 +90,16 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tokeniser.cpp" />
-    <ClCompile Include="win_wrap.cpp" />
+    <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="game_system.h" />
     <ClInclude Include="gfx_engine.h" />
     <ClInclude Include="graphic.h" />
+    <ClInclude Include="isystem.h" />
     <ClInclude Include="json_value.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
@@ -105,7 +109,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />
-    <ClInclude Include="win_wrap.h" />
+    <ClInclude Include="win_system.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

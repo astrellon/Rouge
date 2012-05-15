@@ -9,93 +9,113 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="sys">
+      <UniqueIdentifier>{675d7bdf-a7d3-4ee7-b7c2-95acfcb9fa97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{4451b9ce-ed5a-4216-9770-764eb7920875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{ec01dbb9-7296-4253-9b28-3cfc0e4d992b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{43800cf2-efdd-4b71-971e-5219813f18d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="json_value.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tile_instance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tokeniser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="win_system.cpp">
+      <Filter>sys</Filter>
     </ClCompile>
     <ClCompile Include="font.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="text_field.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="win_wrap.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="json_value.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="game_system.cpp">
+      <Filter>sys</Filter>
+    </ClCompile>
+    <ClCompile Include="engine.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="tile_instance.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx_engine.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="json_value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tile_instance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tokeniser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NeHeGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="game_system.h">
+      <Filter>sys</Filter>
     </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="win_system.h">
+      <Filter>sys</Filter>
+    </ClInclude>
+    <ClInclude Include="isystem.h">
+      <Filter>sys</Filter>
     </ClInclude>
     <ClInclude Include="font.h">
-      <Filter>Header Files</Filter>
+      <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="text_field.h">
-      <Filter>Header Files</Filter>
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="json_value.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="engine.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="graphic.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="tile.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="tile_instance.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="gfx_engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="win_wrap.h">
+    <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

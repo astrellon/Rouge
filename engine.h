@@ -24,6 +24,10 @@ public:
 	Tile *getRegTile(const char *name);
 	Tile *getRegTile(const string &name);
 
+	void init();
+	void deinit();
+	void update(unsigned long dt);
+
 protected:
 
 	void registerTile(Tile *t);
