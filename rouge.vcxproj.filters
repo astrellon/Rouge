@@ -16,19 +16,25 @@
     <Filter Include="gfx">
       <UniqueIdentifier>{6d9e0df0-72fe-4eba-8963-729c5f25a8fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gfx\base">
+      <UniqueIdentifier>{dc3ab426-deb6-4dbe-81c7-53b90d170654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx\gl">
+      <UniqueIdentifier>{fc7e2776-296a-4e79-86b0-ae4bff1a267c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys\base">
+      <UniqueIdentifier>{51410dd5-f414-47d2-b562-60244e254b3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys\win">
+      <UniqueIdentifier>{fdf03f62-4fac-463d-938e-ec6090fe5387}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win_system.cpp">
-      <Filter>sys</Filter>
-    </ClCompile>
     <ClCompile Include="tokeniser.cpp">
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="json_value.cpp">
       <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="game_system.cpp">
-      <Filter>sys</Filter>
     </ClCompile>
     <ClCompile Include="engine.cpp">
       <Filter>base</Filter>
@@ -46,29 +52,26 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="gl_gfx_engine.cpp">
-      <Filter>gfx</Filter>
-    </ClCompile>
     <ClCompile Include="char_render.cpp">
-      <Filter>gfx</Filter>
+      <Filter>gfx\base</Filter>
     </ClCompile>
     <ClCompile Include="gl_font.cpp">
-      <Filter>gfx</Filter>
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_gfx_engine.cpp">
+      <Filter>gfx\gl</Filter>
     </ClCompile>
     <ClCompile Include="gl_texture.cpp">
-      <Filter>gfx</Filter>
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="game_system.cpp">
+      <Filter>sys\base</Filter>
+    </ClCompile>
+    <ClCompile Include="win_system.cpp">
+      <Filter>sys\win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game_system.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="win_system.h">
-      <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="isystem.h">
-      <Filter>sys</Filter>
-    </ClInclude>
     <ClInclude Include="tokeniser.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -95,38 +98,47 @@
     </ClInclude>
     <ClInclude Include="main.h" />
     <ClInclude Include="NeHeGL.h" />
-    <ClInclude Include="gl_gfx_engine.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
-    <ClInclude Include="igfx_engine.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
-    <ClInclude Include="gl.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
-    <ClInclude Include="itexture.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
     <ClInclude Include="resource_manager.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="gl_texture.h">
-      <Filter>gfx</Filter>
+    <ClInclude Include="char_render.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="ifont.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
-    <ClInclude Include="char_render.h">
-      <Filter>gfx</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_font.h">
-      <Filter>gfx</Filter>
+      <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="igfx_component.h">
-      <Filter>gfx</Filter>
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="igfx_engine.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="igl_gfx_component.h">
-      <Filter>gfx</Filter>
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="itexture.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_texture.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_font.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_gfx_engine.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="isystem.h">
+      <Filter>sys\base</Filter>
+    </ClInclude>
+    <ClInclude Include="game_system.h">
+      <Filter>sys\base</Filter>
+    </ClInclude>
+    <ClInclude Include="win_system.h">
+      <Filter>sys\win</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

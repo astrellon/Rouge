@@ -63,6 +63,34 @@ namespace gfx {
 		return 0;
 	}
 
+	string GlFont::getName() const
+	{
+		return mName;
+	}
+
+	bool GlFont::isFixedWidth() const
+	{
+		return mFixedWidth;
+	}
+
+	float GlFont::getCharHeight() const
+	{
+		return mCharHeight;
+	}
+	float GlFont::getFixedCharWidth() const
+	{
+		return mFixedCharWidth;
+	}
+
+	IGfxEngine *GlFont::getGfxEngine()
+	{
+		return mGfxEngine;
+	}
+	GlGfxEngine *GlFont::getGlGfxEngine()
+	{
+		return mGfxEngine;
+	}
+
 	void GlFont::getCharRender(char ch, CharRender &render)
 	{
 		render = mCharRenders[ch];

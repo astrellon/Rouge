@@ -23,7 +23,7 @@ namespace gfx {
 		virtual void display();
 		virtual void reshape(int width, int height);
 
-		virtual void loadFontDefinitions(const char *filename);
+		virtual int loadFontDefinitions(const char *filename);
 
 		virtual ITexture *loadTexture(const char *filename);
 		GlTexture *loadGlTexture(const char *filename);

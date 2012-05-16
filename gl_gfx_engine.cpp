@@ -3,10 +3,10 @@
 #include <math.h>
 
 #include "gl.h"
-
 #include "IL/il.h"
 
 #include "gl_texture.h"
+#include "gl_font.h"
 
 namespace am {
 namespace gfx {
@@ -75,6 +75,47 @@ namespace gfx {
 		mScreenWidth = width;
 		mScreenHeight = height;
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
+	}
+
+	int GlGfxEngine::loadFontDefinitions(const char *filename)
+	{
+		JsonValue loaded = JsonValue::import_from_file(filename);
+		if (loaded.getType() == JV_INT)
+		{
+			// TODO: ERROR HANDLE
+			return loaded.getInt();
+		}
+		if (loaded.getType() != JV_OBJ)
+		{
+			// TODO: ERROR HANDLE
+			return -1;
+		}
+		
+		JsonObject *obj = loaded.getObj();
+
+		for(JsonObject::iterator iter = obj->begin(); iter != obj->end(); ++iter)
+		{
+			JsonValue fontDef = iter->second;
+			if (fontDef.getType() != JV_OBJ)
+			{
+				// TODO: ERROR HANDLE
+				continue;
+			}
+
+			GlFont *font = new GlFont(iter->first.c_str());
+			font->loadDef(fontDef);
+
+			FontManager::iterator fontCheck = mFontManager.find(iter->first);
+			if (fontCheck != mFontManager.end())
+			{
+				delete font;
+				// TODO: ERROR HANDLE
+				continue;
+			}
+			mFontManager[iter->first] = font;
+		}
+
+		return 0;
 	}
 
 	ITexture *GlGfxEngine::loadTexture(const char *filename)
