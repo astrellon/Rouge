@@ -77,35 +77,42 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="char_render.cpp" />
     <ClCompile Include="engine.cpp" />
-    <ClCompile Include="font.cpp" />
+    <ClCompile Include="gl_font.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_system.cpp" />
-    <ClCompile Include="gfx_engine.cpp" />
+    <ClCompile Include="gl_gfx_engine.cpp" />
+    <ClCompile Include="gl_texture.cpp" />
     <ClCompile Include="json_value.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
-    <ClCompile Include="texture.cpp" />
-    <ClCompile Include="text_field.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tokeniser.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="char_render.h" />
     <ClInclude Include="engine.h" />
-    <ClInclude Include="font.h" />
+    <ClInclude Include="gl_font.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_system.h" />
-    <ClInclude Include="gfx_engine.h" />
+    <ClInclude Include="gl.h" />
+    <ClInclude Include="gl_texture.h" />
+    <ClInclude Include="ifont.h" />
+    <ClInclude Include="igfx_component.h" />
+    <ClInclude Include="igfx_engine.h" />
+    <ClInclude Include="gl_gfx_engine.h" />
     <ClInclude Include="graphic.h" />
+    <ClInclude Include="igl_gfx_component.h" />
     <ClInclude Include="isystem.h" />
+    <ClInclude Include="itexture.h" />
     <ClInclude Include="json_value.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="NeHeGL.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="text_field.h" />
+    <ClInclude Include="resource_manager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />

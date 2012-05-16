@@ -182,7 +182,7 @@ void keyboardFunc(BOOL *keys, int key)
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	am::base::Engine engine;
-	am::ui::GfxEngine gfxEngine;
+	am::gfx::GlGfxEngine gfxEngine;
 
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);

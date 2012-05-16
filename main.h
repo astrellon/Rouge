@@ -15,13 +15,13 @@
 
 using namespace std;
 
-#include "texture.h"
+//#include "texture.h"
 #include "shader.h"
-#include "font.h"
-#include "text_field.h"
+//#include "font.h"
+//#include "text_field.h"
 //#include "NeHeGL.h"
 #include "win_system.h"
 #include "game_system.h"
 
-#include "gfx_engine.h"
+#include "gl_gfx_engine.h"
 #include "engine.h"

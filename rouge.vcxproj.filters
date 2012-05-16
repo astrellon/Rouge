@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="sys">
       <UniqueIdentifier>{675d7bdf-a7d3-4ee7-b7c2-95acfcb9fa97}</UniqueIdentifier>
     </Filter>
@@ -21,19 +13,13 @@
     <Filter Include="base">
       <UniqueIdentifier>{43800cf2-efdd-4b71-971e-5219813f18d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gfx">
+      <UniqueIdentifier>{6d9e0df0-72fe-4eba-8963-729c5f25a8fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="win_system.cpp">
       <Filter>sys</Filter>
-    </ClCompile>
-    <ClCompile Include="font.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="text_field.cpp">
-      <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="tokeniser.cpp">
       <Filter>util</Filter>
@@ -50,9 +36,6 @@
     <ClCompile Include="map.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="tile.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -62,14 +45,21 @@
     <ClCompile Include="tile_instance.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="gfx_engine.cpp">
-      <Filter>ui</Filter>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="gl_gfx_engine.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="char_render.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_font.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_texture.cpp">
+      <Filter>gfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NeHeGL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game_system.h">
       <Filter>sys</Filter>
     </ClInclude>
@@ -78,12 +68,6 @@
     </ClInclude>
     <ClInclude Include="isystem.h">
       <Filter>sys</Filter>
-    </ClInclude>
-    <ClInclude Include="font.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="text_field.h">
-      <Filter>ui</Filter>
     </ClInclude>
     <ClInclude Include="tokeniser.h">
       <Filter>util</Filter>
@@ -100,9 +84,6 @@
     <ClInclude Include="graphic.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>base</Filter>
     </ClInclude>
@@ -112,11 +93,40 @@
     <ClInclude Include="map.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="gfx_engine.h">
-      <Filter>ui</Filter>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="NeHeGL.h" />
+    <ClInclude Include="gl_gfx_engine.h">
+      <Filter>gfx</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="igfx_engine.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="gl.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="itexture.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="resource_manager.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_texture.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="ifont.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="char_render.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_font.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="igfx_component.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="igl_gfx_component.h">
+      <Filter>gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

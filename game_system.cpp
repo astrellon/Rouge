@@ -1,12 +1,12 @@
 #include "game_system.h"
 
-#include "gfx_engine.h"
+#include "igfx_engine.h"
 #include "engine.h"
 
 namespace am {
 namespace sys {
 
-	GameSystem::GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine) :
+	GameSystem::GameSystem(ISystem *linked, Engine *engine, IGfxEngine *gfxEngine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
 		mGfxEngine(gfxEngine)
@@ -103,7 +103,7 @@ namespace sys {
 	{
 		return mLinkedSystem;
 	}
-	GfxEngine *GameSystem::getGfxEngine()
+	IGfxEngine *GameSystem::getGfxEngine()
 	{
 		return mGfxEngine;
 	}

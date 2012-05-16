@@ -1,7 +1,6 @@
 #pragma once
 
-#include <Windows.h>
-#include <gl/GL.h>
+#include "gl.h"
 #include <string>
 #include <map>
 
@@ -31,7 +30,7 @@ private:
 	bool mValid;
 };
 
-class Texture {
+class GlTexture : public ITexture {
 public:
 	Texture();
 	Texture(const char *filename);

@@ -3,8 +3,7 @@
 #include "font.h"
 #include "texture.h"
 
-#include <Windows.h>
-#include <gl/GL.h>
+#include "gl.h"
 
 namespace am {
 namespace ui {

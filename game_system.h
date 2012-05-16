@@ -9,17 +9,17 @@ namespace base {
 
 using namespace am::base;
 
-namespace ui {
-	class GfxEngine;
+namespace gfx{
+	class IGfxEngine;
 }
 
-using namespace am::ui;
+using namespace am::gfx;
 
 namespace sys {
 
 	class GameSystem : public ISystem {
 	public:
-		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine);
+		GameSystem(ISystem *linked, Engine *engine, IGfxEngine *gfxEngine);
 		~GameSystem();
 
 		virtual void setSize(int width, int height);
@@ -48,13 +48,13 @@ namespace sys {
 		virtual void stopLoop();
 
 		ISystem *getLinkedSystem();
-		GfxEngine *getGfxEngine();
+		IGfxEngine *getGfxEngine();
 		Engine *getEngine();
 
 	protected:
 
 		ISystem *mLinkedSystem;
-		GfxEngine *mGfxEngine;
+		IGfxEngine *mGfxEngine;
 		Engine *mEngine;
 	};
 

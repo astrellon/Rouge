@@ -1,78 +1,53 @@
-#include "font.h"
+#include "gl_font.h"
 
-#include "texture.h"
-
-using namespace am::base;
+#include "gl_texture.h"
+#include "gl_gfx_engine.h"
 
 namespace am {
-namespace ui {
+namespace gfx {
 
-	CharRender::CharRender()
-	{
-	}
-	CharRender::~CharRender()
-	{
-	}
-
-	float CharRender::getWidth() const
-	{
-		return mWidth;
-	}
-	float CharRender::getHeight() const
-	{
-		return mHeight;
-	}
-
-
-	float CharRender::getTopY() const
-	{
-		return mTopY;
-	}
-	float CharRender::getBottomY() const
-	{
-		return mBottomY;
-	}
-
-	float CharRender::getLeftX() const
-	{
-		return mLeftX;
-	}
-	float CharRender::getRightX() const
-	{
-		return mRightX;
-	}
-
-	Font::Font() :
-		mTexture(NULL)
+	GlFont::GlFont(const char *name) :
+		mTexture(NULL),
+		mName(name)
 	{
 
 	}
-	Font::~Font()
+	GlFont::~GlFont()
 	{
 
 	}
 
-	Texture *Font::getTexture()
+	ITexture *GlFont::getTexture()
 	{
 		return mTexture;
 	}
-	void Font::setTexture(Texture *texture)
+	GlTexture *GlFont::getGlTexture()
 	{
-		mTexture = texture;
+		return mTexture;
+	}
+	void GlFont::setTexture(ITexture *texture)
+	{
+		GlTexture *glTexture = dynamic_cast<GlTexture *>(texture);
+		if (glTexture == NULL)
+		{
+			return;
+		}
+		mTexture = glTexture;
 	}
 
-	bool Font::isLoaded() const
+	bool GlFont::isLoaded() const
 	{
 		return mTexture != NULL && mTexture->isLoaded() && !mCharRenders.empty();
 	}
 
-	int Font::loadDef(JsonValue value)
+	int GlFont::loadDef(JsonValue value)
 	{
 		if (value.has("texture", JV_STR))
 		{
-			am::base::Texture *texture = 
+			/*am::base::Texture *texture = 
 				new am::base::Texture(value["texture"].getCStr());
-			setTexture(texture);
+			setTexture(texture);*/
+			mTexture = mGfxEngine->loadGlTexture(value["texture"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
 		{
@@ -88,12 +63,12 @@ namespace ui {
 		return 0;
 	}
 
-	void Font::getCharRender(char ch, CharRender &render)
+	void GlFont::getCharRender(char ch, CharRender &render)
 	{
 		render = mCharRenders[ch];
 	}
 
-	void Font::postLoad()
+	void GlFont::postLoad()
 	{
 		if (mTexture == NULL || !mTexture->isLoaded())
 		{
@@ -152,7 +127,7 @@ namespace ui {
 		}
 	}
 
-	pair<float, float> Font::processChar(int *data, int xPos, int yPos)
+	pair<float, float> GlFont::processChar(int *data, int xPos, int yPos)
 	{
 		float left = -1;
 		float right = -1;
