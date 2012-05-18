@@ -123,7 +123,6 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="log_entry.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
-    <ClInclude Include="NeHeGL.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />

@@ -112,7 +112,6 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="main.h" />
-    <ClInclude Include="NeHeGL.h" />
     <ClInclude Include="resource_manager.h">
       <Filter>util</Filter>
     </ClInclude>
