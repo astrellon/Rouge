@@ -13,31 +13,33 @@ namespace util {
 	public:
 		ResourceManager()
 		{
+			//mLoaded = map<Type, Key>();
+			//mRefCounters = map<Type, int>();
 		}
 		~ResourceManager()
 		{
 		}
 
 		template <class T>
-		T *getLoaded(const Key &key)
+		T getLoaded(const Key &key)
 		{
-			Type *value = getLoaded(key);
+			Type value = getLoaded(key);
 			if (value != NULL)
 			{
 				return static_cast<T *>(value);
 			}
 			return NULL;
 		}
-		Type *getLoaded(const Key &key)
+		Type getLoaded(const Key &key)
 		{
-			map<Key, Type *>::iterator iter = mLoaded.find(key);
+			map<Key, Type>::iterator iter = mLoaded.find(key);
 			if (iter == mLoaded.end())
 			{
 				return NULL;
 			}
 			return iter->second;
 		}
-		void assignLoaded(const Key &key, Type *value)
+		void assignLoaded(const Key &key, Type value)
 		{
 			mLoaded[key] = value;
 		}
@@ -52,7 +54,7 @@ namespace util {
 				return false;
 			}
 	
-			map<Type *, int>::iterator iter = mRefCounters.find(textureId);
+			map<Type, int>::iterator iter = mRefCounters.find(textureId);
 			if (iter == mRefCounters.end())
 			{
 				if (ref > 0)
@@ -74,8 +76,8 @@ namespace util {
 
 	protected:
 
-		map<Key, Type *> mLoaded;
-		map<Type *, int> mRefCounters;
+		map<Key, Type> mLoaded;
+		map<Type, int> mRefCounters;
 	};
 }
 }

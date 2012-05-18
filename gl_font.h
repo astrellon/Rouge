@@ -43,7 +43,7 @@ namespace gfx {
 
 	protected:
 
-		GlFont(const char *name);
+		GlFont(GlGfxEngine *engine, const char *name);
 
 		GlTexture *mTexture;
 		GlGfxEngine *mGfxEngine;

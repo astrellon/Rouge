@@ -190,13 +190,13 @@ namespace sys {
 			return -1;
 		}
 
+		window.winSystem->init();
+
+		mKeysDown = window.keys->keyDown;
+
 		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
 		{
-			window.winSystem->init();
-
-			mKeysDown = window.keys->keyDown;
-
 			isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
 			while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
 			{

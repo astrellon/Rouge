@@ -28,6 +28,9 @@
     <Filter Include="sys\win">
       <UniqueIdentifier>{fdf03f62-4fac-463d-938e-ec6090fe5387}</UniqueIdentifier>
     </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tokeniser.cpp">
@@ -69,6 +72,18 @@
     </ClCompile>
     <ClCompile Include="win_system.cpp">
       <Filter>sys\win</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_text_field.cpp">
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="log_entry.cpp">
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="flie_log_listener.cpp">
+      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +154,30 @@
     </ClInclude>
     <ClInclude Include="win_system.h">
       <Filter>sys\win</Filter>
+    </ClInclude>
+    <ClInclude Include="itext_field.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_text_field.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="irenderable.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="igl_renderable.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log_entry.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="ilog_listener.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="file_log_listener.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

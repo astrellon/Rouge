@@ -39,7 +39,7 @@ namespace gfx {
 
 	protected:
 
-		GlTexture(const char *filename);
+		GlTexture(GlGfxEngine *engine, const char *filename);
 
 		int loadFromFile(const char *filename);
 

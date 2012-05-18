@@ -3,6 +3,8 @@
 // Program uses sprintf.
 #define _CRT_SECURE_NO_WARNINGS
 
+#define _VERBOSE_LOG 
+
 #include <Windows.h>
 
 #include "GLee\GLee.h"
@@ -15,13 +17,14 @@
 
 using namespace std;
 
-//#include "texture.h"
 #include "shader.h"
-//#include "font.h"
-//#include "text_field.h"
-//#include "NeHeGL.h"
+
 #include "win_system.h"
 #include "game_system.h"
 
+#include "gl_text_field.h"
 #include "gl_gfx_engine.h"
 #include "engine.h"
+
+#include "logger.h"
+#include "file_log_listener.h"

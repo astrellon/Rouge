@@ -79,12 +79,16 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   <ItemGroup>
     <ClCompile Include="char_render.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="flie_log_listener.cpp" />
     <ClCompile Include="gl_font.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="game_system.cpp" />
     <ClCompile Include="gl_gfx_engine.cpp" />
     <ClCompile Include="gl_texture.cpp" />
+    <ClCompile Include="gl_text_field.cpp" />
     <ClCompile Include="json_value.cpp" />
+    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="log_entry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="tile.cpp" />
@@ -95,20 +99,28 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   <ItemGroup>
     <ClInclude Include="char_render.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="file_log_listener.h" />
     <ClInclude Include="gl_font.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_system.h" />
     <ClInclude Include="gl.h" />
     <ClInclude Include="gl_texture.h" />
+    <ClInclude Include="gl_text_field.h" />
     <ClInclude Include="ifont.h" />
     <ClInclude Include="igfx_component.h" />
     <ClInclude Include="igfx_engine.h" />
     <ClInclude Include="gl_gfx_engine.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="igl_gfx_component.h" />
+    <ClInclude Include="igl_renderable.h" />
+    <ClInclude Include="ilog_listener.h" />
+    <ClInclude Include="irenderable.h" />
     <ClInclude Include="isystem.h" />
     <ClInclude Include="itexture.h" />
+    <ClInclude Include="itext_field.h" />
     <ClInclude Include="json_value.h" />
+    <ClInclude Include="logger.h" />
+    <ClInclude Include="log_entry.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="NeHeGL.h" />

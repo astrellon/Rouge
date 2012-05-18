@@ -8,7 +8,8 @@
 namespace am {
 namespace gfx {
 
-	GlTexture::GlTexture(const char *filename) :
+	GlTexture::GlTexture(GlGfxEngine *engine, const char *filename) :
+		mGfxEngine(engine),
 		mTextureId(0),
 		mLoaded(false),
 		mWidth(-1),
@@ -66,11 +67,6 @@ namespace gfx {
 
 		mLoaded = true;
 
-		/*Texture *stored = new Texture();
-		stored->assign(*this);
-
-		sTextureManager.assignLoadedTexture(filename, stored);
-		*/
 		return 0;
 	}
 	GLuint GlTexture::getTextureId() const

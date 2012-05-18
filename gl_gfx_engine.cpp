@@ -5,14 +5,16 @@
 #include "gl.h"
 #include "IL/il.h"
 
+#include "igl_renderable.h"
 #include "gl_texture.h"
 #include "gl_font.h"
+#include "gl_text_field.h"
 
 namespace am {
 namespace gfx {
 	GlGfxEngine::GlGfxEngine()
 	{
-
+		
 	}
 	GlGfxEngine::~GlGfxEngine()
 	{
@@ -24,9 +26,6 @@ namespace gfx {
 		// Initialize the DevIL framework.
 		ilInit();
 
-		// Initialize OpenGL
-		//glInit();
-
 		glClearColor (0.0, 0.3, 0.4, 0.0);
 		// Enable texture for the text fields.
 		glEnable(GL_TEXTURE_2D);
@@ -35,6 +34,14 @@ namespace gfx {
 		/*glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
+
+		loadFontDefinitions("data/fontDefs.ssff");
+	
+		GlTextField *text = new GlTextField(this);
+		addObject(text);
+
+		text->setBaseGlFont(getGlFont("basic"));
+		text->setText(string("AJSDKLADSJLASDJLASD"));
 	}
 	void GlGfxEngine::deinit()
 	{
@@ -68,6 +75,14 @@ namespace gfx {
 	{
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
+
+		setOrthographic();
+
+		vector<IGlRenderable *>::iterator iter;
+		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
+		{
+			(*iter)->render(0, 0);
+		}
 	}
 
 	void GlGfxEngine::reshape(int width, int height)
@@ -102,7 +117,7 @@ namespace gfx {
 				continue;
 			}
 
-			GlFont *font = new GlFont(iter->first.c_str());
+			GlFont *font = new GlFont(this, iter->first.c_str());
 			font->loadDef(fontDef);
 
 			FontManager::iterator fontCheck = mFontManager.find(iter->first);
@@ -118,22 +133,60 @@ namespace gfx {
 		return 0;
 	}
 
+	void GlGfxEngine::addObject(IGlRenderable *renderable)
+	{
+		bool found = false;
+		vector<IGlRenderable *>::iterator iter;
+		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
+		{
+			if (*iter == renderable)
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			mRenderables.push_back(renderable);
+		}
+	}
+	void GlGfxEngine::removeObject(IGlRenderable *renderable)
+	{
+		vector<IGlRenderable *>::iterator iter;
+		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
+		{
+			if (*iter == renderable)
+			{
+				mRenderables.erase(iter);
+				break;
+			}
+		}
+	}
+
 	ITexture *GlGfxEngine::loadTexture(const char *filename)
 	{
 		return loadGlTexture(filename);
 	}
 	GlTexture *GlGfxEngine::loadGlTexture(const char *filename)
 	{
-		GlTexture *loaded = mTextureManager.getLoaded(filename);
-		if (loaded != NULL)
+		string fileStr = filename;
+		TextureManager::iterator iter = mTextureManager.find(fileStr);
+		if (iter != mTextureManager.end())
 		{
-			return loaded;
+			return iter->second;
 		}
+		//GlTexture *loaded = mTextureManager.getLoaded(filename);
+		//if (loaded != NULL)
+		//{
+		//	return loaded;
+		//}
 
-		GlTexture *texture = new GlTexture(filename);
+		GlTexture *texture = new GlTexture(this, filename);
 		if (texture->isLoaded())
 		{
-			mTextureManager.assignLoaded(filename, texture);
+			//mTextureManager.assignLoaded(filename, texture);
+			mTextureManager[fileStr] = texture;
 			return texture;
 		}
 		return NULL;

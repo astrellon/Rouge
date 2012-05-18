@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "igfx_engine.h"
 
 #include "resource_manager.h"
@@ -7,6 +9,7 @@
 namespace am {
 namespace gfx {
 
+	class IGlRenderable;
 	class GlTexture;
 	class GlFont;
 
@@ -30,17 +33,25 @@ namespace gfx {
 		virtual IFont *getFont(const char *fontName);
 		GlFont *getGlFont(const char *fontName);
 
+		void addObject(IGlRenderable *renderable);
+		void removeObject(IGlRenderable *renderable);
+
+		//template <class T>
+		//T *createGfxObject(const char *comp);
+
 	protected:
 		
 		int mScreenWidth;
 		int mScreenHeight;
 
-		typedef am::util::ResourceManager<GlTexture, string> TextureManager;
+		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
+		typedef map<string, GlTexture *> TextureManager;
 		typedef map<string, GlFont *> FontManager;
 
 		TextureManager mTextureManager;
 		FontManager mFontManager;
 
+		vector<IGlRenderable *> mRenderables;
 	};
 
 }

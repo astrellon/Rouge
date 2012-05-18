@@ -6,7 +6,8 @@
 namespace am {
 namespace gfx {
 
-	GlFont::GlFont(const char *name) :
+	GlFont::GlFont(GlGfxEngine *engine, const char *name) :
+		mGfxEngine(engine),
 		mTexture(NULL),
 		mName(name)
 	{
