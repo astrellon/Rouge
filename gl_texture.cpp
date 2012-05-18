@@ -60,7 +60,6 @@ namespace gfx {
 			mGlFormat = GL_RGB;
 		}
 
-
 		glTexImage2D(GL_TEXTURE_2D, 0, mGlFormat, mWidth, mHeight, 0, mGlFormat, GL_UNSIGNED_BYTE, ilGetData());
 
 		ilDeleteImage(imgLoad);

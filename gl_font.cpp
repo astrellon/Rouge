@@ -62,7 +62,22 @@ namespace gfx {
 		{
 			mUtfSupport = value["utf"].getBool();
 		}
-
+		if (value.has("kerning", JV_INT) || value.has("kerning", JV_FLOAT))
+		{
+			mKerning = value["kerning"].getFloat();
+		}
+		if (value.has("leading", JV_INT) || value.has("leading", JV_FLOAT))
+		{
+			mLeading = value["leading"].getFloat();
+		}
+		if (value.has("spaceWidth", JV_INT) || value.has("spaceWidth", JV_FLOAT))
+		{
+			mSpaceWidth = value["spaceWidth"].getFloat();
+		}
+		if (value.has("tabWidth", JV_INT) || value.has("tabWidth", JV_FLOAT))
+		{
+			mTabWidth = value["tabWidth"].getFloat();
+		}
 		postLoad();
 
 		return 0;

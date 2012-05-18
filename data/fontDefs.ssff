@@ -3,8 +3,8 @@
 		texture: "data/font.png",
 		fixedWidth: false,
 		utf: false,
-		kerning: 1,
-		leading: 1,
+		kerning: 2,
+		leading: 2,
 		spaceWidth: 6,
 		tabWidth: 24
 	}

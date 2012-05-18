@@ -10,6 +10,12 @@
 #include "gl_font.h"
 #include "gl_text_field.h"
 
+#include "logger.h"
+
+#include <sstream>
+
+using namespace std;
+
 namespace am {
 namespace gfx {
 	GlGfxEngine::GlGfxEngine()
@@ -98,11 +104,18 @@ namespace gfx {
 		if (loaded.getType() == JV_INT)
 		{
 			// TODO: ERROR HANDLE
+			stringstream ss;
+			ss << "Unable to load font definitions '" << filename << "': " << loaded.getInt();
+			am_log("FONT", ss.str().c_str());
 			return loaded.getInt();
 		}
 		if (loaded.getType() != JV_OBJ)
 		{
 			// TODO: ERROR HANDLE
+			stringstream ss;
+			ss << "Unable to load font definitions '" << filename;
+			ss << "': loaded wasn't an Object, " << loaded.getTypeName();
+			am_log("FONT", ss.str().c_str());
 			return -1;
 		}
 		
@@ -113,20 +126,32 @@ namespace gfx {
 			JsonValue fontDef = iter->second;
 			if (fontDef.getType() != JV_OBJ)
 			{
+				if (iter->first.compare("__comment") == 0)
+				{
+					continue;
+				}
+
 				// TODO: ERROR HANDLE
+				stringstream ss;
+				ss << "Font definition for '" << iter->first << "' was not an object, was '";
+				ss << fontDef.getTypeName() << '\'';
+				am_log("FONT", ss.str().c_str());
+				continue;
+			}
+
+			FontManager::iterator fontCheck = mFontManager.find(iter->first);
+			if (fontCheck != mFontManager.end())
+			{
+				// TODO: ERROR HANDLE
+				stringstream ss;
+				ss << "Already another font with the same name '" << iter->first << '\'';
+				am_log("FONT", ss.str().c_str());
 				continue;
 			}
 
 			GlFont *font = new GlFont(this, iter->first.c_str());
 			font->loadDef(fontDef);
 
-			FontManager::iterator fontCheck = mFontManager.find(iter->first);
-			if (fontCheck != mFontManager.end())
-			{
-				delete font;
-				// TODO: ERROR HANDLE
-				continue;
-			}
 			mFontManager[iter->first] = font;
 		}
 
@@ -176,16 +201,10 @@ namespace gfx {
 		{
 			return iter->second;
 		}
-		//GlTexture *loaded = mTextureManager.getLoaded(filename);
-		//if (loaded != NULL)
-		//{
-		//	return loaded;
-		//}
 
 		GlTexture *texture = new GlTexture(this, filename);
 		if (texture->isLoaded())
 		{
-			//mTextureManager.assignLoaded(filename, texture);
 			mTextureManager[fileStr] = texture;
 			return texture;
 		}
