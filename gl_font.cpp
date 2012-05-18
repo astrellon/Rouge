@@ -9,7 +9,11 @@ namespace gfx {
 	GlFont::GlFont(GlGfxEngine *engine, const char *name) :
 		mGfxEngine(engine),
 		mTexture(NULL),
-		mName(name)
+		mName(name),
+		mKerning(1.0f),
+		mLeading(1.0f),
+		mSpaceWidth(6.0f),
+		mTabWidth(24.0f)
 	{
 
 	}
@@ -81,6 +85,42 @@ namespace gfx {
 	float GlFont::getFixedCharWidth() const
 	{
 		return mFixedCharWidth;
+	}
+
+	void GlFont::setKerning(float kerning)
+	{
+		mKerning = kerning;
+	}
+	float GlFont::getKerning() const
+	{
+		return mKerning;
+	}
+
+	void GlFont::setLeading(float leading)
+	{
+		mLeading = leading;
+	}
+	float GlFont::getLeading() const
+	{
+		return mLeading;
+	}
+
+	void GlFont::setSpaceWidth(float width)
+	{
+		mSpaceWidth = width;
+	}
+	float GlFont::getSpaceWidth() const
+	{
+		return mSpaceWidth;
+	}
+
+	void GlFont::setTabWidth(float width)
+	{
+		mTabWidth = width;
+	}
+	float GlFont::getTabWidth() const
+	{
+		return mTabWidth;
 	}
 
 	IGfxEngine *GlFont::getGfxEngine()
@@ -163,11 +203,11 @@ namespace gfx {
 
 		int width = static_cast<int>(mTexture->getWidth());
 
-		int xStart = xPos * mFixedCharWidth;
-		int xEnd = xStart + mFixedCharWidth;
+		int xStart = xPos * static_cast<int>(mFixedCharWidth);
+		int xEnd = xStart + static_cast<int>(mFixedCharWidth);
 
-		int yStart = yPos * mCharHeight;
-		int yEnd = yStart + mCharHeight;
+		int yStart = yPos * static_cast<int>(mCharHeight);
+		int yEnd = yStart + static_cast<int>(mCharHeight);
 
 		for (int x = xStart; x < xEnd; x++)
 		{
@@ -199,8 +239,8 @@ namespace gfx {
 
 		if (left == -1)
 		{
-			left = xStart;
-			right = xEnd - 1;
+			left = static_cast<float>(xStart);
+			right = static_cast<float>(xEnd) - 1;
 		}
 
 		return pair<float, float>(left, right);

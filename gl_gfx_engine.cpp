@@ -26,7 +26,7 @@ namespace gfx {
 		// Initialize the DevIL framework.
 		ilInit();
 
-		glClearColor (0.0, 0.3, 0.4, 0.0);
+		glClearColor (0.0f, 0.3f, 0.4f, 0.0f);
 		// Enable texture for the text fields.
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
@@ -41,7 +41,7 @@ namespace gfx {
 		addObject(text);
 
 		text->setBaseGlFont(getGlFont("basic"));
-		text->setText(string("AJSDKLADSJLASDJLASD"));
+		text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
 	}
 	void GlGfxEngine::deinit()
 	{

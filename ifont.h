@@ -33,6 +33,18 @@ namespace gfx {
 		virtual float getCharHeight() const = 0;
 		virtual float getFixedCharWidth() const = 0;
 
+		virtual void setKerning(float kerning) = 0;
+		virtual float getKerning() const = 0;
+
+		virtual void setLeading(float leading) = 0;
+		virtual float getLeading() const = 0;
+
+		virtual void setSpaceWidth(float width) = 0;
+		virtual float getSpaceWidth() const = 0;
+
+		virtual void setTabWidth(float width) = 0;
+		virtual float getTabWidth() const = 0;
+
 	};
 
 }

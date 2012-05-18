@@ -72,37 +72,51 @@ namespace gfx {
 
 		glBegin(GL_QUADS);
 
-			/*glTexCoord2f(0, 0);
-			glVertex2f(0, 0);
-
-			glTexCoord2f(1, 0);
-			glVertex2f(128, 0);
-
-			glTexCoord2f(1, 1);
-			glVertex2f(128, 128);
-
-			glTexCoord2f(0, 1);
-			glVertex2f(0, 128);
-			*/
 			CharRender charRender;
 			float xPos = 0.0f;
-			for (int i = 0; i < mText.size(); i++)
+			float yPos = 0.0f;
+
+			int len = static_cast<int>(mText.size());
+			for (int i = 0; i < len; i++)
 			{
-				mFont->getCharRender(mText[i], charRender);
+				char ch = mText[i];
+				if (ch == ' ')
+				{
+					xPos += mFont->getSpaceWidth();
+					continue;
+				}
+				else if(ch == '\t')
+				{
+					int xMult = static_cast<int>(xPos) / static_cast<int>(mFont->getTabWidth());
+					float nextXpos = static_cast<float>(xMult + 1) * mFont->getTabWidth();
+					if (nextXpos - xPos < mFont->getSpaceWidth())
+					{
+						nextXpos += mFont->getSpaceWidth();
+					}
+					xPos = nextXpos;
+					continue;
+				}
+				else if(ch == '\n')
+				{
+					xPos = 0.0f;
+					yPos += mFont->getCharHeight() + mFont->getLeading();
+					continue;
+				}
+				mFont->getCharRender(ch, charRender);
 
 				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
-				glVertex2f(xPos, 0);
+				glVertex2f(xPos, yPos);
 				
 				glTexCoord2f(charRender.getRightX(), charRender.getTopY());
-				glVertex2f(xPos+charRender.getWidth(), 0);
+				glVertex2f(xPos+charRender.getWidth(), yPos);
 
 				glTexCoord2f(charRender.getRightX(), charRender.getBottomY());
-				glVertex2f(xPos+charRender.getWidth(), charRender.getHeight());
+				glVertex2f(xPos + charRender.getWidth(), yPos + charRender.getHeight());
 
 				glTexCoord2f(charRender.getLeftX(), charRender.getBottomY());
-				glVertex2f(xPos, charRender.getHeight());
+				glVertex2f(xPos, yPos + charRender.getHeight());
 
-				xPos += charRender.getWidth() + 1;
+				xPos += charRender.getWidth() + mFont->getKerning();
 			}
 		glEnd();
 

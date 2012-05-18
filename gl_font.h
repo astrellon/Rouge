@@ -39,6 +39,18 @@ namespace gfx {
 		virtual IGfxEngine *getGfxEngine();
 		virtual GlGfxEngine *getGlGfxEngine();
 
+		virtual void setKerning(float kerning);
+		virtual float getKerning() const;
+
+		virtual void setLeading(float leading);
+		virtual float getLeading() const;
+
+		virtual void setSpaceWidth(float width);
+		virtual float getSpaceWidth() const;
+
+		virtual void setTabWidth(float width);
+		virtual float getTabWidth() const;
+
 		friend class GlGfxEngine;
 
 	protected:
@@ -54,6 +66,11 @@ namespace gfx {
 
 		float mCharHeight;
 		float mFixedCharWidth;
+
+		float mKerning;
+		float mLeading;
+		float mSpaceWidth;
+		float mTabWidth;
 
 		vector<CharRender> mCharRenders;
 

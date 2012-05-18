@@ -2,6 +2,10 @@
 	basic: {
 		texture: "data/font.png",
 		fixedWidth: false,
-		utf: false
+		utf: false,
+		kerning: 1,
+		leading: 1,
+		spaceWidth: 6,
+		tabWidth: 24
 	}
 }
