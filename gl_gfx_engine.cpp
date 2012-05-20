@@ -48,6 +48,13 @@ namespace gfx {
 
 		text->setBaseGlFont(getGlFont("basic"));
 		text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
+
+		text->getTransform().rotate(0.7f, 0.0f);
+		
+		//text->getTransform().setTarget(am::math::Vector4f(10, 10, 0));
+		//text->getTransform().setPosition(am::math::Vector4f(1, 1, 0));
+		//text->getTransform().translate(50, 20, 0, true);
+		//text->getTransform().setTarget(am::math::Vector4f(60, 30, 100));
 	}
 	void GlGfxEngine::deinit()
 	{
@@ -83,11 +90,14 @@ namespace gfx {
 		glLoadIdentity();
 
 		setOrthographic();
+		//setPerspective();
+
+		//glTranslated(0, 0, -400);
 
 		vector<IGlRenderable *>::iterator iter;
 		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
 		{
-			(*iter)->render(0, 0);
+			(*iter)->render();
 		}
 	}
 

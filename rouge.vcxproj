@@ -94,6 +94,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tokeniser.cpp" />
+    <ClCompile Include="transform.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,10 +124,13 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="log_entry.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />
+    <ClInclude Include="transform.h" />
+    <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

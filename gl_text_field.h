@@ -3,6 +3,8 @@
 #include "itext_field.h"
 #include "igl_renderable.h"
 
+#include "transform.h"
+
 namespace am {
 namespace gfx {
 
@@ -26,7 +28,8 @@ namespace gfx {
 		virtual void appendText(string &str);
 		virtual string getText();
 
-		virtual void render(float x, float y);
+		virtual void render();
+		virtual am::math::Transform &getTransform();
 
 		virtual IGfxEngine *getGfxEngine();
 		virtual GlGfxEngine *getGlGfxEngine();
@@ -38,6 +41,7 @@ namespace gfx {
 		string mText;
 		GlFont *mFont;
 
+		am::math::Transform mTransform;
 		GlGfxEngine *mGfxEngine;
 	};
 

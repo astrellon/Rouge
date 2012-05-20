@@ -21,7 +21,7 @@ namespace gfx {
 		virtual void appendText(string &str) = 0;
 		virtual string getText() = 0;
 
-		virtual void render(float x, float y) = 0;
+		//virtual void render(float x, float y) = 0;
 	};
 
 }

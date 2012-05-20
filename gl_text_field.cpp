@@ -14,7 +14,7 @@ namespace gfx {
 		mText(""),
 		mFont(NULL)
 	{
-
+		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
 
 	GlTextField::~GlTextField()
@@ -56,14 +56,17 @@ namespace gfx {
 		return mText;
 	}
 
-	void GlTextField::render(float x, float y)
+	void GlTextField::render()
 	{
 		if (mFont == NULL || !mFont->isLoaded())
 		{
 			return;
 		}
+
 		glPushMatrix();
-		glTranslatef(x, y, 0);
+		mTransform.translate(0.1f, 0, 0, true);
+		//glTranslatef(x, y, 0);
+		glMultMatrixf(mTransform.data());
 
 		glBindTexture(GL_TEXTURE_2D, mFont->getGlTexture()->getTextureId());
 
@@ -124,6 +127,11 @@ namespace gfx {
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glPopMatrix();
+	}
+
+	am::math::Transform &GlTextField::getTransform()
+	{
+		return mTransform;
 	}
 
 	IGfxEngine *GlTextField::getGfxEngine()

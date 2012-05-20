@@ -31,6 +31,9 @@
     <Filter Include="log">
       <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
     </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{685e5bbe-a0c2-4733-9993-93a5a78c91e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tokeniser.cpp">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="flie_log_listener.cpp">
       <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +183,15 @@
     </ClInclude>
     <ClInclude Include="file_log_listener.h">
       <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

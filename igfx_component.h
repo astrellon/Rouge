@@ -8,6 +8,7 @@ namespace gfx {
 	class IGfxComponent {
 	public:
 		virtual IGfxEngine *getGfxEngine() = 0;
+		
 	};
 
 }
