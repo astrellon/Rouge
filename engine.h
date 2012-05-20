@@ -26,7 +26,7 @@ public:
 
 	void init();
 	void deinit();
-	void update(unsigned long dt);
+	void update(float dt);
 
 protected:
 

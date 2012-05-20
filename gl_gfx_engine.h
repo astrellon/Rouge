@@ -23,7 +23,7 @@ namespace gfx {
 		virtual void setPerspective();
 		virtual void setOrthographic();
 	
-		virtual void display();
+		virtual void display(float dt);
 		virtual void reshape(int width, int height);
 
 		virtual int loadFontDefinitions(const char *filename);
@@ -35,9 +35,6 @@ namespace gfx {
 
 		void addObject(IGlRenderable *renderable);
 		void removeObject(IGlRenderable *renderable);
-
-		//template <class T>
-		//T *createGfxObject(const char *comp);
 
 	protected:
 		

@@ -56,7 +56,7 @@ namespace gfx {
 		return mText;
 	}
 
-	void GlTextField::render()
+	void GlTextField::render(float dt)
 	{
 		if (mFont == NULL || !mFont->isLoaded())
 		{

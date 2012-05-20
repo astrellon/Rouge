@@ -84,7 +84,7 @@ namespace gfx {
 		glMatrixMode(GL_MODELVIEW);
 	}
 
-	void GlGfxEngine::display()
+	void GlGfxEngine::display(float dt)
 	{
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
@@ -97,7 +97,7 @@ namespace gfx {
 		vector<IGlRenderable *>::iterator iter;
 		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
 		{
-			(*iter)->render();
+			(*iter)->render(dt);
 		}
 	}
 

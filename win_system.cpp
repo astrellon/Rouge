@@ -74,13 +74,13 @@ namespace sys {
 	{
 		mGameSystem->reshape(width, height);
 	}
-	void WinSystem::update(unsigned long dt)
+	void WinSystem::update(float dt)
 	{
 		mGameSystem->update(dt);
 	}
-	void WinSystem::display()
+	void WinSystem::display(float dt)
 	{
-		mGameSystem->display();
+		mGameSystem->display(dt);
 	}
 	void WinSystem::deinit()
 	{
@@ -226,7 +226,8 @@ namespace sys {
 						// Process Application Loop
 						tickCount = GetTickCount ();				// Get The Tick Count
 
-						window.winSystem->update(tickCount - window.lastTickCount);
+						float dt = (tickCount - window.lastTickCount) / 1000.0f;
+						window.winSystem->update(dt);
 
 						//int diff = tickCount - window.lastTickCount;
 						diff -= tickCount - window.lastTickCount;
@@ -237,7 +238,7 @@ namespace sys {
 
 						window.lastTickCount = tickCount;			// Set Last Count To Current Count
 						
-						window.winSystem->display();									// Draw Our Scene
+						window.winSystem->display(dt);		// Draw Our Scene
 
 						SwapBuffers (window.hDC);					// Swap Buffers (Double Buffering)
 					}

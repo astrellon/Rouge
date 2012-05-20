@@ -28,7 +28,7 @@ namespace gfx {
 		virtual void appendText(string &str);
 		virtual string getText();
 
-		virtual void render();
+		virtual void render(float dt);
 		virtual am::math::Transform &getTransform();
 
 		virtual IGfxEngine *getGfxEngine();

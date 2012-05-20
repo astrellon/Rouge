@@ -13,7 +13,7 @@ namespace gfx {
 		virtual void setPerspective() = 0;
 		virtual void setOrthographic() = 0;
 	
-		virtual void display() = 0;
+		virtual void display(float dt) = 0;
 		virtual void reshape(int width, int height) = 0;
 
 		virtual int loadFontDefinitions(const char *filename) = 0;

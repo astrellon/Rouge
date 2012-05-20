@@ -112,7 +112,7 @@ namespace base {
 	{
 
 	}
-	void Engine::update(unsigned long dt)
+	void Engine::update(float dt)
 	{
 
 	}

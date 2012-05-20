@@ -46,7 +46,6 @@ namespace math {
 		void translateWorld(const float x, const float y, const float z, bool moveTarget);
 
 		void rotate(float dx, float dy);
-	
 		void orbit(float dx, float dy);
 	
 		void setForCamera(bool forCam);

@@ -9,7 +9,7 @@ namespace gfx {
 	class IRenderable : public IGfxComponent {
 	public:
 		virtual am::math::Transform &getTransform() = 0;
-		virtual void render() = 0;
+		virtual void render(float dt) = 0;
 	};
 
 }

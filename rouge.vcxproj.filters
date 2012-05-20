@@ -91,6 +91,9 @@
     <ClCompile Include="transform.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="gl_sprite.cpp">
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -133,9 +136,6 @@
     <ClInclude Include="igfx_engine.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
-    <ClInclude Include="igl_gfx_component.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="itexture.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
@@ -169,9 +169,6 @@
     <ClInclude Include="irenderable.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
-    <ClInclude Include="igl_renderable.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="logger.h">
       <Filter>log</Filter>
     </ClInclude>
@@ -192,6 +189,18 @@
     </ClInclude>
     <ClInclude Include="transform.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="isprite.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_sprite.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="igl_renderable.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="igl_gfx_component.h">
+      <Filter>gfx\gl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

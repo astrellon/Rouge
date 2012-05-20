@@ -63,13 +63,13 @@ namespace sys {
 	{
 		mGfxEngine->reshape(width, height);
 	}
-	void GameSystem::update(unsigned long dt)
+	void GameSystem::update(float dt)
 	{
 		mEngine->update(dt);
 	}
-	void GameSystem::display()
+	void GameSystem::display(float dt)
 	{
-		mGfxEngine->display();
+		mGfxEngine->display(dt);
 	}
 	void GameSystem::deinit()
 	{

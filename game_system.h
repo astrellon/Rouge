@@ -36,8 +36,8 @@ namespace sys {
 
 		virtual void init();
 		virtual void reshape(int width, int height);
-		virtual void update(unsigned long dt);
-		virtual void display();
+		virtual void update(float dt);
+		virtual void display(float dt);
 		virtual void deinit();
 
 		virtual bool isProgramRunning() const;

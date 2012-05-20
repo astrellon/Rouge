@@ -19,8 +19,8 @@ public:
 
 	virtual void init() = 0;
 	virtual void reshape(int width, int height) = 0;
-	virtual void update(unsigned long dt) = 0;
-	virtual void display() = 0;
+	virtual void update(float dt) = 0;
+	virtual void display(float dt) = 0;
 	virtual void deinit() = 0;
 
 	virtual bool isProgramRunning() const = 0;
