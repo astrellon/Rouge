@@ -12,7 +12,9 @@ namespace gfx {
 	GlTextField::GlTextField(GlGfxEngine *engine) :
 		mGfxEngine(engine),
 		mText(""),
-		mFont(NULL)
+		mFont(NULL),
+		mWidth(0.0f),
+		mHeight(0.0f)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
@@ -64,8 +66,6 @@ namespace gfx {
 		}
 
 		glPushMatrix();
-		mTransform.translate(0.1f, 0, 0, true);
-		//glTranslatef(x, y, 0);
 		glMultMatrixf(mTransform.data());
 
 		glBindTexture(GL_TEXTURE_2D, mFont->getGlTexture()->getTextureId());
@@ -75,7 +75,7 @@ namespace gfx {
 
 		glBegin(GL_QUADS);
 
-			CharRender charRender;
+			TextureWindow charRender;
 			float xPos = 0.0f;
 			float yPos = 0.0f;
 
@@ -105,7 +105,7 @@ namespace gfx {
 					yPos += mFont->getCharHeight() + mFont->getLeading();
 					continue;
 				}
-				mFont->getCharRender(ch, charRender);
+				mFont->getTextureWindow(ch, charRender);
 
 				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
 				glVertex2f(xPos, yPos);
@@ -124,7 +124,6 @@ namespace gfx {
 		glEnd();
 
 		glDisable(GL_BLEND);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glPopMatrix();
 	}
@@ -132,6 +131,24 @@ namespace gfx {
 	am::math::Transform &GlTextField::getTransform()
 	{
 		return mTransform;
+	}
+
+	void GlTextField::setWidth(float width)
+	{
+		mWidth = width;
+	}
+	float GlTextField::getWidth() const
+	{
+		return mWidth;
+	}
+
+	void GlTextField::setHeight(float height)
+	{
+		mHeight = height;
+	}
+	float GlTextField::getHeight() const
+	{
+		return mHeight;
 	}
 
 	IGfxEngine *GlTextField::getGfxEngine()

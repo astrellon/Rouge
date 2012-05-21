@@ -4,6 +4,11 @@
 #include "igl_renderable.h"
 
 #include "transform.h"
+#include "texture_window.h"
+
+#include <vector>
+
+using namespace std;
 
 namespace am {
 namespace gfx {
@@ -16,13 +21,16 @@ namespace gfx {
 
 	class GlSprite : public ISprite, public IGlRenderable {
 	public:
+		// GlSprite methods
 		GlSprite(GlGfxEngine *engine, GlTexture *texture);
 		~GlSprite();
 
-		virtual ITexture *getTexture();
 		GlTexture *getGlTexture();
-		virtual void setTexture(ITexture *texture);
 		void setGlTexture(GlTexture *texture);
+
+		// ISprite Methods
+		virtual ITexture *getTexture();
+		virtual void setTexture(ITexture *texture);
 
 		virtual void setNumFramesX(int num);
 		virtual int getNumFramesX() const;
@@ -41,10 +49,19 @@ namespace gfx {
 		virtual void setFrameTime(float time);
 		virtual float getFrameTime() const;
 
+		// IRenderable methods
 		virtual void render(float dt);
 		virtual am::math::Transform &getTransform();
 
+		virtual void setWidth(float width);
+		virtual float getWidth() const;
+
+		virtual void setHeight(float height);
+		virtual float getHeight() const;
+
+		// IGfxComponent methods
 		virtual IGfxEngine *getGfxEngine();
+		// IGlGfxComponent methods
 		virtual GlGfxEngine *getGlGfxEngine();
 
 	protected:
@@ -58,9 +75,16 @@ namespace gfx {
 
 		float mFrameRate;
 		float mCurrentTime;
+
+		bool mAnimationDirty;
+		vector<TextureWindow> mAnimationWindows;
 		
+		float mWidth;
+		float mHeight;
 		am::math::Transform mTransform;
 		GlGfxEngine *mGfxEngine;
+
+		void processAnimation();
 	};
 
 }

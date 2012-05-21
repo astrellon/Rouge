@@ -42,7 +42,7 @@ namespace gfx {
 
 	bool GlFont::isLoaded() const
 	{
-		return mTexture != NULL && mTexture->isLoaded() && !mCharRenders.empty();
+		return mTexture != NULL && mTexture->isLoaded() && !mTextureWindows.empty();
 	}
 
 	int GlFont::loadDef(JsonValue value)
@@ -147,9 +147,9 @@ namespace gfx {
 		return mGfxEngine;
 	}
 
-	void GlFont::getCharRender(char ch, CharRender &render)
+	void GlFont::getTextureWindow(char ch, TextureWindow &render)
 	{
-		render = mCharRenders[ch];
+		render = mTextureWindows[ch];
 	}
 
 	void GlFont::postLoad()
@@ -158,7 +158,7 @@ namespace gfx {
 		{
 			return;
 		}
-		CharRender render;
+		TextureWindow render;
 
 		if (!mUtfSupport)
 		{
@@ -178,7 +178,7 @@ namespace gfx {
 						render.mTopY =  static_cast<float>(y) * uvHeight;
 						render.mRightX = render.mLeftX + uvWidth;
 						render.mBottomY = render.mTopY + uvHeight;
-						mCharRenders.push_back(render);
+						mTextureWindows.push_back(render);
 					}
 				}
 			}
@@ -202,7 +202,7 @@ namespace gfx {
 						render.mRightX = render.mLeftX + uvWidth;
 						render.mBottomY = render.mTopY + uvHeight;
 
-						mCharRenders.push_back(render);
+						mTextureWindows.push_back(render);
 					}
 				}
 

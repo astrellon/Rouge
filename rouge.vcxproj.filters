@@ -58,9 +58,6 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="char_render.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="gl_font.cpp">
       <Filter>gfx\gl</Filter>
     </ClCompile>
@@ -94,6 +91,9 @@
     <ClCompile Include="gl_sprite.cpp">
       <Filter>gfx\gl</Filter>
     </ClCompile>
+    <ClCompile Include="texture_window">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -123,9 +123,6 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="resource_manager.h">
       <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="char_render.h">
-      <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="ifont.h">
       <Filter>gfx\base</Filter>
@@ -201,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="igl_gfx_component.h">
       <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="texture_window.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

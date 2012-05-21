@@ -2,7 +2,7 @@
 
 #include <string>
 #include "json_value.h"
-#include "char_render.h"
+#include "texture_window.h"
 
 #include "igfx_component.h"
 
@@ -25,7 +25,7 @@ namespace gfx {
 
 		virtual int loadDef(JsonValue value) = 0;
 
-		virtual void getCharRender(char ch, CharRender &render) = 0;
+		virtual void getTextureWindow(char ch, TextureWindow &render) = 0;
 
 		virtual bool isLoaded() const = 0;
 		virtual bool isFixedWidth() const = 0;

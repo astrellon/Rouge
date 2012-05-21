@@ -28,7 +28,7 @@ namespace gfx {
 
 		virtual int loadDef(JsonValue value);
 
-		virtual void getCharRender(char ch, CharRender &render);
+		virtual void getTextureWindow(char ch, TextureWindow &render);
 
 		virtual bool isLoaded() const;
 		virtual bool isFixedWidth() const;
@@ -72,7 +72,7 @@ namespace gfx {
 		float mSpaceWidth;
 		float mTabWidth;
 
-		vector<CharRender> mCharRenders;
+		vector<TextureWindow> mTextureWindows;
 
 		pair<float, float> processChar(int *data, int xPos, int yPos);
 		void postLoad();

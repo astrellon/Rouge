@@ -3,10 +3,10 @@
 namespace am {
 namespace gfx {
 
-	class CharRender {
+	class TextureWindow {
 	public:
-		CharRender();
-		~CharRender();
+		TextureWindow();
+		~TextureWindow();
 
 		float getWidth() const;
 		float getHeight() const;

@@ -77,7 +77,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="char_render.cpp" />
+    <ClCompile Include="texture_window" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="flie_log_listener.cpp" />
     <ClCompile Include="gl_font.cpp" />
@@ -99,7 +99,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="char_render.h" />
+    <ClInclude Include="texture_window.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="file_log_listener.h" />
     <ClInclude Include="gl_font.h" />
