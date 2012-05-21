@@ -107,8 +107,6 @@ namespace gfx {
 		setOrthographic();
 		//setPerspective();
 
-		//glTranslated(0, 0, -400);
-
 		vector<IGlRenderable *>::iterator iter;
 		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
 		{
