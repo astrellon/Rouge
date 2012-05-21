@@ -10,6 +10,7 @@
 #include "gl_font.h"
 #include "gl_text_field.h"
 #include "gl_sprite.h"
+#include "gl_layer.h"
 
 #include "logger.h"
 
@@ -51,16 +52,24 @@ namespace gfx {
 		text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
 
 		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/font.png"));
-		addObject(sprite);
-
+		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
 		sprite->setNumTotalFrames(256);
 
 		sprite->setFrameRate(4.0f);
 
-		sprite->getTransform().translate(200.0f, -50.0f, 0, true);
-		sprite->getTransform().rotate(0.5f, 0.0f);
+		GlLayer *layer = new GlLayer(this);
+		addObject(layer);
+
+		layer->getTransform().translate(0.0f, 0.0f, 0.0f, true);
+		layer->addGlChild(sprite);
+
+		layer->getTransform().rotate(0.5f, 0.0f);
+		layer->getTransform().translate(200.0f, 0.0f, 0.0f, true);
+
+		sprite->getTransform().rotate(-0.5f, 0.0f);
+		sprite->getTransform().translate(50.0f, 0.0f, 0.0f, true);
 	}
 	void GlGfxEngine::deinit()
 	{

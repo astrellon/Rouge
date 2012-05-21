@@ -94,6 +94,9 @@
     <ClCompile Include="texture_window">
       <Filter>gfx\base</Filter>
     </ClCompile>
+    <ClCompile Include="gl_layer.cpp">
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -201,6 +204,12 @@
     </ClInclude>
     <ClInclude Include="texture_window.h">
       <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ilayer.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_layer.h">
+      <Filter>gfx\gl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
