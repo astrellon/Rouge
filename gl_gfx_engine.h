@@ -26,8 +26,6 @@ namespace gfx {
 		virtual void display(float dt);
 		virtual void reshape(int width, int height);
 
-		virtual int loadFontDefinitions(const char *filename);
-
 		virtual ITexture *loadTexture(const char *filename);
 		GlTexture *loadGlTexture(const char *filename);
 		virtual IFont *getFont(const char *fontName);

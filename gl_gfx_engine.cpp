@@ -43,7 +43,7 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
-		loadFontDefinitions("data/fontDefs.ssff");
+		//loadFontDefinitions("data/fontDefs.ssff");
 	
 		GlTextField *text = new GlTextField(this);
 		addObject(text);
@@ -51,7 +51,7 @@ namespace gfx {
 		text->setBaseGlFont(getGlFont("basic"));
 		text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
 
-		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/font.png"));
+		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/textures/font.png"));
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
@@ -121,66 +121,6 @@ namespace gfx {
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
-	int GlGfxEngine::loadFontDefinitions(const char *filename)
-	{
-		JsonValue loaded = JsonValue::import_from_file(filename);
-		if (loaded.getType() == JV_INT)
-		{
-			// TODO: ERROR HANDLE
-			stringstream ss;
-			ss << "Unable to load font definitions '" << filename << "': " << loaded.getInt();
-			am_log("FONT", ss.str().c_str());
-			return loaded.getInt();
-		}
-		if (loaded.getType() != JV_OBJ)
-		{
-			// TODO: ERROR HANDLE
-			stringstream ss;
-			ss << "Unable to load font definitions '" << filename;
-			ss << "': loaded wasn't an Object, " << loaded.getTypeName();
-			am_log("FONT", ss.str().c_str());
-			return -1;
-		}
-		
-		JsonObject *obj = loaded.getObj();
-
-		for(JsonObject::iterator iter = obj->begin(); iter != obj->end(); ++iter)
-		{
-			JsonValue fontDef = iter->second;
-			if (fontDef.getType() != JV_OBJ)
-			{
-				if (iter->first.compare("__comment") == 0)
-				{
-					continue;
-				}
-
-				// TODO: ERROR HANDLE
-				stringstream ss;
-				ss << "Font definition for '" << iter->first << "' was not an object, was '";
-				ss << fontDef.getTypeName() << '\'';
-				am_log("FONT", ss.str().c_str());
-				continue;
-			}
-
-			FontManager::iterator fontCheck = mFontManager.find(iter->first);
-			if (fontCheck != mFontManager.end())
-			{
-				// TODO: ERROR HANDLE
-				stringstream ss;
-				ss << "Already another font with the same name '" << iter->first << '\'';
-				am_log("FONT", ss.str().c_str());
-				continue;
-			}
-
-			GlFont *font = new GlFont(this, iter->first.c_str());
-			font->loadDef(fontDef);
-
-			mFontManager[iter->first] = font;
-		}
-
-		return 0;
-	}
-
 	void GlGfxEngine::addObject(IGlRenderable *renderable)
 	{
 		bool found = false;
@@ -246,7 +186,33 @@ namespace gfx {
 			return iter->second;
 		}
 
-		return NULL;
+		stringstream ss;
+		ss << "data/fonts/" << fontName << ".ssff";
+
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to load font '" << fontName << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("FONT", errss.str().c_str());
+			return NULL;
+		}
+
+		GlFont *font = new GlFont(this, fontName);
+		int loadFont = font->loadDef(loaded);
+		if (loadFont != 0)
+		{
+			stringstream errss;
+			errss << "Error loading font definition '" << fontName << "': " << loadFont;
+			am_log("FONT", errss.str().c_str());
+			delete font;
+			return NULL;
+		}
+
+		mFontManager[string(fontName)] = font;
+
+		return font;
 	}
 }
 }

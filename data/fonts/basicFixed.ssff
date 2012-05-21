@@ -1,0 +1,9 @@
+{	// Basic font definition
+	texture: "data/textures/font.png",
+	fixedWidth: true,
+	utf: false,
+	kerning: 1,
+	leading: 11,
+	spaceWidth: 8,
+	tabWidth: 32
+}
