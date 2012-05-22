@@ -39,6 +39,7 @@ namespace gfx {
 		virtual IGfxEngine *getGfxEngine();
 		virtual GlGfxEngine *getGlGfxEngine();
 
+		// IFont methods
 		virtual void setKerning(float kerning);
 		virtual float getKerning() const;
 
@@ -50,6 +51,11 @@ namespace gfx {
 
 		virtual void setTabWidth(float width);
 		virtual float getTabWidth() const;
+
+		virtual void measureText(const char *text, float &width, float &height) const;
+		virtual void measureWord(const char *word, float &width, float &height) const;
+
+		virtual float getVariableTabPosition(float xPos) const;;
 
 		friend class GlGfxEngine;
 

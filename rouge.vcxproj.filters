@@ -91,11 +91,11 @@
     <ClCompile Include="gl_sprite.cpp">
       <Filter>gfx\gl</Filter>
     </ClCompile>
-    <ClCompile Include="texture_window">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="gl_layer.cpp">
       <Filter>gfx\gl</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_window.cpp">
+      <Filter>gfx\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

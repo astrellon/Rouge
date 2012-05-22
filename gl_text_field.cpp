@@ -14,7 +14,9 @@ namespace gfx {
 		mText(""),
 		mFont(NULL),
 		mWidth(0.0f),
-		mHeight(0.0f)
+		mHeight(0.0f),
+		mRenderedWidth(0),
+		mRenderedHeight(0)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
@@ -43,6 +45,11 @@ namespace gfx {
 	void GlTextField::setBaseGlFont(GlFont *font)
 	{
 		mFont = font;
+	}
+
+	float GlTextField::getRenderedHeight() const
+	{
+		return mRenderedHeight;
 	}
 
 	void GlTextField::setText(string &str)
@@ -80,9 +87,15 @@ namespace gfx {
 			float yPos = 0.0f;
 
 			int len = static_cast<int>(mText.size());
+			bool inWord = false;
 			for (int i = 0; i < len; i++)
 			{
 				char ch = mText[i];
+				if (ch <= ' ' && inWord)
+				{
+					inWord = false;
+				}
+
 				if (ch == ' ')
 				{
 					xPos += mFont->getSpaceWidth();
@@ -90,13 +103,7 @@ namespace gfx {
 				}
 				else if(ch == '\t')
 				{
-					int xMult = static_cast<int>(xPos) / static_cast<int>(mFont->getTabWidth());
-					float nextXpos = static_cast<float>(xMult + 1) * mFont->getTabWidth();
-					if (nextXpos - xPos < mFont->getSpaceWidth())
-					{
-						nextXpos += mFont->getSpaceWidth();
-					}
-					xPos = nextXpos;
+					xPos = mFont->getVariableTabPosition(xPos);
 					continue;
 				}
 				else if(ch == '\n')
@@ -105,6 +112,19 @@ namespace gfx {
 					yPos += mFont->getCharHeight() + mFont->getLeading();
 					continue;
 				}
+				else if (mWidth > 0.0f && ch > ' ' && !inWord)
+				{
+					inWord = true;
+					float wordWidth;
+					float wordHeight;
+					mFont->measureWord(mText.c_str() + i, wordWidth, wordHeight);
+					if (xPos + wordWidth > mWidth)
+					{
+						xPos = 0.0f;
+						yPos += mFont->getCharHeight() + mFont->getLeading();
+					}
+				}
+				
 				mFont->getTextureWindow(ch, charRender);
 
 				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
@@ -122,6 +142,8 @@ namespace gfx {
 				xPos += charRender.getWidth() + mFont->getKerning();
 			}
 		glEnd();
+
+		mRenderedHeight = yPos + mFont->getCharHeight();
 
 		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);

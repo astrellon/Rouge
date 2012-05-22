@@ -20,6 +20,8 @@ namespace gfx {
 		GlTextField(GlGfxEngine *engine);
 		~GlTextField();
 
+		float getRenderedHeight() const;
+
 		GlFont *getBaseGlFont();
 		void setBaseGlFont(GlFont *font);
 
@@ -52,6 +54,9 @@ namespace gfx {
 
 		string mText;
 		GlFont *mFont;
+
+		float mRenderedWidth;
+		float mRenderedHeight;
 
 		am::math::Transform mTransform;
 		float mWidth;

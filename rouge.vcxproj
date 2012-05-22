@@ -78,7 +78,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gl_layer.cpp" />
-    <ClCompile Include="texture_window" />
+    <ClCompile Include="texture_window.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="flie_log_listener.cpp" />
     <ClCompile Include="gl_font.cpp" />

@@ -49,9 +49,6 @@ namespace gfx {
 	{
 		if (value.has("texture", JV_STR))
 		{
-			/*am::base::Texture *texture = 
-				new am::base::Texture(value["texture"].getCStr());
-			setTexture(texture);*/
 			mTexture = mGfxEngine->loadGlTexture(value["texture"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
@@ -137,6 +134,16 @@ namespace gfx {
 	{
 		return mTabWidth;
 	}
+	float GlFont::getVariableTabPosition(float xPos) const
+	{
+		int xMult = static_cast<int>(xPos) / static_cast<int>(getTabWidth());
+		float nextXpos = static_cast<float>(xMult + 1) * getTabWidth();
+		if (nextXpos - xPos < getSpaceWidth())
+		{
+			nextXpos += getSpaceWidth();
+		}
+		return nextXpos;
+	}
 
 	IGfxEngine *GlFont::getGfxEngine()
 	{
@@ -145,6 +152,59 @@ namespace gfx {
 	GlGfxEngine *GlFont::getGlGfxEngine()
 	{
 		return mGfxEngine;
+	}
+
+	void GlFont::measureText(const char *text, float &width, float &height) const
+	{
+		if (text == NULL || text[0] <= ' ')
+		{
+			return;
+		}
+		int index = 0;
+		char ch = text[index];
+		float currWidth = -mKerning;
+
+		width = 0.0f;
+		height = mCharHeight;
+
+		while (ch > '\0')
+		{
+			if (ch == ' ')
+			{
+				currWidth += mSpaceWidth;
+			}
+			else if (ch == '\t')
+			{
+				currWidth += getVariableTabPosition(currWidth);
+			}
+			else if (ch == '\n')
+			{
+				width = max(width, currWidth);
+				height += mCharHeight + mLeading;
+			}
+			else
+			{
+				currWidth += mTextureWindows[ch].getWidth() + mKerning;
+			}
+			ch = text[++index];
+		}
+		width = max(width, currWidth);
+	}
+	void GlFont::measureWord(const char *word, float &width, float &height) const
+	{
+		if (word == NULL || word[0] <= ' ')
+		{
+			return;
+		}
+		int index = 0;
+		char ch = word[index];
+		width = -mKerning;
+
+		while (ch > ' ')
+		{
+			width += mTextureWindows[ch].getWidth() + mKerning;
+			ch = word[++index];
+		}
 	}
 
 	void GlFont::getTextureWindow(char ch, TextureWindow &render)

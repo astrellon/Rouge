@@ -45,6 +45,11 @@ namespace gfx {
 		virtual void setTabWidth(float width) = 0;
 		virtual float getTabWidth() const = 0;
 
+		virtual float getVariableTabPosition(float xPos) const = 0;
+
+		virtual void measureText(const char *text, float &width, float &height) const = 0;
+		virtual void measureWord(const char *word, float &width, float &height) const = 0;
+
 	};
 
 }

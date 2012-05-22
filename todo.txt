@@ -1,5 +1,4 @@
 TODO:
 -	Check Transforms
 -	UnitTesting
--	Change font loading
 -	Check memory management

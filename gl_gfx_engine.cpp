@@ -43,13 +43,21 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
-		//loadFontDefinitions("data/fontDefs.ssff");
-	
 		GlTextField *text = new GlTextField(this);
 		addObject(text);
 
 		text->setBaseGlFont(getGlFont("basic"));
-		text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
+		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
+		text->setText(string("Hello there, how are you today? I am good thank you"));
+
+		text = new GlTextField(this);
+		addObject(text);
+		text->setWidth(30.0f);
+		text->getTransform().translate(0.0f, -40.0f, 0.0f, true);
+
+		text->setBaseGlFont(getGlFont("basic"));
+		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
+		text->setText(string("Hello there, how are you today? I am good thank you"));
 
 		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/textures/font.png"));
 		
