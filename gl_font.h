@@ -55,7 +55,11 @@ namespace gfx {
 		virtual void measureText(const char *text, float &width, float &height) const;
 		virtual void measureWord(const char *word, float &width, float &height) const;
 
-		virtual float getVariableTabPosition(float xPos) const;;
+		virtual float getVariableTabPosition(float xPos) const;
+
+		virtual void setCharsAcross(int across);
+		virtual int getCharsAcross() const;
+		virtual int getCharsDown() const;
 
 		friend class GlGfxEngine;
 
@@ -77,6 +81,9 @@ namespace gfx {
 		float mLeading;
 		float mSpaceWidth;
 		float mTabWidth;
+
+		int mCharsAcross;
+		int mCharsDown;
 
 		vector<TextureWindow> mTextureWindows;
 

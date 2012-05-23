@@ -15,8 +15,10 @@ namespace gfx {
 		mFont(NULL),
 		mWidth(0.0f),
 		mHeight(0.0f),
-		mRenderedWidth(0),
-		mRenderedHeight(0)
+		mMeasuredWidth(0),
+		mMeasuredHeight(0),
+		mRenderedHeight(0),
+		mDirty(true)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
@@ -24,6 +26,11 @@ namespace gfx {
 	GlTextField::~GlTextField()
 	{
 
+	}
+
+	float GlTextField::getRenderedHeight() const
+	{
+		return mRenderedHeight;
 	}
 
 	IFont *GlTextField::getBaseFont()
@@ -47,18 +54,32 @@ namespace gfx {
 		mFont = font;
 	}
 
-	float GlTextField::getRenderedHeight() const
+	float GlTextField::getMeasuredWidth()
 	{
-		return mRenderedHeight;
+		if (mDirty)
+		{
+			calcSize();
+		}
+		return mMeasuredWidth;
+	}
+	float GlTextField::getMeasuredHeight()
+	{
+		if (mDirty)
+		{
+			calcSize();
+		}
+		return mMeasuredHeight;
 	}
 
 	void GlTextField::setText(string &str)
 	{
 		mText = str;
+		mDirty = true;
 	}
 	void GlTextField::appendText(string &str)
 	{
 		mText.append(str);
+		mDirty = true;
 	}
 	string GlTextField::getText()
 	{
@@ -72,82 +93,9 @@ namespace gfx {
 			return;
 		}
 
-		glPushMatrix();
-		glMultMatrixf(mTransform.data());
-
-		glBindTexture(GL_TEXTURE_2D, mFont->getGlTexture()->getTextureId());
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glBegin(GL_QUADS);
-
-			TextureWindow charRender;
-			float xPos = 0.0f;
-			float yPos = 0.0f;
-
-			int len = static_cast<int>(mText.size());
-			bool inWord = false;
-			for (int i = 0; i < len; i++)
-			{
-				char ch = mText[i];
-				if (ch <= ' ' && inWord)
-				{
-					inWord = false;
-				}
-
-				if (ch == ' ')
-				{
-					xPos += mFont->getSpaceWidth();
-					continue;
-				}
-				else if(ch == '\t')
-				{
-					xPos = mFont->getVariableTabPosition(xPos);
-					continue;
-				}
-				else if(ch == '\n')
-				{
-					xPos = 0.0f;
-					yPos += mFont->getCharHeight() + mFont->getLeading();
-					continue;
-				}
-				else if (mWidth > 0.0f && ch > ' ' && !inWord)
-				{
-					inWord = true;
-					float wordWidth;
-					float wordHeight;
-					mFont->measureWord(mText.c_str() + i, wordWidth, wordHeight);
-					if (xPos + wordWidth > mWidth)
-					{
-						xPos = 0.0f;
-						yPos += mFont->getCharHeight() + mFont->getLeading();
-					}
-				}
-				
-				mFont->getTextureWindow(ch, charRender);
-
-				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
-				glVertex2f(xPos, yPos);
-				
-				glTexCoord2f(charRender.getRightX(), charRender.getTopY());
-				glVertex2f(xPos+charRender.getWidth(), yPos);
-
-				glTexCoord2f(charRender.getRightX(), charRender.getBottomY());
-				glVertex2f(xPos + charRender.getWidth(), yPos + charRender.getHeight());
-
-				glTexCoord2f(charRender.getLeftX(), charRender.getBottomY());
-				glVertex2f(xPos, yPos + charRender.getHeight());
-
-				xPos += charRender.getWidth() + mFont->getKerning();
-			}
-		glEnd();
-
-		mRenderedHeight = yPos + mFont->getCharHeight();
-
-		glDisable(GL_BLEND);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glPopMatrix();
+		preRender();
+		renderText(mText);
+		postRender();
 	}
 
 	am::math::Transform &GlTextField::getTransform()
@@ -158,6 +106,7 @@ namespace gfx {
 	void GlTextField::setWidth(float width)
 	{
 		mWidth = width;
+		mDirty = true;
 	}
 	float GlTextField::getWidth() const
 	{
@@ -167,6 +116,7 @@ namespace gfx {
 	void GlTextField::setHeight(float height)
 	{
 		mHeight = height;
+		mDirty = true;
 	}
 	float GlTextField::getHeight() const
 	{
@@ -182,5 +132,99 @@ namespace gfx {
 		return mGfxEngine;
 	}
 
+	void GlTextField::calcSize()
+	{
+		mFont->measureText(mText.c_str(), mMeasuredWidth, mMeasuredHeight);
+		mDirty = false;
+	}
+
+	void GlTextField::preRender()
+	{
+		glPushMatrix();
+		glMultMatrixf(mTransform.data());
+
+		glBindTexture(GL_TEXTURE_2D, mFont->getGlTexture()->getTextureId());
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glBegin(GL_QUADS);
+
+		mCurrXpos = 0.0f;
+		mCurrYpos = 0.0f;
+		mInWord = false;
+	}
+
+	void GlTextField::postRender()
+	{
+		glEnd();
+
+		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
+
+		glDisable(GL_BLEND);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glPopMatrix();
+	}
+
+	void GlTextField::newLine()
+	{
+		mCurrXpos = 0.0f;
+		mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
+	}
+	void GlTextField::renderText(const string &text)
+	{
+		int len = static_cast<int>(text.size());
+		for (int i = 0; i < len; i++)
+		{
+			char ch = text[i];
+			if (ch <= ' ' && mInWord)
+			{
+				mInWord = false;
+			}
+
+			if (ch == ' ')
+			{
+				mCurrXpos += mFont->getSpaceWidth();
+				continue;
+			}
+			else if(ch == '\t')
+			{
+				mCurrXpos = mFont->getVariableTabPosition(mCurrXpos);
+				continue;
+			}
+			else if(ch == '\n')
+			{
+				newLine();
+				continue;
+			}
+			else if (mWidth > 0.0f && ch > ' ' && !mInWord)
+			{
+				mInWord = true;
+				float wordWidth;
+				float wordHeight;
+				mFont->measureWord(text.c_str() + i, wordWidth, wordHeight);
+				if (mCurrXpos + wordWidth > mWidth)
+				{
+					newLine();
+				}
+			}
+				
+			mFont->getTextureWindow(ch, mCharRender);
+
+			glTexCoord2f(mCharRender.getLeftX(), mCharRender.getTopY());
+			glVertex2f(mCurrXpos, mCurrYpos);
+				
+			glTexCoord2f(mCharRender.getRightX(), mCharRender.getTopY());
+			glVertex2f(mCurrXpos + mCharRender.getWidth(), mCurrYpos);
+
+			glTexCoord2f(mCharRender.getRightX(), mCharRender.getBottomY());
+			glVertex2f(mCurrXpos + mCharRender.getWidth(), mCurrYpos + mCharRender.getHeight());
+
+			glTexCoord2f(mCharRender.getLeftX(), mCharRender.getBottomY());
+			glVertex2f(mCurrXpos, mCurrYpos + mCharRender.getHeight());
+
+			mCurrXpos += mCharRender.getWidth() + mFont->getKerning();
+		}
+	}
 }
 }

@@ -21,6 +21,9 @@ namespace gfx {
 		virtual void appendText(string &str) = 0;
 		virtual string getText() = 0;
 
+		virtual float getMeasuredWidth() = 0;
+		virtual float getMeasuredHeight() = 0;
+
 	};
 
 }

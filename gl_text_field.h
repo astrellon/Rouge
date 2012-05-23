@@ -2,6 +2,7 @@
 
 #include "itext_field.h"
 #include "igl_renderable.h"
+#include "texture_window.h"
 
 #include "transform.h"
 
@@ -20,10 +21,10 @@ namespace gfx {
 		GlTextField(GlGfxEngine *engine);
 		~GlTextField();
 
-		float getRenderedHeight() const;
-
 		GlFont *getBaseGlFont();
 		void setBaseGlFont(GlFont *font);
+
+		float getRenderedHeight() const;
 
 		// ITextField methods
 		virtual IFont *getBaseFont();
@@ -32,6 +33,9 @@ namespace gfx {
 		virtual void setText(string &str);
 		virtual void appendText(string &str);
 		virtual string getText();
+
+		virtual float getMeasuredWidth();
+		virtual float getMeasuredHeight();
 
 		// IRenderable methods
 		virtual void render(float dt);
@@ -55,13 +59,31 @@ namespace gfx {
 		string mText;
 		GlFont *mFont;
 
-		float mRenderedWidth;
+		float mMeasuredWidth;
+		float mMeasuredHeight;
+
 		float mRenderedHeight;
+
+		float mCurrXpos;
+		float mCurrYpos;
+
+		bool mInWord;
+
+		bool mDirty;
+
+		TextureWindow mCharRender;
 
 		am::math::Transform mTransform;
 		float mWidth;
 		float mHeight;
 		GlGfxEngine *mGfxEngine;
+
+		void calcSize();
+
+		void preRender();
+		void postRender();
+		void newLine();
+		void renderText(const string &text);
 	};
 
 }

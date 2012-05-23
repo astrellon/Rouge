@@ -13,7 +13,9 @@ namespace gfx {
 		mKerning(1.0f),
 		mLeading(1.0f),
 		mSpaceWidth(6.0f),
-		mTabWidth(24.0f)
+		mTabWidth(24.0f),
+		mCharsAcross(16),
+		mCharsDown(16)
 	{
 
 	}
@@ -74,6 +76,10 @@ namespace gfx {
 		if (value.has("tabWidth", JV_INT) || value.has("tabWidth", JV_FLOAT))
 		{
 			mTabWidth = value["tabWidth"].getFloat();
+		}
+		if (value.has("charsAcross", JV_INT))
+		{
+			setCharsAcross(value["charsAcross"].getInt());
 		}
 		postLoad();
 
@@ -207,6 +213,20 @@ namespace gfx {
 		}
 	}
 
+	void GlFont::setCharsAcross(int across)
+	{
+		mCharsAcross = across;
+		mCharsDown = 256 / across;
+	}
+	int GlFont::getCharsAcross() const
+	{
+		return mCharsAcross;
+	}
+	int GlFont::getCharsDown() const
+	{
+		return mCharsDown;
+	}
+
 	void GlFont::getTextureWindow(char ch, TextureWindow &render)
 	{
 		render = mTextureWindows[ch];
@@ -222,13 +242,13 @@ namespace gfx {
 
 		if (!mUtfSupport)
 		{
-			mCharHeight = mTexture->getHeight() / 16.0f;
-			mFixedCharWidth = mTexture->getWidth() / 16.0f;
+			mCharHeight = mTexture->getHeight() / static_cast<float>(mCharsDown);
+			mFixedCharWidth = mTexture->getWidth() / static_cast<float>(mCharsAcross);
 			if (mFixedWidth)
 			{
-				for (int y = 0; y < 16; y++)
+				for (int y = 0; y < mCharsDown; y++)
 				{
-					for (int x = 0; x < 16; x++)
+					for (int x = 0; x < mCharsAcross; x++)
 					{
 						render.mWidth = mFixedCharWidth;
 						render.mHeight = mCharHeight;
@@ -247,9 +267,9 @@ namespace gfx {
 				int *tempData = new int[mTexture->getWidth() * mTexture->getHeight()];
 				glBindTexture(GL_TEXTURE_2D, mTexture->getTextureId());
 				glGetTexImage(GL_TEXTURE_2D, 0, mTexture->getGlFormat(), GL_UNSIGNED_BYTE, tempData);
-				for (int y = 0; y < 16; y++)
+				for (int y = 0; y < mCharsDown; y++)
 				{
-					for (int x = 0; x < 16; x++)
+					for (int x = 0; x < mCharsAcross; x++)
 					{
 						pair<float, float> pos = processChar(tempData, x, y);
 
@@ -290,7 +310,7 @@ namespace gfx {
 			{
 				unsigned int pixel = data[y * width + x];
 				unsigned int alpha = pixel & 0xFF000000;
-				if (alpha > 0)
+				if (alpha > 0x05000000)
 				{
 					if (left < 0)
 					{

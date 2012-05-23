@@ -11,6 +11,7 @@
 #include "gl_text_field.h"
 #include "gl_sprite.h"
 #include "gl_layer.h"
+#include "gl_text_list.h"
 
 #include "logger.h"
 
@@ -43,28 +44,42 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
-		GlTextField *text = new GlTextField(this);
-		addObject(text);
+		//GlTextArea *area = new GlTextArea(this);
+		//addObject(area);
+		GlTextList *list = new GlTextList(this);
+		addObject(list);
 
-		text->setBaseGlFont(getGlFont("basic"));
+		list->setWidth(600.0f);
+		list->setBaseGlFont(getGlFont("arial"));
+		list->addEntry("Hello there, how are you today?", "Info");
+		list->addEntry("I am good thank you, how are you?", "Info");
+
+		//GlTextField *text = new GlTextField(this);
+		//addObject(text);
+		//area->addGlTextField("info", text);
+
+		//text->setBaseGlFont(getGlFont("basic"));
+		//text->setText(string("Hello there, how are you today? I am good thank you"));
+
+		//text = new GlTextField(this);
+		//addObject(text);
+		//area->addGlTextField("info", text);
+
+		//text->setWidth(30.0f);
+		//text->getTransform().translate(0.0f, -40.0f, 0.0f, true);
+
+		//text->setBaseGlFont(getGlFont("basic"));
 		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
-		text->setText(string("Hello there, how are you today? I am good thank you"));
+		//text->setText(string("Hello there, how are you today? I am good thank you"));
 
-		text = new GlTextField(this);
-		addObject(text);
-		text->setWidth(30.0f);
-		text->getTransform().translate(0.0f, -40.0f, 0.0f, true);
-
-		text->setBaseGlFont(getGlFont("basic"));
-		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
-		text->setText(string("Hello there, how are you today? I am good thank you"));
-
-		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/textures/font.png"));
+		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/textures/fontArial.png"));
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
 		sprite->setNumTotalFrames(256);
 
+		sprite->setWidth(128.0f);
+		sprite->setHeight(128.0f);
 		sprite->setFrameRate(4.0f);
 
 		GlLayer *layer = new GlLayer(this);

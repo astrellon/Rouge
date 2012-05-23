@@ -97,6 +97,9 @@
     <ClCompile Include="texture_window.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
+    <ClCompile Include="gl_text_list.cpp">
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -209,6 +212,12 @@
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gl_layer.h">
+      <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="itext_list.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_text_list.h">
       <Filter>gfx\gl</Filter>
     </ClInclude>
   </ItemGroup>
