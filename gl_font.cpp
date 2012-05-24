@@ -244,10 +244,15 @@ namespace gfx {
 		TextureWindow render;
 
 		const GlTexture *texture = mAsset->getGlTexture();
+		float assetWidth = mAsset->getTextureWindow().getWidth();
+		float assetHeight = mAsset->getTextureWindow().getHeight();
+
+		float assetLeft = mAsset->getTextureWindow().getLeftX();
+		float assetTop = mAsset->getTextureWindow().getTopY();
 		if (!mUtfSupport)
 		{
-			mCharHeight = texture->getHeight() / static_cast<float>(mCharsDown);
-			mFixedCharWidth = texture->getWidth() / static_cast<float>(mCharsAcross);
+			mCharHeight = assetHeight / static_cast<float>(mCharsDown);
+			mFixedCharWidth = assetWidth / static_cast<float>(mCharsAcross);
 			if (mFixedWidth)
 			{
 				for (int y = 0; y < mCharsDown; y++)
@@ -258,10 +263,12 @@ namespace gfx {
 						render.mHeight = mCharHeight;
 						float uvWidth = render.mWidth / texture->getWidth();
 						float uvHeight = render.mHeight / texture->getHeight();
-						render.mLeftX = static_cast<float>(x) * uvWidth;
-						render.mTopY =  static_cast<float>(y) * uvHeight;
+						render.mLeftX = static_cast<float>(x) * uvWidth + assetLeft;
+						render.mTopY =  static_cast<float>(y) * uvHeight + assetTop;
 						render.mRightX = render.mLeftX + uvWidth;
 						render.mBottomY = render.mTopY + uvHeight;
+
+
 						mTextureWindows.push_back(render);
 					}
 				}
@@ -282,7 +289,7 @@ namespace gfx {
 						float uvWidth = render.mWidth / texture->getWidth();
 						float uvHeight = render.mHeight / texture->getHeight();
 						render.mLeftX = pos.first / texture->getWidth();
-						render.mTopY = static_cast<float>(y) * uvHeight;
+						render.mTopY = static_cast<float>(y) * uvHeight + assetTop;
 						render.mRightX = render.mLeftX + uvWidth;
 						render.mBottomY = render.mTopY + uvHeight;
 
@@ -303,9 +310,13 @@ namespace gfx {
 		int width = static_cast<int>(mAsset->getGlTexture()->getWidth());
 
 		int xStart = xPos * static_cast<int>(mFixedCharWidth);
+		xStart += static_cast<int>(mAsset->getTextureWindow().getLeftX() *
+			mAsset->getGlTexture()->getWidth());
 		int xEnd = xStart + static_cast<int>(mFixedCharWidth);
 
 		int yStart = yPos * static_cast<int>(mCharHeight);
+		yStart += static_cast<int>(mAsset->getTextureWindow().getTopY() *
+			mAsset->getGlTexture()->getHeight());
 		int yEnd = yStart + static_cast<int>(mCharHeight);
 
 		for (int x = xStart; x < xEnd; x++)

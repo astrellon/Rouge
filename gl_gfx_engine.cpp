@@ -51,7 +51,7 @@ namespace gfx {
 		addObject(list);
 
 		list->setWidth(600.0f);
-		list->setBaseGlFont(getGlFont("arial"));
+		list->setBaseGlFont(getGlFont("basic"));
 		list->addEntry("Hello there, how are you today?", "Info");
 		list->addEntry("I am good thank you, how are you?", "Info");
 
@@ -73,7 +73,7 @@ namespace gfx {
 		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
 		//text->setText(string("Hello there, how are you today? I am good thank you"));
 
-		GlSprite *sprite = new GlSprite(this, getGlAsset("fontArial"));
+		GlSprite *sprite = new GlSprite(this, getGlAsset("fontBasic"));
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);

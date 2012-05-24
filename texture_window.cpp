@@ -42,10 +42,10 @@ namespace gfx {
 		float uvWidth = mRightX - mLeftX;
 		float uvHeight = mBottomY - mTopY;
 
-		sub.mLeftX *= uvWidth + mLeftX;
-		sub.mRightX *= uvWidth + mLeftX;
-		sub.mTopY *= uvHeight + mTopY;
-		sub.mBottomY *= uvHeight + mTopY;
+		sub.mLeftX = sub.mLeftX * uvWidth + mLeftX;
+		sub.mRightX = sub.mRightX * uvWidth + mLeftX;
+		sub.mTopY = sub.mTopY * uvHeight + mTopY;
+		sub.mBottomY = sub.mBottomY * uvHeight + mTopY;
 
 		sub.mWidth *= uvWidth;
 		sub.mHeight *= uvHeight;

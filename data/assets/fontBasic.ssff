@@ -1,3 +1,9 @@
 {	// Font Basic Asset
-	texture: "data/textures/fontBasic.png"
+	texture: "data/textures/fontBasicBig.png",
+	window: {
+		leftX: 64,
+		rightX: 192,
+		topY: 64,
+		bottomY: 192
+	}
 }
