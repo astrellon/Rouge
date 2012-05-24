@@ -1,5 +1,5 @@
 {	// Basic font definition
-	texture: "data/textures/font.png",
+	asset: "fontBasic",
 	fixedWidth: true,
 	utf: false,
 	kerning: 1,

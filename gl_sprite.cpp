@@ -2,13 +2,14 @@
 
 #include "gl_gfx_engine.h"
 #include "gl_texture.h"
+#include "gl_asset.h"
 
 namespace am {
 namespace gfx {
 
-	GlSprite::GlSprite(GlGfxEngine *engine, GlTexture *texture) :
+	GlSprite::GlSprite(GlGfxEngine *engine, GlAsset *asset) :
 		mGfxEngine(engine),
-		mTexture(texture),
+		mAsset(asset),
 		mNumFramesX(1),
 		mNumFramesY(1),
 		mMaxFrames(1),
@@ -25,26 +26,26 @@ namespace gfx {
 	{
 	}
 
-	ITexture *GlSprite::getTexture()
+	IAsset *GlSprite::getAsset()
 	{
-		return mTexture;
+		return mAsset;
 	}
-	GlTexture *GlSprite::getGlTexture()
+	GlAsset *GlSprite::getGlAsset()
 	{
-		return mTexture;
+		return mAsset;
 	}
-	void GlSprite::setTexture(ITexture *texture)
+	void GlSprite::setAsset(IAsset *asset)
 	{
-		GlTexture *glTexture = dynamic_cast<GlTexture *>(texture);
-		if (glTexture != NULL)
+		GlAsset *glAsset = dynamic_cast<GlAsset *>(asset);
+		if (glAsset != NULL)
 		{
-			mTexture = glTexture;
+			mAsset = glAsset;
 			mAnimationDirty = true;
 		}
 	}
-	void GlSprite::setGlTexture(GlTexture *texture)
+	void GlSprite::setGlAsset(GlAsset *asset)
 	{
-		mTexture = texture;
+		mAsset = asset;
 	}
 
 	void GlSprite::setNumFramesX(int num)
@@ -134,13 +135,13 @@ namespace gfx {
 		float width = mWidth;
 		if (width == 0)
 		{
-			width = static_cast<float>(mTexture->getWidth());
+			width = static_cast<float>(mAsset->getGlTexture()->getWidth());
 		}
 
 		float height = mHeight;
 		if (height == 0)
 		{
-			height = static_cast<float>(mTexture->getHeight());
+			height = static_cast<float>(mAsset->getGlTexture()->getHeight());
 		}
 
 		if (mAnimationDirty)
@@ -148,7 +149,7 @@ namespace gfx {
 			processAnimation();
 		}
 		
-		glBindTexture(GL_TEXTURE_2D, mTexture->getTextureId());
+		glBindTexture(GL_TEXTURE_2D, mAsset->getGlTexture()->getTextureId());
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -209,8 +210,8 @@ namespace gfx {
 
 	void GlSprite::processAnimation()
 	{
-		float textureWidth = mTexture->getWidth();
-		float textureHeight = mTexture->getHeight();
+		float textureWidth = mAsset->getGlTexture()->getWidth();
+		float textureHeight = mAsset->getGlTexture()->getHeight();
 
 		float frameWidth = textureWidth / static_cast<float>(mNumFramesX);
 		float frameHeight = textureHeight / static_cast<float>(mNumFramesY);
@@ -232,6 +233,8 @@ namespace gfx {
 			window.setValues(frameWidth, frameHeight,
 				uvXPos, uvXPos + uvWidth,
 				uvYPos, uvYPos + uvHeight);
+
+			mAsset->getTextureWindow().createSubWindow(window);
 
 			mAnimationWindows.push_back(window);
 		}

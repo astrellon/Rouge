@@ -5,13 +5,13 @@
 namespace am {
 namespace gfx {
 
-	class ITexture;
+	class IAsset;
 
 	class ISprite : public IRenderable {
 	public:
 
-		virtual ITexture *getTexture() = 0;
-		virtual void setTexture(ITexture *texture) = 0;
+		virtual IAsset *getAsset() = 0;
+		virtual void setAsset(IAsset *asset) = 0;
 
 		virtual void setNumFramesX(int num) = 0;
 		virtual int getNumFramesX() const = 0;

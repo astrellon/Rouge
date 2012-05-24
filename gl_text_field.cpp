@@ -5,6 +5,7 @@
 #include "gl_gfx_engine.h"
 #include "gl_texture.h"
 #include "gl_font.h"
+#include "gl_asset.h"
 
 namespace am {
 namespace gfx {
@@ -143,7 +144,7 @@ namespace gfx {
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 
-		glBindTexture(GL_TEXTURE_2D, mFont->getGlTexture()->getTextureId());
+		glBindTexture(GL_TEXTURE_2D, mFont->getGlAsset()->getGlTexture()->getTextureId());
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

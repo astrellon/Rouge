@@ -21,6 +21,8 @@ namespace gfx {
 			float topY, float bottomY,
 			float leftX, float rightX);
 
+		void createSubWindow(TextureWindow &sub) const;
+
 		friend class IFont;
 		friend class GlFont;
 

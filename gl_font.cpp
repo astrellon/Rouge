@@ -1,6 +1,7 @@
 #include "gl_font.h"
 
 #include "gl_texture.h"
+#include "gl_asset.h"
 #include "gl_gfx_engine.h"
 
 namespace am {
@@ -8,7 +9,7 @@ namespace gfx {
 
 	GlFont::GlFont(GlGfxEngine *engine, const char *name) :
 		mGfxEngine(engine),
-		mTexture(NULL),
+		mAsset(NULL),
 		mName(name),
 		mKerning(1.0f),
 		mLeading(1.0f),
@@ -24,34 +25,36 @@ namespace gfx {
 
 	}
 
-	ITexture *GlFont::getTexture()
+	IAsset *GlFont::getAsset()
 	{
-		return mTexture;
+		return mAsset;
 	}
-	GlTexture *GlFont::getGlTexture()
+	GlAsset *GlFont::getGlAsset()
 	{
-		return mTexture;
+		return mAsset;
 	}
-	void GlFont::setTexture(ITexture *texture)
+	void GlFont::setAsset(IAsset *asset)
 	{
-		GlTexture *glTexture = dynamic_cast<GlTexture *>(texture);
-		if (glTexture == NULL)
+		setGlAsset(dynamic_cast<GlAsset *>(asset));
+	}
+	void GlFont::setGlAsset(GlAsset *asset)
+	{
+		if (asset != NULL)
 		{
-			return;
+			mAsset = asset;
 		}
-		mTexture = glTexture;
 	}
 
 	bool GlFont::isLoaded() const
 	{
-		return mTexture != NULL && mTexture->isLoaded() && !mTextureWindows.empty();
+		return mAsset != NULL && mAsset->getGlTexture() != NULL && !mTextureWindows.empty();
 	}
 
 	int GlFont::loadDef(JsonValue value)
 	{
-		if (value.has("texture", JV_STR))
+		if (value.has("asset", JV_STR))
 		{
-			mTexture = mGfxEngine->loadGlTexture(value["texture"].getCStr());
+			mAsset = mGfxEngine->getGlAsset(value["asset"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
 		{
@@ -234,16 +237,17 @@ namespace gfx {
 
 	void GlFont::postLoad()
 	{
-		if (mTexture == NULL || !mTexture->isLoaded())
+		if (mAsset == NULL || mAsset->getGlTexture() == NULL)
 		{
 			return;
 		}
 		TextureWindow render;
 
+		const GlTexture *texture = mAsset->getGlTexture();
 		if (!mUtfSupport)
 		{
-			mCharHeight = mTexture->getHeight() / static_cast<float>(mCharsDown);
-			mFixedCharWidth = mTexture->getWidth() / static_cast<float>(mCharsAcross);
+			mCharHeight = texture->getHeight() / static_cast<float>(mCharsDown);
+			mFixedCharWidth = texture->getWidth() / static_cast<float>(mCharsAcross);
 			if (mFixedWidth)
 			{
 				for (int y = 0; y < mCharsDown; y++)
@@ -252,8 +256,8 @@ namespace gfx {
 					{
 						render.mWidth = mFixedCharWidth;
 						render.mHeight = mCharHeight;
-						float uvWidth = render.mWidth / mTexture->getWidth();
-						float uvHeight = render.mHeight / mTexture->getHeight();
+						float uvWidth = render.mWidth / texture->getWidth();
+						float uvHeight = render.mHeight / texture->getHeight();
 						render.mLeftX = static_cast<float>(x) * uvWidth;
 						render.mTopY =  static_cast<float>(y) * uvHeight;
 						render.mRightX = render.mLeftX + uvWidth;
@@ -264,9 +268,9 @@ namespace gfx {
 			}
 			else
 			{
-				int *tempData = new int[mTexture->getWidth() * mTexture->getHeight()];
-				glBindTexture(GL_TEXTURE_2D, mTexture->getTextureId());
-				glGetTexImage(GL_TEXTURE_2D, 0, mTexture->getGlFormat(), GL_UNSIGNED_BYTE, tempData);
+				int *tempData = new int[texture->getWidth() * texture->getHeight()];
+				glBindTexture(GL_TEXTURE_2D, texture->getTextureId());
+				glGetTexImage(GL_TEXTURE_2D, 0, texture->getGlFormat(), GL_UNSIGNED_BYTE, tempData);
 				for (int y = 0; y < mCharsDown; y++)
 				{
 					for (int x = 0; x < mCharsAcross; x++)
@@ -275,9 +279,9 @@ namespace gfx {
 
 						render.mWidth = (pos.second - pos.first);
 						render.mHeight = mCharHeight;
-						float uvWidth = render.mWidth / mTexture->getWidth();
-						float uvHeight = render.mHeight / mTexture->getHeight();
-						render.mLeftX = pos.first / mTexture->getWidth();
+						float uvWidth = render.mWidth / texture->getWidth();
+						float uvHeight = render.mHeight / texture->getHeight();
+						render.mLeftX = pos.first / texture->getWidth();
 						render.mTopY = static_cast<float>(y) * uvHeight;
 						render.mRightX = render.mLeftX + uvWidth;
 						render.mBottomY = render.mTopY + uvHeight;
@@ -296,7 +300,7 @@ namespace gfx {
 		float left = -1;
 		float right = -1;
 
-		int width = static_cast<int>(mTexture->getWidth());
+		int width = static_cast<int>(mAsset->getGlTexture()->getWidth());
 
 		int xStart = xPos * static_cast<int>(mFixedCharWidth);
 		int xEnd = xStart + static_cast<int>(mFixedCharWidth);

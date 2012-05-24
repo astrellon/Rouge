@@ -12,14 +12,14 @@ using namespace am::util;
 namespace am {
 namespace gfx {
 
-	class ITexture;
+	class IAsset;
 	class IGfxEngine;
 
 	class IFont : public IGfxComponent {
 	public:
 		
-		virtual ITexture *getTexture() = 0;
-		virtual void setTexture(ITexture *texture) = 0;
+		virtual IAsset *getAsset() = 0;
+		virtual void setAsset(IAsset *asset) = 0;
 
 		virtual string getName() const = 0;
 

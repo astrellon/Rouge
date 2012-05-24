@@ -14,15 +14,20 @@ namespace am {
 namespace gfx {
 
 	class GlTexture;
+	class GlAsset;
 	class GlGfxEngine;
 
 	class GlFont : public IFont, public IGlGfxComponent {
 	public:
+		// GlFont methods
 		~GlFont();
 
-		virtual ITexture *getTexture();
-		GlTexture *getGlTexture();
-		virtual void setTexture(ITexture *texture);
+		GlAsset *getGlAsset();
+		void setGlAsset(GlAsset *asset);
+
+		// IFont methods
+		virtual IAsset *getAsset();
+		virtual void setAsset(IAsset *asset);
 
 		virtual string getName() const;
 
@@ -36,10 +41,6 @@ namespace gfx {
 		virtual float getCharHeight() const;
 		virtual float getFixedCharWidth() const;
 
-		virtual IGfxEngine *getGfxEngine();
-		virtual GlGfxEngine *getGlGfxEngine();
-
-		// IFont methods
 		virtual void setKerning(float kerning);
 		virtual float getKerning() const;
 
@@ -61,13 +62,18 @@ namespace gfx {
 		virtual int getCharsAcross() const;
 		virtual int getCharsDown() const;
 
+		// IGfxComponent methods
+		virtual IGfxEngine *getGfxEngine();
+		// IGlGfxComponent methods
+		virtual GlGfxEngine *getGlGfxEngine();
+
 		friend class GlGfxEngine;
 
 	protected:
 
 		GlFont(GlGfxEngine *engine, const char *name);
 
-		GlTexture *mTexture;
+		GlAsset *mAsset;
 		GlGfxEngine *mGfxEngine;
 		string mName;
 

@@ -6,6 +6,7 @@
 #include "IL/il.h"
 
 #include "igl_renderable.h"
+#include "gl_asset.h"
 #include "gl_texture.h"
 #include "gl_font.h"
 #include "gl_text_field.h"
@@ -72,7 +73,7 @@ namespace gfx {
 		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
 		//text->setText(string("Hello there, how are you today? I am good thank you"));
 
-		GlSprite *sprite = new GlSprite(this, loadGlTexture("data/textures/fontArial.png"));
+		GlSprite *sprite = new GlSprite(this, getGlAsset("fontArial"));
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
@@ -175,11 +176,53 @@ namespace gfx {
 		}
 	}
 
-	ITexture *GlGfxEngine::loadTexture(const char *filename)
+	IAsset *GlGfxEngine::getAsset(const char *assetName)
 	{
-		return loadGlTexture(filename);
+		return getGlAsset(assetName);
 	}
-	GlTexture *GlGfxEngine::loadGlTexture(const char *filename)
+	GlAsset *GlGfxEngine::getGlAsset(const char *assetName)
+	{
+		string assetNameStr = assetName;
+		AssetManager::iterator iter = mAssetManager.find(assetNameStr);
+		if (iter != mAssetManager.end())
+		{
+			return iter->second;
+		}
+
+		stringstream ss;
+		ss << "data/assets/" << assetNameStr << ".ssff";
+
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to load asset '" << assetNameStr << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("ASST", errss.str().c_str());
+			return NULL;
+		}
+
+		GlAsset *asset = new GlAsset(this, assetName);
+		int loadAsset = asset->loadDef(loaded);
+		if (loadAsset != 0)
+		{
+			stringstream errss;
+			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
+			am_log("ASST", errss.str().c_str());
+			delete asset;
+			return NULL;
+		}
+
+		mAssetManager[assetNameStr] = asset;
+
+		return asset;
+	}
+
+	ITexture *GlGfxEngine::getTexture(const char *filename)
+	{
+		return getGlTexture(filename);
+	}
+	GlTexture *GlGfxEngine::getGlTexture(const char *filename)
 	{
 		string fileStr = filename;
 		TextureManager::iterator iter = mTextureManager.find(fileStr);
@@ -194,6 +237,10 @@ namespace gfx {
 			mTextureManager[fileStr] = texture;
 			return texture;
 		}
+		stringstream errss;
+		errss << "Unable to load texture '" << filename << "'";
+		am_log("GFX", errss.str().c_str());
+		
 		return NULL;
 	}
 	IFont *GlGfxEngine::getFont(const char *fontName)
@@ -210,13 +257,13 @@ namespace gfx {
 		}
 
 		stringstream ss;
-		ss << "data/fonts/" << fontName << ".ssff";
+		ss << "data/fonts/" << fontNameStr << ".ssff";
 
 		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
 		if (loaded.getType() != JV_OBJ)
 		{
 			stringstream errss;
-			errss << "Unable to load font '" << fontName << "', using the path '";
+			errss << "Unable to load font '" << fontNameStr << "', using the path '";
 			errss << ss.str() << '\''; 
 			am_log("FONT", errss.str().c_str());
 			return NULL;
@@ -227,13 +274,13 @@ namespace gfx {
 		if (loadFont != 0)
 		{
 			stringstream errss;
-			errss << "Error loading font definition '" << fontName << "': " << loadFont;
+			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
 			am_log("FONT", errss.str().c_str());
 			delete font;
 			return NULL;
 		}
 
-		mFontManager[string(fontName)] = font;
+		mFontManager[fontNameStr] = font;
 
 		return font;
 	}

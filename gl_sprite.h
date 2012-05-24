@@ -14,23 +14,23 @@ namespace am {
 namespace gfx {
 
 	class IGfxEngine;
-	class ITexture;
+	class IAsset;
 
 	class GlGfxEngine;
-	class GlTexture;
+	class GlAsset;
 
 	class GlSprite : public ISprite, public IGlRenderable {
 	public:
 		// GlSprite methods
-		GlSprite(GlGfxEngine *engine, GlTexture *texture);
+		GlSprite(GlGfxEngine *engine, GlAsset *asset);
 		~GlSprite();
 
-		GlTexture *getGlTexture();
-		void setGlTexture(GlTexture *texture);
+		GlAsset *getGlAsset();
+		void setGlAsset(GlAsset *asset);
 
 		// ISprite Methods
-		virtual ITexture *getTexture();
-		virtual void setTexture(ITexture *texture);
+		virtual IAsset *getAsset();
+		virtual void setAsset(IAsset *asset);
 
 		virtual void setNumFramesX(int num);
 		virtual int getNumFramesX() const;
@@ -66,7 +66,7 @@ namespace gfx {
 
 	protected:
 
-		GlTexture *mTexture;
+		GlAsset *mAsset;
 
 		int mNumFramesX;
 		int mNumFramesY;

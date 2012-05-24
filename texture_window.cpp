@@ -36,6 +36,21 @@ namespace gfx {
 	{
 		return mRightX;
 	}
+
+	void TextureWindow::createSubWindow(TextureWindow &sub) const
+	{
+		float uvWidth = mRightX - mLeftX;
+		float uvHeight = mBottomY - mTopY;
+
+		sub.mLeftX *= uvWidth + mLeftX;
+		sub.mRightX *= uvWidth + mLeftX;
+		sub.mTopY *= uvHeight + mTopY;
+		sub.mBottomY *= uvHeight + mTopY;
+
+		sub.mWidth *= uvWidth;
+		sub.mHeight *= uvHeight;
+	}
+
 	void TextureWindow::setValues(float width, float height,
 		float topY, float bottomY,
 		float leftX, float rightX)

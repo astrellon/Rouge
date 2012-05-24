@@ -1,0 +1,6 @@
+{	// Font Arial Asset
+	texture: "data/textures/fontArial.png"
+	window: {
+		rightX: 256
+	}
+}

@@ -26,7 +26,6 @@ namespace gfx {
 
 	int GlTexture::loadFromFile(const char *filename)
 	{
-
 		if (filename == NULL || filename[0] == '\0')
 		{
 			return -1;
