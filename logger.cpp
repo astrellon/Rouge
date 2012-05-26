@@ -98,9 +98,9 @@ namespace log {
 		}
 		else
 		{
-			int startIndex = static_cast<int>(mEntries.size()) - offset - num;
+			int startIndex = max(0, static_cast<int>(mEntries.size()) - offset - num);
 			
-			int maxIndex = max(static_cast<int>(mEntries.size()), startIndex + num);
+			int maxIndex = min(static_cast<int>(mEntries.size()), startIndex + num);
 			for (int i = startIndex; i < maxIndex; i++)
 			{
 				entries.push_back(mEntries[i]);

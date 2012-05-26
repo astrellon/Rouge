@@ -3,6 +3,12 @@
 #include "gl_texture.h"
 #include "gl_gfx_engine.h"
 
+#include "logger.h"
+
+#include <string>
+
+using namespace std;
+
 namespace am {
 namespace gfx {
 
@@ -60,11 +66,25 @@ namespace gfx {
 		if (value.has("texture", JV_STR))
 		{
 			setGlTexture(mGfxEngine->getGlTexture(value["texture"].getCStr()));
+			if (mTexture == NULL)
+			{
+				string errstr = "Unable to load texture (";
+				errstr += value["texture"].getCStr();
+				errstr += ") for asset '";
+				errstr += mName.c_str();
+				errstr += '\'';
+				am_log("ASSET", errstr.c_str());
+				return -1;
+			}
 		}
 		else
 		{
 			return -1;
 		}
+		string str = "Loaded asset '";
+		str += mName.c_str();
+		str += '\'';
+		am_log("ASSET", str.c_str());
 		float textureWidth = static_cast<float>(mTexture->getWidth());
 		float textureHeight = static_cast<float>(mTexture->getHeight());
 		float width = textureWidth;

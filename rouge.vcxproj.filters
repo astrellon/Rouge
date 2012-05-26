@@ -103,6 +103,9 @@
     <ClCompile Include="gl_asset.cpp">
       <Filter>gfx\gl</Filter>
     </ClCompile>
+    <ClCompile Include="gl_log_listener.cpp">
+      <Filter>gfx\gl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -228,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="iasset.h">
       <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_log_listener.h">
+      <Filter>gfx\gl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

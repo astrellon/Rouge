@@ -23,7 +23,7 @@ namespace log {
 	{
 		if (mFile.is_open())
 		{
-			mFile << entry.getType() << ":\t" << entry.getMessage() << '\n';
+			mFile << entry.getType() << ":\t" << entry.getMessage() << endl;
 		}
 	}
 

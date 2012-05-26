@@ -13,6 +13,7 @@
 #include "gl_sprite.h"
 #include "gl_layer.h"
 #include "gl_text_list.h"
+#include "gl_log_listener.h"
 
 #include "logger.h"
 
@@ -52,8 +53,11 @@ namespace gfx {
 
 		list->setWidth(600.0f);
 		list->setBaseGlFont(getGlFont("basic"));
-		list->addEntry("Hello there, how are you today?", "Info");
-		list->addEntry("I am good thank you, how are you?", "Info");
+
+		GlLogListener *listener = new GlLogListener(list);
+		am::log::Logger::getMainLogger().addLogListener(listener);
+		//list->addEntry("Hello there, how are you today?", "Info");
+		//list->addEntry("I am good thank you, how are you?", "Info");
 
 		//GlTextField *text = new GlTextField(this);
 		//addObject(text);
