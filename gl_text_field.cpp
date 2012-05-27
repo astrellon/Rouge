@@ -13,7 +13,6 @@ namespace gfx {
 	GlTextField::GlTextField(GlGfxEngine *engine) :
 		mGfxEngine(engine),
 		mText(""),
-		mFont(NULL),
 		mWidth(0.0f),
 		mHeight(0.0f),
 		mMeasuredWidth(0),
@@ -22,6 +21,7 @@ namespace gfx {
 		mDirty(true)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
+		mFont = engine->getGlFont("basic");
 	}
 
 	GlTextField::~GlTextField()

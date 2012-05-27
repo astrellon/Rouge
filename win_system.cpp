@@ -87,13 +87,25 @@ namespace sys {
 		mGameSystem->deinit();
 	}
 
-	void WinSystem::mouseFunc(int mouseButton, int x, int y)
+	void WinSystem::onMouseDown(int mouseButton, int x, int y)
 	{
-		mGameSystem->mouseFunc(mouseButton, x, y);
+		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void WinSystem::keyboardFunc(const bool *keys, int key)
+	void WinSystem::onMouseMove(int mouseButton, int x, int y)
 	{
-		mGameSystem->keyboardFunc(keys, key);
+		mGameSystem->onMouseMove(mouseButton, x, y);
+	}
+	void WinSystem::onMouseUp(int mouseButton, int x, int y)
+	{
+		mGameSystem->onMouseUp(mouseButton, x, y);
+	}
+	void WinSystem::onKeyDown(const bool *keys, int key)
+	{
+		mGameSystem->onKeyDown(keys, key);
+	}
+	void WinSystem::onKeyUp(const bool *keys, int key)
+	{
+		mGameSystem->onKeyUp(keys, key);
 	}
 
 	bool WinSystem::isProgramRunning() const
@@ -529,9 +541,28 @@ namespace sys {
 			break;
 
 			case WM_MOUSEMOVE:
-			
-				window->winSystem->mouseFunc(LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseMove(LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
+			break;
 
+			case WM_LBUTTONDOWN:
+				window->winSystem->onMouseDown(MK_LBUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+			case WM_LBUTTONUP:
+				window->winSystem->onMouseUp(MK_LBUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+
+			case WM_RBUTTONDOWN:
+				window->winSystem->onMouseDown(MK_RBUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+			case WM_RBUTTONUP:
+				window->winSystem->onMouseUp(MK_RBUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+
+			case WM_MBUTTONDOWN:
+				window->winSystem->onMouseDown(MK_MBUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+			case WM_MBUTTONUP:
+				window->winSystem->onMouseUp(MK_MBUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed
@@ -539,7 +570,7 @@ namespace sys {
 				{
 					//keyboardFunc(window->keys->keyDown, wParam);
 					window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
-					window->winSystem->keyboardFunc(window->keys->keyDown, wParam);
+					window->winSystem->onKeyDown(window->keys->keyDown, wParam);
 					return 0;												// Return
 				}
 			break;															// Break
@@ -548,7 +579,7 @@ namespace sys {
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
 					window->keys->keyDown [wParam] = FALSE;					// Set The Selected Key (wParam) To False
-					window->winSystem->keyboardFunc(window->keys->keyDown, wParam);
+					window->winSystem->onKeyUp(window->keys->keyDown, wParam);
 					return 0;												// Return
 				}
 			break;															// Break

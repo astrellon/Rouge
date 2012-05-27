@@ -4,10 +4,17 @@
 #include "engine.h"
 
 #include "isprite.h"
+#include "itext_field.h"
+#include "ilayer.h"
+
+#include "transform.h"
 
 #include "transform.h"
 #include "vector.h"
 
+#include <sstream>
+
+using namespace std;
 using namespace am::math;
 
 namespace am {
@@ -65,6 +72,10 @@ namespace sys {
 	{
 		mEngine->init();
 		mGfxEngine->init();
+
+		mInfo = mGfxEngine->createTextField();
+		mInfo->getTransform().setPosition(Vector4f(0, 100, 0));
+		mGfxEngine->getRootLayer()->addChild(mInfo);
 	}
 	void GameSystem::reshape(int width, int height)
 	{
@@ -84,14 +95,24 @@ namespace sys {
 		mEngine->deinit();
 	}
 
-	void GameSystem::mouseFunc(int mouseButton, int x, int y)
+	void GameSystem::onMouseDown(int mouseButton, int x, int y)
+	{
+		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+	}
+	void GameSystem::onMouseMove(int mouseButton, int x, int y)
 	{
 		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
 		mEngine->mouseFunc(mouseButton, x, y);
 	}
-	void GameSystem::keyboardFunc(const bool *keys, int key)
+	void GameSystem::onMouseUp(int mouseButton, int x, int y)
 	{
-		mEngine->keyboardFunc(keys, key);
+		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+	}
+	void GameSystem::onKeyDown(const bool *keys, int key)
+	{
+	}
+	void GameSystem::onKeyUp(const bool *keys, int key)
+	{
 	}
 	
 	bool GameSystem::isProgramRunning() const

@@ -14,6 +14,7 @@ namespace gfx {
 	class IFont;
 
 	class ITextField : public IRenderable {
+	public:
 		virtual IFont *getBaseFont() = 0;
 		virtual void setBaseFont(IFont *font) = 0;
 

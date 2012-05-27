@@ -55,8 +55,11 @@ namespace sys {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void mouseFunc(int mouseButton, int x, int y);
-		virtual void keyboardFunc(const bool *keys, int key);
+		virtual void onMouseDown(int mouseButton, int x, int y);
+		virtual void onMouseMove(int mouseButton, int x, int y);
+		virtual void onMouseUp(int mouseButton, int x, int y);
+		virtual void onKeyDown(const bool *keys, int key);
+		virtual void onKeyUp(const bool *keys, int key);
 	
 		virtual bool isProgramRunning() const;
 		virtual void setProgramRunning(bool running);
