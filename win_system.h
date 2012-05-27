@@ -13,7 +13,7 @@ namespace am {
 namespace sys {
 
 	typedef struct {									// Structure For Keyboard Stuff
-		BOOL keyDown [256];								// Holds TRUE / FALSE For Each Key
+		bool keyDown [256];								// Holds TRUE / FALSE For Each Key
 	} Keys;												// Keys
 
 	typedef struct {									// Contains Information Vital To Applications
@@ -54,6 +54,9 @@ namespace sys {
 		virtual void update(float dt);
 		virtual void display(float dt);
 		virtual void deinit();
+
+		virtual void mouseFunc(int mouseButton, int x, int y);
+		virtual void keyboardFunc(const bool *keys, int key);
 	
 		virtual bool isProgramRunning() const;
 		virtual void setProgramRunning(bool running);
@@ -85,7 +88,7 @@ namespace sys {
 		HINSTANCE mHInstance;
 		GameSystem *mGameSystem;
 	
-		BOOL *mKeysDown;
+		bool *mKeysDown;
 
 		void updatePosSize();
 	};

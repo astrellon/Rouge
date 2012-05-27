@@ -23,6 +23,9 @@ public:
 	virtual void display(float dt) = 0;
 	virtual void deinit() = 0;
 
+	virtual void mouseFunc(int mouseButton, int x, int y) = 0;
+	virtual void keyboardFunc(const bool *keys, int key) = 0;
+
 	virtual bool isProgramRunning() const = 0;
 	virtual void setProgramRunning(bool running) = 0;
 

@@ -27,6 +27,8 @@ public:
 	void init();
 	void deinit();
 	void update(float dt);
+	void mouseFunc(int mouseButton, int x, int y);
+	void keyboardFunc(const bool *keys, int key);
 
 protected:
 

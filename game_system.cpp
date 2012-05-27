@@ -3,6 +3,13 @@
 #include "igfx_engine.h"
 #include "engine.h"
 
+#include "isprite.h"
+
+#include "transform.h"
+#include "vector.h"
+
+using namespace am::math;
+
 namespace am {
 namespace sys {
 
@@ -75,6 +82,16 @@ namespace sys {
 	{
 		mGfxEngine->deinit();
 		mEngine->deinit();
+	}
+
+	void GameSystem::mouseFunc(int mouseButton, int x, int y)
+	{
+		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mEngine->mouseFunc(mouseButton, x, y);
+	}
+	void GameSystem::keyboardFunc(const bool *keys, int key)
+	{
+		mEngine->keyboardFunc(keys, key);
 	}
 	
 	bool GameSystem::isProgramRunning() const

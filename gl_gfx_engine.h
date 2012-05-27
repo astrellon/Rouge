@@ -14,6 +14,8 @@ namespace gfx {
 	class GlAsset;
 	class GlTexture;
 	class GlFont;
+	class GlSprite;
+	class GlLayer;
 
 	class GlGfxEngine : public IGfxEngine {
 	public:
@@ -25,8 +27,11 @@ namespace gfx {
 		GlTexture *getGlTexture(const char *textureName);
 		GlFont *getGlFont(const char *fontName);
 
-		void addObject(IGlRenderable *renderable);
-		void removeObject(IGlRenderable *renderable);
+		GlSprite *getGlCursor();
+		void setGlCursor(GlSprite *cursor);
+
+		//void addObject(IGlRenderable *renderable);
+		//void removeObject(IGlRenderable *renderable);
 
 		// IGfxEngine methods
 		virtual void init();
@@ -40,11 +45,24 @@ namespace gfx {
 		virtual IAsset *getAsset(const char *assetName);
 		virtual ITexture *getTexture(const char *textureName);
 		virtual IFont *getFont(const char *fontName);
+
+		virtual ISprite *getCursor();
+		virtual void setCursor(ISprite *cursor);
+
+		virtual ILayer *getRootLayer();
+
+		virtual ISprite *createSprite(IAsset *asset);
+		virtual ISprite *createSprite(const string &assetName);
+		virtual ILayer *createLayer();
+		virtual ITextField *createTextField();
+		virtual ITextList *createTextList();
 		
 	protected:
 		
 		int mScreenWidth;
 		int mScreenHeight;
+
+		GlSprite *mCursor;
 
 		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
 		typedef map<string, GlAsset *> AssetManager;
@@ -55,7 +73,8 @@ namespace gfx {
 		TextureManager mTextureManager;
 		FontManager mFontManager;
 
-		vector<IGlRenderable *> mRenderables;
+		//vector<IGlRenderable *> mRenderables;
+		GlLayer *mRootLayer;
 	};
 
 }

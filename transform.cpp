@@ -88,7 +88,7 @@ namespace math {
 	}
 	void Transform::setPosition(const Vector4f &val) {
 		mPosition = val;
-		lookAtTarget();
+		//lookAtTarget();
 		mDirty = true;
 	}
 	

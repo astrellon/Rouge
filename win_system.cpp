@@ -87,7 +87,15 @@ namespace sys {
 		mGameSystem->deinit();
 	}
 
-	
+	void WinSystem::mouseFunc(int mouseButton, int x, int y)
+	{
+		mGameSystem->mouseFunc(mouseButton, x, y);
+	}
+	void WinSystem::keyboardFunc(const bool *keys, int key)
+	{
+		mGameSystem->keyboardFunc(keys, key);
+	}
+
 	bool WinSystem::isProgramRunning() const
 	{
 		return mProgramRunning;
@@ -197,6 +205,7 @@ namespace sys {
 		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
 		{
+			ShowCursor(false);
 			isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
 			while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
 			{
@@ -521,8 +530,7 @@ namespace sys {
 
 			case WM_MOUSEMOVE:
 			
-
-				//mouseFunc(LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->mouseFunc(LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
 
 			break;
 
@@ -531,6 +539,7 @@ namespace sys {
 				{
 					//keyboardFunc(window->keys->keyDown, wParam);
 					window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
+					window->winSystem->keyboardFunc(window->keys->keyDown, wParam);
 					return 0;												// Return
 				}
 			break;															// Break
@@ -539,6 +548,7 @@ namespace sys {
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
 					window->keys->keyDown [wParam] = FALSE;					// Set The Selected Key (wParam) To False
+					window->winSystem->keyboardFunc(window->keys->keyDown, wParam);
 					return 0;												// Return
 				}
 			break;															// Break

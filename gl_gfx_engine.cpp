@@ -23,7 +23,8 @@ using namespace std;
 
 namespace am {
 namespace gfx {
-	GlGfxEngine::GlGfxEngine()
+	GlGfxEngine::GlGfxEngine() :
+		mCursor(NULL)
 	{
 		
 	}
@@ -46,36 +47,24 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
-		//GlTextArea *area = new GlTextArea(this);
-		//addObject(area);
+		mRootLayer = new GlLayer(this);
+
+		GlAsset *mCursorAsset = getGlAsset("cursor");
+		if (mCursorAsset == NULL)
+		{
+			// TODO: ERROR!
+		}
+		mCursor = new GlSprite(this, mCursorAsset);
+
 		GlTextList *list = new GlTextList(this);
-		addObject(list);
+		//addObject(list);
+		mRootLayer->addGlChild(list);
 
 		list->setWidth(600.0f);
 		list->setBaseGlFont(getGlFont("basic"));
 
 		GlLogListener *listener = new GlLogListener(list);
 		am::log::Logger::getMainLogger().addLogListener(listener);
-		//list->addEntry("Hello there, how are you today?", "Info");
-		//list->addEntry("I am good thank you, how are you?", "Info");
-
-		//GlTextField *text = new GlTextField(this);
-		//addObject(text);
-		//area->addGlTextField("info", text);
-
-		//text->setBaseGlFont(getGlFont("basic"));
-		//text->setText(string("Hello there, how are you today? I am good thank you"));
-
-		//text = new GlTextField(this);
-		//addObject(text);
-		//area->addGlTextField("info", text);
-
-		//text->setWidth(30.0f);
-		//text->getTransform().translate(0.0f, -40.0f, 0.0f, true);
-
-		//text->setBaseGlFont(getGlFont("basic"));
-		//text->setText(string("Hello there Melli\nTest:\tData\nTist: \tData 2"));
-		//text->setText(string("Hello there, how are you today? I am good thank you"));
 
 		GlSprite *sprite = new GlSprite(this, getGlAsset("fontBasic"));
 		
@@ -88,7 +77,8 @@ namespace gfx {
 		sprite->setFrameRate(4.0f);
 
 		GlLayer *layer = new GlLayer(this);
-		addObject(layer);
+		//addObject(layer);
+		mRootLayer->addGlChild(layer);
 
 		layer->getTransform().translate(0.0f, 0.0f, 0.0f, true);
 		layer->addGlChild(sprite);
@@ -136,9 +126,15 @@ namespace gfx {
 		//setPerspective();
 
 		vector<IGlRenderable *>::iterator iter;
-		for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
+		/*for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
 		{
 			(*iter)->render(dt);
+		}
+		*/
+		mRootLayer->render(dt);
+		if (mCursor != NULL)
+		{
+			mCursor->render(dt);
 		}
 	}
 
@@ -149,6 +145,27 @@ namespace gfx {
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
+	GlSprite *GlGfxEngine::getGlCursor()
+	{
+		return mCursor;
+	}
+	void GlGfxEngine::setGlCursor(GlSprite *sprite)
+	{
+		mRootLayer->removeGlChild(sprite);
+		//removeObject(mCursor);
+		mCursor = sprite;
+		//addObject(mCursor);
+		mRootLayer->addGlChild(mCursor);
+	}
+	ISprite *GlGfxEngine::getCursor()
+	{
+		return mCursor;
+	}
+	void GlGfxEngine::setCursor(ISprite *sprite)
+	{
+		setGlCursor(dynamic_cast<GlSprite *>(sprite));
+	}
+	/*
 	void GlGfxEngine::addObject(IGlRenderable *renderable)
 	{
 		bool found = false;
@@ -179,7 +196,7 @@ namespace gfx {
 			}
 		}
 	}
-
+	*/
 	IAsset *GlGfxEngine::getAsset(const char *assetName)
 	{
 		return getGlAsset(assetName);
@@ -287,6 +304,41 @@ namespace gfx {
 		mFontManager[fontNameStr] = font;
 
 		return font;
+	}
+
+	ILayer *GlGfxEngine::getRootLayer()
+	{
+		return mRootLayer;
+	}
+
+	ISprite *GlGfxEngine::createSprite(IAsset *asset)
+	{
+		if (asset == NULL)
+		{
+			return NULL;
+		}
+		return new GlSprite(this, dynamic_cast<GlAsset *>(asset));
+	}
+	ISprite *GlGfxEngine::createSprite(const string &assetName)
+	{
+		GlAsset *asset = getGlAsset(assetName.c_str());
+		if (asset == NULL)
+		{
+			return NULL;
+		}
+		return new GlSprite(this, asset);
+	}
+	ILayer *GlGfxEngine::createLayer()
+	{
+		return new GlLayer(this);
+	}
+	ITextField *GlGfxEngine::createTextField()
+	{
+		return new GlTextField(this);
+	}
+	ITextList *GlGfxEngine::createTextList()
+	{
+		return new GlTextList(this);
 	}
 }
 }

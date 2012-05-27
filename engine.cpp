@@ -116,6 +116,13 @@ namespace base {
 	{
 
 	}
+	void Engine::mouseFunc(int mouseButton, int x, int y)
+	{
+		
+	}
+	void Engine::keyboardFunc(const bool *keys, int key)
+	{
 
+	}
 }
 }
