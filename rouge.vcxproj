@@ -77,6 +77,8 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="event.cpp" />
+    <ClCompile Include="event_manager.cpp" />
     <ClCompile Include="gl_asset.cpp" />
     <ClCompile Include="gl_layer.cpp" />
     <ClCompile Include="gl_log_listener.cpp" />
@@ -103,11 +105,15 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="event_manager.h" />
     <ClInclude Include="gl_layer.h" />
     <ClInclude Include="gl_log_listener.h" />
     <ClInclude Include="gl_text_list.h" />
     <ClInclude Include="iasset.h" />
     <ClInclude Include="gl_asset.h" />
+    <ClInclude Include="event.h" />
+    <ClInclude Include="ievent_listener.h" />
+    <ClInclude Include="ievent_manager.h" />
     <ClInclude Include="ilayer.h" />
     <ClInclude Include="itext_list.h" />
     <ClInclude Include="texture_window.h" />

@@ -106,6 +106,12 @@
     <ClCompile Include="gl_log_listener.cpp">
       <Filter>gfx\gl</Filter>
     </ClCompile>
+    <ClCompile Include="event.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="event_manager.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -234,6 +240,18 @@
     </ClInclude>
     <ClInclude Include="gl_log_listener.h">
       <Filter>gfx\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ievent_manager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="event_manager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ievent_listener.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
