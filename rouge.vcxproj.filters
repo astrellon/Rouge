@@ -16,12 +16,6 @@
     <Filter Include="gfx">
       <UniqueIdentifier>{6d9e0df0-72fe-4eba-8963-729c5f25a8fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gfx\base">
-      <UniqueIdentifier>{dc3ab426-deb6-4dbe-81c7-53b90d170654}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="gfx\gl">
-      <UniqueIdentifier>{fc7e2776-296a-4e79-86b0-ae4bff1a267c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sys\base">
       <UniqueIdentifier>{51410dd5-f414-47d2-b562-60244e254b3a}</UniqueIdentifier>
     </Filter>
@@ -33,6 +27,12 @@
     </Filter>
     <Filter Include="math">
       <UniqueIdentifier>{685e5bbe-a0c2-4733-9993-93a5a78c91e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx\util">
+      <UniqueIdentifier>{49add265-7644-43e1-87fa-fc1b0c568e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx\base">
+      <UniqueIdentifier>{1e4a600d-7b74-4711-9496-4be3c7cee7fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,23 +58,11 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="gl_font.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_gfx_engine.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_texture.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
     <ClCompile Include="game_system.cpp">
       <Filter>sys\base</Filter>
     </ClCompile>
     <ClCompile Include="win_system.cpp">
       <Filter>sys\win</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_text_field.cpp">
-      <Filter>gfx\gl</Filter>
     </ClCompile>
     <ClCompile Include="log_entry.cpp">
       <Filter>log</Filter>
@@ -88,29 +76,56 @@
     <ClCompile Include="transform.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="gl_sprite.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_layer.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="texture_window.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_text_list.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_asset.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
-    <ClCompile Include="gl_log_listener.cpp">
-      <Filter>gfx\gl</Filter>
-    </ClCompile>
     <ClCompile Include="event.cpp">
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="event_manager.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse_event.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard_event.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="bounding_box.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_asset.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_component.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_engine.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_font.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_layer.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_log_listener.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_renderable.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_sprite.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_field.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_list.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_texture.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\texture_window.cpp">
+      <Filter>gfx\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,30 +157,6 @@
     <ClInclude Include="resource_manager.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="ifont.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="igfx_component.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="igfx_engine.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="itexture.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_texture.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_font.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_gfx_engine.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
     <ClInclude Include="isystem.h">
       <Filter>sys\base</Filter>
     </ClInclude>
@@ -174,15 +165,6 @@
     </ClInclude>
     <ClInclude Include="win_system.h">
       <Filter>sys\win</Filter>
-    </ClInclude>
-    <ClInclude Include="itext_field.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_text_field.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="irenderable.h">
-      <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="logger.h">
       <Filter>log</Filter>
@@ -205,42 +187,6 @@
     <ClInclude Include="transform.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="isprite.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_sprite.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="igl_renderable.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="igl_gfx_component.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="texture_window.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="ilayer.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_layer.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="itext_list.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_text_list.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_asset.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
-    <ClInclude Include="iasset.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gl_log_listener.h">
-      <Filter>gfx\gl</Filter>
-    </ClInclude>
     <ClInclude Include="event.h">
       <Filter>ui</Filter>
     </ClInclude>
@@ -252,6 +198,51 @@
     </ClInclude>
     <ClInclude Include="ievent_listener.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse_event.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard_event.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="bounding_box.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_asset.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_component.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_engine.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_font.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_layer.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_log_listener.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_renderable.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_sprite.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_field.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_list.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_texture.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\texture_window.h">
+      <Filter>gfx\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
-#include "gl_asset.h"
+#include "gfx_asset.h"
 
-#include "gl_texture.h"
-#include "gl_gfx_engine.h"
+#include "gfx_texture.h"
+#include "gfx_engine.h"
 
-#include "logger.h"
+#include "../logger.h"
 
 #include <string>
 
@@ -12,60 +12,51 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	// GlAsset methods
-	GlAsset::GlAsset(GlGfxEngine *engine, const char *name) :
-		mGfxEngine(engine),
+	// Asset methods
+	Asset::Asset(GfxEngine *engine, const char *name) :
+		GfxComponent(engine),
 		mTexture(NULL),
 		mName(name)
 	{
 
 	}
-	GlAsset::~GlAsset()
+	Asset::~Asset()
 	{
 
 	}
 
-	void GlAsset::setGlTexture(const GlTexture *texture)
+	void Asset::setTexture(const Texture *texture)
 	{
 		if (texture != NULL)
 		{
 			mTexture = texture;
 		}
 	}
-	const GlTexture *GlAsset::getGlTexture() const
+	const Texture *Asset::getTexture() const
 	{
 		return mTexture;
 	}
 
 	// IGfxAsset methods
-	const char *GlAsset::getName() const
+	const char *Asset::getName() const
 	{
 		return mName.c_str();
 	}
 
-	void GlAsset::setTexture(const ITexture *texture)
-	{
-		setGlTexture(dynamic_cast<const GlTexture *>(texture));
-	}
-	const ITexture *GlAsset::getTexture() const
-	{
-		return mTexture;
-	}
-
-	void GlAsset::setTextureWindow(const TextureWindow &window)
+	void Asset::setTextureWindow(const TextureWindow &window)
 	{
 		mWindow = window;
 	}
-	const TextureWindow &GlAsset::getTextureWindow() const
+	const TextureWindow &Asset::getTextureWindow() const
 	{
 		return mWindow;
 	}
 
-	int GlAsset::loadDef(JsonValue value)
+	int Asset::loadDef(JsonValue value)
 	{
 		if (value.has("texture", JV_STR))
 		{
-			setGlTexture(mGfxEngine->getGlTexture(value["texture"].getCStr()));
+			setTexture(mGfxEngine->getTexture(value["texture"].getCStr()));
 			if (mTexture == NULL)
 			{
 				string errstr = "Unable to load texture (";
@@ -128,16 +119,5 @@ namespace gfx {
 		return 0;
 	}
 
-	// IGfxComponent methods
-	IGfxEngine *GlAsset::getGfxEngine()
-	{
-		return mGfxEngine;
-	}
-	// IGlGfxComponent methods
-	GlGfxEngine *GlAsset::getGlGfxEngine()
-	{
-		return mGfxEngine;
-	}
-	
 }
 }

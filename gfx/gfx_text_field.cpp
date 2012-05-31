@@ -1,61 +1,48 @@
-#include "gl_text_field.h"
+#include "gfx_text_field.h"
 
-#include "gl.h"
+#include "../gl.h"
 
-#include "gl_gfx_engine.h"
-#include "gl_texture.h"
-#include "gl_font.h"
-#include "gl_asset.h"
+#include "gfx_engine.h"
+#include "gfx_texture.h"
+#include "gfx_font.h"
+#include "gfx_asset.h"
+#include "gfx_layer.h"
 
 namespace am {
 namespace gfx {
 
-	GlTextField::GlTextField(GlGfxEngine *engine) :
-		mGfxEngine(engine),
+	TextField::TextField(GfxEngine *engine) :
+		Renderable(engine),
 		mText(""),
-		mWidth(0.0f),
-		mHeight(0.0f),
 		mMeasuredWidth(0),
 		mMeasuredHeight(0),
 		mRenderedHeight(0),
 		mDirty(true)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
-		mFont = engine->getGlFont("basic");
+		mFont = engine->getFont("basic");
 	}
 
-	GlTextField::~GlTextField()
+	TextField::~TextField()
 	{
 
 	}
 
-	float GlTextField::getRenderedHeight() const
+	float TextField::getRenderedHeight() const
 	{
 		return mRenderedHeight;
 	}
 
-	IFont *GlTextField::getBaseFont()
+	Font *TextField::getBaseFont()
 	{
 		return mFont;
 	}
-	void GlTextField::setBaseFont(IFont *font)
-	{
-		GlFont *fontCheck = dynamic_cast<GlFont *>(font);
-		if (fontCheck != NULL)
-		{
-			mFont = fontCheck;
-		}
-	}
-	GlFont *GlTextField::getBaseGlFont()
-	{
-		return mFont;
-	}
-	void GlTextField::setBaseGlFont(GlFont *font)
+	void TextField::setBaseFont(Font *font)
 	{
 		mFont = font;
 	}
 
-	float GlTextField::getMeasuredWidth()
+	float TextField::getMeasuredWidth()
 	{
 		if (mDirty)
 		{
@@ -63,7 +50,7 @@ namespace gfx {
 		}
 		return mMeasuredWidth;
 	}
-	float GlTextField::getMeasuredHeight()
+	float TextField::getMeasuredHeight()
 	{
 		if (mDirty)
 		{
@@ -72,22 +59,22 @@ namespace gfx {
 		return mMeasuredHeight;
 	}
 
-	void GlTextField::setText(string &str)
+	void TextField::setText(string &str)
 	{
 		mText = str;
 		mDirty = true;
 	}
-	void GlTextField::appendText(string &str)
+	void TextField::appendText(string &str)
 	{
 		mText.append(str);
 		mDirty = true;
 	}
-	string GlTextField::getText()
+	string TextField::getText()
 	{
 		return mText;
 	}
 
-	void GlTextField::render(float dt)
+	void TextField::render(float dt)
 	{
 		if (mFont == NULL || !mFont->isLoaded())
 		{
@@ -99,52 +86,18 @@ namespace gfx {
 		postRender();
 	}
 
-	am::math::Transform &GlTextField::getTransform()
-	{
-		return mTransform;
-	}
-
-	void GlTextField::setWidth(float width)
-	{
-		mWidth = width;
-		mDirty = true;
-	}
-	float GlTextField::getWidth() const
-	{
-		return mWidth;
-	}
-
-	void GlTextField::setHeight(float height)
-	{
-		mHeight = height;
-		mDirty = true;
-	}
-	float GlTextField::getHeight() const
-	{
-		return mHeight;
-	}
-
-	IGfxEngine *GlTextField::getGfxEngine()
-	{
-		return mGfxEngine;
-	}
-	GlGfxEngine *GlTextField::getGlGfxEngine()
-	{
-		return mGfxEngine;
-	}
-
-	void GlTextField::calcSize()
+	void TextField::calcSize()
 	{
 		mFont->measureText(mText.c_str(), mMeasuredWidth, mMeasuredHeight);
 		mDirty = false;
 	}
 
-	void GlTextField::preRender()
+	void TextField::preRender()
 	{
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 
-		glBindTexture(GL_TEXTURE_2D, mFont->getGlAsset()->getGlTexture()->getTextureId());
+		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -156,7 +109,7 @@ namespace gfx {
 		mInWord = false;
 	}
 
-	void GlTextField::postRender()
+	void TextField::postRender()
 	{
 		glEnd();
 
@@ -167,12 +120,12 @@ namespace gfx {
 		glPopMatrix();
 	}
 
-	void GlTextField::newLine()
+	void TextField::newLine()
 	{
 		mCurrXpos = 0.0f;
 		mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
 	}
-	void GlTextField::renderText(const string &text)
+	void TextField::renderText(const string &text)
 	{
 		int len = static_cast<int>(text.size());
 		for (int i = 0; i < len; i++)
@@ -227,5 +180,6 @@ namespace gfx {
 			mCurrXpos += mCharRender.getWidth() + mFont->getKerning();
 		}
 	}
+
 }
 }

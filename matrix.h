@@ -192,6 +192,31 @@ namespace math {
 			return Vector<T>(vec.x + wx, vec.y + wy, vec.z + wz, 1);
 		}
 
+		inline Matrix<T> &operator=(const Matrix<T> &rhs)
+		{
+			xx = rhs.xx;
+			xy = rhs.xy;
+			xz = rhs.xz;
+			xw = rhs.xw;
+
+			yx = rhs.yx;
+			yy = rhs.yy;
+			yz = rhs.yz;
+			yw = rhs.yw;
+
+			zx = rhs.zx;
+			zy = rhs.zy;
+			zz = rhs.zz;
+			zw = rhs.zw;
+
+			wx = rhs.wx;
+			wy = rhs.wy;
+			wz = rhs.wz;
+			ww = rhs.ww;
+
+			return *this;
+		}
+
 		T xx;
 		T xy;
 		T xz;

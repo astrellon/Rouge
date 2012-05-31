@@ -1,13 +1,13 @@
-#include "gl_log_listener.h"
+#include "gfx_log_listener.h"
 
-#include "gl_text_list.h"
+#include "gfx_text_list.h"
 
-#include "logger.h"
+#include "../logger.h"
 
 namespace am {
 namespace gfx {
 
-	GlLogListener::GlLogListener(GlTextList *output)
+	GfxLogListener::GfxLogListener(TextList *output)
 	{
 		mTextList = output;
 
@@ -20,12 +20,12 @@ namespace gfx {
 			mTextList->addEntry(iter->getMessage().c_str(), iter->getType().c_str());
 		}
 	}
-	GlLogListener::~GlLogListener()
+	GfxLogListener::~GfxLogListener()
 	{
 
 	}
 
-	void GlLogListener::onNewEntry(const LogEntry &entry)
+	void GfxLogListener::onNewEntry(const LogEntry &entry)
 	{
 		mTextList->addEntry(entry.getMessage().c_str(), entry.getType().c_str());
 	}

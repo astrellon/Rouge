@@ -1,6 +1,8 @@
 #pragma once
 
 #include "isystem.h"
+#include "ievent_listener.h"
+#include "mouse_event.h"
 
 namespace am {
 namespace base {
@@ -10,17 +12,17 @@ namespace base {
 using namespace am::base;
 
 namespace gfx{
-	class IGfxEngine;
-	class ITextField;
+	class GfxEngine;
+	class TextField;
 }
 
 using namespace am::gfx;
 
 namespace sys {
 
-	class GameSystem : public ISystem {
+	class GameSystem : public ISystem, public am::ui::IEventListener {
 	public:
-		GameSystem(ISystem *linked, Engine *engine, IGfxEngine *gfxEngine);
+		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine);
 		~GameSystem();
 
 		virtual void setSize(int width, int height);
@@ -54,17 +56,19 @@ namespace sys {
 		virtual int startLoop();
 		virtual void stopLoop();
 
+		virtual void onEvent(am::ui::MouseEvent &e);
+
 		ISystem *getLinkedSystem();
-		IGfxEngine *getGfxEngine();
+		GfxEngine *getGfxEngine();
 		Engine *getEngine();
 
 	protected:
 
 		ISystem *mLinkedSystem;
-		IGfxEngine *mGfxEngine;
+		GfxEngine *mGfxEngine;
 		Engine *mEngine;
 
-		ITextField *mInfo;
+		TextField *mInfo;
 	};
 
 }

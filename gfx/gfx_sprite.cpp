@@ -1,14 +1,15 @@
-#include "gl_sprite.h"
+#include "gfx_sprite.h"
 
-#include "gl_gfx_engine.h"
-#include "gl_texture.h"
-#include "gl_asset.h"
+#include "gfx_engine.h"
+#include "gfx_texture.h"
+#include "gfx_asset.h"
+#include "gfx_layer.h"
 
 namespace am {
 namespace gfx {
 
-	GlSprite::GlSprite(GlGfxEngine *engine, GlAsset *asset) :
-		mGfxEngine(engine),
+	Sprite::Sprite(GfxEngine *engine, Asset *asset) :
+		Renderable(engine),
 		mAsset(asset),
 		mNumFramesX(1),
 		mNumFramesY(1),
@@ -16,39 +17,36 @@ namespace gfx {
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
-		mWidth(0.0f),
-		mHeight(0.0f),
 		mAnimationDirty(true)
 	{
-		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
-	GlSprite::~GlSprite()
+	Sprite::Sprite(GfxEngine *engine, const char *assetName) :
+		Renderable(engine),
+		mNumFramesX(1),
+		mNumFramesY(1),
+		mMaxFrames(1),
+		mCurrentFrame(0),
+		mFrameRate(0.0f),
+		mCurrentTime(0.0f),
+		mAnimationDirty(true)
+	{
+		mAsset = engine->getAsset(assetName);
+	}
+	Sprite::~Sprite()
 	{
 	}
 
-	IAsset *GlSprite::getAsset()
+	Asset *Sprite::getAsset()
 	{
 		return mAsset;
 	}
-	GlAsset *GlSprite::getGlAsset()
-	{
-		return mAsset;
-	}
-	void GlSprite::setAsset(IAsset *asset)
-	{
-		GlAsset *glAsset = dynamic_cast<GlAsset *>(asset);
-		if (glAsset != NULL)
-		{
-			mAsset = glAsset;
-			mAnimationDirty = true;
-		}
-	}
-	void GlSprite::setGlAsset(GlAsset *asset)
+	void Sprite::setAsset(Asset *asset)
 	{
 		mAsset = asset;
+		mAnimationDirty = true;
 	}
 
-	void GlSprite::setNumFramesX(int num)
+	void Sprite::setNumFramesX(int num)
 	{
 		if (num < 1)
 		{
@@ -57,11 +55,11 @@ namespace gfx {
 		mNumFramesX = num;
 		mAnimationDirty = true;
 	}
-	int GlSprite::getNumFramesX() const
+	int Sprite::getNumFramesX() const
 	{
 		return mNumFramesX;
 	}
-	void GlSprite::setNumFramesY(int num)
+	void Sprite::setNumFramesY(int num)
 	{
 		if (num < 1)
 		{
@@ -70,12 +68,12 @@ namespace gfx {
 		mNumFramesY = num;
 		mAnimationDirty = true;
 	}
-	int GlSprite::getNumFramesY() const
+	int Sprite::getNumFramesY() const
 	{
 		return mNumFramesY;
 	}
 
-	void GlSprite::setNumTotalFrames(int frames)
+	void Sprite::setNumTotalFrames(int frames)
 	{
 		if (frames < 1)
 		{
@@ -84,39 +82,39 @@ namespace gfx {
 		mMaxFrames = frames;
 		mAnimationDirty = true;
 	}
-	int GlSprite::getNumTotalFrames() const
+	int Sprite::getNumTotalFrames() const
 	{
 		return mMaxFrames;
 	}
 
-	void GlSprite::setCurrentFrame(int frame)
+	void Sprite::setCurrentFrame(int frame)
 	{
 		mCurrentFrame = frame;
 	}
-	int GlSprite::getCurrentFrame() const
+	int Sprite::getCurrentFrame() const
 	{
 		return mCurrentFrame;
 	}
 
-	void GlSprite::setFrameRate(float rate)
+	void Sprite::setFrameRate(float rate)
 	{
 		mFrameRate = rate;
 	}
-	float GlSprite::getFrameRate() const
+	float Sprite::getFrameRate() const
 	{
 		return mFrameRate;
 	}
 
-	void GlSprite::setFrameTime(float time)
+	void Sprite::setFrameTime(float time)
 	{
 		mCurrentTime = time;
 	}
-	float GlSprite::getFrameTime() const
+	float Sprite::getFrameTime() const
 	{
 		return mCurrentTime;
 	}
 
-	void GlSprite::render(float dt)
+	void Sprite::render(float dt)
 	{
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
@@ -135,13 +133,13 @@ namespace gfx {
 		float width = mWidth;
 		if (width == 0)
 		{
-			width = static_cast<float>(mAsset->getGlTexture()->getWidth());
+			width = static_cast<float>(mAsset->getTexture()->getWidth());
 		}
 
 		float height = mHeight;
 		if (height == 0)
 		{
-			height = static_cast<float>(mAsset->getGlTexture()->getHeight());
+			height = static_cast<float>(mAsset->getTexture()->getHeight());
 		}
 
 		if (mAnimationDirty)
@@ -149,7 +147,7 @@ namespace gfx {
 			processAnimation();
 		}
 		
-		glBindTexture(GL_TEXTURE_2D, mAsset->getGlTexture()->getTextureId());
+		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -176,42 +174,11 @@ namespace gfx {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glPopMatrix();
 	}
-	am::math::Transform &GlSprite::getTransform()
+	
+	void Sprite::processAnimation()
 	{
-		return mTransform;
-	}
-
-	void GlSprite::setWidth(float width)
-	{
-		mWidth = width;
-	}
-	float GlSprite::getWidth() const
-	{
-		return mWidth;
-	}
-
-	void GlSprite::setHeight(float height)
-	{
-		mHeight = height;
-	}
-	float GlSprite::getHeight() const
-	{
-		return mHeight;
-	}
-
-	IGfxEngine *GlSprite::getGfxEngine()
-	{
-		return mGfxEngine;
-	}
-	GlGfxEngine *GlSprite::getGlGfxEngine()
-	{
-		return mGfxEngine;
-	}
-
-	void GlSprite::processAnimation()
-	{
-		float textureWidth = mAsset->getGlTexture()->getWidth();
-		float textureHeight = mAsset->getGlTexture()->getHeight();
+		float textureWidth = static_cast<float>(mAsset->getTexture()->getWidth());
+		float textureHeight = static_cast<float>(mAsset->getTexture()->getHeight());
 
 		float frameWidth = textureWidth / static_cast<float>(mNumFramesX);
 		float frameHeight = textureHeight / static_cast<float>(mNumFramesY);
@@ -241,5 +208,6 @@ namespace gfx {
 
 		mAnimationDirty = false;
 	}
+
 }
 }

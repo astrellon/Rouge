@@ -1,13 +1,17 @@
 #pragma once
 
 #include "event.h"
+#include "mouse_event.h"
+#include "keyboard_event.h"
 
 namespace am {
 namespace ui {
 
 	class IEventListener {
 	public:
-		virtual void onEvent(Event &e) = 0;
+		virtual void onEvent(Event &e) {}
+		virtual void onEvent(MouseEvent &e) {}
+		virtual void onEvent(KeyboardEvent &e) {}
 	};
 
 }

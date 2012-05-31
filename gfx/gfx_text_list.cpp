@@ -1,65 +1,65 @@
-#include "gl_text_list.h"
+#include "gfx_text_list.h"
 
-#include "gl_font.h"
+#include "gfx_font.h"
 
-#include "gl.h"
+#include "../gl.h"
 
 namespace am {
 namespace gfx {
 
-	GlTextList::GlTextList(GlGfxEngine *engine) :
-		GlTextField(engine),
+	TextList::TextList(GfxEngine *engine) :
+		TextField(engine),
 		mMaxEntries(100),
 		mListUpwards(false)
 	{
 
 	}
-	GlTextList::~GlTextList()
+	TextList::~TextList()
 	{
 
 	}
 
-	void GlTextList::addEntry(const char *text, const char *type)
+	void TextList::addEntry(const char *text, const char *type)
 	{
 		if (type == NULL)
 		{
 			type = "";
 		}
-		if (mEntries.size() + 1 > mMaxEntries)
+		if (static_cast<int>(mEntries.size()) + 1 > mMaxEntries)
 		{
 			mEntries.erase(mEntries.begin());
 		}
 		mEntries.push_back(Entry(text, type));
 	}
 
-	void GlTextList::setMaxEntries(int entries)
+	void TextList::setMaxEntries(int entries)
 	{
 		if (entries < 1)
 		{
 			entries = 1;
 		}
-		if (entries < mEntries.size())
+		if (entries < static_cast<int>(mEntries.size()))
 		{
 			int diff = mEntries.size() - entries;
 			mEntries.erase(mEntries.begin(), mEntries.begin() + diff);
 		}
 		mMaxEntries = entries;
 	}
-	int GlTextList::getMaxEntries() const
+	int TextList::getMaxEntries() const
 	{
 		return mMaxEntries;
 	}
 
-	void GlTextList::setListUpwards(bool upwards)
+	void TextList::setListUpwards(bool upwards)
 	{
 		mListUpwards = upwards;
 	}
-	bool GlTextList::getListUpwards() const
+	bool TextList::getListUpwards() const
 	{
 		return mListUpwards;
 	}
 
-	void GlTextList::setFilter(const FilterList &filter)
+	void TextList::setFilter(const FilterList &filter)
 	{
 		mFilterList = filter;
 		mFilterMap.clear();
@@ -70,12 +70,12 @@ namespace gfx {
 			mFilterMap[*iter] = true;
 		}
 	}
-	GlTextList::FilterList GlTextList::getFilter() const
+	TextList::FilterList TextList::getFilter() const
 	{
 		return mFilterList;
 	}
 
-	void GlTextList::render(float dt)
+	void TextList::render(float dt)
 	{
 		if (mFont == NULL || !mFont->isLoaded())
 		{

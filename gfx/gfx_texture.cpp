@@ -1,17 +1,20 @@
-#include "gl_texture.h"
-
-#include "igfx_engine.h"
-#include "gl_gfx_engine.h"
+#include "gfx_texture.h"
 
 #include "IL/il.h"
 
 namespace am {
 namespace gfx {
 
-	GlTexture::GlTexture(GlGfxEngine *engine, const char *filename) :
-		mGfxEngine(engine),
+	Texture::Texture(GfxEngine *engine, const char *filename, GLuint textureId) :
+		GfxComponent(engine),
+		mTextureId(textureId),
+		mFilename(filename)
+	{
+		// TODO: Get GL width and height, etc
+	}
+	Texture::Texture(GfxEngine *engine, const char *filename) :
+		GfxComponent(engine),
 		mTextureId(0),
-		mLoaded(false),
 		mWidth(-1),
 		mHeight(-1),
 		mBytesPerPixel(-1),
@@ -19,12 +22,12 @@ namespace gfx {
 	{
 		loadFromFile(filename);
 	}
-	GlTexture::~GlTexture()
+	Texture::~Texture()
 	{
 		//destroy();
 	}
 
-	int GlTexture::loadFromFile(const char *filename)
+	int Texture::loadFromFile(const char *filename)
 	{
 		if (filename == NULL || filename[0] == '\0')
 		{
@@ -67,48 +70,47 @@ namespace gfx {
 
 		return 0;
 	}
-	GLuint GlTexture::getTextureId() const
+	GLuint Texture::getTextureId() const
 	{
 		return mTextureId;
 	}
 
-	int GlTexture::getWidth() const 
+	int Texture::getWidth() const 
 	{
 		return mWidth;
 	}
-	int GlTexture::getHeight() const 
+	int Texture::getHeight() const 
 	{
 		return mHeight;
 	}
-	int GlTexture::getBytesPerPixel() const 
+	int Texture::getBytesPerPixel() const 
 	{
 		return mBytesPerPixel;
 	}
-	int GlTexture::getGlFormat() const
+	int Texture::getGlFormat() const
 	{
 		return mGlFormat;
 	}
 
-	GlTexture &GlTexture::operator=(const GlTexture &rhs)
+	Texture &Texture::operator=(const Texture &rhs)
 	{
 		assign(rhs);
 		return *this;
 	}
-	GlTexture &GlTexture::operator=(const GlTexture *rhs)
+	Texture &Texture::operator=(const Texture *rhs)
 	{
 		assign(*rhs);
 		return *this;
 	}
 
-	bool GlTexture::isLoaded() const
+	const char *Texture::getFilename() const
 	{
-		return mLoaded;
+		return mFilename.c_str();
 	}
 
-	void GlTexture::assign(const GlTexture &rhs)
+	void Texture::assign(const Texture &rhs)
 	{
 		mTextureId = rhs.mTextureId;
-		mLoaded = rhs.mLoaded;
 		mWidth = rhs.mWidth;
 		mHeight = rhs.mHeight;
 		mBytesPerPixel = rhs.mBytesPerPixel;
@@ -117,18 +119,9 @@ namespace gfx {
 		//sTextureManager.altTextureRef(mTextureId, 1);
 	}
 
-	IGfxEngine *GlTexture::getGfxEngine()
+	void Texture::destroy() 
 	{
-		return mGfxEngine;
-	}
-	GlGfxEngine *GlTexture::getGlGfxEngine()
-	{
-		return mGfxEngine;
-	}
-
-	void GlTexture::destroy() 
-	{
-		if (!mLoaded) {
+		if (mTextureId > 0) {
 			return;
 		}
 		/*
@@ -137,7 +130,7 @@ namespace gfx {
 			sTextureManager.removeLoadedTexture(mFilename.c_str());
 		}
 		*/
-		mLoaded = false;
+		mFilename = "";
 		mTextureId = 0;
 	}
 

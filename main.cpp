@@ -6,7 +6,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::Logger::getMainLogger().addLogListener(&fileLogger);
 
 	am::base::Engine engine;
-	am::gfx::GlGfxEngine gfxEngine;
+	am::gfx::GfxEngine gfxEngine;
 
 	TestListener alan("Alan");
 	TestListener mel("Melli");

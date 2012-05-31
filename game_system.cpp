@@ -1,11 +1,11 @@
 #include "game_system.h"
 
-#include "igfx_engine.h"
+#include "gfx/gfx_engine.h"
 #include "engine.h"
 
-#include "isprite.h"
-#include "itext_field.h"
-#include "ilayer.h"
+#include "gfx/gfx_sprite.h"
+#include "gfx/gfx_text_field.h"
+#include "gfx/gfx_layer.h"
 
 #include "transform.h"
 
@@ -20,7 +20,7 @@ using namespace am::math;
 namespace am {
 namespace sys {
 
-	GameSystem::GameSystem(ISystem *linked, Engine *engine, IGfxEngine *gfxEngine) :
+	GameSystem::GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
 		mGfxEngine(gfxEngine)
@@ -73,9 +73,31 @@ namespace sys {
 		mEngine->init();
 		mGfxEngine->init();
 
-		mInfo = mGfxEngine->createTextField();
+		mInfo = new TextField(mGfxEngine);
 		mInfo->getTransform().setPosition(Vector4f(0, 100, 0));
 		mGfxEngine->getRootLayer()->addChild(mInfo);
+
+		Sprite *sprite = new Sprite(mGfxEngine, "fontBasic");
+		mGfxEngine->getRootLayer()->addChild(sprite);
+		
+		sprite->setNumFramesX(16);
+		sprite->setNumFramesY(16);
+		sprite->setNumTotalFrames(256);
+
+		sprite->setWidth(128.0f);
+		sprite->setHeight(128.0f);
+		sprite->setFrameRate(4.0f);
+
+		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
+
+		sprite->addEventListener("mouse_move", this);
+	}
+	void GameSystem::onEvent(am::ui::MouseEvent &e)
+	{
+		stringstream ss;
+		ss << "MouseMove: " << e.getMouseX() << ", " << e.getMouseY();
+		ss << " | " << e.getLocalMouseX() << ", " << e.getLocalMouseY();
+		mInfo->setText(ss.str());
 	}
 	void GameSystem::reshape(int width, int height)
 	{
@@ -97,22 +119,24 @@ namespace sys {
 
 	void GameSystem::onMouseDown(int mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mGfxEngine->onMouseDown(mouseButton, x , y);
 	}
 	void GameSystem::onMouseMove(int mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
-		mEngine->mouseFunc(mouseButton, x, y);
+		mGfxEngine->onMouseMove(mouseButton, x , y);
+		//mEngine->mouseFunc(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(int mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mGfxEngine->onMouseUp(mouseButton, x , y);
 	}
 	void GameSystem::onKeyDown(const bool *keys, int key)
 	{
+		mGfxEngine->onKeyDown(keys, key);
 	}
 	void GameSystem::onKeyUp(const bool *keys, int key)
 	{
+		mGfxEngine->onKeyUp(keys, key);
 	}
 	
 	bool GameSystem::isProgramRunning() const
@@ -141,7 +165,7 @@ namespace sys {
 	{
 		return mLinkedSystem;
 	}
-	IGfxEngine *GameSystem::getGfxEngine()
+	GfxEngine *GameSystem::getGfxEngine()
 	{
 		return mGfxEngine;
 	}

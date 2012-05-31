@@ -25,6 +25,7 @@ namespace gfx {
 
 		friend class IFont;
 		friend class GlFont;
+		friend class Font;
 
 	protected:
 		float mWidth;

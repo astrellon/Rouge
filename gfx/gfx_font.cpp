@@ -1,14 +1,14 @@
-#include "gl_font.h"
+#include "gfx_font.h"
 
-#include "gl_texture.h"
-#include "gl_asset.h"
-#include "gl_gfx_engine.h"
+#include "gfx_texture.h"
+#include "gfx_asset.h"
+#include "gfx_engine.h"
 
 namespace am {
 namespace gfx {
 
-	GlFont::GlFont(GlGfxEngine *engine, const char *name) :
-		mGfxEngine(engine),
+	Font::Font(GfxEngine *engine, const char *name) :
+		GfxComponent(engine),
 		mAsset(NULL),
 		mName(name),
 		mKerning(1.0f),
@@ -20,24 +20,16 @@ namespace gfx {
 	{
 
 	}
-	GlFont::~GlFont()
+	Font::~Font()
 	{
 
 	}
 
-	IAsset *GlFont::getAsset()
+	Asset *Font::getAsset()
 	{
 		return mAsset;
 	}
-	GlAsset *GlFont::getGlAsset()
-	{
-		return mAsset;
-	}
-	void GlFont::setAsset(IAsset *asset)
-	{
-		setGlAsset(dynamic_cast<GlAsset *>(asset));
-	}
-	void GlFont::setGlAsset(GlAsset *asset)
+	void Font::setAsset(Asset *asset)
 	{
 		if (asset != NULL)
 		{
@@ -45,16 +37,16 @@ namespace gfx {
 		}
 	}
 
-	bool GlFont::isLoaded() const
+	bool Font::isLoaded() const
 	{
-		return mAsset != NULL && mAsset->getGlTexture() != NULL && !mTextureWindows.empty();
+		return mAsset != NULL && mAsset->getTexture() != NULL && !mTextureWindows.empty();
 	}
 
-	int GlFont::loadDef(JsonValue value)
+	int Font::loadDef(JsonValue value)
 	{
 		if (value.has("asset", JV_STR))
 		{
-			mAsset = mGfxEngine->getGlAsset(value["asset"].getCStr());
+			mAsset = mGfxEngine->getAsset(value["asset"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
 		{
@@ -89,61 +81,61 @@ namespace gfx {
 		return 0;
 	}
 
-	string GlFont::getName() const
+	string Font::getName() const
 	{
 		return mName;
 	}
 
-	bool GlFont::isFixedWidth() const
+	bool Font::isFixedWidth() const
 	{
 		return mFixedWidth;
 	}
 
-	float GlFont::getCharHeight() const
+	float Font::getCharHeight() const
 	{
 		return mCharHeight;
 	}
-	float GlFont::getFixedCharWidth() const
+	float Font::getFixedCharWidth() const
 	{
 		return mFixedCharWidth;
 	}
 
-	void GlFont::setKerning(float kerning)
+	void Font::setKerning(float kerning)
 	{
 		mKerning = kerning;
 	}
-	float GlFont::getKerning() const
+	float Font::getKerning() const
 	{
 		return mKerning;
 	}
 
-	void GlFont::setLeading(float leading)
+	void Font::setLeading(float leading)
 	{
 		mLeading = leading;
 	}
-	float GlFont::getLeading() const
+	float Font::getLeading() const
 	{
 		return mLeading;
 	}
 
-	void GlFont::setSpaceWidth(float width)
+	void Font::setSpaceWidth(float width)
 	{
 		mSpaceWidth = width;
 	}
-	float GlFont::getSpaceWidth() const
+	float Font::getSpaceWidth() const
 	{
 		return mSpaceWidth;
 	}
 
-	void GlFont::setTabWidth(float width)
+	void Font::setTabWidth(float width)
 	{
 		mTabWidth = width;
 	}
-	float GlFont::getTabWidth() const
+	float Font::getTabWidth() const
 	{
 		return mTabWidth;
 	}
-	float GlFont::getVariableTabPosition(float xPos) const
+	float Font::getVariableTabPosition(float xPos) const
 	{
 		int xMult = static_cast<int>(xPos) / static_cast<int>(getTabWidth());
 		float nextXpos = static_cast<float>(xMult + 1) * getTabWidth();
@@ -154,16 +146,7 @@ namespace gfx {
 		return nextXpos;
 	}
 
-	IGfxEngine *GlFont::getGfxEngine()
-	{
-		return mGfxEngine;
-	}
-	GlGfxEngine *GlFont::getGlGfxEngine()
-	{
-		return mGfxEngine;
-	}
-
-	void GlFont::measureText(const char *text, float &width, float &height) const
+	void Font::measureText(const char *text, float &width, float &height) const
 	{
 		if (text == NULL || text[0] <= ' ')
 		{
@@ -199,7 +182,7 @@ namespace gfx {
 		}
 		width = max(width, currWidth);
 	}
-	void GlFont::measureWord(const char *word, float &width, float &height) const
+	void Font::measureWord(const char *word, float &width, float &height) const
 	{
 		if (word == NULL || word[0] <= ' ')
 		{
@@ -216,34 +199,34 @@ namespace gfx {
 		}
 	}
 
-	void GlFont::setCharsAcross(int across)
+	void Font::setCharsAcross(int across)
 	{
 		mCharsAcross = across;
 		mCharsDown = 256 / across;
 	}
-	int GlFont::getCharsAcross() const
+	int Font::getCharsAcross() const
 	{
 		return mCharsAcross;
 	}
-	int GlFont::getCharsDown() const
+	int Font::getCharsDown() const
 	{
 		return mCharsDown;
 	}
 
-	void GlFont::getTextureWindow(char ch, TextureWindow &render)
+	void Font::getTextureWindow(char ch, TextureWindow &render)
 	{
 		render = mTextureWindows[ch];
 	}
 
-	void GlFont::postLoad()
+	void Font::postLoad()
 	{
-		if (mAsset == NULL || mAsset->getGlTexture() == NULL)
+		if (mAsset == NULL || mAsset->getTexture() == NULL)
 		{
 			return;
 		}
 		TextureWindow render;
 
-		const GlTexture *texture = mAsset->getGlTexture();
+		const Texture *texture = mAsset->getTexture();
 		float assetWidth = mAsset->getTextureWindow().getWidth();
 		float assetHeight = mAsset->getTextureWindow().getHeight();
 
@@ -302,21 +285,21 @@ namespace gfx {
 		}
 	}
 
-	pair<float, float> GlFont::processChar(int *data, int xPos, int yPos)
+	pair<float, float> Font::processChar(int *data, int xPos, int yPos)
 	{
 		float left = -1;
 		float right = -1;
 
-		int width = static_cast<int>(mAsset->getGlTexture()->getWidth());
+		int width = static_cast<int>(mAsset->getTexture()->getWidth());
 
 		int xStart = xPos * static_cast<int>(mFixedCharWidth);
 		xStart += static_cast<int>(mAsset->getTextureWindow().getLeftX() *
-			mAsset->getGlTexture()->getWidth());
+			mAsset->getTexture()->getWidth());
 		int xEnd = xStart + static_cast<int>(mFixedCharWidth);
 
 		int yStart = yPos * static_cast<int>(mCharHeight);
 		yStart += static_cast<int>(mAsset->getTextureWindow().getTopY() *
-			mAsset->getGlTexture()->getHeight());
+			mAsset->getTexture()->getHeight());
 		int yEnd = yStart + static_cast<int>(mCharHeight);
 
 		for (int x = xStart; x < xEnd; x++)
