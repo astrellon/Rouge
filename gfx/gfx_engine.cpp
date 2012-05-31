@@ -107,14 +107,9 @@ namespace gfx {
 		glLoadIdentity();
 
 		setOrthographic();
-		//setPerspective();
 
 		vector<Renderable *>::iterator iter;
-		/*for (iter = mRenderables.begin(); iter != mRenderables.end(); ++iter)
-		{
-			(*iter)->render(dt);
-		}
-		*/
+
 		mRootLayer->render(dt);
 		if (mCursor != NULL)
 		{
@@ -297,14 +292,17 @@ namespace gfx {
 		}
 		else
 		{
-			if (target->hasEventListener(type))
+			if (target->hasEventListener(type) && 
+				localX >= 0 && localY >= 0 &&
+				localX <= target->getWidth() && localY <= target->getHeight())
 			{
-				MouseEvent e(type, mouseButton, x, y, target, localX, localY);
-				while(target != NULL && e.isPropagating())
+				MouseEvent *e = new MouseEvent(type, mouseButton, x, y, target, localX, localY);
+				while(target != NULL && e->isPropagating())
 				{
-					target->fireEvent(e);
+					target->fireEvent<MouseEvent>(e);
 					target = target->getParent();
 				}
+				delete e;
 				return true;
 			}
 			

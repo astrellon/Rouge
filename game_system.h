@@ -56,7 +56,8 @@ namespace sys {
 		virtual int startLoop();
 		virtual void stopLoop();
 
-		virtual void onEvent(am::ui::MouseEvent &e);
+		virtual void onEvent(am::ui::Event *e);
+		virtual void onEvent(am::ui::MouseEvent *e);
 
 		ISystem *getLinkedSystem();
 		GfxEngine *getGfxEngine();

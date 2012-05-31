@@ -1,5 +1,6 @@
 #include "event_manager.h"
 
+#include "mouse_event.h"
 #include "ievent_listener.h"
 
 namespace am {
@@ -45,25 +46,6 @@ namespace ui {
 	bool EventManager::hasEventListener(const string &type)
 	{
 		return mListeners.find(type) != mListeners.end();
-	}
-
-	void EventManager::fireEvent(Event &e)
-	{
-		Listeners::iterator iter = mListeners.find(e.getType());
-		if (iter == mListeners.end())
-		{
-			return;
-		}
-
-		ListenerList::iterator listIter;
-		for (listIter = iter->second.begin(); listIter != iter->second.end(); ++listIter)
-		{
-			(*listIter)->onEvent(e);
-			if (!e.isPropagating())
-			{
-				break;
-			}
-		}
 	}
 
 	EventManager::ListenerList::iterator EventManager::findListener(const string &type, IEventListener *context)

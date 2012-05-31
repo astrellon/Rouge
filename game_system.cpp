@@ -79,6 +79,8 @@ namespace sys {
 
 		Sprite *sprite = new Sprite(mGfxEngine, "fontBasic");
 		mGfxEngine->getRootLayer()->addChild(sprite);
+		mGfxEngine->getRootLayer()->setEnableInteractive(true);
+		sprite->setEnableInteractive(true);
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
@@ -91,12 +93,20 @@ namespace sys {
 		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
 
 		sprite->addEventListener("mouse_move", this);
+		sprite->addEventListener("mouse_down", this);
+		sprite->addEventListener("mouse_up", this);
 	}
-	void GameSystem::onEvent(am::ui::MouseEvent &e)
+	void GameSystem::onEvent(am::ui::Event *e)
 	{
 		stringstream ss;
-		ss << "MouseMove: " << e.getMouseX() << ", " << e.getMouseY();
-		ss << " | " << e.getLocalMouseX() << ", " << e.getLocalMouseY();
+		ss << "Event: " << e->getType();
+		mInfo->setText(ss.str());
+	}
+	void GameSystem::onEvent(am::ui::MouseEvent *e)
+	{
+		stringstream ss;
+		ss << "MouseEvent " << e->getType() << ": " << e->getMouseX() << ", " << e->getMouseY();
+		ss << " | " << e->getLocalMouseX() << ", " << e->getLocalMouseY();
 		mInfo->setText(ss.str());
 	}
 	void GameSystem::reshape(int width, int height)

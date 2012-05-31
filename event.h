@@ -10,7 +10,7 @@ namespace ui {
 	class Event {
 	public:
 		Event(const char *type);
-		~Event();
+		virtual ~Event();
 
 		string getType() const;
 		

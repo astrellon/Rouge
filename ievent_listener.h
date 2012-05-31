@@ -9,9 +9,9 @@ namespace ui {
 
 	class IEventListener {
 	public:
-		virtual void onEvent(Event &e) {}
-		virtual void onEvent(MouseEvent &e) {}
-		virtual void onEvent(KeyboardEvent &e) {}
+		virtual void onEvent(Event *e) {}
+		virtual void onEvent(MouseEvent *e) {}
+		virtual void onEvent(KeyboardEvent *e) {}
 	};
 
 }
