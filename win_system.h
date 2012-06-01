@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <gl/GL.h>
 
+#include "mouse_common.h"
+
 #include <string>
 
 #include "isystem.h"
@@ -55,9 +57,9 @@ namespace sys {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void onMouseDown(int mouseButton, int x, int y);
-		virtual void onMouseMove(int mouseButton, int x, int y);
-		virtual void onMouseUp(int mouseButton, int x, int y);
+		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y);
+		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y);
+		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onKeyDown(const bool *keys, int key);
 		virtual void onKeyUp(const bool *keys, int key);
 	

@@ -40,7 +40,7 @@
     <LibraryPath>gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -68,7 +68,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Opengl32.lib;glu32.lib;../DevIL.lib;GLee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
@@ -103,10 +103,12 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="log_entry.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="mouse_manager.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tokeniser.cpp" />
     <ClCompile Include="transform.cpp" />
+    <ClCompile Include="ui_button.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +130,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ievent_listener.h" />
     <ClInclude Include="ievent_manager.h" />
     <ClInclude Include="keyboard_event.h" />
+    <ClInclude Include="mouse_common.h" />
     <ClInclude Include="mouse_event.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="file_log_listener.h" />
@@ -142,11 +145,13 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="main.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="mouse_manager.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />
     <ClInclude Include="transform.h" />
+    <ClInclude Include="ui_button.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />
   </ItemGroup>

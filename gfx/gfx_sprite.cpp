@@ -89,7 +89,11 @@ namespace gfx {
 
 	void Sprite::setCurrentFrame(int frame)
 	{
-		mCurrentFrame = frame;
+		if (frame != mCurrentFrame) 
+		{
+			mCurrentFrame = frame;
+			mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+		}
 	}
 	int Sprite::getCurrentFrame() const
 	{
@@ -98,7 +102,11 @@ namespace gfx {
 
 	void Sprite::setFrameRate(float rate)
 	{
-		mFrameRate = rate;
+		if (rate != mFrameRate)
+		{
+			mFrameRate = rate;
+			mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+		}
 	}
 	float Sprite::getFrameRate() const
 	{
@@ -107,7 +115,11 @@ namespace gfx {
 
 	void Sprite::setFrameTime(float time)
 	{
-		mCurrentTime = time;
+		if (time != mCurrentTime)
+		{
+			mCurrentTime = time;
+			mCurrentFrame = static_cast<int>(mCurrentTime * mFrameRate);
+		}
 	}
 	float Sprite::getFrameTime() const
 	{
@@ -127,7 +139,7 @@ namespace gfx {
 			{
 				mCurrentTime -= totalTime;
 			}
-			mCurrentFrame = static_cast<int>(mMaxFrames * mCurrentTime / totalTime);
+			mCurrentFrame = static_cast<int>(mCurrentTime * mFrameRate);
 		}
 
 		float width = mWidth;

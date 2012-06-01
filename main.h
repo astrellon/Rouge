@@ -20,7 +20,7 @@ using namespace std;
 
 #include "win_system.h"
 #include "game_system.h"
-
+#include "mouse_manager.h"
 #include "gfx/gfx_engine.h"
 #include "engine.h"
 

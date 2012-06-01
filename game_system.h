@@ -3,26 +3,31 @@
 #include "isystem.h"
 #include "ievent_listener.h"
 #include "mouse_event.h"
+#include "mouse_manager.h"
 
 namespace am {
 namespace base {
 	class Engine;
 }
-
 using namespace am::base;
 
-namespace gfx{
+namespace gfx {
 	class GfxEngine;
 	class TextField;
 }
-
 using namespace am::gfx;
+
+namespace ui {
+	class MouseManager;
+}
+using namespace am::ui;
 
 namespace sys {
 
 	class GameSystem : public ISystem, public am::ui::IEventListener {
 	public:
-		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine);
+		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
+			MouseManager *mouseManager);
 		~GameSystem();
 
 		virtual void setSize(int width, int height);
@@ -43,9 +48,9 @@ namespace sys {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void onMouseDown(int mouseButton, int x, int y);
-		virtual void onMouseMove(int mouseButton, int x, int y);
-		virtual void onMouseUp(int mouseButton, int x, int y);
+		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y);
+		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y);
+		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onKeyDown(const bool *keys, int key);
 		virtual void onKeyUp(const bool *keys, int key);
 
@@ -62,14 +67,17 @@ namespace sys {
 		ISystem *getLinkedSystem();
 		GfxEngine *getGfxEngine();
 		Engine *getEngine();
+		MouseManager *getMouseManager();
 
 	protected:
 
 		ISystem *mLinkedSystem;
 		GfxEngine *mGfxEngine;
 		Engine *mEngine;
+		MouseManager *mMouseManager;
 
 		TextField *mInfo;
+		TextField *mInfo2;
 	};
 
 }

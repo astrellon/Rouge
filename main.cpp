@@ -8,10 +8,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::base::Engine engine;
 	am::gfx::GfxEngine gfxEngine;
 
+	am::ui::MouseManager mouseManager(&gfxEngine);
+
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);
 
-	am::sys::GameSystem gameSystem(&win, &engine, &gfxEngine);
+	am::sys::GameSystem gameSystem(&win, &engine, &gfxEngine, &mouseManager);
 	win.setGameSystem(&gameSystem);
 	
 	gameSystem.setSize(600, 400);

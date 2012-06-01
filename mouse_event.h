@@ -2,6 +2,8 @@
 
 #include "event.h"
 
+#include "mouse_common.h"
+
 namespace am {
 namespace gfx {
 	class Renderable;
@@ -13,11 +15,12 @@ namespace ui {
 
 	class MouseEvent : public Event {
 	public:
-		MouseEvent(const char *type, int mouseButton, int x, int y);
-		MouseEvent(const char *type, int mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y);
+		MouseEvent(const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
 		~MouseEvent();
 
-		virtual int getMouseButton() const;
+		virtual MouseButton getMouseButton() const;
+		virtual MouseEventType getMouseEventType() const;
 		virtual int getMouseX() const;
 		virtual int getMouseY() const;
 
@@ -28,12 +31,14 @@ namespace ui {
 
 	protected:
 
-		int mMouseButton;
+		MouseButton mMouseButton;
 		int mMouseX;
 		int mMouseY;
 
 		int mLocalMouseX;
 		int mLocalMouseY;
+
+		MouseEventType mMouseEventType;
 
 		Renderable *mTarget;
 	};

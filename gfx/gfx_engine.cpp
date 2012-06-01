@@ -236,7 +236,7 @@ namespace gfx {
 	{
 		return mRootLayer;
 	}
-
+	/*
 	void GfxEngine::onMouseDown(int mouseButton, int x, int y)
 	{
 		mCursor->getTransform().setPosition(am::math::Vector4f(x, y, 0));
@@ -252,6 +252,7 @@ namespace gfx {
 		mCursor->getTransform().setPosition(am::math::Vector4f(x, y, 0));
 		checkForMouseEvent(mRootLayer, "mouse_up", mouseButton, x, y, x, y);
 	}
+	*/
 	void GfxEngine::onKeyDown(const bool *keys, int key)
 	{
 
@@ -261,53 +262,5 @@ namespace gfx {
 
 	}
 
-	bool GfxEngine::checkForMouseEvent(Renderable *target, const char *type, int mouseButton, int x, int y, int localX, int localY)
-	{
-		if (target == NULL || !target->getEnableInteractive())
-		{
-			return false;
-		}	
-
-		// TODO: Replace with a multiple by inverse.
-		//trans.multiply(target->getTransform().getWorldToObj());
-		//Vector4f local(localX, localY, 0);
-		const Matrix4f &localTrans = target->getTransform().getWorldToObj();
-		//trans.wx -= localTrans.wx;
-		//trans.wy -= localTrans.wy;
-		localX -= localTrans.wx;
-		localY -= localTrans.wy;
-
-		Layer *layer = dynamic_cast<Layer *>(target);
-		if (layer != NULL)
-		{
-			int numChildren = layer->getNumChildren();
-			for (int i = 0; i < numChildren; i++)
-			{
-				bool result = checkForMouseEvent(layer->getChildAt(i), type, mouseButton, x, y, localX, localY);
-				if (result)
-				{
-					break;
-				}
-			}
-		}
-		else
-		{
-			if (target->hasEventListener(type) && 
-				localX >= 0 && localY >= 0 &&
-				localX <= target->getWidth() && localY <= target->getHeight())
-			{
-				MouseEvent *e = new MouseEvent(type, mouseButton, x, y, target, localX, localY);
-				while(target != NULL && e->isPropagating())
-				{
-					target->fireEvent<MouseEvent>(e);
-					target = target->getParent();
-				}
-				delete e;
-				return true;
-			}
-			
-		}
-		return false;
-	}
 }
 }

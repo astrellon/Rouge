@@ -1,5 +1,8 @@
 #pragma once
 
+#include "mouse_event.h"
+#include "mouse_manager.h"
+
 namespace am {
 namespace sys {
 
@@ -23,9 +26,9 @@ namespace sys {
 		virtual void display(float dt) = 0;
 		virtual void deinit() = 0;
 
-		virtual void onMouseDown(int mouseButton, int x, int y) = 0;
-		virtual void onMouseMove(int mouseButton, int x, int y) = 0;
-		virtual void onMouseUp(int mouseButton, int x, int y) = 0;
+		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y) = 0;
+		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y) = 0;
+		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y) = 0;
 		virtual void onKeyDown(const bool *keys, int key) = 0;
 		virtual void onKeyUp(const bool *keys, int key) = 0;
 

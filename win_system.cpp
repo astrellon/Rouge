@@ -87,15 +87,15 @@ namespace sys {
 		mGameSystem->deinit();
 	}
 
-	void WinSystem::onMouseDown(int mouseButton, int x, int y)
+	void WinSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void WinSystem::onMouseMove(int mouseButton, int x, int y)
+	void WinSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseMove(mouseButton, x, y);
 	}
-	void WinSystem::onMouseUp(int mouseButton, int x, int y)
+	void WinSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
@@ -541,28 +541,43 @@ namespace sys {
 			break;
 
 			case WM_MOUSEMOVE:
-				window->winSystem->onMouseMove(LOWORD(wParam), LOWORD(lParam), HIWORD(lParam));
+
+				am::ui::MouseButton button;
+				switch(LOWORD(wParam))
+				{
+				default:
+				case MK_LBUTTON:
+					button = am::ui::LEFT_BUTTON;
+					break;
+				case MK_RBUTTON:
+					button = am::ui::RIGHT_BUTTON;
+					break;
+				case MK_MBUTTON:
+					button = am::ui::MIDDLE_BUTTON;
+					break;
+				}
+				window->winSystem->onMouseMove(button, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_LBUTTONDOWN:
-				window->winSystem->onMouseDown(MK_LBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_LBUTTONUP:
-				window->winSystem->onMouseUp(MK_LBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_RBUTTONDOWN:
-				window->winSystem->onMouseDown(MK_RBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_RBUTTONUP:
-				window->winSystem->onMouseUp(MK_RBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_MBUTTONDOWN:
-				window->winSystem->onMouseDown(MK_MBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_MBUTTONUP:
-				window->winSystem->onMouseUp(MK_MBUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed

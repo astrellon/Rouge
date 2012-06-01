@@ -7,8 +7,9 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	MouseEvent::MouseEvent(const char *type, int mouseButton, int x, int y) :
+	MouseEvent::MouseEvent(const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y) :
 		Event(type),
+		mMouseEventType(mouseType),
 		mMouseButton(mouseButton),
 		mMouseX(x),
 		mMouseY(y),
@@ -17,9 +18,10 @@ namespace ui {
 		mTarget(NULL)
 	{
 	}
-	MouseEvent::MouseEvent(const char *type, int mouseButton, int x, int y,
+	MouseEvent::MouseEvent(const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y,
 		Renderable *target, int localX, int localY) :
 		Event(type),
+		mMouseEventType(mouseType),
 		mMouseButton(mouseButton),
 		mMouseX(x),
 		mMouseY(y),
@@ -32,9 +34,13 @@ namespace ui {
 	{
 	}
 
-	int MouseEvent::getMouseButton() const
+	MouseButton MouseEvent::getMouseButton() const
 	{
 		return mMouseButton;
+	}
+	MouseEventType MouseEvent::getMouseEventType() const
+	{
+		return mMouseEventType;
 	}
 	int MouseEvent::getMouseX() const
 	{

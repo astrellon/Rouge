@@ -34,6 +34,9 @@
     <Filter Include="gfx\base">
       <UniqueIdentifier>{1e4a600d-7b74-4711-9496-4be3c7cee7fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ui\events">
+      <UniqueIdentifier>{c28c02a0-765f-4ba9-8ff7-9d4329998dd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tokeniser.cpp">
@@ -76,18 +79,6 @@
     <ClCompile Include="transform.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="event_manager.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse_event.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard_event.cpp">
-      <Filter>ui</Filter>
-    </ClCompile>
     <ClCompile Include="bounding_box.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -126,6 +117,24 @@
     </ClCompile>
     <ClCompile Include="gfx\texture_window.cpp">
       <Filter>gfx\util</Filter>
+    </ClCompile>
+    <ClCompile Include="event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="event_manager.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_button.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse_manager.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,24 +196,6 @@
     <ClInclude Include="transform.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="event.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ievent_manager.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="event_manager.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="ievent_listener.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="mouse_event.h">
-      <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="keyboard_event.h">
-      <Filter>ui</Filter>
-    </ClInclude>
     <ClInclude Include="bounding_box.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -243,6 +234,33 @@
     </ClInclude>
     <ClInclude Include="gfx\texture_window.h">
       <Filter>gfx\util</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="event_manager.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ievent_listener.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ievent_manager.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard_event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse_event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_button.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse_manager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse_common.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

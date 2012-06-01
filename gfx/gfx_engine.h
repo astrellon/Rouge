@@ -46,9 +46,6 @@ namespace gfx {
 
 		Layer *getRootLayer();
 
-		void onMouseDown(int mouseButton, int x, int y);
-		void onMouseMove(int mouseButton, int x, int y);
-		void onMouseUp(int mouseButton, int x, int y);
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
 
@@ -70,7 +67,7 @@ namespace gfx {
 
 		Layer *mRootLayer;
 
-		bool checkForMouseEvent(Renderable *target, const char *type, int mouseButton, int x, int y, int localX, int localY);
+		//bool checkForMouseEvent(Renderable *target, const char *type, int mouseButton, int x, int y, int localX, int localY);
 	};
 
 }
