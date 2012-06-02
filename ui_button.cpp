@@ -4,6 +4,8 @@
 #include "gfx/gfx_renderable.h"
 #include "gfx/gfx_asset.h"
 
+#include "mouse_manager.h"
+
 namespace am {
 namespace ui {
 
@@ -41,14 +43,8 @@ namespace ui {
 	{
 		setNumFramesX(2);
 		setNumFramesY(2);
-		if (mHitbox)
-		{
-			addListeners(mHitbox);
-		}
-		else
-		{
-			addListeners(this);
-		}
+		setNumTotalFrames(4);
+		setHitbox(mHitbox);
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
@@ -65,10 +61,12 @@ namespace ui {
 		if (mHitbox)
 		{
 			addListeners(mHitbox);
+			mHitbox->setEnableInteractive(true);
 		}
 		else
 		{
 			addListeners(this);
+			setEnableInteractive(true);
 		}
 	}
 	Renderable *Button::getHitbox()
@@ -83,6 +81,16 @@ namespace ui {
 		default:
 		case am::ui::MOUSE_OUT:
 			setCurrentFrame(0);
+			break;
+		case am::ui::MOUSE_MOVE:
+			if (e->getManager()->getButtonDown(e->getMouseButton()))
+			{
+				setCurrentFrame(2);
+			}
+			else
+			{
+				setCurrentFrame(1);
+			}
 			break;
 		case am::ui::MOUSE_OVER:
 		case am::ui::MOUSE_UP:

@@ -35,7 +35,8 @@ namespace ui {
 	protected:
 
 		Renderable *mUnderMouse;
-		map<MouseButton, bool> mMouseButtonsDown;
+		typedef map<MouseButton, bool> MouseButtonMap;
+		MouseButtonMap mMouseButtonsDown;
 		GfxEngine *mGfxEngine;
 
 		void fireMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);

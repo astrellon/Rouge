@@ -35,9 +35,8 @@ namespace ui {
 		ListenerList::iterator iter = findListener(type, context);
 		if (iter != mListeners[type].end())
 		{
-			mListeners[type].end();
+			mListeners[type].erase(iter);
 		}
-		mListeners[type].erase(iter);
 	}
 	bool EventManager::hasEventListener(const char *type)
 	{

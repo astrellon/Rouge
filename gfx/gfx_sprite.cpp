@@ -104,7 +104,14 @@ namespace gfx {
 		if (frame != mCurrentFrame) 
 		{
 			mCurrentFrame = frame;
-			mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+			if (mFrameRate < 0.0001f)
+			{
+				mCurrentTime = 0.0f;
+			}
+			else
+			{
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+			}
 		}
 	}
 	int Sprite::getCurrentFrame() const
@@ -117,7 +124,14 @@ namespace gfx {
 		if (rate != mFrameRate)
 		{
 			mFrameRate = rate;
-			mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+			if (rate < 0.0001f)
+			{
+				mCurrentTime = 0.0f;
+			}
+			else
+			{
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+			}
 		}
 	}
 	float Sprite::getFrameRate() const
@@ -147,34 +161,48 @@ namespace gfx {
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 
+		if (mAnimationDirty)
+		{
+			processAnimation();
+		}
+
 		if (mMaxFrames > 1)
 		{
-			mCurrentTime += dt;
-			float totalTime = static_cast<float>(mMaxFrames) / mFrameRate;
-			while (mCurrentTime > totalTime)
+			if (mFrameRate < 0.0001f)
 			{
-				mCurrentTime -= totalTime;
+				mCurrentTime = 0.0f;
 			}
-			mCurrentFrame = static_cast<int>(mCurrentTime * mFrameRate);
+			else
+			{
+				mCurrentTime += dt;
+				float totalTime = static_cast<float>(mMaxFrames) / mFrameRate;
+				while (mCurrentTime > totalTime)
+				{
+					mCurrentTime -= totalTime;
+				}
+				mCurrentFrame = static_cast<int>(mCurrentTime * mFrameRate);
+			}
+		}
+		else
+		{
+			mCurrentFrame = 0;
+			mCurrentTime = 0.0f;
 		}
 
 		float width = mWidth;
 		if (width == 0)
 		{
-			width = static_cast<float>(mAsset->getTexture()->getWidth());
+			mWidth = static_cast<float>(mAsset->getTexture()->getWidth()) / static_cast<float>(mNumFramesX);
+			width = mWidth;
 		}
 
 		float height = mHeight;
 		if (height == 0)
 		{
-			height = static_cast<float>(mAsset->getTexture()->getHeight());
+			mHeight = static_cast<float>(mAsset->getTexture()->getHeight()) / static_cast<float>(mNumFramesY);
+			height = mHeight;
 		}
 
-		if (mAnimationDirty)
-		{
-			processAnimation();
-		}
-		
 		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
 
 		glEnable(GL_BLEND);

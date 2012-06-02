@@ -16,6 +16,8 @@
 
 #include <sstream>
 
+#include "ui_button.h"
+
 using namespace std;
 using namespace am::math;
 
@@ -105,6 +107,10 @@ namespace sys {
 		sprite->addEventListener("mouse_up", this);
 		sprite->addEventListener("mouse_over", this);
 		sprite->addEventListener("mouse_out", this);
+
+		am::ui::Button *testBtn = new am::ui::Button(mGfxEngine, "bigButton");
+		mGfxEngine->getRootLayer()->addChild(testBtn);
+		testBtn->getTransform().setPosition(Vector4f(200, 100, 0));
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{

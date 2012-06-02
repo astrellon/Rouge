@@ -56,6 +56,16 @@ namespace ui {
 		}
 	}
 
+	bool MouseManager::getButtonDown(MouseButton button)
+	{
+		MouseButtonMap::iterator iter = mMouseButtonsDown.find(button);
+		if (iter == mMouseButtonsDown.end())
+		{
+			return false;
+		}
+		return iter->second;
+	}
+
 	bool MouseManager::checkForMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
 		if (target == NULL || !target->getEnableInteractive())
@@ -116,7 +126,7 @@ namespace ui {
 
 	void MouseManager::fireMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
-		MouseEvent *e = new MouseEvent(type, mouseType, mouseButton, x, y, target, localX, localY);
+		MouseEvent *e = new MouseEvent(this, type, mouseType, mouseButton, x, y, target, localX, localY);
 		while(target != NULL && e->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(e);
