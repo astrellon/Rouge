@@ -17,6 +17,7 @@ namespace gfx {
 
 	class Sprite : public Renderable {
 	public:
+		Sprite(GfxEngine *engine);
 		Sprite(GfxEngine *engine, Asset *asset);
 		Sprite(GfxEngine *engine, const char *assetName);
 		~Sprite();

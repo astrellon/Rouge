@@ -73,6 +73,10 @@ namespace gfx {
 	// IRenderable methods
 	void Layer::render(float dt)
 	{
+		if (!mVisible)
+		{
+			return;
+		}
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 

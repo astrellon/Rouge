@@ -28,12 +28,16 @@ namespace gfx {
 		virtual void setEnableInteractive(bool set);
 		virtual bool getEnableInteractive() const;
 
+		virtual void setVisible(bool visible);
+		virtual bool getVisible() const;
+
 		//virtual BoundingBox getBounds() = 0;
 		virtual am::math::Transform &getTransform();
 	protected:
 
 		float mWidth;
 		float mHeight;
+		bool mVisible;
 		Layer *mParent;
 		bool mEnableInteractive;
 		am::math::Transform mTransform;

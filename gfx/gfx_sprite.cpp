@@ -8,6 +8,18 @@
 namespace am {
 namespace gfx {
 
+	Sprite::Sprite(GfxEngine *engine) :
+		Renderable(engine),
+		mAsset(NULL),
+		mNumFramesX(1),
+		mNumFramesY(1),
+		mMaxFrames(1),
+		mCurrentFrame(0),
+		mFrameRate(0.0f),
+		mCurrentTime(0.0f),
+		mAnimationDirty(true)
+	{
+	}
 	Sprite::Sprite(GfxEngine *engine, Asset *asset) :
 		Renderable(engine),
 		mAsset(asset),
@@ -128,6 +140,10 @@ namespace gfx {
 
 	void Sprite::render(float dt)
 	{
+		if (!mVisible || mAsset == NULL)
+		{
+			return;
+		}
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 

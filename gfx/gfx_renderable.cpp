@@ -10,7 +10,8 @@ namespace gfx {
 		mWidth(0),
 		mHeight(0),
 		mParent(NULL),
-		mEnableInteractive(false)
+		mEnableInteractive(false),
+		mVisible(true)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
@@ -56,6 +57,15 @@ namespace gfx {
 	bool Renderable::getEnableInteractive() const
 	{
 		return mEnableInteractive;
+	}
+
+	void Renderable::setVisible(bool visible)
+	{
+		mVisible = visible;
+	}
+	bool Renderable::getVisible() const
+	{
+		return mVisible;
 	}
 
 	am::math::Transform &Renderable::getTransform()

@@ -77,7 +77,7 @@ namespace gfx {
 
 	void TextList::render(float dt)
 	{
-		if (mFont == NULL || !mFont->isLoaded())
+		if (!mVisible || mFont == NULL || !mFont->isLoaded())
 		{
 			return;
 		}
