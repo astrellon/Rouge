@@ -146,20 +146,20 @@ namespace gfx {
 		return nextXpos;
 	}
 
-	void Font::measureText(const char *text, float &width, float &height) const
+	int Font::measureText(const char *text, float containerWidth, float &width, float &height, char endChar) const
 	{
 		if (text == NULL || text[0] <= ' ')
 		{
-			return;
+			return 0;
 		}
 		int index = 0;
 		char ch = text[index];
-		float currWidth = -mKerning;
+		float currWidth = 0.0f;
 
 		width = 0.0f;
 		height = mCharHeight;
 
-		while (ch > '\0')
+		while (ch > '\0' && ch != endChar)
 		{
 			if (ch == ' ')
 			{
@@ -176,17 +176,114 @@ namespace gfx {
 			}
 			else
 			{
-				currWidth += mTextureWindows[ch].getWidth() + mKerning;
+				if (containerWidth > 0)
+				{
+					float wordWidth;
+					float wordHeight;
+					index += measureWord(text + index, wordWidth, wordHeight) - 1;
+					if (currWidth + wordWidth > containerWidth)
+					{
+						height += wordHeight + mLeading;
+						width = max(width, currWidth);
+					}
+					else
+					{
+						currWidth += wordWidth;
+					}
+				}
+				else
+				{
+					currWidth += mTextureWindows[ch].getWidth() + mKerning;
+				}
 			}
 			ch = text[++index];
 		}
 		width = max(width, currWidth);
+		return index;
 	}
-	void Font::measureWord(const char *word, float &width, float &height) const
+	int Font::measureLine(const char *word, float containerWidth, float &width, float &height) const
 	{
 		if (word == NULL || word[0] <= ' ')
 		{
-			return;
+			return 0;
+		}
+		int index = 0;
+		char ch = word[index];
+		
+		float currWidth = 0.0f;
+
+		width = 0.0f;
+		height = mCharHeight;
+
+		while (ch > '\0' && ch <= ' ')
+		{
+			ch = word[++index];
+		}
+		if (ch == '\0')
+		{
+			return index;
+		}
+
+		bool useLetterWidth = false;
+		float letterWidth = currWidth;
+		char prevCh = '\0';
+		while (ch > '\0')
+		{
+			if (ch == ' ')
+			{
+				if (prevCh > ' ')
+				{
+					letterWidth = currWidth;
+					useLetterWidth = true;
+				}
+				currWidth += mSpaceWidth;
+			}
+			else if (ch == '\t')
+			{
+				if (prevCh > ' ')
+				{
+					letterWidth = currWidth;
+					useLetterWidth = true;
+				}
+				currWidth += getVariableTabPosition(currWidth);
+			}
+			else if (ch == '\n')
+			{
+				break;
+			}
+			else
+			{
+				useLetterWidth = false;
+				float wordWidth;
+				float wordHeight;
+				int indexChange = measureWord(word + index, wordWidth, wordHeight);
+				if (currWidth + wordWidth > containerWidth)
+				{
+					break;
+				}
+				index += indexChange - 1;
+				currWidth += wordWidth;
+				
+			}
+			prevCh = word[index];
+			ch = word[++index];
+		}
+
+		if (useLetterWidth)
+		{
+			width = letterWidth;
+		}
+		else
+		{
+			width = currWidth;
+		}
+		return index;
+	}
+	int Font::measureWord(const char *word, float &width, float &height) const
+	{
+		if (word == NULL || word[0] <= ' ')
+		{
+			return 0;
 		}
 		int index = 0;
 		char ch = word[index];
@@ -197,6 +294,7 @@ namespace gfx {
 			width += mTextureWindows[ch].getWidth() + mKerning;
 			ch = word[++index];
 		}
+		return index;
 	}
 
 	void Font::setCharsAcross(int across)

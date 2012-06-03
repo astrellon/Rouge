@@ -6,6 +6,7 @@
 #include "gfx/gfx_sprite.h"
 #include "gfx/gfx_text_field.h"
 #include "gfx/gfx_layer.h"
+#include "gfx/gfx_font.h"
 
 #include "mouse_manager.h"
 
@@ -80,12 +81,30 @@ namespace sys {
 		mGfxEngine->init();
 
 		mInfo = new TextField(mGfxEngine);
-		mInfo->getTransform().setPosition(Vector4f(0, 100, 0));
+		mInfo->getTransform().setPosition(Vector4f(0, 200, 0));
 		mGfxEngine->getRootLayer()->addChild(mInfo);
+
+		const char *txt = "Hello there how are you today my friend?\nI am good thank you.";
+		//const char *txt = "Hello \nthere";
+		
+		mInfo->setText(txt);
+		mInfo->setWidth(140.0f);
+		mInfo->setAlignment(TextField::ALIGN_RIGHT);
 
 		mInfo2 = new TextField(mGfxEngine);
 		mInfo2->getTransform().setPosition(Vector4f(0, 120, 0));
 		mGfxEngine->getRootLayer()->addChild(mInfo2);
+
+		mInfo2->setText(txt);
+		mInfo2->setWidth(140.0f);
+
+		mInfo3 = new TextField(mGfxEngine);
+		mInfo3->getTransform().setPosition(Vector4f(0, 280, 0));
+		mGfxEngine->getRootLayer()->addChild(mInfo3);
+
+		mInfo3->setText(txt);
+		mInfo3->setWidth(140.0f);
+		mInfo3->setAlignment(TextField::ALIGN_CENTER);
 
 		Sprite *sprite = new Sprite(mGfxEngine, "fontBasic");
 		mGfxEngine->getRootLayer()->addChild(sprite);
@@ -114,24 +133,9 @@ namespace sys {
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{
-		stringstream ss;
-		ss << "Event: " << e->getType();
-		mInfo->setText(ss.str());
 	}
 	void GameSystem::onEvent(am::ui::MouseEvent *e)
 	{
-		stringstream ss;
-		ss << "MouseEvent " << e->getType() << ": " << e->getMouseX() << ", " << e->getMouseY();
-		ss << " | " << e->getLocalMouseX() << ", " << e->getLocalMouseY();
-		if (e->getMouseEventType() == MOUSE_OUT ||
-			e->getMouseEventType() == MOUSE_OVER)
-		{
-			mInfo2->setText(ss.str());
-		}
-		else
-		{
-			mInfo->setText(ss.str());
-		}
 	}
 	void GameSystem::reshape(int width, int height)
 	{

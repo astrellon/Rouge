@@ -51,8 +51,9 @@ namespace gfx {
 		void setTabWidth(float width);
 		float getTabWidth() const;
 
-		void measureText(const char *text, float &width, float &height) const;
-		void measureWord(const char *word, float &width, float &height) const;
+		int measureText(const char *text, float containerWidth, float &width, float &height, char endChar = '\0') const;
+		int measureLine(const char *text, float containerWidth, float &width, float &height) const;
+		int measureWord(const char *word, float &width, float &height) const;
 
 		float getVariableTabPosition(float xPos) const;
 

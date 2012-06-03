@@ -78,6 +78,7 @@ namespace sys {
 
 		TextField *mInfo;
 		TextField *mInfo2;
+		TextField *mInfo3;
 	};
 
 }

@@ -3,6 +3,7 @@
 #include "gfx/gfx_engine.h"
 #include "gfx/gfx_renderable.h"
 #include "gfx/gfx_asset.h"
+#include "gfx/gfx_sprite.h"
 
 #include "mouse_manager.h"
 
@@ -10,21 +11,33 @@ namespace am {
 namespace ui {
 
 	Button::Button(GfxEngine *engine, Renderable *hitbox) :
-		Sprite(engine),
+		Layer(engine),
 		mHitbox(hitbox)
 	{
+		mGraphic = new Sprite(engine);
+		mGraphic->setEnableInteractive(true);
+		addChild(mGraphic);
+
 		init();
 	}
 	Button::Button(GfxEngine *engine, const char *assetName, Renderable *hitbox) :
-		Sprite(engine, assetName),
+		Layer(engine),
 		mHitbox(hitbox)
 	{
+		mGraphic = new Sprite(engine, assetName);
+		mGraphic->setEnableInteractive(true);
+		addChild(mGraphic);
+
 		init();
 	}
 	Button::Button(GfxEngine *engine, Asset *asset, Renderable *hitbox) :
-		Sprite(engine, asset),
+		Layer(engine),
 		mHitbox(hitbox)
 	{
+		mGraphic = new Sprite(engine, asset);
+		mGraphic->setEnableInteractive(true);
+		addChild(mGraphic);
+
 		init();
 	}
 	Button::~Button()
@@ -41,10 +54,11 @@ namespace ui {
 
 	void Button::init()
 	{
-		setNumFramesX(2);
-		setNumFramesY(2);
-		setNumTotalFrames(4);
+		mGraphic->setNumFramesX(2);
+		mGraphic->setNumFramesY(2);
+		mGraphic->setNumTotalFrames(4);
 		setHitbox(mHitbox);
+		setEnableInteractive(true);
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
@@ -55,7 +69,7 @@ namespace ui {
 		}
 		else
 		{
-			removeListeners(this);
+			removeListeners(mGraphic);
 		}
 		mHitbox = hitbox;
 		if (mHitbox)
@@ -65,13 +79,25 @@ namespace ui {
 		}
 		else
 		{
-			addListeners(this);
-			setEnableInteractive(true);
+			addListeners(mGraphic);
 		}
 	}
 	Renderable *Button::getHitbox()
 	{
 		return mHitbox;
+	}
+
+	void Button::setLabel(const char *label)
+	{
+		mLabel = label;
+	}
+	void Button::setLabel(const string &label)
+	{
+		mLabel = label;
+	}
+	string Button::getLabel() const
+	{
+		return mLabel;
 	}
 
 	void Button::onEvent(MouseEvent *e)
@@ -80,24 +106,24 @@ namespace ui {
 		{
 		default:
 		case am::ui::MOUSE_OUT:
-			setCurrentFrame(0);
+			mGraphic->setCurrentFrame(0);
 			break;
 		case am::ui::MOUSE_MOVE:
 			if (e->getManager()->getButtonDown(e->getMouseButton()))
 			{
-				setCurrentFrame(2);
+				mGraphic->setCurrentFrame(2);
 			}
 			else
 			{
-				setCurrentFrame(1);
+				mGraphic->setCurrentFrame(1);
 			}
 			break;
 		case am::ui::MOUSE_OVER:
 		case am::ui::MOUSE_UP:
-			setCurrentFrame(1);
+			mGraphic->setCurrentFrame(1);
 			break;
 		case am::ui::MOUSE_DOWN:
-			setCurrentFrame(2);
+			mGraphic->setCurrentFrame(2);
 			break;
 		}
 	}

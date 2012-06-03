@@ -17,7 +17,8 @@ namespace gfx {
 		mMeasuredWidth(0),
 		mMeasuredHeight(0),
 		mRenderedHeight(0),
-		mDirty(true)
+		mDirty(true),
+		mAlignment(ALIGN_LEFT)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 		mFont = engine->getFont("basic");
@@ -59,19 +60,42 @@ namespace gfx {
 		return mMeasuredHeight;
 	}
 
-	void TextField::setText(string &str)
+	void TextField::setText(const char *str)
 	{
 		mText = str;
 		mDirty = true;
 	}
-	void TextField::appendText(string &str)
+	void TextField::setText(const string &str)
+	{
+		mText = str;
+		mDirty = true;
+	}
+	void TextField::appendText(const char *str)
 	{
 		mText.append(str);
 		mDirty = true;
 	}
+	void TextField::appendText(const string &str)
+	{
+		mText.append(str);
+		mDirty = true;
+	}
+	const string &TextField::getText() const
+	{
+		return mText;
+	}
 	string TextField::getText()
 	{
 		return mText;
+	}
+
+	void TextField::setAlignment(TextField::TextAlignment align)
+	{
+		mAlignment = align;
+	}
+	TextField::TextAlignment TextField::getAlignment() const
+	{
+		return mAlignment;
 	}
 
 	void TextField::render(float dt)
@@ -88,7 +112,7 @@ namespace gfx {
 
 	void TextField::calcSize()
 	{
-		mFont->measureText(mText.c_str(), mMeasuredWidth, mMeasuredHeight);
+		mFont->measureText(mText.c_str(), mWidth, mMeasuredWidth, mMeasuredHeight);
 		mDirty = false;
 	}
 
@@ -106,11 +130,20 @@ namespace gfx {
 
 		mCurrXpos = 0.0f;
 		mCurrYpos = 0.0f;
+		checkAlignment(mText.c_str());
 		mInWord = false;
 	}
 
 	void TextField::postRender()
 	{
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+			glVertex2f(0, mCurrYpos);
+			glVertex2f(0, 0);
+			glVertex2f(mWidth, 0);
+			glVertex2f(mWidth, mCurrYpos);
+
 		glEnd();
 
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
@@ -149,17 +182,19 @@ namespace gfx {
 			else if(ch == '\n')
 			{
 				newLine();
+				checkAlignment(text.c_str() + i + 1);
 				continue;
 			}
 			else if (mWidth > 0.0f && ch > ' ' && !mInWord)
 			{
 				mInWord = true;
-				float wordWidth;
-				float wordHeight;
+				float wordWidth = 0.0f;
+				float wordHeight = 0.0f;
 				mFont->measureWord(text.c_str() + i, wordWidth, wordHeight);
 				if (mCurrXpos + wordWidth > mWidth)
 				{
 					newLine();
+					checkAlignment(text.c_str() + i);
 				}
 			}
 				
@@ -177,7 +212,29 @@ namespace gfx {
 			glTexCoord2f(mCharRender.getLeftX(), mCharRender.getBottomY());
 			glVertex2f(mCurrXpos, mCurrYpos + mCharRender.getHeight());
 
-			mCurrXpos += mCharRender.getWidth() + mFont->getKerning();
+			mCurrXpos += mCharRender.getWidth();
+			if (text[i + 1] > ' ')
+			{
+				mCurrXpos += mFont->getKerning();
+			}
+		}
+	}
+
+	void TextField::checkAlignment(const char *line)
+	{
+		if (mAlignment == ALIGN_RIGHT)
+		{
+			float width = 0.0f;
+			float height = 0.0f;
+			mFont->measureLine(line, mWidth, width, height);
+			mCurrXpos = mWidth - width;
+		}
+		else if (mAlignment == ALIGN_CENTER)
+		{
+			float width = 0.0f;
+			float height = 0.0f;
+			mFont->measureLine(line, mWidth, width, height);
+			mCurrXpos = (mWidth - width) / 2;
 		}
 	}
 

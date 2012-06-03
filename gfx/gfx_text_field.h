@@ -14,6 +14,10 @@ namespace gfx {
 	class TextField : public Renderable {
 	public:
 		// GlTextField methods
+		enum TextAlignment {
+			ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER
+		};
+
 		TextField(GfxEngine *engine);
 		~TextField();
 
@@ -22,9 +26,15 @@ namespace gfx {
 		Font *getBaseFont();
 		void setBaseFont(Font *font);
 		
-		void setText(string &str);
-		void appendText(string &str);
+		void setText(const char *str);
+		void setText(const string &str);
+		void appendText(const char *str);
+		void appendText(const string &str);
+		const string &getText() const;
 		string getText();
+
+		void setAlignment(TextAlignment align);
+		TextAlignment getAlignment() const;
 
 		float getMeasuredWidth();
 		float getMeasuredHeight();
@@ -49,6 +59,8 @@ namespace gfx {
 
 		bool mDirty;
 
+		TextAlignment mAlignment;
+
 		TextureWindow mCharRender;
 
 		void calcSize();
@@ -57,6 +69,7 @@ namespace gfx {
 		void postRender();
 		void newLine();
 		void renderText(const string &text);
+		void checkAlignment(const char *line);
 	};
 
 }
