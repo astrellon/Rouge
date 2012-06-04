@@ -25,6 +25,7 @@ namespace gfx {
 
 		Font *getBaseFont();
 		void setBaseFont(Font *font);
+		void setBaseFont(const char *fontName);
 		
 		void setText(const char *str);
 		void setText(const string &str);

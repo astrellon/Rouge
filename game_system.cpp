@@ -157,21 +157,17 @@ namespace sys {
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		//mGfxEngine->onMouseDown(mouseButton, x , y);
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mGfxEngine->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseDown(mouseButton, x, y);
 	}
 	void GameSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		//mGfxEngine->onMouseMove(mouseButton, x , y);
-		//mEngine->mouseFunc(mouseButton, x, y);
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mGfxEngine->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseMove(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		//mGfxEngine->onMouseUp(mouseButton, x , y);
-		mGfxEngine->getCursor()->getTransform().setPosition(am::math::Vector4f(x, y, 0));
+		mGfxEngine->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseUp(mouseButton, x, y);
 	}
 	void GameSystem::onKeyDown(const bool *keys, int key)

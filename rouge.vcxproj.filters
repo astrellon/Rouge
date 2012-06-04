@@ -136,6 +136,9 @@
     <ClCompile Include="mouse_manager.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="colour.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -261,6 +264,9 @@
     </ClInclude>
     <ClInclude Include="mouse_common.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="colour.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

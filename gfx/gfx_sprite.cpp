@@ -161,6 +161,8 @@ namespace gfx {
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 
+		mColour.applyColour();
+
 		if (mAnimationDirty)
 		{
 			processAnimation();
@@ -189,20 +191,9 @@ namespace gfx {
 			mCurrentTime = 0.0f;
 		}
 
-		float width = mWidth;
-		if (width == 0)
-		{
-			mWidth = static_cast<float>(mAsset->getTexture()->getWidth()) / static_cast<float>(mNumFramesX);
-			width = mWidth;
-		}
-
-		float height = mHeight;
-		if (height == 0)
-		{
-			mHeight = static_cast<float>(mAsset->getTexture()->getHeight()) / static_cast<float>(mNumFramesY);
-			height = mHeight;
-		}
-
+		float width = getWidth();
+		float height = getHeight();
+		
 		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
 
 		glEnable(GL_BLEND);
@@ -230,7 +221,23 @@ namespace gfx {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glPopMatrix();
 	}
-	
+
+	float Sprite::getWidth()
+	{
+		if (mWidth == 0)
+		{
+			mWidth = static_cast<float>(mAsset->getTexture()->getWidth()) / static_cast<float>(mNumFramesX);
+		}
+		return mWidth;
+	}
+	float Sprite::getHeight()
+	{
+		if (mHeight == 0)
+		{
+			mHeight = static_cast<float>(mAsset->getTexture()->getHeight()) / static_cast<float>(mNumFramesY);
+		}
+		return mHeight;
+	}	
 	void Sprite::processAnimation()
 	{
 		float textureWidth = static_cast<float>(mAsset->getTexture()->getWidth());

@@ -78,6 +78,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bounding_box.cpp" />
+    <ClCompile Include="colour.cpp" />
     <ClCompile Include="event.cpp" />
     <ClCompile Include="event_manager.cpp" />
     <ClCompile Include="gfx\gfx_asset.cpp" />
@@ -113,6 +114,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounding_box.h" />
+    <ClInclude Include="colour.h" />
     <ClInclude Include="event_manager.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="gfx\gfx_asset.h" />

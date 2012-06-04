@@ -1,5 +1,7 @@
 #include "gfx_renderable.h"
 
+#include "../vector.h"
+
 #include "gfx_engine.h"
 
 namespace am {
@@ -11,7 +13,8 @@ namespace gfx {
 		mHeight(0),
 		mParent(NULL),
 		mEnableInteractive(false),
-		mVisible(true)
+		mVisible(true),
+		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
@@ -27,7 +30,7 @@ namespace gfx {
 	{
 		mWidth = width;
 	}
-	float Renderable::getWidth() const
+	float Renderable::getWidth()
 	{
 		return mWidth;
 	}
@@ -36,7 +39,7 @@ namespace gfx {
 	{
 		mHeight = height;
 	}
-	float Renderable::getHeight() const
+	float Renderable::getHeight()
 	{
 		return mHeight;
 	}
@@ -68,9 +71,34 @@ namespace gfx {
 		return mVisible;
 	}
 
+	Colour &Renderable::getColour()
+	{
+		return mColour;
+	}
+	void Renderable::setColour(const Colour &colour)
+	{
+		mColour = colour;
+	}
+	void Renderable::setColour(float red, float green, float blue)
+	{
+		mColour.setColour(red, green, blue);
+	}
+	void Renderable::setColour(float red, float green, float blue, float alpha)
+	{
+		mColour.setColour(red, green, blue, alpha);
+	}
+
 	am::math::Transform &Renderable::getTransform()
 	{
 		return mTransform;
+	}
+	void Renderable::setPosition(float x, float y)
+	{
+		mTransform.setPosition(Vector4f(x, y, 0.0f));
+	}
+	void Renderable::setPosition(int x, int y)
+	{
+		mTransform.setPosition(Vector4f(static_cast<float>(x), static_cast<float>(y), 0.0f));
 	}
 
 }

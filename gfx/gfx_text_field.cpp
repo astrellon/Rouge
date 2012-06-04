@@ -42,6 +42,10 @@ namespace gfx {
 	{
 		mFont = font;
 	}
+	void TextField::setBaseFont(const char *fontName)
+	{
+		mFont = mGfxEngine->getFont(fontName);
+	}
 
 	float TextField::getMeasuredWidth()
 	{
@@ -126,6 +130,8 @@ namespace gfx {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		mColour.applyColour();
+
 		glBegin(GL_QUADS);
 
 		mCurrXpos = 0.0f;
@@ -136,14 +142,6 @@ namespace gfx {
 
 	void TextField::postRender()
 	{
-		glEnd();
-
-		glBegin(GL_LINE_STRIP);
-			glVertex2f(0, mCurrYpos);
-			glVertex2f(0, 0);
-			glVertex2f(mWidth, 0);
-			glVertex2f(mWidth, mCurrYpos);
-
 		glEnd();
 
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();

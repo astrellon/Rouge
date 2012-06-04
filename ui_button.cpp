@@ -4,6 +4,8 @@
 #include "gfx/gfx_renderable.h"
 #include "gfx/gfx_asset.h"
 #include "gfx/gfx_sprite.h"
+#include "gfx/gfx_text_field.h"
+#include "gfx/gfx_font.h"
 
 #include "mouse_manager.h"
 
@@ -59,6 +61,17 @@ namespace ui {
 		mGraphic->setNumTotalFrames(4);
 		setHitbox(mHitbox);
 		setEnableInteractive(true);
+
+		mLabel = new TextField(mGfxEngine);
+		mLabel->setBaseFont("arial");
+		mLabel->setText("Multiline\nButton");
+		mLabel->setColour(0.6f, 0.8f, 1.0f);
+		addChild(mLabel);
+
+		mLabel->setWidth(mGraphic->getWidth());
+		mLabel->setAlignment(TextField::ALIGN_CENTER);
+		float fontHeight = mLabel->getMeasuredHeight();
+		mLabel->getTransform().setPosition(Vector4f(0, (mGraphic->getHeight() - fontHeight) * 0.5f, 0));
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
@@ -89,15 +102,15 @@ namespace ui {
 
 	void Button::setLabel(const char *label)
 	{
-		mLabel = label;
+		mLabel->setText(label);
 	}
 	void Button::setLabel(const string &label)
 	{
-		mLabel = label;
+		mLabel->setText(label);
 	}
 	string Button::getLabel() const
 	{
-		return mLabel;
+		return mLabel->getText();
 	}
 
 	void Button::onEvent(MouseEvent *e)

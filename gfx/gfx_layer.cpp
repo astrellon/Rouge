@@ -83,6 +83,7 @@ namespace gfx {
 		ChildList::iterator iter;
 		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
+			mColour.applyColour();
 			(*iter)->render(dt);
 		}
 

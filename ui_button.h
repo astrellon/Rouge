@@ -11,6 +11,7 @@ namespace am {
 namespace gfx {
 	class GfxEngine;
 	class Asset;
+	class TextField;
 	class Renderable;
 	class Sprite;
 }
@@ -36,13 +37,15 @@ namespace ui {
 		void setLabel(const string &label);
 		string getLabel() const;
 
+		TextField *getLabelField();
+
 		virtual void onEvent(MouseEvent *e);
 
 	protected:
 
 		Renderable *mHitbox;
 		Sprite *mGraphic;
-		string mLabel;
+		TextField *mLabel;
 
 		void init();
 		void addListeners(Renderable *target);
