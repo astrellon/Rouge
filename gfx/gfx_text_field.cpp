@@ -109,9 +109,9 @@ namespace gfx {
 			return;
 		}
 
-		preRender();
+		preRender(dt);
 		renderText(mText);
-		postRender();
+		postRender(dt);
 	}
 
 	void TextField::calcSize()
@@ -120,10 +120,9 @@ namespace gfx {
 		mDirty = false;
 	}
 
-	void TextField::preRender()
+	void TextField::preRender(float dt)
 	{
-		glPushMatrix();
-		glMultMatrixf(mTransform.data());
+		Renderable::preRender(dt);
 
 		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
 
@@ -140,7 +139,7 @@ namespace gfx {
 		mInWord = false;
 	}
 
-	void TextField::postRender()
+	void TextField::postRender(float dt)
 	{
 		glEnd();
 
@@ -148,7 +147,8 @@ namespace gfx {
 
 		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glPopMatrix();
+		
+		Renderable::postRender(dt);
 	}
 
 	void TextField::newLine()

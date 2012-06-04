@@ -121,15 +121,11 @@ namespace sys {
 
 		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
 
-		sprite->addEventListener("mouse_move", this);
-		sprite->addEventListener("mouse_down", this);
-		sprite->addEventListener("mouse_up", this);
-		sprite->addEventListener("mouse_over", this);
-		sprite->addEventListener("mouse_out", this);
-
 		am::ui::Button *testBtn = new am::ui::Button(mGfxEngine, "bigButton");
-		mGfxEngine->getRootLayer()->addChild(testBtn);
+		mGfxEngine->getUILayer()->addChild(testBtn);
 		testBtn->getTransform().setPosition(Vector4f(200, 100, 0));
+		testBtn->setAnchorX(X_CENTER);
+		testBtn->setAnchorY(Y_CENTER);
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{

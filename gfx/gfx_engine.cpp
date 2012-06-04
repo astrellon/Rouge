@@ -30,7 +30,9 @@ namespace am {
 namespace gfx {
 
 	GfxEngine::GfxEngine() :
-		mCursor(NULL)
+		mCursor(NULL),
+		mRootLayer(NULL),
+		mUILayer(NULL)
 	{
 		
 	}
@@ -56,19 +58,24 @@ namespace gfx {
 		mRootLayer = new Layer(this);
 		mRootLayer->setEnableInteractive(true);
 
+		mUILayer = new Layer(this);
+		mUILayer->setEnableInteractive(true);
+		mUILayer->setWidth(static_cast<float>(mScreenWidth));
+		mUILayer->setHeight(static_cast<float>(mScreenHeight));
+		mRootLayer->addChild(mUILayer);
+
 		Asset *mCursorAsset = getAsset("cursor");
 		if (mCursorAsset == NULL)
 		{
 			// TODO: ERROR!
 		}
 		mCursor = new Sprite(this, mCursorAsset);
-		mRootLayer->addChild(mCursor);
 
 		TextList *list = new TextList(this);
 		mRootLayer->addChild(list);
 
 		list->setWidth(600.0f);
-		list->setBaseFont(getFont("basic"));
+		list->setBaseFont("basic");
 
 		GfxLogListener *listener = new GfxLogListener(list);
 		am::log::Logger::getMainLogger().addLogListener(listener);
@@ -108,9 +115,8 @@ namespace gfx {
 
 		setOrthographic();
 
-		vector<Renderable *>::iterator iter;
-
 		mRootLayer->render(dt);
+		
 		if (mCursor != NULL)
 		{
 			mCursor->render(dt);
@@ -121,6 +127,12 @@ namespace gfx {
 	{
 		mScreenWidth = width;
 		mScreenHeight = height;
+
+		if (mUILayer)
+		{
+			mUILayer->setWidth(static_cast<float>(width));
+			mUILayer->setHeight(static_cast<float>(height));
+		}
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
@@ -236,23 +248,20 @@ namespace gfx {
 	{
 		return mRootLayer;
 	}
-	/*
-	void GfxEngine::onMouseDown(int mouseButton, int x, int y)
+	Layer *GfxEngine::getUILayer()
 	{
-		mCursor->getTransform().setPosition(am::math::Vector4f(x, y, 0));
-		checkForMouseEvent(mRootLayer, "mouse_down", mouseButton, x, y, x, y);
+		return mUILayer;
 	}
-	void GfxEngine::onMouseMove(int mouseButton, int x, int y)
+
+	int GfxEngine::getScreenWidth() const
 	{
-		mCursor->getTransform().setPosition(am::math::Vector4f(x, y, 0));
-		checkForMouseEvent(mRootLayer, "mouse_move", mouseButton, x, y, x, y);
+		return mScreenWidth;
 	}
-	void GfxEngine::onMouseUp(int mouseButton, int x, int y)
+	int GfxEngine::getScreenHeight() const
 	{
-		mCursor->getTransform().setPosition(am::math::Vector4f(x, y, 0));
-		checkForMouseEvent(mRootLayer, "mouse_up", mouseButton, x, y, x, y);
+		return mScreenHeight;
 	}
-	*/
+	
 	void GfxEngine::onKeyDown(const bool *keys, int key)
 	{
 

@@ -13,33 +13,27 @@ namespace am {
 namespace ui {
 
 	Button::Button(GfxEngine *engine, Renderable *hitbox) :
-		Layer(engine),
+		UIComponent(engine),
 		mHitbox(hitbox)
 	{
 		mGraphic = new Sprite(engine);
-		mGraphic->setEnableInteractive(true);
-		addChild(mGraphic);
 
 		init();
 	}
 	Button::Button(GfxEngine *engine, const char *assetName, Renderable *hitbox) :
-		Layer(engine),
+		UIComponent(engine),
 		mHitbox(hitbox)
 	{
 		mGraphic = new Sprite(engine, assetName);
-		mGraphic->setEnableInteractive(true);
-		addChild(mGraphic);
 
 		init();
 	}
 	Button::Button(GfxEngine *engine, Asset *asset, Renderable *hitbox) :
-		Layer(engine),
+		UIComponent(engine),
 		mHitbox(hitbox)
 	{
 		mGraphic = new Sprite(engine, asset);
-		mGraphic->setEnableInteractive(true);
-		addChild(mGraphic);
-
+		
 		init();
 	}
 	Button::~Button()
@@ -56,6 +50,9 @@ namespace ui {
 
 	void Button::init()
 	{
+		mGraphic->setEnableInteractive(true);
+		addChild(mGraphic);
+
 		mGraphic->setNumFramesX(2);
 		mGraphic->setNumFramesY(2);
 		mGraphic->setNumTotalFrames(4);
@@ -138,6 +135,21 @@ namespace ui {
 		case am::ui::MOUSE_DOWN:
 			mGraphic->setCurrentFrame(2);
 			break;
+		}
+	}
+
+	float Button::getWidth()
+	{
+		if (mGraphic)
+		{
+			return mGraphic->getWidth();
+		}
+	}
+	float Button::getHeight()
+	{
+		if (mGraphic)
+		{
+			return mGraphic->getHeight();
 		}
 	}
 

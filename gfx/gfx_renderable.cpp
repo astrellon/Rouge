@@ -1,6 +1,7 @@
 #include "gfx_renderable.h"
 
 #include "../vector.h"
+#include "../gl.h"
 
 #include "gfx_engine.h"
 
@@ -22,8 +23,19 @@ namespace gfx {
 	{
 	}
 
+	void Renderable::preRender(float dt)
+	{
+		glPushMatrix();
+		glMultMatrixf(mTransform.data());
+
+		mColour.applyColour();
+	}
 	void Renderable::render(float dt)
 	{
+	}
+	void Renderable::postRender(float dt)
+	{
+		glPopMatrix();
 	}
 
 	void Renderable::setWidth(float width)

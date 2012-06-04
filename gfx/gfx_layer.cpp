@@ -77,8 +77,7 @@ namespace gfx {
 		{
 			return;
 		}
-		glPushMatrix();
-		glMultMatrixf(mTransform.data());
+		preRender(dt);
 
 		ChildList::iterator iter;
 		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
@@ -87,7 +86,7 @@ namespace gfx {
 			(*iter)->render(dt);
 		}
 
-		glPopMatrix();
+		postRender(dt);
 	}
 	
 	Layer::ChildList::const_iterator Layer::findChild(Renderable *child) const

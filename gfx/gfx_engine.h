@@ -44,7 +44,11 @@ namespace gfx {
 		void display(float dt);
 		void reshape(int width, int height);
 
+		int getScreenWidth() const;
+		int getScreenHeight() const;
+
 		Layer *getRootLayer();
+		Layer *getUILayer();
 
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
@@ -66,8 +70,7 @@ namespace gfx {
 		FontManager mFontManager;
 
 		Layer *mRootLayer;
-
-		//bool checkForMouseEvent(Renderable *target, const char *type, int mouseButton, int x, int y, int localX, int localY);
+		Layer *mUILayer;
 	};
 
 }

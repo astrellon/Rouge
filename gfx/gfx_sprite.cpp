@@ -158,11 +158,8 @@ namespace gfx {
 		{
 			return;
 		}
-		glPushMatrix();
-		glMultMatrixf(mTransform.data());
-
-		mColour.applyColour();
-
+		preRender(dt);
+		
 		if (mAnimationDirty)
 		{
 			processAnimation();
@@ -219,7 +216,8 @@ namespace gfx {
 
 		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glPopMatrix();
+
+		postRender(dt);
 	}
 
 	float Sprite::getWidth()

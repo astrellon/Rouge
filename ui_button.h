@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ievent_listener.h"
-#include "gfx/gfx_layer.h"
+#include "ui_component.h"
 
 #include <string>
 
@@ -20,7 +20,7 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class Button : public IEventListener, public Layer {
+	class Button : public IEventListener, public UIComponent {
 	public:
 		Button(GfxEngine *engine, Renderable *hitbox = NULL);
 		Button(GfxEngine *engine, const char *assetName, Renderable *hitbox = NULL);
@@ -40,6 +40,9 @@ namespace ui {
 		TextField *getLabelField();
 
 		virtual void onEvent(MouseEvent *e);
+
+		virtual float getWidth();
+		virtual float getHeight();
 
 	protected:
 

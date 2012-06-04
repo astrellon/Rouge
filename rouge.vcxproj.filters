@@ -139,6 +139,9 @@
     <ClCompile Include="colour.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="ui_component.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -267,6 +270,9 @@
     </ClInclude>
     <ClInclude Include="colour.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_component.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

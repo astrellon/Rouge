@@ -66,8 +66,8 @@ namespace gfx {
 
 		void calcSize();
 
-		void preRender();
-		void postRender();
+		virtual void preRender(float dt);
+		virtual void postRender(float dt);
 		void newLine();
 		void renderText(const string &text);
 		void checkAlignment(const char *line);

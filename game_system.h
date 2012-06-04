@@ -14,6 +14,7 @@ using namespace am::base;
 namespace gfx {
 	class GfxEngine;
 	class TextField;
+	class Layer;
 }
 using namespace am::gfx;
 

@@ -19,7 +19,7 @@ namespace gfx {
 		virtual ~Renderable();
 
 		virtual void render(float dt);
-
+		
 		virtual void setWidth(float width);
 		virtual float getWidth();
 
@@ -54,6 +54,9 @@ namespace gfx {
 		Colour mColour;
 		bool mEnableInteractive;
 		am::math::Transform mTransform;
+
+		virtual void preRender(float dt);
+		virtual void postRender(float dt);
 	};
 
 }

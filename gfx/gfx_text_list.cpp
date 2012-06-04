@@ -82,7 +82,7 @@ namespace gfx {
 			return;
 		}
 
-		preRender();
+		preRender(dt);
 
 		string sep = ": ";
 
@@ -102,7 +102,7 @@ namespace gfx {
 		}
 
 		renderText(mText);
-		postRender();
+		postRender(dt);
 	}
 
 }
