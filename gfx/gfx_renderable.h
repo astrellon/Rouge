@@ -29,11 +29,11 @@ namespace gfx {
 		virtual Layer *getParent() const;
 		virtual void setParent(Layer *layer);
 
-		virtual void setEnableInteractive(bool set);
-		virtual bool getEnableInteractive() const;
+		virtual void setInteractive(bool set);
+		virtual bool isInteractive() const;
 
 		virtual void setVisible(bool visible);
-		virtual bool getVisible() const;
+		virtual bool isVisible() const;
 
 		virtual Colour &getColour();
 		virtual void setColour(const Colour &colour);
@@ -52,7 +52,7 @@ namespace gfx {
 		bool mVisible;
 		Layer *mParent;
 		Colour mColour;
-		bool mEnableInteractive;
+		bool mInteractive;
 		am::math::Transform mTransform;
 
 		virtual void preRender(float dt);

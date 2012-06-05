@@ -50,25 +50,25 @@ namespace ui {
 
 	void Button::init()
 	{
-		mGraphic->setEnableInteractive(true);
+		mGraphic->setInteractive(true);
 		addChild(mGraphic);
 
 		mGraphic->setNumFramesX(2);
 		mGraphic->setNumFramesY(2);
 		mGraphic->setNumTotalFrames(4);
 		setHitbox(mHitbox);
-		setEnableInteractive(true);
+		setInteractive(true);
 
 		mLabel = new TextField(mGfxEngine);
 		mLabel->setBaseFont("arial");
-		mLabel->setText("Multiline\nButton");
+		mLabel->setText("Button\nasd");
 		mLabel->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel);
 
 		mLabel->setWidth(mGraphic->getWidth());
 		mLabel->setAlignment(TextField::ALIGN_CENTER);
 		float fontHeight = mLabel->getMeasuredHeight();
-		mLabel->getTransform().setPosition(Vector4f(0, (mGraphic->getHeight() - fontHeight) * 0.5f, 0));
+		mLabel->setPosition(0.0f, (mGraphic->getHeight() - fontHeight) * 0.5f);
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
@@ -85,7 +85,7 @@ namespace ui {
 		if (mHitbox)
 		{
 			addListeners(mHitbox);
-			mHitbox->setEnableInteractive(true);
+			mHitbox->setInteractive(true);
 		}
 		else
 		{
@@ -144,6 +144,7 @@ namespace ui {
 		{
 			return mGraphic->getWidth();
 		}
+		return 0.0f;
 	}
 	float Button::getHeight()
 	{
@@ -151,6 +152,7 @@ namespace ui {
 		{
 			return mGraphic->getHeight();
 		}
+		return 0.0f;
 	}
 
 	void Button::addListeners(Renderable *target)

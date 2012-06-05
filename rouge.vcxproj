@@ -110,6 +110,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="tokeniser.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="ui_button.cpp" />
+    <ClCompile Include="ui_checkbox.cpp" />
     <ClCompile Include="ui_component.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="tokeniser.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="ui_button.h" />
+    <ClInclude Include="ui_checkbox.h" />
     <ClInclude Include="ui_component.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />

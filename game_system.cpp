@@ -18,6 +18,7 @@
 #include <sstream>
 
 #include "ui_button.h"
+#include "ui_checkbox.h"
 
 using namespace std;
 using namespace am::math;
@@ -79,7 +80,7 @@ namespace sys {
 	{
 		mEngine->init();
 		mGfxEngine->init();
-
+		
 		mInfo = new TextField(mGfxEngine);
 		mInfo->getTransform().setPosition(Vector4f(0, 200, 0));
 		mGfxEngine->getRootLayer()->addChild(mInfo);
@@ -108,8 +109,8 @@ namespace sys {
 
 		Sprite *sprite = new Sprite(mGfxEngine, "fontBasic");
 		mGfxEngine->getRootLayer()->addChild(sprite);
-		mGfxEngine->getRootLayer()->setEnableInteractive(true);
-		sprite->setEnableInteractive(true);
+		mGfxEngine->getRootLayer()->setInteractive(true);
+		sprite->setInteractive(true);
 		
 		sprite->setNumFramesX(16);
 		sprite->setNumFramesY(16);
@@ -123,9 +124,23 @@ namespace sys {
 
 		am::ui::Button *testBtn = new am::ui::Button(mGfxEngine, "bigButton");
 		mGfxEngine->getUILayer()->addChild(testBtn);
-		testBtn->getTransform().setPosition(Vector4f(200, 100, 0));
 		testBtn->setAnchorX(X_CENTER);
 		testBtn->setAnchorY(Y_CENTER);
+		testBtn->setOffsetY(-20.0f);
+		
+		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test Label");
+		mGfxEngine->getUILayer()->addChild(testCheck);
+		testCheck->setAnchorX(X_CENTER);
+		testCheck->setAnchorY(Y_CENTER);
+		testCheck->setOffsetY(40.0f);
+		
+		sprite = new Sprite(mGfxEngine, "checkbox");
+		mGfxEngine->getRootLayer()->addChild(sprite);
+		sprite->setNumFramesX(2);
+		sprite->setNumFramesY(4);
+		sprite->setNumTotalFrames(8);
+		sprite->setFrameRate(4.0f);
+		
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{

@@ -13,7 +13,7 @@ namespace gfx {
 		mWidth(0),
 		mHeight(0),
 		mParent(NULL),
-		mEnableInteractive(false),
+		mInteractive(false),
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
@@ -65,20 +65,20 @@ namespace gfx {
 		mParent = layer;
 	}
 
-	void Renderable::setEnableInteractive(bool set)
+	void Renderable::setInteractive(bool set)
 	{
-		mEnableInteractive = set;
+		mInteractive = set;
 	}
-	bool Renderable::getEnableInteractive() const
+	bool Renderable::isInteractive() const
 	{
-		return mEnableInteractive;
+		return mInteractive;
 	}
 
 	void Renderable::setVisible(bool visible)
 	{
 		mVisible = visible;
 	}
-	bool Renderable::getVisible() const
+	bool Renderable::isVisible() const
 	{
 		return mVisible;
 	}

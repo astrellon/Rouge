@@ -142,6 +142,9 @@
     <ClCompile Include="ui_component.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="ui_checkbox.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -272,6 +275,9 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="ui_component.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_checkbox.h">
       <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>

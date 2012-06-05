@@ -68,7 +68,7 @@ namespace ui {
 
 	bool MouseManager::checkForMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
-		if (target == NULL || !target->getEnableInteractive())
+		if (target == NULL || !target->isInteractive())
 		{
 			return false;
 		}	
@@ -93,7 +93,8 @@ namespace ui {
 		}
 		else
 		{
-			if (target->hasEventListener(type) && 
+			if (target->isVisible() &&
+				target->hasEventListener(type) && 
 				localX >= 0 && localY >= 0 &&
 				localX <= target->getWidth() && localY <= target->getHeight())
 			{
@@ -104,7 +105,7 @@ namespace ui {
 				{
 					if (oldUnderMouse != NULL)
 					{
-						fireMouseEvent(mUnderMouse, "mouse_out", MOUSE_OUT, mouseButton, x, y, -1, -1);
+						fireMouseEvent(oldUnderMouse, "mouse_out", MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
 					fireMouseEvent(target, "mouse_over", MOUSE_OVER, mouseButton, x, y, localX, localY);
 				}

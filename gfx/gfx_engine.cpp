@@ -56,10 +56,10 @@ namespace gfx {
 		glFrontFace(GL_CW);*/
 
 		mRootLayer = new Layer(this);
-		mRootLayer->setEnableInteractive(true);
+		mRootLayer->setInteractive(true);
 
 		mUILayer = new Layer(this);
-		mUILayer->setEnableInteractive(true);
+		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
 		mRootLayer->addChild(mUILayer);

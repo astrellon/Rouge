@@ -25,6 +25,7 @@ namespace ui {
 
 		virtual void setAnchorX(AnchorX anchor);
 		virtual void setAnchorY(AnchorY anchor);
+		virtual void setAnchor(AnchorX anchorX, AnchorY anchorY);
 
 		virtual AnchorX getAnchorX() const;
 		virtual AnchorY getAnchorY() const;

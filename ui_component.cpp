@@ -25,6 +25,11 @@ namespace ui {
 	{
 		mAnchorY = anchor;
 	}
+	void UIComponent::setAnchor(AnchorX anchorX, AnchorY anchorY)
+	{
+		mAnchorX = anchorX;
+		mAnchorY = anchorY;
+	}
 
 	AnchorX UIComponent::getAnchorX() const
 	{
