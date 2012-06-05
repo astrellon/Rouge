@@ -80,7 +80,7 @@ namespace sys {
 	{
 		mEngine->init();
 		mGfxEngine->init();
-		
+		/*
 		mInfo = new TextField(mGfxEngine);
 		mInfo->getTransform().setPosition(Vector4f(0, 200, 0));
 		mGfxEngine->getRootLayer()->addChild(mInfo);
@@ -121,7 +121,7 @@ namespace sys {
 		sprite->setFrameRate(4.0f);
 
 		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
-
+		*/
 		am::ui::Button *testBtn = new am::ui::Button(mGfxEngine, "bigButton");
 		mGfxEngine->getUILayer()->addChild(testBtn);
 		testBtn->setAnchorX(X_CENTER);
@@ -133,14 +133,6 @@ namespace sys {
 		testCheck->setAnchorX(X_CENTER);
 		testCheck->setAnchorY(Y_CENTER);
 		testCheck->setOffsetY(40.0f);
-		
-		sprite = new Sprite(mGfxEngine, "checkbox");
-		mGfxEngine->getRootLayer()->addChild(sprite);
-		sprite->setNumFramesX(2);
-		sprite->setNumFramesY(4);
-		sprite->setNumTotalFrames(8);
-		sprite->setFrameRate(4.0f);
-		
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{

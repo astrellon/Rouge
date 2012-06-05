@@ -65,7 +65,11 @@ namespace ui {
 	}
 	void Checkbox::setSelected(bool selected)
 	{
-		mSelected = selected;
+		if (selected != mSelected)
+		{
+			mSelected = selected;
+			
+		}
 	}
 
 	float Checkbox::getWidth()

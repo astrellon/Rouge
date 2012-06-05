@@ -24,7 +24,7 @@ namespace ui {
 		void setGfxEngine(GfxEngine *engine);
 		GfxEngine *getGfxEngine() const;
 
-		bool checkForMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+		bool checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 		Renderable *getUnderMouse() const;
 		bool getButtonDown(MouseButton button);
 
@@ -39,7 +39,7 @@ namespace ui {
 		MouseButtonMap mMouseButtonsDown;
 		GfxEngine *mGfxEngine;
 
-		void fireMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 	};
 
 }

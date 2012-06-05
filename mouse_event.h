@@ -17,8 +17,8 @@ namespace ui {
 
 	class MouseEvent : public Event {
 	public:
-		MouseEvent(MouseManager *manager, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y);
-		MouseEvent(MouseManager *manager, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y);
+		MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
 		~MouseEvent();
 
 		virtual MouseButton getMouseButton() const;

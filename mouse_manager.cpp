@@ -31,18 +31,18 @@ namespace ui {
 	void MouseManager::onMouseDown(MouseButton mouseButton, int x, int y)
 	{
 		mMouseButtonsDown[mouseButton] = true;
-		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), "mouse_down", MOUSE_DOWN, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), MOUSE_DOWN, mouseButton, x, y, x, y))
 		{
 			mUnderMouse = NULL;
 		}
 	}
 	void MouseManager::onMouseMove(MouseButton mouseButton, int x, int y)
 	{
-		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), "mouse_move", MOUSE_MOVE, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), MOUSE_MOVE, mouseButton, x, y, x, y))
 		{
 			if (mUnderMouse != NULL)
 			{
-				fireMouseEvent(mUnderMouse, "mouse_out", MOUSE_OUT, mouseButton, x, y, -1, -1);
+				fireMouseEvent(mUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 			}
 			mUnderMouse = NULL;
 		}
@@ -50,7 +50,7 @@ namespace ui {
 	void MouseManager::onMouseUp(MouseButton mouseButton, int x, int y)
 	{
 		mMouseButtonsDown[mouseButton] = false;
-		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), "mouse_up", MOUSE_UP, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(mGfxEngine->getRootLayer(), MOUSE_UP, mouseButton, x, y, x, y))
 		{
 			mUnderMouse = NULL;
 		}
@@ -66,7 +66,7 @@ namespace ui {
 		return iter->second;
 	}
 
-	bool MouseManager::checkForMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
+	bool MouseManager::checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
 		if (target == NULL || !target->isInteractive())
 		{
@@ -84,7 +84,7 @@ namespace ui {
 			int numChildren = layer->getNumChildren();
 			for (int i = 0; i < numChildren; i++)
 			{
-				bool result = checkForMouseEvent(layer->getChildAt(i), type, mouseType, mouseButton, x, y, localX, localY);
+				bool result = checkForMouseEvent(layer->getChildAt(i), mouseType, mouseButton, x, y, localX, localY);
 				if (result)
 				{
 					return true;
@@ -94,7 +94,7 @@ namespace ui {
 		else
 		{
 			if (target->isVisible() &&
-				target->hasEventListener(type) && 
+				target->hasEventListener(MouseEventTypeNames[mouseType]) && 
 				localX >= 0 && localY >= 0 &&
 				localX <= target->getWidth() && localY <= target->getHeight())
 			{
@@ -105,13 +105,13 @@ namespace ui {
 				{
 					if (oldUnderMouse != NULL)
 					{
-						fireMouseEvent(oldUnderMouse, "mouse_out", MOUSE_OUT, mouseButton, x, y, -1, -1);
+						fireMouseEvent(oldUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
-					fireMouseEvent(target, "mouse_over", MOUSE_OVER, mouseButton, x, y, localX, localY);
+					fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
 				}
 				else
 				{
-					fireMouseEvent(target, type, mouseType, mouseButton, x, y, localX, localY);
+					fireMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
 				}
 
 				return true;
@@ -125,9 +125,9 @@ namespace ui {
 		return mUnderMouse;
 	}
 
-	void MouseManager::fireMouseEvent(Renderable *target, const char *type, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
+	void MouseManager::fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
-		MouseEvent *e = new MouseEvent(this, type, mouseType, mouseButton, x, y, target, localX, localY);
+		MouseEvent *e = new MouseEvent(this, mouseType, mouseButton, x, y, target, localX, localY);
 		while(target != NULL && e->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(e);

@@ -94,6 +94,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="gfx\gfx_text_list.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
     <ClCompile Include="keyboard_event.cpp" />
+    <ClCompile Include="mouse_common.cpp" />
     <ClCompile Include="mouse_event.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="flie_log_listener.cpp" />
@@ -117,6 +118,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   <ItemGroup>
     <ClInclude Include="bounding_box.h" />
     <ClInclude Include="colour.h" />
+    <ClInclude Include="DataEvent.h" />
     <ClInclude Include="event_manager.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="gfx\gfx_asset.h" />
