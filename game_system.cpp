@@ -128,7 +128,7 @@ namespace sys {
 		testBtn->setAnchorY(Y_CENTER);
 		testBtn->setOffsetY(-20.0f);
 		
-		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test Label");
+		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test\nLabel");
 		mGfxEngine->getUILayer()->addChild(testCheck);
 		testCheck->setAnchorX(X_CENTER);
 		testCheck->setAnchorY(Y_CENTER);
@@ -210,6 +210,20 @@ namespace sys {
 	void GameSystem::stopLoop()
 	{
 		mLinkedSystem->stopLoop();
+	}
+
+	void GameSystem::setCursorHidden(bool hide)
+	{
+		mLinkedSystem->setCursorHidden(hide);
+	}
+	void GameSystem::onCursorHiddenChange(bool hidden)
+	{
+		// If the OS cursor is hidden, we want to show our in game cursor.
+		mGfxEngine->setCursorHidden(!hidden);
+	}
+	bool GameSystem::isCursorHidden() const
+	{
+		return mLinkedSystem->isCursorHidden();
 	}
 
 	ISystem *GameSystem::getLinkedSystem()

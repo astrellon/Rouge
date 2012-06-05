@@ -39,6 +39,10 @@ namespace sys {
 		virtual int startLoop() = 0;
 		virtual void stopLoop() = 0;
 
+		virtual void setCursorHidden(bool hide) = 0;
+		virtual void onCursorHiddenChange(bool hidden) = 0;
+		virtual bool isCursorHidden() const = 0;
+
 	};
 
 }

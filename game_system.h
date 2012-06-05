@@ -65,6 +65,10 @@ namespace sys {
 		virtual void onEvent(am::ui::Event *e);
 		virtual void onEvent(am::ui::MouseEvent *e);
 
+		virtual void setCursorHidden(bool hide);
+		virtual void onCursorHiddenChange(bool hidden);
+		virtual bool isCursorHidden() const;
+
 		ISystem *getLinkedSystem();
 		GfxEngine *getGfxEngine();
 		Engine *getEngine();

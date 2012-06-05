@@ -31,6 +31,7 @@ namespace gfx {
 
 	GfxEngine::GfxEngine() :
 		mCursor(NULL),
+		mHideCursor(false),
 		mRootLayer(NULL),
 		mUILayer(NULL)
 	{
@@ -117,7 +118,7 @@ namespace gfx {
 
 		mRootLayer->render(dt);
 		
-		if (mCursor != NULL)
+		if (mCursor != NULL && !mHideCursor)
 		{
 			mCursor->render(dt);
 		}
@@ -251,6 +252,15 @@ namespace gfx {
 	Layer *GfxEngine::getUILayer()
 	{
 		return mUILayer;
+	}
+
+	void GfxEngine::setCursorHidden(bool hide)
+	{
+		mHideCursor = hide;
+	}
+	bool GfxEngine::isCursorHidden() const
+	{
+		return mHideCursor;
 	}
 
 	int GfxEngine::getScreenWidth() const

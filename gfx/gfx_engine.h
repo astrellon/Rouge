@@ -50,6 +50,9 @@ namespace gfx {
 		Layer *getRootLayer();
 		Layer *getUILayer();
 
+		void setCursorHidden(bool hide);
+		bool isCursorHidden() const;
+
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
 
@@ -59,6 +62,7 @@ namespace gfx {
 		int mScreenHeight;
 
 		Sprite *mCursor;
+		bool mHideCursor;
 
 		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
 		typedef map<string, Asset *> AssetManager;

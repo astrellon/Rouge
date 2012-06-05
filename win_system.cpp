@@ -13,6 +13,7 @@ namespace sys {
 		mXpos(0),
 		mYpos(0),
 		mRunning(false),
+		mHideCursor(false),
 		mGameSystem(NULL)
 	{
 	
@@ -217,7 +218,7 @@ namespace sys {
 		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
 		{
-			ShowCursor(false);
+			//ShowCursor(false);
 			isMessagePumpActive = TRUE;								// Set isMessagePumpActive To TRUE
 			while (isMessagePumpActive == TRUE)						// While The Message Pump Is Active
 			{
@@ -287,6 +288,24 @@ namespace sys {
 
 		mProgramRunning = false;
 		mRunning = false;
+	}
+
+	void WinSystem::setCursorHidden(bool hide)
+	{
+		if (hide != mHideCursor)
+		{
+			mHideCursor = hide;
+			ShowCursor(!hide);
+			onCursorHiddenChange(hide);
+		}
+	}
+	void WinSystem::onCursorHiddenChange(bool hide)
+	{
+		mGameSystem->onCursorHiddenChange(hide);
+	}
+	bool WinSystem::isCursorHidden() const
+	{
+		return mHideCursor;
 	}
 
 	void WinSystem::updatePosSize()
@@ -578,6 +597,10 @@ namespace sys {
 			break;
 			case WM_MBUTTONUP:
 				window->winSystem->onMouseUp(am::ui::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
+			break;
+
+			case WM_SETCURSOR:
+				window->winSystem->setCursorHidden(HTCLIENT == LOWORD(lParam));
 			break;
 
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed

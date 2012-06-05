@@ -70,6 +70,10 @@ namespace sys {
 		virtual int startLoop();
 		virtual void stopLoop();
 
+		virtual void setCursorHidden(bool hide);
+		virtual void onCursorHiddenChange(bool hidden);
+		virtual bool isCursorHidden() const;
+
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();
 
@@ -88,6 +92,7 @@ namespace sys {
 		int mYpos;
 		bool mProgramRunning;
 		bool mRunning;
+		bool mHideCursor;
 
 		HWND mHWnd;
 		HINSTANCE mHInstance;
