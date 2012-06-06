@@ -20,6 +20,8 @@ using namespace am::gfx;
 
 namespace ui {
 	class MouseManager;
+	class Checkbox;
+	class Button;
 }
 using namespace am::ui;
 
@@ -64,6 +66,7 @@ namespace sys {
 
 		virtual void onEvent(am::ui::Event *e);
 		virtual void onEvent(am::ui::MouseEvent *e);
+		virtual void onEvent(am::ui::DataEvent *e);
 
 		virtual void setCursorHidden(bool hide);
 		virtual void onCursorHiddenChange(bool hidden);
@@ -82,8 +85,8 @@ namespace sys {
 		MouseManager *mMouseManager;
 
 		TextField *mInfo;
-		TextField *mInfo2;
-		TextField *mInfo3;
+		Checkbox *mCheckbox;
+		Button *mButton;
 	};
 
 }

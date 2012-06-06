@@ -68,7 +68,10 @@ namespace ui {
 		if (selected != mSelected)
 		{
 			mSelected = selected;
-			
+			JsonValue value(selected);
+			DataEvent *e = new DataEvent("changed", this, selected);
+			fireEvent(e);
+			delete e;
 		}
 	}
 
@@ -117,8 +120,6 @@ namespace ui {
 
 	void Checkbox::init()
 	{
-		setInteractive(true);
-
 		mSelected = false;
 		addChild(mCheckGraphic);
 		mCheckGraphic->setNumFramesX(2);
@@ -144,6 +145,20 @@ namespace ui {
 		mHitbox->setHeight(getHeight());
 		mHitbox->setInteractive(true);
 
+	}
+
+	void Checkbox::setEnabled(bool enabled)
+	{
+		UIComponent::setEnabled(enabled);
+		int offset = mSelected ? 4 : 0;
+		if (enabled)
+		{
+			mCheckGraphic->setCurrentFrame(offset);
+		}
+		else
+		{
+			mCheckGraphic->setCurrentFrame(offset + 3);
+		}
 	}
 }
 }

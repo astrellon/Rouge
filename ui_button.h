@@ -44,6 +44,8 @@ namespace ui {
 		virtual float getWidth();
 		virtual float getHeight();
 
+		virtual void setEnabled(bool enabled);
+
 	protected:
 
 		Renderable *mHitbox;

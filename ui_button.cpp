@@ -57,7 +57,6 @@ namespace ui {
 		mGraphic->setNumFramesY(2);
 		mGraphic->setNumTotalFrames(4);
 		setHitbox(mHitbox);
-		setInteractive(true);
 
 		mLabel = new TextField(mGfxEngine);
 		mLabel->setBaseFont("arial");
@@ -153,6 +152,19 @@ namespace ui {
 			return mGraphic->getHeight();
 		}
 		return 0.0f;
+	}
+
+	void Button::setEnabled(bool enabled)
+	{
+		UIComponent::setEnabled(enabled);
+		if (enabled)
+		{
+			mGraphic->setCurrentFrame(0);
+		}
+		else
+		{
+			mGraphic->setCurrentFrame(3);
+		}
 	}
 
 	void Button::addListeners(Renderable *target)

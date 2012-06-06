@@ -148,6 +148,12 @@
     <ClCompile Include="mouse_common.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="data_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_label.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -283,8 +289,11 @@
     <ClInclude Include="ui_checkbox.h">
       <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="DataEvent.h">
+    <ClInclude Include="data_event.h">
       <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_label.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

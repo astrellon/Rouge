@@ -30,6 +30,13 @@ namespace ui {
 		virtual AnchorX getAnchorX() const;
 		virtual AnchorY getAnchorY() const;
 
+		virtual void setParentAnchorX(AnchorX anchor);
+		virtual void setParentAnchorY(AnchorY anchor);
+		virtual void setParentAnchor(AnchorX anchorX, AnchorY anchorY);
+
+		virtual AnchorX getParentAnchorX() const;
+		virtual AnchorY getParentAnchorY() const;
+		
 		virtual void setOffsetX(float offset);
 		virtual void setOffsetY(float offset);
 		virtual void setOffset(float offsetX, float offsetY);
@@ -37,18 +44,35 @@ namespace ui {
 		virtual float getOffsetX() const;
 		virtual float getOffsetY() const;
 
+		virtual void setParentOffsetX(float offset);
+		virtual void setParentOffsetY(float offset);
+		virtual void setParentOffset(float offsetX, float offsetY);
+
+		virtual float getParentOffsetX() const;
+		virtual float getParentOffsetY() const;
+
 		virtual float getParentWidth();
 		virtual float getParentHeight();
 
-		// Renderable methods
-		//virtual void render(float dt);
+		virtual void setEnabled(bool enabled);
+		virtual bool isEnabled() const;
+
+		virtual bool isInteractive() const;
 
 	protected:
 		AnchorX mAnchorX;
 		AnchorY mAnchorY;
 
+		AnchorX mParentAnchorX;
+		AnchorY mParentAnchorY;
+
 		float mOffsetX;
 		float mOffsetY;
+
+		float mParentOffsetX;
+		float mParentOffsetY;
+
+		bool mEnabled;
 
 		virtual void preRender(float dt);
 	};

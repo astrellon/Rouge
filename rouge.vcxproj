@@ -79,6 +79,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
   <ItemGroup>
     <ClCompile Include="bounding_box.cpp" />
     <ClCompile Include="colour.cpp" />
+    <ClCompile Include="data_event.cpp" />
     <ClCompile Include="event.cpp" />
     <ClCompile Include="event_manager.cpp" />
     <ClCompile Include="gfx\gfx_asset.cpp" />
@@ -113,12 +114,13 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="ui_button.cpp" />
     <ClCompile Include="ui_checkbox.cpp" />
     <ClCompile Include="ui_component.cpp" />
+    <ClCompile Include="ui_label.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounding_box.h" />
     <ClInclude Include="colour.h" />
-    <ClInclude Include="DataEvent.h" />
+    <ClInclude Include="data_event.h" />
     <ClInclude Include="event_manager.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="gfx\gfx_asset.h" />
@@ -160,6 +162,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ui_button.h" />
     <ClInclude Include="ui_checkbox.h" />
     <ClInclude Include="ui_component.h" />
+    <ClInclude Include="ui_label.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />
   </ItemGroup>

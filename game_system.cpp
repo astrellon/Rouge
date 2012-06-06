@@ -19,6 +19,7 @@
 
 #include "ui_button.h"
 #include "ui_checkbox.h"
+#include "ui_label.h"
 
 using namespace std;
 using namespace am::math;
@@ -80,11 +81,11 @@ namespace sys {
 	{
 		mEngine->init();
 		mGfxEngine->init();
-		/*
+		
 		mInfo = new TextField(mGfxEngine);
-		mInfo->getTransform().setPosition(Vector4f(0, 200, 0));
+		mInfo->setPosition(0, 200);
 		mGfxEngine->getRootLayer()->addChild(mInfo);
-
+		/*
 		const char *txt = "Hello there how are you today my friend?\nI am good thank you.";
 		//const char *txt = "Hello \nthere";
 		
@@ -122,23 +123,60 @@ namespace sys {
 
 		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
 		*/
-		am::ui::Button *testBtn = new am::ui::Button(mGfxEngine, "bigButton");
-		mGfxEngine->getUILayer()->addChild(testBtn);
-		testBtn->setAnchorX(X_CENTER);
-		testBtn->setAnchorY(Y_CENTER);
-		testBtn->setOffsetY(-20.0f);
+		mButton = new am::ui::Button(mGfxEngine, "bigButton");
+		mGfxEngine->getUILayer()->addChild(mButton);
+		mButton->setParentAnchor(X_CENTER, Y_CENTER);
+		mButton->setAnchor(X_CENTER, Y_CENTER);
+		mButton->setParentOffsetY(-20.0f);
 		
-		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test\nLabel");
+		mCheckbox = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test\nLabel");
+		mGfxEngine->getUILayer()->addChild(mCheckbox);
+		mCheckbox->setParentAnchor(X_CENTER, Y_CENTER);
+		mCheckbox->setAnchorX(X_RIGHT);
+		mCheckbox->setParentOffset(0.0f, 40.0f);
+		
+		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Disable");
 		mGfxEngine->getUILayer()->addChild(testCheck);
-		testCheck->setAnchorX(X_CENTER);
-		testCheck->setAnchorY(Y_CENTER);
-		testCheck->setOffsetY(40.0f);
+		testCheck->setParentAnchor(X_CENTER, Y_CENTER);
+		testCheck->setAnchorX(X_LEFT);
+		testCheck->setParentOffset(0.0f, 40.0f);
+		testCheck->addEventListener("changed", this);
+
+		Label *labelLeft = new Label(mGfxEngine, "Text on the left");
+		mGfxEngine->getUILayer()->addChild(labelLeft);
+		labelLeft->getLabelField()->setAlignment(TextField::ALIGN_RIGHT);
+		labelLeft->setParentAnchor(X_CENTER, Y_CENTER);
+		labelLeft->setAnchorX(X_RIGHT);
+		labelLeft->setParentOffsetY(100.0f);
+
+		Label *labelRight = new Label(mGfxEngine, "Text on the right");
+		mGfxEngine->getUILayer()->addChild(labelRight);
+		labelRight->setParentAnchor(X_CENTER, Y_CENTER);
+		labelRight->setAnchorX(X_LEFT);
+		labelRight->setParentOffsetY(100.0f);
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{
 	}
 	void GameSystem::onEvent(am::ui::MouseEvent *e)
 	{
+	}
+	void GameSystem::onEvent(am::ui::DataEvent *e)
+	{
+		stringstream ss;
+		ss << "Data event (" << e->getType() << "): ";
+		e->getData().display(ss);
+		mInfo->setText(ss.str());
+
+		bool selected = e->getData().getBool();
+		mButton->setEnabled(selected);
+		mCheckbox->setEnabled(selected);
+
+		Checkbox *target = dynamic_cast<Checkbox *>(e->getEventTarget());
+		if (target)
+		{
+			target->setLabel(selected ? "Enable" : "Disable");
+		}
 	}
 	void GameSystem::reshape(int width, int height)
 	{
