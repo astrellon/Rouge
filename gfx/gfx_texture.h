@@ -22,6 +22,7 @@ namespace gfx {
 		void destroy();
 
 		const char *getFilename() const;
+		bool isLoaded() const;
 
 		int getWidth() const;
 		int getHeight() const;

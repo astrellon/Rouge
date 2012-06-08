@@ -4,6 +4,8 @@
 
 #include "ievent_listener.h"
 
+#include "handle.h"
+
 namespace am {
 namespace gfx {
 	class GfxEngine;
@@ -41,9 +43,9 @@ namespace ui {
 		virtual void setEnabled(bool enabled);
 	protected:
 
-		Sprite *mCheckGraphic;
-		TextField *mLabel;
-		Sprite *mHitbox;
+		am::util::Handle<Sprite> mCheckGraphic;
+		am::util::Handle<TextField> mLabel;
+		am::util::Handle<Sprite> mHitbox;
 		bool mSelected;
 
 		void init();

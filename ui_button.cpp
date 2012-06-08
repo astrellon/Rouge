@@ -38,9 +38,9 @@ namespace ui {
 	}
 	Button::~Button()
 	{
-		if (mHitbox)
+		if (mHitbox.get())
 		{
-			removeListeners(mHitbox);
+			removeListeners(mHitbox.get());
 		}
 		else
 		{
@@ -51,18 +51,18 @@ namespace ui {
 	void Button::init()
 	{
 		mGraphic->setInteractive(true);
-		addChild(mGraphic);
+		addChild(mGraphic.get());
 
-		mGraphic->setNumFramesX(2);
+		/*mGraphic->setNumFramesX(2);
 		mGraphic->setNumFramesY(2);
-		mGraphic->setNumTotalFrames(4);
-		setHitbox(mHitbox);
+		mGraphic->setNumTotalFrames(4);*/
+		setHitbox(mHitbox.get());
 
 		mLabel = new TextField(mGfxEngine);
 		mLabel->setBaseFont("arial");
 		mLabel->setText("Button\nasd");
 		mLabel->setColour(0.6f, 0.8f, 1.0f);
-		addChild(mLabel);
+		addChild(mLabel.get());
 
 		mLabel->setWidth(mGraphic->getWidth());
 		mLabel->setAlignment(TextField::ALIGN_CENTER);
@@ -72,28 +72,28 @@ namespace ui {
 
 	void Button::setHitbox(Renderable *hitbox)
 	{
-		if (mHitbox)
+		if (mHitbox.get())
 		{
-			removeListeners(mHitbox);
+			removeListeners(mHitbox.get());
 		}
 		else
 		{
-			removeListeners(mGraphic);
+			removeListeners(mGraphic.get());
 		}
 		mHitbox = hitbox;
-		if (mHitbox)
+		if (mHitbox.get())
 		{
-			addListeners(mHitbox);
+			addListeners(mHitbox.get());
 			mHitbox->setInteractive(true);
 		}
 		else
 		{
-			addListeners(mGraphic);
+			addListeners(mGraphic.get());
 		}
 	}
 	Renderable *Button::getHitbox()
 	{
-		return mHitbox;
+		return mHitbox.get();
 	}
 
 	void Button::setLabel(const char *label)
@@ -139,7 +139,7 @@ namespace ui {
 
 	float Button::getWidth()
 	{
-		if (mGraphic)
+		if (mGraphic.get())
 		{
 			return mGraphic->getWidth();
 		}
@@ -147,7 +147,7 @@ namespace ui {
 	}
 	float Button::getHeight()
 	{
-		if (mGraphic)
+		if (mGraphic.get())
 		{
 			return mGraphic->getHeight();
 		}

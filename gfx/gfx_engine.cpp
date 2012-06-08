@@ -154,7 +154,7 @@ namespace gfx {
 		AssetManager::iterator iter = mAssetManager.find(assetNameStr);
 		if (iter != mAssetManager.end())
 		{
-			return iter->second;
+			return iter->second.get();
 		}
 
 		stringstream ss;
@@ -192,15 +192,17 @@ namespace gfx {
 		TextureManager::iterator iter = mTextureManager.find(fileStr);
 		if (iter != mTextureManager.end())
 		{
-			return iter->second;
+			return iter->second.get();
 		}
 
 		Texture *texture = new Texture(this, filename);
-		if (texture->getFilename())
+		if (texture->isLoaded())
 		{
 			mTextureManager[fileStr] = texture;
 			return texture;
 		}
+
+		delete texture;
 		stringstream errss;
 		errss << "Unable to load texture '" << filename << "'";
 		am_log("GFX", errss.str().c_str());
@@ -213,7 +215,7 @@ namespace gfx {
 		FontManager::iterator iter = mFontManager.find(fontNameStr);
 		if (iter != mFontManager.end())
 		{
-			return iter->second;
+			return iter->second.get();
 		}
 
 		stringstream ss;

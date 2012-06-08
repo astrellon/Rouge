@@ -8,7 +8,8 @@ namespace gfx {
 	Texture::Texture(GfxEngine *engine, const char *filename, GLuint textureId) :
 		GfxComponent(engine),
 		mTextureId(textureId),
-		mFilename(filename)
+		mFilename(filename),
+		mLoaded(false)
 	{
 		// TODO: Get GL width and height, etc
 	}
@@ -18,13 +19,19 @@ namespace gfx {
 		mWidth(-1),
 		mHeight(-1),
 		mBytesPerPixel(-1),
-		mGlFormat(GL_RGB)
+		mGlFormat(GL_RGB),
+		mLoaded(false)
 	{
 		loadFromFile(filename);
 	}
 	Texture::~Texture()
 	{
 		//destroy();
+	}
+
+	bool Texture::isLoaded() const
+	{
+		return mLoaded;
 	}
 
 	int Texture::loadFromFile(const char *filename)
@@ -53,8 +60,8 @@ namespace gfx {
 		mHeight = static_cast<int>(ilGetInteger(IL_IMAGE_HEIGHT));
 		mBytesPerPixel = static_cast<int>(ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL));
 
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 		mGlFormat = GL_RGBA;
 		if (mBytesPerPixel == 3)
@@ -132,6 +139,7 @@ namespace gfx {
 		*/
 		mFilename = "";
 		mTextureId = 0;
+		mLoaded = false;
 	}
 
 }

@@ -11,37 +11,26 @@ namespace gfx {
 	Sprite::Sprite(GfxEngine *engine) :
 		Renderable(engine),
 		mAsset(NULL),
-		mNumFramesX(1),
-		mNumFramesY(1),
-		mMaxFrames(1),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
-		mCurrentTime(0.0f),
-		mAnimationDirty(true)
+		mCurrentTime(0.0f)
 	{
 		mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
 	}
 	Sprite::Sprite(GfxEngine *engine, Asset *asset) :
 		Renderable(engine),
 		mAsset(asset),
-		mNumFramesX(1),
-		mNumFramesY(1),
-		mMaxFrames(1),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
-		mCurrentTime(0.0f),
-		mAnimationDirty(true)
+		mCurrentTime(0.0f)
 	{
+
 	}
 	Sprite::Sprite(GfxEngine *engine, const char *assetName) :
 		Renderable(engine),
-		mNumFramesX(1),
-		mNumFramesY(1),
-		mMaxFrames(1),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
-		mCurrentTime(0.0f),
-		mAnimationDirty(true)
+		mCurrentTime(0.0f)
 	{
 		mAsset = engine->getAsset(assetName);
 	}
@@ -51,60 +40,22 @@ namespace gfx {
 
 	Asset *Sprite::getAsset()
 	{
-		return mAsset;
+		return mAsset.get();
 	}
 	void Sprite::setAsset(Asset *asset)
 	{
 		mAsset = asset;
-		mAnimationDirty = true;
 	}
-
-	void Sprite::setNumFramesX(int num)
+	void Sprite::setAsset(const char *assetName)
 	{
-		if (num < 1)
-		{
-			num = 1;
-		}
-		mNumFramesX = num;
-		mAnimationDirty = true;
-	}
-	int Sprite::getNumFramesX() const
-	{
-		return mNumFramesX;
-	}
-	void Sprite::setNumFramesY(int num)
-	{
-		if (num < 1)
-		{
-			num = 1;
-		}
-		mNumFramesY = num;
-		mAnimationDirty = true;
-	}
-	int Sprite::getNumFramesY() const
-	{
-		return mNumFramesY;
-	}
-
-	void Sprite::setNumTotalFrames(int frames)
-	{
-		if (frames < 1)
-		{
-			frames = 1;
-		}
-		mMaxFrames = frames;
-		mAnimationDirty = true;
-	}
-	int Sprite::getNumTotalFrames() const
-	{
-		return mMaxFrames;
+		mAsset = mGfxEngine->getAsset(assetName);
 	}
 
 	void Sprite::setCurrentFrame(int frame)
 	{
-		if (frame >= mMaxFrames)
+		if (frame >= mAsset->getTotalFrames())
 		{
-			frame = mMaxFrames - 1;
+			frame = mAsset->getTotalFrames() - 1;
 		}
 		if (frame != mCurrentFrame) 
 		{
@@ -115,7 +66,8 @@ namespace gfx {
 			}
 			else
 			{
-				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mAsset->getTotalFrames()) / 
+					getFrameRate();
 			}
 		}
 	}
@@ -135,12 +87,17 @@ namespace gfx {
 			}
 			else
 			{
-				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mMaxFrames) / mFrameRate;
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mAsset->getTotalFrames()) / 
+					mFrameRate;
 			}
 		}
 	}
 	float Sprite::getFrameRate() const
 	{
+		if (mFrameRate == 0)
+		{
+			return mAsset->getFrameRate();
+		}
 		return mFrameRate;
 	}
 
@@ -164,7 +121,7 @@ namespace gfx {
 			return;
 		}
 
-		if (mAsset == NULL)
+		if (mAsset.get() == NULL || mAsset->getTexture() == NULL || !mAsset->getTexture()->isLoaded())
 		{
 			if (mColour.getAlpha() > 0.05f)
 			{
@@ -189,29 +146,35 @@ namespace gfx {
 
 		preRender(dt);
 		
-		if (mAnimationDirty)
-		{
-			processAnimation();
-		}
+		mAsset->processAnimation();
 
-		if (mMaxFrames > 1)
+		if (mAsset->getTotalFrames() > 1)
 		{
-			if (mFrameRate < 0.0001f)
+			if (getFrameRate() < 0.0001f)
 			{
 				mCurrentTime = 0.0f;
 			}
 			else
 			{
 				mCurrentTime += dt;
-				float totalTime = static_cast<float>(mMaxFrames) / mFrameRate;
+				float totalTime = static_cast<float>(mAsset->getTotalFrames()) / getFrameRate();
 				while (mCurrentTime > totalTime)
 				{
 					mCurrentTime -= totalTime;
 				}
-				mCurrentFrame = static_cast<int>(mCurrentTime * mFrameRate);
-				if (mCurrentFrame >= mMaxFrames)
+				while (mCurrentTime < 0.0f)
 				{
-					mCurrentFrame = mMaxFrames - 1;
+					mCurrentTime += totalTime;
+				}
+
+				mCurrentFrame = static_cast<int>(mCurrentTime * getFrameRate());
+				if (mCurrentFrame >= mAsset->getTotalFrames())
+				{
+					mCurrentFrame = mAsset->getTotalFrames() - 1;
+				}
+				if (mCurrentFrame < 0)
+				{
+					mCurrentFrame = 0;
 				}
 			}
 		}
@@ -229,23 +192,9 @@ namespace gfx {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		const TextureWindow &win = mAnimationWindows[mCurrentFrame];
+		const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
 
-		glBegin(GL_QUADS);
-
-			glTexCoord2f(win.getLeftX(), win.getTopY());
-			glVertex2f(0, 0);
-
-			glTexCoord2f(win.getRightX(), win.getTopY());
-			glVertex2f(width, 0);
-
-			glTexCoord2f(win.getRightX(), win.getBottomY());
-			glVertex2f(width, height);
-
-			glTexCoord2f(win.getLeftX(), win.getBottomY());
-			glVertex2f(0, height);
-
-		glEnd();
+		renderTexture(win, width, height);
 
 		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -253,11 +202,30 @@ namespace gfx {
 		postRender(dt);
 	}
 
+	void Sprite::renderTexture(const TextureWindow &win, const float &width, const float &height)
+	{
+		glBegin(GL_TRIANGLE_STRIP);
+
+			glTexCoord2f(win.getLeftX(), win.getTopY());
+			glVertex2f(0, 0);
+
+			glTexCoord2f(win.getRightX(), win.getTopY());
+			glVertex2f(width, 0);
+
+			glTexCoord2f(win.getLeftX(), win.getBottomY());
+			glVertex2f(0, height);
+			
+			glTexCoord2f(win.getRightX(), win.getBottomY());
+			glVertex2f(width, height);
+
+		glEnd();
+	}
+
 	float Sprite::getWidth()
 	{
 		if (mWidth == 0)
 		{
-			mWidth = static_cast<float>(mAsset->getTexture()->getWidth()) / static_cast<float>(mNumFramesX);
+			return mAsset->getWidth();
 		}
 		return mWidth;
 	}
@@ -265,46 +233,10 @@ namespace gfx {
 	{
 		if (mHeight == 0)
 		{
-			mHeight = static_cast<float>(mAsset->getTexture()->getHeight()) / static_cast<float>(mNumFramesY);
+			return mAsset->getHeight();
 		}
 		return mHeight;
 	}	
-	void Sprite::processAnimation()
-	{
-		float textureWidth = static_cast<float>(mAsset->getTexture()->getWidth());
-		float textureHeight = static_cast<float>(mAsset->getTexture()->getHeight());
-
-		float frameWidth = textureWidth / static_cast<float>(mNumFramesX);
-		float frameHeight = textureHeight / static_cast<float>(mNumFramesY);
-
-		float uvWidth = frameWidth / textureWidth;
-		float uvHeight = frameHeight / textureHeight;
-
-		mAnimationWindows.clear();
-
-		for (int y = 0; y < mNumFramesY; y++)
-		{
-			for (int x = 0; x < mNumFramesX; x++)
-			{
-				float xPos = static_cast<float>(x) * frameWidth;
-				float yPos = static_cast<float>(y) * frameHeight;
-
-				float uvXPos = xPos / textureWidth;
-				float uvYPos = yPos / textureHeight;
-
-				TextureWindow window;
-				window.setValues(frameWidth, frameHeight,
-					uvYPos, uvYPos + uvHeight,
-					uvXPos, uvXPos + uvWidth);
-
-				mAsset->getTextureWindow().createSubWindow(window);
-
-				mAnimationWindows.push_back(window);
-			}
-		}
-
-		mAnimationDirty = false;
-	}
 
 }
 }

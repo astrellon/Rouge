@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gfx_renderable.h"
-
+#include "../handle.h"
 #include <vector>
 
 using namespace std;
@@ -30,7 +30,7 @@ namespace gfx {
 
 	protected:
 
-		typedef vector<Renderable *> ChildList;
+		typedef vector<am::util::Handle<Renderable> > ChildList;
 		ChildList mChildren;
 
 		ChildList::const_iterator findChild(Renderable *child) const;

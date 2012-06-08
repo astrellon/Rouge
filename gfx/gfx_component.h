@@ -1,11 +1,13 @@
 #pragma once
 
+#include "../imanaged.h"
+
 namespace am {
 namespace gfx {
 
 	class GfxEngine;
 
-	class GfxComponent {
+	class GfxComponent : public am::util::IManaged {
 	public:
 		GfxComponent(GfxEngine *engine);
 		virtual ~GfxComponent();

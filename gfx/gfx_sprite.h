@@ -5,6 +5,8 @@
 #include "../transform.h"
 #include "texture_window.h"
 
+#include "../handle.h"
+
 #include <vector>
 
 using namespace std;
@@ -24,20 +26,13 @@ namespace gfx {
 
 		Asset *getAsset();
 		void setAsset(Asset *asset);
-
-		void setNumFramesX(int num);
-		int getNumFramesX() const;
-		void setNumFramesY(int num);
-		int getNumFramesY() const;
-
-		void setNumTotalFrames(int frames);
-		int getNumTotalFrames() const;
+		void setAsset(const char *assetName);
+		
+		void setFrameRate(float rate);
+		float getFrameRate() const;
 
 		void setCurrentFrame(int frame);
 		int getCurrentFrame() const;
-
-		void setFrameRate(float rate);
-		float getFrameRate() const;
 
 		void setFrameTime(float time);
 		float getFrameTime() const;
@@ -50,20 +45,13 @@ namespace gfx {
 		
 	protected:
 
-		Asset *mAsset;
+		am::util::Handle<Asset> mAsset;
 
-		int mNumFramesX;
-		int mNumFramesY;
-		int mMaxFrames;
 		int mCurrentFrame;
-
 		float mFrameRate;
 		float mCurrentTime;
 
-		bool mAnimationDirty;
-		vector<TextureWindow> mAnimationWindows;
-
-		void processAnimation();
+		virtual void renderTexture(const TextureWindow &win, const float &width, const float &height);
 	};
 
 }

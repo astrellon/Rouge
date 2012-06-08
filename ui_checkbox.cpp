@@ -52,11 +52,11 @@ namespace ui {
 
 	TextField *Checkbox::getLabelField()
 	{
-		return mLabel;
+		return mLabel.get();
 	}
 	Sprite *Checkbox::getCheckGraphic()
 	{
-		return mCheckGraphic;
+		return mCheckGraphic.get();
 	}
 
 	bool Checkbox::isSelected() const
@@ -121,19 +121,19 @@ namespace ui {
 	void Checkbox::init()
 	{
 		mSelected = false;
-		addChild(mCheckGraphic);
-		mCheckGraphic->setNumFramesX(2);
+		addChild(mCheckGraphic.get());
+/*		mCheckGraphic->setNumFramesX(2);
 		mCheckGraphic->setNumFramesY(4);
-		mCheckGraphic->setNumTotalFrames(8);
+		mCheckGraphic->setNumTotalFrames(8);*/
 		
-		addChild(mLabel);
+		addChild(mLabel.get());
 		mLabel->setBaseFont("arial");
 		float labelTop = (getHeight() - mLabel->getMeasuredHeight()) * 0.5f;
 		mLabel->setPosition(mCheckGraphic->getWidth(), labelTop + 1);
 
 		mHitbox = new Sprite(mGfxEngine);
 		mHitbox->getColour().setAlpha(0.0f);
-		addChild(mHitbox);
+		addChild(mHitbox.get());
 
 		mHitbox->addEventListener("mouse_over", this);
 		mHitbox->addEventListener("mouse_out", this);

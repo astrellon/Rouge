@@ -90,10 +90,13 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="gfx\gfx_log_listener.cpp" />
     <ClCompile Include="gfx\gfx_renderable.cpp" />
     <ClCompile Include="gfx\gfx_sprite.cpp" />
+    <ClCompile Include="gfx\gfx_sprite_scale_nine.cpp" />
     <ClCompile Include="gfx\gfx_texture.cpp" />
     <ClCompile Include="gfx\gfx_text_field.cpp" />
     <ClCompile Include="gfx\gfx_text_list.cpp" />
+    <ClCompile Include="gfx\scale_nine.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
+    <ClCompile Include="imanaged.cpp" />
     <ClCompile Include="keyboard_event.cpp" />
     <ClCompile Include="mouse_common.cpp" />
     <ClCompile Include="mouse_event.cpp" />
@@ -114,6 +117,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="ui_button.cpp" />
     <ClCompile Include="ui_checkbox.cpp" />
     <ClCompile Include="ui_component.cpp" />
+    <ClCompile Include="ui_image.cpp" />
     <ClCompile Include="ui_label.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
@@ -131,12 +135,16 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="gfx\gfx_log_listener.h" />
     <ClInclude Include="gfx\gfx_renderable.h" />
     <ClInclude Include="gfx\gfx_sprite.h" />
+    <ClInclude Include="gfx\gfx_sprite_scale_nine.h" />
     <ClInclude Include="gfx\gfx_texture.h" />
     <ClInclude Include="gfx\gfx_text_field.h" />
     <ClInclude Include="gfx\gfx_text_list.h" />
+    <ClInclude Include="gfx\scale_nine.h" />
     <ClInclude Include="gfx\texture_window.h" />
+    <ClInclude Include="handle.h" />
     <ClInclude Include="ievent_listener.h" />
     <ClInclude Include="ievent_manager.h" />
+    <ClInclude Include="IManaged.h" />
     <ClInclude Include="keyboard_event.h" />
     <ClInclude Include="mouse_common.h" />
     <ClInclude Include="mouse_event.h" />
@@ -162,7 +170,9 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ui_button.h" />
     <ClInclude Include="ui_checkbox.h" />
     <ClInclude Include="ui_component.h" />
+    <ClInclude Include="ui_image.h" />
     <ClInclude Include="ui_label.h" />
+    <ClInclude Include="ui_tooltip.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />
   </ItemGroup>

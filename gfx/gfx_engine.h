@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+#include "../handle.h"
+
 using namespace std;
 
 //#include "resource_manager.h"
@@ -65,9 +67,9 @@ namespace gfx {
 		bool mHideCursor;
 
 		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
-		typedef map<string, Asset *> AssetManager;
-		typedef map<string, Texture *> TextureManager;
-		typedef map<string, Font *> FontManager;
+		typedef map<string, am::util::Handle<Asset> > AssetManager;
+		typedef map<string, am::util::Handle<Texture> > TextureManager;
+		typedef map<string, am::util::Handle<Font> > FontManager;
 
 		AssetManager mAssetManager;
 		TextureManager mTextureManager;

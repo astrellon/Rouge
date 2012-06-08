@@ -1,15 +1,14 @@
 #pragma once
 
 #include "ui_component.h"
-
 #include <string>
-#include "handle.h"
 
 using namespace std;
 
 namespace am {
 namespace gfx {
 	class GfxEngine;
+	class Sprite;
 	class TextField;
 }
 
@@ -17,24 +16,22 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class Label : public UIComponent {
+	class Tooltip : public UIComponent {
 	public:
-		Label(GfxEngine *engine);
-		Label(GfxEngine *engine, const char *label);
-		Label(GfxEngine *engine, const string &label);
-		~Label();
+		Tooltip(GfxEngine *engine);
+		Tooltip(GfxEngine *engine, const char *tooltip);
+		Tooltip(GfxEngine *engine, const string &tooltip);
+		~Tooltip();
 
 		void setLabel(const char *label);
 		void setLabel(const string &label);
 		string getLabel() const;
 
+		Sprite *getGraphic();
 		TextField *getLabelField();
 
-		virtual float getWidth();
-		virtual float getHeight();
-
 	protected:
-
+		am::util::Handle<Sprite> mGraphic;
 		am::util::Handle<TextField> mLabel;
 	};
 

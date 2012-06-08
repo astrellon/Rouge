@@ -154,6 +154,18 @@
     <ClCompile Include="ui_label.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="imanaged.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_image.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_sprite_scale_nine.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\scale_nine.cpp">
+      <Filter>gfx\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -294,6 +306,24 @@
     </ClInclude>
     <ClInclude Include="ui_label.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="IManaged.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="handle.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_tooltip.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_image.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_sprite_scale_nine.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\scale_nine.h">
+      <Filter>gfx\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

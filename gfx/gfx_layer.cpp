@@ -62,7 +62,7 @@ namespace gfx {
 		{
 			return NULL;
 		}
-		return mChildren[index];
+		return mChildren[index].get();
 	}
 
 	int Layer::getNumChildren() const
@@ -94,7 +94,7 @@ namespace gfx {
 		ChildList::const_iterator iter;
 		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
-			if (*iter == child)
+			if (iter->get() == child)
 			{
 				return iter;
 			}

@@ -7,6 +7,9 @@
 #include "gfx/gfx_text_field.h"
 #include "gfx/gfx_layer.h"
 #include "gfx/gfx_font.h"
+#include "gfx/gfx_sprite_scale_nine.h"
+#include "gfx/gfx_asset.h"
+#include "gfx/scale_nine.h"
 
 #include "mouse_manager.h"
 
@@ -20,6 +23,8 @@
 #include "ui_button.h"
 #include "ui_checkbox.h"
 #include "ui_label.h"
+
+#include "handle.h"
 
 using namespace std;
 using namespace am::math;
@@ -107,22 +112,25 @@ namespace sys {
 		mInfo3->setText(txt);
 		mInfo3->setWidth(140.0f);
 		mInfo3->setAlignment(TextField::ALIGN_CENTER);
+		*/
 
-		Sprite *sprite = new Sprite(mGfxEngine, "fontBasic");
-		mGfxEngine->getRootLayer()->addChild(sprite);
 		mGfxEngine->getRootLayer()->setInteractive(true);
+
+		am::util::Handle<Asset> animatedFont(new Asset(mGfxEngine, "fontBasicAnimated"));
+		animatedFont->setTexture(mGfxEngine->getTexture("data/textures/fontBasic.png"));
+		animatedFont->setAnimation(16, 16, 256, 4.0f);
+
+		am::util::Handle<Sprite> sprite = new Sprite(mGfxEngine, animatedFont.get());
+		mGfxEngine->getRootLayer()->addChild(sprite.get());
 		sprite->setInteractive(true);
 		
-		sprite->setNumFramesX(16);
-		sprite->setNumFramesY(16);
-		sprite->setNumTotalFrames(256);
-
 		sprite->setWidth(128.0f);
 		sprite->setHeight(128.0f);
-		sprite->setFrameRate(4.0f);
+		
+		sprite->setPosition(200, 0);
+		
 
-		sprite->getTransform().translate(200.0f, 0.0f, 0, true);
-		*/
+		/*
 		mButton = new am::ui::Button(mGfxEngine, "bigButton");
 		mGfxEngine->getUILayer()->addChild(mButton);
 		mButton->setParentAnchor(X_CENTER, Y_CENTER);
@@ -148,9 +156,29 @@ namespace sys {
 		labelLeft->setParentAnchor(X_CENTER, Y_CENTER);
 		labelLeft->setAnchorX(X_RIGHT);
 		labelLeft->setParentOffsetY(100.0f);
+		*/
+		/*
+		ScaleNine s9(26, 230, 26, 38);
+		am::util::Handle<SpriteScaleNine> scaleTest(new SpriteScaleNine(mGfxEngine, "bigButton"));
+		scaleTest->setNumFramesX(2);
+		scaleTest->setNumFramesY(2);
+		scaleTest->setNumTotalFrames(4);
+		scaleTest->setWidth(100);
+		mGfxEngine->getUILayer()->addChild(scaleTest.get());
+		scaleTest->setPosition(100, 50);
+		scaleTest->setScaleNine(s9, true);*/
+		/*
+		scaleTest = new SpriteScaleNine(mGfxEngine, "bigButton");
+		scaleTest->setNumFramesX(2);
+		scaleTest->setNumFramesY(2);
+		scaleTest->setNumTotalFrames(4);
+		scaleTest->setWidth(300);
+		mGfxEngine->getUILayer()->addChild(scaleTest.get());
+		scaleTest->setPosition(100, 150);
+		scaleTest->setScaleNine(s9, true);*/
 
-		Label *labelRight = new Label(mGfxEngine, "Text on the right");
-		mGfxEngine->getUILayer()->addChild(labelRight);
+		am::util::Handle<Label> labelRight(new Label(mGfxEngine, "Text on the right"));
+		mGfxEngine->getUILayer()->addChild(labelRight.get());
 		labelRight->setParentAnchor(X_CENTER, Y_CENTER);
 		labelRight->setAnchorX(X_LEFT);
 		labelRight->setParentOffsetY(100.0f);
@@ -163,7 +191,7 @@ namespace sys {
 	}
 	void GameSystem::onEvent(am::ui::DataEvent *e)
 	{
-		stringstream ss;
+		/*stringstream ss;
 		ss << "Data event (" << e->getType() << "): ";
 		e->getData().display(ss);
 		mInfo->setText(ss.str());
@@ -176,7 +204,7 @@ namespace sys {
 		if (target)
 		{
 			target->setLabel(selected ? "Enable" : "Disable");
-		}
+		}*/
 	}
 	void GameSystem::reshape(int width, int height)
 	{

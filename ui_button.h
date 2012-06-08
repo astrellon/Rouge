@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include "handle.h"
+
 using namespace std;
 
 namespace am {
@@ -48,9 +50,9 @@ namespace ui {
 
 	protected:
 
-		Renderable *mHitbox;
-		Sprite *mGraphic;
-		TextField *mLabel;
+		am::util::Handle<Renderable> mHitbox;
+		am::util::Handle<Sprite> mGraphic;
+		am::util::Handle<TextField> mLabel;
 
 		void init();
 		void addListeners(Renderable *target);

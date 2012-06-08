@@ -10,21 +10,21 @@ namespace ui {
 		UIComponent(engine)
 	{
 		mLabel = new TextField(engine);
-		addChild(mLabel);
+		addChild(mLabel.get());
 	}
 	Label::Label(GfxEngine *engine, const char *label) :
 		UIComponent(engine)
 	{
 		mLabel = new TextField(engine);
 		mLabel->setText(label);
-		addChild(mLabel);
+		addChild(mLabel.get());
 	}
 	Label::Label(GfxEngine *engine, const string &label) :
 		UIComponent(engine)
 	{
 		mLabel = new TextField(engine);
 		mLabel->setText(label);
-		addChild(mLabel);
+		addChild(mLabel.get());
 	}
 	Label::~Label()
 	{
@@ -45,7 +45,7 @@ namespace ui {
 
 	TextField *Label::getLabelField()
 	{
-		return mLabel;
+		return mLabel.get();
 	}
 
 	float Label::getWidth()
