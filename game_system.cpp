@@ -116,11 +116,7 @@ namespace sys {
 
 		mGfxEngine->getRootLayer()->setInteractive(true);
 
-		am::util::Handle<Asset> animatedFont(new Asset(mGfxEngine, "fontBasicAnimated"));
-		animatedFont->setTexture(mGfxEngine->getTexture("data/textures/fontBasic.png"));
-		animatedFont->setAnimation(16, 16, 256, 4.0f);
-
-		am::util::Handle<Sprite> sprite = new Sprite(mGfxEngine, animatedFont.get());
+		am::util::Handle<Sprite> sprite = new Sprite(mGfxEngine, "fontBasicAni");
 		mGfxEngine->getRootLayer()->addChild(sprite.get());
 		sprite->setInteractive(true);
 		

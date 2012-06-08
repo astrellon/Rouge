@@ -150,14 +150,14 @@ namespace gfx {
 
 		if (mAsset->getTotalFrames() > 1)
 		{
-			if (getFrameRate() < 0.0001f)
+			if (getFrameRate() < 0.0001f && getFrameRate() > -0.0001f)
 			{
 				mCurrentTime = 0.0f;
 			}
 			else
 			{
-				mCurrentTime += dt;
-				float totalTime = static_cast<float>(mAsset->getTotalFrames()) / getFrameRate();
+				mCurrentTime += dt * getFrameRate();
+				float totalTime = static_cast<float>(mAsset->getTotalFrames());
 				while (mCurrentTime > totalTime)
 				{
 					mCurrentTime -= totalTime;
@@ -167,7 +167,7 @@ namespace gfx {
 					mCurrentTime += totalTime;
 				}
 
-				mCurrentFrame = static_cast<int>(mCurrentTime * getFrameRate());
+				mCurrentFrame = static_cast<int>(mCurrentTime);
 				if (mCurrentFrame >= mAsset->getTotalFrames())
 				{
 					mCurrentFrame = mAsset->getTotalFrames() - 1;

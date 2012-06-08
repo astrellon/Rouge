@@ -1,0 +1,6 @@
+{	// Font Basic Animated Asset
+	texture: "data/textures/fontBasic.png",
+	framesX: 16,
+	framesY: 16,
+	frameRate: -4
+}
