@@ -90,7 +90,6 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="gfx\gfx_log_listener.cpp" />
     <ClCompile Include="gfx\gfx_renderable.cpp" />
     <ClCompile Include="gfx\gfx_sprite.cpp" />
-    <ClCompile Include="gfx\gfx_sprite_scale_nine.cpp" />
     <ClCompile Include="gfx\gfx_texture.cpp" />
     <ClCompile Include="gfx\gfx_text_field.cpp" />
     <ClCompile Include="gfx\gfx_text_list.cpp" />
@@ -119,6 +118,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="ui_component.cpp" />
     <ClCompile Include="ui_image.cpp" />
     <ClCompile Include="ui_label.cpp" />
+    <ClCompile Include="ui_main_menu.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +135,6 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="gfx\gfx_log_listener.h" />
     <ClInclude Include="gfx\gfx_renderable.h" />
     <ClInclude Include="gfx\gfx_sprite.h" />
-    <ClInclude Include="gfx\gfx_sprite_scale_nine.h" />
     <ClInclude Include="gfx\gfx_texture.h" />
     <ClInclude Include="gfx\gfx_text_field.h" />
     <ClInclude Include="gfx\gfx_text_list.h" />
@@ -172,6 +171,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ui_component.h" />
     <ClInclude Include="ui_image.h" />
     <ClInclude Include="ui_label.h" />
+    <ClInclude Include="ui_main_menu.h" />
     <ClInclude Include="ui_tooltip.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />

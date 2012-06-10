@@ -27,6 +27,8 @@ namespace ui {
 		Button(GfxEngine *engine, Renderable *hitbox = NULL);
 		Button(GfxEngine *engine, const char *assetName, Renderable *hitbox = NULL);
 		Button(GfxEngine *engine, Asset *asset, Renderable *hitbox = NULL);
+		Button(GfxEngine *engine, const char *assetName, const char *label, Renderable *hitbox = NULL);
+		Button(GfxEngine *engine, Asset *asset, const char *label, Renderable *hitbox = NULL);
 		~Button();
 
 		void setGraphic(Sprite *graphic);
@@ -43,7 +45,10 @@ namespace ui {
 
 		virtual void onEvent(MouseEvent *e);
 
+		virtual void setWidth(float width);
 		virtual float getWidth();
+
+		virtual void setHeight(float height);
 		virtual float getHeight();
 
 		virtual void setEnabled(bool enabled);
@@ -57,6 +62,8 @@ namespace ui {
 		void init();
 		void addListeners(Renderable *target);
 		void removeListeners(Renderable *target);
+
+		void updateLabelPos();
 	};
 
 }

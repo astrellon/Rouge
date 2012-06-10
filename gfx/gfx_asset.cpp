@@ -21,7 +21,8 @@ namespace gfx {
 		mNumFramesY(1),
 		mTotalFrames(1),
 		mFrameRate(0.0f),
-		mAnimationDirty(true)
+		mAnimationDirty(true),
+		mScaleNineState(SCALE_NINE_NONE)
 	{
 
 	}
@@ -228,6 +229,72 @@ namespace gfx {
 		}
 		setAnimation(framesX, framesY, totalFrames, frameRate);
 
+		if (value.has("scaleNine", JV_OBJ))
+		{
+			JsonValue scaleNine = value["scaleNine"];
+			float left = -1.0f;
+			float right = -1.0f;
+
+			float top = -1.0f;
+			float bottom = -1.0f;
+
+			if (scaleNine.has("left", JV_INT) || scaleNine.has("left", JV_FLOAT))
+			{
+				left = scaleNine["left"].getFloat();
+			}
+			if (scaleNine.has("right", JV_INT) || scaleNine.has("right", JV_FLOAT))
+			{
+				right = scaleNine["right"].getFloat();
+			}
+
+			if (scaleNine.has("top", JV_INT) || scaleNine.has("top", JV_FLOAT))
+			{
+				top = scaleNine["top"].getFloat();
+			}
+			if (scaleNine.has("bottom", JV_INT) || scaleNine.has("bottom", JV_FLOAT))
+			{
+				bottom = scaleNine["bottom"].getFloat();
+			}
+
+			ScaleNineState scaleNineState = SCALE_NINE_NONE;
+			bool vertical = top >= 0.0f && bottom >= 0.0f;
+			bool horizontal = left >= 0.0f && right >= 0.0f;
+			if (left < 0.0f || right < 0.0f)
+			{
+				left = 0.0f;
+				right = 0.0f;
+				if (mTexture)
+				{
+					right = mTexture->getWidth();
+				}
+			}
+			if (top < 0.0f || bottom < 0.0f)
+			{
+				top = 0.0f;
+				bottom = 0.0f;
+				if (mTexture)
+				{
+					bottom = mTexture->getHeight();
+				}
+			}
+
+			if (vertical && horizontal)
+			{
+				scaleNineState = SCALE_NINE_BOTH;
+			}
+			else if (vertical) 
+			{
+				scaleNineState = SCALE_NINE_VERTICAL;
+			}
+			else if (horizontal)
+			{
+				scaleNineState = SCALE_NINE_HORIZONTAL;
+			}
+
+			mScaleNineState = scaleNineState;
+			mScaleNine.setInnerBounds(left, right, top, bottom);
+		}
+
 		return 0;
 	}
 
@@ -291,6 +358,29 @@ namespace gfx {
 			processAnimation();
 		}
 		return mHeight;
+	}
+
+	void Asset::setScaleNine(const ScaleNine &scaleNine)
+	{
+		mScaleNine = scaleNine;
+	}
+	void Asset::setScaleNine(const ScaleNine &scaleNine, ScaleNineState state)
+	{
+		mScaleNine = scaleNine;
+		mScaleNineState = state;
+	}
+	ScaleNine &Asset::getScaleNine()
+	{
+		return mScaleNine;
+	}
+
+	void Asset::setScaleNineState(ScaleNineState state)
+	{
+		mScaleNineState = state;
+	}
+	ScaleNineState Asset::getScaleNineState() const
+	{
+		return mScaleNineState;
 	}
 
 }

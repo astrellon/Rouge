@@ -160,11 +160,11 @@
     <ClCompile Include="ui_image.cpp">
       <Filter>ui</Filter>
     </ClCompile>
-    <ClCompile Include="gfx\gfx_sprite_scale_nine.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\scale_nine.cpp">
       <Filter>gfx\util</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_main_menu.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -319,11 +319,11 @@
     <ClInclude Include="ui_image.h">
       <Filter>ui</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\gfx_sprite_scale_nine.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\scale_nine.h">
       <Filter>gfx\util</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_main_menu.h">
+      <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

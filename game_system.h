@@ -4,6 +4,10 @@
 #include "ievent_listener.h"
 #include "mouse_event.h"
 #include "mouse_manager.h"
+#include "ui_main_menu.h"
+#include "handle.h"
+
+using namespace am::util;
 
 namespace am {
 namespace base {
@@ -22,6 +26,7 @@ namespace ui {
 	class MouseManager;
 	class Checkbox;
 	class Button;
+	class MainMenu;
 }
 using namespace am::ui;
 
@@ -84,9 +89,8 @@ namespace sys {
 		Engine *mEngine;
 		MouseManager *mMouseManager;
 
-		TextField *mInfo;
-		Checkbox *mCheckbox;
-		Button *mButton;
+		Handle<MainMenu> mMainMenu;
+
 	};
 
 }

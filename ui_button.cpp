@@ -36,6 +36,26 @@ namespace ui {
 		
 		init();
 	}
+	Button::Button(GfxEngine *engine, const char *assetName, const char *label, Renderable *hitbox) :
+		UIComponent(engine),
+		mHitbox(hitbox)
+	{
+		mGraphic = new Sprite(engine, assetName);
+
+		init();
+
+		setLabel(label);
+	}
+	Button::Button(GfxEngine *engine, Asset *asset, const char *label, Renderable *hitbox) :
+		UIComponent(engine),
+		mHitbox(hitbox)
+	{
+		mGraphic = new Sprite(engine, asset);
+		
+		init();
+
+		setLabel(label);
+	}
 	Button::~Button()
 	{
 		if (mHitbox.get())
@@ -53,21 +73,15 @@ namespace ui {
 		mGraphic->setInteractive(true);
 		addChild(mGraphic.get());
 
-		/*mGraphic->setNumFramesX(2);
-		mGraphic->setNumFramesY(2);
-		mGraphic->setNumTotalFrames(4);*/
 		setHitbox(mHitbox.get());
 
 		mLabel = new TextField(mGfxEngine);
 		mLabel->setBaseFont("arial");
-		mLabel->setText("Button\nasd");
 		mLabel->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel.get());
 
 		mLabel->setWidth(mGraphic->getWidth());
 		mLabel->setAlignment(TextField::ALIGN_CENTER);
-		float fontHeight = mLabel->getMeasuredHeight();
-		mLabel->setPosition(0.0f, (mGraphic->getHeight() - fontHeight) * 0.5f);
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
@@ -99,10 +113,12 @@ namespace ui {
 	void Button::setLabel(const char *label)
 	{
 		mLabel->setText(label);
+		updateLabelPos();
 	}
 	void Button::setLabel(const string &label)
 	{
 		mLabel->setText(label);
+		updateLabelPos();
 	}
 	string Button::getLabel() const
 	{
@@ -137,6 +153,15 @@ namespace ui {
 		}
 	}
 
+	void Button::setWidth(float width)
+	{
+		if (mGraphic.get())
+		{
+			mGraphic->setWidth(width);
+			mLabel->setWidth(width);
+			updateLabelPos();
+		}
+	}
 	float Button::getWidth()
 	{
 		if (mGraphic.get())
@@ -144,6 +169,16 @@ namespace ui {
 			return mGraphic->getWidth();
 		}
 		return 0.0f;
+	}
+
+	void Button::setHeight(float height)
+	{
+		if (mGraphic.get())
+		{
+			mGraphic->setHeight(height);
+			mLabel->setHeight(height);
+			updateLabelPos();
+		}
 	}
 	float Button::getHeight()
 	{
@@ -182,6 +217,12 @@ namespace ui {
 		target->removeEventListener("mouse_up", this);
 		target->removeEventListener("mouse_out", this);
 		target->removeEventListener("mouse_over", this);
+	}
+
+	void Button::updateLabelPos()
+	{
+		float fontHeight = mLabel->getMeasuredHeight();
+		mLabel->setPosition(0.0f, (mGraphic->getHeight() - fontHeight) * 0.5f);
 	}
 
 }

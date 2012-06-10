@@ -5,6 +5,10 @@
 #include "../json_value.h"
 #include <string>
 
+#include "scale_nine.h"
+
+#include "../handle.h"
+
 using namespace std;
 using namespace am::util;
 
@@ -53,6 +57,13 @@ namespace gfx {
 
 		int loadDef(JsonValue value);
 
+		void setScaleNine(const ScaleNine &scaleNine);
+		void setScaleNine(const ScaleNine &scaleNine, ScaleNineState state);
+		ScaleNine &getScaleNine();
+
+		void setScaleNineState(ScaleNineState state);
+		ScaleNineState getScaleNineState() const;
+
 	protected:
 
 		string mName;
@@ -68,6 +79,8 @@ namespace gfx {
 		float mHeight;
 
 		bool mAnimationDirty;
+		ScaleNine mScaleNine;
+		ScaleNineState mScaleNineState;
 
 		AnimationWindows mAnimationWindows;
 	};

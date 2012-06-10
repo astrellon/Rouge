@@ -13,7 +13,8 @@ namespace gfx {
 		mAsset(NULL),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
-		mCurrentTime(0.0f)
+		mCurrentTime(0.0f),
+		mScaleNineState(SCALE_NINE_NONE)
 	{
 		mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
 	}
@@ -24,7 +25,10 @@ namespace gfx {
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f)
 	{
-
+		if (asset)
+		{
+			mScaleNineState = asset->getScaleNineState();
+		}
 	}
 	Sprite::Sprite(GfxEngine *engine, const char *assetName) :
 		Renderable(engine),
@@ -33,6 +37,10 @@ namespace gfx {
 		mCurrentTime(0.0f)
 	{
 		mAsset = engine->getAsset(assetName);
+		if (mAsset.get())
+		{
+			mScaleNineState = mAsset->getScaleNineState();
+		}
 	}
 	Sprite::~Sprite()
 	{
@@ -204,21 +212,128 @@ namespace gfx {
 
 	void Sprite::renderTexture(const TextureWindow &win, const float &width, const float &height)
 	{
-		glBegin(GL_TRIANGLE_STRIP);
+		if (mScaleNineState == SCALE_NINE_BOTH)
+		{
+			const ScaleNine &scaleNine = mAsset->getScaleNine();
+			float rightX = width - (win.getWidth() - scaleNine.getRight());
+			float bottomY = height - (win.getHeight() - scaleNine.getBottom());
 
-			glTexCoord2f(win.getLeftX(), win.getTopY());
-			glVertex2f(0, 0);
+			float leftU = scaleNine.getLeft() / mAsset->getTexture()->getWidth() + win.getLeftX();
+			float rightU = scaleNine.getRight() / mAsset->getTexture()->getWidth() + win.getLeftX();
+			float topV = scaleNine.getTop() / mAsset->getTexture()->getHeight() + win.getTopY();
+			float bottomV = scaleNine.getBottom() / mAsset->getTexture()->getHeight() + win.getTopY();
 
-			glTexCoord2f(win.getRightX(), win.getTopY());
-			glVertex2f(width, 0);
+			glBegin(GL_TRIANGLE_STRIP);
 
-			glTexCoord2f(win.getLeftX(), win.getBottomY());
-			glVertex2f(0, height);
+				// Top left
+				glTexCoord2f(win.getLeftX(), win.getTopY());
+				glVertex2f(0.0f, 0.0f);
+
+				glTexCoord2f(win.getLeftX(), topV);
+				glVertex2f(0.0f, scaleNine.getTop());
+
+				glTexCoord2f(leftU, win.getTopY());
+				glVertex2f(scaleNine.getLeft(), 0.0f);
+
+				glTexCoord2f(leftU, topV);
+				glVertex2f(scaleNine.getLeft(), scaleNine.getTop());
+
+				// Top middle
+				glTexCoord2f(rightU, win.getTopY());
+				glVertex2f(rightX, 0.0f);
+
+				glTexCoord2f(rightU, topV);
+				glVertex2f(rightX, scaleNine.getTop());
+
+				// Top right
+				glTexCoord2f(win.getRightX(), win.getTopY());
+				glVertex2f(width, 0.0f);
+
+				glTexCoord2f(win.getRightX(), topV);
+				glVertex2f(width, scaleNine.getTop());
+
+			glEnd();
+
+			glBegin(GL_TRIANGLE_STRIP);
+				
+				// Middle left
+				glTexCoord2f(win.getLeftX(), topV);
+				glVertex2f(0.0f, scaleNine.getTop());
+
+				glTexCoord2f(win.getLeftX(), bottomV);
+				glVertex2f(0.0f, bottomY);
+
+				glTexCoord2f(leftU, topV);
+				glVertex2f(scaleNine.getLeft(), scaleNine.getTop());
+
+				glTexCoord2f(leftU, bottomV);
+				glVertex2f(scaleNine.getLeft(), bottomY);
+
+				// Middle middle
+				glTexCoord2f(rightU, topV);
+				glVertex2f(rightX, scaleNine.getTop());
+
+				glTexCoord2f(rightU, bottomV);
+				glVertex2f(rightX, bottomY);
+
+				// Middle right
+				glTexCoord2f(win.getRightX(), topV);
+				glVertex2f(width, scaleNine.getTop());
+
+				glTexCoord2f(win.getRightX(), bottomV);
+				glVertex2f(width, bottomY);
+
+			glEnd();
+
+			glBegin(GL_TRIANGLE_STRIP);
+
+				// Bottom left
+				glTexCoord2f(win.getLeftX(), bottomV);
+				glVertex2f(0.0f, bottomY);
+
+				glTexCoord2f(win.getLeftX(), win.getBottomY());
+				glVertex2f(0.0f, height);
+
+				glTexCoord2f(leftU, bottomV);
+				glVertex2f(scaleNine.getLeft(), bottomY);
+
+				glTexCoord2f(leftU, win.getBottomY());
+				glVertex2f(scaleNine.getLeft(), height);
+
+				// Bottom middle
+				glTexCoord2f(rightU, bottomV);
+				glVertex2f(rightX, bottomY);
+
+				glTexCoord2f(rightU, win.getBottomY());
+				glVertex2f(rightX, height);
+
+				// Bottom right
+				glTexCoord2f(win.getRightX(), bottomV);
+				glVertex2f(width, bottomY);
+
+				glTexCoord2f(win.getRightX(), win.getBottomY());
+				glVertex2f(width, height);
+
+			glEnd();
+		}
+		else
+		{
+			glBegin(GL_TRIANGLE_STRIP);
+
+				glTexCoord2f(win.getLeftX(), win.getTopY());
+				glVertex2f(0, 0);
+
+				glTexCoord2f(win.getRightX(), win.getTopY());
+				glVertex2f(width, 0);
+
+				glTexCoord2f(win.getLeftX(), win.getBottomY());
+				glVertex2f(0, height);
 			
-			glTexCoord2f(win.getRightX(), win.getBottomY());
-			glVertex2f(width, height);
+				glTexCoord2f(win.getRightX(), win.getBottomY());
+				glVertex2f(width, height);
 
-		glEnd();
+			glEnd();
+		}
 	}
 
 	float Sprite::getWidth()
@@ -236,7 +351,16 @@ namespace gfx {
 			return mAsset->getHeight();
 		}
 		return mHeight;
-	}	
+	}
+
+	void Sprite::setScaleNineState(ScaleNineState state)
+	{
+		mScaleNineState = state;
+	}
+	ScaleNineState Sprite::getScaleNineState() const
+	{
+		return mScaleNineState;
+	}
 
 }
 }

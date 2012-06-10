@@ -6,6 +6,7 @@
 #include "texture_window.h"
 
 #include "../handle.h"
+#include "scale_nine.h"
 
 #include <vector>
 
@@ -37,6 +38,9 @@ namespace gfx {
 		void setFrameTime(float time);
 		float getFrameTime() const;
 
+		void setScaleNineState(ScaleNineState state);
+		ScaleNineState getScaleNineState() const;
+
 		// Renderable methods
 		virtual void render(float dt);
 
@@ -50,6 +54,8 @@ namespace gfx {
 		int mCurrentFrame;
 		float mFrameRate;
 		float mCurrentTime;
+
+		ScaleNineState mScaleNineState;
 
 		virtual void renderTexture(const TextureWindow &win, const float &width, const float &height);
 	};

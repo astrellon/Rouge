@@ -15,7 +15,10 @@ namespace util {
 		Handle(T *obj) :
 			mObject(obj)
 		{
-			mObject->retain();
+			if (mObject)
+			{
+				mObject->retain();
+			}
 		}
 		Handle(const Handle<T> &handle)
 		{

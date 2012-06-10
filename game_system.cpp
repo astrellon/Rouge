@@ -7,7 +7,6 @@
 #include "gfx/gfx_text_field.h"
 #include "gfx/gfx_layer.h"
 #include "gfx/gfx_font.h"
-#include "gfx/gfx_sprite_scale_nine.h"
 #include "gfx/gfx_asset.h"
 #include "gfx/scale_nine.h"
 
@@ -23,6 +22,7 @@
 #include "ui_button.h"
 #include "ui_checkbox.h"
 #include "ui_label.h"
+#include "ui_main_menu.h"
 
 #include "handle.h"
 
@@ -87,9 +87,9 @@ namespace sys {
 		mEngine->init();
 		mGfxEngine->init();
 		
-		mInfo = new TextField(mGfxEngine);
+		/*mInfo = new TextField(mGfxEngine);
 		mInfo->setPosition(0, 200);
-		mGfxEngine->getRootLayer()->addChild(mInfo);
+		mGfxEngine->getRootLayer()->addChild(mInfo);*/
 		/*
 		const char *txt = "Hello there how are you today my friend?\nI am good thank you.";
 		//const char *txt = "Hello \nthere";
@@ -115,7 +115,7 @@ namespace sys {
 		*/
 
 		mGfxEngine->getRootLayer()->setInteractive(true);
-
+		/*
 		am::util::Handle<Sprite> sprite = new Sprite(mGfxEngine, "fontBasicAni");
 		mGfxEngine->getRootLayer()->addChild(sprite.get());
 		sprite->setInteractive(true);
@@ -124,7 +124,14 @@ namespace sys {
 		sprite->setHeight(128.0f);
 		
 		sprite->setPosition(200, 0);
-		
+		*/
+		mMainMenu = new MainMenu(mGfxEngine);
+		mGfxEngine->getUILayer()->addChild(mMainMenu.get());
+		if (mMainMenu.get())
+		{
+			mMainMenu->setWidth(mGfxEngine->getScreenWidth());
+			mMainMenu->setHeight(mGfxEngine->getScreenHeight());
+		}
 
 		/*
 		mButton = new am::ui::Button(mGfxEngine, "bigButton");
@@ -205,6 +212,11 @@ namespace sys {
 	void GameSystem::reshape(int width, int height)
 	{
 		mGfxEngine->reshape(width, height);
+		if (mMainMenu.get())
+		{
+			mMainMenu->setWidth(width);
+			mMainMenu->setHeight(height);
+		}
 	}
 	void GameSystem::update(float dt)
 	{
