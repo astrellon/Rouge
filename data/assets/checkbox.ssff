@@ -1,3 +1,6 @@
 {	// Checkbox Asset
-	texture: "data/textures/checkbox.png"
+	texture: "data/textures/checkbox.png",
+	framesX: 2,
+	framesY, 4,
+	frameRate: 0,
 }

@@ -2,6 +2,7 @@
 
 #include "ui_component.h"
 #include "handle.h"
+#include "ievent_listener.h"
 
 using namespace am::util;
 
@@ -15,10 +16,12 @@ using namespace am::gfx;
 namespace ui {
 	class Button;
 
-	class MainMenu : public UIComponent {
+	class MainMenu : public UIComponent, public IEventListener {
 	public:
 		MainMenu(GfxEngine *engine);
 		~MainMenu();
+
+		virtual void onEvent(Event *e);
 
 	protected:
 

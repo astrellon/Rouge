@@ -27,6 +27,32 @@ namespace ui {
 	{
 	}
 
+	Colour &Image::getColour()
+	{
+		return mGraphic->getColour();
+	}
+	void Image::setColour(const Colour &colour)
+	{
+		mGraphic->setColour(colour);
+	}
+	void Image::setColour(float red, float green, float blue)
+	{
+		mGraphic->setColour(red, green, blue);
+	}
+	void Image::setColour(float red, float green, float blue, float alpha)
+	{
+		mGraphic->setColour(red, green, blue, alpha);
+	}
+
+	void Image::setAlpha(float alpha)
+	{
+		mGraphic->setAlpha(alpha);
+	}
+	float Image::getAlpha() const
+	{
+		return mGraphic->getAlpha();
+	}
+
 	void Image::setAsset(Asset *asset)
 	{
 		mGraphic->setAsset(asset);
@@ -38,6 +64,17 @@ namespace ui {
 	Sprite *Image::getGraphic()
 	{
 		return mGraphic.get();
+	}
+
+	void Image::setWidth(float width)
+	{
+		mGraphic->setWidth(width);
+		UIComponent::setWidth(width);
+	}
+	void Image::setHeight(float height)
+	{
+		mGraphic->setHeight(height);
+		UIComponent::setHeight(height);
 	}
 
 }

@@ -39,6 +39,8 @@ namespace gfx {
 		virtual void setColour(const Colour &colour);
 		virtual void setColour(float red, float green, float blue);
 		virtual void setColour(float red, float green, float blue, float alpha);
+		virtual void setAlpha(float alpha);
+		virtual float getAlpha() const;
 
 		//virtual BoundingBox getBounds() = 0;
 		virtual am::math::Transform &getTransform();

@@ -126,9 +126,6 @@ namespace gfx {
 
 		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 		mColour.applyColour();
 
 		glBegin(GL_QUADS);
@@ -144,8 +141,6 @@ namespace gfx {
 		glEnd();
 
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
-
-		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		
 		Renderable::postRender(dt);

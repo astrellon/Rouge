@@ -27,6 +27,7 @@ namespace ui {
 	class Checkbox;
 	class Button;
 	class MainMenu;
+	class OptionsPanel;
 }
 using namespace am::ui;
 
@@ -90,6 +91,7 @@ namespace sys {
 		MouseManager *mMouseManager;
 
 		Handle<MainMenu> mMainMenu;
+		Handle<OptionsPanel> mOptionsPanel;
 
 	};
 

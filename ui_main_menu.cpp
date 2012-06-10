@@ -2,6 +2,8 @@
 
 #include "ui_button.h"
 
+#include "logger.h"
+
 namespace am {
 namespace ui {
 
@@ -22,13 +24,52 @@ namespace ui {
 		float buttonHeight = mStartGame->getHeight();
 		mStartGame->setWidth(120.0f);
 		mStartGame->setParentOffsetY(-buttonHeight * 1.5f);
+		mStartGame->addEventListener("click", this);
+
 		mLoadGame->setParentOffsetY(-buttonHeight * 0.5f);
+		mLoadGame->addEventListener("click", this);
+
 		mOptions->setParentOffsetY(buttonHeight * 0.5f);
+		mOptions->addEventListener("click", this);
+
 		mQuit->setParentOffsetY(buttonHeight * 1.5f);
+		mQuit->setWidth(120.0f);
+		mQuit->addEventListener("click", this);
+
 	}
 	
 	MainMenu::~MainMenu()
 	{
+	}
+
+	void MainMenu::onEvent(Event *e)
+	{
+		if (e->getEventTarget() == mQuit.get())
+		{
+			am_log("BTN", "QUIT BUTTON");
+			Event *e = new Event("quit", this);
+			fireEvent(e);
+			delete e;
+			return;
+		}
+		if (e->getEventTarget() == mOptions.get())
+		{
+			am_log("BTN", "OPTIONS BUTTON");
+			Event *e = new Event("options", this);
+			fireEvent(e);
+			delete e;
+			return;
+		}
+		if (e->getEventTarget() == mLoadGame.get())
+		{
+			am_log("BTN", "LOAD GAME");
+			return;
+		}
+		if (e->getEventTarget() == mStartGame.get())
+		{
+			am_log("BTN", "START GAME");
+			return;
+		}
 	}
 
 	void MainMenu::initButton(Button *btn)

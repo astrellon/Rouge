@@ -134,8 +134,6 @@ namespace gfx {
 			if (mColour.getAlpha() > 0.05f)
 			{
 				preRender(dt);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				glBindTexture(GL_TEXTURE_2D, 0);
 
 				mColour.applyColour();
@@ -197,14 +195,10 @@ namespace gfx {
 		
 		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
 		const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
 
 		renderTexture(win, width, height);
 
-		glDisable(GL_BLEND);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		postRender(dt);

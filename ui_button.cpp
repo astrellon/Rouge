@@ -127,6 +127,7 @@ namespace ui {
 
 	void Button::onEvent(MouseEvent *e)
 	{
+		Event *clickEvent = NULL;
 		switch (e->getMouseEventType())
 		{
 		default:
@@ -143,8 +144,11 @@ namespace ui {
 				mGraphic->setCurrentFrame(1);
 			}
 			break;
-		case am::ui::MOUSE_OVER:
 		case am::ui::MOUSE_UP:
+			clickEvent = new Event("click", this);
+			fireEvent(clickEvent);
+			delete clickEvent;
+		case am::ui::MOUSE_OVER:
 			mGraphic->setCurrentFrame(1);
 			break;
 		case am::ui::MOUSE_DOWN:

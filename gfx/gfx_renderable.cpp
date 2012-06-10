@@ -28,6 +28,9 @@ namespace gfx {
 		glPushMatrix();
 		glMultMatrixf(mTransform.data());
 
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		mColour.applyColour();
 	}
 	void Renderable::render(float dt)
@@ -36,6 +39,8 @@ namespace gfx {
 	void Renderable::postRender(float dt)
 	{
 		glPopMatrix();
+
+		glDisable(GL_BLEND);
 	}
 
 	void Renderable::setWidth(float width)
@@ -98,6 +103,15 @@ namespace gfx {
 	void Renderable::setColour(float red, float green, float blue, float alpha)
 	{
 		mColour.setColour(red, green, blue, alpha);
+	}
+
+	void Renderable::setAlpha(float alpha)
+	{
+		mColour.setAlpha(alpha);
+	}
+	float Renderable::getAlpha() const
+	{
+		return mColour.getAlpha();
 	}
 
 	am::math::Transform &Renderable::getTransform()

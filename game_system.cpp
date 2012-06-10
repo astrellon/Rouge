@@ -22,6 +22,7 @@
 #include "ui_button.h"
 #include "ui_checkbox.h"
 #include "ui_label.h"
+#include "ui_options_panel.h"
 #include "ui_main_menu.h"
 
 #include "handle.h"
@@ -87,98 +88,21 @@ namespace sys {
 		mEngine->init();
 		mGfxEngine->init();
 		
-		/*mInfo = new TextField(mGfxEngine);
-		mInfo->setPosition(0, 200);
-		mGfxEngine->getRootLayer()->addChild(mInfo);*/
-		/*
-		const char *txt = "Hello there how are you today my friend?\nI am good thank you.";
-		//const char *txt = "Hello \nthere";
-		
-		mInfo->setText(txt);
-		mInfo->setWidth(140.0f);
-		mInfo->setAlignment(TextField::ALIGN_RIGHT);
-
-		mInfo2 = new TextField(mGfxEngine);
-		mInfo2->getTransform().setPosition(Vector4f(0, 120, 0));
-		mGfxEngine->getRootLayer()->addChild(mInfo2);
-
-		mInfo2->setText(txt);
-		mInfo2->setWidth(140.0f);
-
-		mInfo3 = new TextField(mGfxEngine);
-		mInfo3->getTransform().setPosition(Vector4f(0, 280, 0));
-		mGfxEngine->getRootLayer()->addChild(mInfo3);
-
-		mInfo3->setText(txt);
-		mInfo3->setWidth(140.0f);
-		mInfo3->setAlignment(TextField::ALIGN_CENTER);
-		*/
-
 		mGfxEngine->getRootLayer()->setInteractive(true);
-		/*
-		am::util::Handle<Sprite> sprite = new Sprite(mGfxEngine, "fontBasicAni");
-		mGfxEngine->getRootLayer()->addChild(sprite.get());
-		sprite->setInteractive(true);
 		
-		sprite->setWidth(128.0f);
-		sprite->setHeight(128.0f);
-		
-		sprite->setPosition(200, 0);
-		*/
 		mMainMenu = new MainMenu(mGfxEngine);
+		mMainMenu->addEventListener("quit", this);
+		mMainMenu->addEventListener("options", this);
 		mGfxEngine->getUILayer()->addChild(mMainMenu.get());
-		if (mMainMenu.get())
-		{
-			mMainMenu->setWidth(mGfxEngine->getScreenWidth());
-			mMainMenu->setHeight(mGfxEngine->getScreenHeight());
-		}
+		mMainMenu->setWidth(mGfxEngine->getScreenWidth());
+		mMainMenu->setHeight(mGfxEngine->getScreenHeight());
 
-		/*
-		mButton = new am::ui::Button(mGfxEngine, "bigButton");
-		mGfxEngine->getUILayer()->addChild(mButton);
-		mButton->setParentAnchor(X_CENTER, Y_CENTER);
-		mButton->setAnchor(X_CENTER, Y_CENTER);
-		mButton->setParentOffsetY(-20.0f);
-		
-		mCheckbox = new am::ui::Checkbox(mGfxEngine, "checkbox", "Test\nLabel");
-		mGfxEngine->getUILayer()->addChild(mCheckbox);
-		mCheckbox->setParentAnchor(X_CENTER, Y_CENTER);
-		mCheckbox->setAnchorX(X_RIGHT);
-		mCheckbox->setParentOffset(0.0f, 40.0f);
-		
-		am::ui::Checkbox *testCheck = new am::ui::Checkbox(mGfxEngine, "checkbox", "Disable");
-		mGfxEngine->getUILayer()->addChild(testCheck);
-		testCheck->setParentAnchor(X_CENTER, Y_CENTER);
-		testCheck->setAnchorX(X_LEFT);
-		testCheck->setParentOffset(0.0f, 40.0f);
-		testCheck->addEventListener("changed", this);
-
-		Label *labelLeft = new Label(mGfxEngine, "Text on the left");
-		mGfxEngine->getUILayer()->addChild(labelLeft);
-		labelLeft->getLabelField()->setAlignment(TextField::ALIGN_RIGHT);
-		labelLeft->setParentAnchor(X_CENTER, Y_CENTER);
-		labelLeft->setAnchorX(X_RIGHT);
-		labelLeft->setParentOffsetY(100.0f);
-		*/
-		/*
-		ScaleNine s9(26, 230, 26, 38);
-		am::util::Handle<SpriteScaleNine> scaleTest(new SpriteScaleNine(mGfxEngine, "bigButton"));
-		scaleTest->setNumFramesX(2);
-		scaleTest->setNumFramesY(2);
-		scaleTest->setNumTotalFrames(4);
-		scaleTest->setWidth(100);
-		mGfxEngine->getUILayer()->addChild(scaleTest.get());
-		scaleTest->setPosition(100, 50);
-		scaleTest->setScaleNine(s9, true);*/
-		/*
-		scaleTest = new SpriteScaleNine(mGfxEngine, "bigButton");
-		scaleTest->setNumFramesX(2);
-		scaleTest->setNumFramesY(2);
-		scaleTest->setNumTotalFrames(4);
-		scaleTest->setWidth(300);
-		mGfxEngine->getUILayer()->addChild(scaleTest.get());
-		scaleTest->setPosition(100, 150);
-		scaleTest->setScaleNine(s9, true);*/
+		mOptionsPanel = new OptionsPanel(mGfxEngine);
+		mOptionsPanel->addEventListener("close_options", this);
+		mGfxEngine->getUILayer()->addChild(mOptionsPanel.get());
+		mOptionsPanel->setWidth(mGfxEngine->getScreenWidth());
+		mOptionsPanel->setHeight(mGfxEngine->getScreenHeight());
+		mOptionsPanel->setVisible(false);
 
 		am::util::Handle<Label> labelRight(new Label(mGfxEngine, "Text on the right"));
 		mGfxEngine->getUILayer()->addChild(labelRight.get());
@@ -188,6 +112,23 @@ namespace sys {
 	}
 	void GameSystem::onEvent(am::ui::Event *e)
 	{
+		if (e->getType().compare("quit") == 0)
+		{
+			setProgramRunning(false);
+			return;
+		}
+		if (e->getType().compare("options") == 0)
+		{
+			mMainMenu->setVisible(false);
+			mOptionsPanel->setVisible(true);
+			return;
+		}
+		if (e->getType().compare("close_options") == 0)
+		{
+			mMainMenu->setVisible(true);
+			mOptionsPanel->setVisible(false);
+			return;
+		}
 	}
 	void GameSystem::onEvent(am::ui::MouseEvent *e)
 	{
@@ -216,6 +157,11 @@ namespace sys {
 		{
 			mMainMenu->setWidth(width);
 			mMainMenu->setHeight(height);
+		}
+		if (mOptionsPanel.get())
+		{
+			mOptionsPanel->setWidth(width);
+			mOptionsPanel->setHeight(height);
 		}
 	}
 	void GameSystem::update(float dt)

@@ -166,6 +166,9 @@
     <ClCompile Include="ui_main_menu.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="ui_options_panel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -323,6 +326,9 @@
       <Filter>gfx\util</Filter>
     </ClInclude>
     <ClInclude Include="ui_main_menu.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_options_panel.h">
       <Filter>ui</Filter>
     </ClInclude>
   </ItemGroup>

@@ -119,6 +119,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="ui_image.cpp" />
     <ClCompile Include="ui_label.cpp" />
     <ClCompile Include="ui_main_menu.cpp" />
+    <ClCompile Include="ui_options_panel.cpp" />
     <ClCompile Include="win_system.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ui_image.h" />
     <ClInclude Include="ui_label.h" />
     <ClInclude Include="ui_main_menu.h" />
+    <ClInclude Include="ui_options_panel.h" />
     <ClInclude Include="ui_tooltip.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="win_system.h" />
