@@ -8,6 +8,8 @@
 
 #include "colour.h"
 
+#include "game_system.h"
+
 namespace am {
 namespace ui {
 
@@ -23,6 +25,9 @@ namespace ui {
 		addChild(mFullscreen.get());
 		addChild(mApply.get());
 		addChild(mClose.get());
+
+		mFullscreen->setParentOffset(20.0f, 80.0f);
+		mFullscreen->addEventListener("change", this);
 
 		mApply->setWidth(100.0f);
 		mApply->setParentAnchor(X_RIGHT, Y_BOTTOM);
@@ -49,6 +54,13 @@ namespace ui {
 			Event *e = new Event("close_options", this);
 			fireEvent(e);
 			delete e;
+		}
+	}
+	void OptionsPanel::onEvent(DataEvent *e)
+	{
+		if (e->getEventTarget() == mFullscreen.get())
+		{
+			am::sys::GameSystem::getGameSystem()->setFullscreen(e->getData().getBool());
 		}
 	}
 

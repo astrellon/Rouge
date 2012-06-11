@@ -35,8 +35,7 @@ namespace sys {
 
 	class GameSystem : public ISystem, public am::ui::IEventListener {
 	public:
-		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-			MouseManager *mouseManager);
+		
 		~GameSystem();
 
 		virtual void setSize(int width, int height);
@@ -78,12 +77,22 @@ namespace sys {
 		virtual void onCursorHiddenChange(bool hidden);
 		virtual bool isCursorHidden() const;
 
+		virtual void setFullscreen(bool fullscreen);
+		virtual bool getFullscreen() const;
+
 		ISystem *getLinkedSystem();
 		GfxEngine *getGfxEngine();
 		Engine *getEngine();
 		MouseManager *getMouseManager();
 
+		static GameSystem *createGameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
+			MouseManager *mouseManager);
+		static GameSystem *getGameSystem();
+
 	protected:
+
+		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
+			MouseManager *mouseManager);
 
 		ISystem *mLinkedSystem;
 		GfxEngine *mGfxEngine;
@@ -92,6 +101,8 @@ namespace sys {
 
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;
+
+		static GameSystem *sGameSystem;
 
 	};
 

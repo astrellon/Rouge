@@ -14,7 +14,8 @@ namespace sys {
 		mYpos(0),
 		mRunning(false),
 		mHideCursor(false),
-		mGameSystem(NULL)
+		mGameSystem(NULL),
+		mFullscreen(false)
 	{
 	
 	}
@@ -117,6 +118,32 @@ namespace sys {
 	{
 		PostMessage (mHWnd, WM_QUIT, 0, 0);
 		mProgramRunning = running;
+	}
+
+	void WinSystem::setFullscreen(bool fullscreen)
+	{
+		if (fullscreen)
+		{
+			SetWindowLongPtr(mHWnd, GWL_STYLE, 
+				WS_SYSMENU | WS_POPUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE);
+			MoveWindow(mHWnd, 0, 0, mWidth, mHeight, TRUE);
+		}
+		else
+		{
+			RECT rect;
+			rect.left = 0;
+			rect.top = 0;
+			rect.right = mWidth;
+			rect.bottom = mHeight;
+			SetWindowLongPtr(mHWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+			AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+			MoveWindow(mHWnd, 0, 0, rect.right-rect.left, rect.bottom-rect.top, TRUE);
+		}
+		mFullscreen = fullscreen;
+	}
+	bool WinSystem::getFullscreen() const
+	{
+		return mFullscreen;
 	}
 
 	void WinSystem::setHWnd(HWND hWnd)
@@ -379,7 +406,6 @@ namespace sys {
 			}
 			else															// Otherwise (If Fullscreen Mode Was Successful)
 			{
-				//ShowCursor (FALSE);											// Turn Off The Cursor
 				windowStyle = WS_POPUP;										// Set The WindowStyle To WS_POPUP (Popup Window)
 				windowExtendedStyle |= WS_EX_TOPMOST;						// Set The Extended Window Style To WS_EX_TOPMOST
 			}																// (Top Window Covering Everything Else)

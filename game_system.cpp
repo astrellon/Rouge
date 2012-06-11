@@ -33,6 +33,19 @@ using namespace am::math;
 namespace am {
 namespace sys {
 
+	GameSystem *GameSystem::sGameSystem = NULL;
+
+	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
+			MouseManager *mouseManager)
+	{
+		sGameSystem = new GameSystem(linked, engine, gfxEngine, mouseManager);
+		return sGameSystem;
+	}
+	GameSystem *GameSystem::getGameSystem()
+	{
+		return sGameSystem;
+	}
+
 	GameSystem::GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
 		MouseManager *mouseManager) :
 		mLinkedSystem(linked),
@@ -135,20 +148,7 @@ namespace sys {
 	}
 	void GameSystem::onEvent(am::ui::DataEvent *e)
 	{
-		/*stringstream ss;
-		ss << "Data event (" << e->getType() << "): ";
-		e->getData().display(ss);
-		mInfo->setText(ss.str());
-
-		bool selected = e->getData().getBool();
-		mButton->setEnabled(selected);
-		mCheckbox->setEnabled(selected);
-
-		Checkbox *target = dynamic_cast<Checkbox *>(e->getEventTarget());
-		if (target)
-		{
-			target->setLabel(selected ? "Enable" : "Disable");
-		}*/
+		
 	}
 	void GameSystem::reshape(int width, int height)
 	{
@@ -236,6 +236,15 @@ namespace sys {
 	bool GameSystem::isCursorHidden() const
 	{
 		return mLinkedSystem->isCursorHidden();
+	}
+
+	void GameSystem::setFullscreen(bool fullscreen)
+	{
+		mLinkedSystem->setFullscreen(fullscreen);
+	}
+	bool GameSystem::getFullscreen() const
+	{
+		return mLinkedSystem->getFullscreen();
 	}
 
 	ISystem *GameSystem::getLinkedSystem()

@@ -69,7 +69,7 @@ namespace ui {
 		{
 			mSelected = selected;
 			JsonValue value(selected);
-			DataEvent *e = new DataEvent("changed", this, selected);
+			DataEvent *e = new DataEvent("change", this, selected);
 			fireEvent(e);
 			delete e;
 		}

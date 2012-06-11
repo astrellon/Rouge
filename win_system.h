@@ -74,6 +74,9 @@ namespace sys {
 		virtual void onCursorHiddenChange(bool hidden);
 		virtual bool isCursorHidden() const;
 
+		virtual void setFullscreen(bool fullscreen);
+		virtual bool getFullscreen() const;
+
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();
 
@@ -93,6 +96,7 @@ namespace sys {
 		bool mProgramRunning;
 		bool mRunning;
 		bool mHideCursor;
+		bool mFullscreen;
 
 		HWND mHWnd;
 		HINSTANCE mHInstance;

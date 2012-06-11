@@ -43,6 +43,9 @@ namespace sys {
 		virtual void onCursorHiddenChange(bool hidden) = 0;
 		virtual bool isCursorHidden() const = 0;
 
+		virtual void setFullscreen(bool fullscreen) = 0;
+		virtual bool getFullscreen() const = 0;
+
 	};
 
 }
