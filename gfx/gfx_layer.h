@@ -18,8 +18,11 @@ namespace gfx {
 		~Layer();
 
 		void addChild(Renderable *child);
+		void addChild(Renderable *child, int index);
 		void removeChild(int index);
 		void removeChild(Renderable *child);
+
+		void clear();
 
 		bool hasChild(Renderable *child) const;
 		int getNumChildren() const;

@@ -4,9 +4,7 @@
 #include "ievent_listener.h"
 #include "mouse_event.h"
 #include "mouse_manager.h"
-#include "ui_main_menu.h"
 #include "handle.h"
-
 using namespace am::util;
 
 namespace am {
@@ -17,17 +15,13 @@ using namespace am::base;
 
 namespace gfx {
 	class GfxEngine;
-	class TextField;
 	class Layer;
+	class TextList;
 }
 using namespace am::gfx;
 
 namespace ui {
 	class MouseManager;
-	class Checkbox;
-	class Button;
-	class MainMenu;
-	class OptionsPanel;
 }
 using namespace am::ui;
 
@@ -69,10 +63,6 @@ namespace sys {
 		virtual int startLoop();
 		virtual void stopLoop();
 
-		virtual void onEvent(am::ui::Event *e);
-		virtual void onEvent(am::ui::MouseEvent *e);
-		virtual void onEvent(am::ui::DataEvent *e);
-
 		virtual void setCursorHidden(bool hide);
 		virtual void onCursorHiddenChange(bool hidden);
 		virtual bool isCursorHidden() const;
@@ -80,14 +70,16 @@ namespace sys {
 		virtual void setFullscreen(bool fullscreen);
 		virtual bool getFullscreen() const;
 
-		ISystem *getLinkedSystem();
-		GfxEngine *getGfxEngine();
-		Engine *getEngine();
-		MouseManager *getMouseManager();
+		virtual ISystem *getLinkedSystem();
+		virtual GfxEngine *getGfxEngine();
+		virtual Engine *getEngine();
+		virtual MouseManager *getMouseManager();
 
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
 			MouseManager *mouseManager);
 		static GameSystem *getGameSystem();
+
+		TextList *getDebugConsole();
 
 	protected:
 
@@ -99,11 +91,9 @@ namespace sys {
 		Engine *mEngine;
 		MouseManager *mMouseManager;
 
-		Handle<MainMenu> mMainMenu;
-		Handle<OptionsPanel> mOptionsPanel;
-
 		static GameSystem *sGameSystem;
 
+		Handle<TextList> mDebugConsole;
 	};
 
 }

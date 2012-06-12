@@ -9,11 +9,8 @@
 #include "gfx_asset.h"
 #include "gfx_texture.h"
 #include "gfx_font.h"
-#include "gfx_text_field.h"
 #include "gfx_sprite.h"
 #include "gfx_layer.h"
-#include "gfx_text_list.h"
-#include "gfx_log_listener.h"
 
 #include "../event.h"
 #include "../mouse_event.h"
@@ -33,7 +30,8 @@ namespace gfx {
 		mCursor(NULL),
 		mHideCursor(false),
 		mRootLayer(NULL),
-		mUILayer(NULL)
+		mUILayer(NULL),
+		mGameLayer(NULL)
 	{
 		
 	}
@@ -59,12 +57,21 @@ namespace gfx {
 		mRootLayer = new Layer(this);
 		mRootLayer->setInteractive(true);
 
+		mGameLayer = new Layer(this);
+		mGameLayer->setInteractive(true);
+		mRootLayer->addChild(mGameLayer.get());
+
 		mUILayer = new Layer(this);
 		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
-		mRootLayer->addChild(mUILayer);
+		mRootLayer->addChild(mUILayer.get());
 
+		mDebugLayer = new Layer(this);
+		mDebugLayer->setInteractive(true);
+		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
+		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
+		
 		Asset *mCursorAsset = getAsset("cursor");
 		if (mCursorAsset == NULL)
 		{
@@ -72,14 +79,6 @@ namespace gfx {
 		}
 		mCursor = new Sprite(this, mCursorAsset);
 
-		TextList *list = new TextList(this);
-		mRootLayer->addChild(list);
-
-		list->setWidth(600.0f);
-		list->setBaseFont("basic");
-
-		GfxLogListener *listener = new GfxLogListener(list);
-		am::log::Logger::getMainLogger().addLogListener(listener);
 	}
 	void GfxEngine::deinit()
 	{
@@ -117,8 +116,13 @@ namespace gfx {
 		setOrthographic();
 
 		mRootLayer->render(dt);
+
+		if (mDebugLayer->isVisible())
+		{
+			mDebugLayer->render(dt);
+		}
 		
-		if (mCursor != NULL && !mHideCursor)
+		if (mCursor.get() && !mHideCursor && mCursor->isVisible())
 		{
 			mCursor->render(dt);
 		}
@@ -129,23 +133,28 @@ namespace gfx {
 		mScreenWidth = width;
 		mScreenHeight = height;
 
-		if (mUILayer)
+		if (mUILayer.get())
 		{
 			mUILayer->setWidth(static_cast<float>(width));
 			mUILayer->setHeight(static_cast<float>(height));
+		}
+		if (mDebugLayer.get())
+		{
+			mDebugLayer->setWidth(static_cast<float>(width));
+			mDebugLayer->setHeight(static_cast<float>(height));
 		}
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
 	Sprite *GfxEngine::getCursor()
 	{
-		return mCursor;
+		return mCursor.get();
 	}
 	void GfxEngine::setCursor(Sprite *sprite)
 	{
 		mRootLayer->removeChild(sprite);
 		mCursor = sprite;
-		mRootLayer->addChild(mCursor);
+		mRootLayer->addChild(mCursor.get());
 	}
 
 	Asset *GfxEngine::getAsset(const char *assetName)
@@ -249,11 +258,19 @@ namespace gfx {
 
 	Layer *GfxEngine::getRootLayer()
 	{
-		return mRootLayer;
+		return mRootLayer.get();
+	}
+	Layer *GfxEngine::getGameLayer()
+	{
+		return mGameLayer.get();
 	}
 	Layer *GfxEngine::getUILayer()
 	{
-		return mUILayer;
+		return mUILayer.get();
+	}
+	Layer *GfxEngine::getDebugLayer()
+	{
+		return mDebugLayer.get();
 	}
 
 	void GfxEngine::setCursorHidden(bool hide)

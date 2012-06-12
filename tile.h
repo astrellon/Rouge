@@ -9,34 +9,34 @@ using namespace am::util;
 namespace am {
 namespace base {
 
-class Graphic;
+	class Graphic;
 
-class Tile {
-public:
-	Tile(const char *name);
-	Tile(const char *name, const char *fullName);
-	~Tile();
+	class Tile {
+	public:
+		Tile(const char *name);
+		Tile(const char *name, const char *fullName);
+		~Tile();
 
-	string getName();
-	const string &getName() const;
+		string getName();
+		const string &getName() const;
 
-	string getFullName();
-	const string &getFullName() const;
-	void setFullName(const char *name);
+		string getFullName();
+		const string &getFullName() const;
+		void setFullName(const char *name);
 	
-	Graphic *getGraphic();
-	void setGraphic(Graphic *graphic);
+		Graphic *getGraphic();
+		void setGraphic(Graphic *graphic);
 
-	void loadDef(JsonObject &value);
+		void loadDef(JsonObject &value);
 	
-protected:
+	protected:
 	
-	string mName;
-	string mFullName;
-	Graphic *mGraphic;
+		string mName;
+		string mFullName;
+		Graphic *mGraphic;
 
-	int parseDef(const char *name, JsonValue &value);
-};
+		int parseDef(const char *name, JsonValue &value);
+	};
 
 }
 }

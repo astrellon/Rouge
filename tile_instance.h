@@ -3,29 +3,29 @@
 namespace am {
 namespace base {
 
-class Tile;
+	class Tile;
 
-class TileInstance {
-public:
-	TileInstance();
-	TileInstance(Tile *tile);
-	TileInstance(Tile *tile, int x, int y);
-	~TileInstance();
+	class TileInstance {
+	public:
+		TileInstance();
+		TileInstance(Tile *tile);
+		TileInstance(Tile *tile, int x, int y);
+		~TileInstance();
 	
-	int getX() const;
-	int getY() const;
+		int getX() const;
+		int getY() const;
 	
-	void setPos(int x, int y);
+		void setPos(int x, int y);
 	
-	Tile *getTile();
-	void setTile(Tile *tile);
+		Tile *getTile();
+		void setTile(Tile *tile);
 	
-protected:
-	Tile *mTile;
+	protected:
+		Tile *mTile;
 
-	int mXpos;
-	int mYpos;
-};
+		int mXpos;
+		int mYpos;
+	};
 
 }
 }

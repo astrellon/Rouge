@@ -9,6 +9,10 @@
 #include "gfx/gfx_font.h"
 #include "gfx/gfx_asset.h"
 #include "gfx/scale_nine.h"
+#include "gfx/gfx_text_list.h"
+#include "gfx/gfx_log_listener.h"
+
+#include "logger.h"
 
 #include "mouse_manager.h"
 
@@ -51,13 +55,14 @@ namespace sys {
 		mLinkedSystem(linked),
 		mEngine(engine),
 		mGfxEngine(gfxEngine),
-		mMouseManager(mouseManager)
+		mMouseManager(mouseManager),
+		mDebugConsole(NULL)
 	{
 
 	}
 	GameSystem::~GameSystem()
 	{
-		deinit();
+		
 	}
 
 	void GameSystem::setSize(int width, int height)
@@ -101,68 +106,19 @@ namespace sys {
 		mEngine->init();
 		mGfxEngine->init();
 		
-		mGfxEngine->getRootLayer()->setInteractive(true);
-		
-		mMainMenu = new MainMenu(mGfxEngine);
-		mMainMenu->addEventListener("quit", this);
-		mMainMenu->addEventListener("options", this);
-		mGfxEngine->getUILayer()->addChild(mMainMenu.get());
-		mMainMenu->setWidth(mGfxEngine->getScreenWidth());
-		mMainMenu->setHeight(mGfxEngine->getScreenHeight());
+		mDebugConsole = new TextList(mGfxEngine);
+		mGfxEngine->getDebugLayer()->addChild(mDebugConsole.get());
 
-		mOptionsPanel = new OptionsPanel(mGfxEngine);
-		mOptionsPanel->addEventListener("close_options", this);
-		mGfxEngine->getUILayer()->addChild(mOptionsPanel.get());
-		mOptionsPanel->setWidth(mGfxEngine->getScreenWidth());
-		mOptionsPanel->setHeight(mGfxEngine->getScreenHeight());
-		mOptionsPanel->setVisible(false);
+		mDebugConsole->setWidth(600.0f);
+		mDebugConsole->setBaseFont("basic");
 
-		am::util::Handle<Label> labelRight(new Label(mGfxEngine, "Text on the right"));
-		mGfxEngine->getUILayer()->addChild(labelRight.get());
-		labelRight->setParentAnchor(X_CENTER, Y_CENTER);
-		labelRight->setAnchorX(X_LEFT);
-		labelRight->setParentOffsetY(100.0f);
+		GfxLogListener *listener = new GfxLogListener(mDebugConsole.get());
+		am::log::Logger::getMainLogger().addLogListener(listener);
 	}
-	void GameSystem::onEvent(am::ui::Event *e)
-	{
-		if (e->getType().compare("quit") == 0)
-		{
-			setProgramRunning(false);
-			return;
-		}
-		if (e->getType().compare("options") == 0)
-		{
-			mMainMenu->setVisible(false);
-			mOptionsPanel->setVisible(true);
-			return;
-		}
-		if (e->getType().compare("close_options") == 0)
-		{
-			mMainMenu->setVisible(true);
-			mOptionsPanel->setVisible(false);
-			return;
-		}
-	}
-	void GameSystem::onEvent(am::ui::MouseEvent *e)
-	{
-	}
-	void GameSystem::onEvent(am::ui::DataEvent *e)
-	{
-		
-	}
+
 	void GameSystem::reshape(int width, int height)
 	{
 		mGfxEngine->reshape(width, height);
-		if (mMainMenu.get())
-		{
-			mMainMenu->setWidth(width);
-			mMainMenu->setHeight(height);
-		}
-		if (mOptionsPanel.get())
-		{
-			mOptionsPanel->setWidth(width);
-			mOptionsPanel->setHeight(height);
-		}
 	}
 	void GameSystem::update(float dt)
 	{
@@ -195,11 +151,21 @@ namespace sys {
 	}
 	void GameSystem::onKeyDown(const bool *keys, int key)
 	{
-		mGfxEngine->onKeyDown(keys, key);
+		//mGfxEngine->onKeyDown(keys, key);
 	}
 	void GameSystem::onKeyUp(const bool *keys, int key)
 	{
-		mGfxEngine->onKeyUp(keys, key);
+		stringstream ss;
+		ss << "Key up: " << key << " (" << (char)key << ")";
+		am_log("KEY", ss.str().c_str());
+
+		// 192 Currently is `
+		if (key == 192)
+		{
+			mDebugConsole->setVisible(!mDebugConsole->isVisible());
+		}
+		
+		//mGfxEngine->onKeyUp(keys, key);
 	}
 	
 	bool GameSystem::isProgramRunning() const
@@ -259,5 +225,15 @@ namespace sys {
 	{
 		return mEngine;
 	}
+	MouseManager *GameSystem::getMouseManager()
+	{
+		return mMouseManager;
+	}
+
+	TextList *GameSystem::getDebugConsole()
+	{
+		return mDebugConsole.get();
+	}
+
 }
 }

@@ -1,0 +1,3 @@
+{	// Background Test Asset
+	texture: "data/textures/background.png"
+}

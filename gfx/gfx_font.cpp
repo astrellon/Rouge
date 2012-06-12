@@ -311,7 +311,7 @@ namespace gfx {
 		return mCharsDown;
 	}
 
-	void Font::getTextureWindow(char ch, TextureWindow &render)
+	void Font::getTextureWindow(unsigned char ch, TextureWindow &render)
 	{
 		render = mTextureWindows[ch];
 	}

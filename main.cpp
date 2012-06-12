@@ -13,17 +13,18 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);
 
-	am::sys::GameSystem *gameSystem = am::sys::GameSystem::createGameSystem(&win, &engine, &gfxEngine, &mouseManager);
-	win.setGameSystem(gameSystem);
+	am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(
+		&win, &engine, &gfxEngine, &mouseManager);
+	win.setGameSystem(rougeSystem);
 	
-	gameSystem->setSize(600, 400);
-	gameSystem->setPosition(50, 50);
-	gameSystem->setTitle("Hello!");
+	rougeSystem->setSize(600, 400);
+	rougeSystem->setPosition(50, 50);
+	rougeSystem->setTitle("Hello!");
 
-	gameSystem->startLoop();
+	rougeSystem->startLoop();
 
-	gameSystem->deinit();
+	rougeSystem->deinit();
 
-	delete gameSystem;
+	delete rougeSystem;
 	// Shut down!
 }

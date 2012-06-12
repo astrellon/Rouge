@@ -31,7 +31,7 @@ namespace gfx {
 
 		int loadDef(JsonValue value);
 
-		void getTextureWindow(char ch, TextureWindow &render);
+		void getTextureWindow(unsigned char ch, TextureWindow &render);
 
 		bool isLoaded() const;
 		bool isFixedWidth() const;

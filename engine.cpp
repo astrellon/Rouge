@@ -11,14 +11,15 @@ using namespace am::util;
 namespace am {
 namespace base {
 
-	Engine::Engine() 
+	Engine::Engine() :
+		mCurrentGame(NULL)
 	{
 	}
 	Engine::~Engine() 
 	{
-		deregisterTiles();
+		//deregisterTiles();
 	}
-
+	/*
 	Game *Engine::createGame() 
 	{
 		return new Game(this);
@@ -103,7 +104,7 @@ namespace base {
 		}
 		mRegTiles.clear();
 	}
-
+	*/
 	void Engine::init()
 	{
 
@@ -124,5 +125,15 @@ namespace base {
 	{
 
 	}
+
+	void Engine::setCurrentGame(Game *game)
+	{
+		mCurrentGame = game;
+	}
+	Game *Engine::getCurrentGame()
+	{
+		return mCurrentGame;
+	}
+
 }
 }

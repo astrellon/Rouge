@@ -68,6 +68,9 @@ namespace ui {
 		if (e->getEventTarget() == mStartGame.get())
 		{
 			am_log("BTN", "START GAME");
+			Event *e = new Event("new_game", this);
+			fireEvent(e);
+			delete e;
 			return;
 		}
 	}

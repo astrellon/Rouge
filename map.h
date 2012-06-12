@@ -3,25 +3,25 @@
 namespace am {
 namespace base {
 
-class TileInstance;
+	class TileInstance;
 
-class Map {
-public:
-	Map(int width, int height);
-	~Map();
+	class Map {
+	public:
+		Map(int width, int height);
+		~Map();
 	
-	TileInstance *getTile(int x, int y);
-	TileInstance *getTiles();
+		TileInstance *getTile(int x, int y);
+		TileInstance *getTiles();
 	
-	void setSize(int width, int height);
-protected:
+		void setSize(int width, int height);
+	protected:
 
-	TileInstance *mTiles;
-	int mWidth;
-	int mHeight;
+		TileInstance *mTiles;
+		int mWidth;
+		int mHeight;
 	
-	void clear();
-};
+		void clear();
+	};
 
 }
 }

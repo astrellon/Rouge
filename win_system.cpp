@@ -573,13 +573,11 @@ namespace sys {
 
 					case SIZE_MAXIMIZED:									// Was Window Maximized?
 						window->isVisible = TRUE;							// Set isVisible To True
-						//reshape (LOWORD (lParam), HIWORD (lParam));		// Reshape Window - LoWord=Width, HiWord=Height
 						window->winSystem->reshape(LOWORD(lParam), HIWORD(lParam));
 					return 0;												// Return
 
 					case SIZE_RESTORED:										// Was Window Restored?
 						window->isVisible = TRUE;							// Set isVisible To True
-						//reshape (LOWORD (lParam), HIWORD (lParam));		// Reshape Window - LoWord=Width, HiWord=Height
 						window->winSystem->reshape(LOWORD(lParam), HIWORD(lParam));
 					return 0;												// Return
 				}

@@ -20,9 +20,11 @@ using namespace std;
 
 #include "win_system.h"
 #include "game_system.h"
+#include "rouge_system.h"
 #include "mouse_manager.h"
 #include "gfx/gfx_engine.h"
 #include "engine.h"
+#include "game.h"
 
 #include "logger.h"
 #include "file_log_listener.h"
@@ -30,24 +32,3 @@ using namespace std;
 #include "event.h"
 #include "event_manager.h"
 #include "ievent_listener.h"
-
-class TestListener : public am::ui::IEventListener {
-public:
-	TestListener(const char *name) :
-		mName(name)
-	{
-
-	}
-	~TestListener()
-	{
-
-	}
-	virtual void onEvent(am::ui::Event &e)
-	{
-		string str = "Hello, I am ";
-		str += mName.c_str();
-		am_log("EVNT", str.c_str());
-	}
-protected:
-	string mName;
-};

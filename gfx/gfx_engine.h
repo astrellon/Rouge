@@ -8,7 +8,6 @@
 
 using namespace std;
 
-//#include "resource_manager.h"
 #include "../matrix.h"
 
 using namespace am::math;
@@ -50,7 +49,9 @@ namespace gfx {
 		int getScreenHeight() const;
 
 		Layer *getRootLayer();
+		Layer *getGameLayer();
 		Layer *getUILayer();
+		Layer *getDebugLayer();
 
 		void setCursorHidden(bool hide);
 		bool isCursorHidden() const;
@@ -63,7 +64,7 @@ namespace gfx {
 		int mScreenWidth;
 		int mScreenHeight;
 
-		Sprite *mCursor;
+		am::util::Handle<Sprite> mCursor;
 		bool mHideCursor;
 
 		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
@@ -75,8 +76,10 @@ namespace gfx {
 		TextureManager mTextureManager;
 		FontManager mFontManager;
 
-		Layer *mRootLayer;
-		Layer *mUILayer;
+		am::util::Handle<Layer> mRootLayer;
+		am::util::Handle<Layer> mGameLayer;
+		am::util::Handle<Layer> mUILayer;
+		am::util::Handle<Layer> mDebugLayer;
 	};
 
 }

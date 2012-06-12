@@ -17,6 +17,11 @@ namespace gfx {
 
 	}
 
+	void Layer::clear()
+	{
+		mChildren.clear();
+	}
+
 	void Layer::addChild(Renderable *child)
 	{
 		if (child == NULL)
@@ -33,6 +38,27 @@ namespace gfx {
 			mChildren.push_back(child);
 			child->setParent(this);
 		}
+	}
+	void Layer::addChild(Renderable *child, int index)
+	{
+		if (index >= mChildren.size())
+		{
+			addChild(child);
+			return;
+		}
+
+		ChildList::const_iterator iter = findChild(child);
+		if (child->getParent() != NULL)
+		{
+			child->getParent()->removeChild(child);
+		}
+
+		if (iter != mChildren.end())
+		{
+			mChildren.erase(iter);
+		}
+		mChildren.insert(mChildren.begin() + index, child);
+		child->setParent(this);
 	}
 	void Layer::removeChild(Renderable *child)
 	{
