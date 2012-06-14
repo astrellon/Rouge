@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "handle.h"
+#include "imanaged.h"
 using namespace am::util;
 
 namespace am {
@@ -20,7 +21,7 @@ namespace base {
 	class Screen;
 	class Engine;
 
-	class Game {
+	class Game : public IManaged {
 	public:
 		Game(Engine *engine, GfxEngine *gfxEngine);
 		~Game();
@@ -32,6 +33,8 @@ namespace base {
 		//string getMapFilename() const;
 
 		Screen *getCurrentScreen();
+		Screen *getScreen(const char *screenName);
+		Screen *getScreen(const string &screenName);
 		void addScreen(Screen *screen);
 		void setCurrentScreen(Screen *screen);
 		void setCurrentScreen(const char *screenName);
@@ -45,9 +48,9 @@ namespace base {
 
 	protected:
 		//Map *mMap;
-		Screen *mCurrentScreen;
+		Handle<Screen> mCurrentScreen;
 
-		typedef map<string, Screen *> ScreenMap;
+		typedef map<string, Handle<Screen> > ScreenMap;
 		ScreenMap mScreens;
 
 		Engine *mEngine;

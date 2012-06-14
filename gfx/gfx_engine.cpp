@@ -167,7 +167,14 @@ namespace gfx {
 		}
 
 		stringstream ss;
-		ss << "data/assets/" << assetNameStr << ".ssff";
+		if (assetNameStr[0] == '/')
+		{
+			ss << "data" << assetNameStr << ".ssff";
+		}
+		else
+		{
+			ss << "data/assets/" << assetNameStr << ".ssff";
+		}
 
 		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
 		if (loaded.getType() != JV_OBJ)

@@ -4,6 +4,8 @@
 using namespace std;
 
 #include "handle.h"
+#include "imanaged.h"
+#include "json_value.h"
 using namespace am::util;
 
 namespace am {
@@ -17,7 +19,7 @@ using namespace am::gfx;
 
 namespace base {
 
-	class Screen {
+	class Screen : public IManaged {
 	public:
 		Screen(GfxEngine *engine, const char *name);
 		~Screen();
@@ -27,7 +29,11 @@ namespace base {
 
 		string getName() const;
 
+		void loadDef(JsonValue loaded);
+
 	protected:
+
+		GfxEngine *mGfxEngine;
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;

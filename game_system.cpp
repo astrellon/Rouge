@@ -164,8 +164,6 @@ namespace sys {
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
 		}
-		
-		//mGfxEngine->onKeyUp(keys, key);
 	}
 	
 	bool GameSystem::isProgramRunning() const

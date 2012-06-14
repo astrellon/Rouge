@@ -21,6 +21,7 @@ using namespace am::gfx;
 namespace ui {
 	class MouseManager;
 	class MainMenu;
+	class IngameMenu;
 	class OptionsPanel;
 }
 using namespace am::ui;
@@ -35,7 +36,7 @@ namespace sys {
 		virtual void init();
 		virtual void reshape(int width, int height);
 
-		virtual void onEvent(am::ui::Event *e);
+		virtual void onKeyUp(const bool *keys, int key);
 
 		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
 			MouseManager *mouseManager);
@@ -43,6 +44,11 @@ namespace sys {
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
+		void resumeGame();
+		void quitGame();
+		void toMainMenu();
+		void showOptionsPanel();
+		void closeOptionsPanel();
 
 	protected:
 		
@@ -51,6 +57,7 @@ namespace sys {
 
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;
+		Handle<IngameMenu> mIngameMenu;
 
 		static RougeSystem *sRougeSystem;
 	};

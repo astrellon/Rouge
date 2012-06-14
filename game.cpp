@@ -46,7 +46,25 @@ namespace base {
 
 	Screen *Game::getCurrentScreen()
 	{
-		return mCurrentScreen;
+		return mCurrentScreen.get();
+	}
+	Screen *Game::getScreen(const char *screenName)
+	{
+		ScreenMap::iterator iter = mScreens.find(string(screenName));
+		if (iter != mScreens.end())
+		{
+			return iter->second.get();
+		}
+		return NULL;
+	}
+	Screen *Game::getScreen(const string &screenName)
+	{
+		ScreenMap::iterator iter = mScreens.find(screenName);
+		if (iter != mScreens.end())
+		{
+			return iter->second.get();
+		}
+		return NULL;
 	}
 	void Game::addScreen(Screen *screen)
 	{
@@ -85,7 +103,7 @@ namespace base {
 		}
 
 		//mCurrentScreen = iter->second;
-		setCurrentScreen(iter->second);
+		setCurrentScreen(iter->second.get());
 	}
 
 	Layer *Game::getGameLayer()

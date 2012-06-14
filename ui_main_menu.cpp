@@ -1,18 +1,19 @@
 #include "ui_main_menu.h"
 
 #include "ui_button.h"
-
+#include "rouge_system.h"
 #include "logger.h"
 
 namespace am {
 namespace ui {
 
-	MainMenu::MainMenu(GfxEngine *engine) : 
-		UIComponent(engine),
-		mStartGame(new Button(engine, "bigButton", "Start Game")),
-		mLoadGame(new Button(engine, "bigButton", "Load Game")),
-		mOptions(new Button(engine, "bigButton", "Options")),
-		mQuit(new Button(engine, "bigButton", "Quit :("))
+	MainMenu::MainMenu(RougeSystem *system) : 
+		UIComponent(system->getGfxEngine()),
+		mRougeSystem(system),
+		mStartGame(new Button(system->getGfxEngine(), "bigButton", "Start Game")),
+		mLoadGame(new Button(system->getGfxEngine(), "bigButton", "Load Game")),
+		mOptions(new Button(system->getGfxEngine(), "bigButton", "Options")),
+		mQuit(new Button(system->getGfxEngine(), "bigButton", "Quit :("))
 	{
 		setInteractive(true);
 
@@ -47,17 +48,13 @@ namespace ui {
 		if (e->getEventTarget() == mQuit.get())
 		{
 			am_log("BTN", "QUIT BUTTON");
-			Event *e = new Event("quit", this);
-			fireEvent(e);
-			delete e;
+			mRougeSystem->quitGame();
 			return;
 		}
 		if (e->getEventTarget() == mOptions.get())
 		{
 			am_log("BTN", "OPTIONS BUTTON");
-			Event *e = new Event("options", this);
-			fireEvent(e);
-			delete e;
+			mRougeSystem->showOptionsPanel();
 			return;
 		}
 		if (e->getEventTarget() == mLoadGame.get())
@@ -68,9 +65,7 @@ namespace ui {
 		if (e->getEventTarget() == mStartGame.get())
 		{
 			am_log("BTN", "START GAME");
-			Event *e = new Event("new_game", this);
-			fireEvent(e);
-			delete e;
+			mRougeSystem->newGame();
 			return;
 		}
 	}

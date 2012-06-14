@@ -10,15 +10,19 @@ namespace am {
 namespace gfx {
 	class GfxEngine;
 }
-
 using namespace am::gfx;
+
+namespace sys {
+	class RougeSystem;
+}
+using namespace am::sys;
 
 namespace ui {
 	class Button;
 
 	class MainMenu : public UIComponent, public IEventListener {
 	public:
-		MainMenu(GfxEngine *engine);
+		MainMenu(RougeSystem *system);
 		~MainMenu();
 
 		virtual void onEvent(Event *e);
@@ -29,6 +33,8 @@ namespace ui {
 		Handle<Button> mLoadGame;
 		Handle<Button> mOptions;
 		Handle<Button> mQuit;
+
+		RougeSystem *mRougeSystem;
 
 		void initButton(Button *btn);
 	};

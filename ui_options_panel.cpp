@@ -8,17 +8,18 @@
 
 #include "colour.h"
 
-#include "game_system.h"
+#include "rouge_system.h"
 
 namespace am {
 namespace ui {
 
-	OptionsPanel::OptionsPanel(GfxEngine *engine) :
-		UIComponent(engine),
-		mFullscreen(new Checkbox(engine, "checkbox", "Fullscreen")),
-		mApply(new Button(engine, "bigButton", "Apply")),
-		mClose(new Button(engine, "bigButton", "Close")),
-		mBackground(new Image(engine, "bigButton"))
+	OptionsPanel::OptionsPanel(RougeSystem *system) :
+		UIComponent(system->getGfxEngine()),
+		mRougeSystem(system),
+		mFullscreen(new Checkbox(system->getGfxEngine(), "checkbox", "Fullscreen")),
+		mApply(new Button(system->getGfxEngine(), "bigButton", "Apply")),
+		mClose(new Button(system->getGfxEngine(), "bigButton", "Close")),
+		mBackground(new Image(system->getGfxEngine(), "bigButton"))
 	{
 		addChild(mBackground.get());
 		mBackground->setAlpha(0.5f);
@@ -51,16 +52,14 @@ namespace ui {
 		if (e->getEventTarget() == mApply.get() || 
 			e->getEventTarget() == mClose.get())
 		{
-			Event *e = new Event("close_options", this);
-			fireEvent(e);
-			delete e;
+			mRougeSystem->closeOptionsPanel();
 		}
 	}
 	void OptionsPanel::onEvent(DataEvent *e)
 	{
 		if (e->getEventTarget() == mFullscreen.get())
 		{
-			am::sys::GameSystem::getGameSystem()->setFullscreen(e->getData().getBool());
+			mRougeSystem->setFullscreen(e->getData().getBool());
 		}
 	}
 

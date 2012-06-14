@@ -1,0 +1,3 @@
+{	// Foreground Test Asset
+	texture: "data/screens/testScreen/foreground.png"
+}

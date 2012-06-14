@@ -1,15 +1,17 @@
 #pragma once
 
 #include <string>
-
 using namespace std;
+
+#include "imanaged.h"
+using namespace am::util;
 
 namespace am {
 namespace ui {
 
 	class EventManager;
 
-	class Event {
+	class Event : public IManaged {
 	public:
 		Event(const char *type);
 		Event(const char *type, EventManager *target);

@@ -79,10 +79,12 @@ namespace ui {
 		localY -= static_cast<int>(localTrans.wy);
 
 		Layer *layer = dynamic_cast<Layer *>(target);
-		if (layer != NULL)
+		if (layer != NULL && layer->isVisible())
 		{
 			int numChildren = layer->getNumChildren();
-			for (int i = 0; i < numChildren; i++)
+			// Loop backwards over children, as that is the order in which
+			// they'll appear on screen.
+			for (int i = numChildren - 1; i >= 0; i--)
 			{
 				bool result = checkForMouseEvent(layer->getChildAt(i), mouseType, mouseButton, x, y, localX, localY);
 				if (result)

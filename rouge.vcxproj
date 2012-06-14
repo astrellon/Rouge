@@ -119,6 +119,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="ui_checkbox.cpp" />
     <ClCompile Include="ui_component.cpp" />
     <ClCompile Include="ui_image.cpp" />
+    <ClCompile Include="ui_ingame_menu.cpp" />
     <ClCompile Include="ui_label.cpp" />
     <ClCompile Include="ui_main_menu.cpp" />
     <ClCompile Include="ui_options_panel.cpp" />
@@ -154,7 +155,6 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="file_log_listener.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_system.h" />
-    <ClInclude Include="graphic.h" />
     <ClInclude Include="ilog_listener.h" />
     <ClInclude Include="isystem.h" />
     <ClInclude Include="json_value.h" />
@@ -175,6 +175,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="ui_checkbox.h" />
     <ClInclude Include="ui_component.h" />
     <ClInclude Include="ui_image.h" />
+    <ClInclude Include="ui_ingame_menu.h" />
     <ClInclude Include="ui_label.h" />
     <ClInclude Include="ui_main_menu.h" />
     <ClInclude Include="ui_options_panel.h" />

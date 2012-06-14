@@ -3,18 +3,29 @@
 #include <map>
 #include <string>
 #include <vector>
-
 using namespace std;
 
+#include "handle.h"
+using namespace am::util;
+
+#include "screen.h"
+
 namespace am {
+
+namespace gfx {
+	class GfxEngine;
+}
+using namespace am::gfx;
+
 namespace base {
 
 	class Game;
 	class Tile;
+	class Screen;
 
 	class Engine {
 	public:
-		Engine();
+		Engine(GfxEngine *gfxEngine);
 		~Engine();
 
 		//Game *createGame();
@@ -24,6 +35,10 @@ namespace base {
 		Tile *getRegTile(const char *name);
 		Tile *getRegTile(const string &name);
 		*/
+
+		Screen *getScreen(const char *screenName);
+		Screen *getScreen(const string &screenName);
+
 		void init();
 		void deinit();
 		void update(float dt);
@@ -35,7 +50,11 @@ namespace base {
 
 	protected:
 
-		Game *mCurrentGame;
+		GfxEngine *mGfxEngine;
+		Handle<Game> mCurrentGame;
+
+		typedef map<string, Handle<Screen> > ScreenMap;
+		ScreenMap mScreens;
 
 		//void registerTile(Tile *t);
 		//void deregisterTiles();

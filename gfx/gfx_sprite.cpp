@@ -5,6 +5,8 @@
 #include "gfx_asset.h"
 #include "gfx_layer.h"
 
+#include "../logger.h"
+
 namespace am {
 namespace gfx {
 
@@ -34,11 +36,15 @@ namespace gfx {
 		Renderable(engine),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
-		mCurrentTime(0.0f)
+		mCurrentTime(0.0f),
+		mAsset(NULL)
 	{
-		mAsset = engine->getAsset(assetName);
-		if (mAsset.get())
+		Asset *asset = NULL;
+		asset = engine->getAsset(assetName);
+		
+		if (asset)
 		{
+			mAsset = asset;
 			mScaleNineState = mAsset->getScaleNineState();
 		}
 	}
@@ -48,7 +54,8 @@ namespace gfx {
 
 	Asset *Sprite::getAsset()
 	{
-		return mAsset.get();
+		//return mAsset.get();
+		return mAsset;
 	}
 	void Sprite::setAsset(Asset *asset)
 	{
@@ -61,6 +68,11 @@ namespace gfx {
 
 	void Sprite::setCurrentFrame(int frame)
 	{
+		//if (!mAsset.get())
+		if (!mAsset)
+		{
+			return;
+		}
 		if (frame >= mAsset->getTotalFrames())
 		{
 			frame = mAsset->getTotalFrames() - 1;
@@ -129,7 +141,7 @@ namespace gfx {
 			return;
 		}
 
-		if (mAsset.get() == NULL || mAsset->getTexture() == NULL || !mAsset->getTexture()->isLoaded())
+		if (mAsset == NULL || mAsset->getTexture() == NULL || !mAsset->getTexture()->isLoaded())
 		{
 			if (mColour.getAlpha() > 0.05f)
 			{
@@ -332,7 +344,7 @@ namespace gfx {
 
 	float Sprite::getWidth()
 	{
-		if (mWidth == 0)
+		if (mWidth == 0 && mAsset)
 		{
 			return mAsset->getWidth();
 		}
@@ -340,7 +352,7 @@ namespace gfx {
 	}
 	float Sprite::getHeight()
 	{
-		if (mHeight == 0)
+		if (mHeight == 0 && mAsset)
 		{
 			return mAsset->getHeight();
 		}

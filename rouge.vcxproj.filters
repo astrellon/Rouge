@@ -187,6 +187,9 @@
     <ClCompile Include="rouge_system.cpp">
       <Filter>sys\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="ui_ingame_menu.cpp">
+      <Filter>ui\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -199,9 +202,6 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="graphic.h">
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="tile.h">
@@ -354,6 +354,9 @@
     </ClInclude>
     <ClInclude Include="rouge_system.h">
       <Filter>sys\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_ingame_menu.h">
+      <Filter>ui\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

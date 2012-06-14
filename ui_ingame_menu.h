@@ -1,15 +1,12 @@
 #pragma once
 
 #include "ui_component.h"
-
 #include "handle.h"
-
 #include "ievent_listener.h"
 
 using namespace am::util;
 
 namespace am {
-
 namespace gfx {
 	class GfxEngine;
 }
@@ -21,30 +18,27 @@ namespace sys {
 using namespace am::sys;
 
 namespace ui {
-
 	class Button;
-	class Checkbox;
-	class Image;
 
-	class OptionsPanel : public UIComponent, public IEventListener {
+	class IngameMenu : public UIComponent, public IEventListener {
 	public:
-		OptionsPanel(RougeSystem *system);
-		~OptionsPanel();
-
-		virtual void setWidth(float width);
-		virtual void setHeight(float height);
+		IngameMenu(RougeSystem *system);
+		~IngameMenu();
 
 		virtual void onEvent(Event *e);
-		virtual void onEvent(DataEvent *e);
 
 	protected:
 
-		Handle<Image> mBackground;
-		Handle<Checkbox> mFullscreen;
-		Handle<Button> mClose;
-		Handle<Button> mApply;
+		Handle<Button> mResumeGame;
+		Handle<Button> mSaveGame;
+		Handle<Button> mLoadGame;
+		Handle<Button> mOptions;
+		Handle<Button> mToMainMenu;
+		Handle<Button> mQuit;
 
 		RougeSystem *mRougeSystem;
+
+		void initButton(Button *btn);
 	};
 
 }

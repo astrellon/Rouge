@@ -2,22 +2,60 @@
 #	include "engine.h"
 #endif
 
+#include "gfx/gfx_engine.h"
+
 #include "game.h"
 #include "tile.h"
 #include "json_value.h"
-
 using namespace am::util;
+
+#include <sstream>
+
+#include "logger.h"
 
 namespace am {
 namespace base {
 
-	Engine::Engine() :
+	Engine::Engine(GfxEngine *gfxEngine) :
+		mGfxEngine(gfxEngine),
 		mCurrentGame(NULL)
 	{
 	}
 	Engine::~Engine() 
 	{
 		//deregisterTiles();
+	}
+
+	Screen *Engine::getScreen(const char *screenName)
+	{
+		return getScreen(string(screenName));
+	}
+	Screen *Engine::getScreen(const string &screenName)
+	{
+		ScreenMap::iterator iter = mScreens.find(screenName);
+		if (iter != mScreens.end())
+		{
+			return iter->second.get();
+		}
+
+		stringstream ss;
+		ss << "data/screens/" << screenName << "/screen.ssff";
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to load screen '" << screenName << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("SCREEN", errss.str().c_str());
+			return NULL;
+		}
+
+		Handle<Screen> screen(new Screen(mGfxEngine, screenName.c_str()));
+		screen->loadDef(loaded);
+
+		mScreens[screenName] = screen;
+
+		return screen.get();
 	}
 	/*
 	Game *Engine::createGame() 
@@ -132,7 +170,7 @@ namespace base {
 	}
 	Game *Engine::getCurrentGame()
 	{
-		return mCurrentGame;
+		return mCurrentGame.get();
 	}
 
 }

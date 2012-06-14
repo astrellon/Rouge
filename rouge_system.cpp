@@ -3,11 +3,13 @@
 #include "gfx/gfx_engine.h"
 #include "gfx/gfx_layer.h"
 #include "gfx/gfx_sprite.h"
+#include "gfx/gfx_asset.h"
 
 #include "ui_button.h"
 #include "ui_checkbox.h"
 #include "ui_main_menu.h"
 #include "ui_options_panel.h"
+#include "ui_ingame_menu.h"
 #include "engine.h"
 
 #include "game.h"
@@ -43,20 +45,22 @@ namespace sys {
 	{
 		GameSystem::init();
 
-		mMainMenu = new MainMenu(mGfxEngine);
-		mMainMenu->addEventListener("quit", this);
-		mMainMenu->addEventListener("options", this);
-		mMainMenu->addEventListener("new_game", this);
+		mMainMenu = new MainMenu(this);
 		mGfxEngine->getUILayer()->addChild(mMainMenu.get());
 		mMainMenu->setWidth(mGfxEngine->getScreenWidth());
 		mMainMenu->setHeight(mGfxEngine->getScreenHeight());
 
-		mOptionsPanel = new OptionsPanel(mGfxEngine);
-		mOptionsPanel->addEventListener("close_options", this);
+		mOptionsPanel = new OptionsPanel(this);
 		mGfxEngine->getUILayer()->addChild(mOptionsPanel.get());
 		mOptionsPanel->setWidth(mGfxEngine->getScreenWidth());
 		mOptionsPanel->setHeight(mGfxEngine->getScreenHeight());
 		mOptionsPanel->setVisible(false);
+
+		mIngameMenu = new IngameMenu(this);
+		mGfxEngine->getUILayer()->addChild(mIngameMenu.get());
+		mIngameMenu->setWidth(mGfxEngine->getScreenWidth());
+		mIngameMenu->setHeight(mGfxEngine->getScreenHeight());
+		mIngameMenu->setVisible(false);
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -73,34 +77,58 @@ namespace sys {
 			mOptionsPanel->setWidth(width);
 			mOptionsPanel->setHeight(height);
 		}
+		if (mIngameMenu.get())
+		{
+			mIngameMenu->setWidth(width);
+			mIngameMenu->setHeight(height);
+		}
 	}
 
-	void RougeSystem::onEvent(am::ui::Event *e)
+	void RougeSystem::onKeyUp(const bool *keys, int key)
 	{
-		if (e->getType().compare("quit") == 0)
+		// 27 is currently escape.
+		if (key == 27 && mEngine->getCurrentGame() != NULL)
 		{
-			setProgramRunning(false);
+			mIngameMenu->setVisible(!mIngameMenu->isVisible());
 			return;
 		}
-		if (e->getType().compare("options") == 0)
+		GameSystem::onKeyUp(keys, key);
+	}
+
+	void RougeSystem::quitGame()
+	{
+		setProgramRunning(false);
+	}
+
+	void RougeSystem::toMainMenu()
+	{
+		// Set current game to NULL and show main menu.
+		Game *oldGame = mEngine->getCurrentGame();
+		if (oldGame != NULL)
 		{
-			mMainMenu->setVisible(false);
-			mOptionsPanel->setVisible(true);
-			return;
+			mGfxEngine->getGameLayer()->clear();
 		}
-		if (e->getType().compare("close_options") == 0)
+		mEngine->setCurrentGame(NULL);
+		mIngameMenu->setVisible(false);
+		mMainMenu->setVisible(true);
+	}
+	void RougeSystem::showOptionsPanel()
+	{
+		mIngameMenu->setVisible(false);
+		mMainMenu->setVisible(false);
+		mOptionsPanel->setVisible(true);
+	}
+	void RougeSystem::closeOptionsPanel()
+	{
+		if (mEngine->getCurrentGame())
+		{
+			mIngameMenu->setVisible(true);
+		}
+		else
 		{
 			mMainMenu->setVisible(true);
-			mOptionsPanel->setVisible(false);
-			return;
 		}
-		if (e->getType().compare("new_game") == 0)
-		{
-			newGame();
-			return;
-		}
-
-		GameSystem::onEvent(e);
+		mOptionsPanel->setVisible(false);
 	}
 
 	void RougeSystem::newGame()
@@ -109,19 +137,33 @@ namespace sys {
 		if (oldGame != NULL)
 		{
 			mGfxEngine->getGameLayer()->clear();
-			delete oldGame;
 		}
 		Game *game = new Game(mEngine, mGfxEngine);
 		mEngine->setCurrentGame(game);
 
-		Screen *screen = new Screen(mGfxEngine, "testScreen");
+		//Handle<Screen> screen(new Screen(mGfxEngine, "testScreen"));
 
-		screen->getBackground()->addChild(new Sprite(mGfxEngine, "background"));
-		screen->getForeground()->addChild(new Sprite(mGfxEngine, "foreground"));
-
-		game->addScreen(screen);
-		game->setCurrentScreen("testScreen");
+		//Handle<Sprite> sprite(new Sprite(mGfxEngine, "testScreen/background"));
+		//screen->getBackground()->addChild(sprite.get());
+		//Handle<Asset> asset(mGfxEngine->getAsset("testScreen/foreground"));
+		
+		//Handle<Sprite> foresprite(new Sprite(mGfxEngine, asset.get()));
+		//Handle<Sprite> foresprite(new Sprite(mGfxEngine, "testScreen/foreground"));
+		//Sprite *why = new Sprite(mGfxEngine, "testScreen/foreground");
+		//screen->getForeground()->addChild(foresprite.get());
+		
+		//game->addScreen(screen.get());
+		//game->setCurrentScreen("testScreen");
 		mGfxEngine->getGameLayer()->addChild(game->getGameLayer());
+
+		mMainMenu->setVisible(false);
+		mIngameMenu->setVisible(false);
+	}
+
+	void RougeSystem::resumeGame()
+	{
+		mMainMenu->setVisible(false);
+		mIngameMenu->setVisible(false);
 	}
 
 }

@@ -49,7 +49,8 @@ namespace gfx {
 		
 	protected:
 
-		am::util::Handle<Asset> mAsset;
+		//am::util::Handle<Asset> mAsset;
+		Asset *mAsset;
 
 		int mCurrentFrame;
 		float mFrameRate;

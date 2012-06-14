@@ -5,8 +5,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::FileLogListener fileLogger("output.log");
 	am::log::Logger::getMainLogger().addLogListener(&fileLogger);
 
-	am::base::Engine engine;
 	am::gfx::GfxEngine gfxEngine;
+	am::base::Engine engine(&gfxEngine);
 
 	am::ui::MouseManager mouseManager(&gfxEngine);
 
@@ -25,6 +25,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	rougeSystem->deinit();
 
-	delete rougeSystem;
+	//delete rougeSystem;
+	
 	// Shut down!
 }
