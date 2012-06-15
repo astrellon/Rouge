@@ -7,8 +7,8 @@
 namespace am {
 namespace gfx {
 
-	TextList::TextList(GfxEngine *engine) :
-		TextField(engine),
+	TextList::TextList() :
+		TextField(),
 		mMaxEntries(100),
 		mListUpwards(false)
 	{

@@ -1,6 +1,5 @@
 #include "game_system.h"
 
-#include "gfx/gfx_engine.h"
 #include "engine.h"
 
 #include "gfx/gfx_sprite.h"
@@ -11,6 +10,7 @@
 #include "gfx/scale_nine.h"
 #include "gfx/gfx_text_list.h"
 #include "gfx/gfx_log_listener.h"
+#include "gfx/gfx_engine.h"
 
 #include "logger.h"
 
@@ -39,10 +39,9 @@ namespace sys {
 
 	GameSystem *GameSystem::sGameSystem = NULL;
 
-	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-			MouseManager *mouseManager)
+	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager)
 	{
-		sGameSystem = new GameSystem(linked, engine, gfxEngine, mouseManager);
+		sGameSystem = new GameSystem(linked, engine, mouseManager);
 		return sGameSystem;
 	}
 	GameSystem *GameSystem::getGameSystem()
@@ -50,11 +49,9 @@ namespace sys {
 		return sGameSystem;
 	}
 
-	GameSystem::GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-		MouseManager *mouseManager) :
+	GameSystem::GameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager) :
 		mLinkedSystem(linked),
 		mEngine(engine),
-		mGfxEngine(gfxEngine),
 		mMouseManager(mouseManager),
 		mDebugConsole(NULL)
 	{
@@ -104,10 +101,11 @@ namespace sys {
 	void GameSystem::init()
 	{
 		mEngine->init();
-		mGfxEngine->init();
+		GfxEngine *gfxEngine = GfxEngine::getGfxEngine();
+		gfxEngine ->init();
 		
-		mDebugConsole = new TextList(mGfxEngine);
-		mGfxEngine->getDebugLayer()->addChild(mDebugConsole.get());
+		mDebugConsole = new TextList();
+		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());
 
 		mDebugConsole->setWidth(600.0f);
 		mDebugConsole->setBaseFont("basic");
@@ -118,7 +116,7 @@ namespace sys {
 
 	void GameSystem::reshape(int width, int height)
 	{
-		mGfxEngine->reshape(width, height);
+		GfxEngine::getGfxEngine()->reshape(width, height);
 	}
 	void GameSystem::update(float dt)
 	{
@@ -126,27 +124,27 @@ namespace sys {
 	}
 	void GameSystem::display(float dt)
 	{
-		mGfxEngine->display(dt);
+		GfxEngine::getGfxEngine()->display(dt);
 	}
 	void GameSystem::deinit()
 	{
-		mGfxEngine->deinit();
+		GfxEngine::getGfxEngine()->deinit();
 		mEngine->deinit();
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->setPosition(x, y);
+		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseDown(mouseButton, x, y);
 	}
 	void GameSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->setPosition(x, y);
+		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseMove(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		mGfxEngine->getCursor()->setPosition(x, y);
+		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
 		mMouseManager->onMouseUp(mouseButton, x, y);
 	}
 	void GameSystem::onKeyDown(const bool *keys, int key)
@@ -195,7 +193,7 @@ namespace sys {
 	void GameSystem::onCursorHiddenChange(bool hidden)
 	{
 		// If the OS cursor is hidden, we want to show our in game cursor.
-		mGfxEngine->setCursorHidden(!hidden);
+		GfxEngine::getGfxEngine()->setCursorHidden(!hidden);
 	}
 	bool GameSystem::isCursorHidden() const
 	{
@@ -214,10 +212,6 @@ namespace sys {
 	ISystem *GameSystem::getLinkedSystem()
 	{
 		return mLinkedSystem;
-	}
-	GfxEngine *GameSystem::getGfxEngine()
-	{
-		return mGfxEngine;
 	}
 	Engine *GameSystem::getEngine()
 	{

@@ -20,10 +20,9 @@ namespace sys {
 
 	RougeSystem *RougeSystem::sRougeSystem = NULL;
 
-	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-			MouseManager *mouseManager)
+	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager)
 	{
-		sGameSystem = sRougeSystem = new RougeSystem(linked, engine, gfxEngine, mouseManager);
+		sGameSystem = sRougeSystem = new RougeSystem(linked, engine, mouseManager);
 		return sRougeSystem;
 	}
 	RougeSystem *RougeSystem::getRougeSystem()
@@ -31,9 +30,8 @@ namespace sys {
 		return sRougeSystem;
 	}
 
-	RougeSystem::RougeSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-		MouseManager *mouseManager) :
-		GameSystem(linked, engine, gfxEngine, mouseManager)
+	RougeSystem::RougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager) :
+		GameSystem(linked, engine, mouseManager)
 	{
 
 	}
@@ -45,21 +43,24 @@ namespace sys {
 	{
 		GameSystem::init();
 
+		GfxEngine *gfxEngine = GfxEngine::getGfxEngine();
+		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
+		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 		mMainMenu = new MainMenu(this);
-		mGfxEngine->getUILayer()->addChild(mMainMenu.get());
-		mMainMenu->setWidth(mGfxEngine->getScreenWidth());
-		mMainMenu->setHeight(mGfxEngine->getScreenHeight());
+		gfxEngine->getUILayer()->addChild(mMainMenu.get());
+		mMainMenu->setWidth(screenWidth);
+		mMainMenu->setHeight(screenHeight);
 
 		mOptionsPanel = new OptionsPanel(this);
-		mGfxEngine->getUILayer()->addChild(mOptionsPanel.get());
-		mOptionsPanel->setWidth(mGfxEngine->getScreenWidth());
-		mOptionsPanel->setHeight(mGfxEngine->getScreenHeight());
+		gfxEngine->getUILayer()->addChild(mOptionsPanel.get());
+		mOptionsPanel->setWidth(screenWidth);
+		mOptionsPanel->setHeight(screenHeight);
 		mOptionsPanel->setVisible(false);
 
 		mIngameMenu = new IngameMenu(this);
-		mGfxEngine->getUILayer()->addChild(mIngameMenu.get());
-		mIngameMenu->setWidth(mGfxEngine->getScreenWidth());
-		mIngameMenu->setHeight(mGfxEngine->getScreenHeight());
+		gfxEngine->getUILayer()->addChild(mIngameMenu.get());
+		mIngameMenu->setWidth(screenWidth);
+		mIngameMenu->setHeight(screenHeight);
 		mIngameMenu->setVisible(false);
 	}
 
@@ -106,7 +107,7 @@ namespace sys {
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
 		{
-			mGfxEngine->getGameLayer()->clear();
+			GfxEngine::getGfxEngine()->getGameLayer()->clear();
 		}
 		mEngine->setCurrentGame(NULL);
 		mIngameMenu->setVisible(false);
@@ -136,25 +137,13 @@ namespace sys {
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
 		{
-			mGfxEngine->getGameLayer()->clear();
+			GfxEngine::getGfxEngine()->getGameLayer()->clear();
 		}
-		Game *game = new Game(mEngine, mGfxEngine);
+		Game *game = new Game(mEngine);
 		mEngine->setCurrentGame(game);
 
-		//Handle<Screen> screen(new Screen(mGfxEngine, "testScreen"));
-
-		//Handle<Sprite> sprite(new Sprite(mGfxEngine, "testScreen/background"));
-		//screen->getBackground()->addChild(sprite.get());
-		//Handle<Asset> asset(mGfxEngine->getAsset("testScreen/foreground"));
-		
-		//Handle<Sprite> foresprite(new Sprite(mGfxEngine, asset.get()));
-		//Handle<Sprite> foresprite(new Sprite(mGfxEngine, "testScreen/foreground"));
-		//Sprite *why = new Sprite(mGfxEngine, "testScreen/foreground");
-		//screen->getForeground()->addChild(foresprite.get());
-		
-		//game->addScreen(screen.get());
-		//game->setCurrentScreen("testScreen");
-		mGfxEngine->getGameLayer()->addChild(game->getGameLayer());
+		game->setCurrentScreen("testScreen");
+		GfxEngine::getGfxEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);

@@ -3,20 +3,19 @@
 #include "../gl.h"
 
 #include "gfx_component.h"
-
+#include "../imanaged.h"
 #include <string>
 
 using namespace std;
+using namespace am::util;
 
 namespace am {
 namespace gfx {
 
-	class GfxEngine;
-
-	class Texture : public GfxComponent {
+	class Texture : public IManaged {
 	public:
-		Texture(GfxEngine *engine, const char *filename, GLuint textureId);
-		Texture(GfxEngine *engine, const char *filename);
+		Texture(const char *filename, GLuint textureId);
+		Texture(const char *filename);
 		~Texture();
 
 		void destroy();

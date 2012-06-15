@@ -7,8 +7,8 @@
 namespace am {
 namespace gfx {
 
-	Layer::Layer(GfxEngine *engine) :
-		Renderable(engine)
+	Layer::Layer() :
+		Renderable()
 	{
 		
 	}
@@ -33,6 +33,10 @@ namespace gfx {
 		{
 			if (child->getParent() != NULL)
 			{
+				if (child->getParent() == this)
+				{
+					return;
+				}
 				child->getParent()->removeChild(child);
 			}
 			mChildren.push_back(child);

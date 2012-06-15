@@ -15,14 +15,13 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class GfxEngine;
 	class Asset;
 
 	class Sprite : public Renderable {
 	public:
-		Sprite(GfxEngine *engine);
-		Sprite(GfxEngine *engine, Asset *asset);
-		Sprite(GfxEngine *engine, const char *assetName);
+		Sprite();
+		Sprite(Asset *asset);
+		Sprite(const char *assetName);
 		~Sprite();
 
 		Asset *getAsset();

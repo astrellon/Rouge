@@ -5,7 +5,6 @@
 
 namespace am {
 namespace gfx {
-	class GfxEngine;
 	class Sprite;
 	class Asset;
 }
@@ -16,9 +15,9 @@ namespace ui {
 
 	class Image : public UIComponent {
 	public:
-		Image(GfxEngine *engine);
-		Image(GfxEngine *engine, Asset *asset);
-		Image(GfxEngine *engine, const char *assetName);
+		Image();
+		Image(Asset *asset);
+		Image(const char *assetName);
 		~Image();
 
 		virtual Colour &getColour();

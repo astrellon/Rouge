@@ -9,12 +9,10 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class GfxEngine;
-
 	class Layer : public Renderable {
 	public:
 		// GlLayer methods
-		Layer(GfxEngine *engine);
+		Layer();
 		~Layer();
 
 		void addChild(Renderable *child);

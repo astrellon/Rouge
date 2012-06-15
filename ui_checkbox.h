@@ -8,7 +8,6 @@
 
 namespace am {
 namespace gfx {
-	class GfxEngine;
 	class Asset;
 	class Sprite;
 	class TextField;
@@ -20,9 +19,9 @@ namespace ui {
 
 	class Checkbox : public IEventListener, public UIComponent {
 	public:
-		Checkbox(GfxEngine *engine);
-		Checkbox(GfxEngine *engine, Asset *asset, const char *label);
-		Checkbox(GfxEngine *engine, const char *assetName, const char *label);
+		Checkbox();
+		Checkbox(Asset *asset, const char *label);
+		Checkbox(const char *assetName, const char *label);
 		~Checkbox();
 
 		void setLabel(const char *label);

@@ -7,10 +7,6 @@
 using namespace am::util;
 
 namespace am {
-namespace gfx {
-	class GfxEngine;
-}
-using namespace am::gfx;
 
 namespace sys {
 	class RougeSystem;

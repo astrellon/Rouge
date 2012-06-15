@@ -4,7 +4,7 @@
 #include <vector>
 #include "../json_value.h"
 
-#include "gfx_component.h"
+#include "../imanaged.h"
 
 #include "texture_window.h"
 
@@ -16,12 +16,11 @@ namespace gfx {
 
 	class Texture;
 	class Asset;
-	class GfxEngine;
 
-	class Font : public GfxComponent {
+	class Font : public IManaged {
 	public:
 		// GlFont methods
-		Font(GfxEngine *engine, const char *name);
+		Font(const char *name);
 		~Font();
 
 		Asset *getAsset();

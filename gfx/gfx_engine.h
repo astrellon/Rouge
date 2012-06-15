@@ -26,8 +26,6 @@ namespace gfx {
 	
 	class GfxEngine {
 	public:
-		// GlGfxEngine methods
-		GfxEngine();
 		~GfxEngine();
 
 		Asset *getAsset(const char *assetName);
@@ -56,13 +54,22 @@ namespace gfx {
 		void setCursorHidden(bool hide);
 		bool isCursorHidden() const;
 
+		void setCameraLocation(float x, float y);
+		float getCameraX() const;
+		float getCameraY() const;
+
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
+
+		static GfxEngine *getGfxEngine();
 
 	protected:
 		
 		int mScreenWidth;
 		int mScreenHeight;
+
+		float mCameraX;
+		float mCameraY;
 
 		am::util::Handle<Sprite> mCursor;
 		bool mHideCursor;
@@ -80,6 +87,10 @@ namespace gfx {
 		am::util::Handle<Layer> mGameLayer;
 		am::util::Handle<Layer> mUILayer;
 		am::util::Handle<Layer> mDebugLayer;
+
+		static GfxEngine *sMainGfxEngine;
+
+		GfxEngine();
 	};
 
 }

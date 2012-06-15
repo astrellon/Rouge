@@ -1,6 +1,5 @@
 #include "ui_button.h"
 
-#include "gfx/gfx_engine.h"
 #include "gfx/gfx_renderable.h"
 #include "gfx/gfx_asset.h"
 #include "gfx/gfx_sprite.h"
@@ -15,45 +14,45 @@ using namespace am::util;
 namespace am {
 namespace ui {
 
-	Button::Button(GfxEngine *engine, Renderable *hitbox) :
-		UIComponent(engine),
-		mHitbox(hitbox)
+	Button::Button() :
+		UIComponent(),
+		mHitbox(NULL)
 	{
-		mGraphic = new Sprite(engine);
+		mGraphic = new Sprite();
 
 		init();
 	}
-	Button::Button(GfxEngine *engine, const char *assetName, Renderable *hitbox) :
-		UIComponent(engine),
+	Button::Button(const char *assetName, Renderable *hitbox) :
+		UIComponent(),
 		mHitbox(hitbox)
 	{
-		mGraphic = new Sprite(engine, assetName);
+		mGraphic = new Sprite(assetName);
 
 		init();
 	}
-	Button::Button(GfxEngine *engine, Asset *asset, Renderable *hitbox) :
-		UIComponent(engine),
+	Button::Button(Asset *asset, Renderable *hitbox) :
+		UIComponent(),
 		mHitbox(hitbox)
 	{
-		mGraphic = new Sprite(engine, asset);
+		mGraphic = new Sprite(asset);
 		
 		init();
 	}
-	Button::Button(GfxEngine *engine, const char *assetName, const char *label, Renderable *hitbox) :
-		UIComponent(engine),
+	Button::Button(const char *assetName, const char *label, Renderable *hitbox) :
+		UIComponent(),
 		mHitbox(hitbox)
 	{
-		mGraphic = new Sprite(engine, assetName);
+		mGraphic = new Sprite(assetName);
 
 		init();
 
 		setLabel(label);
 	}
-	Button::Button(GfxEngine *engine, Asset *asset, const char *label, Renderable *hitbox) :
-		UIComponent(engine),
+	Button::Button(Asset *asset, const char *label, Renderable *hitbox) :
+		UIComponent(),
 		mHitbox(hitbox)
 	{
-		mGraphic = new Sprite(engine, asset);
+		mGraphic = new Sprite(asset);
 		
 		init();
 
@@ -78,7 +77,7 @@ namespace ui {
 
 		setHitbox(mHitbox.get());
 
-		mLabel = new TextField(mGfxEngine);
+		mLabel = new TextField();
 		mLabel->setBaseFont("arial");
 		mLabel->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel.get());

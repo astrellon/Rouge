@@ -5,8 +5,8 @@
 namespace am {
 namespace ui {
 
-	UIComponent::UIComponent(GfxEngine *engine) :
-		Layer(engine),
+	UIComponent::UIComponent() :
+		Layer(),
 		mAnchorX(X_LEFT),
 		mAnchorY(Y_TOP),
 		mOffsetX(0.0f),
@@ -117,19 +117,21 @@ namespace ui {
 
 	float UIComponent::getParentWidth()
 	{
-		if (mParent != NULL)
+		//if (mParent.get() != NULL)
+		if (mParent)
 		{
 			return mParent->getWidth();
 		}
-		return static_cast<float>(mGfxEngine->getScreenWidth());
+		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenWidth());
 	}
 	float UIComponent::getParentHeight()
 	{
-		if (mParent != NULL)
+		//if (mParent.get() != NULL)
+		if (mParent)
 		{
 			return mParent->getHeight();
 		}
-		return static_cast<float>(mGfxEngine->getScreenHeight());
+		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenHeight());
 	}
 
 	void UIComponent::preRender(float dt)

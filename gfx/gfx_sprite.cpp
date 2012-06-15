@@ -10,8 +10,8 @@
 namespace am {
 namespace gfx {
 
-	Sprite::Sprite(GfxEngine *engine) :
-		Renderable(engine),
+	Sprite::Sprite() :
+		Renderable(),
 		mAsset(NULL),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
@@ -20,8 +20,8 @@ namespace gfx {
 	{
 		mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
 	}
-	Sprite::Sprite(GfxEngine *engine, Asset *asset) :
-		Renderable(engine),
+	Sprite::Sprite(Asset *asset) :
+		Renderable(),
 		mAsset(asset),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
@@ -32,15 +32,15 @@ namespace gfx {
 			mScaleNineState = asset->getScaleNineState();
 		}
 	}
-	Sprite::Sprite(GfxEngine *engine, const char *assetName) :
-		Renderable(engine),
+	Sprite::Sprite(const char *assetName) :
+		Renderable(),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
 		mAsset(NULL)
 	{
 		Asset *asset = NULL;
-		asset = engine->getAsset(assetName);
+		asset = GfxEngine::getGfxEngine()->getAsset(assetName);
 		
 		if (asset)
 		{
@@ -63,7 +63,7 @@ namespace gfx {
 	}
 	void Sprite::setAsset(const char *assetName)
 	{
-		mAsset = mGfxEngine->getAsset(assetName);
+		mAsset = GfxEngine::getGfxEngine()->getAsset(assetName);
 	}
 
 	void Sprite::setCurrentFrame(int frame)

@@ -5,16 +5,16 @@
 namespace am {
 namespace gfx {
 
-	Texture::Texture(GfxEngine *engine, const char *filename, GLuint textureId) :
-		GfxComponent(engine),
+	Texture::Texture(const char *filename, GLuint textureId) :
+		IManaged(),
 		mTextureId(textureId),
 		mFilename(filename),
 		mLoaded(false)
 	{
 		// TODO: Get GL width and height, etc
 	}
-	Texture::Texture(GfxEngine *engine, const char *filename) :
-		GfxComponent(engine),
+	Texture::Texture(const char *filename) :
+		IManaged(),
 		mTextureId(0),
 		mWidth(-1),
 		mHeight(-1),

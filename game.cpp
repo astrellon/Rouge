@@ -2,9 +2,8 @@
 #	include "game.h"
 #endif
 
-//#include "map.h"
+#include "engine.h"
 #include "json_value.h"
-//#include "tile_instance.h"
 
 #include "logger.h"
 #include <sstream>
@@ -19,25 +18,24 @@ using namespace am::util;
 namespace am {
 namespace base {
 
-	Game::Game(Engine *engine, GfxEngine *gfxEngine) :
+	Game::Game(Engine *engine) :
 		//mMapFilename(""),
 		mEngine(engine),
-		mGfxEngine(gfxEngine),
 		mCurrentScreen(NULL)
 	{
-		mGameLayer = new Layer(gfxEngine);
-		gfxEngine->getRootLayer()->addChild(mGameLayer.get());
+		mGameLayer = new Layer();
+		GfxEngine::getGfxEngine()->getRootLayer()->addChild(mGameLayer.get());
 
-		mBackground = new Layer(gfxEngine);
+		mBackground = new Layer();
 		mGameLayer->addChild(mBackground.get());
 
-		mItemLayer = new Layer(gfxEngine);
+		mItemLayer = new Layer();
 		mGameLayer->addChild(mItemLayer.get());
 
-		mCharacterLayer = new Layer(gfxEngine);
+		mCharacterLayer = new Layer();
 		mGameLayer->addChild(mCharacterLayer.get());
 
-		mForeground = new Layer(gfxEngine);
+		mForeground = new Layer();
 		mGameLayer->addChild(mForeground.get());
 	}
 	Game::~Game()
@@ -48,7 +46,7 @@ namespace base {
 	{
 		return mCurrentScreen.get();
 	}
-	Screen *Game::getScreen(const char *screenName)
+	/*Screen *Game::getScreen(const char *screenName)
 	{
 		ScreenMap::iterator iter = mScreens.find(string(screenName));
 		if (iter != mScreens.end())
@@ -72,7 +70,7 @@ namespace base {
 		{
 			mScreens[screen->getName()] = screen;
 		}
-	}
+	}*/
 	void Game::setCurrentScreen(Screen *screen)
 	{
 		mBackground->clear();
@@ -89,21 +87,11 @@ namespace base {
 	}
 	void Game::setCurrentScreen(const char *screenName)
 	{
-		setCurrentScreen(string(screenName));	
+		setCurrentScreen(mEngine->getScreen(string(screenName)));
 	}
 	void Game::setCurrentScreen(const string &screenName)
 	{
-		ScreenMap::iterator iter = mScreens.find(screenName);
-		if (iter == mScreens.end())
-		{
-			stringstream ss;
-			ss << "Unable to find screen '" << screenName << '\'';
-			am_log("SCR", ss.str().c_str());
-			return;
-		}
-
-		//mCurrentScreen = iter->second;
-		setCurrentScreen(iter->second.get());
+		setCurrentScreen(mEngine->getScreen(screenName));
 	}
 
 	Layer *Game::getGameLayer()

@@ -71,23 +71,19 @@ namespace sys {
 		virtual bool getFullscreen() const;
 
 		virtual ISystem *getLinkedSystem();
-		virtual GfxEngine *getGfxEngine();
 		virtual Engine *getEngine();
 		virtual MouseManager *getMouseManager();
 
-		static GameSystem *createGameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-			MouseManager *mouseManager);
+		static GameSystem *createGameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
 		static GameSystem *getGameSystem();
 
 		TextList *getDebugConsole();
 
 	protected:
 
-		GameSystem(ISystem *linked, Engine *engine, GfxEngine *gfxEngine,
-			MouseManager *mouseManager);
+		GameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
 
 		ISystem *mLinkedSystem;
-		GfxEngine *mGfxEngine;
 		Engine *mEngine;
 		MouseManager *mMouseManager;
 

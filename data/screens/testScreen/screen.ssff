@@ -1,4 +1,4 @@
 {	// Test Screen
-	background: "/screens/testScreen/background.ssff",
-	foreground: "/screens/testScreen/foreground.ssff"
+	background: "/screens/testScreen/background",
+	foreground: "/screens/testScreen/foreground"
 }

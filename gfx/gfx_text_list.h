@@ -7,13 +7,11 @@
 namespace am {
 namespace gfx {
 
-	class GfxEngine;
-	
 	class TextList : public TextField {
 	public:
 		typedef vector<string> FilterList;
 
-		TextList(GfxEngine *engine);
+		TextList();
 		~TextList();
 
 		void addEntry(const char *text, const char *type);

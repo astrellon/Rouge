@@ -1,19 +1,12 @@
 #pragma once
 
 #include "ui_component.h"
-
 #include "handle.h"
-
 #include "ievent_listener.h"
 
 using namespace am::util;
 
 namespace am {
-
-namespace gfx {
-	class GfxEngine;
-}
-using namespace am::gfx;
 
 namespace sys {
 	class RougeSystem;

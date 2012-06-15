@@ -8,7 +8,6 @@
 namespace am {
 namespace gfx {
 
-	class GfxEngine;
 	class Font;
 
 	class TextField : public Renderable {
@@ -18,7 +17,7 @@ namespace gfx {
 			ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER
 		};
 
-		TextField(GfxEngine *engine);
+		TextField();
 		~TextField();
 
 		float getRenderedHeight() const;

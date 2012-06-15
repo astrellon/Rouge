@@ -83,7 +83,6 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClCompile Include="event.cpp" />
     <ClCompile Include="event_manager.cpp" />
     <ClCompile Include="gfx\gfx_asset.cpp" />
-    <ClCompile Include="gfx\gfx_component.cpp" />
     <ClCompile Include="gfx\gfx_engine.cpp" />
     <ClCompile Include="gfx\gfx_font.cpp" />
     <ClCompile Include="gfx\gfx_layer.cpp" />
@@ -131,8 +130,8 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <ClInclude Include="data_event.h" />
     <ClInclude Include="event_manager.h" />
     <ClInclude Include="event.h" />
+    <ClInclude Include="game_object.h" />
     <ClInclude Include="gfx\gfx_asset.h" />
-    <ClInclude Include="gfx\gfx_component.h" />
     <ClInclude Include="gfx\gfx_engine.h" />
     <ClInclude Include="gfx\gfx_font.h" />
     <ClInclude Include="gfx\gfx_layer.h" />

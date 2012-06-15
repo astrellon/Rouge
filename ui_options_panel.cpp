@@ -1,7 +1,5 @@
 #include "ui_options_panel.h"
 
-#include "gfx/gfx_engine.h"
-
 #include "ui_button.h"
 #include "ui_checkbox.h"
 #include "ui_image.h"
@@ -14,12 +12,12 @@ namespace am {
 namespace ui {
 
 	OptionsPanel::OptionsPanel(RougeSystem *system) :
-		UIComponent(system->getGfxEngine()),
+		UIComponent(),
 		mRougeSystem(system),
-		mFullscreen(new Checkbox(system->getGfxEngine(), "checkbox", "Fullscreen")),
-		mApply(new Button(system->getGfxEngine(), "bigButton", "Apply")),
-		mClose(new Button(system->getGfxEngine(), "bigButton", "Close")),
-		mBackground(new Image(system->getGfxEngine(), "bigButton"))
+		mFullscreen(new Checkbox("checkbox", "Fullscreen")),
+		mApply(new Button("bigButton", "Apply")),
+		mClose(new Button("bigButton", "Close")),
+		mBackground(new Image("bigButton"))
 	{
 		addChild(mBackground.get());
 		mBackground->setAlpha(0.5f);

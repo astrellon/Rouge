@@ -11,8 +11,8 @@
 namespace am {
 namespace gfx {
 
-	TextField::TextField(GfxEngine *engine) :
-		Renderable(engine),
+	TextField::TextField() :
+		Renderable(),
 		mText(""),
 		mMeasuredWidth(0),
 		mMeasuredHeight(0),
@@ -21,7 +21,7 @@ namespace gfx {
 		mAlignment(ALIGN_LEFT)
 	{
 		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
-		mFont = engine->getFont("basic");
+		mFont = GfxEngine::getGfxEngine()->getFont("basic");
 	}
 
 	TextField::~TextField()
@@ -44,7 +44,7 @@ namespace gfx {
 	}
 	void TextField::setBaseFont(const char *fontName)
 	{
-		mFont = mGfxEngine->getFont(fontName);
+		mFont = GfxEngine::getGfxEngine()->getFont(fontName);
 	}
 
 	float TextField::getMeasuredWidth()

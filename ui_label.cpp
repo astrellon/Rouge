@@ -1,28 +1,27 @@
 #include "ui_label.h"
 
-#include "gfx/gfx_engine.h"
 #include "gfx/gfx_text_field.h"
 
 namespace am {
 namespace ui {
 
-	Label::Label(GfxEngine *engine) :
-		UIComponent(engine)
+	Label::Label() :
+		UIComponent()
 	{
-		mLabel = new TextField(engine);
+		mLabel = new TextField();
 		addChild(mLabel.get());
 	}
-	Label::Label(GfxEngine *engine, const char *label) :
-		UIComponent(engine)
+	Label::Label(const char *label) :
+		UIComponent()
 	{
-		mLabel = new TextField(engine);
+		mLabel = new TextField();
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}
-	Label::Label(GfxEngine *engine, const string &label) :
-		UIComponent(engine)
+	Label::Label(const string &label) :
+		UIComponent()
 	{
-		mLabel = new TextField(engine);
+		mLabel = new TextField();
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}

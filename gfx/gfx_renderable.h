@@ -3,7 +3,6 @@
 #include "gfx_component.h"
 #include "../transform.h"
 #include "../event_manager.h"
-
 #include "../colour.h"
 
 using namespace am::util;
@@ -13,9 +12,9 @@ namespace gfx {
 
 	class Layer;
 
-	class Renderable : public GfxComponent, public am::ui::EventManager {
+	class Renderable : public IManaged, public am::ui::EventManager {
 	public:
-		Renderable(GfxEngine *engine);
+		Renderable();
 		virtual ~Renderable();
 
 		virtual void render(float dt);
@@ -52,6 +51,7 @@ namespace gfx {
 		float mWidth;
 		float mHeight;
 		bool mVisible;
+		//Handle<Layer> *mParent;
 		Layer *mParent;
 		Colour mColour;
 		bool mInteractive;

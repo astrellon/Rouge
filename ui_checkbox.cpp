@@ -10,26 +10,26 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	Checkbox::Checkbox(GfxEngine *engine) :
-		UIComponent(engine)
+	Checkbox::Checkbox() :
+		UIComponent()
 	{
-		mCheckGraphic = new Sprite(engine);
-		mLabel = new TextField(engine);
+		mCheckGraphic = new Sprite();
+		mLabel = new TextField();
 		init();
 	}
-	Checkbox::Checkbox(GfxEngine *engine, Asset *asset, const char *label) :
-		UIComponent(engine)
+	Checkbox::Checkbox(Asset *asset, const char *label) :
+		UIComponent()
 	{
-		mCheckGraphic = new Sprite(engine, asset);
-		mLabel = new TextField(engine);
+		mCheckGraphic = new Sprite(asset);
+		mLabel = new TextField();
 		mLabel->setText(label);
 		init();
 	}
-	Checkbox::Checkbox(GfxEngine *engine, const char *assetName, const char *label) :
-		UIComponent(engine)
+	Checkbox::Checkbox(const char *assetName, const char *label) :
+		UIComponent()
 	{
-		mCheckGraphic = new Sprite(engine, assetName);
-		mLabel = new TextField(engine);
+		mCheckGraphic = new Sprite(assetName);
+		mLabel = new TextField();
 		mLabel->setText(label);
 		init();
 	}
@@ -131,7 +131,7 @@ namespace ui {
 		float labelTop = (getHeight() - mLabel->getMeasuredHeight()) * 0.5f;
 		mLabel->setPosition(mCheckGraphic->getWidth(), labelTop + 1);
 
-		mHitbox = new Sprite(mGfxEngine);
+		mHitbox = new Sprite();
 		mHitbox->getColour().setAlpha(0.0f);
 		addChild(mHitbox.get());
 

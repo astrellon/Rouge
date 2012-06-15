@@ -5,10 +5,6 @@
 using namespace am::gfx;
 
 namespace am {
-namespace gfx {
-	class GfxEngine;
-}
-
 namespace ui {
 
 	enum AnchorX {
@@ -20,7 +16,7 @@ namespace ui {
 
 	class UIComponent : public Layer {
 	public:
-		UIComponent(GfxEngine *engine);
+		UIComponent();
 		~UIComponent();
 
 		virtual void setAnchorX(AnchorX anchor);

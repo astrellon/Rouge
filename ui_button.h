@@ -11,7 +11,6 @@ using namespace std;
 
 namespace am {
 namespace gfx {
-	class GfxEngine;
 	class Asset;
 	class TextField;
 	class Renderable;
@@ -24,11 +23,11 @@ namespace ui {
 
 	class Button : public IEventListener, public UIComponent {
 	public:
-		Button(GfxEngine *engine, Renderable *hitbox = NULL);
-		Button(GfxEngine *engine, const char *assetName, Renderable *hitbox = NULL);
-		Button(GfxEngine *engine, Asset *asset, Renderable *hitbox = NULL);
-		Button(GfxEngine *engine, const char *assetName, const char *label, Renderable *hitbox = NULL);
-		Button(GfxEngine *engine, Asset *asset, const char *label, Renderable *hitbox = NULL);
+		Button();
+		Button(const char *assetName, Renderable *hitbox = NULL);
+		Button(Asset *asset, Renderable *hitbox = NULL);
+		Button(const char *assetName, const char *label, Renderable *hitbox = NULL);
+		Button(Asset *asset, const char *label, Renderable *hitbox = NULL);
 		~Button();
 
 		void setGraphic(Sprite *graphic);

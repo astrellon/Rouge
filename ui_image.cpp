@@ -1,26 +1,25 @@
 #include "ui_image.h"
 
-#include "gfx/gfx_engine.h"
 #include "gfx/gfx_sprite.h"
 
 namespace am {
 namespace ui {
 
-	Image::Image(GfxEngine *engine) :
-		UIComponent(engine),
+	Image::Image() :
+		UIComponent(),
 		mGraphic(NULL)
 	{
 	}
-	Image::Image(GfxEngine *engine, Asset *asset) :
-		UIComponent(engine)
+	Image::Image(Asset *asset) :
+		UIComponent()
 	{
-		mGraphic = new Sprite(engine, asset);
+		mGraphic = new Sprite(asset);
 		addChild(mGraphic.get());
 	}
-	Image::Image(GfxEngine *engine, const char *assetName) :
-		UIComponent(engine)
+	Image::Image(const char *assetName) :
+		UIComponent()
 	{
-		mGraphic = new Sprite(engine, assetName);
+		mGraphic = new Sprite(assetName);
 		addChild(mGraphic.get());
 	}
 	Image::~Image()

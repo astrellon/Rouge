@@ -8,14 +8,14 @@ namespace am {
 namespace ui {
 
 	IngameMenu::IngameMenu(RougeSystem *system) : 
-		UIComponent(system->getGfxEngine()),
+		UIComponent(),
 		mRougeSystem(system),
-		mResumeGame(new Button(system->getGfxEngine(), "bigButton", "Resume Game")),
-		mSaveGame(new Button(system->getGfxEngine(), "bigButton", "Save Game")),
-		mLoadGame(new Button(system->getGfxEngine(), "bigButton", "Load Game")),
-		mOptions(new Button(system->getGfxEngine(), "bigButton", "Options")),
-		mToMainMenu(new Button(system->getGfxEngine(), "bigButton", "To Main Menu")),
-		mQuit(new Button(system->getGfxEngine(), "bigButton", "Quit :("))
+		mResumeGame(new Button("bigButton", "Resume Game")),
+		mSaveGame(new Button("bigButton", "Save Game")),
+		mLoadGame(new Button("bigButton", "Load Game")),
+		mOptions(new Button("bigButton", "Options")),
+		mToMainMenu(new Button("bigButton", "To Main Menu")),
+		mQuit(new Button("bigButton", "Quit :("))
 	{
 		setInteractive(true);
 

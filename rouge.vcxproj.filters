@@ -73,9 +73,6 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="game_system.cpp">
-      <Filter>sys\base</Filter>
-    </ClCompile>
     <ClCompile Include="win_system.cpp">
       <Filter>sys\win</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
       <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_asset.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\gfx_component.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_engine.cpp">
@@ -190,6 +184,9 @@
     <ClCompile Include="ui_ingame_menu.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="game_system.cpp">
+      <Filter>sys\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -251,9 +248,6 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_asset.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gfx\gfx_component.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_engine.h">
@@ -357,6 +351,9 @@
     </ClInclude>
     <ClInclude Include="ui_ingame_menu.h">
       <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

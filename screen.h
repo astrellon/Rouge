@@ -13,7 +13,6 @@ namespace am {
 namespace gfx {
 	class Layer;
 	class Sprite;
-	class GfxEngine;
 }
 using namespace am::gfx;
 
@@ -21,7 +20,7 @@ namespace base {
 
 	class Screen : public IManaged {
 	public:
-		Screen(GfxEngine *engine, const char *name);
+		Screen(const char *name);
 		~Screen();
 
 		Layer *getBackground();
@@ -32,8 +31,6 @@ namespace base {
 		void loadDef(JsonValue loaded);
 
 	protected:
-
-		GfxEngine *mGfxEngine;
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;

@@ -9,7 +9,6 @@ using namespace std;
 
 namespace am {
 namespace gfx {
-	class GfxEngine;
 	class TextField;
 }
 
@@ -19,9 +18,9 @@ namespace ui {
 
 	class Label : public UIComponent {
 	public:
-		Label(GfxEngine *engine);
-		Label(GfxEngine *engine, const char *label);
-		Label(GfxEngine *engine, const string &label);
+		Label();
+		Label(const char *label);
+		Label(const string &label);
 		~Label();
 
 		void setLabel(const char *label);

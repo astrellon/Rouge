@@ -8,6 +8,7 @@
 #include "scale_nine.h"
 
 #include "../handle.h"
+#include "../imanaged.h"
 
 using namespace std;
 using namespace am::util;
@@ -16,15 +17,14 @@ namespace am {
 namespace gfx {
 
 	class Texture;
-	class GfxEngine;
 
-	class Asset : public GfxComponent {
+	class Asset : public IManaged {
 	public:
 
 		typedef vector<TextureWindow> AnimationWindows;
 		
 		// GlAsset methods
-		Asset(GfxEngine *engine, const char *name);
+		Asset(const char *name);
 		~Asset();
 
 		const char *getName() const;

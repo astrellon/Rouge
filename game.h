@@ -11,7 +11,6 @@ using namespace am::util;
 namespace am {
 
 namespace gfx {
-	class GfxEngine;
 	class Layer;
 }
 using namespace am::gfx;
@@ -23,7 +22,7 @@ namespace base {
 
 	class Game : public IManaged {
 	public:
-		Game(Engine *engine, GfxEngine *gfxEngine);
+		Game(Engine *engine);
 		~Game();
 
 		//void setMap(Map *map);
@@ -33,9 +32,9 @@ namespace base {
 		//string getMapFilename() const;
 
 		Screen *getCurrentScreen();
-		Screen *getScreen(const char *screenName);
-		Screen *getScreen(const string &screenName);
-		void addScreen(Screen *screen);
+		//Screen *getScreen(const char *screenName);
+		//Screen *getScreen(const string &screenName);
+		//void addScreen(Screen *screen);
 		void setCurrentScreen(Screen *screen);
 		void setCurrentScreen(const char *screenName);
 		void setCurrentScreen(const string &screenName);
@@ -50,11 +49,10 @@ namespace base {
 		//Map *mMap;
 		Handle<Screen> mCurrentScreen;
 
-		typedef map<string, Handle<Screen> > ScreenMap;
-		ScreenMap mScreens;
+		//typedef map<string, Handle<Screen> > ScreenMap;
+		//ScreenMap mScreens;
 
 		Engine *mEngine;
-		GfxEngine *mGfxEngine;
 
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;

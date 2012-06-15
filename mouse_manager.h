@@ -8,7 +8,6 @@ using namespace std;
 namespace am {
 namespace gfx {
 	class Renderable;
-	class GfxEngine;
 }
 
 using namespace am::gfx;
@@ -18,11 +17,8 @@ namespace ui {
 	class MouseManager {
 	public:
 
-		MouseManager(GfxEngine *engine);
+		MouseManager();
 		~MouseManager();
-
-		void setGfxEngine(GfxEngine *engine);
-		GfxEngine *getGfxEngine() const;
 
 		bool checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 		Renderable *getUnderMouse() const;
@@ -37,7 +33,6 @@ namespace ui {
 		Renderable *mUnderMouse;
 		typedef map<MouseButton, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
-		GfxEngine *mGfxEngine;
 
 		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 	};

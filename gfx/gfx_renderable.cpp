@@ -8,8 +8,8 @@
 namespace am {
 namespace gfx {
 	
-	Renderable::Renderable(GfxEngine *engine) :
-		GfxComponent(engine),
+	Renderable::Renderable() :
+		IManaged(),
 		mWidth(0),
 		mHeight(0),
 		mParent(NULL),
@@ -63,6 +63,7 @@ namespace gfx {
 
 	Layer *Renderable::getParent() const
 	{
+		//return mParent.get();
 		return mParent;
 	}
 	void Renderable::setParent(Layer *layer)

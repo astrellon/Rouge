@@ -10,10 +10,9 @@
 namespace am {
 namespace base {
 
-	Screen::Screen(GfxEngine *engine, const char *name) :
-		mGfxEngine(engine),
-		mForeground(new Layer(engine)),
-		mBackground(new Layer(engine)),
+	Screen::Screen(const char *name) :
+		mForeground(new Layer()),
+		mBackground(new Layer()),
 		mName(name)
 	{
 	}
@@ -49,12 +48,12 @@ namespace base {
 
 		if (loaded.has("background", JV_STR))
 		{
-			Handle<Sprite> background(new Sprite(mGfxEngine, loaded["background"].getCStr()));
+			Handle<Sprite> background(new Sprite(loaded["background"].getCStr()));
 			mBackground->addChild(background.get());
 		}
 		if (loaded.has("foreground", JV_STR))
 		{
-			Handle<Sprite> foreground(new Sprite(mGfxEngine, loaded["foreground"].getCStr()));
+			Handle<Sprite> foreground(new Sprite(loaded["foreground"].getCStr()));
 			mForeground->addChild(foreground.get());
 		}
 	}

@@ -7,7 +7,6 @@ using namespace std;
 
 namespace am {
 namespace gfx {
-	class GfxEngine;
 	class Sprite;
 	class TextField;
 }
@@ -18,9 +17,9 @@ namespace ui {
 
 	class Tooltip : public UIComponent {
 	public:
-		Tooltip(GfxEngine *engine);
-		Tooltip(GfxEngine *engine, const char *tooltip);
-		Tooltip(GfxEngine *engine, const string &tooltip);
+		Tooltip();
+		Tooltip(const char *tooltip);
+		Tooltip(const string &tooltip);
 		~Tooltip();
 
 		void setLabel(const char *label);

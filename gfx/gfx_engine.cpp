@@ -26,18 +26,31 @@ using namespace am::ui;
 namespace am {
 namespace gfx {
 
+	GfxEngine *GfxEngine::sMainGfxEngine = NULL;
+
 	GfxEngine::GfxEngine() :
 		mCursor(NULL),
 		mHideCursor(false),
 		mRootLayer(NULL),
 		mUILayer(NULL),
-		mGameLayer(NULL)
+		mGameLayer(NULL),
+		mCameraX(0),
+		mCameraY(0)
 	{
 		
 	}
 	GfxEngine::~GfxEngine()
 	{
 
+	}
+
+	GfxEngine *GfxEngine::getGfxEngine()
+	{
+		if (sMainGfxEngine == NULL)
+		{
+			sMainGfxEngine = new GfxEngine();
+		}
+		return sMainGfxEngine;
 	}
 
 	void GfxEngine::init()
@@ -54,20 +67,20 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
-		mRootLayer = new Layer(this);
+		mRootLayer = new Layer();
 		mRootLayer->setInteractive(true);
 
-		mGameLayer = new Layer(this);
+		mGameLayer = new Layer();
 		mGameLayer->setInteractive(true);
 		mRootLayer->addChild(mGameLayer.get());
 
-		mUILayer = new Layer(this);
+		mUILayer = new Layer();
 		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
 		mRootLayer->addChild(mUILayer.get());
 
-		mDebugLayer = new Layer(this);
+		mDebugLayer = new Layer();
 		mDebugLayer->setInteractive(true);
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
@@ -77,7 +90,7 @@ namespace gfx {
 		{
 			// TODO: ERROR!
 		}
-		mCursor = new Sprite(this, mCursorAsset);
+		mCursor = new Sprite(mCursorAsset);
 
 	}
 	void GfxEngine::deinit()
@@ -114,6 +127,8 @@ namespace gfx {
 		glLoadIdentity();
 
 		setOrthographic();
+
+		mGameLayer->setPosition(-mCameraX + static_cast<float>(mScreenWidth / 2), -mCameraY + static_cast<float>(mScreenHeight / 2));
 
 		mRootLayer->render(dt);
 
@@ -186,7 +201,7 @@ namespace gfx {
 			return NULL;
 		}
 
-		Asset *asset = new Asset(this, assetName);
+		Asset *asset = new Asset(assetName);
 		int loadAsset = asset->loadDef(loaded);
 		if (loadAsset != 0)
 		{
@@ -211,7 +226,7 @@ namespace gfx {
 			return iter->second.get();
 		}
 
-		Texture *texture = new Texture(this, filename);
+		Texture *texture = new Texture(filename);
 		if (texture->isLoaded())
 		{
 			mTextureManager[fileStr] = texture;
@@ -247,7 +262,7 @@ namespace gfx {
 			return NULL;
 		}
 
-		Font *font = new Font(this, fontName);
+		Font *font = new Font(fontName);
 		int loadFont = font->loadDef(loaded);
 		if (loadFont != 0)
 		{

@@ -5,16 +5,16 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::FileLogListener fileLogger("output.log");
 	am::log::Logger::getMainLogger().addLogListener(&fileLogger);
 
-	am::gfx::GfxEngine gfxEngine;
-	am::base::Engine engine(&gfxEngine);
+	//am::gfx::GfxEngine gfxEngine;
+	am::base::Engine engine;
 
-	am::ui::MouseManager mouseManager(&gfxEngine);
+	am::ui::MouseManager mouseManager;
 
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);
 
 	am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(
-		&win, &engine, &gfxEngine, &mouseManager);
+		&win, &engine, &mouseManager);
 	win.setGameSystem(rougeSystem);
 	
 	rougeSystem->setSize(600, 400);

@@ -1,8 +1,4 @@
-#ifndef _ANDROID
-#	include "engine.h"
-#endif
-
-#include "gfx/gfx_engine.h"
+#include "engine.h"
 
 #include "game.h"
 #include "tile.h"
@@ -16,8 +12,7 @@ using namespace am::util;
 namespace am {
 namespace base {
 
-	Engine::Engine(GfxEngine *gfxEngine) :
-		mGfxEngine(gfxEngine),
+	Engine::Engine() :
 		mCurrentGame(NULL)
 	{
 	}
@@ -50,7 +45,7 @@ namespace base {
 			return NULL;
 		}
 
-		Handle<Screen> screen(new Screen(mGfxEngine, screenName.c_str()));
+		Handle<Screen> screen(new Screen(screenName.c_str()));
 		screen->loadDef(loaded);
 
 		mScreens[screenName] = screen;

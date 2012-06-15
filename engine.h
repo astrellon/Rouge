@@ -12,11 +12,6 @@ using namespace am::util;
 
 namespace am {
 
-namespace gfx {
-	class GfxEngine;
-}
-using namespace am::gfx;
-
 namespace base {
 
 	class Game;
@@ -25,7 +20,7 @@ namespace base {
 
 	class Engine {
 	public:
-		Engine(GfxEngine *gfxEngine);
+		Engine();
 		~Engine();
 
 		//Game *createGame();
@@ -50,7 +45,6 @@ namespace base {
 
 	protected:
 
-		GfxEngine *mGfxEngine;
 		Handle<Game> mCurrentGame;
 
 		typedef map<string, Handle<Screen> > ScreenMap;

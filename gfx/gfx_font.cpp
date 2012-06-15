@@ -7,8 +7,8 @@
 namespace am {
 namespace gfx {
 
-	Font::Font(GfxEngine *engine, const char *name) :
-		GfxComponent(engine),
+	Font::Font(const char *name) :
+		IManaged(),
 		mAsset(NULL),
 		mName(name),
 		mKerning(1.0f),
@@ -46,7 +46,7 @@ namespace gfx {
 	{
 		if (value.has("asset", JV_STR))
 		{
-			mAsset = mGfxEngine->getAsset(value["asset"].getCStr());
+			mAsset = GfxEngine::getGfxEngine()->getAsset(value["asset"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
 		{

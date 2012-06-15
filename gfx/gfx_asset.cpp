@@ -13,8 +13,8 @@ namespace am {
 namespace gfx {
 
 	// Asset methods
-	Asset::Asset(GfxEngine *engine, const char *name) :
-		GfxComponent(engine),
+	Asset::Asset(const char *name) :
+		IManaged(),
 		mTexture(NULL),
 		mName(name),
 		mNumFramesX(1),
@@ -142,7 +142,7 @@ namespace gfx {
 	{
 		if (value.has("texture", JV_STR))
 		{
-			setTexture(mGfxEngine->getTexture(value["texture"].getCStr()));
+			setTexture(GfxEngine::getGfxEngine()->getTexture(value["texture"].getCStr()));
 			if (mTexture == NULL)
 			{
 				string errstr = "Unable to load texture (";
