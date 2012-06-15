@@ -2,8 +2,10 @@
 
 #include "../vector.h"
 #include "../gl.h"
+#include "../handle.h"
 
 #include "gfx_engine.h"
+#include "gfx_layer.h"
 
 namespace am {
 namespace gfx {
@@ -12,7 +14,7 @@ namespace gfx {
 		IManaged(),
 		mWidth(0),
 		mHeight(0),
-		mParent(NULL),
+		mParent(new Handle<Layer>(NULL)),
 		mInteractive(false),
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
@@ -21,6 +23,7 @@ namespace gfx {
 	}
 	Renderable::~Renderable()
 	{
+		delete mParent;
 	}
 
 	void Renderable::preRender(float dt)
@@ -63,12 +66,12 @@ namespace gfx {
 
 	Layer *Renderable::getParent() const
 	{
-		//return mParent.get();
-		return mParent;
+		return mParent->get();
+		//return mParent;
 	}
 	void Renderable::setParent(Layer *layer)
 	{
-		mParent = layer;
+		*mParent = layer;
 	}
 
 	void Renderable::setInteractive(bool set)

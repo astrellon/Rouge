@@ -8,6 +8,13 @@
 using namespace am::util;
 
 namespace am {
+
+namespace util {
+
+	template <class T>
+	class Handle;
+}
+
 namespace gfx {
 
 	class Layer;
@@ -51,8 +58,8 @@ namespace gfx {
 		float mWidth;
 		float mHeight;
 		bool mVisible;
-		//Handle<Layer> *mParent;
-		Layer *mParent;
+		Handle<Layer> *mParent;
+		//Layer *mParent;
 		Colour mColour;
 		bool mInteractive;
 		am::math::Transform mTransform;

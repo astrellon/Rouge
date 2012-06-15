@@ -117,19 +117,19 @@ namespace ui {
 
 	float UIComponent::getParentWidth()
 	{
-		//if (mParent.get() != NULL)
-		if (mParent)
+		if (mParent->get() != NULL)
+		//if (mParent)
 		{
-			return mParent->getWidth();
+			return (*mParent)->getWidth();
 		}
 		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenWidth());
 	}
 	float UIComponent::getParentHeight()
 	{
-		//if (mParent.get() != NULL)
-		if (mParent)
+		if (mParent->get() != NULL)
+		//if (mParent)
 		{
-			return mParent->getHeight();
+			return (*mParent)->getHeight();
 		}
 		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenHeight());
 	}
