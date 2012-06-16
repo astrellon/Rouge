@@ -5,7 +5,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::FileLogListener fileLogger("output.log");
 	am::log::Logger::getMainLogger().addLogListener(&fileLogger);
 
-	//am::gfx::GfxEngine gfxEngine;
 	am::base::Engine engine;
 
 	am::ui::MouseManager mouseManager;

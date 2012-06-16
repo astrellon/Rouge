@@ -54,7 +54,7 @@
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
-copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,7 +73,7 @@ copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
-copy "$(ProjectDir)data\*" "$(OutputPath)data\*"</Command>
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
