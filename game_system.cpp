@@ -100,9 +100,10 @@ namespace sys {
 
 	void GameSystem::init()
 	{
-		mEngine->init();
 		GfxEngine *gfxEngine = GfxEngine::getGfxEngine();
 		gfxEngine ->init();
+		
+		mEngine->init();
 		
 		mDebugConsole = new TextList();
 		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());

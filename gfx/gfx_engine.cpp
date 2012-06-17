@@ -74,6 +74,7 @@ namespace gfx {
 		mGameLayer->setInteractive(true);
 		mRootLayer->addChild(mGameLayer.get());
 
+
 		mUILayer = new Layer();
 		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
@@ -85,13 +86,19 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
+		Asset *mBasicFont = getAsset("fontBasic");
+		if (mBasicFont == NULL)
+		{
+			throw std::runtime_error("Unable to load basic font asset");
+		}
+
 		Asset *mCursorAsset = getAsset("cursor");
 		if (mCursorAsset == NULL)
 		{
-			// TODO: ERROR!
+			throw std::runtime_error("Unable to load cursor asset");
 		}
 		mCursor = new Sprite(mCursorAsset);
-
+		//mCursor = new Sprite();
 	}
 	void GfxEngine::deinit()
 	{

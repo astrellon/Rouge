@@ -70,7 +70,15 @@ namespace sys {
 
 	void WinSystem::init()
 	{
-		mGameSystem->init();
+		try
+		{
+			mGameSystem->init();
+		}
+		catch (std::runtime_error const &e)
+		{
+			MessageBox(mHWnd, e.what(), "Fatal startup error", MB_OK);
+			setProgramRunning(false);
+		}
 	}
 	void WinSystem::reshape(int width, int height)
 	{

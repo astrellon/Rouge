@@ -50,7 +50,7 @@ namespace sys {
 		gfxEngine->getUILayer()->addChild(mMainMenu.get());
 		mMainMenu->setWidth(screenWidth);
 		mMainMenu->setHeight(screenHeight);
-
+		
 		mOptionsPanel = new OptionsPanel(this);
 		gfxEngine->getUILayer()->addChild(mOptionsPanel.get());
 		mOptionsPanel->setWidth(screenWidth);

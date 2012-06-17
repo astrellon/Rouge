@@ -461,6 +461,7 @@ JsonValue JsonValue::import_from_file(const char *filename) {
 	fread(buff, 1, fileLen, file);
 	buff[fileLen] = '\0';
 
+	fclose(file);
 	JsonValue loaded = JsonValue::import(buff);
 
 	delete buff;
