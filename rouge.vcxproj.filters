@@ -187,6 +187,12 @@
     <ClCompile Include="game_system.cpp">
       <Filter>sys\base</Filter>
     </ClCompile>
+    <ClCompile Include="game_object.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_lite.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -354,6 +360,12 @@
     </ClInclude>
     <ClInclude Include="game_object.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_lite.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

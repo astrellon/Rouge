@@ -45,7 +45,7 @@ namespace gfx {
 	}
 	void Layer::addChild(Renderable *child, int index)
 	{
-		if (index >= mChildren.size())
+		if (index >= static_cast<int>(mChildren.size()))
 		{
 			addChild(child);
 			return;

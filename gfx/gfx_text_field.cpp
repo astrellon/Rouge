@@ -20,7 +20,7 @@ namespace gfx {
 		mDirty(true),
 		mAlignment(ALIGN_LEFT)
 	{
-		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
+		//mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 		mFont = GfxEngine::getGfxEngine()->getFont("basic");
 	}
 

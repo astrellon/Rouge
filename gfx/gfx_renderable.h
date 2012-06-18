@@ -1,7 +1,7 @@
 #pragma once
 
 #include "gfx_component.h"
-#include "../transform.h"
+#include "../transform_lite.h"
 #include "../event_manager.h"
 #include "../colour.h"
 
@@ -49,9 +49,11 @@ namespace gfx {
 		virtual float getAlpha() const;
 
 		//virtual BoundingBox getBounds() = 0;
-		virtual am::math::Transform &getTransform();
+		virtual am::math::TransformLite &getTransform();
 		virtual void setPosition(float x, float y);
 		virtual void setPosition(int x, int y);
+		virtual float getPositionX() const;
+		virtual float getPositionY() const;
 
 	protected:
 
@@ -62,7 +64,8 @@ namespace gfx {
 		//Layer *mParent;
 		Colour mColour;
 		bool mInteractive;
-		am::math::Transform mTransform;
+		//am::math::Transform mTransform;
+		am::math::TransformLite mTransform;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);

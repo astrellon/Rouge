@@ -10,6 +10,8 @@
 #include "gfx_texture.h"
 #include "gfx_font.h"
 #include "gfx_sprite.h"
+#include "gfx_text_field.h"
+#include "gfx_text_list.h"
 #include "gfx_layer.h"
 
 #include "../event.h"
@@ -62,6 +64,18 @@ namespace gfx {
 		// Enable texture for the text fields.
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
+
+		stringstream ss;
+		ss << "Size of Sprite: " << sizeof(Sprite);
+		am_log("SIZE", ss.str().c_str());
+
+		ss.str("");
+		ss << "Size of Layer: " << sizeof(Layer);
+		am_log("SIZE", ss.str().c_str());
+
+		ss.str("");
+		ss << "Size of TextField: " << sizeof(TextField);
+		am_log("SIZE", ss.str().c_str());
 	
 		/*glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
@@ -86,16 +100,16 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
-		Asset *mBasicFont = getAsset("fontBasic");
-		if (mBasicFont == NULL)
-		{
-			throw std::runtime_error("Unable to load basic font asset");
-		}
-
 		Asset *mCursorAsset = getAsset("cursor");
 		if (mCursorAsset == NULL)
 		{
 			throw std::runtime_error("Unable to load cursor asset");
+		}
+
+		Asset *mBasicFont = getAsset("fontBasic");
+		if (mBasicFont == NULL)
+		{
+			throw std::runtime_error("Unable to load basic font asset");
 		}
 		mCursor = new Sprite(mCursorAsset);
 		//mCursor = new Sprite();
@@ -203,8 +217,11 @@ namespace gfx {
 		{
 			stringstream errss;
 			errss << "Unable to load asset '" << assetNameStr << "', using the path '";
-			errss << ss.str() << '\''; 
+			errss << ss.str() << "\'\nLoaded: "; 
+			loaded.display(errss);
+
 			am_log("ASST", errss.str().c_str());
+			
 			return NULL;
 		}
 

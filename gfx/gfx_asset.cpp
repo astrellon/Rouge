@@ -265,7 +265,7 @@ namespace gfx {
 				right = 0.0f;
 				if (mTexture)
 				{
-					right = mTexture->getWidth();
+					right = static_cast<float>(mTexture->getWidth());
 				}
 			}
 			if (top < 0.0f || bottom < 0.0f)
@@ -274,7 +274,7 @@ namespace gfx {
 				bottom = 0.0f;
 				if (mTexture)
 				{
-					bottom = mTexture->getHeight();
+					bottom = static_cast<float>(mTexture->getHeight());
 				}
 			}
 

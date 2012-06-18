@@ -64,9 +64,10 @@ namespace ui {
 		}	
 
 		// TODO: Replace with a multiple by inverse.
-		const Matrix4f &localTrans = target->getTransform().getWorldToObj();
-		localX -= static_cast<int>(localTrans.wx);
-		localY -= static_cast<int>(localTrans.wy);
+		//const Matrix4f &localTrans = target->getTransform().getWorldToObj();
+
+		localX -= static_cast<int>(target->getPositionX());
+		localY -= static_cast<int>(target->getPositionY());
 
 		Layer *layer = dynamic_cast<Layer *>(target);
 		if (layer != NULL && layer->isVisible())

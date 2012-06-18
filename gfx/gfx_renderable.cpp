@@ -19,7 +19,7 @@ namespace gfx {
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
-		mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
+		//mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
 	}
 	Renderable::~Renderable()
 	{
@@ -29,7 +29,8 @@ namespace gfx {
 	void Renderable::preRender(float dt)
 	{
 		glPushMatrix();
-		glMultMatrixf(mTransform.data());
+		//glMultMatrixf(mTransform.data());
+		mTransform.apply();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -118,17 +119,25 @@ namespace gfx {
 		return mColour.getAlpha();
 	}
 
-	am::math::Transform &Renderable::getTransform()
+	am::math::TransformLite &Renderable::getTransform()
 	{
 		return mTransform;
 	}
 	void Renderable::setPosition(float x, float y)
 	{
-		mTransform.setPosition(Vector4f(x, y, 0.0f));
+		mTransform.setXY(x, y);
 	}
 	void Renderable::setPosition(int x, int y)
 	{
-		mTransform.setPosition(Vector4f(static_cast<float>(x), static_cast<float>(y), 0.0f));
+		mTransform.setXY(static_cast<float>(x), static_cast<float>(y));
+	}
+	float Renderable::getPositionX() const
+	{
+		return mTransform.getX();
+	}
+	float Renderable::getPositionY() const
+	{
+		return mTransform.getY();
 	}
 
 }

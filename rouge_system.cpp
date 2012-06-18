@@ -68,20 +68,22 @@ namespace sys {
 	{
 		GameSystem::reshape(width, height);
 
+		float fwidth = static_cast<float>(width);
+		float fheight = static_cast<float>(height);
 		if (mMainMenu.get())
 		{
-			mMainMenu->setWidth(width);
-			mMainMenu->setHeight(height);
+			mMainMenu->setWidth(fwidth);
+			mMainMenu->setHeight(fheight);
 		}
 		if (mOptionsPanel.get())
 		{
-			mOptionsPanel->setWidth(width);
-			mOptionsPanel->setHeight(height);
+			mOptionsPanel->setWidth(fwidth);
+			mOptionsPanel->setHeight(fheight);
 		}
 		if (mIngameMenu.get())
 		{
-			mIngameMenu->setWidth(width);
-			mIngameMenu->setHeight(height);
+			mIngameMenu->setWidth(fwidth);
+			mIngameMenu->setHeight(fheight);
 		}
 	}
 

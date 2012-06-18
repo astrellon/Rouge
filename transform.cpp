@@ -7,13 +7,18 @@ namespace math {
 	const Vector4f Transform::REF_RIGHT(1, 0, 0);
 	const Vector4f Transform::REF_FORWARD(0, 0, 1);
 
-	Transform::Transform() {
-		mUpVector = REF_UP;
-		mUp = REF_UP;
-		mRight = REF_RIGHT;
-		mForward = REF_FORWARD;
-		mDirty = false;
-		mTarget = mPosition.add(mForward);
+	Transform::Transform() :
+		mUp(0, 1, 0),
+		mRight(1, 0, 0),
+		mForward(0, 0, 1)
+		//mDirty(false)
+	{
+		//mUpVector = REF_UP;
+		//mUp = REF_UP;
+		//mRight = REF_RIGHT;
+		//mForward = REF_FORWARD;
+		//mDirty = false;
+		//mTarget = mPosition.add(mForward);
 	}
 	Transform::~Transform() {}
 	
@@ -22,9 +27,13 @@ namespace math {
 		mWorldToObj.yx = mRight.y;
 		mWorldToObj.zx = mRight.z;
 		
-		mWorldToObj.xy = mUp.x;
-		mWorldToObj.yy = mUp.y;
-		mWorldToObj.zy = mUp.z;
+		//mWorldToObj.xy = mUp.x;
+		//mWorldToObj.yy = mUp.y;
+		//mWorldToObj.zy = mUp.z;
+
+		mWorldToObj.xy = 0.0f;
+		mWorldToObj.yy = 1.0f;
+		mWorldToObj.zy = 0.0f;
 		
 		//if (mForCamera) {
 		//	mWorldToObj.xz = -mForward.x;
@@ -47,9 +56,9 @@ namespace math {
 		mWorldToObj.wz = pos.z;*/
 		mWorldToObj.ww = 1.0f;
 
-		mDirty = false;
+		//mDirty = false;
 	}
-	
+	/*
 	Vector4f Transform::getUp() const {
 		return mUp;
 	}
@@ -60,7 +69,7 @@ namespace math {
 		mRight = mForward.cross(mUp);
 		mDirty = true;
 	}
-	
+	*/
 	Vector4f Transform::getRight() const {
 		return mRight;
 	}
@@ -69,7 +78,8 @@ namespace math {
 		mRight.normalise();
 		mForward = mUp.cross(mRight);
 		mUp = mRight.cross(mForward);
-		mDirty = true;
+		//mDirty = true;
+		calcMatrix();
 	}
 	
 	Vector4f Transform::getForward() const {
@@ -80,7 +90,8 @@ namespace math {
 		mForward.normalise();
 		mRight = mForward.cross(mUp);
 		mUp = mRight.cross(mForward);
-		mDirty = true;
+		//mDirty = true;
+		calcMatrix();
 	}
 	
 	Vector4f Transform::getPosition() const {
@@ -88,10 +99,24 @@ namespace math {
 	}
 	void Transform::setPosition(const Vector4f &val) {
 		mPosition = val;
+		mWorldToObj.wx = mPosition.x;
+		mWorldToObj.wy = mPosition.y;
+		mWorldToObj.wz = mPosition.z;
+
 		//lookAtTarget();
-		mDirty = true;
+		//mDirty = true;
 	}
-	
+	void Transform::setPosition(const float &x, const float &y, const float &z)
+	{
+		mPosition.x = x;
+		mPosition.y = y;
+		mPosition.z = z;
+		mWorldToObj.wx = x;
+		mWorldToObj.wy = y;
+		mWorldToObj.wz = z;
+		//mDirty = true;
+	}
+	/*
 	Vector4f Transform::getTarget() const {
 		return mTarget;
 	}
@@ -100,7 +125,7 @@ namespace math {
 		lookAtTarget();
 		mDirty = true;
 	}
-
+	
 	Vector4f Transform::getUpDirection() const
 	{
 		return mUpVector;
@@ -120,90 +145,83 @@ namespace math {
 		
 		mTarget = mPosition.add(mForward.scale(len));
 	}
-	
+	*/
 	Matrix4f Transform::getWorldToObj() const {
 		return mWorldToObj;
 	}
 	
 	Matrix4f &Transform::getWorldToObj() {
-		preproc();
+		//preproc();
 		return mWorldToObj;
 	}
 	float *Transform::data()
 	{
-		preproc();
+		//preproc();
 		return reinterpret_cast<float *>(&mWorldToObj);
 	}
-	void Transform::preproc() {
+	/*void Transform::preproc() {
 		if (mDirty) {
 			calcMatrix();
 		}
-	}
+	}*/
 	
-	void Transform::translate(const Vector4f &rhs, bool moveTarget) {
+	void Transform::translate(const Vector4f &rhs) {
 		Vector4f vec;
 		vec.addTo(mRight.scale(rhs.x));
 		vec.addTo(mUp.scale(rhs.y));
 		vec.addTo(mForward.scale(rhs.z));
 		mPosition.addTo(vec);
-		if (moveTarget)
-		{
-			mTarget.addTo(vec);
-		}
-		mDirty = true;
+		
+		//mDirty = true;
+		calcMatrix();
 	}
-	void Transform::translate(const float x, const float y, const float z, bool moveTarget) {
+	void Transform::translate(const float x, const float y, const float z) {
 		Vector4f vec;
 		vec.addTo(mRight.scale(x));
 		vec.addTo(mUp.scale(y));
 		vec.addTo(mForward.scale(z));
 		vec.y = -vec.y;
 		mPosition.addTo(vec);
-		if (moveTarget)
-		{
-			mTarget.addTo(vec);
-		}
-		mDirty = true;
+		
+		//mDirty = true;
+		calcMatrix();
 	}
 
-	void Transform::translateWorld(const Vector4f &rhs, bool moveTarget) {
+	void Transform::translateWorld(const Vector4f &rhs) {
 		mPosition.addTo(rhs);
-		if (moveTarget)
-		{
-			mTarget.addTo(rhs);
-		}
-		mDirty = true;
+		
+		calcMatrix();
+		//mDirty = true;
 	}
-	void Transform::translateWorld(const float x, const float y, const float z, bool moveTarget) {
+	void Transform::translateWorld(const float x, const float y, const float z) {
 		mPosition.addTo(x, y, z);
-		if (moveTarget)
-		{
-			mTarget.addTo(x, y, z);
-		}
-		mDirty = true;
+		
+		//mDirty = true;
+		calcMatrix();
 	}
-
+	
 	void Transform::rotate(float dx, float dy) {
 		Matrix4f m;
 		m.rotate(mRight, dy);
 		m.transformVectorConst(mForward);
 		m.transformVectorConst(mUp);
 		
-		if (mForCamera) {
-			m.rotate(mUpVector, dx);
+		/*if (mForCamera) {
+			m.rotate(REF_UP, dx);
 			m.transformVectorConst(mUp);
 		}
-		else {
+		else {*/
 			m.rotate(mUp, dx);
-		}
+		//}
 		
 		m.transformVectorConst(mRight);
 		m.transformVectorConst(mForward);
 		
-		updateTarget();
-		mDirty = true;
+		//updateTarget();
+		//mDirty = true;
+		calcMatrix();
 	}
-	
+	/*
 	void Transform::orbit(float dx, float dy) {
 		Vector4f toPosition = mPosition.sub(mTarget);
 		double len = toPosition.length();
@@ -234,6 +252,6 @@ namespace math {
 	bool Transform::isForCamera() const {
 		return mForCamera;
 	}
-
+	*/
 }
 }
