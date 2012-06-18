@@ -2,11 +2,14 @@
 
 #include <string>
 #include <map>
+#include <vector>
 using namespace std;
 
 #include "handle.h"
 #include "imanaged.h"
 using namespace am::util;
+
+#include "game_object.h"
 
 namespace am {
 
@@ -25,16 +28,7 @@ namespace base {
 		Game(Engine *engine);
 		~Game();
 
-		//void setMap(Map *map);
-		//Map *getMap();
-
-		//int loadMap(const string &filename);
-		//string getMapFilename() const;
-
 		Screen *getCurrentScreen();
-		//Screen *getScreen(const char *screenName);
-		//Screen *getScreen(const string &screenName);
-		//void addScreen(Screen *screen);
 		void setCurrentScreen(Screen *screen);
 		void setCurrentScreen(const char *screenName);
 		void setCurrentScreen(const string &screenName);
@@ -45,20 +39,28 @@ namespace base {
 		Layer *getCharacterLayer();
 		Layer *getForeground();
 
-	protected:
-		//Map *mMap;
-		Handle<Screen> mCurrentScreen;
+		void addGameObject(GameObject *object);
+		void removeGameObject(GameObject *object);
+		bool hasGameObject(GameObject *object) const;
 
-		//typedef map<string, Handle<Screen> > ScreenMap;
-		//ScreenMap mScreens;
+		void update(float dt);
+
+	protected:
+		
+		Handle<Screen> mCurrentScreen;
 
 		Engine *mEngine;
 
+		// Comes from the current screen.
+		ObjectList *mActiveObjects;
+		
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;
 		Handle<Layer> mItemLayer;
 		Handle<Layer> mCharacterLayer;
 		Handle<Layer> mForeground;
+
+		ObjectList::iterator findGameObject(GameObject *object) const;
 	};
 
 }

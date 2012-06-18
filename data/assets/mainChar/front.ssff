@@ -1,0 +1,3 @@
+{	// Front Main Character Sprite
+	texture: "data/textures/mainChar/front.png"
+}

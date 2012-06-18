@@ -1,12 +1,15 @@
 #pragma once
 
 #include <string>
+#include <vector>
 using namespace std;
 
 #include "handle.h"
 #include "imanaged.h"
 #include "json_value.h"
 using namespace am::util;
+
+#include "game_object.h"
 
 namespace am {
 
@@ -20,6 +23,7 @@ namespace base {
 
 	class Screen : public IManaged {
 	public:
+
 		Screen(const char *name);
 		~Screen();
 
@@ -30,10 +34,14 @@ namespace base {
 
 		void loadDef(JsonValue loaded);
 
+		ObjectList *getObjects();
+
 	protected:
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;
+
+		ObjectList mObjects;
 
 		string mName;
 		// TODO: List of items and other things on this screen.

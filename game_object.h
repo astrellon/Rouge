@@ -6,6 +6,12 @@ using namespace am::gfx;
 #include "vector.h"
 using namespace am::math;
 
+#include "handle.h"
+using namespace am::util;
+
+#include <vector>
+using namespace std;
+
 namespace am {
 namespace base {
 
@@ -14,17 +20,17 @@ namespace base {
 		GameObject();
 		~GameObject();
 
-		//virtual void setGameLocation(const Vector4f &pos, bool setDraw = true);
 		virtual void setGameLocation(float x, float y, bool setDraw = true);
 		virtual float getGameLocationX() const;
 		virtual float getGameLocationY() const;
 
 	protected:
 
-		//Vector4f mGameLocation;
 		float mGameLocationX;
 		float mGameLocationY;
 	};
+
+	typedef vector<Handle<GameObject> > ObjectList;
 
 }
 }

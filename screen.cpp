@@ -36,6 +36,11 @@ namespace base {
 		return mName;
 	}
 
+	ObjectList *Screen::getObjects()
+	{
+		return &mObjects;
+	}
+
 	void Screen::loadDef(JsonValue loaded)
 	{
 		if (loaded.getType() != JV_OBJ)

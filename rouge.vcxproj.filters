@@ -193,6 +193,9 @@
     <ClCompile Include="transform_lite.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -366,6 +369,9 @@
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,14 +23,6 @@ namespace base {
 		Engine();
 		~Engine();
 
-		//Game *createGame();
-		/*
-		int registerTiles(const char *filename);
-
-		Tile *getRegTile(const char *name);
-		Tile *getRegTile(const string &name);
-		*/
-
 		Screen *getScreen(const char *screenName);
 		Screen *getScreen(const string &screenName);
 

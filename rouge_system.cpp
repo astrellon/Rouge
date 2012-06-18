@@ -12,6 +12,8 @@
 #include "ui_ingame_menu.h"
 #include "engine.h"
 
+#include "character.h"
+
 #include "game.h"
 #include "screen.h"
 
@@ -146,6 +148,12 @@ namespace sys {
 
 		game->setCurrentScreen("testScreen");
 		GfxEngine::getGfxEngine()->getGameLayer()->addChild(game->getGameLayer());
+
+		Character *mainChar = new Character();
+		mainChar->setGraphic(new Sprite("mainChar/front"));
+
+		//GfxEngine::getGfxEngine()->getUILayer()->addChild(mainChar);
+		game->addGameObject(mainChar);
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);

@@ -46,31 +46,7 @@ namespace base {
 	{
 		return mCurrentScreen.get();
 	}
-	/*Screen *Game::getScreen(const char *screenName)
-	{
-		ScreenMap::iterator iter = mScreens.find(string(screenName));
-		if (iter != mScreens.end())
-		{
-			return iter->second.get();
-		}
-		return NULL;
-	}
-	Screen *Game::getScreen(const string &screenName)
-	{
-		ScreenMap::iterator iter = mScreens.find(screenName);
-		if (iter != mScreens.end())
-		{
-			return iter->second.get();
-		}
-		return NULL;
-	}
-	void Game::addScreen(Screen *screen)
-	{
-		if (screen)
-		{
-			mScreens[screen->getName()] = screen;
-		}
-	}*/
+	
 	void Game::setCurrentScreen(Screen *screen)
 	{
 		mBackground->clear();
@@ -83,6 +59,22 @@ namespace base {
 		{
 			mBackground->addChild(screen->getBackground());
 			mForeground->addChild(screen->getForeground());
+			mActiveObjects = screen->getObjects();
+
+			if (mActiveObjects)
+			{
+				ObjectList::iterator iter;
+				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+				{
+					mCharacterLayer->addChild(iter->get());
+				}
+			}
+			else
+			{
+				stringstream errss;
+				errss << "Screen (" << screen->getName() << ") return a NULL object list.";
+				am_log("SCR", errss.str().c_str());
+			}
 		}
 	}
 	void Game::setCurrentScreen(const char *screenName)
@@ -92,6 +84,73 @@ namespace base {
 	void Game::setCurrentScreen(const string &screenName)
 	{
 		setCurrentScreen(mEngine->getScreen(screenName));
+	}
+
+	void Game::addGameObject(GameObject *object)
+	{
+		if (object == NULL)
+		{
+			return;
+		}
+		if (mActiveObjects)
+		{
+			ObjectList::iterator iter = findGameObject(object);
+			if (iter == mActiveObjects->end())
+			{
+				mCharacterLayer->addChild(object);
+				mActiveObjects->push_back(object);
+			}
+		}
+		else
+		{
+			am_log("SCR", "Unable to add game object to null active list");
+		}
+	}
+	void Game::removeGameObject(GameObject *object)
+	{
+		if (object == NULL)
+		{
+			return;
+		}
+		if (mActiveObjects)
+		{
+			ObjectList::iterator iter = findGameObject(object);
+			if (iter != mActiveObjects->end())
+			{
+				mCharacterLayer->removeChild(object);
+				mActiveObjects->erase(iter);
+			}
+		}
+		else
+		{
+			am_log("SCR", "Unable to remove game object from null active list");
+		}
+	}
+	bool Game::hasGameObject(GameObject *object) const
+	{
+		if (object == NULL)
+		{
+			return false;
+		}
+		if (mActiveObjects)
+		{
+			ObjectList::iterator iter = findGameObject(object);
+			return iter != mActiveObjects->end();
+		}
+		am_log("SCR", "Unable to search for game object with null active list");
+		return false;
+	}
+	ObjectList::iterator Game::findGameObject(GameObject *object) const
+	{
+		ObjectList::iterator iter;
+		for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+		{
+			if (iter->get() == object)
+			{
+				break;
+			}
+		}
+		return iter;
 	}
 
 	Layer *Game::getGameLayer()
@@ -114,85 +173,11 @@ namespace base {
 	{
 		return mForeground.get();
 	}
-	/*
-	void Game::setMap(Map *map) {
-		mMap = map;
+	
+	void Game::update(float dt)
+	{
+
 	}
-	Map *Game::getMap() {
-		return mMap;
-	}
-
-	int Game::loadMap(const string &filename) {
-		mMapFilename = filename;
-
-		JsonValue loaded = JsonValue::import_from_file(filename.c_str());
-		if (loaded.getType() == JV_INT) {
-			int error = loaded.getInt();
-			if (error == -1) {
-				printf("Unable to load map '%s'\n", filename.c_str());
-				return -1;
-			}
-			if (error == -2) {
-				printf("Unable to allocate space for input map '%s'\n", filename.c_str());
-				return -2;
-			}
-			printf("Unknown error for input map '%s': %d\n", filename.c_str(), error);
-			return error;
-		}
-
-		int mapWidth = -1;
-		int mapHeight = -1;
-
-		loaded.display();
-
-		if (loaded.has("map", JV_OBJ)) {
-			JsonValue mapData = loaded["map"];
-		
-			if (mapData.has("data", JV_ARR)) {
-				JsonArray *mapRows = mapData["data"].getArr();
-				mapHeight = static_cast<int>(mapRows->size());
-
-				int y = -1;
-
-				JsonArray::iterator row;
-				for (row = mapRows->begin(); row != mapRows->end(); ++row) {
-					y++;
-
-					if (row->getType() != JV_ARR) {
-						printf("Error in map data!\n");
-						break;
-					}
-					JsonArray *mapCols = row->getArr();
-					JsonArray::iterator col;
-
-					int x = -1;
-					for (col = mapCols->begin(); col != mapCols->end(); ++col) {
-						x++;
-						if (col->getType() != JV_OBJ) {
-							printf("Map tile instance not an object: '%s'\n", col->getTypeName());
-							break;
-						}
-						if (!col->has("tile", JV_STR)) {
-							printf("Map tile instance does not have a tile property!\n");
-							break;
-						}
-					
-						JsonObject *tileInstObj = col->getObj();
-						printf("Tile instance: '%s' at %d, %d\n", col->at("tile").getCStr(), x, y);
-						//TileInstance *tileInst = new TileInstance(
-					}
-				}
-			}
-		}
-
-		printf("Loaded map data: %d, %d\n", mapWidth, mapHeight);
-
-		return 0;
-	}
-	string Game::getMapFilename() const {
-		return mMapFilename;
-	}
-	*/
 
 }
 }
