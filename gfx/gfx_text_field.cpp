@@ -126,8 +126,6 @@ namespace gfx {
 
 		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
 
-		mColour.applyColour();
-
 		glBegin(GL_QUADS);
 
 		mCurrXpos = 0.0f;
