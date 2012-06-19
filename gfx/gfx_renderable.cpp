@@ -14,7 +14,7 @@ namespace gfx {
 		IManaged(),
 		mWidth(0),
 		mHeight(0),
-		mParent(new Handle<Layer>(NULL)),
+		mParent(NULL),
 		mInteractive(false),
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
@@ -23,7 +23,10 @@ namespace gfx {
 	}
 	Renderable::~Renderable()
 	{
-		delete mParent;
+		if (mParent)
+		{
+			mParent->release();
+		}
 	}
 
 	void Renderable::preRender(float dt)
@@ -70,12 +73,19 @@ namespace gfx {
 
 	Layer *Renderable::getParent() const
 	{
-		return mParent->get();
-		//return mParent;
+		return mParent;
 	}
 	void Renderable::setParent(Layer *layer)
 	{
-		*mParent = layer;
+		if (mParent)
+		{
+			mParent->release();
+		}
+		mParent = layer;
+		if (mParent)
+		{
+			mParent->retain();
+		}
 	}
 
 	void Renderable::setInteractive(bool set)

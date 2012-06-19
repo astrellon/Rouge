@@ -117,48 +117,23 @@ namespace ui {
 
 	float UIComponent::getParentWidth()
 	{
-		if (mParent->get() != NULL)
-		//if (mParent)
+		if (mParent)
 		{
-			return (*mParent)->getWidth();
+			return mParent->getWidth();
 		}
 		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenWidth());
 	}
 	float UIComponent::getParentHeight()
 	{
-		if (mParent->get() != NULL)
-		//if (mParent)
+		if (mParent)
 		{
-			return (*mParent)->getHeight();
+			return mParent->getHeight();
 		}
 		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenHeight());
 	}
 
 	void UIComponent::preRender(float dt)
 	{
-		/*float left = 0.0f;
-		if (mAnchorX == X_CENTER)
-		{
-			left = (getParentWidth() - getWidth()) * 0.5f;
-		}
-		else if (mAnchorX == X_RIGHT)
-		{
-			left = getParentWidth() - getWidth();
-		}
-		left += mOffsetX;
-
-		float top = 0.0f;
-		if (mAnchorY == Y_CENTER)
-		{
-			top = (getParentHeight() - getHeight()) * 0.5f;
-		}
-		else if (mAnchorY == Y_BOTTOM)
-		{
-			top = getParentHeight() - getHeight();
-		}
-		top += mOffsetY;
-		*/
-
 		float parentLeft = 0.0f;
 		if (mParentAnchorX == X_CENTER)
 		{
