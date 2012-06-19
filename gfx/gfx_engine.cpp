@@ -328,6 +328,42 @@ namespace gfx {
 		return mHideCursor;
 	}
 
+	void GfxEngine::setCameraLocation(float x, float y)
+	{
+		mCameraX = x;
+		mCameraY = y;
+	}
+	float GfxEngine::getCameraX() const
+	{
+		return mCameraX;
+	}
+	float GfxEngine::getCameraY() const
+	{
+		return mCameraY;
+	}
+
+	void GfxEngine::applyColourStack()
+	{
+		if (mColourStack.size() > 0)
+		{
+			mColourStack.back().applyColour();
+		}
+	}
+	void GfxEngine::pushColourStack(const Colour &colour)
+	{
+		Colour top(1.0f, 1.0f, 1.0f, 1.0f);
+		if (mColourStack.size() > 0)
+		{
+			top = mColourStack.back();
+		}
+		top.multiply(colour);
+		mColourStack.push_back(top);
+	}
+	void GfxEngine::popColourStack()
+	{
+		mColourStack.pop_back();
+	}
+
 	int GfxEngine::getScreenWidth() const
 	{
 		return mScreenWidth;

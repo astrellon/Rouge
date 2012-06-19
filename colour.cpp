@@ -71,6 +71,14 @@ namespace util {
 		mAlpha = alpha;
 	}
 
+	void Colour::multiply(const Colour &rhs)
+	{
+		mRed *= rhs.mRed;
+		mGreen *= rhs.mGreen;
+		mBlue *= rhs.mBlue;
+		mAlpha *= rhs.mAlpha;
+	}
+
 	void Colour::applyColour() const
 	{
 		glColor4f(mRed, mGreen, mBlue, mAlpha);

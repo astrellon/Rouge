@@ -78,6 +78,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bounding_box.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="colour.cpp" />
     <ClCompile Include="data_event.cpp" />
@@ -129,6 +130,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bounding_box.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="character.h" />
     <ClInclude Include="colour.h" />
     <ClInclude Include="data_event.h" />

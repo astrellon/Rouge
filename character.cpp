@@ -24,6 +24,9 @@ namespace base {
 		if (graphic)
 		{
 			addChild(graphic);
+			// Aim for head-ish area.
+			mCameraOffsetX = graphic->getWidth() * 0.5f;
+			mCameraOffsetY = graphic->getHeight() * 0.3f;
 		}
 	}
 	Sprite *Character::getGraphic()

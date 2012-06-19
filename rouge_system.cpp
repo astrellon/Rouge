@@ -52,6 +52,7 @@ namespace sys {
 		gfxEngine->getUILayer()->addChild(mMainMenu.get());
 		mMainMenu->setWidth(screenWidth);
 		mMainMenu->setHeight(screenHeight);
+		mMainMenu->setAlpha(0.5f);
 		
 		mOptionsPanel = new OptionsPanel(this);
 		gfxEngine->getUILayer()->addChild(mOptionsPanel.get());
@@ -151,9 +152,10 @@ namespace sys {
 
 		Character *mainChar = new Character();
 		mainChar->setGraphic(new Sprite("mainChar/front"));
-
-		//GfxEngine::getGfxEngine()->getUILayer()->addChild(mainChar);
+		mainChar->setGameLocation(256, 256);
 		game->addGameObject(mainChar);
+
+		game->getCamera()->followObject(mainChar);
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);

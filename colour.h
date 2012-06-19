@@ -22,6 +22,8 @@ namespace util {
 		void setColour(float red, float green, float blue);
 		void setColour(float red, float green, float blue, float alpha);
 
+		void multiply(const Colour &rhs);
+
 		void applyColour() const;
 
 	protected:

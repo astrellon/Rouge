@@ -53,6 +53,7 @@ namespace base {
 		mItemLayer->clear();
 		mCharacterLayer->clear();
 		mForeground->clear();
+		mCamera.followObject(NULL);
 
 		mCurrentScreen = screen;
 		if (screen)
@@ -153,6 +154,11 @@ namespace base {
 		return iter;
 	}
 
+	Camera *Game::getCamera()
+	{
+		return &mCamera;
+	}
+
 	Layer *Game::getGameLayer()
 	{
 		return mGameLayer.get();
@@ -176,7 +182,15 @@ namespace base {
 	
 	void Game::update(float dt)
 	{
-
+		if (mActiveObjects)
+		{
+			ObjectList::iterator iter;
+			for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			{
+				iter->get()->update(dt);
+			}
+		}
+		mCamera.update(dt);
 	}
 
 }

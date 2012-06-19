@@ -10,6 +10,7 @@ using namespace std;
 using namespace am::util;
 
 #include "game_object.h"
+#include "camera.h"
 
 namespace am {
 
@@ -43,6 +44,8 @@ namespace base {
 		void removeGameObject(GameObject *object);
 		bool hasGameObject(GameObject *object) const;
 
+		Camera *getCamera();
+
 		void update(float dt);
 
 	protected:
@@ -51,6 +54,7 @@ namespace base {
 
 		Engine *mEngine;
 
+		Camera mCamera;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 		

@@ -3,13 +3,13 @@
 #include <vector>
 #include <map>
 #include <string>
-
-#include "../handle.h"
-
 using namespace std;
 
-#include "../matrix.h"
+#include "../handle.h"
+#include "../colour.h"
+using namespace am::util;
 
+#include "../matrix.h"
 using namespace am::math;
 
 namespace am {
@@ -61,6 +61,10 @@ namespace gfx {
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
 
+		void applyColourStack();
+		void pushColourStack(const Colour &colour);
+		void popColourStack();
+
 		static GfxEngine *getGfxEngine();
 
 	protected:
@@ -71,22 +75,23 @@ namespace gfx {
 		float mCameraX;
 		float mCameraY;
 
-		am::util::Handle<Sprite> mCursor;
+		Handle<Sprite> mCursor;
 		bool mHideCursor;
 
-		//typedef am::util::ResourceManager<GlTexture *, string> TextureManager;
-		typedef map<string, am::util::Handle<Asset> > AssetManager;
-		typedef map<string, am::util::Handle<Texture> > TextureManager;
-		typedef map<string, am::util::Handle<Font> > FontManager;
+		typedef map<string, Handle<Asset> > AssetManager;
+		typedef map<string, Handle<Texture> > TextureManager;
+		typedef map<string, Handle<Font> > FontManager;
 
 		AssetManager mAssetManager;
 		TextureManager mTextureManager;
 		FontManager mFontManager;
 
-		am::util::Handle<Layer> mRootLayer;
-		am::util::Handle<Layer> mGameLayer;
-		am::util::Handle<Layer> mUILayer;
-		am::util::Handle<Layer> mDebugLayer;
+		Handle<Layer> mRootLayer;
+		Handle<Layer> mGameLayer;
+		Handle<Layer> mUILayer;
+		Handle<Layer> mDebugLayer;
+
+		vector<Colour> mColourStack;
 
 		static GfxEngine *sMainGfxEngine;
 

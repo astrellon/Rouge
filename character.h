@@ -25,6 +25,8 @@ namespace base {
 		void setName(const string &name);
 		string getName() const;
 
+		virtual void update(float dt) {}
+
 	protected:
 
 		// TODO: Probably need to be a vector, or even a different class that

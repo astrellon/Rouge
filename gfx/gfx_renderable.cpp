@@ -19,7 +19,7 @@ namespace gfx {
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
-		//mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
+		
 	}
 	Renderable::~Renderable()
 	{
@@ -35,7 +35,9 @@ namespace gfx {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		mColour.applyColour();
+		GfxEngine::getGfxEngine()->pushColourStack(mColour);
+		GfxEngine::getGfxEngine()->applyColourStack();
+		//mColour.applyColour();
 	}
 	void Renderable::render(float dt)
 	{
@@ -43,6 +45,7 @@ namespace gfx {
 	void Renderable::postRender(float dt)
 	{
 		glPopMatrix();
+		GfxEngine::getGfxEngine()->popColourStack();
 
 		glDisable(GL_BLEND);
 	}

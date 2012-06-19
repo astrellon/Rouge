@@ -196,6 +196,9 @@
     <ClCompile Include="character.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -371,6 +374,9 @@
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="character.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
       <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
