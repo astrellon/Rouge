@@ -8,6 +8,8 @@
 namespace am {
 namespace ui {
 
+	MouseManager *MouseManager::sMainManager = NULL;
+
 	MouseManager::MouseManager() :
 		mUnderMouse(NULL)
 	{
@@ -120,13 +122,21 @@ namespace ui {
 
 	void MouseManager::fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
-		MouseEvent *e = new MouseEvent(this, mouseType, mouseButton, x, y, target, localX, localY);
+		Handle<MouseEvent> e(new MouseEvent(mouseType, mouseButton, x, y, target, localX, localY));
 		while(target != NULL && e->isPropagating())
 		{
-			target->fireEvent<MouseEvent>(e);
+			target->fireEvent<MouseEvent>(e.get());
 			target = target->getParent();
 		}
-		delete e;
+	}
+
+	void MouseManager::setManager(MouseManager *manager)
+	{
+		sMainManager = manager;
+	}
+	MouseManager *MouseManager::getManager()
+	{
+		return sMainManager;
 	}
 
 }

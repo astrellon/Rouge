@@ -10,6 +10,8 @@ using namespace std;
 #include "gfx/gfx_sprite.h"
 using namespace am::gfx;
 
+#include "icontroller.h"
+
 namespace am {
 namespace base {
 
@@ -27,7 +29,12 @@ namespace base {
 
 		virtual void update(float dt) {}
 
+		virtual void setController(IController *controller);
+		virtual IController *getController();
+
 	protected:
+
+		Handle<IController> mController;
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.

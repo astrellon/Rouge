@@ -15,6 +15,7 @@
 #include "logger.h"
 
 #include "mouse_manager.h"
+#include "keyboard_manager.h"
 
 #include "transform.h"
 
@@ -39,9 +40,9 @@ namespace sys {
 
 	GameSystem *GameSystem::sGameSystem = NULL;
 
-	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager)
+	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine)
 	{
-		sGameSystem = new GameSystem(linked, engine, mouseManager);
+		sGameSystem = new GameSystem(linked, engine);
 		return sGameSystem;
 	}
 	GameSystem *GameSystem::getGameSystem()
@@ -49,10 +50,9 @@ namespace sys {
 		return sGameSystem;
 	}
 
-	GameSystem::GameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager) :
+	GameSystem::GameSystem(ISystem *linked, Engine *engine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
-		mMouseManager(mouseManager),
 		mDebugConsole(NULL)
 	{
 
@@ -106,13 +106,14 @@ namespace sys {
 		mEngine->init();
 		
 		mDebugConsole = new TextList();
+		mDebugConsole->setMaxEntries(30);
 		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());
 
 		mDebugConsole->setWidth(600.0f);
 		mDebugConsole->setBaseFont("basic");
 
 		GfxLogListener *listener = new GfxLogListener(mDebugConsole.get());
-		am::log::Logger::getMainLogger().addLogListener(listener);
+		am::log::Logger::getMainLogger()->addLogListener(listener);
 	}
 
 	void GameSystem::reshape(int width, int height)
@@ -136,23 +137,23 @@ namespace sys {
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
-		mMouseManager->onMouseDown(mouseButton, x, y);
+		MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
 	void GameSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
-		mMouseManager->onMouseMove(mouseButton, x, y);
+		MouseManager::getManager()->onMouseMove(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
 	{
 		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
-		mMouseManager->onMouseUp(mouseButton, x, y);
+		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
-	void GameSystem::onKeyDown(const bool *keys, int key)
+	void GameSystem::onKeyDown(int key)
 	{
-		//mGfxEngine->onKeyDown(keys, key);
+		KeyboardManager::getManager()->onKeyDown(key);
 	}
-	void GameSystem::onKeyUp(const bool *keys, int key)
+	void GameSystem::onKeyUp(int key)
 	{
 		stringstream ss;
 		ss << "Key up: " << key << " (" << (char)key << ")";
@@ -163,6 +164,8 @@ namespace sys {
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
 		}
+
+		KeyboardManager::getManager()->onKeyUp(key);
 	}
 	
 	bool GameSystem::isProgramRunning() const
@@ -217,10 +220,6 @@ namespace sys {
 	Engine *GameSystem::getEngine()
 	{
 		return mEngine;
-	}
-	MouseManager *GameSystem::getMouseManager()
-	{
-		return mMouseManager;
 	}
 
 	TextList *GameSystem::getDebugConsole()

@@ -49,6 +49,9 @@
     <Filter Include="sys\rouge">
       <UniqueIdentifier>{a20825f9-59a3-4880-935c-265db2c58eb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ui\keyboard">
+      <UniqueIdentifier>{89ae3102-be0f-4f3a-8b3f-10b55be34f2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tokeniser.cpp">
@@ -198,6 +201,12 @@
     </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard_common.cpp">
+      <Filter>ui\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard_manager.cpp">
+      <Filter>ui\keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +387,18 @@
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="icontroller.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="player_controller.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard_common.h">
+      <Filter>ui\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard_manager.h">
+      <Filter>ui\keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -109,13 +109,13 @@ namespace sys {
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void WinSystem::onKeyDown(const bool *keys, int key)
+	void WinSystem::onKeyDown(int key)
 	{
-		mGameSystem->onKeyDown(keys, key);
+		mGameSystem->onKeyDown(key);
 	}
-	void WinSystem::onKeyUp(const bool *keys, int key)
+	void WinSystem::onKeyUp(int key)
 	{
-		mGameSystem->onKeyUp(keys, key);
+		mGameSystem->onKeyUp(key);
 	}
 
 	bool WinSystem::isProgramRunning() const
@@ -194,7 +194,7 @@ namespace sys {
 
 		Application			application;									// Application Structure
 		GL_Window			window;											// Window Structure
-		Keys				keys;											// Key Structure
+		//Keys				keys;											// Key Structure
 		BOOL				isMessagePumpActive;							// Message	Pump Active?
 		MSG					msg;											// Window Message Structure
 		DWORD				tickCount;										// Used For The Tick Counter
@@ -204,8 +204,8 @@ namespace sys {
 		application.hInstance = mHInstance;
 
 		// Fill Out Window
-		ZeroMemory (&window, sizeof (GL_Window));
-		window.keys	= &keys;
+		//ZeroMemory (&window, sizeof (GL_Window));
+		//window.keys	= &keys;
 		window.init.application = &application;
 		if (mTitle.empty())
 		{
@@ -229,7 +229,7 @@ namespace sys {
 
 		window.winSystem = this;
 
-		ZeroMemory (&keys, sizeof (Keys));
+		//ZeroMemory (&keys, sizeof (Keys));
 
 		// Register A Class For Our Window To Use
 		if (RegisterWindowClass (&application) == FALSE)
@@ -248,7 +248,7 @@ namespace sys {
 
 		window.winSystem->init();
 
-		mKeysDown = window.keys->keyDown;
+		//mKeysDown = window.keys->keyDown;
 
 		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
@@ -503,7 +503,7 @@ namespace sys {
 
 		window->winSystem->reshape(window->init.width, window->init.height);					// Reshape Our GL Window
 
-		ZeroMemory (window->keys, sizeof (Keys));							// Clear All Keys
+		//ZeroMemory (window->keys, sizeof (Keys));							// Clear All Keys
 
 		window->lastTickCount = GetTickCount ();							// Get Tick Count
 
@@ -639,8 +639,8 @@ namespace sys {
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
 					//keyboardFunc(window->keys->keyDown, wParam);
-					window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
-					window->winSystem->onKeyDown(window->keys->keyDown, wParam);
+					//window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
+					window->winSystem->onKeyDown(wParam);
 					return 0;												// Return
 				}
 			break;															// Break
@@ -648,8 +648,8 @@ namespace sys {
 			case WM_KEYUP:													// Update Keyboard Buffers For Keys Released
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
-					window->keys->keyDown [wParam] = FALSE;					// Set The Selected Key (wParam) To False
-					window->winSystem->onKeyUp(window->keys->keyDown, wParam);
+					//window->keys->keyDown [wParam] = FALSE;					// Set The Selected Key (wParam) To False
+					window->winSystem->onKeyUp(wParam);
 					return 0;												// Return
 				}
 			break;															// Break

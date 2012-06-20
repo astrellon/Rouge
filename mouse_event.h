@@ -13,12 +13,10 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class MouseManager;
-
 	class MouseEvent : public Event {
 	public:
-		MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y);
-		MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y);
+		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
 		~MouseEvent();
 
 		virtual MouseButton getMouseButton() const;
@@ -31,12 +29,9 @@ namespace ui {
 
 		virtual Renderable *getTarget() const;
 
-		virtual MouseManager *getManager();
-
 	protected:
 
 		MouseButton mMouseButton;
-		MouseManager *mManager;
 		int mMouseX;
 		int mMouseY;
 

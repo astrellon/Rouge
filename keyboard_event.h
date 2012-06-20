@@ -1,21 +1,23 @@
 #pragma once
 
 #include "event.h"
+#include "keyboard_common.h"
 
 namespace am {
 namespace ui {
 
 	class KeyboardEvent : public Event {
 	public:
-		KeyboardEvent(const char *type, const bool *keys, int key);
+		KeyboardEvent(KeyboardEventType type, int key);
 		~KeyboardEvent();
 
-		const bool *getKeys() const;
 		int getKey() const;
+
+		KeyboardEventType getKeyboardEventType() const;
 
 	protected:
 
-		const bool *mKeys;
+		KeyboardEventType mKeyboardEventType;
 		int mKey;
 	};
 

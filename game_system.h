@@ -53,8 +53,8 @@ namespace sys {
 		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y);
-		virtual void onKeyDown(const bool *keys, int key);
-		virtual void onKeyUp(const bool *keys, int key);
+		virtual void onKeyDown(int key);
+		virtual void onKeyUp(int key);
 
 		virtual bool isProgramRunning() const;
 		virtual void setProgramRunning(bool running);
@@ -72,20 +72,18 @@ namespace sys {
 
 		virtual ISystem *getLinkedSystem();
 		virtual Engine *getEngine();
-		virtual MouseManager *getMouseManager();
 
-		static GameSystem *createGameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
+		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 
 		TextList *getDebugConsole();
 
 	protected:
 
-		GameSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
+		GameSystem(ISystem *linked, Engine *engine);
 
 		ISystem *mLinkedSystem;
 		Engine *mEngine;
-		MouseManager *mMouseManager;
 
 		static GameSystem *sGameSystem;
 

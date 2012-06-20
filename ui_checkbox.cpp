@@ -97,7 +97,7 @@ namespace ui {
 			mCheckGraphic->setCurrentFrame(offset);
 			break;
 		case am::ui::MOUSE_MOVE:
-			if (e->getManager()->getButtonDown(e->getMouseButton()))
+			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
 				mCheckGraphic->setCurrentFrame(offset + 2);
 			}

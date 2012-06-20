@@ -14,10 +14,10 @@ using namespace std;
 namespace am {
 namespace sys {
 
-	typedef struct {									// Structure For Keyboard Stuff
+	/*typedef struct {									// Structure For Keyboard Stuff
 		bool keyDown [256];								// Holds TRUE / FALSE For Each Key
 	} Keys;												// Keys
-
+	*/
 	typedef struct {									// Contains Information Vital To Applications
 		HINSTANCE		hInstance;						// Application Instance
 		const char*		className;						// Application ClassName
@@ -60,8 +60,8 @@ namespace sys {
 		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y);
 		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y);
-		virtual void onKeyDown(const bool *keys, int key);
-		virtual void onKeyUp(const bool *keys, int key);
+		virtual void onKeyDown(int key);
+		virtual void onKeyUp(int key);
 	
 		virtual bool isProgramRunning() const;
 		virtual void setProgramRunning(bool running);
@@ -102,13 +102,13 @@ namespace sys {
 		HINSTANCE mHInstance;
 		GameSystem *mGameSystem;
 	
-		bool *mKeysDown;
+		//bool *mKeysDown;
 
 		void updatePosSize();
 	};
 
 	typedef struct {									// Contains Information Vital To A Window
-		Keys*				keys;						// Key Structure
+		//Keys*				keys;						// Key Structure
 		HWND				hWnd;						// Window Handle
 		HDC					hDC;						// Device Context
 		HGLRC				hRC;						// Rendering Context

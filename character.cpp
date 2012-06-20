@@ -5,7 +5,8 @@ namespace base {
 
 	Character::Character() :
 		GameObject(),
-		mGraphic(NULL)
+		mGraphic(NULL),
+		mController(NULL)
 	{
 
 	}
@@ -45,6 +46,15 @@ namespace base {
 	string Character::getName() const
 	{
 		return mName;
+	}
+
+	void Character::setController(IController *controller)
+	{
+		mController = controller;
+	}
+	IController *Character::getController()
+	{
+		return mController.get();
 	}
 
 }

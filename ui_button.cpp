@@ -137,7 +137,7 @@ namespace ui {
 			mGraphic->setCurrentFrame(0);
 			break;
 		case am::ui::MOUSE_MOVE:
-			if (e->getManager()->getButtonDown(e->getMouseButton()))
+			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
 				mGraphic->setCurrentFrame(2);
 			}

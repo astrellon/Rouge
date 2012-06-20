@@ -38,7 +38,8 @@ namespace log {
 
 		void getEntries(LogEntries &entries, int num, int offset, bool fromStart);
 
-		static Logger &getMainLogger();
+		static void setMainLogger(Logger *logger);
+		static Logger *getMainLogger();
 
 	protected:
 		
@@ -51,7 +52,7 @@ namespace log {
 		LogListeners::iterator findListener(ILogListener *listener);
 		void alertListeners(const LogEntry &entry);
 
-		static Logger sMainLogger;
+		static Logger *sMainLogger;
 	};
 
 	void _log_verbose(const char *type, const char *message, const char *file, int line);

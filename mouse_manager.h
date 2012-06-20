@@ -1,9 +1,10 @@
 #pragma once
 
-#include "mouse_common.h"
 #include <map>
-
 using namespace std;
+
+#include "mouse_common.h"
+#include "event_manager.h"
 
 namespace am {
 namespace gfx {
@@ -14,7 +15,7 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class MouseManager {
+	class MouseManager : public EventManager {
 	public:
 
 		MouseManager();
@@ -28,11 +29,16 @@ namespace ui {
 		void onMouseMove(MouseButton mouseButton, int x, int y);
 		void onMouseUp(MouseButton mouseButton, int x, int y);
 
+		static void setManager(MouseManager *manager);
+		static MouseManager *getManager();
+
 	protected:
 
 		Renderable *mUnderMouse;
 		typedef map<MouseButton, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
+
+		static MouseManager *sMainManager;
 
 		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 	};

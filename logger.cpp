@@ -6,7 +6,7 @@
 namespace am {
 namespace log {
 
-	Logger Logger::sMainLogger;
+	Logger *Logger::sMainLogger = NULL;
 
 	Logger::Logger()
 	{
@@ -108,27 +108,31 @@ namespace log {
 		}
 	}
 
-	Logger &Logger::getMainLogger()
+	void Logger::setMainLogger(Logger *logger)
+	{
+		sMainLogger = logger;
+	}
+	Logger *Logger::getMainLogger()
 	{
 		return sMainLogger;
 	}
 
 	void _log_verbose(const char *type, const char *message, const char *file, int line)
 	{
-		Logger::getMainLogger().log_verbose(type, message, file, line);
+		Logger::getMainLogger()->log_verbose(type, message, file, line);
 	}
 	void _log_verbose(LogEntry &entry, const char *file, int line)
 	{
-		Logger::getMainLogger().log_verbose(entry, file, line);
+		Logger::getMainLogger()->log_verbose(entry, file, line);
 	}
 
 	void _log(const char *type, const char *message)
 	{
-		Logger::getMainLogger().log(type, message);
+		Logger::getMainLogger()->log(type, message);
 	}
 	void _log(const LogEntry &entry)
 	{
-		Logger::getMainLogger().log(entry);
+		Logger::getMainLogger()->log(entry);
 	}
 }
 }

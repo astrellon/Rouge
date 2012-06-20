@@ -22,9 +22,9 @@ namespace sys {
 
 	RougeSystem *RougeSystem::sRougeSystem = NULL;
 
-	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager)
+	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine)
 	{
-		sGameSystem = sRougeSystem = new RougeSystem(linked, engine, mouseManager);
+		sGameSystem = sRougeSystem = new RougeSystem(linked, engine);
 		return sRougeSystem;
 	}
 	RougeSystem *RougeSystem::getRougeSystem()
@@ -32,8 +32,8 @@ namespace sys {
 		return sRougeSystem;
 	}
 
-	RougeSystem::RougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager) :
-		GameSystem(linked, engine, mouseManager)
+	RougeSystem::RougeSystem(ISystem *linked, Engine *engine) :
+		GameSystem(linked, engine)
 	{
 
 	}
@@ -89,7 +89,7 @@ namespace sys {
 		}
 	}
 
-	void RougeSystem::onKeyUp(const bool *keys, int key)
+	void RougeSystem::onKeyUp(int key)
 	{
 		// 27 is currently escape.
 		if (key == 27 && mEngine->getCurrentGame() != NULL)
@@ -97,7 +97,7 @@ namespace sys {
 			mIngameMenu->setVisible(!mIngameMenu->isVisible());
 			return;
 		}
-		GameSystem::onKeyUp(keys, key);
+		GameSystem::onKeyUp(key);
 	}
 
 	void RougeSystem::quitGame()

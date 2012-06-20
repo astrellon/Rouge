@@ -12,7 +12,7 @@ namespace gfx {
 		mTextList = output;
 
 		Logger::LogEntries entries;
-		Logger::getMainLogger().getEntries(entries, 20, 0, false);
+		Logger::getMainLogger()->getEntries(entries, 20, 0, false);
 
 		Logger::LogEntries::iterator iter;
 		for (iter = entries.begin(); iter != entries.end(); ++iter)

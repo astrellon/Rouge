@@ -2,14 +2,12 @@
 
 #include "gfx/gfx_renderable.h"
 
-#include "mouse_manager.h"
-
 using namespace am::gfx;
 
 namespace am {
 namespace ui {
 
-	MouseEvent::MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y) :
+	MouseEvent::MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y) :
 		Event(),
 		mMouseEventType(mouseType),
 		mMouseButton(mouseButton),
@@ -17,12 +15,11 @@ namespace ui {
 		mMouseY(y),
 		mLocalMouseX(x),
 		mLocalMouseY(y),
-		mTarget(NULL),
-		mManager(manager)
+		mTarget(NULL)
 	{
 		setType(MouseEventTypeNames[mouseType]);
 	}
-	MouseEvent::MouseEvent(MouseManager *manager, MouseEventType mouseType, MouseButton mouseButton, int x, int y,
+	MouseEvent::MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y,
 		Renderable *target, int localX, int localY) :
 		Event(),
 		mMouseEventType(mouseType),
@@ -31,8 +28,7 @@ namespace ui {
 		mMouseY(y),
 		mLocalMouseX(localX),
 		mLocalMouseY(localY),
-		mTarget(target),
-		mManager(manager)
+		mTarget(target)
 	{
 		setType(MouseEventTypeNames[mouseType]);
 		mEventTarget = target;
@@ -70,11 +66,6 @@ namespace ui {
 	Renderable *MouseEvent::getTarget() const
 	{
 		return mTarget;
-	}
-
-	MouseManager *MouseEvent::getManager()
-	{
-		return mManager;
 	}
 
 }

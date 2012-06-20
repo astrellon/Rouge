@@ -36,9 +36,9 @@ namespace sys {
 		virtual void init();
 		virtual void reshape(int width, int height);
 
-		virtual void onKeyUp(const bool *keys, int key);
+		virtual void onKeyUp(int key);
 
-		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
+		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine);
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
@@ -50,7 +50,7 @@ namespace sys {
 
 	protected:
 		
-		RougeSystem(ISystem *linked, Engine *engine, MouseManager *mouseManager);
+		RougeSystem(ISystem *linked, Engine *engine);
 
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;

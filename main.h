@@ -22,6 +22,7 @@ using namespace std;
 #include "game_system.h"
 #include "rouge_system.h"
 #include "mouse_manager.h"
+#include "keyboard_manager.h"
 #include "gfx/gfx_engine.h"
 #include "engine.h"
 #include "game.h"

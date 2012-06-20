@@ -1,11 +1,13 @@
 #include "keyboard_event.h"
 
+#include "keyboard_manager.h"
+
 namespace am {
 namespace ui {
 
-	KeyboardEvent::KeyboardEvent(const char *type, const bool *keys, int key) :
-		Event(type),
-		mKeys(keys),
+	KeyboardEvent::KeyboardEvent(KeyboardEventType type, int key) :
+		Event(),
+		mKeyboardEventType(type),
 		mKey(key)
 	{
 	}
@@ -13,13 +15,14 @@ namespace ui {
 	{
 	}
 
-	const bool *KeyboardEvent::getKeys() const
-	{
-		return mKeys;
-	}
 	int KeyboardEvent::getKey() const
 	{
 		return mKey;
+	}
+
+	KeyboardEventType KeyboardEvent::getKeyboardEventType() const
+	{
+		return mKeyboardEventType;
 	}
 
 }
