@@ -208,6 +208,9 @@
     <ClCompile Include="keyboard_manager.cpp">
       <Filter>ui\keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="player_controller.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">

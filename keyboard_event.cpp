@@ -10,6 +10,7 @@ namespace ui {
 		mKeyboardEventType(type),
 		mKey(key)
 	{
+		setType(KeyboardEventTypeNames[type]);
 	}
 	KeyboardEvent::~KeyboardEvent()
 	{

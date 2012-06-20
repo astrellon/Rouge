@@ -13,6 +13,7 @@
 #include "engine.h"
 
 #include "character.h"
+#include "player_controller.h"
 
 #include "game.h"
 #include "screen.h"
@@ -153,6 +154,9 @@ namespace sys {
 		mainChar->setGraphic(new Sprite("mainChar/front"));
 		mainChar->setGameLocation(256, 256);
 		game->addGameObject(mainChar);
+
+		PlayerController *controller = new PlayerController();
+		mainChar->setController(controller);
 
 		game->getCamera()->followObject(mainChar);
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "imanaged.h"
+using namespace am::util;
 
 namespace am {
 namespace base {

@@ -35,6 +35,14 @@ namespace base {
 		return mGraphic.get();
 	}
 
+	void Character::update(float dt)
+	{
+		if (mController.get())
+		{
+			mController->update(this, dt);
+		}
+	}
+
 	void Character::setName(const char *name)
 	{
 		mName = name;

@@ -113,6 +113,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="mouse_manager.cpp" />
+    <ClCompile Include="player_controller.cpp" />
     <ClCompile Include="rouge_system.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="tile.cpp" />

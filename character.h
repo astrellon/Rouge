@@ -27,7 +27,7 @@ namespace base {
 		void setName(const string &name);
 		string getName() const;
 
-		virtual void update(float dt) {}
+		virtual void update(float dt);
 
 		virtual void setController(IController *controller);
 		virtual IController *getController();
