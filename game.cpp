@@ -24,22 +24,59 @@ namespace base {
 		mCurrentScreen(NULL)
 	{
 		mGameLayer = new Layer();
-		GfxEngine::getGfxEngine()->getRootLayer()->addChild(mGameLayer.get());
+		mGameLayer->setName("Game->GameLayer");
+		//GfxEngine::getGfxEngine()->getRootLayer()->addChild(mGameLayer.get());
 
 		mBackground = new Layer();
+		mBackground->setName("Background");
 		mGameLayer->addChild(mBackground.get());
 
 		mItemLayer = new Layer();
+		mItemLayer->setName("ItemLayer");
 		mGameLayer->addChild(mItemLayer.get());
 
 		mCharacterLayer = new Layer();
+		mCharacterLayer->setName("CharacterLayer");
 		mGameLayer->addChild(mCharacterLayer.get());
 
 		mForeground = new Layer();
+		mForeground->setName("Foreground");
 		mGameLayer->addChild(mForeground.get());
 	}
 	Game::~Game()
 	{
+	}
+
+	Screen *Game::getScreen(const char *screenName)
+	{
+		return getScreen(string(screenName));
+	}
+	Screen *Game::getScreen(const string &screenName)
+	{
+		ScreenMap::iterator iter = mScreens.find(screenName);
+		if (iter != mScreens.end())
+		{
+			return iter->second.get();
+		}
+
+		stringstream ss;
+		ss << "data/screens/" << screenName << "/screen.ssff";
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to load screen '" << screenName << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("SCREEN", errss.str().c_str());
+			return NULL;
+		}
+
+		Handle<Screen> screen(new Screen(screenName.c_str()));
+		screen->loadDef(loaded);
+
+		mScreens[screenName] = screen;
+
+		return screen.get();
 	}
 
 	Screen *Game::getCurrentScreen()
@@ -80,11 +117,11 @@ namespace base {
 	}
 	void Game::setCurrentScreen(const char *screenName)
 	{
-		setCurrentScreen(mEngine->getScreen(string(screenName)));
+		setCurrentScreen(getScreen(string(screenName)));
 	}
 	void Game::setCurrentScreen(const string &screenName)
 	{
-		setCurrentScreen(mEngine->getScreen(screenName));
+		setCurrentScreen(getScreen(screenName));
 	}
 
 	void Game::addGameObject(GameObject *object)

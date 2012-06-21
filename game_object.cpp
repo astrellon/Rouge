@@ -10,7 +10,7 @@ namespace base {
 		mCameraOffsetX(0.0f),
 		mCameraOffsetY(0.0f)
 	{
-
+		setName("GameObject");
 	}
 	GameObject::~GameObject()
 	{

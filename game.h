@@ -11,6 +11,7 @@ using namespace am::util;
 
 #include "game_object.h"
 #include "camera.h"
+#include "screen.h"
 
 namespace am {
 
@@ -21,7 +22,6 @@ using namespace am::gfx;
 
 namespace base {
 
-	class Screen;
 	class Engine;
 
 	class Game : public IManaged {
@@ -29,6 +29,8 @@ namespace base {
 		Game(Engine *engine);
 		~Game();
 
+		Screen *getScreen(const char *screenName);
+		Screen *getScreen(const string &screenName);
 		Screen *getCurrentScreen();
 		void setCurrentScreen(Screen *screen);
 		void setCurrentScreen(const char *screenName);
@@ -57,6 +59,9 @@ namespace base {
 		Camera mCamera;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
+
+		typedef map<string, Handle<Screen> > ScreenMap;
+		ScreenMap mScreens;
 		
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;

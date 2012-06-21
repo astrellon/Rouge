@@ -9,6 +9,12 @@
 
 namespace am {
 namespace gfx {
+
+	std::ostream& operator<<(std::ostream &strm, const Renderable &rhs)
+	{
+		strm << "Renderable(" << rhs.getName() << ")";
+		return strm;
+	}
 	
 	Renderable::Renderable() :
 		IManaged(),
@@ -151,6 +157,15 @@ namespace gfx {
 	float Renderable::getPositionY() const
 	{
 		return mTransform.getY();
+	}
+
+	void Renderable::setName(const char *name)
+	{
+		mName = name;
+	}
+	string Renderable::getName() const
+	{
+		return mName;
 	}
 
 }

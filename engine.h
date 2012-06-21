@@ -8,23 +8,17 @@ using namespace std;
 #include "handle.h"
 using namespace am::util;
 
-#include "screen.h"
-
 namespace am {
 
 namespace base {
 
 	class Game;
 	class Tile;
-	class Screen;
 
 	class Engine {
 	public:
 		Engine();
 		~Engine();
-
-		Screen *getScreen(const char *screenName);
-		Screen *getScreen(const string &screenName);
 
 		void init();
 		void deinit();
@@ -38,9 +32,6 @@ namespace base {
 	protected:
 
 		Handle<Game> mCurrentGame;
-
-		typedef map<string, Handle<Screen> > ScreenMap;
-		ScreenMap mScreens;
 
 		//void registerTile(Tile *t);
 		//void deregisterTiles();

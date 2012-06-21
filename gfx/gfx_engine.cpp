@@ -65,37 +65,29 @@ namespace gfx {
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 
-		stringstream ss;
-		ss << "Size of Sprite: " << sizeof(Sprite);
-		am_log("SIZE", ss.str().c_str());
-
-		ss.str("");
-		ss << "Size of Layer: " << sizeof(Layer);
-		am_log("SIZE", ss.str().c_str());
-
-		ss.str("");
-		ss << "Size of TextField: " << sizeof(TextField);
-		am_log("SIZE", ss.str().c_str());
-	
 		/*glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
 		mRootLayer = new Layer();
+		mRootLayer->setName("RootLayer");
 		mRootLayer->setInteractive(true);
 
 		mGameLayer = new Layer();
+		mGameLayer->setName("GameLayer");
 		mGameLayer->setInteractive(true);
 		mRootLayer->addChild(mGameLayer.get());
 
 
 		mUILayer = new Layer();
+		mUILayer->setName("UILayer");
 		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
 		mRootLayer->addChild(mUILayer.get());
 
 		mDebugLayer = new Layer();
+		mDebugLayer->setName("DebugLayer");
 		mDebugLayer->setInteractive(true);
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));

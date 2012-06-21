@@ -5,10 +5,15 @@
 
 #include "logger.h"
 
+#include "character.h"
+
 namespace am {
 namespace base {
 
-	PlayerController::PlayerController()
+	PlayerController::PlayerController() :
+		mMoveX(0.0f),
+		mMoveY(0.0f),
+		mRunning(false)
 	{
 		KeyboardManager::getManager()->addEventListener("key_down", this);
 		KeyboardManager::getManager()->addEventListener("key_up", this);
@@ -21,19 +26,52 @@ namespace base {
 
 	void PlayerController::onEvent(KeyboardEvent *e)
 	{
-		if (e->getKeyboardEventType() == KEY_DOWN)
+		const bool *keys = KeyboardManager::getManager()->getKeysDown();
+		float x = 0.0f;
+		if (keys[37])
 		{
-			am_log("KEY", "KEY DOWN");
+			x -= 1.0f;
 		}
-		else
+		if (keys[39])
 		{
-			am_log("KEY", "KEY UP");
+			x += 1.0f;
+		}
+		float y = 0.0f;
+		if (keys[38])
+		{
+			y -= 1.0f;
+		}
+		if (keys[40])
+		{
+			y += 1.0f;
+		}
+		if (x != 0.0f || y != 0.0f)
+		{
+			float length = x * x + y * y;
+			if (length != 1.0f)
+			{
+				length = 1.0f / sqrt(length);
+				x *= length;
+				y *= length;
+			}
+		}
+		mMoveX = x;
+		mMoveY = y;
+		
+		if (e->getKeyboardEventType() == KEY_UP)
+		{
+			// Caps Locks
+			if (e->getKey() == 20)
+			{
+				mRunning = !mRunning;
+			}
 		}
 	}
 
 	void PlayerController::update(Character *character, float dt)
 	{
-
+		character->setMoveVector(mMoveX, mMoveY);
+		character->setRunning(mRunning);
 	}
 
 }

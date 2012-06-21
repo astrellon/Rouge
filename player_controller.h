@@ -17,6 +17,12 @@ namespace base {
 
 		virtual void onEvent(KeyboardEvent *e);
 		virtual void update(Character *character, float dt);
+
+	protected:
+
+		float mMoveX;
+		float mMoveY;
+		bool mRunning;
 	};
 
 }

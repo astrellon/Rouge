@@ -1,10 +1,12 @@
 #pragma once
 
+#include <ostream>
+using namespace std;
+
 #include "gfx_component.h"
 #include "../transform_lite.h"
 #include "../event_manager.h"
 #include "../colour.h"
-
 using namespace am::util;
 
 namespace am {
@@ -48,7 +50,14 @@ namespace gfx {
 		virtual float getPositionX() const;
 		virtual float getPositionY() const;
 
+		virtual void setName(const char *name);
+		virtual string getName() const;
+
+		friend std::ostream& operator<<(std::ostream&, const Renderable&);
+
 	protected:
+
+		string mName;
 
 		float mWidth;
 		float mHeight;

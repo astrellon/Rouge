@@ -144,9 +144,11 @@ namespace sys {
 		{
 			GfxEngine::getGfxEngine()->getGameLayer()->clear();
 		}
+
 		Game *game = new Game(mEngine);
 		mEngine->setCurrentGame(game);
 
+		// TODO: Reload testScreen!
 		game->setCurrentScreen("testScreen");
 		GfxEngine::getGfxEngine()->getGameLayer()->addChild(game->getGameLayer());
 
