@@ -36,6 +36,10 @@ namespace base {
 
 		ObjectList *getObjects();
 
+		bool addGameObject(GameObject *object);
+		bool removeGameObject(GameObject *object);
+		bool hasGameObject(GameObject *object) const;
+
 	protected:
 
 		Handle<Layer> mBackground;
@@ -44,8 +48,8 @@ namespace base {
 		ObjectList mObjects;
 
 		string mName;
-		// TODO: List of items and other things on this screen.
-		// TODO: List of points that link to other screens.
+
+		ObjectList::const_iterator findGameObject(GameObject *object) const;
 	};
 
 }

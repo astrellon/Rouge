@@ -19,6 +19,11 @@ namespace gfx {
 
 	void Layer::clear()
 	{
+		ChildList::iterator iter;
+		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
+		{
+			(*iter)->setParent(NULL);
+		}
 		mChildren.clear();
 	}
 

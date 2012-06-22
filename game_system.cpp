@@ -155,10 +155,6 @@ namespace sys {
 	}
 	void GameSystem::onKeyUp(int key)
 	{
-		stringstream ss;
-		ss << "Key up: " << key << " (" << (char)key << ")";
-		am_log("KEY", ss.str().c_str());
-
 		// 192 Currently is `
 		if (key == 192)
 		{

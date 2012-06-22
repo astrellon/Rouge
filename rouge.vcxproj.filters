@@ -211,6 +211,9 @@
     <ClCompile Include="player_controller.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="ui_text_input.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -403,5 +406,11 @@
     <ClInclude Include="keyboard_manager.h">
       <Filter>ui\keyboard</Filter>
     </ClInclude>
+    <ClInclude Include="ui_text_input.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

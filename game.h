@@ -42,9 +42,12 @@ namespace base {
 		Layer *getCharacterLayer();
 		Layer *getForeground();
 
-		void addGameObject(GameObject *object);
-		void removeGameObject(GameObject *object);
+		bool addGameObject(GameObject *object);
+		bool removeGameObject(GameObject *object);
 		bool hasGameObject(GameObject *object) const;
+
+		void moveObjectToScreen(GameObject *object, const char *screenName, float x, float y, bool setAsCurrent = true);
+		void moveObjectToScreen(GameObject *object, Screen *screen, float x, float y, bool setAsCurrent = true);
 
 		Camera *getCamera();
 
@@ -68,8 +71,6 @@ namespace base {
 		Handle<Layer> mItemLayer;
 		Handle<Layer> mCharacterLayer;
 		Handle<Layer> mForeground;
-
-		ObjectList::iterator findGameObject(GameObject *object) const;
 	};
 
 }

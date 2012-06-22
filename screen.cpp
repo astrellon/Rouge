@@ -19,7 +19,6 @@ namespace base {
 
 	Screen::~Screen()
 	{
-		//am_log("TEST", "Screen destructor called");
 	}
 
 	Layer *Screen::getForeground()
@@ -63,5 +62,56 @@ namespace base {
 		}
 	}
 
+	bool Screen::addGameObject(GameObject *object)
+	{
+		if (object == NULL)
+		{
+			return false;
+		}
+		ObjectList::const_iterator iter = findGameObject(object);
+		if (iter == mObjects.end())
+		{
+			mObjects.push_back(object);
+			object->setScreen(this);
+			return true;
+		}
+		return false;
+	}
+	bool Screen::removeGameObject(GameObject *object)
+	{
+		if (object == NULL)
+		{
+			return false;
+		}
+		ObjectList::const_iterator iter = findGameObject(object);
+		if (iter != mObjects.end())
+		{
+			mObjects.erase(iter);
+			object->setScreen(NULL);
+			return true;
+		}
+		return false;
+	}
+	bool Screen::hasGameObject(GameObject *object) const
+	{
+		if (object == NULL)
+		{
+			return false;
+		}
+		ObjectList::const_iterator iter = findGameObject(object);
+		return iter != mObjects.end();
+	}
+	ObjectList::const_iterator Screen::findGameObject(GameObject *object) const
+	{
+		ObjectList::const_iterator iter;
+		for (iter = mObjects.begin(); iter != mObjects.end(); ++iter)
+		{
+			if (iter->get() == object)
+			{
+				break;
+			}
+		}
+		return iter;
+	}
 }
 }

@@ -124,71 +124,85 @@ namespace base {
 		setCurrentScreen(getScreen(screenName));
 	}
 
-	void Game::addGameObject(GameObject *object)
+	bool Game::addGameObject(GameObject *object)
 	{
-		if (object == NULL)
+		if (mCurrentScreen.get() == NULL)
 		{
-			return;
+			am_log("SCR", "Unable to add game object to null current screen");
+			return false;
 		}
-		if (mActiveObjects)
+		if (mCurrentScreen->addGameObject(object))
 		{
-			ObjectList::iterator iter = findGameObject(object);
-			if (iter == mActiveObjects->end())
-			{
-				mCharacterLayer->addChild(object);
-				mActiveObjects->push_back(object);
-			}
+			mCharacterLayer->addChild(object);
+			return true;
 		}
-		else
-		{
-			am_log("SCR", "Unable to add game object to null active list");
-		}
+		return false;
 	}
-	void Game::removeGameObject(GameObject *object)
+	bool Game::removeGameObject(GameObject *object)
 	{
-		if (object == NULL)
+		if (mCurrentScreen.get() == NULL)
 		{
-			return;
+			am_log("SCR", "Unable to remove game object from null current screen");
+			return false;
 		}
-		if (mActiveObjects)
+		if (mCurrentScreen->removeGameObject(object))
 		{
-			ObjectList::iterator iter = findGameObject(object);
-			if (iter != mActiveObjects->end())
-			{
-				mCharacterLayer->removeChild(object);
-				mActiveObjects->erase(iter);
-			}
+			mCharacterLayer->removeChild(object);
+			return true;
 		}
-		else
-		{
-			am_log("SCR", "Unable to remove game object from null active list");
-		}
+		return false;
 	}
 	bool Game::hasGameObject(GameObject *object) const
 	{
-		if (object == NULL)
+		if (mCurrentScreen.get() == NULL)
 		{
+			am_log("SCR", "Unable to search for game object with null current screen");
 			return false;
 		}
-		if (mActiveObjects)
-		{
-			ObjectList::iterator iter = findGameObject(object);
-			return iter != mActiveObjects->end();
-		}
-		am_log("SCR", "Unable to search for game object with null active list");
-		return false;
+		return mCurrentScreen->hasGameObject(object);
 	}
-	ObjectList::iterator Game::findGameObject(GameObject *object) const
+
+	void Game::moveObjectToScreen(GameObject *object, const char *screenName, float x, float y, bool setAsCurrent)
 	{
-		ObjectList::iterator iter;
-		for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+		if (!object)
 		{
-			if (iter->get() == object)
+			return;
+		}
+		moveObjectToScreen(object, getScreen(screenName), x, y, setAsCurrent);
+	}
+	void Game::moveObjectToScreen(GameObject *object, Screen *screen, float x, float y, bool setAsCurrent)
+	{
+		if (!object || !screen)
+		{
+			return;
+		}
+		Screen *currentScreen = object->getScreen();
+		if (currentScreen)
+		{
+			if (currentScreen->removeGameObject(object) && currentScreen == mCurrentScreen.get())
 			{
-				break;
+				mCharacterLayer->removeChild(object);
 			}
 		}
-		return iter;
+		bool following = false;
+		if (setAsCurrent)
+		{
+			following = mCamera.getFollowing() == object;
+			setCurrentScreen(screen);
+		}
+		object->setScreen(screen);
+		object->setGameLocation(x, y);
+		if (following)
+		{
+			mCamera.followObject(object);
+		}
+		if (screen)
+		{
+			if (screen->addGameObject(object) && screen == mCurrentScreen.get())
+			{
+				mCharacterLayer->addChild(object);
+			}
+		}
 	}
 
 	Camera *Game::getCamera()

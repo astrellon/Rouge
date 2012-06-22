@@ -1,5 +1,7 @@
 #include "game_object.h"
 
+#include "screen.h"
+
 namespace am {
 namespace base {
 
@@ -8,7 +10,8 @@ namespace base {
 		mGameLocationX(0.0f),
 		mGameLocationY(0.0f),
 		mCameraOffsetX(0.0f),
-		mCameraOffsetY(0.0f)
+		mCameraOffsetY(0.0f),
+		mScreen(NULL)
 	{
 		setName("GameObject");
 	}
@@ -48,6 +51,23 @@ namespace base {
 	float GameObject::getCameraOffsetY() const
 	{
 		return mCameraOffsetY;
+	}
+
+	void GameObject::setScreen(Screen *screen)
+	{
+		if (mScreen)
+		{
+			mScreen->release();
+		}
+		mScreen = screen;
+		if (mScreen)
+		{
+			mScreen->retain();
+		}
+	}
+	Screen *GameObject::getScreen()
+	{
+		return mScreen;
 	}
 
 }

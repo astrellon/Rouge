@@ -5,6 +5,8 @@
 #include "handle.h"
 using namespace am::util;
 
+#include "character.h"
+
 namespace am {
 
 namespace base {
@@ -55,6 +57,8 @@ namespace sys {
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;
 		Handle<IngameMenu> mIngameMenu;
+
+		Handle<Character> mPlayer;
 
 		static RougeSystem *sRougeSystem;
 	};

@@ -6,22 +6,22 @@ namespace am {
 namespace ui {
 
 	Label::Label() :
-		UIComponent()
+		UIComponent(),
+		mLabel(new TextField())
 	{
-		mLabel = new TextField();
 		addChild(mLabel.get());
 	}
 	Label::Label(const char *label) :
-		UIComponent()
+		UIComponent(),
+		mLabel(new TextField())
 	{
-		mLabel = new TextField();
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}
 	Label::Label(const string &label) :
-		UIComponent()
+		UIComponent(),
+		mLabel(new TextField())
 	{
-		mLabel = new TextField();
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}

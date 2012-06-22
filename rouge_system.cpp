@@ -98,6 +98,22 @@ namespace sys {
 			mIngameMenu->setVisible(!mIngameMenu->isVisible());
 			return;
 		}
+		Game *game = mEngine->getCurrentGame();;
+		if (game)
+		{
+			if (key == 'A')
+			{
+				game->moveObjectToScreen(mPlayer.get(), "testScreen2", 100, 10, true);
+				//game->getCamera()->followObject(mPlayer.get());
+				//game->setCurrentScreen("testScreen2");
+			}
+			if (key == 'S')
+			{
+				//game->setCurrentScreen("testScreen");
+				game->moveObjectToScreen(mPlayer.get(), "testScreen", 256, 256, true);
+				///game->getCamera()->followObject(mPlayer.get());
+			}
+		}
 		GameSystem::onKeyUp(key);
 	}
 
@@ -152,15 +168,15 @@ namespace sys {
 		game->setCurrentScreen("testScreen");
 		GfxEngine::getGfxEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		Character *mainChar = new Character();
-		mainChar->setGraphic(new Sprite("mainChar/front"));
-		mainChar->setGameLocation(256, 256);
-		game->addGameObject(mainChar);
+		mPlayer = new Character();
+		mPlayer->setGraphic(new Sprite("mainChar/front"));
+		mPlayer->setGameLocation(256, 256);
+		game->addGameObject(mPlayer.get());
 
 		PlayerController *controller = new PlayerController();
-		mainChar->setController(controller);
+		mPlayer->setController(controller);
 
-		game->getCamera()->followObject(mainChar);
+		game->getCamera()->followObject(mPlayer.get());
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);

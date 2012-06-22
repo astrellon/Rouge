@@ -15,6 +15,8 @@ using namespace std;
 namespace am {
 namespace base {
 
+	class Screen;
+
 	class GameObject : public Layer {
 	public:
 		GameObject();
@@ -30,6 +32,9 @@ namespace base {
 		virtual float getCameraOffsetX() const;
 		virtual float getCameraOffsetY() const;
 
+		virtual void setScreen(Screen *screen);
+		virtual Screen *getScreen();
+
 	protected:
 
 		float mGameLocationX;
@@ -37,6 +42,8 @@ namespace base {
 
 		float mCameraOffsetX;
 		float mCameraOffsetY;
+
+		Screen *mScreen;
 	};
 
 	typedef vector<Handle<GameObject> > ObjectList;
