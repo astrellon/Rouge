@@ -27,9 +27,10 @@ namespace ui {
 		initButton(mQuit.get());
 
 		float buttonHeight = mResumeGame->getHeight();
-		float buttonWidth = mResumeGame->getWidth();
+		float buttonWidth = 256.0f;
 		mResumeGame->setParentOffsetY(-buttonHeight * 1.5f);
 		mResumeGame->addEventListener("click", this);
+		mResumeGame->setWidth(buttonWidth);
 
 		mSaveGame->setParentOffset(-buttonWidth * 0.25f, -buttonHeight * 0.5f);
 		mSaveGame->addEventListener("click", this);
@@ -41,6 +42,7 @@ namespace ui {
 
 		mOptions->setParentOffsetY(buttonHeight * 0.5f);
 		mOptions->addEventListener("click", this);
+		mOptions->setWidth(buttonWidth);
 
 		mToMainMenu->setParentOffset(-buttonWidth * 0.25f, buttonHeight * 1.5f);
 		mToMainMenu->setWidth(buttonWidth * 0.5f);
@@ -100,5 +102,6 @@ namespace ui {
 		btn->setParentAnchor(X_CENTER, Y_CENTER);
 		btn->setAnchor(X_CENTER, Y_CENTER);
 	}
+
 }
 }

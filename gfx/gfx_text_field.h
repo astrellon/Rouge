@@ -41,6 +41,9 @@ namespace gfx {
 
 		// Renderable methods
 		virtual void render(float dt);
+
+		virtual void setWidth(float width);
+		virtual void setHeight(float height);
 		
 	protected:
 

@@ -23,14 +23,16 @@ namespace ui {
 		initButton(mQuit.get());
 
 		float buttonHeight = mStartGame->getHeight();
-		mStartGame->setWidth(120.0f);
+		mStartGame->setWidth(220.0f);
 		mStartGame->setParentOffsetY(-buttonHeight * 1.5f);
 		mStartGame->addEventListener("click", this);
 
 		mLoadGame->setParentOffsetY(-buttonHeight * 0.5f);
+		mLoadGame->setWidth(200.0f);
 		mLoadGame->addEventListener("click", this);
 
 		mOptions->setParentOffsetY(buttonHeight * 0.5f);
+		mOptions->setWidth(180.0f);
 		mOptions->addEventListener("click", this);
 
 		mQuit->setParentOffsetY(buttonHeight * 1.5f);

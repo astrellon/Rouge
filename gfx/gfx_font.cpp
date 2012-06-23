@@ -288,6 +288,7 @@ namespace gfx {
 		int index = 0;
 		char ch = word[index];
 		width = -mKerning;
+		height = mCharHeight;
 
 		while (ch > ' ')
 		{

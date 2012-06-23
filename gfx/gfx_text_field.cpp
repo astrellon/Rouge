@@ -211,6 +211,23 @@ namespace gfx {
 		}
 	}
 
+	void TextField::setWidth(float width)
+	{
+		if (width != mWidth)
+		{
+			mDirty = true;
+			Renderable::setWidth(width);
+		}
+	}
+	void TextField::setHeight(float height)
+	{
+		if (height != mHeight)
+		{
+			mDirty = true;
+			Renderable::setHeight(height);
+		}
+	}
+
 	void TextField::checkAlignment(const char *line)
 	{
 		if (mAlignment == ALIGN_RIGHT)

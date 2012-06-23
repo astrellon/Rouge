@@ -120,7 +120,7 @@ namespace sys {
 
 
 	BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel);
-	BOOL CreateWindowGL (GL_Window* window);
+	string CreateWindowGL (GL_Window* window);
 	BOOL DestroyWindowGL (GL_Window* window);
 	BOOL RegisterWindowClass (Application* application);
 	LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

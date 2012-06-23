@@ -5,8 +5,14 @@
 	frameRate: 0,
 	scaleNine: {
 		left: 36,
-		right: 230,
+		right: 38,
 		top: 26,
 		bottom: 38
 	}
+	/*scaleNine: {
+		left: 36,
+		right: 230,
+		top: 26,
+		bottom: 38
+	}*/
 }

@@ -1,15 +1,17 @@
 #pragma once
 
 #include <string>
-#include "json_value.h"
+using namespace std;
 
-using std::string;
+#include "gfx/gfx_asset.h"
+using namespace am::gfx;
+
+#include "json_value.h"
+#include "handle.h"
 using namespace am::util;
 
 namespace am {
 namespace base {
-
-	class Graphic;
 
 	class Tile {
 	public:
@@ -23,9 +25,9 @@ namespace base {
 		string getFullName();
 		const string &getFullName() const;
 		void setFullName(const char *name);
-	
-		Graphic *getGraphic();
-		void setGraphic(Graphic *graphic);
+
+		Asset *getGraphicAsset();
+		void setGraphicAsset(Asset *asset);
 
 		void loadDef(JsonObject &value);
 	
@@ -33,14 +35,10 @@ namespace base {
 	
 		string mName;
 		string mFullName;
-		Graphic *mGraphic;
+		Handle<Asset> mGraphic;
 
 		int parseDef(const char *name, JsonValue &value);
 	};
 
 }
 }
-
-#ifdef _ANDROID
-#	include "tile.cpp"
-#endif

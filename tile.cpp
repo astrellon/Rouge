@@ -1,6 +1,4 @@
-#ifndef _ANDROID
-#	include "tile.h"
-#endif
+#include "tile.h"
 
 namespace am {
 namespace base {
@@ -46,12 +44,13 @@ namespace base {
 		mFullName = name;
 	}
 
-	Graphic *Tile::getGraphic() {
-		return mGraphic;
-	}
-	void Tile::setGraphic(Graphic *graphic)
+	Asset *Tile::getGraphicAsset()
 	{
-		mGraphic = graphic;
+		return mGraphic.get();
+	}
+	void Tile::setGraphicAsset(Asset *asset)
+	{
+		mGraphic = asset;
 	}
 
 	void Tile::loadDef(JsonObject &value) 

@@ -1,5 +1,7 @@
 #include "win_system.h"
 
+#include "logger.h"
+
 #include "game_system.h"
 
 namespace am {
@@ -229,8 +231,6 @@ namespace sys {
 
 		window.winSystem = this;
 
-		//ZeroMemory (&keys, sizeof (Keys));
-
 		// Register A Class For Our Window To Use
 		if (RegisterWindowClass (&application) == FALSE)
 		{
@@ -239,18 +239,17 @@ namespace sys {
 			return -1;
 		}
 
-		if (CreateWindowGL (&window) == FALSE)
+		string createWindowResult = CreateWindowGL(&window);
+		if (createWindowResult.size() > 0)
 		{
 			// Failure
-			MessageBox (HWND_DESKTOP, "Error Creating Window Class!", "Error", MB_OK | MB_ICONEXCLAMATION);
+			am_log("WIN", createWindowResult.c_str());
+			MessageBox (HWND_DESKTOP, createWindowResult.c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
 			return -1;
 		}
 
 		window.winSystem->init();
 
-		//mKeysDown = window.keys->keyDown;
-
-		//g_createFullScreen = window.init.isFullScreen;						// g_createFullScreen Is Set To User Default
 		while (mProgramRunning)											// Loop Until WM_QUIT Is Received
 		{
 			//ShowCursor(false);
@@ -373,7 +372,7 @@ namespace sys {
 		return TRUE;														// Display Change Was Successful, Return True
 	}
 
-	BOOL CreateWindowGL (GL_Window* window)									// This Code Creates Our OpenGL Window
+	string CreateWindowGL (GL_Window* window)									// This Code Creates Our OpenGL Window
 	{
 		DWORD windowStyle = WS_OVERLAPPEDWINDOW;							// Define Our Window Style
 		DWORD windowExtendedStyle = WS_EX_APPWINDOW;						// Define The Window's Extended Style
@@ -439,18 +438,18 @@ namespace sys {
 
 		if (window->hWnd == 0)												// Was Window Creation A Success?
 		{
-			return FALSE;													// If Not Return False
+			return "Unable to create OpenGL Window";
 		}
 
 		window->winSystem->setHWnd(window->hWnd);
 
-		window->hDC = GetDC (window->hWnd);									// Grab A Device Context For This Window
+		window->hDC = GetDC(window->hWnd);									// Grab A Device Context For This Window
 		if (window->hDC == 0)												// Did We Get A Device Context?
 		{
 			// Failed
 			DestroyWindow (window->hWnd);									// Destroy The Window
 			window->hWnd = 0;												// Zero The Window Handle
-			return FALSE;													// Return False
+			return "Unable to create device context for OpenGL Window";
 		}
 
 		PixelFormat = ChoosePixelFormat (window->hDC, &pfd);				// Find A Compatible Pixel Format
@@ -461,7 +460,7 @@ namespace sys {
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
 			window->hWnd = 0;												// Zero The Window Handle
-			return FALSE;													// Return False
+			return "Unable to find compatible pixel format for OpenGL Window";
 		}
 
 		if (SetPixelFormat (window->hDC, PixelFormat, &pfd) == FALSE)		// Try To Set The Pixel Format
@@ -471,7 +470,7 @@ namespace sys {
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
 			window->hWnd = 0;												// Zero The Window Handle
-			return FALSE;													// Return False
+			return "Unable to set pixel format for OpenGL Window";
 		}
 
 		window->hRC = wglCreateContext (window->hDC);						// Try To Get A Rendering Context
@@ -482,7 +481,7 @@ namespace sys {
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
 			window->hWnd = 0;												// Zero The Window Handle
-			return FALSE;													// Return False
+			return "Unable to get a render context for OpenGL Window\nYou may need to reset your computer or update your graphics drivers.";
 		}
 
 		// Make The Rendering Context Our Current Rendering Context
@@ -495,7 +494,7 @@ namespace sys {
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
 			window->hWnd = 0;												// Zero The Window Handle
-			return FALSE;													// Return False
+			return "Unable to use OpenGL render context";
 		}
 
 		ShowWindow (window->hWnd, SW_NORMAL);								// Make The Window Visible
@@ -503,11 +502,9 @@ namespace sys {
 
 		window->winSystem->reshape(window->init.width, window->init.height);					// Reshape Our GL Window
 
-		//ZeroMemory (window->keys, sizeof (Keys));							// Clear All Keys
-
 		window->lastTickCount = GetTickCount ();							// Get Tick Count
 
-		return TRUE;														// Window Creating Was A Success
+		return "";
 																			// Initialization Will Be Done In WM_CREATE
 	}
 
