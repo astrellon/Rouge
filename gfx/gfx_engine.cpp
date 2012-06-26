@@ -212,7 +212,7 @@ namespace gfx {
 			errss << ss.str() << "\'\nLoaded: "; 
 			loaded.display(errss);
 
-			am_log("ASST", errss.str().c_str());
+			am_log("ASST", errss);
 			
 			return NULL;
 		}
@@ -223,7 +223,7 @@ namespace gfx {
 		{
 			stringstream errss;
 			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASST", errss.str().c_str());
+			am_log("ASST", errss);
 			delete asset;
 			return NULL;
 		}
@@ -252,7 +252,7 @@ namespace gfx {
 		delete texture;
 		stringstream errss;
 		errss << "Unable to load texture '" << filename << "'";
-		am_log("GFX", errss.str().c_str());
+		am_log("GFX", errss);
 		
 		return NULL;
 	}
@@ -274,7 +274,7 @@ namespace gfx {
 			stringstream errss;
 			errss << "Unable to load font '" << fontNameStr << "', using the path '";
 			errss << ss.str() << '\''; 
-			am_log("FONT", errss.str().c_str());
+			am_log("FONT", errss);
 			return NULL;
 		}
 
@@ -284,7 +284,7 @@ namespace gfx {
 		{
 			stringstream errss;
 			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
-			am_log("FONT", errss.str().c_str());
+			am_log("FONT", errss);
 			delete font;
 			return NULL;
 		}

@@ -298,16 +298,18 @@ namespace util {
 		
 			stream << "{";
 			oiter = jObj->find("__comment");
-			if (oiter != jObj->end() && oiter->second.getType() == JV_STR) {
+			if (oiter != jObj->end() && oiter->second.getType() == JV_CMT) {
 				stream << " /* " << *oiter->second.getStr() << " */";
 			}
 			stream << '\n';
 			
 			for (oiter = jObj->begin() ;oiter != jObj->end(); ++oiter) {
-				if (oiter->first.compare("__comment") == 0) {
+				if (oiter->second.getType() == JV_CMT) 
+				{
 					continue;
 				}
-				if (!first) {
+				if (!first) 
+				{
 					stream << ",\n";
 				}
 				displayDepth(stream, depth);
@@ -377,7 +379,9 @@ namespace util {
 					}
 					cmtStr = cmtStr.substr(0, e + offset);
 				}
+
 				(*obj)["__comment"] = cmtStr;
+				(*obj)["__comment"].mType = JV_CMT;
 				token = nextToken(tokeniser);
 				ch = getChar(token);
 			}
@@ -466,7 +470,7 @@ namespace util {
 		{
 			std::stringstream ss;
 			ss << "Error importing JSON: " << filename;
-			am_log("JSON", ss.str().c_str());
+			am_log("JSON", ss);
 		}
 		
 		return loaded;

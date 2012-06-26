@@ -21,7 +21,10 @@ namespace base {
 		~TileSet();
 
 		void setName(const char *name);
-		string getName();
+		string getName() const;
+
+		void setFullName(const char *fullName);
+		string getFullName() const;
 
 		void addTile(Tile *tile);
 		void removeTile(Tile *tile);
@@ -38,6 +41,7 @@ namespace base {
 		TileMap mTiles;
 		
 		string mName;
+		string mFullName;
 	};
 
 }

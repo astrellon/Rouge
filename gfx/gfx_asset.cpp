@@ -145,12 +145,10 @@ namespace gfx {
 			setTexture(GfxEngine::getGfxEngine()->getTexture(value["texture"].getCStr()));
 			if (mTexture == NULL)
 			{
-				string errstr = "Unable to load texture (";
-				errstr += value["texture"].getCStr();
-				errstr += ") for asset '";
-				errstr += mName.c_str();
-				errstr += '\'';
-				am_log("ASSET", errstr.c_str());
+				stringstream errss;
+				errss << "Unable to load texture ("<< value["texture"].getCStr() << ") for asset '"
+					  << mName.c_str() << '\'';
+				am_log("ASSET", errss);
 				return -1;
 			}
 		}
@@ -158,10 +156,12 @@ namespace gfx {
 		{
 			return -1;
 		}
-		string str = "Loaded asset '";
-		str += mName.c_str();
-		str += '\'';
-		am_log("ASSET", str.c_str());
+
+		{
+			stringstream ss;
+			ss << "Loaded asset '" << mName.c_str() << '\'';
+			am_log("ASSET", ss);
+		}
 		float textureWidth = static_cast<float>(mTexture->getWidth());
 		float textureHeight = static_cast<float>(mTexture->getHeight());
 		float width = textureWidth;

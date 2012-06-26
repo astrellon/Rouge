@@ -1,5 +1,8 @@
 #include "tile_set.h"
 
+#include "logger.h"
+#include <sstream>
+
 namespace am {
 namespace base {
 
@@ -18,9 +21,18 @@ namespace base {
 	{
 		mName = name;
 	}
-	string TileSet::getName()
+	string TileSet::getName() const
 	{
 		return mName;
+	}
+
+	void TileSet::setFullName(const char *name)
+	{
+		mFullName = name;
+	}
+	string TileSet::getFullName() const
+	{
+		return mFullName;
 	}
 
 	void TileSet::addTile(Tile *tile)
@@ -80,7 +92,26 @@ namespace base {
 
 	void TileSet::loadDef(JsonValue value)
 	{
-
+		if (value.has("fullName", JV_STR))
+		{
+			mFullName = value["fullName"].getCStr();
+		}
+		if (value.has("tiles", JV_OBJ))
+		{
+			JsonObject *tiles = value["tiles"].getObj();
+			JsonObject::iterator iter;
+			for (iter = tiles->begin(); iter != tiles->end(); ++iter)
+			{
+				JsonValue tile = iter->second;
+				
+			}
+		}
+		else
+		{
+			stringstream ss;
+			ss << "Tile set '" << mName << "' definition does not have a set of tiles";
+			am_log("SET", ss);
+		}
 	}
 
 }

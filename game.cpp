@@ -67,7 +67,7 @@ namespace base {
 			stringstream errss;
 			errss << "Unable to load screen '" << screenName << "', using the path '";
 			errss << ss.str() << '\''; 
-			am_log("SCREEN", errss.str().c_str());
+			am_log("SCREEN", errss);
 			return NULL;
 		}
 
@@ -111,7 +111,7 @@ namespace base {
 			{
 				stringstream errss;
 				errss << "Screen (" << screen->getName() << ") return a NULL object list.";
-				am_log("SCR", errss.str().c_str());
+				am_log("SCR", errss);
 			}
 		}
 	}

@@ -243,7 +243,7 @@ namespace sys {
 		if (createWindowResult.size() > 0)
 		{
 			// Failure
-			am_log("WIN", createWindowResult.c_str());
+			am_log("WIN", createWindowResult);
 			MessageBox (HWND_DESKTOP, createWindowResult.c_str(), "Error", MB_OK | MB_ICONEXCLAMATION);
 			return -1;
 		}

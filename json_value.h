@@ -19,7 +19,8 @@ enum JsonType {
 	JV_BOOL,
 	JV_STR,
 	JV_OBJ,
-	JV_ARR
+	JV_ARR,
+	JV_CMT
 };
 
 using namespace std;

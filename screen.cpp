@@ -46,7 +46,7 @@ namespace base {
 		{
 			stringstream ss;
 			ss << "Unable to load screen '" << mName << "' from type '" << loaded.getTypeName() << '\'';
-			am_log("SCR", ss.str().c_str());
+			am_log("SCR", ss);
 			return;
 		}
 
