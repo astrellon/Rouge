@@ -59,7 +59,7 @@ namespace base {
 
 	void Camera::update(float dt)
 	{
-		GfxEngine::getGfxEngine()->setCameraLocation(getLocationX(), getLocationY());
+		GfxEngine::getEngine()->setCameraLocation(getLocationX(), getLocationY());
 	}
 
 }

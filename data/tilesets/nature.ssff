@@ -1,0 +1,15 @@
+{	// Global default tiles
+	fullName: "Nature Tiles",
+	tiles: {
+		grass: {
+			assetName: "tiles/grass",
+			fullName: "Grass",
+			description: "Tis grass"
+		},
+		dirt: {
+			assetName: "tiles/dirt",
+			fullName: "Dirt",
+			description: "It's dirt"
+		}
+	}
+}

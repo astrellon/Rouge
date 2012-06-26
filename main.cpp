@@ -11,7 +11,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::Logger::getMainLogger()->addLogListener(&fileLogger);
 
 	am::base::Engine engine;
-	am::base::Engine::setMainEngine(&engine);
+	am::base::Engine::setEngine(&engine);
 
 	am::ui::MouseManager mouseManager;
 	am::ui::MouseManager::setManager(&mouseManager);

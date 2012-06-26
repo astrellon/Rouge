@@ -18,6 +18,11 @@
 #include "game.h"
 #include "screen.h"
 
+#include "tile.h"
+#include "tile_set.h"
+
+#include "logger.h"
+
 namespace am {
 namespace sys {
 
@@ -46,7 +51,7 @@ namespace sys {
 	{
 		GameSystem::init();
 
-		GfxEngine *gfxEngine = GfxEngine::getGfxEngine();
+		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 		mMainMenu = new MainMenu(this);
@@ -66,15 +71,6 @@ namespace sys {
 		mIngameMenu->setHeight(screenHeight);
 		mIngameMenu->setVisible(false);
 
-		Tile *grass = new Tile("grass");
-		Tile *dirt = new Tile("dirt");
-
-		TileSet *nature = new TileSet("am");
-		nature->addTile(grass);
-		nature->addTile(dirt);
-
-		Engine *engine = Engine::getMainEngine();
-		engine->addTileSet(nature);
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -138,7 +134,7 @@ namespace sys {
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
 		{
-			GfxEngine::getGfxEngine()->getGameLayer()->clear();
+			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 		mEngine->setCurrentGame(NULL);
 		mIngameMenu->setVisible(false);
@@ -168,7 +164,7 @@ namespace sys {
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
 		{
-			GfxEngine::getGfxEngine()->getGameLayer()->clear();
+			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
 		Game *game = new Game(mEngine);
@@ -176,7 +172,7 @@ namespace sys {
 
 		// TODO: Reload testScreen!
 		game->setCurrentScreen("testScreen");
-		GfxEngine::getGfxEngine()->getGameLayer()->addChild(game->getGameLayer());
+		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
 		mPlayer->setGraphic(new Sprite("mainChar/front"));

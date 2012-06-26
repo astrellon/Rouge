@@ -54,7 +54,7 @@ namespace base {
 		}
 		if (mMoveX != 0 || mMoveY != 0)
 		{
-			Engine *engine = Engine::getMainEngine();
+			Engine *engine = Engine::getEngine();
 			float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
 			float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
 			stringstream ss;

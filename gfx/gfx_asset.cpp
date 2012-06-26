@@ -142,7 +142,7 @@ namespace gfx {
 	{
 		if (value.has("texture", JV_STR))
 		{
-			setTexture(GfxEngine::getGfxEngine()->getTexture(value["texture"].getCStr()));
+			setTexture(GfxEngine::getEngine()->getTexture(value["texture"].getCStr()));
 			if (mTexture == NULL)
 			{
 				stringstream errss;

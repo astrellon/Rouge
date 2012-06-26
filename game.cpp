@@ -25,7 +25,7 @@ namespace base {
 	{
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
-		//GfxEngine::getGfxEngine()->getRootLayer()->addChild(mGameLayer.get());
+		//GfxEngine::getEngine()->getRootLayer()->addChild(mGameLayer.get());
 
 		mBackground = new Layer();
 		mBackground->setName("Background");

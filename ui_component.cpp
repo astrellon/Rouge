@@ -121,7 +121,7 @@ namespace ui {
 		{
 			return mParent->getWidth();
 		}
-		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenWidth());
+		return static_cast<float>(GfxEngine::getEngine()->getScreenWidth());
 	}
 	float UIComponent::getParentHeight()
 	{
@@ -129,7 +129,7 @@ namespace ui {
 		{
 			return mParent->getHeight();
 		}
-		return static_cast<float>(GfxEngine::getGfxEngine()->getScreenHeight());
+		return static_cast<float>(GfxEngine::getEngine()->getScreenHeight());
 	}
 
 	void UIComponent::preRender(float dt)

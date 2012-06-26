@@ -46,8 +46,8 @@ namespace base {
 		TileSetMap &getTileSets();
 		TileSet *getTopLevelTileSet();
 
-		static Engine *getMainEngine();
-		static void setMainEngine(Engine *engine);
+		static Engine *getEngine();
+		static void setEngine(Engine *engine);
 
 	protected:
 

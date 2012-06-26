@@ -108,11 +108,7 @@ namespace base {
 			Handle<TileSet> tileSet = mTopLevelTileSet;
 			if (tileSetStr.size() > 0)
 			{
-				TileSetMap::iterator iter = mTileSets.find(tileSetStr);
-				if (iter != mTileSets.end())
-				{
-					tileSet = iter->second;
-				}
+				tileSet = getTileSet(tileSetStr.c_str());
 			}
 			if (tileSet.get())
 			{
@@ -144,12 +140,36 @@ namespace base {
 
 	TileSet *Engine::getTileSet(const char *tileSetName)
 	{
-		TileSetMap::iterator iter = mTileSets.find(string(tileSetName));
-		if (iter == mTileSets.end())
+		if (!tileSetName || tileSetName[0] == '\0')
 		{
+			return mTopLevelTileSet.get();
+		}
+		string tileSetStr = tileSetName;
+		TileSetMap::iterator iter = mTileSets.find(tileSetStr);
+		if (iter != mTileSets.end())
+		{
+			return iter->second.get();
+		}
+		
+		TileSet *tileSet = new TileSet(tileSetName);
+		
+		stringstream ss;
+		ss << "data/tilesets/" << tileSetName << ".ssff";
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() == JV_INT)
+		{
+			stringstream errss;
+			errss << "Error loading tile set '" << tileSetName << "' definition using path '" << ss.str() << '\'';
+			am_log("SET", errss);
+
+			delete tileSet;
+
 			return NULL;
 		}
-		return iter->second.get();
+
+		tileSet->loadDef(loaded);
+		mTileSets[tileSetStr] = tileSet;
+		return tileSet;
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{
@@ -167,11 +187,11 @@ namespace base {
 		return mTopLevelTileSet.get();
 	}
 
-	void Engine::setMainEngine(Engine *engine)
+	void Engine::setEngine(Engine *engine)
 	{
 		sMainEngine = engine;
 	}
-	Engine *Engine::getMainEngine()
+	Engine *Engine::getEngine()
 	{
 		return sMainEngine;
 	}

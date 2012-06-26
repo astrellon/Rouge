@@ -23,14 +23,14 @@ namespace ui {
 	void MouseManager::onMouseDown(MouseButton mouseButton, int x, int y)
 	{
 		mMouseButtonsDown[mouseButton] = true;
-		if (!checkForMouseEvent(GfxEngine::getGfxEngine()->getRootLayer(), MOUSE_DOWN, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_DOWN, mouseButton, x, y, x, y))
 		{
 			mUnderMouse = NULL;
 		}
 	}
 	void MouseManager::onMouseMove(MouseButton mouseButton, int x, int y)
 	{
-		if (!checkForMouseEvent(GfxEngine::getGfxEngine()->getRootLayer(), MOUSE_MOVE, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_MOVE, mouseButton, x, y, x, y))
 		{
 			if (mUnderMouse != NULL)
 			{
@@ -42,7 +42,7 @@ namespace ui {
 	void MouseManager::onMouseUp(MouseButton mouseButton, int x, int y)
 	{
 		mMouseButtonsDown[mouseButton] = false;
-		if (!checkForMouseEvent(GfxEngine::getGfxEngine()->getRootLayer(), MOUSE_UP, mouseButton, x, y, x, y))
+		if (!checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_UP, mouseButton, x, y, x, y))
 		{
 			mUnderMouse = NULL;
 		}

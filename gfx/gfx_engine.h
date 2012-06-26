@@ -65,7 +65,7 @@ namespace gfx {
 		void pushColourStack(const Colour &colour);
 		void popColourStack();
 
-		static GfxEngine *getGfxEngine();
+		static GfxEngine *getEngine();
 
 	protected:
 		

@@ -100,7 +100,7 @@ namespace sys {
 
 	void GameSystem::init()
 	{
-		GfxEngine *gfxEngine = GfxEngine::getGfxEngine();
+		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		gfxEngine ->init();
 		
 		mEngine->init();
@@ -118,7 +118,7 @@ namespace sys {
 
 	void GameSystem::reshape(int width, int height)
 	{
-		GfxEngine::getGfxEngine()->reshape(width, height);
+		GfxEngine::getEngine()->reshape(width, height);
 	}
 	void GameSystem::update(float dt)
 	{
@@ -126,27 +126,27 @@ namespace sys {
 	}
 	void GameSystem::display(float dt)
 	{
-		GfxEngine::getGfxEngine()->display(dt);
+		GfxEngine::getEngine()->display(dt);
 	}
 	void GameSystem::deinit()
 	{
-		GfxEngine::getGfxEngine()->deinit();
+		GfxEngine::getEngine()->deinit();
 		mEngine->deinit();
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
+		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
 	void GameSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
+		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseMove(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
 	{
-		GfxEngine::getGfxEngine()->getCursor()->setPosition(x, y);
+		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
 	void GameSystem::onKeyDown(int key)
@@ -193,7 +193,7 @@ namespace sys {
 	void GameSystem::onCursorHiddenChange(bool hidden)
 	{
 		// If the OS cursor is hidden, we want to show our in game cursor.
-		GfxEngine::getGfxEngine()->setCursorHidden(!hidden);
+		GfxEngine::getEngine()->setCursorHidden(!hidden);
 	}
 	bool GameSystem::isCursorHidden() const
 	{

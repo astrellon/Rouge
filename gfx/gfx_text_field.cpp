@@ -21,7 +21,7 @@ namespace gfx {
 		mAlignment(ALIGN_LEFT)
 	{
 		//mTransform.setUpDirection(am::math::Transform::REF_FORWARD);
-		mFont = GfxEngine::getGfxEngine()->getFont("basic");
+		mFont = GfxEngine::getEngine()->getFont("basic");
 	}
 
 	TextField::~TextField()
@@ -44,7 +44,7 @@ namespace gfx {
 	}
 	void TextField::setBaseFont(const char *fontName)
 	{
-		mFont = GfxEngine::getGfxEngine()->getFont(fontName);
+		mFont = GfxEngine::getEngine()->getFont(fontName);
 	}
 
 	float TextField::getMeasuredWidth()

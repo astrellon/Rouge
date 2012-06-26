@@ -103,7 +103,12 @@ namespace base {
 			for (iter = tiles->begin(); iter != tiles->end(); ++iter)
 			{
 				JsonValue tile = iter->second;
-				
+				if (tile.getType() == JV_OBJ)
+				{
+					Tile *tile = new Tile(iter->first.c_str());
+					tile->loadDef(tile);
+					addTile(tile);
+				}
 			}
 		}
 		else

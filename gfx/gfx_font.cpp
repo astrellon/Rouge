@@ -46,7 +46,7 @@ namespace gfx {
 	{
 		if (value.has("asset", JV_STR))
 		{
-			mAsset = GfxEngine::getGfxEngine()->getAsset(value["asset"].getCStr());
+			mAsset = GfxEngine::getEngine()->getAsset(value["asset"].getCStr());
 		}
 		if (value.has("fixedWidth", JV_BOOL))
 		{

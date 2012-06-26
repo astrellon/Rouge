@@ -45,16 +45,16 @@ namespace base {
 
 	void GameObject::setGridLocation(int x, int y, bool setDraw)
 	{
-		mLocationX = Engine::getMainEngine()->getGridXSize() * static_cast<float>(x);
-		mLocationY = Engine::getMainEngine()->getGridYSize() * static_cast<float>(y);
+		mLocationX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
+		mLocationY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return static_cast<int>(mLocationX * Engine::getMainEngine()->getGridXSize());
+		return static_cast<int>(mLocationX * Engine::getEngine()->getGridXSize());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return static_cast<int>(mLocationY * Engine::getMainEngine()->getGridYSize());
+		return static_cast<int>(mLocationY * Engine::getEngine()->getGridYSize());
 	}
 
 	void GameObject::setCameraOffset(float x, float y)

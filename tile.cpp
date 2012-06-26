@@ -98,7 +98,7 @@ namespace base {
 	{
 		if (value.has("assetName", JV_STR))
 		{
-			mGraphic = GfxEngine::getGfxEngine()->getAsset(value["assetName"].getCStr());
+			mGraphic = GfxEngine::getEngine()->getAsset(value["assetName"].getCStr());
 		}
 		if (value.has("fullName", JV_STR))
 		{

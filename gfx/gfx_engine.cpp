@@ -46,7 +46,7 @@ namespace gfx {
 
 	}
 
-	GfxEngine *GfxEngine::getGfxEngine()
+	GfxEngine *GfxEngine::getEngine()
 	{
 		if (sMainGfxEngine == NULL)
 		{
