@@ -62,11 +62,10 @@ namespace gfx {
 		float mWidth;
 		float mHeight;
 		bool mVisible;
-		//Handle<Layer> *mParent;
+		bool mInteractive;
+
 		Layer *mParent;
 		Colour mColour;
-		bool mInteractive;
-		//am::math::Transform mTransform;
 		am::math::TransformLite mTransform;
 
 		virtual void preRender(float dt);

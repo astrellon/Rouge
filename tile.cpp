@@ -1,47 +1,71 @@
 #include "tile.h"
 
+#include "gfx/gfx_engine.h"
+using namespace am::gfx;
+
+#include "tile_set.h"
+
 namespace am {
 namespace base {
 
 	Tile::Tile(const char *name) :
 		mName(name),
 		mFullName("No full name"),
-		mGraphic(NULL)
+		mGraphic(NULL),
+		mTileSet(NULL)
 	{
-		printf("Creating tile '%s'\n", name);
+		//printf("Creating tile '%s'\n", name);
 	}
 	Tile::Tile(const char *name, const char *fullName) :
 		mName(name),
 		mFullName(fullName),
-		mGraphic(NULL)
+		mGraphic(NULL),
+		mTileSet(NULL)
 	{
-		printf("Creating tile '%s', '%s'\n", name, fullName);
+		//printf("Creating tile '%s', '%s'\n", name, fullName);
 	}
 	Tile::~Tile()
 	{
-		printf("Deleting tile '%s'\n", mFullName.c_str());
+		//printf("Deleting tile '%s'\n", mFullName.c_str());
 	}
 
-	string Tile::getName()
+	void Tile::setName(const char *name)
+	{
+		if (!name)
+		{
+			return;
+		}
+		if (mTileSet)
+		{
+			mTileSet->removeTile(this);
+		}
+		mName = name;
+		if (mTileSet)
+		{
+			mTileSet->addTile(this);
+		}
+	}
+	string Tile::getName() const
 	{
 		return mName;
 	}
-	const string &Tile::getName() const
-	{
-		return mName;
-	}
 
-	string Tile::getFullName()
-	{
-		return mFullName;
-	}
-	const string &Tile::getFullName() const
+	string Tile::getFullName() const
 	{
 		return mFullName;
 	}
 	void Tile::setFullName(const char *name)
 	{
 		mFullName = name;
+	}
+
+	string Tile::getDescription() const
+	{
+		return mDescription;
+	}
+	void Tile::setDescription(const char *description)
+	{
+		mDescription = description;
 	}
 
 	Asset *Tile::getGraphicAsset()
@@ -53,34 +77,37 @@ namespace base {
 		mGraphic = asset;
 	}
 
-	void Tile::loadDef(JsonObject &value) 
+	void Tile::setTileSet(TileSet *tileSet)
 	{
-		JsonObject::iterator iter;
-		for (iter = value.begin(); iter != value.end(); ++iter) {
-			if (iter->first.compare("__comment") == 0) {
-				continue;
-			}
-
-			int parseResult = parseDef(iter->first.c_str(), iter->second);
-			if (parseResult == -1) {
-				printf("Unable to parse tile property: '%s'\n", iter->first.c_str());
-			}
-			else if(parseResult == -2) {
-				printf("Value was not of expected type: '%s'\n", iter->first.c_str());
-			}
+		if (mTileSet)
+		{
+			mTileSet->release();
+		}
+		mTileSet = tileSet;
+		if (mTileSet)
+		{
+			mTileSet->retain();
 		}
 	}
-
-	int Tile::parseDef(const char *name, JsonValue &value) 
+	TileSet *Tile::getTileSet() const
 	{
-		if (strcmp(name, "fullName") == 0) {
-			if (value.getType() != JV_STR) {
-				return -2;
-			}
-			setFullName(value.getCStr());
-			return 0;
+		return mTileSet;
+	}
+
+	void Tile::loadDef(JsonValue value) 
+	{
+		if (value.has("assetName", JV_STR))
+		{
+			mGraphic = GfxEngine::getGfxEngine()->getAsset(value["assetName"].getCStr());
 		}
-		return -1;
+		if (value.has("fullName", JV_STR))
+		{
+			mFullName = value["fullName"].getCStr();
+		}
+		if (value.has("description", JV_STR))
+		{
+			mDescription = value["description"].getCStr();
+		}
 	}
 
 }

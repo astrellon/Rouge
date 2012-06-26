@@ -8,12 +8,15 @@ using namespace std;
 #include "handle.h"
 using namespace am::util;
 
-namespace am {
+#include "tile_set.h"
 
+namespace am {
 namespace base {
 
 	class Game;
 	class Tile;
+
+	typedef map<string, Handle<TileSet> > TileSetMap;
 
 	class Engine {
 	public:
@@ -23,22 +26,47 @@ namespace base {
 		void init();
 		void deinit();
 		void update(float dt);
-		void mouseFunc(int mouseButton, int x, int y);
-		void keyboardFunc(const bool *keys, int key);
 
 		void setCurrentGame(Game *game);
 		Game *getCurrentGame();
+
+		void setGridXSize(float size);
+		float getGridXSize() const;
+
+		void setGridYSize(float size);
+		float getGridYSize() const;
+
+		void usingTileSet(const char *tileSetName);
+		void clearUsingTileSet();
+
+		Tile *getTile(const char *name);
+
+		TileSet *getTileSet(const char *tileSetName);
+		void addTileSet(TileSet *tileSet);
+		TileSetMap &getTileSets();
+		TileSet *getTopLevelTileSet();
+
+		static Engine *getMainEngine();
+		static void setMainEngine(Engine *engine);
 
 	protected:
 
 		Handle<Game> mCurrentGame;
 
-		//void registerTile(Tile *t);
-		//void deregisterTiles();
+		float mGridXSize;
+		float mGridYSize;
 
-		//typedef map<string, Tile *> TileMap; 
+		typedef map<string, int> UsingTileSet;
+		UsingTileSet mUsingTileSetNames;
+		bool mUsingTileSetDirty;
+		TileSetMap mUsingTileSet;
 
-		//TileMap mRegTiles;
+		TileSetMap mTileSets;
+		Handle<TileSet> mTopLevelTileSet;
+
+		void checkUsingTileSet();
+
+		static Engine *sMainEngine;
 	};
 
 }

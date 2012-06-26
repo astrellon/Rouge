@@ -1,5 +1,7 @@
 #include "character.h"
 
+#include "engine.h"
+
 #include <sstream>
 using namespace std;
 
@@ -10,15 +12,8 @@ namespace base {
 		GameObject(),
 		mGraphic(NULL),
 		mController(NULL),
-		// Approx 4km/h
-		mWalkingSpeed(1.2f),
-		// Approx 10km/h
-		mRunningSpeed(3.0f),
-		// Approx 20km/h/s
-		mAcceleration(6.0f),
-		mRunning(false),
-		mMoveX(0.0f),
-		mMoveY(0.0f)
+		mMoveX(0),
+		mMoveY(0)
 	{
 		mInfo = new TextField();
 		mInfo->setBaseFont("basic");
@@ -57,14 +52,11 @@ namespace base {
 		{
 			mController->update(this, dt);
 		}
-		if (mMoveX != 0.0f || mMoveY != 0.0f)
+		if (mMoveX != 0 || mMoveY != 0)
 		{
-			float topSpeed = mRunning ? mRunningSpeed : mWalkingSpeed;
-			mCurrentSpeed += mAcceleration * dt;
-			mCurrentSpeed = mCurrentSpeed > topSpeed ? topSpeed : mCurrentSpeed;
-
-			float dx = mMoveX * mCurrentSpeed;
-			float dy = mMoveY * mCurrentSpeed;
+			Engine *engine = Engine::getMainEngine();
+			float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
+			float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
 			stringstream ss;
 			ss << "(" << dx << ", " << dy << ")";
 			mInfo->setText(ss.str().c_str());
@@ -73,7 +65,6 @@ namespace base {
 		else
 		{
 			mInfo->setText("(0, 0)");
-			mCurrentSpeed = 0.0f;
 		}
 	}
 
@@ -101,62 +92,21 @@ namespace base {
 
 	void Character::move(float x, float y)
 	{
-		setGameLocation(mGameLocationX + x, mGameLocationY + y);
+		setLocation(mLocationX + x, mLocationY + y);
 	}
 
-	void Character::setMoveVector(float x, float y)
+	void Character::setMoveVector(int x, int y)
 	{
 		mMoveX = x;
 		mMoveY = y;
 	}
-	float Character::getMoveVectorX() const
+	int Character::getMoveVectorX() const
 	{
 		return mMoveX;
 	}
-	float Character::getMoveVectorY() const
+	int Character::getMoveVectorY() const
 	{
 		return mMoveY;
-	}
-
-	void Character::setWalkingSpeed(float speed)
-	{
-		mWalkingSpeed = speed;
-	}
-	float Character::getWalkingSpeed() const
-	{
-		return mWalkingSpeed;
-	}
-
-	void Character::setRunningSpeed(float speed)
-	{
-		mRunningSpeed = speed;
-	}
-	float Character::getRunningSpeed() const
-	{
-		return mRunningSpeed;
-	}
-
-	void Character::setAcceleration(float acc)
-	{
-		mAcceleration = acc;
-	}
-	float Character::getAcceleration() const
-	{
-		return mAcceleration;
-	}
-
-	void Character::setRunning(bool running)
-	{
-		mRunning = running;
-	}
-	bool Character::isRunning() const
-	{
-		return mRunning;
-	}
-
-	float Character::getCurrentSpeed()
-	{
-		return mCurrentSpeed;
 	}
 
 }

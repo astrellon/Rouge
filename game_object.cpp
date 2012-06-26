@@ -2,15 +2,19 @@
 
 #include "screen.h"
 
+#include "engine.h"
+
 namespace am {
 namespace base {
 
 	GameObject::GameObject() :
 		Layer(),
-		mGameLocationX(0.0f),
-		mGameLocationY(0.0f),
+		mLocationX(0.0f),
+		mLocationY(0.0f),
 		mCameraOffsetX(0.0f),
 		mCameraOffsetY(0.0f),
+		mFixedToGrid(false),
+		mOnlyOnPassable(false),
 		mScreen(NULL)
 	{
 		setName("GameObject");
@@ -20,23 +24,37 @@ namespace base {
 
 	}
 
-	void GameObject::setGameLocation(float x, float y, bool setDraw)
+	void GameObject::setLocation(float x, float y, bool setDraw)
 	{
-		mGameLocationX = x;
-		mGameLocationY = y;
+		mLocationX = x;
+		mLocationY = y;
 		if (setDraw)
 		{
 			mTransform.setXY(x, y);
 		}
 		
 	}
-	float GameObject::getGameLocationX() const
+	float GameObject::getLocationX() const
 	{
-		return mGameLocationX;
+		return mLocationX;
 	}
-	float GameObject::getGameLocationY() const
+	float GameObject::getLocationY() const
 	{
-		return mGameLocationY;
+		return mLocationY;
+	}
+
+	void GameObject::setGridLocation(int x, int y, bool setDraw)
+	{
+		mLocationX = Engine::getMainEngine()->getGridXSize() * static_cast<float>(x);
+		mLocationY = Engine::getMainEngine()->getGridYSize() * static_cast<float>(y);
+	}
+	int GameObject::getGridLocationX() const
+	{
+		return static_cast<int>(mLocationX * Engine::getMainEngine()->getGridXSize());
+	}
+	int GameObject::getGridLocationY() const
+	{
+		return static_cast<int>(mLocationY * Engine::getMainEngine()->getGridYSize());
 	}
 
 	void GameObject::setCameraOffset(float x, float y)
@@ -68,6 +86,24 @@ namespace base {
 	Screen *GameObject::getScreen()
 	{
 		return mScreen;
+	}
+
+	void GameObject::setFixedToGrid(bool fixed)
+	{
+		mFixedToGrid = fixed;
+	}
+	bool GameObject::isFixedToGrid() const
+	{
+		return mFixedToGrid;
+	}
+
+	void GameObject::setOnlyOnPassable(bool only)
+	{
+		mOnlyOnPassable = only;
+	}
+	bool GameObject::isOnlyOnPassable() const
+	{
+		return mOnlyOnPassable;
 	}
 
 }

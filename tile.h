@@ -8,36 +8,45 @@ using namespace am::gfx;
 
 #include "json_value.h"
 #include "handle.h"
+#include "imanaged.h"
 using namespace am::util;
 
 namespace am {
 namespace base {
 
-	class Tile {
+	class TileSet;
+
+	class Tile : public IManaged {
 	public:
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);
 		~Tile();
 
-		string getName();
-		const string &getName() const;
+		string getName() const;
+		void setName(const char *name);
 
-		string getFullName();
-		const string &getFullName() const;
+		string getFullName() const;
 		void setFullName(const char *name);
+
+		string getDescription() const;
+		void setDescription(const char *description);
 
 		Asset *getGraphicAsset();
 		void setGraphicAsset(Asset *asset);
 
-		void loadDef(JsonObject &value);
+		void setTileSet(TileSet *tileSet);
+		TileSet *getTileSet() const;
+
+		void loadDef(JsonValue value);
 	
 	protected:
 	
 		string mName;
 		string mFullName;
+		TileSet *mTileSet;
 		Handle<Asset> mGraphic;
+		string mDescription;
 
-		int parseDef(const char *name, JsonValue &value);
 	};
 
 }

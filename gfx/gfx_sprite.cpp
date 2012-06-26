@@ -164,6 +164,14 @@ namespace gfx {
 
 		preRender(dt);
 		
+		updateSprite(dt);
+		renderSprite();
+
+		postRender(dt);
+	}
+
+	void Sprite::updateSprite(float dt)
+	{
 		mAsset->processAnimation();
 
 		if (mAsset->getTotalFrames() > 1)
@@ -201,19 +209,18 @@ namespace gfx {
 			mCurrentFrame = 0;
 			mCurrentTime = 0.0f;
 		}
+	}
 
+	void Sprite::renderSprite()
+	{
 		float width = getWidth();
 		float height = getHeight();
 		
 		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
-
 		const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
 
 		renderTexture(win, width, height);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		postRender(dt);
 	}
 
 	void Sprite::renderTexture(const TextureWindow &win, const float &width, const float &height)

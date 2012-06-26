@@ -191,7 +191,7 @@ namespace base {
 			setCurrentScreen(screen);
 		}
 		object->setScreen(screen);
-		object->setGameLocation(x, y);
+		object->setLocation(x, y);
 		if (following)
 		{
 			mCamera.followObject(object);

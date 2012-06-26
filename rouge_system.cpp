@@ -65,6 +65,16 @@ namespace sys {
 		mIngameMenu->setWidth(screenWidth);
 		mIngameMenu->setHeight(screenHeight);
 		mIngameMenu->setVisible(false);
+
+		Tile *grass = new Tile("grass");
+		Tile *dirt = new Tile("dirt");
+
+		TileSet *nature = new TileSet("am");
+		nature->addTile(grass);
+		nature->addTile(dirt);
+
+		Engine *engine = Engine::getMainEngine();
+		engine->addTileSet(nature);
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -170,7 +180,7 @@ namespace sys {
 
 		mPlayer = new Character();
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
-		mPlayer->setGameLocation(256, 256);
+		mPlayer->setLocation(256, 256);
 		game->addGameObject(mPlayer.get());
 
 		PlayerController *controller = new PlayerController();

@@ -3,9 +3,6 @@
 #include "gfx/gfx_layer.h"
 using namespace am::gfx;
 
-#include "vector.h"
-using namespace am::math;
-
 #include "handle.h"
 using namespace am::util;
 
@@ -22,9 +19,19 @@ namespace base {
 		GameObject();
 		~GameObject();
 
-		virtual void setGameLocation(float x, float y, bool setDraw = true);
-		virtual float getGameLocationX() const;
-		virtual float getGameLocationY() const;
+		virtual void setLocation(float x, float y, bool setDraw = true);
+		virtual float getLocationX() const;
+		virtual float getLocationY() const;
+
+		virtual void setGridLocation(int x, int y, bool setDraw = true);
+		virtual int getGridLocationX() const;
+		virtual int getGridLocationY() const;
+
+		virtual void setFixedToGrid(bool fixed);
+		virtual bool isFixedToGrid() const;
+
+		virtual void setOnlyOnPassable(bool only);
+		virtual bool isOnlyOnPassable() const;
 
 		virtual void update(float dt) = 0;
 
@@ -37,8 +44,11 @@ namespace base {
 
 	protected:
 
-		float mGameLocationX;
-		float mGameLocationY;
+		bool mFixedToGrid;
+		bool mOnlyOnPassable;
+
+		float mLocationX;
+		float mLocationY;
 
 		float mCameraOffsetX;
 		float mCameraOffsetY;

@@ -20,8 +20,8 @@ namespace base {
 
 	protected:
 
-		float mMoveX;
-		float mMoveY;
+		int mMoveX;
+		int mMoveY;
 		bool mRunning;
 	};
 

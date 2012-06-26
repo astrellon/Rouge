@@ -45,10 +45,12 @@ namespace gfx {
 
 		virtual float getWidth();
 		virtual float getHeight();
+
+		void updateSprite(float dt);
+		void renderSprite();
 		
 	protected:
 
-		//am::util::Handle<Asset> mAsset;
 		Asset *mAsset;
 
 		int mCurrentFrame;

@@ -118,6 +118,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
+    <ClCompile Include="tile_set.cpp" />
     <ClCompile Include="tokeniser.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="transform_lite.cpp" />
@@ -181,6 +182,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="rouge_system.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="tile_set.h" />
     <ClInclude Include="tile_instance.h" />
     <ClInclude Include="tokeniser.h" />
     <ClInclude Include="transform.h" />

@@ -44,7 +44,7 @@ namespace base {
 	{
 		if (mFollowing.get())
 		{
-			return mFollowing->getGameLocationX() + mFollowing->getCameraOffsetX();
+			return mFollowing->getLocationX() + mFollowing->getCameraOffsetX();
 		}
 		return mLocationX;
 	}
@@ -52,7 +52,7 @@ namespace base {
 	{
 		if (mFollowing.get())
 		{
-			return mFollowing->getGameLocationY() + mFollowing->getCameraOffsetY();
+			return mFollowing->getLocationY() + mFollowing->getCameraOffsetY();
 		}
 		return mLocationY;
 	}

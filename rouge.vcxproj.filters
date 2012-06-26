@@ -214,6 +214,9 @@
     <ClCompile Include="ui_text_input.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
+    <ClCompile Include="tile_set.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tokeniser.h">
@@ -408,6 +411,9 @@
     </ClInclude>
     <ClInclude Include="ui_text_input.h">
       <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="tile_set.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
