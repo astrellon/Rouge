@@ -1,6 +1,6 @@
 #include "game_object.h"
 
-#include "screen.h"
+#include "map.h"
 
 #include "engine.h"
 
@@ -15,7 +15,7 @@ namespace base {
 		mCameraOffsetY(0.0f),
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
-		mScreen(NULL)
+		mMap(NULL)
 	{
 		setName("GameObject");
 	}
@@ -71,21 +71,21 @@ namespace base {
 		return mCameraOffsetY;
 	}
 
-	void GameObject::setScreen(Screen *screen)
+	void GameObject::setMap(Map *map)
 	{
-		if (mScreen)
+		if (mMap)
 		{
-			mScreen->release();
+			mMap->release();
 		}
-		mScreen = screen;
-		if (mScreen)
+		mMap = map;
+		if (mMap)
 		{
-			mScreen->retain();
+			mMap->retain();
 		}
 	}
-	Screen *GameObject::getScreen()
+	Map *GameObject::getMap()
 	{
-		return mScreen;
+		return mMap;
 	}
 
 	void GameObject::setFixedToGrid(bool fixed)

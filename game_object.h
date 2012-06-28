@@ -12,7 +12,7 @@ using namespace std;
 namespace am {
 namespace base {
 
-	class Screen;
+	class Map;
 
 	class GameObject : public Layer {
 	public:
@@ -39,8 +39,8 @@ namespace base {
 		virtual float getCameraOffsetX() const;
 		virtual float getCameraOffsetY() const;
 
-		virtual void setScreen(Screen *screen);
-		virtual Screen *getScreen();
+		virtual void setMap(Map *map);
+		virtual Map *getMap();
 
 	protected:
 
@@ -53,7 +53,7 @@ namespace base {
 		float mCameraOffsetX;
 		float mCameraOffsetY;
 
-		Screen *mScreen;
+		Map *mMap;
 	};
 
 	typedef vector<Handle<GameObject> > ObjectList;

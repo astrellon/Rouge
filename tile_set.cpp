@@ -102,11 +102,11 @@ namespace base {
 			JsonObject::iterator iter;
 			for (iter = tiles->begin(); iter != tiles->end(); ++iter)
 			{
-				JsonValue tile = iter->second;
-				if (tile.getType() == JV_OBJ)
+				JsonValue tileDef = iter->second;
+				if (tileDef.getType() == JV_OBJ)
 				{
 					Tile *tile = new Tile(iter->first.c_str());
-					tile->loadDef(tile);
+					tile->loadDef(tileDef);
 					addTile(tile);
 				}
 			}

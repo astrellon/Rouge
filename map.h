@@ -4,7 +4,10 @@
 #include "gfx/gfx_sprite.h"
 
 #include "handle.h"
+#include "json_value.h"
 using namespace am::util;
+
+#include "game_object.h"
 
 namespace am {
 namespace gfx {
@@ -18,23 +21,49 @@ namespace base {
 
 	class Map : public Renderable {
 	public:
-		Map(int width, int height);
+		Map(const char *name);
+		Map(const char *name, int width, int height);
 		~Map();
 	
+		void setName(const char *name);
+		string getName() const;
+
+		void setFullName(const char *name);
+		string getFullName() const;
+
 		TileInstance *getTile(int x, int y);
 		TileInstance *getTiles();
+
+		Layer *getBackground();
+		Layer *getForeground();
 
 		void setSize(int width, int height);
 		int getWidth() const;
 		int getHeight() const;
 
-		//virtual void render(float dt);
+		ObjectList *getObjects();
+		bool addGameObject(GameObject *object);
+		bool removeGameObject(GameObject *object);
+		bool hasGameObject(GameObject *object) const;
+
+		void loadDef(JsonValue loaded);
+
+		void updateAssetSprites();
+		virtual void render(float dt);
 
 	protected:
 
 		TileInstance *mTiles;
 		int mWidth;
 		int mHeight;
+		
+		ObjectList mObjects;
+
+		string mName;
+		string mFullName;
+
+		Handle<Layer> mBackground;
+		Handle<Layer> mForeground;
 
 		// To keep memory at a sane level for larger maps, there is currently
 		// only one sprite per asset. This should also keep tiles of the same animated
@@ -43,6 +72,7 @@ namespace base {
 		AssetSpriteMap mAssetSprites;
 	
 		void clear();
+		ObjectList::const_iterator findGameObject(GameObject *object) const;
 	};
 
 }

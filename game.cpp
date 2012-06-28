@@ -11,7 +11,7 @@
 
 #include "gfx/gfx_layer.h"
 #include "gfx/gfx_engine.h"
-#include "screen.h"
+#include "map.h"
 
 using namespace am::util;
 
@@ -21,7 +21,8 @@ namespace base {
 	Game::Game(Engine *engine) :
 		//mMapFilename(""),
 		mEngine(engine),
-		mCurrentScreen(NULL)
+		mCurrentMap(NULL),
+		mActiveObjects(NULL)
 	{
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
@@ -47,44 +48,44 @@ namespace base {
 	{
 	}
 
-	Screen *Game::getScreen(const char *screenName)
+	Map *Game::getMap(const char *mapName)
 	{
-		return getScreen(string(screenName));
+		return getMap(string(mapName));
 	}
-	Screen *Game::getScreen(const string &screenName)
+	Map *Game::getMap(const string &mapName)
 	{
-		ScreenMap::iterator iter = mScreens.find(screenName);
-		if (iter != mScreens.end())
+		MapMap::iterator iter = mMaps.find(mapName);
+		if (iter != mMaps.end())
 		{
 			return iter->second.get();
 		}
 
 		stringstream ss;
-		ss << "data/screens/" << screenName << "/screen.ssff";
+		ss << "data/maps/" << mapName << ".ssff";
 		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
 		if (loaded.getType() != JV_OBJ)
 		{
 			stringstream errss;
-			errss << "Unable to load screen '" << screenName << "', using the path '";
+			errss << "Unable to load map '" << mapName << "', using the path '";
 			errss << ss.str() << '\''; 
-			am_log("SCREEN", errss);
+			am_log("MAP", errss);
 			return NULL;
 		}
 
-		Handle<Screen> screen(new Screen(screenName.c_str()));
-		screen->loadDef(loaded);
+		Handle<Map> map(new Map(mapName.c_str()));
+		map->loadDef(loaded);
 
-		mScreens[screenName] = screen;
+		mMaps[mapName] = map;
 
-		return screen.get();
+		return map.get();
 	}
 
-	Screen *Game::getCurrentScreen()
+	Map *Game::getCurrentMap()
 	{
-		return mCurrentScreen.get();
+		return mCurrentMap.get();
 	}
 	
-	void Game::setCurrentScreen(Screen *screen)
+	void Game::setCurrentMap(Map *map)
 	{
 		mBackground->clear();
 		mItemLayer->clear();
@@ -92,12 +93,12 @@ namespace base {
 		mForeground->clear();
 		mCamera.followObject(NULL);
 
-		mCurrentScreen = screen;
-		if (screen)
+		mCurrentMap = map;
+		if (map)
 		{
-			mBackground->addChild(screen->getBackground());
-			mForeground->addChild(screen->getForeground());
-			mActiveObjects = screen->getObjects();
+			mBackground->addChild(map->getBackground());
+			mForeground->addChild(map->getForeground());
+			mActiveObjects = map->getObjects();
 
 			if (mActiveObjects)
 			{
@@ -110,28 +111,28 @@ namespace base {
 			else
 			{
 				stringstream errss;
-				errss << "Screen (" << screen->getName() << ") return a NULL object list.";
-				am_log("SCR", errss);
+				errss << "Map (" << map->getName() << ") return a NULL object list.";
+				am_log("MAP", errss);
 			}
 		}
 	}
-	void Game::setCurrentScreen(const char *screenName)
+	void Game::setCurrentMap(const char *mapName)
 	{
-		setCurrentScreen(getScreen(string(screenName)));
+		setCurrentMap(getMap(string(mapName)));
 	}
-	void Game::setCurrentScreen(const string &screenName)
+	void Game::setCurrentMap(const string &mapName)
 	{
-		setCurrentScreen(getScreen(screenName));
+		setCurrentMap(getMap(mapName));
 	}
 
 	bool Game::addGameObject(GameObject *object)
 	{
-		if (mCurrentScreen.get() == NULL)
+		if (mCurrentMap.get() == NULL)
 		{
-			am_log("SCR", "Unable to add game object to null current screen");
+			am_log("MAP", "Unable to add game object to null current map");
 			return false;
 		}
-		if (mCurrentScreen->addGameObject(object))
+		if (mCurrentMap->addGameObject(object))
 		{
 			mCharacterLayer->addChild(object);
 			return true;
@@ -140,12 +141,12 @@ namespace base {
 	}
 	bool Game::removeGameObject(GameObject *object)
 	{
-		if (mCurrentScreen.get() == NULL)
+		if (mCurrentMap.get() == NULL)
 		{
-			am_log("SCR", "Unable to remove game object from null current screen");
+			am_log("MAP", "Unable to remove game object from null current map");
 			return false;
 		}
-		if (mCurrentScreen->removeGameObject(object))
+		if (mCurrentMap->removeGameObject(object))
 		{
 			mCharacterLayer->removeChild(object);
 			return true;
@@ -154,32 +155,32 @@ namespace base {
 	}
 	bool Game::hasGameObject(GameObject *object) const
 	{
-		if (mCurrentScreen.get() == NULL)
+		if (mCurrentMap.get() == NULL)
 		{
-			am_log("SCR", "Unable to search for game object with null current screen");
+			am_log("MAP", "Unable to search for game object with null current map");
 			return false;
 		}
-		return mCurrentScreen->hasGameObject(object);
+		return mCurrentMap->hasGameObject(object);
 	}
 
-	void Game::moveObjectToScreen(GameObject *object, const char *screenName, float x, float y, bool setAsCurrent)
+	void Game::moveObjectToMap(GameObject *object, const char *mapName, float x, float y, bool setAsCurrent)
 	{
 		if (!object)
 		{
 			return;
 		}
-		moveObjectToScreen(object, getScreen(screenName), x, y, setAsCurrent);
+		moveObjectToMap(object, getMap(mapName), x, y, setAsCurrent);
 	}
-	void Game::moveObjectToScreen(GameObject *object, Screen *screen, float x, float y, bool setAsCurrent)
+	void Game::moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent)
 	{
-		if (!object || !screen)
+		if (!object || !map)
 		{
 			return;
 		}
-		Screen *currentScreen = object->getScreen();
-		if (currentScreen)
+		Map *currentMap = object->getMap();
+		if (currentMap)
 		{
-			if (currentScreen->removeGameObject(object) && currentScreen == mCurrentScreen.get())
+			if (currentMap->removeGameObject(object) && currentMap == mCurrentMap.get())
 			{
 				mCharacterLayer->removeChild(object);
 			}
@@ -188,17 +189,17 @@ namespace base {
 		if (setAsCurrent)
 		{
 			following = mCamera.getFollowing() == object;
-			setCurrentScreen(screen);
+			setCurrentMap(map);
 		}
-		object->setScreen(screen);
+		object->setMap(map);
 		object->setLocation(x, y);
 		if (following)
 		{
 			mCamera.followObject(object);
 		}
-		if (screen)
+		if (map)
 		{
-			if (screen->addGameObject(object) && screen == mCurrentScreen.get())
+			if (map->addGameObject(object) && map == mCurrentMap.get())
 			{
 				mCharacterLayer->addChild(object);
 			}

@@ -1,0 +1,8 @@
+{	// Test map
+	fullName: "The Region of Test",
+	usingTileSets: ["nature"],
+	tiles: [
+		["grass", "dirt"],
+		["dirt", "grass"]
+	]
+}

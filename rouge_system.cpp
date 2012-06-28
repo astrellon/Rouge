@@ -19,7 +19,10 @@
 #include "screen.h"
 
 #include "tile.h"
+#include "tile_instance.h"
 #include "tile_set.h"
+
+#include "map.h"
 
 #include "logger.h"
 
@@ -71,6 +74,17 @@ namespace sys {
 		mIngameMenu->setHeight(screenHeight);
 		mIngameMenu->setVisible(false);
 
+		Engine *engine = Engine::getEngine();
+		Map *map = new Map("testMap", 2, 2);
+		
+		map->getTile(0, 0)->setTile(engine->getTile("nature/grass"));
+		map->getTile(1, 0)->setTile(engine->getTile("nature/dirt"));
+		map->getTile(0, 1)->setTile(engine->getTile("nature/dirt"));
+		map->getTile(1, 1)->setTile(engine->getTile("nature/grass"));
+
+		map->updateAssetSprites();
+
+		//gfxEngine->getUILayer()->addChild(map);
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -109,14 +123,14 @@ namespace sys {
 		{
 			if (key == 'A')
 			{
-				game->moveObjectToScreen(mPlayer.get(), "testScreen2", 100, 10, true);
+				//game->moveObjectToScreen(mPlayer.get(), "testScreen2", 100, 10, true);
 				//game->getCamera()->followObject(mPlayer.get());
 				//game->setCurrentScreen("testScreen2");
 			}
 			if (key == 'S')
 			{
 				//game->setCurrentScreen("testScreen");
-				game->moveObjectToScreen(mPlayer.get(), "testScreen", 256, 256, true);
+				//game->moveObjectToScreen(mPlayer.get(), "testScreen", 256, 256, true);
 				///game->getCamera()->followObject(mPlayer.get());
 			}
 		}
@@ -171,12 +185,13 @@ namespace sys {
 		mEngine->setCurrentGame(game);
 
 		// TODO: Reload testScreen!
-		game->setCurrentScreen("testScreen");
+		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
-		mPlayer->setLocation(256, 256);
+		//mPlayer->setLocation(256, 256);
+		mPlayer->setGridLocation(1, 1);
 		game->addGameObject(mPlayer.get());
 
 		PlayerController *controller = new PlayerController();

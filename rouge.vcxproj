@@ -115,7 +115,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="mouse_manager.cpp" />
     <ClCompile Include="player_controller.cpp" />
     <ClCompile Include="rouge_system.cpp" />
-    <ClCompile Include="screen.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tile_instance.cpp" />
     <ClCompile Include="tile_set.cpp" />
@@ -180,7 +179,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="player_controller.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="rouge_system.h" />
-    <ClInclude Include="screen.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tile_set.h" />
     <ClInclude Include="tile_instance.h" />

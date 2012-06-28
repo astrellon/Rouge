@@ -16,8 +16,8 @@ namespace base {
 
 	Engine::Engine() :
 		mCurrentGame(NULL),
-		mGridXSize(32.0f),
-		mGridYSize(32.0f),
+		mGridXSize(64.0f),
+		mGridYSize(64.0f),
 		mUsingTileSetDirty(true)
 	{
 	}
@@ -28,8 +28,17 @@ namespace base {
 
 	void Engine::init()
 	{
-		mTopLevelTileSet = new TileSet();
-		addTileSet(mTopLevelTileSet.get());
+		TileSet *global = getTileSet("global");
+		if (global == NULL)
+		{
+			am_log("SET", "Global tile set not found!");
+			mTopLevelTileSet = new TileSet();
+			addTileSet(mTopLevelTileSet.get());
+		}
+		else
+		{
+			mTopLevelTileSet = global;
+		}
 	}
 	void Engine::deinit()
 	{

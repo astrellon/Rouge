@@ -5,12 +5,17 @@ using namespace am::gfx;
 
 #include "tile_set.h"
 
+#include "logger.h"
+
+#include <sstream>
+
 namespace am {
 namespace base {
 
 	Tile::Tile(const char *name) :
 		mName(name),
 		mFullName("No full name"),
+		mDescription("Undescribable"),
 		mGraphic(NULL),
 		mTileSet(NULL)
 	{
@@ -19,6 +24,7 @@ namespace base {
 	Tile::Tile(const char *name, const char *fullName) :
 		mName(name),
 		mFullName(fullName),
+		mDescription("Undescribable"),
 		mGraphic(NULL),
 		mTileSet(NULL)
 	{
@@ -99,6 +105,12 @@ namespace base {
 		if (value.has("assetName", JV_STR))
 		{
 			mGraphic = GfxEngine::getEngine()->getAsset(value["assetName"].getCStr());
+		}
+		else
+		{
+			stringstream ss;
+			ss << "Tile '" << mName << "' did not have a graphic defined";
+			am_log("TILE", ss);
 		}
 		if (value.has("fullName", JV_STR))
 		{

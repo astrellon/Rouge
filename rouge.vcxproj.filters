@@ -151,9 +151,6 @@
     <ClCompile Include="gfx\scale_nine.cpp">
       <Filter>gfx\util</Filter>
     </ClCompile>
-    <ClCompile Include="screen.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="mouse_common.cpp">
       <Filter>ui\mouse</Filter>
     </ClCompile>
@@ -342,9 +339,6 @@
     </ClInclude>
     <ClInclude Include="gfx\scale_nine.h">
       <Filter>gfx\util</Filter>
-    </ClInclude>
-    <ClInclude Include="screen.h">
-      <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="mouse_manager.h">
       <Filter>ui\mouse</Filter>
