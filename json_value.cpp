@@ -129,7 +129,7 @@ namespace util {
 		return mContent.s;
 	}
 	const char *JsonValue::getCStr() {
-		if (mType == JV_STR && mContent.s != NULL) {
+		if ((mType == JV_STR || mType == JV_CMT) && mContent.s != NULL) {
 			return mContent.s->c_str();
 		}
 		return NULL;
@@ -247,7 +247,7 @@ namespace util {
 	}
 
 	void JsonValue::checkRefs(bool retain) {
-		if (mType == JV_STR) {
+		if (mType == JV_STR || mType == JV_CMT) {
 			altStrRef(mContent.s, retain);
 		}
 		else if (mType == JV_ARR) {

@@ -92,6 +92,10 @@ namespace base {
 				{
 					mUsingTileSet[tileIter->first] = tileIter->second;
 				}
+				else
+				{
+					mUsingTileSet[iter->first] = getTileSet(iter->first.c_str());
+				}
 			}
 			mUsingTileSetNames.clear();
 			mUsingTileSetDirty = false;
@@ -160,7 +164,7 @@ namespace base {
 			return iter->second.get();
 		}
 		
-		TileSet *tileSet = new TileSet(tileSetName);
+		Handle<TileSet> tileSet(new TileSet(tileSetName));
 		
 		stringstream ss;
 		ss << "data/tilesets/" << tileSetName << ".ssff";
@@ -171,14 +175,12 @@ namespace base {
 			errss << "Error loading tile set '" << tileSetName << "' definition using path '" << ss.str() << '\'';
 			am_log("SET", errss);
 
-			delete tileSet;
-
 			return NULL;
 		}
 
 		tileSet->loadDef(loaded);
 		mTileSets[tileSetStr] = tileSet;
-		return tileSet;
+		return tileSet.get();
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{

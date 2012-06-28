@@ -47,6 +47,10 @@ namespace base {
 	{
 		mLocationX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
 		mLocationY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		if (setDraw)
+		{
+			mTransform.setXY(mLocationX, mLocationY);
+		}
 	}
 	int GameObject::getGridLocationX() const
 	{

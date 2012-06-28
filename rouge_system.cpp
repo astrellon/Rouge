@@ -24,6 +24,7 @@
 
 #include "map.h"
 
+#include "json_value.h"
 #include "logger.h"
 
 namespace am {
@@ -75,16 +76,7 @@ namespace sys {
 		mIngameMenu->setVisible(false);
 
 		Engine *engine = Engine::getEngine();
-		Map *map = new Map("testMap", 2, 2);
 		
-		map->getTile(0, 0)->setTile(engine->getTile("nature/grass"));
-		map->getTile(1, 0)->setTile(engine->getTile("nature/dirt"));
-		map->getTile(0, 1)->setTile(engine->getTile("nature/dirt"));
-		map->getTile(1, 1)->setTile(engine->getTile("nature/grass"));
-
-		map->updateAssetSprites();
-
-		//gfxEngine->getUILayer()->addChild(map);
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -201,6 +193,8 @@ namespace sys {
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);
+
+
 	}
 
 	void RougeSystem::resumeGame()
