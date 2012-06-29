@@ -4,17 +4,22 @@
 #include "tile_instance.h"
 
 #include "engine.h"
+#include "gfx/gfx_engine.h"
 
 #include "logger.h"
 
 #include "gl.h"
+
+#include <sstream>
+using namespace std;
 
 namespace am {
 namespace base {
 
 	Map::Map(const char *name) :
 		mName(name),
-		mTiles(NULL)
+		mTiles(NULL),
+		mEnabledMapCulling(true)
 	{
 		mBackground = new Layer();
 		mBackground->addChild(this);
@@ -22,7 +27,8 @@ namespace base {
 	}
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
-		mTiles(NULL) 
+		mTiles(NULL),
+		mEnabledMapCulling(true)
 	{
 		setSize(width, height);
 		mBackground = new Layer();
@@ -295,13 +301,40 @@ namespace base {
 		float gridX = Engine::getEngine()->getGridXSize();
 		float gridY = Engine::getEngine()->getGridYSize();
 
-		glPushMatrix();
-		int t = 0;
+		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		float cameraX = gfxEngine->getCameraX();
+		float cameraY = gfxEngine->getCameraY();
 
-		float resetX = -mWidth * gridX;
-		for (int y = 0; y < mHeight; y++)
+		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
+		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
+
+		int minX = 0;
+		int maxX = mWidth;
+		int minY = 0;
+		int maxY = mHeight;
+
+		if (mEnabledMapCulling)
 		{
-			for (int x = 0; x < mWidth; x++)
+			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) / gridX);
+			minX = max(0, camMinX);
+			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) / gridX) + 1;
+			maxX = min(mWidth, camMaxX);
+
+			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) / gridY);
+			minY = max(0, camMinY);
+			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) / gridY) + 1;
+			maxY = min(mHeight, camMaxY);
+		}
+		glPushMatrix();
+		int t = minY * mWidth + minX;
+		int tStep = mWidth - (maxX - minX);
+
+		float resetX = -(maxX - minX) * gridX;
+		glTranslatef(minX * gridX, minY * gridY, 0.0f);
+		for (int y = minY; y < maxY; y++)
+		{
+			t = y * mWidth + minX;
+			for (int x = minX; x < maxX; x++)
 			{
 				Asset *asset = mTiles[t].getTile()->getGraphicAsset();
 				Sprite *sprite = mAssetSprites[asset].get();
@@ -310,6 +343,7 @@ namespace base {
 
 				glTranslatef(gridX, 0.0f, 0.0f);
 			}
+			//t += tStep;
 			glTranslatef(resetX, gridY, 0.0f);
 		}
 		glPopMatrix();

@@ -2,6 +2,7 @@
 
 #include "gfx/gfx_renderable.h"
 #include "gfx/gfx_sprite.h"
+#include "gfx/gfx_text_field.h"
 
 #include "handle.h"
 #include "json_value.h"
@@ -64,6 +65,8 @@ namespace base {
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;
+
+		bool mEnabledMapCulling;
 
 		// To keep memory at a sane level for larger maps, there is currently
 		// only one sprite per asset. This should also keep tiles of the same animated
