@@ -2,7 +2,11 @@
 	fullName: "The Region of Test",
 	usingTileSets: ["nature"],
 	tiles: [
-		["grass", "dirt"],
-		["dirt", "grass"]
+		["grass", "dirt", "grass", "grass", "grass", "dirt"],
+		["dirt", "grass", "grass", "dirt", "dirt", "grass"],
+		["dirt", "grass", "grass", "dirt", "dirt", "grass"],
+		["dirt", "grass", "grass", "dirt", "dirt", "grass"],
+		["grass", "dirt", "grass", "grass", "grass", "dirt"],
+		["grass", "dirt", "grass", "grass", "grass", "dirt"]
 	]
 }

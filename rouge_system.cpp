@@ -115,15 +115,11 @@ namespace sys {
 		{
 			if (key == 'A')
 			{
-				//game->moveObjectToScreen(mPlayer.get(), "testScreen2", 100, 10, true);
-				//game->getCamera()->followObject(mPlayer.get());
-				//game->setCurrentScreen("testScreen2");
+				game->moveObjectToMapGrid(mPlayer.get(), "testMap2", 3, 1, true);
 			}
 			if (key == 'S')
 			{
-				//game->setCurrentScreen("testScreen");
-				//game->moveObjectToScreen(mPlayer.get(), "testScreen", 256, 256, true);
-				///game->getCamera()->followObject(mPlayer.get());
+				game->moveObjectToMapGrid(mPlayer.get(), "testMap", 1, 3, true);
 			}
 		}
 		GameSystem::onKeyUp(key);
@@ -176,13 +172,11 @@ namespace sys {
 		Game *game = new Game(mEngine);
 		mEngine->setCurrentGame(game);
 
-		// TODO: Reload testScreen!
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
-		//mPlayer->setLocation(256, 256);
 		mPlayer->setGridLocation(1, 1);
 		game->addGameObject(mPlayer.get());
 
@@ -193,8 +187,6 @@ namespace sys {
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);
-
-
 	}
 
 	void RougeSystem::resumeGame()

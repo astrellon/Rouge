@@ -58,6 +58,8 @@ namespace base {
 		//void moveObjectToScreen(GameObject *object, Screen *screen, float x, float y, bool setAsCurrent = true);
 		void moveObjectToMap(GameObject *object, const char *mapName, float x, float y, bool setAsCurrent = true);
 		void moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent = true);
+		void moveObjectToMapGrid(GameObject *object, const char *mapName, int x, int y, bool setAsCurrent = true);
+		void moveObjectToMapGrid(GameObject *object, Map *map, int x, int y, bool setAsCurrent = true);
 
 		Camera *getCamera();
 

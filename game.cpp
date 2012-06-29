@@ -205,6 +205,18 @@ namespace base {
 			}
 		}
 	}
+	void Game::moveObjectToMapGrid(GameObject *object, const char *mapName, int x, int y, bool setAsCurrent)
+	{
+		float gx = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
+		float gy = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		moveObjectToMap(object, mapName, gx, gy, setAsCurrent);
+	}
+	void Game::moveObjectToMapGrid(GameObject *object, Map *map, int x, int y, bool setAsCurrent)
+	{
+		float gx = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
+		float gy = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		moveObjectToMap(object, map, gx, gy, setAsCurrent);
+	}
 
 	Camera *Game::getCamera()
 	{

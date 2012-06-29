@@ -104,7 +104,6 @@ namespace gfx {
 			throw std::runtime_error("Unable to load basic font asset");
 		}
 		mCursor = new Sprite(mCursorAsset);
-		//mCursor = new Sprite();
 	}
 	void GfxEngine::deinit()
 	{
