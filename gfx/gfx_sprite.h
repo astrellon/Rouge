@@ -1,16 +1,14 @@
 #pragma once
 
-#include "gfx_renderable.h"
-
-#include "../transform.h"
-#include "texture_window.h"
-
-#include "../handle.h"
-#include "scale_nine.h"
+#include <base\handle.h>
+using namespace am::base;
 
 #include <vector>
-
 using namespace std;
+
+#include "gfx_renderable.h"
+#include "texture_window.h"
+#include "scale_nine.h"
 
 namespace am {
 namespace gfx {

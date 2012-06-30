@@ -1,9 +1,12 @@
 #include "gfx_renderable.h"
 
-#include "../vector.h"
-#include "../gl.h"
-#include "../handle.h"
+#include <math/vector.h>
+using namespace am::math;
 
+#include <base/handle.h>
+using namespace am::base;
+
+#include <gl.h>
 #include "gfx_engine.h"
 #include "gfx_layer.h"
 

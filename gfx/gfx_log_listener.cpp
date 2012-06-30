@@ -2,7 +2,8 @@
 
 #include "gfx_text_list.h"
 
-#include "../logger.h"
+#include <log/logger.h>
+using namespace am::log;
 
 namespace am {
 namespace gfx {

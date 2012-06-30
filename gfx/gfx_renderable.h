@@ -3,18 +3,23 @@
 #include <ostream>
 using namespace std;
 
-#include "gfx_component.h"
-#include "../transform_lite.h"
-#include "../event_manager.h"
-#include "../colour.h"
+#include <math/transform_lite.h>
+using namespace am::math;
+
+#include <ui/event_manager.h>
+using namespace am::ui;
+
+#include <util/colour.h>
 using namespace am::util;
+
+#include "gfx_component.h"
 
 namespace am {
 namespace gfx {
 
 	class Layer;
 
-	class Renderable : public IManaged, public am::ui::EventManager {
+	class Renderable : public IManaged, public EventManager {
 	public:
 		Renderable();
 		virtual ~Renderable();

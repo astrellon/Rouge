@@ -16,20 +16,20 @@
 
 using namespace std;
 
-#include "shader.h"
+//#include "shader.h"
 
-#include "win_system.h"
-#include "game_system.h"
-#include "rouge_system.h"
-#include "mouse_manager.h"
-#include "keyboard_manager.h"
-#include "gfx/gfx_engine.h"
-#include "engine.h"
-#include "game.h"
+#include <sys/win_system.h>
+#include <sys/game_system.h>
+#include <sys/rouge_system.h>
+#include <ui/mouse_manager.h>
+#include <ui/keyboard_manager.h>
+#include <gfx/gfx_engine.h>
+#include <game/engine.h>
+#include <game/game.h>
 
-#include "logger.h"
-#include "file_log_listener.h"
+#include <log/logger.h>
+#include <log/file_log_listener.h>
 
-#include "event.h"
-#include "event_manager.h"
-#include "ievent_listener.h"
+#include <ui/event.h>
+#include <ui/event_manager.h>
+#include <ui/ievent_listener.h>

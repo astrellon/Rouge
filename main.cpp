@@ -1,7 +1,5 @@
 #include "main.h"
 
-#include "tile_instance.h"
-
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	am::log::Logger mainLogger;
@@ -10,8 +8,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::FileLogListener fileLogger("output.log");
 	am::log::Logger::getMainLogger()->addLogListener(&fileLogger);
 
-	am::base::Engine engine;
-	am::base::Engine::setEngine(&engine);
+	am::game::Engine engine;
+	am::game::Engine::setEngine(&engine);
 
 	am::ui::MouseManager mouseManager;
 	am::ui::MouseManager::setManager(&mouseManager);

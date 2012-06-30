@@ -10,9 +10,6 @@
     <Filter Include="util">
       <UniqueIdentifier>{ec01dbb9-7296-4253-9b28-3cfc0e4d992b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="base">
-      <UniqueIdentifier>{43800cf2-efdd-4b71-971e-5219813f18d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gfx">
       <UniqueIdentifier>{6d9e0df0-72fe-4eba-8963-729c5f25a8fa}</UniqueIdentifier>
     </Filter>
@@ -52,48 +49,15 @@
     <Filter Include="ui\keyboard">
       <UniqueIdentifier>{89ae3102-be0f-4f3a-8b3f-10b55be34f2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{43800cf2-efdd-4b71-971e-5219813f18d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{0c5c8aa6-5ad2-4530-80f6-fbbcf9ab905e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tokeniser.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="json_value.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="engine.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="tile_instance.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="win_system.cpp">
-      <Filter>sys\win</Filter>
-    </ClCompile>
-    <ClCompile Include="log_entry.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="logger.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="flie_log_listener.cpp">
-      <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="transform.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="bounding_box.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\gfx_asset.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
@@ -127,153 +91,135 @@
     <ClCompile Include="gfx\texture_window.cpp">
       <Filter>gfx\util</Filter>
     </ClCompile>
-    <ClCompile Include="event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse_event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="event_manager.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="keyboard_event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="colour.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="data_event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="imanaged.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\scale_nine.cpp">
       <Filter>gfx\util</Filter>
     </ClCompile>
-    <ClCompile Include="mouse_common.cpp">
+    <ClCompile Include="ui\data_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\event_manager.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_button.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_checkbox.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_component.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_image.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_label.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_text_input.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\keyboard_common.cpp">
+      <Filter>ui\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\keyboard_manager.cpp">
+      <Filter>ui\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\keyboard_event.cpp">
+      <Filter>ui\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\mouse_event.cpp">
       <Filter>ui\mouse</Filter>
     </ClCompile>
-    <ClCompile Include="mouse_manager.cpp">
+    <ClCompile Include="ui\mouse_common.cpp">
       <Filter>ui\mouse</Filter>
     </ClCompile>
-    <ClCompile Include="ui_button.cpp">
-      <Filter>ui\gui</Filter>
+    <ClCompile Include="ui\mouse_manager.cpp">
+      <Filter>ui\mouse</Filter>
     </ClCompile>
-    <ClCompile Include="ui_checkbox.cpp">
-      <Filter>ui\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_component.cpp">
-      <Filter>ui\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_image.cpp">
-      <Filter>ui\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_label.cpp">
-      <Filter>ui\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_main_menu.cpp">
+    <ClCompile Include="ui\ui_ingame_menu.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="ui_options_panel.cpp">
+    <ClCompile Include="ui\ui_main_menu.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="rouge_system.cpp">
-      <Filter>sys\rouge</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_ingame_menu.cpp">
+    <ClCompile Include="ui\ui_options_panel.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="game_system.cpp">
-      <Filter>sys\base</Filter>
+    <ClCompile Include="util\bounding_box.cpp">
+      <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="game_object.cpp">
+    <ClCompile Include="util\colour.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\json_value.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="game\camera.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\character.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\engine.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\game.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\game_object.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\map.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\player_controller.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile_instance.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile_set.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="base\imanaged.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="transform_lite.cpp">
+    <ClCompile Include="math\transform.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>base</Filter>
+    <ClCompile Include="math\transform_lite.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>base</Filter>
+    <ClCompile Include="sys\game_system.cpp">
+      <Filter>sys\base</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard_common.cpp">
-      <Filter>ui\keyboard</Filter>
+    <ClCompile Include="sys\rouge_system.cpp">
+      <Filter>sys\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="keyboard_manager.cpp">
-      <Filter>ui\keyboard</Filter>
+    <ClCompile Include="sys\win_system.cpp">
+      <Filter>sys\win</Filter>
     </ClCompile>
-    <ClCompile Include="player_controller.cpp">
-      <Filter>base</Filter>
+    <ClCompile Include="log\flie_log_listener.cpp">
+      <Filter>log</Filter>
     </ClCompile>
-    <ClCompile Include="ui_text_input.cpp">
-      <Filter>ui\gui</Filter>
+    <ClCompile Include="log\log_entry.cpp">
+      <Filter>log</Filter>
     </ClCompile>
-    <ClCompile Include="tile_set.cpp">
-      <Filter>base</Filter>
+    <ClCompile Include="log\logger.cpp">
+      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tokeniser.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="json_value.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="engine.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="tile.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="tile_instance.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="main.h" />
-    <ClInclude Include="resource_manager.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="isystem.h">
-      <Filter>sys\base</Filter>
-    </ClInclude>
-    <ClInclude Include="game_system.h">
-      <Filter>sys\base</Filter>
-    </ClInclude>
-    <ClInclude Include="win_system.h">
-      <Filter>sys\win</Filter>
-    </ClInclude>
-    <ClInclude Include="logger.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="log_entry.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="ilog_listener.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="file_log_listener.h">
-      <Filter>log</Filter>
-    </ClInclude>
-    <ClInclude Include="vector.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="transform.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="bounding_box.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\gfx_asset.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
@@ -307,107 +253,161 @@
     <ClInclude Include="gfx\texture_window.h">
       <Filter>gfx\util</Filter>
     </ClInclude>
-    <ClInclude Include="event.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="event_manager.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="ievent_listener.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="ievent_manager.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="keyboard_event.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="mouse_event.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="colour.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="data_event.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="IManaged.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="handle.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\scale_nine.h">
       <Filter>gfx\util</Filter>
     </ClInclude>
-    <ClInclude Include="mouse_manager.h">
+    <ClInclude Include="ui\data_event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\event_manager.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ievent_listener.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ievent_manager.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_button.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_checkbox.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_component.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_image.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_label.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_text_input.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_tooltip.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\keyboard_common.h">
+      <Filter>ui\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\keyboard_manager.h">
+      <Filter>ui\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\keyboard_event.h">
+      <Filter>ui\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\mouse_event.h">
       <Filter>ui\mouse</Filter>
     </ClInclude>
-    <ClInclude Include="mouse_common.h">
+    <ClInclude Include="ui\mouse_common.h">
       <Filter>ui\mouse</Filter>
     </ClInclude>
-    <ClInclude Include="ui_label.h">
-      <Filter>ui\gui</Filter>
+    <ClInclude Include="ui\mouse_manager.h">
+      <Filter>ui\mouse</Filter>
     </ClInclude>
-    <ClInclude Include="ui_button.h">
-      <Filter>ui\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_checkbox.h">
-      <Filter>ui\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_component.h">
-      <Filter>ui\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_image.h">
-      <Filter>ui\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_tooltip.h">
-      <Filter>ui\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_options_panel.h">
+    <ClInclude Include="ui\ui_ingame_menu.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="ui_main_menu.h">
+    <ClInclude Include="ui\ui_main_menu.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="rouge_system.h">
-      <Filter>sys\rouge</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_ingame_menu.h">
+    <ClInclude Include="ui\ui_options_panel.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="game_object.h">
-      <Filter>base</Filter>
-    </ClInclude>
-    <ClInclude Include="transform_lite.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="util\bounding_box.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="character.h">
+    <ClInclude Include="util\colour.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\json_value.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\utils.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\camera.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\character.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\engine.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game_object.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\icontroller.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\map.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\player_controller.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile_instance.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile_set.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="base\handle.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
+    <ClInclude Include="base\imanaged.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="icontroller.h">
-      <Filter>base</Filter>
+    <ClInclude Include="math\matrix.h">
+      <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="player_controller.h">
-      <Filter>base</Filter>
+    <ClInclude Include="math\transform.h">
+      <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard_common.h">
-      <Filter>ui\keyboard</Filter>
+    <ClInclude Include="math\transform_lite.h">
+      <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="keyboard_manager.h">
-      <Filter>ui\keyboard</Filter>
+    <ClInclude Include="math\vector.h">
+      <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="ui_text_input.h">
-      <Filter>ui\gui</Filter>
+    <ClInclude Include="sys\game_system.h">
+      <Filter>sys\base</Filter>
     </ClInclude>
-    <ClInclude Include="tile_set.h">
-      <Filter>base</Filter>
+    <ClInclude Include="sys\isystem.h">
+      <Filter>sys\base</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\rouge_system.h">
+      <Filter>sys\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\win_system.h">
+      <Filter>sys\win</Filter>
+    </ClInclude>
+    <ClInclude Include="log\file_log_listener.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\ilog_listener.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\log_entry.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\logger.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

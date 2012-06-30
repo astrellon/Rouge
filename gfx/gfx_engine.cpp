@@ -2,7 +2,17 @@
 
 #include <math.h>
 
-#include "../gl.h"
+#include <ui/event.h>
+#include <ui/mouse_event.h>
+#include <ui/keyboard_event.h>
+using namespace am::ui;
+
+#include <log/logger.h>
+
+#include <sstream>
+using namespace std;
+
+#include <gl.h>
 #include "IL/il.h"
 
 #include "gfx_renderable.h"
@@ -13,17 +23,6 @@
 #include "gfx_text_field.h"
 #include "gfx_text_list.h"
 #include "gfx_layer.h"
-
-#include "../event.h"
-#include "../mouse_event.h"
-#include "../keyboard_event.h"
-
-#include "../logger.h"
-
-#include <sstream>
-
-using namespace std;
-using namespace am::ui;
 
 namespace am {
 namespace gfx {

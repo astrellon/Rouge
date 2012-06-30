@@ -5,7 +5,7 @@
 #include "gfx_asset.h"
 #include "gfx_layer.h"
 
-#include "../logger.h"
+#include <log/logger.h>
 
 namespace am {
 namespace gfx {

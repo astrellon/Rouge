@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ilog_listener.h"
+#include <log/ilog_listener.h>
 
 using namespace am::log;
 

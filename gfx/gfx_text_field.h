@@ -3,8 +3,6 @@
 #include "gfx_renderable.h"
 #include "texture_window.h"
 
-#include "../transform.h"
-
 namespace am {
 namespace gfx {
 

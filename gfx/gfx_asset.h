@@ -2,16 +2,17 @@
 
 #include "gfx_component.h"
 #include "texture_window.h"
-#include "../json_value.h"
+#include <util/json_value.h>
 #include <string>
 
 #include "scale_nine.h"
 
-#include "../handle.h"
-#include "../imanaged.h"
+#include <base/handle.h>
+#include <base/imanaged.h>
 
 using namespace std;
 using namespace am::util;
+using namespace am::base;
 
 namespace am {
 namespace gfx {

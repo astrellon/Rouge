@@ -3,7 +3,7 @@
 #include "gfx_texture.h"
 #include "gfx_engine.h"
 
-#include "../logger.h"
+#include <log/logger.h>
 
 #include <string>
 

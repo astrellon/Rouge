@@ -5,11 +5,13 @@
 #include <string>
 using namespace std;
 
-#include "../handle.h"
-#include "../colour.h"
+#include <base/handle.h>
+using namespace am::base;
+
+#include <util/colour.h>
 using namespace am::util;
 
-#include "../matrix.h"
+#include <math/matrix.h>
 using namespace am::math;
 
 namespace am {

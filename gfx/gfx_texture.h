@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../gl.h"
+#include <gl.h>
 
 #include "gfx_component.h"
-#include "../imanaged.h"
+#include <base/imanaged.h>
 #include <string>
 
 using namespace std;
-using namespace am::util;
+using namespace am::base;
 
 namespace am {
 namespace gfx {

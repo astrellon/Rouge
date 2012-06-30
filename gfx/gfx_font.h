@@ -2,14 +2,15 @@
 
 #include <string>
 #include <vector>
-#include "../json_value.h"
+using namespace std;
 
-#include "../imanaged.h"
+#include <util/json_value.h>
+using namespace am::util;
+
+#include <base/imanaged.h>
+using namespace am::base;
 
 #include "texture_window.h"
-
-using namespace std;
-using namespace am::util;
 
 namespace am {
 namespace gfx {
