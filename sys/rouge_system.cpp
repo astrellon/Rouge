@@ -11,8 +11,6 @@
 #include <ui/ui_options_panel.h>
 #include <ui/ui_ingame_menu.h>
 
-
-
 #include <game/character.h>
 #include <game/player_controller.h>
 
@@ -27,6 +25,8 @@
 
 #include <util/json_value.h>
 #include <log/logger.h>
+
+#include <time.h>
 
 namespace am {
 namespace sys {
@@ -54,6 +54,7 @@ namespace sys {
 
 	void RougeSystem::init()
 	{
+		srand( time_t(NULL) );
 		GameSystem::init();
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();

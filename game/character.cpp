@@ -52,19 +52,17 @@ namespace game {
 		{
 			mController->update(this, dt);
 		}
-		if (mMoveX != 0 || mMoveY != 0)
 		{
 			Engine *engine = Engine::getEngine();
 			float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
 			float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
+
+			int gridX = getGridLocationX();
+			int gridY = getGridLocationY();
 			stringstream ss;
-			ss << "(" << dx << ", " << dy << ")";
+			ss << "(" << gridX << ", " << gridY << ")";
 			mInfo->setText(ss.str().c_str());
 			move(dx, dy);
-		}
-		else
-		{
-			mInfo->setText("(0, 0)");
 		}
 	}
 

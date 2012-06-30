@@ -18,8 +18,8 @@ namespace game {
 
 	Engine::Engine() :
 		mCurrentGame(NULL),
-		mGridXSize(64.0f),
-		mGridYSize(64.0f),
+		mGridXSize(32.0f),
+		mGridYSize(32.0f),
 		mUsingTileSetDirty(true)
 	{
 	}

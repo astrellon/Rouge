@@ -54,11 +54,11 @@ namespace game {
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return static_cast<int>(mLocationX * Engine::getEngine()->getGridXSize());
+		return static_cast<int>(mLocationX / Engine::getEngine()->getGridXSize());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return static_cast<int>(mLocationY * Engine::getEngine()->getGridYSize());
+		return static_cast<int>(mLocationY / Engine::getEngine()->getGridYSize());
 	}
 
 	void GameObject::setCameraOffset(float x, float y)

@@ -274,6 +274,9 @@ namespace game {
 		mAssetSprites.clear();
 
 		int numTiles = mWidth * mHeight;
+		float gridX = Engine::getEngine()->getGridXSize();
+		float gridY = Engine::getEngine()->getGridYSize();
+
 		for (int i = 0; i < numTiles; i++)
 		{
 			Asset *asset = mTiles[i].getTile()->getGraphicAsset();
@@ -284,6 +287,8 @@ namespace game {
 				{
 					Sprite *assetSprite = new Sprite(asset);
 					mAssetSprites[asset] = assetSprite;
+					assetSprite->setWidth(gridX);
+					assetSprite->setHeight(gridY);
 				}
 			}
 		}
