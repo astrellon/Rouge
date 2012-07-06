@@ -54,7 +54,6 @@ namespace gfx {
 
 	Asset *Sprite::getAsset()
 	{
-		//return mAsset.get();
 		return mAsset;
 	}
 	void Sprite::setAsset(Asset *asset)
@@ -68,7 +67,6 @@ namespace gfx {
 
 	void Sprite::setCurrentFrame(int frame)
 	{
-		//if (!mAsset.get())
 		if (!mAsset)
 		{
 			return;
@@ -353,7 +351,7 @@ namespace gfx {
 	{
 		if (mWidth == 0 && mAsset)
 		{
-			return mAsset->getWidth();
+ 			return mAsset->getWidth();
 		}
 		return mWidth;
 	}

@@ -308,8 +308,8 @@ namespace gfx {
 		float textureWidth = static_cast<float>(mTexture->getWidth());
 		float textureHeight = static_cast<float>(mTexture->getHeight());
 
-		mWidth = textureWidth / static_cast<float>(mNumFramesX);
-		mHeight = textureHeight / static_cast<float>(mNumFramesY);
+		mWidth = mWindow.getWidth() / static_cast<float>(mNumFramesX);
+		mHeight = mWindow.getHeight() / static_cast<float>(mNumFramesY);
 
 		float frameWidth = textureWidth / static_cast<float>(mNumFramesX);
 		float frameHeight = textureHeight / static_cast<float>(mNumFramesY);

@@ -15,7 +15,6 @@ namespace game {
 			DIVINE,
 			MIN_DAMAGE,
 			MAX_DAMAGE,
-			LUCK,
 			MAX_STAT_LENGTH
 		};
 	};

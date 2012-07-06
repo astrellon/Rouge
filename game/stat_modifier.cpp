@@ -1,6 +1,5 @@
 #include "stat_modifier.h"
 
-#include <util/stat_tokeniser.h>
 #include <util/utils.h>
 using namespace am::util;
 
