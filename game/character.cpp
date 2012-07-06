@@ -15,9 +15,6 @@ namespace game {
 		mMoveX(0),
 		mMoveY(0)
 	{
-		mInfo = new TextField();
-		mInfo->setBaseFont("basic");
-		addChild(mInfo.get());
 		setName("Character");
 	}
 	Character::~Character()
@@ -39,7 +36,6 @@ namespace game {
 			mCameraOffsetX = graphic->getWidth() * 0.5f;
 			mCameraOffsetY = graphic->getHeight() * 0.3f;
 		}
-		mInfo->setPosition(graphic->getWidth() + 2.0f, 0.0f);
 	}
 	Sprite *Character::getGraphic()
 	{
@@ -57,28 +53,9 @@ namespace game {
 			Engine *engine = Engine::getEngine();
 			float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
 			float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
-			stringstream ss;
-			ss << "(" << dx << ", " << dy << ")";
-			mInfo->setText(ss.str().c_str());
+			
 			move(dx, dy);
 		}
-		else
-		{
-			mInfo->setText("(0, 0)");
-		}
-	}
-
-	void Character::setName(const char *name)
-	{
-		mName = name;
-	}
-	void Character::setName(const string &name)
-	{
-		mName = name;
-	}
-	string Character::getName() const
-	{
-		return mName;
 	}
 
 	void Character::setController(IController *controller)
@@ -107,6 +84,11 @@ namespace game {
 	int Character::getMoveVectorY() const
 	{
 		return mMoveY;
+	}
+
+	Stats &Character::getStats()
+	{
+		return mStats;
 	}
 
 }

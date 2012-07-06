@@ -4,6 +4,7 @@
 using namespace am::base;
 
 #include <string>
+#include <vector>
 using namespace std;
 
 #include <gfx/gfx_text_field.h>
@@ -12,6 +13,8 @@ using namespace am::gfx;
 
 #include "icontroller.h"
 #include "game_object.h"
+
+#include "stats.h"
 
 namespace am {
 namespace game {
@@ -24,10 +27,6 @@ namespace game {
 		void setGraphic(Sprite *graphic);
 		Sprite *getGraphic();
 
-		void setName(const char *name);
-		void setName(const string &name);
-		string getName() const;
-
 		virtual void update(float dt);
 
 		virtual void move(float x, float y);
@@ -39,6 +38,8 @@ namespace game {
 		virtual int getMoveVectorX() const;
 		virtual int getMoveVectorY() const;
 
+		virtual Stats &getStats();
+
 	protected:
 
 		Handle<IController> mController;
@@ -49,9 +50,8 @@ namespace game {
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
 		Handle<Sprite> mGraphic;
-		Handle<TextField> mInfo;
 
-		string mName;
+		Stats mStats;
 	};
 
 }

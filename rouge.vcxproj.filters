@@ -55,6 +55,9 @@
     <Filter Include="base">
       <UniqueIdentifier>{0c5c8aa6-5ad2-4530-80f6-fbbcf9ab905e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\stats">
+      <UniqueIdentifier>{ad5c5256-4bf7-49fa-ac32-08fe9a2316ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -216,6 +219,27 @@
     </ClCompile>
     <ClCompile Include="log\logger.cpp">
       <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="util\stat_tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="game\item.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\stat_modifier.cpp">
+      <Filter>game\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="game\stat_modifiers.cpp">
+      <Filter>game\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="game\stat_range.cpp">
+      <Filter>game\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="game\stats.cpp">
+      <Filter>game\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="game\item_instance.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +432,33 @@
     </ClInclude>
     <ClInclude Include="log\logger.h">
       <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="util\stat_tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\item.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\item_instance.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\stats_common.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="game\stat_modifier.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="game\stat_modifiers.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="game\stat_range.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="game\stats.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="game\item_common.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

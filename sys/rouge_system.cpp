@@ -11,8 +11,6 @@
 #include <ui/ui_options_panel.h>
 #include <ui/ui_ingame_menu.h>
 
-
-
 #include <game/character.h>
 #include <game/player_controller.h>
 
@@ -27,6 +25,14 @@
 
 #include <util/json_value.h>
 #include <log/logger.h>
+
+#include <game/stat_range.h>
+
+#include <game/stats.h>
+#include <game/stats_common.h>
+
+#include <game/item.h>
+#include <game/item_instance.h>
 
 namespace am {
 namespace sys {
@@ -77,7 +83,18 @@ namespace sys {
 		mIngameMenu->setVisible(false);
 
 		Engine *engine = Engine::getEngine();
-		
+
+		Handle<Item> item(new Item());
+		Handle<Sprite> inv(new Sprite("items/testItem"));
+		//inv->setSize(32, 32);
+		item->setGraphic(inv);
+		Handle<Sprite> gro(new Sprite("items/testItemGround"));
+		//gro->setSize(32, 32);
+		item->setGroundGraphic(gro);
+
+		item->setOnGround(true);
+		item->setPosition(400, 100);
+		gfxEngine->getUILayer()->addChild(item);
 	}
 
 	void RougeSystem::reshape(int width, int height)

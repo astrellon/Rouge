@@ -42,6 +42,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,8 +85,14 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\engine.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="game\game_object.cpp" />
+    <ClCompile Include="game\item.cpp" />
+    <ClCompile Include="game\item_instance.cpp" />
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
+    <ClCompile Include="game\stats.cpp" />
+    <ClCompile Include="game\stat_modifier.cpp" />
+    <ClCompile Include="game\stat_modifiers.cpp" />
+    <ClCompile Include="game\stat_range.cpp" />
     <ClCompile Include="game\tile.cpp" />
     <ClCompile Include="game\tile_instance.cpp" />
     <ClCompile Include="game\tile_set.cpp" />
@@ -131,6 +138,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
     <ClCompile Include="util\json_value.cpp" />
+    <ClCompile Include="util\stat_tokeniser.cpp" />
     <ClCompile Include="util\tokeniser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,8 +150,16 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\game_object.h" />
     <ClInclude Include="game\icontroller.h" />
+    <ClInclude Include="game\item.h" />
+    <ClInclude Include="game\item_common.h" />
+    <ClInclude Include="game\item_instance.h" />
     <ClInclude Include="game\map.h" />
     <ClInclude Include="game\player_controller.h" />
+    <ClInclude Include="game\stats.h" />
+    <ClInclude Include="game\stats_common.h" />
+    <ClInclude Include="game\stat_modifier.h" />
+    <ClInclude Include="game\stat_modifiers.h" />
+    <ClInclude Include="game\stat_range.h" />
     <ClInclude Include="game\tile.h" />
     <ClInclude Include="game\tile_instance.h" />
     <ClInclude Include="game\tile_set.h" />
@@ -196,6 +212,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
     <ClInclude Include="util\json_value.h" />
+    <ClInclude Include="util\stat_tokeniser.h" />
     <ClInclude Include="util\tokeniser.h" />
     <ClInclude Include="util\utils.h" />
   </ItemGroup>

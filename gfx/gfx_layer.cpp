@@ -56,6 +56,10 @@ namespace gfx {
 			return;
 		}
 
+		// Since we are removing the child before adding it in again
+		// if it is found. We don't want it being deleted if it only has
+		// one reference to it.
+		Handle<Renderable> childHandle(child);
 		ChildList::const_iterator iter = findChild(child);
 		if (child->getParent() != NULL)
 		{
@@ -78,8 +82,8 @@ namespace gfx {
 		ChildList::const_iterator iter = findChild(child);
 		if (iter != mChildren.end())
 		{
-			mChildren.erase(iter);
 			child->setParent(NULL);
+			mChildren.erase(iter);
 		}
 	}
 	bool Layer::hasChild(Renderable *child) const
@@ -97,7 +101,7 @@ namespace gfx {
 		{
 			return NULL;
 		}
-		return mChildren[index].get();
+		return mChildren[index];
 	}
 
 	int Layer::getNumChildren() const

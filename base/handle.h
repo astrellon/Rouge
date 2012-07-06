@@ -34,6 +34,10 @@ namespace base {
 			}
 		}
 
+		operator T *() const
+		{
+			return mObject;
+		}
 		T &operator*() const
 		{
 			return *mObject;
@@ -75,6 +79,31 @@ namespace base {
 			}
 
 			return *this;
+		}
+
+		bool operator==(const T *rhs) const
+		{
+			return mObject == rhs;
+		}
+		bool operator==(const T &rhs) const
+		{
+			return *mObject == rhs;
+		}
+		bool operator!=(const T *rhs) const
+		{
+			return mObject != rhs;
+		}
+		bool operator!=(const T &rhs) const
+		{
+			return *mObject != rhs;
+		}
+		bool operator!=(int rhs) const
+		{
+			return mObject != rhs;
+		}
+		bool operator!=(unsigned int rhs) const
+		{
+			return mObject != rhs;
 		}
 
 	private:

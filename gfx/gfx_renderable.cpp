@@ -62,6 +62,11 @@ namespace gfx {
 		glDisable(GL_BLEND);
 	}
 
+	void Renderable::setSize(float width, float height)
+	{
+		mWidth = width;
+		mHeight = height;
+	}
 	void Renderable::setWidth(float width)
 	{
 		mWidth = width;
@@ -164,11 +169,12 @@ namespace gfx {
 
 	void Renderable::setName(const char *name)
 	{
-		mName = name;
+		//mName = name;
 	}
 	string Renderable::getName() const
 	{
-		return mName;
+		//return mName;
+		return "Renderable";
 	}
 
 }

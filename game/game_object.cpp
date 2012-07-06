@@ -24,6 +24,19 @@ namespace game {
 
 	}
 
+	void GameObject::setName(const char *name)
+	{
+		mName = name;
+	}
+	void GameObject::setName(const string &name)
+	{
+		mName = name;
+	}
+	string GameObject::getName() const
+	{
+		return mName;
+	}
+
 	void GameObject::setLocation(float x, float y, bool setDraw)
 	{
 		mLocationX = x;

@@ -19,6 +19,10 @@ namespace game {
 		GameObject();
 		~GameObject();
 
+		virtual void setName(const char *name);
+		virtual void setName(const string &name);
+		virtual string getName() const;
+
 		virtual void setLocation(float x, float y, bool setDraw = true);
 		virtual float getLocationX() const;
 		virtual float getLocationY() const;
@@ -53,7 +57,10 @@ namespace game {
 		float mCameraOffsetX;
 		float mCameraOffsetY;
 
+		string mName;
+
 		Map *mMap;
+
 	};
 
 	typedef vector<Handle<GameObject> > ObjectList;

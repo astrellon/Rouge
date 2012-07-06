@@ -25,6 +25,7 @@ namespace gfx {
 		void clear();
 
 		bool hasChild(Renderable *child) const;
+		bool hasChild(Handle<Renderable> child) const;
 		int getNumChildren() const;
 		Renderable *getChildAt(int index) const;
 

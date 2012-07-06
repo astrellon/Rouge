@@ -294,19 +294,19 @@ namespace gfx {
 
 	Layer *GfxEngine::getRootLayer()
 	{
-		return mRootLayer.get();
+		return mRootLayer;
 	}
 	Layer *GfxEngine::getGameLayer()
 	{
-		return mGameLayer.get();
+		return mGameLayer;
 	}
 	Layer *GfxEngine::getUILayer()
 	{
-		return mUILayer.get();
+		return mUILayer;
 	}
 	Layer *GfxEngine::getDebugLayer()
 	{
-		return mDebugLayer.get();
+		return mDebugLayer;
 	}
 
 	void GfxEngine::setCursorHidden(bool hide)

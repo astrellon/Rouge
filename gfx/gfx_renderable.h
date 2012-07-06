@@ -26,6 +26,8 @@ namespace gfx {
 
 		virtual void render(float dt);
 		
+		virtual void setSize(float width, float height);
+
 		virtual void setWidth(float width);
 		virtual float getWidth();
 
@@ -62,7 +64,7 @@ namespace gfx {
 
 	protected:
 
-		string mName;
+		//string mName;
 
 		float mWidth;
 		float mHeight;
