@@ -11,6 +11,11 @@ using namespace am::util;
 #include <gfx/gfx_layer.h>
 #include <gfx/gfx_engine.h>
 
+#include <ui/mouse_manager.h>
+#include <ui/ui_button.h>
+#include <ui/ui_game_hud.h>
+#include <ui/ui_inspector.h>
+
 #include "engine.h"
 #include "map.h"
 
@@ -25,23 +30,30 @@ namespace game {
 	{
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
+		//mGameLayer->setInteractive(true);
 		//GfxEngine::getEngine()->getRootLayer()->addChild(mGameLayer.get());
 
 		mBackground = new Layer();
 		mBackground->setName("Background");
+		mBackground->setInteractive(true);
 		mGameLayer->addChild(mBackground.get());
 
 		mItemLayer = new Layer();
 		mItemLayer->setName("ItemLayer");
+		mItemLayer->setInteractive(true);
 		mGameLayer->addChild(mItemLayer.get());
 
 		mCharacterLayer = new Layer();
 		mCharacterLayer->setName("CharacterLayer");
+		mCharacterLayer->setInteractive(true);
 		mGameLayer->addChild(mCharacterLayer.get());
 
 		mForeground = new Layer();
 		mForeground->setName("Foreground");
+		mForeground->setInteractive(true);
 		mGameLayer->addChild(mForeground.get());
+
+		MouseManager::getManager()->addEventListener(MOUSE_UP, this);
 	}
 	Game::~Game()
 	{
@@ -83,6 +95,38 @@ namespace game {
 	{
 		return mCurrentMap.get();
 	}
+
+	void Game::onEvent(MouseEvent *e)
+	{
+		if (!mCurrentMap.get())
+		{
+			return;
+		}
+		if (!e->isPropagating())
+		{
+			//return;
+		}
+
+		am::math::TransformLite &trans = GfxEngine::getEngine()->getGameLayer()->getTransform();
+		int localX = e->getMouseX() - static_cast<int>(trans.getX());
+		int localY = e->getMouseY() - static_cast<int>(trans.getY());
+		int gridX = localX / static_cast<int>(Engine::getEngine()->getGridXSize());
+		int gridY = localY / static_cast<int>(Engine::getEngine()->getGridYSize());
+		
+		if (gridX < 0 || gridY < 0 || 
+			gridX >= mCurrentMap->getMapWidth() ||
+			gridY >= mCurrentMap->getMapHeight())
+		{
+			return;
+		}
+		GameHud *gameHud = Engine::getEngine()->getGameHud();
+		if (gameHud)
+		{
+			Tile *tile = mCurrentMap->getTile(gridX, gridY);
+			Inspector *inspector = gameHud->getInspector();
+			inspector->setTile(tile);
+		}
+	}
 	
 	void Game::setCurrentMap(Map *map)
 	{
@@ -98,7 +142,7 @@ namespace game {
 			mBackground->addChild(map->getBackground());
 			mForeground->addChild(map->getForeground());
 			mActiveObjects = map->getObjects();
-
+			
 			if (mActiveObjects)
 			{
 				ObjectList::iterator iter;
@@ -242,7 +286,7 @@ namespace game {
 	{
 		return mForeground.get();
 	}
-	
+
 	void Game::update(float dt)
 	{
 		if (mActiveObjects)

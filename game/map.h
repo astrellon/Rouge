@@ -21,6 +21,7 @@ using namespace am::gfx;
 namespace game {
 
 	class TileInstance;
+	class Tile;
 
 	class Map : public Renderable {
 	public:
@@ -34,15 +35,16 @@ namespace game {
 		void setFullName(const char *name);
 		string getFullName() const;
 
-		TileInstance *getTile(int x, int y);
+		Tile *getTile(int x, int y);
+		TileInstance *getTileInstance(int x, int y);
 		TileInstance *getTiles();
 
 		Layer *getBackground();
 		Layer *getForeground();
 
-		void setSize(int width, int height);
-		int getWidth() const;
-		int getHeight() const;
+		void setMapSize(int width, int height);
+		int getMapWidth() const;
+		int getMapHeight() const;
 
 		ObjectList *getObjects();
 		bool addGameObject(GameObject *object);
@@ -52,13 +54,16 @@ namespace game {
 		void loadDef(JsonValue loaded);
 
 		void updateAssetSprites();
+
+		//virtual float getWidth();
+		//virtual float getHeight();
 		virtual void render(float dt);
 
 	protected:
 
 		TileInstance *mTiles;
-		int mWidth;
-		int mHeight;
+		int mMapWidth;
+		int mMapHeight;
 		
 		ObjectList mObjects;
 

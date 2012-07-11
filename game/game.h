@@ -9,6 +9,10 @@ using namespace std;
 #include <base/imanaged.h>
 using namespace am::base;
 
+#include <ui/ievent_listener.h>
+#include <ui/ui_inspector.h>
+using namespace am::ui;
+
 #include "game_object.h"
 #include "camera.h"
 #include "map.h"
@@ -24,7 +28,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IManaged {
+	class Game : public IEventListener, public IManaged {
 	public:
 		Game(Engine *engine);
 		~Game();
@@ -50,6 +54,8 @@ namespace game {
 		void moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent = true);
 		void moveObjectToMapGrid(GameObject *object, const char *mapName, int x, int y, bool setAsCurrent = true);
 		void moveObjectToMapGrid(GameObject *object, Map *map, int x, int y, bool setAsCurrent = true);
+
+		virtual void onEvent(MouseEvent *e);
 
 		Camera *getCamera();
 

@@ -104,6 +104,15 @@ namespace game {
 		}
 	}
 
+	void Engine::setGameHud(GameHud *hud)
+	{
+		mGameHud = hud;
+	}
+	GameHud *Engine::getGameHud()
+	{
+		return mGameHud;
+	}
+
 	Tile *Engine::getTile(const char *name)
 	{
 		string nameStr = name;

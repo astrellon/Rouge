@@ -8,6 +8,9 @@ using namespace std;
 #include <base/handle.h>
 using namespace am::base;
 
+#include <ui/ui_game_hud.h>
+using namespace am::ui;
+
 #include "tile_set.h"
 
 namespace am {
@@ -46,6 +49,9 @@ namespace game {
 		TileSetMap &getTileSets();
 		TileSet *getTopLevelTileSet();
 
+		void setGameHud(GameHud *hud);
+		GameHud *getGameHud();
+
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
 
@@ -63,6 +69,8 @@ namespace game {
 
 		TileSetMap mTileSets;
 		Handle<TileSet> mTopLevelTileSet;
+
+		Handle<GameHud> mGameHud;
 
 		void checkUsingTileSet();
 

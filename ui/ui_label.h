@@ -30,8 +30,14 @@ namespace ui {
 
 		TextField *getLabelField();
 
+		virtual float getMeasuredWidth();
+		virtual float getMeasuredHeight();
+
 		virtual float getWidth();
 		virtual float getHeight();
+
+		virtual void setWidth(float width);
+		virtual void setHeight(float height);
 
 	protected:
 

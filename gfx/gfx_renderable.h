@@ -64,7 +64,9 @@ namespace gfx {
 
 	protected:
 
-		//string mName;
+#ifdef _DEBUG
+		string mDebugName;
+#endif
 
 		float mWidth;
 		float mHeight;

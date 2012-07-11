@@ -1,0 +1,9 @@
+{	// UI Panel Asset
+	texture: "data/textures/uiPanel.png",
+	scaleNine: {
+		left: 8,
+		right: 91,
+		top: 20,
+		bottom: 70
+	}
+}

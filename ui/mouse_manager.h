@@ -3,7 +3,11 @@
 #include <map>
 using namespace std;
 
+#include <base/handle.h>
+using namespace am::base;
+
 #include "mouse_common.h"
+#include "mouse_event.h"
 #include "event_manager.h"
 
 namespace am {
@@ -21,7 +25,7 @@ namespace ui {
 		MouseManager();
 		~MouseManager();
 
-		bool checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+		Renderable *checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 		Renderable *getUnderMouse() const;
 		bool getButtonDown(MouseButton button);
 
@@ -35,6 +39,9 @@ namespace ui {
 	protected:
 
 		Renderable *mUnderMouse;
+
+		bool mFiredEvent;
+		Handle<MouseEvent> mCurrentEvent;
 		typedef map<MouseButton, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
 

@@ -48,6 +48,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -129,11 +130,14 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_button.cpp" />
     <ClCompile Include="ui\ui_checkbox.cpp" />
     <ClCompile Include="ui\ui_component.cpp" />
+    <ClCompile Include="ui\ui_game_hud.cpp" />
     <ClCompile Include="ui\ui_image.cpp" />
     <ClCompile Include="ui\ui_ingame_menu.cpp" />
+    <ClCompile Include="ui\ui_inspector.cpp" />
     <ClCompile Include="ui\ui_label.cpp" />
     <ClCompile Include="ui\ui_main_menu.cpp" />
     <ClCompile Include="ui\ui_options_panel.cpp" />
+    <ClCompile Include="ui\ui_panel.cpp" />
     <ClCompile Include="ui\ui_text_input.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
@@ -202,11 +206,14 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_button.h" />
     <ClInclude Include="ui\ui_checkbox.h" />
     <ClInclude Include="ui\ui_component.h" />
+    <ClInclude Include="ui\ui_game_hud.h" />
     <ClInclude Include="ui\ui_image.h" />
     <ClInclude Include="ui\ui_ingame_menu.h" />
+    <ClInclude Include="ui\ui_inspector.h" />
     <ClInclude Include="ui\ui_label.h" />
     <ClInclude Include="ui\ui_main_menu.h" />
     <ClInclude Include="ui\ui_options_panel.h" />
+    <ClInclude Include="ui\ui_panel.h" />
     <ClInclude Include="ui\ui_text_input.h" />
     <ClInclude Include="ui\ui_tooltip.h" />
     <ClInclude Include="util\bounding_box.h" />

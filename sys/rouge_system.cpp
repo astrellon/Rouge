@@ -10,6 +10,8 @@
 #include <ui/ui_main_menu.h>
 #include <ui/ui_options_panel.h>
 #include <ui/ui_ingame_menu.h>
+#include <ui/ui_game_hud.h>
+#include <ui/ui_panel.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -67,23 +69,32 @@ namespace sys {
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 		mMainMenu = new MainMenu(this);
 		gfxEngine->getUILayer()->addChild(mMainMenu.get());
-		mMainMenu->setWidth(screenWidth);
-		mMainMenu->setHeight(screenHeight);
+		mMainMenu->setSize(screenWidth, screenHeight);
 		
 		mOptionsPanel = new OptionsPanel(this);
 		gfxEngine->getUILayer()->addChild(mOptionsPanel.get());
-		mOptionsPanel->setWidth(screenWidth);
-		mOptionsPanel->setHeight(screenHeight);
+		mOptionsPanel->setSize(screenWidth, screenHeight);
 		mOptionsPanel->setVisible(false);
 
 		mIngameMenu = new IngameMenu(this);
 		gfxEngine->getUILayer()->addChild(mIngameMenu.get());
-		mIngameMenu->setWidth(screenWidth);
-		mIngameMenu->setHeight(screenHeight);
+		mIngameMenu->setSize(screenWidth, screenHeight);
 		mIngameMenu->setVisible(false);
 
-		Engine *engine = Engine::getEngine();
+		mGameHud = new GameHud();
+		gfxEngine->getUILayer()->addChild(mGameHud.get());
+		mGameHud->setSize(screenWidth, screenHeight);
 
+		Handle<Panel> testPanel = new Panel();
+		testPanel->setTitle("Hello!");
+		testPanel->setParentOffset(300, 100);
+		testPanel->setSize(150, 200);
+		gfxEngine->getUILayer()->addChild(testPanel);
+
+		Engine *engine = Engine::getEngine();
+		engine->setGameHud(mGameHud);
+
+		/*
 		Handle<Item> item(new Item());
 		Handle<Sprite> inv(new Sprite("items/testItem"));
 		//inv->setSize(32, 32);
@@ -95,6 +106,7 @@ namespace sys {
 		item->setOnGround(true);
 		item->setPosition(400, 100);
 		gfxEngine->getUILayer()->addChild(item);
+		*/
 	}
 
 	void RougeSystem::reshape(int width, int height)
@@ -105,18 +117,19 @@ namespace sys {
 		float fheight = static_cast<float>(height);
 		if (mMainMenu.get())
 		{
-			mMainMenu->setWidth(fwidth);
-			mMainMenu->setHeight(fheight);
+			mMainMenu->setSize(fwidth, fheight);
 		}
 		if (mOptionsPanel.get())
 		{
-			mOptionsPanel->setWidth(fwidth);
-			mOptionsPanel->setHeight(fheight);
+			mOptionsPanel->setSize(fwidth, fheight);
 		}
 		if (mIngameMenu.get())
 		{
-			mIngameMenu->setWidth(fwidth);
-			mIngameMenu->setHeight(fheight);
+			mIngameMenu->setSize(fwidth, fheight);
+		}
+		if (mGameHud.get())
+		{
+			mGameHud->setSize(fwidth, fheight);
 		}
 	}
 

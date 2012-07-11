@@ -64,8 +64,8 @@ namespace gfx {
 
 	void Renderable::setSize(float width, float height)
 	{
-		mWidth = width;
-		mHeight = height;
+		setWidth(width);
+		setHeight(height);
 	}
 	void Renderable::setWidth(float width)
 	{
@@ -169,12 +169,17 @@ namespace gfx {
 
 	void Renderable::setName(const char *name)
 	{
-		//mName = name;
+#ifdef _DEBUG
+		mDebugName = name;
+#endif
 	}
 	string Renderable::getName() const
 	{
-		//return mName;
+#ifdef _DEBUG
+		return mDebugName;
+#else
 		return "Renderable";
+#endif
 	}
 
 }

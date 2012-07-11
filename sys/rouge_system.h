@@ -24,6 +24,7 @@ namespace ui {
 	class MouseManager;
 	class MainMenu;
 	class IngameMenu;
+	class GameHud;
 	class OptionsPanel;
 }
 using namespace am::ui;
@@ -57,6 +58,7 @@ namespace sys {
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;
 		Handle<IngameMenu> mIngameMenu;
+		Handle<GameHud> mGameHud;
 
 		Handle<Character> mPlayer;
 

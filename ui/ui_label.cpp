@@ -47,13 +47,31 @@ namespace ui {
 		return mLabel.get();
 	}
 
-	float Label::getWidth()
+	float Label::getMeasuredWidth()
 	{
 		return mLabel->getMeasuredWidth();
 	}
-	float Label::getHeight()
+	float Label::getMeasuredHeight()
 	{
 		return mLabel->getMeasuredHeight();
+	}
+
+	void Label::setWidth(float width)
+	{
+		mLabel->setWidth(width);
+	}
+	void Label::setHeight(float height)
+	{
+		mLabel->setHeight(height);
+	}
+
+	float Label::getWidth()
+	{
+		return mLabel->getWidth();
+	}
+	float Label::getHeight()
+	{
+		return mLabel->getHeight();
 	}
 
 }

@@ -23,16 +23,19 @@ namespace game {
 		mBackground = new Layer();
 		mBackground->addChild(this);
 		mForeground = new Layer();
+
+		setInteractive(true);
 	}
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
 		mTiles(NULL),
 		mEnabledMapCulling(true)
 	{
-		setSize(width, height);
+		setMapSize(width, height);
 		mBackground = new Layer();
 		mBackground->addChild(this);
 		mForeground = new Layer();
+		setInteractive(true);
 	}
 	Map::~Map()
 	{
@@ -57,20 +60,28 @@ namespace game {
 		return mFullName;
 	}
 	
-	TileInstance *Map::getTile(int x, int y)
+	Tile *Map::getTile(int x, int y)
 	{
-		if (x < 0 || y < 0 || x >= mWidth || y >= mHeight)
+		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
 		{
 			return NULL;
 		}
-		return &mTiles[y * mWidth + x];
+		return mTiles[y * mMapWidth + x].getTile();
+	}
+	TileInstance *Map::getTileInstance(int x, int y)
+	{
+		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
+		{
+			return NULL;
+		}
+		return &mTiles[y * mMapWidth + x];
 	}
 	TileInstance *Map::getTiles()
 	{
 		return mTiles;
 	}
 	
-	void Map::setSize(int width, int height)
+	void Map::setMapSize(int width, int height)
 	{
 		if (width < 1 || height < 1)
 		{
@@ -80,17 +91,20 @@ namespace game {
 		clear();
 		mTiles = new TileInstance[width * height];
 		
-		mWidth = width;
-		mHeight = height;
+		mMapWidth = width;
+		mMapHeight = height;
+
+		mWidth = static_cast<float>(width) * Engine::getEngine()->getGridXSize();
+		mHeight = static_cast<float>(height) * Engine::getEngine()->getGridYSize();
 	}
 
-	int Map::getWidth() const
+	int Map::getMapWidth() const
 	{
-		return mWidth;
+		return mMapWidth;
 	}
-	int Map::getHeight() const
+	int Map::getMapHeight() const
 	{
-		return mHeight;
+		return mMapHeight;
 	}
 
 	void Map::clear()
@@ -202,7 +216,7 @@ namespace game {
 			if (height > 0 && tiles->at(0).getType() == JV_ARR)
 			{
 				width = static_cast<int>(tiles->at(0).getArr()->size());
-				setSize(width, height);
+				setMapSize(width, height);
 				for (int y = 0; y < height; y++)
 				{
 					JsonValue tileRow = tiles->at(y);
@@ -273,7 +287,7 @@ namespace game {
 	{
 		mAssetSprites.clear();
 
-		int numTiles = mWidth * mHeight;
+		int numTiles = mMapWidth * mMapHeight;
 		float gridX = Engine::getEngine()->getGridXSize();
 		float gridY = Engine::getEngine()->getGridYSize();
 
@@ -313,31 +327,31 @@ namespace game {
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 
 		int minX = 0;
-		int maxX = mWidth;
+		int maxX = mMapWidth;
 		int minY = 0;
-		int maxY = mHeight;
+		int maxY = mMapHeight;
 
 		if (mEnabledMapCulling)
 		{
 			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) / gridX);
 			minX = max(0, camMinX);
 			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) / gridX) + 1;
-			maxX = min(mWidth, camMaxX);
+			maxX = min(mMapWidth, camMaxX);
 
 			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) / gridY);
 			minY = max(0, camMinY);
 			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) / gridY) + 1;
-			maxY = min(mHeight, camMaxY);
+			maxY = min(mMapHeight, camMaxY);
 		}
 		glPushMatrix();
-		int t = minY * mWidth + minX;
-		int tStep = mWidth - (maxX - minX);
+		int t = minY * mMapWidth + minX;
+		int tStep = mMapWidth - (maxX - minX);
 
 		float resetX = -(maxX - minX) * gridX;
 		glTranslatef(minX * gridX, minY * gridY, 0.0f);
 		for (int y = minY; y < maxY; y++)
 		{
-			t = y * mWidth + minX;
+			t = y * mMapWidth + minX;
 			for (int x = minX; x < maxX; x++)
 			{
 				Asset *asset = mTiles[t].getTile()->getGraphicAsset();

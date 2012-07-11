@@ -3,6 +3,9 @@
 #include "event.h"
 #include "ievent_listener.h"
 
+#include "mouse_common.h"
+#include "keyboard_common.h"
+
 #include <vector>
 #include <map>
 #include <string>
@@ -19,8 +22,24 @@ namespace ui {
 
 		virtual void addEventListener(const char *type, IEventListener *content) = 0;
 		virtual void addEventListener(const string &type, IEventListener *content) = 0;
+		void addEventListener(MouseEventType type, IEventListener *content)
+		{
+			addEventListener(MouseEventTypeNames[type], content);
+		}
+		void addEventListener(KeyboardEventType type, IEventListener *content)
+		{
+			addEventListener(KeyboardEventTypeNames[type], content);
+		}
 		virtual void removeEventListener(const char *type, IEventListener *content) = 0;
 		virtual void removeEventListener(const string &type, IEventListener *content) = 0;
+		void removeEventListener(MouseEventType type, IEventListener *content)
+		{
+			removeEventListener(MouseEventTypeNames[type], content);
+		}
+		void removeEventListener(KeyboardEventType type, IEventListener *content)
+		{
+			removeEventListener(KeyboardEventTypeNames[type], content);
+		}
 		virtual bool hasEventListener(const char *type) = 0;
 		virtual bool hasEventListener(const string &type) = 0;
 
