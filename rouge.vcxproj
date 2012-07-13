@@ -107,6 +107,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="gfx\gfx_texture.cpp" />
     <ClCompile Include="gfx\gfx_text_field.cpp" />
     <ClCompile Include="gfx\gfx_text_list.cpp" />
+    <ClCompile Include="gfx\gfx_text_style.cpp" />
     <ClCompile Include="gfx\scale_nine.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
     <ClCompile Include="log\flie_log_listener.cpp" />
@@ -143,7 +144,9 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="util\colour.cpp" />
     <ClCompile Include="util\json_value.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
+    <ClCompile Include="util\text_tokeniser.cpp" />
     <ClCompile Include="util\tokeniser.cpp" />
+    <ClCompile Include="util\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base\handle.h" />
@@ -177,6 +180,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="gfx\gfx_texture.h" />
     <ClInclude Include="gfx\gfx_text_field.h" />
     <ClInclude Include="gfx\gfx_text_list.h" />
+    <ClInclude Include="gfx\gfx_text_style.h" />
     <ClInclude Include="gfx\scale_nine.h" />
     <ClInclude Include="gfx\texture_window.h" />
     <ClInclude Include="log\file_log_listener.h" />
@@ -220,6 +224,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="util\colour.h" />
     <ClInclude Include="util\json_value.h" />
     <ClInclude Include="util\stat_tokeniser.h" />
+    <ClInclude Include="util\text_tokeniser.h" />
     <ClInclude Include="util\tokeniser.h" />
     <ClInclude Include="util\utils.h" />
   </ItemGroup>

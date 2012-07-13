@@ -33,6 +33,10 @@ namespace ui {
 		void onMouseMove(MouseButton mouseButton, int x, int y);
 		void onMouseUp(MouseButton mouseButton, int x, int y);
 
+		void setDragOffset(int x, int y);
+		int getDragOffsetX() const;
+		int getDragOffsetY() const;
+
 		static void setManager(MouseManager *manager);
 		static MouseManager *getManager();
 
@@ -44,6 +48,9 @@ namespace ui {
 		Handle<MouseEvent> mCurrentEvent;
 		typedef map<MouseButton, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
+
+		int mDragOffsetX;
+		int mDragOffsetY;
 
 		static MouseManager *sMainManager;
 

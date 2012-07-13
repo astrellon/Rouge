@@ -15,7 +15,9 @@ namespace ui {
 	MouseManager *MouseManager::sMainManager = NULL;
 	
 	MouseManager::MouseManager() :
-		mUnderMouse(NULL)
+		mUnderMouse(NULL),
+		mDragOffsetX(0),
+		mDragOffsetY(0)
 	{
 
 	}
@@ -147,6 +149,20 @@ namespace ui {
 	Renderable *MouseManager::getUnderMouse() const
 	{
 		return mUnderMouse;
+	}
+	
+	void MouseManager::setDragOffset(int x, int y)
+	{
+		mDragOffsetX = x;
+		mDragOffsetY = y;
+	}
+	int MouseManager::getDragOffsetX() const
+	{
+		return mDragOffsetX;
+	}
+	int MouseManager::getDragOffsetY() const
+	{
+		return mDragOffsetY;
 	}
 
 	void MouseManager::fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)

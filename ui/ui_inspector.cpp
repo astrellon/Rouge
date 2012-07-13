@@ -6,11 +6,15 @@ namespace am {
 namespace ui {
 
 	Inspector::Inspector() :
+		Panel(),
 		mTextDirty(true)
 	{
 		mInfo = new TextField();
-		mInfo->setAlignment(TextField::ALIGN_RIGHT);
+		mInfo->setColour(0, 0, 0);
+		mInfo->setPosition(10, 22);
 		addChild(mInfo);
+
+		setTitle("Inspector");
 	}
 	Inspector::~Inspector()
 	{
@@ -41,13 +45,13 @@ namespace ui {
 	
 	void Inspector::setWidth(float width)
 	{
-		UIComponent::setWidth(width);
-		mInfo->setWidth(width);
+		Panel::setWidth(width);
+		mInfo->setWidth(width - 18);
 	}
 	void Inspector::setHeight(float height)
 	{
-		UIComponent::setHeight(height);
-		mInfo->setHeight(height);
+		Panel::setHeight(height);
+		mInfo->setHeight(height - 28);
 	}
 
 	TextField *Inspector::getTextField()
@@ -67,15 +71,14 @@ namespace ui {
 	void Inspector::updateText()
 	{
 		stringstream ss;
-		ss << "Inspector:\n";
 		if (mTile.get())
 		{
-			ss << "Tile: " << mTile->getFullName() << "\nDesc: " << mTile->getDescription() << "\n\n";
+			ss << "<colour red>Tile:</colour> " << mTile->getFullName() << "\n<colour red>Desc:</colour> " << mTile->getDescription() << "\n\n";
 		}
 		GameObjectList::iterator iter;
 		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
-			ss << "GameObj: " << iter->get()->getName() << "\n\n";
+			ss << "<colour red>GameObj:</colour> " << iter->get()->getName() << "\n\n";
 		}
 		mInfo->setText(ss.str());
 		mTextDirty = false;

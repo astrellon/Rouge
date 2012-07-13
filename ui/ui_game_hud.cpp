@@ -7,10 +7,10 @@ namespace ui {
 	{
 		mInspector = new Inspector();
 		addChild(mInspector);
-		mInspector->setParentAnchor(X_RIGHT, Y_TOP);
-		mInspector->setAnchor(X_RIGHT, Y_TOP);
+		//mInspector->setParentAnchor(X_RIGHT, Y_TOP);
+		//mInspector->setAnchor(X_RIGHT, Y_TOP);
 		mInspector->setWidth(140.0f);
-		mInspector->setHeight(600.0f);
+		mInspector->setHeight(200.0f);
 	}
 	GameHud::~GameHud()
 	{

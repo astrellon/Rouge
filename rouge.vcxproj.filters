@@ -250,6 +250,15 @@
     <ClCompile Include="ui\ui_panel.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_text_style.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="util\text_tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\utils.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -477,6 +486,12 @@
     </ClInclude>
     <ClInclude Include="ui\ui_panel.h">
       <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_style.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="util\text_tokeniser.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

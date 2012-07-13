@@ -53,19 +53,44 @@ namespace ui {
 			}
 
 			ListenerList::iterator listIter;
-			for (listIter = iter->second.begin(); listIter != iter->second.end(); ++listIter)
+			ListenerList &listeners = iter->second;
+			for (int i = 0; i < static_cast<int>(listeners.size()); i++)
 			{
-				(*listIter)->onEvent(e);
+				mFiring = true;
+				listeners[i]->onEvent(e);
+				mFiring = false;
+
 				if (!e->isPropagating())
 				{
 					break;
 				}
 			}
+
+			removeToRemove();
 		}
 
 	protected:
 
 		Listeners mListeners;
+		bool mFiring;
+		Listeners mToRemove;
+
+		bool removeToRemove()
+		{
+			bool didRemove = false;
+			Listeners::iterator typeIter;
+			for (typeIter = mToRemove.begin(); typeIter != mToRemove.end(); ++typeIter)
+			{
+				ListenerList::iterator listIter;
+				for (listIter = typeIter->second.begin(); listIter != typeIter->second.end(); ++listIter)
+				{
+					didRemove = true;
+					removeEventListener(typeIter->first, *listIter);
+				}
+			}
+			mToRemove.clear();
+			return didRemove;
+		}
 	};
 
 }

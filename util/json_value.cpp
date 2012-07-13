@@ -443,13 +443,13 @@ namespace util {
 			if (num.find('.') == string::npos) {
 				int val;
 				//sscanf(num.c_str(), "%d", &val);
-				from_string<int>(val, num);
+				Utils::fromString<int>(val, num);
 				return JsonValue(val);
 			}
 			else {
 				float val;
 				//sscanf(num.c_str(), "%f", &val);
-				from_string<float>(val, num);
+				Utils::fromString<float>(val, num);
 				return JsonValue(val);
 			}
 		}

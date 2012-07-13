@@ -2,8 +2,12 @@
 
 #include <gl.h>
 
+#include <util/utils.h>
+
 namespace am {
 namespace util {
+
+	Colour::ColourMap Colour::sColourMap;
 
 	Colour::Colour() :
 		mRed(0.0f),
@@ -18,6 +22,14 @@ namespace util {
 		mBlue(blue),
 		mAlpha(alpha)
 	{
+	}
+	Colour::Colour(const Colour &rhs) :
+		mRed(rhs.mRed),
+		mGreen(rhs.mGreen),
+		mBlue(rhs.mBlue),
+		mAlpha(rhs.mAlpha)
+	{
+
 	}
 	Colour::~Colour()
 	{
@@ -82,6 +94,94 @@ namespace util {
 	void Colour::applyColour() const
 	{
 		glColor4f(mRed, mGreen, mBlue, mAlpha);
+	}
+
+	void Colour::parseFromTokeniser(TextTokeniser &tokeniser)
+	{
+		const char *token = tokeniser.nextToken();
+		if (!token || token[0] == '>')
+		{
+			return;
+		}
+		float value = 0;
+		bool parsed = Utils::fromString<float>(value, token);
+		if (parsed)
+		{
+			setRed(value);
+		}
+		else
+		{
+			string lower = Utils::toLowerCase(token);
+			getNamedColour(lower, *this);
+			return;
+		}
+
+		token = tokeniser.nextToken();
+		if (!token || token[0] == '>')
+		{
+			return;
+		}
+		parsed = Utils::fromString<float>(value, token);
+		if (parsed)
+		{
+			setGreen(value);
+		}
+				
+		token = tokeniser.nextToken();
+		if (!token || token[0] == '>')
+		{
+			return;
+		}
+		parsed = Utils::fromString<float>(value, token);
+		if (parsed)
+		{
+			setBlue(value);
+		}
+	}
+
+	bool Colour::getNamedColour(const char *name, Colour &result)
+	{
+		ColourMap::iterator iter = sColourMap.find(string(name));
+		if (iter != sColourMap.end())
+		{
+			result = iter->second;
+			return true;
+		}
+		return false;
+	}
+	bool Colour::getNamedColour(const string &name, Colour &result)
+	{
+		ColourMap::iterator iter = sColourMap.find(name);
+		if (iter != sColourMap.end())
+		{
+			result = iter->second;
+			return true;
+		}
+		return false;
+	}
+	void Colour::addNamedColour(const char *name, const Colour &colour)
+	{
+		sColourMap[string(name)] = colour;
+	}
+	void Colour::addNamedColour(const string &name, const Colour &colour)
+	{
+		sColourMap[name] = colour;
+	}
+	void Colour::removeNamedColour(const char *name)
+	{
+		ColourMap::iterator iter = sColourMap.find(string(name));
+		if (iter != sColourMap.end())
+		{
+			sColourMap.erase(iter);
+		}
+	}
+	void Colour::removeNamedColour(const string &name)
+	{
+		ColourMap::iterator iter = sColourMap.find(name);
+		if (iter != sColourMap.end())
+		{
+			sColourMap.erase(iter);
+		}
 	}
 
 }

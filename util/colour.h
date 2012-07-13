@@ -1,5 +1,11 @@
 #pragma once
 
+#include <map>
+#include <string>
+using namespace std;
+
+#include <util/text_tokeniser.h>
+
 namespace am {
 namespace util {
 
@@ -7,6 +13,7 @@ namespace util {
 	public:
 		Colour();
 		Colour(float red, float green, float blue, float alpha = 1.0f);
+		Colour(const Colour &rhs);
 		~Colour();
 
 		float getRed() const;
@@ -26,12 +33,24 @@ namespace util {
 
 		void applyColour() const;
 
+		void parseFromTokeniser(TextTokeniser &tokeniser);
+
+		static bool getNamedColour(const char *name, Colour &result);
+		static bool getNamedColour(const string &name, Colour &result);
+		static void addNamedColour(const char *name, const Colour &colour);
+		static void addNamedColour(const string &name, const Colour &colour);
+		static void removeNamedColour(const char *name);
+		static void removeNamedColour(const string &name);
+
 	protected:
 
 		float mRed;
 		float mGreen;
 		float mBlue;
 		float mAlpha;
+
+		typedef map<string, Colour> ColourMap;
+		static ColourMap sColourMap;
 	};
 
 }

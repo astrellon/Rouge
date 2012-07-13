@@ -71,7 +71,7 @@ namespace game {
 			}
 			else
 			{
-				bool result = from_string<float>(temp, token);
+				bool result = Utils::fromString<float>(temp, token);
 				if (result)
 				{
 					StatRange v(temp);

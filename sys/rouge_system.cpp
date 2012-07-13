@@ -4,6 +4,8 @@
 #include <gfx/gfx_layer.h>
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_asset.h>
+#include <gfx/gfx_text_field.h>
+#include <gfx/gfx_text_style.h>
 
 #include <ui/ui_button.h>
 #include <ui/ui_checkbox.h>
@@ -26,6 +28,8 @@
 #include <game/map.h>
 
 #include <util/json_value.h>
+#include <util/text_tokeniser.h>
+#include <util/utils.h>
 #include <log/logger.h>
 
 #include <game/stat_range.h>
@@ -85,30 +89,21 @@ namespace sys {
 		gfxEngine->getUILayer()->addChild(mGameHud.get());
 		mGameHud->setSize(screenWidth, screenHeight);
 
-		Handle<Panel> testPanel = new Panel();
-		testPanel->setTitle("Hello!");
-		testPanel->setParentOffset(300, 100);
-		testPanel->setSize(150, 200);
-		gfxEngine->getUILayer()->addChild(testPanel);
-
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
 
-		/*
-		Handle<Item> item(new Item());
-		Handle<Sprite> inv(new Sprite("items/testItem"));
-		//inv->setSize(32, 32);
-		item->setGraphic(inv);
-		Handle<Sprite> gro(new Sprite("items/testItemGround"));
-		//gro->setSize(32, 32);
-		item->setGroundGraphic(gro);
+		Colour::addNamedColour("white", Colour(1, 1, 1));
+		Colour::addNamedColour("black", Colour(0, 0, 0));
+		Colour::addNamedColour("red", Colour(1, 0, 0));
+		Colour::addNamedColour("green", Colour(0, 1, 0));
+		Colour::addNamedColour("blue", Colour(0, 0, 1));
 
-		item->setOnGround(true);
-		item->setPosition(400, 100);
-		gfxEngine->getUILayer()->addChild(item);
-		*/
+		Handle<TextField> field(new TextField());
+		field->setPosition(400, 100);
+		field->setText("Hello <ColOUR red>there<COLOUR green> how</colour> are</COLOur> you?");
+		gfxEngine->getUILayer()->addChild(field);
 	}
-
+	
 	void RougeSystem::reshape(int width, int height)
 	{
 		GameSystem::reshape(width, height);

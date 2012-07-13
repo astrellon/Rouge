@@ -13,12 +13,12 @@ using namespace am::gfx;
 #include <vector>
 using namespace std;
 
-#include <ui/ui_component.h>
+#include <ui/ui_panel.h>
 
 namespace am {
 namespace ui {
 
-	class Inspector : public UIComponent {
+	class Inspector : public Panel {
 	public:
 		Inspector();
 		~Inspector();
