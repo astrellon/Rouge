@@ -14,6 +14,7 @@
 #include <ui/ui_ingame_menu.h>
 #include <ui/ui_game_hud.h>
 #include <ui/ui_panel.h>
+#include <ui/ui_image.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -88,20 +89,14 @@ namespace sys {
 		mGameHud = new GameHud();
 		gfxEngine->getUILayer()->addChild(mGameHud.get());
 		mGameHud->setSize(screenWidth, screenHeight);
+		mGameHud->setVisible(false);
 
+		mPausedImage = new Image("paused");
+		mPausedImage->setParentAnchor(X_CENTER, Y_CENTER);
+		mPausedImage->setAnchor(X_CENTER, Y_CENTER);
+		
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
-
-		Colour::addNamedColour("white", Colour(1, 1, 1));
-		Colour::addNamedColour("black", Colour(0, 0, 0));
-		Colour::addNamedColour("red", Colour(1, 0, 0));
-		Colour::addNamedColour("green", Colour(0, 1, 0));
-		Colour::addNamedColour("blue", Colour(0, 0, 1));
-
-		Handle<TextField> field(new TextField());
-		field->setPosition(400, 100);
-		field->setText("Hello <ColOUR red>there<COLOUR green> how</colour> are</COLOur> you?");
-		gfxEngine->getUILayer()->addChild(field);
 	}
 	
 	void RougeSystem::reshape(int width, int height)
@@ -128,12 +123,62 @@ namespace sys {
 		}
 	}
 
+	void RougeSystem::togglePause()
+	{
+		mPausedGame = !mPausedGame;
+		checkPaused();
+	}
+
+	void RougeSystem::toggleInGameMenu()
+	{
+		mIngameMenu->setVisible(!mIngameMenu->isVisible());
+		checkPaused();
+	}
+
+	void RougeSystem::checkPaused()
+	{
+		if (isPaused())
+		{
+			mGameHud->setInteractive(false);
+			GfxEngine::getEngine()->getUILayer()->addChild(mPausedImage.get());
+			mPausedImage->setVisible(!mIngameMenu->isVisible());
+		}
+		else
+		{
+			mGameHud->setInteractive(true);
+			GfxEngine::getEngine()->getUILayer()->removeChild(mPausedImage.get());
+		}
+	}
+
+	bool RougeSystem::isPaused()
+	{
+		return mPausedGame || mIngameMenu->isVisible();
+	}
+
+	void RougeSystem::pauseGame(bool paused)
+	{
+		mPausedGame = true;
+		checkPaused();
+	}
+
+	void RougeSystem::resumeGame()
+	{
+		mPausedGame = false;
+		mIngameMenu->setVisible(false);
+		checkPaused();
+	}
+
 	void RougeSystem::onKeyUp(int key)
 	{
 		// 27 is currently escape.
 		if (key == 27 && mEngine->getCurrentGame() != NULL)
 		{
-			mIngameMenu->setVisible(!mIngameMenu->isVisible());
+			toggleInGameMenu();
+			return;
+		}
+		if (key == 19 && mEngine->getCurrentGame() != NULL)
+		{
+			togglePause();
 			return;
 		}
 		Game *game = mEngine->getCurrentGame();;
@@ -167,6 +212,7 @@ namespace sys {
 		mEngine->setCurrentGame(NULL);
 		mIngameMenu->setVisible(false);
 		mMainMenu->setVisible(true);
+		mGameHud->setVisible(false);
 	}
 	void RougeSystem::showOptionsPanel()
 	{
@@ -198,6 +244,8 @@ namespace sys {
 		Game *game = new Game(mEngine);
 		mEngine->setCurrentGame(game);
 
+		mPausedGame = false;
+
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
@@ -213,12 +261,7 @@ namespace sys {
 
 		mMainMenu->setVisible(false);
 		mIngameMenu->setVisible(false);
-	}
-
-	void RougeSystem::resumeGame()
-	{
-		mMainMenu->setVisible(false);
-		mIngameMenu->setVisible(false);
+		mGameHud->setVisible(true);
 	}
 
 }

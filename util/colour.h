@@ -42,6 +42,8 @@ namespace util {
 		static void removeNamedColour(const char *name);
 		static void removeNamedColour(const string &name);
 
+		static void addStandardNamedColours();
+
 	protected:
 
 		float mRed;

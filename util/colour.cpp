@@ -184,5 +184,14 @@ namespace util {
 		}
 	}
 
+	void Colour::addStandardNamedColours()
+	{
+		addNamedColour("white", Colour(1, 1, 1));
+		addNamedColour("black", Colour(0, 0, 0));
+		addNamedColour("red", Colour(1, 0, 0));
+		addNamedColour("green", Colour(0, 1, 0));
+		addNamedColour("blue", Colour(0, 0, 1));
+	}
+
 }
 }

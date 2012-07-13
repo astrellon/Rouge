@@ -25,6 +25,7 @@ namespace ui {
 	class MainMenu;
 	class IngameMenu;
 	class GameHud;
+	class Image;
 	class OptionsPanel;
 }
 using namespace am::ui;
@@ -45,6 +46,10 @@ namespace sys {
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
+		void togglePause();
+		void toggleInGameMenu();
+		bool isPaused();
+		void pauseGame(bool paused);
 		void resumeGame();
 		void quitGame();
 		void toMainMenu();
@@ -60,7 +65,12 @@ namespace sys {
 		Handle<IngameMenu> mIngameMenu;
 		Handle<GameHud> mGameHud;
 
+		Handle<Image> mPausedImage;
+
 		Handle<Character> mPlayer;
+
+		void checkPaused();
+		bool mPausedGame;
 
 		static RougeSystem *sRougeSystem;
 	};

@@ -14,12 +14,16 @@ namespace ui {
 		UIComponent()
 	{
 		mGraphic = new Sprite(asset);
+		mWidth = mGraphic->getWidth();
+		mHeight = mGraphic->getHeight();
 		addChild(mGraphic.get());
 	}
 	Image::Image(const char *assetName) :
 		UIComponent()
 	{
 		mGraphic = new Sprite(assetName);
+		mWidth = mGraphic->getWidth();
+		mHeight = mGraphic->getHeight();
 		addChild(mGraphic.get());
 	}
 	Image::~Image()
@@ -55,10 +59,14 @@ namespace ui {
 	void Image::setAsset(Asset *asset)
 	{
 		mGraphic->setAsset(asset);
+		mWidth = mGraphic->getWidth();
+		mHeight = mGraphic->getHeight();
 	}
 	void Image::setAsset(const char *assetName)
 	{
 		mGraphic->setAsset(assetName);
+		mWidth = mGraphic->getWidth();
+		mHeight = mGraphic->getHeight();
 	}
 	Sprite *Image::getGraphic()
 	{

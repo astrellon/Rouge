@@ -32,6 +32,8 @@
 
 #include <base/handle.h>
 
+#include <util/colour.h>
+
 using namespace std;
 using namespace am::math;
 
@@ -55,7 +57,7 @@ namespace sys {
 		mEngine(engine),
 		mDebugConsole(NULL)
 	{
-
+		Colour::addStandardNamedColours();
 	}
 	GameSystem::~GameSystem()
 	{
