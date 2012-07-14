@@ -90,7 +90,7 @@ namespace ui {
 		if (target == NULL || !target->isInteractive())
 		{
 			return NULL;
-		}	
+		}
 
 		// TODO: Replace with a multiple by inverse.
 		//const Matrix4f &localTrans = target->getTransform().getWorldToObj();
@@ -165,16 +165,25 @@ namespace ui {
 		return mDragOffsetY;
 	}
 
+	void MouseManager::clearCurrentlyFiring()
+	{
+		mStopCurrentEvents = true;
+	}
+
 	void MouseManager::fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
+		mStopCurrentEvents = false;
 		mFiredEvent = true;
 		mCurrentEvent = new MouseEvent(mouseType, mouseButton, x, y, target, localX, localY);
-		while(target != NULL && mCurrentEvent->isPropagating())
+		while(!mStopCurrentEvents && target != NULL && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
 			target = target->getParent();
 		}
-		fireEvent<MouseEvent>(mCurrentEvent.get());
+		if (!mStopCurrentEvents)
+		{
+			fireEvent<MouseEvent>(mCurrentEvent.get());
+		}
 	}
 
 	void MouseManager::setManager(MouseManager *manager)

@@ -82,6 +82,19 @@ namespace gfx {
 		return mTextureId;
 	}
 
+	int Texture::reload()
+	{
+		Texture *temp = new Texture(mFilename.c_str());
+		if (temp->isLoaded())
+		{
+			assign(*temp);
+			delete temp;
+			return 1;
+		}
+		delete temp;
+		return 0;
+	}
+
 	int Texture::getWidth() const 
 	{
 		return mWidth;
@@ -123,7 +136,6 @@ namespace gfx {
 		mBytesPerPixel = rhs.mBytesPerPixel;
 		mFilename = rhs.mFilename;
 		mGlFormat = rhs.mGlFormat;
-		//sTextureManager.altTextureRef(mTextureId, 1);
 	}
 
 	void Texture::destroy() 
@@ -131,12 +143,7 @@ namespace gfx {
 		if (mTextureId > 0) {
 			return;
 		}
-		/*
-		if (sTextureManager.altTextureRef(mTextureId, -1))
-		{
-			sTextureManager.removeLoadedTexture(mFilename.c_str());
-		}
-		*/
+
 		mFilename = "";
 		mTextureId = 0;
 		mLoaded = false;

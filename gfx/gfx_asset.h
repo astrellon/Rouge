@@ -56,7 +56,8 @@ namespace gfx {
 		float getWidth();
 		float getHeight();
 
-		int loadDef(JsonValue value);
+		int loadDef(JsonValue value, bool reload = false);
+		void assign(const Asset &rhs);
 
 		void setScaleNine(const ScaleNine &scaleNine);
 		void setScaleNine(const ScaleNine &scaleNine, ScaleNineState state);

@@ -57,6 +57,7 @@ namespace game {
 	}
 	Game::~Game()
 	{
+		MouseManager::getManager()->removeEventListener(MOUSE_UP, this);
 	}
 
 	Map *Game::getMap(const char *mapName)

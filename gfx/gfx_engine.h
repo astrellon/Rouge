@@ -18,20 +18,20 @@ namespace am {
 namespace gfx {
 
 	class Renderable;
-
 	class Asset;
 	class Texture;
 	class Font;
 	class Sprite;
 	class Layer;
 
-	
 	class GfxEngine {
 	public:
 		~GfxEngine();
 
 		Asset *getAsset(const char *assetName);
+		int reloadAsset(const char *assetName);
 		Texture *getTexture(const char *textureName);
+		int reloadTexture(const char *textureName);
 		Font *getFont(const char *fontName);
 
 		Sprite *getCursor();

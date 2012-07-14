@@ -210,7 +210,7 @@ namespace gfx {
 			errss << ss.str() << "\'\nLoaded: "; 
 			loaded.display(errss);
 
-			am_log("ASST", errss);
+			am_log("ASSET", errss);
 			
 			return NULL;
 		}
@@ -221,7 +221,7 @@ namespace gfx {
 		{
 			stringstream errss;
 			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASST", errss);
+			am_log("ASSET", errss);
 			delete asset;
 			return NULL;
 		}
@@ -229,6 +229,56 @@ namespace gfx {
 		mAssetManager[assetNameStr] = asset;
 
 		return asset;
+	}
+	int GfxEngine::reloadAsset(const char *assetName)
+	{
+		string assetNameStr = assetName;
+		AssetManager::iterator iter = mAssetManager.find(assetNameStr);
+		if (iter == mAssetManager.end())
+		{
+			stringstream errss;
+			errss << "Unable to reload asset '" << assetNameStr << "' as it is not loaded.";
+			am_log("ASSET", errss);
+			return 0;
+		}
+
+		stringstream ss;
+		if (assetNameStr[0] == '/')
+		{
+			ss << "data" << assetNameStr << ".ssff";
+		}
+		else
+		{
+			ss << "data/assets/" << assetNameStr << ".ssff";
+		}
+
+		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to reload asset '" << assetNameStr << "', using the path '";
+			errss << ss.str() << "\'\nLoaded: "; 
+			loaded.display(errss);
+
+			am_log("ASSET", errss);
+			
+			return -1;
+		}
+
+		Asset *temp = new Asset(assetName);
+		int loadAsset = temp->loadDef(loaded);
+		if (loadAsset != 0)
+		{
+			stringstream errss;
+			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
+			am_log("ASSET", errss);
+			delete temp;
+			return -2;
+		}
+
+		iter->second->assign(*temp);
+
+		return 1;
 	}
 
 	Texture *GfxEngine::getTexture(const char *filename)
@@ -253,6 +303,26 @@ namespace gfx {
 		am_log("GFX", errss);
 		
 		return NULL;
+	}
+	int GfxEngine::reloadTexture(const char *filename)
+	{
+		string fileStr = filename;
+		TextureManager::iterator iter = mTextureManager.find(fileStr);
+		if (iter == mTextureManager.end())
+		{
+			// Cannot reload if it was never loaded.
+			stringstream errss;
+			errss << "Unable to reload texture '" << fileStr << "' as it was never loaded.";
+			am_log("GFX", errss);
+			return 0;
+		}
+
+		Texture *texture = iter->second;
+		if (!texture->reload())
+		{
+			return -1;
+		}
+		return 1;
 	}
 	Font *GfxEngine::getFont(const char *fontName)
 	{

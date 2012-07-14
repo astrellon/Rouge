@@ -37,6 +37,8 @@ namespace ui {
 		int getDragOffsetX() const;
 		int getDragOffsetY() const;
 
+		void clearCurrentlyFiring();
+
 		static void setManager(MouseManager *manager);
 		static MouseManager *getManager();
 
@@ -44,6 +46,7 @@ namespace ui {
 
 		Renderable *mUnderMouse;
 
+		bool mStopCurrentEvents;
 		bool mFiredEvent;
 		Handle<MouseEvent> mCurrentEvent;
 		typedef map<MouseButton, bool> MouseButtonMap;

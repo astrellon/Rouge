@@ -6,6 +6,7 @@
 #include <gfx/gfx_asset.h>
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_text_style.h>
+#include <gfx/gfx_texture.h>
 
 #include <ui/ui_button.h>
 #include <ui/ui_checkbox.h>
@@ -176,12 +177,17 @@ namespace sys {
 			toggleInGameMenu();
 			return;
 		}
+		// 19 is currently pause.
 		if (key == 19 && mEngine->getCurrentGame() != NULL)
 		{
 			togglePause();
 			return;
 		}
-		Game *game = mEngine->getCurrentGame();;
+		if (key == 'Z')
+		{
+			GfxEngine::getEngine()->reloadAsset("bigButton");
+		}
+		Game *game = mEngine->getCurrentGame();
 		if (game)
 		{
 			if (key == 'A')
@@ -203,6 +209,7 @@ namespace sys {
 
 	void RougeSystem::toMainMenu()
 	{
+		MouseManager::getManager()->clearCurrentlyFiring();
 		// Set current game to NULL and show main menu.
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
@@ -235,6 +242,7 @@ namespace sys {
 
 	void RougeSystem::newGame()
 	{
+		MouseManager::getManager()->clearCurrentlyFiring();
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != NULL)
 		{

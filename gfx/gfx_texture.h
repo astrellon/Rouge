@@ -23,6 +23,8 @@ namespace gfx {
 		const char *getFilename() const;
 		bool isLoaded() const;
 
+		int reload();
+
 		int getWidth() const;
 		int getHeight() const;
 		int getBytesPerPixel() const;

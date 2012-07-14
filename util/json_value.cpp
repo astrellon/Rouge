@@ -396,7 +396,8 @@ namespace util {
 				// Should be a ':'
 				nextToken(tokeniser);	
 
-				(*obj)[valueName] = import_object(tokeniser);
+				JsonValue imported_object = import_object(tokeniser);
+				(*obj)[valueName] = imported_object;
 
 				token = nextToken(tokeniser);
 				ch = getChar(token);

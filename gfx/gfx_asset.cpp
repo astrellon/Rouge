@@ -138,18 +138,39 @@ namespace gfx {
 		return mAnimationWindows;
 	}
 
-	int Asset::loadDef(JsonValue value)
+	int Asset::loadDef(JsonValue value, bool reload)
 	{
+		Texture *reloadTexture = NULL;
 		if (value.has("texture", JV_STR))
 		{
-			setTexture(GfxEngine::getEngine()->getTexture(value["texture"].getCStr()));
-			if (mTexture == NULL)
+			const char *currentTexture = NULL;
+			if (mTexture != NULL)
 			{
-				stringstream errss;
-				errss << "Unable to load texture ("<< value["texture"].getCStr() << ") for asset '"
-					  << mName.c_str() << '\'';
-				am_log("ASSET", errss);
-				return -1;
+				currentTexture = mTexture->getFilename();
+			}
+			const char *newTexture = value["texture"].getCStr();
+			if (reload && strcmp(newTexture, currentTexture) == 0)
+			{
+				if (!GfxEngine::getEngine()->reloadTexture(mTexture->getFilename()))
+				{
+					stringstream errss;
+					errss << "Unable to reload texture ("<< value["texture"].getCStr() << ") for asset '"
+							<< mName.c_str() << '\'';
+					am_log("ASSET", errss);
+					return -1;
+				}
+			}
+			else
+			{
+				setTexture(GfxEngine::getEngine()->getTexture(value["texture"].getCStr()));
+				if (mTexture == NULL)
+				{
+					stringstream errss;
+					errss << "Unable to load texture ("<< value["texture"].getCStr() << ") for asset '"
+						  << mName.c_str() << '\'';
+					am_log("ASSET", errss);
+					return -1;
+				}
 			}
 		}
 		else
@@ -341,6 +362,23 @@ namespace gfx {
 		}
 
 		mAnimationDirty = false;
+	}
+
+	void Asset::assign(const Asset &rhs)
+	{
+		mName = rhs.mName;
+		mTexture = rhs.mTexture;
+		mWindow = rhs.mWindow;
+		mNumFramesX = rhs.mNumFramesX;
+		mNumFramesY = rhs.mNumFramesY;
+		mTotalFrames = rhs.mTotalFrames;
+		mFrameRate = rhs.mFrameRate;
+		mWidth = rhs.mWidth;
+		mHeight = rhs.mHeight;
+		mAnimationDirty = rhs.mAnimationDirty;
+		mScaleNine = rhs.mScaleNine;
+		mScaleNineState = rhs.mScaleNineState;
+		mAnimationWindows = rhs.mAnimationWindows;
 	}
 
 	float Asset::getWidth()
