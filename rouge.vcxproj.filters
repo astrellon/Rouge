@@ -58,6 +58,9 @@
     <Filter Include="game\stats">
       <UniqueIdentifier>{ad5c5256-4bf7-49fa-ac32-08fe9a2316ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ui\editor">
+      <UniqueIdentifier>{e8176776-34b9-451f-a296-ac4a3baa8f3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -258,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="util\utils.cpp">
       <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_editor_hud.cpp">
+      <Filter>ui\editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -492,6 +498,9 @@
     </ClInclude>
     <ClInclude Include="util\text_tokeniser.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_editor_hud.h">
+      <Filter>ui\editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -329,18 +329,39 @@ namespace gfx {
 		}
 		else
 		{
+			float minU = 0.0f;
+			float maxU = win.getRightX();
+			if (mAsset->getRepeatX()) 
+			{
+				maxU = width / static_cast<float>(mAsset->getTexture()->getWidth());
+			}
+			else
+			{
+				minU = win.getLeftX();
+			}
+
+			float minV = 0.0f;
+			float maxV = win.getBottomY();
+			if (mAsset->getRepeatY())
+			{
+				maxV = height / static_cast<float>(mAsset->getTexture()->getHeight());
+			}
+			else
+			{
+				minV = win.getTopY();
+			}
 			glBegin(GL_TRIANGLE_STRIP);
 
-				glTexCoord2f(win.getLeftX(), win.getTopY());
+				glTexCoord2f(minU, minV);
 				glVertex2f(0, 0);
 
-				glTexCoord2f(win.getRightX(), win.getTopY());
+				glTexCoord2f(maxU, minV);
 				glVertex2f(width, 0);
 
-				glTexCoord2f(win.getLeftX(), win.getBottomY());
+				glTexCoord2f(minU, maxV);
 				glVertex2f(0, height);
 			
-				glTexCoord2f(win.getRightX(), win.getBottomY());
+				glTexCoord2f(maxU, maxV);
 				glVertex2f(width, height);
 
 			glEnd();

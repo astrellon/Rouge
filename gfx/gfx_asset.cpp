@@ -22,7 +22,9 @@ namespace gfx {
 		mTotalFrames(1),
 		mFrameRate(0.0f),
 		mAnimationDirty(true),
-		mScaleNineState(SCALE_NINE_NONE)
+		mScaleNineState(SCALE_NINE_NONE),
+		mRepeatX(false),
+		mRepeatY(false)
 	{
 
 	}
@@ -316,6 +318,15 @@ namespace gfx {
 			mScaleNine.setInnerBounds(left, right, top, bottom);
 		}
 
+		if (value.has("repeat_x", JV_BOOL))
+		{
+			mRepeatX = value["repeat_x"].getBool();
+		}
+		if (value.has("repeat_y", JV_BOOL))
+		{
+			mRepeatY = value["repeat_y"].getBool();
+		}
+
 		return 0;
 	}
 
@@ -379,6 +390,26 @@ namespace gfx {
 		mScaleNine = rhs.mScaleNine;
 		mScaleNineState = rhs.mScaleNineState;
 		mAnimationWindows = rhs.mAnimationWindows;
+		mRepeatX = rhs.mRepeatX;
+		mRepeatY = rhs.mRepeatY;
+	}
+
+	void Asset::setRepeatX(bool repeat)
+	{
+		mRepeatX = repeat;
+	}
+	bool Asset::getRepeatX() const
+	{
+		return mRepeatX;
+	}
+
+	void Asset::setRepeatY(bool repeat)
+	{
+		mRepeatY = repeat;
+	}
+	bool Asset::getRepeatY() const
+	{
+		return mRepeatY;
 	}
 
 	float Asset::getWidth()

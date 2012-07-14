@@ -98,6 +98,10 @@ namespace sys {
 		
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
+
+		Handle<Sprite> editor(new Sprite("editor/editorSide"));
+		editor->setHeight(600.0f);
+		gfxEngine->getUILayer()->addChild(editor);
 	}
 	
 	void RougeSystem::reshape(int width, int height)

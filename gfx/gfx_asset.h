@@ -59,6 +59,12 @@ namespace gfx {
 		int loadDef(JsonValue value, bool reload = false);
 		void assign(const Asset &rhs);
 
+		void setRepeatX(bool repeat);
+		bool getRepeatX() const;
+
+		void setRepeatY(bool repeat);
+		bool getRepeatY() const;
+
 		void setScaleNine(const ScaleNine &scaleNine);
 		void setScaleNine(const ScaleNine &scaleNine, ScaleNineState state);
 		ScaleNine &getScaleNine();
@@ -80,6 +86,8 @@ namespace gfx {
 		float mWidth;
 		float mHeight;
 
+		bool mRepeatX;
+		bool mRepeatY;
 		bool mAnimationDirty;
 		ScaleNine mScaleNine;
 		ScaleNineState mScaleNineState;

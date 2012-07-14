@@ -131,6 +131,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_button.cpp" />
     <ClCompile Include="ui\ui_checkbox.cpp" />
     <ClCompile Include="ui\ui_component.cpp" />
+    <ClCompile Include="ui\ui_editor_hud.cpp" />
     <ClCompile Include="ui\ui_game_hud.cpp" />
     <ClCompile Include="ui\ui_image.cpp" />
     <ClCompile Include="ui\ui_ingame_menu.cpp" />
@@ -210,6 +211,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_button.h" />
     <ClInclude Include="ui\ui_checkbox.h" />
     <ClInclude Include="ui\ui_component.h" />
+    <ClInclude Include="ui\ui_editor_hud.h" />
     <ClInclude Include="ui\ui_game_hud.h" />
     <ClInclude Include="ui\ui_image.h" />
     <ClInclude Include="ui\ui_ingame_menu.h" />

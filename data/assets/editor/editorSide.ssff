@@ -1,0 +1,4 @@
+{	// Cursor Asset
+	texture: "data/textures/editor/editorSide.png",
+	repeat_y: true
+}
