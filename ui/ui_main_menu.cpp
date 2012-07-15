@@ -13,33 +13,38 @@ namespace ui {
 		mRougeSystem(system),
 		mStartGame(new Button("bigButton", "Start Game")),
 		mLoadGame(new Button("bigButton", "Load Game")),
+		mEditor(new Button("bigButton", "Editor")),
 		mOptions(new Button("bigButton", "Options")),
 		mQuit(new Button("bigButton", "Quit :("))
 	{
 		setInteractive(true);
 
-		initButton(mStartGame.get());
-		initButton(mLoadGame.get());
-		initButton(mOptions.get());
-		initButton(mQuit.get());
+		initButton(mStartGame);
+		initButton(mLoadGame);
+		initButton(mEditor);
+		initButton(mOptions);
+		initButton(mQuit);
 
 		float buttonHeight = mStartGame->getHeight();
 		mStartGame->setWidth(220.0f);
-		mStartGame->setParentOffsetY(-buttonHeight * 1.5f);
+		mStartGame->setParentOffsetY(-buttonHeight * 2.0f);
 		mStartGame->addEventListener("click", this);
 
-		mLoadGame->setParentOffsetY(-buttonHeight * 0.5f);
+		mLoadGame->setParentOffsetY(-buttonHeight * 1.0f);
 		mLoadGame->setWidth(200.0f);
 		mLoadGame->addEventListener("click", this);
 
-		mOptions->setParentOffsetY(buttonHeight * 0.5f);
+		mEditor->setParentOffsetY(-buttonHeight * 0.0f);
+		mEditor->setWidth(200.0f);
+		mEditor->addEventListener("click", this);
+
+		mOptions->setParentOffsetY(buttonHeight * 1.0f);
 		mOptions->setWidth(180.0f);
 		mOptions->addEventListener("click", this);
 
-		mQuit->setParentOffsetY(buttonHeight * 1.5f);
+		mQuit->setParentOffsetY(buttonHeight * 2.0f);
 		mQuit->setWidth(120.0f);
 		mQuit->addEventListener("click", this);
-
 	}
 	
 	MainMenu::~MainMenu()
@@ -58,6 +63,11 @@ namespace ui {
 		{
 			am_log("BTN", "OPTIONS BUTTON");
 			mRougeSystem->showOptionsPanel();
+			return;
+		}
+		if (e->getEventTarget() == mEditor.get())
+		{
+			am_log("BTN", "EDITOR BUTTON");
 			return;
 		}
 		if (e->getEventTarget() == mLoadGame.get())

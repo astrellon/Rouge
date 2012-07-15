@@ -24,15 +24,25 @@ namespace gfx {
 	class Sprite;
 	class Layer;
 
+	typedef map<string, Handle<Asset> > AssetMap;
+	typedef map<string, Handle<Texture> > TextureMap;
+	typedef map<string, Handle<Font> > FontMap;
+
 	class GfxEngine {
 	public:
 		~GfxEngine();
 
 		Asset *getAsset(const char *assetName);
 		int reloadAsset(const char *assetName);
+		AssetMap &getAssetMap();
+
 		Texture *getTexture(const char *textureName);
 		int reloadTexture(const char *textureName);
+		TextureMap &getTextureMap();
+
 		Font *getFont(const char *fontName);
+		int reloadFont(const char *fontName);
+		FontMap &getFontMap();
 
 		Sprite *getCursor();
 		void setCursor(Sprite *cursor);
@@ -80,13 +90,9 @@ namespace gfx {
 		Handle<Sprite> mCursor;
 		bool mHideCursor;
 
-		typedef map<string, Handle<Asset> > AssetManager;
-		typedef map<string, Handle<Texture> > TextureManager;
-		typedef map<string, Handle<Font> > FontManager;
-
-		AssetManager mAssetManager;
-		TextureManager mTextureManager;
-		FontManager mFontManager;
+		AssetMap mAssetManager;
+		TextureMap mTextureManager;
+		FontMap mFontManager;
 
 		Handle<Layer> mRootLayer;
 		Handle<Layer> mGameLayer;

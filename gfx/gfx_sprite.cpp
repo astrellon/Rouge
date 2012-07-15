@@ -18,7 +18,7 @@ namespace gfx {
 		mCurrentTime(0.0f),
 		mScaleNineState(SCALE_NINE_NONE)
 	{
-		mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
+		//mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
 	}
 	Sprite::Sprite(Asset *asset) :
 		Renderable(),

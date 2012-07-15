@@ -27,6 +27,8 @@ namespace ui {
 	class GameHud;
 	class Image;
 	class OptionsPanel;
+	class EditorHud;
+	class UIComponent;
 }
 using namespace am::ui;
 
@@ -64,6 +66,8 @@ namespace sys {
 		Handle<OptionsPanel> mOptionsPanel;
 		Handle<IngameMenu> mIngameMenu;
 		Handle<GameHud> mGameHud;
+		Handle<EditorHud> mEditorHud;
+		Handle<UIComponent> mCurrentMenu;
 
 		Handle<Image> mPausedImage;
 
@@ -71,6 +75,8 @@ namespace sys {
 
 		void checkPaused();
 		bool mPausedGame;
+
+		void setCurrentMenu(UIComponent *menu);
 
 		static RougeSystem *sRougeSystem;
 	};

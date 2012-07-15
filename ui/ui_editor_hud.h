@@ -1,16 +1,29 @@
 #pragma once
 
+#include <base/handle.h>
+using namespace am::base;
+
+#include <gfx/gfx_sprite.h>
+using namespace am::gfx;
+
 #include <ui/ui_component.h>
 
 namespace am {
 namespace ui {
 
-	class EditorHUD : public UIComponent {
+	class EditorHud : public UIComponent {
 	public:
-		EditorHUD() {}
-		~EditorHUD() {}
+		EditorHud();
+		~EditorHud();
+
+		Sprite *getSideSprite();
+		void loadAssets();
+
+		virtual void setHeight(float width);
 
 	protected:
+
+		Handle<Sprite> mSideSprite;
 
 	};
 

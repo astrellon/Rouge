@@ -25,9 +25,6 @@
     <Filter Include="math">
       <UniqueIdentifier>{685e5bbe-a0c2-4733-9993-93a5a78c91e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gfx\util">
-      <UniqueIdentifier>{49add265-7644-43e1-87fa-fc1b0c568e07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="gfx\base">
       <UniqueIdentifier>{1e4a600d-7b74-4711-9496-4be3c7cee7fe}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="ui\editor">
       <UniqueIdentifier>{e8176776-34b9-451f-a296-ac4a3baa8f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx\base\util">
+      <UniqueIdentifier>{49add265-7644-43e1-87fa-fc1b0c568e07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,10 +95,10 @@
       <Filter>gfx\base</Filter>
     </ClCompile>
     <ClCompile Include="gfx\texture_window.cpp">
-      <Filter>gfx\util</Filter>
+      <Filter>gfx\base\util</Filter>
     </ClCompile>
     <ClCompile Include="gfx\scale_nine.cpp">
-      <Filter>gfx\util</Filter>
+      <Filter>gfx\base\util</Filter>
     </ClCompile>
     <ClCompile Include="ui\data_event.cpp">
       <Filter>ui\events</Filter>
@@ -265,6 +265,12 @@
     <ClCompile Include="ui\ui_editor_hud.cpp">
       <Filter>ui\editor</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_asset_renderer.cpp">
+      <Filter>ui\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_particle_system.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -299,10 +305,10 @@
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\texture_window.h">
-      <Filter>gfx\util</Filter>
+      <Filter>gfx\base\util</Filter>
     </ClInclude>
     <ClInclude Include="gfx\scale_nine.h">
-      <Filter>gfx\util</Filter>
+      <Filter>gfx\base\util</Filter>
     </ClInclude>
     <ClInclude Include="ui\data_event.h">
       <Filter>ui\events</Filter>
@@ -421,9 +427,6 @@
     <ClInclude Include="base\imanaged.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="math\matrix.h">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="math\transform.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -501,6 +504,15 @@
     </ClInclude>
     <ClInclude Include="ui\ui_editor_hud.h">
       <Filter>ui\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_asset_renderer.h">
+      <Filter>ui\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_particle_system.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="math\matrix.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

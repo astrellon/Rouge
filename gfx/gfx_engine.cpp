@@ -186,7 +186,7 @@ namespace gfx {
 	Asset *GfxEngine::getAsset(const char *assetName)
 	{
 		string assetNameStr = assetName;
-		AssetManager::iterator iter = mAssetManager.find(assetNameStr);
+		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
 		if (iter != mAssetManager.end())
 		{
 			return iter->second.get();
@@ -233,7 +233,7 @@ namespace gfx {
 	int GfxEngine::reloadAsset(const char *assetName)
 	{
 		string assetNameStr = assetName;
-		AssetManager::iterator iter = mAssetManager.find(assetNameStr);
+		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
 		if (iter == mAssetManager.end())
 		{
 			stringstream errss;
@@ -280,11 +280,15 @@ namespace gfx {
 
 		return 1;
 	}
+	AssetMap &GfxEngine::getAssetMap()
+	{
+		return mAssetManager;
+	}
 
 	Texture *GfxEngine::getTexture(const char *filename)
 	{
 		string fileStr = filename;
-		TextureManager::iterator iter = mTextureManager.find(fileStr);
+		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter != mTextureManager.end())
 		{
 			return iter->second.get();
@@ -307,7 +311,7 @@ namespace gfx {
 	int GfxEngine::reloadTexture(const char *filename)
 	{
 		string fileStr = filename;
-		TextureManager::iterator iter = mTextureManager.find(fileStr);
+		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter == mTextureManager.end())
 		{
 			// Cannot reload if it was never loaded.
@@ -324,10 +328,15 @@ namespace gfx {
 		}
 		return 1;
 	}
+	TextureMap &GfxEngine::getTextureMap()
+	{
+		return mTextureManager;
+	}
+
 	Font *GfxEngine::getFont(const char *fontName)
 	{
 		string fontNameStr = fontName;
-		FontManager::iterator iter = mFontManager.find(fontNameStr);
+		FontMap::iterator iter = mFontManager.find(fontNameStr);
 		if (iter != mFontManager.end())
 		{
 			return iter->second.get();
@@ -360,6 +369,14 @@ namespace gfx {
 		mFontManager[fontNameStr] = font;
 
 		return font;
+	}
+	int GfxEngine::reloadFont(const char *fontName)
+	{
+		return 0;
+	}
+	FontMap &GfxEngine::getFontMap()
+	{
+		return mFontManager;
 	}
 
 	Layer *GfxEngine::getRootLayer()

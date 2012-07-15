@@ -7,6 +7,7 @@
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_text_style.h>
 #include <gfx/gfx_texture.h>
+#include <gfx/gfx_particle_system.h>
 
 #include <ui/ui_button.h>
 #include <ui/ui_checkbox.h>
@@ -16,6 +17,7 @@
 #include <ui/ui_game_hud.h>
 #include <ui/ui_panel.h>
 #include <ui/ui_image.h>
+#include <ui/ui_editor_hud.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -95,13 +97,27 @@ namespace sys {
 		mPausedImage = new Image("paused");
 		mPausedImage->setParentAnchor(X_CENTER, Y_CENTER);
 		mPausedImage->setAnchor(X_CENTER, Y_CENTER);
+
+		mEditorHud = new EditorHud();
+		mEditorHud->setSize(screenWidth, screenHeight);
+		mEditorHud->setVisible(false);
 		
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
 
-		Handle<Sprite> editor(new Sprite("editor/editorSide"));
-		editor->setHeight(600.0f);
-		gfxEngine->getUILayer()->addChild(editor);
+		setCurrentMenu(mMainMenu);
+
+		Handle<ParticleSystem> test(new ParticleSystem());
+		test->setParticleAsset("cursor");
+		test->setMaxAge(10.0f);
+		test->setMaxParticles(10000);
+		test->setParticlesPerSecond(200.0f);
+		test->setAcceleration(0.0f, 20.0f);
+		test->setPower(50.0f);
+		test->setPowerVariation(20.0f);
+		test->setDirectionVariation(6.1f);
+		test->setPosition(400, 100);
+		gfxEngine->getUILayer()->addChild(test);
 	}
 	
 	void RougeSystem::reshape(int width, int height)
@@ -126,6 +142,10 @@ namespace sys {
 		{
 			mGameHud->setSize(fwidth, fheight);
 		}
+		if (mEditorHud.get())
+		{
+			mEditorHud->setSize(fwidth, fheight);
+		}
 	}
 
 	void RougeSystem::togglePause()
@@ -136,7 +156,7 @@ namespace sys {
 
 	void RougeSystem::toggleInGameMenu()
 	{
-		mIngameMenu->setVisible(!mIngameMenu->isVisible());
+		setCurrentMenu(mIngameMenu->isVisible() ? NULL : mIngameMenu);
 		checkPaused();
 	}
 
@@ -221,27 +241,33 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 		mEngine->setCurrentGame(NULL);
-		mIngameMenu->setVisible(false);
-		mMainMenu->setVisible(true);
+		//mIngameMenu->setVisible(false);
+		//mMainMenu->setVisible(true);
+		setCurrentMenu(mMainMenu);
 		mGameHud->setVisible(false);
+
 	}
 	void RougeSystem::showOptionsPanel()
 	{
-		mIngameMenu->setVisible(false);
-		mMainMenu->setVisible(false);
-		mOptionsPanel->setVisible(true);
+		//mIngameMenu->setVisible(false);
+		//mMainMenu->setVisible(false);
+		//mOptionsPanel->setVisible(true);
+		setCurrentMenu(mOptionsPanel);
 	}
 	void RougeSystem::closeOptionsPanel()
 	{
 		if (mEngine->getCurrentGame())
 		{
-			mIngameMenu->setVisible(true);
+			//mIngameMenu->setVisible(true);
+			setCurrentMenu(mIngameMenu);
 		}
 		else
 		{
-			mMainMenu->setVisible(true);
+			setCurrentMenu(mMainMenu);
+			//mMainMenu->setVisible(true);
 		}
-		mOptionsPanel->setVisible(false);
+		//mOptionsPanel->setVisible(false);
+
 	}
 
 	void RougeSystem::newGame()
@@ -271,9 +297,23 @@ namespace sys {
 
 		game->getCamera()->followObject(mPlayer.get());
 
-		mMainMenu->setVisible(false);
-		mIngameMenu->setVisible(false);
+		//mMainMenu->setVisible(false);
+		//mIngameMenu->setVisible(false);
+		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
+	}
+
+	void RougeSystem::setCurrentMenu(UIComponent *menu)
+	{
+		if (mCurrentMenu.get())
+		{
+			mCurrentMenu->setVisible(false);
+		}
+		mCurrentMenu = menu;
+		if (mCurrentMenu.get())
+		{
+			mCurrentMenu->setVisible(true);
+		}
 	}
 
 }

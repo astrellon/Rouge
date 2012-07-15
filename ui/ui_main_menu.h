@@ -29,6 +29,7 @@ namespace ui {
 
 		Handle<Button> mStartGame;
 		Handle<Button> mLoadGame;
+		Handle<Button> mEditor;
 		Handle<Button> mOptions;
 		Handle<Button> mQuit;
 
