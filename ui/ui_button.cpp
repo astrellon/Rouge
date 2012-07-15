@@ -1,10 +1,12 @@
 #include "ui_button.h"
 
-#include "gfx/gfx_renderable.h"
-#include "gfx/gfx_asset.h"
-#include "gfx/gfx_sprite.h"
-#include "gfx/gfx_text_field.h"
-#include "gfx/gfx_font.h"
+#include <gfx/gfx_renderable.h>
+#include <gfx/gfx_asset.h>
+#include <gfx/gfx_sprite.h>
+#include <gfx/gfx_text_field.h>
+#include <gfx/gfx_font.h>
+
+#include <gfx/gfx_colour_effect.h>
 
 #include <base/handle.h>
 using namespace am::util;
@@ -134,26 +136,36 @@ namespace ui {
 		{
 		default:
 		case am::ui::MOUSE_OUT:
-			mGraphic->setCurrentFrame(0);
+			//mGraphic->setCurrentFrame(0);
+			mGraphic->clearAllEffects();
+			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("white")));
 			break;
 		case am::ui::MOUSE_MOVE:
 			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
-				mGraphic->setCurrentFrame(2);
+				//mGraphic->setCurrentFrame(2);
+				mGraphic->clearAllEffects();
+				mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("green")));
 			}
 			else
 			{
-				mGraphic->setCurrentFrame(1);
+				mGraphic->clearAllEffects();
+				mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("red")));
+				//mGraphic->setCurrentFrame(1);
 			}
 			break;
 		case am::ui::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
 		case am::ui::MOUSE_OVER:
-			mGraphic->setCurrentFrame(1);
+			//mGraphic->setCurrentFrame(1);
+			mGraphic->clearAllEffects();
+			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("red")));
 			break;
 		case am::ui::MOUSE_DOWN:
-			mGraphic->setCurrentFrame(2);
+			//mGraphic->setCurrentFrame(2);
+			mGraphic->clearAllEffects();
+			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("green")));
 			break;
 		}
 	}

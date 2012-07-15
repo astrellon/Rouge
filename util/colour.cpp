@@ -7,6 +7,12 @@
 namespace am {
 namespace util {
 
+	std::ostream& operator<<(std::ostream &stream, const Colour &rhs)
+	{
+		stream << "[" << rhs.getRed() << ", " << rhs.getGreen() << ", " << rhs.getBlue() << ", " << rhs.getAlpha() << "]";
+		return stream;
+	}
+
 	Colour::ColourMap Colour::sColourMap;
 
 	Colour::Colour() :
@@ -15,6 +21,10 @@ namespace util {
 		mBlue(0.0f),
 		mAlpha(1.0f)
 	{
+	}
+	Colour::Colour(const char *name)
+	{
+		getNamedColour(name, *this);
 	}
 	Colour::Colour(float red, float green, float blue, float alpha) :
 		mRed(red),
@@ -94,6 +104,28 @@ namespace util {
 	void Colour::applyColour() const
 	{
 		glColor4f(mRed, mGreen, mBlue, mAlpha);
+	}
+
+	Colour Colour::lerp(const Colour &rhs, float dt) const
+	{
+		Colour c(*this);
+		if (rhs.mRed != mRed)
+		{
+			c.mRed = mRed + (rhs.mRed - mRed) * dt;
+		}
+		if (rhs.mGreen != mGreen)
+		{
+			c.mGreen = mGreen + (rhs.mGreen - mGreen) * dt;
+		}
+		if (rhs.mBlue != mBlue)
+		{
+			c.mBlue = mBlue + (rhs.mBlue - mBlue) * dt;
+		}
+		if (rhs.mAlpha != mAlpha)
+		{
+			c.mAlpha = mAlpha + (rhs.mAlpha - mAlpha) * dt;
+		}
+		return c;
 	}
 
 	void Colour::parseFromTokeniser(TextTokeniser &tokeniser)

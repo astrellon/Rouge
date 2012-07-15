@@ -98,6 +98,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\tile_instance.cpp" />
     <ClCompile Include="game\tile_set.cpp" />
     <ClCompile Include="gfx\gfx_asset.cpp" />
+    <ClCompile Include="gfx\gfx_colour_effect.cpp" />
+    <ClCompile Include="gfx\gfx_effect.cpp" />
     <ClCompile Include="gfx\gfx_engine.cpp" />
     <ClCompile Include="gfx\gfx_font.cpp" />
     <ClCompile Include="gfx\gfx_layer.cpp" />
@@ -174,6 +176,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\tile_instance.h" />
     <ClInclude Include="game\tile_set.h" />
     <ClInclude Include="gfx\gfx_asset.h" />
+    <ClInclude Include="gfx\gfx_colour_effect.h" />
+    <ClInclude Include="gfx\gfx_effect.h" />
     <ClInclude Include="gfx\gfx_engine.h" />
     <ClInclude Include="gfx\gfx_font.h" />
     <ClInclude Include="gfx\gfx_layer.h" />

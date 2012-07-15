@@ -41,15 +41,26 @@ namespace gfx {
 	void Renderable::preRender(float dt)
 	{
 		glPushMatrix();
-		//glMultMatrixf(mTransform.data());
 		mTransform.apply();
+
+		for (int i = 0; i < mEffects.size(); i++)
+		{
+			Effect *effect = mEffects[i];
+			effect->update(dt);
+			effect->applyToTarget(this);
+			if (effect->getPercent() >= 1.0f)
+			{
+				mEffects.erase(mEffects.begin() + i);
+				i--;
+				continue;
+			}
+		}
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		GfxEngine::getEngine()->pushColourStack(mColour);
 		GfxEngine::getEngine()->applyColourStack();
-		//mColour.applyColour();
 	}
 	void Renderable::render(float dt)
 	{
@@ -150,6 +161,26 @@ namespace gfx {
 	{
 		return mTransform;
 	}
+
+	void Renderable::addEffect(Effect *effect)
+	{
+		mEffects.push_back(effect);
+	}
+	void Renderable::removeEffect(Effect *effect)
+	{
+		for (int i = 0; i < mEffects.size(); i++)
+		{
+			if (mEffects[i].get() == effect)
+			{
+				mEffects.erase(mEffects.begin() + i);
+			}
+		}
+	}
+	void Renderable::clearAllEffects()
+	{
+		mEffects.clear();
+	}
+
 	void Renderable::setPosition(float x, float y)
 	{
 		mTransform.setXY(x, y);

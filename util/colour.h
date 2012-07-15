@@ -2,6 +2,7 @@
 
 #include <map>
 #include <string>
+#include <ostream>
 using namespace std;
 
 #include <util/text_tokeniser.h>
@@ -12,6 +13,7 @@ namespace util {
 	class Colour {
 	public:
 		Colour();
+		Colour(const char *name);
 		Colour(float red, float green, float blue, float alpha = 1.0f);
 		Colour(const Colour &rhs);
 		~Colour();
@@ -35,6 +37,8 @@ namespace util {
 
 		void parseFromTokeniser(TextTokeniser &tokeniser);
 
+		Colour lerp(const Colour &rhs, float dt) const;
+
 		static bool getNamedColour(const char *name, Colour &result);
 		static bool getNamedColour(const string &name, Colour &result);
 		static void addNamedColour(const char *name, const Colour &colour);
@@ -43,6 +47,8 @@ namespace util {
 		static void removeNamedColour(const string &name);
 
 		static void addStandardNamedColours();
+
+		friend std::ostream& operator<<(std::ostream& stream, const Colour& rhs);
 
 	protected:
 

@@ -13,6 +13,7 @@ using namespace am::ui;
 using namespace am::util;
 
 #include "gfx_component.h"
+#include "gfx_effect.h"
 
 namespace am {
 namespace gfx {
@@ -57,6 +58,10 @@ namespace gfx {
 		virtual float getPositionX() const;
 		virtual float getPositionY() const;
 
+		virtual void addEffect(Effect *effect);
+		virtual void removeEffect(Effect *effect);
+		virtual void clearAllEffects();
+
 		virtual void setName(const char *name);
 		virtual string getName() const;
 
@@ -76,6 +81,9 @@ namespace gfx {
 		Layer *mParent;
 		Colour mColour;
 		am::math::TransformLite mTransform;
+
+		typedef vector< Handle<Effect> > EffectList;
+		EffectList mEffects;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
