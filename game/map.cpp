@@ -5,6 +5,9 @@
 #include <gl.h>
 #include <gfx/gfx_engine.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 #include <sstream>
 using namespace std;
 
@@ -237,17 +240,37 @@ namespace game {
 									am_log("MAP", ss);
 									break;
 								}
-								Tile *tile = engine->getTile(tileName.getCStr());
+								string *tileNameStr = tileName.getStr();
+								int framePos = static_cast<int>(tileNameStr->find_last_of(":"));
+								string tileNameUse;
+								int frameValue = 0;
+								if (framePos >= 0)
+								{
+									string name = tileNameStr->substr(0, framePos);
+									string frame = tileNameStr->substr(framePos + 1);
+									tileNameUse = name;
+									bool parseResult = Utils::fromString<int>(frameValue, frame);
+									if (!parseResult)
+									{
+										frameValue = 0;
+									}
+								}
+								else
+								{
+									tileNameUse = *tileNameStr;
+								}
+								Tile *tile = engine->getTile(tileNameUse.c_str());
 								if (tile == NULL)
 								{
 									stringstream ss;
-									ss << "Unable to find tile '" << tileName.getCStr();
+									ss << "Unable to find tile '" << tileNameUse.c_str();
 									ss << "' for map '" << mName << "' tile " << x << ", " << y;
 									am_log("MAP", ss);
 									error =	true;
 									break;
 								}
 								mTiles[y * width + x].setTile(tile);
+								mTiles[y * width + x].setTileFrame(frameValue);
 							}
 						}
 						else
@@ -356,6 +379,10 @@ namespace game {
 			{
 				Asset *asset = mTiles[t].getTile()->getGraphicAsset();
 				Sprite *sprite = mAssetSprites[asset].get();
+				if (asset->getFrameRate() <= 0.0f)
+				{
+					sprite->setCurrentFrame(mTiles[t].getTileFrame());
+				}
 				sprite->renderSprite();
 				t++;
 

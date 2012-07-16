@@ -136,36 +136,26 @@ namespace ui {
 		{
 		default:
 		case am::ui::MOUSE_OUT:
-			//mGraphic->setCurrentFrame(0);
-			mGraphic->clearAllEffects();
-			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("white")));
+			mGraphic->setCurrentFrame(0);
 			break;
 		case am::ui::MOUSE_MOVE:
-			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
-				//mGraphic->setCurrentFrame(2);
-				mGraphic->clearAllEffects();
-				mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("green")));
-			}
-			else
-			{
-				mGraphic->clearAllEffects();
-				mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("red")));
-				//mGraphic->setCurrentFrame(1);
+				int frame = 1;
+				if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
+				{
+					frame = 2;
+				}
+				mGraphic->setCurrentFrame(frame);
 			}
 			break;
 		case am::ui::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
 		case am::ui::MOUSE_OVER:
-			//mGraphic->setCurrentFrame(1);
-			mGraphic->clearAllEffects();
-			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("red")));
+			mGraphic->setCurrentFrame(1);
 			break;
 		case am::ui::MOUSE_DOWN:
-			//mGraphic->setCurrentFrame(2);
-			mGraphic->clearAllEffects();
-			mGraphic->addEffect(new ColourEffect(1.0f, mGraphic->getColour(), Colour("green")));
+			mGraphic->setCurrentFrame(2);
 			break;
 		}
 	}

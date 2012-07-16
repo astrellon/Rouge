@@ -13,13 +13,16 @@ using namespace am::base;
 #include <util/json_value.h>
 using namespace am::util;
 
+#include <game/tile_common.h>
+
 namespace am {
 namespace game {
 
 	class TileSet;
-
+	
 	class Tile : public IManaged {
 	public:
+
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);
 		~Tile();
@@ -39,6 +42,12 @@ namespace game {
 		void setTileSet(TileSet *tileSet);
 		TileSet *getTileSet() const;
 
+		void setTileType(TileType tileType);
+		void clearTileType(TileType tileType);
+		void clearAllTileTypes();
+		bool isTileType(TileType tileType) const;
+		int getTileType() const;
+
 		void loadDef(JsonValue value);
 	
 	protected:
@@ -48,6 +57,8 @@ namespace game {
 		TileSet *mTileSet;
 		Handle<Asset> mGraphic;
 		string mDescription;
+
+		int mTileType;
 
 	};
 

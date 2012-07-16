@@ -2,5 +2,5 @@
 	texture: "data/textures/tiles/dirt.png",
 	framesX: 2,
 	framesY: 2,
-	frameRate: 1
+	frameRate: 0
 }

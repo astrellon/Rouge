@@ -107,17 +107,17 @@ namespace sys {
 
 		setCurrentMenu(mMainMenu);
 
-		/*Handle<ParticleSystem> test(new ParticleSystem());
-		test->setParticleAsset("cursor");
+		Handle<ParticleSystem> test(new ParticleSystem());
+		test->setParticleAsset("testParticle");
 		test->setMaxAge(10.0f);
-		test->setMaxParticles(10000);
-		test->setParticlesPerSecond(200.0f);
+		test->setMaxParticles(1000);
+		test->setParticlesPerSecond(20.0f);
 		test->setAcceleration(0.0f, 20.0f);
-		test->setPower(50.0f);
-		test->setPowerVariation(20.0f);
-		test->setDirectionVariation(6.1f);
+		test->setPower(30.0f);
+		test->setPowerVariation(15.0f);
+		test->setDirectionVariation(0);
 		test->setPosition(400, 100);
-		gfxEngine->getUILayer()->addChild(test);*/
+		gfxEngine->getUILayer()->addChild(test);
 	}
 	
 	void RougeSystem::reshape(int width, int height)

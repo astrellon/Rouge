@@ -13,9 +13,13 @@ namespace game {
 	
 		Tile *getTile();
 		void setTile(Tile *tile);
+
+		void setTileFrame(int frame);
+		int getTileFrame() const;
 	
 	protected:
 		Tile *mTile;
+		int mTileFrame;
 	};
 
 }
