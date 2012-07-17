@@ -96,45 +96,6 @@ namespace ui {
 
 				ss << tileTypes[i]->getFullName();
 			}
-			//vector<string> typeNames;
-
-			/*if (mTile->isTileType(TILE_TYPE_LAND))
-			{
-				typeNames.push_back(string("Land"));
-			}
-			if (mTile->isTileType(TILE_TYPE_WATER))
-			{
-				typeNames.push_back(string("Water"));
-			}
-			if (mTile->isTileType(TILE_TYPE_LAVA))
-			{
-				typeNames.push_back(string("Lava"));
-			}
-			if (mTile->isTileType(TILE_TYPE_WALL))
-			{
-				typeNames.push_back(string("Wall"));
-			}
-			if (mTile->isTileType(TILE_TYPE_AIR))
-			{
-				typeNames.push_back(string("Air"));
-			}
-
-			for (int i = 0; i < typeNames.size(); i++)
-			{
-				if (i > 0)
-				{
-					if (i == typeNames.size() - 1)
-					{
-						ss << " and ";
-					}
-					else
-					{
-						ss << ", ";
-					}
-				}
-
-				ss << typeNames[i];
-			}*/
 		}
 		GameObjectList::iterator iter;
 		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
