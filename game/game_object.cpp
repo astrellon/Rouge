@@ -3,6 +3,7 @@
 #include "map.h"
 
 #include "engine.h"
+#include "tile_type.h"
 
 namespace am {
 namespace game {
@@ -121,6 +122,52 @@ namespace game {
 	bool GameObject::isOnlyOnPassable() const
 	{
 		return mOnlyOnPassable;
+	}
+
+	void GameObject::addPassibleType(TileType *tileType)
+	{
+		if (tileType != NULL)
+		{
+			mPassibleTypes.push_back(tileType);
+		}
+	}
+	void GameObject::removePassibleType(TileType *tileType)
+	{
+		if (tileType)
+		{
+			return;
+		}
+		for (int i = 0; i < mPassibleTypes.size(); i++)
+		{
+			if (mPassibleTypes[i] == tileType)
+			{
+				mPassibleTypes.erase(mPassibleTypes.begin() + i);
+			}
+		}
+	}
+	void GameObject::removeAllPassibleTypes()
+	{
+		mPassibleTypes.clear();
+	}
+	bool GameObject::hasPassibleType(TileType *tileType) const
+	{
+		if (tileType == NULL)
+		{
+			return false;
+		}
+		for (int i = 0; i < mPassibleTypes.size(); i++)
+		{
+			if (mPassibleTypes[i] == tileType)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	GameObject::PassibleTypeList &GameObject::getPassibleTypes()
+	{
+		return mPassibleTypes;
+		//return mPassibility;
 	}
 
 }

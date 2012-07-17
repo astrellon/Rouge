@@ -4,27 +4,20 @@
 		grass: {
 			assetName: "tiles/grass",
 			fullName: "Grass",
-			description: "Tis grass"
+			description: "Tis grass",
+			tileTypes: ["Land", "Air"]
 		},
 		dirt: {
 			assetName: "tiles/dirt",
 			fullName: "Dirt",
-			description: "It's dirt"
+			description: "It's dirt",
+			tileTypes: ["Land", "Air"]
 		},
-		brick1: {
+		brick: {
 			assetName: "tiles/brick1",
 			fullName: "Brick",
-			description: "It's Brick 1"
-		},
-		brick2: {
-			assetName: "tiles/brick2",
-			fullName: "Brick",
-			description: "It's Brick 2"
-		},
-		brick3: {
-			assetName: "tiles/brick3",
-			fullName: "Brick",
-			description: "It's Brick 3"
+			description: "It's Brick",
+			tileTypes: ["Land", "Air"]
 		}
 	}
 }

@@ -28,6 +28,7 @@
 #include <game/tile.h>
 #include <game/tile_instance.h>
 #include <game/tile_set.h>
+#include <game/tile_type.h>
 
 #include <game/map.h>
 
@@ -71,6 +72,7 @@ namespace sys {
 	void RougeSystem::init()
 	{
 		GameSystem::init();
+		TileType::loadStandardTileTypes("data/tileTypes.ssff");
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
@@ -107,7 +109,7 @@ namespace sys {
 
 		setCurrentMenu(mMainMenu);
 
-		Handle<ParticleSystem> test(new ParticleSystem());
+		/*Handle<ParticleSystem> test(new ParticleSystem());
 		test->setParticleAsset("testParticle");
 		test->setMaxAge(10.0f);
 		test->setMaxParticles(1000);
@@ -117,7 +119,7 @@ namespace sys {
 		test->setPowerVariation(15.0f);
 		test->setDirectionVariation(0);
 		test->setPosition(400, 100);
-		gfxEngine->getUILayer()->addChild(test);
+		gfxEngine->getUILayer()->addChild(test);*/
 	}
 	
 	void RougeSystem::reshape(int width, int height)

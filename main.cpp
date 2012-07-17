@@ -2,6 +2,7 @@
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//_CrtSetBreakAlloc(237);
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);
 
@@ -37,6 +38,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete rougeSystem;
 	delete mouseManager;
 	delete keyboardManager;
+
+	//_CrtDumpMemoryLeaks();
 	
 	// Shut down!
 }

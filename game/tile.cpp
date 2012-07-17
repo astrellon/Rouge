@@ -5,9 +5,14 @@ using namespace am::gfx;
 
 #include <log/logger.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 #include <sstream>
+using namespace std;
 
 #include "tile_set.h"
+#include "tile_type.h"
 
 namespace am {
 namespace game {
@@ -17,8 +22,7 @@ namespace game {
 		mFullName("No full name"),
 		mDescription("Undescribable"),
 		mGraphic(NULL),
-		mTileSet(NULL),
-		mTileType(TILE_TYPE_LAND)
+		mTileSet(NULL)
 	{
 		//printf("Creating tile '%s'\n", name);
 	}
@@ -27,8 +31,7 @@ namespace game {
 		mFullName(fullName),
 		mDescription("Undescribable"),
 		mGraphic(NULL),
-		mTileSet(NULL),
-		mTileType(TILE_TYPE_LAND)
+		mTileSet(NULL)
 	{
 		//printf("Creating tile '%s', '%s'\n", name, fullName);
 	}
@@ -122,27 +125,76 @@ namespace game {
 		{
 			mDescription = value["description"].getCStr();
 		}
+		if (value.has("tileTypes", JV_ARR))
+		{
+			JsonArray *types = value["tileTypes"].getArr();
+			JsonArray::iterator iter;
+			for (iter = types->begin(); iter != types->end(); ++iter)
+			{
+				if (iter->getType() != JV_STR)
+				{
+					stringstream errss;
+					errss << "Tile type must be a string and not a '" << iter->getTypeName() << "'";
+					am_log("TILE", errss);
+					continue;
+				}
+				string tileName = Utils::toLowerCase(iter->getCStr());
+				TileType *type = TileType::getTileType(tileName.c_str());
+				if (type == NULL)
+				{
+					stringstream errss;
+					errss << "Unable to find tile type '" << tileName << "' for tile '" << getName() << "'";
+					am_log("TILE", errss);
+					continue;
+				}
+				addTileType(type);
+			}
+		}
 	}
 
-	void Tile::setTileType(TileType tileType)
+	void Tile::addTileType(TileType *tileType)
 	{
-		mTileType &= static_cast<int>(tileType);
+		if (tileType != NULL)
+		{
+			mTileTypes.push_back(tileType);
+		}
 	}
-	void Tile::clearTileType(TileType tileType)
+	void Tile::removeTileType(TileType *tileType)
 	{
-		mTileType &= ~static_cast<int>(tileType);
+		if (tileType == NULL)
+		{
+			return;
+		}
+		for (int i = 0; i < mTileTypes.size(); i++)
+		{
+			if (mTileTypes[i] == tileType)
+			{
+				mTileTypes.erase(mTileTypes.begin() + i);
+			}
+		}
 	}
-	void Tile::clearAllTileTypes()
+	void Tile::removeAllTileTypes()
 	{
-		mTileType = 0;
+		mTileTypes.clear();
 	}
-	bool Tile::isTileType(TileType tileType) const
+	bool Tile::hasTileType(TileType *tileType) const
 	{
-		return mTileType & static_cast<int>(tileType);
+		if (tileType == NULL)
+		{
+			return false;
+		}
+		for (int i = 0; i < mTileTypes.size(); i++)
+		{
+			if (mTileTypes[i] == tileType)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
-	int Tile::getTileType() const
+	Tile::TileTypeList &Tile::getTileTypes()
 	{
-		return mTileType;
+		return mTileTypes;
 	}
 
 }

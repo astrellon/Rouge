@@ -9,13 +9,20 @@ using namespace am::base;
 #include <vector>
 using namespace std;
 
+//#include <game/tile_type.h>
+//#include <game/tile_common.h>
+
 namespace am {
 namespace game {
 
 	class Map;
+	class TileType;
 
 	class GameObject : public Layer {
 	public:
+
+		typedef vector<TileType *> PassibleTypeList;
+
 		GameObject();
 		~GameObject();
 
@@ -46,6 +53,12 @@ namespace game {
 		virtual void setMap(Map *map);
 		virtual Map *getMap();
 
+		virtual void addPassibleType(TileType *tileType);
+		virtual void removePassibleType(TileType *tileType);
+		virtual void removeAllPassibleTypes();
+		virtual bool hasPassibleType(TileType *tileType) const;
+		virtual PassibleTypeList &getPassibleTypes();
+
 	protected:
 
 		bool mFixedToGrid;
@@ -56,6 +69,9 @@ namespace game {
 
 		float mCameraOffsetX;
 		float mCameraOffsetY;
+
+		//int mPassibility;
+		PassibleTypeList mPassibleTypes;
 
 		string mName;
 

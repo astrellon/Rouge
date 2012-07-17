@@ -2,5 +2,5 @@
 	texture: "data/textures/testParticle.png",
 	framesX: 4,
 	framesY: 8,
-	frameRate: 10
+	frameRate: 24
 }

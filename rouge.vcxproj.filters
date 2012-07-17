@@ -277,6 +277,9 @@
     <ClCompile Include="gfx\gfx_colour_effect.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
+    <ClCompile Include="game\tile_type.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -526,7 +529,7 @@
     <ClInclude Include="gfx\gfx_colour_effect.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
-    <ClInclude Include="game\tile_common.h">
+    <ClInclude Include="game\tile_type.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
