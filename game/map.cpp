@@ -13,6 +13,7 @@ using namespace std;
 
 #include "tile.h"
 #include "tile_instance.h"
+#include "tile_type.h"
 #include "engine.h"
 
 namespace am {
@@ -172,6 +173,69 @@ namespace game {
 			}
 		}
 		return iter;
+	}
+
+	bool Map::isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const
+	{
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forObject == NULL)
+		{
+			return false;
+		}
+		const GameObject::PassibleTypeList &objectsPassible = forObject->getPassibleTypes();
+		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+
+		for (int t = 0; t < tileTypes.size(); t++)
+		{
+			const TileType *tileType = tileTypes[t];
+			for (int o = 0; o < objectsPassible.size(); o++)
+			{
+				if (objectsPassible[o] == tileType)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	bool Map::isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const
+	{
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
+		{
+			return false;
+		}
+		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+
+		for (int t = 0; t < tileTypes.size(); t++)
+		{
+			const TileType *tileType = tileTypes[t];
+			for (int o = 0; o < passibles.size(); o++)
+			{
+				if (passibles[o] == tileType)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	bool Map::isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const
+	{
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forTileType == NULL)
+		{
+			return false;
+		}
+
+		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+
+		for (int t = 0; t < tileTypes.size(); t++)
+		{
+			const TileType *tileType = tileTypes[t];
+			if (forTileType == tileType)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	Layer *Map::getBackground()

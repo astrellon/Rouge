@@ -12,6 +12,7 @@ namespace game {
 		~TileInstance();
 	
 		Tile *getTile();
+		const Tile *getTile() const;
 		void setTile(Tile *tile);
 
 		void setTileFrame(int frame);

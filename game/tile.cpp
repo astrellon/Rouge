@@ -196,6 +196,10 @@ namespace game {
 	{
 		return mTileTypes;
 	}
+	const Tile::TileTypeList &Tile::getTileTypes() const
+	{
+		return mTileTypes;
+	}
 
 }
 }

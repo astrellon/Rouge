@@ -35,9 +35,11 @@ namespace game {
 
 		void setGridXSize(float size);
 		float getGridXSize() const;
+		float getGridXSizeResp() const;
 
 		void setGridYSize(float size);
 		float getGridYSize() const;
+		float getGridYSizeResp() const;
 
 		void usingTileSet(const char *tileSetName);
 		void clearUsingTileSet();
@@ -61,6 +63,9 @@ namespace game {
 
 		float mGridXSize;
 		float mGridYSize;
+
+		float mGridXSizeResp;
+		float mGridYSizeResp;
 
 		typedef map<string, int> UsingTileSet;
 		UsingTileSet mUsingTileSetNames;

@@ -51,10 +51,11 @@ namespace game {
 		if (mMoveX != 0 || mMoveY != 0)
 		{
 			Engine *engine = Engine::getEngine();
-			float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
-			float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
-			
-			move(dx, dy);
+			moveGrid(mMoveX, mMoveY);
+			//float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
+			//float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
+
+			//move(dx, dy);
 		}
 	}
 
@@ -66,12 +67,14 @@ namespace game {
 	{
 		return mController.get();
 	}
-
+	/*
 	void Character::move(float x, float y)
 	{
+		//int gridX = static_cast<int>((mLocationX + x) * Engine::getEngine()->getGridXSizeResp());
+		//int gridY = static_cast<int>((mLocationY + y) * Engine::getEngine()->getGridXSizeResp());
 		setLocation(mLocationX + x, mLocationY + y);
 	}
-
+	*/
 	void Character::setMoveVector(int x, int y)
 	{
 		mMoveX = x;

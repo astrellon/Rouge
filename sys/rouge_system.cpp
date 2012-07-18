@@ -290,8 +290,9 @@ namespace sys {
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
+		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
-		mPlayer->setGridLocation(1, 1);
+		mPlayer->setGridLocation(2, 1);
 		game->addGameObject(mPlayer.get());
 
 		PlayerController *controller = new PlayerController();

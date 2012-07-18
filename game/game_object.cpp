@@ -68,11 +68,61 @@ namespace game {
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return static_cast<int>(mLocationX / Engine::getEngine()->getGridXSize());
+		return static_cast<int>(mLocationX * Engine::getEngine()->getGridXSizeResp());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return static_cast<int>(mLocationY / Engine::getEngine()->getGridYSize());
+		return static_cast<int>(mLocationY * Engine::getEngine()->getGridYSizeResp());
+	}
+
+	void GameObject::move(float x, float y)
+	{
+		const Engine *engine = Engine::getEngine();
+		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
+		int gridY = static_cast<int>(mLocationY * engine->getGridYSizeResp());
+		int newGridX = static_cast<int>((mLocationX + x) * engine->getGridXSizeResp());
+		int newGridY = static_cast<int>((mLocationY + y) * engine->getGridYSizeResp());
+		float dx = 0.0f;
+		float dy = 0.0f;
+		if (mMap->isValidGridLocation(gridX, newGridY, this))
+		{
+			dy = y;
+		}
+		if (mMap->isValidGridLocation(newGridX, gridY, this))
+		{
+			dx = x;
+		}
+		setLocation(mLocationX + dx, mLocationY + dy);
+	}
+
+	void GameObject::moveGrid(int x, int y)
+	{
+		const Engine *engine = Engine::getEngine();
+		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
+		int gridY = static_cast<int>(mLocationY * engine->getGridYSizeResp());
+		int newGridX = gridX + x;
+		int newGridY = gridY + y;
+		float dx = 0.0f;
+		float dy = 0.0f;
+		if (mMap->isValidGridLocation(gridX, newGridY, this))
+		{
+			dy = static_cast<float>(y) * engine->getGridYSize();
+		}
+		if (mMap->isValidGridLocation(newGridX, gridY, this))
+		{
+			dx = static_cast<float>(x) * engine->getGridXSize();
+		}
+		if (mMap->isValidGridLocation(newGridX, newGridY, this))
+		{
+			dy = static_cast<float>(y) * engine->getGridYSize();
+			dx = static_cast<float>(x) * engine->getGridXSize();
+		}
+		else
+		{
+			dy = 0.0f;
+			dx = 0.0f;
+		}
+		setLocation(mLocationX + dx, mLocationY + dy);
 	}
 
 	void GameObject::setCameraOffset(float x, float y)
@@ -137,7 +187,7 @@ namespace game {
 		{
 			return;
 		}
-		for (int i = 0; i < mPassibleTypes.size(); i++)
+		for (size_t i = 0; i < mPassibleTypes.size(); i++)
 		{
 			if (mPassibleTypes[i] == tileType)
 			{
@@ -155,7 +205,7 @@ namespace game {
 		{
 			return false;
 		}
-		for (int i = 0; i < mPassibleTypes.size(); i++)
+		for (size_t i = 0; i < mPassibleTypes.size(); i++)
 		{
 			if (mPassibleTypes[i] == tileType)
 			{
@@ -167,7 +217,10 @@ namespace game {
 	GameObject::PassibleTypeList &GameObject::getPassibleTypes()
 	{
 		return mPassibleTypes;
-		//return mPassibility;
+	}
+	const GameObject::PassibleTypeList &GameObject::getPassibleTypes() const
+	{
+		return mPassibleTypes;
 	}
 
 }

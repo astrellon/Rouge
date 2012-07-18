@@ -49,12 +49,30 @@ namespace ui {
 				manager->addEventListener(MOUSE_MOVE, this);
 				manager->addEventListener(MOUSE_UP, this);
 			}
+			else
+			{
+				if (e->getLocalMouseX() > mWidth - 20 &&
+					e->getLocalMouseY() > mHeight - 20)
+				{
+					mResizing = true;
+					manager->setDragOffset(e->getLocalMouseX(), e->getLocalMouseY());
+					manager->addEventListener(MOUSE_MOVE, this);
+					manager->addEventListener(MOUSE_UP, this);
+				}
+			}
 		}
 		else if (e->getMouseEventType() == MOUSE_MOVE)
 		{
-			int x = e->getMouseX() - manager->getDragOffsetX();
-			int y = e->getMouseY() - manager->getDragOffsetY();
-			setParentOffset(x, y);
+			if (mResizing)
+			{
+
+			}
+			else
+			{
+				int x = e->getMouseX() - manager->getDragOffsetX();
+				int y = e->getMouseY() - manager->getDragOffsetY();
+				setParentOffset(x, y);
+			}
 		}
 		else if (e->getMouseEventType() == MOUSE_UP)
 		{

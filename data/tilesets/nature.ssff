@@ -14,10 +14,22 @@
 			tileTypes: ["Land", "Air"]
 		},
 		brick: {
-			assetName: "tiles/brick1",
+			assetName: "tiles/brick",
 			fullName: "Brick",
 			description: "It's Brick",
-			tileTypes: ["Land", "Air"]
+			tileTypes: ["Wall"]
+		},
+		water: {
+			assetName: "tiles/water",
+			fullName: "Water",
+			description: "It's wet",
+			tileTypes: ["Water", "Air"]
+		},
+		swamp: {
+			assetName: "tiles/swamp",
+			fullName: "Swamp",
+			description: "You can walk on it...",
+			tileTypes: ["Land", "Water", "Air"]
 		}
 	}
 }

@@ -51,12 +51,14 @@ namespace game {
 		bool removeGameObject(GameObject *object);
 		bool hasGameObject(GameObject *object) const;
 
+		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
+		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
+		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
+
 		void loadDef(JsonValue loaded);
 
 		void updateAssetSprites();
 
-		//virtual float getWidth();
-		//virtual float getHeight();
 		virtual void render(float dt);
 
 	protected:

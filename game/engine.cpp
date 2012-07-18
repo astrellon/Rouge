@@ -20,6 +20,8 @@ namespace game {
 		mCurrentGame(NULL),
 		mGridXSize(32.0f),
 		mGridYSize(32.0f),
+		mGridXSizeResp(1.0f / 32.0f),
+		mGridYSizeResp(1.0f / 32.0f),
 		mUsingTileSetDirty(true)
 	{
 	}
@@ -229,11 +231,17 @@ namespace game {
 			size = 0.0001f;
 		}
 		mGridXSize = size;
+		mGridXSizeResp = 1.0f / size;
 	}
 	float Engine::getGridXSize() const
 	{
 		return mGridXSize;
 	}
+	float Engine::getGridXSizeResp() const
+	{
+		return mGridXSizeResp;
+	}
+
 	void Engine::setGridYSize(float size)
 	{
 		if (size > -0.0001f && size < 0.0f)
@@ -245,10 +253,15 @@ namespace game {
 			size = 0.0001f;
 		}
 		mGridYSize = size;
+		mGridYSizeResp = 1.0f / size;
 	}
 	float Engine::getGridYSize() const
 	{
 		return mGridYSize;
+	}
+	float Engine::getGridYSizeResp() const
+	{
+		return mGridYSizeResp;
 	}
 
 }

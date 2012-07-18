@@ -50,6 +50,7 @@ namespace game {
 		void removeAllTileTypes();
 		bool hasTileType(TileType *tileType) const;
 		TileTypeList &getTileTypes();
+		const TileTypeList &getTileTypes() const;
 
 		void loadDef(JsonValue value);
 	

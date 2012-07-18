@@ -103,16 +103,12 @@ namespace game {
 		{
 			return;
 		}
-		if (!e->isPropagating())
-		{
-			//return;
-		}
 
 		am::math::TransformLite &trans = GfxEngine::getEngine()->getGameLayer()->getTransform();
-		int localX = e->getMouseX() - static_cast<int>(trans.getX());
-		int localY = e->getMouseY() - static_cast<int>(trans.getY());
-		int gridX = localX / static_cast<int>(Engine::getEngine()->getGridXSize());
-		int gridY = localY / static_cast<int>(Engine::getEngine()->getGridYSize());
+		float localX = static_cast<float>(e->getMouseX()) - trans.getX();
+		float localY = static_cast<float>(e->getMouseY()) - trans.getY();
+		int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
+		int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
 		
 		if (gridX < 0 || gridY < 0 || 
 			gridX >= mCurrentMap->getMapWidth() ||

@@ -29,7 +29,7 @@ namespace game {
 
 		virtual void update(float dt);
 
-		virtual void move(float x, float y);
+		//virtual void move(float x, float y);
 
 		virtual void setController(IController *controller);
 		virtual IController *getController();

@@ -9,9 +9,6 @@ using namespace am::base;
 #include <vector>
 using namespace std;
 
-//#include <game/tile_type.h>
-//#include <game/tile_common.h>
-
 namespace am {
 namespace game {
 
@@ -38,6 +35,9 @@ namespace game {
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 
+		virtual void move(float x, float y);
+		virtual void moveGrid(int x, int y);
+
 		virtual void setFixedToGrid(bool fixed);
 		virtual bool isFixedToGrid() const;
 
@@ -58,6 +58,7 @@ namespace game {
 		virtual void removeAllPassibleTypes();
 		virtual bool hasPassibleType(TileType *tileType) const;
 		virtual PassibleTypeList &getPassibleTypes();
+		virtual const PassibleTypeList &getPassibleTypes() const;
 
 	protected:
 
@@ -70,7 +71,6 @@ namespace game {
 		float mCameraOffsetX;
 		float mCameraOffsetY;
 
-		//int mPassibility;
 		PassibleTypeList mPassibleTypes;
 
 		string mName;

@@ -32,8 +32,10 @@ namespace ui {
 
 	protected:
 
+		bool mResizing;
 		Handle<TextField> mTitle;
 		Handle<Sprite> mBack;
+		//Handle<Sprite> mSizeHandle;
 
 	};
 
