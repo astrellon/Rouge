@@ -164,6 +164,7 @@ namespace ui {
 	{
 		if (mGraphic.get())
 		{
+			width = clampWidth(width);
 			mGraphic->setWidth(width);
 			mLabel->setWidth(width);
 			updateLabelPos();
@@ -182,6 +183,7 @@ namespace ui {
 	{
 		if (mGraphic.get())
 		{
+			height = clampHeight(height);
 			mGraphic->setHeight(height);
 			mLabel->setHeight(height);
 			updateLabelPos();

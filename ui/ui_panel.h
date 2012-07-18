@@ -32,6 +32,8 @@ namespace ui {
 
 	protected:
 
+		float mStartingWidth;
+		float mStartingHeight;
 		bool mResizing;
 		Handle<TextField> mTitle;
 		Handle<Sprite> mBack;

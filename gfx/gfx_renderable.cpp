@@ -213,5 +213,21 @@ namespace gfx {
 #endif
 	}
 
+	void Renderable::getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const
+	{
+		float offsetX = -getPositionX();
+		float offsetY = -getPositionY();
+		const Layer *parent = getParent();
+		while (parent != NULL)
+		{
+			offsetX -= parent->getPositionX();
+			offsetY -= parent->getPositionY();
+			parent = parent->getParent();
+		}
+
+		outX = inX + offsetX;
+		outY = inY + offsetY;
+	}
+
 }
 }

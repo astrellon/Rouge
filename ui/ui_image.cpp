@@ -75,13 +75,13 @@ namespace ui {
 
 	void Image::setWidth(float width)
 	{
-		mGraphic->setWidth(width);
 		UIComponent::setWidth(width);
+		mGraphic->setWidth(mWidth);
 	}
 	void Image::setHeight(float height)
 	{
-		mGraphic->setHeight(height);
 		UIComponent::setHeight(height);
+		mGraphic->setHeight(mHeight);
 	}
 
 }

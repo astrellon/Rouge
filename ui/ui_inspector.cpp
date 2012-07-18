@@ -48,12 +48,12 @@ namespace ui {
 	void Inspector::setWidth(float width)
 	{
 		Panel::setWidth(width);
-		mInfo->setWidth(width - 18);
+		mInfo->setWidth(mWidth - 18);
 	}
 	void Inspector::setHeight(float height)
 	{
 		Panel::setHeight(height);
-		mInfo->setHeight(height - 28);
+		mInfo->setHeight(mHeight - 28);
 	}
 
 	TextField *Inspector::getTextField()

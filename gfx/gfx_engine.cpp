@@ -59,7 +59,7 @@ namespace gfx {
 		// Initialize the DevIL framework.
 		ilInit();
 
-		glClearColor (0.0f, 0.3f, 0.4f, 0.0f);
+		glClearColor (0.2f, 0.3f, 0.4f, 0.0f);
 		// Enable texture for the text fields.
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);

@@ -15,6 +15,10 @@ namespace ui {
 		mParentAnchorY(Y_TOP),
 		mParentOffsetX(0.0f),
 		mParentOffsetY(0.0f),
+		mMinWidth(-1.0f),
+		mMinHeight(-1.0f),
+		mMaxWidth(-1.0f),
+		mMaxHeight(-1.0f),
 		mEnabled(true)
 	{
 		setInteractive(true);
@@ -187,6 +191,53 @@ namespace ui {
 		return mEnabled && Layer::isInteractive();
 	}
 
+	void UIComponent::setWidth(float width)
+	{
+		mWidth = clampWidth(width);
+	}
+	void UIComponent::setHeight(float height)
+	{
+		mHeight = clampHeight(height);
+	}
+
+	void UIComponent::setMinWidth(float width)
+	{
+		mMinWidth = width;
+		setWidth(width);
+	}
+	void UIComponent::setMinHeight(float height)
+	{
+		mMinHeight = height;
+		setHeight(height);
+	}
+	float UIComponent::getMinWidth() const
+	{
+		return mMinWidth;
+	}
+	float UIComponent::getMinHeight() const
+	{
+		return mMinHeight;
+	}
+
+	void UIComponent::setMaxWidth(float width)
+	{
+		mMaxWidth = width;
+		setWidth(width);
+	}
+	void UIComponent::setMaxHeight(float height)
+	{
+		mMaxHeight = height;
+		setHeight(height);
+	}
+	float UIComponent::getMaxWidth() const
+	{
+		return mMaxWidth;
+	}
+	float UIComponent::getMaxHeight() const
+	{
+		return mMaxHeight;
+	}
+
 	void UIComponent::setEnabled(bool enabled)
 	{
 		mEnabled = enabled;
@@ -196,5 +247,31 @@ namespace ui {
 		return mEnabled;
 	}
 
+	float UIComponent::clampWidth(const float width) const
+	{
+		float result = width;
+		if (mMinWidth >= 0.0f && result < mMinWidth)
+		{
+			result = mMinWidth;
+		}
+		if (mMaxWidth > 0.0f && result > mMaxWidth)
+		{
+			result = mMaxWidth;
+		}
+		return result;
+	}
+	float UIComponent::clampHeight(const float height) const
+	{
+		float result = height;
+		if (mMinHeight >= 0.0f && result < mMinHeight)
+		{
+			result = mMinHeight;
+		}
+		if (mMaxHeight > 0.0f && result > mMaxHeight)
+		{
+			result = mMaxHeight;
+		}
+		return result;
+	}
 }
 }

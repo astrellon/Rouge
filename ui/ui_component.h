@@ -50,6 +50,19 @@ namespace ui {
 		virtual float getParentWidth();
 		virtual float getParentHeight();
 
+		virtual void setWidth(float width);
+		virtual void setHeight(float height);
+
+		virtual void setMinWidth(float width);
+		virtual void setMinHeight(float height);
+		virtual float getMinWidth() const;
+		virtual float getMinHeight() const;
+
+		virtual void setMaxWidth(float width);
+		virtual void setMaxHeight(float height);
+		virtual float getMaxWidth() const;
+		virtual float getMaxHeight() const;
+
 		virtual void setEnabled(bool enabled);
 		virtual bool isEnabled() const;
 
@@ -68,9 +81,17 @@ namespace ui {
 		float mParentOffsetX;
 		float mParentOffsetY;
 
+		float mMinWidth;
+		float mMinHeight;
+
+		float mMaxWidth;
+		float mMaxHeight;
+
 		bool mEnabled;
 
 		virtual void preRender(float dt);
+		float clampWidth(const float width) const;
+		float clampHeight(const float height) const;
 	};
 
 }

@@ -65,6 +65,8 @@ namespace gfx {
 		virtual void setName(const char *name);
 		virtual string getName() const;
 
+		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
+
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 
 	protected:

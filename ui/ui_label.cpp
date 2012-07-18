@@ -58,11 +58,11 @@ namespace ui {
 
 	void Label::setWidth(float width)
 	{
-		mLabel->setWidth(width);
+		mLabel->setWidth(clampWidth(width));
 	}
 	void Label::setHeight(float height)
 	{
-		mLabel->setHeight(height);
+		mLabel->setHeight(clampHeight(height));
 	}
 
 	float Label::getWidth()

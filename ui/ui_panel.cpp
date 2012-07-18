@@ -10,7 +10,11 @@
 namespace am {
 namespace ui {
 
-	Panel::Panel()
+	Panel::Panel() :
+		UIComponent(),
+		mStartingWidth(100.0f),
+		mStartingHeight(100.0f),
+		mResizing(false)
 	{
 		mBack = new Sprite("uiPanel");
 		mBack->setInteractive(true);
@@ -21,6 +25,11 @@ namespace ui {
 		mTitle->setPosition(9, 7);
 
 		mBack->addEventListener(MOUSE_DOWN, this);
+
+		setMinWidth(100.0f);
+		setMinHeight(100.0f);
+		setMaxWidth(600.0f);
+		setMaxHeight(400.0f);
 	}
 	Panel::~Panel()
 	{
@@ -28,14 +37,14 @@ namespace ui {
 
 	void Panel::setWidth(float width)
 	{
-		mBack->setWidth(width);
-		mTitle->setWidth(width - 18.0f);
 		UIComponent::setWidth(width);
+		mBack->setWidth(mWidth);
+		mTitle->setWidth(mWidth - 18.0f);
 	}
 	void Panel::setHeight(float height)
 	{
-		mBack->setHeight(height);
 		UIComponent::setHeight(height);
+		mBack->setHeight(mHeight);
 	}
 
 	void Panel::onEvent(MouseEvent *e)
@@ -58,6 +67,8 @@ namespace ui {
 					manager->setDragOffset(e->getLocalMouseX(), e->getLocalMouseY());
 					manager->addEventListener(MOUSE_MOVE, this);
 					manager->addEventListener(MOUSE_UP, this);
+					mStartingWidth = mWidth;
+					mStartingHeight = mHeight;
 				}
 			}
 		}
@@ -65,7 +76,13 @@ namespace ui {
 		{
 			if (mResizing)
 			{
-
+				float localX = 0.0f;
+				float localY = 0.0f;
+				getScreenToLocal(e->getMouseX(), e->getMouseY(), localX, localY);
+				
+				float dx = localX - manager->getDragOffsetX();
+				float dy = localY - manager->getDragOffsetY();
+				setSize(mStartingWidth + dx, mStartingHeight + dy);
 			}
 			else
 			{
@@ -78,6 +95,7 @@ namespace ui {
 		{
 			manager->removeEventListener(MOUSE_MOVE, this);
 			manager->removeEventListener(MOUSE_UP, this);
+			mResizing = false;
 		}
 	}
 
