@@ -36,6 +36,8 @@ namespace util {
 		void applyColour() const;
 
 		void parseFromTokeniser(TextTokeniser &tokeniser);
+		void parseFromString(const char *str);
+		void parseFromUint(unsigned int value);
 
 		Colour lerp(const Colour &rhs, float dt) const;
 
@@ -46,7 +48,7 @@ namespace util {
 		static void removeNamedColour(const char *name);
 		static void removeNamedColour(const string &name);
 
-		static void addStandardNamedColours();
+		static void addStandardNamedColours(const char *filename);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Colour& rhs);
 

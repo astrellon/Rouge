@@ -75,7 +75,7 @@ namespace ui {
 		stringstream ss;
 		if (mTile.get())
 		{
-			ss << "<colour red>Tile:</colour> " << mTile->getFullName() << 
+			ss << "<colour yellow>Tile:</colour> " << mTile->getFullName() << 
 				  "\n<colour red>Desc:</colour> " << mTile->getDescription() << 
 				  "\n<colour red>Types:</colour> ";
 

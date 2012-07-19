@@ -2,6 +2,12 @@
 
 #include <gl.h>
 
+#include <log/logger.h>
+
+#include <sstream>
+using namespace std;
+
+#include <util/json_value.h>
 #include <util/utils.h>
 
 namespace am {
@@ -127,6 +133,82 @@ namespace util {
 		}
 		return c;
 	}
+	void Colour::parseFromString(const char *str)
+	{
+		if (str == NULL || str[0] == '\0')
+		{
+			return;
+		}
+		if (str[0] == '#' || str[0] == 'x' || str[0] == 'X')
+		{
+			unsigned int value = 0;
+			bool parsed = Utils::fromString<unsigned int>(value, str + 1, std::hex);
+			if (parsed)
+			{
+				parseFromUint(value);
+			}
+		}
+		else
+		{
+			Tokeniser tokeniser(str);
+			const char *token = tokeniser.nextToken();
+			float value = 0.0f;
+			if (token != NULL)
+			{
+				bool parsed = Utils::fromString(value, token);
+				if (parsed)
+				{
+					setRed(value);
+				}
+				else
+				{
+					getNamedColour(token, *this);
+				}
+			}
+
+			token = tokeniser.nextToken();
+			if (token != NULL)
+			{
+				bool parsed = Utils::fromString(value, token);
+				if (parsed)
+				{
+					setGreen(value);
+				}
+			}
+
+			token = tokeniser.nextToken();
+			if (token != NULL)
+			{
+				bool parsed = Utils::fromString(value, token);
+				if (parsed)
+				{
+					setBlue(value);
+				}
+			}
+
+			token = tokeniser.nextToken();
+			if (token != NULL)
+			{
+				bool parsed = Utils::fromString(value, token);
+				if (parsed)
+				{
+					setAlpha(value);
+				}
+			}
+		}
+	}
+	void Colour::parseFromUint(unsigned int value)
+	{
+		float red = static_cast<float>((value >> 24) & 0xFF);
+		float green = static_cast<float>((value >> 16) & 0xFF);
+		float blue = static_cast<float>((value >> 8) & 0xFF);
+		float alpha = static_cast<float>(value & 0xFF);
+
+		setRed(red / 255.0f);
+		setGreen(green / 255.0f);
+		setBlue(blue / 255.0f);
+		setAlpha(alpha / 255.0f);
+	}
 
 	void Colour::parseFromTokeniser(TextTokeniser &tokeniser)
 	{
@@ -216,8 +298,42 @@ namespace util {
 		}
 	}
 
-	void Colour::addStandardNamedColours()
+	void Colour::addStandardNamedColours(const char *filename)
 	{
+		if (filename != NULL)
+		{
+			JsonValue loaded = JsonValue::import_from_file(filename);
+			if (loaded.getType() == JV_OBJ)
+			{
+				JsonObject *obj = loaded.getObj();
+				JsonObject::iterator iter;
+				for (iter = obj->begin(); iter != obj->end(); ++iter)
+				{
+					Colour c;
+					bool parsed = false;
+					if (iter->second.getType() == JV_STR)
+					{
+						c.parseFromString(iter->second.getCStr());
+						parsed = true;
+					}
+					else if (iter->second.getType() == JV_INT)
+					{
+						c.parseFromUint(iter->second.getInt());
+						parsed = true;
+					}
+
+					if (parsed)
+					{
+						string lowerName = Utils::toLowerCase(iter->first.c_str());
+						addNamedColour(lowerName, c);
+					}
+				}
+				return;
+			}
+			stringstream errss;
+			errss << "Failed to loaded standard colours from '" << filename << "', file returned a " << loaded.getTypeName();
+			am_log("COLOUR", errss);
+		}
 		addNamedColour("white", Colour(1, 1, 1));
 		addNamedColour("black", Colour(0, 0, 0));
 		addNamedColour("red", Colour(1, 0, 0));
