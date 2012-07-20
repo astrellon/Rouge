@@ -16,6 +16,8 @@ namespace game {
 		mMoveY(0)
 	{
 		setName("Character");
+
+		addEventListener(MOUSE_UP, this);
 	}
 	Character::~Character()
 	{
@@ -87,6 +89,15 @@ namespace game {
 	int Character::getMoveVectorY() const
 	{
 		return mMoveY;
+	}
+
+	float Character::getWidth()
+	{
+		return mGraphic->getWidth();
+	}
+	float Character::getHeight()
+	{
+		return mGraphic->getHeight();
 	}
 
 	Stats &Character::getStats()

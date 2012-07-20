@@ -11,6 +11,11 @@ namespace ui {
 		//mInspector->setAnchor(X_RIGHT, Y_TOP);
 		mInspector->setWidth(140.0f);
 		mInspector->setHeight(200.0f);
+
+		mCharacterScreen = new CharacterScreen();
+		addChild(mCharacterScreen);
+		mCharacterScreen->setWidth(200.0f);
+		mCharacterScreen->setHeight(300.0f);
 	}
 	GameHud::~GameHud()
 	{
@@ -18,7 +23,11 @@ namespace ui {
 
 	Inspector *GameHud::getInspector()
 	{
-		return mInspector.get();
+		return mInspector;
+	}
+	CharacterScreen *GameHud::getCharacterScreen()
+	{
+		return mCharacterScreen;
 	}
 
 	void GameHud::setWidth(float width)

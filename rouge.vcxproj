@@ -91,6 +91,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
     <ClCompile Include="game\stats.cpp" />
+    <ClCompile Include="game\stats_common.cpp" />
     <ClCompile Include="game\stat_modifier.cpp" />
     <ClCompile Include="game\stat_modifiers.cpp" />
     <ClCompile Include="game\stat_range.cpp" />
@@ -134,6 +135,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\mouse_manager.cpp" />
     <ClCompile Include="ui\ui_asset_renderer.cpp" />
     <ClCompile Include="ui\ui_button.cpp" />
+    <ClCompile Include="ui\ui_character_screen.cpp" />
     <ClCompile Include="ui\ui_checkbox.cpp" />
     <ClCompile Include="ui\ui_component.cpp" />
     <ClCompile Include="ui\ui_editor_hud.cpp" />
@@ -219,6 +221,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\mouse_manager.h" />
     <ClInclude Include="ui\ui_asset_renderer.h" />
     <ClInclude Include="ui\ui_button.h" />
+    <ClInclude Include="ui\ui_character_screen.h" />
     <ClInclude Include="ui\ui_checkbox.h" />
     <ClInclude Include="ui\ui_component.h" />
     <ClInclude Include="ui\ui_editor_hud.h" />

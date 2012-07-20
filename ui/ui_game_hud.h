@@ -4,6 +4,7 @@
 using namespace am::base;
 
 #include <ui/ui_inspector.h>
+#include <ui/ui_character_screen.h>
 #include <ui/ui_component.h>
 
 namespace am {
@@ -15,6 +16,7 @@ namespace ui {
 		~GameHud();
 
 		virtual Inspector *getInspector();
+		virtual CharacterScreen *getCharacterScreen();
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
@@ -22,6 +24,7 @@ namespace ui {
 	protected:
 
 		Handle<Inspector> mInspector;
+		Handle<CharacterScreen> mCharacterScreen;
 		
 	};
 

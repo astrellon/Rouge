@@ -76,8 +76,8 @@ namespace ui {
 		if (mTile.get())
 		{
 			ss << "<colour yellow>Tile:</colour> " << mTile->getFullName() << 
-				  "\n<colour red>Desc:</colour> " << mTile->getDescription() << 
-				  "\n<colour red>Types:</colour> ";
+				  "\n<colour white>Desc:</colour> " << mTile->getDescription() << 
+				  "\n<colour white>Types:</colour> ";
 
 			Tile::TileTypeList &tileTypes = mTile->getTileTypes();
 			for (int i = 0; i < tileTypes.size(); i++)
@@ -97,10 +97,11 @@ namespace ui {
 				ss << tileTypes[i]->getFullName();
 			}
 		}
+		ss << "\n\n";
 		GameObjectList::iterator iter;
 		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
-			ss << "<colour red>GameObj:</colour> " << iter->get()->getName() << "\n\n";
+			ss << "<colour white>GameObj:</colour> " << iter->get()->getName() << "\n\n";
 		}
 		mInfo->setText(ss.str());
 		mTextDirty = false;

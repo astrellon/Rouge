@@ -11,6 +11,9 @@ using namespace std;
 #include <gfx/gfx_sprite.h>
 using namespace am::gfx;
 
+#include <ui/ievent_listener.h>
+using namespace am::ui;
+
 #include "icontroller.h"
 #include "game_object.h"
 
@@ -19,7 +22,7 @@ using namespace am::gfx;
 namespace am {
 namespace game {
 
-	class Character : public GameObject {
+	class Character : public IEventListener, public GameObject {
 	public:
 		Character();
 		~Character();
@@ -29,14 +32,15 @@ namespace game {
 
 		virtual void update(float dt);
 
-		//virtual void move(float x, float y);
-
 		virtual void setController(IController *controller);
 		virtual IController *getController();
 
 		virtual void setMoveVector(int x, int y);
 		virtual int getMoveVectorX() const;
 		virtual int getMoveVectorY() const;
+
+		virtual float getWidth();
+		virtual float getHeight();
 
 		virtual Stats &getStats();
 

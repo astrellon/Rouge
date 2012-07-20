@@ -17,6 +17,12 @@ namespace game {
 			MAX_DAMAGE,
 			MAX_STAT_LENGTH
 		};
+
+		static const char *getStatName(StatType stat);
+
+	protected:
+		static const char *sStatNames[];
+
 	};
 
 }

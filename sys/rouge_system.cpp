@@ -300,6 +300,12 @@ namespace sys {
 
 		game->getCamera()->followObject(mPlayer.get());
 
+		GameHud *gameHud = Engine::getEngine()->getGameHud();
+		if (gameHud)
+		{
+			gameHud->getCharacterScreen()->setCharacter(mPlayer);
+		}
+
 		//mMainMenu->setVisible(false);
 		//mIngameMenu->setVisible(false);
 		setCurrentMenu(NULL);

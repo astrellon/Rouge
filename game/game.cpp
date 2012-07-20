@@ -30,12 +30,12 @@ namespace game {
 	{
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
-		//mGameLayer->setInteractive(true);
+		mGameLayer->setInteractive(true);
 		//GfxEngine::getEngine()->getRootLayer()->addChild(mGameLayer.get());
 
 		mBackground = new Layer();
 		mBackground->setName("Background");
-		mBackground->setInteractive(true);
+		mBackground->setInteractive(false);
 		mGameLayer->addChild(mBackground.get());
 
 		mItemLayer = new Layer();
@@ -50,7 +50,7 @@ namespace game {
 
 		mForeground = new Layer();
 		mForeground->setName("Foreground");
-		mForeground->setInteractive(true);
+		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
 
 		MouseManager::getManager()->addEventListener(MOUSE_UP, this);
@@ -116,12 +116,31 @@ namespace game {
 		{
 			return;
 		}
+
 		GameHud *gameHud = Engine::getEngine()->getGameHud();
 		if (gameHud)
 		{
 			Tile *tile = mCurrentMap->getTile(gridX, gridY);
 			Inspector *inspector = gameHud->getInspector();
 			inspector->setTile(tile);
+
+			inspector->clearGameObjects();
+			if (mActiveObjects)
+			{
+				ObjectList::iterator iter;
+				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+				{
+					GameObject *obj = iter->get();
+					float x = obj->getPositionX();
+					float y = obj->getPositionY();
+					if (localX >= x && localX >= y &&
+						localX < x + obj->getWidth() &&
+						localY < y + obj->getHeight())
+					{
+						inspector->addGameObject(obj);
+					}
+				}
+			}
 		}
 	}
 	
