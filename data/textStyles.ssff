@@ -1,0 +1,21 @@
+[	// Text Styles
+	{
+		nodeType: "character",
+		style: {
+			colour: "blue"
+		}
+	}, {
+		nodeType: "character",
+		attributes: {
+			spectial: "true"
+		},
+		style: {
+			colour: "purple"
+		}
+	}, {
+		nodeType: "item",
+		style: {
+			colour: "yellow"
+		}
+	}
+]

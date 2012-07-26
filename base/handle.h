@@ -97,14 +97,14 @@ namespace base {
 		{
 			return *mObject != rhs;
 		}
-		bool operator!=(int rhs) const
+		/*bool operator!=(int rhs) const
 		{
 			return mObject != rhs;
 		}
 		bool operator!=(unsigned int rhs) const
 		{
 			return mObject != rhs;
-		}
+		}*/
 
 	private:
 		T *mObject;

@@ -164,7 +164,7 @@ namespace ui {
 	{
 		return mDragOffsetY;
 	}
-
+	
 	void MouseManager::clearCurrentlyFiring()
 	{
 		mStopCurrentEvents = true;

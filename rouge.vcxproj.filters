@@ -61,6 +61,9 @@
     <Filter Include="gfx\base\util">
       <UniqueIdentifier>{49add265-7644-43e1-87fa-fc1b0c568e07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gfx\base\node">
+      <UniqueIdentifier>{d2d19d70-7e8f-4c9c-a7ed-6b5fb9fc98b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -285,6 +288,15 @@
     </ClCompile>
     <ClCompile Include="game\stats_common.cpp">
       <Filter>game\stats</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_field2.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_node.cpp">
+      <Filter>gfx\base\node</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_style_selector.cpp">
+      <Filter>gfx\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +552,15 @@
     </ClInclude>
     <ClInclude Include="ui\ui_character_screen.h">
       <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_field2.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_node.h">
+      <Filter>gfx\base\node</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_style_selector.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

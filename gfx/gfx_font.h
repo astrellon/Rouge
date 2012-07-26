@@ -60,6 +60,7 @@ namespace gfx {
 		void setCharsAcross(int across);
 		int getCharsAcross() const;
 		int getCharsDown() const;
+		float getCharWidth(unsigned char ch) const;
 
 	protected:
 

@@ -74,21 +74,23 @@ namespace ui {
 		}
 		else if (e->getMouseEventType() == MOUSE_MOVE)
 		{
+			float localX = 0.0f;
+			float localY = 0.0f;
+			getScreenToLocal(e->getMouseX(), e->getMouseY(), localX, localY);
+				
+			float dx = localX - manager->getDragOffsetX();
+			float dy = localY - manager->getDragOffsetY();
 			if (mResizing)
 			{
-				float localX = 0.0f;
-				float localY = 0.0f;
-				getScreenToLocal(e->getMouseX(), e->getMouseY(), localX, localY);
-				
-				float dx = localX - manager->getDragOffsetX();
-				float dy = localY - manager->getDragOffsetY();
+				if (mAnchorX == X_RIGHT)
+				{
+					dx *= 0.5f;
+				}
 				setSize(mStartingWidth + dx, mStartingHeight + dy);
 			}
 			else
 			{
-				int x = e->getMouseX() - manager->getDragOffsetX();
-				int y = e->getMouseY() - manager->getDragOffsetY();
-				setParentOffset(x, y);
+				setParentOffset(mParentOffsetX + dx, mParentOffsetY + dy);
 			}
 		}
 		else if (e->getMouseEventType() == MOUSE_UP)

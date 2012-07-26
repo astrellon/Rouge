@@ -15,6 +15,7 @@ namespace ui {
 		mInfo = new TextField();
 		mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
+		mInfo->setInteractive(true);
 		addChild(mInfo);
 
 		setTitle("Character Screen");

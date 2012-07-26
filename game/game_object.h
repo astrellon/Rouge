@@ -60,10 +60,17 @@ namespace game {
 		virtual PassibleTypeList &getPassibleTypes();
 		virtual const PassibleTypeList &getPassibleTypes() const;
 
+		virtual int getGameId() const;
+
+		static int nextGameId();
+		static GameObject *getByGameId(int id);
+
 	protected:
 
 		bool mFixedToGrid;
 		bool mOnlyOnPassable;
+
+		int mGameId;
 
 		float mLocationX;
 		float mLocationY;
@@ -76,6 +83,15 @@ namespace game {
 		string mName;
 
 		Map *mMap;
+
+		virtual void setGameId(int id);
+
+		static void addGameObject(GameObject *obj);
+		static void removeGameObject(GameObject *obj);
+
+		static int sGameIdCount;
+		typedef map<int, GameObject *> GameObjectIdMap;
+		static GameObjectIdMap sGameObjects;
 
 	};
 

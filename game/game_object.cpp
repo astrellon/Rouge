@@ -8,6 +8,9 @@
 namespace am {
 namespace game {
 
+	int GameObject::sGameIdCount = 1;
+	GameObject::GameObjectIdMap GameObject::sGameObjects;
+
 	GameObject::GameObject() :
 		Layer(),
 		mLocationX(0.0f),
@@ -19,10 +22,12 @@ namespace game {
 		mMap(NULL)
 	{
 		setName("GameObject");
+		addGameObject(this);
+
 	}
 	GameObject::~GameObject()
 	{
-
+		removeGameObject(this);
 	}
 
 	void GameObject::setName(const char *name)
@@ -223,5 +228,54 @@ namespace game {
 		return mPassibleTypes;
 	}
 
+	void GameObject::setGameId(int id)
+	{
+		mGameId = id;
+	}
+	int GameObject::getGameId() const
+	{
+		return mGameId;
+	}
+
+	int GameObject::nextGameId()
+	{
+		return sGameIdCount++;
+	}
+	GameObject *GameObject::getByGameId(int id)
+	{
+		if (id == 0)
+		{
+			return NULL;
+		}
+		GameObjectIdMap::iterator iter = sGameObjects.find(id);
+		if (iter == sGameObjects.end())
+		{
+			return iter->second;
+		}
+		return NULL;
+	}
+
+	void GameObject::addGameObject(GameObject *obj)
+	{
+		if (obj == NULL)
+		{
+			return;
+		}
+		int id = nextGameId();
+		obj->setGameId(id);
+		sGameObjects[id] = obj;
+	}
+	void GameObject::removeGameObject(GameObject *obj)
+	{
+		if (obj == NULL)
+		{
+			return;
+		}
+		GameObjectIdMap::iterator iter = sGameObjects.find(obj->getGameId());
+		if (iter != sGameObjects.end())
+		{
+			sGameObjects.erase(iter);
+		}
+	}
 }
 }

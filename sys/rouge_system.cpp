@@ -8,6 +8,9 @@
 #include <gfx/gfx_text_style.h>
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_particle_system.h>
+#include <gfx/gfx_text_style_selector.h>
+#include <gfx/gfx_node.h>
+#include <gfx/gfx_text_field2.h>
 
 #include <ui/ui_button.h>
 #include <ui/ui_checkbox.h>
@@ -108,7 +111,35 @@ namespace sys {
 		engine->setGameHud(mGameHud);
 
 		setCurrentMenu(mMainMenu);
+		
+		TextStyle::loadStyles("data/textStyles.ssff");
 
+		Handle<TextField2> field2(new TextField2());
+		field2->setText("Hello <character special='true'>Melli</character> how are you?\nWould you like this <item>Dress</item>?");
+		field2->parseRawText();
+
+		field2->setPosition(400, 100);
+		gfxEngine->getUILayer()->addChild(field2);
+		/*
+		Handle<Node> curr = field2->getRootNode()->firstChild();
+		while (curr != NULL)
+		{
+			stringstream ss;
+			ss << curr->getNodeType() << ": " << curr->getText() << " (" << curr->getTextStyle().getColour() << ")";
+			am_log("NODE", ss);
+			curr = curr->nextSibling();
+		}*/
+		/*TextTokeniser tokeniser("Hello there <header class='menu' attr='hi there'>HEadER</header> after");
+		const char *token = tokeniser.nextToken();
+		while (token != NULL)
+		{
+			if (token[0] != '\0')
+			{
+				am_log("TOKEN", token);
+			}
+			token = tokeniser.nextToken();
+		}
+		*/
 		/*Handle<ParticleSystem> test(new ParticleSystem());
 		test->setParticleAsset("testParticle");
 		test->setMaxAge(10.0f);

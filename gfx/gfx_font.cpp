@@ -438,5 +438,10 @@ namespace gfx {
 		return pair<float, float>(left, right);
 	}
 
+	float Font::getCharWidth(unsigned char ch) const
+	{
+		return mTextureWindows[ch].getWidth();
+	}
+
 }
 }

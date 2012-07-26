@@ -7,24 +7,25 @@ using namespace std;
 #include <ui/mouse_event.h>
 using namespace am::ui;
 
-#include "gfx_renderable.h"
+#include "gfx_layer.h"
 #include "texture_window.h"
 #include "gfx_text_style.h"
+#include "gfx_node.h"
 
 namespace am {
 namespace gfx {
 
 	class Font;
 
-	class TextField : public IEventListener, public Renderable {
+	class TextField2 : public IEventListener, public Layer {
 	public:
 		// GlTextField methods
 		enum TextAlignment {
 			ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER
 		};
 
-		TextField();
-		~TextField();
+		TextField2();
+		~TextField2();
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -46,13 +47,13 @@ namespace gfx {
 
 		float getMeasuredWidth();
 		float getMeasuredHeight();
-
+		/*
 		void clearAllStyles();
 		void addTextStyle(const TextStyle &style);
 		void removeStyleAt(int index);
 		int getNumStyles() const;
 		bool getStyleAt(int index, TextStyle &style);
-
+		*/
 		int getTextPosition(int localX, int localY) const;
 
 		// Renderable methods
@@ -60,10 +61,13 @@ namespace gfx {
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
+
+		void parseRawText();
+		Node *getRootNode();
 		
 	protected:
 
-		string mText;
+		//string mText;
 		string mRawText;
 		Font *mFont;
 
@@ -80,13 +84,19 @@ namespace gfx {
 		bool mTextDirty;
 
 		int mTextPosition;
-		int mStylePosition;
+		//int mStylePosition;
 
-		typedef vector<TextStyle> TextStyleList;
-		TextStyleList mStyles;
+		//typedef vector<TextStyle> TextStyleList;
+		//TextStyleList mStyles;
 
-		typedef vector<Colour> ColourList;
-		ColourList mColourStack;
+		//typedef vector< Handle<Node> > NodeList;
+		//NodeList mNodes;
+		Handle<Node> mRootNode;
+		Handle<Node> mCurrentNode;
+		TextStyle mCurrentStyle;
+
+		//typedef vector<Colour> ColourList;
+		//ColourList mColourStack;
 		
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
@@ -102,8 +112,7 @@ namespace gfx {
 		void renderText(const string &text);
 		void checkAlignment(const char *line);
 
-		void parseRawText();
-		void parseRawText2();
+		//void parseRawText2();
 	};
 
 }
