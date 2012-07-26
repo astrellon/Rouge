@@ -47,13 +47,9 @@ namespace gfx {
 
 		float getMeasuredWidth();
 		float getMeasuredHeight();
-		/*
-		void clearAllStyles();
-		void addTextStyle(const TextStyle &style);
-		void removeStyleAt(int index);
-		int getNumStyles() const;
-		bool getStyleAt(int index, TextStyle &style);
-		*/
+
+		string getFirstLine() const;
+		
 		int getTextPosition(int localX, int localY) const;
 
 		// Renderable methods
@@ -67,7 +63,7 @@ namespace gfx {
 		
 	protected:
 
-		//string mText;
+		string mText;
 		string mRawText;
 		Font *mFont;
 
@@ -82,27 +78,20 @@ namespace gfx {
 		bool mInWord;
 		bool mDirty;
 		bool mTextDirty;
+		bool mNewLineDirty;
 
 		int mTextPosition;
-		//int mStylePosition;
-
-		//typedef vector<TextStyle> TextStyleList;
-		//TextStyleList mStyles;
-
-		//typedef vector< Handle<Node> > NodeList;
-		//NodeList mNodes;
+		
 		Handle<Node> mRootNode;
 		Handle<Node> mCurrentNode;
 		TextStyle mCurrentStyle;
 
-		//typedef vector<Colour> ColourList;
-		//ColourList mColourStack;
-		
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
 
+		//typedef vector< Handle<Renderable> >
+
 		TextAlignment mAlignment;
-		TextureWindow mCharRender;
 
 		void calcSize();
 
@@ -111,8 +100,6 @@ namespace gfx {
 		void newLine();
 		void renderText(const string &text);
 		void checkAlignment(const char *line);
-
-		//void parseRawText2();
 	};
 
 }
