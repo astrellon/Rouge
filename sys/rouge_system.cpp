@@ -114,7 +114,7 @@ namespace sys {
 		setCurrentMenu(mMainMenu);
 		
 		Handle<TextField2> field2(new TextField2());
-		field2->setText("Hello <character special='true'>Melli</character> how are you?\nWould you like this <item>Dress</item>?");
+		field2->setText("Hello <character class='special'>Melli</character> how are you?\nWould you like this <item>Dress</item>?");
 		field2->parseRawText();
 		field2->setInteractive(true);
 		field2->setPosition(400, 100);

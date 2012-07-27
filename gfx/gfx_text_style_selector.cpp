@@ -110,13 +110,19 @@ namespace gfx {
 			string lower = Utils::toLowerCase(name);
 			if (lower.compare("class") == 0)
 			{
-				Tokeniser tokeniser(value);
+				string valueStr = value;
+				if (value[0] == '\'' || value[0] == '\"')
+				{
+					valueStr = valueStr.substr(1, valueStr.size() - 2);
+				}
+				Tokeniser tokeniser(valueStr.c_str());
 				mClasses.clear();
 				const char *token = tokeniser.nextToken();
 				bool changed = false;
 				while(token != NULL)
 				{
 					changed |= addClass(token);
+					token = tokeniser.nextToken();
 				}
 				return changed;
 			}
