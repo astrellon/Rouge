@@ -62,8 +62,12 @@ namespace gfx {
 		virtual void removeEffect(Effect *effect);
 		virtual void clearAllEffects();
 
+		// Mostly for debug
 		virtual void setName(const char *name);
 		virtual string getName() const;
+
+		virtual void setRenderColour(bool render);
+		virtual bool getRenderColour() const;
 
 		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
 
@@ -73,6 +77,7 @@ namespace gfx {
 
 #ifdef _DEBUG
 		string mDebugName;
+		bool mRenderColour;
 #endif
 
 		float mWidth;

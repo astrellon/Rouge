@@ -107,6 +107,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="gfx\gfx_layer.cpp" />
     <ClCompile Include="gfx\gfx_log_listener.cpp" />
     <ClCompile Include="gfx\gfx_node.cpp" />
+    <ClCompile Include="gfx\gfx_node_hitbox.cpp" />
     <ClCompile Include="gfx\gfx_particle_system.cpp" />
     <ClCompile Include="gfx\gfx_renderable.cpp" />
     <ClCompile Include="gfx\gfx_sprite.cpp" />
@@ -190,6 +191,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="gfx\gfx_layer.h" />
     <ClInclude Include="gfx\gfx_log_listener.h" />
     <ClInclude Include="gfx\gfx_node.h" />
+    <ClInclude Include="gfx\gfx_node_hitbox.h" />
     <ClInclude Include="gfx\gfx_particle_system.h" />
     <ClInclude Include="gfx\gfx_renderable.h" />
     <ClInclude Include="gfx\gfx_sprite.h" />

@@ -194,6 +194,10 @@ namespace util {
 				{
 					setAlpha(value);
 				}
+				else
+				{
+					setAlpha(1.0f);
+				}
 			}
 		}
 	}

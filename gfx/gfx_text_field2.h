@@ -84,12 +84,9 @@ namespace gfx {
 		
 		Handle<Node> mRootNode;
 		Handle<Node> mCurrentNode;
-		TextStyle mCurrentStyle;
 
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
-
-		//typedef vector< Handle<Renderable> >
 
 		TextAlignment mAlignment;
 

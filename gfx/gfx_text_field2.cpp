@@ -13,6 +13,7 @@ using namespace am::util;
 #include "gfx_font.h"
 #include "gfx_asset.h"
 #include "gfx_layer.h"
+#include "gfx_node_hitbox.h"
 
 namespace am {
 namespace gfx {
@@ -30,7 +31,7 @@ namespace gfx {
 		mRootNode(new Node("body"))
 	{
 		mFont = GfxEngine::getEngine()->getFont("basic");
-		addEventListener(MOUSE_DOWN, this);
+		setInteractive(true);
 	}
 
 	TextField2::~TextField2()
@@ -40,9 +41,17 @@ namespace gfx {
 
 	void TextField2::onEvent(MouseEvent *e)
 	{
-		stringstream ss;
-		ss << "Click at text index " << getTextPosition(e->getLocalMouseX(), e->getLocalMouseY());
-		am_log("TEXT", ss);
+		NodeHitbox *textTarget = dynamic_cast<NodeHitbox *>(e->getTarget());
+		if (textTarget)
+		{
+			stringstream ss;
+			ss << "Clicked on: " << textTarget->getNodeTarget()->getNodeType();
+			am_log("TEXT", ss);
+		}
+		//am_log("TEXT", "Clicked on TEXTFIELD2");
+		//stringstream ss;
+		//ss << "Click at text index " << getTextPosition(e->getLocalMouseX(), e->getLocalMouseY());
+		//am_log("TEXT", ss);
 	}
 
 	float TextField2::getRenderedHeight() const
@@ -136,11 +145,22 @@ namespace gfx {
 		preRender(dt);
 		while (mCurrentNode.get() != NULL)
 		{
-			mCurrentStyle = mCurrentNode->getTextStyle();
-			GfxEngine::getEngine()->popColourStack();
-			if (mCurrentStyle.hasColour())
+			if (mNewLineDirty)
 			{
-				GfxEngine::getEngine()->pushColourStack(mCurrentStyle.getColour());
+				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
+				list.clear();
+				Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+				addChild(hitbox);
+				hitbox->setPosition(mCurrXpos, mCurrYpos);
+				hitbox->setHeight(mFont->getCharHeight());
+				hitbox->addEventListener(MOUSE_UP, this);
+				list.push_back(hitbox);
+			}
+			TextStyle currentStyle = mCurrentNode->getTextStyle();
+			GfxEngine::getEngine()->popColourStack();
+			if (currentStyle.hasColour())
+			{
+				GfxEngine::getEngine()->pushColourStack(currentStyle.getColour());
 			}
 			else
 			{
@@ -150,6 +170,15 @@ namespace gfx {
 			renderText(mCurrentNode->getText());
 			mCurrentNode = mCurrentNode->nextSibling();
 		}
+		mNewLineDirty = false;
+
+		ChildList::iterator iter;
+		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
+		{
+			mColour.applyColour();
+			(*iter)->render(dt);
+		}
+
 		postRender(dt);
 	}
 
@@ -224,6 +253,14 @@ namespace gfx {
 		if (mNewLineDirty)
 		{
 			mNewLinePositions.push_back(mTextPosition);
+
+			Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+			addChild(hitbox);
+			hitbox->setWidth(0);
+			hitbox->setHeight(mFont->getCharHeight());
+			hitbox->setPosition(mCurrXpos, mCurrYpos);
+			hitbox->addEventListener(MOUSE_UP, this);
+			mCurrentNode->getHitboxes().push_back(hitbox);
 		}
 	}
 	void TextField2::renderText(const string &text)
@@ -285,6 +322,12 @@ namespace gfx {
 			if (text[i + 1] > ' ')
 			{
 				mCurrXpos += mFont->getKerning();
+			}
+			if (mNewLineDirty)
+			{
+				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
+				Handle<Renderable> hitbox = list[list.size() - 1];
+				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
 			}
 		}
 	}

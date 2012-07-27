@@ -28,7 +28,9 @@ namespace gfx {
 		mVisible(true),
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
-		
+#ifdef _DEBUG
+		mRenderColour = false;
+#endif
 	}
 	Renderable::~Renderable()
 	{
@@ -61,9 +63,24 @@ namespace gfx {
 
 		GfxEngine::getEngine()->pushColourStack(mColour);
 		GfxEngine::getEngine()->applyColourStack();
+
 	}
 	void Renderable::render(float dt)
 	{
+#ifdef _DEBUG
+		if (getRenderColour())
+		{
+			mColour.applyColour();
+			glBegin(GL_QUADS);
+				glVertex2f(mTransform.getX(), mTransform.getY());
+				glVertex2f(mTransform.getX(), mTransform.getY() + mHeight);
+				glVertex2f(mTransform.getX() + mWidth, mTransform.getY() + mHeight);
+				glVertex2f(mTransform.getX() + mWidth, mTransform.getY());
+				
+				
+			glEnd();
+		}
+#endif
 	}
 	void Renderable::postRender(float dt)
 	{
@@ -210,6 +227,21 @@ namespace gfx {
 		return mDebugName;
 #else
 		return "Renderable";
+#endif
+	}
+
+	void Renderable::setRenderColour(bool render)
+	{
+#ifdef _DEBUG
+		mRenderColour = render;
+#endif
+	}
+	bool Renderable::getRenderColour() const
+	{
+#ifdef _DEBUG
+		return mRenderColour;
+#else
+		return false;
 #endif
 	}
 

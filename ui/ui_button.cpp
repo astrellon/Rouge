@@ -213,19 +213,19 @@ namespace ui {
 
 	void Button::addListeners(Renderable *target)
 	{
-		target->addEventListener("mouse_down", this);
-		target->addEventListener("mouse_move", this);
-		target->addEventListener("mouse_up", this);
-		target->addEventListener("mouse_out", this);
-		target->addEventListener("mouse_over", this);
+		target->addEventListener(MOUSE_DOWN, this);
+		target->addEventListener(MOUSE_MOVE, this);
+		target->addEventListener(MOUSE_UP, this);
+		target->addEventListener(MOUSE_OUT, this);
+		target->addEventListener(MOUSE_OVER, this);
 	}
 	void Button::removeListeners(Renderable *target)
 	{
-		target->removeEventListener("mouse_down", this);
-		target->removeEventListener("mouse_move", this);
-		target->removeEventListener("mouse_up", this);
-		target->removeEventListener("mouse_out", this);
-		target->removeEventListener("mouse_over", this);
+		target->removeEventListener(MOUSE_DOWN, this);
+		target->removeEventListener(MOUSE_MOVE, this);
+		target->removeEventListener(MOUSE_UP, this);
+		target->removeEventListener(MOUSE_OUT, this);
+		target->removeEventListener(MOUSE_OVER, this);
 	}
 
 	void Button::updateLabelPos()

@@ -207,16 +207,19 @@ namespace gfx {
 		}
 
 		int flagMatch = 0;
-		if (mFlag == node.getFlag())
+		if (node.getFlag() != NONE)
 		{
-			if (mFlag != NONE)
+			if (mFlag == node.getFlag())
 			{
-				flagMatch = 100;
+				if (mFlag != NONE)
+				{
+					flagMatch = 100;
+				}
 			}
-		}
-		else
-		{
-			return -3;
+			else
+			{
+				return -3;
+			}
 		}
 
 		int classMatch = 0;

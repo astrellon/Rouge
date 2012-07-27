@@ -3,6 +3,7 @@
 #include <log/logger.h>
 
 #include <util/json_value.h>
+#include <util/utils.h>
 using namespace am::util;
 
 #include <algorithm>
@@ -164,10 +165,33 @@ namespace gfx {
 				am_log("STYLE", errss);
 				continue;
 			}
+
 			TextStyleSelector selector;
 			if (value.has("nodeType", JV_STR))
 			{
 				selector.setNodeType(value["nodeType"].getCStr());
+			}
+			if (value.has("flag", JV_STR))
+			{
+				string lowerFlag = Utils::toLowerCase(value["flag"].getCStr());
+				if (lowerFlag.size() == 0)
+				{
+					// Do nothing.
+				}
+				else if (lowerFlag.compare("hover") == 0)
+				{
+					selector.setFlag(TextStyleSelector::HOVER);
+				}
+				else if (lowerFlag.compare("down") == 0)
+				{
+					selector.setFlag(TextStyleSelector::DOWN);
+				}
+				else
+				{
+					stringstream errss;
+					errss << "Unknown flag for selector: " << lowerFlag;
+					am_log("STYLE", errss);
+				}
 			}
 			if (value.has("attributes", JV_OBJ))
 			{

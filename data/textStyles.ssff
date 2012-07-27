@@ -13,6 +13,24 @@
 			colour: "purple"
 		}
 	}, {
+		nodeType: "character",
+		attributes: {
+			spectial: "true"
+		},
+		flag: "hover",
+		style: {
+			colour: "1 0.5 1"
+		}
+	}, {
+		nodeType: "character",
+		attributes: {
+			spectial: "true"
+		},
+		flag: "down",
+		style: {
+			colour: "0.5 0 0.5"
+		}
+	}, {
 		nodeType: "item",
 		style: {
 			colour: "yellow"
