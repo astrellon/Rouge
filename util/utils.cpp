@@ -5,6 +5,11 @@ namespace util {
 
 	string Utils::toLowerCase(const char *input)
 	{
+		if (input == NULL)
+		{
+			return string();
+		}
+
 		size_t len = strlen(input);
 		char *buff = new char[len + 1];
 		buff[len] = '\0';
@@ -24,6 +29,11 @@ namespace util {
 
 	string Utils::toUpperCase(const char *input)
 	{
+		if (input == NULL)
+		{
+			return string();
+		}
+
 		size_t len = strlen(input);
 		char *buff = new char[len + 1];
 		buff[len] = '\0';

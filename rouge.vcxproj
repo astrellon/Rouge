@@ -86,7 +86,10 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\engine.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="game\game_object.cpp" />
+    <ClCompile Include="game\inventory.cpp" />
+    <ClCompile Include="game\inventory_spot.cpp" />
     <ClCompile Include="game\item.cpp" />
+    <ClCompile Include="game\item_common.cpp" />
     <ClCompile Include="game\item_instance.cpp" />
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
@@ -169,6 +172,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\game_object.h" />
     <ClInclude Include="game\icontroller.h" />
+    <ClInclude Include="game\inventory.h" />
+    <ClInclude Include="game\inventory_spot.h" />
     <ClInclude Include="game\item.h" />
     <ClInclude Include="game\item_common.h" />
     <ClInclude Include="game\item_instance.h" />

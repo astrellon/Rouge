@@ -20,14 +20,17 @@ namespace game {
 		Item();
 		~Item();
 
-		virtual void setGraphic(Sprite *graphic);
+		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
 		virtual Sprite *getGraphic();
 
 		virtual void setGroundGraphic(Sprite *graphic);
 		virtual Sprite *getGroundGraphic();
 
-		virtual void setItemType(ItemType type);
-		virtual ItemType getItemType() const;
+		virtual void setItemType(ItemCommon::ItemType type);
+		virtual ItemCommon::ItemType getItemType() const;
+
+		virtual void setItemTypeName(const char *name);
+		virtual const char *getItemTypeName() const;
 
 		virtual void setInventorySize(short sizeX, short sizeY);
 		virtual short getInventorySizeX() const;
@@ -49,7 +52,21 @@ namespace game {
 		virtual int getQuestItemId() const;
 		virtual bool isQuestItem() const;
 
+		virtual void setItemName(const char *name);
+		virtual const char *getItemName() const;
+
+		virtual void setPrefix(const char *prefix);
+		virtual const char *getPrefix() const;
+
+		virtual void setPostfix(const char *postfix);
+		virtual const char *getPostfix() const;
+
+		virtual void setItemFullname( const char *name, const char *prefix = "", const char *postfix = "" );
+		virtual const char *getFullItemName() const;
+
 		virtual void setItemFrom(const Item &item);
+
+		virtual void loadDef(JsonValue value);
 
 		virtual void update(float dt);
 
@@ -57,8 +74,13 @@ namespace game {
 		
 		Handle<Sprite> mGraphic;
 		Handle<Sprite> mGroundGraphic;
+
+		string mItemName;
+		string mPrefix;
+		string mPostfix;
+		string mFullname;
 		
-		ItemType mItemType;
+		ItemCommon::ItemType mItemType;
 		bool mOnGround;
 
 		short mInventorySizeX;
@@ -70,6 +92,7 @@ namespace game {
 		float mMaxDamage;
 		float mArmourClass;
 
+		void updateFullname();
 		void updateGraphic();
 	};
 

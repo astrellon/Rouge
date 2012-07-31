@@ -1,0 +1,8 @@
+{	// Test Shield Item
+	graphic: "items/shield",
+	itemType: "shield",
+	name: "Shield",
+	armour: 4,
+	prefix: "Leather",
+	postfix: "of Testo"
+}

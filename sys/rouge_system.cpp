@@ -32,7 +32,7 @@
 #include <game/tile_instance.h>
 #include <game/tile_set.h>
 #include <game/tile_type.h>
-
+#include <game/inventory.h>
 #include <game/map.h>
 
 #include <util/json_value.h>
@@ -112,14 +112,37 @@ namespace sys {
 		engine->setGameHud(mGameHud);
 
 		setCurrentMenu(mMainMenu);
-		
+		/*
 		Handle<TextField2> field2(new TextField2());
 		field2->setText("Hello <character class='special'>Melli</character> how are you?\nWould you like this <item>Dress</item>?");
 		field2->parseRawText();
 		field2->setInteractive(true);
 		field2->setPosition(400, 100);
 		gfxEngine->getUILayer()->addChild(field2);
+		*/
+		Handle<Item> sword(new Item());
+		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
+		
+		Handle<Item> sword2(new Item());
+		sword2->setItemFrom(*sword);
+		
+		Handle<Item> shield(new Item());
+		shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
+		
+		Handle<Item> scroll(new Item());
+		scroll->setGraphic(new Sprite("items/scroll"), true);
+		scroll->setItemName("Scroll");
 
+		Handle<Inventory> inv(new Inventory(12, 6));
+		inv->addItem(sword);
+		inv->addItem(shield);
+		inv->addItem(sword2);
+		inv->addItem(scroll);
+		inv->setPosition(400, 100);
+		inv->logContents();
+
+		gfxEngine->getUILayer()->addChild(inv);
+		
 		/*Handle<ParticleSystem> test(new ParticleSystem());
 		test->setParticleAsset("testParticle");
 		test->setMaxAge(10.0f);

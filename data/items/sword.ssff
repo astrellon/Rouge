@@ -1,0 +1,9 @@
+{	// Test Sword Item
+	graphic: "items/sword",
+	minDamage: 3,
+	maxDamage: 7,
+	itemType: "sword",
+	name: "Sword",
+	prefix: "Wooden",
+	postfix: "of Test"
+}

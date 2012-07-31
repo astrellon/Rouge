@@ -301,6 +301,15 @@
     <ClCompile Include="gfx\gfx_node_hitbox.cpp">
       <Filter>gfx\base\node</Filter>
     </ClCompile>
+    <ClCompile Include="game\inventory.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\inventory_spot.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\item_common.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -567,6 +576,12 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_node_hitbox.h">
       <Filter>gfx\base\node</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\inventory_spot.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@
 			class: "special"
 		},
 		style: {
-			colour: "purple"
+			colour: "1 0 1"
 		}
 	}, {
 		nodeType: "character",
@@ -33,7 +33,19 @@
 	}, {
 		nodeType: "item",
 		style: {
-			colour: "yellow"
+			colour: "1 1 0"
+		}
+	}, {
+		nodeType: "item",
+		flag: "hover",
+		style: {
+			colour: "1 1 0.5"
+		}
+	}, {
+		nodeType: "item",
+		flag: "down",
+		style: {
+			colour: "0.5 0.5 0"
 		}
 	}
 ]
