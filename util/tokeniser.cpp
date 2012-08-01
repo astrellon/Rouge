@@ -34,7 +34,10 @@ const char *Tokeniser::nextToken() {
 
 	while(ch != '\0' && !done) {
 		ch = *ctok;
-
+		if (ch == '\0')
+		{
+			break;
+		}
 		if (prevCh == '/') {
 			if (ch == '/') {
 				inSLCmt = true;

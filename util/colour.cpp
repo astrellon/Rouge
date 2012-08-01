@@ -199,6 +199,10 @@ namespace util {
 					setAlpha(1.0f);
 				}
 			}
+			else
+			{
+				setAlpha(1.0f);
+			}
 		}
 	}
 	void Colour::parseFromUint(unsigned int value)

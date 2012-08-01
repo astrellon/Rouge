@@ -61,7 +61,7 @@
     <Filter Include="gfx\base\util">
       <UniqueIdentifier>{49add265-7644-43e1-87fa-fc1b0c568e07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gfx\base\node">
+    <Filter Include="gfx\base\text">
       <UniqueIdentifier>{d2d19d70-7e8f-4c9c-a7ed-6b5fb9fc98b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -256,9 +256,6 @@
     <ClCompile Include="ui\ui_panel.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
-    <ClCompile Include="gfx\gfx_text_style.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="util\text_tokeniser.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -289,17 +286,11 @@
     <ClCompile Include="game\stats_common.cpp">
       <Filter>game\stats</Filter>
     </ClCompile>
-    <ClCompile Include="gfx\gfx_text_field2.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\gfx_node.cpp">
-      <Filter>gfx\base\node</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\gfx_text_style_selector.cpp">
-      <Filter>gfx\base</Filter>
+      <Filter>gfx\base\text</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_node_hitbox.cpp">
-      <Filter>gfx\base\node</Filter>
+      <Filter>gfx\base\text</Filter>
     </ClCompile>
     <ClCompile Include="game\inventory.cpp">
       <Filter>game</Filter>
@@ -309,6 +300,15 @@
     </ClCompile>
     <ClCompile Include="game\item_common.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_style.cpp">
+      <Filter>gfx\base\text</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_style_selector.cpp">
+      <Filter>gfx\base\text</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_field2.cpp">
+      <Filter>gfx\base\text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -535,9 +535,6 @@
     <ClInclude Include="ui\ui_panel.h">
       <Filter>ui\gui</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\gfx_text_style.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="util\text_tokeniser.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -565,23 +562,26 @@
     <ClInclude Include="ui\ui_character_screen.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\gfx_text_field2.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\gfx_node.h">
-      <Filter>gfx\base\node</Filter>
-    </ClInclude>
-    <ClInclude Include="gfx\gfx_text_style_selector.h">
-      <Filter>gfx\base</Filter>
+      <Filter>gfx\base\text</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_node_hitbox.h">
-      <Filter>gfx\base\node</Filter>
+      <Filter>gfx\base\text</Filter>
     </ClInclude>
     <ClInclude Include="game\inventory.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\inventory_spot.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_style_selector.h">
+      <Filter>gfx\base\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_style.h">
+      <Filter>gfx\base\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_field2.h">
+      <Filter>gfx\base\text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

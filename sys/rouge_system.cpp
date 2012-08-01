@@ -141,6 +141,10 @@ namespace sys {
 		inv->setPosition(400, 100);
 		inv->logContents();
 
+		Handle<TextField2> field2(new TextField2());
+		field2->setText("<gameobj class='character'>Character</gameobj>");
+		gfxEngine->getUILayer()->addChild(field2);
+
 		//gfxEngine->getUILayer()->addChild(inv);
 		
 		/*Handle<ParticleSystem> test(new ParticleSystem());

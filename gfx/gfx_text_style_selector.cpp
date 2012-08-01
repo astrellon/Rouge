@@ -4,6 +4,8 @@
 #include <util/tokeniser.h>
 using namespace am::util;
 
+#include <log/logger.h>
+
 namespace am {
 namespace gfx {
 

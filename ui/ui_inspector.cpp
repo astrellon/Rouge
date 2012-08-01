@@ -11,8 +11,8 @@ namespace ui {
 		Panel(),
 		mTextDirty(true)
 	{
-		mInfo = new TextField();
-		mInfo->setColour(0, 0, 0);
+		mInfo = new TextField2();
+		//mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);
@@ -57,7 +57,7 @@ namespace ui {
 		mInfo->setHeight(mHeight - 28);
 	}
 
-	TextField *Inspector::getTextField()
+	TextField2 *Inspector::getTextField()
 	{
 		return mInfo;
 	}
@@ -74,11 +74,12 @@ namespace ui {
 	void Inspector::updateText()
 	{
 		stringstream ss;
+		ss << "<inspector>";
 		if (mTile.get())
 		{
-			ss << "<colour yellow>Tile:</colour> " << mTile->getFullName() << 
-				  "\n<colour white>Desc:</colour> " << mTile->getDescription() << 
-				  "\n<colour white>Types:</colour> ";
+			ss << "<title>Tile:</title> " << mTile->getFullName() << 
+				  "\n<title>Desc:</title> " << mTile->getDescription() << 
+				  "\n<title>Types:</title> ";
 
 			Tile::TileTypeList &tileTypes = mTile->getTileTypes();
 			for (int i = 0; i < tileTypes.size(); i++)
@@ -95,15 +96,16 @@ namespace ui {
 					}
 				}
 
-				ss << tileTypes[i]->getFullName();
+				ss << "<tile>" << tileTypes[i]->getFullName() << "</tile>";
 			}
 		}
 		ss << "\n\n";
 		GameObjectList::iterator iter;
 		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
-			ss << "<colour white>GameObj:</colour> " << iter->get()->getName() << "\n\n";
+			ss << "<gameobj>GameObj:</gameobj> <gameobj class='" << (*iter)->getGameObjectType() << "'>" << iter->get()->getName() << "</gameobj>\n\n";
 		}
+		ss << "</inspector>";
 		mInfo->setText(ss.str());
 		mTextDirty = false;
 	}

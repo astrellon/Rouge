@@ -223,6 +223,7 @@ namespace gfx {
 		if (mStyleDirty)
 		{
 			mStyle = TextStyle::getCalcStyle(*this);
+			mStyleDirty = false;
 		}
 		return mStyle;
 	}
