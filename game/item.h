@@ -70,6 +70,8 @@ namespace game {
 
 		virtual void update(float dt);
 
+		virtual const char *getGameObjectType() const;
+
 	protected:
 		
 		Handle<Sprite> mGraphic;

@@ -182,7 +182,7 @@ namespace gfx {
 
 		{
 			stringstream ss;
-			ss << "Loaded asset '" << mName.c_str() << '\'';
+			ss << "Loading asset '" << mName.c_str() << '\'';
 			am_log("ASSET", ss);
 		}
 		float textureWidth = static_cast<float>(mTexture->getWidth());
@@ -325,6 +325,12 @@ namespace gfx {
 		if (value.has("repeat_y", JV_BOOL))
 		{
 			mRepeatY = value["repeat_y"].getBool();
+		}
+
+		{
+			stringstream ss;
+			ss << "Finish loading asset '" << mName << "'";
+			am_log("ASSET", ss);
 		}
 
 		return 0;

@@ -7,7 +7,7 @@ using namespace am::game;
 #include <base/handle.h>
 using namespace am::base;
 
-#include <gfx/gfx_text_field.h>
+#include <gfx/gfx_text_field2.h>
 using namespace am::gfx;
 
 #include <vector>
@@ -29,7 +29,7 @@ namespace ui {
 		void addGameObject(GameObject *obj);
 		void clearGameObjects();
 
-		virtual TextField *getTextField();
+		virtual TextField2 *getTextField();
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
@@ -43,7 +43,7 @@ namespace ui {
 		typedef vector< Handle<GameObject> > GameObjectList;
 		GameObjectList mGameObjects;
 
-		Handle<TextField> mInfo;
+		Handle<TextField2> mInfo;
 
 		bool mTextDirty;
 		void updateText();

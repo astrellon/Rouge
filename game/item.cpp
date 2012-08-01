@@ -341,5 +341,10 @@ namespace game {
 		}
 	}
 
+	const char *Item::getGameObjectType() const
+	{
+		return "item";
+	}
+
 }
 }

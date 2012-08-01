@@ -141,7 +141,7 @@ namespace sys {
 		inv->setPosition(400, 100);
 		inv->logContents();
 
-		gfxEngine->getUILayer()->addChild(inv);
+		//gfxEngine->getUILayer()->addChild(inv);
 		
 		/*Handle<ParticleSystem> test(new ParticleSystem());
 		test->setParticleAsset("testParticle");

@@ -44,6 +44,8 @@ namespace game {
 
 		virtual Stats &getStats();
 
+		virtual const char *getGameObjectType() const;
+
 	protected:
 
 		Handle<IController> mController;

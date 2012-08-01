@@ -77,7 +77,6 @@ namespace gfx {
 		mGameLayer->setInteractive(true);
 		mRootLayer->addChild(mGameLayer.get());
 
-
 		mUILayer = new Layer();
 		mUILayer->setName("UILayer");
 		mUILayer->setInteractive(true);

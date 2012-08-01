@@ -1,51 +1,76 @@
 [	// Text Styles
 	{
-		nodeType: "character",
+		nodeType: "gameobj",
 		style: {
 			colour: "blue"
 		}
 	}, {
-		nodeType: "character",
+		nodeType: "gameobj",
 		attributes: {
-			class: "special"
+			class: "character"
 		},
 		style: {
 			colour: "1 0 1"
 		}
 	}, {
-		nodeType: "character",
+		nodeType: "gameobj",
 		attributes: {
-			class: "special"
+			class: "character"
 		},
 		flag: "hover",
 		style: {
 			colour: "1 0.5 1"
 		}
 	}, {
-		nodeType: "character",
+		nodeType: "gameobj",
 		attributes: {
-			class: "special"
+			class: "character"
 		},
 		flag: "down",
 		style: {
 			colour: "0.5 0 0.5"
 		}
 	}, {
-		nodeType: "item",
+		nodeType: "gameobj",
+		attributes: {
+			class: "item"
+		},
 		style: {
 			colour: "1 1 0"
 		}
 	}, {
-		nodeType: "item",
+		nodeType: "gameobj",
+		attributes: {
+			class: "item"
+		},
 		flag: "hover",
 		style: {
 			colour: "1 1 0.5"
 		}
 	}, {
-		nodeType: "item",
+		nodeType: "gameobj",
+		attributes: {
+			class: "item"
+		},
 		flag: "down",
 		style: {
 			colour: "0.5 0.5 0"
+		}
+	}, {
+		nodeType: "title",
+		style: {
+			colour: "yellow"
+		}
+	}, {
+		nodeType: "tile",
+		style: {
+			colour: "0.4 0.5 0.8"
+		}
+	}, {
+		nodeType: "tile",
+		flag: "hover",
+		style: {
+			colour: "0.6 0.7 1.0"
 		}
 	}
 ]

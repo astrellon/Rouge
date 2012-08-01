@@ -277,5 +277,10 @@ namespace game {
 			sGameObjects.erase(iter);
 		}
 	}
+
+	const char *GameObject::getGameObjectType() const
+	{
+		return "gameobject";
+	}
 }
 }
