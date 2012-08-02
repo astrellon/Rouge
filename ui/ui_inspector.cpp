@@ -101,10 +101,16 @@ namespace ui {
 		}
 		ss << "\n\n";
 		GameObjectList::iterator iter;
-		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+
+		if (mGameObjects.size() > 0)
 		{
-			ss << "<gameobj>GameObj:</gameobj> <gameobj class='" << (*iter)->getGameObjectType() << "'>" << iter->get()->getName() << "</gameobj>\n\n";
+			ss << "<gameobj>GameObj:</gameobj>\n";
+			for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+			{
+				ss << "- <gameobj class='" << (*iter)->getGameObjectTypeName() << "'>" << iter->get()->getName() << "</gameobj>\n";
+			}
 		}
+		
 		ss << "</inspector>";
 		mInfo->setText(ss.str());
 		mTextDirty = false;

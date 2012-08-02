@@ -1,5 +1,6 @@
 {	// Test Shield Item
 	graphic: "items/shield",
+	groundGraphic: "items/shield",
 	itemType: "shield",
 	name: "Shield",
 	armour: 4,

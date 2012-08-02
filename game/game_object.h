@@ -60,7 +60,7 @@ namespace game {
 		virtual PassibleTypeList &getPassibleTypes();
 		virtual const PassibleTypeList &getPassibleTypes() const;
 
-		virtual const char *getGameObjectType() const;
+		virtual const char *getGameObjectTypeName() const;
 
 		virtual int getGameId() const;
 

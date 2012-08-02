@@ -72,5 +72,39 @@
 		style: {
 			colour: "0.6 0.7 1.0"
 		}
+	}, {
+		nodeType: "inspector",
+		style: {
+			colour: "white"
+		}
+	}, {
+		nodeType: "char_screen",
+		style: {
+			colour: "white"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "health"
+		},
+		style: {
+			colour: "red"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "strength"
+		},
+		style: {
+			colour: "orange"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "dexderity"
+		},
+		style: {
+			colour: "green"
+		}
 	}
 ]

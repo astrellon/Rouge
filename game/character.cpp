@@ -105,7 +105,7 @@ namespace game {
 		return mStats;
 	}
 
-	const char *Character::getGameObjectType() const
+	const char *Character::getGameObjectTypeName() const
 	{
 		return "character";
 	}

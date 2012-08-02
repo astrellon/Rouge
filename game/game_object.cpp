@@ -278,7 +278,7 @@ namespace game {
 		}
 	}
 
-	const char *GameObject::getGameObjectType() const
+	const char *GameObject::getGameObjectTypeName() const
 	{
 		return "gameobject";
 	}

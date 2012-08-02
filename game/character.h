@@ -44,7 +44,7 @@ namespace game {
 
 		virtual Stats &getStats();
 
-		virtual const char *getGameObjectType() const;
+		virtual const char *getGameObjectTypeName() const;
 
 	protected:
 

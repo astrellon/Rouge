@@ -141,10 +141,6 @@ namespace sys {
 		inv->setPosition(400, 100);
 		inv->logContents();
 
-		Handle<TextField2> field2(new TextField2());
-		field2->setText("<gameobj class='character'>Character</gameobj>");
-		gfxEngine->getUILayer()->addChild(field2);
-
 		//gfxEngine->getUILayer()->addChild(inv);
 		
 		/*Handle<ParticleSystem> test(new ParticleSystem());
@@ -328,10 +324,28 @@ namespace sys {
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
+		mPlayer->setName("Melli");
 		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
+		Stats &stats = mPlayer->getStats();
+		stats.setBaseStat(Stat::HEALTH, 15);
+		stats.setBaseStat(Stat::MAX_HEALTH, 18);
+		stats.setBaseStat(Stat::STRENGTH, 6);
+		stats.setBaseStat(Stat::DEXDERITY, 10);
 		game->addGameObject(mPlayer.get());
+
+		Handle<Item> testSword(new Item());
+		testSword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
+		testSword->setOnGround(true);
+		game->addGameObject(testSword);
+		testSword->setGridLocation(3, 1);
+
+		Handle<Item> testShield(new Item());
+		testShield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
+		testShield->setOnGround(true);
+		game->addGameObject(testShield);
+		testShield->setGridLocation(3, 1);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

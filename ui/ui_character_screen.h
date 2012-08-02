@@ -6,7 +6,7 @@ using namespace am::game;
 #include <base/handle.h>
 using namespace am::base;
 
-#include <gfx/gfx_text_field.h>
+#include <gfx/gfx_text_field2.h>
 using namespace am::gfx;
 
 #include <ui/ui_panel.h>
@@ -19,7 +19,7 @@ namespace ui {
 		CharacterScreen();
 		~CharacterScreen();
 
-		virtual TextField *getTextField();
+		virtual TextField2 *getTextField();
 
 		virtual void setCharacter(Character *character);
 		virtual Character *getCharacter();
@@ -33,7 +33,7 @@ namespace ui {
 
 	protected:
 
-		Handle<TextField> mInfo;
+		Handle<TextField2> mInfo;
 		Handle<Character> mCharacter;
 
 		bool mTextDirty;

@@ -193,7 +193,14 @@ namespace game {
 		}
 		if (mCurrentMap->addGameObject(object))
 		{
-			mCharacterLayer->addChild(object);
+			if (strcmp(object->getGameObjectTypeName(), "character") == 0)
+			{
+				mCharacterLayer->addChild(object);
+			}
+			else
+			{
+				mItemLayer->addChild(object);
+			}
 			return true;
 		}
 		return false;
@@ -207,7 +214,14 @@ namespace game {
 		}
 		if (mCurrentMap->removeGameObject(object))
 		{
-			mCharacterLayer->removeChild(object);
+			if (strcmp(object->getGameObjectTypeName(), "character") == 0)
+			{
+				mCharacterLayer->removeChild(object);
+			}
+			else
+			{
+				mItemLayer->removeChild(object);
+			}
 			return true;
 		}
 		return false;

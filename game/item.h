@@ -68,14 +68,19 @@ namespace game {
 
 		virtual void loadDef(JsonValue value);
 
+		virtual float getWidth();
+		virtual float getHeight();
+
 		virtual void update(float dt);
 
-		virtual const char *getGameObjectType() const;
+		virtual string getName() const;
+		virtual const char *getGameObjectTypeName() const;
 
 	protected:
 		
 		Handle<Sprite> mGraphic;
 		Handle<Sprite> mGroundGraphic;
+		Handle<Sprite> mCurrentGraphic;
 
 		string mItemName;
 		string mPrefix;

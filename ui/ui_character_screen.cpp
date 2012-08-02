@@ -12,7 +12,7 @@ namespace ui {
 		Panel(),
 		mTextDirty(true)
 	{
-		mInfo = new TextField();
+		mInfo = new TextField2();
 		mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
@@ -48,7 +48,7 @@ namespace ui {
 		mInfo->setHeight(mHeight - 28);
 	}
 
-	TextField *CharacterScreen::getTextField()
+	TextField2 *CharacterScreen::getTextField()
 	{
 		return mInfo;
 	}
@@ -76,14 +76,16 @@ namespace ui {
 		}
 
 		stringstream ss;
-		ss << "<colour yellow>Name:</colour> " << mCharacter->getName() << "\n";
+		ss << "<char_screen>";
+		ss << "<title class='name'>Name:</title> " << mCharacter->getName() << "\n";
 		ss << "-------\n";
 
 		Stats &stats = mCharacter->getStats();
-		ss << "<colour 0.8 0.15 0.1>Health:</colour> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
-		ss << "<colour white>Strength:</colour> " << stats.getStat(Stat::STRENGTH) << "\n";
-		ss << "<colour white>Dexderity:</colour> " << stats.getStat(Stat::DEXDERITY) << "\n";
+		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
+		ss << "<title class='strength'>Strength:</title> " << stats.getStat(Stat::STRENGTH) << "\n";
+		ss << "<title class='dexderity'>Dexderity:</title> " << stats.getStat(Stat::DEXDERITY) << "\n";
 
+		ss << "</char_screen>";
 		mInfo->setText(ss.str());
 
 		mTextDirty = false;

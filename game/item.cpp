@@ -202,13 +202,15 @@ namespace game {
 		}
 		if (mOnGround)
 		{
-			removeChild(graphic.get());
-			addChild(groundGraphic.get());
+			removeChild(graphic);
+			addChild(groundGraphic);
+			mCurrentGraphic = groundGraphic;
 		}
 		else
 		{
-			removeChild(groundGraphic.get());
-			addChild(graphic.get());
+			removeChild(groundGraphic);
+			addChild(graphic);
+			mCurrentGraphic = graphic;
 		}
 	}
 
@@ -341,9 +343,23 @@ namespace game {
 		}
 	}
 
-	const char *Item::getGameObjectType() const
+	float Item::getWidth()
+	{
+		return mCurrentGraphic->getWidth();
+	}
+	float Item::getHeight()
+	{
+		return mCurrentGraphic->getHeight();
+	}
+
+	const char *Item::getGameObjectTypeName() const
 	{
 		return "item";
+	}
+
+	string Item::getName() const
+	{
+		return string(getFullItemName());
 	}
 
 }
