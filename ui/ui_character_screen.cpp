@@ -83,7 +83,7 @@ namespace ui {
 		Stats &stats = mCharacter->getStats();
 		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
 		ss << "<title class='strength'>Strength:</title> " << stats.getStat(Stat::STRENGTH) << "\n";
-		ss << "<title class='dexderity'>Dexderity:</title> " << stats.getStat(Stat::DEXDERITY) << "\n";
+		ss << "<title class='dexterity'>Dexterity:</title> " << stats.getStat(Stat::DEXTERITY) << "\n";
 
 		ss << "</char_screen>";
 		mInfo->setText(ss.str());

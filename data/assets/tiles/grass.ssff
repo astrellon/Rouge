@@ -1,3 +1,8 @@
 {	// Grass Asset
-	texture: "data/textures/tiles/grass.png"
+	texture: "data/textures/tiles/grass_dirt_sand.png",
+	framesX: 4,
+	frameRate: 0,
+	window: {
+		bottomY: 32
+	}
 }

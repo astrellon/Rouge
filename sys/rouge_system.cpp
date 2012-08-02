@@ -332,7 +332,7 @@ namespace sys {
 		stats.setBaseStat(Stat::HEALTH, 15);
 		stats.setBaseStat(Stat::MAX_HEALTH, 18);
 		stats.setBaseStat(Stat::STRENGTH, 6);
-		stats.setBaseStat(Stat::DEXDERITY, 10);
+		stats.setBaseStat(Stat::DEXTERITY, 10);
 		game->addGameObject(mPlayer.get());
 
 		Handle<Item> testSword(new Item());

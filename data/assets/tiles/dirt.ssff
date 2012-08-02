@@ -1,6 +1,10 @@
 {	// Dirt Asset
-	texture: "data/textures/tiles/dirt.png",
+	texture: "data/textures/tiles/grass_dirt_sand.png",
 	framesX: 2,
 	framesY: 2,
-	frameRate: 0
+	frameRate: 0,
+	window: {
+		topY: 64,
+		rightX: 64
+	}
 }

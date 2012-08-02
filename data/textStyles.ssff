@@ -101,7 +101,7 @@
 	}, {
 		nodeType: "title",
 		attributes: {
-			class: "dexderity"
+			class: "dexterity"
 		},
 		style: {
 			colour: "green"

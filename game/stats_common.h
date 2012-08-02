@@ -9,7 +9,7 @@ namespace game {
 			HEALTH, 
 			MAX_HEALTH, 
 			STRENGTH, 
-			DEXDERITY,
+			DEXTERITY,
 			CONSTITUTION,
 			ARCANCE, 
 			DIVINE,
