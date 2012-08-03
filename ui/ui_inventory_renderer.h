@@ -20,15 +20,15 @@ namespace ui {
 		InventoryRenderer();
 		~InventoryRenderer();
 
-		virtual void setWidth(float width);
-		virtual void setHeight(float height);
+		virtual float getWidth();
+		virtual float getHeight();
 
 		virtual void onEvent(InventoryEvent *e);
 
 		virtual Inventory *getInventory() const;
 		virtual void setInventory(Inventory *inventory);
 
-		virtual void render(float dt);
+		virtual void preRender(float dt);
 
 	protected:
 

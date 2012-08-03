@@ -340,17 +340,23 @@ namespace sys {
 		stats.setBaseStat(Stat::DEXTERITY, 10);
 		game->addGameObject(mPlayer.get());
 
-		Handle<Item> testSword(new Item());
-		testSword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
-		testSword->setOnGround(true);
-		game->addGameObject(testSword);
-		testSword->setGridLocation(3, 1);
+		Handle<Item> sword(new Item());
+		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
 
-		Handle<Item> testShield(new Item());
-		testShield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
-		testShield->setOnGround(true);
-		game->addGameObject(testShield);
-		testShield->setGridLocation(3, 1);
+		Handle<Item> sword2(new Item());
+		sword2->setItemFrom(*sword);
+
+		Handle<Item> shield(new Item());
+		shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
+
+		Handle<Item> scroll(new Item());
+		scroll->setGraphic(new Sprite("items/scroll"), true);
+		scroll->setItemName("Scroll");
+
+		mPlayer->getInventory()->addItem(sword);
+		mPlayer->getInventory()->addItem(sword2);
+		mPlayer->getInventory()->addItem(shield);
+		mPlayer->getInventory()->addItem(scroll);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

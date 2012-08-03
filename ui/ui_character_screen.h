@@ -10,6 +10,7 @@ using namespace am::base;
 using namespace am::gfx;
 
 #include <ui/ui_panel.h>
+#include <ui/ui_inventory_renderer.h>
 
 namespace am {
 namespace ui {
@@ -35,6 +36,7 @@ namespace ui {
 
 		Handle<TextField2> mInfo;
 		Handle<Character> mCharacter;
+		Handle<InventoryRenderer> mInventory;
 
 		bool mTextDirty;
 		void updateText();

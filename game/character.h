@@ -44,6 +44,8 @@ namespace game {
 
 		virtual Stats &getStats();
 
+		virtual Inventory *getInventory();
+
 		virtual const char *getGameObjectTypeName() const;
 
 	protected:
@@ -56,6 +58,8 @@ namespace game {
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
 		Handle<Sprite> mGraphic;
+
+		Handle<Inventory> mInventory;
 
 		Stats mStats;
 	};

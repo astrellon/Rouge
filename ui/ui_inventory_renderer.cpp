@@ -1,5 +1,7 @@
 #include "ui_inventory_renderer.h"
 
+#include <gl.h>
+
 #include <game/inventory.h>
 #include <game/inventory_spot.h>
 
@@ -22,13 +24,21 @@ namespace ui {
 
 	}
 
-	void InventoryRenderer::setWidth( float width )
+	float InventoryRenderer::getWidth()
 	{
-		UIComponent::setWidth(width);
+		if (mInventory != NULL)
+		{
+			return mInventory->getSpacesX() * Inventory::getSpaceSizeX();
+		}
+		return 0.0f;
 	}
-	void InventoryRenderer::setHeight( float height )
+	float InventoryRenderer::getHeight()
 	{
-		UIComponent::setHeight(height);
+		if (mInventory != NULL)
+		{
+			return mInventory->getSpacesY() * Inventory::getSpaceSizeY();
+		}
+		return 0.0f;
 	}
 
 	void InventoryRenderer::onEvent( InventoryEvent *e )
@@ -46,9 +56,23 @@ namespace ui {
 		}
 	}
 
-	void InventoryRenderer::render(float dt)
+	void InventoryRenderer::preRender(float dt)
 	{
-		UIComponent::render(dt);
+		UIComponent::preRender(dt);
+
+		if (mInventory == NULL)
+		{
+			return;
+		}
+		float width = mInventory->getSpacesX() * Inventory::getSpaceSizeX();
+		float height = mInventory->getSpacesY() * Inventory::getSpaceSizeY();
+		glBegin(GL_QUADS);
+			glColor4f(0.7f, 0.3f, 0.1f, 0.35f);
+			glVertex2f(0, 0);
+			glVertex2f(width, 0);
+			glVertex2f(width, height);
+			glVertex2f(0, height);
+		glEnd();
 	}
 
 	Inventory *InventoryRenderer::getInventory() const

@@ -18,6 +18,8 @@ namespace game {
 		setName("Character");
 
 		addEventListener(MOUSE_UP, this);
+
+		mInventory = new Inventory(10, 6);
 	}
 	Character::~Character()
 	{
@@ -103,6 +105,11 @@ namespace game {
 	Stats &Character::getStats()
 	{
 		return mStats;
+	}
+	
+	Inventory *Character::getInventory()
+	{
+		return mInventory;
 	}
 
 	const char *Character::getGameObjectTypeName() const

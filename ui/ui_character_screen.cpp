@@ -18,6 +18,12 @@ namespace ui {
 		mInfo->setInteractive(true);
 		addChild(mInfo);
 
+		mInventory = new InventoryRenderer();
+		addChild(mInventory);
+		mInventory->setOffset(-16.0f, 16.0f);
+		mInventory->setAnchorY(Y_BOTTOM);
+		mInventory->setParentAnchorY(Y_BOTTOM);
+
 		setTitle("Character Screen");
 	}
 	CharacterScreen::~CharacterScreen()
@@ -30,6 +36,14 @@ namespace ui {
 		{
 			mCharacter = character;
 			mTextDirty = true;
+			if (mCharacter)
+			{
+				mInventory->setInventory(character->getInventory());
+			}
+			else
+			{
+				mInventory->setInventory(NULL);
+			}
 		}
 	}
 	Character *CharacterScreen::getCharacter()
@@ -46,6 +60,7 @@ namespace ui {
 	{
 		Panel::setHeight(height);
 		mInfo->setHeight(mHeight - 28);
+		//mInventory->setOffsetY(height - mInventory->getHeight() - 8.0f);
 	}
 
 	TextField2 *CharacterScreen::getTextField()
