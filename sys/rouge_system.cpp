@@ -21,6 +21,7 @@
 #include <ui/ui_panel.h>
 #include <ui/ui_image.h>
 #include <ui/ui_editor_hud.h>
+#include <ui/ui_inventory_renderer.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -133,15 +134,19 @@ namespace sys {
 		scroll->setGraphic(new Sprite("items/scroll"), true);
 		scroll->setItemName("Scroll");
 
-		Handle<Inventory> inv(new Inventory(12, 6));
+		/*Handle<Inventory> inv(new Inventory(12, 6));
 		inv->addItem(sword);
 		inv->addItem(shield);
+		
+		Handle<InventoryRenderer> invRenderer(new InventoryRenderer());
+		invRenderer->setInventory(inv);
+
+		gfxEngine->getUILayer()->addChild(invRenderer);
+
 		inv->addItem(sword2);
 		inv->addItem(scroll);
-		inv->setPosition(400, 100);
-		inv->logContents();
-
-		//gfxEngine->getUILayer()->addChild(inv);
+		inv->removeItem(sword);
+		inv->addItem(sword);*/
 		
 		/*Handle<ParticleSystem> test(new ParticleSystem());
 		test->setParticleAsset("testParticle");

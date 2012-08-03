@@ -139,6 +139,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\data_event.cpp" />
     <ClCompile Include="ui\event.cpp" />
     <ClCompile Include="ui\event_manager.cpp" />
+    <ClCompile Include="ui\inventory_event.cpp" />
+    <ClCompile Include="ui\inventory_event_common.cpp" />
     <ClCompile Include="ui\keyboard_common.cpp" />
     <ClCompile Include="ui\keyboard_event.cpp" />
     <ClCompile Include="ui\keyboard_manager.cpp" />
@@ -155,6 +157,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_image.cpp" />
     <ClCompile Include="ui\ui_ingame_menu.cpp" />
     <ClCompile Include="ui\ui_inspector.cpp" />
+    <ClCompile Include="ui\ui_inventory_renderer.cpp" />
     <ClCompile Include="ui\ui_label.cpp" />
     <ClCompile Include="ui\ui_main_menu.cpp" />
     <ClCompile Include="ui\ui_options_panel.cpp" />
@@ -231,6 +234,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\event_manager.h" />
     <ClInclude Include="ui\ievent_listener.h" />
     <ClInclude Include="ui\ievent_manager.h" />
+    <ClInclude Include="ui\inventory_event.h" />
+    <ClInclude Include="ui\inventory_event_common.h" />
     <ClInclude Include="ui\keyboard_common.h" />
     <ClInclude Include="ui\keyboard_event.h" />
     <ClInclude Include="ui\keyboard_manager.h" />
@@ -247,6 +252,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_image.h" />
     <ClInclude Include="ui\ui_ingame_menu.h" />
     <ClInclude Include="ui\ui_inspector.h" />
+    <ClInclude Include="ui\ui_inventory_renderer.h" />
     <ClInclude Include="ui\ui_label.h" />
     <ClInclude Include="ui\ui_main_menu.h" />
     <ClInclude Include="ui\ui_options_panel.h" />

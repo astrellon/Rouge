@@ -1,10 +1,11 @@
 #pragma once
 
+#include <base/imanaged.h>
 #include <base/handle.h>
 using namespace am::base;
 
-#include <gfx/gfx_layer.h>
-using namespace am::gfx;
+#include <ui/event_manager.h>
+using namespace am::ui;
 
 #include "item.h"
 #include "inventory_spot.h"
@@ -12,7 +13,7 @@ using namespace am::gfx;
 namespace am {
 namespace game {
 
-	class Inventory : public Layer {
+	class Inventory : public IManaged, public EventManager {
 	public:
 
 		typedef vector< InventorySpot > InventorySpots;

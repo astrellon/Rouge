@@ -1,5 +1,8 @@
 #include "inventory.h"
 
+#include <ui/inventory_event.h>
+using namespace am::ui;
+
 #include <sstream>
 #include <log/logger.h>
 
@@ -10,7 +13,7 @@ namespace game {
 	float Inventory::sSpaceSizeY = 16.0f;
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
-		Layer(),
+		EventManager(),
 		mSpacesX(width),
 		mSpacesY(height)
 	{
@@ -124,9 +127,10 @@ namespace game {
 			}
 		}
 
-		addChild(item);
+		//addChild(item);
 		item->setOnGround(false);
-		item->setPosition(x * Inventory::getSpaceSizeX(), y * Inventory::getSpaceSizeY());
+		//item->setPosition(x * Inventory::getSpaceSizeX(), y * Inventory::getSpaceSizeY());
+		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_ADD, this, item, x, y));
 	}
 	bool Inventory::removeItem(Item *item)
 	{
@@ -153,9 +157,12 @@ namespace game {
 				mSpotMap[i + jOffset] = NULL;
 			}
 		}
+		// Keep items alive while event fires.
+		Handle<Item> itemHandle(item);
 		mSpots.erase(mSpots.begin() + index);
 
 		item->setOnGround(true);
+		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_REMOVE, this, item, spot.getX(), spot.getY()));
 
 		return true;
 	}

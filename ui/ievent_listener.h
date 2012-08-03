@@ -4,6 +4,7 @@
 #include "mouse_event.h"
 #include "keyboard_event.h"
 #include "data_event.h"
+#include "inventory_event.h"
 
 namespace am {
 namespace ui {
@@ -14,6 +15,7 @@ namespace ui {
 		virtual void onEvent(MouseEvent *e) {}
 		virtual void onEvent(KeyboardEvent *e) {}
 		virtual void onEvent(DataEvent *e) {}
+		virtual void onEvent(InventoryEvent *e) {}
 	};
 
 }
