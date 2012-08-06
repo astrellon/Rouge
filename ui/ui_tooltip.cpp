@@ -147,6 +147,12 @@ namespace ui {
 		return mDetailedDisplayDelay;
 	}
 
+	void Tooltip::setDelays(float displayDelay, float detailedDelay)
+	{
+		setDisplayDelay(displayDelay);
+		setDetailedDisplayDelay(detailedDelay);
+	}
+
 	float Tooltip::getTimeCounter() const
 	{
 		return mTimeCounter;

@@ -46,6 +46,8 @@ namespace ui {
 		virtual void setDetailedDisplayDelay(float delay);
 		virtual float getDetailedDisplayDelay() const;
 
+		virtual void setDelays(float displayDelay, float detailedDelay);
+
 		virtual float getTimeCounter() const;
 
 		virtual Sprite *getGraphic();
