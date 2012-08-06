@@ -163,6 +163,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_options_panel.cpp" />
     <ClCompile Include="ui\ui_panel.cpp" />
     <ClCompile Include="ui\ui_text_input.cpp" />
+    <ClCompile Include="ui\ui_tooltip.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
     <ClCompile Include="util\json_value.cpp" />

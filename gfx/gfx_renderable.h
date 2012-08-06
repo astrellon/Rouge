@@ -70,6 +70,7 @@ namespace gfx {
 		virtual bool getRenderColour() const;
 
 		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
+		virtual void getLocalToScreen(const float &inX, const float &inY, float &outX, float &outY) const;
 
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 

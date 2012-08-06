@@ -30,11 +30,7 @@ namespace gfx {
 	GfxEngine *GfxEngine::sMainGfxEngine = NULL;
 
 	GfxEngine::GfxEngine() :
-		mCursor(NULL),
 		mHideCursor(false),
-		mRootLayer(NULL),
-		mUILayer(NULL),
-		mGameLayer(NULL),
 		mCameraX(0),
 		mCameraY(0)
 	{
@@ -83,6 +79,13 @@ namespace gfx {
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
 		mRootLayer->addChild(mUILayer.get());
+
+		mTooltipLayer = new Layer();
+		mTooltipLayer->setName("UILayer");
+		mTooltipLayer->setInteractive(false);
+		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
+		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));
+		mRootLayer->addChild(mTooltipLayer.get());
 
 		mDebugLayer = new Layer();
 		mDebugLayer->setName("DebugLayer");
@@ -389,6 +392,10 @@ namespace gfx {
 	Layer *GfxEngine::getUILayer()
 	{
 		return mUILayer;
+	}
+	Layer *GfxEngine::getTooltipLayer()
+	{
+		return mTooltipLayer;
 	}
 	Layer *GfxEngine::getDebugLayer()
 	{

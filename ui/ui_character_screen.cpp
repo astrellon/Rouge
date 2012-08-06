@@ -60,7 +60,6 @@ namespace ui {
 	{
 		Panel::setHeight(height);
 		mInfo->setHeight(mHeight - 28);
-		//mInventory->setOffsetY(height - mInventory->getHeight() - 8.0f);
 	}
 
 	TextField2 *CharacterScreen::getTextField()
@@ -99,7 +98,11 @@ namespace ui {
 		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
 		ss << "<title class='strength'>Strength:</title> " << stats.getStat(Stat::STRENGTH) << "\n";
 		ss << "<title class='dexterity'>Dexterity:</title> " << stats.getStat(Stat::DEXTERITY) << "\n";
-
+		ss << "<title class='constitution'>Constitution:</title> " << stats.getStat(Stat::CONSTITUTION) << "\n";
+		ss << "<title class='divine'>Divine:</title> " << stats.getStat(Stat::DIVINE) << "\n";
+		ss << "<title class='arcane'>Arcane:</title> " << stats.getStat(Stat::ARCANCE) << "\n";
+		ss << "<title class='damage'>Damage:</title> " << stats.getStat(Stat::MIN_DAMAGE) << " - " << stats.getStat(Stat::MAX_DAMAGE) << "\n";
+		
 		ss << "</char_screen>";
 		mInfo->setText(ss.str());
 

@@ -61,6 +61,7 @@ namespace gfx {
 		Layer *getRootLayer();
 		Layer *getGameLayer();
 		Layer *getUILayer();
+		Layer *getTooltipLayer();
 		Layer *getDebugLayer();
 
 		void setCursorHidden(bool hide);
@@ -97,6 +98,7 @@ namespace gfx {
 		Handle<Layer> mRootLayer;
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mUILayer;
+		Handle<Layer> mTooltipLayer;
 		Handle<Layer> mDebugLayer;
 
 		vector<Colour> mColourStack;

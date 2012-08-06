@@ -22,6 +22,7 @@
 #include <ui/ui_image.h>
 #include <ui/ui_editor_hud.h>
 #include <ui/ui_inventory_renderer.h>
+#include <ui/ui_tooltip.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -113,52 +114,10 @@ namespace sys {
 		engine->setGameHud(mGameHud);
 
 		setCurrentMenu(mMainMenu);
-		/*
-		Handle<TextField2> field2(new TextField2());
-		field2->setText("Hello <character class='special'>Melli</character> how are you?\nWould you like this <item>Dress</item>?");
-		field2->parseRawText();
-		field2->setInteractive(true);
-		field2->setPosition(400, 100);
-		gfxEngine->getUILayer()->addChild(field2);
-		*/
-		Handle<Item> sword(new Item());
-		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
-		
-		Handle<Item> sword2(new Item());
-		sword2->setItemFrom(*sword);
-		
-		Handle<Item> shield(new Item());
-		shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
-		
-		Handle<Item> scroll(new Item());
-		scroll->setGraphic(new Sprite("items/scroll"), true);
-		scroll->setItemName("Scroll");
 
-		/*Handle<Inventory> inv(new Inventory(12, 6));
-		inv->addItem(sword);
-		inv->addItem(shield);
-		
-		Handle<InventoryRenderer> invRenderer(new InventoryRenderer());
-		invRenderer->setInventory(inv);
-
-		gfxEngine->getUILayer()->addChild(invRenderer);
-
-		inv->addItem(sword2);
-		inv->addItem(scroll);
-		inv->removeItem(sword);
-		inv->addItem(sword);*/
-		
-		/*Handle<ParticleSystem> test(new ParticleSystem());
-		test->setParticleAsset("testParticle");
-		test->setMaxAge(10.0f);
-		test->setMaxParticles(1000);
-		test->setParticlesPerSecond(20.0f);
-		test->setAcceleration(0.0f, 20.0f);
-		test->setPower(30.0f);
-		test->setPowerVariation(15.0f);
-		test->setDirectionVariation(0);
-		test->setPosition(400, 100);
-		gfxEngine->getUILayer()->addChild(test);*/
+		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
+		tip->active();
+		tip->setPosition(400, 100);
 	}
 	
 	void RougeSystem::reshape(int width, int height)
@@ -282,33 +241,24 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 		mEngine->setCurrentGame(NULL);
-		//mIngameMenu->setVisible(false);
-		//mMainMenu->setVisible(true);
 		setCurrentMenu(mMainMenu);
 		mGameHud->setVisible(false);
 
 	}
 	void RougeSystem::showOptionsPanel()
 	{
-		//mIngameMenu->setVisible(false);
-		//mMainMenu->setVisible(false);
-		//mOptionsPanel->setVisible(true);
 		setCurrentMenu(mOptionsPanel);
 	}
 	void RougeSystem::closeOptionsPanel()
 	{
 		if (mEngine->getCurrentGame())
 		{
-			//mIngameMenu->setVisible(true);
 			setCurrentMenu(mIngameMenu);
 		}
 		else
 		{
 			setCurrentMenu(mMainMenu);
-			//mMainMenu->setVisible(true);
 		}
-		//mOptionsPanel->setVisible(false);
-
 	}
 
 	void RougeSystem::newGame()
@@ -338,6 +288,11 @@ namespace sys {
 		stats.setBaseStat(Stat::MAX_HEALTH, 18);
 		stats.setBaseStat(Stat::STRENGTH, 6);
 		stats.setBaseStat(Stat::DEXTERITY, 10);
+		stats.setBaseStat(Stat::CONSTITUTION, 7);
+		stats.setBaseStat(Stat::ARCANCE, 4);
+		stats.setBaseStat(Stat::DIVINE, 5);
+		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
+		stats.setBaseStat(Stat::MAX_DAMAGE, 7);
 		game->addGameObject(mPlayer.get());
 
 		Handle<Item> sword(new Item());
@@ -369,8 +324,6 @@ namespace sys {
 			gameHud->getCharacterScreen()->setCharacter(mPlayer);
 		}
 
-		//mMainMenu->setVisible(false);
-		//mIngameMenu->setVisible(false);
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
 	}

@@ -203,6 +203,10 @@ namespace gfx {
 			}
 			return first;
 		}
+		else if (mText.length() > 0)
+		{
+			return this;
+		}
 		return NULL;
 	}
 	Node *Node::nextSibling()

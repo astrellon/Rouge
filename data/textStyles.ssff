@@ -106,5 +106,37 @@
 		style: {
 			colour: "green"
 		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "consitution"
+		},
+		style: {
+			colour: "0.9 0.7 0.15"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "arcane"
+		},
+		style: {
+			colour: "0.9 0.15 0.85"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "divine"
+		},
+		style: {
+			colour: "0.1 0.8 0.9"
+		}
+	}, {
+		nodeType: "title",
+		attributes: {
+			class: "damage"
+		},
+		style: {
+			colour: "0.9 0. 7 0.5"
+		}
 	}
 ]

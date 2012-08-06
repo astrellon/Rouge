@@ -1,0 +1,9 @@
+{	// Tooltip Asset
+	texture: "data/textures/tooltip.png",
+	scaleNine: {
+		left: 2,
+		right: 14,
+		top: 2,
+		bottom: 14
+	}
+}

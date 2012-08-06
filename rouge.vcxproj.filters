@@ -319,6 +319,9 @@
     <ClCompile Include="ui\inventory_event_common.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_tooltip.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

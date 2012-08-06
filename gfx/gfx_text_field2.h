@@ -41,6 +41,8 @@ namespace gfx {
 		void appendText(const string &str);
 		const char *getText();
 		const char *getRawText() const;
+		int length();
+		int rawLength() const;
 
 		void setAlignment(TextAlignment align);
 		TextAlignment getAlignment() const;

@@ -126,6 +126,19 @@ namespace gfx {
 		return mRawText.c_str();
 	}
 
+	int TextField2::length()
+	{
+		if (mTextDirty)
+		{
+			parseRawText();
+		}
+		return static_cast<int>(mText.length());
+	}
+	int TextField2::rawLength() const
+	{
+		return static_cast<int>(mRawText.length());
+	}
+
 	void TextField2::setAlignment(TextField2::TextAlignment align)
 	{
 		mAlignment = align;
