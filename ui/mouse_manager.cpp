@@ -123,19 +123,19 @@ namespace ui {
 				Renderable *oldUnderMouse = mUnderMouse;
 				mUnderMouse = target;
 
-				bool doFire = target->hasEventListener(MouseEventTypeNames[mouseType]);
+				//bool doFire = target->hasEventListener(MouseEventTypeNames[mouseType]);
 				if (target != oldUnderMouse)
 				{
 					if (oldUnderMouse != NULL)
 					{
 						fireMouseEvent(oldUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
-					if (doFire)
+					//if (doFire)
 					{
 						fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
 					}
 				}
-				else if (doFire)
+				else// if (doFire)
 				{
 					fireMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
 				}

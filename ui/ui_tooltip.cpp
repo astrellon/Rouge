@@ -87,10 +87,9 @@ namespace ui {
 	}
 	void Tooltip::show(Renderable *target)
 	{
-		GfxEngine::getEngine()->getTooltipLayer()->addChild(this);
-
+		setState(VISIBLE);
 		setDetailed(false);
-
+		GfxEngine::getEngine()->getTooltipLayer()->addChild(this);
 		if (target)
 		{
 			setTarget(target);

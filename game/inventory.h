@@ -30,7 +30,7 @@ namespace game {
 		bool addItem(Item *item, int x, int y);
 		bool removeItem(Item *item);
 		bool removeAll();
-		bool hasItem(Item *item);
+		bool hasItem(const Item *item) const;
 
 		const InventorySpots &getInventory() const;
 

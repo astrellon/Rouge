@@ -9,16 +9,26 @@ using namespace std;
 #include <gfx/gfx_sprite.h>
 using namespace am::gfx;
 
+#include <ui/ievent_listener.h>
+using namespace am::ui;
+
 #include "game_object.h"
 #include "item_common.h"
 
 namespace am {
 namespace game {
 
-	class Item : public GameObject {
+	class Item : public GameObject, public IEventListener {
 	public:
+
+		enum ItemLocation {
+			GROUND, INVENTORY, HAND
+		};
+
 		Item();
 		~Item();
+
+		virtual void onEvent(MouseEvent *e);
 
 		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
 		virtual Sprite *getGraphic();
@@ -45,8 +55,11 @@ namespace game {
 		virtual void setArmourClass(float ac);
 		virtual float getArmourClass() const;
 
-		virtual void setOnGround(bool ground);
-		virtual bool isOnGround() const;
+		//virtual void setOnGround(bool ground);
+		//virtual bool isOnGround() const;
+
+		virtual void setItemLocation(ItemLocation location);
+		virtual ItemLocation getItemLocation() const;
 
 		virtual void setQuestItemId(int questItemId);
 		virtual int getQuestItemId() const;
@@ -88,7 +101,8 @@ namespace game {
 		string mFullname;
 		
 		ItemCommon::ItemType mItemType;
-		bool mOnGround;
+		//bool mOnGround;
+		ItemLocation mItemLocation;
 
 		short mInventorySizeX;
 		short mInventorySizeY;

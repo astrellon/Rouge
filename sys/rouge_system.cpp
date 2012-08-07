@@ -114,10 +114,10 @@ namespace sys {
 		engine->setGameHud(mGameHud);
 
 		setCurrentMenu(mMainMenu);
-
+		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
-		tip->active();
-		tip->setPosition(400, 100);
+		tip->show();
+		tip->setPosition(400, 100);*/
 	}
 	
 	void RougeSystem::reshape(int width, int height)

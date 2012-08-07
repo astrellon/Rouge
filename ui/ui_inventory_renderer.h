@@ -24,6 +24,7 @@ namespace ui {
 		virtual float getHeight();
 
 		virtual void onEvent(InventoryEvent *e);
+		virtual void onEvent(MouseEvent *e);
 
 		virtual Inventory *getInventory() const;
 		virtual void setInventory(Inventory *inventory);
@@ -35,6 +36,7 @@ namespace ui {
 		Handle<Inventory> mInventory;
 
 		virtual void addItem(Item *item, int x, int y);
+		virtual void removeItem(Item *item);
 
 	};
 

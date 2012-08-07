@@ -81,7 +81,7 @@ namespace gfx {
 		mRootLayer->addChild(mUILayer.get());
 
 		mTooltipLayer = new Layer();
-		mTooltipLayer->setName("UILayer");
+		mTooltipLayer->setName("TooltipLayer");
 		mTooltipLayer->setInteractive(false);
 		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
 		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));

@@ -112,6 +112,53 @@ namespace game {
 		return mInventory;
 	}
 
+	bool Character::pickupItem(Item *item)
+	{
+		if (item == NULL)
+		{
+			return false;
+		}
+		if (item->getItemLocation() == Item::GROUND)
+		{
+			int dx = item->getGridLocationX() - getGridLocationX();
+			int dy = item->getGridLocationY() - getGridLocationY();
+			if (dx > 1 || dx < -1 || dy > 1 || dy < -1)
+			{
+				// Too far away.
+				return false;
+			}
+		}
+		// There may not be space so this can still return false.
+		return addItem(item);
+	}
+	bool Character::addItem(Item *item)
+	{
+		if (item == NULL)
+		{
+			return false;
+		}
+
+		return mInventory->addItem(item);
+	}
+	bool Character::removeItem(Item *item)
+	{
+		if (item == NULL)
+		{
+			return false;
+		}
+
+		return mInventory->removeItem(item);
+	}
+	bool Character::hasItem(const Item *item) const
+	{
+		if (item == NULL)
+		{
+			return false;
+		}
+
+		return mInventory->hasItem(item);
+	}
+
 	const char *Character::getGameObjectTypeName() const
 	{
 		return "character";

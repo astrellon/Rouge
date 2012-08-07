@@ -3,6 +3,8 @@
 #include "inventory.h"
 #include "engine.h"
 
+#include <ui/mouse_manager.h>
+
 #include <log/logger.h>
 
 #include <sstream>
@@ -21,13 +23,27 @@ namespace game {
 		mArmourClass(0.0f),
 		mInventorySizeX(1),
 		mInventorySizeY(1),
-		mOnGround(false)
+		mItemLocation(GROUND)
 	{
 		setName("Item");
+		setInteractive(true);
 	}
 	Item::~Item()
 	{
 
+	}
+
+	void Item::onEvent(MouseEvent *e)
+	{
+		e->stopPropagation();
+		/*Handle<MouseEvent> e2(new MouseEvent(e->getMouseEventType(), 
+			e->getMouseButton(), e->getMouseX(), e->getMouseY(),
+			this, e->getLocalMouseX(), e->getLocalMouseY()));*/
+		//fireEvent<MouseEvent>(e2);
+		MouseManager::getManager()->fireMouseEvent(this, e->getMouseEventType(),
+			e->getMouseButton(), e->getMouseX(), e->getMouseY(),
+			e->getLocalMouseX(), e->getLocalMouseY());
+		//fireEvent<MouseEvent>(e);
 	}
 
 	void Item::update(float dt)
@@ -37,14 +53,17 @@ namespace game {
 
 	void Item::setGraphic(Sprite *graphic, bool calcInvSize)
 	{
-		if (mGraphic.get())
+		if (mGraphic)
 		{
-			removeChild(mGraphic.get());
+			mGraphic->removeEventListener(MOUSE_UP, this);
+			removeChild(mGraphic);
 		}
 		mGraphic = graphic;
+		graphic->setInteractive(true);
 
 		if (calcInvSize && graphic)
 		{
+			graphic->addEventListener(MOUSE_UP, this);
 			mInventorySizeX = static_cast<short>(ceil(graphic->getWidth() / Inventory::getSpaceSizeX()));
 			mInventorySizeY = static_cast<short>(ceil(graphic->getHeight() / Inventory::getSpaceSizeY()));
 		}
@@ -57,15 +76,18 @@ namespace game {
 
 	void Item::setGroundGraphic(Sprite *graphic)
 	{
-		if (mGroundGraphic.get())
+		if (mGroundGraphic)
 		{
-			removeChild(mGroundGraphic.get());
+			mGroundGraphic->removeEventListener(MOUSE_UP, this);
+			removeChild(mGroundGraphic);
 		}
 		mGroundGraphic = graphic;
+		graphic->setInteractive(true);
 		if (graphic)
 		{
 			mCameraOffsetX = graphic->getWidth() * 0.5f;
 			mCameraOffsetY = graphic->getHeight() * 0.5f;
+			graphic->addEventListener(MOUSE_UP, this);
 		}
 		updateGraphic();
 	}
@@ -113,7 +135,7 @@ namespace game {
 		mMinDamage = item.mMinDamage;
 		mMaxDamage = item.mMaxDamage;
 		mArmourClass = item.mArmourClass;
-
+		mItemLocation = item.mItemLocation;
 		mItemName = item.mItemName;
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
@@ -161,7 +183,7 @@ namespace game {
 		return mArmourClass;
 	}
 
-	void Item::setOnGround(bool ground)
+	/*void Item::setOnGround(bool ground)
 	{
 		if (ground != mOnGround)
 		{
@@ -172,6 +194,19 @@ namespace game {
 	bool Item::isOnGround() const
 	{
 		return mOnGround;
+	}*/
+
+	void Item::setItemLocation(ItemLocation location)
+	{
+		if (mItemLocation != location)
+		{
+			mItemLocation = location;
+			updateGraphic();
+		}
+	}
+	Item::ItemLocation Item::getItemLocation() const
+	{
+		return mItemLocation;
 	}
 
 	void Item::setQuestItemId(int questItemId)
@@ -200,7 +235,7 @@ namespace game {
 		{
 			graphic = groundGraphic;
 		}
-		if (mOnGround)
+		if (mItemLocation == GROUND)
 		{
 			removeChild(graphic);
 			addChild(groundGraphic);

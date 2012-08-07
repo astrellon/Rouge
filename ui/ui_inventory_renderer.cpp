@@ -17,11 +17,11 @@ namespace ui {
 
 	InventoryRenderer::InventoryRenderer()
 	{
-
+		addEventListener(MOUSE_UP, this);
 	}
 	InventoryRenderer::~InventoryRenderer()
 	{
-
+		removeEventListener(MOUSE_UP, this);
 	}
 
 	float InventoryRenderer::getWidth()
@@ -52,6 +52,20 @@ namespace ui {
 			else if (e->getInventoryEventType() == INVENTORY_REMOVE)
 			{
 				removeChild(e->getItem());
+			}
+		}
+	}
+
+	void InventoryRenderer::onEvent(MouseEvent *e)
+	{
+		if (e)
+		{
+			Item *item = dynamic_cast<Item *>(e->getEventTarget());
+			if (item != NULL)
+			{
+				stringstream ss;
+				ss << "Clicked on item: " << item->getFullItemName();
+				am_log("ITEM", ss);
 			}
 		}
 	}
@@ -91,7 +105,8 @@ namespace ui {
 				Inventory::InventorySpots::const_iterator iter;
 				for (iter = spots.begin(); iter != spots.end(); ++iter)
 				{
-					removeChild(iter->getItem());
+					//removeChild(iter->getItem());
+					removeItem(iter->getItem());
 				}
 			}
 			mInventory = inventory;
@@ -120,5 +135,14 @@ namespace ui {
 		addChild(item);
 	}
 
+	void InventoryRenderer::removeItem(Item *item)
+	{
+		if (item == NULL)
+		{
+			return;
+		}
+
+		removeChild(item);
+	}
 }
 }

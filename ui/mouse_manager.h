@@ -39,6 +39,8 @@ namespace ui {
 
 		void clearCurrentlyFiring();
 
+		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+
 		static void setManager(MouseManager *manager);
 		static MouseManager *getManager();
 
@@ -56,8 +58,6 @@ namespace ui {
 		int mDragOffsetY;
 
 		static MouseManager *sMainManager;
-
-		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 	};
 
 }

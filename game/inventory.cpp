@@ -128,7 +128,7 @@ namespace game {
 		}
 
 		//addChild(item);
-		item->setOnGround(false);
+		item->setItemLocation(Item::INVENTORY);
 		//item->setPosition(x * Inventory::getSpaceSizeX(), y * Inventory::getSpaceSizeY());
 		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_ADD, this, item, x, y));
 	}
@@ -161,7 +161,7 @@ namespace game {
 		Handle<Item> itemHandle(item);
 		mSpots.erase(mSpots.begin() + index);
 
-		item->setOnGround(true);
+		item->setItemLocation(Item::GROUND);
 		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_REMOVE, this, item, spot.getX(), spot.getY()));
 
 		return true;
@@ -177,7 +177,7 @@ namespace game {
 		}
 		return true;
 	}
-	bool Inventory::hasItem(Item *item)
+	bool Inventory::hasItem(const Item *item) const
 	{
 		return findItem(item) >= 0;
 	}

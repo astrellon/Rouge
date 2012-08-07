@@ -12,6 +12,7 @@ namespace ui {
 		Panel(),
 		mTextDirty(true)
 	{
+		setName("CharacterScreen");
 		mInfo = new TextField2();
 		mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
@@ -19,10 +20,14 @@ namespace ui {
 		addChild(mInfo);
 
 		mInventory = new InventoryRenderer();
+		mInventory->setName("InventoryRenderer");
 		addChild(mInventory);
 		mInventory->setOffset(-16.0f, 16.0f);
 		mInventory->setAnchorY(Y_BOTTOM);
 		mInventory->setParentAnchorY(Y_BOTTOM);
+
+		setInteractive(true);
+		mInventory->setInteractive(true);
 
 		setTitle("Character Screen");
 	}

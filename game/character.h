@@ -46,6 +46,11 @@ namespace game {
 
 		virtual Inventory *getInventory();
 
+		virtual bool pickupItem(Item *item);
+		virtual bool addItem(Item *item);
+		virtual bool removeItem(Item *item);
+		virtual bool hasItem(const Item *item) const;
+
 		virtual const char *getGameObjectTypeName() const;
 
 	protected:
