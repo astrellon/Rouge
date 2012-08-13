@@ -4,6 +4,7 @@
 
 #include <game/inventory.h>
 #include <game/inventory_spot.h>
+#include <game/player_hand.h>
 
 #include <log/logger.h>
 
@@ -60,12 +61,36 @@ namespace ui {
 	{
 		if (e)
 		{
-			Item *item = dynamic_cast<Item *>(e->getEventTarget());
-			if (item != NULL)
+			PlayerHand *hand = PlayerHand::getPlayerHand();
+
+			int gridX = static_cast<int>(static_cast<float>(e->getLocalMouseX()) / Inventory::getSpaceSizeX());
+			int gridY = static_cast<int>(static_cast<float>(e->getLocalMouseY()) / Inventory::getSpaceSizeY());
+
+			Item *item = mInventory->getItemAt(gridX, gridY);
+
+			if (item != NULL && hand->getInhand() == NULL)
 			{
-				stringstream ss;
-				ss << "Clicked on item: " << item->getFullItemName();
-				am_log("ITEM", ss);
+				if (e->getMouseEventType() == MOUSE_UP)
+				{
+					if (hand->getInhand() == NULL)
+					{
+						item->setInteractive(false);
+						hand->setInhand(item);
+						
+						mInventory->removeItem(item);
+						item->setItemLocation(Item::HAND);
+					}
+				}
+				e->stopPropagation();
+			}
+			else if (hand->getInhand() != NULL)
+			{
+				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY))
+				{
+					mInventory->addItem(hand->getInhand(), gridX, gridY);
+					hand->setInhand(NULL);
+				}
+				e->stopPropagation();
 			}
 		}
 	}
@@ -105,7 +130,6 @@ namespace ui {
 				Inventory::InventorySpots::const_iterator iter;
 				for (iter = spots.begin(); iter != spots.end(); ++iter)
 				{
-					//removeChild(iter->getItem());
 					removeItem(iter->getItem());
 				}
 			}
@@ -122,6 +146,11 @@ namespace ui {
 				}
 			}
 		}
+	}
+
+	bool InventoryRenderer::interacteWithLayer() const
+	{
+		return true;
 	}
 
 	void InventoryRenderer::addItem(Item *item, int x, int y)

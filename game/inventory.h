@@ -32,6 +32,8 @@ namespace game {
 		bool removeAll();
 		bool hasItem(const Item *item) const;
 
+		Item *getItemAt(int x, int y) const;
+
 		const InventorySpots &getInventory() const;
 
 		void logContents() const;

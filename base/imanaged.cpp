@@ -25,5 +25,11 @@ namespace base {
 	{
 		mRefCounter++;
 	}
+
+	int IManaged::getReferenceCounter() const
+	{
+		return mRefCounter;
+	}
+
 }
 }

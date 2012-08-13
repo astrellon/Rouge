@@ -63,7 +63,6 @@ namespace gfx {
 
 		GfxEngine::getEngine()->pushColourStack(mColour);
 		GfxEngine::getEngine()->applyColourStack();
-
 	}
 	void Renderable::render(float dt)
 	{

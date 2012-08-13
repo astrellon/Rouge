@@ -29,6 +29,10 @@ namespace ui {
 		virtual Inventory *getInventory() const;
 		virtual void setInventory(Inventory *inventory);
 
+		// Layer methods
+		virtual bool interacteWithLayer() const;
+
+		// Renderable methods
 		virtual void preRender(float dt);
 
 	protected:

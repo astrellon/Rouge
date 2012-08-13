@@ -1,0 +1,68 @@
+#pragma once
+
+#include <string>
+#include <vector>
+#include <sstream>
+using std::string;
+using std::vector;
+using std::stringstream;
+
+#include <log/logger.h>
+
+#define runSuite(s)	\
+	{	\
+		s suite;	\
+		suite.run();	\
+	}
+	
+#define runCase(f)	\
+	beforeCase();	\
+	if (!f()) { testsFailed++; }	\
+	totalTests++;	\
+	afterCase();
+
+namespace am {
+namespace tests {
+
+	class TestSuite {
+	public:
+		TestSuite() {
+			testsFailed = 0;
+			totalTests = 0;
+		}
+		~TestSuite() {}
+		virtual void beforeSuite() {}
+		virtual void afterSuite() {}
+	
+		virtual void beforeCase() {}
+		virtual void afterCase() {}
+	
+		virtual void run() {
+			stringstream ss;
+			ss << "Starting tests for '" << getSuiteName() << "'";
+			am_log("SUITE", ss);\
+			beforeSuite();
+			runCases();\
+			ss.str("");
+			ss << (totalTests - testsFailed) << " of " << totalTests << " passed ";
+
+			if (testsFailed > 0) {
+				ss << "FAIL!";\
+			}
+			am_log("SUITE", ss);\
+			afterSuite();
+		
+		}
+		virtual void runCases() = 0;
+	
+		virtual const char *getSuiteName() const {
+			return "Unnamed";
+		}
+
+	protected:
+		int testsFailed;
+		int totalTests;
+	};
+
+}
+}

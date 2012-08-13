@@ -44,8 +44,10 @@ namespace gfx {
 		int reloadFont(const char *fontName);
 		FontMap &getFontMap();
 
-		Sprite *getCursor();
-		void setCursor(Sprite *cursor);
+		Renderable *getCursor();
+		void setCursor(Renderable *cursor);
+		
+		Renderable *getDefaultCursor();
 
 		void init();
 		void deinit();
@@ -88,7 +90,8 @@ namespace gfx {
 		float mCameraX;
 		float mCameraY;
 
-		Handle<Sprite> mCursor;
+		Handle<Renderable> mCursor;
+		Handle<Renderable> mDefaultCursor;
 		bool mHideCursor;
 
 		AssetMap mAssetManager;

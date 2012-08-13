@@ -29,6 +29,8 @@ namespace gfx {
 		int getNumChildren() const;
 		Renderable *getChildAt(int index) const;
 
+		virtual bool interacteWithLayer() const;
+
 		// Renderable methods
 		virtual void render(float dt);
 

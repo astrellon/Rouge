@@ -26,24 +26,11 @@ namespace game {
 		mItemLocation(GROUND)
 	{
 		setName("Item");
-		setInteractive(true);
+		//setInteractive(true);
 	}
 	Item::~Item()
 	{
 
-	}
-
-	void Item::onEvent(MouseEvent *e)
-	{
-		e->stopPropagation();
-		/*Handle<MouseEvent> e2(new MouseEvent(e->getMouseEventType(), 
-			e->getMouseButton(), e->getMouseX(), e->getMouseY(),
-			this, e->getLocalMouseX(), e->getLocalMouseY()));*/
-		//fireEvent<MouseEvent>(e2);
-		MouseManager::getManager()->fireMouseEvent(this, e->getMouseEventType(),
-			e->getMouseButton(), e->getMouseX(), e->getMouseY(),
-			e->getLocalMouseX(), e->getLocalMouseY());
-		//fireEvent<MouseEvent>(e);
 	}
 
 	void Item::update(float dt)
@@ -182,19 +169,6 @@ namespace game {
 	{
 		return mArmourClass;
 	}
-
-	/*void Item::setOnGround(bool ground)
-	{
-		if (ground != mOnGround)
-		{
-			mOnGround = ground;
-			updateGraphic();
-		}
-	}
-	bool Item::isOnGround() const
-	{
-		return mOnGround;
-	}*/
 
 	void Item::setItemLocation(ItemLocation location)
 	{

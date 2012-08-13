@@ -13,6 +13,7 @@ using namespace am::base;
 namespace am {
 namespace gfx {
 	class Renderable;
+	class Layer;
 }
 
 using namespace am::gfx;
@@ -41,12 +42,19 @@ namespace ui {
 
 		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
 
+		void setRootLayer(Layer *layer);
+		Layer *getRootLayer() const;
+
+		int getMouseX() const;
+		int getMouseY() const;
+
 		static void setManager(MouseManager *manager);
 		static MouseManager *getManager();
 
 	protected:
 
-		Renderable *mUnderMouse;
+		Handle<Renderable> mUnderMouse;
+		Handle<Layer> mRootLayer;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
@@ -56,6 +64,9 @@ namespace ui {
 
 		int mDragOffsetX;
 		int mDragOffsetY;
+
+		int mMouseX;
+		int mMouseY;
 
 		static MouseManager *sMainManager;
 	};

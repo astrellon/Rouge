@@ -11,6 +11,7 @@ namespace am {
 
 namespace game {
 	class Engine;
+	class PlayerHand;
 }
 using namespace am::base;
 
@@ -75,6 +76,8 @@ namespace sys {
 
 		void checkPaused();
 		bool mPausedGame;
+
+		PlayerHand *mPlayerHand;
 
 		void setCurrentMenu(UIComponent *menu);
 

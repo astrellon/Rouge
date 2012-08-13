@@ -28,7 +28,7 @@ namespace game {
 		Item();
 		~Item();
 
-		virtual void onEvent(MouseEvent *e);
+		//virtual void onEvent(MouseEvent *e);
 
 		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
 		virtual Sprite *getGraphic();

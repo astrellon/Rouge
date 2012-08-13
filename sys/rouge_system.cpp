@@ -26,7 +26,7 @@
 
 #include <game/character.h>
 #include <game/player_controller.h>
-
+#include <game/player_hand.h>
 #include <game/game.h>
 #include <game/engine.h>
 
@@ -66,7 +66,8 @@ namespace sys {
 	}
 
 	RougeSystem::RougeSystem(ISystem *linked, Engine *engine) :
-		GameSystem(linked, engine)
+		GameSystem(linked, engine),
+		mPlayerHand(NULL)
 	{
 
 	}
@@ -114,6 +115,9 @@ namespace sys {
 		engine->setGameHud(mGameHud);
 
 		setCurrentMenu(mMainMenu);
+
+		mPlayerHand = new PlayerHand();
+		PlayerHand::setPlayerHand(mPlayerHand);
 		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
 		tip->show();
@@ -273,6 +277,8 @@ namespace sys {
 		Game *game = new Game(mEngine);
 		mEngine->setCurrentGame(game);
 
+		mPlayerHand->setHandEnabled(true);
+
 		mPausedGame = false;
 
 		game->setCurrentMap("testMap");
@@ -337,7 +343,19 @@ namespace sys {
 		mCurrentMenu = menu;
 		if (mCurrentMenu.get())
 		{
+			if (mPlayerHand)
+			{
+				mPlayerHand->setHandEnabled(false);
+			}
+			
 			mCurrentMenu->setVisible(true);
+		}
+		else
+		{
+			if (mPlayerHand)
+			{
+				mPlayerHand->setHandEnabled(true);
+			}
 		}
 	}
 

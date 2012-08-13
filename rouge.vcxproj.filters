@@ -64,6 +64,18 @@
     <Filter Include="gfx\base\text">
       <UniqueIdentifier>{d2d19d70-7e8f-4c9c-a7ed-6b5fb9fc98b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sys\tests">
+      <UniqueIdentifier>{738982a0-ad00-41ea-8341-c2fa635da1f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{c892e353-bd3d-4061-a217-829d0e5be989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\base">
+      <UniqueIdentifier>{e01c10a4-0050-4d56-b0e7-e2d5e98b8082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\mouse">
+      <UniqueIdentifier>{916869d6-e6f3-466c-8605-32b561be508d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -157,18 +169,6 @@
     <ClCompile Include="ui\ui_options_panel.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="util\bounding_box.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\colour.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\json_value.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\tokeniser.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="game\camera.cpp">
       <Filter>game</Filter>
     </ClCompile>
@@ -226,9 +226,6 @@
     <ClCompile Include="log\logger.cpp">
       <Filter>log</Filter>
     </ClCompile>
-    <ClCompile Include="util\stat_tokeniser.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="game\item.cpp">
       <Filter>game</Filter>
     </ClCompile>
@@ -255,12 +252,6 @@
     </ClCompile>
     <ClCompile Include="ui\ui_panel.cpp">
       <Filter>ui\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="util\text_tokeniser.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\utils.cpp">
-      <Filter>util</Filter>
     </ClCompile>
     <ClCompile Include="ui\ui_editor_hud.cpp">
       <Filter>ui\editor</Filter>
@@ -321,6 +312,42 @@
     </ClCompile>
     <ClCompile Include="ui\ui_tooltip.cpp">
       <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="game\player_hand.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="util\bounding_box.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\colour.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\json_value.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\stat_tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\text_tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\utils.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="sys\unit_test_system.cpp">
+      <Filter>sys\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_base.cpp">
+      <Filter>tests\base</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_mouse_manager.cpp">
+      <Filter>tests\mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\asserts.cpp">
+      <Filter>tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -424,21 +451,6 @@
     <ClInclude Include="ui\ui_options_panel.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="util\bounding_box.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\colour.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\json_value.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\tokeniser.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\utils.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="game\camera.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -511,9 +523,6 @@
     <ClInclude Include="log\logger.h">
       <Filter>log</Filter>
     </ClInclude>
-    <ClInclude Include="util\stat_tokeniser.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="game\item.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -547,9 +556,6 @@
     <ClInclude Include="ui\ui_panel.h">
       <Filter>ui\gui</Filter>
     </ClInclude>
-    <ClInclude Include="util\text_tokeniser.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="ui\ui_editor_hud.h">
       <Filter>ui\editor</Filter>
     </ClInclude>
@@ -558,9 +564,6 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_particle_system.h">
       <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="math\matrix.h">
-      <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_effect.h">
       <Filter>gfx\base</Filter>
@@ -603,6 +606,48 @@
     </ClInclude>
     <ClInclude Include="ui\inventory_event_common.h">
       <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="game\player_hand.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="util\utils.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\bounding_box.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\colour.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\json_value.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\stat_tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\text_tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="math\matrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\unit_test_system.h">
+      <Filter>sys\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_base.h">
+      <Filter>tests\base</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_suite.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\asserts.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_mouse_manager.h">
+      <Filter>tests\mouse</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

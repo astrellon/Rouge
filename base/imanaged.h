@@ -10,6 +10,8 @@ namespace base {
 
 		virtual void release();
 		virtual void retain();
+		
+		int getReferenceCounter() const;
 
 	private:
 

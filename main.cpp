@@ -2,7 +2,6 @@
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//_CrtSetBreakAlloc(237);
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);
 
@@ -14,28 +13,41 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	am::ui::MouseManager *mouseManager = new am::ui::MouseManager();
 	am::ui::MouseManager::setManager(mouseManager);
-
+	
 	am::ui::KeyboardManager *keyboardManager = new am::ui::KeyboardManager();
 	am::ui::KeyboardManager::setManager(keyboardManager);
 
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);
 
-	am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(&win, engine);
-	win.setGameSystem(rougeSystem);
+	bool unitTesting = false;
+	am::sys::GameSystem *gameSystem;
+	if (unitTesting)
+	{
+		am::sys::UnitTestSystem *unitTestSystem = am::sys::UnitTestSystem::createUnitTestSystem(&win, engine);
+		gameSystem = unitTestSystem;
+		gameSystem->setTitle("Rouge Game - Unit Tests");
+	}
+	else
+	{
+		am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(&win, engine);
+		gameSystem = rougeSystem;
+		gameSystem->setTitle("Rouge Game");
+	}
+
+	win.setGameSystem(gameSystem);
 	
-	rougeSystem->setSize(600, 400);
-	rougeSystem->setPosition(50, 50);
-	rougeSystem->setTitle("Hello!");
+	gameSystem->setSize(600, 400);
+	gameSystem->setPosition(50, 50);
+	
+	gameSystem->startLoop();
 
-	rougeSystem->startLoop();
-
-	rougeSystem->deinit();
+	gameSystem->deinit();
 
 	// Remove things which have event listeners before the
 	// managers get deleted.
 	delete engine;
-	delete rougeSystem;
+	delete gameSystem;
 	delete mouseManager;
 	delete keyboardManager;
 

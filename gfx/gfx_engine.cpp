@@ -4,6 +4,7 @@
 
 #include <ui/event.h>
 #include <ui/mouse_event.h>
+#include <ui/mouse_manager.h>
 #include <ui/keyboard_event.h>
 using namespace am::ui;
 
@@ -68,6 +69,8 @@ namespace gfx {
 		mRootLayer->setName("RootLayer");
 		mRootLayer->setInteractive(true);
 
+		MouseManager::getManager()->setRootLayer(mRootLayer);
+
 		mGameLayer = new Layer();
 		mGameLayer->setName("GameLayer");
 		mGameLayer->setInteractive(true);
@@ -105,6 +108,7 @@ namespace gfx {
 			throw std::runtime_error("Unable to load basic font asset");
 		}
 		mCursor = new Sprite(mCursorAsset);
+		mDefaultCursor = mCursor;
 	}
 	void GfxEngine::deinit()
 	{
@@ -174,15 +178,22 @@ namespace gfx {
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
-	Sprite *GfxEngine::getCursor()
+	Renderable *GfxEngine::getCursor()
 	{
 		return mCursor.get();
 	}
-	void GfxEngine::setCursor(Sprite *sprite)
+	void GfxEngine::setCursor(Renderable *sprite)
 	{
-		mRootLayer->removeChild(sprite);
 		mCursor = sprite;
-		mRootLayer->addChild(mCursor.get());
+		if (sprite)
+		{
+			sprite->setPosition(MouseManager::getManager()->getMouseX(), MouseManager::getManager()->getMouseY());
+		}
+	}
+
+	Renderable *GfxEngine::getDefaultCursor()
+	{
+		return mDefaultCursor;
 	}
 
 	Asset *GfxEngine::getAsset(const char *assetName)

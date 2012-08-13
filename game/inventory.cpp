@@ -182,6 +182,15 @@ namespace game {
 		return findItem(item) >= 0;
 	}
 
+	Item *Inventory::getItemAt(int x, int y) const
+	{
+		if (x < 0 || y < 0 || x >= mSpacesX || y >= mSpacesY)
+		{
+			return NULL;
+		}
+		return mSpotMap[y * mSpacesX + x];
+	}
+
 	const Inventory::InventorySpots &Inventory::getInventory() const
 	{
 		return mSpots;

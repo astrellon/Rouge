@@ -98,6 +98,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\item_instance.cpp" />
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
+    <ClCompile Include="game\player_hand.cpp" />
     <ClCompile Include="game\stats.cpp" />
     <ClCompile Include="game\stats_common.cpp" />
     <ClCompile Include="game\stat_modifier.cpp" />
@@ -135,7 +136,11 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sys\game_system.cpp" />
     <ClCompile Include="sys\rouge_system.cpp" />
+    <ClCompile Include="sys\unit_test_system.cpp" />
     <ClCompile Include="sys\win_system.cpp" />
+    <ClCompile Include="tests\asserts.cpp" />
+    <ClCompile Include="tests\test_base.cpp" />
+    <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="ui\data_event.cpp" />
     <ClCompile Include="ui\event.cpp" />
     <ClCompile Include="ui\event_manager.cpp" />
@@ -188,6 +193,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\item_instance.h" />
     <ClInclude Include="game\map.h" />
     <ClInclude Include="game\player_controller.h" />
+    <ClInclude Include="game\player_hand.h" />
     <ClInclude Include="game\stats.h" />
     <ClInclude Include="game\stats_common.h" />
     <ClInclude Include="game\stat_modifier.h" />
@@ -229,7 +235,12 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />
     <ClInclude Include="sys\rouge_system.h" />
+    <ClInclude Include="sys\unit_test_system.h" />
     <ClInclude Include="sys\win_system.h" />
+    <ClInclude Include="tests\asserts.h" />
+    <ClInclude Include="tests\test_base.h" />
+    <ClInclude Include="tests\test_mouse_manager.h" />
+    <ClInclude Include="tests\test_suite.h" />
     <ClInclude Include="ui\data_event.h" />
     <ClInclude Include="ui\event.h" />
     <ClInclude Include="ui\event_manager.h" />

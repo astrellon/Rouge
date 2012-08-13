@@ -1,6 +1,8 @@
 #include "transform_lite.h"
 
-#include <gl.h>
+#ifndef UNIT_TEST
+#	include <gl.h>
+#endif
 
 namespace am {
 namespace math {
@@ -72,6 +74,5 @@ namespace math {
 			glRotatef(mRotation, 0.0f, 1.0f, 0.0f);
 		}
 	}
-
 }
 }

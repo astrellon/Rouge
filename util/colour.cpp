@@ -1,6 +1,8 @@
 #include "colour.h"
 
-#include <gl.h>
+#ifndef UNIT_TEST
+#	include <gl.h>
+#endif
 
 #include <log/logger.h>
 
@@ -109,7 +111,9 @@ namespace util {
 
 	void Colour::applyColour() const
 	{
+#ifndef UNIT_TEST
 		glColor4f(mRed, mGreen, mBlue, mAlpha);
+#endif
 	}
 
 	Colour Colour::lerp(const Colour &rhs, float dt) const

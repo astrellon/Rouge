@@ -1,13 +1,9 @@
 #include "mouse_manager.h"
 
-#include <gfx/gfx_engine.h>
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_layer.h>
-#include <gfx/gfx_sprite.h>
 
 #include <log/logger.h>
-
-#include <game/map.h>
 
 namespace am {
 namespace ui {
@@ -15,9 +11,10 @@ namespace ui {
 	MouseManager *MouseManager::sMainManager = NULL;
 	
 	MouseManager::MouseManager() :
-		mUnderMouse(NULL),
 		mDragOffsetX(0),
-		mDragOffsetY(0)
+		mDragOffsetY(0),
+		mMouseX(0),
+		mMouseY(0)
 	{
 
 	}
@@ -28,9 +25,11 @@ namespace ui {
 
 	void MouseManager::onMouseDown(MouseButton mouseButton, int x, int y)
 	{
+		mMouseX = x;
+		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		Renderable *hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_DOWN, mouseButton, x, y, x, y); 
+		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_DOWN, mouseButton, x, y, x, y); 
 		if (hitTarget == NULL)
 		{
 			mUnderMouse = NULL;
@@ -43,8 +42,10 @@ namespace ui {
 	}
 	void MouseManager::onMouseMove(MouseButton mouseButton, int x, int y)
 	{
+		mMouseX = x;
+		mMouseY = y;
 		mFiredEvent = false;
-		Renderable *hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_MOVE, mouseButton, x, y, x, y); 
+		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_MOVE, mouseButton, x, y, x, y); 
 		if (hitTarget == NULL)
 		{
 			if (mUnderMouse != NULL)
@@ -61,9 +62,11 @@ namespace ui {
 	}
 	void MouseManager::onMouseUp(MouseButton mouseButton, int x, int y)
 	{
+		mMouseX = x;
+		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		Renderable *hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getRootLayer(), MOUSE_UP, mouseButton, x, y, x, y);
+		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_UP, mouseButton, x, y, x, y);
 		if (hitTarget == NULL)
 		{
 			mUnderMouse = NULL;
@@ -85,6 +88,15 @@ namespace ui {
 		return iter->second;
 	}
 
+	int MouseManager::getMouseX() const
+	{
+		return mMouseX;
+	}
+	int MouseManager::getMouseY() const
+	{
+		return mMouseY;
+	}
+
 	Renderable *MouseManager::checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
 		if (target == NULL || !target->isInteractive())
@@ -99,7 +111,7 @@ namespace ui {
 		localY -= static_cast<int>(target->getPositionY());
 
 		Layer *layer = dynamic_cast<Layer *>(target);
-		if (layer != NULL && layer->isVisible())
+		if (layer != NULL && layer->isVisible() && !layer->interacteWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
 			// Loop backwards over children, as that is the order in which
@@ -135,7 +147,7 @@ namespace ui {
 						fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
 					}
 				}
-				else// if (doFire)
+				//else// if (doFire)
 				{
 					fireMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
 				}
@@ -193,6 +205,15 @@ namespace ui {
 	MouseManager *MouseManager::getManager()
 	{
 		return sMainManager;
+	}
+
+	void MouseManager::setRootLayer( Layer *layer )
+	{
+		mRootLayer = layer;
+	}
+	Layer *MouseManager::getRootLayer() const
+	{
+		return mRootLayer;
 	}
 
 }

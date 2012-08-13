@@ -34,6 +34,16 @@ namespace base {
 			}
 		}
 
+		// Should only be used for debugging/testing purposes.
+		void force(T *obj)
+		{
+			mObject = obj;
+			if (mObject != NULL)
+			{
+				obj->retain();
+			}
+		}
+
 		operator T *() const
 		{
 			return mObject;
@@ -97,14 +107,6 @@ namespace base {
 		{
 			return *mObject != rhs;
 		}
-		/*bool operator!=(int rhs) const
-		{
-			return mObject != rhs;
-		}
-		bool operator!=(unsigned int rhs) const
-		{
-			return mObject != rhs;
-		}*/
 
 	private:
 		T *mObject;

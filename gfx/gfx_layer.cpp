@@ -109,6 +109,11 @@ namespace gfx {
 		return static_cast<int>(mChildren.size());
 	}
 
+	bool Layer::interacteWithLayer() const
+	{
+		return false;
+	}
+
 	// IRenderable methods
 	void Layer::render(float dt)
 	{
