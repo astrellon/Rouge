@@ -23,7 +23,6 @@ namespace am {
 namespace game {
 
 	Game::Game(Engine *engine) :
-		//mMapFilename(""),
 		mEngine(engine),
 		mCurrentMap(NULL),
 		mActiveObjects(NULL)
@@ -31,11 +30,10 @@ namespace game {
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
 		mGameLayer->setInteractive(true);
-		//GfxEngine::getEngine()->getRootLayer()->addChild(mGameLayer.get());
 
 		mBackground = new Layer();
 		mBackground->setName("Background");
-		mBackground->setInteractive(false);
+		mBackground->setInteractive(true);
 		mGameLayer->addChild(mBackground.get());
 
 		mItemLayer = new Layer();
@@ -52,12 +50,10 @@ namespace game {
 		mForeground->setName("Foreground");
 		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
-
-		MouseManager::getManager()->addEventListener(MOUSE_UP, this);
 	}
 	Game::~Game()
 	{
-		MouseManager::getManager()->removeEventListener(MOUSE_UP, this);
+		
 	}
 
 	Map *Game::getMap(const char *mapName)
@@ -99,14 +95,13 @@ namespace game {
 
 	void Game::onEvent(MouseEvent *e)
 	{
-		if (!mCurrentMap.get())
+		if (!mCurrentMap.get() || e->getTarget() != mCurrentMap)
 		{
 			return;
 		}
 
-		am::math::TransformLite &trans = GfxEngine::getEngine()->getGameLayer()->getTransform();
-		float localX = static_cast<float>(e->getMouseX()) - trans.getX();
-		float localY = static_cast<float>(e->getMouseY()) - trans.getY();
+		float localX = e->getLocalMouseX();
+		float localY = e->getLocalMouseY();
 		int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
 		int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
 		
@@ -133,7 +128,7 @@ namespace game {
 					GameObject *obj = iter->get();
 					float x = obj->getPositionX();
 					float y = obj->getPositionY();
-					if (localX >= x && localX >= y &&
+					if (localX >= x && localY >= y &&
 						localX < x + obj->getWidth() &&
 						localY < y + obj->getHeight())
 					{
@@ -152,12 +147,19 @@ namespace game {
 		mForeground->clear();
 		mCamera.followObject(NULL);
 
+		if (mCurrentMap)
+		{
+			mCurrentMap->removeEventListener(MOUSE_UP, this);
+		}
+
 		mCurrentMap = map;
 		if (map)
 		{
 			mBackground->addChild(map->getBackground());
 			mForeground->addChild(map->getForeground());
 			mActiveObjects = map->getObjects();
+
+			mCurrentMap->addEventListener(MOUSE_UP, this);
 			
 			if (mActiveObjects)
 			{

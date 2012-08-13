@@ -44,6 +44,7 @@ namespace ui {
 	void Inspector::clearGameObjects()
 	{
 		mGameObjects.clear();
+		mTextDirty = true;
 	}
 	
 	void Inspector::setWidth(float width)

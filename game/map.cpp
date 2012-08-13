@@ -29,7 +29,8 @@ namespace game {
 		mForeground = new Layer();
 
 		setInteractive(true);
-	}
+		mBackground->setInteractive(true);
+		}
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
 		mTiles(NULL),
@@ -39,7 +40,9 @@ namespace game {
 		mBackground = new Layer();
 		mBackground->addChild(this);
 		mForeground = new Layer();
+
 		setInteractive(true);
+		mBackground->setInteractive(true);
 	}
 	Map::~Map()
 	{
