@@ -124,7 +124,36 @@ namespace game {
 				hand->setInhand(NULL);
 				return;
 			}
+		}
 
+		ObjectList clickedOn;
+		if (mActiveObjects)
+		{
+			ObjectList::iterator iter;
+			for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			{
+				GameObject *obj = iter->get();
+				float x = obj->getPositionX();
+				float y = obj->getPositionY();
+				if (localX >= x && localY >= y &&
+					localX < x + obj->getWidth() &&
+					localY < y + obj->getHeight())
+				{
+					clickedOn.push_back(obj);
+				}
+			}
+		}
+
+		if (clickedOn.size() == 1 && e->getMouseButton() == LEFT_BUTTON)
+		{
+			Item *item = dynamic_cast<Item *>(clickedOn[0].get());
+			if (item)
+			{
+				mMainCharacter->pickupItem(item);
+			}
+		}
+		else
+		{
 			GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
 			{
@@ -133,22 +162,7 @@ namespace game {
 				inspector->setTile(tile);
 
 				inspector->clearGameObjects();
-				if (mActiveObjects)
-				{
-					ObjectList::iterator iter;
-					for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
-					{
-						GameObject *obj = iter->get();
-						float x = obj->getPositionX();
-						float y = obj->getPositionY();
-						if (localX >= x && localY >= y &&
-							localX < x + obj->getWidth() &&
-							localY < y + obj->getHeight())
-						{
-							inspector->addGameObject(obj);
-						}
-					}
-				}
+				inspector->addGameObjects(clickedOn);
 			}
 		}
 	}

@@ -27,6 +27,7 @@ namespace ui {
 		Tile *getTile() const;
 
 		void addGameObject(GameObject *obj);
+		void addGameObjects(const ObjectList &list);
 		void clearGameObjects();
 
 		virtual TextField2 *getTextField();

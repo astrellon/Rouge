@@ -49,6 +49,19 @@ namespace ui {
 		mGameObjects.push_back(obj);
 		mTextDirty = true;
 	}
+	void Inspector::addGameObjects(const ObjectList &list)
+	{
+		if (list.size() == 0)
+		{
+			return;
+		}
+		ObjectList::const_iterator iter;
+		for (iter = list.begin(); iter != list.end(); ++iter)
+		{
+			mGameObjects.push_back(iter->get());
+		}
+		mTextDirty = true;
+	}
 	void Inspector::clearGameObjects()
 	{
 		mGameObjects.clear();
