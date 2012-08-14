@@ -18,6 +18,8 @@ using namespace am::util;
 
 #include "engine.h"
 #include "map.h"
+#include "player_hand.h"
+#include "character.h"
 
 namespace am {
 namespace game {
@@ -109,6 +111,15 @@ namespace game {
 			gridX >= mCurrentMap->getMapWidth() ||
 			gridY >= mCurrentMap->getMapHeight())
 		{
+			return;
+		}
+
+		PlayerHand *hand = PlayerHand::getPlayerHand();
+		if (hand && hand->getInhand() != NULL)
+		{
+			mMainCharacter->dropItem(hand->getInhand(), gridX, gridY);
+			mItemLayer->addChild(hand->getInhand());
+			hand->setInhand(NULL);
 			return;
 		}
 
@@ -317,6 +328,15 @@ namespace game {
 	Layer *Game::getForeground()
 	{
 		return mForeground.get();
+	}
+
+	void Game::setMainCharacter(Character *character)
+	{
+		mMainCharacter = character;
+	}
+	Character *Game::getMainCharacter()
+	{
+		return mMainCharacter;
 	}
 
 	void Game::update(float dt)

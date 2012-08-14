@@ -16,6 +16,7 @@ using namespace am::ui;
 #include "game_object.h"
 #include "camera.h"
 #include "map.h"
+#include "character.h"
 
 namespace am {
 
@@ -57,6 +58,9 @@ namespace game {
 
 		virtual void onEvent(MouseEvent *e);
 
+		void setMainCharacter(Character *character);
+		Character *getMainCharacter();
+
 		Camera *getCamera();
 
 		void update(float dt);
@@ -79,6 +83,8 @@ namespace game {
 		Handle<Layer> mItemLayer;
 		Handle<Layer> mCharacterLayer;
 		Handle<Layer> mForeground;
+
+		Handle<Character> mMainCharacter;
 	};
 
 }

@@ -1,9 +1,12 @@
 #include "character.h"
 
 #include "engine.h"
+#include "map.h"
 
 #include <sstream>
 using namespace std;
+
+#include <log/logger.h>
 
 namespace am {
 namespace game {
@@ -157,6 +160,31 @@ namespace game {
 		}
 
 		return mInventory->hasItem(item);
+	}
+	bool Character::dropItem(Item *item, int gridX, int gridY)
+	{
+		if (item == NULL || mMap == NULL ||
+			gridX < 0 || gridY < 0 ||
+			gridX >= mMap->getMapWidth() ||
+			gridY >= mMap->getMapHeight())
+		{
+			am_log("CHAR", "Off map");
+			return false;
+		}
+
+		int dx = getGridLocationX() - gridX;
+		int dy = getGridLocationY() - gridY;
+		if (dx < -1 || dx > 1 || dy < -1 || dy > 1)
+		{
+			am_log("CHAR", "Too far away");
+			return false;
+		}
+
+		item->setGridLocation(gridX, gridY);
+		mMap->addGameObject(item);
+		item->setItemLocation(Item::GROUND);
+
+		mInventory->removeItem(item);
 	}
 
 	const char *Character::getGameObjectTypeName() const

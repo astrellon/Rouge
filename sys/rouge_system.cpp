@@ -275,6 +275,8 @@ namespace sys {
 		}
 
 		Game *game = new Game(mEngine);
+		// Got to re-enable the game hud on a new game.
+		mEngine->getGameHud()->setInteractive(true);
 		mEngine->setCurrentGame(game);
 
 		mPlayerHand->setHandEnabled(true);
@@ -285,6 +287,8 @@ namespace sys {
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = new Character();
+		game->setMainCharacter(mPlayer);
+
 		mPlayer->setName("Melli");
 		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("mainChar/front"));

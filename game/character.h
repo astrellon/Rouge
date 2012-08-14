@@ -50,6 +50,7 @@ namespace game {
 		virtual bool addItem(Item *item);
 		virtual bool removeItem(Item *item);
 		virtual bool hasItem(const Item *item) const;
+		virtual bool dropItem(Item *item, int gridX, int gridY);
 
 		virtual const char *getGameObjectTypeName() const;
 

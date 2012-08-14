@@ -113,6 +113,7 @@ namespace sys {
 
 		mDebugConsole->setWidth(600.0f);
 		mDebugConsole->setBaseFont("basic");
+		mDebugConsole->setVisible(false);
 
 		GfxLogListener *listener = new GfxLogListener(mDebugConsole.get());
 		am::log::Logger::getMainLogger()->addLogListener(listener);
