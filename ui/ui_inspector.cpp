@@ -2,7 +2,13 @@
 
 #include <sstream>
 
+#include <log/logger.h>
+#include <util/utils.h>
+
 #include <game/tile_type.h>
+#include <game/engine.h>
+#include <game/game.h>
+#include <game/character.h>
 
 namespace am {
 namespace ui {
@@ -18,6 +24,8 @@ namespace ui {
 		addChild(mInfo);
 
 		setTitle("Inspector");
+
+		mInfo->addEventListener(MOUSE_UP, this);
 	}
 	Inspector::~Inspector()
 	{
@@ -72,6 +80,30 @@ namespace ui {
 		UIComponent::render(dt);
 	}
 
+	void Inspector::onEvent(MouseEvent *e)
+	{
+		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getTarget());
+		if (textHit != NULL)
+		{
+			int index = -1;
+			if (Utils::fromString<int>(index, textHit->getNodeTarget()->getAttribute("index")))
+			{
+				GameObject *clickedOn = mGameObjects[index];
+				Item *item = dynamic_cast<Item *>(clickedOn);
+				if (item)
+				{
+					Engine::getEngine()->getCurrentGame()->getMainCharacter()->pickupItem(item);
+					mGameObjects.erase(mGameObjects.begin() + index);
+					mTextDirty = true;
+				}
+			}
+		}
+		else
+		{
+			Panel::onEvent(e);
+		}
+	}
+
 	void Inspector::updateText()
 	{
 		stringstream ss;
@@ -106,9 +138,11 @@ namespace ui {
 		if (mGameObjects.size() > 0)
 		{
 			ss << "<gameobj>GameObj:</gameobj>\n";
+			int i = 0;
 			for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 			{
-				ss << "- <gameobj class='" << (*iter)->getGameObjectTypeName() << "'>" << iter->get()->getName() << "</gameobj>\n";
+				ss << "- <gameobj index=" << i << " class='" << (*iter)->getGameObjectTypeName() << "'>" << iter->get()->getName() << "</gameobj>\n";
+				i++;
 			}
 		}
 		

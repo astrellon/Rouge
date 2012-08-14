@@ -39,21 +39,6 @@ namespace gfx {
 
 	}
 
-	void TextField2::onEvent(MouseEvent *e)
-	{
-		NodeHitbox *textTarget = dynamic_cast<NodeHitbox *>(e->getTarget());
-		if (textTarget)
-		{
-			stringstream ss;
-			ss << "Clicked on: " << textTarget->getNodeTarget()->getNodeType();
-			am_log("TEXT", ss);
-		}
-		//am_log("TEXT", "Clicked on TEXTFIELD2");
-		//stringstream ss;
-		//ss << "Click at text index " << getTextPosition(e->getLocalMouseX(), e->getLocalMouseY());
-		//am_log("TEXT", ss);
-	}
-
 	float TextField2::getRenderedHeight() const
 	{
 		return mRenderedHeight;

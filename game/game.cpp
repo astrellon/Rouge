@@ -114,36 +114,39 @@ namespace game {
 			return;
 		}
 
-		PlayerHand *hand = PlayerHand::getPlayerHand();
-		if (hand && hand->getInhand() != NULL)
+		if (e->getMouseButton() == LEFT_BUTTON)
 		{
-			mMainCharacter->dropItem(hand->getInhand(), gridX, gridY);
-			mItemLayer->addChild(hand->getInhand());
-			hand->setInhand(NULL);
-			return;
-		}
-
-		GameHud *gameHud = Engine::getEngine()->getGameHud();
-		if (gameHud)
-		{
-			Tile *tile = mCurrentMap->getTile(gridX, gridY);
-			Inspector *inspector = gameHud->getInspector();
-			inspector->setTile(tile);
-
-			inspector->clearGameObjects();
-			if (mActiveObjects)
+			PlayerHand *hand = PlayerHand::getPlayerHand();
+			if (hand && hand->getInhand() != NULL)
 			{
-				ObjectList::iterator iter;
-				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+				mMainCharacter->dropItem(hand->getInhand(), gridX, gridY);
+				mItemLayer->addChild(hand->getInhand());
+				hand->setInhand(NULL);
+				return;
+			}
+
+			GameHud *gameHud = Engine::getEngine()->getGameHud();
+			if (gameHud)
+			{
+				Tile *tile = mCurrentMap->getTile(gridX, gridY);
+				Inspector *inspector = gameHud->getInspector();
+				inspector->setTile(tile);
+
+				inspector->clearGameObjects();
+				if (mActiveObjects)
 				{
-					GameObject *obj = iter->get();
-					float x = obj->getPositionX();
-					float y = obj->getPositionY();
-					if (localX >= x && localY >= y &&
-						localX < x + obj->getWidth() &&
-						localY < y + obj->getHeight())
+					ObjectList::iterator iter;
+					for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 					{
-						inspector->addGameObject(obj);
+						GameObject *obj = iter->get();
+						float x = obj->getPositionX();
+						float y = obj->getPositionY();
+						if (localX >= x && localY >= y &&
+							localX < x + obj->getWidth() &&
+							localY < y + obj->getHeight())
+						{
+							inspector->addGameObject(obj);
+						}
 					}
 				}
 			}

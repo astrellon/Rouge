@@ -34,6 +34,8 @@ namespace ui {
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
+		virtual void onEvent(MouseEvent *e);
+
 		virtual void render(float dt);
 
 	protected:

@@ -26,9 +26,7 @@ namespace gfx {
 
 		TextField2();
 		~TextField2();
-
-		virtual void onEvent(MouseEvent *e);
-
+		
 		float getRenderedHeight() const;
 
 		Font *getBaseFont();
