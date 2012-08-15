@@ -2,6 +2,7 @@
 
 #include "inventory.h"
 #include "engine.h"
+#include "tile_type.h"
 
 #include <ui/mouse_manager.h>
 
@@ -26,6 +27,7 @@ namespace game {
 		mItemLocation(GROUND)
 	{
 		setName("Item");
+		addPassibleType(TileType::getTileType("land"));
 		//setInteractive(true);
 	}
 	Item::~Item()

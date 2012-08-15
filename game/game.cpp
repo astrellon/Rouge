@@ -15,6 +15,7 @@ using namespace am::util;
 #include <ui/ui_button.h>
 #include <ui/ui_game_hud.h>
 #include <ui/ui_inspector.h>
+#include <ui/keyboard_manager.h>
 
 #include "engine.h"
 #include "map.h"
@@ -119,9 +120,11 @@ namespace game {
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != NULL)
 			{
-				mMainCharacter->dropItem(hand->getInhand(), gridX, gridY);
-				mItemLayer->addChild(hand->getInhand());
-				hand->setInhand(NULL);
+				if (mMainCharacter->dropItem(hand->getInhand(), gridX, gridY))
+				{
+					mItemLayer->addChild(hand->getInhand());
+					hand->setInhand(NULL);
+				}
 				return;
 			}
 		}
@@ -149,7 +152,21 @@ namespace game {
 			Item *item = dynamic_cast<Item *>(clickedOn[0].get());
 			if (item)
 			{
-				mMainCharacter->pickupItem(item);
+				// If holding shift, it goes straight into the inventory.
+				if (KeyboardManager::getManager()->isKeyDown(16))
+				{
+					mMainCharacter->pickupItem(item);
+				}
+				else
+				{
+					PlayerHand *hand = PlayerHand::getPlayerHand();
+					if (hand && hand->getInhand() == NULL)
+					{
+						hand->setInhand(item);
+						mItemLayer->removeChild(item);
+						item->setItemLocation(Item::HAND);
+					}
+				}
 			}
 		}
 		else

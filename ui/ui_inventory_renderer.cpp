@@ -69,10 +69,6 @@ namespace ui {
 
 			Item *item = mInventory->getItemAt(gridX, gridY);
 
-			if (KeyboardManager::getManager()->isKeyDown(16))
-			{
-				mInventory->getCharacter()->dropItem(item);
-			}
 			if (item != NULL && hand->getInhand() == NULL)
 			{
 				if (e->getMouseEventType() == MOUSE_UP)

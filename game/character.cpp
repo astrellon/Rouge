@@ -180,11 +180,17 @@ namespace game {
 			return false;
 		}
 
+		if (!mMap->isValidGridLocation(gridX, gridY, item))
+		{
+			am_log("CHAR", "Invalid location for item");
+			return false;
+		}
 		item->setGridLocation(gridX, gridY);
 		mMap->addGameObject(item);
 		item->setItemLocation(Item::GROUND);
 
 		mInventory->removeItem(item);
+		return true;
 	}
 
 	const char *Character::getGameObjectTypeName() const

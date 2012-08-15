@@ -31,7 +31,7 @@ namespace game {
 		virtual float getLocationX() const;
 		virtual float getLocationY() const;
 
-		virtual void setGridLocation(int x, int y, bool setDraw = true);
+		virtual bool setGridLocation(int x, int y, bool setDraw = true);
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 

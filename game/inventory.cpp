@@ -118,6 +118,8 @@ namespace game {
 		int xEnd = x + item->getInventorySizeX();
 		int yEnd = y + item->getInventorySizeY();
 
+		item->setMap(NULL);
+
 		for (int j = y; j < yEnd; j++)
 		{
 			int jOffset = j * mSpacesX;

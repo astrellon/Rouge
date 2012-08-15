@@ -62,14 +62,21 @@ namespace game {
 		return mLocationY;
 	}
 
-	void GameObject::setGridLocation(int x, int y, bool setDraw)
+	bool GameObject::setGridLocation(int x, int y, bool setDraw)
 	{
-		mLocationX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
-		mLocationY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
-		if (setDraw)
+		int locX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
+		int locY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		if (!mMap || (mMap && mMap->isValidGridLocation(x, y, this)))
 		{
-			mTransform.setXY(mLocationX, mLocationY);
+			mLocationX = locX;
+			mLocationY = locY;
+			if (setDraw)
+			{
+				mTransform.setXY(mLocationX, mLocationY);
+			}
+			return true;
 		}
+		return false;
 	}
 	int GameObject::getGridLocationX() const
 	{
