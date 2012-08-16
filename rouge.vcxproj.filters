@@ -76,6 +76,9 @@
     <Filter Include="tests\mouse">
       <UniqueIdentifier>{916869d6-e6f3-466c-8605-32b561be508d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\game">
+      <UniqueIdentifier>{949b1a7d-dc8d-4f8e-80ae-d965f874f98e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -348,6 +351,9 @@
     </ClCompile>
     <ClCompile Include="tests\asserts.cpp">
       <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_map.cpp">
+      <Filter>tests\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -648,6 +654,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_mouse_manager.h">
       <Filter>tests\mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_map.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

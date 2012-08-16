@@ -19,6 +19,7 @@ namespace game {
 		mMoveY(0)
 	{
 		setName("Character");
+		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
 
 		addEventListener(MOUSE_UP, this);
 
@@ -96,6 +97,18 @@ namespace game {
 		return mMoveY;
 	}
 
+	void Character::setPickupReach(float reach)
+	{
+		if (reach < 0.0f) {
+			reach = -reach;
+		}
+		mPickupReach = reach;
+	}
+	float Character::getPickupReach() const
+	{
+		return mPickupReach;
+	}
+
 	float Character::getWidth()
 	{
 		return mGraphic->getWidth();
@@ -123,9 +136,9 @@ namespace game {
 		}
 		if (item->getItemLocation() == Item::GROUND)
 		{
-			int dx = item->getGridLocationX() - getGridLocationX();
-			int dy = item->getGridLocationY() - getGridLocationY();
-			if (dx > 1 || dx < -1 || dy > 1 || dy < -1)
+			float dx = item->getLocationX() - getLocationX();
+			float dy = item->getLocationY() - getLocationY();
+			if (dx > mPickupReach || dx < -mPickupReach || dy > mPickupReach || dy < -mPickupReach)
 			{
 				// Too far away.
 				return false;
@@ -161,31 +174,40 @@ namespace game {
 
 		return mInventory->hasItem(item);
 	}
-	bool Character::dropItem(Item *item, int gridX, int gridY)
+	bool Character::dropItem(Item *item, float x, float y)
 	{
 		if (item == NULL || mMap == NULL ||
-			gridX < 0 || gridY < 0 ||
-			gridX >= mMap->getMapWidth() ||
-			gridY >= mMap->getMapHeight())
+			x < 0 || y < 0 ||
+			x >= mMap->getWidth() ||
+			y >= mMap->getHeight())
 		{
 			am_log("CHAR", "Off map");
 			return false;
 		}
 
-		int dx = getGridLocationX() - gridX;
+		/*int dx = getGridLocationX() - gridX;
 		int dy = getGridLocationY() - gridY;
 		if (dx < -1 || dx > 1 || dy < -1 || dy > 1)
 		{
 			am_log("CHAR", "Too far away");
 			return false;
+		}*/
+		float dx = getLocationX() - x;
+		float dy = getLocationY() - y;
+		if (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach)
+		{
+			am_log("CHAR", "Too far away");
+			return false;
 		}
 
-		if (!mMap->isValidGridLocation(gridX, gridY, item))
+		//if (!mMap->isValidGridLocation(gridX, gridY, item))
+		if (!mMap->isValidLocation(x, y, item))
 		{
 			am_log("CHAR", "Invalid location for item");
 			return false;
 		}
-		item->setGridLocation(gridX, gridY);
+		//item->setGridLocation(gridX, gridY);
+		item->setLocation(x, y);
 		mMap->addGameObject(item);
 		item->setItemLocation(Item::GROUND);
 

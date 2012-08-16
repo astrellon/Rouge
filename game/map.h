@@ -51,6 +51,8 @@ namespace game {
 		bool removeGameObject(GameObject *object);
 		bool hasGameObject(GameObject *object) const;
 
+		bool isValidLocation(float x, float y, GameObject *forObject) const;
+		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
 		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
@@ -85,6 +87,8 @@ namespace game {
 	
 		void clear();
 		ObjectList::const_iterator findGameObject(GameObject *object) const;
+
+		bool _isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
 	};
 
 }

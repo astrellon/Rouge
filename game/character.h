@@ -39,6 +39,9 @@ namespace game {
 		virtual int getMoveVectorX() const;
 		virtual int getMoveVectorY() const;
 
+		virtual void setPickupReach(float reach);
+		virtual float getPickupReach() const;
+
 		virtual float getWidth();
 		virtual float getHeight();
 
@@ -50,7 +53,7 @@ namespace game {
 		virtual bool addItem(Item *item);
 		virtual bool removeItem(Item *item);
 		virtual bool hasItem(const Item *item) const;
-		virtual bool dropItem(Item *item, int gridX, int gridY);
+		virtual bool dropItem(Item *item, float x, float y);
 
 		virtual const char *getGameObjectTypeName() const;
 
@@ -60,6 +63,8 @@ namespace game {
 
 		int mMoveX;
 		int mMoveY;
+
+		float mPickupReach;
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.

@@ -35,11 +35,6 @@ namespace game {
 
 	}
 
-	void Item::update(float dt)
-	{
-
-	}
-
 	void Item::setGraphic(Sprite *graphic, bool calcInvSize)
 	{
 		if (mGraphic)

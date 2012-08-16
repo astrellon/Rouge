@@ -28,8 +28,6 @@ namespace game {
 		Item();
 		~Item();
 
-		//virtual void onEvent(MouseEvent *e);
-
 		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
 		virtual Sprite *getGraphic();
 
@@ -54,9 +52,6 @@ namespace game {
 
 		virtual void setArmourClass(float ac);
 		virtual float getArmourClass() const;
-
-		//virtual void setOnGround(bool ground);
-		//virtual bool isOnGround() const;
 
 		virtual void setItemLocation(ItemLocation location);
 		virtual ItemLocation getItemLocation() const;
@@ -83,8 +78,6 @@ namespace game {
 
 		virtual float getWidth();
 		virtual float getHeight();
-
-		virtual void update(float dt);
 
 		virtual string getName() const;
 		virtual const char *getGameObjectTypeName() const;

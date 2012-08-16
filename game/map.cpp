@@ -178,19 +178,60 @@ namespace game {
 		return iter;
 	}
 
+	bool Map::isValidLocation(float x, float y, GameObject *forObject) const
+	{
+		if (x < 0 || y < 0 || x >= mWidth || y >= mHeight || forObject == NULL)
+		{
+			return false;
+		}
+
+		float respX = Engine::getEngine()->getGridXSizeResp();
+		float respY = Engine::getEngine()->getGridYSizeResp();
+		
+		int gridXStart = static_cast<int>(x * respX);
+		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * respX);
+		if (gridXEnd >= mMapWidth)
+		{
+			return false;
+		}
+
+		int gridYStart = static_cast<int>(y * respY);
+		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * respY);
+		if (gridYEnd >= mMapHeight)
+		{
+			return false;
+		}
+
+		for (int x = gridXStart; x <= gridXEnd; x++)
+		{
+			for (int y = gridYStart; y <= gridYEnd; y++)
+			{
+				if (!_isValidGridLocation(x, y, forObject))
+				{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	bool Map::isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const
 	{
 		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forObject == NULL)
 		{
 			return false;
 		}
+		return _isValidGridLocation(gridX, gridY, forObject);
+	}
+	bool Map::_isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const
+	{
 		const GameObject::PassibleTypeList &objectsPassible = forObject->getPassibleTypes();
 		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
 
-		for (int t = 0; t < tileTypes.size(); t++)
+		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
 			const TileType *tileType = tileTypes[t];
-			for (int o = 0; o < objectsPassible.size(); o++)
+			for (size_t o = 0; o < objectsPassible.size(); o++)
 			{
 				if (objectsPassible[o] == tileType)
 				{
@@ -200,6 +241,7 @@ namespace game {
 		}
 		return false;
 	}
+
 	bool Map::isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const
 	{
 		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
@@ -208,10 +250,10 @@ namespace game {
 		}
 		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
 
-		for (int t = 0; t < tileTypes.size(); t++)
+		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
 			const TileType *tileType = tileTypes[t];
-			for (int o = 0; o < passibles.size(); o++)
+			for (size_t o = 0; o < passibles.size(); o++)
 			{
 				if (passibles[o] == tileType)
 				{
@@ -230,7 +272,7 @@ namespace game {
 
 		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
 
-		for (int t = 0; t < tileTypes.size(); t++)
+		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
 			const TileType *tileType = tileTypes[t];
 			if (forTileType == tileType)

@@ -44,7 +44,7 @@ namespace game {
 		virtual void setOnlyOnPassable(bool only);
 		virtual bool isOnlyOnPassable() const;
 
-		virtual void update(float dt) = 0;
+		virtual void update(float dt);
 
 		virtual void setCameraOffset(float x, float y);
 		virtual float getCameraOffsetX() const;

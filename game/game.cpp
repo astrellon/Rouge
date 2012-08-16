@@ -105,7 +105,7 @@ namespace game {
 
 		float localX = e->getLocalMouseX();
 		float localY = e->getLocalMouseY();
-		int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
+		/*int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
 		int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
 		
 		if (gridX < 0 || gridY < 0 || 
@@ -114,13 +114,19 @@ namespace game {
 		{
 			return;
 		}
-
+		*/
+		if (localX < 0 || localY < 0 ||
+			localX > mCurrentMap->getWidth() ||
+			localY > mCurrentMap->getHeight())
+		{
+			return;
+		}
 		if (e->getMouseButton() == LEFT_BUTTON)
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != NULL)
 			{
-				if (mMainCharacter->dropItem(hand->getInhand(), gridX, gridY))
+				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY))
 				{
 					mItemLayer->addChild(hand->getInhand());
 					hand->setInhand(NULL);
@@ -174,6 +180,9 @@ namespace game {
 			GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
 			{
+				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
+				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
+
 				Tile *tile = mCurrentMap->getTile(gridX, gridY);
 				Inspector *inspector = gameHud->getInspector();
 				inspector->setTile(tile);

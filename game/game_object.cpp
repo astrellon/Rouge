@@ -30,6 +30,11 @@ namespace game {
 		removeGameObject(this);
 	}
 
+	void GameObject::update(float dt)
+	{
+
+	}
+
 	void GameObject::setName(const char *name)
 	{
 		mName = name;
@@ -47,6 +52,10 @@ namespace game {
 	{
 		mLocationX = x;
 		mLocationY = y;
+		if (!mMap || (mMap && mMap->isValidLocation(x, y, this)))
+		{
+
+		}
 		if (setDraw)
 		{
 			mTransform.setXY(x, y);
