@@ -355,6 +355,9 @@
     <ClCompile Include="tests\test_map.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_character.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -656,6 +659,9 @@
       <Filter>tests\mouse</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_map.h">
+      <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_character.h">
       <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>

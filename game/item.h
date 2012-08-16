@@ -14,6 +14,7 @@ using namespace am::ui;
 
 #include "game_object.h"
 #include "item_common.h"
+#include "stat_modifiers.h"
 
 namespace am {
 namespace game {
@@ -74,6 +75,8 @@ namespace game {
 
 		virtual void setItemFrom(const Item &item);
 
+		virtual StatModifiers &getStatModifiers();
+
 		virtual void loadDef(JsonValue value);
 
 		virtual float getWidth();
@@ -94,7 +97,6 @@ namespace game {
 		string mFullname;
 		
 		ItemCommon::ItemType mItemType;
-		//bool mOnGround;
 		ItemLocation mItemLocation;
 
 		short mInventorySizeX;
@@ -105,6 +107,8 @@ namespace game {
 		float mMinDamage;
 		float mMaxDamage;
 		float mArmourClass;
+
+		StatModifiers mStatModifiers;
 
 		void updateFullname();
 		void updateGraphic();

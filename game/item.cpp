@@ -126,6 +126,11 @@ namespace game {
 		updateFullname();
 	}
 
+	StatModifiers &Item::getStatModifiers()
+	{
+		return mStatModifiers;
+	}
+
 	void Item::setInventorySize(short sizeX, short sizeY)
 	{
 		mInventorySizeX = sizeX;

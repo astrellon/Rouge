@@ -105,16 +105,7 @@ namespace game {
 
 		float localX = e->getLocalMouseX();
 		float localY = e->getLocalMouseY();
-		/*int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
-		int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
 		
-		if (gridX < 0 || gridY < 0 || 
-			gridX >= mCurrentMap->getMapWidth() ||
-			gridY >= mCurrentMap->getMapHeight())
-		{
-			return;
-		}
-		*/
 		if (localX < 0 || localY < 0 ||
 			localX > mCurrentMap->getWidth() ||
 			localY > mCurrentMap->getHeight())
@@ -153,7 +144,7 @@ namespace game {
 			}
 		}
 
-		if (clickedOn.size() == 1 && e->getMouseButton() == LEFT_BUTTON)
+		if (clickedOn.size() > 0 && e->getMouseButton() == LEFT_BUTTON)
 		{
 			Item *item = dynamic_cast<Item *>(clickedOn[0].get());
 			if (item)

@@ -21,6 +21,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	win.setHInstance(hInstance);
 
 	bool unitTesting = false;
+#ifdef TESTING
+	unitTesting = true;
+#endif
 	am::sys::GameSystem *gameSystem;
 	if (unitTesting)
 	{
@@ -51,7 +54,5 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete mouseManager;
 	delete keyboardManager;
 
-	//_CrtDumpMemoryLeaks();
-	
 	// Shut down!
 }
