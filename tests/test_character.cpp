@@ -6,6 +6,7 @@
 #include <game/inventory.h>
 #include <game/stat_modifier.h>
 #include <game/stat_modifiers.h>
+#include <game/body_part.h>
 using namespace am::game;
 
 #include <tests/asserts.h>
@@ -43,6 +44,35 @@ namespace tests {
 
 		equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
 		equalsDelta(25.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+
+		return true;
+	}
+
+	bool TestCharacter::testEquipped()
+	{
+		Handle<Character> testChar(new Character());
+		testChar->setName("TestChar");
+		
+		Stats &stats = testChar->getStats();
+		stats.setBaseStat(Stat::STRENGTH, 10.0f);
+
+		equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
+		equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+
+		BodyPart *part = new BodyPart("arm");
+		assert(testChar->addBodyPart(part));
+
+		Handle<Item> sword(new Item());
+		sword->getStatModifiers().addStatModifier(Stat::STRENGTH, StatModifier(5.0f, MOD_ADD));
+		assert(testChar->equipItem(sword, "arm"));
+
+		equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
+		equalsDelta(15.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+
+		assert(testChar->unequipItem("arm"));
+
+		equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
+		equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
 
 		return true;
 	}

@@ -125,19 +125,19 @@ namespace util {
 	bool JsonValue::getBool() const {
 		return mContent.b;
 	}
-	string *JsonValue::getStr() {
+	string *JsonValue::getStr() const {
 		return mContent.s;
 	}
-	const char *JsonValue::getCStr() {
+	const char *JsonValue::getCStr() const {
 		if ((mType == JV_STR || mType == JV_CMT) && mContent.s != NULL) {
 			return mContent.s->c_str();
 		}
 		return NULL;
 	}
-	JsonObject *JsonValue::getObj() {
+	JsonObject *JsonValue::getObj() const {
 		return mContent.o;
 	}
-	JsonArray *JsonValue::getArr() {
+	JsonArray *JsonValue::getArr() const {
 		return mContent.a;
 	}
 	

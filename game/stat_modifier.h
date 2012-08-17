@@ -7,7 +7,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	enum MODIFIER_TYPE {
+	enum StatModifierType {
 		MOD_ADD, MOD_MULTIPLY, MOD_MULTIPLY_SET
 	};
 
@@ -17,14 +17,17 @@ namespace game {
 	public:
 
 		StatModifier();
-		StatModifier(float value, MODIFIER_TYPE type);
+		StatModifier(float value, StatModifierType type, bool magical = true);
 		~StatModifier();
 		
 		virtual void setValue(float value);
 		virtual float getValue() const;
 
-		virtual void setType(MODIFIER_TYPE type);
-		virtual MODIFIER_TYPE getType() const;
+		virtual void setType(StatModifierType type);
+		virtual StatModifierType getType() const;
+
+		virtual void setMagical(bool magical);
+		virtual bool isMagical() const;
 
 		virtual void setStatsParent(Stats *parent);
 		virtual Stats *getStatsParent();
@@ -36,7 +39,8 @@ namespace game {
 
 		Stats *mStatsParent;
 		float mValue;
-		MODIFIER_TYPE mType;
+		bool mMagical;
+		StatModifierType mType;
 	};
 
 }

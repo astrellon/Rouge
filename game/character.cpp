@@ -122,7 +122,133 @@ namespace game {
 	{
 		return mStats;
 	}
+
+	bool Character::addBodyPart(BodyPart *part)
+	{
+		if (part == NULL)
+		{
+			return false;
+		}
+		string name = part->getName();
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		if (iter == mBodyParts.end())
+		{
+			Item *equipped = part->getEqippedItem();
+			if (equipped != NULL)
+			{
+				mStats.addModifiers(equipped->getStatModifiers());
+			}
+			mBodyParts[name] = part;
+			return true;
+		}
+		stringstream ss;
+		ss << "Body part '" << name << "' already on character '" << getName() << "'";
+		am_log("CHAR", ss);
+		return false;
+	}
+	bool Character::removeBodyPart(BodyPart *part)
+	{
+		if (part == NULL)
+		{
+			return false;
+		}
+		string name = part->getName();
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		if (iter != mBodyParts.end())
+		{
+			Item *equipped = iter->second->getEqippedItem();
+			if (equipped != NULL)
+			{
+				mStats.removeModifiers(equipped->getStatModifiers());
+			}
+			mBodyParts.erase(iter);
+			return true;
+		}
+		return false;
+	}
+	bool Character::hasBodyPart(BodyPart *part)
+	{
+		if (part == NULL)
+		{
+			return false;
+		}
+		string name = part->getName();
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		if (iter == mBodyParts.end())
+		{
+			return false;
+		}
+		return true;
+	}
+	const BodyPart::BodyPartMap &Character::getBodyParts() const
+	{
+		return mBodyParts;
+	}
 	
+	bool Character::equipItem(Item *item, const char *bodyPart)
+	{
+		if (item == NULL || bodyPart == NULL || bodyPart[0] == '\0')
+		{
+			return false;
+		}
+		string name = bodyPart;
+		BodyPart::BodyPartMap::iterator iter = mBodyParts.find(name);
+		if (iter == mBodyParts.end())
+		{
+			stringstream ss;
+			ss << "Cannot equip item '" << item->getFullItemName() << "' on to '";
+			ss << getName() << "' because they do not have a '" << name << "'";
+			am_log("CHAR", ss);
+			return false;
+		}
+		Item *alreadyEquipped = iter->second->getEqippedItem();
+		if (alreadyEquipped == NULL)
+		{
+			mStats.addModifiers(item->getStatModifiers());
+			iter->second->setEquippedItem(item);
+			return true;
+		}
+		stringstream ss;
+		ss << "'" << getName() << "' already has '" << alreadyEquipped->getFullItemName();
+		ss << "' equipped on " << name;
+		am_log("CHAR", ss);
+		return false;
+	}
+	bool Character::unequipItem(const char *bodyPart)
+	{
+		if (bodyPart == NULL || bodyPart[0] == '\0')
+		{
+			return false;
+		}
+		string name = bodyPart;
+		BodyPart::BodyPartMap::iterator iter = mBodyParts.find(name);
+		if (iter == mBodyParts.end())
+		{
+			return false;
+		}
+		Item *equipped = iter->second->getEqippedItem();
+		if (equipped != NULL)
+		{
+			mStats.removeModifiers(equipped->getStatModifiers());
+		}
+		iter->second->setEquippedItem(NULL);
+		return true;
+	}
+	Item *Character::getEquipped(const char *bodyPart) const
+	{
+		if (bodyPart == NULL || bodyPart[0] == '\0')
+		{
+			return NULL;
+		}
+		string name = bodyPart;
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		if (iter == mBodyParts.end())
+		{
+			return NULL;
+		}
+		return iter->second->getEqippedItem();
+	}
+
 	Inventory *Character::getInventory()
 	{
 		return mInventory;

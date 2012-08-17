@@ -118,6 +118,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base\imanaged.cpp" />
+    <ClCompile Include="game\body_part.cpp" />
     <ClCompile Include="game\camera.cpp" />
     <ClCompile Include="game\character.cpp" />
     <ClCompile Include="game\engine.cpp" />
@@ -214,6 +215,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   <ItemGroup>
     <ClInclude Include="base\handle.h" />
     <ClInclude Include="base\imanaged.h" />
+    <ClInclude Include="game\body_part.h" />
     <ClInclude Include="game\camera.h" />
     <ClInclude Include="game\character.h" />
     <ClInclude Include="game\engine.h" />

@@ -6,6 +6,9 @@
 
 #include <ui/mouse_manager.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 #include <log/logger.h>
 
 #include <sstream>
@@ -19,9 +22,9 @@ namespace game {
 		mGraphic(NULL),
 		mGroundGraphic(NULL),
 		mItemType(ItemCommon::UNKNOWN),
-		mMinDamage(0.0f),
+		/*mMinDamage(0.0f),
 		mMaxDamage(0.0f),
-		mArmourClass(0.0f),
+		mArmourClass(0.0f),*/
 		mInventorySizeX(1),
 		mInventorySizeY(1),
 		mItemLocation(GROUND)
@@ -116,9 +119,10 @@ namespace game {
 		mName = item.mName;
 		mInventorySizeX = item.mInventorySizeX;
 		mInventorySizeY = item.mInventorySizeY;
-		mMinDamage = item.mMinDamage;
+		/*mMinDamage = item.mMinDamage;
 		mMaxDamage = item.mMaxDamage;
-		mArmourClass = item.mArmourClass;
+		mArmourClass = item.mArmourClass;*/
+		mStatModifiers = item.mStatModifiers;
 		mItemLocation = item.mItemLocation;
 		mItemName = item.mItemName;
 		mPrefix = item.mPrefix;
@@ -144,7 +148,7 @@ namespace game {
 	{
 		return mInventorySizeY;
 	}
-
+	/*
 	void Item::setMinDamage(float dmg)
 	{
 		mMinDamage = dmg;
@@ -171,7 +175,7 @@ namespace game {
 	{
 		return mArmourClass;
 	}
-
+	*/
 	void Item::setItemLocation(ItemLocation location)
 	{
 		if (mItemLocation != location)
@@ -300,14 +304,14 @@ namespace game {
 				mInventorySizeY = 1;
 			}
 		}
-		if (value.has("minDamage", JV_INT) || value.has("minDamage", JV_FLOAT))
+		/*if (value.has("minDamage", JV_INT) || value.has("minDamage", JV_FLOAT))
 		{
 			mMinDamage = value["minDamage"].getFloat();
 		}
 		if (value.has("maxDamage", JV_INT) || value.has("maxDamage", JV_FLOAT))
 		{
 			mMinDamage = value["maxDamage"].getFloat();
-		}
+		}*/
 		if (value.has("name", JV_STR))
 		{
 			mItemName = value["name"].getCStr();
@@ -332,9 +336,70 @@ namespace game {
 			setQuestItemId(value["questId"].getInt());
 		}
 
-		if (value.has("armour", JV_INT) || value.has("armour", JV_FLOAT))
+		if (value.has("stats", JV_OBJ))
+		{
+			parseStats(*value["stats"].getObj(), false);
+		}
+		if (value.has("magicalStats", JV_OBJ))
+		{
+			parseStats(*value["magicalStats"].getObj(), true);
+		}
+
+		/*if (value.has("armour", JV_INT) || value.has("armour", JV_FLOAT))
 		{
 			setArmourClass(value["armour"].getFloat());
+		}*/
+	}
+
+	void Item::parseStats(const JsonObject &stats, bool magical)
+	{
+		JsonObject::const_iterator iter;
+		for (iter = stats.begin(); iter != stats.end(); ++iter)
+		{
+			Stat::StatType statType = Stat::getStatType(iter->first.c_str());
+			if (statType == Stat::MAX_STAT_LENGTH)
+			{
+				stringstream ss;
+				ss << "Unknown stat type '" << iter->first << "'";
+				am_log("ITEM", ss);
+				continue;
+			}
+			JsonType jsonType = iter->second.getType();
+			float value = 0.0f;
+			StatModifierType type = MOD_ADD;
+			if (jsonType == JV_INT || jsonType == JV_FLOAT)
+			{
+				value = iter->second.getFloat();
+			}
+			else if (jsonType == JV_STR)
+			{
+				string *str = iter->second.getStr();
+				int foundAdd = static_cast<int>(str->find('+'));
+				int foundMulti = static_cast<int>(str->find('%'));
+				if (foundAdd >= 0 && foundMulti >= 0)
+				{
+					type = MOD_MULTIPLY;
+				}
+				else if (foundMulti >= 0)
+				{
+					type = MOD_MULTIPLY_SET;
+				}
+
+				int i = max(0, max(foundAdd, foundMulti));
+
+				bool parsed = Utils::fromString<float>(value, str->c_str() + i + 1);
+				if (!parsed)
+				{
+					stringstream ss;
+					ss << "Unable to parse stat '" << str->c_str() << "'";
+					am_log("ITEM", ss);
+				}
+				else
+				{
+					StatModifier modifier(value, type, magical);
+					mStatModifiers.addStatModifier(statType, modifier);
+				}
+			}
 		}
 	}
 

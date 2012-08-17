@@ -45,6 +45,7 @@ namespace game {
 		virtual short getInventorySizeX() const;
 		virtual short getInventorySizeY() const;
 
+		/*
 		virtual void setMinDamage(float dmg);
 		virtual float getMinDamage() const;
 
@@ -53,6 +54,7 @@ namespace game {
 
 		virtual void setArmourClass(float ac);
 		virtual float getArmourClass() const;
+		*/
 
 		virtual void setItemLocation(ItemLocation location);
 		virtual ItemLocation getItemLocation() const;
@@ -104,14 +106,16 @@ namespace game {
 
 		int mQuestItemId;
 
-		float mMinDamage;
+		/*float mMinDamage;
 		float mMaxDamage;
-		float mArmourClass;
+		float mArmourClass;*/
 
 		StatModifiers mStatModifiers;
 
-		void updateFullname();
-		void updateGraphic();
+		virtual void updateFullname();
+		virtual void updateGraphic();
+
+		virtual void parseStats(const JsonObject &stats, bool magical);
 	};
 
 }

@@ -293,6 +293,8 @@ namespace sys {
 		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
+		mPlayer->addBodyPart(new BodyPart("arm"));
+
 		Stats &stats = mPlayer->getStats();
 		stats.setBaseStat(Stat::HEALTH, 15);
 		stats.setBaseStat(Stat::MAX_HEALTH, 18);
@@ -308,6 +310,8 @@ namespace sys {
 		Handle<Item> sword(new Item());
 		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
 
+		mPlayer->equipItem(sword, "arm");
+
 		Handle<Item> sword2(new Item());
 		sword2->setItemFrom(*sword);
 
@@ -318,7 +322,8 @@ namespace sys {
 		scroll->setGraphic(new Sprite("items/scroll"), true);
 		scroll->setItemName("Scroll");
 
-		mPlayer->getInventory()->addItem(sword);
+
+		//mPlayer->getInventory()->addItem(sword);
 		mPlayer->getInventory()->addItem(sword2);
 		mPlayer->getInventory()->addItem(shield);
 		mPlayer->getInventory()->addItem(scroll);

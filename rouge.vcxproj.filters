@@ -358,6 +358,9 @@
     <ClCompile Include="tests\test_character.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="game\body_part.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -663,6 +666,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_character.h">
       <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\body_part.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

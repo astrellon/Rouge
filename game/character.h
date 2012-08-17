@@ -16,6 +16,7 @@ using namespace am::ui;
 
 #include "icontroller.h"
 #include "game_object.h"
+#include "body_part.h"
 
 #include "stats.h"
 
@@ -47,6 +48,15 @@ namespace game {
 
 		virtual Stats &getStats();
 
+		virtual bool addBodyPart(BodyPart *part);
+		virtual bool removeBodyPart(BodyPart *part);
+		virtual bool hasBodyPart(BodyPart *part);
+		virtual const BodyPart::BodyPartMap &getBodyParts() const;
+
+		virtual bool equipItem(Item *item, const char *bodyPart);
+		virtual bool unequipItem(const char *bodyPart);
+		virtual Item *getEquipped(const char *bodyPart) const;
+		
 		virtual Inventory *getInventory();
 
 		virtual bool pickupItem(Item *item);
@@ -65,6 +75,8 @@ namespace game {
 		int mMoveY;
 
 		float mPickupReach;
+
+		BodyPart::BodyPartMap mBodyParts;
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.

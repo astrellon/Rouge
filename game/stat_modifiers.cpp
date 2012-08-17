@@ -102,7 +102,7 @@ namespace game {
 	{
 		float value = baseValue;
 
-		MODIFIER_TYPE phase = MOD_MULTIPLY_SET;
+		StatModifierType phase = MOD_MULTIPLY_SET;
 		const StatModifierVector &modifiers = mModifiers[stat];
 		int len = static_cast<int>(modifiers.size());
 		while (true)
@@ -110,7 +110,7 @@ namespace game {
 			for (int i = 0; i < len; i++)
 			{
 				const StatModifier &modifier = modifiers[i];
-				MODIFIER_TYPE type = modifier.getType();
+				StatModifierType type = modifier.getType();
 				if (type == phase)
 				{
 					if (phase == MOD_MULTIPLY_SET)

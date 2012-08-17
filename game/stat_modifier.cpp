@@ -15,14 +15,16 @@ namespace game {
 	StatModifier::StatModifier() :
 		mValue(0),
 		mType(MOD_ADD),
-		mStatsParent(NULL)
+		mStatsParent(NULL),
+		mMagical(true)
 	{
 
 	}
-	StatModifier::StatModifier(float value, MODIFIER_TYPE type) :
+	StatModifier::StatModifier(float value, StatModifierType type, bool magical) :
 		mValue(value),
 		mType(type),
-		mStatsParent(NULL)
+		mStatsParent(NULL),
+		mMagical(magical)
 	{
 
 	}
@@ -48,11 +50,20 @@ namespace game {
 		return mValue;
 	}
 
-	void StatModifier::setType(MODIFIER_TYPE type)
+	void StatModifier::setMagical(bool magical)
+	{
+		mMagical = magical;
+	}
+	bool StatModifier::isMagical() const
+	{
+		return mMagical;
+	}
+
+	void StatModifier::setType(StatModifierType type)
 	{
 		mType = type;
 	}
-	MODIFIER_TYPE StatModifier::getType() const
+	StatModifierType StatModifier::getType() const
 	{
 		return mType;
 	}

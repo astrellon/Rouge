@@ -3,7 +3,9 @@
 	groundGraphic: "items/shield",
 	itemType: "shield",
 	name: "Shield",
-	armour: 4,
+	stats: {
+		armour: "+ 4",
+	},
 	prefix: "Leather",
 	postfix: "of Testo"
 }

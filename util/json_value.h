@@ -78,10 +78,10 @@ public:
 	int getInt() const;
 	float getFloat() const;
 	bool getBool() const;
-	string *getStr();
-	const char *getCStr();
-	JsonObject *getObj();
-	JsonArray *getArr();
+	string *getStr() const;
+	const char *getCStr() const;
+	JsonObject *getObj() const;
+	JsonArray *getArr() const;
 	
 	JsonValue operator[](int i) const;
 	JsonValue operator[](const char *i) const;
