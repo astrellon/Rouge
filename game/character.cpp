@@ -204,6 +204,7 @@ namespace game {
 		Item *alreadyEquipped = iter->second->getEqippedItem();
 		if (alreadyEquipped == NULL)
 		{
+			item->setItemLocation(Item::INVENTORY);
 			mStats.addModifiers(item->getStatModifiers());
 			iter->second->setEquippedItem(item);
 			return true;

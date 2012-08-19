@@ -361,6 +361,9 @@
     <ClCompile Include="game\body_part.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_body_part_renderer.cpp">
+      <Filter>ui\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -669,6 +672,9 @@
     </ClInclude>
     <ClInclude Include="game\body_part.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_body_part_renderer.h">
+      <Filter>ui\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

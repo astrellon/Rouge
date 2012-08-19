@@ -128,6 +128,7 @@ namespace game {
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
 		updateFullname();
+		updateGraphic();
 	}
 
 	StatModifiers &Item::getStatModifiers()

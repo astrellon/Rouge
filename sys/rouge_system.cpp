@@ -23,6 +23,7 @@
 #include <ui/ui_editor_hud.h>
 #include <ui/ui_inventory_renderer.h>
 #include <ui/ui_tooltip.h>
+#include <ui/ui_body_part_renderer.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
@@ -118,6 +119,7 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
+
 		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
 		tip->show();
@@ -322,11 +324,14 @@ namespace sys {
 		scroll->setGraphic(new Sprite("items/scroll"), true);
 		scroll->setItemName("Scroll");
 
-
 		//mPlayer->getInventory()->addItem(sword);
 		mPlayer->getInventory()->addItem(sword2);
-		mPlayer->getInventory()->addItem(shield);
-		mPlayer->getInventory()->addItem(scroll);
+		//mPlayer->getInventory()->addItem(shield);
+		//mPlayer->getInventory()->addItem(scroll);
+
+		Handle<BodyPartRenderer> bodyPartRenderer(new BodyPartRenderer(2, 4, "arm"));
+		bodyPartRenderer->setCharacter(mPlayer);
+		GfxEngine::getEngine()->getUILayer()->addChild(bodyPartRenderer);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);
