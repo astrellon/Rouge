@@ -85,6 +85,9 @@ namespace game {
 		Handle<Inventory> mInventory;
 
 		Stats mStats;
+
+		void _equipItem(Item *item, const char *bodyPartName);
+		void _unequipItem(Item *item, const char *bodyPartName);
 	};
 
 }

@@ -20,7 +20,7 @@ namespace ui {
 		BodyPartRenderer(short width, short height, const char *bodyPartName);
 		~BodyPartRenderer();
 
-		//virtual void onEvent(InventoryEvent *e);
+		virtual void onEvent(EquipEvent *e);
 		virtual void onEvent(MouseEvent *e);
 
 		virtual void setMaxItemSize(short width, short height);

@@ -312,8 +312,6 @@ namespace sys {
 		Handle<Item> sword(new Item());
 		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
 
-		mPlayer->equipItem(sword, "arm");
-
 		Handle<Item> sword2(new Item());
 		sword2->setItemFrom(*sword);
 
@@ -332,6 +330,8 @@ namespace sys {
 		Handle<BodyPartRenderer> bodyPartRenderer(new BodyPartRenderer(2, 4, "arm"));
 		bodyPartRenderer->setCharacter(mPlayer);
 		GfxEngine::getEngine()->getUILayer()->addChild(bodyPartRenderer);
+
+		mPlayer->equipItem(sword, "arm");
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

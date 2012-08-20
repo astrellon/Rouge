@@ -3,6 +3,8 @@
 #include "engine.h"
 #include "map.h"
 
+#include <ui/equip_event.h>
+
 #include <sstream>
 using namespace std;
 
@@ -136,7 +138,8 @@ namespace game {
 			Item *equipped = part->getEqippedItem();
 			if (equipped != NULL)
 			{
-				mStats.addModifiers(equipped->getStatModifiers());
+				//mStats.addModifiers(equipped->getStatModifiers());
+				_equipItem(equipped, name.c_str());
 			}
 			mBodyParts[name] = part;
 			return true;
@@ -159,7 +162,8 @@ namespace game {
 			Item *equipped = iter->second->getEqippedItem();
 			if (equipped != NULL)
 			{
-				mStats.removeModifiers(equipped->getStatModifiers());
+				//mStats.removeModifiers(equipped->getStatModifiers());
+				_unequipItem(equipped, name.c_str());
 			}
 			mBodyParts.erase(iter);
 			return true;
@@ -204,9 +208,8 @@ namespace game {
 		Item *alreadyEquipped = iter->second->getEqippedItem();
 		if (alreadyEquipped == NULL)
 		{
-			item->setItemLocation(Item::INVENTORY);
-			mStats.addModifiers(item->getStatModifiers());
 			iter->second->setEquippedItem(item);
+			_equipItem(item, bodyPart);
 			return true;
 		}
 		stringstream ss;
@@ -230,7 +233,7 @@ namespace game {
 		Item *equipped = iter->second->getEqippedItem();
 		if (equipped != NULL)
 		{
-			mStats.removeModifiers(equipped->getStatModifiers());
+			_unequipItem(equipped, bodyPart);
 		}
 		iter->second->setEquippedItem(NULL);
 		return true;
@@ -345,6 +348,18 @@ namespace game {
 	const char *Character::getGameObjectTypeName() const
 	{
 		return "character";
+	}
+
+	void Character::_equipItem(Item *item, const char *bodyPartName)
+	{
+		item->setItemLocation(Item::INVENTORY);
+		mStats.addModifiers(item->getStatModifiers());
+		fireEvent<EquipEvent>(new EquipEvent("equip", this, bodyPartName, item));
+	}
+	void Character::_unequipItem(Item *item, const char *bodyPartName)
+	{
+		mStats.removeModifiers(item->getStatModifiers());
+		fireEvent<EquipEvent>(new EquipEvent("unequip", this, bodyPartName, item));
 	}
 
 }

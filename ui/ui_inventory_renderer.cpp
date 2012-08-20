@@ -16,7 +16,6 @@
 namespace am {
 namespace ui {
 
-
 	InventoryRenderer::InventoryRenderer()
 	{
 		addEventListener(MOUSE_UP, this);

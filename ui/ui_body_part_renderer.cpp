@@ -4,6 +4,7 @@
 
 #include <game/player_hand.h>
 #include <game/inventory.h>
+#include <game/character.h>
 using namespace am::game;
 
 #include <log/logger.h>
@@ -24,47 +25,44 @@ namespace ui {
 		setName(ss.str().c_str());
 
 		setMaxItemSize(width, height);
+
+		addEventListener(MOUSE_UP, this);
 	}
 	BodyPartRenderer::~BodyPartRenderer()
 	{
+		removeEventListener(MOUSE_UP, this);
+	}
 
+	void BodyPartRenderer::onEvent(EquipEvent *e)
+	{
+		if (e)
+		{
+			updateGraphic();
+		}
 	}
 
 	void BodyPartRenderer::onEvent(MouseEvent *e)
 	{
 		if (e)
 		{
-			/*PlayerHand *hand = PlayerHand::getPlayerHand();
+			PlayerHand *hand = PlayerHand::getPlayerHand();
 
-			int gridX = static_cast<int>(static_cast<float>(e->getLocalMouseX()) / Inventory::getSpaceSizeX());
-			int gridY = static_cast<int>(static_cast<float>(e->getLocalMouseY()) / Inventory::getSpaceSizeY());
-
-			Item *item = mInventory->getItemAt(gridX, gridY);
-
-			if (item != NULL && hand->getInhand() == NULL)
+			Handle<Item> prevEquipped = mCurrentItem;
+			if (mCharacter.get() != NULL && mCurrentItem.get() != NULL)
 			{
-				if (e->getMouseEventType() == MOUSE_UP)
-				{
-					if (hand->getInhand() == NULL)
-					{
-						item->setInteractive(false);
-						hand->setInhand(item);
-						
-						mInventory->removeItem(item);
-						item->setItemLocation(Item::HAND);
-					}
-				}
-				e->stopPropagation();
+				mCharacter->unequipItem(mBodyPartName.c_str());
 			}
-			else if (hand->getInhand() != NULL)
+
+			if (hand->getInhand() != NULL)
 			{
-				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY))
-				{
-					mInventory->addItem(hand->getInhand(), gridX, gridY);
-					hand->setInhand(NULL);
-				}
-				e->stopPropagation();
-			}*/
+				mCharacter->equipItem(hand->getInhand(), mBodyPartName.c_str());
+			}
+
+			hand->setInhand(prevEquipped);
+
+			updateGraphic();
+
+			e->stopPropagation();
 		}
 	}
 
@@ -87,7 +85,17 @@ namespace ui {
 
 	void BodyPartRenderer::setCharacter(Character *character)
 	{
+		if (mCharacter.get())
+		{
+			mCharacter->removeEventListener("equip", this);
+			mCharacter->removeEventListener("unequip", this);
+		}
 		mCharacter = character;
+		if (character)
+		{
+			mCharacter->addEventListener("equip", this);
+			mCharacter->addEventListener("unequip", this);
+		}
 		updateGraphic();
 	}
 	Character *BodyPartRenderer::getCharacter() const
@@ -143,9 +151,8 @@ namespace ui {
 			float x = (getWidth() - equipped->getWidth()) * 0.5f;
 			float y = (getHeight() - equipped->getHeight()) * 0.5f;
 			equipped->setPosition(x, y);
-
-			mCurrentItem = equipped;
 		}
+		mCurrentItem = equipped;
 	}
 
 }

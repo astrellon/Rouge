@@ -177,6 +177,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="ui\data_event.cpp" />
+    <ClCompile Include="ui\equip_event.cpp" />
     <ClCompile Include="ui\event.cpp" />
     <ClCompile Include="ui\event_manager.cpp" />
     <ClCompile Include="ui\inventory_event.cpp" />
@@ -281,6 +282,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_suite.h" />
     <ClInclude Include="ui\data_event.h" />
+    <ClInclude Include="ui\equip_event.h" />
     <ClInclude Include="ui\event.h" />
     <ClInclude Include="ui\event_manager.h" />
     <ClInclude Include="ui\ievent_listener.h" />

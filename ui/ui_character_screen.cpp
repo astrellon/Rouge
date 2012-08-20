@@ -35,15 +35,30 @@ namespace ui {
 	{
 	}
 
+	void CharacterScreen::onEvent(EquipEvent *e)
+	{
+		if (e)
+		{
+			mTextDirty = true;
+		}
+	}
+
 	void CharacterScreen::setCharacter(Character *character)
 	{
 		if (character != mCharacter)
 		{
+			if (mCharacter.get() != NULL)
+			{
+				mCharacter->removeEventListener("equip", this);
+				mCharacter->removeEventListener("unequip", this);
+			}
 			mCharacter = character;
 			mTextDirty = true;
 			if (mCharacter)
 			{
 				mInventory->setInventory(character->getInventory());
+				mCharacter->addEventListener("equip", this);
+				mCharacter->addEventListener("unequip", this);
 			}
 			else
 			{
