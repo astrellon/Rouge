@@ -116,6 +116,7 @@ namespace ui {
 
 		Stats &stats = mCharacter->getStats();
 		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
+		ss << "<title class='armour'>Armour:</title> " << stats.getStat(Stat::ARMOUR) << "\n";
 		ss << "<title class='strength'>Strength:</title> " << stats.getStat(Stat::STRENGTH) << "\n";
 		ss << "<title class='dexterity'>Dexterity:</title> " << stats.getStat(Stat::DEXTERITY) << "\n";
 		ss << "<title class='constitution'>Constitution:</title> " << stats.getStat(Stat::CONSTITUTION) << "\n";

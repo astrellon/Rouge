@@ -324,7 +324,7 @@ namespace sys {
 
 		//mPlayer->getInventory()->addItem(sword);
 		mPlayer->getInventory()->addItem(sword2);
-		//mPlayer->getInventory()->addItem(shield);
+		mPlayer->getInventory()->addItem(shield);
 		//mPlayer->getInventory()->addItem(scroll);
 
 		Handle<BodyPartRenderer> bodyPartRenderer(new BodyPartRenderer(2, 4, "arm"));

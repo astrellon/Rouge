@@ -15,6 +15,7 @@ namespace game {
 			DIVINE,
 			MIN_DAMAGE,
 			MAX_DAMAGE,
+			ARMOUR,
 			MAX_STAT_LENGTH
 		};
 

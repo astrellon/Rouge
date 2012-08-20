@@ -7,11 +7,11 @@ namespace game {
 
 	const char *Stat::sNiceStatNames[] = {
 		"Health", "Max Health", "Strength", "Dexterity", "Constitution",
-		"Arcance", "Divine", "Min Damage", "Max Damage", "MAX_STAT_LENGTH", "UNKNOWN"
+		"Arcance", "Divine", "Min Damage", "Max Damage", "Armour", "MAX_STAT_LENGTH", "UNKNOWN"
 	};
 	const char *Stat::sStatNames[] = {
 		"health", "maxHealth", "strength", "dexterity", "constitution",
-		"arcance", "divine", "minDamage", "maxDamage", "MAX_STAT_LENGTH", "UNKNOWN"
+		"arcance", "divine", "minDamage", "maxDamage", "armour", "MAX_STAT_LENGTH", "UNKNOWN"
 	};
 
 	const char *Stat::getNiceStatName(StatType stat)
