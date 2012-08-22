@@ -24,13 +24,15 @@
 #include <ui/ui_inventory_renderer.h>
 #include <ui/ui_tooltip.h>
 #include <ui/ui_body_part_renderer.h>
+#include <ui/ui_dialogue_box.h>
 
 #include <game/character.h>
 #include <game/player_controller.h>
 #include <game/player_hand.h>
 #include <game/game.h>
 #include <game/engine.h>
-
+#include <game/dialogue.h>
+#include <game/dialogue_choice.h>
 #include <game/tile.h>
 #include <game/tile_instance.h>
 #include <game/tile_set.h>
@@ -119,6 +121,25 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
+
+		Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
+		DialogueChoice choice("Choice 1");
+		dialogue->getChoices().push_back(choice);
+
+		choice.setText("Choice Two");
+		choice.setAttribute("class", "two");
+		dialogue->getChoices().push_back(choice);
+
+		choice.setText("Choice trois");
+		choice.clearAttributes();
+		choice.setAttribute("class", "three");
+		dialogue->getChoices().push_back(choice);
+
+		Handle<DialogueBox> dialogueBox(new DialogueBox());
+		dialogueBox->setDialogue(dialogue);
+
+		dialogueBox->setParentOffset(100, 100);
+		gfxEngine->getUILayer()->addChild(dialogueBox);
 
 		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
@@ -288,12 +309,19 @@ namespace sys {
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
+		Handle<Character> npc(new Character());
+		npc->setName("NPC");
+		npc->addPassibleType(TileType::getTileType("land"));
+		npc->setGraphic(new Sprite("characters/npc/front"));
+		npc->setGridLocation(3, 2);
+		game->addGameObject(npc);
+
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);
 
 		mPlayer->setName("Melli");
 		mPlayer->addPassibleType(TileType::getTileType("land"));
-		mPlayer->setGraphic(new Sprite("mainChar/front"));
+		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
 		mPlayer->addBodyPart(new BodyPart("arm"));
 
@@ -326,11 +354,11 @@ namespace sys {
 		mPlayer->getInventory()->addItem(sword2);
 		mPlayer->getInventory()->addItem(shield);
 		//mPlayer->getInventory()->addItem(scroll);
-
+		/*
 		Handle<BodyPartRenderer> bodyPartRenderer(new BodyPartRenderer(2, 4, "arm"));
 		bodyPartRenderer->setCharacter(mPlayer);
 		GfxEngine::getEngine()->getUILayer()->addChild(bodyPartRenderer);
-
+		*/
 		mPlayer->equipItem(sword, "arm");
 
 		PlayerController *controller = new PlayerController();
