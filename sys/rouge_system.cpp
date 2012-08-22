@@ -122,18 +122,27 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
-		DialogueChoice choice("Choice 1");
-		dialogue->getChoices().push_back(choice);
+		Dialogue *dialogue = new Dialogue("diag0", "Test Dialogue\nHello there.");
+		Dialogue::addDialogue(dialogue);
+		DialogueChoice choice1("Shop");
+		choice1.setAttribute("action", "goto");
+		choice1.setAttribute("value", "shop");
+		dialogue->getChoices().push_back(choice1);
 
-		choice.setText("Choice Two");
-		choice.setAttribute("class", "two");
-		dialogue->getChoices().push_back(choice);
+		DialogueChoice choice2("Bye");
+		choice2.setAttribute("action", "close");
+		dialogue->getChoices().push_back(choice2);
 
-		choice.setText("Choice trois");
-		choice.clearAttributes();
-		choice.setAttribute("class", "three");
-		dialogue->getChoices().push_back(choice);
+		Dialogue *dialogueShop = new Dialogue("shop", "Test Shop Dialogue\nHello there.");
+		Dialogue::addDialogue(dialogueShop);
+		DialogueChoice choice3("Back");
+		choice3.setAttribute("action", "goto");
+		choice3.setAttribute("value", "diag0");
+		dialogueShop->getChoices().push_back(choice3);
+
+		DialogueChoice choice4("Bye");
+		choice4.setAttribute("action", "close");
+		dialogueShop->getChoices().push_back(choice4);
 
 		Handle<DialogueBox> dialogueBox(new DialogueBox());
 		dialogueBox->setDialogue(dialogue);

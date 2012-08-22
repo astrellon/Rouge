@@ -6,6 +6,9 @@
 
 #include <game/dialogue.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 namespace am {
 namespace ui {
 
@@ -29,14 +32,33 @@ namespace ui {
 
 	void DialogueBox::onEvent(MouseEvent *e)
 	{
-		if (e)
+		if (!e)
 		{
-			NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getTarget());
-			if (nodeTarget && nodeTarget->getNodeTarget()->getAttribute("id") != NULL)
+			return;
+		}
+		NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getTarget());
+		if (nodeTarget)
+		{
+			Node *node = nodeTarget->getNodeTarget();
+			int id = -1;
+			bool parsed = Utils::fromString<int>(id, node->getAttribute("id"));
+			if (!parsed || id < 0 || id >= mDialogue->getChoices().size())
 			{
-				stringstream ss;
-				ss << "Clicked on " << nodeTarget->getNodeTarget()->getAttribute("id");
-				am_log("DIAG", ss);
+				return;
+			}
+			const DialogueChoice &choice = mDialogue->getChoices()[id];
+			const char *action = choice.getAttribute("action");
+			if (action)
+			{
+				if (strcmp(action, "goto") == 0)
+				{
+					const char *diagName = choice.getAttribute("value");
+					Dialogue *newDialogue = Dialogue::getDialogue(diagName);
+					if (newDialogue)
+					{
+						setDialogue(newDialogue);
+					}
+				}
 			}
 		}
 	}
@@ -94,13 +116,14 @@ namespace ui {
 			{
 				const DialogueChoice &choice = *iter;
 				const DialogueChoice::Attributes &attrs = choice.getAttributes();
-				DialogueChoice::Attributes::const_iterator iter;
+				DialogueChoice::Attributes::const_iterator iter = attrs.find("class");
 				ss << "<dialogue_action ";
-				for (iter = attrs.begin(); iter != attrs.end(); ++iter)
+				if (iter != attrs.end())
 				{
-					ss << iter->first << "='" << iter->second << "' ";
+					ss << "class='" << iter->second.c_str() << "' ";
 				}
-				ss << "id='" << i << "'>" << ++i << ": " << choice.getText() << "</dialogue_action>\n";
+				ss << "id='" << i << "'>" << (i + 1) << ": " << choice.getText() << "</dialogue_action>\n";
+				i++;
 			}
 			mText->setText(ss.str());
 		}
