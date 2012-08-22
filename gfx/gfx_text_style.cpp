@@ -54,7 +54,9 @@ namespace gfx {
 
 	TextStyle TextStyle::getCalcStyle(const TextStyleSelector &node)
 	{
-		typedef pair<int, TextStyle &> StylePair;
+		// Was pair<int, TextStyle &> but it seems that the sort
+		// algorithm actually changes things up a bit if you do that.
+		typedef pair<int, TextStyle> StylePair;
 		vector< StylePair > found;
 		NodeStyleList::iterator iter;
 		for (iter = sNodeStyleList.begin(); iter != sNodeStyleList.end(); ++iter)
