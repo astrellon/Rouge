@@ -139,6 +139,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\stat_modifier.cpp" />
     <ClCompile Include="game\stat_modifiers.cpp" />
     <ClCompile Include="game\stat_range.cpp" />
+    <ClCompile Include="game\string_pool.cpp" />
     <ClCompile Include="game\tile.cpp" />
     <ClCompile Include="game\tile_instance.cpp" />
     <ClCompile Include="game\tile_set.cpp" />
@@ -242,6 +243,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\stat_modifier.h" />
     <ClInclude Include="game\stat_modifiers.h" />
     <ClInclude Include="game\stat_range.h" />
+    <ClInclude Include="game\string_pool.h" />
     <ClInclude Include="game\tile.h" />
     <ClInclude Include="game\tile_instance.h" />
     <ClInclude Include="game\tile_set.h" />

@@ -376,7 +376,7 @@ namespace gfx {
 		mNewLinePositions.push_back(0);
 		TextTokeniser tokeniser(mRawText.c_str());
 		const char *token = tokeniser.nextToken();
-		mText.clear();
+		mText = "";
 		mNewLinePositions.clear();
 		mNewLinePositions.push_back(0);
 		mNewLineDirty = true;

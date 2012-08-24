@@ -10,14 +10,17 @@ using namespace std;
 using namespace am::gfx;
 
 #include "ui_component.h"
+#include "ievent_listener.h"
 
 namespace am {
 namespace ui {
 
-	class TextInput : public UIComponent {
+	class TextInput : public UIComponent, public IEventListener {
 	public:
 		TextInput();
 		~TextInput();
+
+		virtual void onEvent(KeyboardEvent *e);
 
 		void setText(const char *text);
 		void setText(const string &text);
@@ -33,13 +36,19 @@ namespace ui {
 
 		TextField *getTextField();
 
+		void setFocus(bool focus);
+		bool hasFocus() const;
+
 		virtual float getWidth();
 		virtual float getHeight();
 
 	protected:
 
+		bool mFocus;
 		Handle<TextField> mText;
 		int mInputPosition;
+
+		void updateInputCursor(int diff);
 	};
 
 }

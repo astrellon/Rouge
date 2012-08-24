@@ -262,6 +262,7 @@ namespace sys {
 					// Check For WM_QUIT Message
 					if (msg.message != WM_QUIT)						// Is The Message A WM_QUIT Message?
 					{
+						TranslateMessage(&msg);
 						DispatchMessage (&msg);						// If Not, Dispatch The Message
 					}
 					else											// Otherwise (If Message Is WM_QUIT)
@@ -637,10 +638,19 @@ namespace sys {
 				{
 					//keyboardFunc(window->keys->keyDown, wParam);
 					//window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
-					window->winSystem->onKeyDown(wParam);
+					
+					//window->winSystem->onKeyDown(wParam);
 					return 0;												// Return
 				}
 			break;															// Break
+
+			case WM_CHAR:
+				if (wParam >= 0 && wParam <= 255)
+				{
+					window->winSystem->onKeyDown(wParam);
+					return 0;												// Return
+				}
+			break;
 
 			case WM_KEYUP:													// Update Keyboard Buffers For Keys Released
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?

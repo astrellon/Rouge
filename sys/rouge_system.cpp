@@ -24,6 +24,7 @@
 #include <ui/ui_inventory_renderer.h>
 #include <ui/ui_tooltip.h>
 #include <ui/ui_body_part_renderer.h>
+#include <ui/ui_text_input.h>
 #include <ui/ui_dialogue_box.h>
 
 #include <game/character.h>
@@ -39,6 +40,7 @@
 #include <game/tile_type.h>
 #include <game/inventory.h>
 #include <game/map.h>
+#include <game/string_pool.h>
 
 #include <util/json_value.h>
 #include <util/text_tokeniser.h>
@@ -148,7 +150,12 @@ namespace sys {
 		dialogueBox->setDialogue(dialogue);
 
 		dialogueBox->setParentOffset(100, 100);
-		gfxEngine->getUILayer()->addChild(dialogueBox);
+		//gfxEngine->getUILayer()->addChild(dialogueBox);
+		
+		Handle<TextInput> input(new TextInput());
+		input->setFocus(true);
+		input->setParentOffset(200, 50);
+		gfxEngine->getUILayer()->addChild(input);
 
 		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
@@ -383,6 +390,17 @@ namespace sys {
 
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
+
+		/*am_log("POOL", StringPool::replace("char main"));
+		am_log("POOL", StringPool::replace("char main name"));
+		am_log("POOL", StringPool::replace("char main gender"));
+		am_log("POOL", StringPool::replace("char main race"));
+		am_log("POOL", StringPool::replace("char main equip"));
+		am_log("POOL", StringPool::replace("char main equip arm"));
+		am_log("POOL", StringPool::replace("char main stat"));
+		am_log("POOL", StringPool::replace("char main stat health"));
+		am_log("POOL", StringPool::replace("char main stat minDamage"));
+		am_log("POOL", StringPool::replace("char main stat base minDamage"));*/
 	}
 
 	void RougeSystem::setCurrentMenu(UIComponent *menu)

@@ -77,6 +77,7 @@ namespace gfx {
 	}
 	void Node::clear()
 	{
+		mText = "";
 		while(mChildren.size())
 		{
 			removeChild(mChildren[0]);

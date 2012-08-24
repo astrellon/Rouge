@@ -16,7 +16,7 @@ namespace gfx {
 
 	class Font;
 
-	class TextField : public IEventListener, public Renderable {
+	class TextField : public Renderable {
 	public:
 		// GlTextField methods
 		enum TextAlignment {
@@ -25,8 +25,6 @@ namespace gfx {
 
 		TextField();
 		~TextField();
-
-		virtual void onEvent(MouseEvent *e);
 
 		float getRenderedHeight() const;
 
@@ -47,13 +45,10 @@ namespace gfx {
 		float getMeasuredWidth();
 		float getMeasuredHeight();
 
-		void clearAllStyles();
-		void addTextStyle(const TextStyle &style);
-		void removeStyleAt(int index);
-		int getNumStyles() const;
-		bool getStyleAt(int index, TextStyle &style);
-
 		int getTextPosition(int localX, int localY) const;
+
+		void setCursorInputPosition(int position);
+		int getCursorInputPosition() const;
 
 		// Renderable methods
 		virtual void render(float dt);
@@ -64,7 +59,6 @@ namespace gfx {
 	protected:
 
 		string mText;
-		string mRawText;
 		Font *mFont;
 
 		float mMeasuredWidth;
@@ -75,18 +69,14 @@ namespace gfx {
 		float mCurrXpos;
 		float mCurrYpos;
 
+		float mCursorXpos;
+		float mCursorYpos;
+
 		bool mInWord;
 		bool mDirty;
-		bool mTextDirty;
 
+		int mCursorInputPosition;
 		int mTextPosition;
-		int mStylePosition;
-
-		typedef vector<TextStyle> TextStyleList;
-		TextStyleList mStyles;
-
-		typedef vector<Colour> ColourList;
-		ColourList mColourStack;
 		
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
@@ -102,8 +92,9 @@ namespace gfx {
 		void renderText(const string &text);
 		void checkAlignment(const char *line);
 
-		void parseRawText();
-		void parseRawText2();
+		void checkCursorInput();
+		void drawCursorInput();
+
 	};
 
 }

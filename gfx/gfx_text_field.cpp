@@ -20,28 +20,21 @@ namespace gfx {
 	TextField::TextField() :
 		Renderable(),
 		mText(""),
-		mRawText(""),
 		mMeasuredWidth(0),
 		mMeasuredHeight(0),
 		mRenderedHeight(0),
+		mCursorXpos(-1.0f),
+		mCursorYpos(-1.0f),
+		mCursorInputPosition(-1),
 		mDirty(true),
-		mTextDirty(true),
 		mAlignment(ALIGN_LEFT)
 	{
 		mFont = GfxEngine::getEngine()->getFont("basic");
-		addEventListener(MOUSE_DOWN, this);
 	}
 
 	TextField::~TextField()
 	{
 
-	}
-
-	void TextField::onEvent(MouseEvent *e)
-	{
-		stringstream ss;
-		ss << "Click at text index " << getTextPosition(e->getLocalMouseX(), e->getLocalMouseY());
-		am_log("TEXT", ss);
 	}
 
 	float TextField::getRenderedHeight() const
@@ -81,39 +74,27 @@ namespace gfx {
 
 	void TextField::setText(const char *str)
 	{
-		mRawText = str;
-		mTextDirty = true;
+		mText = str;
 		mDirty = true;
 	}
 	void TextField::setText(const string &str)
 	{
-		mRawText = str;
+		mText = str;
 		mDirty = true;
-		mTextDirty= true;
 	}
 	void TextField::appendText(const char *str)
 	{
-		mRawText.append(str);
+		mText.append(str);
 		mDirty = true;
-		mTextDirty = true;
 	}
 	void TextField::appendText(const string &str)
 	{
-		mRawText.append(str);
+		mText.append(str);
 		mDirty = true;
-		mTextDirty = true;
 	}
 	const char *TextField::getText()
 	{
-		if (mTextDirty)
-		{
-			parseRawText();
-		}
 		return mText.c_str();
-	}
-	const char *TextField::getRawText() const
-	{
-		return mRawText.c_str();
 	}
 
 	void TextField::setAlignment(TextField::TextAlignment align)
@@ -132,17 +113,19 @@ namespace gfx {
 			return;
 		}
 
+		mCursorXpos = -1.0f;
 		preRender(dt);
 		renderText(mText);
 		postRender(dt);
+
+		if (mCursorXpos >= 0.0f)
+		{
+			drawCursorInput();
+		}
 	}
 
 	void TextField::calcSize()
 	{
-		if (mTextDirty)
-		{
-			parseRawText();
-		}
 		mFont->measureText(mText.c_str(), mWidth, mMeasuredWidth, mMeasuredHeight);
 		mDirty = false;
 	}
@@ -155,16 +138,7 @@ namespace gfx {
 
 		glBegin(GL_QUADS);
 
-		mColourStack.clear();
-		mColourStack.push_back(mColour);
-
-		mStylePosition = 0;
 		mTextPosition = 0;
-
-		if (mTextDirty)
-		{
-			parseRawText();
-		}
 
 		mCurrXpos = 0.0f;
 		mCurrYpos = 0.0f;
@@ -212,50 +186,13 @@ namespace gfx {
 	void TextField::renderText(const string &text)
 	{
 		int len = static_cast<int>(text.size());
+		if (mTextPosition == mCursorInputPosition)
+		{
+			mCursorXpos = mCurrXpos;
+			mCursorYpos = mCurrYpos;
+		}
 		for (int i = 0; i < len; i++, mTextPosition++)
 		{
-			/*while (mStylePosition < mStyles.size())
-			{
-				const TextStyle &style = mStyles[mStylePosition];
-				if (style.getPosition() <= mTextPosition)
-				{
-					if (style.getTextStylePop() == TextStyle::NONE)
-					{
-						if (style.hasColour())
-						{
-							GfxEngine *engine = GfxEngine::getEngine();
-							engine->popColourStack();
-							engine->pushColourStack(style.getColour());
-							engine->applyColourStack();
-							mColourStack.push_back(style.getColour());
-						}
-						else if (style.getGameObjId() > 0)
-						{
-							
-						}
-					}
-					else if (style.getTextStylePop() == TextStyle::COLOUR)
-					{
-						if (mColourStack.size() > 1)
-						{
-							mColourStack.pop_back();
-						}
-						GfxEngine *engine = GfxEngine::getEngine();
-						engine->popColourStack();
-						engine->pushColourStack(mColourStack.back());
-						engine->applyColourStack();
-					}
-					else if (style.getGameObjId() > 0)
-					{
-
-					}
-					mStylePosition++;
-				}
-				else
-				{
-					break;
-				}
-			}*/
 			char ch = text[i];
 			if (ch <= ' ' && mInWord)
 			{
@@ -265,17 +202,20 @@ namespace gfx {
 			if (ch == ' ')
 			{
 				mCurrXpos += mFont->getSpaceWidth();
+				checkCursorInput();
 				continue;
 			}
 			else if(ch == '\t')
 			{
 				mCurrXpos = mFont->getVariableTabPosition(mCurrXpos);
+				checkCursorInput();
 				continue;
 			}
 			else if(ch == '\n')
 			{
 				newLine();
 				checkAlignment(text.c_str() + i + 1);
+				checkCursorInput();
 				continue;
 			}
 			else if (mWidth > 0.0f && ch > ' ' && !mInWord)
@@ -289,6 +229,7 @@ namespace gfx {
 					newLine();
 					checkAlignment(text.c_str() + i);
 				}
+				checkCursorInput();
 			}
 				
 			mFont->getTextureWindow(ch, mCharRender);
@@ -310,7 +251,10 @@ namespace gfx {
 			{
 				mCurrXpos += mFont->getKerning();
 			}
+
+			checkCursorInput();
 		}
+
 	}
 
 	void TextField::setWidth(float width)
@@ -348,251 +292,32 @@ namespace gfx {
 		}
 	}
 
-	void TextField::clearAllStyles()
+	void TextField::setCursorInputPosition( int position )
 	{
-		mStyles.clear();
+		mCursorInputPosition = position;
 	}
-	void TextField::addTextStyle(const TextStyle &style)
+	int TextField::getCursorInputPosition() const
 	{
-		mStyles.push_back(style);
+		return mCursorInputPosition;
 	}
-	void TextField::removeStyleAt(int index)
+
+	void TextField::checkCursorInput()
 	{
-		if (index < mStyles.size())
+		if (mTextPosition + 1 == mCursorInputPosition)
 		{
-			mStyles.erase(mStyles.begin() + index);
+			mCursorXpos = mCurrXpos;
+			mCursorYpos = mCurrYpos;
 		}
 	}
-	int TextField::getNumStyles() const
+
+	void TextField::drawCursorInput()
 	{
-		return static_cast<int>(mStyles.size());
-	}
-	bool TextField::getStyleAt(int index, TextStyle &style)
-	{
-		if (index < mStyles.size() && index >= 0)
-		{
-			style = mStyles[index];
-			return true;
-		}
-		return false;
-	}
-
-	void TextField::parseRawText2()
-	{
-		/*mText = "";
-		mNewLinePositions.clear();
-		mNewLinePositions.push_back(0);
-		TextTokeniser tokeniser(mRawText.c_str());
-		const char *token = tokeniser.nextToken();
-
-		enum ParseState2 {
-			BASE, START_FORMAT, END_FORMAT, IN_FORMAT_ATTR, IN_FORMAT_OP, IN_FORMAT_VALUE, POP_FORMAT
-		};
-		ParseState2 state = BASE;
-		mStyles.clear();
-
-		vector<TextStyleSelector> nodes;
-		nodes.push_back(TextStyleSelector());
-		TextStyleSelector &currentNode = nodes.back();
-
-		string attrName = "";
-
-		mStyles.push_back(TextStyle());
-		TextStyle &currentStyle = mStyles.back();
-
-		while (token != NULL)
-		{
-			if (state == BASE && token[0] == '<')
-			{
-				state = START_FORMAT;
-			}
-			else if (state != BASE && token[0] == '>')
-			{
-				state = BASE;
-			}
-			else if (state == START_FORMAT)
-			{
-				if (token[0] == '/')
-				{
-					state = POP_FORMAT;
-				}
-				else 
-				{
-					string lower = Utils::toLowerCase(token);
-					nodes.push_back(TextStyleSelector(lower.c_str()));
-					currentNode = nodes.back();
-					state = IN_FORMAT_ATTR;
-				}
-			}
-			else if (state == IN_FORMAT_ATTR)
-			{
-				if (token[0] == '>')
-				{
-					state = END_FORMAT;
-				}
-				attrName = Utils::toLowerCase(token);
-				state = IN_FORMAT_OP;
-			}
-			else if (state == IN_FORMAT_OP)
-			{
-				if (token[0] == '>')
-				{
-					state = END_FORMAT;
-				}
-				else if (token[0] != '=')
-				{
-					currentNode.setAttribute(attrName.c_str(), "true");
-					state = IN_FORMAT_ATTR;
-				}
-				else
-				{
-					state = IN_FORMAT_VALUE;
-				}
-			}
-			else if (state == IN_FORMAT_VALUE)
-			{
-				if (token[0] == '>')
-				{
-					stringstream ss;
-					ss << "Error parsing node '" << attrName << "', = operator had not value";
-					am_log("TEXT", ss);
-				}
-				else
-				{
-					currentNode.setAttribute(attrName.c_str(), token);
-					state = IN_FORMAT_ATTR;
-				}
-			}
-			else if (state == END_FORMAT)
-			{
-				currentStyle = TextStyle::getCalcStyle(currentNode);
-
-				state = BASE;
-			}
-			else if (state == POP_FORMAT)
-			{
-				string lower = Utils::toLowerCase(token);
-				//nodes.push_back(TextStyleSelector());
-				nodes.pop_back();
-				currentNode = nodes.back();
-				state = END_FORMAT;
-			}
-			else if (state == BASE)
-			{
-				mText += token;
-			}
-			if (state != END_FORMAT)
-			{
-				token = tokeniser.nextToken();
-			}
-		}
-
-		mTextDirty = false;*/
-	}
-	void TextField::parseRawText()
-	{
-		mText = "";
-		mNewLinePositions.clear();
-		mNewLinePositions.push_back(0);
-		TextTokeniser tokeniser(mRawText.c_str());
-		const char *token = tokeniser.nextToken();
-
-		enum ParseState {
-			BASE, START_FORMAT, END_FORMAT, IN_FORMAT, POP_FORMAT, 
-			IN_COLOUR, IN_GAME_OBJ
-		};
-		ParseState state = BASE;
-		mStyles.clear();
-
-		while (token != NULL)
-		{
-			if (state == BASE && token[0] == '<')
-			{
-				state = IN_FORMAT;
-			}
-			else if (state != BASE && token[0] == '>')
-			{
-				state = BASE;
-			}
-			else if (state == IN_FORMAT)
-			{
-				if (token[0] == '/')
-				{
-					state = POP_FORMAT;
-				}
-				else 
-				{
-					string lower = Utils::toLowerCase(token);
-					if (lower.compare("colour") == 0)
-					{
-						state = IN_COLOUR;
-						continue;
-					}
-					else if (lower.compare("gameobj") == 0)
-					{
-						state = IN_GAME_OBJ;
-						continue;
-					}
-					else
-					{
-						stringstream ss;
-						ss << "Unknown text node '" << token << "'";
-						am_log("TEXT", ss);
-						state = BASE;
-					}
-				}
-			}
-			else if (state == IN_COLOUR)
-			{
-				Colour c;
-				c.parseFromTokeniser(tokeniser);
-				
-				token = tokeniser.currentToken();
-				while (token && token[0] != '>')
-				{
-					token = tokeniser.nextToken();
-				}
-				//mStyles.push_back(TextStyle(c, static_cast<int>(mText.size())));
-				state = BASE;
-			}
-			else if (state == IN_GAME_OBJ)
-			{
-
-			}
-			else if (state == POP_FORMAT)
-			{
-				string lower = Utils::toLowerCase(token);
-				if (lower.compare("colour") == 0)
-				{
-					//mStyles.push_back(TextStyle(TextStyle::COLOUR, static_cast<int>(mText.size())));
-				}
-				else
-				{
-					stringstream ss;
-					ss << "Unable to pop tag of unknown node '" << token << "'";
-					am_log("TEXT", ss);
-				}
-				state = END_FORMAT;
-			}
-			else if (state == BASE)
-			{
-				char n = token[0];
-				int offset = mText.length();
-				int i = 0;
-				while (n != '\0')
-				{
-					if (n == '\n')
-					{
-						mNewLinePositions.push_back(1 + i + offset);
-					}
-					n = token[++i];
-				}
-				mText += token;
-			}
-			token = tokeniser.nextToken();
-		}
-
-		mTextDirty = false;
+		glBegin(GL_QUADS);
+			glVertex2f(mCursorXpos + 1, mCursorYpos);
+			glVertex2f(mCursorXpos + 2, mCursorYpos);
+			glVertex2f(mCursorXpos + 2, mCursorYpos + mFont->getCharHeight());
+			glVertex2f(mCursorXpos + 1, mCursorYpos + mFont->getCharHeight());
+		glEnd();
 	}
 
 }

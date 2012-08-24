@@ -358,9 +358,6 @@
     <ClCompile Include="tests\test_character.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="game\body_part.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="ui\ui_body_part_renderer.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
@@ -375,6 +372,12 @@
     </ClCompile>
     <ClCompile Include="game\dialogue_choice.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\string_pool.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\body_part.cpp">
+      <Filter>game\stats</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -698,6 +701,9 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\dialogue_choice.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\string_pool.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

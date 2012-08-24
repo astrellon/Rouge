@@ -5,6 +5,10 @@
 #include <vector>
 using namespace std;
 
+#include <base/handle.h>
+using namespace am::base;
+
+#include <game/character.h>
 #include <game/dialogue_choice.h>
 
 namespace am {
@@ -23,6 +27,9 @@ namespace game {
 		void setText(const char *text);
 		const char *getText() const;
 
+		void setTalker(Character *talker);
+		Character *getTalker() const;
+
 		DialogueChoices &getChoices();
 
 		static bool addDialogue(Dialogue *dialogue);
@@ -34,6 +41,8 @@ namespace game {
 		string mText;
 		string mId;
 		DialogueChoices mChoices;
+
+		Handle<Character> mTalker;
 
 		typedef map<string, Dialogue *> DialogueMap;
 		static DialogueMap sDialogueMap;
