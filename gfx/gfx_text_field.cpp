@@ -332,10 +332,10 @@ namespace gfx {
 	void TextField::drawCursorInput()
 	{
 		glBegin(GL_QUADS);
+			glVertex2f(mCursorXpos, mCursorYpos);
 			glVertex2f(mCursorXpos + 1, mCursorYpos);
-			glVertex2f(mCursorXpos + 2, mCursorYpos);
-			glVertex2f(mCursorXpos + 2, mCursorYpos + mFont->getCharHeight());
 			glVertex2f(mCursorXpos + 1, mCursorYpos + mFont->getCharHeight());
+			glVertex2f(mCursorXpos, mCursorYpos + mFont->getCharHeight());
 		glEnd();
 	}
 
@@ -360,33 +360,38 @@ namespace gfx {
 		{
 			int curr = mNewLinePositions[i];
 			if (textPosition > prev &&
-				textPosition < curr)
+				textPosition <= curr)
 			{
-				return prev;
+				break;
 			}
-			prev = curr;
+			prev = curr + 1;
 		}
+		return prev;
 	}
 
 	int TextField::getEndOfLine( int textPosition ) const
 	{
 		int len = static_cast<int>(mText.size());
-		if (textPosition < 0 || textPosition >= len || mNewLinePositions.size() <= 1)
+		if (textPosition < 0 || textPosition >= len || mNewLinePositions.size() <= 1 ||
+			textPosition > mNewLinePositions.back())
 		{
 			return len;
 		}
 
 		int prev = 0;
-		for (size_t i = 1; i < mNewLinePositions.size(); i++)
+		int curr = mNewLinePositions[1];
+		size_t i = 1;
+		for (; i < mNewLinePositions.size(); i++)
 		{
-			int curr = mNewLinePositions[i];
-			if (textPosition > prev &&
+			curr = mNewLinePositions[i];
+			if (textPosition >= prev &&
 				textPosition < curr)
 			{
-				return curr - 1;
+				break;
 			}
 			prev = curr;
 		}
+		return curr;
 	}
 
 }

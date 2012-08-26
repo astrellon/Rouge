@@ -42,7 +42,8 @@ namespace ui {
 				}
 				else
 				{
-					
+					int position = mText->getStartOfLine(mInputPosition);
+					setInputPosition(position);
 				}
 			}
 			// End key
@@ -55,7 +56,8 @@ namespace ui {
 				}
 				else
 				{
-
+					int position = mText->getEndOfLine(mInputPosition);
+					setInputPosition(position);
 				}
 			}
 			// Left key
