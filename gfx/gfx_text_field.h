@@ -36,8 +36,8 @@ namespace gfx {
 		void setText(const string &str);
 		void appendText(const char *str);
 		void appendText(const string &str);
-		const char *getText();
-		const char *getRawText() const;
+		const char *getText() const;
+		int length() const;
 
 		void setAlignment(TextAlignment align);
 		TextAlignment getAlignment() const;
@@ -49,6 +49,9 @@ namespace gfx {
 
 		void setCursorInputPosition(int position);
 		int getCursorInputPosition() const;
+
+		int getStartOfLine(int textPosition) const;
+		int getEndOfLine(int textPosition) const;
 
 		// Renderable methods
 		virtual void render(float dt);
@@ -74,6 +77,7 @@ namespace gfx {
 
 		bool mInWord;
 		bool mDirty;
+		bool mNewLineDirty;
 
 		int mCursorInputPosition;
 		int mTextPosition;

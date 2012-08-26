@@ -32,6 +32,8 @@ namespace util {
 			return !(iss >> f >> t).fail();
 		}
 
+		static int countWordLetters(const string &str, int position, bool toRight);
+
 		static string toLowerCase(const char *input);
 		static string toUpperCase(const char *input);
 	};

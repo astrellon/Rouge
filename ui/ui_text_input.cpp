@@ -2,6 +2,9 @@
 
 #include <ui/keyboard_manager.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 namespace am {
 namespace ui {
 
@@ -25,7 +28,69 @@ namespace ui {
 		{
 			return;
 		}
-		appendText(e->getKey());
+		if (e->isSystemKey())
+		{
+			int key = e->getKey();
+			bool ctrlDown = KeyboardManager::getManager()->isKeyDown(17);
+			// Home key
+			if (key == 36)
+			{
+				// Go to very start
+				if (ctrlDown)
+				{
+					setInputPosition(0);
+				}
+				else
+				{
+					
+				}
+			}
+			// End key
+			else if (key == 35)
+			{
+				// Go to very end
+				if (ctrlDown)
+				{
+					setInputPosition(mText->length());
+				}
+				else
+				{
+
+				}
+			}
+			// Left key
+			else if (key == 37)
+			{
+				if (ctrlDown)
+				{
+					int count = Utils::countWordLetters(getText(), mInputPosition, false);
+					if (count != 0)
+					{
+						updateInputCursor(count);
+						return;
+					}
+				}
+				updateInputCursor(-1);
+			}
+			// Right key
+			else if(key == 39)
+			{
+				if (ctrlDown)
+				{
+					int count = Utils::countWordLetters(getText(), mInputPosition, true);
+					if (count != 0)
+					{
+						updateInputCursor(count);
+						return;
+					}
+				}
+				updateInputCursor(1);
+			}
+		}
+		else
+		{
+			appendText(e->getKey());
+		}
 	}
 
 	void TextInput::setText(const char *text)
@@ -47,9 +112,9 @@ namespace ui {
 		if (text == 8)
 		{
 			string str = getText();
-			if (str.size() > 0)
+			if (str.size() > 0 && mInputPosition > 0)
 			{
-				str.erase(mInputPosition - 1);
+				str.erase(mInputPosition - 1, 1);
 				mText->setText(str);
 				//mInputPosition--;
 				updateInputCursor(-1);
@@ -140,6 +205,14 @@ namespace ui {
 	void TextInput::updateInputCursor(int diff)
 	{
 		mInputPosition += diff;
+		if (mInputPosition < 0)
+		{
+			mInputPosition = 0;
+		}
+		if (mInputPosition >= mText->length())
+		{
+			mInputPosition = mText->length();
+		}
 		mText->setCursorInputPosition(mInputPosition);
 	}
 }

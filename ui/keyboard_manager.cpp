@@ -23,16 +23,19 @@ namespace ui {
 		delete mKeys;
 	}
 
-	void KeyboardManager::onKeyDown(int key)
+	void KeyboardManager::onKeyDown(int key, bool systemKey)
 	{
-		mKeys[key] = true;
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key));
+		if (systemKey)
+		{
+			mKeys[key] = true;
+		}
+		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key, systemKey));
 		fireEvent<KeyboardEvent>(e.get());
 	}
 	void KeyboardManager::onKeyUp(int key)
 	{
 		mKeys[key] = false;
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_UP, key));
+		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_UP, key, true));
 		fireEvent<KeyboardEvent>(e.get());
 	}
 

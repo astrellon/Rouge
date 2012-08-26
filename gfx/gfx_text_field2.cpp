@@ -372,8 +372,6 @@ namespace gfx {
 
 	void TextField2::parseRawText()
 	{
-		mNewLinePositions.clear();
-		mNewLinePositions.push_back(0);
 		TextTokeniser tokeniser(mRawText.c_str());
 		const char *token = tokeniser.nextToken();
 		mText = "";

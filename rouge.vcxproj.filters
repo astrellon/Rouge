@@ -88,9 +88,6 @@
     <ClCompile Include="gfx\gfx_engine.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
-    <ClCompile Include="gfx\gfx_font.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\gfx_layer.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
@@ -101,12 +98,6 @@
       <Filter>gfx\base</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_sprite.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\gfx_text_field.cpp">
-      <Filter>gfx\base</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\gfx_text_list.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_texture.cpp">
@@ -379,6 +370,15 @@
     <ClCompile Include="game\body_part.cpp">
       <Filter>game\stats</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_text_field.cpp">
+      <Filter>gfx\base\text</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_text_list.cpp">
+      <Filter>gfx\base\text</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\gfx_font.cpp">
+      <Filter>gfx\base\text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -386,9 +386,6 @@
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_engine.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gfx\gfx_font.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_layer.h">
@@ -401,12 +398,6 @@
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_sprite.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gfx\gfx_text_field.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="gfx\gfx_text_list.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
     <ClInclude Include="gfx\gfx_texture.h">
@@ -705,6 +696,15 @@
     </ClInclude>
     <ClInclude Include="game\string_pool.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_list.h">
+      <Filter>gfx\base\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_text_field.h">
+      <Filter>gfx\base\text</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_font.h">
+      <Filter>gfx\base\text</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

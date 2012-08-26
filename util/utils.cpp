@@ -51,5 +51,66 @@ namespace util {
 		return result;
 	}
 
+	int Utils::countWordLetters( const string &str, int position, bool toRight )
+	{
+		int len = static_cast<int>(str.size());
+		if (len == 0 || position < 0 || position > len)
+		{
+			return 0;
+		}
+		int pos = position;
+		int whiteCount = 0;
+		int notWhiteCount = 0;
+		if (toRight && pos < len)
+		{
+			char ch = str[++pos];
+			while (pos < len)
+			{
+				if (IS_WHITE(ch))
+				{
+					if (notWhiteCount > 0 && whiteCount == 0)
+					{
+						break;
+					}
+					whiteCount++;
+				}
+				else
+				{
+					if (whiteCount > 0 && notWhiteCount == 0)
+					{
+						break;
+					}
+					notWhiteCount++;
+				}
+				ch = str[++pos];
+			}
+		}
+		else if (!toRight && pos > 0)
+		{
+			char ch = str[--pos];
+			while (pos > 0)
+			{
+				if (IS_WHITE(ch))
+				{
+					if (notWhiteCount > 0 && whiteCount == 0)
+					{
+						break;
+					}
+					whiteCount++;
+				}
+				else
+				{
+					if (whiteCount > 0 && notWhiteCount == 0)
+					{
+						break;
+					}
+					notWhiteCount++;
+				}
+				ch = str[--pos];
+			}
+		}
+		return pos - position;
+	}
+
 }
 }

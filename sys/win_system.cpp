@@ -111,9 +111,9 @@ namespace sys {
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void WinSystem::onKeyDown(int key)
+	void WinSystem::onKeyDown(int key, bool systemKey)
 	{
-		mGameSystem->onKeyDown(key);
+		mGameSystem->onKeyDown(key, systemKey);
 	}
 	void WinSystem::onKeyUp(int key)
 	{
@@ -636,10 +636,7 @@ namespace sys {
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
-					//keyboardFunc(window->keys->keyDown, wParam);
-					//window->keys->keyDown [wParam] = TRUE;					// Set The Selected Key (wParam) To True
-					
-					//window->winSystem->onKeyDown(wParam);
+					window->winSystem->onKeyDown(wParam, true);
 					return 0;												// Return
 				}
 			break;															// Break
@@ -647,7 +644,7 @@ namespace sys {
 			case WM_CHAR:
 				if (wParam >= 0 && wParam <= 255)
 				{
-					window->winSystem->onKeyDown(wParam);
+					window->winSystem->onKeyDown(wParam, false);
 					return 0;												// Return
 				}
 			break;
@@ -655,7 +652,6 @@ namespace sys {
 			case WM_KEYUP:													// Update Keyboard Buffers For Keys Released
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
-					//window->keys->keyDown [wParam] = FALSE;					// Set The Selected Key (wParam) To False
 					window->winSystem->onKeyUp(wParam);
 					return 0;												// Return
 				}

@@ -27,6 +27,7 @@ namespace gfx {
 		mCursorYpos(-1.0f),
 		mCursorInputPosition(-1),
 		mDirty(true),
+		mNewLineDirty(true),
 		mAlignment(ALIGN_LEFT)
 	{
 		mFont = GfxEngine::getEngine()->getFont("basic");
@@ -76,25 +77,33 @@ namespace gfx {
 	{
 		mText = str;
 		mDirty = true;
+		mNewLineDirty = true;
 	}
 	void TextField::setText(const string &str)
 	{
 		mText = str;
 		mDirty = true;
+		mNewLineDirty = true;
 	}
 	void TextField::appendText(const char *str)
 	{
 		mText.append(str);
 		mDirty = true;
+		mNewLineDirty = true;
 	}
 	void TextField::appendText(const string &str)
 	{
 		mText.append(str);
 		mDirty = true;
+		mNewLineDirty = true;
 	}
-	const char *TextField::getText()
+	const char *TextField::getText() const
 	{
 		return mText.c_str();
+	}
+	int TextField::length() const
+	{
+		return static_cast<int>(mText.size());
 	}
 
 	void TextField::setAlignment(TextField::TextAlignment align)
@@ -113,6 +122,11 @@ namespace gfx {
 			return;
 		}
 
+		if (mNewLineDirty)
+		{
+			mNewLinePositions.clear();
+			mNewLinePositions.push_back(0);
+		}
 		mCursorXpos = -1.0f;
 		preRender(dt);
 		renderText(mText);
@@ -182,6 +196,11 @@ namespace gfx {
 	{
 		mCurrXpos = 0.0f;
 		mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
+
+		if (mNewLineDirty)
+		{
+			mNewLinePositions.push_back(mTextPosition);
+		}
 	}
 	void TextField::renderText(const string &text)
 	{
@@ -318,6 +337,56 @@ namespace gfx {
 			glVertex2f(mCursorXpos + 2, mCursorYpos + mFont->getCharHeight());
 			glVertex2f(mCursorXpos + 1, mCursorYpos + mFont->getCharHeight());
 		glEnd();
+	}
+
+	int TextField::getStartOfLine( int textPosition ) const
+	{
+		if (textPosition < 0)
+		{
+			return 0;
+		}
+		int len = static_cast<int>(mText.size());
+		if (textPosition > len)
+		{
+			return mNewLinePositions.back();
+		}
+		
+		if (mNewLinePositions.size() <= 1)
+		{
+			return 0;
+		}
+		int prev = 0;
+		for (size_t i = 1; i < mNewLinePositions.size(); i++)
+		{
+			int curr = mNewLinePositions[i];
+			if (textPosition > prev &&
+				textPosition < curr)
+			{
+				return prev;
+			}
+			prev = curr;
+		}
+	}
+
+	int TextField::getEndOfLine( int textPosition ) const
+	{
+		int len = static_cast<int>(mText.size());
+		if (textPosition < 0 || textPosition >= len || mNewLinePositions.size() <= 1)
+		{
+			return len;
+		}
+
+		int prev = 0;
+		for (size_t i = 1; i < mNewLinePositions.size(); i++)
+		{
+			int curr = mNewLinePositions[i];
+			if (textPosition > prev &&
+				textPosition < curr)
+			{
+				return curr - 1;
+			}
+			prev = curr;
+		}
 	}
 
 }

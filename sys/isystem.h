@@ -29,7 +29,7 @@ namespace sys {
 		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y) = 0;
 		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y) = 0;
 		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y) = 0;
-		virtual void onKeyDown(int key) = 0;
+		virtual void onKeyDown(int key, bool systemKey) = 0;
 		virtual void onKeyUp(int key) = 0;
 
 		virtual bool isProgramRunning() const = 0;

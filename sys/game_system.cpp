@@ -152,9 +152,9 @@ namespace sys {
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
-	void GameSystem::onKeyDown(int key)
+	void GameSystem::onKeyDown(int key, bool systemKey)
 	{
-		KeyboardManager::getManager()->onKeyDown(key);
+		KeyboardManager::getManager()->onKeyDown(key, systemKey);
 	}
 	void GameSystem::onKeyUp(int key)
 	{
