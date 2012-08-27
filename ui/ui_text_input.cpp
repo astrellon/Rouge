@@ -1,7 +1,7 @@
 #include "ui_text_input.h"
 
 #include <ui/keyboard_manager.h>
-
+#include <log/logger.h>
 #include <util/utils.h>
 using namespace am::util;
 
@@ -32,6 +32,59 @@ namespace ui {
 		{
 			int key = e->getKey();
 			bool ctrlDown = KeyboardManager::getManager()->isKeyDown(17);
+			// Backspace
+			if (key == 8)
+			{
+				string str = getText();
+				if (str.size() == 0 || mInputPosition == 0)
+				{
+					return;
+				}
+
+				if (ctrlDown)
+				{
+					int count = Utils::countWordLetters(getText(), mInputPosition, false);
+					if (count != 0)
+					{
+						str.erase(mInputPosition + count, -count);
+						mText->setText(str);
+						updateInputCursor(count);
+					}
+				}
+				else
+				{
+					str.erase(mInputPosition - 1, 1);
+					mText->setText(str);
+					updateInputCursor(-1);
+				}
+				return;
+			}
+			if (key == 46)
+			{
+				string str = getText();
+				if (str.size() == 0 || mInputPosition == 0)
+				{
+					return;
+				}
+
+				if (ctrlDown)
+				{
+					int count = Utils::countWordLetters(getText(), mInputPosition, true);
+					if (count != 0)
+					{
+						str.erase(mInputPosition, count);
+						mText->setText(str);
+						//updateInputCursor(count);
+					}
+				}
+				else
+				{
+					str.erase(mInputPosition, 1);
+					mText->setText(str);
+					//updateInputCursor(0);
+				}
+				return;
+			}
 			// Home key
 			if (key == 36)
 			{
@@ -129,16 +182,8 @@ namespace ui {
 
 	void TextInput::appendText(char text)
 	{
-		if (text == 8)
+		if (text == 8 || text == 127)
 		{
-			string str = getText();
-			if (str.size() > 0 && mInputPosition > 0)
-			{
-				str.erase(mInputPosition - 1, 1);
-				mText->setText(str);
-				//mInputPosition--;
-				updateInputCursor(-1);
-			}
 			return;
 		}
 		else if (text == 13)
