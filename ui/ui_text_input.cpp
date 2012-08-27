@@ -88,6 +88,24 @@ namespace ui {
 				}
 				updateInputCursor(1);
 			}
+			// Up key
+			else if (key == 38)
+			{
+				int position = mText->getLineAbove(mInputPosition);
+				if (position >= 0)
+				{
+					setInputPosition(position);
+				}
+			}
+			// Down key
+			else if (key == 40)
+			{
+				int position = mText->getLineBelow(mInputPosition);
+				if (position >= 0)
+				{
+					setInputPosition(position);
+				}
+			}
 		}
 		else
 		{

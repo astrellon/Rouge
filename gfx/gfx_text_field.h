@@ -50,6 +50,8 @@ namespace gfx {
 		void setCursorInputPosition(int position);
 		int getCursorInputPosition() const;
 
+		int getLineAbove(int textPosition) const;
+		int getLineBelow(int textPosition) const;
 		int getStartOfLine(int textPosition) const;
 		int getEndOfLine(int textPosition) const;
 
@@ -99,6 +101,7 @@ namespace gfx {
 		void checkCursorInput();
 		void drawCursorInput();
 
+		int getLineOfText(int textPosition) const;
 	};
 
 }

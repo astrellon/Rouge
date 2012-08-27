@@ -199,7 +199,7 @@ namespace gfx {
 
 		if (mNewLineDirty)
 		{
-			mNewLinePositions.push_back(mTextPosition);
+			mNewLinePositions.push_back(mTextPosition + 1);
 		}
 	}
 	void TextField::renderText(const string &text)
@@ -331,40 +331,101 @@ namespace gfx {
 
 	void TextField::drawCursorInput()
 	{
+		GfxEngine *engine = GfxEngine::getEngine();
+		engine->pushColourStack(Colour(1.0f, 0.0f, 0.0f));
+		engine->applyColourStack();
 		glBegin(GL_QUADS);
 			glVertex2f(mCursorXpos, mCursorYpos);
 			glVertex2f(mCursorXpos + 1, mCursorYpos);
 			glVertex2f(mCursorXpos + 1, mCursorYpos + mFont->getCharHeight());
 			glVertex2f(mCursorXpos, mCursorYpos + mFont->getCharHeight());
 		glEnd();
+		engine->popColourStack();
+		engine->applyColourStack();
 	}
 
+	int TextField::getLineAbove(int textPosition) const
+	{
+		if (textPosition < 0 || textPosition > static_cast<int>(mText.size()) || 
+			mNewLinePositions.size() <= 1 || textPosition < mNewLinePositions[1])
+		{
+			return -1;
+		}
+
+		int line = getLineOfText(textPosition);
+		if (line == 0)
+		{
+			return -1;
+		}
+		int diff = textPosition - mNewLinePositions[line];
+		int newPosition = mNewLinePositions[line - 1] + diff;
+		int newLine = getLineOfText(newPosition);
+		if (newLine >= line)
+		{
+			return mNewLinePositions[line] - 1;
+		}
+		return newPosition;
+	}
+
+	int TextField::getLineBelow(int textPosition) const
+	{
+		if (textPosition < 0 || textPosition > static_cast<int>(mText.size()) || 
+			mNewLinePositions.size() <= 1 || textPosition > mNewLinePositions.back())
+		{
+			return -1;
+		}
+
+		int line = getLineOfText(textPosition);
+		if (line == mNewLinePositions.size() - 1)
+		{
+			return -1;
+		}
+		int diff = textPosition - mNewLinePositions[line];
+		int newPosition = mNewLinePositions[line + 1] + diff;
+		int newLine = getLineOfText(newPosition);
+		if (newLine > line + 1)
+		{
+			return mNewLinePositions[line + 2] - 1;
+		}
+		return newPosition;
+	}
+
+	int TextField::getLineOfText(int textPosition) const
+	{
+		int prev = 0;
+		size_t line = 0;
+		for (; line < mNewLinePositions.size() - 1; line++)
+		{
+			int thisLine = mNewLinePositions[line];
+			int nextLine = mNewLinePositions[line + 1];
+			if (textPosition >= thisLine && textPosition < nextLine)
+			{
+				break;
+			}
+		}
+		return static_cast<int>(line);
+	}
 	int TextField::getStartOfLine( int textPosition ) const
 	{
-		if (textPosition < 0)
+		if (textPosition < 0 || mNewLinePositions.size() <= 1)
 		{
 			return 0;
 		}
+		
 		int len = static_cast<int>(mText.size());
 		if (textPosition > len)
 		{
-			return mNewLinePositions.back();
-		}
-		
-		if (mNewLinePositions.size() <= 1)
-		{
-			return 0;
+			return mNewLinePositions.back() + 1;
 		}
 		int prev = 0;
 		for (size_t i = 1; i < mNewLinePositions.size(); i++)
 		{
 			int curr = mNewLinePositions[i];
-			if (textPosition > prev &&
-				textPosition <= curr)
+			if (textPosition >= prev && textPosition < curr)
 			{
 				break;
 			}
-			prev = curr + 1;
+			prev = curr;
 		}
 		return prev;
 	}
@@ -373,7 +434,7 @@ namespace gfx {
 	{
 		int len = static_cast<int>(mText.size());
 		if (textPosition < 0 || textPosition >= len || mNewLinePositions.size() <= 1 ||
-			textPosition > mNewLinePositions.back())
+			textPosition >= mNewLinePositions.back())
 		{
 			return len;
 		}
@@ -384,14 +445,13 @@ namespace gfx {
 		for (; i < mNewLinePositions.size(); i++)
 		{
 			curr = mNewLinePositions[i];
-			if (textPosition >= prev &&
-				textPosition < curr)
+			if (textPosition >= prev && textPosition < curr)
 			{
 				break;
 			}
 			prev = curr;
 		}
-		return curr;
+		return curr - 1;
 	}
 
 }
