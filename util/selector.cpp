@@ -47,7 +47,7 @@ namespace util {
 		return mAttributes;
 	}
 
-	bool Selector::setAttribute(const char *name, const JsonValue &value, SelectorValue::SelectorValueType type)
+	bool Selector::setAttribute(const char *name, JsonValue value, SelectorValue::SelectorValueType type)
 	{
 		if (name == NULL || name[0] == '\0')
 		{
@@ -72,7 +72,7 @@ namespace util {
 				iter->second.setValue(value);
 				return true;
 			}
-			mAttributes[lower] = SelectorValue(value);
+			mAttributes[lower] = SelectorValue(value, type);
 			return true;
 		}
 	}
@@ -105,11 +105,11 @@ namespace util {
 	}
 
 	
-	int Selector::match(const Selector &selector) const
+	int Selector::match(Selector &selector)
 	{
 		int selectorMatch = 0;
 		// Match all
-		if (selector.mId[0] == '\0' || selector.mId[0] == '*')
+		if (selector.mId.size() == 0 || selector.mId[0] == '*')
 		{
 			selectorMatch = 1;
 		}
@@ -134,17 +134,17 @@ namespace util {
 		int attrMatch = 0;
 		if (selectorAttrSize > 0)
 		{
-			AttributeMap::const_iterator selectorFind;
+			AttributeMap::iterator selectorFind;
 
 			for (selectorFind = selector.mAttributes.begin(); selectorFind != selector.mAttributes.end(); ++selectorFind)
 			{
-				AttributeMap::const_iterator localFind = mAttributes.find(selectorFind->first);
+				AttributeMap::iterator localFind = mAttributes.find(selectorFind->first);
 				if (localFind == mAttributes.end())
 				{
 					return -3;
 				}
 				//if (localFind->second.compare(selectorFind->second) != 0)
-				if (!localFind->second.match(selectorFind->second.getValue()))
+				if (!selectorFind->second.match(localFind->second.getValue()))
 				{
 					return -4;
 				}

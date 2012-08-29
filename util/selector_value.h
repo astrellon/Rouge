@@ -19,10 +19,10 @@ namespace util {
 		void setType(SelectorValueType type);
 		SelectorValueType getType() const;
 
-		void setValue(const JsonValue &value);
+		void setValue(JsonValue value);
 		JsonValue getValue() const;
 
-		bool match(const JsonValue &value) const;
+		bool match(JsonValue value) const;
 
 	protected:
 

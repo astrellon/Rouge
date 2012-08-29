@@ -24,11 +24,11 @@ namespace util {
 
 		virtual AttributeMap &getAttributes();
 
-		virtual bool setAttribute(const char *name, const JsonValue &value, SelectorValue::SelectorValueType type = SelectorValue::EQUAL);
+		virtual bool setAttribute(const char *name, JsonValue value, SelectorValue::SelectorValueType type = SelectorValue::EQUAL);
 		virtual bool removeAttribute(const char *name);
 		virtual JsonValue getAttribute(const char *name) const;
 
-		virtual int match(const Selector &node) const;
+		virtual int match(Selector &node);
 
 		virtual bool operator == (const Selector &rhs) const;
 		virtual bool operator != (const Selector &rhs) const;

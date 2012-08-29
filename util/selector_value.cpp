@@ -30,7 +30,7 @@ namespace util {
 		return mType;
 	}
 
-	void SelectorValue::setValue(const JsonValue &value)
+	void SelectorValue::setValue(JsonValue value)
 	{
 		mValue = value;
 	}
@@ -39,7 +39,7 @@ namespace util {
 		return mValue;
 	}
 
-	bool SelectorValue::match(const JsonValue &value) const
+	bool SelectorValue::match(JsonValue value) const
 	{
 		switch(mType)
 		{

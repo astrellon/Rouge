@@ -64,7 +64,55 @@ namespace tests {
 		match2 = npc.match(toMatch2);
 		equals(11, match);
 		equals(14, match2);
+		
+		return true;
+	}
 
+	bool TestSelector::testComplexSelectors()
+	{
+		Selector toMatch;
+		toMatch.setAttribute("age", 21, SelectorValue::GREATER_THAN_EQUAL);
+
+		Selector npcYoung;
+		npcYoung.setAttribute("age", 16);
+		Selector npcOld;
+		npcOld.setAttribute("age", 30);
+
+		equals(-4, npcYoung.match(toMatch));
+		equals(4, npcOld.match(toMatch));
+
+		JsonArray arr;
+		arr.push_back("human");
+		arr.push_back("elf");
+		toMatch.setAttribute("race", arr, SelectorValue::OR);
+
+		npcYoung.setAttribute("race", "human");
+		npcOld.setAttribute("race", "human");
+
+		Selector elfYoung;
+		elfYoung.setAttribute("race", "elf");
+		elfYoung.setAttribute("age", 10);
+
+		Selector elfOld;
+		elfOld.setAttribute("race", "elf");
+		elfOld.setAttribute("age", 500);
+
+		Selector orcYoung;
+		orcYoung.setAttribute("race", "orc");
+		orcYoung.setAttribute("age", 19);
+
+		Selector orcOld;
+		orcOld.setAttribute("race", "orc");
+		orcOld.setAttribute("age", 50);
+
+		equals(-4, npcYoung.match(toMatch));
+		equals(7, npcOld.match(toMatch));
+
+		equals(-4, elfYoung.match(toMatch));
+		equals(7, elfOld.match(toMatch));
+
+		equals(-4, orcYoung.match(toMatch));
+		equals(-4, orcOld.match(toMatch));
 		return true;
 	}
 
