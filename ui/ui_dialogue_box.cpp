@@ -53,11 +53,11 @@ namespace ui {
 				if (strcmp(action, "goto") == 0)
 				{
 					const char *diagName = choice.getAttribute("value");
-					Dialogue *newDialogue = Dialogue::getDialogue(diagName);
+					/*Dialogue *newDialogue = Dialogue::getDialogue(diagName);
 					if (newDialogue)
 					{
 						setDialogue(newDialogue);
-					}
+					}*/
 				}
 			}
 		}

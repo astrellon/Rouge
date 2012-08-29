@@ -124,8 +124,8 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		Dialogue *dialogue = new Dialogue("diag0", "Test Dialogue\nHello there.");
-		Dialogue::addDialogue(dialogue);
+		Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
+		//Dialogue::addDialogue(dialogue);
 		DialogueChoice choice1("Shop");
 		choice1.setAttribute("action", "goto");
 		choice1.setAttribute("value", "shop");
@@ -135,8 +135,8 @@ namespace sys {
 		choice2.setAttribute("action", "close");
 		dialogue->getChoices().push_back(choice2);
 
-		Dialogue *dialogueShop = new Dialogue("shop", "Test Shop Dialogue\nHello there.");
-		Dialogue::addDialogue(dialogueShop);
+		Dialogue *dialogueShop = new Dialogue("Test Shop Dialogue\nHello there.");
+		//Dialogue::addDialogue(dialogueShop);
 		DialogueChoice choice3("Back");
 		choice3.setAttribute("action", "goto");
 		choice3.setAttribute("value", "diag0");

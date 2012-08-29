@@ -73,12 +73,14 @@ namespace game {
 
 	bool GameObject::setGridLocation(int x, int y, bool setDraw)
 	{
-		int locX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
-		int locY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		float flocX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
+		float flocY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		int locX = static_cast<int>(flocX);
+		int locY = static_cast<int>(flocY);
 		if (!mMap || (mMap && mMap->isValidGridLocation(x, y, this)))
 		{
-			mLocationX = locX;
-			mLocationY = locY;
+			mLocationX = flocX;
+			mLocationY = flocY;
 			if (setDraw)
 			{
 				mTransform.setXY(mLocationX, mLocationY);
@@ -244,26 +246,38 @@ namespace game {
 		return mPassibleTypes;
 	}
 
-	void GameObject::setGameId(int id)
+	void GameObject::talkTo(GameObject *from)
 	{
-		mGameId = id;
+		//Dialogue::getDialogue()
 	}
-	int GameObject::getGameId() const
+
+	bool GameObject::setGameId(const char *id)
 	{
-		return mGameId;
+		if (getByGameId(id) != NULL)
+		{
+			return false;
+		}
+		removeGameObject(this);
+		mGameId = id;
+		addGameObject(this);
+		return true;
+	}
+	const char *GameObject::getGameId() const
+	{
+		return mGameId.c_str();
 	}
 
 	int GameObject::nextGameId()
 	{
 		return sGameIdCount++;
 	}
-	GameObject *GameObject::getByGameId(int id)
+	GameObject *GameObject::getByGameId(const char *id)
 	{
-		if (id == 0)
+		if (id == NULL || id[0] == '\0')
 		{
 			return NULL;
 		}
-		GameObjectIdMap::iterator iter = sGameObjects.find(id);
+		GameObjectIdMap::iterator iter = sGameObjects.find(string(id));
 		if (iter == sGameObjects.end())
 		{
 			return iter->second;
@@ -277,9 +291,9 @@ namespace game {
 		{
 			return;
 		}
-		int id = nextGameId();
-		obj->setGameId(id);
-		sGameObjects[id] = obj;
+		//int id = nextGameId();
+		//obj->setGameId(id);
+		sGameObjects[obj->mGameId] = obj;
 	}
 	void GameObject::removeGameObject(GameObject *obj)
 	{
@@ -287,7 +301,7 @@ namespace game {
 		{
 			return;
 		}
-		GameObjectIdMap::iterator iter = sGameObjects.find(obj->getGameId());
+		GameObjectIdMap::iterator iter = sGameObjects.find(obj->mGameId);
 		if (iter != sGameObjects.end())
 		{
 			sGameObjects.erase(iter);

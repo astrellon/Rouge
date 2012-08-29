@@ -35,6 +35,8 @@ namespace game {
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 
+		virtual void talkTo(GameObject *from);
+
 		virtual void move(float x, float y);
 		virtual void moveGrid(int x, int y);
 
@@ -62,17 +64,18 @@ namespace game {
 
 		virtual const char *getGameObjectTypeName() const;
 
-		virtual int getGameId() const;
+		virtual bool setGameId(const char *id);
+		virtual const char *getGameId() const;
 
 		static int nextGameId();
-		static GameObject *getByGameId(int id);
+		static GameObject *getByGameId(const char *id);
 
 	protected:
 
 		bool mFixedToGrid;
 		bool mOnlyOnPassable;
 
-		int mGameId;
+		string mGameId;
 
 		float mLocationX;
 		float mLocationY;
@@ -86,13 +89,13 @@ namespace game {
 
 		Map *mMap;
 
-		virtual void setGameId(int id);
+		//virtual void setGameId(int id);
 
 		static void addGameObject(GameObject *obj);
 		static void removeGameObject(GameObject *obj);
 
 		static int sGameIdCount;
-		typedef map<int, GameObject *> GameObjectIdMap;
+		typedef map<string, GameObject *> GameObjectIdMap;
 		static GameObjectIdMap sGameObjects;
 
 	};

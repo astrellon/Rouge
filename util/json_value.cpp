@@ -140,6 +140,28 @@ namespace util {
 	JsonArray *JsonValue::getArr() const {
 		return mContent.a;
 	}
+
+	bool JsonValue::castFloat(float &value) const
+	{
+		switch(mType)
+		{
+		default:
+			return false;
+		case JV_FLOAT:
+			value = mContent.f;
+			return true;
+		case JV_INT:
+			value = static_cast<float>(mContent.i);
+			return true;
+		case JV_BOOL:
+			value = mContent.b ? 1.0f : 0.0f;
+			return true;
+		case JV_STR:
+		case JV_CMT:
+			return Utils::fromString<float>(value, mContent.s->c_str());
+		}
+		return false;
+	}
 	
 	JsonValue JsonValue::operator[](int i) const {
 		return at(i);
@@ -237,6 +259,63 @@ namespace util {
 		return *this;
 	}
 
+	bool JsonValue::operator==(const JsonValue &rhs) const
+	{
+		if (mType != rhs.mType)
+		{
+			return false;
+		}
+		switch(mType)
+		{
+		default:
+		case JV_BOOL:
+			return mContent.b == rhs.mContent.b;
+		case JV_INT:
+			return mContent.i == rhs.mContent.i;
+		case JV_FLOAT:
+			return mContent.f == rhs.mContent.f;
+		case JV_CMT:
+		case JV_STR:
+			return mContent.s->compare(*rhs.mContent.s) == 0;
+		case JV_ARR:
+			if (mContent.a->size() != rhs.mContent.a->size())
+			{
+				return false;
+			}
+			for (size_t i = 0, len = mContent.a->size(); i < len; ++i)
+			{
+				if (mContent.a->at(i) != rhs.mContent.a->at(i))
+				{
+					return false;
+				}
+			}
+			return true;
+		case JV_OBJ:
+			if (mContent.o->size() != mContent.o->size())
+			{
+				return false;
+			}
+			for (JsonObject::const_iterator iter = mContent.o->begin(),
+				 end = mContent.o->end(), end2 = rhs.mContent.o->end();
+				 iter != end; ++iter)
+			{
+				JsonObject::const_iterator find = rhs.mContent.o->find(iter->first);
+				if (find == end2)
+				{
+					return false;
+				}
+				if (find->second != iter->second)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+	bool JsonValue::operator!=(const JsonValue &rhs) const
+	{
+		return !(*this == rhs);
+	}
 	void JsonValue::display(ostream &stream) {
 		displayValue(stream, *this, 1);
 	}

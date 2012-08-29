@@ -79,6 +79,12 @@
     <Filter Include="tests\game">
       <UniqueIdentifier>{949b1a7d-dc8d-4f8e-80ae-d965f874f98e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\dialogue">
+      <UniqueIdentifier>{4cf0a0df-43f0-4e0b-9b1c-754eeb1b410c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\util">
+      <UniqueIdentifier>{d99f644d-bd27-48d3-a2bf-b1acc380d8ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -358,17 +364,8 @@
     <ClCompile Include="ui\ui_dialogue_box.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="game\dialogue.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\dialogue_choice.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="game\string_pool.cpp">
       <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\body_part.cpp">
-      <Filter>game\stats</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_text_field.cpp">
       <Filter>gfx\base\text</Filter>
@@ -378,6 +375,39 @@
     </ClCompile>
     <ClCompile Include="gfx\gfx_font.cpp">
       <Filter>gfx\base\text</Filter>
+    </ClCompile>
+    <ClCompile Include="game\body_part.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\focus_manager.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\focus_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="game\dialogue.cpp">
+      <Filter>game\dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="game\dialogue_choice.cpp">
+      <Filter>game\dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="game\dialogue_selector.cpp">
+      <Filter>game\dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="util\selector.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_selector.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\selector_value.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_json_value.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_selector_value.cpp">
+      <Filter>tests\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -688,12 +718,6 @@
     <ClInclude Include="ui\ui_dialogue_box.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="game\dialogue.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\dialogue_choice.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="game\string_pool.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -705,6 +729,36 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_font.h">
       <Filter>gfx\base\text</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\focus_manager.h">
+      <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\focus_event.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="game\dialogue_choice.h">
+      <Filter>game\dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="game\dialogue.h">
+      <Filter>game\dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="game\dialogue_selector.h">
+      <Filter>game\dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="util\selector.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_selector.h">
+      <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\selector_value.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_json_value.h">
+      <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_selector_value.h">
+      <Filter>tests\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

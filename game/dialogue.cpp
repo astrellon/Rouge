@@ -3,10 +3,10 @@
 namespace am {
 namespace game {
 
-	Dialogue::DialogueMap Dialogue::sDialogueMap;
+	Dialogue::DialogueSelectorList Dialogue::sDialogueList;
 
-	Dialogue::Dialogue(const char *id, const char *text) :
-		mId(id),
+	Dialogue::Dialogue(const char *text) :
+		//mId(id),
 		mText(text)
 	{
 	}
@@ -14,10 +14,10 @@ namespace game {
 	{
 	}
 
-	const char *Dialogue::getId() const
+	/*const char *Dialogue::getId() const
 	{
 		return mId.c_str();
-	}
+	}*/
 
 	void Dialogue::setText(const char *text)
 	{
@@ -33,7 +33,7 @@ namespace game {
 		return mChoices;
 	}
 
-	bool Dialogue::addDialogue(Dialogue *dialogue)
+	/*bool Dialogue::addDialogue(Dialogue *dialogue)
 	{
 		if (dialogue)
 		{
@@ -71,7 +71,7 @@ namespace game {
 			}
 		}
 		return NULL;
-	}
+	}*/
 
 }
 }

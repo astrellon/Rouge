@@ -82,6 +82,8 @@ public:
 	const char *getCStr() const;
 	JsonObject *getObj() const;
 	JsonArray *getArr() const;
+
+	bool castFloat(float &value) const;
 	
 	JsonValue operator[](int i) const;
 	JsonValue operator[](const char *i) const;
@@ -107,6 +109,8 @@ public:
 	bool has(const string &i, JsonType type) const;
 
 	JsonValue &operator=(const JsonValue &rhs);
+	bool operator==(const JsonValue &rhs) const;
+	bool operator!=(const JsonValue &rhs) const;
 	
 	static JsonValue JsonUndef;
 
