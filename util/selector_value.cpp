@@ -10,6 +10,12 @@ namespace util {
 	{
 
 	}
+	SelectorValue::SelectorValue(JsonValue value, SelectorValueType type) :
+		mType(type),
+		mValue(value)
+	{
+
+	}
 	SelectorValue::~SelectorValue()
 	{
 

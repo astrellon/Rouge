@@ -47,7 +47,7 @@ namespace util {
 		return mAttributes;
 	}
 
-	bool Selector::setAttribute(const char *name, const char *value)
+	bool Selector::setAttribute(const char *name, const JsonValue &value, SelectorValue::SelectorValueType type)
 	{
 		if (name == NULL || name[0] == '\0')
 		{
@@ -60,18 +60,19 @@ namespace util {
 		else
 		{
 			string lower = Utils::toLowerCase(name);
-			string valueStr = string(value);
+			//string valueStr = string(value);
 			AttributeMap::iterator iter = mAttributes.find(lower);
 			if (iter != mAttributes.end())
 			{
-				if (valueStr.compare(iter->second) == 0)
+				//if (valueStr.compare(iter->second) == 0)
+				if (value == iter->second.getValue())
 				{
 					return false;
 				}
-				iter->second = valueStr;
+				iter->second.setValue(value);
 				return true;
 			}
-			mAttributes[lower] = string(value);
+			mAttributes[lower] = SelectorValue(value);
 			return true;
 		}
 	}
@@ -89,7 +90,7 @@ namespace util {
 		}
 		return false;
 	}
-	const char *Selector::getAttribute(const char *name) const
+	JsonValue Selector::getAttribute(const char *name) const
 	{
 		if (name == NULL || name[0] == '\0')
 		{
@@ -98,7 +99,7 @@ namespace util {
 		AttributeMap::const_iterator iter = mAttributes.find(string(name));
 		if (iter != mAttributes.end())
 		{
-			return iter->second.c_str();
+			return iter->second.getValue();
 		}
 		return NULL;
 	}
@@ -142,7 +143,8 @@ namespace util {
 				{
 					return -3;
 				}
-				if (localFind->second.compare(selectorFind->second) != 0)
+				//if (localFind->second.compare(selectorFind->second) != 0)
+				if (!localFind->second.match(selectorFind->second.getValue()))
 				{
 					return -4;
 				}

@@ -13,6 +13,7 @@ namespace util {
 		};
 
 		SelectorValue();
+		SelectorValue(JsonValue value, SelectorValueType type = EQUAL);
 		~SelectorValue();
 
 		void setType(SelectorValueType type);

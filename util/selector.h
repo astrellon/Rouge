@@ -4,13 +4,16 @@
 #include <map>
 using namespace std;
 
+#include <util/selector_value.h>
+#include <util/json_value.h>
+
 namespace am {
 namespace util {
 
 	class Selector {
 	public:
 
-		typedef map<string, string> AttributeMap;
+		typedef map<string, SelectorValue> AttributeMap;
 		
 		Selector();
 		Selector(const char *id);
@@ -21,9 +24,9 @@ namespace util {
 
 		virtual AttributeMap &getAttributes();
 
-		virtual bool setAttribute(const char *name, const char *value);
+		virtual bool setAttribute(const char *name, const JsonValue &value, SelectorValue::SelectorValueType type = SelectorValue::EQUAL);
 		virtual bool removeAttribute(const char *name);
-		virtual const char *getAttribute(const char *name) const;
+		virtual JsonValue getAttribute(const char *name) const;
 
 		virtual int match(const Selector &node) const;
 
