@@ -7,7 +7,12 @@
 #include <game/stat_modifier.h>
 #include <game/stat_modifiers.h>
 #include <game/body_part.h>
+#include <game/race.h>
+#include <game/gender.h>
 using namespace am::game;
+
+#include <util/selector.h>
+using namespace am::util;
 
 #include <tests/asserts.h>
 
@@ -73,6 +78,23 @@ namespace tests {
 
 		equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
 		equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+
+		return true;
+	}
+
+	bool TestCharacter::testSelector()
+	{
+		Race testRace("human");
+		Handle<Character> testChar(new Character());
+		testChar->setAge(23.0f);
+		testChar->setGender(Gender::FEMALE);
+		testChar->setRace(&testRace);
+
+		Selector selector;
+		testChar->getSelector(selector);
+		equalsDelta(23.0f, selector.getAttribute("age").getFloat(), 0.001f);
+		assert(strcmp(Gender::getGenderName(Gender::FEMALE), selector.getAttribute("gender").getCStr()) == 0);
+		assert(strcmp("human", selector.getAttribute("race").getCStr()) == 0);
 
 		return true;
 	}

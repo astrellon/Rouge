@@ -409,6 +409,12 @@
     <ClCompile Include="tests\test_selector_value.cpp">
       <Filter>tests\util</Filter>
     </ClCompile>
+    <ClCompile Include="game\race.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\gender.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -759,6 +765,12 @@
     </ClInclude>
     <ClInclude Include="tests\test_selector_value.h">
       <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\race.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\gender.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,15 +2,15 @@
 
 #include <string>
 #include <map>
-#include <vector>
+//#include <vector>
 using namespace std;
 
-#include <base/handle.h>
-using namespace am::base;
+//#include <base/handle.h>
+//using namespace am::base;
 
-#include <game/character.h>
-#include <game/dialogue_choice.h>
-#include <game/dialogue_selector.h>
+//#include <game/character.h>
+//#include <game/dialogue_choice.h>
+//#include <game/dialogue_selector.h>
 
 namespace am {
 namespace game {
@@ -18,9 +18,9 @@ namespace game {
 	class Dialogue {
 	public:
 
-		typedef vector<DialogueChoice> DialogueChoices;
+		//typedef vector<DialogueChoice> DialogueChoices;
 
-		Dialogue(const char *text);
+		Dialogue(const char *id, const char *text);
 		~Dialogue();
 
 		//const char *getId() const;
@@ -28,27 +28,33 @@ namespace game {
 		void setText(const char *text);
 		const char *getText() const;
 
-		void setTalker(Character *talker);
-		Character *getTalker() const;
+		//void setTalker(Character *talker);
+		//Character *getTalker() const;
 
-		DialogueChoices &getChoices();
+		void setId(const char *id);
+		const char *getId() const;
 
-		//static bool addDialogue(Dialogue *dialogue);
-		//static bool removeDialogue(const char *id);
-		//static Dialogue *getDialogue(const char *id);
+		//DialogueChoices &getChoices();
+
+		static bool addDialogue(Dialogue *dialogue);
+		static bool removeDialogue(const char *id);
+		static Dialogue *getDialogue(const char *id);
 
 	protected:
 
 		string mText;
-		//string mId;
-		DialogueChoices mChoices;
+		string mId;
+		//DialogueChoices mChoices;
 
-		Handle<Character> mTalker;
+		//Handle<Character> mTalker;
 
-		typedef pair<DialogueSelector, Dialogue *> DialogueSelectorPair;
-		typedef vector< DialogueSelectorPair > DialogueSelectorList;
+		typedef map<string, Dialogue *> DialogueMap;
+		static DialogueMap sDialogueMap;
+
+		//typedef pair<DialogueSelector, Dialogue *> DialogueSelectorPair;
+		//typedef vector< DialogueSelectorPair > DialogueSelectorList;
 		//typedef map<string, Dialogue *> DialogueMap;
-		static DialogueSelectorList sDialogueList;
+		//static DialogueSelectorList sDialogueList;
 
 	};
 

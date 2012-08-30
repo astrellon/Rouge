@@ -124,7 +124,17 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
+		Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>");
+		Dialogue::addDialogue(diag1);
+		Dialogue *diag2 = new Dialogue("diag2", "Today? Today is today <? @='diag1'>Go back?</?>");
+		Dialogue::addDialogue(diag2);
+
+		Handle<DialogueBox> diagBox(new DialogueBox());
+		diagBox->setDialogue(diag1);
+		diagBox->setParentOffset(100, 100);
+		gfxEngine->getUILayer()->addChild(diagBox);
+
+		/*Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
 		//Dialogue::addDialogue(dialogue);
 		DialogueChoice choice1("Shop");
 		choice1.setAttribute("action", "goto");
@@ -155,7 +165,7 @@ namespace sys {
 		Handle<TextInput> input(new TextInput());
 		input->setFocus(true);
 		input->setParentOffset(200, 50);
-		gfxEngine->getUILayer()->addChild(input);
+		gfxEngine->getUILayer()->addChild(input);*/
 
 		/*
 		Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));

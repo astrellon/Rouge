@@ -152,31 +152,15 @@
 			colour: "0.9 1.0 0.95"
 		}
 	}, {
-		nodeType: "dialogue_action",
+		nodeType: "?",
 		style: {
 			colour: "0.7 1.0 0.85"
 		}
 	}, {
-		nodeType: "dialogue_action",
+		nodeType: "?",
 		flag: "hover",
 		style: {
-			colour: "0.9 1.0 0.95"
-		}
-	}, {
-		nodeType: "dialogue_action",
-		attributes: {
-			class: "two"
-		},
-		style: {
-			colour: "1.0 0.7 0.85"
-		}
-	}, {
-		nodeType: "dialogue_action",
-		attributes: {
-			class: "three"
-		},
-		style: {
-			colour: "0.85 0.7 1.0"
+			colour: "0.85 1.0 0.9"
 		}
 	}
 ]

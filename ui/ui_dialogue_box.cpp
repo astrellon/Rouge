@@ -40,7 +40,25 @@ namespace ui {
 		if (nodeTarget)
 		{
 			Node *node = nodeTarget->getNodeTarget();
-			int id = -1;
+			if (strcmp(node->getNodeType(), "?") == 0 || strcmp(node->getNodeType(), "choice") == 0)
+			{
+				const char *gotoDiag = node->getAttribute("@");
+				if (gotoDiag == NULL)
+				{
+					gotoDiag = node->getAttribute("goto");
+				}
+				if (gotoDiag == NULL)
+				{
+					return;
+				}
+
+				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
+				if (newDiag != NULL)
+				{
+					setDialogue(newDiag);
+				}
+			}
+			/*int id = -1;
 			bool parsed = Utils::fromString<int>(id, node->getAttribute("id"));
 			if (!parsed || id < 0 || id >= mDialogue->getChoices().size())
 			{
@@ -53,13 +71,13 @@ namespace ui {
 				if (strcmp(action, "goto") == 0)
 				{
 					const char *diagName = choice.getAttribute("value");
-					/*Dialogue *newDialogue = Dialogue::getDialogue(diagName);
+					Dialogue *newDialogue = Dialogue::getDialogue(diagName);
 					if (newDialogue)
 					{
 						setDialogue(newDialogue);
-					}*/
+					}
 				}
-			}
+			}*/
 		}
 	}
 
@@ -107,7 +125,7 @@ namespace ui {
 	{
 		if (mDialogue != NULL)
 		{
-			stringstream ss;
+			/*stringstream ss;
 			ss << "<dialogue>" << mDialogue->getText() << "</dialogue>\n\n";
 			const Dialogue::DialogueChoices &choices = mDialogue->getChoices();
 			Dialogue::DialogueChoices::const_iterator iter;
@@ -124,7 +142,9 @@ namespace ui {
 				}
 				ss << "id='" << i << "'>" << (i + 1) << ": " << choice.getText() << "</dialogue_action>\n";
 				i++;
-			}
+			}*/
+			stringstream ss;
+			ss << "<dialogue>" << mDialogue->getText() << "</dialogue>";
 			mText->setText(ss.str());
 		}
 		else

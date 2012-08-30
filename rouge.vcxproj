@@ -127,6 +127,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\engine.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="game\game_object.cpp" />
+    <ClCompile Include="game\gender.cpp" />
     <ClCompile Include="game\inventory.cpp" />
     <ClCompile Include="game\inventory_spot.cpp" />
     <ClCompile Include="game\item.cpp" />
@@ -135,6 +136,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
     <ClCompile Include="game\player_hand.cpp" />
+    <ClCompile Include="game\race.cpp" />
     <ClCompile Include="game\stats.cpp" />
     <ClCompile Include="game\stats_common.cpp" />
     <ClCompile Include="game\stat_modifier.cpp" />
@@ -238,6 +240,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\engine.h" />
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\game_object.h" />
+    <ClInclude Include="game\gender.h" />
     <ClInclude Include="game\icontroller.h" />
     <ClInclude Include="game\inventory.h" />
     <ClInclude Include="game\inventory_spot.h" />
@@ -247,6 +250,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\map.h" />
     <ClInclude Include="game\player_controller.h" />
     <ClInclude Include="game\player_hand.h" />
+    <ClInclude Include="game\race.h" />
     <ClInclude Include="game\stats.h" />
     <ClInclude Include="game\stats_common.h" />
     <ClInclude Include="game\stat_modifier.h" />

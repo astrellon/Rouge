@@ -3,10 +3,11 @@
 namespace am {
 namespace game {
 
-	Dialogue::DialogueSelectorList Dialogue::sDialogueList;
+	//Dialogue::DialogueSelectorList Dialogue::sDialogueList;
+	Dialogue::DialogueMap Dialogue::sDialogueMap;
 
-	Dialogue::Dialogue(const char *text) :
-		//mId(id),
+	Dialogue::Dialogue(const char *id, const char *text) :
+		mId(id),
 		mText(text)
 	{
 	}
@@ -28,12 +29,20 @@ namespace game {
 		return mText.c_str();
 	}
 
-	Dialogue::DialogueChoices &Dialogue::getChoices()
+	void Dialogue::setId(const char *id)
+	{
+		mId = id;
+	}
+	const char *Dialogue::getId() const
+	{
+		return mId.c_str();
+	}
+	/*Dialogue::DialogueChoices &Dialogue::getChoices()
 	{
 		return mChoices;
-	}
+	}*/
 
-	/*bool Dialogue::addDialogue(Dialogue *dialogue)
+	bool Dialogue::addDialogue(Dialogue *dialogue)
 	{
 		if (dialogue)
 		{
@@ -71,7 +80,7 @@ namespace game {
 			}
 		}
 		return NULL;
-	}*/
+	}
 
 }
 }

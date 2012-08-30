@@ -2,6 +2,7 @@
 
 #include "engine.h"
 #include "map.h"
+#include "race.h"
 
 #include <ui/equip_event.h>
 
@@ -18,7 +19,10 @@ namespace game {
 		mGraphic(NULL),
 		mController(NULL),
 		mMoveX(0),
-		mMoveY(0)
+		mMoveY(0),
+		mAge(1.0f),
+		mGender(Gender::MALE),
+		mRace(NULL)
 	{
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
@@ -315,13 +319,6 @@ namespace game {
 			return false;
 		}
 
-		/*int dx = getGridLocationX() - gridX;
-		int dy = getGridLocationY() - gridY;
-		if (dx < -1 || dx > 1 || dy < -1 || dy > 1)
-		{
-			am_log("CHAR", "Too far away");
-			return false;
-		}*/
 		float dx = getLocationX() - x;
 		float dy = getLocationY() - y;
 		if (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach)
@@ -348,6 +345,44 @@ namespace game {
 	const char *Character::getGameObjectTypeName() const
 	{
 		return "character";
+	}
+
+	void Character::getSelector(Selector &selector) const
+	{
+		selector.setId(mGameId.c_str());
+		selector.setAttribute("age", mAge);
+		selector.setAttribute("gender", Gender::getGenderName(mGender));
+		if (mRace != NULL)
+		{
+			selector.setAttribute("race", mRace->getRaceName());
+		}
+	}
+
+	void Character::setAge(float age)
+	{
+		mAge = age;
+	}
+	float Character::getAge() const
+	{
+		return mAge;
+	}
+
+	void Character::setRace(Race *race)
+	{
+		mRace = race;
+	}
+	Race *Character::getRace() const
+	{
+		return mRace;
+	}
+
+	void Character::setGender(Gender::GenderType gender)
+	{
+		mGender = gender;
+	}
+	Gender::GenderType Character::getGender() const
+	{
+		return mGender;
 	}
 
 	void Character::_equipItem(Item *item, const char *bodyPartName)

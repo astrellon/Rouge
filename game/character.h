@@ -14,14 +14,19 @@ using namespace am::gfx;
 #include <ui/ievent_listener.h>
 using namespace am::ui;
 
+#include <util/selector.h>
+using namespace am::util;
+
 #include "icontroller.h"
 #include "game_object.h"
 #include "body_part.h"
-
 #include "stats.h"
+#include "gender.h"
 
 namespace am {
 namespace game {
+
+	class Race;
 
 	class Character : public IEventListener, public GameObject {
 	public:
@@ -67,6 +72,18 @@ namespace game {
 
 		virtual const char *getGameObjectTypeName() const;
 
+		virtual void getSelector(Selector &selector) const;
+
+		virtual void setAge(float age);
+		virtual float getAge() const;
+
+		virtual void setRace(Race *race);
+		virtual Race *getRace() const;
+
+		virtual void setGender(Gender::GenderType gender);
+		virtual Gender::GenderType getGender() const;
+
+
 	protected:
 
 		Handle<IController> mController;
@@ -85,6 +102,10 @@ namespace game {
 		Handle<Inventory> mInventory;
 
 		Stats mStats;
+
+		float mAge;
+		Race *mRace;
+		Gender::GenderType mGender;
 
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);

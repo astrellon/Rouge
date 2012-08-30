@@ -17,6 +17,7 @@ namespace tests {
 		virtual void runCases() {
 			runCase(testSimple);
 			runCase(testEquipped);
+			runCase(testSelector);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -27,6 +28,7 @@ namespace tests {
 
 		bool testSimple();
 		bool testEquipped();
+		bool testSelector();
 	
 	};
 
