@@ -415,6 +415,9 @@
     <ClCompile Include="game\gender.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="game\quest.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -770,6 +773,9 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\gender.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\quest.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

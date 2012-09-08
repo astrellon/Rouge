@@ -154,13 +154,13 @@
 	}, {
 		nodeType: "?",
 		style: {
-			colour: "0.7 1.0 0.85"
+			colour: "1.0 0.4 0.8"
 		}
 	}, {
 		nodeType: "?",
 		flag: "hover",
 		style: {
-			colour: "0.85 1.0 0.9"
+			colour: "1.0 0.6 0.9"
 		}
 	}
 ]

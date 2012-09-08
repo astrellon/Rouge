@@ -121,6 +121,15 @@ namespace ui {
 		return mText->getHeight();
 	}
 
+	void DialogueBox::setDialogueChoices(const Dialogue::DialogueChoices *choices)
+	{
+		mDialogueChoices = choices;
+	}
+	const Dialogue::DialogueChoices *DialogueBox::getDialogueChoices() const
+	{
+		return mDialogueChoices;
+	}
+
 	void DialogueBox::updateText()
 	{
 		if (mDialogue != NULL)

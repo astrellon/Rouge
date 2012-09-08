@@ -84,6 +84,8 @@ namespace game {
 		virtual Gender::GenderType getGender() const;
 
 
+
+
 	protected:
 
 		Handle<IController> mController;
