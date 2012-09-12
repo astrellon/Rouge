@@ -10,6 +10,7 @@
 #include <tests/test_selector.h>
 #include <tests/test_selector_value.h>
 #include <tests/test_json_value.h>
+#include <tests/test_lua.h>
 
 namespace am {
 namespace sys {
@@ -52,6 +53,7 @@ namespace sys {
 		runSuite(am::tests::TestSelector);
 		runSuite(am::tests::TestSelectorValue);
 		runSuite(am::tests::TestJsonValue);
+		runSuite(am::tests::TestLua);
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)

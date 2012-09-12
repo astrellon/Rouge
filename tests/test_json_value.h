@@ -20,7 +20,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::base TestJsonValue";
+			return "am::util::JsonValue";
 		}
 
 	protected:

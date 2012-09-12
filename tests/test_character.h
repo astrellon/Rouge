@@ -21,7 +21,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::base TestCharacter";
+			return "am::game::TestCharacter";
 		}
 
 	protected:

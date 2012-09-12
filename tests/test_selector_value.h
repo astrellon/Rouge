@@ -18,7 +18,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::base TestSelectorValue";
+			return "am::util::SelectorValue";
 		}
 
 	protected:

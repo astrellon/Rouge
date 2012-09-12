@@ -91,6 +91,9 @@
     <Filter Include="lua\src">
       <UniqueIdentifier>{28b1d9cd-44f1-49a8-a158-b8674bc637ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\lua">
+      <UniqueIdentifier>{d17d72f4-8d9e-49a5-a532-6988af10fce3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -522,6 +525,9 @@
     </ClCompile>
     <ClCompile Include="lua\lua_state.cpp">
       <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua.cpp">
+      <Filter>tests\lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -960,6 +966,9 @@
     </ClInclude>
     <ClInclude Include="lua\lua_state.h">
       <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua.h">
+      <Filter>tests\lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

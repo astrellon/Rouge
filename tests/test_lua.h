@@ -9,27 +9,23 @@ using namespace am::base;
 namespace am {
 namespace tests {
 
-	class TestSelector : public TestSuite {
+	class TestLua : public TestSuite {
 	public:
-		TestSelector() {}
-		~TestSelector() {}
+		TestLua() {}
+		~TestLua() {}
 	
 		virtual void runCases() {
 			runCase(testSimple);
-			runCase(testComplex);
-			runCase(testComplexSelectors);
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::base::Selector";
+			return "am::lua::LuaState";
 		}
 
 	protected:
 
 		bool testSimple();
-		bool testComplex();
-		bool testComplexSelectors();
-
+	
 	};
 
 }

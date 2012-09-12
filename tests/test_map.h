@@ -20,7 +20,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::game Map";
+			return "am::game::Map";
 		}
 
 	protected:
