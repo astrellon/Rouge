@@ -94,6 +94,9 @@
     <Filter Include="tests\lua">
       <UniqueIdentifier>{d17d72f4-8d9e-49a5-a532-6988af10fce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\quests">
+      <UniqueIdentifier>{d0ab823e-c6ff-4207-930d-0a4f31e5df18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -424,9 +427,6 @@
     <ClCompile Include="game\gender.cpp">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="game\quest.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="lua\src\lapi.c">
       <Filter>lua\src</Filter>
     </ClCompile>
@@ -528,6 +528,12 @@
     </ClCompile>
     <ClCompile Include="tests\test_lua.cpp">
       <Filter>tests\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="game\quest.cpp">
+      <Filter>game\quests</Filter>
+    </ClCompile>
+    <ClCompile Include="game\lua_quest.cpp">
+      <Filter>game\quests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -886,9 +892,6 @@
     <ClInclude Include="game\gender.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="game\quest.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="lua\src\lapi.h">
       <Filter>lua\src</Filter>
     </ClInclude>
@@ -969,6 +972,12 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua.h">
       <Filter>tests\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="game\quest.h">
+      <Filter>game\quests</Filter>
+    </ClInclude>
+    <ClInclude Include="game\lua_quest.h">
+      <Filter>game\quests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

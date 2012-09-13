@@ -24,6 +24,9 @@ namespace lua {
 
 		lua_State *getLua();
 
+		bool loadFile(const char *filename);
+		bool loadString(const char *luaString);
+
 		operator lua_State *();
 
 		int newTable(const char *tableName = NULL);
@@ -47,6 +50,8 @@ namespace lua {
 		bool getTableInt(const char *key, int &value);
 		bool getTableDouble(const char *key, double &value);
 		bool getTableBool(const char *key, bool &value);
+
+		bool hasGlobalFunction(const char *func, bool popAfter = false);
 
 		static int onError(lua_State *mLua);
 

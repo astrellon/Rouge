@@ -38,6 +38,15 @@ namespace lua {
 		return 0;
 	}
 
+	bool LuaState::loadFile(const char *filename)
+	{
+		return luaL_dofile(mLua, filename);
+	}
+	bool LuaState::loadString(const char *luaString)
+	{
+		return luaL_dostring(mLua, luaString);
+	}
+
 	int LuaState::newTable(const char *tableName)
 	{
 		lua_newtable(mLua);
@@ -178,6 +187,17 @@ namespace lua {
 		return false;
 	}
 
+	bool LuaState::hasGlobalFunction(const char *func, bool popAfter)
+	{
+		lua_getglobal(mLua, func);
+		bool isFunc = lua_isfunction(mLua, -1);
+		if (popAfter && isFunc || !isFunc)
+		{
+			lua_pop(mLua, 1);
+		}
+		return isFunc;
+	}
+
 	void LuaState::logStack(const char *cat)
 	{
 		stringstream ss;
@@ -188,7 +208,8 @@ namespace lua {
 	void LuaState::printStack(ostream &output)
 	{
 		bool done = false;
-		for (int i = 1; i < mLua->stacksize && !done; i++)
+		int size = lua_gettop(mLua);
+		for (int i = 1; i <= size && !done; i++)
 		{
 			output << i << ": ";
 			

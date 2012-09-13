@@ -45,7 +45,32 @@ namespace tests {
 		assert(strcmp("Melli", name) == 0);
 
 		lua.pop(1);
-		lua.logStack("AFTER");
+
+		// Should always have one function on the stack
+		// which is the error handling function.
+		equals(1, lua_gettop(lua));
+
+		return true;
+	}
+
+	bool TestLua::testScripts()
+	{
+		LuaState lua;
+		lua.loadString("function testFunc(x, y)\n"
+			"	return x * y\n"
+			"end");
+
+		assert(lua.hasGlobalFunction("testFunc"));
+		lua.push(4);
+		lua.push(5);
+		lua_call(lua, 2, 1);
+		int result = lua_tointeger(lua, -1);
+		equals(20, result);
+		lua.pop(1);
+
+		equals(1, lua_gettop(lua));
+		assert(!lua.hasGlobalFunction("notafunc"));
+		equals(1, lua_gettop(lua));
 
 		return true;
 	}
