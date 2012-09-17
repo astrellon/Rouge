@@ -11,6 +11,9 @@
 #include <tests/test_selector_value.h>
 #include <tests/test_json_value.h>
 #include <tests/test_lua.h>
+#include <tests/test_lua_quest.h>
+#include <tests/test_lua_event_listener.h>
+using namespace am::tests;
 
 namespace am {
 namespace sys {
@@ -46,14 +49,16 @@ namespace sys {
 
 		mDebugConsole->setVisible(true);
 
-		runSuite(am::tests::TestBase);
-		runSuite(am::tests::TestMouseManager);
-		runSuite(am::tests::TestMap);
-		runSuite(am::tests::TestCharacter);
-		runSuite(am::tests::TestSelector);
-		runSuite(am::tests::TestSelectorValue);
-		runSuite(am::tests::TestJsonValue);
-		runSuite(am::tests::TestLua);
+		runSuite(TestBase);
+		runSuite(TestMouseManager);
+		runSuite(TestMap);
+		runSuite(TestCharacter);
+		runSuite(TestSelector);
+		runSuite(TestSelectorValue);
+		runSuite(TestJsonValue);
+		runSuite(TestLua);
+		runSuite(TestLuaQuest);
+		runSuite(TestLuaEventListener);
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)

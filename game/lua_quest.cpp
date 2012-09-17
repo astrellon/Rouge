@@ -9,10 +9,14 @@ namespace game {
 	LuaQuest::LuaQuest(const char *questId) :
 		Quest(questId)
 	{
+		lua_pushlightuserdata(mLua, this);
+		lua_setglobal(mLua, "__quest");
+		//lua_register(mLua, "addEventListener", luaAddEventListener);
 	}
 
 	LuaQuest::~LuaQuest()
 	{
+		mLua.close();
 	}
 
 	bool LuaQuest::loadQuest(const char *questName)
@@ -100,6 +104,11 @@ namespace game {
 		{
 			Quest::setAcceptedReward(accepted);
 		}
+	}
+
+	LuaState &LuaQuest::getLua()
+	{
+		return mLua;
 	}
 
 }

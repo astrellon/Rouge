@@ -4,12 +4,15 @@
 #include <map>
 using namespace std;
 
+#include <ui/event_manager.h>
+using namespace am::ui;
+
 namespace am {
 namespace game {
 
 	class Character;
 
-	class Quest {
+	class Quest : public EventManager {
 	public:
 		
 		Quest(const char *questId);

@@ -23,6 +23,8 @@ namespace game {
 		virtual void setQuestProgress(int progress);
 		virtual void setTotalQuestProgress(int total);
 		virtual void setAcceptedReward(bool accepted);
+		
+		virtual LuaState &getLua();
 
 	protected:
 

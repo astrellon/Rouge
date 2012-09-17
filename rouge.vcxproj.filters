@@ -97,6 +97,9 @@
     <Filter Include="game\quests">
       <UniqueIdentifier>{d0ab823e-c6ff-4207-930d-0a4f31e5df18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ui\lua">
+      <UniqueIdentifier>{92a01f9b-4505-47e2-8998-83a346e2a6c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -534,6 +537,15 @@
     </ClCompile>
     <ClCompile Include="game\lua_quest.cpp">
       <Filter>game\quests</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_quest.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\lua_event_listener.cpp">
+      <Filter>ui\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_event_listener.cpp">
+      <Filter>tests\lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -978,6 +990,15 @@
     </ClInclude>
     <ClInclude Include="game\lua_quest.h">
       <Filter>game\quests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_quest.h">
+      <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\lua_event_listener.h">
+      <Filter>ui\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_event_listener.h">
+      <Filter>tests\lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

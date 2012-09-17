@@ -1,10 +1,5 @@
 #include "lua_state.h"
 
-extern "C" 
-{
-#	include <lua/src/lstate.h>
-}
-
 #include <sstream>
 
 #include <log/logger.h>
@@ -18,14 +13,22 @@ namespace lua {
 		luaL_openlibs(mLua);
 		lua_pushcfunction(mLua, onError);
 	}
+	LuaState::LuaState(lua_State *lua)
+	{
+		mLua = lua;
+	}
 	LuaState::~LuaState()
 	{
-		lua_close(mLua);
+		
 	}
 
 	lua_State *LuaState::getLua()
 	{
 		return mLua;
+	}
+	void LuaState::close()
+	{
+		lua_close(mLua);
 	}
 
 	LuaState::operator lua_State *()
@@ -40,11 +43,11 @@ namespace lua {
 
 	bool LuaState::loadFile(const char *filename)
 	{
-		return luaL_dofile(mLua, filename);
+		return !luaL_dofile(mLua, filename);
 	}
 	bool LuaState::loadString(const char *luaString)
 	{
-		return luaL_dostring(mLua, luaString);
+		return !luaL_dostring(mLua, luaString);
 	}
 
 	int LuaState::newTable(const char *tableName)
@@ -84,7 +87,7 @@ namespace lua {
 	{
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, ref1);
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, ref2);
-		bool result = lua_rawequal(mLua, -1, -2);
+		bool result = lua_rawequal(mLua, -1, -2) > 0;
 		lua_pop(mLua, -2);
 		return result;
 	}
@@ -196,6 +199,28 @@ namespace lua {
 			lua_pop(mLua, 1);
 		}
 		return isFunc;
+	}
+
+	int LuaState::getGlobalInt(const char *name)
+	{
+		lua_getglobal(mLua, name);
+		int value = lua_tointeger(mLua, -1);
+		lua_pop(mLua, 1);
+		return value;
+	}
+	double LuaState::getGlobalDouble(const char *name)
+	{
+		lua_getglobal(mLua, name);
+		double value = lua_tonumber(mLua, -1);
+		lua_pop(mLua, 1);
+		return value;
+	}
+	bool LuaState::getGlobalBool(const char *name)
+	{
+		lua_getglobal(mLua, name);
+		bool value = lua_toboolean(mLua, -1) > 0;
+		lua_pop(mLua, 1);
+		return value;
 	}
 
 	void LuaState::logStack(const char *cat)

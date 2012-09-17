@@ -5,6 +5,7 @@ extern "C"
 #	include <lua/src/lua.h>
 #	include <lua/src/lauxlib.h>
 #	include <lua/src/lualib.h>
+#	include <lua/src/lstate.h>
 } 
 
 #include <string>
@@ -20,9 +21,11 @@ namespace lua {
 	class LuaState : public IManaged {
 	public:
 		LuaState();
+		LuaState(lua_State *lua);
 		~LuaState();
 
 		lua_State *getLua();
+		void close();
 
 		bool loadFile(const char *filename);
 		bool loadString(const char *luaString);
@@ -52,6 +55,9 @@ namespace lua {
 		bool getTableBool(const char *key, bool &value);
 
 		bool hasGlobalFunction(const char *func, bool popAfter = false);
+		int getGlobalInt(const char *name);
+		double getGlobalDouble(const char *name);
+		bool getGlobalBool(const char *name);
 
 		static int onError(lua_State *mLua);
 

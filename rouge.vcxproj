@@ -217,6 +217,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_character.cpp" />
     <ClCompile Include="tests\test_json_value.cpp" />
     <ClCompile Include="tests\test_lua.cpp" />
+    <ClCompile Include="tests\test_lua_event_listener.cpp" />
+    <ClCompile Include="tests\test_lua_quest.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_selector.cpp" />
@@ -232,6 +234,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\keyboard_common.cpp" />
     <ClCompile Include="ui\keyboard_event.cpp" />
     <ClCompile Include="ui\keyboard_manager.cpp" />
+    <ClCompile Include="ui\lua_event_listener.cpp" />
     <ClCompile Include="ui\mouse_common.cpp" />
     <ClCompile Include="ui\mouse_event.cpp" />
     <ClCompile Include="ui\mouse_manager.cpp" />
@@ -364,6 +367,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_character.h" />
     <ClInclude Include="tests\test_json_value.h" />
     <ClInclude Include="tests\test_lua.h" />
+    <ClInclude Include="tests\test_lua_event_listener.h" />
+    <ClInclude Include="tests\test_lua_quest.h" />
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_selector.h" />
@@ -382,6 +387,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\keyboard_common.h" />
     <ClInclude Include="ui\keyboard_event.h" />
     <ClInclude Include="ui\keyboard_manager.h" />
+    <ClInclude Include="ui\lua_event_listener.h" />
     <ClInclude Include="ui\mouse_common.h" />
     <ClInclude Include="ui\mouse_event.h" />
     <ClInclude Include="ui\mouse_manager.h" />

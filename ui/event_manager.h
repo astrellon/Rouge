@@ -1,12 +1,11 @@
 #pragma once
 
-#include"ievent_manager.h"
+#include "ievent_manager.h"
 #include "event.h"
 
 #include <string>
 #include <map>
 #include <vector>
-
 using namespace std;
 
 namespace am {
@@ -28,6 +27,7 @@ namespace ui {
 		{
 			addEventListener(KeyboardEventTypeNames[type], content);
 		}
+		
 		virtual void removeEventListener(const char *type, IEventListener *content);
 		virtual void removeEventListener(const string &type, IEventListener *content);
 		void removeEventListener(MouseEventType type, IEventListener *content)
@@ -38,6 +38,7 @@ namespace ui {
 		{
 			removeEventListener(KeyboardEventTypeNames[type], content);
 		}
+
 		virtual bool hasEventListener(const char *type);
 		virtual bool hasEventListener(const string &type);
 

@@ -35,13 +35,13 @@ namespace tests {
 		assert(lua_istable(lua, -1));
 
 		const char *name = lua.getTableString("name");
-		assert(name);
+		assert(name != NULL);
 		assert(strcmp("Melli", name) == 0);
 		int age = 0;
 		assert(lua.getTableInt("age", age));
 		equals(22, age);
 		name = lua.getTableString("name");
-		assert(name);
+		assert(name != NULL);
 		assert(strcmp("Melli", name) == 0);
 
 		lua.pop(1);
@@ -70,6 +70,45 @@ namespace tests {
 
 		equals(1, lua_gettop(lua));
 		assert(!lua.hasGlobalFunction("notafunc"));
+		equals(1, lua_gettop(lua));
+
+		assert(lua.loadString("function notafunc()\n"
+			"	return \"hello there\"\n"
+			"end"));
+
+		assert(lua.hasGlobalFunction("testFunc"));
+		lua.push(4);
+		lua.push(5);
+		lua_call(lua, 2, 1);
+		result = lua_tointeger(lua, -1);
+		equals(20, result);
+		lua.pop(1);
+
+		equals(1, lua_gettop(lua));
+		assert(lua.hasGlobalFunction("notafunc"));
+		equals(2, lua_gettop(lua));
+
+		lua_call(lua, 0, 1);
+		const char *callResult = lua_tostring(lua, -1);
+		assert(strcmp(callResult, "hello there") == 0);
+		lua.pop(1);
+		equals(1, lua_gettop(lua));
+
+		// You can redefine functions!
+		// And load them at run-time!
+		// Must find a way of making use of this.
+		assert(lua.loadString("function notafunc()\n"
+			"	return \"how are you?\"\n"
+			"end"));
+
+		equals(1, lua_gettop(lua));
+		assert(lua.hasGlobalFunction("notafunc"));
+		equals(2, lua_gettop(lua));
+
+		lua_call(lua, 0, 1);
+		callResult = lua_tostring(lua, -1);
+		assert(strcmp(callResult, "how are you?") == 0);
+		lua.pop(1);
 		equals(1, lua_gettop(lua));
 
 		return true;
