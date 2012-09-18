@@ -9,6 +9,7 @@ extern "C"
 } 
 
 #include <string>
+#include <map>
 #include <ostream>
 using namespace std;
 
@@ -20,6 +21,9 @@ namespace lua {
 
 	class LuaState : public IManaged {
 	public:
+
+		typedef map<string, lua_CFunction> WrapperMap;
+
 		LuaState();
 		LuaState(lua_State *lua);
 		~LuaState();
@@ -29,6 +33,8 @@ namespace lua {
 
 		bool loadFile(const char *filename);
 		bool loadString(const char *luaString);
+
+		void call(int n, int r);
 
 		operator lua_State *();
 
@@ -58,15 +64,23 @@ namespace lua {
 		int getGlobalInt(const char *name);
 		double getGlobalDouble(const char *name);
 		bool getGlobalBool(const char *name);
+		string getGlobalString(const char *name);
 
 		static int onError(lua_State *mLua);
 
 		void logStack(const char *cat);
 		void printStack(ostream &output);
 
+		static void registerWrapper(const char *name, lua_CFunction call);
+		static int getWrapper(lua_State *lua);
+
+		static void logStack(lua_State *lua, const char *cat);
+		static void printStack(lua_State *lua, ostream &output);
+
 	protected:
 		lua_State *mLua;
 
+		static WrapperMap sWrapperMap;
 	};
 
 }

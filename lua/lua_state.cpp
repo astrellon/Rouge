@@ -4,14 +4,21 @@
 
 #include <log/logger.h>
 
+#include <lua/wrappers/lua_wrappers.h>
+
 namespace am {
 namespace lua {
+
+	LuaState::WrapperMap LuaState::sWrapperMap;
 
 	LuaState::LuaState()
 	{
 		mLua = luaL_newstate(); 
 		luaL_openlibs(mLua);
 		lua_pushcfunction(mLua, onError);
+		lua_register(mLua, "import", getWrapper);
+
+		am::lua::wrapper::l_Assign_Wrappers(mLua);
 	}
 	LuaState::LuaState(lua_State *lua)
 	{
@@ -48,6 +55,11 @@ namespace lua {
 	bool LuaState::loadString(const char *luaString)
 	{
 		return !luaL_dostring(mLua, luaString);
+	}
+
+	void LuaState::call(int n, int r)
+	{
+		lua_call(mLua, n, r);
 	}
 
 	int LuaState::newTable(const char *tableName)
@@ -222,58 +234,85 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return value;
 	}
+	string LuaState::getGlobalString(const char *name)
+	{
+		lua_getglobal(mLua, name);
+		const char *value = lua_tostring(mLua, -1);
+		string valueStr;
+		if (value != NULL)
+		{
+			valueStr = value;
+		}
+		lua_pop(mLua, 1);
+		return valueStr;
+	}
 
 	void LuaState::logStack(const char *cat)
 	{
 		stringstream ss;
-		printStack(ss);
+		printStack(mLua, ss);
+		am_log(cat, ss);
+	}
+	void LuaState::logStack(lua_State *lua, const char *cat)
+	{
+		stringstream ss;
+		printStack(lua, ss);
 		am_log(cat, ss);
 	}
 
 	void LuaState::printStack(ostream &output)
 	{
+		printStack(mLua, output);
+	}
+	void LuaState::printStack(lua_State *lua, ostream &output)
+	{
 		bool done = false;
-		int size = lua_gettop(mLua);
+		int size = lua_gettop(lua);
 		for (int i = 1; i <= size && !done; i++)
 		{
 			output << i << ": ";
 			
-			int type = lua_type(mLua, i);
+			int type = lua_type(lua, i);
+			output << ttypename(type);
 			switch(type) 
 			{
-			case LUA_TTABLE:
-				output << "Table\n";
-				break;
-			case LUA_TFUNCTION:
-				output << "Function\n";
-				break;
-			case LUA_TNIL:
-				output << "Nil\n";
-				break;
 			case LUA_TBOOLEAN:
-				output << "Boolean | " << (lua_toboolean(mLua, i) ? "true\n" : "false\n");
-				break;
-			case LUA_TLIGHTUSERDATA:
-				output << "Light user data\n";
-				break;
-			case LUA_TTHREAD:
-				output << "Thread\n";
+				output << ' ' << (lua_toboolean(lua, i) ? "true\n" : "false\n");
 				break;
 			case LUA_TSTRING:
-				output << "String | " << lua_tostring(mLua, i) << "\n";
+				output << ' ' << lua_tostring(lua, i) << '\n';
 				break;
 			default:
-				if (lua_isnumber(mLua, i))
+				if (lua_isnumber(lua, i))
 				{
-					output << "Number | " << lua_tonumber(mLua, i) << "\n";
+					output << ' ' << lua_tonumber(lua, i) << '\n';
 				}
 				else
 				{
-					output << "Unknown!\n";
-					done = true;
+					output << '\n';
 				}
 			}
 		}
+	}
+
+	void LuaState::registerWrapper(const char *name, lua_CFunction call)
+	{
+		sWrapperMap[string(name)] = call;
+	}
+	int LuaState::getWrapper(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			string name = lua_tostring(lua, -1);
+			WrapperMap::iterator iter = sWrapperMap.find(name);
+			if (iter != sWrapperMap.end())
+			{
+				int result = iter->second(lua);
+				return result;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
 	}
 
 }

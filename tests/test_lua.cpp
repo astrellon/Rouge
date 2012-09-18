@@ -5,6 +5,12 @@
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <game/game_object.h>
+using namespace am::game;
+
+#include <lua/wrappers/lua_game_object.h>
+using namespace am::lua::game;
+
 extern "C" 
 { 
 #	include <lua/src/lua.h>
@@ -79,7 +85,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("testFunc"));
 		lua.push(4);
 		lua.push(5);
-		lua_call(lua, 2, 1);
+		lua.call(2, 1);
 		result = lua_tointeger(lua, -1);
 		equals(20, result);
 		lua.pop(1);
@@ -88,7 +94,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("notafunc"));
 		equals(2, lua_gettop(lua));
 
-		lua_call(lua, 0, 1);
+		lua.call(0, 1);
 		const char *callResult = lua_tostring(lua, -1);
 		assert(strcmp(callResult, "hello there") == 0);
 		lua.pop(1);
@@ -110,6 +116,35 @@ namespace tests {
 		assert(strcmp(callResult, "how are you?") == 0);
 		lua.pop(1);
 		equals(1, lua_gettop(lua));
+
+		return true;
+	}
+
+	bool TestLua::testWrapper()
+	{
+		LuaState lua;
+		Handle<GameObject> testGameObject(new GameObject());
+		testGameObject->setGameId("testId");
+		testGameObject->setName("Test Name");
+
+		lua.loadString("GameObject = import(\"GameObject\")\n"
+			"name = \"none\"\n"
+			"function testFunc()\n"
+			"	obj = GameObject.new(\"testId\")\n"
+			"	name = obj:get_name()\n"
+			"	obj:set_name(name..\" changed\")\n"
+			"end");
+
+		string name = lua.getGlobalString("name");
+		assert(name.compare("none") == 0);
+
+		assert(lua.hasGlobalFunction("testFunc"));
+		lua.call(0, 0);
+
+		name = lua.getGlobalString("name");
+		assert(name.compare("Test Name") == 0);
+
+		assert(testGameObject->getName().compare("Test Name changed") == 0);
 
 		return true;
 	}

@@ -278,7 +278,7 @@ namespace game {
 			return NULL;
 		}
 		GameObjectIdMap::iterator iter = sGameObjects.find(string(id));
-		if (iter == sGameObjects.end())
+		if (iter != sGameObjects.end())
 		{
 			return iter->second;
 		}
