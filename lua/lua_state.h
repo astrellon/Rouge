@@ -41,7 +41,7 @@ namespace lua {
 		int newTable(const char *tableName = NULL);
 		bool getTable(int tableRef);
 		bool getTable(const char *tableName);
-		bool compareRefs(int ref1, int ref2);
+		bool compareRefs(int ref1, int ref2) const;
 
 		void pop(int num);
 		void push(const char *str);
@@ -70,6 +70,11 @@ namespace lua {
 
 		void logStack(const char *cat);
 		void printStack(ostream &output);
+
+		bool operator==(const lua_State *lua) const;
+		bool operator==(const LuaState &rhs) const;
+		bool operator!=(const lua_State *lua) const;
+		bool operator!=(const LuaState &rhs) const;
 
 		static void registerWrapper(const char *name, lua_CFunction call);
 		static int getWrapper(lua_State *lua);

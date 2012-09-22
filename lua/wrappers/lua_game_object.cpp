@@ -17,7 +17,7 @@ namespace am {
 namespace lua {
 namespace game {
 
-	int l_GameObject_ctor(lua_State *lua)
+	int GameObject_ctor(lua_State *lua)
 	{
 		const char *id = lua_tostring(lua, -1);
 		if (id == NULL)
@@ -36,28 +36,28 @@ namespace game {
 		GameObject ** udata = (GameObject **)lua_newuserdata(lua, sizeof(GameObject *));
 		*udata = obj;
 
-		luaL_getmetatable(lua, "luaL_am_GameObject");
+		luaL_getmetatable(lua, GameObject_tableName);
 		lua_setmetatable(lua, -2);
 		return 1;
 	}
 
-	int l_GameObject_dtor(lua_State *lua)
+	int GameObject_dtor(lua_State *lua)
 	{
 		return 0;
 	}
 
-	int l_GameObject_register(lua_State *lua)
+	int GameObject_register(lua_State *lua)
 	{
 		luaL_Reg GameObjectRegs[] = 
 		{
-			{ "new", l_GameObject_ctor },
-			{ "get_name", l_GameObject_get_name },
-			{ "set_name", l_GameObject_set_name },
-			{ "__gc", l_GameObject_dtor },
+			{ "new", GameObject_ctor },
+			{ "get_name", GameObject_get_name },
+			{ "set_name", GameObject_set_name },
+			{ "__gc", GameObject_dtor },
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, "luaL_am_GameObject");
+		luaL_newmetatable(lua, GameObject_tableName);
 		luaL_setfuncs(lua, GameObjectRegs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -68,14 +68,14 @@ namespace game {
 		return 1;
 	}
 
-	GameObject *l_Check_GameObject(lua_State *lua, int n)
+	GameObject *Check_GameObject(lua_State *lua, int n)
 	{
-		return *(GameObject **)luaL_checkudata(lua, n, "luaL_am_GameObject");
+		return *(GameObject **)luaL_checkudata(lua, n, GameObject_tableName);
 	}
 
-	int l_GameObject_get_name(lua_State *lua)
+	int GameObject_get_name(lua_State *lua)
 	{
-		GameObject *obj = l_Check_GameObject(lua, 1);
+		GameObject *obj = Check_GameObject(lua, 1);
 		if (obj)
 		{
 			lua_pushstring(lua, obj->getName().c_str());
@@ -84,10 +84,10 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	int l_GameObject_set_name(lua_State *lua)
+	int GameObject_set_name(lua_State *lua)
 	{
 		LuaState ll(lua);
-		GameObject *obj = l_Check_GameObject(lua, 1);
+		GameObject *obj = Check_GameObject(lua, 1);
 		if (obj)
 		{
 			const char *name = luaL_checkstring(lua, 2);

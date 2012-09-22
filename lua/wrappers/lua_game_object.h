@@ -13,14 +13,16 @@ namespace game {
 namespace lua {
 namespace game {
 
-	int l_GameObject_ctor(lua_State *lua);
-	int l_GameObject_dtor(lua_State *lua);
-	int l_GameObject_register(lua_State *lua);
+	const char GameObject_tableName[] = "am_game_GameObject";
+
+	int GameObject_ctor(lua_State *lua);
+	int GameObject_dtor(lua_State *lua);
+	int GameObject_register(lua_State *lua);
 	
-	int l_GameObject_get_name(lua_State *lua);
-	int l_GameObject_set_name(lua_State *lua);
+	int GameObject_get_name(lua_State *lua);
+	int GameObject_set_name(lua_State *lua);
 	
-	am::game::GameObject *l_Check_GameObject(lua_State *lua, int n);
+	am::game::GameObject *Check_GameObject(lua_State *lua, int n);
 
 }
 }

@@ -2,7 +2,6 @@
 
 #include <gl.h>
 
-#include "gfx_component.h"
 #include <base/imanaged.h>
 #include <string>
 

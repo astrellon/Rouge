@@ -15,10 +15,13 @@ namespace ui {
 
 	class LuaEventListener : public IEventListener {
 	public:
-		LuaEventListener(lua_State *lua);
+		LuaEventListener(lua_State *lua, int funcRef, int contextRef = LUA_REFNIL);
 		~LuaEventListener();
 
 		virtual lua_State *getLua();
+
+		virtual int getFuncRef() const;
+		virtual int getContextRef() const;
 
 		virtual void onEvent(Event *e);
 		virtual void onEvent(MouseEvent *e);
@@ -27,9 +30,14 @@ namespace ui {
 		virtual void onEvent(InventoryEvent *e);
 		virtual void onEvent(EquipEvent *e);
 
+		bool operator==(const LuaEventListener *rhs) const;
+		bool operator==(const IEventListener *rhs) const;
+
 	protected:
 
 		LuaState mLua;
+		int mFuncRef;
+		int mContextRef;
 
 	};
 

@@ -15,10 +15,11 @@ namespace lua {
 	{
 		mLua = luaL_newstate(); 
 		luaL_openlibs(mLua);
-		lua_pushcfunction(mLua, onError);
+		//lua_pushcfunction(mLua, onError);
+		lua_atpanic(mLua, onError);
 		lua_register(mLua, "import", getWrapper);
 
-		am::lua::wrapper::l_Assign_Wrappers(mLua);
+		am::lua::wrapper::AssignWrappers(mLua);
 	}
 	LuaState::LuaState(lua_State *lua)
 	{
@@ -45,6 +46,9 @@ namespace lua {
 
 	int LuaState::onError(lua_State *lua)
 	{
+		stringstream ss;
+		printStack(lua, ss);
+		const char *sss = ss.str().c_str();
 		return 0;
 	}
 
@@ -95,7 +99,7 @@ namespace lua {
 		return false;
 	}
 
-	bool LuaState::compareRefs(int ref1, int ref2)
+	bool LuaState::compareRefs(int ref1, int ref2) const
 	{
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, ref1);
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, ref2);
@@ -293,6 +297,24 @@ namespace lua {
 				}
 			}
 		}
+	}
+
+	bool LuaState::operator==(const lua_State *lua) const
+	{
+		return mLua == lua;
+	}
+	bool LuaState::operator==(const LuaState &lua) const
+	{
+		return mLua == lua.mLua;
+	}
+
+	bool LuaState::operator!=(const lua_State *lua) const
+	{
+		return mLua != lua;
+	}
+	bool LuaState::operator!=(const LuaState &lua) const
+	{
+		return mLua != lua.mLua;
 	}
 
 	void LuaState::registerWrapper(const char *name, lua_CFunction call)

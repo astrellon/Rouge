@@ -1,10 +1,15 @@
 #include <ui/lua_event_listener.h>
 
+#include <sstream>
+using namespace std;
+
 namespace am {
 namespace ui {
 
-	LuaEventListener::LuaEventListener(lua_State *lua) :
-		mLua(lua)
+	LuaEventListener::LuaEventListener(lua_State *lua, int funcRef, int contextRef) :
+		mLua(lua),
+		mFuncRef(funcRef),
+		mContextRef(contextRef)
 	{
 
 	}
@@ -18,28 +23,43 @@ namespace ui {
 		return mLua.getLua();
 	}
 
+	int LuaEventListener::getFuncRef() const
+	{
+		return mFuncRef;
+	}
+	int LuaEventListener::getContextRef() const
+	{
+		return mContextRef;
+	}
+
 	void LuaEventListener::onEvent(Event *e)
 	{
-		if (mLua.hasGlobalFunction("onEvent"))
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
 		{
-			mLua.newTable();
-			mLua.setTableValue("type", e->getType().c_str());
-			lua_call(mLua, 1, 0);
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
 		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(MouseEvent *e)
 	{
-		if (mLua.hasGlobalFunction("onMouseEvent"))
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
 		{
-			mLua.newTable();
-			mLua.setTableValue("type", e->getType().c_str());
-			mLua.setTableValue("localX", e->getLocalMouseX());
-			mLua.setTableValue("localY", e->getLocalMouseY());
-			mLua.setTableValue("mouseButton", static_cast<int>(e->getMouseButton()));
-			mLua.setTableValue("mouseX", e->getMouseX());
-			mLua.setTableValue("mouseY", e->getMouseY());
-			lua_call(mLua, 1, 0);
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
 		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		mLua.setTableValue("localX", e->getLocalMouseX());
+		mLua.setTableValue("localY", e->getLocalMouseY());
+		mLua.setTableValue("mouseButton", static_cast<int>(e->getMouseButton()));
+		mLua.setTableValue("mouseX", e->getMouseX());
+		mLua.setTableValue("mouseY", e->getMouseY());
+		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(KeyboardEvent *e)
 	{
@@ -56,6 +76,20 @@ namespace ui {
 	void LuaEventListener::onEvent(EquipEvent *e)
 	{
 
+	}
+
+	bool LuaEventListener::operator==(const LuaEventListener *rhs) const
+	{
+		if (rhs == NULL)
+		{
+			return false;
+		}
+		if (rhs->mLua != mLua)
+		{
+			return false;
+		}
+		return mLua.compareRefs(mContextRef, rhs->mContextRef) &&
+			mLua.compareRefs(mFuncRef, rhs->mFuncRef);
 	}
 
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "gfx_component.h"
 #include "texture_window.h"
 #include <util/json_value.h>
 #include <string>

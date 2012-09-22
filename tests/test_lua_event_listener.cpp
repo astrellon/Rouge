@@ -8,6 +8,9 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <lua/wrappers/lua_event_manager.h>
+using namespace am::lua::ui;
+
 #include <ui/lua_event_listener.h>
 #include <ui/event_manager.h>
 #include <ui/event.h>
@@ -26,6 +29,38 @@ namespace tests {
 
 	bool TestLuaEventListener::testSimple() {
 		EventManager manager;
+		LuaState lua;
+
+		int loadResult = lua.loadString("import(\"EventManager\")\n"
+			"eventCalled = \"none\"\n"
+			"local listener = {}\n"
+			"listener.eventListen = function(context, event)\n"
+			"	eventCalled = event.type\n"
+			"end\n"
+			"function setManager(manager)\n"
+			"	manager:addEventListener(\"testEvent\", listener.eventListen, listener)\n"
+			"end\n");
+
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		string eventCalled = lua.getGlobalString("eventCalled");
+		assert(eventCalled.compare("none") == 0);
+
+		assert(lua.hasGlobalFunction("setManager"));
+		EventManager_wrap(lua, &manager);
+
+		lua.call(1, 0);
+		Handle<Event> testEvent(new Event("testEvent"));
+		manager.fireEvent<Event>(testEvent);
+
+		eventCalled = lua.getGlobalString("eventCalled");
+		assert(eventCalled.compare("testEvent") == 0);
+		
+		/*EventManager manager;
 		LuaState lua;
 		LuaEventListener listener(lua);
 
@@ -46,14 +81,14 @@ namespace tests {
 		lua_getglobal(lua, "eventCalled");
 		eventCalled = lua_tostring(lua, -1);
 		assert(strcmp(eventCalled, "test") == 0);
-		lua.pop(1);
+		lua.pop(1);*/
 
 		return true;
 	}
 
 	bool TestLuaEventListener::testMouse()
 	{
-		EventManager manager;
+		/*EventManager manager;
 		LuaState lua;
 		LuaEventListener listener(lua);
 		manager.addEventListener(MOUSE_MOVE, &listener);
@@ -93,7 +128,7 @@ namespace tests {
 		equals(1, lua.getGlobalInt("mouseButton"));
 		equals(8, lua.getGlobalInt("localX"));
 		equals(10, lua.getGlobalInt("localY"));
-
+		*/
 		return true;
 	}
 }

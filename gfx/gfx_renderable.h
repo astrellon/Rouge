@@ -12,7 +12,6 @@ using namespace am::ui;
 #include <util/colour.h>
 using namespace am::util;
 
-#include "gfx_component.h"
 #include "gfx_effect.h"
 
 namespace am {

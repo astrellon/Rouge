@@ -52,9 +52,7 @@ namespace tests {
 
 		lua.pop(1);
 
-		// Should always have one function on the stack
-		// which is the error handling function.
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 
 		return true;
 	}
@@ -74,9 +72,9 @@ namespace tests {
 		equals(20, result);
 		lua.pop(1);
 
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 		assert(!lua.hasGlobalFunction("notafunc"));
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 
 		assert(lua.loadString("function notafunc()\n"
 			"	return \"hello there\"\n"
@@ -90,15 +88,15 @@ namespace tests {
 		equals(20, result);
 		lua.pop(1);
 
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 		assert(lua.hasGlobalFunction("notafunc"));
-		equals(2, lua_gettop(lua));
+		equals(1, lua_gettop(lua));
 
 		lua.call(0, 1);
 		const char *callResult = lua_tostring(lua, -1);
 		assert(strcmp(callResult, "hello there") == 0);
 		lua.pop(1);
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 
 		// You can redefine functions!
 		// And load them at run-time!
@@ -107,15 +105,15 @@ namespace tests {
 			"	return \"how are you?\"\n"
 			"end"));
 
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 		assert(lua.hasGlobalFunction("notafunc"));
-		equals(2, lua_gettop(lua));
+		equals(1, lua_gettop(lua));
 
 		lua_call(lua, 0, 1);
 		callResult = lua_tostring(lua, -1);
 		assert(strcmp(callResult, "how are you?") == 0);
 		lua.pop(1);
-		equals(1, lua_gettop(lua));
+		equals(0, lua_gettop(lua));
 
 		return true;
 	}
