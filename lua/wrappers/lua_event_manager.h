@@ -23,6 +23,7 @@ namespace ui {
 
 	int EventManager_addEventListener(lua_State *lua);
 	int EventManager_removeEventListener(lua_State *lua);
+	int EventManager_hasEventListener(lua_State *lua);
 	
 	am::ui::EventManager *Check_EventManager(lua_State *lua, int n);
 

@@ -20,6 +20,8 @@ namespace ui {
 		virtual void onEvent(InventoryEvent *e) {}
 		virtual void onEvent(EquipEvent *e) {}
 		//virtual void onEvent(FocusEvent *e) {}
+
+		virtual bool compareListeners(const IEventListener *rhs) const { return this == rhs; }
 	};
 
 }

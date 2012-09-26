@@ -33,6 +33,9 @@ namespace ui {
 		bool operator==(const LuaEventListener *rhs) const;
 		bool operator==(const IEventListener *rhs) const;
 
+		virtual bool compareListeners(const LuaEventListener *rhs) const;
+		virtual bool compareListeners(const IEventListener *rhs) const;
+
 	protected:
 
 		LuaState mLua;

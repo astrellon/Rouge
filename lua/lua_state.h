@@ -82,6 +82,8 @@ namespace lua {
 		static void logStack(lua_State *lua, const char *cat);
 		static void printStack(lua_State *lua, ostream &output);
 
+		static int lua_am_log(lua_State *lua);
+
 	protected:
 		lua_State *mLua;
 

@@ -35,8 +35,6 @@ namespace ui {
 
 		luaL_getmetatable(lua, EventManager_tableName);
 		lua_setmetatable(lua, -2);
-
-
 	}
 
 	int EventManager_dtor(lua_State *lua)
@@ -52,6 +50,7 @@ namespace ui {
 			{ "__gc",  EventManager_dtor },
 			{ "addEventListener", EventManager_addEventListener },
 			{ "removeEventListener", EventManager_removeEventListener },
+			{ "hasEventListener", EventManager_hasEventListener },
 			{ NULL, NULL }
 		};
 
@@ -100,9 +99,41 @@ namespace ui {
 		EventManager *manager = Check_EventManager(lua, 1);
 		if (manager)
 		{
-			LuaState::logStack(lua, "REMOVE");
+			const char *eventType = lua_tostring(lua, -3);
+			if (eventType == NULL)
+			{
+				return 0;
+			}
+			if (!lua_isfunction(lua, -2))
+			{
+				return 0;
+			}
+			if (!lua_isnil(lua, -1) && !lua_istable(lua, -1))
+			{
+				return 0;
+			}
+			
+			int contextRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+			int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+			LuaEventListener *listener = new LuaEventListener(lua, funcRef, contextRef);
+			manager->removeEventListener(eventType, listener);
 		}
 		return 0;
+	}
+	int EventManager_hasEventListener(lua_State *lua)
+	{
+		EventManager *manager = Check_EventManager(lua, 1);
+		if (manager)
+		{
+			const char *eventType = lua_tostring(lua, -1);
+			if (eventType != NULL)
+			{
+				lua_pushboolean(lua, manager->hasEventListener(eventType));
+				return 1;
+			}
+		}
+		lua_pushboolean(lua, false);
+		return 1;
 	}
 
 }

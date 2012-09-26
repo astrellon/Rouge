@@ -80,6 +80,21 @@ namespace ui {
 
 	bool LuaEventListener::operator==(const LuaEventListener *rhs) const
 	{
+		return compareListeners(rhs);
+	}
+
+	bool LuaEventListener::operator==(const IEventListener *rhs) const
+	{
+		const LuaEventListener *rhsLua = dynamic_cast<const LuaEventListener *>(rhs);
+		if (rhsLua)
+		{
+			return compareListeners(rhsLua);
+		}
+		return false;
+	}
+
+	bool LuaEventListener::compareListeners(const LuaEventListener *rhs) const
+	{
 		if (rhs == NULL)
 		{
 			return false;
@@ -92,5 +107,14 @@ namespace ui {
 			mLua.compareRefs(mFuncRef, rhs->mFuncRef);
 	}
 
+	bool LuaEventListener::compareListeners(const IEventListener *rhs) const
+	{
+		const LuaEventListener *rhsLua = dynamic_cast<const LuaEventListener *>(rhs);
+		if (rhsLua)
+		{
+			return compareListeners(rhsLua);
+		}
+		return false;
+	}
 }
 }

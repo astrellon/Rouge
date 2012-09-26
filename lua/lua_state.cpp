@@ -15,9 +15,9 @@ namespace lua {
 	{
 		mLua = luaL_newstate(); 
 		luaL_openlibs(mLua);
-		//lua_pushcfunction(mLua, onError);
 		lua_atpanic(mLua, onError);
 		lua_register(mLua, "import", getWrapper);
+		lua_register(mLua, "am_log", lua_am_log);
 
 		am::lua::wrapper::AssignWrappers(mLua);
 	}
@@ -335,6 +335,20 @@ namespace lua {
 		}
 		lua_pushnil(lua);
 		return 1;
+	}
+
+	int LuaState::lua_am_log(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1) || lua_isnumber(lua, -1))
+		{
+			am_log("LUA", lua_tostring(lua, -1));
+		}
+		else if (lua_isboolean(lua, -1))
+		{
+			bool value = lua_toboolean(lua, -1);
+			am_log("LUA", value ? "true" : "false");
+		}
+		return 0;
 	}
 
 }

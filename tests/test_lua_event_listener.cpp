@@ -33,12 +33,17 @@ namespace tests {
 
 		int loadResult = lua.loadString("import(\"EventManager\")\n"
 			"eventCalled = \"none\"\n"
-			"local listener = {}\n"
+			"timesCalled = 0\n"
+			"theManager = nil\n"
+			"local listener = {name=\"Alan\"}\n"
 			"listener.eventListen = function(context, event)\n"
 			"	eventCalled = event.type\n"
+			"	timesCalled = timesCalled + 1\n"
+			"	theManager:removeEventListener(\"testEvent\", listener.eventListen, listener)\n"
 			"end\n"
 			"function setManager(manager)\n"
 			"	manager:addEventListener(\"testEvent\", listener.eventListen, listener)\n"
+			"	theManager = manager\n"
 			"end\n");
 
 		if (!loadResult)
@@ -49,6 +54,7 @@ namespace tests {
 
 		string eventCalled = lua.getGlobalString("eventCalled");
 		assert(eventCalled.compare("none") == 0);
+		equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
 		EventManager_wrap(lua, &manager);
@@ -59,6 +65,14 @@ namespace tests {
 
 		eventCalled = lua.getGlobalString("eventCalled");
 		assert(eventCalled.compare("testEvent") == 0);
+		equals(1, lua.getGlobalInt("timesCalled"));
+
+		Handle<Event> testEvent2(new Event("testEvent"));
+		manager.fireEvent<Event>(testEvent2);
+
+		eventCalled = lua.getGlobalString("eventCalled");
+		assert(eventCalled.compare("testEvent") == 0);
+		equals(1, lua.getGlobalInt("timesCalled"));
 		
 		/*EventManager manager;
 		LuaState lua;

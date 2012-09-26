@@ -53,7 +53,7 @@ namespace ui {
 		ListenerList &listeners = mListeners[type];
 		for (iter = listeners.begin(); iter != listeners.end(); ++iter)
 		{
-			if (*iter == context)
+			if (context->compareListeners(*iter))
 			{
 				break;
 			}
