@@ -565,6 +565,9 @@
     <ClCompile Include="tests\test_lua_character.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_stats.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1032,6 +1035,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua_character.h">
       <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_stats.h">
+      <Filter>lua\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

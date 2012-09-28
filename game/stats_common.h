@@ -22,6 +22,7 @@ namespace game {
 		static const char *getNiceStatName(StatType stat);
 		static const char *getStatName(StatType stat);
 
+		static StatType getStatTypeInt(int statValue);
 		static StatType getStatTypeFromNice(const char *name);
 		static StatType getStatType(const char *name);
 

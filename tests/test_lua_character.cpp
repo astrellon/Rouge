@@ -130,7 +130,6 @@ namespace tests {
 		assert(strcmp("female", genderName) == 0);
 		lua.pop(1);
 
-
 		return true;
 	}
 

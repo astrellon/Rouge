@@ -23,6 +23,14 @@ namespace game {
 		return sStatNames[stat];
 	}
 
+	Stat::StatType Stat::getStatTypeInt(int statValue)
+	{
+		if (statValue < 0 || statValue >= Stat::MAX_STAT_LENGTH)
+		{
+			return Stat::MAX_STAT_LENGTH;
+		}
+		return static_cast<Stat::StatType>(statValue);
+	}
 	Stat::StatType Stat::getStatTypeFromNice(const char *name)
 	{
 		int type = HEALTH;
