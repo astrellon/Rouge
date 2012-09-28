@@ -45,7 +45,7 @@ namespace tests {
 			"	manager:addEventListener(\"testEvent\", listener.eventListen, listener)\n"
 			"	theManager = manager\n"
 			"end\n");
-
+		
 		if (!loadResult)
 		{
 			lua.logStack("LOAD ERR");
@@ -74,29 +74,6 @@ namespace tests {
 		assert(eventCalled.compare("testEvent") == 0);
 		equals(1, lua.getGlobalInt("timesCalled"));
 		
-		/*EventManager manager;
-		LuaState lua;
-		LuaEventListener listener(lua);
-
-		assert(lua.loadString("eventCalled = \"none\"\n"
-			"function onEvent(event)\n"
-			"	eventCalled = event.type\n"
-			"end"));
-
-		lua_getglobal(lua, "eventCalled");
-		const char *eventCalled = lua_tostring(lua, -1);
-		assert(strcmp(eventCalled, "none") == 0);
-		lua.pop(1);
-
-		manager.addEventListener("test", &listener);
-		Handle<Event> e(new Event("test"));
-		manager.fireEvent<Event>(e);
-
-		lua_getglobal(lua, "eventCalled");
-		eventCalled = lua_tostring(lua, -1);
-		assert(strcmp(eventCalled, "test") == 0);
-		lua.pop(1);*/
-
 		return true;
 	}
 

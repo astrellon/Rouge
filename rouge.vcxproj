@@ -206,7 +206,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\src\lvm.c" />
     <ClCompile Include="lua\src\lzio.c" />
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
-    <ClCompile Include="lua\wrappers\lua_game_object.cpp" />
+    <ClCompile Include="lua\wrappers\lua_character.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
     <ClCompile Include="math\transform.cpp" />
@@ -221,6 +221,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_character.cpp" />
     <ClCompile Include="tests\test_json_value.cpp" />
     <ClCompile Include="tests\test_lua.cpp" />
+    <ClCompile Include="tests\test_lua_character.cpp" />
     <ClCompile Include="tests\test_lua_event_listener.cpp" />
     <ClCompile Include="tests\test_lua_quest.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
@@ -357,7 +358,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\src\lvm.h" />
     <ClInclude Include="lua\src\lzio.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
-    <ClInclude Include="lua\wrappers\lua_game_object.h" />
+    <ClInclude Include="lua\wrappers\lua_character.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
     <ClInclude Include="math\matrix.h" />
@@ -375,6 +376,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_character.h" />
     <ClInclude Include="tests\test_json_value.h" />
     <ClInclude Include="tests\test_lua.h" />
+    <ClInclude Include="tests\test_lua_character.h" />
     <ClInclude Include="tests\test_lua_event_listener.h" />
     <ClInclude Include="tests\test_lua_quest.h" />
     <ClInclude Include="tests\test_map.h" />

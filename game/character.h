@@ -83,9 +83,6 @@ namespace game {
 		virtual void setGender(Gender::GenderType gender);
 		virtual Gender::GenderType getGender() const;
 
-
-
-
 	protected:
 
 		Handle<IController> mController;

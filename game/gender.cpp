@@ -41,6 +41,15 @@ namespace game {
 		}
 		return static_cast<GenderType>(i);
 	}
+
+	Gender::GenderType Gender::getGenderInt(int genderValue)
+	{
+		if (genderValue < 0 || genderValue >= Gender::MAX_GENDER_LENGTH) 
+		{
+			return Gender::MAX_GENDER_LENGTH;
+		}
+		return static_cast<Gender::GenderType>(genderValue);
+	}
 	
 }
 }

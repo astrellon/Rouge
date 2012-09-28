@@ -15,6 +15,8 @@ namespace game {
 		static GenderType getGenderTypeFromNice(const char *name);
 		static GenderType getGenderType(const char *name);
 
+		static GenderType getGenderInt(int genderValue);
+
 	protected:
 
 		static const char *sNiceGenderNames[];

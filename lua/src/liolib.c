@@ -28,8 +28,6 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-
-
 /*
 ** {======================================================
 ** lua_popen spawns a new process connected to the current
@@ -524,6 +522,9 @@ static int g_write (lua_State *L, FILE *f, int arg) {
 
 static int io_write (lua_State *L) {
   return g_write(L, getiofile(L, IO_OUTPUT), 1);
+	//am_log("LUA", lua_tostring(L, -1));
+	//lua_pushboolean(L, true);
+	//return 1;
 }
 
 

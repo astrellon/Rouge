@@ -13,6 +13,7 @@
 #include <tests/test_lua.h>
 #include <tests/test_lua_quest.h>
 #include <tests/test_lua_event_listener.h>
+#include <tests/test_lua_character.h>
 using namespace am::tests;
 
 namespace am {
@@ -59,6 +60,7 @@ namespace sys {
 		runSuite(TestLua);
 		runSuite(TestLuaQuest);
 		runSuite(TestLuaEventListener);
+		runSuite(TestLuaCharacter);
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)

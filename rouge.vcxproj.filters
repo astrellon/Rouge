@@ -553,14 +553,17 @@
     <ClCompile Include="lua\wrappers\lua_renderable.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_game_object.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp">
       <Filter>lua\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_character.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_character.cpp">
+      <Filter>tests\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1018,14 +1021,17 @@
     <ClInclude Include="lua\wrappers\lua_renderable.h">
       <Filter>lua\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_game_object.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="lua\wrappers\lua_wrappers.h">
       <Filter>lua\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_event_manager.h">
       <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_character.h">
+      <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_character.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

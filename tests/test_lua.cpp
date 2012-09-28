@@ -5,10 +5,10 @@
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <game/game_object.h>
+#include <game/character.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_game_object.h>
+#include <lua/wrappers/lua_character.h>
 using namespace am::lua::game;
 
 extern "C" 
@@ -121,14 +121,14 @@ namespace tests {
 	bool TestLua::testWrapper()
 	{
 		LuaState lua;
-		Handle<GameObject> testGameObject(new GameObject());
-		testGameObject->setGameId("testId");
-		testGameObject->setName("Test Name");
+		Handle<Character> testCharacter(new Character());
+		testCharacter->setGameId("testId");
+		testCharacter->setName("Test Name");
 
-		lua.loadString("GameObject = import(\"GameObject\")\n"
+		lua.loadString("Character = import(\"Character\")\n"
 			"name = \"none\"\n"
 			"function testFunc()\n"
-			"	obj = GameObject.new(\"testId\")\n"
+			"	obj = Character.new(\"testId\")\n"
 			"	name = obj:get_name()\n"
 			"	obj:set_name(name..\" changed\")\n"
 			"end");
@@ -142,7 +142,7 @@ namespace tests {
 		name = lua.getGlobalString("name");
 		assert(name.compare("Test Name") == 0);
 
-		assert(testGameObject->getName().compare("Test Name changed") == 0);
+		assert(testCharacter->getName().compare("Test Name changed") == 0);
 
 		return true;
 	}
