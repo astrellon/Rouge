@@ -225,6 +225,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_lua_character.cpp" />
     <ClCompile Include="tests\test_lua_event_listener.cpp" />
     <ClCompile Include="tests\test_lua_quest.cpp" />
+    <ClCompile Include="tests\test_lua_stats.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_selector.cpp" />
@@ -381,6 +382,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_lua_character.h" />
     <ClInclude Include="tests\test_lua_event_listener.h" />
     <ClInclude Include="tests\test_lua_quest.h" />
+    <ClInclude Include="tests\test_lua_stats.h" />
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_selector.h" />
