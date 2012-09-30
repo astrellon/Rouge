@@ -121,7 +121,7 @@ namespace ui {
 		ss << "<title class='dexterity'>Dexterity:</title> " << stats.getStat(Stat::DEXTERITY) << "\n";
 		ss << "<title class='constitution'>Constitution:</title> " << stats.getStat(Stat::CONSTITUTION) << "\n";
 		ss << "<title class='divine'>Divine:</title> " << stats.getStat(Stat::DIVINE) << "\n";
-		ss << "<title class='arcane'>Arcane:</title> " << stats.getStat(Stat::ARCANCE) << "\n";
+		ss << "<title class='arcane'>Arcane:</title> " << stats.getStat(Stat::ARCANE) << "\n";
 		ss << "<title class='damage'>Damage:</title> " << stats.getStat(Stat::MIN_DAMAGE) << " - " << stats.getStat(Stat::MAX_DAMAGE) << "\n";
 		
 		ss << "</char_screen>";

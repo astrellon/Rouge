@@ -16,6 +16,7 @@ namespace game {
 	const char Character_tableName[] = "am_game_Character";
 
 	int Character_ctor(lua_State *lua);
+	void Character_wrap(lua_State *lua, am::game::Character *character);
 	int Character_dtor(lua_State *lua);
 	int Character_register(lua_State *lua);
 	
@@ -24,6 +25,8 @@ namespace game {
 
 	int Character_set_pickup_reach(lua_State *lua);
 	int Character_get_pickup_reach(lua_State *lua);
+
+	int Character_get_stats(lua_State *lua);
 
 	int Character_set_age(lua_State *lua);
 	int Character_get_age(lua_State *lua);

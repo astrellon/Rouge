@@ -11,7 +11,7 @@ namespace game {
 			STRENGTH, 
 			DEXTERITY,
 			CONSTITUTION,
-			ARCANCE, 
+			ARCANE, 
 			DIVINE,
 			MIN_DAMAGE,
 			MAX_DAMAGE,
@@ -22,7 +22,7 @@ namespace game {
 		static const char *getNiceStatName(StatType stat);
 		static const char *getStatName(StatType stat);
 
-		static StatType getStatTypeInt(int statValue);
+		static StatType getStatType(int statValue);
 		static StatType getStatTypeFromNice(const char *name);
 		static StatType getStatType(const char *name);
 

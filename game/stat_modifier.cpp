@@ -12,6 +12,10 @@ using namespace am::util;
 namespace am {
 namespace game {
 
+	const char *StatModifier::sStatModifierNames[] = {
+		"+", "*", "*=", "MOD_MAX_LENGTH"
+	};
+
 	StatModifier::StatModifier() :
 		mValue(0),
 		mType(MOD_ADD),
@@ -75,6 +79,26 @@ namespace game {
 	bool StatModifier::operator!=(const StatModifier &rhs) const
 	{
 		return rhs.mValue != mValue || rhs.mType != mType || rhs.mStatsParent != mStatsParent;
+	}
+
+	StatModifierType StatModifier::getModifierType(const char *name)
+	{
+		for (int i = 0; i < MOD_MAX_LENGTH; i++)
+		{
+			if (strcmp(name, sStatModifierNames[i]) == 0)
+			{
+				return static_cast<StatModifierType>(i);
+			}
+		}
+		return MOD_MAX_LENGTH;
+	}
+	StatModifierType StatModifier::getModifierType(int value)
+	{
+		if (value < 0 || value >= MOD_MAX_LENGTH)
+		{
+			return MOD_MAX_LENGTH;
+		}
+		return static_cast<StatModifierType>(value);
 	}
 	
 }

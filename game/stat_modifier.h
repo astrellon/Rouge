@@ -7,8 +7,9 @@ using namespace std;
 namespace am {
 namespace game {
 
-	enum StatModifierType {
-		MOD_ADD, MOD_MULTIPLY, MOD_MULTIPLY_SET
+	enum StatModifierType 
+	{
+		MOD_ADD, MOD_MULTIPLY, MOD_MULTIPLY_SET, MOD_MAX_LENGTH
 	};
 
 	class Stats;
@@ -35,12 +36,17 @@ namespace game {
 		bool operator==(const StatModifier &rhs) const;
 		bool operator!=(const StatModifier &rhs) const;
 
+		static StatModifierType getModifierType(const char *name);
+		static StatModifierType getModifierType(int value);
+
 	protected:
 
 		Stats *mStatsParent;
 		float mValue;
 		bool mMagical;
 		StatModifierType mType;
+
+		static const char *sStatModifierNames[];
 	};
 
 }

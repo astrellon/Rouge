@@ -8,6 +8,7 @@ extern "C"
 }
 
 #include <lua/lua_state.h>
+#include <lua/wrappers/lua_stats.h>
 using namespace am::lua;
 
 #include <game/character.h>
@@ -33,12 +34,16 @@ namespace game {
 			obj->setGameId(id);
 		}
 
+		Character_wrap(lua, obj);
+		return 1;
+	}
+	void Character_wrap(lua_State *lua, Character *character)
+	{
 		Character ** udata = (Character **)lua_newuserdata(lua, sizeof(Character *));
-		*udata = obj;
+		*udata = character;
 
 		luaL_getmetatable(lua, Character_tableName);
 		lua_setmetatable(lua, -2);
-		return 1;
 	}
 
 	int Character_dtor(lua_State *lua)
@@ -57,7 +62,7 @@ namespace game {
 			{ "set_name", Character_set_name },
 			{ "set_pickup_reach", Character_set_pickup_reach },
 			{ "get_pickup_reach", Character_get_pickup_reach },
-			{ "get_stats", NULL },
+			{ "get_stats", Character_get_stats },
 			{ "add_body_part", NULL },
 			{ "remove_body_part", NULL },
 			{ "has_body_part", NULL },
@@ -161,6 +166,19 @@ namespace game {
 		if (obj)
 		{
 			lua_pushnumber(lua, obj->getPickupReach());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_get_stats(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			Stats *stats = &obj->getStats();
+			Stats_wrap(lua, stats);
 			return 1;
 		}
 		lua_pushnil(lua);

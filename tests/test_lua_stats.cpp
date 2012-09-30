@@ -29,6 +29,8 @@ namespace tests {
 		
 		assert(lua.loadString("Stats = import(\"Stats\")\n"
 			"stats = Stats.new()\n"
+			"stats:add_modifier(\"strength\", 7.8, true)\n"
+			"stats:add_modifier(\"dex\", 3.2)\n"
 			"function getBaseStat(key)\n"
 			"	return stats:get_base_stat(key)\n"
 			"end\n"
@@ -37,7 +39,22 @@ namespace tests {
 			"end\n"
 			"function getStat(key)\n"
 			"	return stats:get_stat(key)\n"
-			"end"));
+			"end\n"
+			"function addModifier(stat, value, type, magical)\n"
+			"	if (magical == nil) then\n"
+			"		stats:add_modifier(stat, value, type)\n"
+			"	else\n"
+			"		stats:add_modifier(stat, value, type, magical)\n"
+			"	end\n"
+			"end\n"
+			"function removeModifier(stat, value, type, magical)\n"
+			"	if (magical == nil) then\n"
+			"		stats:remove_modifier(stat, value, type)\n"
+			"	else\n"
+			"		stats:remove_modifier(stat, value, type, magical)\n"
+			"	end\n"
+			"end\n"
+			));
 
 		assert(lua.hasGlobalFunction("getBaseStat"));
 		lua.push("health");
@@ -60,6 +77,45 @@ namespace tests {
 		lua.push("health");
 		lua.call(1, 1);
 		equalsDelta(5.7f, lua_tonumber(lua, -1), 0.0001f);
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("addModifier"));
+		lua.push("health");
+		lua.push(10.0f);
+		lua.push("*");
+		lua.pushnil();
+		lua.call(4, 0);
+
+		assert(lua.hasGlobalFunction("getStat"));
+		lua.push("health");
+		lua.call(1, 1);
+		equalsDelta(57.0f, lua_tonumber(lua, -1), 0.0001f);
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("addModifier"));
+		lua.push("health");
+		lua.push(3.0f);
+		lua.push("+");
+		lua.pushnil();
+		lua.call(4, 0);
+
+		assert(lua.hasGlobalFunction("getStat"));
+		lua.push("health");
+		lua.call(1, 1);
+		equalsDelta(60.0f, lua_tonumber(lua, -1), 0.0001f);
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("removeModifier"));
+		lua.push("health");
+		lua.push(10.0f);
+		lua.push("*");
+		lua.pushnil();
+		lua.call(4, 0);
+
+		assert(lua.hasGlobalFunction("getStat"));
+		lua.push("health");
+		lua.call(1, 1);
+		equalsDelta(8.7f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		return true;

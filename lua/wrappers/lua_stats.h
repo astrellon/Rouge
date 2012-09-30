@@ -29,6 +29,9 @@ namespace game {
 
 	int Stats_get_stat(lua_State *lua);
 
+	int Stats_add_modifier(lua_State *lua);
+	int Stats_remove_modifier(lua_State *lua);
+
 	Stat::StatType getStat(lua_State *lua, int arg);
 
 	am::game::Stats *Check_Stats(lua_State *lua, int n);

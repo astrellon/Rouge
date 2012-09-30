@@ -358,7 +358,7 @@ namespace sys {
 		stats.setBaseStat(Stat::STRENGTH, 6);
 		stats.setBaseStat(Stat::DEXTERITY, 10);
 		stats.setBaseStat(Stat::CONSTITUTION, 7);
-		stats.setBaseStat(Stat::ARCANCE, 4);
+		stats.setBaseStat(Stat::ARCANE, 4);
 		stats.setBaseStat(Stat::DIVINE, 5);
 		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
 		stats.setBaseStat(Stat::MAX_DAMAGE, 7);

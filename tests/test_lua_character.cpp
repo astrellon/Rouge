@@ -133,5 +133,46 @@ namespace tests {
 		return true;
 	}
 
+	bool TestLuaCharacter::testStats()
+	{
+		LuaState lua;
+
+		int loadResult = lua.loadString("Character = import(\"Character\")\n"
+			"Stats = import(\"Stats\")\n"
+			"char = Character.new(\"charStats\")\n"
+			"function getBaseStat(stat)\n"
+			"	return char:get_stats():get_base_stat(stat)\n"
+			"end\n"
+			"function setBaseStat(stat, value)\n"
+			"	char:get_stats():set_base_stat(stat, value)\n"
+			"end\n");
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		Handle<Character> charStats = dynamic_cast<Character *>(Character::getByGameId("charStats"));
+		equalsDelta(0.0f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+
+		charStats->getStats().setBaseStat(Stat::ARCANE, 5.0f);
+
+		assert(lua.hasGlobalFunction("getBaseStat"));
+		lua.push("arcane");
+		lua.call(1, 1);
+		float value = lua_tonumber(lua, -1);
+		lua.pop(1);
+		equalsDelta(5.0f, value, 0.0001f);
+
+		assert(lua.hasGlobalFunction("setBaseStat"));
+		lua.push("arcane");
+		lua.push(8.9f);
+		lua.call(2, 0);
+
+		equalsDelta(8.9f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+
+		return true;
+	}
 }
 }
