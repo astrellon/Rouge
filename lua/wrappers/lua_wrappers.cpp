@@ -3,6 +3,7 @@
 #include "lua_character.h"
 #include "lua_event_manager.h"
 #include "lua_stats.h"
+#include "lua_body_part.h"
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -15,6 +16,7 @@ namespace wrapper {
 	{
 		LuaState::registerWrapper("Character", am::lua::game::Character_register);
 		LuaState::registerWrapper("Stats", am::lua::game::Stats_register);
+		LuaState::registerWrapper("BodyPart", am::lua::game::BodyPart_register);
 		LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}
 	

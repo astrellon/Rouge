@@ -205,6 +205,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\src\lundump.c" />
     <ClCompile Include="lua\src\lvm.c" />
     <ClCompile Include="lua\src\lzio.c" />
+    <ClCompile Include="lua\wrappers\lua_body_part.cpp" />
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_character.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
@@ -359,6 +360,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\src\lundump.h" />
     <ClInclude Include="lua\src\lvm.h" />
     <ClInclude Include="lua\src\lzio.h" />
+    <ClInclude Include="lua\wrappers\lua_body_part.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_character.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />

@@ -9,9 +9,11 @@ using namespace am::base;
 using namespace am::lua;
 
 #include <lua/wrappers/lua_character.h>
+#include <lua/wrappers/lua_body_part.h>
 using namespace am::lua::game;
 
 #include <game/character.h>
+#include <game/body_part.h>
 using namespace am::game;
 
 extern "C" 
@@ -174,5 +176,54 @@ namespace tests {
 
 		return true;
 	}
+
+	bool TestLuaCharacter::testBodyParts()
+	{
+		LuaState lua;
+
+		int loadResult = lua.loadString("Character = import(\"Character\")\n"
+			"BodyPart = import(\"BodyPart\")\n"
+			"char = Character.new(\"charBodyPart\")\n"
+			"function addBodyPart(part)\n"
+			"	return char:add_body_part(BodyPart.new(part))\n"
+			"end\n"
+			"function removeBodyPart(part)\n"
+			"	return char:remove_body_part(BodyPart.new(part))\n"
+			"end\n"
+			"function hasBodyPart(part)\n"
+			"	return char:has_body_part(BodyPart.new(part))\n"
+			"end\n");
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		Handle<Character> charBodyPart = dynamic_cast<Character *>(Character::getByGameId("charBodyPart"));
+
+		assert(lua.hasGlobalFunction("hasBodyPart"));
+		lua.push("arm");
+		lua.call(1, 1);
+		assert(!lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("addBodyPart"));
+		lua.push("arm");
+		lua.call(1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(charBodyPart->hasBodyPart(new BodyPart("arm")));
+
+		assert(lua.hasGlobalFunction("hasBodyPart"));
+		lua.push("arm");
+		lua.call(1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		return true;
+	}
+
 }
 }

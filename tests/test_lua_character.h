@@ -23,6 +23,7 @@ namespace tests {
 			runCase(testSimple);
 			runCase(testGender);
 			runCase(testStats);
+			runCase(testBodyParts);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -34,6 +35,7 @@ namespace tests {
 		bool testSimple();
 		bool testGender();
 		bool testStats();
+		bool testBodyParts();
 
 	};
 

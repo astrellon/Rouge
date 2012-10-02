@@ -3,7 +3,7 @@
 namespace am {
 namespace game {
 
-	BodyPart::BodyPartMap BodyPart::sBodyParts;
+	//BodyPart::BodyPartMap BodyPart::sBodyParts;
 
 	BodyPart::BodyPart(const char *name, Item *equipped) :
 		mName(name),
@@ -30,7 +30,7 @@ namespace game {
 		return mEqippeditem;
 	}
 
-	void BodyPart::addBodyPart(BodyPart *part)
+	/*void BodyPart::addBodyPart(BodyPart *part)
 	{
 		if (part == NULL)
 		{
@@ -52,7 +52,7 @@ namespace game {
 			return NULL;
 		}
 		return iter->second;
-	}
+	}*/
 
 }
 }

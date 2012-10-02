@@ -34,6 +34,10 @@ namespace game {
 	int Character_set_gender(lua_State *lua);
 	int Character_get_gender(lua_State *lua);
 
+	int Character_add_body_part(lua_State *lua);
+	int Character_remove_body_part(lua_State *lua);
+	int Character_has_body_part(lua_State *lua);
+
 	am::game::Character *Check_Character(lua_State *lua, int n);
 
 }

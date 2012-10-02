@@ -9,6 +9,7 @@ extern "C"
 
 #include <lua/lua_state.h>
 #include <lua/wrappers/lua_stats.h>
+#include <lua/wrappers/lua_body_part.h>
 using namespace am::lua;
 
 #include <game/character.h>
@@ -63,9 +64,9 @@ namespace game {
 			{ "set_pickup_reach", Character_set_pickup_reach },
 			{ "get_pickup_reach", Character_get_pickup_reach },
 			{ "get_stats", Character_get_stats },
-			{ "add_body_part", NULL },
-			{ "remove_body_part", NULL },
-			{ "has_body_part", NULL },
+			{ "add_body_part", Character_add_body_part },
+			{ "remove_body_part", Character_remove_body_part },
+			{ "has_body_part", Character_has_body_part },
 			{ "get_body_parts", NULL },
 			{ "equip_item", NULL },
 			{ "unequip_item", NULL },
@@ -238,6 +239,52 @@ namespace game {
 			return 1;
 		}
 		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_add_body_part(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			BodyPart *part = Check_BodyPart(lua, 2);
+			if (part)
+			{
+				lua_pushboolean(lua, obj->addBodyPart(part));
+				return 1;
+			}
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_remove_body_part(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			BodyPart *part = Check_BodyPart(lua, 2);
+			if (part)
+			{
+				lua_pushboolean(lua, obj->removeBodyPart(part));
+				return 1;
+			}
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_has_body_part(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			BodyPart *part = Check_BodyPart(lua, 2);
+			if (part)
+			{
+				lua_pushboolean(lua, obj->hasBodyPart(part));
+				return 1;
+			}
+		}
+		lua_pushboolean(lua, false);
 		return 1;
 	}
 
