@@ -9,7 +9,7 @@ namespace game {
 
 	enum StatModifierType 
 	{
-		MOD_ADD, MOD_MULTIPLY, MOD_MULTIPLY_SET, MOD_MAX_LENGTH
+		MOD_ADD, MOD_MULTIPLY, MOD_SET, MOD_MAX_LENGTH
 	};
 
 	class Stats;

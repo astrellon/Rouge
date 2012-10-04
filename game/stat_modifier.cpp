@@ -13,7 +13,7 @@ namespace am {
 namespace game {
 
 	const char *StatModifier::sStatModifierNames[] = {
-		"+", "*", "*=", "MOD_MAX_LENGTH"
+		"+", "*", "=", "MOD_MAX_LENGTH"
 	};
 
 	StatModifier::StatModifier() :

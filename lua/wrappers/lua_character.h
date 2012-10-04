@@ -38,6 +38,16 @@ namespace game {
 	int Character_remove_body_part(lua_State *lua);
 	int Character_has_body_part(lua_State *lua);
 
+	int Character_equip_item(lua_State *lua);
+	int Character_unequip_item(lua_State *lua);
+	int Character_get_equipped(lua_State *lua);
+	
+	int Character_pickup_item(lua_State *lua);
+	int Character_add_item(lua_State *lua);
+	int Character_remove_item(lua_State *lua);
+	int Character_has_item(lua_State *lua);
+	int Character_drop_item(lua_State *lua);
+
 	am::game::Character *Check_Character(lua_State *lua, int n);
 
 }

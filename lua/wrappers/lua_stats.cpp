@@ -18,6 +18,8 @@ using namespace std;
 
 #include <log/logger.h>
 
+#include <lua/wrappers/lua_stat_modifiers.h>
+
 namespace am {
 namespace lua {
 namespace game {
@@ -54,8 +56,8 @@ namespace game {
 			{ "get_stat", Stats_get_stat },
 			{ "add_modifier", Stats_add_modifier },
 			{ "remove_modifier", Stats_remove_modifier },
-			{ "add_modifiers", NULL },
-			{ "remove_modifiers", NULL },
+			{ "add_modifiers", Stats_add_modifiers },
+			{ "remove_modifiers", Stats_remove_modifiers },
 			{ NULL, NULL }
 		};
 
@@ -222,6 +224,27 @@ namespace game {
 					stats->removeStatModifier(stat, StatModifier(value, type));
 				}
 			}
+		}
+		return 0;
+	}
+
+	int Stats_add_modifiers(lua_State *lua)
+	{
+		Stats *stats = Check_Stats(lua, 1);
+		StatModifiers *modifiers = Check_StatModifiers(lua, 2);
+		if (stats && modifiers)
+		{
+			stats->addModifiers(*modifiers);
+		}
+		return 0;
+	}
+	int Stats_remove_modifiers(lua_State *lua)
+	{
+		Stats *stats = Check_Stats(lua, 1);
+		StatModifiers *modifiers = Check_StatModifiers(lua, 2);
+		if (stats && modifiers)
+		{
+			stats->removeModifiers(*modifiers);
 		}
 		return 0;
 	}

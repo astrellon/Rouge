@@ -6,6 +6,7 @@ extern "C"
 }
 
 #include <game/stats_common.h>
+#include <game/stat_modifier.h>
 using namespace am::game;
 
 namespace am {
@@ -32,7 +33,11 @@ namespace game {
 	int Stats_add_modifier(lua_State *lua);
 	int Stats_remove_modifier(lua_State *lua);
 
+	int Stats_add_modifiers(lua_State *lua);
+	int Stats_remove_modifiers(lua_State *lua);
+
 	Stat::StatType getStat(lua_State *lua, int arg);
+	StatModifierType getStatModifier(lua_State *lua, int n);
 
 	am::game::Stats *Check_Stats(lua_State *lua, int n);
 

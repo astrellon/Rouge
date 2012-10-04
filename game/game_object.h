@@ -89,8 +89,6 @@ namespace game {
 
 		Map *mMap;
 
-		//virtual void setGameId(int id);
-
 		static void addGameObject(GameObject *obj);
 		static void removeGameObject(GameObject *obj);
 

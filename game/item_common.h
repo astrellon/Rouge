@@ -13,7 +13,10 @@ namespace game {
 		static const char *ItemTypeNames[];
 		static const char *ItemTypeNameIds[];
 
-		static ItemType getItemTypeFromName(const char *name);
+		static ItemType getItemType(const char *name);
+		static ItemType getItemType(int typeValue);
+
+		static const char *getItemTypeName(ItemType type);
 	};
 
 }

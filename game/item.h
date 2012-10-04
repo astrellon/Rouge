@@ -23,7 +23,7 @@ namespace game {
 	public:
 
 		enum ItemLocation {
-			GROUND, INVENTORY, HAND
+			GROUND, INVENTORY, HAND, MAX_LENGTH
 		};
 
 		Item();
@@ -87,6 +87,11 @@ namespace game {
 		virtual string getName() const;
 		virtual const char *getGameObjectTypeName() const;
 
+		static ItemLocation getItemLocationType(const char *typeName);
+		static ItemLocation getItemLocationType(int typeValue);
+
+		static const char *getItemLocationTypeName(ItemLocation location);
+
 	protected:
 		
 		Handle<Sprite> mGraphic;
@@ -106,16 +111,14 @@ namespace game {
 
 		int mQuestItemId;
 
-		/*float mMinDamage;
-		float mMaxDamage;
-		float mArmourClass;*/
-
 		StatModifiers mStatModifiers;
 
 		virtual void updateFullname();
 		virtual void updateGraphic();
 
 		virtual void parseStats(const JsonObject &stats, bool magical);
+
+		static const char *sItemLocationNames[];
 	};
 
 }

@@ -14,7 +14,7 @@ namespace game {
 		"bow", "ring", "amulet", "leggings", "boots", "shield", "potion",
 		"gold", "unknown" };
 
-	ItemCommon::ItemType ItemCommon::getItemTypeFromName(const char *name)
+	ItemCommon::ItemType ItemCommon::getItemType(const char *name)
 	{
 		if (name == NULL)
 		{
@@ -30,6 +30,23 @@ namespace game {
 			}
 		}
 		return static_cast<ItemType>(i);
+	}
+	ItemCommon::ItemType ItemCommon::getItemType(int typeValue)
+	{
+		if (typeValue < 0 || typeValue >= UNKNOWN)
+		{
+			return UNKNOWN;
+		}
+		return static_cast<ItemType>(typeValue);
+	}
+
+	const char *ItemCommon::getItemTypeName(ItemCommon::ItemType type)
+	{
+		if (type < 0 && type >= UNKNOWN)
+		{
+			return ItemTypeNameIds[type];
+		}
+		return NULL;
 	}
 
 }

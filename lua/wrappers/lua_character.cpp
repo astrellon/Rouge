@@ -10,6 +10,7 @@ extern "C"
 #include <lua/lua_state.h>
 #include <lua/wrappers/lua_stats.h>
 #include <lua/wrappers/lua_body_part.h>
+#include <lua/wrappers/lua_item.h>
 using namespace am::lua;
 
 #include <game/character.h>
@@ -68,15 +69,15 @@ namespace game {
 			{ "remove_body_part", Character_remove_body_part },
 			{ "has_body_part", Character_has_body_part },
 			{ "get_body_parts", NULL },
-			{ "equip_item", NULL },
-			{ "unequip_item", NULL },
+			{ "equip_item", Character_equip_item },
+			{ "unequip_item", Character_unequip_item },
 			{ "get_equipped", NULL },
 			{ "get_inventory", NULL },
-			{ "pickup_item", NULL },
-			{ "add_item", NULL },
-			{ "remove_item", NULL },
-			{ "has_item", NULL },
-			{ "drop_item", NULL },
+			{ "pickup_item", Character_pickup_item },
+			{ "add_item", Character_add_item },
+			{ "remove_item", Character_remove_item },
+			{ "has_item", Character_has_item },
+			{ "drop_item", Character_drop_item },
 			{ "set_age", Character_set_age },
 			{ "get_age", Character_get_age },
 			{ "set_race", NULL },
@@ -288,6 +289,125 @@ namespace game {
 		return 1;
 	}
 
+	int Character_equip_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item)
+		{
+			if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, obj->equipItem(item, lua_tostring(lua, -1)));
+				return 1;
+			}
+			else
+			{
+				BodyPart *part = Check_BodyPart(lua, 3);
+				if (part)
+				{
+					lua_pushboolean(lua, obj->equipItem(item, part->getName()));
+					return 1;
+				}
+			}
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_unequip_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, obj->unequipItem(lua_tostring(lua, -1)));
+				return 1;
+			}
+			else
+			{
+				BodyPart *part = Check_BodyPart(lua, 3);
+				if (part)
+				{
+					lua_pushboolean(lua, obj->unequipItem(part->getName()));
+					return 1;
+				}
+			}
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_get_equipped(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isstring(lua, -1))
+		{
+			Item_wrap(lua, obj->getEquipped(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_pickup_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item)
+		{
+			lua_pushboolean(lua, obj->pickupItem(item));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_add_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item)
+		{
+			lua_pushboolean(lua, obj->addItem(item));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_remove_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item)
+		{
+			lua_pushboolean(lua, obj->removeItem(item));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_has_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item)
+		{
+			lua_pushboolean(lua, obj->hasItem(item));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_drop_item(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (obj && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		{
+			lua_pushboolean(lua, obj->dropItem(item, lua_tonumber(lua, -2), lua_tonumber(lua, -1)));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
 }
 }
 }

@@ -17,6 +17,10 @@ using namespace std;
 namespace am {
 namespace game {
 
+	const char *Item::sItemLocationNames[] = {
+		"ground", "inventory", "hand", "MAX_LENGTH"
+	};
+
 	Item::Item() :
 		GameObject(),
 		mGraphic(NULL),
@@ -98,7 +102,7 @@ namespace game {
 		{
 			return;
 		}
-		mItemType = ItemCommon::getItemTypeFromName(name);
+		mItemType = ItemCommon::getItemType(name);
 	}
 	const char *Item::getItemTypeName() const
 	{
@@ -383,7 +387,7 @@ namespace game {
 				}
 				else if (foundMulti >= 0)
 				{
-					type = MOD_MULTIPLY_SET;
+					type = MOD_SET;
 				}
 
 				int i = max(0, max(foundAdd, foundMulti));
@@ -439,5 +443,33 @@ namespace game {
 		return string(getFullItemName());
 	}
 
+	Item::ItemLocation Item::getItemLocationType(const char *typeName)
+	{
+		for (int i = 0; i < MAX_LENGTH; i++)
+		{
+			if (strcmp(sItemLocationNames[i], typeName) == 0)
+			{
+				return static_cast<ItemLocation>(i);
+			}
+		}
+		return MAX_LENGTH;
+	}
+	Item::ItemLocation Item::getItemLocationType(int typeValue)
+	{
+		if (typeValue < 0 || typeValue >= MAX_LENGTH)
+		{
+			return MAX_LENGTH;
+		}
+		return static_cast<ItemLocation>(typeValue);
+	}
+
+	const char *Item::getItemLocationTypeName(Item::ItemLocation location)
+	{
+		if (location < 0 || location >= Item::MAX_LENGTH)
+		{
+			return NULL;
+		}
+		return sItemLocationNames[location];
+	}
 }
 }
