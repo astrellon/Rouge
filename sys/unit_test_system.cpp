@@ -16,6 +16,8 @@
 #include <tests/test_lua_character.h>
 #include <tests/test_lua_stats.h>
 #include <tests/test_lua_stat_modifiers.h>
+#include <tests/test_lua_item.h>
+#include <tests/test_lua_inventory.h>
 using namespace am::tests;
 
 namespace am {
@@ -65,6 +67,8 @@ namespace sys {
 		runSuite(TestLuaCharacter);
 		runSuite(TestLuaStats);
 		runSuite(TestLuaStatModifiers);
+		runSuite(TestLuaItem);
+		runSuite(TestLuaInventory);
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)
