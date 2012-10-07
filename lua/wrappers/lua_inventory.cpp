@@ -111,9 +111,16 @@ namespace game {
 	{
 		Inventory *inv = Check_Inventory(lua, 1);
 		Item *item = Check_Item(lua, 2);
-		if (inv && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (inv && item)
 		{
-			lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+			if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			{
+				lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+			}
+			else
+			{
+				lua_pushboolean(lua, inv->addItem(item));
+			}
 			return 1;
 		}
 		lua_pushboolean(lua, false);

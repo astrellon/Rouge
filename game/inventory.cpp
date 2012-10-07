@@ -36,7 +36,7 @@ namespace game {
 	}
 	unsigned short Inventory::getSpacesY() const
 	{
-		return mSpacesX;
+		return mSpacesY;
 	}
 
 	bool Inventory::hasSpaceFor(const Item *item) const
