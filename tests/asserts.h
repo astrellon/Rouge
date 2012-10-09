@@ -64,6 +64,8 @@ namespace tests {
 		static bool _equals(const char *file, unsigned int line, const double &expected, const double &actual, bool notCompare);
 		static bool _equals(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
 		static bool _equals(const char *file, unsigned int line, const double &expected, const double &actual, bool notCompare, double delta=0.00001);
+		
+		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
 
 	};
 }
@@ -82,6 +84,11 @@ namespace tests {
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true)) { return false; }
 #	define notEqualsDelta(expected, actual, delta) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true, delta)) { return false; }
+
+#	define equalsStr(expected, actual)	\
+	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, false)) { return false; }
+#	define notEqualsStr(expected, actual)	\
+	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, true)) { return false; }
 #else
 #	define assert(a) _assert(a, __FILE__, __LINE__)
 

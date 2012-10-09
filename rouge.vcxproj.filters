@@ -592,6 +592,21 @@
     <ClCompile Include="tests\test_lua_item.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_map.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_tile.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_tile_type.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_tile_type.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_tile.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1085,6 +1100,21 @@
       <Filter>tests\game</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_lua_item.h">
+      <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_map.h">
+      <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_tile.h">
+      <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_tile_type.h">
+      <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_tile_type.h">
+      <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_tile.h">
       <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>

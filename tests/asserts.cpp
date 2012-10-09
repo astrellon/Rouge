@@ -31,7 +31,7 @@ namespace tests {
 	bool Asserts::_equals(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare) {
 		if (notCompare) {
 			if (strcmp(expected, actual) == 0) {
-				dispError(expected, actual, file, line);
+				dispNotError(expected, file, line);
 				return false;
 			}
 			return true;
@@ -48,13 +48,26 @@ namespace tests {
 		bool equal = diff >= -delta && diff <= delta;
 		if (notCompare) {
 			if (equal) {
-				dispError(expected, actual, delta, file, line);
+				dispNotError(expected, actual, delta, file, line);
 				return false;
 			}
 			return true;
 		}
 		if (!equal) {
 			dispError(expected, actual, delta, file, line);
+			return false;
+		}
+		return true;
+	}
+
+	bool Asserts::_equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare) {
+		int cmp = strcmp(expected, actual);
+		if (notCompare && cmp == 0) {
+			dispNotError(expected, file, line);
+			return false;
+		}
+		else if (!notCompare && cmp != 0) {
+			dispError(expected, actual, file, line);
 			return false;
 		}
 		return true;

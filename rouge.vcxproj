@@ -210,9 +210,12 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_character.cpp" />
     <ClCompile Include="lua\wrappers\lua_inventory.cpp" />
     <ClCompile Include="lua\wrappers\lua_item.cpp" />
+    <ClCompile Include="lua\wrappers\lua_map.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
     <ClCompile Include="lua\wrappers\lua_stats.cpp" />
     <ClCompile Include="lua\wrappers\lua_stat_modifiers.cpp" />
+    <ClCompile Include="lua\wrappers\lua_tile.cpp" />
+    <ClCompile Include="lua\wrappers\lua_tile_type.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
     <ClCompile Include="math\transform.cpp" />
     <ClCompile Include="math\transform_lite.cpp" />
@@ -233,6 +236,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_lua_quest.cpp" />
     <ClCompile Include="tests\test_lua_stats.cpp" />
     <ClCompile Include="tests\test_lua_stat_modifiers.cpp" />
+    <ClCompile Include="tests\test_lua_tile.cpp" />
+    <ClCompile Include="tests\test_lua_tile_type.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_selector.cpp" />
@@ -371,9 +376,12 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_character.h" />
     <ClInclude Include="lua\wrappers\lua_inventory.h" />
     <ClInclude Include="lua\wrappers\lua_item.h" />
+    <ClInclude Include="lua\wrappers\lua_map.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
     <ClInclude Include="lua\wrappers\lua_stats.h" />
     <ClInclude Include="lua\wrappers\lua_stat_modifiers.h" />
+    <ClInclude Include="lua\wrappers\lua_tile.h" />
+    <ClInclude Include="lua\wrappers\lua_tile_type.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
     <ClInclude Include="math\matrix.h" />
     <ClInclude Include="math\transform.h" />
@@ -397,6 +405,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_lua_quest.h" />
     <ClInclude Include="tests\test_lua_stats.h" />
     <ClInclude Include="tests\test_lua_stat_modifiers.h" />
+    <ClInclude Include="tests\test_lua_tile.h" />
+    <ClInclude Include="tests\test_lua_tile_type.h" />
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_selector.h" />

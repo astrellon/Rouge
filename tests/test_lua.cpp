@@ -42,13 +42,13 @@ namespace tests {
 
 		const char *name = lua.getTableString("name");
 		assert(name != NULL);
-		assert(strcmp("Melli", name) == 0);
+		equalsStr("Melli", name);
 		int age = 0;
 		assert(lua.getTableInt("age", age));
 		equals(22, age);
 		name = lua.getTableString("name");
 		assert(name != NULL);
-		assert(strcmp("Melli", name) == 0);
+		equalsStr("Melli", name);
 
 		lua.pop(1);
 
@@ -94,7 +94,7 @@ namespace tests {
 
 		lua.call(0, 1);
 		const char *callResult = lua_tostring(lua, -1);
-		assert(strcmp(callResult, "hello there") == 0);
+		equalsStr(callResult, "hello there");
 		lua.pop(1);
 		equals(0, lua_gettop(lua));
 
@@ -111,7 +111,7 @@ namespace tests {
 
 		lua_call(lua, 0, 1);
 		callResult = lua_tostring(lua, -1);
-		assert(strcmp(callResult, "how are you?") == 0);
+		equalsStr(callResult, "how are you?");
 		lua.pop(1);
 		equals(0, lua_gettop(lua));
 
@@ -134,15 +134,15 @@ namespace tests {
 			"end");
 
 		string name = lua.getGlobalString("name");
-		assert(name.compare("none") == 0);
+		equalsStr("none", name.c_str());
 
 		assert(lua.hasGlobalFunction("testFunc"));
 		lua.call(0, 0);
 
 		name = lua.getGlobalString("name");
-		assert(name.compare("Test Name") == 0);
+		equalsStr("Test Name", name.c_str());
 
-		assert(testCharacter->getName().compare("Test Name changed") == 0);
+		equalsStr("Test Name changed", testCharacter->getName().c_str());
 
 		return true;
 	}

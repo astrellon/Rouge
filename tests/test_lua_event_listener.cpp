@@ -53,7 +53,7 @@ namespace tests {
 		assert(loadResult);
 
 		string eventCalled = lua.getGlobalString("eventCalled");
-		assert(eventCalled.compare("none") == 0);
+		equalsStr("none", eventCalled.c_str());
 		equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
@@ -64,14 +64,14 @@ namespace tests {
 		manager.fireEvent<Event>(testEvent);
 
 		eventCalled = lua.getGlobalString("eventCalled");
-		assert(eventCalled.compare("testEvent") == 0);
+		equalsStr("testEvent", eventCalled.c_str());
 		equals(1, lua.getGlobalInt("timesCalled"));
 
 		Handle<Event> testEvent2(new Event("testEvent"));
 		manager.fireEvent<Event>(testEvent2);
 
 		eventCalled = lua.getGlobalString("eventCalled");
-		assert(eventCalled.compare("testEvent") == 0);
+		equalsStr("testEvent", eventCalled.c_str());
 		equals(1, lua.getGlobalInt("timesCalled"));
 		
 		return true;
@@ -101,7 +101,7 @@ namespace tests {
 
 		lua_getglobal(lua, "eventCalled");
 		const char *eventCalled = lua_tostring(lua, -1);
-		assert(strcmp("none", eventCalled) == 0);
+		equalsStr("none", eventCalled) == 0);
 		equals(-1, lua.getGlobalInt("mouseX"));
 		equals(-1, lua.getGlobalInt("mouseY"));
 		equals(-1, lua.getGlobalInt("mouseButton"));
@@ -113,7 +113,7 @@ namespace tests {
 
 		lua_getglobal(lua, "eventCalled");
 		eventCalled = lua_tostring(lua, -1);
-		assert(strcmp("mouse_move", eventCalled) == 0);
+		equalsStr("mouse_move", eventCalled) == 0);
 		equals(8, lua.getGlobalInt("mouseX"));
 		equals(10, lua.getGlobalInt("mouseY"));
 		equals(1, lua.getGlobalInt("mouseButton"));

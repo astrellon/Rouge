@@ -50,12 +50,12 @@ namespace tests {
 		assert(loadResult);
 
 		Handle<Character> char1 = dynamic_cast<Character *>(Character::getByGameId("char1"));
-		assert(char1->getName().compare("Melli") == 0);
+		equalsStr("Melli", char1->getName().c_str());
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua.call(0, 1);
 		const char *name = lua_tostring(lua, -1);
-		assert(strcmp(name, "Melli") == 0);
+		equalsStr("Melli", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua.call(0, 1);
@@ -63,11 +63,11 @@ namespace tests {
 		lua.pop(1);
 
 		char1->setName("Melanie");
-		assert(char1->getName().compare("Melanie") == 0);
+		equalsStr("Melanie", char1->getName().c_str());
 		assert(lua.hasGlobalFunction("getName"));
 		lua.call(0, 1);
 		name = lua_tostring(lua, -1);
-		assert(strcmp(name, "Melanie") == 0);
+		equalsStr("Melanie", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua.call(0, 1);
@@ -79,11 +79,11 @@ namespace tests {
 		lua.call(1, 0);
 		char1->setAge(56.8f);
 
-		assert(char1->getName().compare("Mel") == 0);
+		equalsStr("Mel", char1->getName().c_str());
 		assert(lua.hasGlobalFunction("getName"));
 		lua.call(0, 1);
 		name = lua_tostring(lua, -1);
-		assert(strcmp(name, "Mel") == 0);
+		equalsStr("Mel", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua.call(0, 1);
@@ -118,7 +118,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getGender"));
 		lua.call(0, 1);
 		const char *genderName = lua_tostring(lua, -1);
-		assert(strcmp("male", genderName) == 0);
+		equalsStr("male", genderName);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("changeGender"));
@@ -129,7 +129,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getGender"));
 		lua.call(0, 1);
 		genderName = lua_tostring(lua, -1);
-		assert(strcmp("female", genderName) == 0);
+		equalsStr("female", genderName);
 		lua.pop(1);
 
 		return true;

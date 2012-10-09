@@ -93,8 +93,8 @@ namespace tests {
 		Selector selector;
 		testChar->getSelector(selector);
 		equalsDelta(23.0f, selector.getAttribute("age").getFloat(), 0.001f);
-		assert(strcmp(Gender::getGenderName(Gender::FEMALE), selector.getAttribute("gender").getCStr()) == 0);
-		assert(strcmp("human", selector.getAttribute("race").getCStr()) == 0);
+		equalsStr(Gender::getGenderName(Gender::FEMALE), selector.getAttribute("gender").getCStr());
+		equalsStr("human", selector.getAttribute("race").getCStr());
 
 		return true;
 	}
