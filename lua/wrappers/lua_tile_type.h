@@ -16,7 +16,7 @@ namespace game {
 	const char TileType_tableName[] = "am_game_TileType";
 
 	int TileType_ctor(lua_State *lua);
-	void TileType_wrap(lua_State *lua, am::game::TileType *stats);
+	void TileType_wrap(lua_State *lua, am::game::TileType *type);
 
 	int TileType_dtor(lua_State *lua);
 	int TileType_register(lua_State *lua);

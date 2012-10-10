@@ -16,7 +16,7 @@ namespace game {
 	const char Map_tableName[] = "am_game_Map";
 
 	int Map_ctor(lua_State *lua);
-	void Map_wrap(lua_State *lua, am::game::Map *stats);
+	void Map_wrap(lua_State *lua, am::game::Map *map);
 
 	int Map_dtor(lua_State *lua);
 	int Map_register(lua_State *lua);

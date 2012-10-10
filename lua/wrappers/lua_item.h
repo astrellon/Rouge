@@ -16,7 +16,7 @@ namespace game {
 	const char Item_tableName[] = "am_game_Item";
 
 	int Item_ctor(lua_State *lua);
-	void Item_wrap(lua_State *lua, am::game::Item *stats);
+	void Item_wrap(lua_State *lua, am::game::Item *item);
 
 	int Item_dtor(lua_State *lua);
 	int Item_register(lua_State *lua);

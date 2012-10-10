@@ -14,24 +14,24 @@ extern "C"
 namespace am {
 namespace tests {
 
-	class TestLuaTile : public TestSuite {
+	class TestLuaTileSet : public TestSuite {
 	public:
-		TestLuaTile() {}
-		~TestLuaTile() {}
+		TestLuaTileSet() {}
+		~TestLuaTileSet() {}
 	
 		virtual void runCases() {
 			runCase(testSimple);
-			runCase(testTileTypes);
+			runCase(testTiles);
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::lua::game::TestLuaTile";
+			return "am::lua::game::TestLuaTileSet";
 		}
 
 	protected:
 
 		bool testSimple();
-		bool testTileTypes();
+		bool testTiles();
 
 	};
 

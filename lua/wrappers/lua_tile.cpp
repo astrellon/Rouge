@@ -18,6 +18,7 @@ using namespace am::game;
 using namespace am::util;
 
 #include <lua/wrappers/lua_tile_type.h>
+#include <lua/wrappers/lua_tile_set.h>
 
 namespace am {
 namespace lua {
@@ -67,14 +68,14 @@ namespace game {
 			{ "set_full_name", Tile_set_full_name },
 			{ "get_description", Tile_get_description },
 			{ "set_description", Tile_set_description },
-			{ "get_tile_set", NULL },
-			{ "set_tile_set", NULL },
+			{ "get_tile_set", Tile_get_tile_set },
+			{ "set_tile_set", Tile_set_tile_set },
 			{ "add_tile_type", Tile_add_tile_type },
 			{ "remove_tile_type", Tile_remove_tile_type },
 			{ "remove_all_tile_types", Tile_remove_all_tile_types },
 			{ "has_tile_type", Tile_has_tile_type },
 			{ "get_tile_types", NULL },
-			{ "load_def", NULL },
+			{ "load_def", Tile_load_def },
 			{ NULL, NULL }
 		};
 
@@ -155,6 +156,28 @@ namespace game {
 		return 0;
 	}
 
+	int Tile_get_tile_set(lua_State *lua)
+	{
+		Tile *tile = Check_Tile(lua, 1);
+		if (tile && tile->getTileSet())
+		{
+			TileSet_wrap(lua, tile->getTileSet());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Tile_get_tile_set(lua_State *lua)
+	{
+		Tile *tile = Check_Tile(lua, 1);
+		TileSet *set = Check_TileSet(lua, 2);
+		if (tile && set)
+		{
+			tile->setTileSet(set);
+		}
+		return 0;
+	}
+
 	int Tile_add_tile_type(lua_State *lua)
 	{
 		Tile *tile = Check_Tile(lua, 1);
@@ -198,7 +221,23 @@ namespace game {
 			TileType *tileType = getTileType(lua, -1);
 			if (tileType)
 			{
-				tile->hasTileType(tileType);
+				lua_pushboolean(lua, tile->hasTileType(tileType));
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Tile_load_def(lua_State *lua)
+	{
+		Tile *tile = Check_Tile(lua, 1);
+		if (tile && lua_isstring(lua, -1))
+		{
+			JsonValue value = JsonValue::import(lua_tostring(lua, -1));
+			if (value.getType() == JV_OBJ)
+			{
+				tile->loadDef(value);
 			}
 		}
 		return 0;

@@ -16,7 +16,7 @@ namespace game {
 	const char Inventory_tableName[] = "am_game_Inventory";
 
 	int Inventory_ctor(lua_State *lua);
-	void Inventory_wrap(lua_State *lua, am::game::Inventory *stats);
+	void Inventory_wrap(lua_State *lua, am::game::Inventory *inv);
 
 	int Inventory_dtor(lua_State *lua);
 	int Inventory_register(lua_State *lua);

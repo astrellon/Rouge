@@ -17,7 +17,7 @@ namespace game {
 	const char Tile_tableName[] = "am_game_Tile";
 
 	int Tile_ctor(lua_State *lua);
-	void Tile_wrap(lua_State *lua, am::game::Tile *stats);
+	void Tile_wrap(lua_State *lua, am::game::Tile *tile);
 
 	int Tile_dtor(lua_State *lua);
 	int Tile_register(lua_State *lua);
@@ -31,10 +31,15 @@ namespace game {
 	int Tile_get_description(lua_State *lua);
 	int Tile_set_description(lua_State *lua);
 
+	int Tile_get_tile_set(lua_State *lua);
+	int Tile_set_tile_set(lua_State *lua);
+
 	int Tile_add_tile_type(lua_State *lua);
 	int Tile_remove_tile_type(lua_State *lua);
 	int Tile_remove_all_tile_types(lua_State *lua);
 	int Tile_has_tile_type(lua_State *lua);
+
+	int Tile_load_def(lua_State *lua);
 
 	am::game::TileType *getTileType(lua_State *lua, int n);
 

@@ -42,6 +42,12 @@ namespace tests {
 			"function setFullName(name)\n"
 			"	tile:set_full_name(name)\n"
 			"end\n"
+			"function getDescription()\n"
+			"	return tile:get_description()\n"
+			"end\n"
+			"function setDescription(desc)\n"
+			"	tile:set_description(desc)\n"
+			"end\n"
 			));
 
 		assert(lua.hasGlobalFunction("getName"));
@@ -65,6 +71,100 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getFullName"));
 		lua.call(0, 1);
 		equalsStr("New Full Name", lua_tostring(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("setDescription"));
+		lua.push("New Description");
+		lua.call(1, 0);
+
+		assert(lua.hasGlobalFunction("getDescription"));
+		lua.call(0, 1);
+		equalsStr("New Description", lua_tostring(lua, -1));
+		lua.pop(1);
+
+		return true;
+	}
+
+	bool TestLuaTile::testTileTypes() {
+		LuaState lua;
+		
+		assert(lua.loadString("Tile = import(\"Tile\")\n"
+			"TileType = import(\"TileType\")\n"
+			"tile = Tile.new(\"testTile2\")\n"
+			"function addTileType(type)\n"
+			"	tile:add_tile_type(type)\n"
+			"end\n"
+			"function removeTileType(type)\n"
+			"	tile:remove_tile_type(type)\n"
+			"end\n"
+			"function removeAllTileTypes()\n"
+			"	tile:remove_all_tile_types()\n"
+			"end\n"
+			"function hasTileType(type)\n"
+			"	return tile:has_tile_type(type)\n"
+			"end\n"
+			));
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+
+		TileType *type = new TileType("superType", "Super Type");
+		TileType::addTileType(type);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		TileType_wrap(lua, type);
+		lua.call(1, 1);
+		assert(!lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		lua.push("superType");
+		lua.call(1, 1);
+		assert(!lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("addTileType"));
+		TileType_wrap(lua, type);
+		lua.call(1, 0);
+		
+		assert(lua.hasGlobalFunction("hasTileType"));
+		TileType_wrap(lua, type);
+		lua.call(1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		lua.push("superType");
+		lua.call(1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("removeTileType"));
+		lua.push("superType");
+		lua.call(1, 0);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		lua.push("superType");
+		lua.call(1, 1);
+		assert(!lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("addTileType"));
+		TileType_wrap(lua, type);
+		lua.call(1, 0);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		lua.push("superType");
+		lua.call(1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(lua.hasGlobalFunction("removeAllTileTypes"));
+		lua.call(0, 0);
+
+		assert(lua.hasGlobalFunction("hasTileType"));
+		lua.push("superType");
+		lua.call(1, 1);
+		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		return true;

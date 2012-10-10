@@ -206,6 +206,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\src\lvm.c" />
     <ClCompile Include="lua\src\lzio.c" />
     <ClCompile Include="lua\wrappers\lua_body_part.cpp" />
+    <ClCompile Include="lua\wrappers\lua_engine.cpp" />
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_character.cpp" />
     <ClCompile Include="lua\wrappers\lua_inventory.cpp" />
@@ -215,6 +216,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_stats.cpp" />
     <ClCompile Include="lua\wrappers\lua_stat_modifiers.cpp" />
     <ClCompile Include="lua\wrappers\lua_tile.cpp" />
+    <ClCompile Include="lua\wrappers\lua_tile_set.cpp" />
     <ClCompile Include="lua\wrappers\lua_tile_type.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
     <ClCompile Include="math\transform.cpp" />
@@ -237,6 +239,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_lua_stats.cpp" />
     <ClCompile Include="tests\test_lua_stat_modifiers.cpp" />
     <ClCompile Include="tests\test_lua_tile.cpp" />
+    <ClCompile Include="tests\test_lua_tile_set.cpp" />
     <ClCompile Include="tests\test_lua_tile_type.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
@@ -372,6 +375,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\src\lvm.h" />
     <ClInclude Include="lua\src\lzio.h" />
     <ClInclude Include="lua\wrappers\lua_body_part.h" />
+    <ClInclude Include="lua\wrappers\lua_engine.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_character.h" />
     <ClInclude Include="lua\wrappers\lua_inventory.h" />
@@ -381,6 +385,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_stats.h" />
     <ClInclude Include="lua\wrappers\lua_stat_modifiers.h" />
     <ClInclude Include="lua\wrappers\lua_tile.h" />
+    <ClInclude Include="lua\wrappers\lua_tile_set.h" />
     <ClInclude Include="lua\wrappers\lua_tile_type.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
     <ClInclude Include="math\matrix.h" />
@@ -406,6 +411,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_lua_stats.h" />
     <ClInclude Include="tests\test_lua_stat_modifiers.h" />
     <ClInclude Include="tests\test_lua_tile.h" />
+    <ClInclude Include="tests\test_lua_tile_set.h" />
     <ClInclude Include="tests\test_lua_tile_type.h" />
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />

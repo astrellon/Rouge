@@ -36,10 +36,10 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Inventory_wrap(lua_State *lua, Inventory *stats)
+	void Inventory_wrap(lua_State *lua, Inventory *inv)
 	{
 		Inventory ** udata = (Inventory **)lua_newuserdata(lua, sizeof(Inventory *));
-		*udata = stats;
+		*udata = inv;
 
 		luaL_getmetatable(lua, Inventory_tableName);
 		lua_setmetatable(lua, -2);

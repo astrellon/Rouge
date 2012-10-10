@@ -16,7 +16,7 @@ namespace game {
 	const char BodyPart_tableName[] = "am_game_BodyPart";
 
 	int BodyPart_ctor(lua_State *lua);
-	void BodyPart_wrap(lua_State *lua, am::game::BodyPart *stats);
+	void BodyPart_wrap(lua_State *lua, am::game::BodyPart *part);
 
 	int BodyPart_dtor(lua_State *lua);
 	int BodyPart_register(lua_State *lua);

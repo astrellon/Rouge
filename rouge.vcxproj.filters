@@ -103,6 +103,9 @@
     <Filter Include="lua\wrapper">
       <UniqueIdentifier>{a70a3c62-e14e-4d08-8de5-6e833a069a96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua\wrapper\game">
+      <UniqueIdentifier>{a230bc82-6e08-4791-a96f-a45ce3b33935}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -556,26 +559,11 @@
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_character.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_character.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_stats.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_stats.cpp">
       <Filter>tests\game</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_body_part.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_item.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_stat_modifiers.cpp">
-      <Filter>lua\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_lua_stat_modifiers.cpp">
       <Filter>tests\game</Filter>
@@ -583,28 +571,52 @@
     <ClCompile Include="lua\lua_state.cpp">
       <Filter>lua</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_inventory.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_inventory.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_lua_item.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_map.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_tile.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_tile_type.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_tile_type.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_lua_tile.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_body_part.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_character.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_inventory.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_item.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_map.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_stat_modifiers.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_stats.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_tile.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_tile_type.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_engine.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_tile_set.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_tile_set.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1069,32 +1081,14 @@
     <ClInclude Include="lua\wrappers\lua_event_manager.h">
       <Filter>lua\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_character.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_lua_character.h">
       <Filter>tests\game</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_stats.h">
-      <Filter>lua\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_lua_stats.h">
       <Filter>tests\game</Filter>
     </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_body_part.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_item.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_stat_modifiers.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_lua_stat_modifiers.h">
       <Filter>tests\game</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_inventory.h">
-      <Filter>lua\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_lua_inventory.h">
       <Filter>tests\game</Filter>
@@ -1102,19 +1096,46 @@
     <ClInclude Include="tests\test_lua_item.h">
       <Filter>tests\game</Filter>
     </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_map.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_tile.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_tile_type.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_lua_tile_type.h">
       <Filter>tests\game</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_lua_tile.h">
+      <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_body_part.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_character.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_map.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_inventory.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_item.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_tile_type.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_stat_modifiers.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_stats.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_tile.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_engine.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_tile_set.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_tile_set.h">
       <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>

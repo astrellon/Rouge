@@ -10,6 +10,8 @@
 #include "lua_map.h"
 #include "lua_tile.h"
 #include "lua_tile_type.h"
+#include "lua_tile_set.h"
+#include "lua_engine.h"
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -28,7 +30,9 @@ namespace wrapper {
 		LuaState::registerWrapper("Inventory", am::lua::game::Inventory_register);
 		LuaState::registerWrapper("Map", am::lua::game::Map_register);
 		LuaState::registerWrapper("Tile", am::lua::game::Tile_register);
+		LuaState::registerWrapper("TileSet", am::lua::game::TileSet_register);
 		LuaState::registerWrapper("TileType", am::lua::game::TileType_register);
+		LuaState::registerWrapper("Engine", am::lua::game::Engine_register);
 
 		LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}
