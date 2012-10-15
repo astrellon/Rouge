@@ -8,6 +8,9 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <game/item.h>
+using namespace am::game;
+
 extern "C" 
 { 
 #	include <lua/src/lua.h>
@@ -23,6 +26,7 @@ namespace tests {
 		
 		int loadResult = lua.loadString("Item = import(\"Item\")\n"
 			"item = Item.new()\n"
+			"item:set_game_id(\"testItem\")\n"
 			);
 		
 		if (!loadResult)
@@ -30,7 +34,19 @@ namespace tests {
 			lua.logStack("LOAD ERR");
 		}
 		assert(loadResult);
+		
+		{
+			Handle<Item> item(dynamic_cast<Item *>(Item::getByGameId("testItem")));
+			assert(item != NULL);
 
+			equals(2, item->getReferenceCounter());
+			
+			lua.close();
+
+			equals(1, item->getReferenceCounter());
+
+		}
+		
 		return true;
 	}
 }

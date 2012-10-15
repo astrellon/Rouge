@@ -26,10 +26,12 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			TileSet *tile = new TileSet(lua_tostring(lua, -1));
+			tile->retain();
 			TileSet_wrap(lua, tile);
 			return 1;
 		}
 		TileSet *tile = new TileSet();
+		tile->retain();
 		TileSet_wrap(lua, tile);
 		return 1;
 	}
@@ -44,6 +46,11 @@ namespace game {
 
 	int TileSet_dtor(lua_State *lua)
 	{
+		TileSet *set = Check_TileSet(lua, 1);
+		if (set)
+		{
+			set->release();
+		}
 		return 0;
 	}
 

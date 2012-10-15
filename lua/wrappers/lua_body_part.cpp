@@ -41,6 +41,11 @@ namespace game {
 
 	int BodyPart_dtor(lua_State *lua)
 	{
+		BodyPart *part = Check_BodyPart(lua, 1);
+		if (part)
+		{
+			delete part;
+		}
 		return 0;
 	}
 

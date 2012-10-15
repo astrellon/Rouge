@@ -24,7 +24,6 @@ namespace ui {
 	int EventManager_ctor(lua_State *lua)
 	{
 		EventManager *manager = new EventManager();
-		
 		EventManager_wrap(lua, manager);
 		return 1;
 	}
@@ -39,6 +38,11 @@ namespace ui {
 
 	int EventManager_dtor(lua_State *lua)
 	{
+		EventManager *manager = Check_EventManager(lua, 1);
+		if (manager)
+		{
+			delete manager;
+		}
 		return 0;
 	}
 

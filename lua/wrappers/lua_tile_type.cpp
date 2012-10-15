@@ -49,6 +49,11 @@ namespace game {
 
 	int TileType_dtor(lua_State *lua)
 	{
+		TileType *type = Check_TileType(lua, 1);
+		if (type)
+		{
+			delete type;
+		}
 		return 0;
 	}
 

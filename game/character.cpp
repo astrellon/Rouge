@@ -142,7 +142,6 @@ namespace game {
 			Item *equipped = part->getEqippedItem();
 			if (equipped != NULL)
 			{
-				//mStats.addModifiers(equipped->getStatModifiers());
 				_equipItem(equipped, name.c_str());
 			}
 			mBodyParts[name] = part;

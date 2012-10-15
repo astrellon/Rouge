@@ -25,15 +25,15 @@ namespace game {
 
 	int StatModifiers_ctor(lua_State *lua)
 	{
-		StatModifiers *manager = new StatModifiers();
+		StatModifiers *stats = new StatModifiers();
 		
-		StatModifiers_wrap(lua, manager);
+		StatModifiers_wrap(lua, stats);
 		return 1;
 	}
-	void StatModifiers_wrap(lua_State *lua, StatModifiers *manager)
+	void StatModifiers_wrap(lua_State *lua, StatModifiers *stats)
 	{
 		StatModifiers ** udata = (StatModifiers **)lua_newuserdata(lua, sizeof(StatModifiers *));
-		*udata = manager;
+		*udata = stats;
 
 		luaL_getmetatable(lua, StatModifiers_tableName);
 		lua_setmetatable(lua, -2);
@@ -41,6 +41,11 @@ namespace game {
 
 	int StatModifiers_dtor(lua_State *lua)
 	{
+		StatModifiers *stats = Check_StatModifiers(lua, 1);
+		if (stats)
+		{
+			delete stats;
+		}
 		return 0;
 	}
 

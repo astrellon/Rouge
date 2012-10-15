@@ -63,6 +63,11 @@ namespace game {
 	int Item_set_grid_location(lua_State *lua);
 	int Item_get_grid_location(lua_State *lua);
 
+	int Item_set_game_id(lua_State *lua);
+	int Item_get_game_id(lua_State *lua);
+
+	int Item_get_by_game_id(lua_State *lua);
+
 	am::game::Item *Check_Item(lua_State *lua, int n);
 
 }

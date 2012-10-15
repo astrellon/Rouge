@@ -22,6 +22,7 @@ namespace game {
 	int Item_ctor(lua_State *lua)
 	{
 		Item *item = new Item();
+		item->retain();
 		
 		Item_wrap(lua, item);
 		return 1;
@@ -37,6 +38,11 @@ namespace game {
 
 	int Item_dtor(lua_State *lua)
 	{
+		Item *item = Check_Item(lua, 1);
+		if (item)
+		{
+			item->release();
+		}
 		return 0;
 	}
 
@@ -95,8 +101,10 @@ namespace game {
 			{ "remove_all_passible_type", NULL },
 			{ "has_passible_type", NULL },
 			{ "get_passible_types", NULL },
-			{ "set_game_id", NULL },
-			{ "get_game_id", NULL },
+			{ "set_game_id", Item_set_game_id },
+			{ "get_game_id", Item_get_game_id },
+			// Static GameObject methods
+			{ "get_by_game_id", Item_get_by_game_id },
 			{ NULL, NULL }
 		};
 
@@ -464,6 +472,44 @@ namespace game {
 		lua_pushnil(lua);
 		lua_pushnil(lua);
 		return 2;
+	}
+
+	int Item_set_game_id(lua_State *lua)
+	{
+		Item *item = Check_Item(lua, 1);
+		if (item && lua_isstring(lua, -1))
+		{
+			lua_pushboolean(lua, item->setGameId(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Item_get_game_id(lua_State *lua)
+	{
+		Item *item = Check_Item(lua, 1);
+		if (item)
+		{
+			lua_pushstring(lua, item->getGameId());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Item_get_by_game_id(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			am::game::Item *item = dynamic_cast<Item *>(Item::getByGameId(lua_tostring(lua, -1)));
+			if (item)
+			{
+				Item_wrap(lua, item);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
 	}
 
 }

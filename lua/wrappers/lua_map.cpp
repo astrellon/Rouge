@@ -26,12 +26,14 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -1));
+			map->retain();
 			Map_wrap(lua, map);
 			return 1;
 		}
 		else if (args == 3 && lua_isstring(lua, -3) && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -3), lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			map->retain();
 			Map_wrap(lua, map);
 			return 1;
 		}
@@ -49,6 +51,11 @@ namespace game {
 
 	int Map_dtor(lua_State *lua)
 	{
+		Map *map = Check_Map(lua, 1);
+		if (map)
+		{
+			map->release();
+		}
 		return 0;
 	}
 

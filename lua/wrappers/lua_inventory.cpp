@@ -28,9 +28,9 @@ namespace game {
 	{
 		if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
-			Inventory *stats = new Inventory(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-		
-			Inventory_wrap(lua, stats);
+			Inventory *inv = new Inventory(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			inv->retain();
+			Inventory_wrap(lua, inv);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -47,6 +47,11 @@ namespace game {
 
 	int Inventory_dtor(lua_State *lua)
 	{
+		Inventory *inv = Check_Inventory(lua, 1);
+		if (inv)
+		{
+			inv->release();
+		}
 		return 0;
 	}
 

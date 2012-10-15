@@ -30,6 +30,7 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Tile *tile = new Tile(lua_tostring(lua, -1));
+			tile->retain();
 			Tile_wrap(lua, tile);
 			return 1;
 		}
@@ -53,6 +54,11 @@ namespace game {
 
 	int Tile_dtor(lua_State *lua)
 	{
+		Tile *tile = Check_Tile(lua, 1);
+		if (tile)
+		{
+			tile->release();
+		}
 		return 0;
 	}
 
@@ -167,7 +173,7 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Tile_get_tile_set(lua_State *lua)
+	int Tile_set_tile_set(lua_State *lua)
 	{
 		Tile *tile = Check_Tile(lua, 1);
 		TileSet *set = Check_TileSet(lua, 2);

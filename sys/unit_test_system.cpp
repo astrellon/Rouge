@@ -21,6 +21,7 @@
 #include <tests/test_lua_tile_type.h>
 #include <tests/test_lua_tile.h>
 #include <tests/test_lua_tile_set.h>
+#include <tests/test_lua_engine.h>
 using namespace am::tests;
 
 namespace am {
@@ -75,6 +76,7 @@ namespace sys {
 		runSuite(TestLuaTileType);
 		runSuite(TestLuaTile);
 		runSuite(TestLuaTileSet);
+		runSuite(TestLuaEngine);
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)

@@ -38,7 +38,7 @@ namespace game {
 			obj = new Character();
 			obj->setGameId(id);
 		}
-
+		obj->retain();
 		Character_wrap(lua, obj);
 		return 1;
 	}
@@ -53,6 +53,11 @@ namespace game {
 
 	int Character_dtor(lua_State *lua)
 	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			obj->release();
+		}
 		return 0;
 	}
 

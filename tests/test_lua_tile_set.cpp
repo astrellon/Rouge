@@ -117,6 +117,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("myTile");
 		lua.call(1, 1);
+		lua_getmetatable(lua, -1);
 		Tile *get = Check_Tile(lua, 1);
 		lua.pop(1);
 		assert(tile == get);

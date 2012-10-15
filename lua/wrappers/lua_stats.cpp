@@ -27,7 +27,7 @@ namespace game {
 	int Stats_ctor(lua_State *lua)
 	{
 		Stats *stats = new Stats();
-		
+
 		Stats_wrap(lua, stats);
 		return 1;
 	}
@@ -42,6 +42,11 @@ namespace game {
 
 	int Stats_dtor(lua_State *lua)
 	{
+		Stats *stats = Check_Stats(lua, 1);
+		if (stats)
+		{
+			delete stats;
+		}
 		return 0;
 	}
 
