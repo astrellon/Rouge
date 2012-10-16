@@ -26,14 +26,12 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -1));
-			map->retain();
 			Map_wrap(lua, map);
 			return 1;
 		}
 		else if (args == 3 && lua_isstring(lua, -3) && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -3), lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-			map->retain();
 			Map_wrap(lua, map);
 			return 1;
 		}
@@ -44,6 +42,8 @@ namespace game {
 	{
 		Map ** udata = (Map **)lua_newuserdata(lua, sizeof(Map *));
 		*udata = map;
+
+		map->retain();
 
 		luaL_getmetatable(lua, Map_tableName);
 		lua_setmetatable(lua, -2);

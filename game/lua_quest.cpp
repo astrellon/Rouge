@@ -9,9 +9,9 @@ namespace game {
 	LuaQuest::LuaQuest(const char *questId) :
 		Quest(questId)
 	{
-		lua_pushlightuserdata(mLua, this);
-		lua_setglobal(mLua, "__quest");
-		//lua_register(mLua, "addEventListener", luaAddEventListener);
+		//lua_pushlightuserdata(mLua, this);
+		//lua_setglobal(mLua, "__quest");
+
 	}
 
 	LuaQuest::~LuaQuest()

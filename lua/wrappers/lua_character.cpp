@@ -18,6 +18,9 @@ using namespace am::game;
 #include <lua/wrappers/lua_body_part.h>
 #include <lua/wrappers/lua_item.h>
 #include <lua/wrappers/lua_inventory.h>
+#include <lua/wrappers/lua_map.h>
+#include <lua/wrappers/lua_tile_type.h>
+#include <lua/wrappers/lua_event_manager.h>
 
 namespace am {
 namespace lua {
@@ -38,7 +41,6 @@ namespace game {
 			obj = new Character();
 			obj->setGameId(id);
 		}
-		obj->retain();
 		Character_wrap(lua, obj);
 		return 1;
 	}
@@ -46,6 +48,8 @@ namespace game {
 	{
 		Character ** udata = (Character **)lua_newuserdata(lua, sizeof(Character *));
 		*udata = character;
+
+		character->retain();
 
 		luaL_getmetatable(lua, Character_tableName);
 		lua_setmetatable(lua, -2);
@@ -76,7 +80,7 @@ namespace game {
 			{ "add_body_part", Character_add_body_part },
 			{ "remove_body_part", Character_remove_body_part },
 			{ "has_body_part", Character_has_body_part },
-			{ "get_body_parts", NULL },
+			{ "get_body_parts", Character_get_body_parts },
 			{ "equip_item", Character_equip_item },
 			{ "unequip_item", Character_unequip_item },
 			{ "get_equipped", Character_get_equipped },
@@ -102,20 +106,20 @@ namespace game {
 			{ "talk_to", Character_talk_to },
 			{ "set_fixed_to_grid", Character_set_fixed_to_grid },
 			{ "is_fixed_to_grid", Character_is_fixed_to_grid },
-			{ "set_map", NULL },
-			{ "get_map", NULL },
-			{ "add_passible_type", NULL },
-			{ "remove_passible_type", NULL },
-			{ "remove_all_passible_types", NULL },
-			{ "has_passible_type", NULL },
-			{ "get_passible_types", NULL },
-			{ "set_game_id", NULL },
-			{ "get_game_id", NULL },
-			{ "get_by_game_id", NULL },
+			{ "set_map", Character_set_map },
+			{ "get_map", Character_get_map },
+			{ "add_passible_type", Character_add_passible_type },
+			{ "remove_passible_type", Character_remove_passible_type },
+			{ "remove_all_passible_types", Character_remove_all_passible_types },
+			{ "has_passible_type", Character_has_passible_type },
+			{ "get_passible_types", Character_get_passible_types },
+			{ "set_game_id", Character_set_game_id },
+			{ "get_game_id", Character_get_game_id },
+			{ "get_by_game_id", Character_get_by_game_id },
 			// EventListener methods
-			{ "add_event_listener", NULL },
-			{ "remove_event_listener", NULL },
-			{ "has_event_listener", NULL },
+			{ "add_event_listener", Character_add_event_listener },
+			{ "remove_event_listener", Character_remove_event_listener },
+			{ "has_event_listener", Character_has_event_listener },
 			{ NULL, NULL }
 		};
 
@@ -236,6 +240,26 @@ namespace game {
 			}
 		}
 		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Character_get_body_parts(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			LuaState L(lua);
+			L.newTable();
+			const BodyPart::BodyPartMap &map = obj->getBodyParts();
+			BodyPart::BodyPartMap::const_iterator iter;
+			for (iter = map.begin(); iter != map.end(); ++iter)
+			{
+				lua_pushstring(lua, iter->first.c_str());
+				BodyPart_wrap(lua, iter->second);
+				lua_settable(lua, -3);
+			}
+			return 1;
+		}
+		lua_pushnil(lua);
 		return 1;
 	}
 
@@ -552,6 +576,163 @@ namespace game {
 		{
 			lua_pushboolean(lua, obj->isFixedToGrid());
 			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+
+	int Character_set_map(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		Map *map = Check_Map(lua, 2);
+		if (obj && map)
+		{
+			obj->setMap(map);
+		}
+		return 0;
+	}
+	int Character_get_map(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			Map *map = obj->getMap();
+			if (map)
+			{
+				Map_wrap(lua, map);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_add_passible_type(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		TileType *type = Check_TileType(lua, 2);
+		if (obj && type)
+		{
+			obj->addPassibleType(type);
+		}
+		return 0;
+	}
+	int Character_remove_passible_type(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		TileType *type = Check_TileType(lua, 2);
+		if (obj && type)
+		{
+			obj->removePassibleType(type);
+		}
+		return 0;
+	}
+	int Character_remove_all_passible_types(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			obj->removeAllPassibleTypes();
+		}
+		return 0;
+	}
+	int Character_has_passible_type(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		TileType *type = Check_TileType(lua, 2);
+		if (obj && type)
+		{
+			lua_pushboolean(lua, obj->hasPassibleType(type));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Character_get_passible_types(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			LuaState L(lua);
+			L.newTable();
+			const GameObject::PassibleTypeList &list = obj->getPassibleTypes();
+			for (int i = 0; i < list.size(); i++)
+			{
+				lua_pushinteger(lua, i);
+				TileType_wrap(lua, list[i]);
+				lua_settable(lua, -3);
+			}
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_get_by_game_id(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			Character *obj = dynamic_cast<Character *>(Character::getByGameId(lua_tostring(lua, -1)));
+			if (obj)
+			{
+				Character_wrap(lua, obj);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_game_id(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isstring(lua, -1))
+		{
+			obj->setGameId(lua_tostring(lua, -1));
+		}
+		return 0;
+	}
+	int Character_get_game_id(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			lua_pushstring(lua, obj->getGameId());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_add_event_listener(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isstring(lua, -2))
+		{
+			am::lua::ui::addEventListener(lua, obj);
+		}
+		return 0;
+	}
+	int Character_remove_event_listener(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isstring(lua, -2))
+		{
+			am::lua::ui::removeEventListener(lua, obj);
+		}
+		return 0;
+	}
+	int Character_has_event_listener(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			const char *eventType = lua_tostring(lua, -1);
+			if (eventType != NULL)
+			{
+				lua_pushboolean(lua, obj->hasEventListener(eventType));
+				return 1;
+			}
 		}
 		lua_pushboolean(lua, false);
 		return 1;

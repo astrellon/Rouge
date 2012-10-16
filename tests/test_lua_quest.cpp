@@ -6,6 +6,8 @@
 using namespace am::lua;
 
 #include <game/lua_quest.h>
+#include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 extern "C" 
@@ -30,28 +32,47 @@ namespace tests {
 		LuaQuest quest("lua1");
 		LuaState &lua = quest.getLua();
 
-		lua_getglobal(lua, "__quest");
-		LuaQuest *questP = reinterpret_cast<LuaQuest *>(lua_touserdata(lua, -1));
-		assert(questP == &quest);
+		Engine *prevEng = Engine::getEngine();
+		Engine *eng = new Engine();
+		Engine::setEngine(eng);
 
-		lua.pop(1);
+		Handle<Game> game(new Game(eng));
+		eng->setCurrentGame(game);
 
-		lua_register(lua, "getLevel", getLevel);
-		assert(!lua.hasGlobalFunction("startQuest", true));
-		quest.loadQuestString("function startQuest()\n"
-			"	if getLevel() < 5 then\n"
-			"		return false\n"
-			"	else\n"
-			"		return true\n"
-			"	end\n"
-			"end");
-		assert(lua.hasGlobalFunction("startQuest", true));
-		assert(!quest.startQuest());
+		Handle<Character> main(new Character());
+		main->setGameId("testMainChar");
+		game->setMainCharacter(main);
 
-		sLevel = 10;
+		int loadResult = lua.loadString("Character = import(\"Character\")\n"
+			"Game = import(\"Game\")\n"
+			"Engine = import(\"Engine\")\n"
+			"local main = nil\n"
+			"local game = Engine.get_current_game()\n"
+			"main = game:get_main_character()\n"
+			"function init()\n"
+			"	main:add_event_listener(\"start_event\", startQuest)\n"
+			"end\n"
+			"function startQuest()\n"
+			"	am_log(\"QUEST STARTED\")\n"
+			"end\n"
+			);
 
-		assert(quest.startQuest());
-		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		assert(lua.hasGlobalFunction("init"));
+		lua.call(0, 0);
+
+		Handle<Event> startEvent(new Event("start_event"));
+		main->fireEvent<Event>(startEvent);
+
+		Engine::setEngine(prevEng);
+
+		delete eng;
+
 		return true;
 	}
 

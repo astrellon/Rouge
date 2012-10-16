@@ -22,7 +22,6 @@ namespace game {
 	int Item_ctor(lua_State *lua)
 	{
 		Item *item = new Item();
-		item->retain();
 		
 		Item_wrap(lua, item);
 		return 1;
@@ -31,6 +30,8 @@ namespace game {
 	{
 		Item ** udata = (Item **)lua_newuserdata(lua, sizeof(Item *));
 		*udata = item;
+
+		item->retain();
 
 		luaL_getmetatable(lua, Item_tableName);
 		lua_setmetatable(lua, -2);

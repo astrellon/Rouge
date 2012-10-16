@@ -26,12 +26,10 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			TileSet *tile = new TileSet(lua_tostring(lua, -1));
-			tile->retain();
 			TileSet_wrap(lua, tile);
 			return 1;
 		}
 		TileSet *tile = new TileSet();
-		tile->retain();
 		TileSet_wrap(lua, tile);
 		return 1;
 	}
@@ -39,6 +37,8 @@ namespace game {
 	{
 		TileSet ** udata = (TileSet **)lua_newuserdata(lua, sizeof(TileSet *));
 		*udata = tile;
+
+		tile->retain();
 
 		luaL_getmetatable(lua, TileSet_tableName);
 		lua_setmetatable(lua, -2);

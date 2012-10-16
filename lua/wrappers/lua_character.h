@@ -31,6 +31,7 @@ namespace game {
 	int Character_add_body_part(lua_State *lua);
 	int Character_remove_body_part(lua_State *lua);
 	int Character_has_body_part(lua_State *lua);
+	int Character_get_body_parts(lua_State *lua);
 
 	int Character_equip_item(lua_State *lua);
 	int Character_unequip_item(lua_State *lua);
@@ -66,6 +67,24 @@ namespace game {
 
 	int Character_set_fixed_to_grid(lua_State *lua);
 	int Character_is_fixed_to_grid(lua_State *lua);
+
+	int Character_set_map(lua_State *lua);
+	int Character_get_map(lua_State *lua);
+
+	int Character_add_passible_type(lua_State *lua);
+	int Character_remove_passible_type(lua_State *lua);
+	int Character_remove_all_passible_types(lua_State *lua);
+	int Character_has_passible_type(lua_State *lua);
+	int Character_get_passible_types(lua_State *lua);
+
+	int Character_get_by_game_id(lua_State *lua);
+
+	int Character_set_game_id(lua_State *lua);
+	int Character_get_game_id(lua_State *lua);
+
+	int Character_add_event_listener(lua_State *lua);
+	int Character_remove_event_listener(lua_State *lua);
+	int Character_has_event_listener(lua_State *lua);
 
 	am::game::Character *Check_Character(lua_State *lua, int n);
 

@@ -30,7 +30,6 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Tile *tile = new Tile(lua_tostring(lua, -1));
-			tile->retain();
 			Tile_wrap(lua, tile);
 			return 1;
 		}
@@ -47,6 +46,8 @@ namespace game {
 	{
 		Tile ** udata = (Tile **)lua_newuserdata(lua, sizeof(Tile *));
 		*udata = tile;
+
+		tile->retain();
 
 		luaL_getmetatable(lua, Tile_tableName);
 		lua_setmetatable(lua, -2);

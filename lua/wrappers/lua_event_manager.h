@@ -8,6 +8,7 @@ extern "C"
 namespace am {
 namespace ui {
 	class EventManager;
+	class IEventManager;
 }
 
 namespace lua {
@@ -24,6 +25,9 @@ namespace ui {
 	int EventManager_addEventListener(lua_State *lua);
 	int EventManager_removeEventListener(lua_State *lua);
 	int EventManager_hasEventListener(lua_State *lua);
+
+	int addEventListener(lua_State *lua, am::ui::IEventManager *manager);
+	int removeEventListener(lua_State *lua, am::ui::IEventManager *manager);
 	
 	am::ui::EventManager *Check_EventManager(lua_State *lua, int n);
 

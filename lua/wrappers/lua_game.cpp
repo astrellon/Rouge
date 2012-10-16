@@ -25,14 +25,16 @@ namespace game {
 	int Game_ctor(lua_State *lua)
 	{
 		Game *game = new Game(Engine::getEngine());
-		game->retain();
+		
 		Game_wrap(lua, game);
 		return 1;
 	}
-	void Game_wrap(lua_State *lua, Game *character)
+	void Game_wrap(lua_State *lua, Game *game)
 	{
 		Game ** udata = (Game **)lua_newuserdata(lua, sizeof(Game *));
-		*udata = character;
+		*udata = game;
+
+		game->retain();
 
 		luaL_getmetatable(lua, Game_tableName);
 		lua_setmetatable(lua, -2);
