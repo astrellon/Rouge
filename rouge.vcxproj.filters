@@ -538,9 +538,6 @@
     <ClCompile Include="game\quest.cpp">
       <Filter>game\quests</Filter>
     </ClCompile>
-    <ClCompile Include="game\lua_quest.cpp">
-      <Filter>game\quests</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_quest.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
@@ -623,6 +620,12 @@
       <Filter>tests\game</Filter>
     </ClCompile>
     <ClCompile Include="lua\wrappers\lua_game.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\lua_based_quest.cpp">
+      <Filter>game\quests</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_quest.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1066,9 +1069,6 @@
     <ClInclude Include="game\quest.h">
       <Filter>game\quests</Filter>
     </ClInclude>
-    <ClInclude Include="game\lua_quest.h">
-      <Filter>game\quests</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_lua_quest.h">
       <Filter>tests\game</Filter>
     </ClInclude>
@@ -1148,6 +1148,12 @@
       <Filter>tests\game</Filter>
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_game.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\lua_based_quest.h">
+      <Filter>game\quests</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_quest.h">
       <Filter>lua\wrapper\game</Filter>
     </ClInclude>
   </ItemGroup>

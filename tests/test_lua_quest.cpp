@@ -5,7 +5,7 @@
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <game/lua_quest.h>
+#include <game/lua_based_quest.h>
 #include <game/engine.h>
 #include <game/game.h>
 using namespace am::game;
@@ -46,14 +46,14 @@ namespace tests {
 		int loadResult = lua.loadString("Character = import(\"Character\")\n"
 			"Game = import(\"Game\")\n"
 			"Engine = import(\"Engine\")\n"
-			"local main = nil\n"
 			"local game = Engine.get_current_game()\n"
-			"main = game:get_main_character()\n"
+			"local main = game:get_main_character()\n"
 			"function init()\n"
 			"	main:add_event_listener(\"start_event\", startQuest)\n"
 			"end\n"
 			"function startQuest()\n"
-			"	am_log(\"QUEST STARTED\")\n"
+			//"	am_log(\"QUEST STARTED\")\n"
+			
 			"end\n"
 			);
 

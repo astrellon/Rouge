@@ -1,4 +1,4 @@
-#include "lua_quest.h"
+#include "lua_based_quest.h"
 
 #include <sstream>
 using namespace std;
@@ -9,9 +9,8 @@ namespace game {
 	LuaQuest::LuaQuest(const char *questId) :
 		Quest(questId)
 	{
-		//lua_pushlightuserdata(mLua, this);
-		//lua_setglobal(mLua, "__quest");
-
+		lua_pushlightuserdata(mLua, this);
+		lua_setglobal(mLua, "__quest");
 	}
 
 	LuaQuest::~LuaQuest()
@@ -49,7 +48,16 @@ namespace game {
 		}
 		return Quest::startQuest();
 	}
-	bool LuaQuest::checkComplete()
+	bool LuaQuest::finishQuest()
+	{
+		return Quest::finishQuest();
+	}
+
+	void LuaQuest::setCompleted(bool completed)
+	{
+		Quest::setCompleted(completed);
+	}
+	bool LuaQuest::isCompleted()
 	{
 		if (mLua.hasGlobalFunction("checkComplete"))
 		{
@@ -58,37 +66,20 @@ namespace game {
 			lua_pop(mLua, 1);
 			return result;
 		}
-		return Quest::checkComplete();
+		return Quest::isCompleted();
 	}
 
-	void LuaQuest::setQuestProgress(int progress)
+	const char *LuaQuest::getTitle()
 	{
-		if (mLua.hasGlobalFunction("setQuestProgress"))
-		{
-			lua_call(mLua, 1, 1);
-			int result = lua_tointeger(mLua, -1);
-			lua_pop(mLua, 1);
-			Quest::setQuestProgress(result);
-		}
-		else
-		{
-			Quest::setQuestProgress(progress);
-		}
+		return Quest::getTitle();
 	}
-
-	void LuaQuest::setTotalQuestProgress(int total)
+	const char *LuaQuest::getDescription()
 	{
-		if (mLua.hasGlobalFunction("setTotalQuestProgress"))
-		{
-			lua_call(mLua, 1, 1);
-			int result = lua_tointeger(mLua, -1);
-			lua_pop(mLua, 1);
-			Quest::setTotalQuestProgress(result);
-		}
-		else
-		{
-			Quest::setTotalQuestProgress(total);
-		}
+		return Quest::getDescription();
+	}
+	const char *LuaQuest::getActiveText()
+	{
+		return Quest::getActiveText();
 	}
 
 	void LuaQuest::setAcceptedReward(bool accepted)

@@ -707,34 +707,34 @@ namespace game {
 	int Character_add_event_listener(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
-		if (obj && lua_isstring(lua, -2))
+		if (obj && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
-			am::lua::ui::addEventListener(lua, obj);
+			lua_pushboolean(lua, am::lua::ui::addEventListener(lua, obj));
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
 	int Character_remove_event_listener(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
-		if (obj && lua_isstring(lua, -2))
+		if (obj && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
-			am::lua::ui::removeEventListener(lua, obj);
+			lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, obj));
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
 	int Character_has_event_listener(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
-		if (obj)
+		if (obj && lua_isstring(lua, -1))
 		{
-			const char *eventType = lua_tostring(lua, -1);
-			if (eventType != NULL)
-			{
-				lua_pushboolean(lua, obj->hasEventListener(eventType));
-				return 1;
-			}
+			lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, -1)));
+			return 1;
 		}
-		lua_pushboolean(lua, false);
+		lua_pushnil(lua);
 		return 1;
 	}
 

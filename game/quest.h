@@ -22,13 +22,14 @@ namespace game {
 		virtual const char *getQuestId() const;
 
 		virtual bool startQuest();
-		virtual bool checkComplete();
+		virtual bool finishQuest();
 
-		virtual void setQuestProgress(int progress);
-		virtual int getQuestProgress() const;
+		virtual void setCompleted(bool completed);
+		virtual bool isCompleted();
 
-		virtual void setTotalQuestProgress(int total);
-		virtual int getTotalQuestProgress() const;
+		virtual const char *getTitle();
+		virtual const char *getDescription();
+		virtual const char *getActiveText();
 
 		virtual void setAcceptedReward(bool accepted);
 		virtual bool hasAcceptedReward() const;
@@ -40,9 +41,8 @@ namespace game {
 	protected:
 
 		string mQuestId;
-		int mQuestProgress;
-		int mTotalQuestProgress;
 		bool mAcceptedReward;
+		bool mCompleted;
 
 		typedef map<string, Quest *> QuestMap;
 		static QuestMap sQuestMap;

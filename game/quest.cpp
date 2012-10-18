@@ -17,21 +17,42 @@ namespace game {
 
 	bool Quest::startQuest()
 	{
-		if (mQuestProgress >= 0)
+		if (isCompleted())
 		{
 			return false;
 		}
-		mQuestProgress = 0;
 		return true;
 	}
-	bool Quest::checkComplete()
+	bool Quest::finishQuest()
 	{
-		if (mQuestProgress < mTotalQuestProgress)
+		if (isCompleted())
 		{
 			return false;
 		}
-
+		setCompleted(true);
 		return true;
+	}
+
+	void Quest::setCompleted(bool completed)
+	{
+		mCompleted = completed;
+	}
+	bool Quest::isCompleted()
+	{
+		return mCompleted;
+	}
+
+	const char *Quest::getTitle()
+	{
+		return "No Title";
+	}
+	const char *Quest::getDescription()
+	{
+		return "No Description";
+	}
+	const char *Quest::getActiveText()
+	{
+		return "No Active Text";
 	}
 
 	void Quest::setQuestId(const char *questId)
@@ -41,24 +62,6 @@ namespace game {
 	const char *Quest::getQuestId() const
 	{
 		return mQuestId.c_str();
-	}
-
-	void Quest::setQuestProgress(int progress)
-	{
-		mQuestProgress = progress;
-	}
-	int Quest::getQuestProgress() const
-	{
-		return mQuestProgress;
-	}
-
-	void Quest::setTotalQuestProgress(int total)
-	{
-		mTotalQuestProgress = total;
-	}
-	int Quest::getTotalQuestProgress() const
-	{
-		return mTotalQuestProgress;
 	}
 
 	void Quest::setAcceptedReward(bool accepted)

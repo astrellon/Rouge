@@ -18,10 +18,15 @@ namespace game {
 		bool loadQuestString(const char *questString);
 
 		virtual bool startQuest();
-		virtual bool checkComplete();
+		virtual bool finishQuest();
 
-		virtual void setQuestProgress(int progress);
-		virtual void setTotalQuestProgress(int total);
+		virtual void setCompleted(bool completed);
+		virtual bool isCompleted();
+
+		virtual const char *getTitle();
+		virtual const char *getDescription();
+		virtual const char *getActiveText();
+
 		virtual void setAcceptedReward(bool accepted);
 		
 		virtual LuaState &getLua();
