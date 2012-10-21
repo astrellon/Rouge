@@ -22,7 +22,8 @@ namespace game {
 		mMoveY(0),
 		mAge(1.0f),
 		mGender(Gender::MALE),
-		mRace(NULL)
+		mRace(NULL),
+		mCoinPurse(new CoinPurse())
 	{
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
@@ -286,7 +287,15 @@ namespace game {
 		{
 			return false;
 		}
-
+		if (item->getItemType() == ItemCommon::GOLD)
+		{
+			unsigned int value = item->getItemValue();
+			if (mCoinPurse->canAddCoin(value))
+			{
+				mCoinPurse->addCoin(value);
+				return true;
+			}
+		}
 		return mInventory->addItem(item);
 	}
 	bool Character::removeItem(Item *item)
@@ -382,6 +391,11 @@ namespace game {
 	Gender::GenderType Character::getGender() const
 	{
 		return mGender;
+	}
+
+	CoinPurse *Character::getCoinPurse() const
+	{
+		return mCoinPurse;
 	}
 
 	void Character::_equipItem(Item *item, const char *bodyPartName)

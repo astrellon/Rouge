@@ -22,6 +22,7 @@ using namespace am::util;
 #include "body_part.h"
 #include "stats.h"
 #include "gender.h"
+#include "coin_purse.h"
 
 namespace am {
 namespace game {
@@ -83,6 +84,8 @@ namespace game {
 		virtual void setGender(Gender::GenderType gender);
 		virtual Gender::GenderType getGender() const;
 
+		virtual CoinPurse *getCoinPurse() const;
+
 	protected:
 
 		Handle<IController> mController;
@@ -99,6 +102,8 @@ namespace game {
 		Handle<Sprite> mGraphic;
 
 		Handle<Inventory> mInventory;
+
+		Handle<CoinPurse> mCoinPurse;
 
 		Stats mStats;
 

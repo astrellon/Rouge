@@ -45,16 +45,8 @@ namespace game {
 		virtual short getInventorySizeX() const;
 		virtual short getInventorySizeY() const;
 
-		/*
-		virtual void setMinDamage(float dmg);
-		virtual float getMinDamage() const;
-
-		virtual void setMaxDamage(float dmg);
-		virtual float getMaxDamage() const;
-
-		virtual void setArmourClass(float ac);
-		virtual float getArmourClass() const;
-		*/
+		virtual void setItemValue(unsigned int value);
+		virtual unsigned int getItemValue() const;
 
 		virtual void setItemLocation(ItemLocation location);
 		virtual ItemLocation getItemLocation() const;
@@ -110,6 +102,8 @@ namespace game {
 		short mInventorySizeY;
 
 		int mQuestItemId;
+
+		unsigned int mItemValue;
 
 		StatModifiers mStatModifiers;
 

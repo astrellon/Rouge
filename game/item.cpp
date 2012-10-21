@@ -26,16 +26,13 @@ namespace game {
 		mGraphic(NULL),
 		mGroundGraphic(NULL),
 		mItemType(ItemCommon::UNKNOWN),
-		/*mMinDamage(0.0f),
-		mMaxDamage(0.0f),
-		mArmourClass(0.0f),*/
 		mInventorySizeX(1),
 		mInventorySizeY(1),
-		mItemLocation(GROUND)
+		mItemLocation(GROUND),
+		mItemValue(1)
 	{
 		setName("Item");
 		addPassibleType(TileType::getTileType("land"));
-		//setInteractive(true);
 	}
 	Item::~Item()
 	{
@@ -123,14 +120,12 @@ namespace game {
 		mName = item.mName;
 		mInventorySizeX = item.mInventorySizeX;
 		mInventorySizeY = item.mInventorySizeY;
-		/*mMinDamage = item.mMinDamage;
-		mMaxDamage = item.mMaxDamage;
-		mArmourClass = item.mArmourClass;*/
 		mStatModifiers = item.mStatModifiers;
 		mItemLocation = item.mItemLocation;
 		mItemName = item.mItemName;
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
+		mItemValue = item.mItemValue;
 		updateFullname();
 		updateGraphic();
 	}
@@ -153,34 +148,16 @@ namespace game {
 	{
 		return mInventorySizeY;
 	}
-	/*
-	void Item::setMinDamage(float dmg)
+	
+	void Item::setItemValue(unsigned int value)
 	{
-		mMinDamage = dmg;
+		mItemValue = value;
 	}
-	float Item::getMinDamage() const
+	unsigned int Item::getItemValue() const
 	{
-		return mMinDamage;
-	}
-
-	void Item::setMaxDamage(float dmg)
-	{
-		mMaxDamage = dmg;
-	}
-	float Item::getMaxDamage() const
-	{
-		return mMinDamage;
+		return mItemValue;
 	}
 
-	void Item::setArmourClass(float ac)
-	{
-		mArmourClass = ac;
-	}
-	float Item::getArmourClass() const
-	{
-		return mArmourClass;
-	}
-	*/
 	void Item::setItemLocation(ItemLocation location)
 	{
 		if (mItemLocation != location)
@@ -309,14 +286,6 @@ namespace game {
 				mInventorySizeY = 1;
 			}
 		}
-		/*if (value.has("minDamage", JV_INT) || value.has("minDamage", JV_FLOAT))
-		{
-			mMinDamage = value["minDamage"].getFloat();
-		}
-		if (value.has("maxDamage", JV_INT) || value.has("maxDamage", JV_FLOAT))
-		{
-			mMinDamage = value["maxDamage"].getFloat();
-		}*/
 		if (value.has("name", JV_STR))
 		{
 			mItemName = value["name"].getCStr();
@@ -350,10 +319,10 @@ namespace game {
 			parseStats(*value["magicalStats"].getObj(), true);
 		}
 
-		/*if (value.has("armour", JV_INT) || value.has("armour", JV_FLOAT))
+		if (value.has("value", JV_INT) || value.has("value", JV_FLOAT))
 		{
-			setArmourClass(value["armour"].getFloat());
-		}*/
+			setItemValue(static_cast<unsigned int>(value["value"].getInt()));
+		}
 	}
 
 	void Item::parseStats(const JsonObject &stats, bool magical)

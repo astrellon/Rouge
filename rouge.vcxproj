@@ -121,6 +121,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\body_part.cpp" />
     <ClCompile Include="game\camera.cpp" />
     <ClCompile Include="game\character.cpp" />
+    <ClCompile Include="game\coin_purse.cpp" />
     <ClCompile Include="game\dialogue.cpp" />
     <ClCompile Include="game\dialogue_choice.cpp" />
     <ClCompile Include="game\dialogue_selector.cpp" />
@@ -206,6 +207,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\src\lvm.c" />
     <ClCompile Include="lua\src\lzio.c" />
     <ClCompile Include="lua\wrappers\lua_body_part.cpp" />
+    <ClCompile Include="lua\wrappers\lua_coin_purse.cpp" />
     <ClCompile Include="lua\wrappers\lua_engine.cpp" />
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_character.cpp" />
@@ -298,6 +300,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\body_part.h" />
     <ClInclude Include="game\camera.h" />
     <ClInclude Include="game\character.h" />
+    <ClInclude Include="game\coin_purse.h" />
     <ClInclude Include="game\dialogue.h" />
     <ClInclude Include="game\dialogue_choice.h" />
     <ClInclude Include="game\dialogue_selector.h" />
@@ -378,6 +381,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\src\lvm.h" />
     <ClInclude Include="lua\src\lzio.h" />
     <ClInclude Include="lua\wrappers\lua_body_part.h" />
+    <ClInclude Include="lua\wrappers\lua_coin_purse.h" />
     <ClInclude Include="lua\wrappers\lua_engine.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_character.h" />
