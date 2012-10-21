@@ -56,8 +56,8 @@ namespace game {
 			{ "can_remove_coin", CoinPurse_can_remove_coin },
 			{ "add_coin", CoinPurse_add_coin },
 			{ "remove_coin", CoinPurse_remove_coin },
-			{ "set_max_coin", NULL },
-			{ "get_max_coin", NULL },
+			{ "set_max_coin", CoinPurse_set_max_coin },
+			{ "get_max_coin", CoinPurse_get_max_coin },
 			{ NULL, NULL }
 		};
 
@@ -80,7 +80,7 @@ namespace game {
 		CoinPurse *purse = Check_CoinPurse(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
-			purse->addCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
+			purse->setCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
 		}
 		return 0;
 	}
@@ -136,6 +136,27 @@ namespace game {
 			purse->removeCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
 		}
 		return 0;
+	}
+
+	int CoinPurse_set_max_coin(lua_State *lua)
+	{
+		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		if (purse && lua_isnumber(lua, -1))
+		{
+			purse->setMaxCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
+		}
+		return 0;
+	}
+	int CoinPurse_get_max_coin(lua_State *lua)
+	{
+		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		if (purse)
+		{
+			lua_pushinteger(lua, static_cast<int>(purse->getMaxCoin()));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
 	}
 
 }

@@ -102,7 +102,6 @@ namespace game {
 		Handle<Sprite> mGraphic;
 
 		Handle<Inventory> mInventory;
-
 		Handle<CoinPurse> mCoinPurse;
 
 		Stats mStats;

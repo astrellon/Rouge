@@ -28,6 +28,9 @@ namespace game {
 
 	int CoinPurse_add_coin(lua_State *lua);
 	int CoinPurse_remove_coin(lua_State *lua);
+
+	int CoinPurse_set_max_coin(lua_State *lua);
+	int CoinPurse_get_max_coin(lua_State *lua);
 	
 	am::game::CoinPurse *Check_CoinPurse(lua_State *lua, int n);
 
