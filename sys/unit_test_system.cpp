@@ -22,6 +22,7 @@
 #include <tests/test_lua_tile.h>
 #include <tests/test_lua_tile_set.h>
 #include <tests/test_lua_engine.h>
+#include <tests/test_levelable.h>
 using namespace am::tests;
 
 namespace am {
@@ -77,6 +78,27 @@ namespace sys {
 		runSuite(TestLuaTile);
 		runSuite(TestLuaTileSet);
 		runSuite(TestLuaEngine);
+		runSuite(TestLevelable);
+
+		const vector<string> &failed = TestSuite::getFailedTests();
+		if (failed.size() > 0)
+		{
+			stringstream ss;
+			ss << "-------------------\nFailed tests: ";
+			vector<string>::const_iterator iter;
+			bool first = true;
+			for (iter = failed.begin(); iter != failed.end(); ++iter)
+			{
+				if (!first)
+				{
+					ss << ", ";
+				}
+				first = false;
+				ss << iter->c_str();
+			}
+			ss << "\n-------------------";
+			am_log("FAILED", ss);
+		}
 	}
 	
 	void UnitTestSystem::reshape(int width, int height)

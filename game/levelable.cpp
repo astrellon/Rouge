@@ -5,6 +5,7 @@ namespace game {
 
 	Levelable::Levelable() :
 		mLevel(0),
+		mMaxLevel(0),
 		mExperience(0)
 	{
 	}
@@ -24,7 +25,7 @@ namespace game {
 		{
 			addLevels(level);
 		}
-		else
+		if (mLevel < mMaxLevel || mMaxLevel <= 0)
 		{
 			mExperience = experience;
 		}
@@ -47,18 +48,27 @@ namespace game {
 		return mLevel;
 	}
 
+	void Levelable::setMaxLevel(int level)
+	{
+		mMaxLevel = level;
+	}
+	int Levelable::getMaxLevel() const
+	{
+		return mMaxLevel;
+	}
+
 	int Levelable::getExperienceForLevel(int level) const
 	{
-		return level * 1000.0f;
+		return level * 1000;
 	}
 	int Levelable::getLevelFromExperience(int experience) const
 	{
-		return experience / 1000.0f;
+		return experience / 1000;
 	}
 
 	void Levelable::addLevels(int level)
 	{
-		while (level > mLevel && mLevel <= mMaxLevel)
+		while (level > mLevel && (mMaxLevel == 0 || mLevel < mMaxLevel))
 		{
 			// Leveled up.
 			mLevel++;

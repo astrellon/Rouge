@@ -634,6 +634,15 @@
     <ClCompile Include="lua\wrappers\lua_coin_purse.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="game\levelable.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_levelable.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_suite.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1167,6 +1176,12 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_coin_purse.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\levelable.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_levelable.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

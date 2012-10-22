@@ -40,18 +40,18 @@ namespace tests {
 		virtual void run() {
 			stringstream ss;
 			ss << "Starting tests for '" << getSuiteName() << "'";
-			am_log("SUITE", ss);\
+			am_log("SUITE", ss);
 			beforeSuite();
-			runCases();\
+			runCases();
 			ss.str("");
 			ss << (totalTests - testsFailed) << " of " << totalTests << " passed ";
 
 			if (testsFailed > 0) {
-				ss << "FAIL!";\
+				ss << "FAIL!";
+				addFailedTest(getSuiteName());
 			}
-			am_log("SUITE", ss);\
+			am_log("SUITE", ss);
 			afterSuite();
-		
 		}
 		virtual void runCases() = 0;
 	
@@ -59,9 +59,17 @@ namespace tests {
 			return "Unnamed";
 		}
 
+		static void addFailedTest(const char *testName) {
+			sFailedTests.push_back(string(testName));
+		}
+		static const vector<string> &getFailedTests() {
+			return sFailedTests;
+		}
 	protected:
 		int testsFailed;
 		int totalTests;
+
+		static vector<string> sFailedTests;
 	};
 
 }

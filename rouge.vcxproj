@@ -134,6 +134,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\item.cpp" />
     <ClCompile Include="game\item_common.cpp" />
     <ClCompile Include="game\item_instance.cpp" />
+    <ClCompile Include="game\levelable.cpp" />
     <ClCompile Include="game\lua_based_quest.cpp" />
     <ClCompile Include="game\map.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
@@ -234,6 +235,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_base.cpp" />
     <ClCompile Include="tests\test_character.cpp" />
     <ClCompile Include="tests\test_json_value.cpp" />
+    <ClCompile Include="tests\test_levelable.cpp" />
     <ClCompile Include="tests\test_lua.cpp" />
     <ClCompile Include="tests\test_lua_character.cpp" />
     <ClCompile Include="tests\test_lua_engine.cpp" />
@@ -250,6 +252,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_selector.cpp" />
     <ClCompile Include="tests\test_selector_value.cpp" />
+    <ClCompile Include="tests\test_suite.cpp" />
     <ClCompile Include="ui\data_event.cpp" />
     <ClCompile Include="ui\equip_event.cpp" />
     <ClCompile Include="ui\event.cpp" />
@@ -314,6 +317,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\item.h" />
     <ClInclude Include="game\item_common.h" />
     <ClInclude Include="game\item_instance.h" />
+    <ClInclude Include="game\levelable.h" />
     <ClInclude Include="game\lua_based_quest.h" />
     <ClInclude Include="game\map.h" />
     <ClInclude Include="game\player_controller.h" />
@@ -411,6 +415,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_base.h" />
     <ClInclude Include="tests\test_character.h" />
     <ClInclude Include="tests\test_json_value.h" />
+    <ClInclude Include="tests\test_levelable.h" />
     <ClInclude Include="tests\test_lua.h" />
     <ClInclude Include="tests\test_lua_character.h" />
     <ClInclude Include="tests\test_lua_engine.h" />

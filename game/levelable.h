@@ -29,7 +29,7 @@ namespace game {
 		int mMaxLevel;
 		int mExperience;
 
-		virtual void onLevelUp();
+		virtual void onLevelUp() {}
 
 		virtual void addLevels(int level);
 
