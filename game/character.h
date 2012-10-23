@@ -23,13 +23,14 @@ using namespace am::util;
 #include "stats.h"
 #include "gender.h"
 #include "coin_purse.h"
+#include "levelable.h"
 
 namespace am {
 namespace game {
 
 	class Race;
 
-	class Character : public IEventListener, public GameObject {
+	class Character : public IEventListener, public GameObject, public Levelable {
 	public:
 		Character();
 		~Character();

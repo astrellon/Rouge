@@ -57,6 +57,8 @@ namespace sys {
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 
+		mDebugConsole->setMaxEntries(100);
+
 		mDebugConsole->setVisible(true);
 
 		runSuite(TestBase);

@@ -13,6 +13,8 @@
 #include "lua_tile_set.h"
 #include "lua_engine.h"
 #include "lua_game.h"
+#include "lua_quest.h"
+#include "lua_coin_purse.h"
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -35,6 +37,8 @@ namespace wrapper {
 		LuaState::registerWrapper("TileType", am::lua::game::TileType_register);
 		LuaState::registerWrapper("Engine", am::lua::game::Engine_register);
 		LuaState::registerWrapper("Game", am::lua::game::Game_register);
+		LuaState::registerWrapper("CoinPurse", am::lua::game::CoinPurse_register);
+		LuaState::registerWrapper("Quest", am::lua::game::Quest_register);
 
 		LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}

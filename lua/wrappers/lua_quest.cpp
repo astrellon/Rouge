@@ -10,7 +10,7 @@ extern "C"
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <game/lua_based_quest.h>
+#include <game/quest.h>
 using namespace am::game;
 
 #include <lua/wrappers/lua_event_manager.h>
@@ -24,16 +24,16 @@ namespace game {
 		int args = lua_gettop(lua);
 		if (args == 1 && lua_isstring(lua, -1))
 		{
-			LuaQuest *quest = new LuaQuest(lua_tostring(lua, -1));
+			Quest *quest = new Quest(lua_tostring(lua, -1));
 			Quest_wrap(lua, quest);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Quest_wrap(lua_State *lua, LuaQuest *quest)
+	void Quest_wrap(lua_State *lua, Quest *quest)
 	{
-		LuaQuest ** udata = (LuaQuest **)lua_newuserdata(lua, sizeof(LuaQuest *));
+		Quest ** udata = (Quest **)lua_newuserdata(lua, sizeof(Quest *));
 		*udata = quest;
 
 		luaL_getmetatable(lua, Quest_tableName);
@@ -58,12 +58,18 @@ namespace game {
 			{ "__gc",  Quest_dtor },
 			{ "set_complete", Quest_set_complete },
 			{ "is_completed", Quest_is_completed },
+			{ "set_title", Quest_set_title },
 			{ "get_title", Quest_get_title },
+			{ "set_description", Quest_set_description },
 			{ "get_description", Quest_get_description },
+			{ "set_active_text", Quest_set_active_text },
 			{ "get_active_text", Quest_get_active_text },
 			{ "add_event_listener", Quest_add_event_listener },
 			{ "remove_event_listener", Quest_remove_event_listener },
 			{ "has_event_listener", Quest_has_event_listener },
+			{ "add_quest", Quest_add_quest },
+			{ "remove_quest", Quest_remove_quest },
+			{ "get_quest", Quest_get_quest },
 			{ NULL, NULL }
 		};
 
@@ -76,15 +82,15 @@ namespace game {
 		return 1;
 	}
 
-	LuaQuest *Check_Quest(lua_State *lua, int n)
+	Quest *Check_Quest(lua_State *lua, int n)
 	{
-		return *(LuaQuest **)luaL_checkudata(lua, n, Quest_tableName);
+		return *(Quest **)luaL_checkudata(lua, n, Quest_tableName);
 	}
 
 
 	int Quest_set_complete(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest && lua_isboolean(lua, -1))
 		{
 			quest->setCompleted(lua_toboolean(lua, -1) > 0);
@@ -93,7 +99,7 @@ namespace game {
 	}
 	int Quest_is_completed(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest)
 		{
 			lua_pushboolean(lua, quest->isCompleted());
@@ -103,9 +109,18 @@ namespace game {
 		return 1;
 	}
 
+	int Quest_set_title(lua_State *lua)
+	{
+		Quest *quest = Check_Quest(lua, 1);
+		if (quest && lua_isstring(lua, -1))
+		{
+			quest->setTitle(lua_tostring(lua, -1));
+		}
+		return 0;
+	}
 	int Quest_get_title(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest)
 		{
 			lua_pushstring(lua, quest->getTitle());
@@ -114,9 +129,19 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+
+	int Quest_set_description(lua_State *lua)
+	{
+		Quest *quest = Check_Quest(lua, 1);
+		if (quest && lua_isstring(lua, -1))
+		{
+			quest->setDescription(lua_tostring(lua, -1));
+		}
+		return 0;
+	}
 	int Quest_get_description(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest)
 		{
 			lua_pushstring(lua, quest->getDescription());
@@ -125,9 +150,19 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+
+	int Quest_set_active_text(lua_State *lua)
+	{
+		Quest *quest = Check_Quest(lua, 1);
+		if (quest && lua_isstring(lua, -1))
+		{
+			quest->setActiveText(lua_tostring(lua, -1));
+		}
+		return 0;
+	}
 	int Quest_get_active_text(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest)
 		{
 			lua_pushstring(lua, quest->getActiveText());
@@ -139,7 +174,7 @@ namespace game {
 
 	int Quest_add_event_listener(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
 			lua_pushboolean(lua, am::lua::ui::addEventListener(lua, quest));
@@ -150,7 +185,7 @@ namespace game {
 	}
 	int Quest_remove_event_listener(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
 			lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, quest));
@@ -161,11 +196,47 @@ namespace game {
 	}
 	int Quest_has_event_listener(lua_State *lua)
 	{
-		LuaQuest *quest = Check_Quest(lua, 1);
+		Quest *quest = Check_Quest(lua, 1);
 		if (quest && lua_isstring(lua, -1))
 		{
 			lua_pushboolean(lua, quest->hasEventListener(lua_tostring(lua, -1)));
 			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Quest_add_quest(lua_State *lua)
+	{
+		Quest *quest = Check_Quest(lua, 1);
+		if (quest)
+		{
+			lua_pushboolean(lua, Quest::addQuest(quest));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Quest_remove_quest(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			lua_pushboolean(lua, Quest::removeQuest(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Quest_get_quest(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			Quest *quest = dynamic_cast<Quest *>(Quest::getQuest(lua_tostring(lua, -1)));
+			if (quest)
+			{
+				Quest_wrap(lua, quest);
+				return 1;
+			}
 		}
 		lua_pushnil(lua);
 		return 1;

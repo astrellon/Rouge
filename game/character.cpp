@@ -27,7 +27,7 @@ namespace game {
 	{
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
-
+		mMaxLevel = 50;
 		addEventListener(MOUSE_UP, this);
 
 		mInventory = new Inventory(10, 6);

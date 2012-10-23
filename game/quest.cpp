@@ -6,13 +6,28 @@ namespace game {
 	Quest::QuestMap Quest::sQuestMap;
 
 	Quest::Quest(const char *questId) :
-		mQuestId(questId)
+		mQuestId(questId),
+		mEnabled(true),
+		mAcceptedReward(false),
+		mCompleted(false),
+		mTitle("No Title"),
+		mDescription("No Description"),
+		mActiveText("No Active Text")
 	{
 
 	}
 	Quest::~Quest()
 	{
 
+	}
+
+	void Quest::setEnabled(bool enabled)
+	{
+		mEnabled = enabled;
+	}
+	bool Quest::isEnabled() const
+	{
+		return mEnabled;
 	}
 
 	bool Quest::startQuest()
@@ -42,17 +57,31 @@ namespace game {
 		return mCompleted;
 	}
 
-	const char *Quest::getTitle()
+	void Quest::setTitle(const char *title)
 	{
-		return "No Title";
+		mTitle = title;
 	}
-	const char *Quest::getDescription()
+	const char *Quest::getTitle() const
 	{
-		return "No Description";
+		return mTitle.c_str();;
 	}
-	const char *Quest::getActiveText()
+
+	void Quest::setDescription(const char *desc)
 	{
-		return "No Active Text";
+		mDescription = desc;
+	}
+	const char *Quest::getDescription() const
+	{
+		return mDescription.c_str();
+	}
+
+	void Quest::setActiveText(const char *text)
+	{
+		mActiveText = text;
+	}
+	const char *Quest::getActiveText() const
+	{
+		return mActiveText.c_str();
 	}
 
 	void Quest::setQuestId(const char *questId)

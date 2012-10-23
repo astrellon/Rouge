@@ -21,6 +21,7 @@ using namespace am::game;
 #include <lua/wrappers/lua_map.h>
 #include <lua/wrappers/lua_tile_type.h>
 #include <lua/wrappers/lua_event_manager.h>
+#include <lua/wrappers/lua_coin_purse.h>
 
 namespace am {
 namespace lua {
@@ -96,6 +97,7 @@ namespace game {
 			{ "get_race", Character_get_race },
 			{ "set_gender", Character_set_gender },
 			{ "get_gender", Character_get_gender },
+			{ "get_coin_purse", Character_get_coin_purse },
 			// GameObject methods
 			{ "set_location", Character_set_location },
 			{ "get_location", Character_get_location },
@@ -120,6 +122,15 @@ namespace game {
 			{ "add_event_listener", Character_add_event_listener },
 			{ "remove_event_listener", Character_remove_event_listener },
 			{ "has_event_listener", Character_has_event_listener },
+			// Levelable methods
+			{ "set_experience", Character_set_experience },
+			{ "add_experience", Character_add_experience },
+			{ "get_experience", Character_get_experience },
+			{ "set_level", Character_set_level },
+			{ "add_level", Character_add_level },
+			{ "get_level", Character_get_level },
+			{ "set_max_level", Character_set_max_level },
+			{ "get_max_level", Character_get_max_level },
 			{ NULL, NULL }
 		};
 
@@ -484,6 +495,18 @@ namespace game {
 		return 1;
 	}
 
+	int Character_get_coin_purse(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			CoinPurse_wrap(lua, obj->getCoinPurse());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
 	int Character_set_location(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
@@ -656,7 +679,7 @@ namespace game {
 			LuaState L(lua);
 			L.newTable();
 			const GameObject::PassibleTypeList &list = obj->getPassibleTypes();
-			for (int i = 0; i < list.size(); i++)
+			for (int i = 0; i < static_cast<int>(list.size()); i++)
 			{
 				lua_pushinteger(lua, i);
 				TileType_wrap(lua, list[i]);
@@ -732,6 +755,87 @@ namespace game {
 		if (obj && lua_isstring(lua, -1))
 		{
 			lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_experience(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isnumber(lua, -1))
+		{
+			obj->setExperience(lua_tointeger(lua, -1));
+		}
+		return 0;
+	}
+	int Character_add_experience(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isnumber(lua, -1))
+		{
+			obj->addExperience(lua_tointeger(lua, -1));
+		}
+		return 0;
+	}
+	int Character_get_experience(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			lua_pushinteger(lua, obj->getExperience());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_level(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isnumber(lua, -1))
+		{
+			obj->setLevel(static_cast<short>(lua_tointeger(lua, -1)));
+		}
+		return 0;
+	}
+	int Character_add_level(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isnumber(lua, -1))
+		{
+			obj->addLevel(static_cast<short>(lua_tointeger(lua, -1)));
+		}
+		return 0;
+	}
+	int Character_get_level(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			lua_pushinteger(lua, static_cast<lua_Integer>(obj->getLevel()));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_max_level(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj && lua_isnumber(lua, -1))
+		{
+			obj->setMaxLevel(static_cast<short>(lua_tointeger(lua, -1)));
+		}
+		return 0;
+	}
+	int Character_get_max_level(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			lua_pushinteger(lua, static_cast<lua_Integer>(obj->getMaxLevel()));
 			return 1;
 		}
 		lua_pushnil(lua);

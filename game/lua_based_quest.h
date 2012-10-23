@@ -11,7 +11,7 @@ namespace game {
 	class LuaQuest : public Quest {
 	public:
 		
-		LuaQuest(const char *questId);
+		LuaQuest();
 		~LuaQuest();
 
 		bool loadQuest(const char *questName = NULL);
@@ -30,6 +30,8 @@ namespace game {
 		virtual void setAcceptedReward(bool accepted);
 		
 		virtual LuaState &getLua();
+
+		static int getMainCharacter(lua_State *lua);
 
 	protected:
 

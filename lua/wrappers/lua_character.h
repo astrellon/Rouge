@@ -54,6 +54,8 @@ namespace game {
 	int Character_set_gender(lua_State *lua);
 	int Character_get_gender(lua_State *lua);
 
+	int Character_get_coin_purse(lua_State *lua);
+
 	int Character_set_location(lua_State *lua);
 	int Character_get_location(lua_State *lua);
 
@@ -85,6 +87,17 @@ namespace game {
 	int Character_add_event_listener(lua_State *lua);
 	int Character_remove_event_listener(lua_State *lua);
 	int Character_has_event_listener(lua_State *lua);
+
+	int Character_set_experience(lua_State *lua);
+	int Character_add_experience(lua_State *lua);
+	int Character_get_experience(lua_State *lua);
+
+	int Character_set_level(lua_State *lua);
+	int Character_add_level(lua_State *lua);
+	int Character_get_level(lua_State *lua);
+
+	int Character_set_max_level(lua_State *lua);
+	int Character_get_max_level(lua_State *lua);
 
 	am::game::Character *Check_Character(lua_State *lua, int n);
 

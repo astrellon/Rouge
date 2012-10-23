@@ -3,6 +3,12 @@
 #include <sstream>
 using namespace std;
 
+#include "engine.h"
+#include "game.h"
+#include "character.h"
+
+#include <lua/wrappers/lua_character.h>
+
 namespace am {
 namespace game {
 
@@ -11,6 +17,9 @@ namespace game {
 	{
 		lua_pushlightuserdata(mLua, this);
 		lua_setglobal(mLua, "__quest");
+
+		lua_pushcfunction(mLua, getMainCharacter);
+		lua_setglobal(mLua, "getMainChar");
 	}
 
 	LuaQuest::~LuaQuest()
@@ -100,6 +109,26 @@ namespace game {
 	LuaState &LuaQuest::getLua()
 	{
 		return mLua;
+	}
+
+	int LuaQuest::getMainCharacter(lua_State *lua)
+	{
+		Engine *eng = Engine::getEngine();
+		if (eng)
+		{
+			Game *game = eng->getCurrentGame();
+			if (game)
+			{
+				Character *main = game->getMainCharacter();
+				if (main)
+				{
+					am::lua::game::Character_wrap(lua, main);
+					return 1;
+				}
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
 	}
 
 }

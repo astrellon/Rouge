@@ -35,38 +35,38 @@ namespace game {
 		return mExperience;
 	}
 
-	void Levelable::addLevel(int level)
+	void Levelable::addLevel(short level)
 	{
 		setLevel(mLevel + level);
 	}
-	void Levelable::setLevel(int level)
+	void Levelable::setLevel(short level)
 	{
 		addLevels(level);
 	}
-	int Levelable::getLevel() const
+	short Levelable::getLevel() const
 	{
 		return mLevel;
 	}
 
-	void Levelable::setMaxLevel(int level)
+	void Levelable::setMaxLevel(short level)
 	{
 		mMaxLevel = level;
 	}
-	int Levelable::getMaxLevel() const
+	short Levelable::getMaxLevel() const
 	{
 		return mMaxLevel;
 	}
 
-	int Levelable::getExperienceForLevel(int level) const
+	int Levelable::getExperienceForLevel(short level) const
 	{
 		return level * 1000;
 	}
-	int Levelable::getLevelFromExperience(int experience) const
+	short Levelable::getLevelFromExperience(int experience) const
 	{
 		return experience / 1000;
 	}
 
-	void Levelable::addLevels(int level)
+	void Levelable::addLevels(short level)
 	{
 		while (level > mLevel && (mMaxLevel == 0 || mLevel < mMaxLevel))
 		{
