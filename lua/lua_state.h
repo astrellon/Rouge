@@ -67,6 +67,10 @@ namespace lua {
 
 		int hasTableValue(const char *key);
 
+		float toNumber(int arg = -1);
+		int toInteger(int arg = -1);
+		bool toBool(int arg = -1);
+
 		bool hasGlobalFunction(const char *func, bool popAfter = false);
 		int getGlobalInt(const char *name);
 		double getGlobalDouble(const char *name);

@@ -392,7 +392,6 @@ namespace gfx {
 		float topY = 0.0f;
 		float bottomY = 1.0f;
 
-		//if (lua.hasTableValue("window") == LUA_TTABLE)
 		if (lua.isTableTable("window"))
 		{
 			float winLeftX = 0.0f;
@@ -400,29 +399,25 @@ namespace gfx {
 			
 			if (lua.isTableNumber("leftX"))
 			{
-				winLeftX = lua_tonumber(lua, -1);
-				lua.pop(1);
+				winLeftX = lua.toNumber();
 				leftX = winLeftX / textureWidth;
 			}
 			if (lua.isTableNumber("rightX"))
 			{
-				float winRightX = lua_tonumber(lua, -1);
-				lua.pop(1);
+				float winRightX = lua.toNumber();
 				width = winRightX - winLeftX;
 				rightX = winRightX / textureWidth;
 			}
 
 			if (lua.isTableNumber("topY"))
 			{
-				winTopY = lua_tonumber(lua, -1);
-				lua.pop(1);
+				winTopY = lua.toNumber();
 				topY = winTopY / textureHeight;
 			}
 
 			if (lua.isTableNumber("bottomY"))
 			{
-				float winBottomY = lua_tonumber(lua, -1);
-				lua.pop(1);
+				float winBottomY = lua.toNumber();
 				height = winBottomY - winTopY;
 				bottomY = winBottomY / textureHeight;
 			}
@@ -430,6 +425,115 @@ namespace gfx {
 		}
 
 		mWindow.setValues(width, height, topY, bottomY, leftX, rightX);
+
+		int framesX = 1;
+		int framesY = 1;
+		int totalFrames = 0;
+		float frameRate = 1.0f;
+		if (lua.isTableNumber("framesX"))
+		{
+			framesX = lua.toInteger();
+		}
+		if (lua.isTableNumber("framesY"))
+		{
+			framesY = lua.toInteger();
+		}
+		if (lua.isTableNumber("totalFrames"))
+		{
+			totalFrames = lua.toInteger();
+		}
+		if (totalFrames <= 0)
+		{
+			totalFrames = framesX * framesY;
+		}
+
+		if (lua.isTableNumber("frameRate"))
+		{
+			frameRate = lua.toNumber();
+		}
+		setAnimation(framesX, framesY, totalFrames, frameRate);
+
+		if (lua.isTableTable("scaleNine"))
+		{
+			float left = -1.0f;
+			float right = -1.0f;
+
+			float top = -1.0f;
+			float bottom = -1.0f;
+
+			if (lua.isTableNumber("left"))
+			{
+				left = lua.toNumber();
+			}
+			if (lua.isTableNumber("right"))
+			{
+				right = lua.toNumber();
+			}
+			if (lua.isTableNumber("top"))
+			{
+				top = lua.toNumber();
+			}
+			if (lua.isTableNumber("bottom"))
+			{
+				bottom = lua.toNumber();
+			}
+
+			ScaleNineState scaleNineState = SCALE_NINE_NONE;
+			bool vertical = top >= 0.0f && bottom >= 0.0f;
+			bool horizontal = left >= 0.0f && right >= 0.0f;
+			if (left < 0.0f || right < 0.0f)
+			{
+				left = 0.0f;
+				right = 0.0f;
+				if (mTexture)
+				{
+					right = static_cast<float>(mTexture->getWidth());
+				}
+			}
+			if (top < 0.0f || bottom < 0.0f)
+			{
+				top = 0.0f;
+				bottom = 0.0f;
+				if (mTexture)
+				{
+					bottom = static_cast<float>(mTexture->getHeight());
+				}
+			}
+
+			if (vertical && horizontal)
+			{
+				scaleNineState = SCALE_NINE_BOTH;
+			}
+			else if (vertical) 
+			{
+				scaleNineState = SCALE_NINE_VERTICAL;
+			}
+			else if (horizontal)
+			{
+				scaleNineState = SCALE_NINE_HORIZONTAL;
+			}
+
+			mScaleNineState = scaleNineState;
+			mScaleNine.setInnerBounds(left, right, top, bottom);
+			lua.pop(1);
+		}
+
+		if (lua.isTableBool("repeatX"))
+		{
+			mRepeatX = lua.toBool();
+		}
+		if (lua.isTableBool("repeatY"))
+		{
+			mRepeatY = lua.toBool();
+		}
+
+		{
+			stringstream ss;
+			ss << "Finish loading asset '" << mName << "'";
+			am_log("ASSET", ss);
+		}
+
+		return 0;
 	}
 
 	void Asset::processAnimation()

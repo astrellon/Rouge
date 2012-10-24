@@ -262,6 +262,25 @@ namespace lua {
 		return lua_type(mLua, -1);
 	}
 
+	float LuaState::toNumber(int arg)
+	{
+		float val = static_cast<float>(lua_tonumber(mLua, arg));
+		lua_pop(mLua, 1);
+		return val;
+	}
+	int LuaState::toInteger(int arg)
+	{
+		int val = lua_tointeger(mLua, arg);
+		lua_pop(mLua, 1);
+		return val;
+	}
+	bool LuaState::toBool(int arg)
+	{
+		bool val = lua_toboolean(mLua, arg);
+		lua_pop(mLua, 1);
+		return val;
+	}
+
 	bool LuaState::hasGlobalFunction(const char *func, bool popAfter)
 	{
 		lua_getglobal(mLua, func);
