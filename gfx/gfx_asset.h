@@ -1,17 +1,20 @@
 #pragma once
 
-#include "texture_window.h"
 #include <util/json_value.h>
-#include <string>
+using namespace am::util;
 
-#include "scale_nine.h"
+#include <string>
+using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-
-using namespace std;
-using namespace am::util;
 using namespace am::base;
+
+#include <lua/lua_state.h>
+using namespace am::lua;
+
+#include "scale_nine.h"
+#include "texture_window.h"
 
 namespace am {
 namespace gfx {
@@ -56,6 +59,7 @@ namespace gfx {
 		float getHeight();
 
 		int loadDef(JsonValue value, bool reload = false);
+		int loadDef(LuaState &lua, int tableRef, bool reload = false);
 		void assign(const Asset &rhs);
 
 		void setRepeatX(bool repeat);

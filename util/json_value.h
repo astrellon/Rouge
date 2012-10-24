@@ -39,7 +39,7 @@ typedef union {
 	JsonArray *a;
 } JsonUnion;
 
-#define ALT_REFS(type, refMap, value, retain)	\
+/*#define ALT_REFS(type, refMap, value, retain)	\
 	map<const type *, int>::iterator iter;	\
 	iter = refMap.find(value);	\
 	if (iter != refMap.end()) {	\
@@ -55,7 +55,7 @@ typedef union {
 	}	\
 	else if (retain) {	\
 		refMap[value] = 1;	\
-	}
+	}*/
 
 class JsonValue {
 public:
@@ -130,6 +130,26 @@ protected:
 	void altArrRef(const JsonArray *arr, bool retain);
 
 	void displayValue(ostream &stream, JsonValue &value, int depth);
+
+	template<class type>
+	void ALT_REFS(map<const type *, int> &refMap, const type *value, bool retain) {
+		map<const type *, int>::iterator iter;
+		iter = refMap.find(value);
+		if (iter != refMap.end()) {
+			int count = iter->second + (retain ? 1 : -1);
+			if (count <= 0) {
+				const type *ptr = iter->first;
+				refMap.erase(iter);
+				delete ptr;
+			}
+			else {
+				iter->second = count;
+			}
+		}
+		else if (retain) {
+			refMap[value] = 1;
+		}
+	}
 
 	static JsonValue import_object(Tokeniser &tokeniser, const char *startToken = NULL);
 

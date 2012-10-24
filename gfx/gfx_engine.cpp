@@ -13,6 +13,9 @@ using namespace am::ui;
 #include <sstream>
 using namespace std;
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 #include <gl.h>
 #include "IL/il.h"
 
@@ -242,6 +245,62 @@ namespace gfx {
 		mAssetManager[assetNameStr] = asset;
 
 		return asset;
+	}
+	Asset *GfxEngine::getAssetLua(const char *assetName)
+	{
+		string assetNameStr = assetName;
+		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
+		if (iter != mAssetManager.end())
+		{
+			return iter->second.get();
+		}
+
+		stringstream ss;
+		if (assetNameStr[0] == '/')
+		{
+			ss << "data" << assetNameStr << ".lua";
+		}
+		else
+		{
+			ss << "data/assets/" << assetNameStr << ".lua";
+		}
+
+		LuaState lua;
+		if (!lua.loadFile(ss.str().c_str()))
+		{
+			stringstream errss;
+			errss << "Unable to load asset '" << assetNameStr << "', using the path '" << ss.str() << '\'';
+			am_log("ASSET", errss);
+			
+			return NULL;
+		}
+		/*JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
+		if (loaded.getType() != JV_OBJ)
+		{
+			stringstream errss;
+			errss << "Unable to load asset '" << assetNameStr << "', using the path '";
+			errss << ss.str() << "\'\nLoaded: "; 
+			loaded.display(errss);
+
+			am_log("ASSET", errss);
+			
+			return NULL;
+		}*/
+		/*
+		Asset *asset = new Asset(assetName);
+		int loadAsset = asset->loadDef(loaded);
+		if (loadAsset != 0)
+		{
+			stringstream errss;
+			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
+			am_log("ASSET", errss);
+			delete asset;
+			return NULL;
+		}
+
+		mAssetManager[assetNameStr] = asset;
+
+		return asset;*/
 	}
 	int GfxEngine::reloadAsset(const char *assetName)
 	{

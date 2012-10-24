@@ -33,6 +33,7 @@ namespace gfx {
 		~GfxEngine();
 
 		Asset *getAsset(const char *assetName);
+		Asset *getAssetLua(const char *assetName);
 		int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
 

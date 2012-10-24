@@ -11,12 +11,16 @@ namespace lua {
 
 	LuaState::WrapperMap LuaState::sWrapperMap;
 
-	LuaState::LuaState()
+	LuaState::LuaState(bool includeLibraries)
 	{
 		mLua = luaL_newstate(); 
-		luaL_openlibs(mLua);
+		if (includeLibraries)
+		{
+			luaL_openlibs(mLua);
+			lua_register(mLua, "import", getWrapper);
+		}
+		// We always want error handler and logger function.
 		lua_atpanic(mLua, onError);
-		lua_register(mLua, "import", getWrapper);
 		lua_register(mLua, "am_log", lua_am_log);
 
 		am::lua::wrapper::AssignWrappers(mLua);
@@ -81,6 +85,7 @@ namespace lua {
 	bool LuaState::getTable(int tableRef)
 	{
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, tableRef);
+		logStack("LOAD");
 		if (lua_istable(mLua, -1))
 		{
 			return true;
@@ -204,6 +209,57 @@ namespace lua {
 		}
 		lua_pop(mLua, 1);
 		return false;
+	}
+
+	bool LuaState::isTableNumber(const char *key)
+	{
+		lua_pushstring(mLua, key);
+		lua_gettable(mLua, -2);
+		if (lua_isnumber(mLua, -1))
+		{
+			return true;
+		}
+		lua_pop(mLua, 1);
+		return false;
+	}
+	bool LuaState::isTableString(const char *key)
+	{
+		lua_pushstring(mLua, key);
+		lua_gettable(mLua, -2);
+		if (lua_isstring(mLua, -1))
+		{
+			return true;
+		}
+		lua_pop(mLua, 1);
+		return false;
+	}
+	bool LuaState::isTableTable(const char *key)
+	{
+		lua_pushstring(mLua, key);
+		lua_gettable(mLua, -2);
+		if (lua_istable(mLua, -1))
+		{
+			return true;
+		}
+		lua_pop(mLua, 1);
+		return false;
+	}
+	bool LuaState::isTableBool(const char *key)
+	{
+		lua_pushstring(mLua, key);
+		lua_gettable(mLua, -2);
+		if (lua_isboolean(mLua, -1))
+		{
+			return true;
+		}
+		lua_pop(mLua, 1);
+		return false;
+	}
+
+	int LuaState::hasTableValue(const char *key)
+	{
+		lua_pushstring(mLua, key);
+		return lua_type(mLua, -1);
 	}
 
 	bool LuaState::hasGlobalFunction(const char *func, bool popAfter)

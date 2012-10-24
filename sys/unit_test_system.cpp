@@ -2,6 +2,8 @@
 
 #include <gfx/gfx_engine.h>
 #include <gfx/gfx_text_list.h>
+#include <gfx/gfx_asset.h>
+using namespace am::gfx;
 
 #include <tests/test_base.h>
 #include <tests/test_mouse_manager.h>
@@ -81,6 +83,14 @@ namespace sys {
 		runSuite(TestLuaTileSet);
 		runSuite(TestLuaEngine);
 		runSuite(TestLevelable);
+
+		Handle<Asset> asset(new Asset("testAsset"));
+		LuaState lua;
+		lua.loadString("asset = {}\n"
+			"asset.texture = \"data/textures/fontBasic.png\"\n"
+			"asset.window = {leftX=10,rightX=20,topY=30,bottomY=40}\n");
+		lua_getglobal(lua, "asset");
+		asset->loadDef(lua, -1);
 
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)

@@ -24,7 +24,7 @@ namespace lua {
 
 		typedef map<string, lua_CFunction> WrapperMap;
 
-		LuaState();
+		LuaState(bool includeLibraries = true);
 		LuaState(lua_State *lua);
 		~LuaState();
 
@@ -59,6 +59,13 @@ namespace lua {
 		bool getTableInt(const char *key, int &value);
 		bool getTableDouble(const char *key, double &value);
 		bool getTableBool(const char *key, bool &value);
+
+		bool isTableNumber(const char *key);
+		bool isTableString(const char *key);
+		bool isTableTable(const char *key);
+		bool isTableBool(const char *key);
+
+		int hasTableValue(const char *key);
 
 		bool hasGlobalFunction(const char *func, bool popAfter = false);
 		int getGlobalInt(const char *name);

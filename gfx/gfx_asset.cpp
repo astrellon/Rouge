@@ -335,6 +335,102 @@ namespace gfx {
 
 		return 0;
 	}
+	int Asset::loadDef(LuaState &lua, int arg, bool reload)
+	{
+		if (!lua_istable(lua, arg))
+		{
+			return -1;
+		}
+		if (lua.isTableString("texture"))
+		{
+			const char *texture = lua_tostring(lua, -1);
+			lua.pop(1);
+			const char *currentTexture = NULL;
+			if (mTexture != NULL)
+			{
+				currentTexture = mTexture->getFilename();
+			}
+			if (reload && strcmp(texture, currentTexture) == 0)
+			{
+				if (!GfxEngine::getEngine()->reloadTexture(texture))
+				{
+					stringstream errss;
+					errss << "Unable to reload texture ("<< texture << ") for asset '"
+						<< mName.c_str() << '\'';
+					am_log("ASSET", errss);
+					return -1;
+				}
+			}
+			else
+			{
+				setTexture(GfxEngine::getEngine()->getTexture(texture));
+				if (mTexture == NULL)
+				{
+					stringstream errss;
+					errss << "Unable to load texture ("<< texture << ") for asset '"
+						<< mName.c_str() << '\'';
+					am_log("ASSET", errss);
+					return -1;
+				}
+			}
+		}
+		else
+		{
+			return -1;
+		}
+		{
+			stringstream ss;
+			ss << "Loading asset '" << mName.c_str() << '\'';
+			am_log("ASSET", ss);
+		}
+		float textureWidth = static_cast<float>(mTexture->getWidth());
+		float textureHeight = static_cast<float>(mTexture->getHeight());
+		float width = textureWidth;
+		float height = textureHeight;
+		float leftX = 0.0f;
+		float rightX = 1.0f;
+		float topY = 0.0f;
+		float bottomY = 1.0f;
+
+		//if (lua.hasTableValue("window") == LUA_TTABLE)
+		if (lua.isTableTable("window"))
+		{
+			float winLeftX = 0.0f;
+			float winTopY = 0.0f;
+			
+			if (lua.isTableNumber("leftX"))
+			{
+				winLeftX = lua_tonumber(lua, -1);
+				lua.pop(1);
+				leftX = winLeftX / textureWidth;
+			}
+			if (lua.isTableNumber("rightX"))
+			{
+				float winRightX = lua_tonumber(lua, -1);
+				lua.pop(1);
+				width = winRightX - winLeftX;
+				rightX = winRightX / textureWidth;
+			}
+
+			if (lua.isTableNumber("topY"))
+			{
+				winTopY = lua_tonumber(lua, -1);
+				lua.pop(1);
+				topY = winTopY / textureHeight;
+			}
+
+			if (lua.isTableNumber("bottomY"))
+			{
+				float winBottomY = lua_tonumber(lua, -1);
+				lua.pop(1);
+				height = winBottomY - winTopY;
+				bottomY = winBottomY / textureHeight;
+			}
+			lua.pop(1);
+		}
+
+		mWindow.setValues(width, height, topY, bottomY, leftX, rightX);
+	}
 
 	void Asset::processAnimation()
 	{

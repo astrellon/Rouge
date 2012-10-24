@@ -338,13 +338,16 @@ namespace util {
 	}
 
 	void JsonValue::altStrRef(const string *str, bool retain) {
-		ALT_REFS(string, sStrRefs, str, retain);
+		//ALT_REFS(string, sStrRefs, str, retain);
+		ALT_REFS<string>(sStrRefs, str, retain);
 	}
 	void JsonValue::altObjRef(const JsonObject *obj, bool retain) {
-		ALT_REFS(JsonObject, sObjRefs, obj, retain);
+		//ALT_REFS(JsonObject, sObjRefs, obj, retain);
+		ALT_REFS<JsonObject>(sObjRefs, obj, retain);
 	}
 	void JsonValue::altArrRef(const JsonArray *arr, bool retain) {
-		ALT_REFS(JsonArray, sArrRefs, arr, retain);
+		//ALT_REFS(JsonArray, sArrRefs, arr, retain);
+		ALT_REFS<JsonArray>(sArrRefs, arr, retain);
 	}
 
 	void JsonValue::displayValue(ostream &stream, JsonValue &value, int depth) {
