@@ -40,7 +40,7 @@ namespace gfx {
 		mAsset(NULL)
 	{
 		Asset *asset = NULL;
-		asset = GfxEngine::getEngine()->getAsset(assetName);
+		asset = GfxEngine::getEngine()->getAssetLua(assetName);
 		
 		if (asset)
 		{
@@ -62,7 +62,7 @@ namespace gfx {
 	}
 	void Sprite::setAsset(const char *assetName)
 	{
-		mAsset = GfxEngine::getEngine()->getAsset(assetName);
+		mAsset = GfxEngine::getEngine()->getAssetLua(assetName);
 	}
 
 	void Sprite::setCurrentFrame(int frame)

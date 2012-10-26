@@ -30,7 +30,7 @@ namespace gfx {
 		mAlignment(ALIGN_LEFT),
 		mRootNode(new Node("body"))
 	{
-		mFont = GfxEngine::getEngine()->getFont("basic");
+		mFont = GfxEngine::getEngine()->getFontLua("basic");
 		setInteractive(true);
 	}
 
@@ -54,7 +54,7 @@ namespace gfx {
 	}
 	void TextField2::setBaseFont(const char *fontName)
 	{
-		mFont = GfxEngine::getEngine()->getFont(fontName);
+		mFont = GfxEngine::getEngine()->getFontLua(fontName);
 	}
 
 	float TextField2::getMeasuredWidth()

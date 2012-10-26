@@ -57,7 +57,8 @@ namespace sys {
 		mEngine(engine),
 		mDebugConsole(NULL)
 	{
-		Colour::addStandardNamedColours("data/namedColours.ssff");
+		//Colour::addStandardNamedColours("data/namedColours.ssff");
+		Colour::addStandardNamedColoursLua("data/namedColours.lua");
 	}
 	GameSystem::~GameSystem()
 	{

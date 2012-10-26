@@ -80,6 +80,45 @@ namespace gfx {
 
 		return 0;
 	}
+	int Font::loadDef(LuaState &lua)
+	{
+		if (!lua_istable(lua, -1))
+		{
+			return -1;
+		}
+		if (lua.isTableString("asset"))
+		{
+			mAsset = GfxEngine::getEngine()->getAssetLua(lua_tostring(lua, -1));
+			lua.pop(1);
+		}
+		if (lua.isTableBool("fixedWidth"))
+		{
+			mFixedWidth = lua.toBool();
+		}
+		if (lua.isTableBool("utf"))
+		{
+			mUtfSupport = lua.toBool();
+		}
+		if (lua.isTableNumber("kerning"))
+		{
+			mKerning = lua.toNumber();
+		}
+		if (lua.isTableNumber("leading"))
+		{
+			mLeading = lua.toNumber();
+		}
+		if (lua.isTableNumber("tabWidth"))
+		{
+			mTabWidth = lua.toNumber();
+		}
+		if (lua.isTableNumber("charsAcross"))
+		{
+			setCharsAcross(lua.toInteger());
+		}
+		postLoad();
+
+		return 0;
+	}
 
 	string Font::getName() const
 	{

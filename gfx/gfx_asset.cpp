@@ -335,9 +335,9 @@ namespace gfx {
 
 		return 0;
 	}
-	int Asset::loadDef(LuaState &lua, int arg, bool reload)
+	int Asset::loadDef(LuaState &lua, bool reload)
 	{
-		if (!lua_istable(lua, arg))
+		if (!lua_istable(lua, -1))
 		{
 			return -1;
 		}

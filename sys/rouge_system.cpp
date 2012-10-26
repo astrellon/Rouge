@@ -83,7 +83,8 @@ namespace sys {
 	void RougeSystem::init()
 	{
 		GameSystem::init();
-		TileType::loadStandardTileTypes("data/tileTypes.ssff");
+		//TileType::loadStandardTileTypes("data/tileTypes.ssff");
+		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		TextStyle::loadStyles("data/textStyles.ssff");
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();

@@ -12,6 +12,9 @@ using namespace std;
 #include <util/json_value.h>
 #include <util/utils.h>
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 namespace am {
 namespace util {
 
@@ -346,11 +349,59 @@ namespace util {
 			errss << "Failed to loaded standard colours from '" << filename << "', file returned a " << loaded.getTypeName();
 			am_log("COLOUR", errss);
 		}
-		addNamedColour("white", Colour(1, 1, 1));
-		addNamedColour("black", Colour(0, 0, 0));
-		addNamedColour("red", Colour(1, 0, 0));
-		addNamedColour("green", Colour(0, 1, 0));
-		addNamedColour("blue", Colour(0, 0, 1));
+		else
+		{
+			addNamedColour("white", Colour(1, 1, 1));
+			addNamedColour("black", Colour(0, 0, 0));
+			addNamedColour("red", Colour(1, 0, 0));
+			addNamedColour("green", Colour(0, 1, 0));
+			addNamedColour("blue", Colour(0, 0, 1));
+		}
+	}
+	void Colour::addStandardNamedColoursLua(const char *filename)
+	{
+		if (filename != NULL)
+		{
+			LuaState lua(false);
+			if (lua.loadFile(filename))
+			{
+				lua_getglobal(lua, "colours");
+				if (lua_istable(lua, -1))
+				{
+					/* table is in the stack at index 't' */
+					lua_pushnil(lua);  /* first key */
+					while (lua_next(lua, -2) != 0) {
+						/* uses 'key' (at index -2) and 'value' (at index -1) */
+						if (lua_isstring(lua, -2))
+						{
+							Colour c;
+							bool parsed = false;
+							const char *name = lua_tostring(lua, -2);
+							if (lua_isstring(lua, -1))
+							{
+								const char *value = lua_tostring(lua, -1);
+								c.parseFromString(value);
+								parsed = true;
+							}
+							else if (lua_isnumber(lua, -1))
+							{
+								int value = static_cast<unsigned int>(lua_tointeger(lua, -1));
+								c.parseFromUint(value);
+								parsed = true;
+							}
+							if (parsed)
+							{
+								string lowerName = Utils::toLowerCase(name);
+								addNamedColour(lowerName, c);
+							}
+						}
+						/* removes 'value'; keeps 'key' for next iteration */
+						lua_pop(lua, 1);
+					}
+				}
+			}
+			lua.close();
+		}
 	}
 
 }

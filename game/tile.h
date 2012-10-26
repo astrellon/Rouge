@@ -13,6 +13,9 @@ using namespace am::base;
 #include <util/json_value.h>
 using namespace am::util;
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 namespace am {
 namespace game {
 
@@ -51,6 +54,7 @@ namespace game {
 		const TileTypeList &getTileTypes() const;
 
 		void loadDef(JsonValue value);
+		void loadDef(LuaState &lua);
 	
 	protected:
 	

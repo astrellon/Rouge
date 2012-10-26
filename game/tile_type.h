@@ -7,6 +7,9 @@ using namespace std;
 #include <util/json_value.h>
 using namespace am::util;
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 namespace am {
 namespace game {
 
@@ -21,12 +24,14 @@ namespace game {
 		const char *getFullName() const;
 
 		bool loadFromDef(JsonValue value);
+		bool loadFromDef(LuaState &lua);
 		
 		static void addTileType(TileType *type);
 		static TileType *getTileType(const char *name);
 		static TileType *getTileType(const string &name);
 
 		static bool loadStandardTileTypes(const char *filename);
+		static bool loadStandardTileTypesLua(const char *filename);
 		
 	protected:
 

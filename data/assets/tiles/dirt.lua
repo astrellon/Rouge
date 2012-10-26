@@ -1,0 +1,9 @@
+-- Dirt Asset
+asset = {}
+asset.texture = "data/textures/tiles/grass_dirt_sand.png"
+asset.framesX = 2
+asset.framesY = 2
+asset.frameRate = 0
+asset.window = {}
+asset.window.topY = 64
+asset.window.rightX = 64

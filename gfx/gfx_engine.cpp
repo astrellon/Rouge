@@ -99,18 +99,20 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
-		Asset *mCursorAsset = getAsset("cursor");
-		if (mCursorAsset == NULL)
+		//Asset *mCursorAsset = getAsset("cursor");
+		Asset *cursorAsset = getAssetLua("cursor");
+		if (cursorAsset == NULL)
 		{
 			throw std::runtime_error("Unable to load cursor asset");
 		}
 
-		Asset *mBasicFont = getAsset("fontBasic");
-		if (mBasicFont == NULL)
+		Asset *basicFont = getAssetLua("fontBasic");
+		if (basicFont == NULL)
 		{
+			// Incase there is an issue loading the basic font.
 			throw std::runtime_error("Unable to load basic font asset");
 		}
-		mCursor = new Sprite(mCursorAsset);
+		mCursor = new Sprite(cursorAsset);
 		mDefaultCursor = mCursor;
 	}
 	void GfxEngine::deinit()
@@ -265,30 +267,28 @@ namespace gfx {
 			ss << "data/assets/" << assetNameStr << ".lua";
 		}
 
-		LuaState lua;
+		LuaState lua(false);
 		if (!lua.loadFile(ss.str().c_str()))
 		{
 			stringstream errss;
 			errss << "Unable to load asset '" << assetNameStr << "', using the path '" << ss.str() << '\'';
 			am_log("ASSET", errss);
-			
+			lua.close();
 			return NULL;
 		}
-		/*JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() != JV_OBJ)
+
+		lua_getglobal(lua, "asset");
+		if (!lua_istable(lua, -1))
 		{
 			stringstream errss;
-			errss << "Unable to load asset '" << assetNameStr << "', using the path '";
-			errss << ss.str() << "\'\nLoaded: "; 
-			loaded.display(errss);
-
+			errss << "Loaded lua asset was: " << lua_typename(lua, -1) << " instead of table.";
 			am_log("ASSET", errss);
-			
+			lua.close();
 			return NULL;
-		}*/
-		/*
+		}
 		Asset *asset = new Asset(assetName);
-		int loadAsset = asset->loadDef(loaded);
+		int loadAsset = asset->loadDef(lua);
+		lua.close();
 		if (loadAsset != 0)
 		{
 			stringstream errss;
@@ -299,8 +299,7 @@ namespace gfx {
 		}
 
 		mAssetManager[assetNameStr] = asset;
-
-		return asset;*/
+		return asset;
 	}
 	int GfxEngine::reloadAsset(const char *assetName)
 	{
@@ -429,6 +428,55 @@ namespace gfx {
 
 		Font *font = new Font(fontName);
 		int loadFont = font->loadDef(loaded);
+		if (loadFont != 0)
+		{
+			stringstream errss;
+			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
+			am_log("FONT", errss);
+			delete font;
+			return NULL;
+		}
+
+		mFontManager[fontNameStr] = font;
+
+		return font;
+	}
+	Font *GfxEngine::getFontLua(const char *fontName)
+	{
+		string fontNameStr = fontName;
+		FontMap::iterator iter = mFontManager.find(fontNameStr);
+		if (iter != mFontManager.end())
+		{
+			return iter->second.get();
+		}
+
+		stringstream ss;
+		ss << "data/fonts/" << fontNameStr << ".lua";
+
+		LuaState lua(false);
+		if (!lua.loadFile(ss.str().c_str()))
+		{
+			stringstream errss;
+			errss << "Unable to load font '" << fontNameStr << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("FONT", errss);
+			lua.close();
+			return NULL;
+		}
+		lua_getglobal(lua, "font");
+		if (!lua_istable(lua, -1))
+		{
+			stringstream errss;
+			errss << "Loaded lua font was: " << lua_typename(lua, -1) << " instead of table.";
+			am_log("FONT", errss);
+			lua.close();
+			return NULL;
+			lua.close();
+		}
+
+		Font *font = new Font(fontName);
+		int loadFont = font->loadDef(lua);
+		lua.close();
 		if (loadFont != 0)
 		{
 			stringstream errss;

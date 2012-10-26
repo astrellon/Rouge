@@ -151,6 +151,13 @@ namespace game {
 			}
 		}
 	}
+	void Tile::loadDef(LuaState &lua)
+	{
+		if (!lua_istable(lua, -1))
+		{
+			return;
+		}
+	}
 
 	void Tile::addTileType(TileType *tileType)
 	{

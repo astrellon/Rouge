@@ -97,7 +97,7 @@ namespace sys {
 			"asset.repeatY = true\n"
 			);
 		lua_getglobal(lua, "asset");
-		asset->loadDef(lua, -1);
+		asset->loadDef(lua);
 
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)
