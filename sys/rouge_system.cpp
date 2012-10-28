@@ -85,7 +85,8 @@ namespace sys {
 		GameSystem::init();
 		//TileType::loadStandardTileTypes("data/tileTypes.ssff");
 		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
-		TextStyle::loadStyles("data/textStyles.ssff");
+		//TextStyle::loadStyles("data/textStyles.ssff");
+		TextStyle::loadStylesLua("data/textStyles.lua");
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());

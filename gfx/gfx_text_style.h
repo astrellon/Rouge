@@ -9,6 +9,9 @@ using namespace am::util;
 #include <gfx/gfx_font.h>
 #include <gfx/gfx_text_style_selector.h>
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 namespace am {
 namespace gfx {
 
@@ -25,13 +28,15 @@ namespace gfx {
 		bool hasColour() const;
 
 		bool loadDef(JsonValue value);
-
+		bool loadDef(LuaState &lua);
+		
 		static TextStyle getCalcStyle(const TextStyleSelector &node);
 		static TextStyle *getStyle(const TextStyleSelector &node);
 		static void addStyle(const TextStyleSelector &node, const TextStyle &style);
 		static bool removeStyle(const TextStyleSelector &node);
 
 		static void loadStyles(const char *filename);
+		static void loadStylesLua(const char *filename);
 
 	protected:
 
@@ -40,6 +45,8 @@ namespace gfx {
 		typedef pair<TextStyleSelector, TextStyle> NodeStylePair;
 		typedef vector< NodeStylePair > NodeStyleList;
 		static NodeStyleList sNodeStyleList;
+
+		static int parseStyleTable(LuaState &lua);
 
 	};
 
