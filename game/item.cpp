@@ -324,6 +324,82 @@ namespace game {
 			setItemValue(static_cast<unsigned int>(value["value"].getInt()));
 		}
 	}
+	void Item::loadDef(LuaState &lua)
+	{
+		if (!lua_istable(lua, -1))
+		{
+			stringstream ss;
+			ss << "Cannot load definition of item from type '" << lua_typename(lua, -1) << "'";
+			am_log("ITEM", ss);
+			return;
+		}
+		if (lua.isTableString("graphic"))
+		{
+			setGraphic(new Sprite(lua_tostring(lua, -1)), true);
+			lua.pop(1);
+		}
+		if (lua.isTableString("groundGraphic"))
+		{
+			setGroundGraphic(new Sprite(lua_tostring(lua, -1)));
+			lua.pop(1);
+		}
+		if (lua.isTableNumber("sizeX"))
+		{
+			mInventorySizeX = lua.toInteger();
+			if (mInventorySizeX < 1)
+			{
+				mInventorySizeX = 1;
+			}
+		}
+		if (lua.isTableNumber("sizeY"))
+		{
+			mInventorySizeY = lua.toInteger();
+			if (mInventorySizeY < 1)
+			{
+				mInventorySizeY = 1;
+			}
+		}
+		if (lua.isTableString("name"))
+		{
+			mItemName = lua_tostring(lua, -1);
+			lua.pop(1);
+		}
+		if (lua.isTableString("prefix"))
+		{
+			mPrefix = lua_tostring(lua, -1);
+			lua.pop(1);
+		}
+		if (lua.isTableString("postfix"))
+		{
+			mPostfix = lua_tostring(lua, -1);
+			lua.pop(1);
+		}
+		updateFullname();
+
+		if (lua.isTableString("itemType"))
+		{
+			setItemTypeName(lua_tostring(lua, -1));
+			lua.pop(1);
+		}
+		if (lua.isTableNumber("questId"))
+		{
+			setQuestItemId(lua.toInteger());
+		}
+		if (lua.isTableTable("stats"))
+		{
+			parseStats(lua, false);
+			lua.pop(1);
+		}
+		if (lua.isTableTable("magicalStats"))
+		{
+			parseStats(lua, true);
+			lua.pop(1);
+		}
+		if (lua.isTableNumber("value"))
+		{
+			setItemValue(lua.toInteger());
+		}
+	}
 
 	void Item::parseStats(const JsonObject &stats, bool magical)
 	{
@@ -375,6 +451,94 @@ namespace game {
 				}
 			}
 		}
+	}
+	void Item::parseStats(LuaState &lua, bool magical)
+	{
+		if (!lua_istable(lua, -1))
+		{
+			return;
+		}
+		lua_pushnil(lua);
+		while (lua_next(lua, -2) != 0)
+		{
+			if (!lua_isstring(lua, -2))
+			{
+				lua.pop(1);
+				continue;
+			}
+			Stat::StatType statType = Stat::getStatType(lua_tostring(lua, -2));
+			if (statType == Stat::MAX_STAT_LENGTH)
+			{
+				stringstream ss;
+				ss << "Unknown stat type '" << lua_tostring(lua, -2) << "'";
+				am_log("ITEM", ss);
+				lua.pop(1);
+				continue;
+			}
+
+			float value = 0.0f;
+			StatModifierType type = MOD_ADD;
+			if (lua_isnumber(lua, -1))
+			{
+				value = lua_tonumber(lua, -1);
+			}
+			else if (lua_isstring(lua, -1))
+			{
+				string str = lua_tostring(lua, -1);
+				int foundAdd = static_cast<int>(str.find('+'));
+				int foundMulti = static_cast<int>(str.find('%'));
+				if (foundAdd >= 0 && foundMulti >= 0)
+				{
+					type = MOD_MULTIPLY;
+				}
+				else if (foundMulti >= 0)
+				{
+					type = MOD_SET;
+				}
+
+				int i = max(0, max(foundAdd, foundMulti));
+
+				bool parsed = Utils::fromString<float>(value, str.c_str() + i + 1);
+				if (!parsed)
+				{
+					stringstream ss;
+					ss << "Unable to parse stat '" << str.c_str() << "'";
+					am_log("ITEM", ss);
+				}
+				else
+				{
+					StatModifier modifier(value, type, magical);
+					mStatModifiers.addStatModifier(statType, modifier);
+				}
+			}
+			lua.pop(1);
+		}
+	}
+
+	void Item::loadFromLua(const char *filename)
+	{
+		LuaState lua;
+		stringstream ss;
+		ss << "data/items/" << filename << ".lua";
+		if (!lua.loadFile(ss.str().c_str()))
+		{
+			stringstream errss;
+			errss << "Error loading item lua file '" << filename << "'";
+			am_log("ITEM", errss);
+			lua.logStack("ITEMLUA");
+			lua.close();
+			return;
+		}
+		lua_getglobal(lua, "item");
+		if (!lua_istable(lua, -1))
+		{
+			stringstream errss;
+			errss << "Did not find global item table: " << lua_typename(lua, -1);
+			am_log("ITEMLUA", errss);
+			lua.close();
+		}
+		loadDef(lua);
+		lua.close();
 	}
 
 	void Item::updateFullname()

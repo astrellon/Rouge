@@ -367,13 +367,15 @@ namespace sys {
 		game->addGameObject(mPlayer.get());
 
 		Handle<Item> sword(new Item());
-		sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
+		sword->loadFromLua("sword");
+		//sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
 
 		Handle<Item> sword2(new Item());
 		sword2->setItemFrom(*sword);
 
 		Handle<Item> shield(new Item());
-		shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
+		shield->loadFromLua("shield");
+		//shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
 
 		Handle<Item> scroll(new Item());
 		scroll->setGraphic(new Sprite("items/scroll"), true);
