@@ -32,7 +32,7 @@ namespace game {
 
 	void Engine::init()
 	{
-		TileSet *global = getTileSet("global");
+		TileSet *global = getTileSetLua("global");
 		if (global == NULL)
 		{
 			am_log("SET", "Global tile set not found!");
@@ -98,7 +98,7 @@ namespace game {
 				}
 				else
 				{
-					mUsingTileSet[iter->first] = getTileSet(iter->first.c_str());
+					mUsingTileSet[iter->first] = getTileSetLua(iter->first.c_str());
 				}
 			}
 			mUsingTileSetNames.clear();
@@ -134,7 +134,7 @@ namespace game {
 			Handle<TileSet> tileSet = mTopLevelTileSet;
 			if (tileSetStr.size() > 0)
 			{
-				tileSet = getTileSet(tileSetStr.c_str());
+				tileSet = getTileSetLua(tileSetStr.c_str());
 			}
 			if (tileSet.get())
 			{
@@ -194,6 +194,47 @@ namespace game {
 		tileSet->loadDef(loaded);
 		mTileSets[tileSetStr] = tileSet;
 		return tileSet.get();
+	}
+	TileSet *Engine::getTileSetLua(const char *tileSetName)
+	{
+		if (!tileSetName || tileSetName[0] == '\0')
+		{
+			return mTopLevelTileSet.get();
+		}
+		string tileSetStr = tileSetName;
+		TileSetMap::iterator iter = mTileSets.find(tileSetStr);
+		if (iter != mTileSets.end())
+		{
+			return iter->second.get();
+		}
+		
+		Handle<TileSet> tileSet(new TileSet(tileSetName));
+		
+		stringstream ss;
+		ss << "data/tilesets/" << tileSetName << ".lua";
+		LuaState lua;
+		if (!lua.loadFile(ss.str().c_str()))
+		{
+			stringstream errss;
+			errss << "Error loading tile set '" << tileSetName << "' definition using path '" << ss.str() << '\'';
+			am_log("SET", errss);
+			lua.logStack("SETLUA");
+			lua.close();
+			return NULL;
+		}
+		lua_getglobal(lua, "set");
+		if (!lua_istable(lua, -1))
+		{
+			stringstream errss;
+			errss << "Did not find global 'set' table: 'set' = " << lua_typename(lua, -1);
+			am_log("SET", errss);
+			lua.close();
+			return NULL;
+		}
+		tileSet->loadDef(lua);
+		mTileSets[tileSetStr] = tileSet;
+		lua.close();
+		return tileSet;
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{

@@ -100,7 +100,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			TileSet *set = Engine::getEngine()->getTileSet(lua_tostring(lua, -1));
+			TileSet *set = Engine::getEngine()->getTileSetLua(lua_tostring(lua, -1));
 			TileSet_wrap(lua, set);
 			return 1;
 		}

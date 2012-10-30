@@ -90,6 +90,39 @@ namespace game {
 
 		return map.get();
 	}
+	Map *Game::getMapLua(const char *mapName)
+	{
+		return getMapLua(string(mapName));
+	}
+	Map *Game::getMapLua(const string &mapName)
+	{
+		MapMap::iterator iter = mMaps.find(mapName);
+		if (iter != mMaps.end())
+		{
+			return iter->second.get();
+		}
+
+		stringstream ss;
+		ss << "data/maps/" << mapName << ".lua";
+		LuaState lua;
+		if (!lua.loadFile(ss.str().c_str()))
+		{
+			stringstream errss;
+			errss << "Unable to load map '" << mapName << "', using the path '";
+			errss << ss.str() << '\''; 
+			am_log("MAP", errss);
+			lua.logStack("MAPLUA");
+			lua.close();
+			return NULL;
+		}
+		Handle<Map> map(new Map(mapName.c_str()));
+		lua_getglobal(lua, "map");
+		map->loadDef(lua);
+
+		mMaps[mapName] = map;
+		lua.close();
+		return map.get();
+	}
 
 	Map *Game::getCurrentMap()
 	{
@@ -224,11 +257,11 @@ namespace game {
 	}
 	void Game::setCurrentMap(const char *mapName)
 	{
-		setCurrentMap(getMap(string(mapName)));
+		setCurrentMap(getMapLua(mapName));
 	}
 	void Game::setCurrentMap(const string &mapName)
 	{
-		setCurrentMap(getMap(mapName));
+		setCurrentMap(getMapLua(mapName));
 	}
 
 	bool Game::addGameObject(GameObject *object)
@@ -289,7 +322,7 @@ namespace game {
 		{
 			return;
 		}
-		moveObjectToMap(object, getMap(mapName), x, y, setAsCurrent);
+		moveObjectToMap(object, getMapLua(mapName), x, y, setAsCurrent);
 	}
 	void Game::moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent)
 	{

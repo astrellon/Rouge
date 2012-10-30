@@ -36,6 +36,8 @@ namespace game {
 
 		Map *getMap(const char *mapName);
 		Map *getMap(const string &mapName);
+		Map *getMapLua(const char *mapName);
+		Map *getMapLua(const string &mapName);
 		Map *getCurrentMap();
 		void setCurrentMap(Map *map);
 		void setCurrentMap(const char *mapName);

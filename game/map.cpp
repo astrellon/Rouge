@@ -414,6 +414,118 @@ namespace game {
 			am_log("MAP", ss);
 		}
 	}
+	void Map::loadDef(LuaState &lua)
+	{
+		if (!lua_istable(lua, -1))
+		{
+			stringstream errss;
+			errss << "Unable to load map def as top element is: " << lua_typename(lua, -1);
+			am_log("MAP", errss);
+			return;
+		}
+		if (lua.isTableString("fullName"))
+		{
+			setFullName(lua_tostring(lua, -1));
+			lua.pop(1);
+		}
+		Engine *engine = Engine::getEngine();
+		engine->clearUsingTileSet();
+
+		if (lua.isTableTable("usingTileSets"))
+		{
+			lua_pushnil(lua);
+			while (lua_next(lua, -2) != 0)
+			{
+				if (lua_type(lua, -1) == LUA_TSTRING)
+				{
+					engine->usingTileSet(lua_tostring(lua, -1));
+				}
+				lua.pop(1);
+			}
+			lua.pop(1);
+		}
+		else if (lua.isTableString("usingTileSets"))
+		{
+			engine->usingTileSet(lua_tostring(lua, -1));
+			lua.pop(1);
+		}
+
+		if (lua.isTableTable("tiles"))
+		{
+			lua_len(lua, -1);
+			int height = lua_tointeger(lua, -1);
+			lua.pop(1);
+			int width = 0;
+			bool error = false;
+
+			int x = 0, y = 0;
+
+			lua_pushnil(lua);
+			while (lua_next(lua, -2) != 0)
+			{
+				if (lua_istable(lua, -1))
+				{
+					lua_len(lua, -1);
+					if (width == 0)
+					{
+						width = lua_tointeger(lua, -1);
+						setMapSize(width, height);
+					}
+					lua.pop(1);
+					lua_pushnil(lua);
+					x = 0;
+					while (lua_next(lua, -2) != 0)
+					{
+						if (lua_isstring(lua, -1))
+						{
+							string tileNameStr = lua_tostring(lua, -1);
+							//string tileNameStr(lua_tostring(lua, -1));
+							int framePos = static_cast<int>(tileNameStr.find_last_of(":"));
+							string tileNameUse;
+							int frameValue = 0;
+							if (framePos >= 0)
+							{
+								string name = tileNameStr.substr(0, framePos);
+								string frame = tileNameStr.substr(framePos + 1);
+								tileNameUse = name;
+								bool parseResult = Utils::fromString<int>(frameValue, frame);
+								if (!parseResult)
+								{
+									frameValue = 0;
+								}
+							}
+							else
+							{
+								tileNameUse = tileNameStr;
+							}
+							Tile *tile = engine->getTile(tileNameUse.c_str());
+							if (tile == NULL)
+							{
+								stringstream ss;
+								ss << "Unable to find tile '" << tileNameUse.c_str();
+								ss << "' for map '" << mName << "' tile " << x << ", " << y;
+								am_log("MAP", ss);
+								error =	true;
+								break;
+							}
+							mTiles[y * width + x].setTile(tile);
+							mTiles[y * width + x].setTileFrame(frameValue);
+						}
+						x++;
+						lua.pop(1);
+					}
+				}
+				y++;
+				lua.pop(1);
+			}
+			if (!error)
+			{
+				updateAssetSprites();
+			}
+
+			lua.pop(1);
+		}
+	}
 
 	void Map::updateAssetSprites()
 	{

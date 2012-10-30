@@ -157,6 +157,58 @@ namespace game {
 		{
 			return;
 		}
+		if (lua.isTableString("assetName"))
+		{
+			mGraphic = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
+			lua.pop(1);
+		}
+		else
+		{
+			stringstream ss;
+			ss << "Tile '" << mName << "' did not have a graphic defined";
+			am_log("TILE", ss);
+		}
+
+		if (lua.isTableString("fullName"))
+		{
+			mFullName = lua_tostring(lua, -1);
+			lua.pop(1);
+		}
+		if (lua.isTableString("description"))
+		{
+			mDescription = lua_tostring(lua, -1);
+			lua.pop(1);
+		}
+		if (lua.isTableTable("tileTypes"))
+		{
+			lua_pushnil(lua);
+			while (lua_next(lua, -2) != 0)
+			{
+				if (lua_type(lua, -1) != LUA_TSTRING)
+				{
+					stringstream errss;
+					errss << "Tile type must be a string and not a '" << lua_typename(lua, -1) << "'";
+					am_log("TILE", errss);
+				}
+				else
+				{
+					string tileName = Utils::toLowerCase(lua_tostring(lua, -1));
+					TileType *type = TileType::getTileType(tileName.c_str());
+					if (type == NULL)
+					{
+						stringstream errss;
+						errss << "Unable to find tile type '" << tileName << "' for tile '" << getName() << "'";
+						am_log("TILE", errss);
+					}
+					else
+					{
+						addTileType(type);
+					}
+				}
+				lua.pop(1);
+			}
+			lua.pop(1);
+		}
 	}
 
 	void Tile::addTileType(TileType *tileType)

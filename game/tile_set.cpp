@@ -129,13 +129,12 @@ namespace game {
 			mFullName = lua_tostring(lua, -1);
 			lua.pop(1);
 		}
-		lua_getglobal(lua, "tiles");
-		if (!lua_istable(lua, -1))
+		
+		if (!lua.isTableTable("tiles"))
 		{
 			stringstream ss;
 			ss << "Tile set '" << mName << "' definition does not have a set of tiles";
 			am_log("SET", ss);
-			lua.pop(1);
 			return;
 		}
 		/* table is in the stack at index 't' */

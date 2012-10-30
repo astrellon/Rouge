@@ -88,7 +88,7 @@ namespace game {
 		Game *game = Check_Game(lua, 1);
 		if (game && lua_tostring(lua, -1))
 		{
-			Map *map = game->getMap(lua_tostring(lua, -1));
+			Map *map = game->getMapLua(lua_tostring(lua, -1));
 			if (map)
 			{
 				Map_wrap(lua, map);
@@ -179,7 +179,7 @@ namespace game {
 				Map *map = NULL;
 				if (lua_isstring(lua, 3))
 				{
-					map = game->getMap(lua_tostring(lua, 3));
+					map = game->getMapLua(lua_tostring(lua, 3));
 				}
 				else if (lua_isuserdata(lua ,3))
 				{
@@ -212,7 +212,7 @@ namespace game {
 				Map *map = NULL;
 				if (lua_isstring(lua, 3))
 				{
-					map = game->getMap(lua_tostring(lua, 3));
+					map = game->getMapLua(lua_tostring(lua, 3));
 				}
 				else if (lua_isuserdata(lua ,3))
 				{

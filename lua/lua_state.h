@@ -82,6 +82,9 @@ namespace lua {
 		void logStack(const char *cat);
 		void printStack(ostream &output);
 
+		void logTable(const char *cat, int n);
+		void printTable(ostream &output, int n);
+
 		bool operator==(const lua_State *lua) const;
 		bool operator==(const LuaState &rhs) const;
 		bool operator!=(const lua_State *lua) const;
@@ -99,6 +102,8 @@ namespace lua {
 		lua_State *mLua;
 
 		static WrapperMap sWrapperMap;
+
+		static int sDepth;
 	};
 
 }

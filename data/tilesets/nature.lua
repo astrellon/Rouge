@@ -1,6 +1,6 @@
 -- Nature tiles
 set = {}
-set.fullName = "Nature Tiles",
+set.fullName = "Nature Tiles"
 set.tiles = {}
 
 local tile = {}

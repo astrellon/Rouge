@@ -135,7 +135,7 @@ namespace sys {
 		Handle<DialogueBox> diagBox(new DialogueBox());
 		diagBox->setDialogue(diag1);
 		diagBox->setParentOffset(100, 100);
-		gfxEngine->getUILayer()->addChild(diagBox);
+		//gfxEngine->getUILayer()->addChild(diagBox);
 
 		/*Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
 		//Dialogue::addDialogue(dialogue);

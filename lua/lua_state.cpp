@@ -10,6 +10,7 @@ namespace am {
 namespace lua {
 
 	LuaState::WrapperMap LuaState::sWrapperMap;
+	int LuaState::sDepth = 0;
 
 	LuaState::LuaState(bool includeLibraries)
 	{
@@ -324,6 +325,69 @@ namespace lua {
 		}
 		lua_pop(mLua, 1);
 		return valueStr;
+	}
+
+	void LuaState::logTable(const char *cat, int n)
+	{
+		stringstream ss;
+		printTable(ss, n);
+		am_log(cat, ss);
+	}
+	void LuaState::printTable(ostream &output, int n)
+	{
+		if (!lua_istable(mLua, n))
+		{
+			output << lua_typename(mLua, n) << ' ';
+			int type = lua_type(mLua, n);
+			if (type == LUA_TSTRING)
+			{
+				output << lua_tostring(mLua, n);
+			}
+			else if (type == LUA_TNUMBER)
+			{
+				output << lua_tonumber(mLua, n);
+			}
+			else if (type == LUA_TNIL)
+			{
+				output << "nil";
+			}
+			else if (type == LUA_TNONE)
+			{
+				output << "none";
+			}
+			output << '\n';
+		}
+		else
+		{
+			sDepth++;
+			output << "{\n";
+			lua_pushnil(mLua);
+			while (lua_next(mLua, -2) != 0)
+			{
+				for (int i = 0; i < sDepth; i++)
+				{
+					output << '\t';
+				}
+				if (lua_isstring(mLua, -2))
+				{
+					output << lua_tostring(mLua, -2);
+				}
+				else
+				{
+					output << lua_tonumber(mLua, -2);
+				}
+				output << " = ";
+				printTable(output, -1);
+				output << '\n';
+				pop(1);
+			}
+			sDepth--;
+			for (int i = 0; i < sDepth; i++)
+			{
+				output << '\t';
+			}
+			output << "}\n";
+		}
 	}
 
 	void LuaState::logStack(const char *cat)

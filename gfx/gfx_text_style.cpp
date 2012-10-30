@@ -292,8 +292,6 @@ namespace gfx {
 		lua_pushnil(lua);
 		while(lua_next(lua, -2) != 0)
 		{
-			stringstream start;
-			lua.printStack(start);
 			int result = parseStyleTable(lua);
 			if (result == -1)
 			{
@@ -313,8 +311,8 @@ namespace gfx {
 				errss << "Error load style definition at [" << lua_tonumber(lua, -2) << "] in '" << filename << "'";
 				am_log("STYLE", errss);
 			}
-			stringstream end;
-			lua.printStack(end);
+			stringstream ss;
+			lua.printStack(ss);
 			lua_pop(lua, 1);
 		}
 		lua.close();
@@ -330,7 +328,14 @@ namespace gfx {
 		{
 			return -2;
 		}
+		TextStyle style;
+		if (!style.loadDef(lua))
+		{
+			return -3;
+		}
+		lua.pop(1);
 		TextStyleSelector selector;
+		
 		if (lua.isTableString("nodeType"))
 		{
 			selector.setNodeType(lua_tostring(lua, -1));
@@ -365,18 +370,17 @@ namespace gfx {
 			while (lua_next(lua, -2) != 0)
 			{
 				const char *key = lua_tostring(lua, -2);
-				int type = lua_type(lua, -1);
-				if (type == LUA_TSTRING)
+				if (lua_isstring(lua, -1))
 				{
 					selector.setAttribute(key, lua_tostring(lua, -1));
 				}
-				else if (type == LUA_TNUMBER)
+				else if (lua_isnumber(lua, -1))
 				{
 					stringstream ss;
 					ss << lua_tonumber(lua, -1);
 					selector.setAttribute(key, ss.str().c_str());
 				}
-				else if (type == LUA_TBOOLEAN)
+				else if (lua_isboolean(lua, -1))
 				{
 					selector.setAttribute(key, lua_toboolean(lua, -1) ? "true" : "false");
 				}
@@ -390,14 +394,9 @@ namespace gfx {
 				}
 				lua.pop(1);
 			}
+			lua.pop(1);
 		}
-		TextStyle style;
-		if (!style.loadDef(lua))
-		{
-			return -3;
-		}
-		lua.pop(1);
-
+		
 		addStyle(selector, style);
 		return 1;
 	}
