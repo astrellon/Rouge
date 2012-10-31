@@ -282,6 +282,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_panel.cpp" />
     <ClCompile Include="ui\ui_text_input.cpp" />
     <ClCompile Include="ui\ui_tooltip.cpp" />
+    <ClCompile Include="ui\value_change_event.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
@@ -456,6 +457,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_panel.h" />
     <ClInclude Include="ui\ui_text_input.h" />
     <ClInclude Include="ui\ui_tooltip.h" />
+    <ClInclude Include="ui\value_change_event.h" />
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
     <ClInclude Include="util\stat_tokeniser.h" />

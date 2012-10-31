@@ -54,14 +54,13 @@ namespace ui {
 			mRougeSystem->closeOptionsPanel();
 		}
 	}
-	/*void OptionsPanel::onEvent(DataEvent *e)
+	void OptionsPanel::onEvent(ValueChangeEvent *e)
 	{
-		if (e->getEventTarget() == mFullscreen.get())
+		if (e->getEventTarget() == mFullscreen)
 		{
-			mRougeSystem->setFullscreen(e->getData().getBool());
+			mRougeSystem->setFullscreen(mFullscreen->isSelected());
 		}
-		// TODO
-	}*/
+	}
 
 	void OptionsPanel::setWidth(float width)
 	{

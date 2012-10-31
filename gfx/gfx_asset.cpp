@@ -183,11 +183,11 @@ namespace gfx {
 		{
 			return -1;
 		}
-		{
+		/*{
 			stringstream ss;
 			ss << "Loading asset '" << mName.c_str() << '\'';
 			am_log("ASSET", ss);
-		}
+		}*/
 		float textureWidth = static_cast<float>(mTexture->getWidth());
 		float textureHeight = static_cast<float>(mTexture->getHeight());
 		float width = textureWidth;
@@ -332,11 +332,11 @@ namespace gfx {
 			mRepeatY = lua.toBool();
 		}
 
-		{
+		/*{
 			stringstream ss;
 			ss << "Finish loading asset '" << mName << "'";
 			am_log("ASSET", ss);
-		}
+		}*/
 
 		return 0;
 	}

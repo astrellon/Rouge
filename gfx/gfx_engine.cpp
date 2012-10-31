@@ -273,6 +273,7 @@ namespace gfx {
 			stringstream errss;
 			errss << "Unable to load asset '" << assetNameStr << "', using the path '" << ss.str() << '\'';
 			am_log("ASSET", errss);
+			lua.logStack("ASSETLUA");
 			lua.close();
 			return NULL;
 		}
