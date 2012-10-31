@@ -105,7 +105,7 @@ namespace game {
 		return mTileSet;
 	}
 
-	void Tile::loadDef(JsonValue value) 
+	/*void Tile::loadDef(JsonValue value) 
 	{
 		if (value.has("assetName", JV_STR))
 		{
@@ -150,7 +150,7 @@ namespace game {
 				addTileType(type);
 			}
 		}
-	}
+	}*/
 	void Tile::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -159,7 +159,7 @@ namespace game {
 		}
 		if (lua.isTableString("assetName"))
 		{
-			mGraphic = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
+			mGraphic = GfxEngine::getEngine()->getAssetLua(lua_tostring(lua, -1));
 			lua.pop(1);
 		}
 		else

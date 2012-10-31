@@ -28,7 +28,7 @@ namespace ui {
 		virtual void setHeight(float height);
 
 		virtual void onEvent(Event *e);
-		virtual void onEvent(DataEvent *e);
+		//virtual void onEvent(DataEvent *e);
 
 	protected:
 

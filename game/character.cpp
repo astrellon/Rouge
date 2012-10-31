@@ -355,17 +355,6 @@ namespace game {
 		return "character";
 	}
 
-	void Character::getSelector(Selector &selector) const
-	{
-		selector.setId(mGameId.c_str());
-		selector.setAttribute("age", mAge);
-		selector.setAttribute("gender", Gender::getGenderName(mGender));
-		if (mRace != NULL)
-		{
-			selector.setAttribute("race", mRace->getRaceName());
-		}
-	}
-
 	void Character::setAge(float age)
 	{
 		mAge = age;

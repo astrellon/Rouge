@@ -8,8 +8,8 @@ using namespace std;
 #include <base/imanaged.h>
 using namespace am::base;
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -38,7 +38,7 @@ namespace game {
 		bool hasTile(const char *tileName);
 		Tile *getTile(const char *tileName);
 
-		void loadDef(JsonValue value);
+		//void loadDef(JsonValue value);
 		void loadDef(LuaState &lua);
 
 	protected:

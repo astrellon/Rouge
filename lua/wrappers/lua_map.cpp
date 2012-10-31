@@ -13,8 +13,10 @@ using namespace am::lua;
 #include <game/map.h>
 using namespace am::game;
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
+
+#include <log/logger.h>
 
 namespace am {
 namespace lua {
@@ -226,13 +228,10 @@ namespace game {
 	int Map_load_def(lua_State *lua)
 	{
 		Map *map = Check_Map(lua, 1);
-		if (map)
+		if (map && lua_istable(lua, -1))
 		{
-			JsonValue value = JsonValue::import(lua_tostring(lua, -1));
-			if (value.getType() == JV_OBJ)
-			{
-				map->loadDef(value);
-			}
+			LuaState wrap(lua);
+			map->loadDef(wrap);
 		}
 		return 0;
 	}

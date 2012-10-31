@@ -239,13 +239,10 @@ namespace game {
 	int Tile_load_def(lua_State *lua)
 	{
 		Tile *tile = Check_Tile(lua, 1);
-		if (tile && lua_isstring(lua, -1))
+		if (tile && lua_istable(lua, -1))
 		{
-			JsonValue value = JsonValue::import(lua_tostring(lua, -1));
-			if (value.getType() == JV_OBJ)
-			{
-				tile->loadDef(value);
-			}
+			LuaState wrap(lua);
+			tile->loadDef(wrap);
 		}
 		return 0;
 	}

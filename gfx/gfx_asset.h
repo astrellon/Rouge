@@ -58,7 +58,6 @@ namespace gfx {
 		float getWidth();
 		float getHeight();
 
-		int loadDef(JsonValue value, bool reload = false);
 		// The table to load the definition off needs to be on top of the stack.
 		int loadDef(LuaState &lua, bool reload = false);
 		void assign(const Asset &rhs);

@@ -65,10 +65,6 @@ namespace ui {
 	{
 		
 	}
-	void LuaEventListener::onEvent(DataEvent *e)
-	{
-
-	}
 	void LuaEventListener::onEvent(InventoryEvent *e)
 	{
 

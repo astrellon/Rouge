@@ -26,7 +26,6 @@ namespace ui {
 		virtual void onEvent(Event *e);
 		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(KeyboardEvent *e);
-		virtual void onEvent(DataEvent *e);
 		virtual void onEvent(InventoryEvent *e);
 		virtual void onEvent(EquipEvent *e);
 

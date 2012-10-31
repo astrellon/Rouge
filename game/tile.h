@@ -10,8 +10,8 @@ using namespace am::gfx;
 #include <base/imanaged.h>
 using namespace am::base;
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -53,7 +53,7 @@ namespace game {
 		TileTypeList &getTileTypes();
 		const TileTypeList &getTileTypes() const;
 
-		void loadDef(JsonValue value);
+		//void loadDef(JsonValue value);
 		void loadDef(LuaState &lua);
 	
 	protected:

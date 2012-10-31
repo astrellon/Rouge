@@ -74,8 +74,6 @@ namespace game {
 
 		virtual const char *getGameObjectTypeName() const;
 
-		virtual void getSelector(Selector &selector) const;
-
 		virtual void setAge(float age);
 		virtual float getAge() const;
 

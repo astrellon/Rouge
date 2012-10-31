@@ -313,51 +313,6 @@ namespace util {
 		}
 	}
 
-	void Colour::addStandardNamedColours(const char *filename)
-	{
-		if (filename != NULL)
-		{
-			JsonValue loaded = JsonValue::import_from_file(filename);
-			if (loaded.getType() == JV_OBJ)
-			{
-				JsonObject *obj = loaded.getObj();
-				JsonObject::iterator iter;
-				for (iter = obj->begin(); iter != obj->end(); ++iter)
-				{
-					Colour c;
-					bool parsed = false;
-					if (iter->second.getType() == JV_STR)
-					{
-						c.parseFromString(iter->second.getCStr());
-						parsed = true;
-					}
-					else if (iter->second.getType() == JV_INT)
-					{
-						c.parseFromUint(iter->second.getInt());
-						parsed = true;
-					}
-
-					if (parsed)
-					{
-						string lowerName = Utils::toLowerCase(iter->first.c_str());
-						addNamedColour(lowerName, c);
-					}
-				}
-				return;
-			}
-			stringstream errss;
-			errss << "Failed to loaded standard colours from '" << filename << "', file returned a " << loaded.getTypeName();
-			am_log("COLOUR", errss);
-		}
-		else
-		{
-			addNamedColour("white", Colour(1, 1, 1));
-			addNamedColour("black", Colour(0, 0, 0));
-			addNamedColour("red", Colour(1, 0, 0));
-			addNamedColour("green", Colour(0, 1, 0));
-			addNamedColour("blue", Colour(0, 0, 1));
-		}
-	}
 	void Colour::addStandardNamedColoursLua(const char *filename)
 	{
 		if (filename != NULL)

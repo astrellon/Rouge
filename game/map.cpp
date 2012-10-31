@@ -292,7 +292,7 @@ namespace game {
 		return mForeground.get();
 	}
 
-	void Map::loadDef(JsonValue loaded)
+	/*void Map::loadDef(JsonValue loaded)
 	{
 		if (loaded.has("fullName", JV_STR))
 		{
@@ -414,6 +414,7 @@ namespace game {
 			am_log("MAP", ss);
 		}
 	}
+	*/
 	void Map::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

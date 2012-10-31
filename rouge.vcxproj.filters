@@ -133,9 +133,6 @@
     <ClCompile Include="gfx\scale_nine.cpp">
       <Filter>gfx\base\util</Filter>
     </ClCompile>
-    <ClCompile Include="ui\data_event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
     <ClCompile Include="ui\event.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
@@ -340,9 +337,6 @@
     <ClCompile Include="util\colour.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="util\json_value.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="util\stat_tokeniser.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -411,21 +405,6 @@
     </ClCompile>
     <ClCompile Include="game\dialogue_selector.cpp">
       <Filter>game\dialogue</Filter>
-    </ClCompile>
-    <ClCompile Include="util\selector.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\test_selector.cpp">
-      <Filter>tests\util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\selector_value.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\test_json_value.cpp">
-      <Filter>tests\util</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\test_selector_value.cpp">
-      <Filter>tests\util</Filter>
     </ClCompile>
     <ClCompile Include="game\race.cpp">
       <Filter>game</Filter>
@@ -667,9 +646,6 @@
     <ClInclude Include="gfx\scale_nine.h">
       <Filter>gfx\base\util</Filter>
     </ClInclude>
-    <ClInclude Include="ui\data_event.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
     <ClInclude Include="ui\event.h">
       <Filter>ui\events</Filter>
     </ClInclude>
@@ -898,9 +874,6 @@
     <ClInclude Include="util\colour.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="util\json_value.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="util\stat_tokeniser.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -972,21 +945,6 @@
     </ClInclude>
     <ClInclude Include="game\dialogue_selector.h">
       <Filter>game\dialogue</Filter>
-    </ClInclude>
-    <ClInclude Include="util\selector.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\test_selector.h">
-      <Filter>tests\util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\selector_value.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\test_json_value.h">
-      <Filter>tests\util</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\test_selector_value.h">
-      <Filter>tests\util</Filter>
     </ClInclude>
     <ClInclude Include="game\race.h">
       <Filter>game</Filter>

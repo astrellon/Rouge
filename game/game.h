@@ -34,8 +34,6 @@ namespace game {
 		Game(Engine *engine);
 		~Game();
 
-		Map *getMap(const char *mapName);
-		Map *getMap(const string &mapName);
 		Map *getMapLua(const char *mapName);
 		Map *getMapLua(const string &mapName);
 		Map *getCurrentMap();

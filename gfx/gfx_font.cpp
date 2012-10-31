@@ -42,7 +42,7 @@ namespace gfx {
 		return mAsset != NULL && mAsset->getTexture() != NULL && !mTextureWindows.empty();
 	}
 
-	int Font::loadDef(JsonValue value)
+	/*int Font::loadDef(JsonValue value)
 	{
 		if (value.has("asset", JV_STR))
 		{
@@ -79,7 +79,7 @@ namespace gfx {
 		postLoad();
 
 		return 0;
-	}
+	}*/
 	int Font::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

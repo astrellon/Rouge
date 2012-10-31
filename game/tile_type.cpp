@@ -3,6 +3,7 @@
 #include <log/logger.h>
 
 #include <util/utils.h>
+using namespace am::util;
 
 #include <sstream>
 using namespace std;
@@ -38,14 +39,14 @@ namespace game {
 		return mFullName.c_str();
 	}
 
-	bool TileType::loadFromDef(JsonValue value)
+	/*bool TileType::loadFromDef(JsonValue value)
 	{
 		if (value.has("fullName", JV_STR))
 		{
 			mFullName = value["fullName"].getCStr();
 		}
 		return true;
-	}
+	}*/
 	bool TileType::loadFromDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -82,7 +83,7 @@ namespace game {
 		return iter->second;
 	}
 
-	bool TileType::loadStandardTileTypes(const char *filename)
+	/*bool TileType::loadStandardTileTypes(const char *filename)
 	{
 		JsonValue loaded = JsonValue::import_from_file(filename);
 		if (loaded.getType() == JV_INT)
@@ -135,7 +136,7 @@ namespace game {
 			addTileType(loadedType);
 		}
 		return true;
-	}
+	}*/
 	bool TileType::loadStandardTileTypesLua(const char *filename)
 	{
 		LuaState lua;

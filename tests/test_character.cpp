@@ -82,7 +82,7 @@ namespace tests {
 		return true;
 	}
 
-	bool TestCharacter::testSelector()
+	/*bool TestCharacter::testSelector()
 	{
 		Race testRace("human");
 		Handle<Character> testChar(new Character());
@@ -97,7 +97,7 @@ namespace tests {
 		equalsStr("human", selector.getAttribute("race").getCStr());
 
 		return true;
-	}
+	}*/
 
 }
 }

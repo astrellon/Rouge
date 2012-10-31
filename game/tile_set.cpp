@@ -90,7 +90,7 @@ namespace game {
 		return NULL;
 	}
 
-	void TileSet::loadDef(JsonValue value)
+	/*void TileSet::loadDef(JsonValue value)
 	{
 		if (value.has("fullName", JV_STR))
 		{
@@ -117,7 +117,7 @@ namespace game {
 			ss << "Tile set '" << mName << "' definition does not have a set of tiles";
 			am_log("SET", ss);
 		}
-	}
+	}*/
 	void TileSet::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

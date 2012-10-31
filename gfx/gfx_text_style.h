@@ -27,7 +27,7 @@ namespace gfx {
 		void removeColour();
 		bool hasColour() const;
 
-		bool loadDef(JsonValue value);
+		//bool loadDef(JsonValue value);
 		bool loadDef(LuaState &lua);
 		
 		static TextStyle getCalcStyle(const TextStyleSelector &node);
@@ -35,7 +35,7 @@ namespace gfx {
 		static void addStyle(const TextStyleSelector &node, const TextStyle &style);
 		static bool removeStyle(const TextStyleSelector &node);
 
-		static void loadStyles(const char *filename);
+		//static void loadStyles(const char *filename);
 		static void loadStylesLua(const char *filename);
 
 	protected:

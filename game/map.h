@@ -7,8 +7,8 @@
 #include <base/handle.h>
 using namespace am::base;
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -60,7 +60,7 @@ namespace game {
 		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
-		void loadDef(JsonValue loaded);
+		//void loadDef(JsonValue loaded);
 		void loadDef(LuaState &lua);
 
 		void updateAssetSprites();

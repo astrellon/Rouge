@@ -32,7 +32,6 @@ namespace gfx {
 	public:
 		~GfxEngine();
 
-		Asset *getAsset(const char *assetName);
 		Asset *getAssetLua(const char *assetName);
 		int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
@@ -41,7 +40,6 @@ namespace gfx {
 		int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
-		Font *getFont(const char *fontName);
 		Font *getFontLua(const char *fontName);
 		int reloadFont(const char *fontName);
 		FontMap &getFontMap();

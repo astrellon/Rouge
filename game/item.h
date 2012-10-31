@@ -74,7 +74,7 @@ namespace game {
 
 		virtual StatModifiers &getStatModifiers();
 
-		virtual void loadDef(JsonValue value);
+		//virtual void loadDef(JsonValue value);
 		virtual void loadDef(LuaState &lua);
 
 		virtual float getWidth();
@@ -116,7 +116,7 @@ namespace game {
 		virtual void updateFullname();
 		virtual void updateGraphic();
 
-		virtual void parseStats(const JsonObject &stats, bool magical);
+		//virtual void parseStats(const JsonObject &stats, bool magical);
 		virtual void parseStats(LuaState &lua, bool magical);
 
 		static const char *sItemLocationNames[];

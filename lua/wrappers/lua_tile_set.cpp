@@ -191,16 +191,14 @@ namespace game {
 	int TileSet_load_def(lua_State *lua)
 	{
 		TileSet *set = Check_TileSet(lua, 1);
-		if (set && lua_isstring(lua, -1))
+		if (set && lua_istable(lua, -1))
 		{
-			JsonValue value = JsonValue::import(lua_tostring(lua, -1));
-			if (value.getType() == JV_OBJ)
-			{
-				set->loadDef(value);
-			}
+			LuaState wrap(lua);
+			set->loadDef(wrap);
 		}
 		return 0;
 	}
+
 }
 }
 }

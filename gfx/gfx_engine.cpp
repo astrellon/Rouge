@@ -201,7 +201,7 @@ namespace gfx {
 		return mDefaultCursor;
 	}
 
-	Asset *GfxEngine::getAsset(const char *assetName)
+	/*Asset *GfxEngine::getAsset(const char *assetName)
 	{
 		string assetNameStr = assetName;
 		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
@@ -247,7 +247,7 @@ namespace gfx {
 		mAssetManager[assetNameStr] = asset;
 
 		return asset;
-	}
+	}*/
 	Asset *GfxEngine::getAssetLua(const char *assetName)
 	{
 		string assetNameStr = assetName;
@@ -316,39 +316,40 @@ namespace gfx {
 		stringstream ss;
 		if (assetNameStr[0] == '/')
 		{
-			ss << "data" << assetNameStr << ".ssff";
+			ss << "data" << assetNameStr << ".lua";
 		}
 		else
 		{
-			ss << "data/assets/" << assetNameStr << ".ssff";
+			ss << "data/assets/" << assetNameStr << ".lua";
 		}
 
-		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() != JV_OBJ)
+		LuaState lua(false);
+		if (!lua.loadFile(ss.str().c_str()))
 		{
 			stringstream errss;
 			errss << "Unable to reload asset '" << assetNameStr << "', using the path '";
 			errss << ss.str() << "\'\nLoaded: "; 
-			loaded.display(errss);
-
 			am_log("ASSET", errss);
-			
+			lua.logStack("ASSETLUA");
+			lua.close();
 			return -1;
 		}
-
+		
 		Asset *temp = new Asset(assetName);
-		int loadAsset = temp->loadDef(loaded);
+		int loadAsset = temp->loadDef(lua);
 		if (loadAsset != 0)
 		{
 			stringstream errss;
 			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
 			am_log("ASSET", errss);
+			lua.logStack("ASSETLUA");
+			lua.close();
 			delete temp;
 			return -2;
 		}
 
 		iter->second->assign(*temp);
-
+		
 		return 1;
 	}
 	AssetMap &GfxEngine::getAssetMap()
@@ -404,7 +405,7 @@ namespace gfx {
 		return mTextureManager;
 	}
 
-	Font *GfxEngine::getFont(const char *fontName)
+	/*Font *GfxEngine::getFont(const char *fontName)
 	{
 		string fontNameStr = fontName;
 		FontMap::iterator iter = mFontManager.find(fontNameStr);
@@ -440,7 +441,7 @@ namespace gfx {
 		mFontManager[fontNameStr] = font;
 
 		return font;
-	}
+	}*/
 	Font *GfxEngine::getFontLua(const char *fontName)
 	{
 		string fontNameStr = fontName;

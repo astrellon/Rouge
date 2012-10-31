@@ -48,7 +48,6 @@ namespace util {
 		static void removeNamedColour(const char *name);
 		static void removeNamedColour(const string &name);
 
-		static void addStandardNamedColours(const char *filename);
 		static void addStandardNamedColoursLua(const char *filename);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Colour& rhs);

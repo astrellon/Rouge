@@ -15,6 +15,8 @@ using namespace am::game;
 
 #include <lua/wrappers/lua_stat_modifiers.h>
 
+#include <log/logger.h>
+
 namespace am {
 namespace lua {
 namespace game {
@@ -376,19 +378,12 @@ namespace game {
 	int Item_load_def(lua_State *lua)
 	{
 		Item *item = Check_Item(lua, 1);
-		if (item)
+		if (item && lua_istable(lua, -1))
 		{
-			if (lua_isstring(lua, -1))
-			{
-				const char *json = lua_tostring(lua, -1);
-				am::util::JsonValue value = am::util::JsonValue::import(json);
-				if (value.getType() == JV_OBJ)
-				{
-					item->loadDef(value);
-					lua_pushboolean(lua, true);
-					return 1;
-				}
-			}
+			LuaState wrap(lua);
+			item->loadDef(wrap);
+			lua_pushboolean(lua, true);
+			return 1;
 		}
 		lua_pushboolean(lua, false);
 		return 1;

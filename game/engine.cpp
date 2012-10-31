@@ -1,7 +1,7 @@
 #include "engine.h"
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
 
 #include <sstream>
 using namespace std;
@@ -164,37 +164,6 @@ namespace game {
 
 	}
 
-	TileSet *Engine::getTileSet(const char *tileSetName)
-	{
-		if (!tileSetName || tileSetName[0] == '\0')
-		{
-			return mTopLevelTileSet.get();
-		}
-		string tileSetStr = tileSetName;
-		TileSetMap::iterator iter = mTileSets.find(tileSetStr);
-		if (iter != mTileSets.end())
-		{
-			return iter->second.get();
-		}
-		
-		Handle<TileSet> tileSet(new TileSet(tileSetName));
-		
-		stringstream ss;
-		ss << "data/tilesets/" << tileSetName << ".ssff";
-		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() == JV_INT)
-		{
-			stringstream errss;
-			errss << "Error loading tile set '" << tileSetName << "' definition using path '" << ss.str() << '\'';
-			am_log("SET", errss);
-
-			return NULL;
-		}
-
-		tileSet->loadDef(loaded);
-		mTileSets[tileSetStr] = tileSet;
-		return tileSet.get();
-	}
 	TileSet *Engine::getTileSetLua(const char *tileSetName)
 	{
 		if (!tileSetName || tileSetName[0] == '\0')

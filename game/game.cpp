@@ -1,7 +1,7 @@
 #include "game.h"
 
-#include <util/json_value.h>
-using namespace am::util;
+//#include <util/json_value.h>
+//using namespace am::util;
 
 #include <log/logger.h>
 
@@ -59,37 +59,6 @@ namespace game {
 		
 	}
 
-	Map *Game::getMap(const char *mapName)
-	{
-		return getMap(string(mapName));
-	}
-	Map *Game::getMap(const string &mapName)
-	{
-		MapMap::iterator iter = mMaps.find(mapName);
-		if (iter != mMaps.end())
-		{
-			return iter->second.get();
-		}
-
-		stringstream ss;
-		ss << "data/maps/" << mapName << ".ssff";
-		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() != JV_OBJ)
-		{
-			stringstream errss;
-			errss << "Unable to load map '" << mapName << "', using the path '";
-			errss << ss.str() << '\''; 
-			am_log("MAP", errss);
-			return NULL;
-		}
-
-		Handle<Map> map(new Map(mapName.c_str()));
-		map->loadDef(loaded);
-
-		mMaps[mapName] = map;
-
-		return map.get();
-	}
 	Map *Game::getMapLua(const char *mapName)
 	{
 		return getMapLua(string(mapName));

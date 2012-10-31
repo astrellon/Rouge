@@ -2,7 +2,7 @@
 
 #include <log/logger.h>
 
-#include <util/json_value.h>
+//#include <util/json_value.h>
 #include <util/utils.h>
 using namespace am::util;
 
@@ -43,14 +43,14 @@ namespace gfx {
 		return mColour.getRed() >= 0.0f;
 	}
 
-	bool TextStyle::loadDef(JsonValue value)
+	/*bool TextStyle::loadDef(JsonValue value)
 	{
 		if (value.has("colour", JV_STR))
 		{
 			mColour.parseFromString(value["colour"].getCStr());
 		}
 		return true;
-	}
+	}*/
 	bool TextStyle::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -149,7 +149,7 @@ namespace gfx {
 		return false;
 	}
 
-	void TextStyle::loadStyles(const char *filename)
+	/*void TextStyle::loadStyles(const char *filename)
 	{
 		JsonValue loaded = JsonValue::import_from_file(filename);
 		if (loaded.getType() != JV_ARR)
@@ -264,7 +264,7 @@ namespace gfx {
 
 			addStyle(selector, style);
 		}
-	}
+	}*/
 
 	void TextStyle::loadStylesLua(const char *filename)
 	{

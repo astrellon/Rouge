@@ -253,7 +253,7 @@ namespace game {
 		return mFullname.c_str();
 	}
 
-	void Item::loadDef(JsonValue value)
+	/*void Item::loadDef(JsonValue value)
 	{
 		if (value.getType() != JV_OBJ)
 		{
@@ -323,7 +323,7 @@ namespace game {
 		{
 			setItemValue(static_cast<unsigned int>(value["value"].getInt()));
 		}
-	}
+	}*/
 	void Item::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -401,7 +401,7 @@ namespace game {
 		}
 	}
 
-	void Item::parseStats(const JsonObject &stats, bool magical)
+	/*void Item::parseStats(const JsonObject &stats, bool magical)
 	{
 		JsonObject::const_iterator iter;
 		for (iter = stats.begin(); iter != stats.end(); ++iter)
@@ -451,7 +451,7 @@ namespace game {
 				}
 			}
 		}
-	}
+	}*/
 	void Item::parseStats(LuaState &lua, bool magical)
 	{
 		if (!lua_istable(lua, -1))
