@@ -139,7 +139,7 @@ namespace game {
 	}*/
 	bool TileType::loadStandardTileTypesLua(const char *filename)
 	{
-		LuaState lua;
+		LuaState lua(false);
 		if (!lua.loadFile(filename))
 		{
 			lua.logStack("TITLE");

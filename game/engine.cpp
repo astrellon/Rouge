@@ -181,7 +181,7 @@ namespace game {
 		
 		stringstream ss;
 		ss << "data/tilesets/" << tileSetName << ".lua";
-		LuaState lua;
+		LuaState lua(false);
 		if (!lua.loadFile(ss.str().c_str()))
 		{
 			stringstream errss;

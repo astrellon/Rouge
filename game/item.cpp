@@ -517,7 +517,7 @@ namespace game {
 
 	void Item::loadFromLua(const char *filename)
 	{
-		LuaState lua;
+		LuaState lua(false);
 		stringstream ss;
 		ss << "data/items/" << filename << ".lua";
 		if (!lua.loadFile(ss.str().c_str()))

@@ -268,7 +268,7 @@ namespace gfx {
 
 	void TextStyle::loadStylesLua(const char *filename)
 	{
-		LuaState lua;
+		LuaState lua(false);
 		if (!lua.loadFile(filename))
 		{
 			stringstream errss;

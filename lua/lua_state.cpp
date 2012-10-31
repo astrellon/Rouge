@@ -14,10 +14,10 @@ namespace lua {
 
 	LuaState::LuaState(bool includeLibraries)
 	{
-		mLua = luaL_newstate(); 
+		mLua = luaL_newstate();
+		luaL_openlibs(mLua);
 		if (includeLibraries)
 		{
-			luaL_openlibs(mLua);
 			lua_register(mLua, "import", getWrapper);
 		}
 		// We always want error handler and logger function.
