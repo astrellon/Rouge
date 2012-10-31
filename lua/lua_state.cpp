@@ -15,6 +15,7 @@ namespace lua {
 	LuaState::LuaState(bool includeLibraries)
 	{
 		mLua = luaL_newstate();
+		// We always want the standard libs as they provide basic table manipulation.
 		luaL_openlibs(mLua);
 		if (includeLibraries)
 		{
@@ -57,15 +58,23 @@ namespace lua {
 		return 0;
 	}
 
+	/**
+	 * Attemps to load the given file as Lua code and returns true if this succeeds.
+	 * If there is an error, use either logStack or printStack to get the result.
+	 */
 	bool LuaState::loadFile(const char *filename)
 	{
 		return !luaL_dofile(mLua, filename);
 	}
+	/**
+	 * Attemps to load the given string as Lua code and returns true if this succeeds.
+	 * If there is an error, use either logStack or printStack to get the result.
+	 */
 	bool LuaState::loadString(const char *luaString)
 	{
 		return !luaL_dostring(mLua, luaString);
 	}
-
+	
 	void LuaState::call(int n, int r)
 	{
 		lua_call(mLua, n, r);
@@ -86,7 +95,6 @@ namespace lua {
 	bool LuaState::getTable(int tableRef)
 	{
 		lua_rawgeti(mLua, LUA_REGISTRYINDEX, tableRef);
-		logStack("LOAD");
 		if (lua_istable(mLua, -1))
 		{
 			return true;
@@ -262,22 +270,30 @@ namespace lua {
 		lua_pushstring(mLua, key);
 		return lua_type(mLua, -1);
 	}
-
-	float LuaState::toNumber(int arg)
+	/**
+	 * Calls lua_tonumber on top of the stack and pops the stacks.
+	 */
+	float LuaState::toNumber()
 	{
-		float val = static_cast<float>(lua_tonumber(mLua, arg));
+		float val = static_cast<float>(lua_tonumber(mLua, -1));
 		lua_pop(mLua, 1);
 		return val;
 	}
-	int LuaState::toInteger(int arg)
+	/**
+	 * Calls lua_tointeger on top of the stack and pops the stacks.
+	 */
+	int LuaState::toInteger()
 	{
-		int val = lua_tointeger(mLua, arg);
+		int val = lua_tointeger(mLua, -1);
 		lua_pop(mLua, 1);
 		return val;
 	}
-	bool LuaState::toBool(int arg)
+	/**
+	 * Calls lua_toboolean on top of the stack and pops the stacks.
+	 */
+	bool LuaState::toBool()
 	{
-		bool val = lua_toboolean(mLua, arg);
+		bool val = lua_toboolean(mLua, -1);
 		lua_pop(mLua, 1);
 		return val;
 	}
