@@ -99,7 +99,6 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
-		//Asset *mCursorAsset = getAsset("cursor");
 		Asset *cursorAsset = getAssetLua("cursor");
 		if (cursorAsset == NULL)
 		{
@@ -201,53 +200,6 @@ namespace gfx {
 		return mDefaultCursor;
 	}
 
-	/*Asset *GfxEngine::getAsset(const char *assetName)
-	{
-		string assetNameStr = assetName;
-		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
-		if (iter != mAssetManager.end())
-		{
-			return iter->second.get();
-		}
-
-		stringstream ss;
-		if (assetNameStr[0] == '/')
-		{
-			ss << "data" << assetNameStr << ".ssff";
-		}
-		else
-		{
-			ss << "data/assets/" << assetNameStr << ".ssff";
-		}
-
-		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() != JV_OBJ)
-		{
-			stringstream errss;
-			errss << "Unable to load asset '" << assetNameStr << "', using the path '";
-			errss << ss.str() << "\'\nLoaded: "; 
-			loaded.display(errss);
-
-			am_log("ASSET", errss);
-			
-			return NULL;
-		}
-
-		Asset *asset = new Asset(assetName);
-		int loadAsset = asset->loadDef(loaded);
-		if (loadAsset != 0)
-		{
-			stringstream errss;
-			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASSET", errss);
-			delete asset;
-			return NULL;
-		}
-
-		mAssetManager[assetNameStr] = asset;
-
-		return asset;
-	}*/
 	Asset *GfxEngine::getAssetLua(const char *assetName)
 	{
 		string assetNameStr = assetName;
@@ -405,44 +357,7 @@ namespace gfx {
 	{
 		return mTextureManager;
 	}
-
-	/*Font *GfxEngine::getFont(const char *fontName)
-	{
-		string fontNameStr = fontName;
-		FontMap::iterator iter = mFontManager.find(fontNameStr);
-		if (iter != mFontManager.end())
-		{
-			return iter->second.get();
-		}
-
-		stringstream ss;
-		ss << "data/fonts/" << fontNameStr << ".ssff";
-
-		JsonValue loaded = JsonValue::import_from_file(ss.str().c_str());
-		if (loaded.getType() != JV_OBJ)
-		{
-			stringstream errss;
-			errss << "Unable to load font '" << fontNameStr << "', using the path '";
-			errss << ss.str() << '\''; 
-			am_log("FONT", errss);
-			return NULL;
-		}
-
-		Font *font = new Font(fontName);
-		int loadFont = font->loadDef(loaded);
-		if (loadFont != 0)
-		{
-			stringstream errss;
-			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
-			am_log("FONT", errss);
-			delete font;
-			return NULL;
-		}
-
-		mFontManager[fontNameStr] = font;
-
-		return font;
-	}*/
+	
 	Font *GfxEngine::getFontLua(const char *fontName)
 	{
 		string fontNameStr = fontName;

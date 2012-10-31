@@ -70,11 +70,6 @@ namespace ui {
 			mSelected = selected;
 			Handle<ValueChangeEvent> e(new ValueChangeEvent(this, selected));
 			fireEvent<ValueChangeEvent>(e);
-			/*JsonValue value(selected);
-			DataEvent *e = new DataEvent("change", this, selected);
-			fireEvent(e);
-			delete e;*/
-			// TODO
 		}
 	}
 
