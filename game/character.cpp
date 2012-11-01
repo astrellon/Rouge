@@ -373,6 +373,62 @@ namespace game {
 		return mRace;
 	}
 
+	void Character::setSubjectLock(const char *subject, bool locked)
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return;
+		}
+		string subjectStr(subject);
+		mUnlockedSubjects[subjectStr] = locked;
+	}
+	bool Character::isSubjectLocked(const char *subject) const
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return false;
+		}
+		string subjectStr(subject);
+		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
+		if (iter == mUnlockedSubjects.end())
+		{
+			return false;
+		}
+		return iter->second;
+	}
+	const Character::SubjectMap &Character::getUnlockedSubjects() const
+	{
+		return mUnlockedSubjects;
+	}
+
+	void Character::setSubjectAvailable(const char *subject, bool available)
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return;
+		}
+		string subjectStr(subject);
+		mSubjectsAvailable[subjectStr] = available;
+	}
+	bool Character::isSubjectAvailable(const char *subject) const
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return false;
+		}
+		string subjectStr(subject);
+		SubjectMap::const_iterator iter = mSubjectsAvailable.find(subjectStr);
+		if (iter == mSubjectsAvailable.end())
+		{
+			return false;
+		}
+		return iter->second;
+	}
+	const Character::SubjectMap &Character::getSubjectsAvailable() const
+	{
+		return mSubjectsAvailable;
+	}
+
 	void Character::setGender(Gender::GenderType gender)
 	{
 		mGender = gender;

@@ -248,6 +248,7 @@ namespace game {
 
 	void GameObject::talkTo(GameObject *from)
 	{
+		
 		//Dialogue::getDialogue()
 	}
 

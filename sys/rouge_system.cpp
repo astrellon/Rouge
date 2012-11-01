@@ -126,7 +126,6 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		
 		Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
 		Dialogue::addDialogue(diag1);
 		Dialogue *diag2 = new Dialogue("diag2", "Today? Today is today <? @='diag1'>Go back?</?>", "Today");
