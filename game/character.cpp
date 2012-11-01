@@ -401,32 +401,32 @@ namespace game {
 		return mUnlockedSubjects;
 	}
 
-	void Character::setSubjectAvailable(const char *subject, bool available)
+	void Character::setDialogueAvailable(const char *subject, bool available)
 	{
 		if (subject == NULL || subject[0] == '\0')
 		{
 			return;
 		}
 		string subjectStr(subject);
-		mSubjectsAvailable[subjectStr] = available;
+		mDialoguesAvailable[subjectStr] = available;
 	}
-	bool Character::isSubjectAvailable(const char *subject) const
+	bool Character::isDialogueAvailable(const char *subject) const
 	{
 		if (subject == NULL || subject[0] == '\0')
 		{
 			return false;
 		}
 		string subjectStr(subject);
-		SubjectMap::const_iterator iter = mSubjectsAvailable.find(subjectStr);
-		if (iter == mSubjectsAvailable.end())
+		SubjectMap::const_iterator iter = mDialoguesAvailable.find(subjectStr);
+		if (iter == mDialoguesAvailable.end())
 		{
 			return false;
 		}
 		return iter->second;
 	}
-	const Character::SubjectMap &Character::getSubjectsAvailable() const
+	const Character::SubjectMap &Character::getDialoguesAvailable() const
 	{
-		return mSubjectsAvailable;
+		return mDialoguesAvailable;
 	}
 
 	void Character::setGender(Gender::GenderType gender)

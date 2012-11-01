@@ -15,16 +15,20 @@ using namespace std;
 namespace am {
 namespace game {
 
+	class Character;
+
 	class Dialogue {
 	public:
+
+		enum UnlockFlag {
+			NONE, LOCKED
+		};
 
 		// Is a list of dialogue subjects
 		typedef vector<string> DialogueChoices;
 
-		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL);
+		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL, UnlockFlag unlock = NONE);
 		~Dialogue();
-
-		//const char *getId() const;
 
 		void setText(const char *text);
 		const char *getText() const;
@@ -32,23 +36,21 @@ namespace game {
 		void setTitle(const char *title);
 		const char *getTitle() const;
 
-		//void setTalker(Character *talker);
-		//Character *getTalker() const;
-
 		void setId(const char *id);
 		const char *getId() const;
 
 		void setSubject(const char *subject);
 		const char *getSubject() const;
 
-		//DialogueChoices &getChoices();
+		void setUnlockFlag(UnlockFlag flag);
+		UnlockFlag getUnlockFlag() const;
 
 		static bool addDialogue(Dialogue *dialogue);
 		static bool removeDialogue(const char *id);
+		static void removeAllDialogue();
 		static Dialogue *getDialogue(const char *id);
 
-		static bool setSubjectFlag(const char *subject, int flag);
-		static bool getSubjectFlag(const char *subject, int &flag);
+		static void getAvailableDIalogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo);
 
 	protected:
 
@@ -56,20 +58,10 @@ namespace game {
 		string mId;
 		string mTitle;
 		string mSubject;
-		//DialogueChoices mChoices;
-
-		//Handle<Character> mTalker;
+		UnlockFlag mUnlockFlag;
 
 		typedef map<string, Dialogue *> DialogueMap;
 		static DialogueMap sDialogueMap;
-
-		typedef map<string, int> SubjectMap;
-		static SubjectMap sSubjectMap;
-
-		//typedef pair<DialogueSelector, Dialogue *> DialogueSelectorPair;
-		//typedef vector< DialogueSelectorPair > DialogueSelectorList;
-		//typedef map<string, Dialogue *> DialogueMap;
-		//static DialogueSelectorList sDialogueList;
 
 	};
 

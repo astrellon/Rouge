@@ -1,15 +1,16 @@
 #include "dialogue.h"
 
+#include "character.h"
+
 namespace am {
 namespace game {
 
-	//Dialogue::DialogueSelectorList Dialogue::sDialogueList;
 	Dialogue::DialogueMap Dialogue::sDialogueMap;
-	Dialogue::SubjectMap Dialogue::sSubjectMap;
 
-	Dialogue::Dialogue(const char *id, const char *text, const char *title, const char *subject) :
+	Dialogue::Dialogue(const char *id, const char *text, const char *title, const char *subject, UnlockFlag unlock) :
 		mId(id),
-		mText(text)
+		mText(text),
+		mUnlockFlag(unlock)
 	{
 		if (title != NULL)
 		{
@@ -23,11 +24,6 @@ namespace game {
 	Dialogue::~Dialogue()
 	{
 	}
-
-	/*const char *Dialogue::getId() const
-	{
-		return mId.c_str();
-	}*/
 
 	void Dialogue::setText(const char *text)
 	{
@@ -59,10 +55,6 @@ namespace game {
 	{
 		return mId.c_str();
 	}
-	/*Dialogue::DialogueChoices &Dialogue::getChoices()
-	{
-		return mChoices;
-	}*/
 
 	void Dialogue::setSubject(const char *subject)
 	{
@@ -104,6 +96,10 @@ namespace game {
 		}
 		return false;
 	}
+	void Dialogue::removeAllDialogue()
+	{
+		sDialogueMap.clear();
+	}
 	Dialogue *Dialogue::getDialogue(const char *id)
 	{
 		if (id != NULL)
@@ -117,34 +113,26 @@ namespace game {
 		return NULL;
 	}
 
-	bool Dialogue::setSubjectFlag(const char *subject, int flag)
+	void Dialogue::getAvailableDIalogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo)
 	{
-		if (subject == NULL || subject[0] == '\0')
+		if (talker == NULL || talkedTo == NULL)
 		{
-			return false;
+			return;
 		}
-		string subStr = subject;
-		SubjectMap::iterator iter = sSubjectMap.find(subStr);
-		if (iter == sSubjectMap.end() || iter->second != flag)
+
+		const Character::SubjectMap &unlocked = talker->getUnlockedSubjects();
+		const Character::SubjectMap &available = talkedTo->getDialoguesAvailable();
+		Character::SubjectMap::const_iterator iter;
+		for (iter = available.begin(); iter != available.end(); ++iter)
 		{
-			sSubjectMap[subStr] = flag;
-			return true;
+			Dialogue *dialogue = getDialogue(iter->first.c_str());
+			if (dialogue == NULL)
+			{
+				continue;
+			}
+
 		}
-		return false;
 	}
-	bool Dialogue::getSubjectFlag(const char *subject, int &flag)
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return false;
-		}
-		SubjectMap::const_iterator iter = sSubjectMap.find(string(subject));
-		if (iter != sSubjectMap.end())
-		{
-			flag = iter->second;
-			return true;
-		}
-		return false;
-	}
+
 }
 }

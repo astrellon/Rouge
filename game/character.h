@@ -86,9 +86,9 @@ namespace game {
 		virtual bool isSubjectLocked(const char *subject) const;
 		virtual const SubjectMap &getUnlockedSubjects() const;
 
-		virtual void setSubjectAvailable(const char *subject, bool available = true);
-		virtual bool isSubjectAvailable(const char *subject) const;
-		virtual const SubjectMap &getSubjectsAvailable() const;
+		virtual void setDialogueAvailable(const char *subject, bool available = true);
+		virtual bool isDialogueAvailable(const char *subject) const;
+		virtual const SubjectMap &getDialoguesAvailable() const;
 
 		virtual void setGender(Gender::GenderType gender);
 		virtual Gender::GenderType getGender() const;
@@ -120,7 +120,7 @@ namespace game {
 		Gender::GenderType mGender;
 
 		SubjectMap mUnlockedSubjects;
-		SubjectMap mSubjectsAvailable;
+		SubjectMap mDialoguesAvailable;
 
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);
