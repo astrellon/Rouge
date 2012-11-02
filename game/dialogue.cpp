@@ -69,6 +69,15 @@ namespace game {
 		return mId.c_str();
 	}
 
+	void Dialogue::setUnlockFlag(Dialogue::UnlockFlag flag)
+	{
+		mUnlockFlag = flag;
+	}
+	Dialogue::UnlockFlag Dialogue::getUnlockFlag() const
+	{
+		return mUnlockFlag;
+	}
+
 	bool Dialogue::addDialogue(Dialogue *dialogue)
 	{
 		if (dialogue)
@@ -113,7 +122,7 @@ namespace game {
 		return NULL;
 	}
 
-	void Dialogue::getAvailableDIalogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo)
+	void Dialogue::getAvailableDialogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo)
 	{
 		if (talker == NULL || talkedTo == NULL)
 		{
@@ -130,7 +139,19 @@ namespace game {
 			{
 				continue;
 			}
-
+			if (dialogue->getUnlockFlag() == NONE)
+			{
+				result.push_back(dialogue);
+			}
+			else if (dialogue->getUnlockFlag() == LOCKED)
+			{
+				// If the subject of the dialogue is in the unlocked map and is true.
+				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));
+				if (iter != unlocked.end() && iter->second)
+				{
+					result.push_back(dialogue);
+				}
+			}
 		}
 	}
 

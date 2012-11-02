@@ -50,7 +50,7 @@ namespace game {
 		static void removeAllDialogue();
 		static Dialogue *getDialogue(const char *id);
 
-		static void getAvailableDIalogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo);
+		static void getAvailableDialogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo);
 
 	protected:
 

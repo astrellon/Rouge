@@ -25,6 +25,7 @@ using namespace am::gfx;
 #include <tests/test_lua_tile_set.h>
 #include <tests/test_lua_engine.h>
 #include <tests/test_levelable.h>
+#include <tests/test_dialogue.h>
 using namespace am::tests;
 
 namespace am {
@@ -83,7 +84,8 @@ namespace sys {
 		runSuite(TestLuaTileSet);
 		runSuite(TestLuaEngine);
 		runSuite(TestLevelable);
-
+		runSuite(TestDialogue);
+		/*
 		Handle<Asset> asset(new Asset("testAsset"));
 		LuaState lua;
 		lua.loadString("asset = {}\n"
@@ -98,7 +100,7 @@ namespace sys {
 			);
 		lua_getglobal(lua, "asset");
 		asset->loadDef(lua);
-
+		*/
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)
 		{

@@ -619,6 +619,9 @@
     <ClCompile Include="ui\value_change_event.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_dialogue.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1137,6 +1140,9 @@
     </ClInclude>
     <ClInclude Include="ui\value_change_event.h">
       <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_dialogue.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
