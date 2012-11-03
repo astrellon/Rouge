@@ -40,7 +40,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	win.setGameSystem(gameSystem);
 	
-	gameSystem->setSize(1280, 720);
+	gameSystem->setSize(1280, 700);
 	gameSystem->setPosition(50, 50);
 	
 	gameSystem->startLoop();
