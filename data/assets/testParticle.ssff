@@ -1,6 +1,0 @@
-{	// Test Particle Asset
-	texture: "data/textures/testParticle.png",
-	framesX: 4,
-	framesY: 8,
-	frameRate: 24
-}

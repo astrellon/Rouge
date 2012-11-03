@@ -1,4 +1,0 @@
-{	// Test Screen
-	background: "/screens/testScreen/background",
-	foreground: "/screens/testScreen/foreground"
-}

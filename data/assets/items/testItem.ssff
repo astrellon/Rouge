@@ -1,7 +1,0 @@
-{	// Test Item Inventory Asset
-	texture: "data/textures/items/testItem.png",
-	window: {
-		leftX: 32,
-		rightX: 64
-	}
-}

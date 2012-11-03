@@ -1,9 +1,0 @@
-{	// Grass Asset
-	texture: "data/textures/tiles/bricks.png",
-	window: {
-		leftX: 0,
-		rightX: 31,
-		topY: 0,
-		bottomY: 31
-	}
-}

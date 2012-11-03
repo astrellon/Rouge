@@ -39,14 +39,14 @@ namespace ui {
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
-		virtual void setDialogueChoices(const Dialogue::DialogueChoices *choices);
-		const Dialogue::DialogueChoices *getDialogueChoices() const;
+		//virtual void setDialogueChoices(const Dialogue::DialogueChoices *choices);
+		//const Dialogue::DialogueChoices *getDialogueChoices() const;
 
 	protected:
 
 		Handle<TextField2> mText;
 		Dialogue *mDialogue;
-		const Dialogue::DialogueChoices *mDialogueChoices;
+		//const Dialogue::DialogueChoices *mDialogueChoices;
 
 		void updateText();
 	};

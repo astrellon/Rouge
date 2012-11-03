@@ -1,9 +1,0 @@
-{	// Basic font definition
-	asset: "fontArial",
-	fixedWidth: false,
-	utf: false,
-	kerning: 0,
-	leading: 1,
-	spaceWidth: 8,
-	tabWidth: 32
-}

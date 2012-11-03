@@ -147,7 +147,7 @@ namespace game {
 			{
 				// If the subject of the dialogue is in the unlocked map and is true.
 				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));
-				if (iter != unlocked.end() && iter->second)
+				if (iter != unlocked.end() && !iter->second)
 				{
 					result.push_back(dialogue);
 				}

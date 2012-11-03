@@ -1,6 +1,0 @@
-{	// Water Asset
-	texture: "data/textures/tiles/water.png",
-	framesX: 2,
-	framesY: 2,
-	frameRate: 1
-}
