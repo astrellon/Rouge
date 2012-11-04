@@ -1,5 +1,5 @@
 -- Test Sword Item
-itme = {}
+item = {}
 item.graphic = "items/sword"
 item.groundGraphic = "items/swordGround"
 item.stats = {minDamage = "+ 3", maxDamage = "+ 7"}

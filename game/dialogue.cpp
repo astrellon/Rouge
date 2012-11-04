@@ -7,10 +7,12 @@ namespace game {
 
 	Dialogue::DialogueMap Dialogue::sDialogueMap;
 
-	Dialogue::Dialogue(const char *id, const char *text, const char *title, const char *subject, UnlockFlag unlock) :
+	Dialogue::Dialogue(const char *id, const char *text, const char *title, 
+		const char *subject, UnlockFlag unlock, DialogueAction action) :
 		mId(id),
 		mText(text),
-		mUnlockFlag(unlock)
+		mUnlockFlag(unlock),
+		mAction(action)
 	{
 		if (title != NULL)
 		{
@@ -78,6 +80,15 @@ namespace game {
 		return mUnlockFlag;
 	}
 
+	void Dialogue::setDialogueAction(DialogueAction action)
+	{
+		mAction = action;
+	}
+	Dialogue::DialogueAction Dialogue::getDialogueAction() const
+	{
+		return mAction;
+	}
+
 	bool Dialogue::addDialogue(Dialogue *dialogue)
 	{
 		if (dialogue)
@@ -139,11 +150,11 @@ namespace game {
 			{
 				continue;
 			}
-			if (dialogue->getUnlockFlag() == NONE)
+			if (dialogue->getUnlockFlag() == UNLOCK_NONE)
 			{
 				result.push_back(dialogue);
 			}
-			else if (dialogue->getUnlockFlag() == LOCKED)
+			else if (dialogue->getUnlockFlag() == UNLOCK_LOCKED)
 			{
 				// If the subject of the dialogue is in the unlocked map and is true.
 				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));

@@ -10,17 +10,17 @@ namespace am {
 namespace tests {
 
 	bool TestDialogue::testSimple() {
-		Dialogue testDiag("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::NONE);
+		Dialogue testDiag("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
 		equalsStr("diag1", testDiag.getId());
 		equalsStr("Hello there, my name is", testDiag.getText());
 		equalsStr("Greetings", testDiag.getTitle());
 		equalsStr("greeting", testDiag.getSubject());
-		assert(Dialogue::NONE == testDiag.getUnlockFlag());
+		assert(Dialogue::UNLOCK_NONE == testDiag.getUnlockFlag());
 
 		Dialogue::removeAllDialogue();
 		Dialogue::addDialogue(&testDiag);
 
-		Dialogue testDiag2("diag2", "My name is Melli", "Name", "name", Dialogue::LOCKED);
+		Dialogue testDiag2("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
 		Dialogue::addDialogue(&testDiag2);
 
 		Handle<Character> testNPC(new Character());

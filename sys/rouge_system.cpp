@@ -337,11 +337,18 @@ namespace sys {
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
+		Dialogue::addDialogue(new Dialogue("npc1Greetings", "Hello there, what's your name? My name is <? @='npc1Name'>Aloob</?>.", "Greetings", "greetings"));
+		Dialogue::addDialogue(new Dialogue("npc1Name", "My name is Aloob, I live in this <? @='npc1Town'>town</?>.", "Name", "name", Dialogue::UNLOCK_LOCKED));
+		Dialogue::addDialogue(new Dialogue("npc1Town", "This town is nice :3", "Town", "town", Dialogue::UNLOCK_LOCKED));
+
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
 		npc->addPassibleType(TileType::getTileType("land"));
 		npc->setGraphic(new Sprite("characters/npc/front"));
 		npc->setGridLocation(3, 2);
+		npc->setDialogueAvailable("npc1Greetings");
+		npc->setDialogueAvailable("npc1Name");
+		npc->setDialogueAvailable("npc1Town");
 		game->addGameObject(npc);
 
 		mPlayer = new Character();
@@ -400,7 +407,12 @@ namespace sys {
 		if (gameHud)
 		{
 			gameHud->getCharacterScreen()->setCharacter(mPlayer);
+			gameHud->getDialogueBox()->setTalker(mPlayer);
+			gameHud->getDialogueChoices()->setTalker(mPlayer);
 		}
+
+		Handle<DialogueEvent> e(new DialogueEvent(mPlayer, npc, Dialogue::getDialogue("npc1Greetings")));
+		mPlayer->fireEvent<DialogueEvent>(e);
 
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);

@@ -21,13 +21,17 @@ namespace game {
 	public:
 
 		enum UnlockFlag {
-			NONE, LOCKED
+			UNLOCK_NONE, UNLOCK_LOCKED
+		};
+
+		enum DialogueAction {
+			ACTION_NONE, ACTION_SHOP, ACTION_CLOSE
 		};
 
 		// Is a list of dialogue subjects
-		typedef vector<string> DialogueChoices;
+		//typedef vector<string> DialogueChoices;
 
-		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL, UnlockFlag unlock = NONE);
+		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
 		~Dialogue();
 
 		void setText(const char *text);
@@ -45,6 +49,9 @@ namespace game {
 		void setUnlockFlag(UnlockFlag flag);
 		UnlockFlag getUnlockFlag() const;
 
+		void setDialogueAction(DialogueAction action);
+		DialogueAction getDialogueAction() const;
+
 		static bool addDialogue(Dialogue *dialogue);
 		static bool removeDialogue(const char *id);
 		static void removeAllDialogue();
@@ -58,6 +65,7 @@ namespace game {
 		string mId;
 		string mTitle;
 		string mSubject;
+		DialogueAction mAction;
 		UnlockFlag mUnlockFlag;
 
 		typedef map<string, Dialogue *> DialogueMap;

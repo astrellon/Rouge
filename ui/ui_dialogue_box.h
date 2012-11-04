@@ -26,6 +26,13 @@ namespace ui {
 		TextField2 *getTextField() const;
 
 		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(DialogueEvent *e);
+
+		virtual void setTalker(Character *talker);
+		virtual Character *getTalker() const;
+
+		virtual void setTalkedTo(Character *talkedTo);
+		virtual Character *getTalkedTo() const;
 
 		virtual void setDialogue(Dialogue *dialogue);
 		virtual Dialogue *getDialogue() const;
@@ -39,14 +46,14 @@ namespace ui {
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
-		//virtual void setDialogueChoices(const Dialogue::DialogueChoices *choices);
-		//const Dialogue::DialogueChoices *getDialogueChoices() const;
+		virtual void preRender(float dt);
 
 	protected:
 
 		Handle<TextField2> mText;
 		Dialogue *mDialogue;
-		//const Dialogue::DialogueChoices *mDialogueChoices;
+		Handle<Character> mTalker;
+		Handle<Character> mTalkedTo;
 
 		void updateText();
 	};

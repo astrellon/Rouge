@@ -9,13 +9,21 @@ namespace ui {
 		addChild(mInspector);
 		mInspector->setParentAnchor(X_RIGHT, Y_TOP);
 		mInspector->setAnchor(X_RIGHT, Y_TOP);
-		mInspector->setWidth(140.0f);
-		mInspector->setHeight(200.0f);
+		mInspector->setSize(140.0f, 200.0f);
 
 		mCharacterScreen = new CharacterScreen();
 		addChild(mCharacterScreen);
-		mCharacterScreen->setWidth(200.0f);
-		mCharacterScreen->setHeight(300.0f);
+		mCharacterScreen->setSize(200.0f, 300.0f);
+
+		mDialogueBox = new DialogueBox();
+		addChild(mDialogueBox);
+		mDialogueBox->setSize(200.0f, 100.0f);
+		mDialogueBox->setParentOffset(50.0f, 400.0f);
+		
+		mDialogueChoices = new DialogueChoices();
+		addChild(mDialogueChoices);
+		mDialogueChoices->setSize(200.0f, 100.0f);
+		mDialogueChoices->setParentOffset(600.0f, 400.0f);
 	}
 	GameHud::~GameHud()
 	{
@@ -28,6 +36,14 @@ namespace ui {
 	CharacterScreen *GameHud::getCharacterScreen()
 	{
 		return mCharacterScreen;
+	}
+	DialogueBox *GameHud::getDialogueBox()
+	{
+		return mDialogueBox;
+	}
+	DialogueChoices *GameHud::getDialogueChoices()
+	{
+		return mDialogueChoices;
 	}
 
 	void GameHud::setWidth(float width)

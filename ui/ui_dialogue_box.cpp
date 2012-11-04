@@ -5,9 +5,12 @@
 #include <log/logger.h>
 
 #include <game/dialogue.h>
+#include <game/character.h>
 
 #include <util/utils.h>
 using namespace am::util;
+
+#include <gl.h>
 
 namespace am {
 namespace ui {
@@ -53,32 +56,43 @@ namespace ui {
 				}
 
 				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
-				if (newDiag != NULL)
-				{
-					setDialogue(newDiag);
-				}
+				mTalker->setSubjectLock(newDiag->getSubject());
+				Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
+				mTalker->fireEvent<DialogueEvent>(e);
+
 			}
-			/*int id = -1;
-			bool parsed = Utils::fromString<int>(id, node->getAttribute("id"));
-			if (!parsed || id < 0 || id >= mDialogue->getChoices().size())
-			{
-				return;
-			}
-			const DialogueChoice &choice = mDialogue->getChoices()[id];
-			const char *action = choice.getAttribute("action");
-			if (action)
-			{
-				if (strcmp(action, "goto") == 0)
-				{
-					const char *diagName = choice.getAttribute("value");
-					Dialogue *newDialogue = Dialogue::getDialogue(diagName);
-					if (newDialogue)
-					{
-						setDialogue(newDialogue);
-					}
-				}
-			}*/
 		}
+	}
+	void DialogueBox::onEvent(DialogueEvent *e)
+	{
+		mTalkedTo = e->getTalkedTo();
+		setDialogue(e->getDialogue()); 
+	}
+
+	void DialogueBox::setTalker(Character *talker)
+	{
+		if (mTalker.get() != NULL)
+		{
+			mTalker->removeEventListener("dialogue", this);
+		}
+		mTalker = talker;
+		if (mTalker.get() != NULL)
+		{
+			mTalker->addEventListener("dialogue", this);
+		}
+	}
+	Character *DialogueBox::getTalker() const
+	{
+		return mTalker;
+	}
+
+	void DialogueBox::setTalkedTo(Character *talkedTo)
+	{
+		mTalkedTo = talkedTo;
+	}
+	Character *DialogueBox::getTalkedTo() const
+	{
+		return mTalkedTo;
 	}
 
 	void DialogueBox::setDialogue(Dialogue *dialogue)
@@ -120,38 +134,24 @@ namespace ui {
 	{
 		return mText->getHeight();
 	}
-	/*
-	void DialogueBox::setDialogueChoices(const Dialogue::DialogueChoices *choices)
+	
+	void DialogueBox::preRender(float dt)
 	{
-		mDialogueChoices = choices;
+		UIComponent::preRender(dt);
+
+		glBegin(GL_QUADS);
+			glColor4f(0.3f, 0.7f, 0.1f, 0.35f);
+			glVertex2f(0, 0);
+			glVertex2f(getWidth(), 0);
+			glVertex2f(getWidth(), getHeight());
+			glVertex2f(0, getHeight());
+		glEnd();
 	}
-	const Dialogue::DialogueChoices *DialogueBox::getDialogueChoices() const
-	{
-		return mDialogueChoices;
-	}
-	*/
+
 	void DialogueBox::updateText()
 	{
 		if (mDialogue != NULL)
 		{
-			/*stringstream ss;
-			ss << "<dialogue>" << mDialogue->getText() << "</dialogue>\n\n";
-			const Dialogue::DialogueChoices &choices = mDialogue->getChoices();
-			Dialogue::DialogueChoices::const_iterator iter;
-			int i = 0;
-			for (iter = choices.begin(); iter != choices.end(); ++iter)
-			{
-				const DialogueChoice &choice = *iter;
-				const DialogueChoice::Attributes &attrs = choice.getAttributes();
-				DialogueChoice::Attributes::const_iterator iter = attrs.find("class");
-				ss << "<dialogue_action ";
-				if (iter != attrs.end())
-				{
-					ss << "class='" << iter->second.c_str() << "' ";
-				}
-				ss << "id='" << i << "'>" << (i + 1) << ": " << choice.getText() << "</dialogue_action>\n";
-				i++;
-			}*/
 			stringstream ss;
 			ss << "<dialogue>" << mDialogue->getText() << "</dialogue>";
 			mText->setText(ss.str());
