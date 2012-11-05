@@ -47,6 +47,7 @@ namespace ui {
 		virtual void setHeight(float height);
 
 		virtual void preRender(float dt);
+		virtual void postRender(float dt);
 
 	protected:
 

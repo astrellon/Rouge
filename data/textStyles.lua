@@ -133,3 +133,4 @@ style = {}
 style.nodeType = "?"
 style.flag = "hover"
 style.style = {colour = "1.0 0.6 0.9"}
+table.insert(styles, style)

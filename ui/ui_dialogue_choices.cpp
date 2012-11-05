@@ -139,13 +139,18 @@ namespace ui {
 	{
 		UIComponent::preRender(dt);
 
-		glBegin(GL_QUADS);
-			glColor4f(0.3f, 0.1f, 0.7f, 0.35f);
-			glVertex2f(0, 0);
-			glVertex2f(getWidth(), 0);
-			glVertex2f(getWidth(), getHeight());
-			glVertex2f(0, getHeight());
-		glEnd();
+		glColor4f(0.3f, 0.1f, 0.7f, 0.35f);
+		glRectf(0.0f, 0.0f, getWidth(), getHeight());
+
+		/*glClear(GL_STENCIL_BUFFER_BIT);
+		glEnable(GL_STENCIL_TEST);
+		glStencilMask(0x1);
+		glStencilFunc(GL_ALWAYS, 0x1, 0x1);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+		glRectf(2.0f, 2.0f, getWidth() - 2.0f, getHeight() - 2.0f);
+
+		glStencilFunc(GL_NOTEQUAL, 0x0, 0x1);*/
 	}
 
 	void DialogueChoices::updateText()
@@ -154,10 +159,11 @@ namespace ui {
 		{
 			stringstream ss;
 			vector<Dialogue *>::const_iterator iter;
+			int i = 1;
 			for (iter = mChoices.begin(); iter != mChoices.end(); ++iter)
 			{
 				Dialogue *diag = *iter;
-				ss << "<? class='" << diag->getId() << ' ' << diag->getSubject();
+				ss << i++ << ": <? class='" << diag->getId() << ' ' << diag->getSubject();
 				ss << "' @='" << diag->getId() << "'>" << diag->getTitle() << "</?>\n";
 			}
 			mText->setText(ss.str());
@@ -166,6 +172,15 @@ namespace ui {
 		{
 			mText->setText("");
 		}
+	}
+
+	void DialogueChoices::postRender(float dt)
+	{
+		/*glDisable(GL_STENCIL_TEST);
+		glStencilFunc(GL_NOTEQUAL, 0x1, 0x1);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);*/
+
+		UIComponent::postRender(dt);
 	}
 
 }

@@ -134,8 +134,7 @@ namespace sys {
 		Handle<DialogueBox> diagBox(new DialogueBox());
 		diagBox->setDialogue(diag1);
 		diagBox->setParentOffset(100, 100);
-		//gfxEngine->getUILayer()->addChild(diagBox);
-
+		
 		/*Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
 		//Dialogue::addDialogue(dialogue);
 		DialogueChoice choice1("Shop");
@@ -340,6 +339,13 @@ namespace sys {
 		Dialogue::addDialogue(new Dialogue("npc1Greetings", "Hello there, what's your name? My name is <? @='npc1Name'>Aloob</?>.", "Greetings", "greetings"));
 		Dialogue::addDialogue(new Dialogue("npc1Name", "My name is Aloob, I live in this <? @='npc1Town'>town</?>.", "Name", "name", Dialogue::UNLOCK_LOCKED));
 		Dialogue::addDialogue(new Dialogue("npc1Town", "This town is nice :3", "Town", "town", Dialogue::UNLOCK_LOCKED));
+		for (int i = 1; i < 15; i++) {
+			stringstream ss;
+			ss << "diag" << i;
+			stringstream ss2;
+			ss2 << "Dialogue " << i;
+			Dialogue::addDialogue(new Dialogue(ss.str().c_str(), ss2.str().c_str(), ss.str().c_str(), ss.str().c_str()));
+		}
 
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
@@ -349,6 +355,11 @@ namespace sys {
 		npc->setDialogueAvailable("npc1Greetings");
 		npc->setDialogueAvailable("npc1Name");
 		npc->setDialogueAvailable("npc1Town");
+		for (int i = 1; i < 15; i++) {
+			stringstream ss;
+			ss << "diag" << i;
+			npc->setDialogueAvailable(ss.str().c_str());
+		}
 		game->addGameObject(npc);
 
 		mPlayer = new Character();
