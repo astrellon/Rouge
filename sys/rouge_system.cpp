@@ -126,14 +126,14 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
+		/*Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
 		Dialogue::addDialogue(diag1);
 		Dialogue *diag2 = new Dialogue("diag2", "Today? Today is today <? @='diag1'>Go back?</?>", "Today");
-		Dialogue::addDialogue(diag2);
+		Dialogue::addDialogue(diag2);*/
 
-		Handle<DialogueBox> diagBox(new DialogueBox());
+		/*Handle<DialogueBox> diagBox(new DialogueBox());
 		diagBox->setDialogue(diag1);
-		diagBox->setParentOffset(100, 100);
+		diagBox->setParentOffset(100, 100);*/
 		
 		/*Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
 		//Dialogue::addDialogue(dialogue);

@@ -52,6 +52,14 @@ namespace gfx {
 		
 		int getTextPosition(int localX, int localY) const;
 
+		int getTotalNumLines();
+		
+		int getLineScroll() const;
+		void setLineScroll(int scroll);
+
+		int getDisplayNumLines() const;
+		void setDisplayNumLines(int numLines);
+
 		// Renderable methods
 		virtual void render(float dt);
 
@@ -87,6 +95,10 @@ namespace gfx {
 
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
+
+		int mCurrentLine;
+		int mLineScroll;
+		int mDisplayNumLines;
 
 		TextAlignment mAlignment;
 

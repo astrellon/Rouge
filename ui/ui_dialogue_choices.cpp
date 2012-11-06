@@ -20,6 +20,8 @@ namespace ui {
 		mText(new TextField2())
 	{
 		addChild(mText);
+		mText->setLineScroll(1);
+		mText->setDisplayNumLines(5);
 		mText->addEventListener(MOUSE_UP, this);
 	}
 	DialogueChoices::~DialogueChoices()

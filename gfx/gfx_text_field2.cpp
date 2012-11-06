@@ -28,7 +28,9 @@ namespace gfx {
 		mTextDirty(true),
 		mNewLineDirty(true),
 		mAlignment(ALIGN_LEFT),
-		mRootNode(new Node("body"))
+		mRootNode(new Node("body")),
+		mLineScroll(0),
+		mDisplayNumLines(0)
 	{
 		mFont = GfxEngine::getEngine()->getFontLua("basic");
 		setInteractive(true);
@@ -133,6 +135,33 @@ namespace gfx {
 		return mAlignment;
 	}
 
+	int TextField2::getTotalNumLines()
+	{
+		if (mTextDirty)
+		{
+			parseRawText();
+		}
+		return static_cast<int>(mNewLinePositions.size());
+	}
+
+	int TextField2::getLineScroll() const
+	{
+		return mLineScroll;
+	}
+	void TextField2::setLineScroll(int lineScroll)
+	{
+		mLineScroll = lineScroll;
+	}
+
+	int TextField2::getDisplayNumLines() const
+	{
+		return mDisplayNumLines;
+	}
+	void TextField2::setDisplayNumLines(int numLines)
+	{
+		mDisplayNumLines = numLines;
+	}
+
 	void TextField2::render(float dt)
 	{
 		if (!mVisible || mFont == NULL || !mFont->isLoaded())
@@ -140,6 +169,7 @@ namespace gfx {
 			return;
 		}
 
+		mCurrentLine = 0;
 		preRender(dt);
 		while (mCurrentNode.get() != NULL)
 		{
@@ -247,7 +277,11 @@ namespace gfx {
 	void TextField2::newLine()
 	{
 		mCurrXpos = 0.0f;
-		mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
+		mCurrentLine++;
+		if (mCurrentLine > mLineScroll)
+		{
+			mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
+		}
 		if (mNewLineDirty)
 		{
 			mNewLinePositions.push_back(mTextPosition);
@@ -301,25 +335,28 @@ namespace gfx {
 				}
 			}
 			
-			TextureWindow charRender;
-			mFont->getTextureWindow(ch, charRender);
-
-			glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
-			glVertex2f(mCurrXpos, mCurrYpos);
-				
-			glTexCoord2f(charRender.getRightX(), charRender.getTopY());
-			glVertex2f(mCurrXpos + charRender.getWidth(), mCurrYpos);
-
-			glTexCoord2f(charRender.getRightX(), charRender.getBottomY());
-			glVertex2f(mCurrXpos + charRender.getWidth(), mCurrYpos + charRender.getHeight());
-
-			glTexCoord2f(charRender.getLeftX(), charRender.getBottomY());
-			glVertex2f(mCurrXpos, mCurrYpos + charRender.getHeight());
-
-			mCurrXpos += charRender.getWidth();
-			if (text[i + 1] > ' ')
+			if (mCurrentLine >= mLineScroll && (mCurrentLine < (mLineScroll + mDisplayNumLines) || mDisplayNumLines == 0))
 			{
-				mCurrXpos += mFont->getKerning();
+				TextureWindow charRender;
+				mFont->getTextureWindow(ch, charRender);
+
+				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
+				glVertex2f(mCurrXpos, mCurrYpos);
+				
+				glTexCoord2f(charRender.getRightX(), charRender.getTopY());
+				glVertex2f(mCurrXpos + charRender.getWidth(), mCurrYpos);
+
+				glTexCoord2f(charRender.getRightX(), charRender.getBottomY());
+				glVertex2f(mCurrXpos + charRender.getWidth(), mCurrYpos + charRender.getHeight());
+
+				glTexCoord2f(charRender.getLeftX(), charRender.getBottomY());
+				glVertex2f(mCurrXpos, mCurrYpos + charRender.getHeight());
+			
+				mCurrXpos += charRender.getWidth();
+				if (text[i + 1] > ' ')
+				{
+					mCurrXpos += mFont->getKerning();
+				}
 			}
 			if (mNewLineDirty)
 			{
