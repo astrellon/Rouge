@@ -162,6 +162,26 @@ namespace gfx {
 		mDisplayNumLines = numLines;
 	}
 
+	float TextField2::getDisplayHeight() const
+	{
+		if (mFont != NULL)
+		{
+			return mFont->getCharHeight() * mDisplayNumLines;
+		}
+		return 0.0f;
+	}
+	void TextField2::setDisplayHeight(float height)
+	{
+		if (mFont != NULL)
+		{
+			mDisplayNumLines = static_cast<int>(height / mFont->getCharHeight());
+		}
+		else
+		{
+			mDisplayNumLines = static_cast<int>(height);
+		}
+	}
+
 	void TextField2::render(float dt)
 	{
 		if (!mVisible || mFont == NULL || !mFont->isLoaded())

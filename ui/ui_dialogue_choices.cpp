@@ -21,7 +21,7 @@ namespace ui {
 	{
 		addChild(mText);
 		mText->setLineScroll(1);
-		mText->setDisplayNumLines(5);
+		mText->setDisplayHeight(90.0f);
 		mText->addEventListener(MOUSE_UP, this);
 	}
 	DialogueChoices::~DialogueChoices()

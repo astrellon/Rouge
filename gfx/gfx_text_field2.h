@@ -60,6 +60,9 @@ namespace gfx {
 		int getDisplayNumLines() const;
 		void setDisplayNumLines(int numLines);
 
+		float getDisplayHeight() const;
+		void setDisplayHeight(float height);
+
 		// Renderable methods
 		virtual void render(float dt);
 
