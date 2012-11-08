@@ -202,25 +202,25 @@ namespace gfx {
 			float winLeftX = 0.0f;
 			float winTopY = 0.0f;
 			
-			if (lua.isTableNumber("leftX"))
+			if (lua.isTableNumber("left"))
 			{
 				winLeftX = lua.toNumber();
 				leftX = winLeftX / textureWidth;
 			}
-			if (lua.isTableNumber("rightX"))
+			if (lua.isTableNumber("right"))
 			{
 				float winRightX = lua.toNumber();
 				width = winRightX - winLeftX;
 				rightX = winRightX / textureWidth;
 			}
 
-			if (lua.isTableNumber("topY"))
+			if (lua.isTableNumber("top"))
 			{
 				winTopY = lua.toNumber();
 				topY = winTopY / textureHeight;
 			}
 
-			if (lua.isTableNumber("bottomY"))
+			if (lua.isTableNumber("bottom"))
 			{
 				float winBottomY = lua.toNumber();
 				height = winBottomY - winTopY;

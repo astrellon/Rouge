@@ -5,5 +5,5 @@ asset.framesX = 2
 asset.framesY = 2
 asset.frameRate = 0
 asset.window = {}
-asset.window.topY = 64
-asset.window.rightX = 64
+asset.window.top = 64
+asset.window.right = 64

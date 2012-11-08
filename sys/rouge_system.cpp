@@ -11,6 +11,7 @@
 #include <gfx/gfx_text_style_selector.h>
 #include <gfx/gfx_node.h>
 #include <gfx/gfx_text_field2.h>
+#include <gfx/gfx_scrollbar.h>
 
 #include <ui/ui_button.h>
 #include <ui/ui_checkbox.h>
@@ -83,9 +84,7 @@ namespace sys {
 	void RougeSystem::init()
 	{
 		GameSystem::init();
-		//TileType::loadStandardTileTypes("data/tileTypes.ssff");
 		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
-		//TextStyle::loadStyles("data/textStyles.ssff");
 		TextStyle::loadStylesLua("data/textStyles.lua");
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
@@ -125,6 +124,12 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
+
+		Handle<Scrollbar> scrollBar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack"));
+		gfxEngine->getUILayer()->addChild(scrollBar);
+		scrollBar->setPosition(100.0f, 50.0f);
+		scrollBar->setHeight(100.0f);
+		scrollBar->setValue(50);
 
 		/*Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
 		Dialogue::addDialogue(diag1);

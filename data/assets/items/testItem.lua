@@ -2,5 +2,5 @@
 asset = {}
 asset.texture = "data/textures/items/testItem.png"
 asset.window = {}
-asset.window.leftX = 32
-asset.window.rightX = 64
+asset.window.left = 32
+asset.window.right = 64

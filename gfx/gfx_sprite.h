@@ -57,11 +57,6 @@ namespace gfx {
 
 		ScaleNineState mScaleNineState;
 
-		float mMaskWidth;
-		float mMaskHeight;
-
-		//virtual void 
-
 		virtual void renderTexture(const TextureWindow &win, const float &width, const float &height);
 	};
 

@@ -327,6 +327,45 @@ namespace gfx {
 
 			glEnd();
 		}
+		else if (mScaleNineState == SCALE_NINE_VERTICAL)
+		{
+			const ScaleNine &scaleNine = mAsset->getScaleNine();
+			float bottomY = height - (win.getHeight() - scaleNine.getBottom());
+
+			float topV = scaleNine.getTop() / mAsset->getTexture()->getHeight() + win.getTopY();
+			float bottomV = scaleNine.getBottom() / mAsset->getTexture()->getHeight() + win.getTopY();
+
+			glBegin(GL_TRIANGLE_STRIP);
+
+				// Top
+				glTexCoord2f(win.getLeftX(), win.getTopY());
+				glVertex2f(0.0f, 0.0f);
+
+				glTexCoord2f(win.getRightX(), win.getTopY());
+				glVertex2f(width, 0.0f);
+
+				glTexCoord2f(win.getLeftX(), topV);
+				glVertex2f(0.0f, scaleNine.getTop());
+
+				glTexCoord2f(win.getRightX(), topV);
+				glVertex2f(width, scaleNine.getTop());
+
+				// Middle
+				glTexCoord2f(win.getLeftX(), bottomV);
+				glVertex2f(0.0f, bottomY);
+
+				glTexCoord2f(win.getRightX(), bottomV);
+				glVertex2f(width, bottomY);
+
+				// Bottom
+				glTexCoord2f(win.getLeftX(), win.getBottomY());
+				glVertex2f(0.0f, height);
+
+				glTexCoord2f(win.getRightX(), win.getBottomY());
+				glVertex2f(width, height);
+
+			glEnd();
+		}
 		else
 		{
 			float minU = 0.0f;

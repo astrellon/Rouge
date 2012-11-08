@@ -2,4 +2,4 @@
 asset = {}
 asset.texture = "data/textures/fontArial.png"
 asset.window = {}
-asset.window.rightX = 256
+asset.window.right = 256
