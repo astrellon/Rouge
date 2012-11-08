@@ -139,9 +139,6 @@
     <ClCompile Include="ui\event_manager.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
-    <ClCompile Include="ui\ui_button.cpp">
-      <Filter>ui\gui</Filter>
-    </ClCompile>
     <ClCompile Include="ui\ui_checkbox.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
@@ -631,6 +628,12 @@
     <ClCompile Include="gfx\gfx_scrollbar.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_button.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui_text_button.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -672,9 +675,6 @@
     </ClInclude>
     <ClInclude Include="ui\ievent_manager.h">
       <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="ui\ui_button.h">
-      <Filter>ui\gui</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui_checkbox.h">
       <Filter>ui\gui</Filter>
@@ -1161,6 +1161,12 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_scrollbar.h">
       <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_button.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_text_button.h">
+      <Filter>ui\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ namespace sys {
 using namespace am::sys;
 
 namespace ui {
-	class Button;
+	class TextButton;
 
 	class IngameMenu : public UIComponent, public IEventListener {
 	public:
@@ -25,16 +25,16 @@ namespace ui {
 
 	protected:
 
-		Handle<Button> mResumeGame;
-		Handle<Button> mSaveGame;
-		Handle<Button> mLoadGame;
-		Handle<Button> mOptions;
-		Handle<Button> mToMainMenu;
-		Handle<Button> mQuit;
+		Handle<TextButton> mResumeGame;
+		Handle<TextButton> mSaveGame;
+		Handle<TextButton> mLoadGame;
+		Handle<TextButton> mOptions;
+		Handle<TextButton> mToMainMenu;
+		Handle<TextButton> mQuit;
 
 		RougeSystem *mRougeSystem;
 
-		void initButton(Button *btn);
+		void initButton(TextButton *btn);
 	};
 
 }

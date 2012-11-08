@@ -15,7 +15,7 @@ using namespace am::sys;
 
 namespace ui {
 
-	class Button;
+	class TextButton;
 	class Checkbox;
 	class Image;
 
@@ -35,8 +35,8 @@ namespace ui {
 
 		Handle<Image> mBackground;
 		Handle<Checkbox> mFullscreen;
-		Handle<Button> mClose;
-		Handle<Button> mApply;
+		Handle<TextButton> mClose;
+		Handle<TextButton> mApply;
 
 		RougeSystem *mRougeSystem;
 	};

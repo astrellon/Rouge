@@ -11,6 +11,7 @@ using namespace am::base;
 
 namespace am {
 namespace gfx {
+	class Button;
 	class Asset;
 	class TextField;
 	class Renderable;
@@ -21,17 +22,15 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class Button : public IEventListener, public UIComponent {
+	class TextButton : public IEventListener, public UIComponent {
 	public:
-		Button();
-		Button(const char *assetName, Renderable *hitbox = NULL);
-		Button(Asset *asset, Renderable *hitbox = NULL);
-		Button(const char *assetName, const char *label, Renderable *hitbox = NULL);
-		Button(Asset *asset, const char *label, Renderable *hitbox = NULL);
-		~Button();
+		TextButton();
+		TextButton(const char *assetName, Renderable *hitbox = NULL);
+		TextButton(const char *assetName, const char *label, Renderable *hitbox = NULL);
+		~TextButton();
 
-		void setGraphic(Sprite *graphic);
-		Sprite *getGraphic();
+		void setGraphic(Button *graphic);
+		Button *getGraphic();
 
 		void setHitbox(Renderable *hitbox);
 		Renderable *getHitbox();
@@ -42,8 +41,6 @@ namespace ui {
 
 		TextField *getLabelField();
 
-		virtual void onEvent(MouseEvent *e);
-
 		virtual void setWidth(float width);
 		virtual float getWidth();
 
@@ -52,15 +49,14 @@ namespace ui {
 
 		virtual void setEnabled(bool enabled);
 
+		virtual void onEvent(Event *e);
+
 	protected:
 
-		Handle<Renderable> mHitbox;
-		Handle<Sprite> mGraphic;
+		Handle<Button> mGraphic;
 		Handle<TextField> mLabel;
 
 		void init();
-		void addListeners(Renderable *target);
-		void removeListeners(Renderable *target);
 
 		void updateLabelPos();
 	};

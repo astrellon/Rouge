@@ -151,6 +151,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\tile_set.cpp" />
     <ClCompile Include="game\tile_type.cpp" />
     <ClCompile Include="gfx\gfx_asset.cpp" />
+    <ClCompile Include="gfx\gfx_button.cpp" />
     <ClCompile Include="gfx\gfx_colour_effect.cpp" />
     <ClCompile Include="gfx\gfx_effect.cpp" />
     <ClCompile Include="gfx\gfx_engine.cpp" />
@@ -268,7 +269,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\mouse_manager.cpp" />
     <ClCompile Include="ui\ui_asset_renderer.cpp" />
     <ClCompile Include="ui\ui_body_part_renderer.cpp" />
-    <ClCompile Include="ui\ui_button.cpp" />
+    <ClCompile Include="ui\ui_text_button.cpp" />
     <ClCompile Include="ui\ui_character_screen.cpp" />
     <ClCompile Include="ui\ui_checkbox.cpp" />
     <ClCompile Include="ui\ui_component.cpp" />
@@ -331,6 +332,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\tile_set.h" />
     <ClInclude Include="game\tile_type.h" />
     <ClInclude Include="gfx\gfx_asset.h" />
+    <ClInclude Include="gfx\gfx_button.h" />
     <ClInclude Include="gfx\gfx_colour_effect.h" />
     <ClInclude Include="gfx\gfx_effect.h" />
     <ClInclude Include="gfx\gfx_engine.h" />
@@ -447,7 +449,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\mouse_manager.h" />
     <ClInclude Include="ui\ui_asset_renderer.h" />
     <ClInclude Include="ui\ui_body_part_renderer.h" />
-    <ClInclude Include="ui\ui_button.h" />
+    <ClInclude Include="ui\ui_text_button.h" />
     <ClInclude Include="ui\ui_character_screen.h" />
     <ClInclude Include="ui\ui_checkbox.h" />
     <ClInclude Include="ui\ui_component.h" />

@@ -3,7 +3,7 @@
 #include <sys/rouge_system.h>
 #include <log/logger.h>
 
-#include "ui_button.h"
+#include "ui_text_button.h"
 
 namespace am {
 namespace ui {
@@ -11,12 +11,12 @@ namespace ui {
 	IngameMenu::IngameMenu(RougeSystem *system) : 
 		UIComponent(),
 		mRougeSystem(system),
-		mResumeGame(new Button("bigButton", "Resume Game")),
-		mSaveGame(new Button("bigButton", "Save Game")),
-		mLoadGame(new Button("bigButton", "Load Game")),
-		mOptions(new Button("bigButton", "Options")),
-		mToMainMenu(new Button("bigButton", "To Main Menu")),
-		mQuit(new Button("bigButton", "Quit :("))
+		mResumeGame(new TextButton("bigButton", "Resume Game")),
+		mSaveGame(new TextButton("bigButton", "Save Game")),
+		mLoadGame(new TextButton("bigButton", "Load Game")),
+		mOptions(new TextButton("bigButton", "Options")),
+		mToMainMenu(new TextButton("bigButton", "To Main Menu")),
+		mQuit(new TextButton("bigButton", "Quit :("))
 	{
 		setInteractive(true);
 
@@ -97,7 +97,7 @@ namespace ui {
 		}
 	}
 
-	void IngameMenu::initButton(Button *btn)
+	void IngameMenu::initButton(TextButton *btn)
 	{
 		addChild(btn);
 		btn->setParentAnchor(X_CENTER, Y_CENTER);

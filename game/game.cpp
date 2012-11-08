@@ -1,8 +1,5 @@
 #include "game.h"
 
-//#include <util/json_value.h>
-//using namespace am::util;
-
 #include <log/logger.h>
 
 #include <sstream>
@@ -12,7 +9,6 @@
 #include <gfx/gfx_engine.h>
 
 #include <ui/mouse_manager.h>
-#include <ui/ui_button.h>
 #include <ui/ui_game_hud.h>
 #include <ui/ui_inspector.h>
 #include <ui/keyboard_manager.h>

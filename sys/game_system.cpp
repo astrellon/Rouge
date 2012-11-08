@@ -24,12 +24,6 @@
 
 #include <sstream>
 
-#include <ui/ui_button.h>
-#include <ui/ui_checkbox.h>
-#include <ui/ui_label.h>
-#include <ui/ui_options_panel.h>
-#include <ui/ui_main_menu.h>
-
 #include <base/handle.h>
 
 #include <util/colour.h>
@@ -57,7 +51,6 @@ namespace sys {
 		mEngine(engine),
 		mDebugConsole(NULL)
 	{
-		//Colour::addStandardNamedColours("data/namedColours.ssff");
 		Colour::addStandardNamedColoursLua("data/namedColours.lua");
 	}
 	GameSystem::~GameSystem()

@@ -5,7 +5,7 @@
 
 #include <util/colour.h>
 
-#include "ui_button.h"
+#include "ui_text_button.h"
 #include "ui_checkbox.h"
 #include "ui_image.h"
 
@@ -16,8 +16,8 @@ namespace ui {
 		UIComponent(),
 		mRougeSystem(system),
 		mFullscreen(new Checkbox("checkbox", "Fullscreen")),
-		mApply(new Button("bigButton", "Apply")),
-		mClose(new Button("bigButton", "Close")),
+		mApply(new TextButton("bigButton", "Apply")),
+		mClose(new TextButton("bigButton", "Close")),
 		mBackground(new Image("bigButton"))
 	{
 		addChild(mBackground.get());

@@ -16,7 +16,7 @@ namespace sys {
 using namespace am::sys;
 
 namespace ui {
-	class Button;
+	class TextButton;
 
 	class MainMenu : public UIComponent, public IEventListener {
 	public:
@@ -27,15 +27,15 @@ namespace ui {
 
 	protected:
 
-		Handle<Button> mStartGame;
-		Handle<Button> mLoadGame;
-		Handle<Button> mEditor;
-		Handle<Button> mOptions;
-		Handle<Button> mQuit;
+		Handle<TextButton> mStartGame;
+		Handle<TextButton> mLoadGame;
+		Handle<TextButton> mEditor;
+		Handle<TextButton> mOptions;
+		Handle<TextButton> mQuit;
 
 		RougeSystem *mRougeSystem;
 
-		void initButton(Button *btn);
+		void initButton(TextButton *btn);
 	};
 
 }
