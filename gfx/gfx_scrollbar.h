@@ -6,23 +6,27 @@ using namespace am::base;
 #include <vector>
 using namespace std;
 
+#include <ui/ievent_listener.h>
+using am::ui::IEventListener;
+
 #include "gfx_layer.h"
 #include "gfx_sprite.h"
+#include "gfx_button.h"
 
 namespace am {
 namespace gfx {
 
 	class Asset;
 
-	class Scrollbar : public Layer {
+	class Scrollbar : public Layer, public IEventListener {
 	public:
 		Scrollbar(const char *btnUpAsset, const char *btnDownAsset, const char *barAsset, const char *backAsset);
 		~Scrollbar();
 
-		//virtual float getWidth();
-		virtual void setWidth(float width);
+		virtual void onEvent(Event *e);
+		virtual void onEvent(MouseEvent *e);
 
-		//virtual float getHeight();
+		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
 		virtual int getMinValue() const;
@@ -36,10 +40,10 @@ namespace gfx {
 
 	protected:
 
-		Handle<Sprite> mBtnUp;
-		Handle<Sprite> mBtnDown;
+		Handle<Button> mBtnUp;
+		Handle<Button> mBtnDown;
 		Handle<Sprite> mBack;
-		Handle<Sprite> mBar;
+		Handle<Button> mBar;
 
 		int mMinValue;
 		int mMaxValue;

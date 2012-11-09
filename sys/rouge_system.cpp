@@ -131,11 +131,7 @@ namespace sys {
 		scrollBar->setPosition(100.0f, 50.0f);
 		scrollBar->setHeight(100.0f);
 		scrollBar->setValue(50);
-
-		Handle<am::gfx::Button> testBtn(new am::gfx::Button("bigButton"));
-		testBtn->setSize(100.0f, 100.0f);
-		testBtn->setPosition(150.0f, 50.0f);
-		gfxEngine->getUILayer()->addChild(testBtn);
+		scrollBar->addEventListener("scroll_value_change", this);
 
 		/*Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
 		Dialogue::addDialogue(diag1);
