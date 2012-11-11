@@ -48,8 +48,6 @@ namespace sys {
 		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine);
 		static RougeSystem *getRougeSystem();
 
-		virtual void onEvent(Event *e);
-
 		void newGame();
 		void togglePause();
 		void toggleInGameMenu();

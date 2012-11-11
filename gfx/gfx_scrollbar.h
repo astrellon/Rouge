@@ -38,6 +38,8 @@ namespace gfx {
 		virtual int getValue() const;
 		virtual void setValue(int value);
 
+		virtual void render(float dt);
+
 	protected:
 
 		Handle<Button> mBtnUp;

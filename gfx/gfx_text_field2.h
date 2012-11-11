@@ -11,6 +11,7 @@ using namespace am::ui;
 #include "texture_window.h"
 #include "gfx_text_style.h"
 #include "gfx_node.h"
+#include "gfx_scrollbar.h"
 
 namespace am {
 namespace gfx {
@@ -95,6 +96,7 @@ namespace gfx {
 		
 		Handle<Node> mRootNode;
 		Handle<Node> mCurrentNode;
+		Handle<Scrollbar> mScrollbar;
 
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
@@ -112,6 +114,8 @@ namespace gfx {
 		void newLine();
 		void renderText(const string &text);
 		void checkAlignment(const char *line);
+
+		void checkScrollbar();
 	};
 
 }

@@ -95,6 +95,14 @@ namespace gfx {
 		}
 	}
 
+	void Scrollbar::render(float dt)
+	{
+		if (mVisible)
+		{
+			Layer::render(dt);
+		}
+	}
+
 	void Scrollbar::setWidth(float width)
 	{
 		Layer::setWidth(width);

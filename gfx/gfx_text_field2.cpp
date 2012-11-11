@@ -34,6 +34,9 @@ namespace gfx {
 	{
 		mFont = GfxEngine::getEngine()->getFontLua("basic");
 		setInteractive(true);
+		mScrollbar = new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack");
+		mScrollbar->setVisible(false);
+		addChild(mScrollbar);
 	}
 
 	TextField2::~TextField2()
@@ -151,6 +154,8 @@ namespace gfx {
 	void TextField2::setLineScroll(int lineScroll)
 	{
 		mLineScroll = lineScroll;
+		mNewLineDirty = true;
+		checkScrollbar();
 	}
 
 	int TextField2::getDisplayNumLines() const
@@ -160,6 +165,8 @@ namespace gfx {
 	void TextField2::setDisplayNumLines(int numLines)
 	{
 		mDisplayNumLines = numLines;
+		mNewLineDirty = true;
+		checkScrollbar();
 	}
 
 	float TextField2::getDisplayHeight() const
@@ -180,6 +187,7 @@ namespace gfx {
 		{
 			mDisplayNumLines = static_cast<int>(height);
 		}
+		mNewLineDirty = true;
 	}
 
 	void TextField2::render(float dt)
@@ -377,12 +385,12 @@ namespace gfx {
 				{
 					mCurrXpos += mFont->getKerning();
 				}
-			}
-			if (mNewLineDirty)
-			{
-				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
-				Handle<Renderable> hitbox = list[list.size() - 1];
-				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
+				if (mNewLineDirty)
+				{
+					Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
+					Handle<Renderable> hitbox = list[list.size() - 1];
+					hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
+				}
 			}
 		}
 	}
@@ -393,6 +401,8 @@ namespace gfx {
 		{
 			mDirty = true;
 			Renderable::setWidth(width);
+			//mScrollbar->setPosition(width - mScrollbar->getWidth(), 0.0f);
+			mScrollbar->setPosition(100.0f, 100.0f);
 		}
 	}
 	void TextField2::setHeight(float height)
@@ -401,6 +411,7 @@ namespace gfx {
 		{
 			mDirty = true;
 			Renderable::setHeight(height);
+			mScrollbar->setHeight(height);
 		}
 	}
 
@@ -544,6 +555,11 @@ namespace gfx {
 		}
 
 		mTextDirty = false;
+	}
+
+	void TextField2::checkScrollbar()
+	{
+		mScrollbar->setVisible(mLineScroll != 0 || mDisplayNumLines != 0);
 	}
 	
 }

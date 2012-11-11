@@ -125,51 +125,7 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
-
-		Handle<Scrollbar> scrollBar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack"));
-		gfxEngine->getUILayer()->addChild(scrollBar);
-		scrollBar->setPosition(100.0f, 50.0f);
-		scrollBar->setHeight(100.0f);
-		scrollBar->setValue(50);
-		scrollBar->addEventListener("scroll_value_change", this);
-
-		/*Dialogue *diag1 = new Dialogue("diag1", "Hello there, how are you <? @='diag2'>today?</?>", "Greetings");
-		Dialogue::addDialogue(diag1);
-		Dialogue *diag2 = new Dialogue("diag2", "Today? Today is today <? @='diag1'>Go back?</?>", "Today");
-		Dialogue::addDialogue(diag2);*/
-
-		/*Handle<DialogueBox> diagBox(new DialogueBox());
-		diagBox->setDialogue(diag1);
-		diagBox->setParentOffset(100, 100);*/
-		
-		/*Dialogue *dialogue = new Dialogue("Test Dialogue\nHello there.");
-		//Dialogue::addDialogue(dialogue);
-		DialogueChoice choice1("Shop");
-		choice1.setAttribute("action", "goto");
-		choice1.setAttribute("value", "shop");
-		dialogue->getChoices().push_back(choice1);
-
-		DialogueChoice choice2("Bye");
-		choice2.setAttribute("action", "close");
-		dialogue->getChoices().push_back(choice2);
-
-		Dialogue *dialogueShop = new Dialogue("Test Shop Dialogue\nHello there.");
-		//Dialogue::addDialogue(dialogueShop);
-		DialogueChoice choice3("Back");
-		choice3.setAttribute("action", "goto");
-		choice3.setAttribute("value", "diag0");
-		dialogueShop->getChoices().push_back(choice3);
-
-		DialogueChoice choice4("Bye");
-		choice4.setAttribute("action", "close");
-		dialogueShop->getChoices().push_back(choice4);
-
-		Handle<DialogueBox> dialogueBox(new DialogueBox());
-		dialogueBox->setDialogue(dialogue);
-
-		dialogueBox->setParentOffset(100, 100);
-		//gfxEngine->getUILayer()->addChild(dialogueBox);
-		
+		/*
 		Handle<TextInput> input(new TextInput());
 		input->setFocus(true);
 		input->setParentOffset(200, 50);
