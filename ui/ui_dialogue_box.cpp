@@ -7,6 +7,9 @@
 #include <game/dialogue.h>
 #include <game/character.h>
 
+#include <gfx/gfx_texture.h>
+using namespace am::gfx;
+
 #include <util/utils.h>
 using namespace am::util;
 
@@ -139,13 +142,10 @@ namespace ui {
 	{
 		UIComponent::preRender(dt);
 
-		glBegin(GL_QUADS);
-			glColor4f(0.3f, 0.7f, 0.1f, 0.35f);
-			glVertex2f(0, 0);
-			glVertex2f(getWidth(), 0);
-			glVertex2f(getWidth(), getHeight());
-			glVertex2f(0, getHeight());
-		glEnd();
+		Texture::bindTexture(0);
+
+		glColor4f(0.3f, 0.7f, 0.1f, 0.35f);
+		glRectf(0.0f, 0.0f, getWidth(), getHeight());
 	}
 
 	void DialogueBox::updateText()

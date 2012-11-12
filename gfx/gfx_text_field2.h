@@ -56,13 +56,15 @@ namespace gfx {
 		int getTotalNumLines();
 		
 		int getLineScroll() const;
-		void setLineScroll(int scroll);
+		void setLineScroll(int scroll, bool silent = false);
 
 		int getDisplayNumLines() const;
 		void setDisplayNumLines(int numLines);
 
 		float getDisplayHeight() const;
 		void setDisplayHeight(float height);
+
+		virtual void onEvent(Event *e);
 
 		// Renderable methods
 		virtual void render(float dt);
@@ -72,7 +74,7 @@ namespace gfx {
 
 		void parseRawText();
 		Node *getRootNode();
-		
+
 	protected:
 
 		string mText;

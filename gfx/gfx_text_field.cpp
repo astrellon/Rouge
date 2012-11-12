@@ -148,7 +148,8 @@ namespace gfx {
 	{
 		Renderable::preRender(dt);
 
-		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
+		//glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
+		mFont->getAsset()->getTexture()->bindTexture();
 
 		glBegin(GL_QUADS);
 
@@ -165,8 +166,7 @@ namespace gfx {
 		glEnd();
 
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		
+		//glBindTexture(GL_TEXTURE_2D, 0);
 		Renderable::postRender(dt);
 	}
 

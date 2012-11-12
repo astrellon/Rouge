@@ -144,7 +144,8 @@ namespace gfx {
 			if (mColour.getAlpha() > 0.05f)
 			{
 				preRender(dt);
-				glBindTexture(GL_TEXTURE_2D, 0);
+				//glBindTexture(GL_TEXTURE_2D, 0);
+				Texture::bindTexture(0);
 
 				mColour.applyColour();
 				glBegin(GL_QUADS);
@@ -214,11 +215,13 @@ namespace gfx {
 		float width = getWidth();
 		float height = getHeight();
 		
-		glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
+		//glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
+		mAsset->getTexture()->bindTexture();
+
 		const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
 
 		renderTexture(win, width, height);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void Sprite::renderTexture(const TextureWindow &win, const float &width, const float &height)
@@ -389,7 +392,8 @@ namespace gfx {
 			{
 				minV = win.getTopY();
 			}
-			glBegin(GL_TRIANGLE_STRIP);
+			//glBegin(GL_TRIANGLE_STRIP);
+			glBegin(GL_QUADS);
 
 				glTexCoord2f(minU, minV);
 				glVertex2f(0, 0);
@@ -397,11 +401,13 @@ namespace gfx {
 				glTexCoord2f(maxU, minV);
 				glVertex2f(width, 0);
 
+				glTexCoord2f(maxU, maxV);
+				glVertex2f(width, height);
+
 				glTexCoord2f(minU, maxV);
 				glVertex2f(0, height);
 			
-				glTexCoord2f(maxU, maxV);
-				glVertex2f(width, height);
+				
 
 			glEnd();
 		}

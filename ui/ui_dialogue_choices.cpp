@@ -7,6 +7,9 @@
 #include <game/dialogue.h>
 #include <game/character.h>
 
+#include <gfx/gfx_texture.h>
+using namespace am::gfx;
+
 #include <util/utils.h>
 using namespace am::util;
 
@@ -140,6 +143,8 @@ namespace ui {
 	void DialogueChoices::preRender(float dt)
 	{
 		UIComponent::preRender(dt);
+
+		Texture::bindTexture(0);
 
 		glColor4f(0.3f, 0.1f, 0.7f, 0.35f);
 		glRectf(0.0f, 0.0f, getWidth(), getHeight());

@@ -34,6 +34,9 @@ namespace gfx {
 		Texture &operator=(const Texture &rhs);
 		Texture &operator=(const Texture *rhs);
 
+		void bindTexture() const;
+		static void bindTexture(GLuint id);
+
 	protected:
 
 		int loadFromFile(const char *filename);
@@ -49,6 +52,8 @@ namespace gfx {
 		string mFilename;
 
 		void assign(const Texture &rhs);
+
+		static GLuint sLastBind;
 
 	};
 

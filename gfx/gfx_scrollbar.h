@@ -40,6 +40,8 @@ namespace gfx {
 
 		virtual void render(float dt);
 
+		static const char *SCROLL_VALUE_CHANGE;
+
 	protected:
 
 		Handle<Button> mBtnUp;

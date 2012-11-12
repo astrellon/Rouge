@@ -75,8 +75,6 @@ namespace gfx {
 				glVertex2f(mTransform.getX(), mTransform.getY() + mHeight);
 				glVertex2f(mTransform.getX() + mWidth, mTransform.getY() + mHeight);
 				glVertex2f(mTransform.getX() + mWidth, mTransform.getY());
-				
-				
 			glEnd();
 		}
 #endif

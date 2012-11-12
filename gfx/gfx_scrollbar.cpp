@@ -13,6 +13,8 @@ using am::ui::MouseManager;
 namespace am {
 namespace gfx {
 
+	const char *Scrollbar::SCROLL_VALUE_CHANGE = "scroll_value_change";
+
 	Scrollbar::Scrollbar(const char *btnUpAsset, const char *btnDownAsset, const char *barAsset, const char *backAsset) :
 		Layer(),
 		mMinValue(0),
@@ -27,6 +29,11 @@ namespace gfx {
 		mBtnDown->addEventListener("click", this);
 		mBar = new Button(barAsset);
 		mBar->addEventListener(MOUSE_DOWN, this);
+
+		mWidth = max(mBtnUp->getWidth(), max(mBtnDown->getWidth(), mBar->getWidth()));
+
+		Sprite *sprite = new Sprite("scrollBarUp");
+		addChild(sprite);
 		
 		if (backAsset != NULL && backAsset[0] != '\0')
 		{
@@ -160,7 +167,7 @@ namespace gfx {
 		{
 			mValue = value;
 			updateBar();
-			Handle<Event> e(new Event("scroll_value_change", this));
+			Handle<Event> e(new Event(SCROLL_VALUE_CHANGE, this));
 			fireEvent<Event>(e);
 		}
 	}

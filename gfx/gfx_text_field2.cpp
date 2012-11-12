@@ -35,8 +35,10 @@ namespace gfx {
 		mFont = GfxEngine::getEngine()->getFontLua("basic");
 		setInteractive(true);
 		mScrollbar = new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack");
+		mScrollbar->setHeight(100.0f);
 		mScrollbar->setVisible(false);
 		addChild(mScrollbar);
+		mScrollbar->addEventListener(Scrollbar::SCROLL_VALUE_CHANGE, this);
 	}
 
 	TextField2::~TextField2()
@@ -151,11 +153,15 @@ namespace gfx {
 	{
 		return mLineScroll;
 	}
-	void TextField2::setLineScroll(int lineScroll)
+	void TextField2::setLineScroll(int lineScroll, bool silent)
 	{
 		mLineScroll = lineScroll;
-		mNewLineDirty = true;
+		//mNewLineDirty = true;
 		checkScrollbar();
+		if (!silent)
+		{
+			mScrollbar->setValue(mLineScroll);
+		}
 	}
 
 	int TextField2::getDisplayNumLines() const
@@ -165,7 +171,7 @@ namespace gfx {
 	void TextField2::setDisplayNumLines(int numLines)
 	{
 		mDisplayNumLines = numLines;
-		mNewLineDirty = true;
+		//mNewLineDirty = true;
 		checkScrollbar();
 	}
 
@@ -187,7 +193,15 @@ namespace gfx {
 		{
 			mDisplayNumLines = static_cast<int>(height);
 		}
-		mNewLineDirty = true;
+		//mNewLineDirty = true;
+	}
+
+	void TextField2::onEvent(Event *e)
+	{
+		if (e->getEventTarget() == mScrollbar.get())
+		{
+			setLineScroll(mScrollbar->getValue(), true);
+		}
 	}
 
 	void TextField2::render(float dt)
@@ -226,10 +240,16 @@ namespace gfx {
 			renderText(mCurrentNode->getText());
 			mCurrentNode = mCurrentNode->nextSibling();
 		}
+		mScrollbar->setMaxValue(getTotalNumLines() - mDisplayNumLines);
+		//mScrollbar->setMaxValue(8);
 		mNewLineDirty = false;
 
-		ChildList::iterator iter;
-		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
+		ChildList::iterator iter = mChildren.begin();
+		if ((*iter).get() == mScrollbar.get())
+		{
+			++iter;
+		}
+		for (; iter != mChildren.end(); ++iter)
 		{
 			mColour.applyColour();
 			(*iter)->render(dt);
@@ -252,7 +272,8 @@ namespace gfx {
 	{
 		Renderable::preRender(dt);
 
-		glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
+		//glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
+		mFont->getAsset()->getTexture()->bindTexture();
 		glBegin(GL_QUADS);
 
 		mTextPosition = 0;
@@ -263,7 +284,8 @@ namespace gfx {
 		}
 
 		mCurrXpos = 0.0f;
-		mCurrYpos = 0.0f;
+		//mCurrYpos = 0.0f;
+		mCurrYpos = -mLineScroll * (mFont->getCharHeight() + mFont->getLeading());
 		checkAlignment(mText.c_str());
 		mInWord = false;
 
@@ -275,8 +297,13 @@ namespace gfx {
 		glEnd();
 
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
-		glBindTexture(GL_TEXTURE_2D, 0);
-		
+		//glBindTexture(GL_TEXTURE_2D, 0);
+
+		if (mScrollbar.get() != NULL && mScrollbar->isVisible())
+		{
+			mScrollbar->render(dt);
+		}
+
 		Renderable::postRender(dt);
 	}
 
@@ -306,7 +333,7 @@ namespace gfx {
 	{
 		mCurrXpos = 0.0f;
 		mCurrentLine++;
-		if (mCurrentLine > mLineScroll)
+		//if (mCurrentLine > mLineScroll)
 		{
 			mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
 		}
@@ -363,7 +390,8 @@ namespace gfx {
 				}
 			}
 			
-			if (mCurrentLine >= mLineScroll && (mCurrentLine < (mLineScroll + mDisplayNumLines) || mDisplayNumLines == 0))
+			bool display = mCurrentLine >= mLineScroll && (mCurrentLine < (mLineScroll + mDisplayNumLines) || mDisplayNumLines == 0);
+			if (display)
 			{
 				TextureWindow charRender;
 				mFont->getTextureWindow(ch, charRender);
@@ -385,12 +413,12 @@ namespace gfx {
 				{
 					mCurrXpos += mFont->getKerning();
 				}
-				if (mNewLineDirty)
-				{
-					Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
-					Handle<Renderable> hitbox = list[list.size() - 1];
-					hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
-				}
+			}
+			if (mNewLineDirty)
+			{
+				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
+				Handle<Renderable> hitbox = list[list.size() - 1];
+				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
 			}
 		}
 	}
@@ -401,8 +429,7 @@ namespace gfx {
 		{
 			mDirty = true;
 			Renderable::setWidth(width);
-			//mScrollbar->setPosition(width - mScrollbar->getWidth(), 0.0f);
-			mScrollbar->setPosition(100.0f, 100.0f);
+			mScrollbar->setPosition(width - mScrollbar->getWidth(), 0.0f);
 		}
 	}
 	void TextField2::setHeight(float height)

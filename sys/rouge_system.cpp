@@ -125,6 +125,11 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
+
+		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
+		scrollbar->setValue(50);
+		scrollbar->setHeight(100.0f);
+		gfxEngine->getUILayer()->addChild(scrollbar);*/
 		/*
 		Handle<TextInput> input(new TextInput());
 		input->setFocus(true);

@@ -5,6 +5,8 @@
 namespace am {
 namespace gfx {
 
+	GLuint Texture::sLastBind = -1;
+
 	Texture::Texture(const char *filename, GLuint textureId) :
 		IManaged(),
 		mTextureId(textureId),
@@ -147,6 +149,23 @@ namespace gfx {
 		mFilename = "";
 		mTextureId = 0;
 		mLoaded = false;
+	}
+
+	void Texture::bindTexture() const
+	{
+		if (sLastBind != mTextureId)
+		{
+			sLastBind = mTextureId;
+			glBindTexture(GL_TEXTURE_2D, mTextureId);
+		}
+	}
+	void Texture::bindTexture(GLuint id)
+	{
+		if (sLastBind != id)
+		{
+			sLastBind = id;
+			glBindTexture(GL_TEXTURE_2D, id);
+		}
 	}
 
 }
