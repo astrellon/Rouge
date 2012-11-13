@@ -23,7 +23,7 @@ namespace ui {
 		mDialogueChoices = new DialogueChoices();
 		addChild(mDialogueChoices);
 		mDialogueChoices->setSize(200.0f, 100.0f);
-		mDialogueChoices->setParentOffset(600.0f, 400.0f);
+		mDialogueChoices->setParentOffset(400.0f, 400.0f);
 	}
 	GameHud::~GameHud()
 	{

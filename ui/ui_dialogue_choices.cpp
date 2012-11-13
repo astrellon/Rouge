@@ -23,7 +23,6 @@ namespace ui {
 		mText(new TextField2())
 	{
 		addChild(mText);
-		mText->setLineScroll(1);
 		mText->setDisplayHeight(90.0f);
 		mText->addEventListener(MOUSE_UP, this);
 	}
@@ -70,10 +69,13 @@ namespace ui {
 	{
 		if (e->getTalkedTo() != NULL)
 		{
-			mChoices.clear();
-			Dialogue::getAvailableDialogues(mChoices, mTalker, e->getTalkedTo());
+			vector<Dialogue *> newChoices;
+			//mChoices.clear();
+			
+			Dialogue::getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
 			mTalkedTo = e->getTalkedTo();
-			updateText();
+			setDialogueChoices(newChoices);
+			//updateText();
 		}
 	}
 
@@ -105,8 +107,23 @@ namespace ui {
 
 	void DialogueChoices::setDialogueChoices(const vector<Dialogue *> &choices)
 	{
-		mChoices = choices;
-		updateText();
+		bool same = choices.size() == mChoices.size();
+		if (same)
+		{
+			for (size_t i = 0; i < choices.size(); i++)
+			{
+				if (choices[i] != mChoices[i])
+				{
+					same = false;
+					break;
+				}
+			}
+		}
+		if (!same)
+		{
+			mChoices = choices;
+			updateText();
+		}
 	}
 	const vector<Dialogue *> &DialogueChoices::getDialogueChoices() const
 	{

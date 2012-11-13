@@ -70,6 +70,7 @@ namespace gfx {
 		if (getRenderColour())
 		{
 			mColour.applyColour();
+			glBindTexture(GL_TEXTURE_2D, 0);
 			glBegin(GL_QUADS);
 				glVertex2f(mTransform.getX(), mTransform.getY());
 				glVertex2f(mTransform.getX(), mTransform.getY() + mHeight);

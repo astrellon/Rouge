@@ -34,6 +34,11 @@ namespace gfx {
 	{
 		mFont = GfxEngine::getEngine()->getFontLua("basic");
 		setInteractive(true);
+
+		mTextHitboxes = new Layer();
+		mTextHitboxes->setInteractive(true);
+		addChild(mTextHitboxes);
+
 		mScrollbar = new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack");
 		mScrollbar->setHeight(100.0f);
 		mScrollbar->setVisible(false);
@@ -84,26 +89,26 @@ namespace gfx {
 	void TextField2::setText(const char *str)
 	{
 		mRawText = str;
-		mTextDirty = true;
+		setTextDirty(true);
 		mDirty = true;
 	}
 	void TextField2::setText(const string &str)
 	{
 		mRawText = str;
 		mDirty = true;
-		mTextDirty= true;
+		setTextDirty(true);
 	}
 	void TextField2::appendText(const char *str)
 	{
 		mRawText.append(str);
 		mDirty = true;
-		mTextDirty = true;
+		setTextDirty(true);
 	}
 	void TextField2::appendText(const string &str)
 	{
 		mRawText.append(str);
 		mDirty = true;
-		mTextDirty = true;
+		setTextDirty(true);
 	}
 	const char *TextField2::getText()
 	{
@@ -156,8 +161,9 @@ namespace gfx {
 	void TextField2::setLineScroll(int lineScroll, bool silent)
 	{
 		mLineScroll = lineScroll;
-		//mNewLineDirty = true;
 		checkScrollbar();
+		float scroll = -(mFont->getCharHeight() + mFont->getLeading()) * static_cast<float>(lineScroll);
+		mTextHitboxes->setPosition(0.0f, scroll);
 		if (!silent)
 		{
 			mScrollbar->setValue(mLineScroll);
@@ -171,7 +177,6 @@ namespace gfx {
 	void TextField2::setDisplayNumLines(int numLines)
 	{
 		mDisplayNumLines = numLines;
-		//mNewLineDirty = true;
 		checkScrollbar();
 	}
 
@@ -193,7 +198,7 @@ namespace gfx {
 		{
 			mDisplayNumLines = static_cast<int>(height);
 		}
-		//mNewLineDirty = true;
+		checkScrollbar();
 	}
 
 	void TextField2::onEvent(Event *e)
@@ -213,6 +218,8 @@ namespace gfx {
 
 		mCurrentLine = 0;
 		preRender(dt);
+		mFont->getAsset()->getTexture()->bindTexture();
+		glBegin(GL_QUADS);
 		while (mCurrentNode.get() != NULL)
 		{
 			if (mNewLineDirty)
@@ -220,8 +227,8 @@ namespace gfx {
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
 				list.clear();
 				Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
-				addChild(hitbox);
-				hitbox->setPosition(mCurrXpos, mCurrYpos);
+				mTextHitboxes->addChild(hitbox);
+				hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 				hitbox->setHeight(mFont->getCharHeight());
 				hitbox->addEventListener(MOUSE_UP, this);
 				list.push_back(hitbox);
@@ -240,16 +247,11 @@ namespace gfx {
 			renderText(mCurrentNode->getText());
 			mCurrentNode = mCurrentNode->nextSibling();
 		}
-		mScrollbar->setMaxValue(getTotalNumLines() - mDisplayNumLines);
-		//mScrollbar->setMaxValue(8);
+		glEnd();
+		mScrollbar->setMaxValue(getTotalNumLines() - mDisplayNumLines - 1);
 		mNewLineDirty = false;
 
-		ChildList::iterator iter = mChildren.begin();
-		if ((*iter).get() == mScrollbar.get())
-		{
-			++iter;
-		}
-		for (; iter != mChildren.end(); ++iter)
+		for (ChildList::iterator iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
 			mColour.applyColour();
 			(*iter)->render(dt);
@@ -272,10 +274,6 @@ namespace gfx {
 	{
 		Renderable::preRender(dt);
 
-		//glBindTexture(GL_TEXTURE_2D, mFont->getAsset()->getTexture()->getTextureId());
-		mFont->getAsset()->getTexture()->bindTexture();
-		glBegin(GL_QUADS);
-
 		mTextPosition = 0;
 
 		if (mTextDirty)
@@ -284,7 +282,6 @@ namespace gfx {
 		}
 
 		mCurrXpos = 0.0f;
-		//mCurrYpos = 0.0f;
 		mCurrYpos = -mLineScroll * (mFont->getCharHeight() + mFont->getLeading());
 		checkAlignment(mText.c_str());
 		mInWord = false;
@@ -294,11 +291,7 @@ namespace gfx {
 
 	void TextField2::postRender(float dt)
 	{
-		glEnd();
-
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
-		//glBindTexture(GL_TEXTURE_2D, 0);
-
 		if (mScrollbar.get() != NULL && mScrollbar->isVisible())
 		{
 			mScrollbar->render(dt);
@@ -333,19 +326,16 @@ namespace gfx {
 	{
 		mCurrXpos = 0.0f;
 		mCurrentLine++;
-		//if (mCurrentLine > mLineScroll)
-		{
-			mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
-		}
+		mCurrYpos += mFont->getCharHeight() + mFont->getLeading();
 		if (mNewLineDirty)
 		{
 			mNewLinePositions.push_back(mTextPosition);
 
 			Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
-			addChild(hitbox);
+			mTextHitboxes->addChild(hitbox);
 			hitbox->setWidth(0);
 			hitbox->setHeight(mFont->getCharHeight());
-			hitbox->setPosition(mCurrXpos, mCurrYpos);
+			hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 			hitbox->addEventListener(MOUSE_UP, this);
 			mCurrentNode->getHitboxes().push_back(hitbox);
 		}
@@ -390,12 +380,13 @@ namespace gfx {
 				}
 			}
 			
+			
+			TextureWindow charRender;
+			mFont->getTextureWindow(ch, charRender);
+
 			bool display = mCurrentLine >= mLineScroll && (mCurrentLine < (mLineScroll + mDisplayNumLines) || mDisplayNumLines == 0);
 			if (display)
 			{
-				TextureWindow charRender;
-				mFont->getTextureWindow(ch, charRender);
-
 				glTexCoord2f(charRender.getLeftX(), charRender.getTopY());
 				glVertex2f(mCurrXpos, mCurrYpos);
 				
@@ -407,12 +398,12 @@ namespace gfx {
 
 				glTexCoord2f(charRender.getLeftX(), charRender.getBottomY());
 				glVertex2f(mCurrXpos, mCurrYpos + charRender.getHeight());
+			}
 			
-				mCurrXpos += charRender.getWidth();
-				if (text[i + 1] > ' ')
-				{
-					mCurrXpos += mFont->getKerning();
-				}
+			mCurrXpos += charRender.getWidth();
+			if (text[i + 1] > ' ')
+			{
+				mCurrXpos += mFont->getKerning();
 			}
 			if (mNewLineDirty)
 			{
@@ -482,6 +473,8 @@ namespace gfx {
 		
 		Handle<Node> currentNode = mRootNode;
 		mRootNode->clear();
+
+		mTextHitboxes->clear();
 
 		string attrName = "";
 
@@ -581,13 +574,19 @@ namespace gfx {
 			}
 		}
 
-		mTextDirty = false;
+		setTextDirty(false);
 	}
 
 	void TextField2::checkScrollbar()
 	{
 		mScrollbar->setVisible(mLineScroll != 0 || mDisplayNumLines != 0);
 	}
+
+	void TextField2::setTextDirty(bool dirty)
+	{
+		mTextDirty = dirty;
+	}
 	
 }
 }
+

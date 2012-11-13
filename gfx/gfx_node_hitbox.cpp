@@ -13,6 +13,7 @@ namespace gfx {
 	{
 		setInteractive(true);
 		addListeners(this);
+		//setRenderColour(true);
 	}
 	NodeHitbox::NodeHitbox(Node *node) :
 		mNodeTarget(node)
@@ -23,6 +24,7 @@ namespace gfx {
 		}
 		setInteractive(true);
 		addListeners(this);
+		//setRenderColour(true);
 	}
 	NodeHitbox::~NodeHitbox()
 	{

@@ -99,6 +99,7 @@ namespace gfx {
 		Handle<Node> mRootNode;
 		Handle<Node> mCurrentNode;
 		Handle<Scrollbar> mScrollbar;
+		Handle<Layer> mTextHitboxes;
 
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;
@@ -118,6 +119,7 @@ namespace gfx {
 		void checkAlignment(const char *line);
 
 		void checkScrollbar();
+		void setTextDirty(bool dirty);
 	};
 
 }
