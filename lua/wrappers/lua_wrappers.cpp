@@ -15,9 +15,12 @@
 #include "lua_game.h"
 #include "lua_quest.h"
 #include "lua_coin_purse.h"
+#include "lua_dialogue.h"
 
 #include <lua/lua_state.h>
 using namespace am::lua;
+
+using namespace am::lua::game;
 
 namespace am {
 namespace lua {
@@ -25,20 +28,21 @@ namespace wrapper {
 
 	void AssignWrappers(lua_State *lua)
 	{
-		LuaState::registerWrapper("Character", am::lua::game::Character_register);
-		LuaState::registerWrapper("Stats", am::lua::game::Stats_register);
-		LuaState::registerWrapper("BodyPart", am::lua::game::BodyPart_register);
-		LuaState::registerWrapper("StatModifiers", am::lua::game::StatModifiers_register);
-		LuaState::registerWrapper("Item", am::lua::game::Item_register);
-		LuaState::registerWrapper("Inventory", am::lua::game::Inventory_register);
-		LuaState::registerWrapper("Map", am::lua::game::Map_register);
-		LuaState::registerWrapper("Tile", am::lua::game::Tile_register);
-		LuaState::registerWrapper("TileSet", am::lua::game::TileSet_register);
-		LuaState::registerWrapper("TileType", am::lua::game::TileType_register);
-		LuaState::registerWrapper("Engine", am::lua::game::Engine_register);
-		LuaState::registerWrapper("Game", am::lua::game::Game_register);
-		LuaState::registerWrapper("CoinPurse", am::lua::game::CoinPurse_register);
-		LuaState::registerWrapper("Quest", am::lua::game::Quest_register);
+		LuaState::registerWrapper("Character", Character_register);
+		LuaState::registerWrapper("Stats", Stats_register);
+		LuaState::registerWrapper("BodyPart", BodyPart_register);
+		LuaState::registerWrapper("StatModifiers", StatModifiers_register);
+		LuaState::registerWrapper("Item", Item_register);
+		LuaState::registerWrapper("Inventory", Inventory_register);
+		LuaState::registerWrapper("Map", Map_register);
+		LuaState::registerWrapper("Tile", Tile_register);
+		LuaState::registerWrapper("TileSet", TileSet_register);
+		LuaState::registerWrapper("TileType", TileType_register);
+		LuaState::registerWrapper("Engine", Engine_register);
+		LuaState::registerWrapper("Game", Game_register);
+		LuaState::registerWrapper("CoinPurse", CoinPurse_register);
+		LuaState::registerWrapper("Quest", Quest_register);
+		LuaState::registerWrapper("Dialogue", Dialogue_register);
 
 		LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}

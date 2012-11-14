@@ -21,11 +21,11 @@ namespace game {
 	public:
 
 		enum UnlockFlag {
-			UNLOCK_NONE, UNLOCK_LOCKED
+			UNLOCK_NONE, UNLOCK_LOCKED, UNLOCK_UNKNOWN
 		};
 
 		enum DialogueAction {
-			ACTION_NONE, ACTION_SHOP, ACTION_CLOSE
+			ACTION_NONE, ACTION_SHOP, ACTION_CLOSE, ACTION_UNKNOWN
 		};
 
 		// Is a list of dialogue subjects
@@ -58,6 +58,14 @@ namespace game {
 		static Dialogue *getDialogue(const char *id);
 
 		static void getAvailableDialogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo);
+
+		static UnlockFlag toUnlockFlag(const char *flag);
+		static UnlockFlag toUnlockFlag(int flagValue);
+		static const char *getUnlockFlagName(UnlockFlag flag);
+
+		static DialogueAction toDialogueAction(const char *action);
+		static DialogueAction toDialogueAction(int actionValue);
+		static const char *getDialogueActionName(DialogueAction action);
 
 	protected:
 

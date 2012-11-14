@@ -166,5 +166,79 @@ namespace game {
 		}
 	}
 
+	Dialogue::UnlockFlag Dialogue::toUnlockFlag(const char *flag)
+	{
+		if (strcmp("none", flag) == 0)
+		{
+			return UNLOCK_NONE;
+		}
+		if (strcmp("locked", flag) == 0)
+		{
+			return UNLOCK_LOCKED;
+		}
+		return UNLOCK_UNKNOWN;
+	}
+	Dialogue::UnlockFlag Dialogue::toUnlockFlag(int flagValue)
+	{
+		if (flagValue < 0 || flagValue >= UNLOCK_UNKNOWN)
+		{
+			return UNLOCK_UNKNOWN;
+		}
+		return static_cast<UnlockFlag>(flagValue);
+	}
+	const char *Dialogue::getUnlockFlagName(Dialogue::UnlockFlag flag)
+	{
+		if (flag == UNLOCK_NONE)
+		{
+			return "none";
+		}
+		if (flag == UNLOCK_LOCKED)
+		{
+			return "locked";
+		}
+		return "unknown";
+	}
+
+	Dialogue::DialogueAction Dialogue::toDialogueAction(const char *action)
+	{
+		if (strcmp("none", action) == 0)
+		{
+			return ACTION_NONE;
+		}
+		if (strcmp("shop", action) == 0)
+		{
+			return ACTION_SHOP;
+		}
+		if (strcmp("close", action) == 0)
+		{
+			return ACTION_CLOSE;
+		}
+		return ACTION_UNKNOWN;
+	}
+	Dialogue::DialogueAction Dialogue::toDialogueAction(int actionValue)
+	{
+		if (actionValue < 0 || actionValue >= ACTION_UNKNOWN)
+		{
+			return ACTION_UNKNOWN;
+		}
+		return static_cast<DialogueAction>(actionValue);
+	}
+	const char *Dialogue::getDialogueActionName(Dialogue::DialogueAction action)
+	{
+		if (action == Dialogue::ACTION_NONE)
+		{
+			return "none";
+		}
+		if (action == Dialogue::ACTION_CLOSE)
+		{
+			return "close";
+		}
+		if (action == Dialogue::ACTION_SHOP)
+		{
+			return "shop";
+		}
+		return "unknown";
+	}
+	
 }
 }

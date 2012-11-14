@@ -634,6 +634,12 @@
     <ClCompile Include="ui\ui_text_button.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_dialogue.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_dialogue.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1167,6 +1173,12 @@
     </ClInclude>
     <ClInclude Include="ui\ui_text_button.h">
       <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_dialogue.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_dialogue.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

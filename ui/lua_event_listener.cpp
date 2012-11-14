@@ -1,5 +1,10 @@
 #include <ui/lua_event_listener.h>
 
+#include <lua/wrappers/lua_item.h>
+#include <lua/wrappers/lua_inventory.h>
+#include <lua/wrappers/lua_character.h>
+using namespace am::lua::game;
+
 #include <sstream>
 using namespace std;
 
@@ -63,15 +68,74 @@ namespace ui {
 	}
 	void LuaEventListener::onEvent(KeyboardEvent *e)
 	{
-		
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		mLua.setTableValue("key", e->getKey());
+		mLua.setTableValue("isSystemKey", e->isSystemKey());
+		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(InventoryEvent *e)
 	{
-
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		mLua.setTableValue("spotX", e->getSpotX());
+		mLua.setTableValue("spotY", e->getSpotY());
+		mLua.push("item");
+		Item_wrap(mLua, e->getItem());
+		lua_settable(mLua, -3);
+		mLua.push("inventory");
+		Inventory_wrap(mLua, e->getInventory());
+		lua_settable(mLua, -3);
+		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(EquipEvent *e)
 	{
-
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		mLua.setTableValue("bodyPartName", e->getBodyPartName());
+		mLua.push("item");
+		Item_wrap(mLua, e->getItem());
+		lua_settable(mLua, -3);
+		mLua.push("character");
+		Character_wrap(mLua, e->getCharacter());
+		lua_settable(mLua, -3);
+		lua_call(mLua, contexted ? 2 : 1, 0);
+	}
+	void LuaEventListener::onEvent(DialogueEvent *e)
+	{
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		mLua.push("talkedTo");
+		Character_wrap(mLua, e->getTalkedTo());
+		lua_settable(mLua, -3);
+		mLua.push("talker");
+		Character_wrap(mLua, e->getTalker());
+		lua_settable(mLua, -3);
+		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 
 	bool LuaEventListener::operator==(const LuaEventListener *rhs) const
