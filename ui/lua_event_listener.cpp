@@ -8,6 +8,9 @@ using namespace am::lua::game;
 #include <sstream>
 using namespace std;
 
+#include <game/character.h>
+using namespace am::game;
+
 namespace am {
 namespace ui {
 
@@ -130,10 +133,26 @@ namespace ui {
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.push("talkedTo");
-		Character_wrap(mLua, e->getTalkedTo());
+		Character *isChar = dynamic_cast<Character *>(e->getTalkedTo());
+		if (isChar)
+		{
+			Character_wrap(mLua, isChar);
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
 		lua_settable(mLua, -3);
 		mLua.push("talker");
-		Character_wrap(mLua, e->getTalker());
+		isChar = dynamic_cast<Character *>(e->getTalker());
+		if (isChar)
+		{
+			Character_wrap(mLua, isChar);
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
 		lua_settable(mLua, -3);
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}

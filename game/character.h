@@ -35,8 +35,6 @@ namespace game {
 		Character();
 		~Character();
 
-		typedef map<string, bool> SubjectMap;
-
 		void setGraphic(Sprite *graphic);
 		Sprite *getGraphic();
 
@@ -82,14 +80,6 @@ namespace game {
 		virtual void setRace(Race *race);
 		virtual Race *getRace() const;
 
-		virtual void setSubjectLock(const char *subject, bool locked = false);
-		virtual bool isSubjectLocked(const char *subject) const;
-		virtual const SubjectMap &getUnlockedSubjects() const;
-
-		virtual void setDialogueAvailable(const char *subject, bool available = true);
-		virtual bool isDialogueAvailable(const char *subject) const;
-		virtual const SubjectMap &getDialoguesAvailable() const;
-
 		virtual void setGender(Gender::GenderType gender);
 		virtual Gender::GenderType getGender() const;
 
@@ -118,9 +108,6 @@ namespace game {
 		float mAge;
 		Race *mRace;
 		Gender::GenderType mGender;
-
-		SubjectMap mUnlockedSubjects;
-		SubjectMap mDialoguesAvailable;
 
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);

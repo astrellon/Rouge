@@ -1,20 +1,14 @@
 -- Dialogues
-dialogues = {}
-local diag = {}
-diag.id = "diag1"
-diag.text = "Hello there ${main name} <? #='HART' @='diag2'>Next</?>"
-table.insert(dialogues, diag)
+Dialogue = import("Dialogue")
 
-diag = {}
-diag.id = "diag2"
-diag.text = "My name is <? #='name' @='diag3'>Melli</?> How are you today?"
-diag.subject = "How Are"
-diag.unlock = "subject"
-table.insert(dialogues, diag)
+diag = Dialogue.new("diag1",
+	"Hello there ${main name} <? #='HART' @='diag2'>Next</?>")
+Dialogue.add_dialogue(diag)
 
-diag = {}
-diag.id = "diag3"
-diag.text = "Melli is my name"
-diag.subject = "name"
-diag.unlock = "subject"
-table.insert(dialogues, diag)
+diag = Dialogue.new("diag2",
+	"My name is <? #='name' @='diag3'>Melli</?> How are you today?",
+	"How Are", "how_are", "locked")
+Dialogue.add_dialogue(diag)
+
+diag = Dialogue.new("diag3", "Melli is my name", "Name", "name", "locked")
+Dialogue.add_dialogue(diag)

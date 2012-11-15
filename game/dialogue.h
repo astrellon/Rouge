@@ -15,7 +15,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	class Character;
+	class GameObject;
 
 	class Dialogue {
 	public:
@@ -57,7 +57,7 @@ namespace game {
 		static void removeAllDialogue();
 		static Dialogue *getDialogue(const char *id);
 
-		static void getAvailableDialogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo);
+		static void getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo);
 
 		static UnlockFlag toUnlockFlag(const char *flag);
 		static UnlockFlag toUnlockFlag(int flagValue);

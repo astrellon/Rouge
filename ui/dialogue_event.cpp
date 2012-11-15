@@ -1,12 +1,12 @@
 #include "dialogue_event.h"
 
 #include <game/character.h>
-#include <game/dialogue.h>
+#include <game/game_object.h>
 
 namespace am {
 namespace ui {
 
-	DialogueEvent::DialogueEvent(Character *talker, Character *talkedTo, Dialogue *dialogue) :
+	DialogueEvent::DialogueEvent(GameObject *talker, GameObject *talkedTo, Dialogue *dialogue) :
 		Event("dialogue"),
 		mTalker(talker),
 		mTalkedTo(talkedTo),
@@ -33,11 +33,11 @@ namespace ui {
 		}
 	}
 
-	Character *DialogueEvent::getTalker() const
+	GameObject *DialogueEvent::getTalker() const
 	{
 		return mTalker;
 	}
-	Character *DialogueEvent::getTalkedTo() const
+	GameObject *DialogueEvent::getTalkedTo() const
 	{
 		return mTalkedTo;
 	}

@@ -79,7 +79,7 @@ namespace ui {
 		}
 	}
 
-	void DialogueChoices::setTalker(Character *talker)
+	void DialogueChoices::setTalker(GameObject *talker)
 	{
 		if (mTalker.get() != NULL)
 		{
@@ -91,16 +91,16 @@ namespace ui {
 			mTalker->addEventListener("dialogue", this);
 		}
 	}
-	Character *DialogueChoices::getTalker() const
+	GameObject *DialogueChoices::getTalker() const
 	{
 		return mTalker;
 	}
 
-	void DialogueChoices::setTalkedTo(Character *talkedTo)
+	void DialogueChoices::setTalkedTo(GameObject *talkedTo)
 	{
 		mTalkedTo = talkedTo;
 	}
-	Character *DialogueChoices::getTalkedTo() const
+	GameObject *DialogueChoices::getTalkedTo() const
 	{
 		return mTalkedTo;
 	}

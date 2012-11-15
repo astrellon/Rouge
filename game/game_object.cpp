@@ -19,7 +19,8 @@ namespace game {
 		mCameraOffsetY(0.0f),
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
-		mMap(NULL)
+		mMap(NULL),
+		mStartDialogue(NULL)
 	{
 		setName("GameObject");
 		addGameObject(this);
@@ -246,10 +247,10 @@ namespace game {
 		return mPassibleTypes;
 	}
 
-	void GameObject::talkTo(GameObject *from)
+	void GameObject::talkTo(GameObject *other)
 	{
-		
-		//Dialogue::getDialogue()
+		Handle<DialogueEvent> e(new DialogueEvent(this, other, mStartDialogue));
+		fireEvent<DialogueEvent>(e);
 	}
 
 	bool GameObject::setGameId(const char *id)
@@ -266,6 +267,71 @@ namespace game {
 	const char *GameObject::getGameId() const
 	{
 		return mGameId.c_str();
+	}
+
+	void GameObject::setStartDialogue(Dialogue *diag)
+	{
+		mStartDialogue = diag;
+	}
+	Dialogue *GameObject::getStartDialogue() const
+	{
+		return mStartDialogue;
+	}
+
+	void GameObject::setSubjectLock(const char *subject, bool locked)
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return;
+		}
+		string subjectStr(subject);
+		mUnlockedSubjects[subjectStr] = locked;
+	}
+	bool GameObject::isSubjectLocked(const char *subject) const
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return false;
+		}
+		string subjectStr(subject);
+		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
+		if (iter == mUnlockedSubjects.end())
+		{
+			return false;
+		}
+		return iter->second;
+	}
+	const GameObject::SubjectMap &GameObject::getUnlockedSubjects() const
+	{
+		return mUnlockedSubjects;
+	}
+
+	void GameObject::setDialogueAvailable(const char *subject, bool available)
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return;
+		}
+		string subjectStr(subject);
+		mDialoguesAvailable[subjectStr] = available;
+	}
+	bool GameObject::isDialogueAvailable(const char *subject) const
+	{
+		if (subject == NULL || subject[0] == '\0')
+		{
+			return false;
+		}
+		string subjectStr(subject);
+		SubjectMap::const_iterator iter = mDialoguesAvailable.find(subjectStr);
+		if (iter == mDialoguesAvailable.end())
+		{
+			return false;
+		}
+		return iter->second;
+	}
+	const GameObject::SubjectMap &GameObject::getDialoguesAvailable() const
+	{
+		return mDialoguesAvailable;
 	}
 
 	int GameObject::nextGameId()

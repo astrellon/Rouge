@@ -88,6 +88,12 @@ namespace sys {
 		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		TextStyle::loadStylesLua("data/textStyles.lua");
 
+		LuaState lua;
+		if (!lua.loadFile("data/dialogue.lua"))
+		{
+			lua.logStack("DIAG");
+		}
+
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
@@ -304,7 +310,7 @@ namespace sys {
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		Dialogue::addDialogue(new Dialogue("npc1Greetings", "Hello there, what's your name? My name is <? @='npc1Name'>Aloob</?>.", "Greetings", "greetings"));
+		/*Dialogue::addDialogue(new Dialogue("npc1Greetings", "Hello there, what's your name? My name is <? @='npc1Name'>Aloob</?>.", "Greetings", "greetings"));
 		Dialogue::addDialogue(new Dialogue("npc1Name", "My name is Aloob, I live in this <? @='npc1Town'>town</?>.", "Name", "name", Dialogue::UNLOCK_LOCKED));
 		Dialogue::addDialogue(new Dialogue("npc1Town", "This town is nice :3", "Town", "town", Dialogue::UNLOCK_LOCKED));
 		for (int i = 1; i < 15; i++) {
@@ -313,21 +319,17 @@ namespace sys {
 			stringstream ss2;
 			ss2 << "Dialogue " << i;
 			Dialogue::addDialogue(new Dialogue(ss.str().c_str(), ss2.str().c_str(), ss.str().c_str(), ss.str().c_str()));
-		}
+		}*/
 
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
 		npc->addPassibleType(TileType::getTileType("land"));
 		npc->setGraphic(new Sprite("characters/npc/front"));
 		npc->setGridLocation(3, 2);
-		npc->setDialogueAvailable("npc1Greetings");
-		npc->setDialogueAvailable("npc1Name");
-		npc->setDialogueAvailable("npc1Town");
-		for (int i = 1; i < 15; i++) {
-			stringstream ss;
-			ss << "diag" << i;
-			npc->setDialogueAvailable(ss.str().c_str());
-		}
+		npc->setDialogueAvailable("diag1");
+		npc->setDialogueAvailable("diag2");
+		npc->setDialogueAvailable("diag3");
+		npc->setStartDialogue(Dialogue::getDialogue("diag1"));
 		game->addGameObject(npc);
 
 		mPlayer = new Character();
@@ -353,28 +355,19 @@ namespace sys {
 
 		Handle<Item> sword(new Item());
 		sword->loadFromLua("sword");
-		//sword->loadDef(JsonValue::import_from_file("data/items/sword.ssff"));
 
 		Handle<Item> sword2(new Item());
 		sword2->setItemFrom(*sword);
 
 		Handle<Item> shield(new Item());
 		shield->loadFromLua("shield");
-		//shield->loadDef(JsonValue::import_from_file("data/items/shield.ssff"));
 
 		Handle<Item> scroll(new Item());
 		scroll->setGraphic(new Sprite("items/scroll"), true);
 		scroll->setItemName("Scroll");
 
-		//mPlayer->getInventory()->addItem(sword);
 		mPlayer->getInventory()->addItem(sword2);
 		mPlayer->getInventory()->addItem(shield);
-		//mPlayer->getInventory()->addItem(scroll);
-		/*
-		Handle<BodyPartRenderer> bodyPartRenderer(new BodyPartRenderer(2, 4, "arm"));
-		bodyPartRenderer->setCharacter(mPlayer);
-		GfxEngine::getEngine()->getUILayer()->addChild(bodyPartRenderer);
-		*/
 		mPlayer->equipItem(sword, "arm");
 
 		PlayerController *controller = new PlayerController();
@@ -390,13 +383,10 @@ namespace sys {
 			gameHud->getDialogueChoices()->setTalker(mPlayer);
 		}
 
-		Handle<DialogueEvent> e(new DialogueEvent(mPlayer, npc, Dialogue::getDialogue("npc1Greetings")));
-		mPlayer->fireEvent<DialogueEvent>(e);
-
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
 
-		/*am_log("POOL", StringPool::replace("char main"));
+		am_log("POOL", StringPool::replace("char main"));
 		am_log("POOL", StringPool::replace("char main name"));
 		am_log("POOL", StringPool::replace("char main gender"));
 		am_log("POOL", StringPool::replace("char main race"));
@@ -405,7 +395,7 @@ namespace sys {
 		am_log("POOL", StringPool::replace("char main stat"));
 		am_log("POOL", StringPool::replace("char main stat health"));
 		am_log("POOL", StringPool::replace("char main stat minDamage"));
-		am_log("POOL", StringPool::replace("char main stat base minDamage"));*/
+		am_log("POOL", StringPool::replace("char main stat base minDamage"));
 	}
 
 	void RougeSystem::setCurrentMenu(UIComponent *menu)

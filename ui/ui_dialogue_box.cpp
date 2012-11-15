@@ -5,7 +5,7 @@
 #include <log/logger.h>
 
 #include <game/dialogue.h>
-#include <game/character.h>
+#include <game/game_object.h>
 
 #include <gfx/gfx_texture.h>
 using namespace am::gfx;
@@ -72,7 +72,7 @@ namespace ui {
 		setDialogue(e->getDialogue()); 
 	}
 
-	void DialogueBox::setTalker(Character *talker)
+	void DialogueBox::setTalker(GameObject *talker)
 	{
 		if (mTalker.get() != NULL)
 		{
@@ -84,16 +84,16 @@ namespace ui {
 			mTalker->addEventListener("dialogue", this);
 		}
 	}
-	Character *DialogueBox::getTalker() const
+	GameObject *DialogueBox::getTalker() const
 	{
 		return mTalker;
 	}
 
-	void DialogueBox::setTalkedTo(Character *talkedTo)
+	void DialogueBox::setTalkedTo(GameObject *talkedTo)
 	{
 		mTalkedTo = talkedTo;
 	}
-	Character *DialogueBox::getTalkedTo() const
+	GameObject *DialogueBox::getTalkedTo() const
 	{
 		return mTalkedTo;
 	}

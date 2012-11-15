@@ -108,6 +108,13 @@ namespace ui {
 					Engine::getEngine()->getCurrentGame()->getMainCharacter()->pickupItem(item);
 					mGameObjects.erase(mGameObjects.begin() + index);
 					mTextDirty = true;
+					return;
+				}
+				Character *character = dynamic_cast<Character *>(clickedOn);
+				if (character)
+				{
+					Engine::getEngine()->getCurrentGame()->getMainCharacter()->talkTo(character);
+					return;
 				}
 			}
 		}

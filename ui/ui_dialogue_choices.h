@@ -28,11 +28,11 @@ namespace ui {
 		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(DialogueEvent *e);
 
-		virtual void setTalker(Character *talker);
-		virtual Character *getTalker() const;
+		virtual void setTalker(GameObject *talker);
+		virtual GameObject *getTalker() const;
 
-		virtual void setTalkedTo(Character *talkedTo);
-		virtual Character *getTalkedTo() const;
+		virtual void setTalkedTo(GameObject *talkedTo);
+		virtual GameObject *getTalkedTo() const;
 
 		virtual void setDialogueChoices(const vector<Dialogue *> &choices);
 		virtual const vector<Dialogue *> &getDialogueChoices() const;
@@ -53,8 +53,8 @@ namespace ui {
 
 		Handle<TextField2> mText;
 		vector<Dialogue *> mChoices;
-		Handle<Character> mTalker;
-		Handle<Character> mTalkedTo;
+		Handle<GameObject> mTalker;
+		Handle<GameObject> mTalkedTo;
 
 		void updateText();
 	};

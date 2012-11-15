@@ -7,7 +7,7 @@ using namespace std;
 
 namespace am {
 namespace game {
-	class Character;
+	class GameObject;
 	class Dialogue;
 }
 using namespace am::game;
@@ -16,17 +16,17 @@ namespace ui {
 
 	class DialogueEvent : public Event {
 	public:
-		DialogueEvent(Character *talker, Character *talkedTo, Dialogue *dialogue);
+		DialogueEvent(GameObject *talker, GameObject *talkedTo, Dialogue *dialogue);
 		~DialogueEvent();
 
-		Character *getTalker() const;
-		Character *getTalkedTo() const;
+		GameObject *getTalker() const;
+		GameObject *getTalkedTo() const;
 		Dialogue *getDialogue() const;
 
 	protected:
 
-		Character *mTalker;
-		Character *mTalkedTo;
+		GameObject *mTalker;
+		GameObject *mTalkedTo;
 		Dialogue *mDialogue;
 
 	};

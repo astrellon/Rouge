@@ -133,7 +133,7 @@ namespace game {
 		return NULL;
 	}
 
-	void Dialogue::getAvailableDialogues(vector<Dialogue *> &result, const Character *talker, const Character *talkedTo)
+	void Dialogue::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
 	{
 		if (talker == NULL || talkedTo == NULL)
 		{

@@ -373,62 +373,6 @@ namespace game {
 		return mRace;
 	}
 
-	void Character::setSubjectLock(const char *subject, bool locked)
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return;
-		}
-		string subjectStr(subject);
-		mUnlockedSubjects[subjectStr] = locked;
-	}
-	bool Character::isSubjectLocked(const char *subject) const
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return false;
-		}
-		string subjectStr(subject);
-		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
-		if (iter == mUnlockedSubjects.end())
-		{
-			return false;
-		}
-		return iter->second;
-	}
-	const Character::SubjectMap &Character::getUnlockedSubjects() const
-	{
-		return mUnlockedSubjects;
-	}
-
-	void Character::setDialogueAvailable(const char *subject, bool available)
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return;
-		}
-		string subjectStr(subject);
-		mDialoguesAvailable[subjectStr] = available;
-	}
-	bool Character::isDialogueAvailable(const char *subject) const
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return false;
-		}
-		string subjectStr(subject);
-		SubjectMap::const_iterator iter = mDialoguesAvailable.find(subjectStr);
-		if (iter == mDialoguesAvailable.end())
-		{
-			return false;
-		}
-		return iter->second;
-	}
-	const Character::SubjectMap &Character::getDialoguesAvailable() const
-	{
-		return mDialoguesAvailable;
-	}
-
 	void Character::setGender(Gender::GenderType gender)
 	{
 		mGender = gender;
