@@ -13,10 +13,8 @@ namespace game {
 
 	class StringPool {
 	public:
-		//StringPool();
-		//~StringPool();
-
 		static string replace(const char *str);
+		static string filterText(const string &str);
 
 	protected:
 

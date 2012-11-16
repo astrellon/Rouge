@@ -30,6 +30,7 @@
 #include <ui/ui_dialogue_box.h>
 
 #include <game/character.h>
+#include <game/race.h>
 #include <game/player_controller.h>
 #include <game/player_hand.h>
 #include <game/game.h>
@@ -310,17 +311,9 @@ namespace sys {
 		game->setCurrentMap("testMap");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		/*Dialogue::addDialogue(new Dialogue("npc1Greetings", "Hello there, what's your name? My name is <? @='npc1Name'>Aloob</?>.", "Greetings", "greetings"));
-		Dialogue::addDialogue(new Dialogue("npc1Name", "My name is Aloob, I live in this <? @='npc1Town'>town</?>.", "Name", "name", Dialogue::UNLOCK_LOCKED));
-		Dialogue::addDialogue(new Dialogue("npc1Town", "This town is nice :3", "Town", "town", Dialogue::UNLOCK_LOCKED));
-		for (int i = 1; i < 15; i++) {
-			stringstream ss;
-			ss << "diag" << i;
-			stringstream ss2;
-			ss2 << "Dialogue " << i;
-			Dialogue::addDialogue(new Dialogue(ss.str().c_str(), ss2.str().c_str(), ss.str().c_str(), ss.str().c_str()));
-		}*/
-
+		Race *human = new Race("human");
+		Race::addRace(human);
+		
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
 		npc->addPassibleType(TileType::getTileType("land"));
@@ -340,6 +333,8 @@ namespace sys {
 		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
 		mPlayer->addBodyPart(new BodyPart("arm"));
+		mPlayer->setGender(Gender::FEMALE);
+		mPlayer->setRace(Race::getRace("human"));
 
 		Stats &stats = mPlayer->getStats();
 		stats.setBaseStat(Stat::HEALTH, 15);
@@ -386,7 +381,7 @@ namespace sys {
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
 
-		am_log("POOL", StringPool::replace("char main"));
+		/*am_log("POOL", StringPool::replace("char main"));
 		am_log("POOL", StringPool::replace("char main name"));
 		am_log("POOL", StringPool::replace("char main gender"));
 		am_log("POOL", StringPool::replace("char main race"));
@@ -395,7 +390,9 @@ namespace sys {
 		am_log("POOL", StringPool::replace("char main stat"));
 		am_log("POOL", StringPool::replace("char main stat health"));
 		am_log("POOL", StringPool::replace("char main stat minDamage"));
-		am_log("POOL", StringPool::replace("char main stat base minDamage"));
+		am_log("POOL", StringPool::replace("char main stat base minDamage"));*/
+		string filtered = StringPool::filterText("Hello there ${char main} how are you?");
+		am_log("FILTERED", filtered);
 	}
 
 	void RougeSystem::setCurrentMenu(UIComponent *menu)

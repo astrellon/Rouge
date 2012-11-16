@@ -5,6 +5,9 @@
 #include <game/engine.h>
 #include <game/game.h>
 #include <game/character.h>
+#include <game/race.h>
+
+#include <log/logger.h>
 
 namespace am {
 namespace game {
@@ -57,11 +60,16 @@ namespace game {
 		}
 		if (strcmp(token, "gender") == 0)
 		{
-			return string("GENDER");
+			return string(Gender::getGenderName(character->getGender()));
 		}
 		if (strcmp(token, "race") == 0)
 		{
-			return string("RACE");
+			Race *race = character->getRace();
+			if (race == NULL)
+			{
+				race = Race::getUnknownRace();
+			}
+			return string(race->getRaceName());
 		}
 		if (strcmp(token, "equip") == 0)
 		{
@@ -118,6 +126,33 @@ namespace game {
 		stringstream ss;
 		ss << "{unknown character token '" << token << "'}";
 		return ss.str();
+	}
+
+	string StringPool::filterText(const string &str)
+	{
+		size_t index = str.find("${");
+		if (index == string::npos)
+		{
+			return str;
+		}
+		string result = str;
+		while (index != string::npos)
+		{
+			if (index == 0 || (index > 0 && str[index - 1] != '\\'))
+			{
+				index += 2;
+				size_t end = str.find("}", index);
+				if (end != string::npos)
+				{
+					string sub = str.substr(index, end - index);
+					//am_log("FILTER", sub);
+					string replaced = replace(sub.c_str());
+					result.replace(index - 2, end - index + 3, replaced.c_str());
+				}
+				index = str.find("${", end + 1);
+			}
+		}
+		return result;
 	}
 
 }
