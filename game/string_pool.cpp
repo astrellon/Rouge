@@ -141,15 +141,14 @@ namespace game {
 			if (index == 0 || (index > 0 && str[index - 1] != '\\'))
 			{
 				index += 2;
-				size_t end = str.find("}", index);
+				size_t end = result.find("}", index);
 				if (end != string::npos)
 				{
-					string sub = str.substr(index, end - index);
-					//am_log("FILTER", sub);
+					string sub = result.substr(index, end - index);
 					string replaced = replace(sub.c_str());
 					result.replace(index - 2, end - index + 3, replaced.c_str());
 				}
-				index = str.find("${", end + 1);
+				index = result.find("${", index + 1);
 			}
 		}
 		return result;

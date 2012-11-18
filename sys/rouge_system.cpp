@@ -328,7 +328,7 @@ namespace sys {
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);
 
-		mPlayer->setName("Melli");
+		mPlayer->setName("Melli the cutest cutie");
 		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
@@ -391,7 +391,7 @@ namespace sys {
 		am_log("POOL", StringPool::replace("char main stat health"));
 		am_log("POOL", StringPool::replace("char main stat minDamage"));
 		am_log("POOL", StringPool::replace("char main stat base minDamage"));*/
-		string filtered = StringPool::filterText("Hello there ${char main} how are you?");
+		string filtered = StringPool::filterText("Hello there ${char main} how are you little ${char main gender}?");
 		am_log("FILTERED", filtered);
 	}
 
