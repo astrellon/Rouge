@@ -162,6 +162,13 @@ namespace game {
 						item->setItemLocation(Item::HAND);
 					}
 				}
+				return;
+			}
+			GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
+			if (obj && obj->getStartDialogue() != NULL)
+			{
+				mMainCharacter->talkTo(obj);
+				return;
 			}
 		}
 		else

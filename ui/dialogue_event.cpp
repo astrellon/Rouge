@@ -1,49 +1,37 @@
 #include "dialogue_event.h"
 
-#include <game/character.h>
 #include <game/game_object.h>
+using namespace am::game;
 
 namespace am {
 namespace ui {
 
-	DialogueEvent::DialogueEvent(GameObject *talker, GameObject *talkedTo, Dialogue *dialogue) :
+	DialogueEvent::DialogueEvent(Dialogue *dialogue) :
 		Event("dialogue"),
-		mTalker(talker),
-		mTalkedTo(talkedTo),
 		mDialogue(dialogue)
 	{
-		if (talker)
-		{
-			talker->retain();
-		}
-		if (talkedTo)
-		{
-			talkedTo->retain();
-		}
 	}
 	DialogueEvent::~DialogueEvent()
 	{
-		if (mTalker)
-		{
-			mTalker->release();
-		}
-		if (mTalkedTo)
-		{
-			mTalkedTo->release();
-		}
 	}
 
-	GameObject *DialogueEvent::getTalker() const
-	{
-		return mTalker;
-	}
-	GameObject *DialogueEvent::getTalkedTo() const
-	{
-		return mTalkedTo;
-	}
 	Dialogue *DialogueEvent::getDialogue() const
 	{
 		return mDialogue;
 	}
+	GameObject *DialogueEvent::getTalker() const
+	{
+		return dynamic_cast<GameObject *>(mEventTarget);
+	}
+	GameObject *DialogueEvent::getTalkedTo() const
+	{
+		GameObject *talker = getTalker();
+		if (talker)
+		{
+			return talker->getTalkingTo();
+		}
+		return NULL;
+	}
+
 }
 }

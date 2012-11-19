@@ -225,6 +225,13 @@ namespace sys {
 	void RougeSystem::onKeyUp(int key)
 	{
 		// 27 is currently escape.
+		if (mInDialogue && key == 27)
+		{
+			//Handle<DialogueEvent> e(new DialogueEvent(mPlayer, NULL, NULL));
+			//mPlayer->fireEvent<DialogueEvent>(e);
+			mPlayer->talkTo(mPlayer->getTalkingTo(), NULL);
+			return;
+		}
 		if (key == 27 && mEngine->getCurrentGame() != NULL)
 		{
 			toggleInGameMenu();
@@ -253,6 +260,10 @@ namespace sys {
 			}
 		}
 		GameSystem::onKeyUp(key);
+	}
+	void RougeSystem::onEvent(DialogueEvent *e)
+	{
+		mInDialogue = e->getDialogue() != NULL;
 	}
 
 	void RougeSystem::quitGame()
@@ -364,6 +375,7 @@ namespace sys {
 		mPlayer->getInventory()->addItem(sword2);
 		mPlayer->getInventory()->addItem(shield);
 		mPlayer->equipItem(sword, "arm");
+		mPlayer->addEventListener("dialogue", this);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);
@@ -380,19 +392,6 @@ namespace sys {
 
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
-
-		/*am_log("POOL", StringPool::replace("char main"));
-		am_log("POOL", StringPool::replace("char main name"));
-		am_log("POOL", StringPool::replace("char main gender"));
-		am_log("POOL", StringPool::replace("char main race"));
-		am_log("POOL", StringPool::replace("char main equip"));
-		am_log("POOL", StringPool::replace("char main equip arm"));
-		am_log("POOL", StringPool::replace("char main stat"));
-		am_log("POOL", StringPool::replace("char main stat health"));
-		am_log("POOL", StringPool::replace("char main stat minDamage"));
-		am_log("POOL", StringPool::replace("char main stat base minDamage"));*/
-		string filtered = StringPool::filterText("Hello there ${char main} how are you little ${char main gender}?");
-		am_log("FILTERED", filtered);
 	}
 
 	void RougeSystem::setCurrentMenu(UIComponent *menu)

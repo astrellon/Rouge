@@ -127,12 +127,17 @@ namespace gfx {
 	}
 	void Scrollbar::setMinValue(int value)
 	{
+		bool changed = mMaxValue != value;
 		mMinValue = value;
 		if (mValue < value)
 		{
 			mValue = value;
+			changed = true;
 		}
-		updateBar();
+		if (changed)
+		{
+			updateBar();
+		}
 	}
 	
 	int Scrollbar::getMaxValue() const
@@ -141,12 +146,17 @@ namespace gfx {
 	}
 	void Scrollbar::setMaxValue(int value)
 	{
+		bool changed = mMaxValue != value;
 		mMaxValue = value;
 		if (mValue > value)
 		{
 			mValue = value;
+			changed = true;
 		}
-		updateBar();
+		if (changed)
+		{
+			updateBar();
+		}
 	}
 	
 	int Scrollbar::getValue() const
@@ -178,9 +188,14 @@ namespace gfx {
 		{
 			return;
 		}
+		int value = mValue;
+		if (mMaxValue < mMinValue)
+		{
+			value = mMinValue;
+		}
 		float scrollHeight = mHeight - mBtnUp->getHeight() - mBtnDown->getHeight() - mBar->getHeight();
 		float range = static_cast<float>(mMaxValue - mMinValue);
-		float percent = static_cast<float>(mValue) / range;
+		float percent = static_cast<float>(value) / range;
 		mBar->setPosition(0.0f, percent * scrollHeight + mBtnUp->getHeight());
 		mBtnDown->setPosition(0.0f, mHeight - mBtnDown->getHeight());
 		if (mBack.get() != NULL)

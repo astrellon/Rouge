@@ -249,8 +249,19 @@ namespace game {
 
 	void GameObject::talkTo(GameObject *other)
 	{
-		Handle<DialogueEvent> e(new DialogueEvent(this, other, mStartDialogue));
+		mTalkingTo = other;
+		Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
 		fireEvent<DialogueEvent>(e);
+	}
+	void GameObject::talkTo(GameObject *other, Dialogue *diag)
+	{
+		mTalkingTo = other;
+		Handle<DialogueEvent> e(new DialogueEvent(diag));
+		fireEvent<DialogueEvent>(e);
+	}
+	GameObject *GameObject::getTalkingTo() const
+	{
+		return mTalkingTo;
 	}
 
 	bool GameObject::setGameId(const char *id)

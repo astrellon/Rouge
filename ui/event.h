@@ -9,16 +9,17 @@ using namespace am::base;
 namespace am {
 namespace ui {
 
-	class EventManager;
+	class IEventManager;
 
 	class Event : public IManaged {
 	public:
 		Event(const char *type);
-		Event(const char *type, EventManager *target);
+		Event(const char *type, IEventManager *target);
 		virtual ~Event();
 
 		string getType() const;
-		EventManager *getEventTarget();
+		IEventManager *getEventTarget() const;
+		void setEventTarget(IEventManager * manager);
 		
 		void stopPropagation();
 		bool isPropagating() const;
@@ -32,7 +33,7 @@ namespace ui {
 
 		void setType(const char *type);
 
-		EventManager *mEventTarget;
+		IEventManager *mEventTarget;
 	};
 
 }

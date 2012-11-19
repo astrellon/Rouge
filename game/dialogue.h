@@ -5,13 +5,6 @@
 #include <vector>
 using namespace std;
 
-//#include <base/handle.h>
-//using namespace am::base;
-
-//#include <game/character.h>
-//#include <game/dialogue_choice.h>
-//#include <game/dialogue_selector.h>
-
 namespace am {
 namespace game {
 
@@ -32,6 +25,7 @@ namespace game {
 		//typedef vector<string> DialogueChoices;
 
 		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
+		//Dialogue(DialogueAction action, const char *
 		~Dialogue();
 
 		void setText(const char *text);

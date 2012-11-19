@@ -46,6 +46,10 @@ namespace ui {
 		template <class T>
 		void fireEvent(T *e)
 		{
+			if (e->getEventTarget() == NULL)
+			{
+				e->setEventTarget(this);
+			}
 			Listeners::iterator iter = mListeners.find(e->getType());
 			if (iter == mListeners.end())
 			{

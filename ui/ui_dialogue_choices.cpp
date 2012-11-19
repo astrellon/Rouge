@@ -59,23 +59,29 @@ namespace ui {
 				}
 
 				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
-				Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
-				mTalker->fireEvent<DialogueEvent>(e);
+				mTalker->talkTo(mTalkedTo, newDiag);
+			}
+			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
+			{
+				mTalker->talkTo(mTalkedTo, NULL);
 			}
 		}
 	}
 
 	void DialogueChoices::onEvent(DialogueEvent *e)
 	{
-		if (e->getTalkedTo() != NULL)
+		if (e->getDialogue() == NULL)
+		{
+			mChoices.clear();
+			updateText();
+		}
+		else if (e->getTalkedTo() != NULL)
 		{
 			vector<Dialogue *> newChoices;
-			//mChoices.clear();
 			
 			Dialogue::getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
 			mTalkedTo = e->getTalkedTo();
 			setDialogueChoices(newChoices);
-			//updateText();
 		}
 	}
 

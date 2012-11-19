@@ -6,6 +6,7 @@
 
 #include <game/dialogue.h>
 #include <game/game_object.h>
+#include <game/string_pool.h>
 
 #include <gfx/gfx_texture.h>
 using namespace am::gfx;
@@ -60,9 +61,15 @@ namespace ui {
 
 				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
 				mTalker->setSubjectLock(newDiag->getSubject());
-				Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
-				mTalker->fireEvent<DialogueEvent>(e);
-
+				mTalker->talkTo(mTalkedTo, newDiag);
+				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
+				//mTalker->fireEvent<DialogueEvent>(e);
+			}
+			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
+			{
+				mTalker->talkTo(mTalkedTo, NULL);
+				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, NULL));
+				//mTalker->fireEvent<DialogueEvent>(e);
 			}
 		}
 	}
@@ -153,7 +160,7 @@ namespace ui {
 		if (mDialogue != NULL)
 		{
 			stringstream ss;
-			ss << "<dialogue>" << mDialogue->getText() << "</dialogue>";
+			ss << "<dialogue>" << StringPool::filterText(mDialogue->getText()) << "</dialogue>";
 			mText->setText(ss.str());
 		}
 		else

@@ -39,6 +39,8 @@ namespace game {
 		virtual int getGridLocationY() const;
 
 		virtual void talkTo(GameObject *other);
+		virtual void talkTo(GameObject *other, Dialogue *diag);
+		virtual GameObject *getTalkingTo() const;
 
 		virtual void move(float x, float y);
 		virtual void moveGrid(int x, int y);
@@ -106,6 +108,8 @@ namespace game {
 		SubjectMap mUnlockedSubjects;
 		SubjectMap mDialoguesAvailable;
 		Dialogue *mStartDialogue;
+
+		Handle<GameObject> mTalkingTo;
 
 		static void addGameObject(GameObject *obj);
 		static void removeGameObject(GameObject *obj);

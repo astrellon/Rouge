@@ -18,7 +18,7 @@ namespace ui {
 	{
 
 	}
-	Event::Event(const char *type, EventManager *eventTarget) :
+	Event::Event(const char *type, IEventManager *eventTarget) :
 		mType(type),
 		mEventTarget(eventTarget),
 		mPropagating(true)
@@ -40,9 +40,13 @@ namespace ui {
 		mType = type;
 	}
 
-	EventManager *Event::getEventTarget()
+	IEventManager *Event::getEventTarget() const
 	{
 		return mEventTarget;
+	}
+	void Event::setEventTarget(IEventManager *manager)
+	{
+		mEventTarget = manager;
 	}
 
 	void Event::stopPropagation()
