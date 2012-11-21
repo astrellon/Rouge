@@ -88,10 +88,10 @@ namespace game {
 
 	protected:
 
+		string mGameId;
+
 		bool mFixedToGrid;
 		bool mOnlyOnPassable;
-
-		string mGameId;
 
 		float mLocationX;
 		float mLocationY;
@@ -108,7 +108,6 @@ namespace game {
 		SubjectMap mUnlockedSubjects;
 		SubjectMap mDialoguesAvailable;
 		Dialogue *mStartDialogue;
-
 		Handle<GameObject> mTalkingTo;
 
 		static void addGameObject(GameObject *obj);

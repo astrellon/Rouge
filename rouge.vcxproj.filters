@@ -103,6 +103,9 @@
     <Filter Include="lua\wrapper\game">
       <UniqueIdentifier>{a230bc82-6e08-4791-a96f-a45ce3b33935}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\components">
+      <UniqueIdentifier>{97144952-4823-40f8-9f23-5b98efbaa11b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -639,6 +642,15 @@
     </ClCompile>
     <ClCompile Include="tests\test_lua_dialogue.cpp">
       <Filter>tests\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\game_object_component.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\component.cpp">
+      <Filter>game\components</Filter>
+    </ClCompile>
+    <ClCompile Include="game\dialogue_component.cpp">
+      <Filter>game\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1179,6 +1191,15 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua_dialogue.h">
       <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game_object_component.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\component.h">
+      <Filter>game\components</Filter>
+    </ClInclude>
+    <ClInclude Include="game\dialogue_component.h">
+      <Filter>game\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
