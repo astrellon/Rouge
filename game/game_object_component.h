@@ -48,6 +48,8 @@ namespace game {
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 
+		virtual void move(float x, float y);
+		virtual void moveGrid(int x, int y);
 
 	protected:
 
