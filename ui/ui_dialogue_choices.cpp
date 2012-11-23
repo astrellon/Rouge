@@ -38,7 +38,7 @@ namespace ui {
 
 	void DialogueChoices::onEvent(MouseEvent *e)
 	{
-		if (!e)
+		if (!e || mTalker == NULL || mTalker->getDialogueComp() == NULL)
 		{
 			return;
 		}
@@ -59,11 +59,13 @@ namespace ui {
 				}
 
 				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
-				mTalker->talkTo(mTalkedTo, newDiag);
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
+				//mTalker->talkTo(mTalkedTo, newDiag);
 			}
 			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
 			{
-				mTalker->talkTo(mTalkedTo, NULL);
+				//mTalker->talkTo(mTalkedTo, NULL);
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, NULL);
 			}
 		}
 	}

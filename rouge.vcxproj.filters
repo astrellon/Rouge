@@ -643,9 +643,6 @@
     <ClCompile Include="tests\test_lua_dialogue.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="game\game_object_component.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="game\component.cpp">
       <Filter>game\components</Filter>
     </ClCompile>
@@ -1191,9 +1188,6 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua_dialogue.h">
       <Filter>tests\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\game_object_component.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\component.h">
       <Filter>game\components</Filter>

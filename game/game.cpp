@@ -165,9 +165,9 @@ namespace game {
 				return;
 			}
 			GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-			if (obj && obj->getStartDialogue() != NULL)
+			if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
 			{
-				mMainCharacter->talkTo(obj);
+				mMainCharacter->getDialogueComp()->talkTo(obj);
 				return;
 			}
 		}

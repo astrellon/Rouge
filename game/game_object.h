@@ -10,6 +10,7 @@ using namespace am::base;
 using namespace std;
 
 #include <game/dialogue.h>
+#include <game/dialogue_component.h>
 
 namespace am {
 namespace game {
@@ -38,9 +39,12 @@ namespace game {
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 
-		virtual void talkTo(GameObject *other);
-		virtual void talkTo(GameObject *other, Dialogue *diag);
-		virtual GameObject *getTalkingTo() const;
+		virtual void setDialogueComp(DialogueComponent *comp, bool setAttached = true);
+		virtual DialogueComponent *getDialogueComp() const;
+
+		//virtual void talkTo(GameObject *other);
+		//virtual void talkTo(GameObject *other, Dialogue *diag);
+		//virtual GameObject *getTalkingTo() const;
 
 		virtual void move(float x, float y);
 		virtual void moveGrid(int x, int y);
@@ -72,7 +76,7 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		virtual void setStartDialogue(Dialogue *diag);
+		/*virtual void setStartDialogue(Dialogue *diag);
 		virtual Dialogue *getStartDialogue() const;
 
 		virtual void setSubjectLock(const char *subject, bool locked = false);
@@ -81,7 +85,7 @@ namespace game {
 
 		virtual void setDialogueAvailable(const char *subject, bool available = true);
 		virtual bool isDialogueAvailable(const char *subject) const;
-		virtual const SubjectMap &getDialoguesAvailable() const;
+		virtual const SubjectMap &getDialoguesAvailable() const;*/
 
 		static int nextGameId();
 		static GameObject *getByGameId(const char *id);
@@ -105,10 +109,12 @@ namespace game {
 
 		Map *mMap;
 
-		SubjectMap mUnlockedSubjects;
-		SubjectMap mDialoguesAvailable;
-		Dialogue *mStartDialogue;
-		Handle<GameObject> mTalkingTo;
+		Handle<DialogueComponent> mDialogueComp;
+
+		//SubjectMap mUnlockedSubjects;
+		//SubjectMap mDialoguesAvailable;
+		//Dialogue *mStartDialogue;
+		//Handle<GameObject> mTalkingTo;
 
 		static void addGameObject(GameObject *obj);
 		static void removeGameObject(GameObject *obj);

@@ -133,6 +133,12 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
+		stringstream ss;
+		ss << "GameObject: " << sizeof(GameObject);
+		ss << "\nCharcter: " << sizeof(Character);
+		ss << "\nItem: " << sizeof(Item);
+		am_log("SIZE", ss);
+
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);
 		scrollbar->setHeight(100.0f);
@@ -229,7 +235,11 @@ namespace sys {
 		{
 			//Handle<DialogueEvent> e(new DialogueEvent(mPlayer, NULL, NULL));
 			//mPlayer->fireEvent<DialogueEvent>(e);
-			mPlayer->talkTo(mPlayer->getTalkingTo(), NULL);
+			//mPlayer->talkTo(mPlayer->getTalkingTo(), NULL);
+			if (mPlayer->getDialogueComp())
+			{
+				mPlayer->getDialogueComp()->talkTo(mPlayer->getDialogueComp()->getTalkingTo(), NULL);
+			}
 			return;
 		}
 		if (key == 27 && mEngine->getCurrentGame() != NULL)
@@ -330,15 +340,17 @@ namespace sys {
 		npc->addPassibleType(TileType::getTileType("land"));
 		npc->setGraphic(new Sprite("characters/npc/front"));
 		npc->setGridLocation(3, 2);
-		npc->setDialogueAvailable("diag1");
-		npc->setDialogueAvailable("diag2");
-		npc->setDialogueAvailable("diag3");
-		npc->setStartDialogue(Dialogue::getDialogue("diag1"));
+		DialogueComponent *comp = new DialogueComponent();
+		npc->setDialogueComp(comp);
+		comp->setDialogueAvailable("diag1");
+		comp->setDialogueAvailable("diag2");
+		comp->setDialogueAvailable("diag3");
+		comp->setStartDialogue(Dialogue::getDialogue("diag1"));
 		game->addGameObject(npc);
 
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);
-
+		mPlayer->setDialogueComp(new DialogueComponent());
 		mPlayer->setName("Melli the cutest cutie");
 		mPlayer->addPassibleType(TileType::getTileType("land"));
 		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));

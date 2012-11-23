@@ -575,12 +575,18 @@ namespace game {
 	int Character_talk_to(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
-		if (obj)
+		if (obj && obj->getDialogueComp())
 		{
 			GameObject *other = (GameObject *)(lua_touserdata(lua, -1));
-			obj->talkTo(other);
+			if (other->getDialogueComp())
+			{
+				obj->getDialogueComp()->talkTo(other);
+				lua_pushboolean(lua, true);
+				return 1;
+			}
 		}
-		return 0;
+		lua_pushboolean(lua, false);
+		return 1;
 	}
 
 	int Character_set_fixed_to_grid(lua_State *lua)

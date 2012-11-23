@@ -26,9 +26,9 @@ namespace ui {
 	GameObject *DialogueEvent::getTalkedTo() const
 	{
 		GameObject *talker = getTalker();
-		if (talker)
+		if (talker && talker->getDialogueComp())
 		{
-			return talker->getTalkingTo();
+			return talker->getDialogueComp()->getTalkingTo();
 		}
 		return NULL;
 	}

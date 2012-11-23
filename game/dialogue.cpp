@@ -135,13 +135,14 @@ namespace game {
 
 	void Dialogue::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
 	{
-		if (talker == NULL || talkedTo == NULL)
+		if (talker == NULL || talkedTo == NULL || 
+			talker->getDialogueComp() == NULL || talkedTo->getDialogueComp() == NULL)
 		{
 			return;
 		}
 
-		const Character::SubjectMap &unlocked = talker->getUnlockedSubjects();
-		const Character::SubjectMap &available = talkedTo->getDialoguesAvailable();
+		const Character::SubjectMap &unlocked = talker->getDialogueComp()->getUnlockedSubjects();
+		const Character::SubjectMap &available = talkedTo->getDialogueComp()->getDialoguesAvailable();
 		Character::SubjectMap::const_iterator iter;
 		for (iter = available.begin(); iter != available.end(); ++iter)
 		{

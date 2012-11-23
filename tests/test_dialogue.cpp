@@ -24,8 +24,9 @@ namespace tests {
 		Dialogue::addDialogue(&testDiag2);
 
 		Handle<Character> testNPC(new Character());
-		testNPC->setDialogueAvailable("diag1");
-		testNPC->setDialogueAvailable("diag2");
+		testNPC->setDialogueComp(new DialogueComponent());
+		testNPC->getDialogueComp()->setDialogueAvailable("diag1");
+		testNPC->getDialogueComp()->setDialogueAvailable("diag2");
 
 		Handle<Character> testPlayer(new Character());
 
@@ -38,7 +39,7 @@ namespace tests {
 		dialogues.clear();
 		equals(0u, dialogues.size());
 
-		testPlayer->setSubjectLock("name");
+		testPlayer->getDialogueComp()->setSubjectLock("name");
 
 		Dialogue::getAvailableDialogues(dialogues, testPlayer, testNPC);
 		equals(2u, dialogues.size());

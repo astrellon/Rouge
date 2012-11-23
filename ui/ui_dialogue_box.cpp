@@ -39,7 +39,7 @@ namespace ui {
 
 	void DialogueBox::onEvent(MouseEvent *e)
 	{
-		if (!e)
+		if (!e || mTalker == NULL || mTalker->getDialogueComp() == NULL)
 		{
 			return;
 		}
@@ -60,14 +60,16 @@ namespace ui {
 				}
 
 				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
-				mTalker->setSubjectLock(newDiag->getSubject());
-				mTalker->talkTo(mTalkedTo, newDiag);
+				mTalker->getDialogueComp()->setSubjectLock(newDiag->getSubject());
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
+				//mTalker->talkTo(mTalkedTo, newDiag);
 				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
 				//mTalker->fireEvent<DialogueEvent>(e);
 			}
 			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
 			{
-				mTalker->talkTo(mTalkedTo, NULL);
+				//mTalker->talkTo(mTalkedTo, NULL);
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, NULL);
 				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, NULL));
 				//mTalker->fireEvent<DialogueEvent>(e);
 			}

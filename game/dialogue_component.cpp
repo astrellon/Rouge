@@ -3,37 +3,49 @@
 #include <ui/dialogue_event.h>
 using am::ui::DialogueEvent;
 
+#include <game/game_object.h>
+
 namespace am {
 namespace game {
 
-	DialogueComponent::DialogueComponent() :
-		mStartDialogue(NULL)
+	DialogueComponent::DialogueComponent(GameObject *attached) :
+		mStartDialogue(NULL),
+		mTalkingTo(NULL),
+		mAttachedTo(NULL)
 	{
-		
+		setAttachedTo(attached);
 	}
 	DialogueComponent::~DialogueComponent()
 	{
 
 	}
 
-	void DialogueComponent::talkTo(GameObjectComponent *other)
+	void DialogueComponent::talkTo(GameObject *other)
 	{
-		DialogueComponent *otherComp = other->getComponent<DialogueComponent>();
+		if (mAttachedTo == NULL || other == NULL)
+		{
+			return;
+		}
+		DialogueComponent *otherComp = other->getDialogueComp();
 		if (!otherComp)
 		{
 			return;
 		}
-		mTalkingTo = other;
+		setTalkingTo(other);
 		Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue()));
-		fireEvent<DialogueEvent>(e);
+		mAttachedTo->fireEvent<DialogueEvent>(e);
 	}
-	void DialogueComponent::talkTo(GameObjectComponent *other, Dialogue *diag)
+	void DialogueComponent::talkTo(GameObject *other, Dialogue *diag)
 	{
-		mTalkingTo = other;
+		if (mAttachedTo == NULL || other == NULL)
+		{
+			return;
+		}
+		setTalkingTo(other);
 		Handle<DialogueEvent> e(new DialogueEvent(diag));
-		fireEvent<DialogueEvent>(e);
+		mAttachedTo->fireEvent<DialogueEvent>(e);
 	}
-	GameObjectComponent *DialogueComponent::getTalkingTo() const
+	GameObject *DialogueComponent::getTalkingTo() const
 	{
 		return mTalkingTo;
 	}
@@ -103,23 +115,35 @@ namespace game {
 		return mDialoguesAvailable;
 	}
 
-	const char *DialogueComponent::getCompName() const
+	void DialogueComponent::setAttachedTo(GameObject *attached)
 	{
-		return getName();
+		if (mAttachedTo != NULL)
+		{
+			mAttachedTo->release();
+		}
+		mAttachedTo = attached;
+		if (mAttachedTo != NULL)
+		{
+			mAttachedTo->retain();
+		}
 	}
-	Component::ComponentKey DialogueComponent::getCompKey() const
+	GameObject *DialogueComponent::getAttachedTo() const
 	{
-		return getCompKey();
+		return mAttachedTo;
 	}
 
-	Component::ComponentKey DialogueComponent::getKey()
+	void DialogueComponent::setTalkingTo(GameObject *other)
 	{
-		return 1;
+		if (mTalkingTo != NULL)
+		{
+			mTalkingTo->release();
+		}
+		mTalkingTo = other;
+		if (mTalkingTo != NULL)
+		{
+			mTalkingTo->retain();
+		}
 	}
-	const char *DialogueComponent::getName()
-	{
-		return "DialogueComponent";
-	}
-	
+
 }
 }

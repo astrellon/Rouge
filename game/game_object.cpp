@@ -4,6 +4,7 @@
 
 #include "engine.h"
 #include "tile_type.h"
+#include "dialogue_component.h"
 
 namespace am {
 namespace game {
@@ -19,8 +20,7 @@ namespace game {
 		mCameraOffsetY(0.0f),
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
-		mMap(NULL),
-		mStartDialogue(NULL)
+		mMap(NULL)
 	{
 		setName("GameObject");
 		addGameObject(this);
@@ -247,22 +247,30 @@ namespace game {
 		return mPassibleTypes;
 	}
 
-	void GameObject::talkTo(GameObject *other)
+	/*void GameObject::talkTo(GameObject *other)
 	{
-		mTalkingTo = other;
-		Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
-		fireEvent<DialogueEvent>(e);
+		if (mDialogueComp.get() != NULL)
+		{
+			mDialogueComp->talkTo(other);
+		}
+		//mTalkingTo = other;
+		//Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
+		//fireEvent<DialogueEvent>(e);
 	}
 	void GameObject::talkTo(GameObject *other, Dialogue *diag)
 	{
-		mTalkingTo = other;
-		Handle<DialogueEvent> e(new DialogueEvent(diag));
-		fireEvent<DialogueEvent>(e);
-	}
-	GameObject *GameObject::getTalkingTo() const
+		if (mDialogueComp.get() != NULL)
+		{
+			mDialogueComp->talkTo(other, diag);
+		}
+		//mTalkingTo = other;
+		//Handle<DialogueEvent> e(new DialogueEvent(diag));
+		//fireEvent<DialogueEvent>(e);
+	}*/
+	/*GameObject *GameObject::getTalkingTo() const
 	{
 		return mTalkingTo;
-	}
+	}*/
 
 	bool GameObject::setGameId(const char *id)
 	{
@@ -280,7 +288,7 @@ namespace game {
 		return mGameId.c_str();
 	}
 
-	void GameObject::setStartDialogue(Dialogue *diag)
+	/*void GameObject::setStartDialogue(Dialogue *diag)
 	{
 		mStartDialogue = diag;
 	}
@@ -343,6 +351,19 @@ namespace game {
 	const GameObject::SubjectMap &GameObject::getDialoguesAvailable() const
 	{
 		return mDialoguesAvailable;
+	}*/
+
+	void GameObject::setDialogueComp(DialogueComponent *comp, bool setAttached)
+	{
+		if (setAttached)
+		{
+			comp->setAttachedTo(this);
+		}
+		mDialogueComp = comp;
+	}
+	DialogueComponent *GameObject::getDialogueComp() const
+	{
+		return mDialogueComp;
 	}
 
 	int GameObject::nextGameId()
