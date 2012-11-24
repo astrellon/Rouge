@@ -20,8 +20,9 @@ namespace ui {
 		mClose(new TextButton("bigButton", "Close")),
 		mBackground(new Image("bigButton"))
 	{
-		addChild(mBackground.get());
-		mBackground->setAlpha(0.5f);
+		addChild(mBackground);
+		mBackground->setGfxComponent(new GfxComponent());
+		mBackground->getGfxComponent()->setAlpha(0.5f);
 		addChild(mFullscreen.get());
 		addChild(mApply.get());
 		addChild(mClose.get());

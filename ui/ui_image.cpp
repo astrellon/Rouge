@@ -30,7 +30,7 @@ namespace ui {
 	{
 	}
 
-	Colour &Image::getColour()
+	/*Colour &Image::getColour()
 	{
 		return mGraphic->getColour();
 	}
@@ -54,6 +54,15 @@ namespace ui {
 	float Image::getAlpha() const
 	{
 		return mGraphic->getAlpha();
+	}*/
+
+	void Image::setGfxComponent(GfxComponent *comp)
+	{
+		mGraphic->setGfxComponent(comp);
+	}
+	GfxComponent *Image::getGfxComponent() const
+	{
+		return mGraphic->getGfxComponent();
 	}
 
 	void Image::setAsset(Asset *asset)

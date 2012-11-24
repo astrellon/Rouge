@@ -126,7 +126,10 @@ namespace gfx {
 		ChildList::iterator iter;
 		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
-			mColour.applyColour();
+			if (mGfxComponent)
+			{
+				mGfxComponent->getColour().applyColour();
+			}
 			(*iter)->render(dt);
 		}
 

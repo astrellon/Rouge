@@ -22,12 +22,15 @@ namespace ui {
 		Image(const char *assetName);
 		~Image();
 
-		virtual Colour &getColour();
+		/*virtual Colour &getColour();
 		virtual void setColour(const Colour &colour);
 		virtual void setColour(float red, float green, float blue);
 		virtual void setColour(float red, float green, float blue, float alpha);
 		virtual void setAlpha(float alpha);
-		virtual float getAlpha() const;
+		virtual float getAlpha() const;*/
+
+		virtual void setGfxComponent(GfxComponent *comp);
+		virtual GfxComponent *getGfxComponent() const;
 
 		void setAsset(Asset *asset);
 		void setAsset(const char *assetName);

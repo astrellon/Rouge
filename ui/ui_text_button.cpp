@@ -52,7 +52,8 @@ namespace ui {
 
 		mLabel = new TextField();
 		mLabel->setBaseFont("arial");
-		mLabel->setColour(0.6f, 0.8f, 1.0f);
+		mLabel->setGfxComponent(new GfxComponent());
+		mLabel->getGfxComponent()->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel);
 
 		mLabel->setWidth(mGraphic->getWidth());

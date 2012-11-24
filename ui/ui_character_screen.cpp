@@ -14,7 +14,8 @@ namespace ui {
 	{
 		setName("CharacterScreen");
 		mInfo = new TextField2();
-		mInfo->setColour(0, 0, 0);
+		mInfo->setGfxComponent(new GfxComponent());
+		mInfo->getGfxComponent()->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);

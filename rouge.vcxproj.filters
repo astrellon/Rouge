@@ -649,6 +649,9 @@
     <ClCompile Include="game\dialogue_component.cpp">
       <Filter>game\components</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_component.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1194,6 +1197,9 @@
     </ClInclude>
     <ClInclude Include="game\dialogue_component.h">
       <Filter>game\components</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_component.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

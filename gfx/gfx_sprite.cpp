@@ -141,13 +141,15 @@ namespace gfx {
 
 		if (mAsset == NULL || mAsset->getTexture() == NULL || !mAsset->getTexture()->isLoaded())
 		{
-			if (mColour.getAlpha() > 0.05f)
+			if (!mGfxComponent || (mGfxComponent && mGfxComponent->getColour().getAlpha() > 0.05f))
 			{
 				preRender(dt);
-				//glBindTexture(GL_TEXTURE_2D, 0);
 				Texture::bindTexture(0);
 
-				mColour.applyColour();
+				if (mGfxComponent)
+				{
+					mGfxComponent->getColour().applyColour();
+				}
 				glBegin(GL_QUADS);
 					glVertex2f(0.0f, 0.0f);
 					glVertex2f(getWidth(), 0.0f);

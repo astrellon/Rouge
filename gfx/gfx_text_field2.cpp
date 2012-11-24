@@ -241,7 +241,14 @@ namespace gfx {
 			}
 			else
 			{
-				GfxEngine::getEngine()->pushColourStack(mColour);
+				if (mGfxComponent)
+				{
+					GfxEngine::getEngine()->pushColourStack(mGfxComponent->getColour());
+				}
+				else
+				{
+					GfxEngine::getEngine()->pushColourStack(Colour::WHITE);
+				}
 			}
 			GfxEngine::getEngine()->applyColourStack();
 			renderText(mCurrentNode->getText());
@@ -253,7 +260,10 @@ namespace gfx {
 
 		for (ChildList::iterator iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
-			mColour.applyColour();
+			if (mGfxComponent)
+			{
+				mGfxComponent->getColour().applyColour();
+			}
 			(*iter)->render(dt);
 		}
 

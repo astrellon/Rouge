@@ -18,6 +18,8 @@ using namespace am::lua;
 namespace am {
 namespace util {
 
+	const Colour Colour::WHITE(1.0f, 1.0f, 1.0f, 1.0f);
+
 	std::ostream& operator<<(std::ostream &stream, const Colour &rhs)
 	{
 		stream << "[" << rhs.getRed() << ", " << rhs.getGreen() << ", " << rhs.getBlue() << ", " << rhs.getAlpha() << "]";

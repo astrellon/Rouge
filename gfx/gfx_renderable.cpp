@@ -26,7 +26,8 @@ namespace gfx {
 		mParent(NULL),
 		mInteractive(false),
 		mVisible(true),
-		mColour(1.0f, 1.0f, 1.0f, 1.0f)
+		mGfxComponent(NULL)
+		//mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 #ifdef _DEBUG
 		mRenderColour = false;
@@ -45,23 +46,33 @@ namespace gfx {
 		glPushMatrix();
 		mTransform.apply();
 
-		for (int i = 0; i < mEffects.size(); i++)
+		if (mGfxComponent)
 		{
-			Effect *effect = mEffects[i];
-			effect->update(dt);
-			effect->applyToTarget(this);
-			if (effect->getPercent() >= 1.0f)
+			GfxComponent::EffectList effects = mGfxComponent->getEffects();
+			for (int i = 0; i < effects.size(); i++)
 			{
-				mEffects.erase(mEffects.begin() + i);
-				i--;
-				continue;
+				Effect *effect = effects[i];
+				effect->update(dt);
+				effect->applyToTarget(this);
+				if (effect->getPercent() >= 1.0f)
+				{
+					effects.erase(effects.begin() + i);
+					i--;
+					continue;
+				}
 			}
 		}
-
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		GfxEngine::getEngine()->pushColourStack(mColour);
+		if (mGfxComponent)
+		{
+			GfxEngine::getEngine()->pushColourStack(mGfxComponent->getColour());
+		}
+		else
+		{
+			GfxEngine::getEngine()->pushColourStack(Colour::WHITE);
+		}
 		GfxEngine::getEngine()->applyColourStack();
 	}
 	void Renderable::render(float dt)
@@ -83,7 +94,10 @@ namespace gfx {
 	void Renderable::postRender(float dt)
 	{
 		glPopMatrix();
-		GfxEngine::getEngine()->popColourStack();
+		//if (mGfxComponent)
+		//{
+			GfxEngine::getEngine()->popColourStack();
+		//}
 
 		glDisable(GL_BLEND);
 	}
@@ -146,54 +160,18 @@ namespace gfx {
 		return mVisible;
 	}
 
-	Colour &Renderable::getColour()
+	GfxComponent *Renderable::getGfxComponent() const
 	{
-		return mColour;
+		return mGfxComponent;
 	}
-	void Renderable::setColour(const Colour &colour)
+	void Renderable::setGfxComponent(GfxComponent *comp)
 	{
-		mColour = colour;
-	}
-	void Renderable::setColour(float red, float green, float blue)
-	{
-		mColour.setColour(red, green, blue);
-	}
-	void Renderable::setColour(float red, float green, float blue, float alpha)
-	{
-		mColour.setColour(red, green, blue, alpha);
-	}
-
-	void Renderable::setAlpha(float alpha)
-	{
-		mColour.setAlpha(alpha);
-	}
-	float Renderable::getAlpha() const
-	{
-		return mColour.getAlpha();
+		mGfxComponent = comp;
 	}
 
 	am::math::TransformLite &Renderable::getTransform()
 	{
 		return mTransform;
-	}
-
-	void Renderable::addEffect(Effect *effect)
-	{
-		mEffects.push_back(effect);
-	}
-	void Renderable::removeEffect(Effect *effect)
-	{
-		for (int i = 0; i < mEffects.size(); i++)
-		{
-			if (mEffects[i].get() == effect)
-			{
-				mEffects.erase(mEffects.begin() + i);
-			}
-		}
-	}
-	void Renderable::clearAllEffects()
-	{
-		mEffects.clear();
 	}
 
 	void Renderable::setPosition(float x, float y)

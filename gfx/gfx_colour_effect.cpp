@@ -51,9 +51,9 @@ namespace gfx {
 
 	void ColourEffect::applyToTarget(Renderable *target)
 	{
-		if (target)
+		if (target && target->getGfxComponent())
 		{
-			target->setColour(mLerped);
+			target->getGfxComponent()->setColour(mLerped);
 		}
 	}
 

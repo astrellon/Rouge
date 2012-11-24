@@ -132,11 +132,12 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
-
+		
 		stringstream ss;
 		ss << "GameObject: " << sizeof(GameObject);
 		ss << "\nCharcter: " << sizeof(Character);
 		ss << "\nItem: " << sizeof(Item);
+		ss << "\Stats: " << sizeof(Stats);
 		am_log("SIZE", ss);
 
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));

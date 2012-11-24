@@ -219,7 +219,7 @@ namespace gfx {
 			Particle *particle = mParticleList[i];
 
 			float t = particle->getAge() * ageResp;
-			particle->setAlpha(t * alphaRange + mStartAlpha);
+			particle->getGfxComponent()->setAlpha(t * alphaRange + mStartAlpha);
 			particle->preRender(*this, accX, accY, dt);
 			if (particle->getAge() >= mMaxAge)
 			{
@@ -247,6 +247,7 @@ namespace gfx {
 		float velocityY = sin(angle) * power;
 
 		Particle *particle = new Particle(mParticleAsset, velocityX, velocityY);
+		particle->setGfxComponent(new GfxComponent());
 		mParticleList.push_back(particle);
 	}
 

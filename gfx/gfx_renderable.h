@@ -13,13 +13,14 @@ using namespace am::ui;
 using namespace am::util;
 
 #include "gfx_effect.h"
+#include "gfx_component.h"
 
 namespace am {
 namespace gfx {
 
 	class Layer;
 
-	class Renderable : public IManaged, public EventManager {
+	class Renderable : public IManaged, public IEventManager {
 	public:
 		Renderable();
 		virtual ~Renderable();
@@ -43,23 +44,14 @@ namespace gfx {
 		virtual void setVisible(bool visible);
 		virtual bool isVisible() const;
 
-		virtual Colour &getColour();
-		virtual void setColour(const Colour &colour);
-		virtual void setColour(float red, float green, float blue);
-		virtual void setColour(float red, float green, float blue, float alpha);
-		virtual void setAlpha(float alpha);
-		virtual float getAlpha() const;
+		virtual void setGfxComponent(GfxComponent *comp);
+		virtual GfxComponent *getGfxComponent() const;
 
-		//virtual BoundingBox getBounds() = 0;
 		virtual am::math::TransformLite &getTransform();
 		virtual void setPosition(float x, float y);
 		virtual void setPosition(int x, int y);
 		virtual float getPositionX() const;
 		virtual float getPositionY() const;
-
-		virtual void addEffect(Effect *effect);
-		virtual void removeEffect(Effect *effect);
-		virtual void clearAllEffects();
 
 		// Mostly for debug
 		virtual void setName(const char *name);
@@ -85,12 +77,9 @@ namespace gfx {
 		bool mVisible;
 		bool mInteractive;
 
+		Handle<GfxComponent> mGfxComponent;
 		Layer *mParent;
-		Colour mColour;
 		am::math::TransformLite mTransform;
-
-		typedef vector< Handle<Effect> > EffectList;
-		EffectList mEffects;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);

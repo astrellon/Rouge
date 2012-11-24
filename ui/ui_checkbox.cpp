@@ -130,7 +130,8 @@ namespace ui {
 		mLabel->setPosition(mCheckGraphic->getWidth(), labelTop + 1);
 
 		mHitbox = new Sprite();
-		mHitbox->getColour().setAlpha(0.0f);
+		mHitbox->setGfxComponent(new GfxComponent());
+		mHitbox->getGfxComponent()->getColour().setAlpha(0.0f);
 		addChild(mHitbox.get());
 
 		mHitbox->addEventListener("mouse_over", this);
