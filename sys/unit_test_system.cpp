@@ -27,6 +27,7 @@ using namespace am::gfx;
 #include <tests/test_levelable.h>
 #include <tests/test_dialogue.h>
 #include <tests/test_lua_dialogue.h>
+#include <tests/test_event_interface.h>
 using namespace am::tests;
 
 namespace am {
@@ -87,6 +88,7 @@ namespace sys {
 		runSuite(TestLevelable);
 		runSuite(TestDialogue);
 		runSuite(TestLuaDialogue);
+		runSuite(TestEventInterface);
 		/*
 		Handle<Asset> asset(new Asset("testAsset"));
 		LuaState lua;

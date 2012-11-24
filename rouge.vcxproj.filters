@@ -658,6 +658,9 @@
     <ClCompile Include="ui\event_interface.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_event_interface.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1212,6 +1215,9 @@
     </ClInclude>
     <ClInclude Include="ui\event_interface.h">
       <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_event_interface.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

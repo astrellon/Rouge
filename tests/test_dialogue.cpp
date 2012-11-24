@@ -29,6 +29,7 @@ namespace tests {
 		testNPC->getDialogueComp()->setDialogueAvailable("diag2");
 
 		Handle<Character> testPlayer(new Character());
+		testPlayer->setDialogueComp(new DialogueComponent());
 
 		vector<Dialogue *> dialogues;
 		Dialogue::getAvailableDialogues(dialogues, testPlayer, testNPC);
