@@ -26,6 +26,15 @@ namespace ui {
 			mListeners[type].push_back(context);
 		}
 	}
+	void EventManager::addEventListener(MouseEventType type, IEventListener *content)
+	{
+		addEventListener(MouseEventTypeNames[type], content);
+	}
+	void EventManager::addEventListener(KeyboardEventType type, IEventListener *content)
+	{
+		addEventListener(KeyboardEventTypeNames[type], content);
+	}
+
 	void EventManager::removeEventListener(const char *type, IEventListener *context)
 	{
 		removeEventListener(string(type), context);
@@ -38,6 +47,15 @@ namespace ui {
 			mListeners[type].erase(iter);
 		}
 	}
+	void EventManager::removeEventListener(MouseEventType type, IEventListener *content)
+	{
+		removeEventListener(MouseEventTypeNames[type], content);
+	}
+	void EventManager::removeEventListener(KeyboardEventType type, IEventListener *content)
+	{
+		removeEventListener(KeyboardEventTypeNames[type], content);
+	}
+
 	bool EventManager::hasEventListener(const char *type)
 	{
 		return hasEventListener(string(type));
@@ -59,6 +77,11 @@ namespace ui {
 			}
 		}
 		return iter;
+	}
+
+	bool EventManager::isEmpty() const
+	{
+		return mListeners.empty();
 	}
 
 }

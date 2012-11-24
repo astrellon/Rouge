@@ -29,7 +29,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IEventListener, public IManaged {
+	class Game : public IEventListener {
 	public:
 		Game(Engine *engine);
 		~Game();

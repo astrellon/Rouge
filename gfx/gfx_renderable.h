@@ -20,7 +20,7 @@ namespace gfx {
 
 	class Layer;
 
-	class Renderable : public IManaged, public IEventManager {
+	class Renderable : virtual public IManaged, public EventManager {
 	public:
 		Renderable();
 		virtual ~Renderable();
