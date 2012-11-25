@@ -1,7 +1,5 @@
 #include "event_interface.h"
 
-#include "event_manager2.h"
-
 namespace am {
 namespace ui {
 
@@ -27,7 +25,7 @@ namespace ui {
 	{
 		if (mManager == NULL)
 		{
-			mManager = new EventManager2();
+			mManager = new EventManager();
 		}
 		mManager->addEventListener(type, context);
 	}
@@ -51,8 +49,14 @@ namespace ui {
 			mManager->removeEventListener(type, context);
 			if (mManager->isEmpty())
 			{
-				delete mManager;
-				mManager = NULL;
+				if (mManager->isFiring())
+				{
+					mManager->flagDeletion(this);
+				}
+				else
+				{
+					managerDeleted();
+				}
 			}
 		}
 	}
@@ -80,6 +84,17 @@ namespace ui {
 			return mManager->hasEventListener(type);
 		}
 		return false;
+	}
+
+	bool EventInterface::hasActiveManager() const
+	{
+		return mManager != NULL;
+	}
+
+	void EventInterface::managerDeleted()
+	{
+		delete mManager;
+		mManager = NULL;
 	}
 
 }

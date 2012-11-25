@@ -8,7 +8,7 @@ using namespace am::base;
 
 #include "mouse_common.h"
 #include "mouse_event.h"
-#include "event_manager.h"
+#include "event_interface.h"
 
 namespace am {
 namespace gfx {
@@ -20,7 +20,7 @@ using namespace am::gfx;
 
 namespace ui {
 
-	class MouseManager : public EventManager {
+	class MouseManager : public EventInterface {
 	public:
 
 		MouseManager();

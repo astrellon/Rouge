@@ -94,9 +94,6 @@
     <Filter Include="tests\lua">
       <UniqueIdentifier>{d17d72f4-8d9e-49a5-a532-6988af10fce3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ui\lua">
-      <UniqueIdentifier>{92a01f9b-4505-47e2-8998-83a346e2a6c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lua\wrapper">
       <UniqueIdentifier>{a70a3c62-e14e-4d08-8de5-6e833a069a96}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,15 @@
     </Filter>
     <Filter Include="game\components">
       <UniqueIdentifier>{97144952-4823-40f8-9f23-5b98efbaa11b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\ui">
+      <UniqueIdentifier>{0b579d88-70dd-430a-aa7b-92b343813089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui\lua">
+      <UniqueIdentifier>{8b697fe2-1cdb-4585-a1c3-e6bf26d0e8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\wrapper\ui">
+      <UniqueIdentifier>{f31acdec-2b43-4479-8b37-1406f5d19123}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +143,6 @@
       <Filter>gfx\base\util</Filter>
     </ClCompile>
     <ClCompile Include="ui\event.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\event_manager.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
     <ClCompile Include="ui\ui_checkbox.cpp">
@@ -514,9 +517,6 @@
     <ClCompile Include="tests\test_lua_quest.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="ui\lua_event_listener.cpp">
-      <Filter>ui\lua</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_lua_event_listener.cpp">
       <Filter>tests\lua</Filter>
     </ClCompile>
@@ -524,9 +524,6 @@
       <Filter>lua\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp">
-      <Filter>lua\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\lua_event_manager.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_lua_character.cpp">
@@ -652,14 +649,20 @@
     <ClCompile Include="gfx\gfx_component.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
-    <ClCompile Include="ui\event_manager2.cpp">
-      <Filter>ui\events</Filter>
-    </ClCompile>
     <ClCompile Include="ui\event_interface.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_event_interface.cpp">
-      <Filter>tests\game</Filter>
+      <Filter>tests\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\event_manager.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\lua_event_listener.cpp">
+      <Filter>ui\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_event_manager.cpp">
+      <Filter>lua\wrapper\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -694,13 +697,7 @@
     <ClInclude Include="ui\event.h">
       <Filter>ui\events</Filter>
     </ClInclude>
-    <ClInclude Include="ui\event_manager.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
     <ClInclude Include="ui\ievent_listener.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
-    <ClInclude Include="ui\ievent_manager.h">
       <Filter>ui\events</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui_checkbox.h">
@@ -1078,9 +1075,6 @@
     <ClInclude Include="tests\test_lua_quest.h">
       <Filter>tests\game</Filter>
     </ClInclude>
-    <ClInclude Include="ui\lua_event_listener.h">
-      <Filter>ui\lua</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_lua_event_listener.h">
       <Filter>tests\lua</Filter>
     </ClInclude>
@@ -1088,9 +1082,6 @@
       <Filter>lua\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_wrappers.h">
-      <Filter>lua\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\lua_event_manager.h">
       <Filter>lua\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_lua_character.h">
@@ -1210,14 +1201,20 @@
     <ClInclude Include="gfx\gfx_component.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
-    <ClInclude Include="ui\event_manager2.h">
-      <Filter>ui\events</Filter>
-    </ClInclude>
     <ClInclude Include="ui\event_interface.h">
       <Filter>ui\events</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_event_interface.h">
-      <Filter>tests\game</Filter>
+      <Filter>tests\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\event_manager.h">
+      <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\lua_event_listener.h">
+      <Filter>ui\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_event_manager.h">
+      <Filter>lua\wrapper\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

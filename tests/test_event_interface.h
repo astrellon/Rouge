@@ -6,12 +6,18 @@ using namespace am::base;
 
 #include <tests/test_suite.h>
 
+#include <ui/ievent_listener.h>
+#include <ui/event.h>
+using am::ui::IEventListener;
+using am::ui::Event;
+
 namespace am {
 namespace tests {
 
-	class TestEventInterface : public TestSuite {
+	class TestEventInterface : public TestSuite, public IEventListener {
 	public:
-		TestEventInterface() {}
+		TestEventInterface() :
+			mEventCounter(0) {}
 		~TestEventInterface() {}
 	
 		virtual void runCases() {
@@ -19,11 +25,14 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::game::EventInterface";
+			return "am::ui::EventInterface";
 		}
+
+		virtual void onEvent(Event *e);
 
 	protected:
 
+		int mEventCounter;
 		bool testSimple();
 	
 	};

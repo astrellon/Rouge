@@ -6,7 +6,7 @@ using namespace std;
 #include <math/transform_lite.h>
 using namespace am::math;
 
-#include <ui/event_manager.h>
+#include <ui/event_interface.h>
 using namespace am::ui;
 
 #include <util/colour.h>
@@ -20,7 +20,7 @@ namespace gfx {
 
 	class Layer;
 
-	class Renderable : virtual public IManaged, public EventManager {
+	class Renderable : virtual public IManaged, public EventInterface {
 	public:
 		Renderable();
 		virtual ~Renderable();

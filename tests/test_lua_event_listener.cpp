@@ -8,11 +8,14 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <lua/wrappers/lua_event_manager.h>
-using namespace am::lua::ui;
+//#include <lua/wrappers/lua_event_manager.h>
+#include <lua/wrappers/lua_quest.h>
+using namespace am::lua::game;
+
+#include <game/quest.h>
+using namespace am::game;
 
 #include <ui/lua_event_listener.h>
-#include <ui/event_manager.h>
 #include <ui/event.h>
 #include <ui/mouse_event.h>
 using namespace am::ui;
@@ -28,10 +31,10 @@ namespace am {
 namespace tests {
 
 	bool TestLuaEventListener::testSimple() {
-		EventManager manager;
+		Quest manager("testQuest");
 		LuaState lua;
 
-		int loadResult = lua.loadString("import(\"EventManager\")\n"
+		int loadResult = lua.loadString("import(\"Quest\")\n"
 			"eventCalled = \"none\"\n"
 			"timesCalled = 0\n"
 			"theManager = nil\n"
@@ -39,10 +42,10 @@ namespace tests {
 			"listener.eventListen = function(context, event)\n"
 			"	eventCalled = event.type\n"
 			"	timesCalled = timesCalled + 1\n"
-			"	theManager:removeEventListener(\"testEvent\", listener.eventListen, listener)\n"
+			"	theManager:remove_event_listener(\"testEvent\", listener.eventListen, listener)\n"
 			"end\n"
 			"function setManager(manager)\n"
-			"	manager:addEventListener(\"testEvent\", listener.eventListen, listener)\n"
+			"	manager:add_event_listener(\"testEvent\", listener.eventListen, listener)\n"
 			"	theManager = manager\n"
 			"end\n");
 		
@@ -57,7 +60,7 @@ namespace tests {
 		equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
-		EventManager_wrap(lua, &manager);
+		Quest_wrap(lua, &manager);
 
 		lua.call(1, 0);
 		Handle<Event> testEvent(new Event("testEvent"));

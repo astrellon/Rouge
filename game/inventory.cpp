@@ -13,7 +13,7 @@ namespace game {
 	float Inventory::sSpaceSizeY = 16.0f;
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
-		EventManager(),
+		EventInterface(),
 		mSpacesX(width),
 		mSpacesY(height)
 	{

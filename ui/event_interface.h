@@ -2,6 +2,7 @@
 
 #include "event.h"
 #include "ievent_listener.h"
+#include "event_manager.h"
 
 #include "mouse_common.h"
 #include "keyboard_common.h"
@@ -13,7 +14,7 @@ using namespace std;
 namespace am {
 namespace ui {
 
-	class EventManager2;
+	//class EventManager;
 
 	class EventInterface {
 	public:
@@ -41,12 +42,19 @@ namespace ui {
 			{
 				return;
 			}
+			if (e->getEventTarget() == NULL)
+			{
+				e->setEventTarget(this);
+			}
 			mManager->fireEvent<T>(e);
 		}
 
+		bool hasActiveManager() const;
+		void managerDeleted();
+
 	protected:
 
-		EventManager2 *mManager;
+		EventManager *mManager;
 
 	};
 

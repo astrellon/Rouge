@@ -1,7 +1,7 @@
 #include "lua_wrappers.h"
 
 #include "lua_character.h"
-#include "lua_event_manager.h"
+//#include "lua_event_manager.h"
 #include "lua_stats.h"
 #include "lua_body_part.h"
 #include "lua_stat_modifiers.h"
@@ -44,7 +44,7 @@ namespace wrapper {
 		LuaState::registerWrapper("Quest", Quest_register);
 		LuaState::registerWrapper("Dialogue", Dialogue_register);
 
-		LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
+		//LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}
 	
 }

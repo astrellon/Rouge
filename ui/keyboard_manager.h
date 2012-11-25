@@ -1,12 +1,12 @@
 #pragma once
 
 #include "keyboard_common.h"
-#include "event_manager.h"
+#include "event_interface.h"
 
 namespace am {
 namespace ui {
 
-	class KeyboardManager : public EventManager {
+	class KeyboardManager : public EventInterface {
 	public:
 		KeyboardManager();
 		~KeyboardManager();

@@ -10,7 +10,7 @@ extern "C"
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <ui/event_manager.h>
+#include <ui/event_interface.h>
 #include <ui/lua_event_listener.h>
 using namespace am::ui;
 
@@ -21,7 +21,7 @@ namespace am {
 namespace lua {
 namespace ui {
 
-	int EventManager_ctor(lua_State *lua)
+	/*int EventManager_ctor(lua_State *lua)
 	{
 		EventManager *manager = new EventManager();
 		EventManager_wrap(lua, manager);
@@ -104,9 +104,9 @@ namespace ui {
 		}
 		lua_pushnil(lua);
 		return 1;
-	}
+	}*/
 
-	bool addEventListener(lua_State *lua, am::ui::IEventManager *manager)
+	bool addEventListener(lua_State *lua, am::ui::EventInterface *manager)
 	{
 		const char *eventType = lua_tostring(lua, 2);
 		if (eventType == NULL)
@@ -133,7 +133,7 @@ namespace ui {
 		manager->addEventListener(eventType, listener);
 		return true;
 	}
-	bool removeEventListener(lua_State *lua, am::ui::IEventManager *manager)
+	bool removeEventListener(lua_State *lua, am::ui::EventInterface *manager)
 	{
 		const char *eventType = lua_tostring(lua, 2);
 		if (eventType == NULL)

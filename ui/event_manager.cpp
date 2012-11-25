@@ -2,11 +2,14 @@
 
 #include "mouse_event.h"
 #include "ievent_listener.h"
+#include "event_interface.h"
 
 namespace am {
 namespace ui {
 
-	EventManager::EventManager()
+	EventManager::EventManager() :
+		mFiring(false),
+		mDeleteResponse(NULL)
 	{
 
 	}
@@ -45,6 +48,10 @@ namespace ui {
 		if (iter != mListeners[type].end())
 		{
 			mListeners[type].erase(iter);
+			if (mListeners[type].empty())
+			{
+				mListeners.erase(mListeners.find(type));
+			}
 		}
 	}
 	void EventManager::removeEventListener(MouseEventType type, IEventListener *content)
@@ -82,6 +89,39 @@ namespace ui {
 	bool EventManager::isEmpty() const
 	{
 		return mListeners.empty();
+	}
+	bool EventManager::isFiring() const
+	{
+		return mFiring;
+	}
+
+	void EventManager::flagDeletion(EventInterface *response)
+	{
+		mDeleteResponse = response;
+	}
+
+	bool EventManager::removeToRemove()
+	{
+		bool didRemove = false;
+		Listeners::iterator typeIter;
+		for (typeIter = mToRemove.begin(); typeIter != mToRemove.end(); ++typeIter)
+		{
+			ListenerList::iterator listIter;
+			for (listIter = typeIter->second.begin(); listIter != typeIter->second.end(); ++listIter)
+			{
+				didRemove = true;
+				removeEventListener(typeIter->first, *listIter);
+			}
+		}
+		mToRemove.clear();
+		return didRemove;
+	}
+	void EventManager::checkDeletion()
+	{
+		if (mDeleteResponse)
+		{
+			mDeleteResponse->managerDeleted();
+		}
 	}
 
 }

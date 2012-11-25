@@ -4,7 +4,7 @@
 #include <base/handle.h>
 using namespace am::base;
 
-#include <ui/event_manager.h>
+#include <ui/event_interface.h>
 using namespace am::ui;
 
 #include "item.h"
@@ -13,7 +13,7 @@ using namespace am::ui;
 namespace am {
 namespace game {
 
-	class Inventory : public IManaged, public EventManager {
+	class Inventory : public IManaged, public EventInterface {
 	public:
 
 		typedef vector< InventorySpot > InventorySpots;

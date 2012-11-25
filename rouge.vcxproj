@@ -217,8 +217,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_coin_purse.cpp" />
     <ClCompile Include="lua\wrappers\lua_dialogue.cpp" />
     <ClCompile Include="lua\wrappers\lua_engine.cpp" />
-    <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_character.cpp" />
+    <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_game.cpp" />
     <ClCompile Include="lua\wrappers\lua_inventory.cpp" />
     <ClCompile Include="lua\wrappers\lua_item.cpp" />
@@ -265,7 +265,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\event.cpp" />
     <ClCompile Include="ui\event_interface.cpp" />
     <ClCompile Include="ui\event_manager.cpp" />
-    <ClCompile Include="ui\event_manager2.cpp" />
     <ClCompile Include="ui\focus_event.cpp" />
     <ClCompile Include="ui\focus_manager.cpp" />
     <ClCompile Include="ui\inventory_event.cpp" />
@@ -400,8 +399,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_coin_purse.h" />
     <ClInclude Include="lua\wrappers\lua_dialogue.h" />
     <ClInclude Include="lua\wrappers\lua_engine.h" />
-    <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_character.h" />
+    <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_game.h" />
     <ClInclude Include="lua\wrappers\lua_inventory.h" />
     <ClInclude Include="lua\wrappers\lua_item.h" />
@@ -450,11 +449,9 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\equip_event.h" />
     <ClInclude Include="ui\event.h" />
     <ClInclude Include="ui\event_manager.h" />
-    <ClInclude Include="ui\event_manager2.h" />
     <ClInclude Include="ui\focus_event.h" />
     <ClInclude Include="ui\focus_manager.h" />
     <ClInclude Include="ui\ievent_listener.h" />
-    <ClInclude Include="ui\ievent_manager.h" />
     <ClInclude Include="ui\event_interface.h" />
     <ClInclude Include="ui\inventory_event.h" />
     <ClInclude Include="ui\inventory_event_common.h" />

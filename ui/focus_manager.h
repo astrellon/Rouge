@@ -6,13 +6,13 @@ using namespace am::base;
 #include <gfx/gfx_renderable.h>
 using namespace am::gfx;
 
-#include "ievent_manager.h"
+#include "event_interface.h"
 #include "event.h"
 
 namespace am {
 namespace ui {
 
-	class FocusManager : public IEventManager {
+	class FocusManager : public EventInterface {
 	public:
 		FocusManager();
 		~FocusManager();

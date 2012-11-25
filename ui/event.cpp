@@ -1,6 +1,6 @@
 #include "event.h"
 
-#include "event_manager.h"
+#include "event_interface.h"
 
 namespace am {
 namespace ui {
@@ -18,7 +18,7 @@ namespace ui {
 	{
 
 	}
-	Event::Event(const char *type, IEventManager *eventTarget) :
+	Event::Event(const char *type, EventInterface *eventTarget) :
 		mType(type),
 		mEventTarget(eventTarget),
 		mPropagating(true)
@@ -40,11 +40,11 @@ namespace ui {
 		mType = type;
 	}
 
-	IEventManager *Event::getEventTarget() const
+	EventInterface *Event::getEventTarget() const
 	{
 		return mEventTarget;
 	}
-	void Event::setEventTarget(IEventManager *manager)
+	void Event::setEventTarget(EventInterface *manager)
 	{
 		mEventTarget = manager;
 	}
