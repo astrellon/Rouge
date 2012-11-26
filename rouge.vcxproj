@@ -228,6 +228,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_stats.cpp" />
     <ClCompile Include="lua\wrappers\lua_stat_modifiers.cpp" />
     <ClCompile Include="lua\wrappers\lua_tile.cpp" />
+    <ClCompile Include="lua\wrappers\lua_tile_instance.cpp" />
     <ClCompile Include="lua\wrappers\lua_tile_set.cpp" />
     <ClCompile Include="lua\wrappers\lua_tile_type.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
@@ -410,6 +411,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_stats.h" />
     <ClInclude Include="lua\wrappers\lua_stat_modifiers.h" />
     <ClInclude Include="lua\wrappers\lua_tile.h" />
+    <ClInclude Include="lua\wrappers\lua_tile_instance.h" />
     <ClInclude Include="lua\wrappers\lua_tile_set.h" />
     <ClInclude Include="lua\wrappers\lua_tile_type.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />

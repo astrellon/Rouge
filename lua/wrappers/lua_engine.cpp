@@ -29,6 +29,8 @@ namespace game {
 			{ "get_current_game", Engine_get_current_game },
 			{ "set_grid_size", Engine_set_grid_size },
 			{ "get_grid_size", Engine_get_grid_size },
+			{ "using_tile_set", Engine_using_tile_set },
+			{ "clear_using_tile_set", Engine_clear_using_tile_set },
 			{ "get_tile", Engine_get_tile },
 			{ "get_tile_set", Engine_get_tile_set },
 			{ "add_tile_set", Engine_add_tile_set },
@@ -80,6 +82,20 @@ namespace game {
 		lua_pushnumber(lua, Engine::getEngine()->getGridXSize());
 		lua_pushnumber(lua, Engine::getEngine()->getGridYSize());
 		return 2;
+	}
+
+	int Engine_using_tile_set(lua_State *lua)
+	{
+		if (lua_isstring(lua, 1))
+		{
+			Engine::getEngine()->usingTileSet(lua_tostring(lua, 1));
+		}
+		return 0;
+	}
+	int Engine_clear_using_tile_set(lua_State *lua)
+	{
+		Engine::getEngine()->clearUsingTileSet();
+		return 0;
 	}
 
 	int Engine_get_tile(lua_State *lua)

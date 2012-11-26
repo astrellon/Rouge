@@ -27,6 +27,11 @@ namespace game {
 	int Map_set_full_name(lua_State *lua);
 	int Map_get_full_name(lua_State *lua);
 
+	int Map_get_tile(lua_State *lua);
+	int Map_get_tile_instance(lua_State *lua);
+
+	int Map_set_tiles(lua_State *lua);
+
 	int Map_set_map_size(lua_State *lua);
 	int Map_get_map_size(lua_State *lua);
 

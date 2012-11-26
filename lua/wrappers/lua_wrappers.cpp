@@ -11,6 +11,7 @@
 #include "lua_tile.h"
 #include "lua_tile_type.h"
 #include "lua_tile_set.h"
+#include "lua_tile_instance.h"
 #include "lua_engine.h"
 #include "lua_game.h"
 #include "lua_quest.h"
@@ -38,6 +39,7 @@ namespace wrapper {
 		LuaState::registerWrapper("Tile", Tile_register);
 		LuaState::registerWrapper("TileSet", TileSet_register);
 		LuaState::registerWrapper("TileType", TileType_register);
+		LuaState::registerWrapper("TileInstance", TileInstance_register);
 		LuaState::registerWrapper("Engine", Engine_register);
 		LuaState::registerWrapper("Game", Game_register);
 		LuaState::registerWrapper("CoinPurse", CoinPurse_register);

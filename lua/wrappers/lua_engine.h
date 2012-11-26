@@ -23,6 +23,9 @@ namespace game {
 	int Engine_set_grid_size(lua_State *lua);
 	int Engine_get_grid_size(lua_State *lua);
 
+	int Engine_using_tile_set(lua_State *lua);
+	int Engine_clear_using_tile_set(lua_State *lua);
+
 	int Engine_get_tile(lua_State *lua);
 	
 	int Engine_get_tile_set(lua_State *lua);

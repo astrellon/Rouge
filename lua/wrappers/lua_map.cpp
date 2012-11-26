@@ -11,10 +11,14 @@ extern "C"
 using namespace am::lua;
 
 #include <game/map.h>
+#include <game/tile_instance.h>
 using namespace am::game;
 
 //#include <util/json_value.h>
 //using namespace am::util;
+
+#include <lua/wrappers/lua_tile.h>
+#include <lua/wrappers/lua_tile_instance.h>
 
 #include <log/logger.h>
 
@@ -71,9 +75,10 @@ namespace game {
 			{ "get_name", Map_get_name },
 			{ "set_full_name", Map_set_full_name },
 			{ "get_full_name", Map_get_full_name },
-			{ "get_tile", NULL },
-			{ "get_tile_instance", NULL },
-			{ "get_tiles", NULL },
+			{ "get_tile", Map_get_tile },
+			{ "get_tile_instance", Map_get_tile_instance },
+			{ "set_tiles", Map_set_tiles },
+			//{ "get_tiles", NULL },
 			{ "set_map_size", Map_set_map_size },
 			{ "get_map_size", Map_get_map_size },
 			{ "get_objects", NULL },
@@ -140,6 +145,72 @@ namespace game {
 		}
 		lua_pushnil(lua);
 		return 1;
+	}
+
+	int Map_get_tile(lua_State *lua)
+	{
+		Map *map = Check_Map(lua, 1);
+		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		{
+			Tile *tile = map->getTile(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			if (tile)
+			{
+				Tile_wrap(lua, tile);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Map_get_tile_instance(lua_State *lua)
+	{
+		Map *map = Check_Map(lua, 1);
+		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		{
+			TileInstance *inst = map->getTileInstance(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			if (inst)
+			{
+				TileInstance_wrap(lua, inst);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Map_set_tiles(lua_State *lua)
+	{
+		Map *map = Check_Map(lua, 1);
+		if (map && lua_istable(lua, -1))
+		{
+			if (lua_isnumber(lua, 2) && lua_isnumber(lua, 3))
+			{
+				map->setMapSize(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
+			}
+			int total = map->getMapWidth() * map->getMapHeight();
+			lua_pushnil(lua);
+			int i = 0;
+			TileInstance *insts = map->getTiles();
+			while (lua_next(lua, -2) != 0)
+			{
+				if (lua_isstring(lua, -1))
+				{
+					insts[i].setTileName(lua_tostring(lua, -1));
+				}
+				else
+				{
+					Tile *tile = Check_Tile(lua, -1);
+					insts[i].setTile(tile);
+				}
+				lua_pop(lua, 1);
+				i++;
+				if (i >= total)
+				{
+					break;
+				}
+			}
+		}
+		return 0;
 	}
 
 	int Map_set_map_size(lua_State *lua)

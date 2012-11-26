@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+using std::string;
+
 namespace am {
 namespace game {
 
@@ -14,6 +17,8 @@ namespace game {
 		Tile *getTile();
 		const Tile *getTile() const;
 		void setTile(Tile *tile);
+		bool setTileName(const char *tileName);
+		bool setTileName(const string &tileName);
 
 		void setTileFrame(int frame);
 		int getTileFrame() const;

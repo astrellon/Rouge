@@ -51,11 +51,10 @@ namespace game {
 
 	void GameObject::setLocation(float x, float y, bool setDraw)
 	{
-		mLocationX = x;
-		mLocationY = y;
 		if (!mMap || (mMap && mMap->isValidLocation(x, y, this)))
 		{
-
+			mLocationX = x;
+			mLocationY = y;
 		}
 		if (setDraw)
 		{
