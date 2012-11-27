@@ -13,9 +13,9 @@ using namespace am::lua;
 #include <game/engine.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_tile.h>
-#include <lua/wrappers/lua_tile_set.h>
-#include <lua/wrappers/lua_game.h>
+#include "lua_tile.h"
+#include "lua_tile_set.h"
+#include "lua_game.h"
 
 namespace am {
 namespace lua {

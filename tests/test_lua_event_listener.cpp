@@ -9,7 +9,7 @@ using namespace am::base;
 using namespace am::lua;
 
 //#include <lua/wrappers/lua_event_manager.h>
-#include <lua/wrappers/lua_quest.h>
+#include <lua/wrappers/game/lua_quest.h>
 using namespace am::lua::game;
 
 #include <game/quest.h>

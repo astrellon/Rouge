@@ -14,11 +14,8 @@ using namespace am::lua;
 #include <game/tile_instance.h>
 using namespace am::game;
 
-//#include <util/json_value.h>
-//using namespace am::util;
-
-#include <lua/wrappers/lua_tile.h>
-#include <lua/wrappers/lua_tile_instance.h>
+#include "lua_tile.h"
+#include "lua_tile_instance.h"
 
 #include <log/logger.h>
 

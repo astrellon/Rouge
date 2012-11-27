@@ -15,8 +15,8 @@ using namespace am::lua;
 #include <game/map.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_map.h>
-#include <lua/wrappers/lua_character.h>
+#include "lua_map.h"
+#include "lua_character.h"
 
 namespace am {
 namespace lua {

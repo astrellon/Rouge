@@ -1,8 +1,8 @@
 #include <ui/lua_event_listener.h>
 
-#include <lua/wrappers/lua_item.h>
-#include <lua/wrappers/lua_inventory.h>
-#include <lua/wrappers/lua_character.h>
+#include <lua/wrappers/game/lua_item.h>
+#include <lua/wrappers/game/lua_inventory.h>
+#include <lua/wrappers/game/lua_character.h>
 using namespace am::lua::game;
 
 #include <sstream>

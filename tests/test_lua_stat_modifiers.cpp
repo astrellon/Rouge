@@ -11,7 +11,7 @@ using namespace am::lua;
 #include <game/stat_modifiers.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_stat_modifiers.h>
+#include <lua/wrappers/game/lua_stat_modifiers.h>
 using namespace am::lua::game;
 
 extern "C" 

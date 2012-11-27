@@ -8,7 +8,7 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <lua/wrappers/lua_dialogue.h>
+#include <lua/wrappers/game/lua_dialogue.h>
 using namespace am::lua::game;
 
 #include <game/dialogue.h>

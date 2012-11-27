@@ -13,7 +13,7 @@ using namespace am::lua;
 #include <game/item.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_stat_modifiers.h>
+#include "lua_stat_modifiers.h"
 
 #include <log/logger.h>
 

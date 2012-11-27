@@ -11,9 +11,9 @@ using namespace am::lua;
 #include <game/engine.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_engine.h>
-#include <lua/wrappers/lua_tile.h>
-#include <lua/wrappers/lua_tile_set.h>
+#include <lua/wrappers/game/lua_engine.h>
+#include <lua/wrappers/game/lua_tile.h>
+#include <lua/wrappers/game/lua_tile_set.h>
 using namespace am::lua::game;
 
 extern "C" 

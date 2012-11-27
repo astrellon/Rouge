@@ -17,7 +17,7 @@ using namespace am::game;
 #include <sstream>
 using namespace std;
 
-#include <lua/wrappers/lua_stats.h>
+#include "lua_stats.h"
 
 namespace am {
 namespace lua {

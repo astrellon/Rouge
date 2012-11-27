@@ -18,7 +18,7 @@ using namespace std;
 
 #include <log/logger.h>
 
-#include <lua/wrappers/lua_item.h>
+#include "lua_item.h"
 
 namespace am {
 namespace lua {

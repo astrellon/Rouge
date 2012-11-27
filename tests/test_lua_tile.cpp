@@ -12,7 +12,7 @@ using namespace am::lua;
 #include <game/tile_type.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_tile_type.h>
+#include <lua/wrappers/game/lua_tile_type.h>
 using namespace am::lua::game;
 
 extern "C" 

@@ -8,7 +8,7 @@ using namespace am::lua;
 #include <game/character.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_character.h>
+#include <lua/wrappers/game/lua_character.h>
 using namespace am::lua::game;
 
 extern "C" 

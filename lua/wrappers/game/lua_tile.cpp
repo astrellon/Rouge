@@ -17,8 +17,8 @@ using namespace am::game;
 #include <util/json_value.h>
 using namespace am::util;
 
-#include <lua/wrappers/lua_tile_type.h>
-#include <lua/wrappers/lua_tile_set.h>
+#include "lua_tile_type.h"
+#include "lua_tile_set.h"
 
 namespace am {
 namespace lua {

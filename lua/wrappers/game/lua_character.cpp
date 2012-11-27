@@ -14,14 +14,14 @@ using namespace am::lua;
 #include <game/race.h>
 using namespace am::game;
 
-#include <lua/wrappers/lua_stats.h>
-#include <lua/wrappers/lua_body_part.h>
-#include <lua/wrappers/lua_item.h>
-#include <lua/wrappers/lua_inventory.h>
-#include <lua/wrappers/lua_map.h>
-#include <lua/wrappers/lua_tile_type.h>
-#include <lua/wrappers/lua_event_manager.h>
-#include <lua/wrappers/lua_coin_purse.h>
+#include "lua_stats.h"
+#include "lua_body_part.h"
+#include "lua_item.h"
+#include "lua_inventory.h"
+#include "lua_map.h"
+#include "lua_tile_type.h"
+#include "../lua_event_manager.h"
+#include "lua_coin_purse.h"
 
 namespace am {
 namespace lua {

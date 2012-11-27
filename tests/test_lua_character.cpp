@@ -8,8 +8,8 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <lua/wrappers/lua_character.h>
-#include <lua/wrappers/lua_body_part.h>
+#include <lua/wrappers/game/lua_character.h>
+#include <lua/wrappers/game/lua_body_part.h>
 using namespace am::lua::game;
 
 #include <game/character.h>
