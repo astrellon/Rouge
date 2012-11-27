@@ -28,6 +28,7 @@ using namespace am::gfx;
 #include <tests/test_dialogue.h>
 #include <tests/test_lua_dialogue.h>
 #include <tests/test_event_interface.h>
+#include <tests/test_lua_map.h>
 using namespace am::tests;
 
 namespace am {
@@ -89,6 +90,7 @@ namespace sys {
 		runSuite(TestDialogue);
 		runSuite(TestLuaDialogue);
 		runSuite(TestEventInterface);
+		runSuite(TestLuaMap);
 		/*
 		Handle<Asset> asset(new Asset("testAsset"));
 		LuaState lua;

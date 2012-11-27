@@ -667,6 +667,9 @@
     <ClCompile Include="lua\wrappers\lua_tile_instance.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_lua_map.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1221,6 +1224,9 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_tile_instance.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_map.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

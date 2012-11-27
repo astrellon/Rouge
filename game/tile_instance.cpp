@@ -59,7 +59,7 @@ namespace game {
 			return false;
 		}
 		setTile(tile);
-		setTileFrame(framePos);
+		setTileFrame(frameValue);
 		return true;
 	}
 
