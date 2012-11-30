@@ -23,7 +23,7 @@ namespace tests {
 		{
 			dispErrorLine(file, line);
 			stringstream ss;
-			ss << "- Expected: " << expected << "\n- Actual  : " << actual << "\n";
+			ss << "\n- Expected: >" << expected << "<\n- Actual: >" << actual << "<\n";
 			am_log("ERR", ss);
 		}
 
@@ -66,6 +66,7 @@ namespace tests {
 		static bool _equals(const char *file, unsigned int line, const double &expected, const double &actual, bool notCompare, double delta=0.00001);
 		
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
+		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const string &actual, bool notCompare);
 
 	};
 }

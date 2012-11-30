@@ -72,6 +72,18 @@ namespace tests {
 		}
 		return true;
 	}
+	bool Asserts::_equalsStr(const char *file, unsigned int line, const char *expected, const string &actual, bool notCompare) {
+		int cmp = strcmp(expected, actual.c_str());
+		if (notCompare && cmp == 0) {
+			dispNotError(expected, file, line);
+			return false;
+		}
+		else if (!notCompare && cmp != 0) {
+			dispError(expected, actual.c_str(), file, line);
+			return false;
+		}
+		return true;
+	}
 
 }
 }

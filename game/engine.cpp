@@ -46,7 +46,10 @@ namespace game {
 	}
 	void Engine::deinit()
 	{
-
+		if (mCurrentGame)
+		{
+			mCurrentGame->deinit();
+		}
 	}
 	void Engine::update(float dt)
 	{
@@ -272,6 +275,29 @@ namespace game {
 	float Engine::getGridYSizeResp() const
 	{
 		return mGridYSizeResp;
+	}
+
+	GameObject *Engine::getByGameId(const char *id) const
+	{
+		if (mCurrentGame.get())
+		{
+			return mCurrentGame->getByGameId(id);
+		}
+		return NULL;
+	}
+	void Engine::registerGameObject(GameObject *obj)
+	{
+		if (mCurrentGame.get())
+		{
+			mCurrentGame->registerGameObject(obj);
+		}
+	}
+	void Engine::deregisterGameObject(GameObject *obj)
+	{
+		if (mCurrentGame.get())
+		{
+			mCurrentGame->deregisterGameObject(obj);
+		}
 	}
 
 }

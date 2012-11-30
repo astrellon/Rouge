@@ -12,6 +12,7 @@ namespace game {
 	public:
 
 		virtual void update(Character *character, float dt) = 0;
+		virtual void detach() = 0;
 
 	};
 

@@ -16,6 +16,7 @@ namespace base {
 	private:
 
 		int mRefCounter;
+
 	};
 
 }

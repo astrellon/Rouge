@@ -52,7 +52,26 @@ namespace game {
 	}
 	Game::~Game()
 	{
-		
+		deinit();
+	}
+
+	void Game::deinit()
+	{
+		GameObjectIdMap::iterator iter;
+		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+		{
+			iter->second->clear();
+		}
+		mGameObjects.clear();
+		Handle<IController> cont(mMainCharacter->getController());
+		if (cont)
+		{
+			cont->detach();
+			cont->release();
+			mMainCharacter->setController(NULL);
+		}
+		mMainCharacter->release();
+		mMainCharacter = NULL;
 	}
 
 	Map *Game::getMapLua(const char *mapName)
@@ -389,6 +408,40 @@ namespace game {
 			}
 		}
 		mCamera.update(dt);
+	}
+
+	GameObject *Game::getByGameId(const char *id) const
+	{
+		if (id == NULL || id[0] == '\0')
+		{
+			return NULL;
+		}
+		GameObjectIdMap::const_iterator iter = mGameObjects.find(string(id));
+		if (iter != mGameObjects.end())
+		{
+			return iter->second;
+		}
+		return NULL;
+	}
+	void Game::registerGameObject(GameObject *obj)
+	{
+		if (obj == NULL)
+		{
+			return;
+		}
+		mGameObjects[obj->getGameId()] = obj;
+	}
+	void Game::deregisterGameObject(GameObject *obj)
+	{
+		if (obj == NULL)
+		{
+			return;
+		}
+		GameObjectIdMap::iterator iter = mGameObjects.find(obj->getGameId());
+		if (iter != mGameObjects.end())
+		{
+			mGameObjects.erase(iter);
+		}
 	}
 
 }

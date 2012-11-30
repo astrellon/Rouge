@@ -34,7 +34,10 @@ namespace game {
 	}
 	Character::~Character()
 	{
-
+		if (mController)
+		{
+			mController->detach();
+		}
 	}
 
 	void Character::setGraphic(Sprite *graphic)
@@ -80,7 +83,7 @@ namespace game {
 	}
 	IController *Character::getController()
 	{
-		return mController.get();
+		return mController;
 	}
 	/*
 	void Character::move(float x, float y)

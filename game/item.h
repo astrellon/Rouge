@@ -59,16 +59,16 @@ namespace game {
 		virtual bool isQuestItem() const;
 
 		virtual void setItemName(const char *name);
-		virtual const char *getItemName() const;
+		virtual string getItemName() const;
 
 		virtual void setPrefix(const char *prefix);
-		virtual const char *getPrefix() const;
+		virtual string getPrefix() const;
 
 		virtual void setPostfix(const char *postfix);
-		virtual const char *getPostfix() const;
+		virtual string getPostfix() const;
 
 		virtual void setItemFullname( const char *name, const char *prefix = "", const char *postfix = "" );
-		virtual const char *getFullItemName() const;
+		virtual string getFullItemName() const;
 
 		virtual void setItemFrom(const Item &item);
 
@@ -96,10 +96,8 @@ namespace game {
 		Handle<Sprite> mGroundGraphic;
 		Handle<Sprite> mCurrentGraphic;
 
-		string mItemName;
-		string mPrefix;
-		string mPostfix;
-		string mFullname;
+		short mPrefix;
+		short mPostfix;
 		
 		ItemCommon::ItemType mItemType;
 		ItemLocation mItemLocation;
@@ -113,11 +111,12 @@ namespace game {
 
 		StatModifiers mStatModifiers;
 
-		virtual void updateFullname();
 		virtual void updateGraphic();
 
 		//virtual void parseStats(const JsonObject &stats, bool magical);
 		virtual void parseStats(LuaState &lua, bool magical);
+
+		void getPrePostfix(short &prefix, short &postfix) const;
 
 		static const char *sItemLocationNames[];
 	};

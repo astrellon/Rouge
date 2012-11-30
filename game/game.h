@@ -34,6 +34,8 @@ namespace game {
 		Game(Engine *engine);
 		~Game();
 
+		void deinit();
+
 		Map *getMapLua(const char *mapName);
 		Map *getMapLua(const string &mapName);
 		Map *getCurrentMap();
@@ -65,6 +67,10 @@ namespace game {
 
 		void update(float dt);
 
+		GameObject *getByGameId(const char *id) const;
+		void registerGameObject(GameObject *obj);
+		void deregisterGameObject(GameObject *obj);
+
 	protected:
 		
 		Handle<Map> mCurrentMap;
@@ -85,6 +91,9 @@ namespace game {
 		Handle<Layer> mForeground;
 
 		Handle<Character> mMainCharacter;
+
+		typedef map<string, GameObject *> GameObjectIdMap;
+		GameObjectIdMap mGameObjects;
 	};
 
 }

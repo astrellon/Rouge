@@ -72,8 +72,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		static int nextGameId();
-		static GameObject *getByGameId(const char *id);
+		//static int nextGameId();
+		//static GameObject *getByGameId(const char *id);
 
 	protected:
 
@@ -95,13 +95,6 @@ namespace game {
 		Map *mMap;
 
 		Handle<DialogueComponent> mDialogueComp;
-
-		static void addGameObject(GameObject *obj);
-		static void removeGameObject(GameObject *obj);
-
-		static int sGameIdCount;
-		typedef map<string, GameObject *> GameObjectIdMap;
-		static GameObjectIdMap sGameObjects;
 
 	};
 

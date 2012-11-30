@@ -4,13 +4,14 @@
 
 #include "engine.h"
 #include "tile_type.h"
+#include "game.h"
 #include "dialogue_component.h"
 
 namespace am {
 namespace game {
 
-	int GameObject::sGameIdCount = 1;
-	GameObject::GameObjectIdMap GameObject::sGameObjects;
+	//int GameObject::sGameIdCount = 1;
+	//GameObject::GameObjectIdMap GameObject::sGameObjects;
 
 	GameObject::GameObject() :
 		Layer(),
@@ -23,12 +24,13 @@ namespace game {
 		mMap(NULL)
 	{
 		setName("GameObject");
-		addGameObject(this);
-
+		//Engine::getCurrentGame()
+		Engine::getEngine()->registerGameObject(this);
+		//addGameObject(this);
 	}
 	GameObject::~GameObject()
 	{
-		removeGameObject(this);
+		Engine::getEngine()->deregisterGameObject(this);
 	}
 
 	void GameObject::update(float dt)
@@ -273,13 +275,18 @@ namespace game {
 
 	bool GameObject::setGameId(const char *id)
 	{
-		if (getByGameId(id) != NULL)
+		Game *game = Engine::getEngine()->getCurrentGame();
+		if (!game)
 		{
 			return false;
 		}
-		removeGameObject(this);
+		if (game->getByGameId(id) != NULL)
+		{
+			return false;
+		}
+		game->deregisterGameObject(this);
 		mGameId = id;
-		addGameObject(this);
+		game->registerGameObject(this);
 		return true;
 	}
 	const char *GameObject::getGameId() const
@@ -365,7 +372,7 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	int GameObject::nextGameId()
+	/*int GameObject::nextGameId()
 	{
 		return sGameIdCount++;
 	}
@@ -404,7 +411,7 @@ namespace game {
 		{
 			sGameObjects.erase(iter);
 		}
-	}
+	}*/
 
 	const char *GameObject::getGameObjectTypeName() const
 	{

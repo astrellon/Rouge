@@ -54,7 +54,7 @@ namespace ui {
 					mManager->flagDeletion(this);
 				}
 				else
-				{
+				{                   
 					managerDeleted();
 				}
 			}
@@ -93,8 +93,9 @@ namespace ui {
 
 	void EventInterface::managerDeleted()
 	{
-		delete mManager;
+		EventManager *manager = mManager;
 		mManager = NULL;
+		delete manager;
 	}
 
 }

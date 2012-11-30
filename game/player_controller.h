@@ -17,12 +17,15 @@ namespace game {
 
 		virtual void onEvent(KeyboardEvent *e);
 		virtual void update(Character *character, float dt);
+		virtual void detach();
 
 	protected:
 
 		int mMoveX;
 		int mMoveY;
 		bool mRunning;
+		bool mRemoved;
+		bool mAttached;
 	};
 
 }

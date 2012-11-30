@@ -15,7 +15,6 @@ namespace ui {
 	}
 	EventManager::~EventManager()
 	{
-
 	}
 
 	void EventManager::addEventListener(const char *type, IEventListener *context)

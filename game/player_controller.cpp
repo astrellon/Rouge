@@ -17,11 +17,17 @@ namespace game {
 	{
 		KeyboardManager::getManager()->addEventListener("key_down", this);
 		KeyboardManager::getManager()->addEventListener("key_up", this);
+		mAttached = true;
+		mRemoved = false;
 	}
 	PlayerController::~PlayerController()
 	{
-		KeyboardManager::getManager()->removeEventListener("key_down", this);
-		KeyboardManager::getManager()->removeEventListener("key_up", this);
+		if (mRemoved)
+		{
+			return;
+		}
+		mRemoved = true;
+		detach();
 	}
 
 	void PlayerController::onEvent(KeyboardEvent *e)
@@ -56,6 +62,16 @@ namespace game {
 
 		mMoveX = 0;
 		mMoveY = 0;
+	}
+
+	void PlayerController::detach()
+	{
+		if (mAttached)
+		{
+			mAttached = false;
+			KeyboardManager::getManager()->removeEventListener("key_down", this);
+			KeyboardManager::getManager()->removeEventListener("key_up", this);
+		}
 	}
 
 }

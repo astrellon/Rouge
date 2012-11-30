@@ -9,6 +9,7 @@ using namespace am::base;
 using namespace am::lua;
 
 #include <game/item.h>
+#include <game/engine.h>
 using namespace am::game;
 
 extern "C" 
@@ -36,7 +37,7 @@ namespace tests {
 		assert(loadResult);
 		
 		{
-			Handle<Item> item(dynamic_cast<Item *>(Item::getByGameId("testItem")));
+			Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getByGameId("testItem")));
 			assert(item != NULL);
 
 			equals(2, item->getReferenceCounter());

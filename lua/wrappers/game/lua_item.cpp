@@ -11,6 +11,7 @@ extern "C"
 using namespace am::lua;
 
 #include <game/item.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include "lua_stat_modifiers.h"
@@ -270,7 +271,7 @@ namespace game {
 		Item *item = Check_Item(lua, 1);
 		if (item)
 		{
-			lua_pushstring(lua, item->getItemName());
+			lua_pushstring(lua, item->getItemName().c_str());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -291,7 +292,7 @@ namespace game {
 		Item *item = Check_Item(lua, 1);
 		if (item)
 		{
-			lua_pushstring(lua, item->getPrefix());
+			lua_pushstring(lua, item->getPrefix().c_str());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -312,7 +313,7 @@ namespace game {
 		Item *item = Check_Item(lua, 1);
 		if (item)
 		{
-			lua_pushstring(lua, item->getPostfix());
+			lua_pushstring(lua, item->getPostfix().c_str());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -345,7 +346,7 @@ namespace game {
 		Item *item = Check_Item(lua, 1);
 		if (item)
 		{
-			lua_pushstring(lua, item->getFullItemName());
+			lua_pushstring(lua, item->getFullItemName().c_str());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -497,7 +498,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			am::game::Item *item = dynamic_cast<Item *>(Item::getByGameId(lua_tostring(lua, -1)));
+			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getByGameId(lua_tostring(lua, -1)));
 			if (item)
 			{
 				Item_wrap(lua, item);

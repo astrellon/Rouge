@@ -42,6 +42,7 @@ namespace base {
 			{
 				obj->retain();
 			}
+			
 		}
 
 		operator T *() const

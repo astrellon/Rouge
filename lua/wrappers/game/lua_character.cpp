@@ -12,6 +12,7 @@ using namespace am::lua;
 
 #include <game/character.h>
 #include <game/race.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include "lua_stats.h"
@@ -36,7 +37,7 @@ namespace game {
 			return 1;
 		}
 
-		Character *obj = dynamic_cast<Character *>(Character::getByGameId(id));
+		Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getByGameId(id));
 		if (obj == NULL)
 		{
 			obj = new Character();
@@ -701,7 +702,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			Character *obj = dynamic_cast<Character *>(Character::getByGameId(lua_tostring(lua, -1)));
+			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getByGameId(lua_tostring(lua, -1)));
 			if (obj)
 			{
 				Character_wrap(lua, obj);

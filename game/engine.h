@@ -18,6 +18,7 @@ namespace game {
 
 	class Game;
 	class Tile;
+	class GameObject;
 
 	typedef map<string, Handle<TileSet> > TileSetMap;
 
@@ -53,6 +54,10 @@ namespace game {
 
 		void setGameHud(GameHud *hud);
 		GameHud *getGameHud();
+
+		GameObject *getByGameId(const char *id) const;
+		void registerGameObject(GameObject *obj);
+		void deregisterGameObject(GameObject *obj);
 
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);

@@ -29,7 +29,9 @@ namespace game {
 		mInventorySizeX(1),
 		mInventorySizeY(1),
 		mItemLocation(GROUND),
-		mItemValue(1)
+		mItemValue(1),
+		mPrefix(-1),
+		mPostfix(-1)
 	{
 		setName("Item");
 		addPassibleType(TileType::getTileType("land"));
@@ -122,11 +124,11 @@ namespace game {
 		mInventorySizeY = item.mInventorySizeY;
 		mStatModifiers = item.mStatModifiers;
 		mItemLocation = item.mItemLocation;
-		mItemName = item.mItemName;
+		//mItemName = item.mItemName;
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
 		mItemValue = item.mItemValue;
-		updateFullname();
+		//updateFullname();
 		updateGraphic();
 	}
 
@@ -213,44 +215,123 @@ namespace game {
 
 	void Item::setItemFullname( const char *name, const char *prefix, const char *postfix )
 	{
-		mItemName = name;
-		mPrefix = prefix;
-		mPostfix = postfix;
-		updateFullname();
+		string nameStr(name);
+		if (prefix != NULL && prefix[0] != '\0')
+		{
+			string prefixStr(prefix); 
+			mName = prefixStr + ' ' + nameStr;
+			mPrefix = static_cast<short>(prefixStr.size());
+		}
+		else
+		{
+			mName = nameStr;
+			mPrefix = -1;
+		}
+		if (postfix != NULL && postfix[0] != '\0')
+		{
+			string postfixStr(postfix);
+			mName += " " + postfixStr;
+			mPostfix = static_cast<short>(postfixStr.size());
+		}
+		else
+		{
+			mPostfix = -1;
+		}
+	}
+	string Item::getFullItemName() const
+	{
+		return mName;
 	}
 	void Item::setItemName( const char *name )
 	{
-		mItemName = name;
-		updateFullname();
+		short prefix = mPrefix;
+		short postfix = mPostfix;
+		getPrePostfix(prefix, postfix);
+		mName.replace(prefix, postfix, name);
+		if (mPostfix >= 0)
+		{
+			postfix = strlen(name) + prefix + 1;
+		}
 	}
-	const char *Item::getItemName() const
+	string Item::getItemName() const
 	{
-		return mItemName.c_str();
+		short prefix = mPrefix;
+		short postfix = mPostfix;
+		getPrePostfix(prefix, postfix);
+		return mName.substr(prefix, postfix - prefix);
 	}
 
 	void Item::setPrefix( const char *prefix )
 	{
-		mPrefix = prefix;
-		updateFullname();
+		if (prefix == NULL)
+		{
+			prefix = "";
+		}
+		string prefixStr(prefix);
+		if (prefixStr.size() == 0)
+		{
+			if (mPrefix < 0)
+			{
+				return;
+			}
+			mName.erase(0, mPrefix + 1);
+			mPrefix = -1;
+			return;
+		}
+		
+		if (mPrefix < 0) 
+		{
+			mName = prefixStr + ' ' + mName;
+		}
+		else
+		{
+			mName.replace(0, mPrefix, prefixStr);
+		}
+		mPrefix = static_cast<short>(prefixStr.size());
 	}
-	const char *Item::getPrefix() const
+	string Item::getPrefix() const
 	{
-		return mPrefix.c_str();
+		if (mPrefix < 0)
+		{
+			return string();
+		}
+		return mName.substr(0, mPrefix);
 	}
 
 	void Item::setPostfix( const char *postfix )
 	{
-		mPostfix = postfix;
-		updateFullname();
+		if (postfix == NULL)
+		{
+			postfix = "";
+		}
+		string postfixStr(postfix);
+		if (postfixStr.size() == 0)
+		{
+			if (mPostfix < 0)
+			{
+				return;
+			}
+			mName.erase(mName.size() - mPostfix - 1);
+			mPostfix = -1;
+			return;
+		}
+		if (mPostfix < 0)
+		{
+			mName = mName + ' ' + postfixStr;
+		}
+		else
+		{
+			mName.replace(mName.size() - mPostfix, mName.size(), postfix);
+		}
+		mPostfix = static_cast<short>(postfixStr.size());
 	}
-	const char *Item::getPostfix() const
+	string Item::getPostfix() const
 	{
-		return mPostfix.c_str();
-	}
-
-	const char *Item::getFullItemName() const
-	{
-		return mFullname.c_str();
+		if (mPostfix < 0)
+		{
+			return string();
+		}
+		return mName.substr(mName.size() - mPostfix);
 	}
 
 	void Item::loadDef(LuaState &lua)
@@ -288,22 +369,29 @@ namespace game {
 				mInventorySizeY = 1;
 			}
 		}
+		string name;
+		string prefix;
+		string postfix;
 		if (lua.isTableString("name"))
 		{
-			mItemName = lua_tostring(lua, -1);
+			//mItemName = lua_tostring(lua, -1);
+			name = lua_tostring(lua, -1);
 			lua.pop(1);
 		}
 		if (lua.isTableString("prefix"))
 		{
-			mPrefix = lua_tostring(lua, -1);
+			//mPrefix = lua_tostring(lua, -1);
+			prefix = lua_tostring(lua, -1);
 			lua.pop(1);
 		}
 		if (lua.isTableString("postfix"))
 		{
-			mPostfix = lua_tostring(lua, -1);
+			//mPostfix = lua_tostring(lua, -1);
+			postfix = lua_tostring(lua, -1);
 			lua.pop(1);
 		}
-		updateFullname();
+		//updateFullname();
+		setItemFullname(name.c_str(), prefix.c_str(), postfix.c_str());
 
 		if (lua.isTableString("itemType"))
 		{
@@ -470,7 +558,7 @@ namespace game {
 		lua.close();
 	}
 
-	void Item::updateFullname()
+	/*void Item::updateFullname()
 	{
 		if (mPrefix.size() > 0)
 		{
@@ -484,7 +572,7 @@ namespace game {
 		{
 			mFullname += ' ' + mPostfix;
 		}
-	}
+	}*/
 
 	float Item::getWidth()
 	{
@@ -533,5 +621,24 @@ namespace game {
 		}
 		return sItemLocationNames[location];
 	}
+
+	void Item::getPrePostfix(short &prefix, short &postfix) const
+	{
+		if (prefix < 0) {
+			prefix = 0;
+		}
+		else 
+		{
+			prefix++;
+		}
+		if (postfix < 0) {
+			postfix = mName.size();
+		}
+		else
+		{
+			postfix = mName.size() - postfix - 1;
+		}
+	}
+
 }
 }

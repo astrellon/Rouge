@@ -8,7 +8,7 @@ using namespace am::base;
 namespace am {
 namespace ui {
 
-	KeyboardManager *KeyboardManager::sMainManager = NULL;
+	KeyboardManager *KeyboardManager::sMainManager;
 
 	KeyboardManager::KeyboardManager() :
 		mKeys(new bool[256])
