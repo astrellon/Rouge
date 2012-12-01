@@ -673,6 +673,9 @@
     <ClCompile Include="tests\test_item.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ievent_listener.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

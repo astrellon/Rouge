@@ -75,7 +75,8 @@ namespace sys {
 
 	RougeSystem::RougeSystem(ISystem *linked, Engine *engine) :
 		GameSystem(linked, engine),
-		mPlayerHand(NULL)
+		mPlayerHand(NULL),
+		mInDialogue(false)
 	{
 
 	}

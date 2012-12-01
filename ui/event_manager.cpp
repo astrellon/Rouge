@@ -17,49 +17,71 @@ namespace ui {
 	{
 	}
 
-	void EventManager::addEventListener(const char *type, IEventListener *context)
+	bool EventManager::addEventListener(const char *type, IEventListener *context)
 	{
-		addEventListener(string(type), context);
+		return addEventListener(string(type), context);
 	}
-	void EventManager::addEventListener(const string &type, IEventListener *context)
+	bool EventManager::addEventListener(const string &type, IEventListener *context)
 	{
 		if (findListener(type, context) == mListeners[type].end())
 		{
 			mListeners[type].push_back(context);
+			return true;
 		}
+		return false;
 	}
-	void EventManager::addEventListener(MouseEventType type, IEventListener *content)
+	bool EventManager::addEventListener(MouseEventType type, IEventListener *context)
 	{
-		addEventListener(MouseEventTypeNames[type], content);
+		return addEventListener(MouseEventTypeNames[type], context);
 	}
-	void EventManager::addEventListener(KeyboardEventType type, IEventListener *content)
+	bool EventManager::addEventListener(KeyboardEventType type, IEventListener *context)
 	{
-		addEventListener(KeyboardEventTypeNames[type], content);
+		return addEventListener(KeyboardEventTypeNames[type], context);
 	}
 
-	void EventManager::removeEventListener(const char *type, IEventListener *context)
+	bool EventManager::removeEventListener(const char *type, IEventListener *context)
 	{
-		removeEventListener(string(type), context);
+		return removeEventListener(string(type), context);
 	}
-	void EventManager::removeEventListener(const string &type, IEventListener *context)
+	bool EventManager::removeEventListener(const string &type, IEventListener *context)
 	{
-		ListenerList::iterator iter = findListener(type, context);
+		ListenerList::const_iterator iter = findListener(type, context);
 		if (iter != mListeners[type].end())
 		{
 			mListeners[type].erase(iter);
 			if (mListeners[type].empty())
 			{
 				mListeners.erase(mListeners.find(type));
+				return true;
 			}
 		}
+		return false;
 	}
-	void EventManager::removeEventListener(MouseEventType type, IEventListener *content)
+	bool EventManager::removeEventListener(MouseEventType type, IEventListener *context)
 	{
-		removeEventListener(MouseEventTypeNames[type], content);
+		return removeEventListener(MouseEventTypeNames[type], context);
 	}
-	void EventManager::removeEventListener(KeyboardEventType type, IEventListener *content)
+	bool EventManager::removeEventListener(KeyboardEventType type, IEventListener *context)
 	{
-		removeEventListener(KeyboardEventTypeNames[type], content);
+		return removeEventListener(KeyboardEventTypeNames[type], context);
+	}
+	void EventManager::removeEventListener(IEventListener *context)
+	{
+		Listeners::iterator typeIter;
+		for (typeIter = mListeners.begin(); typeIter != mListeners.end(); ++typeIter)
+		{
+			ListenerList &list = typeIter->second;
+			size_t size = list.size();
+			for (size_t i = 0; i < size; i++)
+			{
+				if (list[i] == context)
+				{
+					list.erase(list.begin() + i);
+					i--;
+					size--;
+				}
+			}
+		}
 	}
 
 	bool EventManager::hasEventListener(const char *type)

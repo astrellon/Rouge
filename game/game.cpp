@@ -57,21 +57,14 @@ namespace game {
 
 	void Game::deinit()
 	{
-		GameObjectIdMap::iterator iter;
-		for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
-		{
-			iter->second->clear();
-		}
-		mGameObjects.clear();
+		mGameLayer->deinit();
+		/*mGameObjects.clear();
 		Handle<IController> cont(mMainCharacter->getController());
 		if (cont)
 		{
 			cont->detach();
-			cont->release();
 			mMainCharacter->setController(NULL);
-		}
-		mMainCharacter->release();
-		mMainCharacter = NULL;
+		}*/
 	}
 
 	Map *Game::getMapLua(const char *mapName)

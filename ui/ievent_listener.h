@@ -1,6 +1,10 @@
 #pragma once
 
 #include <base/imanaged.h>
+using am::base::IManaged;
+
+#include <vector>
+using std::vector;
 
 #include "event.h"
 #include "mouse_event.h"
@@ -13,8 +17,15 @@
 namespace am {
 namespace ui {
 
-	class IEventListener : virtual public am::base::IManaged {
+	class EventInterface;
+
+	class IEventListener : virtual public IManaged {
 	public:
+
+		typedef vector<EventInterface *> ListeningList;
+
+		virtual ~IEventListener();
+
 		virtual void onEvent(Event *e) {}
 		virtual void onEvent(MouseEvent *e) {}
 		virtual void onEvent(KeyboardEvent *e) {}
@@ -24,6 +35,15 @@ namespace ui {
 		virtual void onEvent(DialogueEvent *e) {}
 
 		virtual bool compareListeners(const IEventListener *rhs) const { return this == rhs; }
+
+		void addListeningTo(EventInterface *e);
+		void removeListeningTo(EventInterface *e);
+		const ListeningList &getListeningToList() const;
+
+	protected:
+
+		ListeningList mListeningTo;
+
 	};
 
 }

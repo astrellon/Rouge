@@ -25,6 +25,8 @@ namespace gfx {
 		Renderable();
 		virtual ~Renderable();
 
+		virtual void deinit();
+
 		virtual void render(float dt);
 		
 		virtual void setSize(float width, float height);

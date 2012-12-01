@@ -17,6 +17,20 @@ namespace gfx {
 
 	}
 
+	void Layer::deinit()
+	{
+		while(mChildren.size())
+		{
+			mChildren.back()->deinit();
+		}
+
+		mChildren.clear();
+		if (mParent)
+		{
+			mParent->removeChild(this);
+		}
+	}
+
 	void Layer::clear()
 	{
 		ChildList::iterator iter;

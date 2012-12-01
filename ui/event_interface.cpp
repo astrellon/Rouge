@@ -17,36 +17,73 @@ namespace ui {
 		}
 	}
 
-	void EventInterface::addEventListener(const char *type, IEventListener *context)
+	bool EventInterface::addEventListener(const char *type, IEventListener *context)
 	{
-		addEventListener(string(type), context);
+		return addEventListener(string(type), context);
 	}
-	void EventInterface::addEventListener(const string &type, IEventListener *context)
+	bool EventInterface::addEventListener(const string &type, IEventListener *context)
 	{
 		if (mManager == NULL)
 		{
 			mManager = new EventManager();
 		}
-		mManager->addEventListener(type, context);
+		if (mManager->addEventListener(type, context))
+		{
+			context->addListeningTo(this);
+			return true;
+		}
+		return false;
 	}
-	void EventInterface::addEventListener(MouseEventType type, IEventListener *content)
+	bool EventInterface::addEventListener(MouseEventType type, IEventListener *context)
 	{
-		addEventListener(MouseEventTypeNames[type], content);
+		return addEventListener(MouseEventTypeNames[type], context);
 	}
-	void EventInterface::addEventListener(KeyboardEventType type, IEventListener *content)
+	bool EventInterface::addEventListener(KeyboardEventType type, IEventListener *context)
 	{
-		addEventListener(KeyboardEventTypeNames[type], content);
+		return addEventListener(KeyboardEventTypeNames[type], context);
 	}
 
-	void EventInterface::removeEventListener(const char *type, IEventListener *context)
+	bool EventInterface::removeEventListener(const char *type, IEventListener *context)
 	{
-		removeEventListener(string(type), context);
+		return removeEventListener(string(type), context);
 	}
-	void EventInterface::removeEventListener(const string &type, IEventListener *context)
+	bool EventInterface::removeEventListener(const string &type, IEventListener *context)
 	{
 		if (mManager)
 		{
-			mManager->removeEventListener(type, context);
+			bool result = mManager->removeEventListener(type, context);
+			if (result)
+			{
+				context->removeListeningTo(this);
+			}
+			if (mManager->isEmpty())
+			{
+				if (mManager->isFiring())
+				{
+					mManager->flagDeletion(this);
+				}
+				else
+				{                   
+					managerDeleted();
+				}
+			}
+			return result;
+		}
+		return false;
+	}
+	bool EventInterface::removeEventListener(MouseEventType type, IEventListener *context)
+	{
+		return removeEventListener(MouseEventTypeNames[type], context);
+	}
+	bool EventInterface::removeEventListener(KeyboardEventType type, IEventListener *context)
+	{
+		return removeEventListener(KeyboardEventTypeNames[type], context);
+	}
+	void EventInterface::removeEventListener(IEventListener *context)
+	{
+		if (mManager)
+		{
+			mManager->removeEventListener(context);
 			if (mManager->isEmpty())
 			{
 				if (mManager->isFiring())
@@ -59,14 +96,6 @@ namespace ui {
 				}
 			}
 		}
-	}
-	void EventInterface::removeEventListener(MouseEventType type, IEventListener *content)
-	{
-		removeEventListener(MouseEventTypeNames[type], content);
-	}
-	void EventInterface::removeEventListener(KeyboardEventType type, IEventListener *content)
-	{
-		removeEventListener(KeyboardEventTypeNames[type], content);
 	}
 
 	bool EventInterface::hasEventListener(const char *type)

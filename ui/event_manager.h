@@ -1,8 +1,5 @@
 #pragma once
 
-#include <base/handle.h>
-using am::base::Handle;
-
 #include "mouse_common.h"
 #include "keyboard_common.h"
 
@@ -22,22 +19,23 @@ namespace ui {
 	class EventManager  {
 	public:
 
-		typedef vector< Handle<IEventListener> > ListenerList;
+		typedef vector< IEventListener *> ListenerList;
 		typedef map<string, ListenerList> Listeners;
 
 		EventManager();
 		~EventManager();
 
 		// IEventListener methods
-		void addEventListener(const char *type, IEventListener *content);
-		void addEventListener(const string &type, IEventListener *content);
-		void addEventListener(MouseEventType type, IEventListener *content);
-		void addEventListener(KeyboardEventType type, IEventListener *content);
+		bool addEventListener(const char *type, IEventListener *context);
+		bool addEventListener(const string &type, IEventListener *context);
+		bool addEventListener(MouseEventType type, IEventListener *context);
+		bool addEventListener(KeyboardEventType type, IEventListener *context);
 		
-		void removeEventListener(const char *type, IEventListener *content);
-		void removeEventListener(const string &type, IEventListener *content);
-		void removeEventListener(MouseEventType type, IEventListener *content);
-		void removeEventListener(KeyboardEventType type, IEventListener *content);
+		bool removeEventListener(const char *type, IEventListener *context);
+		bool removeEventListener(const string &type, IEventListener *context);
+		bool removeEventListener(MouseEventType type, IEventListener *context);
+		bool removeEventListener(KeyboardEventType type, IEventListener *context);
+		void removeEventListener(IEventListener *context);
 
 		bool hasEventListener(const char *type);
 		bool hasEventListener(const string &type);

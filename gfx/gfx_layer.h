@@ -17,6 +17,8 @@ namespace gfx {
 		Layer();
 		~Layer();
 
+		virtual void deinit();
+
 		void addChild(Renderable *child);
 		void addChild(Renderable *child, int index);
 		void removeChild(int index);

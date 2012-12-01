@@ -270,6 +270,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\event_manager.cpp" />
     <ClCompile Include="ui\focus_event.cpp" />
     <ClCompile Include="ui\focus_manager.cpp" />
+    <ClCompile Include="ui\ievent_listener.cpp" />
     <ClCompile Include="ui\inventory_event.cpp" />
     <ClCompile Include="ui\inventory_event_common.cpp" />
     <ClCompile Include="ui\keyboard_common.cpp" />

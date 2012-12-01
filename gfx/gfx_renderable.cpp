@@ -41,6 +41,14 @@ namespace gfx {
 		}
 	}
 
+	void Renderable::deinit()
+	{
+		if (mParent)
+		{
+			mParent->removeChild(this);
+		}
+	}
+
 	void Renderable::preRender(float dt)
 	{
 		glPushMatrix();
