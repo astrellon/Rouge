@@ -24,16 +24,25 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::sys::WinSystem win;
 	win.setHInstance(hInstance);
 
-	bool unitTesting = false;
+	int testing = 0;
 #ifdef TESTING
-	unitTesting = true;
+	testing = 1;
+#elif TESTING_MEM
+	testing = 2;
 #endif
+
 	am::sys::GameSystem *gameSystem;
-	if (unitTesting)
+	if (testing == 1)
 	{
 		am::sys::UnitTestSystem *unitTestSystem = am::sys::UnitTestSystem::createUnitTestSystem(&win, engine);
 		gameSystem = unitTestSystem;
 		gameSystem->setTitle("Rouge Game - Unit Tests");
+	}
+	else if (testing == 2)
+	{
+		am::sys::MemoryTestSystem *memTestSystem = am::sys::MemoryTestSystem::createMemoryTestSystem(&win, engine);
+		gameSystem = memTestSystem;
+		gameSystem->setTitle("Rouge Game - Memory Leak Test");
 	}
 	else
 	{

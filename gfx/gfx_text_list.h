@@ -12,7 +12,7 @@ namespace gfx {
 		typedef vector<string> FilterList;
 
 		TextList();
-		~TextList();
+		virtual ~TextList();
 
 		void addEntry(const char *text, const char *type);
 

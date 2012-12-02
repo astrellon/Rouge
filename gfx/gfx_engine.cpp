@@ -129,6 +129,33 @@ namespace gfx {
 		mUILayer->deinit();
 		mGameLayer->deinit();
 		mRootLayer->deinit();
+
+		{
+			FontMap fonts = mFontManager;
+			FontMap::iterator iter;
+			for (iter = fonts.begin(); iter != fonts.end(); ++iter)
+			{
+				iter->second = NULL;
+			}
+		}
+		{
+			AssetMap assets = mAssetManager;
+			AssetMap::iterator iter;
+			for (iter = assets.begin(); iter != assets.end(); ++iter)
+			{
+				iter->second = NULL;
+			}
+		}
+		{
+			TextureMap textures = mTextureManager;
+			TextureMap::iterator iter;
+			for (iter = textures.begin(); iter != textures.end(); ++iter)
+			{
+				iter->second = NULL;
+			}
+		}
+
+
 		ilShutDown();
 	}
 	void GfxEngine::setOrthographic()

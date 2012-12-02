@@ -22,6 +22,7 @@ using namespace std;
 #include <sys/game_system.h>
 #include <sys/rouge_system.h>
 #include <sys/unit_test_system.h>
+#include <sys/mem_test_system.h>
 #include <ui/mouse_manager.h>
 #include <ui/keyboard_manager.h>
 #include <gfx/gfx_engine.h>

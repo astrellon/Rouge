@@ -43,6 +43,10 @@ namespace gfx {
 
 	void Renderable::deinit()
 	{
+		{
+			Handle<Event> e(new Event("deinit", this));
+			fireEvent<Event>(e);
+		}
 		if (mParent)
 		{
 			mParent->removeChild(this);

@@ -112,6 +112,9 @@
     <Filter Include="lua\wrapper\ui">
       <UniqueIdentifier>{f31acdec-2b43-4479-8b37-1406f5d19123}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sys\mem">
+      <UniqueIdentifier>{64b317d7-4105-45aa-8438-cf135cbaf096}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -676,6 +679,9 @@
     <ClCompile Include="ui\ievent_listener.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
+    <ClCompile Include="sys\mem_test_system.cpp">
+      <Filter>sys\mem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1236,6 +1242,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_item.h">
       <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\mem_test_system.h">
+      <Filter>sys\mem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

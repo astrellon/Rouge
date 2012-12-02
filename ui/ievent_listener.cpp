@@ -12,9 +12,10 @@ namespace ui {
 		{
 			(*iter)->removeEventListener(this);
 		}*/
-		while (mListeningTo.size())
+		ListeningList list = mListeningTo;
+		for (ListeningList::iterator iter = list.begin(); iter != list.end(); ++iter)
 		{
-			mListeningTo.back()->removeEventListener(this);
+			(*iter)->removeEventListener(this);
 		}
 		mListeningTo.clear();
 	}

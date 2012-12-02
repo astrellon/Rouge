@@ -11,6 +11,7 @@ namespace gfx {
 	GfxLogListener::GfxLogListener(TextList *output)
 	{
 		mTextList = output;
+		output->addEventListener("deinit", this);
 
 		Logger::LogEntries entries;
 		Logger::getMainLogger()->getEntries(entries, 20, 0, false);
@@ -26,9 +27,20 @@ namespace gfx {
 
 	}
 
+	void GfxLogListener::onEvent(Event *e)
+	{
+		if (e->getEventTarget() == mTextList.get())
+		{
+			mTextList = NULL;
+		}
+	}
+
 	void GfxLogListener::onNewEntry(const LogEntry &entry)
 	{
-		mTextList->addEntry(entry.getMessage().c_str(), entry.getType().c_str());
+		if (mTextList.get())
+		{
+			mTextList->addEntry(entry.getMessage().c_str(), entry.getType().c_str());
+		}
 	}
 
 }
