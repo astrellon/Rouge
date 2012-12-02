@@ -81,6 +81,7 @@ namespace gfx {
 		void popColourStack();
 
 		static GfxEngine *getEngine();
+		static void deinitGfxEngine();
 
 	protected:
 		

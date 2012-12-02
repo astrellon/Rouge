@@ -74,7 +74,7 @@ namespace ui {
 			size_t size = list.size();
 			for (size_t i = 0; i < size; i++)
 			{
-				if (list[i] == context)
+				if (list[i]->compareListeners(context))
 				{
 					list.erase(list.begin() + i);
 					i--;

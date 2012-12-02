@@ -53,6 +53,14 @@ namespace gfx {
 		}
 		return sMainGfxEngine;
 	}
+	void GfxEngine::deinitGfxEngine()
+	{
+		if (sMainGfxEngine != NULL)
+		{
+			sMainGfxEngine->deinit();
+			sMainGfxEngine = NULL;
+		}
+	}
 
 	void GfxEngine::init()
 	{
@@ -116,6 +124,11 @@ namespace gfx {
 	}
 	void GfxEngine::deinit()
 	{
+		mDebugLayer->deinit();
+		mTooltipLayer->deinit();
+		mUILayer->deinit();
+		mGameLayer->deinit();
+		mRootLayer->deinit();
 		ilShutDown();
 	}
 	void GfxEngine::setOrthographic()

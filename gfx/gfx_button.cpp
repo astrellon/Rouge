@@ -28,13 +28,17 @@ namespace gfx {
 	}
 	Button::~Button()
 	{
+		if (mHitbox.get())
+		{
+			removeListeners(mHitbox);
+		}
 	}
 
 	void Button::setHitbox(Renderable *hitbox)
 	{
 		if (mHitbox.get())
 		{
-			removeListeners(mHitbox.get());
+			removeListeners(mHitbox);
 		}
 		else
 		{
@@ -43,7 +47,7 @@ namespace gfx {
 		mHitbox = hitbox;
 		if (mHitbox.get())
 		{
-			addListeners(mHitbox.get());
+			addListeners(mHitbox);
 			mHitbox->setInteractive(true);
 		}
 		else

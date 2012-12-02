@@ -1,7 +1,11 @@
+#include "vld.h"
 #include "main.h"
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	VLDEnable();
+	VLDSetReportOptions(VLD_OPT_REPORT_TO_FILE, L"memleaks.log");
+
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);
 
@@ -53,6 +57,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete gameSystem;
 	delete mouseManager;
 	delete keyboardManager;
+	GfxEngine::deinitGfxEngine();
+
+	VLDReportLeaks();
 
 	// Shut down!
 }
