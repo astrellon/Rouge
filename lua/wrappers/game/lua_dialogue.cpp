@@ -10,6 +10,10 @@ extern "C"
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <game/game.h>
+#include <game/engine.h>
+using namespace am::game;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -248,7 +252,7 @@ namespace game {
 		Dialogue *diag = Check_Dialogue(lua, 1);
 		if (diag)
 		{
-			lua_pushboolean(lua, Dialogue::addDialogue(diag));
+			lua_pushboolean(lua, Engine::getGame()->addDialogue(diag));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -258,7 +262,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			lua_pushboolean(lua, Dialogue::removeDialogue(lua_tostring(lua, -1)));
+			lua_pushboolean(lua, Engine::getGame()->removeDialogue(lua_tostring(lua, -1)));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -266,14 +270,14 @@ namespace game {
 	}
 	int Dialogue_remove_all_dialogue(lua_State *lua)
 	{
-		Dialogue::removeAllDialogue();
+		Engine::getGame()->removeAllDialogue();
 		return 0;
 	}
 	int Dialogue_get_dialogue(lua_State *lua)
 	{
 		if (lua_isstring(lua, -1))
 		{
-			Dialogue *diag = Dialogue::getDialogue(lua_tostring(lua, -1));
+			Dialogue *diag = Engine::getGame()->getDialogue(lua_tostring(lua, -1));
 			if (diag)
 			{
 				Dialogue_wrap(lua, diag);

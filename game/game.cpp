@@ -21,11 +21,17 @@
 namespace am {
 namespace game {
 
+	//Game::DialogueMap Game::mDialogueMap;
+
 	Game::Game(Engine *engine) :
 		mEngine(engine),
 		mCurrentMap(NULL),
 		mActiveObjects(NULL)
 	{
+		if (engine == NULL)
+		{
+			mEngine = Engine::getEngine();
+		}
 		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
 		mGameLayer->setInteractive(true);
@@ -57,7 +63,17 @@ namespace game {
 
 	void Game::deinit()
 	{
+		mCamera.followObject(NULL);
 		mGameLayer->deinit();
+		{
+			DialogueMap dialogue = mDialogueMap;
+			DialogueMap::iterator iter;
+			for (iter = dialogue.begin(); iter != dialogue.end(); ++iter)
+			{
+				delete iter->second;
+			}
+			mDialogueMap.clear();
+		}
 		/*mGameObjects.clear();
 		Handle<IController> cont(mMainCharacter->getController());
 		if (cont)
@@ -435,6 +451,126 @@ namespace game {
 		{
 			mGameObjects.erase(iter);
 		}
+	}
+
+	bool Game::addDialogue(Dialogue *dialogue)
+	{
+		if (dialogue)
+		{
+			string id = dialogue->getId();
+			DialogueMap::const_iterator iter = mDialogueMap.find(id);
+			if (iter == mDialogueMap.end())
+			{
+				mDialogueMap[id] = dialogue;
+				return true;
+			}
+		}
+		return false;
+	}
+	bool Game::removeDialogue(const char *id)
+	{
+		if (id != NULL)
+		{
+			DialogueMap::const_iterator iter = mDialogueMap.find(string(id));
+			if (iter == mDialogueMap.end())
+			{
+				mDialogueMap.erase(iter);
+				return true;
+			}
+		}
+		return false;
+	}
+	void Game::removeAllDialogue()
+	{
+		mDialogueMap.clear();
+	}
+	Dialogue *Game::getDialogue(const char *id)
+	{
+		if (id != NULL)
+		{
+			DialogueMap::iterator iter = mDialogueMap.find(string(id));
+			if (iter != mDialogueMap.end())
+			{
+				return iter->second;
+			}
+		}
+		return NULL;
+	}
+
+	void Game::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
+	{
+		if (talker == NULL || talkedTo == NULL || 
+			talker->getDialogueComp() == NULL || talkedTo->getDialogueComp() == NULL)
+		{
+			return;
+		}
+
+		const Character::SubjectMap &unlocked = talker->getDialogueComp()->getUnlockedSubjects();
+		const Character::SubjectMap &available = talkedTo->getDialogueComp()->getDialoguesAvailable();
+		Character::SubjectMap::const_iterator iter;
+		for (iter = available.begin(); iter != available.end(); ++iter)
+		{
+			Dialogue *dialogue = getDialogue(iter->first.c_str());
+			if (dialogue == NULL)
+			{
+				continue;
+			}
+			if (dialogue->getUnlockFlag() == Dialogue::UNLOCK_NONE)
+			{
+				result.push_back(dialogue);
+			}
+			else if (dialogue->getUnlockFlag() == Dialogue::UNLOCK_LOCKED)
+			{
+				// If the subject of the dialogue is in the unlocked map and is true.
+				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));
+				if (iter != unlocked.end() && !iter->second)
+				{
+					result.push_back(dialogue);
+				}
+			}
+		}
+	}
+
+	bool Game::addQuest(Quest *quest)
+	{
+		if (quest == NULL)
+		{
+			return false;
+		}
+		QuestMap::const_iterator iter = mQuestMap.find(quest->getQuestId());
+		if (iter == mQuestMap.end())
+		{
+			mQuestMap[quest->getQuestId()] = quest;
+			return true;
+		}
+		return  false;
+	}
+	bool Game::removeQuest(const char *questId)
+	{
+		if (questId == NULL || questId[0] == '\0')
+		{
+			return false;
+		}
+		QuestMap::const_iterator iter = mQuestMap.find(string(questId));
+		if (iter != mQuestMap.end())
+		{
+			mQuestMap.erase(iter);
+			return true;
+		}
+		return  false;
+	}
+	Quest *Game::getQuest(const char *questId)
+	{
+		if (questId == NULL || questId[0] == '\0')
+		{
+			return NULL;
+		}
+		QuestMap::const_iterator iter = mQuestMap.find(string(questId));
+		if (iter != mQuestMap.end())
+		{
+			return iter->second;
+		}
+		return NULL;
 	}
 
 }

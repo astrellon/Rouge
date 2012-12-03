@@ -12,6 +12,8 @@ using namespace am::lua;
 using namespace am::lua::game;
 
 #include <game/dialogue.h>
+#include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 extern "C" 
@@ -26,6 +28,9 @@ namespace tests {
 
 	bool TestLuaDialogue::testSimple() {
 		LuaState lua;
+
+		Game *game = new Game();
+		Engine::getEngine()->setCurrentGame(game);
 
 		int loadResult = lua.loadString("Dialogue = import(\"Dialogue\")\n"
 			"diag = Dialogue.new(\"diag1\", \"Hello there\")\n"
@@ -77,7 +82,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Dialogue *diag1 = Dialogue::getDialogue("diag1");
+		Dialogue *diag1 = game->getDialogue("diag1");
 		assert(diag1 != NULL);
 
 		assert(lua.hasGlobalFunction("getId"));

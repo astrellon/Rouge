@@ -24,14 +24,11 @@ namespace game {
 		virtual void setEquippedItem(Item *item);
 		virtual Item *getEqippedItem() const;
 
-		//static void addBodyPart(BodyPart *part);
-		//static BodyPart *getBodyPart(const char *name);
-
 	protected:
 
 		string mName;
 		Handle<Item> mEqippeditem;
-		//static BodyPartMap sBodyParts;
+
 	};
 
 }

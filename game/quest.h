@@ -42,10 +42,6 @@ namespace game {
 		virtual void setAcceptedReward(bool accepted);
 		virtual bool hasAcceptedReward() const;
 
-		static bool addQuest(Quest *quest);
-		static bool removeQuest(const char *questId);
-		static Quest *getQuest(const char *questId);
-
 	protected:
 
 		string mQuestId;
@@ -56,9 +52,6 @@ namespace game {
 		string mTitle;
 		string mDescription;
 		string mActiveText;
-
-		typedef map<string, Quest *> QuestMap;
-		static QuestMap sQuestMap;
 	};
 
 }

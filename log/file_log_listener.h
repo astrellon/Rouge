@@ -17,6 +17,7 @@ namespace log {
 		~FileLogListener();
 
 		virtual void onNewEntry(const LogEntry &entry);
+		virtual void onLoggerDelete();
 
 	protected:
 

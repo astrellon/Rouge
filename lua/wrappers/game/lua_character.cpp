@@ -434,7 +434,7 @@ namespace game {
 		Character *obj = Check_Character(lua, 1);
 		if (obj && lua_isstring(lua, -1))
 		{
-			Race *race = Race::getRace(lua_tostring(lua, -1));
+			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
 			if (race)
 			{
 				obj->setRace(race);
@@ -454,7 +454,7 @@ namespace game {
 			}
 			else
 			{
-				lua_pushstring(lua, Race::getUnknownRace()->getRaceName());
+				lua_pushstring(lua, Engine::getEngine()->getUnknownRace()->getRaceName());
 			}
 			return 1;
 		}

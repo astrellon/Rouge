@@ -24,7 +24,11 @@ namespace gfx {
 	}
 	GfxLogListener::~GfxLogListener()
 	{
-
+		Logger *logger = Logger::getMainLogger();
+		if (logger)
+		{
+			logger->removeLogListener(this);
+		}
 	}
 
 	void GfxLogListener::onEvent(Event *e)
@@ -41,6 +45,10 @@ namespace gfx {
 		{
 			mTextList->addEntry(entry.getMessage().c_str(), entry.getType().c_str());
 		}
+	}
+	void GfxLogListener::onLoggerDelete()
+	{
+		//delete this;
 	}
 
 }

@@ -1,3 +1,7 @@
+#ifdef TESTING_MEM
+#	define VLD_FORCE_ENABLE
+#endif
+
 #include "vld.h"
 #include "main.h"
 
@@ -67,6 +71,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete mouseManager;
 	delete keyboardManager;
 	GfxEngine::deinitGfxEngine();
+
+	am::log::Logger::clearMainLogger();
 
 	VLDReportLeaks();
 

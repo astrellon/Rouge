@@ -92,6 +92,7 @@ namespace lua {
 
 		static void registerWrapper(const char *name, lua_CFunction call);
 		static int getWrapper(lua_State *lua);
+		static void clearRegistered();
 
 		static void logStack(lua_State *lua, const char *cat);
 		static void printStack(lua_State *lua, ostream &output);

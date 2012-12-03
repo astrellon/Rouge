@@ -67,7 +67,7 @@ namespace game {
 			Race *race = character->getRace();
 			if (race == NULL)
 			{
-				race = Race::getUnknownRace();
+				race = Engine::getEngine()->getUnknownRace();
 			}
 			return string(race->getRaceName());
 		}

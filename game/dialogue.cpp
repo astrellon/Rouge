@@ -5,8 +5,6 @@
 namespace am {
 namespace game {
 
-	Dialogue::DialogueMap Dialogue::sDialogueMap;
-
 	Dialogue::Dialogue(const char *id, const char *text, const char *title, 
 		const char *subject, UnlockFlag unlock, DialogueAction action) :
 		mId(id),
@@ -87,84 +85,6 @@ namespace game {
 	Dialogue::DialogueAction Dialogue::getDialogueAction() const
 	{
 		return mAction;
-	}
-
-	bool Dialogue::addDialogue(Dialogue *dialogue)
-	{
-		if (dialogue)
-		{
-			string id = dialogue->getId();
-			DialogueMap::const_iterator iter = sDialogueMap.find(id);
-			if (iter == sDialogueMap.end())
-			{
-				sDialogueMap[id] = dialogue;
-				return true;
-			}
-		}
-		return false;
-	}
-	bool Dialogue::removeDialogue(const char *id)
-	{
-		if (id != NULL)
-		{
-			DialogueMap::const_iterator iter = sDialogueMap.find(string(id));
-			if (iter == sDialogueMap.end())
-			{
-				sDialogueMap.erase(iter);
-				return true;
-			}
-		}
-		return false;
-	}
-	void Dialogue::removeAllDialogue()
-	{
-		sDialogueMap.clear();
-	}
-	Dialogue *Dialogue::getDialogue(const char *id)
-	{
-		if (id != NULL)
-		{
-			DialogueMap::iterator iter = sDialogueMap.find(string(id));
-			if (iter != sDialogueMap.end())
-			{
-				return iter->second;
-			}
-		}
-		return NULL;
-	}
-
-	void Dialogue::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
-	{
-		if (talker == NULL || talkedTo == NULL || 
-			talker->getDialogueComp() == NULL || talkedTo->getDialogueComp() == NULL)
-		{
-			return;
-		}
-
-		const Character::SubjectMap &unlocked = talker->getDialogueComp()->getUnlockedSubjects();
-		const Character::SubjectMap &available = talkedTo->getDialogueComp()->getDialoguesAvailable();
-		Character::SubjectMap::const_iterator iter;
-		for (iter = available.begin(); iter != available.end(); ++iter)
-		{
-			Dialogue *dialogue = getDialogue(iter->first.c_str());
-			if (dialogue == NULL)
-			{
-				continue;
-			}
-			if (dialogue->getUnlockFlag() == UNLOCK_NONE)
-			{
-				result.push_back(dialogue);
-			}
-			else if (dialogue->getUnlockFlag() == UNLOCK_LOCKED)
-			{
-				// If the subject of the dialogue is in the unlocked map and is true.
-				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));
-				if (iter != unlocked.end() && !iter->second)
-				{
-					result.push_back(dialogue);
-				}
-			}
-		}
 	}
 
 	Dialogue::UnlockFlag Dialogue::toUnlockFlag(const char *flag)

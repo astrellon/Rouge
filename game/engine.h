@@ -19,8 +19,10 @@ namespace game {
 	class Game;
 	class Tile;
 	class GameObject;
+	class Race;
 
 	typedef map<string, Handle<TileSet> > TileSetMap;
+	typedef map<string, Race *> RaceMap;
 
 	class Engine {
 	public:
@@ -55,12 +57,21 @@ namespace game {
 		void setGameHud(GameHud *hud);
 		GameHud *getGameHud();
 
+		// GameObjects shortcuts.
 		GameObject *getByGameId(const char *id) const;
 		void registerGameObject(GameObject *obj);
 		void deregisterGameObject(GameObject *obj);
 
+		// Race
+		bool addRace(Race *race);
+		bool removeRace(Race *race);
+		Race *getRace(const char *raceName);
+		Race *getUnknownRace();
+
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
+
+		static Game *getGame();
 
 	protected:
 
@@ -74,6 +85,7 @@ namespace game {
 
 		typedef map<string, int> UsingTileSet;
 		UsingTileSet mUsingTileSetNames;
+
 		bool mUsingTileSetDirty;
 		TileSetMap mUsingTileSet;
 
@@ -81,6 +93,9 @@ namespace game {
 		Handle<TileSet> mTopLevelTileSet;
 
 		Handle<GameHud> mGameHud;
+
+		RaceMap mRaces;
+		Race *mUnknownRace;
 
 		void checkUsingTileSet();
 

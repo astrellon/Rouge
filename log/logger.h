@@ -41,10 +41,13 @@ namespace log {
 		void removeLogListener(ILogListener *listener);
 		bool hasLogListener(ILogListener *listener);
 
+		void clearListeners();
+
 		void getEntries(LogEntries &entries, int num, int offset, bool fromStart);
 
 		static void setMainLogger(Logger *logger);
 		static Logger *getMainLogger();
+		static void clearMainLogger();
 
 	protected:
 		

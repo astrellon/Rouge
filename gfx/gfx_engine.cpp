@@ -137,6 +137,7 @@ namespace gfx {
 			{
 				iter->second = NULL;
 			}
+			mFontManager.clear();
 		}
 		{
 			AssetMap assets = mAssetManager;
@@ -145,6 +146,7 @@ namespace gfx {
 			{
 				iter->second = NULL;
 			}
+			mAssetManager.clear();
 		}
 		{
 			TextureMap textures = mTextureManager;
@@ -153,6 +155,7 @@ namespace gfx {
 			{
 				iter->second = NULL;
 			}
+			mTextureManager.clear();
 		}
 
 

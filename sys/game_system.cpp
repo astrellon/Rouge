@@ -55,7 +55,7 @@ namespace sys {
 	}
 	GameSystem::~GameSystem()
 	{
-		
+		Colour::removeAllColours();
 	}
 
 	void GameSystem::setSize(int width, int height)

@@ -6,6 +6,9 @@
 
 #include <game/dialogue.h>
 #include <game/character.h>
+#include <game/game.h>
+#include <game/engine.h>
+using namespace am::game;
 
 #include <gfx/gfx_texture.h>
 using namespace am::gfx;
@@ -58,7 +61,7 @@ namespace ui {
 					return;
 				}
 
-				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
+				Dialogue *newDiag = Engine::getGame()->getDialogue(gotoDiag);
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
 				//mTalker->talkTo(mTalkedTo, newDiag);
 			}
@@ -81,7 +84,7 @@ namespace ui {
 		{
 			vector<Dialogue *> newChoices;
 			
-			Dialogue::getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
+			Engine::getGame()->getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
 			mTalkedTo = e->getTalkedTo();
 			setDialogueChoices(newChoices);
 		}

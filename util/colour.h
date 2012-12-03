@@ -51,6 +51,7 @@ namespace util {
 		static const Colour WHITE;
 
 		static void addStandardNamedColoursLua(const char *filename);
+		static void removeAllColours();
 
 		friend std::ostream& operator<<(std::ostream& stream, const Colour& rhs);
 

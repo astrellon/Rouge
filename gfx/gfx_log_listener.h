@@ -22,6 +22,7 @@ namespace gfx {
 		virtual void onEvent(Event *e);
 
 		virtual void onNewEntry(const LogEntry &entry);
+		virtual void onLoggerDelete();
 
 	protected:
 

@@ -337,7 +337,7 @@ namespace sys {
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		Race *human = new Race("human");
-		Race::addRace(human);
+		Engine::getEngine()->addRace(human);
 		
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
@@ -349,7 +349,7 @@ namespace sys {
 		comp->setDialogueAvailable("diag1");
 		comp->setDialogueAvailable("diag2");
 		comp->setDialogueAvailable("diag3");
-		comp->setStartDialogue(Dialogue::getDialogue("diag1"));
+		comp->setStartDialogue(game->getDialogue("diag1"));
 		game->addGameObject(npc);
 
 		mPlayer = new Character();
@@ -361,7 +361,7 @@ namespace sys {
 		mPlayer->setGridLocation(2, 1);
 		mPlayer->addBodyPart(new BodyPart("arm"));
 		mPlayer->setGender(Gender::FEMALE);
-		mPlayer->setRace(Race::getRace("human"));
+		mPlayer->setRace(Engine::getEngine()->getRace("human"));
 
 		Stats &stats = mPlayer->getStats();
 		stats.setBaseStat(Stat::HEALTH, 15);

@@ -11,6 +11,8 @@ extern "C"
 using namespace am::lua;
 
 #include <game/quest.h>
+#include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 #include <lua/wrappers/lua_event_manager.h>
@@ -211,7 +213,7 @@ namespace game {
 		Quest *quest = Check_Quest(lua, 1);
 		if (quest)
 		{
-			lua_pushboolean(lua, Quest::addQuest(quest));
+			lua_pushboolean(lua, Engine::getGame()->addQuest(quest));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -221,7 +223,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			lua_pushboolean(lua, Quest::removeQuest(lua_tostring(lua, -1)));
+			lua_pushboolean(lua, Engine::getGame()->removeQuest(lua_tostring(lua, -1)));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -231,7 +233,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			Quest *quest = dynamic_cast<Quest *>(Quest::getQuest(lua_tostring(lua, -1)));
+			Quest *quest = dynamic_cast<Quest *>(Engine::getGame()->getQuest(lua_tostring(lua, -1)));
 			if (quest)
 			{
 				Quest_wrap(lua, quest);

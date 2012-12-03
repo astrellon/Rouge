@@ -46,13 +46,6 @@ namespace game {
 		void setDialogueAction(DialogueAction action);
 		DialogueAction getDialogueAction() const;
 
-		static bool addDialogue(Dialogue *dialogue);
-		static bool removeDialogue(const char *id);
-		static void removeAllDialogue();
-		static Dialogue *getDialogue(const char *id);
-
-		static void getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo);
-
 		static UnlockFlag toUnlockFlag(const char *flag);
 		static UnlockFlag toUnlockFlag(int flagValue);
 		static const char *getUnlockFlagName(UnlockFlag flag);
@@ -69,9 +62,6 @@ namespace game {
 		string mSubject;
 		DialogueAction mAction;
 		UnlockFlag mUnlockFlag;
-
-		typedef map<string, Dialogue *> DialogueMap;
-		static DialogueMap sDialogueMap;
 
 	};
 

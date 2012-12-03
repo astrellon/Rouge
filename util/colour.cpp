@@ -361,5 +361,10 @@ namespace util {
 		}
 	}
 
+	void Colour::removeAllColours()
+	{
+		sColourMap.clear();
+	}
+
 }
 }

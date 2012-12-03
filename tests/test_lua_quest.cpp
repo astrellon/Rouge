@@ -76,7 +76,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Quest *quest = Quest::getQuest("testQuest");
+		Quest *quest = Engine::getGame()->getQuest("testQuest");
 		assert(!quest->isCompleted());
 		
 		equals(0, main->getExperience());

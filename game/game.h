@@ -17,6 +17,7 @@ using namespace am::ui;
 #include "camera.h"
 #include "map.h"
 #include "character.h"
+#include "quest.h"
 
 namespace am {
 
@@ -31,7 +32,7 @@ namespace game {
 
 	class Game : public IEventListener {
 	public:
-		Game(Engine *engine);
+		Game(Engine *engine = NULL);
 		~Game();
 
 		void deinit();
@@ -67,9 +68,22 @@ namespace game {
 
 		void update(float dt);
 
+		// GameObject
 		GameObject *getByGameId(const char *id) const;
 		void registerGameObject(GameObject *obj);
 		void deregisterGameObject(GameObject *obj);
+
+		// Dialogue
+		bool addDialogue(Dialogue *dialogue);
+		bool removeDialogue(const char *id);
+		void removeAllDialogue();
+		Dialogue *getDialogue(const char *id);
+		void getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo);
+
+		// Quest
+		bool addQuest(Quest *quest);
+		bool removeQuest(const char *questId);
+		Quest *getQuest(const char *questId);
 
 	protected:
 		
@@ -94,6 +108,13 @@ namespace game {
 
 		typedef map<string, GameObject *> GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
+
+		typedef map<string, Dialogue *> DialogueMap;
+		DialogueMap mDialogueMap;
+
+		typedef map<string, Quest *> QuestMap;
+		QuestMap mQuestMap;
+
 	};
 
 }

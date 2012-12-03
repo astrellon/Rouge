@@ -7,6 +7,9 @@
 #include <game/dialogue.h>
 #include <game/game_object.h>
 #include <game/string_pool.h>
+#include <game/game.h>
+#include <game/engine.h>
+using namespace am::game;
 
 #include <gfx/gfx_texture.h>
 using namespace am::gfx;
@@ -59,7 +62,7 @@ namespace ui {
 					return;
 				}
 
-				Dialogue *newDiag = Dialogue::getDialogue(gotoDiag);
+				Dialogue *newDiag = Engine::getGame()->getDialogue(gotoDiag);
 				mTalker->getDialogueComp()->setSubjectLock(newDiag->getSubject());
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
 				//mTalker->talkTo(mTalkedTo, newDiag);

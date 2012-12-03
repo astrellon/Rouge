@@ -491,6 +491,10 @@ namespace lua {
 		lua_pushnil(lua);
 		return 1;
 	}
+	void LuaState::clearRegistered()
+	{
+		sWrapperMap.clear();
+	}
 
 	int LuaState::lua_am_log(lua_State *lua)
 	{

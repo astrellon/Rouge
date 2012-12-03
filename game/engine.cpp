@@ -3,6 +3,9 @@
 //#include <util/json_value.h>
 //using namespace am::util;
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 #include <sstream>
 using namespace std;
 
@@ -10,6 +13,7 @@ using namespace std;
 
 #include "game.h"
 #include "tile.h"
+#include "race.h"
 
 namespace am {
 namespace game {
@@ -22,7 +26,8 @@ namespace game {
 		mGridYSize(32.0f),
 		mGridXSizeResp(1.0f / 32.0f),
 		mGridYSizeResp(1.0f / 32.0f),
-		mUsingTileSetDirty(true)
+		mUsingTileSetDirty(true),
+		mUnknownRace(new Race("Unknown"))
 	{
 	}
 	Engine::~Engine() 
@@ -50,6 +55,7 @@ namespace game {
 		{
 			mCurrentGame->deinit();
 		}
+		LuaState::clearRegistered();
 	}
 	void Engine::update(float dt)
 	{
@@ -277,6 +283,15 @@ namespace game {
 		return mGridYSizeResp;
 	}
 
+	Game *Engine::getGame()
+	{
+		if (sMainEngine)
+		{
+			return sMainEngine->getCurrentGame();
+		}
+		return NULL;
+	}
+
 	GameObject *Engine::getByGameId(const char *id) const
 	{
 		if (mCurrentGame.get())
@@ -298,6 +313,52 @@ namespace game {
 		{
 			mCurrentGame->deregisterGameObject(obj);
 		}
+	}
+
+	bool Engine::addRace(Race *race)
+	{
+		if (race == NULL)
+		{
+			return false;
+		}
+		RaceMap::const_iterator iter = mRaces.find(race->getRaceName());
+		if (iter == mRaces.end())
+		{
+			mRaces[race->getRaceName()] = race;
+			return true;
+		}
+		return false;
+	}
+	bool Engine::removeRace(Race *race)
+	{
+		if (race == NULL)
+		{
+			return false;
+		}
+		RaceMap::const_iterator iter = mRaces.find(race->getRaceName());
+		if (iter != mRaces.end())
+		{
+			mRaces.erase(iter);
+			return true;
+		}
+		return false;
+	}
+	Race *Engine::getRace(const char *raceName)
+	{
+		if (raceName == NULL || raceName[0] == '\0')
+		{
+			return NULL;
+		}
+		RaceMap::iterator iter = mRaces.find(string(raceName));
+		if (iter == mRaces.end())
+		{
+			return NULL;
+		}
+		return iter->second;
+	}
+	Race *Engine::getUnknownRace()
+	{
+		return mUnknownRace;
 	}
 
 }

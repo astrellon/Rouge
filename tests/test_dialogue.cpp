@@ -2,6 +2,8 @@
 
 #include <game/character.h>
 #include <game/dialogue.h>
+#include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 #include <tests/asserts.h>
@@ -9,7 +11,11 @@ using namespace am::game;
 namespace am {
 namespace tests {
 
-	bool TestDialogue::testSimple() {
+	bool TestDialogue::testSimple() 
+	{
+		Game *game = new Game();
+		Engine::getEngine()->setCurrentGame(game);
+
 		Dialogue testDiag("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
 		equalsStr("diag1", testDiag.getId());
 		equalsStr("Hello there, my name is", testDiag.getText());
@@ -17,11 +23,11 @@ namespace tests {
 		equalsStr("greeting", testDiag.getSubject());
 		assert(Dialogue::UNLOCK_NONE == testDiag.getUnlockFlag());
 
-		Dialogue::removeAllDialogue();
-		Dialogue::addDialogue(&testDiag);
+		game->removeAllDialogue();
+		game->addDialogue(&testDiag);
 
 		Dialogue testDiag2("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
-		Dialogue::addDialogue(&testDiag2);
+		game->addDialogue(&testDiag2);
 
 		Handle<Character> testNPC(new Character());
 		testNPC->setDialogueComp(new DialogueComponent());
@@ -32,7 +38,7 @@ namespace tests {
 		testPlayer->setDialogueComp(new DialogueComponent());
 
 		vector<Dialogue *> dialogues;
-		Dialogue::getAvailableDialogues(dialogues, testPlayer, testNPC);
+		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 
 		equals(1u, dialogues.size());
 		assert(dialogues[0] == &testDiag);
@@ -42,7 +48,7 @@ namespace tests {
 
 		testPlayer->getDialogueComp()->setSubjectLock("name");
 
-		Dialogue::getAvailableDialogues(dialogues, testPlayer, testNPC);
+		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 		equals(2u, dialogues.size());
 
 		return true;

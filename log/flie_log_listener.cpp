@@ -1,5 +1,7 @@
 #include "file_log_listener.h"
 
+#include "logger.h"
+
 namespace am {
 namespace log {
 
@@ -13,9 +15,10 @@ namespace log {
 	}
 	FileLogListener::~FileLogListener()
 	{
-		if (mFile.is_open())
+		Logger *logger = Logger::getMainLogger();
+		if (logger)
 		{
-			mFile.close();
+			logger->removeLogListener(this);
 		}
 	}
 
@@ -25,6 +28,11 @@ namespace log {
 		{
 			mFile << entry.getType() << ":\t" << entry.getMessage() << endl;
 		}
+	}
+
+	void FileLogListener::onLoggerDelete()
+	{
+		//delete this;
 	}
 
 }

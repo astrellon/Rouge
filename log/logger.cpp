@@ -14,7 +14,19 @@ namespace log {
 	}
 	Logger::~Logger()
 	{
+		
+	}
 
+	void Logger::clearListeners()
+	{
+		LogListeners listeners = mListeners;
+		LogListeners::iterator iter;
+		for (iter = listeners.begin(); iter != listeners.end(); ++iter)
+		{
+			(*iter)->onLoggerDelete();
+		}
+		mListeners.clear();
+		mEntries.clear();
 	}
 
 	void Logger::log(const char *type, const char *message)
@@ -135,6 +147,15 @@ namespace log {
 	Logger *Logger::getMainLogger()
 	{
 		return sMainLogger;
+	}
+	void Logger::clearMainLogger()
+	{
+		if (sMainLogger)
+		{
+			Logger *logger = sMainLogger;
+			sMainLogger = NULL;
+			logger->clearListeners();
+		}
 	}
 
 	void _log_verbose(const char *type, const char *message, const char *file, int line)
