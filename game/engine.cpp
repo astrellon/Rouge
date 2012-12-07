@@ -13,6 +13,7 @@ using namespace std;
 
 #include "game.h"
 #include "tile.h"
+#include "tile_type.h"
 #include "race.h"
 
 namespace am {
@@ -33,6 +34,11 @@ namespace game {
 	Engine::~Engine() 
 	{
 		//deregisterTiles();
+		if (mUnknownRace)
+		{
+			delete mUnknownRace;
+			mUnknownRace = NULL;
+		}
 	}
 
 	void Engine::init()
@@ -359,6 +365,28 @@ namespace game {
 	Race *Engine::getUnknownRace()
 	{
 		return mUnknownRace;
+	}
+
+	void Engine::addTileType(TileType *type)
+	{
+		if (type == NULL)
+		{
+			return;
+		}
+		mTileTypes[type->getName()] = type;
+	}
+	TileType *Engine::getTileType(const char *name)
+	{
+		return getTileType(string(name));
+	}
+	TileType *Engine::getTileType(const string &name)
+	{
+		TileTypeMap::iterator iter = mTileTypes.find(name);
+		if (iter == mTileTypes.end())
+		{
+			return NULL;
+		}
+		return iter->second;
 	}
 
 }

@@ -34,7 +34,7 @@ namespace game {
 		mPostfix(-1)
 	{
 		setName("Item");
-		addPassibleType(TileType::getTileType("land"));
+		addPassibleType(Engine::getEngine()->getTileType("land"));
 	}
 	Item::~Item()
 	{

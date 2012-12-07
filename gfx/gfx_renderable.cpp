@@ -6,6 +6,8 @@ using namespace am::math;
 #include <base/handle.h>
 using namespace am::base;
 
+#include <log/logger.h>
+
 #include <gl.h>
 #include "gfx_engine.h"
 #include "gfx_layer.h"
@@ -35,9 +37,13 @@ namespace gfx {
 	}
 	Renderable::~Renderable()
 	{
+#ifdef _DEBUG
+		am_log("DELETING", mDebugName);
+#endif
 		if (mParent)
 		{
-			mParent->release();
+			mParent->removeChild(this);
+			mParent = NULL;
 		}
 	}
 

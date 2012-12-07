@@ -6,6 +6,8 @@
 using namespace am::lua;
 
 #include <game/character.h>
+#include <game/game.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include <lua/wrappers/game/lua_character.h>
@@ -121,6 +123,8 @@ namespace tests {
 	bool TestLua::testWrapper()
 	{
 		LuaState lua;
+
+		Engine::getEngine()->setCurrentGame(new Game());
 		Handle<Character> testCharacter(new Character());
 		testCharacter->setGameId("testId");
 		testCharacter->setName("Test Name");

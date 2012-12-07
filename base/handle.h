@@ -30,7 +30,13 @@ namespace base {
 		{
 			if (mObject)
 			{
-				mObject->release();
+				T *obj = mObject;
+				int counter = obj->getReferenceCounter();
+				obj->release();
+				if (counter <= 1)
+				{
+					mObject = (T *)0;
+				}
 			}
 		}
 

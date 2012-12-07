@@ -13,6 +13,7 @@ using std::stringstream;
 	{	\
 		s suite;	\
 		suite.run();	\
+		suiteCount++;	\
 	}
 	
 #define runCase(f)	\

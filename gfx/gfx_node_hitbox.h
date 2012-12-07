@@ -17,6 +17,8 @@ namespace gfx {
 	public:
 		NodeHitbox();
 		NodeHitbox(Node *node);
+
+		virtual void retain();
 		virtual ~NodeHitbox();
 
 		virtual void onEvent(MouseEvent *e);

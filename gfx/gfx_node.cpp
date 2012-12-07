@@ -9,6 +9,7 @@ namespace gfx {
 		TextStyleSelector(),
 		mStyleDirty(true)
 	{
+		
 	}
 	Node::Node(const char *nodeType, const char *text) :
 		TextStyleSelector(nodeType),
@@ -21,6 +22,23 @@ namespace gfx {
 	}
 	Node::~Node()
 	{
+	}
+
+	void Node::deinit()
+	{
+		while (mChildren.size())
+		{
+			mChildren.back()->deinit();
+		}
+		mChildren.clear();
+
+		mNodeHitboxes.clear();
+
+		if (mParent)
+		{
+			Handle<Node> temp(this);
+			mParent->removeChild(this);
+		}
 	}
 
 	void Node::appendText(const char *text)

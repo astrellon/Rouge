@@ -16,18 +16,18 @@ namespace tests {
 		Game *game = new Game();
 		Engine::getEngine()->setCurrentGame(game);
 
-		Dialogue testDiag("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
-		equalsStr("diag1", testDiag.getId());
-		equalsStr("Hello there, my name is", testDiag.getText());
-		equalsStr("Greetings", testDiag.getTitle());
-		equalsStr("greeting", testDiag.getSubject());
-		assert(Dialogue::UNLOCK_NONE == testDiag.getUnlockFlag());
+		Dialogue *testDiag = new Dialogue("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
+		equalsStr("diag1", testDiag->getId());
+		equalsStr("Hello there, my name is", testDiag->getText());
+		equalsStr("Greetings", testDiag->getTitle());
+		equalsStr("greeting", testDiag->getSubject());
+		assert(Dialogue::UNLOCK_NONE == testDiag->getUnlockFlag());
 
 		game->removeAllDialogue();
-		game->addDialogue(&testDiag);
+		game->addDialogue(testDiag);
 
-		Dialogue testDiag2("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
-		game->addDialogue(&testDiag2);
+		Dialogue *testDiag2 = new Dialogue("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
+		game->addDialogue(testDiag2);
 
 		Handle<Character> testNPC(new Character());
 		testNPC->setDialogueComp(new DialogueComponent());
@@ -41,7 +41,7 @@ namespace tests {
 		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 
 		equals(1u, dialogues.size());
-		assert(dialogues[0] == &testDiag);
+		assert(dialogues[0] == testDiag);
 
 		dialogues.clear();
 		equals(0u, dialogues.size());
@@ -53,7 +53,6 @@ namespace tests {
 
 		return true;
 	}
-
 
 }
 }

@@ -1,14 +1,15 @@
 #ifdef TESTING_MEM
 #	define VLD_FORCE_ENABLE
+#	include "vld.h"
 #endif
-
-#include "vld.h"
 #include "main.h"
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+#ifdef TESTING_MEM
 	VLDEnable();
 	VLDSetReportOptions(VLD_OPT_REPORT_TO_FILE, L"memleaks.log");
+#endif
 
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);
@@ -71,10 +72,13 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete mouseManager;
 	delete keyboardManager;
 	GfxEngine::deinitGfxEngine();
+	am::util::Colour::removeAllColours();
 
 	am::log::Logger::clearMainLogger();
 
+#ifdef TESTING_MEM
 	VLDReportLeaks();
+#endif
 
 	// Shut down!
 }

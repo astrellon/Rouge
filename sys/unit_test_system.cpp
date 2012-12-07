@@ -68,6 +68,8 @@ namespace sys {
 
 		mDebugConsole->setVisible(true);
 
+		int suiteCount = 0;
+
 		runSuite(TestBase);
 		runSuite(TestMouseManager);
 		runSuite(TestMap);
@@ -93,22 +95,7 @@ namespace sys {
 		runSuite(TestEventInterface);
 		runSuite(TestLuaMap);
 		runSuite(TestItem);
-		/*
-		Handle<Asset> asset(new Asset("testAsset"));
-		LuaState lua;
-		lua.loadString("asset = {}\n"
-			"asset.texture = \"data/textures/fontBasic.png\"\n"
-			"asset.window = {leftX=10,rightX=20,topY=30,bottomY=40}\n"
-			"asset.framesX = 3\n"
-			"asset.framesY = 4\n"
-			"asset.frameRate = 0.57\n"
-			"asset.scaleNine = {left=11, right=22, top=33, bottom=44}\n"
-			"asset.repeatX = true\n"
-			"asset.repeatY = true\n"
-			);
-		lua_getglobal(lua, "asset");
-		asset->loadDef(lua);
-		*/
+
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)
 		{
@@ -127,6 +114,14 @@ namespace sys {
 			}
 			ss << "\n-------------------";
 			am_log("FAILED", ss);
+		}
+		else
+		{
+			stringstream ss;
+			ss << "-------------------\nAll ";
+			ss << suiteCount << " tests passed!";
+			ss << "\n-------------------";
+			am_log("PASSED", ss);
 		}
 	}
 	

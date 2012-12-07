@@ -17,12 +17,14 @@ namespace am {
 namespace game {
 
 	class Game;
-	class Tile;
 	class GameObject;
+	class Tile;
+	class TileType;
 	class Race;
 
 	typedef map<string, Handle<TileSet> > TileSetMap;
 	typedef map<string, Race *> RaceMap;
+	typedef map<string, TileType *> TileTypeMap;
 
 	class Engine {
 	public:
@@ -68,6 +70,11 @@ namespace game {
 		Race *getRace(const char *raceName);
 		Race *getUnknownRace();
 
+		// TileType
+		void addTileType(TileType *type);
+		TileType *getTileType(const char *name);
+		TileType *getTileType(const string &name);
+
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
 
@@ -91,6 +98,7 @@ namespace game {
 
 		TileSetMap mTileSets;
 		Handle<TileSet> mTopLevelTileSet;
+		TileTypeMap mTileTypes;
 
 		Handle<GameHud> mGameHud;
 

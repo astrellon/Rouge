@@ -13,6 +13,7 @@ using namespace std;
 
 #include "tile_set.h"
 #include "tile_type.h"
+#include "engine.h"
 
 namespace am {
 namespace game {
@@ -193,7 +194,7 @@ namespace game {
 				else
 				{
 					string tileName = Utils::toLowerCase(lua_tostring(lua, -1));
-					TileType *type = TileType::getTileType(tileName.c_str());
+					TileType *type = Engine::getEngine()->getTileType(tileName.c_str());
 					if (type == NULL)
 					{
 						stringstream errss;

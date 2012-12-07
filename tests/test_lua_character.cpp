@@ -15,6 +15,7 @@ using namespace am::lua::game;
 #include <game/character.h>
 #include <game/body_part.h>
 #include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 extern "C" 
@@ -29,6 +30,8 @@ namespace tests {
 
 	bool TestLuaCharacter::testSimple() {
 		LuaState lua;
+
+		Engine::getEngine()->setCurrentGame(new Game());
 
 		int loadResult = lua.loadString("Character = import(\"Character\")\n"
 			"char = Character.new(\"char1\")\n"

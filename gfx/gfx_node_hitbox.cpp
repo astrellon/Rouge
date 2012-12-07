@@ -13,7 +13,7 @@ namespace gfx {
 	{
 		setInteractive(true);
 		addListeners(this);
-		//setRenderColour(true);
+		setName("NODE HITBOX");
 	}
 	NodeHitbox::NodeHitbox(Node *node) :
 		mNodeTarget(node)
@@ -24,7 +24,7 @@ namespace gfx {
 		}
 		setInteractive(true);
 		addListeners(this);
-		//setRenderColour(true);
+		setName("NODE HITBOX");
 	}
 	NodeHitbox::~NodeHitbox()
 	{
@@ -33,6 +33,11 @@ namespace gfx {
 			mNodeTarget->release();
 		}
 		removeListeners(this);
+	}
+
+	void NodeHitbox::retain()
+	{
+		IManaged::retain();
 	}
 
 	void NodeHitbox::onEvent(MouseEvent *e)

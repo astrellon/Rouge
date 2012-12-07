@@ -10,11 +10,7 @@ namespace ui {
 	}
 	EventInterface::~EventInterface()
 	{
-		if (mManager)
-		{
-			delete mManager;
-			mManager = NULL;
-		}
+		managerDeleted();
 	}
 
 	bool EventInterface::addEventListener(const char *type, IEventListener *context)
@@ -122,9 +118,23 @@ namespace ui {
 
 	void EventInterface::managerDeleted()
 	{
-		EventManager *manager = mManager;
-		mManager = NULL;
-		delete manager;
+		if (mManager)
+		{
+			EventManager::Listeners::iterator iter;
+			for (iter = mManager->mListeners.begin(); iter != mManager->mListeners.end(); ++iter)
+			{
+				EventManager::ListenerList::iterator listIter;
+				EventManager::ListenerList &list = iter->second;
+				for (listIter = list.begin(); listIter != list.end(); ++listIter)
+				{
+					(*listIter)->removeListeningTo(this);
+				}
+			}
+
+			EventManager *manager = mManager;
+			mManager = NULL;
+			delete manager;
+		}
 	}
 
 }

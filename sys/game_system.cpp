@@ -102,6 +102,7 @@ namespace sys {
 		mEngine->init();
 		
 		mDebugConsole = new TextList();
+		mDebugConsole->setName("DebugConsole");
 		mDebugConsole->setMaxEntries(30);
 		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());
 
@@ -109,8 +110,8 @@ namespace sys {
 		mDebugConsole->setBaseFont("basic");
 		mDebugConsole->setVisible(false);
 
-		GfxLogListener *listener = new GfxLogListener(mDebugConsole.get());
-		am::log::Logger::getMainLogger()->addLogListener(listener);
+		mGfxListener = new GfxLogListener(mDebugConsole);
+		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
 	}
 
 	void GameSystem::reshape(int width, int height)
@@ -127,8 +128,13 @@ namespace sys {
 	}
 	void GameSystem::deinit()
 	{
-		GfxEngine::getEngine()->deinit();
-		mEngine->deinit();
+		if (mGfxListener)
+		{
+			delete mGfxListener;
+			mGfxListener = NULL;
+		}
+		//GfxEngine::getEngine()->deinit();
+		//mEngine->deinit();
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)

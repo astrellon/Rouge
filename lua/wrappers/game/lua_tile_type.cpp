@@ -11,6 +11,7 @@ extern "C"
 using namespace am::lua;
 
 #include <game/tile_type.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include <util/json_value.h>
@@ -125,7 +126,7 @@ namespace game {
 		TileType *tile = Check_TileType(lua, 1);
 		if (tile)
 		{
-			TileType::addTileType(tile);
+			Engine::getEngine()->addTileType(tile);
 		}
 		return 0;
 	}
@@ -133,7 +134,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			TileType *tile = TileType::getTileType(lua_tostring(lua, -1));
+			TileType *tile = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
 			if (tile)
 			{
 				TileType_wrap(lua, tile);

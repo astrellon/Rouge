@@ -58,7 +58,9 @@ namespace gfx {
 		if (sMainGfxEngine != NULL)
 		{
 			sMainGfxEngine->deinit();
+			GfxEngine *engine = sMainGfxEngine;
 			sMainGfxEngine = NULL;
+			delete engine;
 		}
 	}
 
@@ -85,21 +87,21 @@ namespace gfx {
 		mGameLayer = new Layer();
 		mGameLayer->setName("GameLayer");
 		mGameLayer->setInteractive(true);
-		mRootLayer->addChild(mGameLayer.get());
+		mRootLayer->addChild(mGameLayer);
 
 		mUILayer = new Layer();
 		mUILayer->setName("UILayer");
 		mUILayer->setInteractive(true);
 		mUILayer->setWidth(static_cast<float>(mScreenWidth));
 		mUILayer->setHeight(static_cast<float>(mScreenHeight));
-		mRootLayer->addChild(mUILayer.get());
+		mRootLayer->addChild(mUILayer);
 
 		mTooltipLayer = new Layer();
 		mTooltipLayer->setName("TooltipLayer");
 		mTooltipLayer->setInteractive(false);
 		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
 		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));
-		mRootLayer->addChild(mTooltipLayer.get());
+		mRootLayer->addChild(mTooltipLayer);
 
 		mDebugLayer = new Layer();
 		mDebugLayer->setName("DebugLayer");
@@ -125,10 +127,15 @@ namespace gfx {
 	void GfxEngine::deinit()
 	{
 		mDebugLayer->deinit();
+		//mDebugLayer = NULL;
 		mTooltipLayer->deinit();
+		//mTooltipLayer = NULL;
 		mUILayer->deinit();
+		//mUILayer = NULL;
 		mGameLayer->deinit();
+		//mGameLayer = NULL;
 		mRootLayer->deinit();
+		//mRootLayer = NULL;
 
 		{
 			FontMap fonts = mFontManager;

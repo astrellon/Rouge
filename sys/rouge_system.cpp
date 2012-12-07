@@ -341,7 +341,7 @@ namespace sys {
 		
 		Handle<Character> npc(new Character());
 		npc->setName("NPC");
-		npc->addPassibleType(TileType::getTileType("land"));
+		npc->addPassibleType(Engine::getEngine()->getTileType("land"));
 		npc->setGraphic(new Sprite("characters/npc/front"));
 		npc->setGridLocation(3, 2);
 		DialogueComponent *comp = new DialogueComponent();
@@ -356,7 +356,7 @@ namespace sys {
 		game->setMainCharacter(mPlayer);
 		mPlayer->setDialogueComp(new DialogueComponent());
 		mPlayer->setName("Melli the cutest cutie");
-		mPlayer->addPassibleType(TileType::getTileType("land"));
+		mPlayer->addPassibleType(Engine::getEngine()->getTileType("land"));
 		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
 		mPlayer->setGridLocation(2, 1);
 		mPlayer->addBodyPart(new BodyPart("arm"));

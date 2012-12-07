@@ -10,6 +10,7 @@ using namespace am::lua;
 
 #include <game/tile.h>
 #include <game/tile_type.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include <lua/wrappers/game/lua_tile_type.h>
@@ -108,7 +109,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("hasTileType"));
 
 		TileType *type = new TileType("superType", "Super Type");
-		TileType::addTileType(type);
+		Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		TileType_wrap(lua, type);

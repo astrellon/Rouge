@@ -19,6 +19,8 @@ namespace ui {
 	class EventManager  {
 	public:
 
+		friend class EventInterface;
+
 		typedef vector< IEventListener *> ListenerList;
 		typedef map<string, ListenerList> Listeners;
 

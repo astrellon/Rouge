@@ -48,7 +48,13 @@ namespace gfx {
 
 	TextField2::~TextField2()
 	{
-
+		mCurrentNode = NULL;
+		//mRootNode = NULL;
+		if (mRootNode.get())
+		{
+			mRootNode->deinit();
+		}
+		mRootNode = NULL;
 	}
 
 	float TextField2::getRenderedHeight() const
@@ -227,7 +233,7 @@ namespace gfx {
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
 				list.clear();
 				Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
-				mTextHitboxes->addChild(hitbox);
+				mTextHitboxes->addChild(hitbox.get());
 				hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 				hitbox->setHeight(mFont->getCharHeight());
 				hitbox->addEventListener(MOUSE_UP, this);

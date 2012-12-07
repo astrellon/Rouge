@@ -27,6 +27,7 @@ namespace gfx {
 		mChildren.clear();
 		if (mParent)
 		{
+			Handle<Layer> temp(this);
 			mParent->removeChild(this);
 		}
 	}

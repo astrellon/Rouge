@@ -8,10 +8,6 @@ namespace ui {
 	IEventListener::~IEventListener()
 	{
 		ListeningList::iterator iter;
-		/*for (iter = mListeningTo.begin(); iter != mListeningTo.end(); ++iter)
-		{
-			(*iter)->removeEventListener(this);
-		}*/
 		ListeningList list = mListeningTo;
 		for (ListeningList::iterator iter = list.begin(); iter != list.end(); ++iter)
 		{

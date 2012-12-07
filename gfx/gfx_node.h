@@ -25,6 +25,8 @@ namespace gfx {
 		Node(const char *nodeType, const char *text = NULL);
 		~Node();
 
+		virtual void deinit();
+
 		virtual void appendText(const char *text);
 
 		virtual void addChild(Node *child);

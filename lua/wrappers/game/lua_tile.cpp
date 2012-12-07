@@ -12,6 +12,7 @@ using namespace am::lua;
 
 #include <game/tile.h>
 #include <game/tile_type.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include <util/json_value.h>
@@ -252,7 +253,7 @@ namespace game {
 		TileType *tileType = NULL;
 		if (lua_isstring(lua, n))
 		{
-			tileType = TileType::getTileType(lua_tostring(lua, n));
+			tileType = Engine::getEngine()->getTileType(lua_tostring(lua, n));
 		}
 		else
 		{

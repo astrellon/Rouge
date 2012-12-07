@@ -17,6 +17,7 @@ namespace gfx {
 	class GfxEngine;
 	class Layer;
 	class TextList;
+	class GfxLogListener;
 }
 using namespace am::gfx;
 
@@ -84,6 +85,8 @@ namespace sys {
 
 		ISystem *mLinkedSystem;
 		Engine *mEngine;
+
+		GfxLogListener *mGfxListener;
 
 		static GameSystem *sGameSystem;
 
