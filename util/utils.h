@@ -14,6 +14,11 @@ namespace util {
 
 	class Utils {
 	public:
+		/**
+		 * Parses a string input into a number type assuming base 10 values (which can be changed).
+		 * Returns true if the parse was successful.
+		 * If the parse was unsuccessful the input value is not affected.
+		 */
 		template <class T>
 		static bool fromString(T &t, const string &input, ios_base &(*f)(ios_base &) = dec)
 		{
@@ -21,6 +26,11 @@ namespace util {
 			return !(iss >> f >> t).fail();
 		}
 
+		/**
+		 * Parses a string input into a number type assuming base 10 values (which can be changed).
+		 * Returns true if the parse was successful.
+		 * If the parse was unsuccessful the input value is not affected.
+		 */
 		template <class T>
 		static bool fromString(T &t, const char *input, ios_base &(*f)(ios_base &) = dec)
 		{
