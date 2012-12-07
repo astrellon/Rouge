@@ -37,10 +37,14 @@ namespace game {
 
 		void deinit();
 
+		bool addMap(Map *map);
+		bool removeMap(Map *map);
+		bool removeMap(const char *mapName);
+
 		Map *getMapLua(const char *mapName);
 		Map *getMapLua(const string &mapName);
 		Map *getCurrentMap();
-		void setCurrentMap(Map *map);
+		void setCurrentMap(Map *map, bool addMap = true);
 		void setCurrentMap(const char *mapName);
 		void setCurrentMap(const string &mapName);
 

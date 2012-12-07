@@ -74,6 +74,15 @@ namespace game {
 			}
 			mDialogueMap.clear();
 		}
+		{
+			MapMap maps = mMaps;
+			MapMap::iterator iter;
+			for (iter = maps.begin(); iter != maps.end(); ++iter)
+			{
+				iter->second->deinit();
+			}
+			mMaps.clear();
+		}
 		/*mGameObjects.clear();
 		Handle<IController> cont(mMainCharacter->getController());
 		if (cont)
@@ -216,8 +225,51 @@ namespace game {
 			}
 		}
 	}
+
+	bool Game::addMap(Map *map)
+	{
+		if (map && map->getName().size() > 0)
+		{
+			mMaps[map->getName()] = map;
+			return true;
+		}
+		return false;
+	}
+	bool Game::removeMap(Map *map)
+	{
+		if (map)
+		{
+			MapMap::iterator iter;
+			for (iter = mMaps.begin(); iter != mMaps.end(); ++iter)
+			{
+				if (iter->second.get() == map)
+				{
+					mMaps.erase(iter);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	bool Game::removeMap(const char *mapName)
+	{
+		if (mapName && mapName[0] != '\0')
+		{
+			string mapStr(mapName);
+			MapMap::iterator iter;
+			for (iter = mMaps.begin(); iter != mMaps.end(); ++iter)
+			{
+				if (iter->first.compare(mapStr) == 0)
+				{
+					mMaps.erase(iter);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
-	void Game::setCurrentMap(Map *map)
+	void Game::setCurrentMap(Map *map, bool addMap)
 	{
 		mBackground->clear();
 		mItemLayer->clear();
@@ -252,6 +304,10 @@ namespace game {
 				stringstream errss;
 				errss << "Map (" << map->getName() << ") return a NULL object list.";
 				am_log("MAP", errss);
+			}
+			if (addMap && map->getName().size() > 0)
+			{
+				mMaps[map->getName()] = map;
 			}
 		}
 	}

@@ -31,6 +31,8 @@ namespace game {
 		Map(const char *name);
 		Map(const char *name, int width, int height);
 		~Map();
+
+		virtual void deinit();
 	
 		void setName(const char *name);
 		string getName() const;

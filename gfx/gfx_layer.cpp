@@ -19,11 +19,17 @@ namespace gfx {
 
 	void Layer::deinit()
 	{
-		while(mChildren.size())
+		ChildList children = mChildren;
+		for (size_t i = 0; i < children.size(); i++)
 		{
-			mChildren.back()->deinit();
+			children[i]->deinit();
 		}
 
+		/*while(mChildren.size())
+		{
+			mChildren.back()->deinit();
+		}*/
+		children.clear();
 		mChildren.clear();
 		if (mParent)
 		{

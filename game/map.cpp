@@ -49,6 +49,20 @@ namespace game {
 		clear();
 	}
 
+	void Map::deinit()
+	{
+		clear();
+		/*if (mBackground.get())
+		{
+			mBackground->deinit();
+		}
+		if (mForeground.get())
+		{
+			mForeground->deinit();
+		}*/
+		mObjects.clear();
+	}
+
 	void Map::setName(const char *name)
 	{
 		mName = name;
@@ -119,6 +133,7 @@ namespace game {
 		if (mTiles)
 		{
 			delete [] mTiles;
+			mTiles = NULL;
 		}
 	}
 

@@ -24,13 +24,10 @@ namespace game {
 		mMap(NULL)
 	{
 		setName("GameObject");
-		//Engine::getCurrentGame()
 		Engine::getEngine()->registerGameObject(this);
-		//addGameObject(this);
 	}
 	GameObject::~GameObject()
 	{
-		Engine::getEngine()->deregisterGameObject(this);
 	}
 
 	void GameObject::update(float dt)
