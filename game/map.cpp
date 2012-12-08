@@ -52,14 +52,18 @@ namespace game {
 	void Map::deinit()
 	{
 		clear();
-		/*if (mBackground.get())
+		if (mBackground.get())
 		{
+			mBackground->removeChild(this);
 			mBackground->deinit();
+			mBackground = NULL;
 		}
 		if (mForeground.get())
 		{
+			mForeground->removeChild(this);
 			mForeground->deinit();
-		}*/
+			mForeground = NULL;
+		}
 		mObjects.clear();
 	}
 
