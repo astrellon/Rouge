@@ -28,6 +28,12 @@ namespace game {
 	}
 	GameObject::~GameObject()
 	{
+		if (mMap)
+		{
+			Map *map = mMap;
+			mMap = NULL;
+			map->release();
+		}
 	}
 
 	void GameObject::update(float dt)

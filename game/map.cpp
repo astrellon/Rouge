@@ -49,6 +49,22 @@ namespace game {
 		clear();
 	}
 
+	/*void Map::retain()
+	{
+		IManaged::retain();
+		stringstream ss;
+		ss << "Map retain: " << getReferenceCounter();
+		am_log("MAP", ss);
+	}
+	void Map::release()
+	{
+		int counter = getReferenceCounter() - 1;
+		IManaged::release();
+		stringstream ss;
+		ss << "Map release: " << counter;
+		am_log("MAP", ss);
+	}*/
+
 	void Map::deinit()
 	{
 		clear();
