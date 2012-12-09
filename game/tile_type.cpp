@@ -122,6 +122,8 @@ namespace game {
 			/* removes 'value'; keeps 'key' for next iteration */
 			lua_pop(lua, 1);
 		}
+		lua.close();
+		return true;
 	}
 	
 }

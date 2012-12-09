@@ -9,6 +9,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 #ifdef TESTING_MEM
 	VLDEnable();
 	VLDSetReportOptions(VLD_OPT_REPORT_TO_FILE, L"memleaks.log");
+	//VLDSetOptions(VLD_OPT_AGGREGATE_DUPLICATES, 1000, 1000);
 #endif
 
 	am::log::Logger mainLogger;
@@ -67,6 +68,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	// Remove things which have event listeners before the
 	// managers get deleted.
+	engine->deinit();
 	delete engine;
 	delete gameSystem;
 	delete mouseManager;

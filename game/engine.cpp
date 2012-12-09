@@ -62,6 +62,26 @@ namespace game {
 			mCurrentGame->deinit();
 		}
 		LuaState::clearRegistered();
+
+		/*{
+			TileSetMap tileSets = mTileSets;
+			TileSetMap::iterator iter;
+			for (iter = tileSets.begin(); iter != tileSets.end(); ++iter)
+			{
+				iter->second->deinit();
+			}
+			mTileSets.clear();
+		}*/
+		mTileSets.clear();
+		{
+			TileTypeMap tileTypes = mTileTypes;
+			TileTypeMap::iterator iter;
+			for (iter = tileTypes.begin(); iter != tileTypes.end(); ++iter)
+			{
+				delete iter->second;
+			}
+			mTileTypes.clear();
+		}
 	}
 	void Engine::update(float dt)
 	{
