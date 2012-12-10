@@ -16,6 +16,8 @@ using namespace am::game;
 #include "lua_tile.h"
 #include "lua_tile_set.h"
 #include "lua_game.h"
+#include "lua_character.h"
+#include "lua_item.h"
 
 namespace am {
 namespace lua {
@@ -35,6 +37,16 @@ namespace game {
 			{ "get_tile_set", Engine_get_tile_set },
 			{ "add_tile_set", Engine_add_tile_set },
 			{ "get_top_level_tile_set", Engine_get_top_level_tile_set },
+			{ "get_by_game_id", Engine_get_by_game_id },
+			{ "register_game_object", Engine_register_game_object },
+			{ "deregister_game_object", Engine_deregister_game_object },
+			{ "add_race", Engine_add_race },
+			{ "remove_race", Engine_remove_race },
+			{ "get_race", Engine_get_race },
+			{ "get_unknown_race", Engine_get_unknown_race },
+			{ "add_tile_type", Engine_add_tile_type },
+			{ "get_tile_type", Engine_get_tile_type },
+			{ "get_game", Engine_get_game },
 			{ NULL, NULL }
 		};
 
@@ -136,6 +148,62 @@ namespace game {
 	{
 		TileSet_wrap(lua, Engine::getEngine()->getTopLevelTileSet());
 		return 1;
+	}
+
+	int Engine_get_by_game_id(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			GameObject *obj = Engine::getEngine()->getByGameId(lua_tostring(lua, -1));
+			if (obj)
+			{
+				Character *character = dynamic_cast<Character *>(obj);
+				if (character)
+				{
+					Character_wrap(lua, character);
+					return 1;
+				}
+				Item *item = dynamic_cast<Item *>(obj);
+				if (item)
+				{
+					Item_wrap(lua, item);
+					return 1;
+				}
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Engine_register_game_object(lua_State *lua)
+	{
+		GameObject *obj = Check_Character(lua, -1);
+		if (!obj)
+		{
+			obj = Check_Item(lua, -1);
+		}
+		if (obj)
+		{
+			Engine::getEngine()->registerGameObject(obj);
+		}
+		return 0;
+	}
+	int Engine_deregister_game_object(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			Engine::getEngine()->deregisterGameObject(lua_tostring(lua, -1));
+			return 0;
+		}
+		GameObject *obj = Check_Character(lua, -1);
+		if (!obj)
+		{
+			obj = Check_Item(lua, -1);
+		}
+		if (obj)
+		{
+			Engine::getEngine()->deregisterGameObject(obj);
+		}
+		return 0;
 	}
 
 }

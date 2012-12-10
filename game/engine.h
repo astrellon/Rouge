@@ -62,6 +62,7 @@ namespace game {
 		// GameObjects shortcuts.
 		GameObject *getByGameId(const char *id) const;
 		void registerGameObject(GameObject *obj);
+		void deregisterGameObject(const char *id);
 		void deregisterGameObject(GameObject *obj);
 
 		// Race

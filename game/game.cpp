@@ -496,6 +496,18 @@ namespace game {
 		}
 		mGameObjects[obj->getGameId()] = obj;
 	}
+	void Game::deregisterGameObject(const char *id)
+	{
+		if (id && id[0] != '\0')
+		{
+			string idStr(id);
+			GameObjectIdMap::iterator iter = mGameObjects.find(idStr);
+			if (iter != mGameObjects.end())
+			{
+				mGameObjects.erase(iter);
+			}
+		}
+	}
 	void Game::deregisterGameObject(GameObject *obj)
 	{
 		if (obj == NULL)

@@ -333,6 +333,13 @@ namespace game {
 			mCurrentGame->registerGameObject(obj);
 		}
 	}
+	void Engine::deregisterGameObject(const char *id)
+	{
+		if (mCurrentGame.get())
+		{
+			mCurrentGame->deregisterGameObject(id);
+		}
+	}
 	void Engine::deregisterGameObject(GameObject *obj)
 	{
 		if (mCurrentGame.get())

@@ -32,6 +32,20 @@ namespace game {
 	int Engine_add_tile_set(lua_State *lua);
 	int Engine_get_top_level_tile_set(lua_State *lua);
 
+	int Engine_get_by_game_id(lua_State *lua);
+	int Engine_register_game_object(lua_State *lua);
+	int Engine_deregister_game_object(lua_State *lua);
+
+	int Engine_add_race(lua_State *lua);
+	int Engine_remove_race(lua_State *lua);
+	int Engine_get_race(lua_State *lua);
+	int Engine_get_unknown_race(lua_State *lua);
+
+	int Engine_add_tile_type(lua_State *lua);
+	int Engine_get_tile_type(lua_State *lua);
+
+	// Static
+	int Engine_get_game(lua_State *lua);
 }
 }
 }

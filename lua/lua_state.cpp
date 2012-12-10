@@ -478,18 +478,22 @@ namespace lua {
 	}
 	int LuaState::getWrapper(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		int args = lua_gettop(lua);
+		for (int i = 1; i < args; i++)
 		{
-			string name = lua_tostring(lua, -1);
-			WrapperMap::iterator iter = sWrapperMap.find(name);
-			if (iter != sWrapperMap.end())
+			if (lua_isstring(lua, i))
 			{
-				int result = iter->second(lua);
-				return result;
+				string name = lua_tostring(lua, i);
+				WrapperMap::iterator iter = sWrapperMap.find(name);
+				if (iter != sWrapperMap.end())
+				{
+					iter->second(lua);
+				}
+				continue;
 			}
+			lua_pushnil(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return args;
 	}
 	void LuaState::clearRegistered()
 	{
