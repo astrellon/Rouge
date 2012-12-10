@@ -16,6 +16,9 @@ using namespace std;
 #include <base/imanaged.h>
 using namespace am::base;
 
+#define lua_tofloat(L,i)	static_cast<float>(lua_tonumber(L,i))
+#define lua_tobool(L,i)		(lua_toboolean(L,i) > 0)
+
 namespace am {
 namespace lua {
 

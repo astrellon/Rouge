@@ -190,11 +190,11 @@ namespace game {
 					int args = lua_gettop(lua);
 					if (args == 6 && lua_isboolean(lua, 6))
 					{
-						game->moveObjectToMap(obj, map, lua_tonumber(lua, 4), lua_tonumber(lua, 5), lua_toboolean(lua, 6) > 0);
+						game->moveObjectToMap(obj, map, lua_tofloat(lua, 4), lua_tofloat(lua, 5), lua_tobool(lua, 6));
 					}
 					else
 					{
-						game->moveObjectToMap(obj, map, lua_tonumber(lua, 4), lua_tonumber(lua, 5));
+						game->moveObjectToMap(obj, map, lua_tofloat(lua, 4), lua_tofloat(lua, 5));
 					}
 				}
 			}
@@ -223,7 +223,7 @@ namespace game {
 					int args = lua_gettop(lua);
 					if (args == 6 && lua_isboolean(lua, 6))
 					{
-						game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5), lua_toboolean(lua, 6));
+						game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5), lua_toboolean(lua, 6) > 0);
 					}
 					else
 					{

@@ -67,7 +67,7 @@ namespace gfx {
 		if (mGfxComponent)
 		{
 			GfxComponent::EffectList effects = mGfxComponent->getEffects();
-			for (int i = 0; i < effects.size(); i++)
+			for (size_t i = 0; i < effects.size(); i++)
 			{
 				Effect *effect = effects[i];
 				effect->update(dt);

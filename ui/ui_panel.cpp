@@ -76,7 +76,7 @@ namespace ui {
 		{
 			float localX = 0.0f;
 			float localY = 0.0f;
-			getScreenToLocal(e->getMouseX(), e->getMouseY(), localX, localY);
+			getScreenToLocal(static_cast<float>(e->getMouseX()), static_cast<float>(e->getMouseY()), localX, localY);
 				
 			float dx = localX - manager->getDragOffsetX();
 			float dy = localY - manager->getDragOffsetY();

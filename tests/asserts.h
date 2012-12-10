@@ -17,6 +17,8 @@ namespace tests {
 	public:
 		static void dispErrorLine(const char *file, int line);
 		static bool _assert(bool a, const char *file, int line);
+		static bool _assert(int a, const char *file, int line);
+		static bool _assert(void *a, const char *file, int line);
 
 		template <class T>
 		static void dispError(const T &expected, const T &actual, const char *file, unsigned int line) 

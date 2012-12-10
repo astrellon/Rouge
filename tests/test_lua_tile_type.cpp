@@ -91,8 +91,6 @@ namespace tests {
 		assert(!lua_isnil(lua, -1));
 		lua.pop(1);
 
-		delete tileType;
-
 		return true;
 	}
 

@@ -75,7 +75,7 @@ namespace gfx {
 		if (e->getEventTarget() == mBar.get() && e->getMouseEventType() == MOUSE_DOWN)
 		{
 			MouseManager *manager = MouseManager::getManager();
-			manager->setDragOffset(0.0f, e->getLocalMouseY());
+			manager->setDragOffset(0, e->getLocalMouseY());
 			manager->addEventListener(MOUSE_MOVE, this);
 			manager->addEventListener(MOUSE_UP, this);
 		}
@@ -83,7 +83,7 @@ namespace gfx {
 		{
 			// We don't care about the mouseX value.
 			float mouseX = 0.0f;
-			float mouseY = manager->getMouseY();
+			float mouseY = static_cast<float>(manager->getMouseY());
 			float outMouseX = 0.0f;
 			float outMouseY = 0.0f;
 			getScreenToLocal(mouseX, mouseY, outMouseX, outMouseY);

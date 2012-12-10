@@ -400,7 +400,7 @@ namespace game {
 		Item *item = Check_Item(lua, 2);
 		if (obj && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
-			lua_pushboolean(lua, obj->dropItem(item, lua_tonumber(lua, -2), lua_tonumber(lua, -1)));
+			lua_pushboolean(lua, obj->dropItem(item, lua_tofloat(lua, -2), lua_tofloat(lua, -1)));
 			return 1;
 		}
 		lua_pushboolean(lua, false);
@@ -513,7 +513,7 @@ namespace game {
 		Character *obj = Check_Character(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
-			obj->setLocation(lua_tonumber(lua, -2), lua_tonumber(lua, -1));
+			obj->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
 		}
 		return 0;
 	}
@@ -559,7 +559,7 @@ namespace game {
 		Character *obj = Check_Character(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
-			obj->move(lua_tonumber(lua, -2), lua_tonumber(lua, -1));
+			obj->move(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
 		}
 		return 0;
 	}
@@ -595,7 +595,7 @@ namespace game {
 		Character *obj = Check_Character(lua, 1);
 		if (obj && lua_isboolean(lua, -1))
 		{
-			obj->setFixedToGrid(lua_toboolean(lua, -1));
+			obj->setFixedToGrid(lua_tobool(lua, -1));
 		}
 		return 1;
 	}

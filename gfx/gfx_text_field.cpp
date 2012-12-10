@@ -177,7 +177,7 @@ namespace gfx {
 		{
 			return -1;
 		}
-		if (line >= mNewLinePositions.size())
+		if (line >= static_cast<int>(mNewLinePositions.size()))
 		{
 			return -2;
 		}

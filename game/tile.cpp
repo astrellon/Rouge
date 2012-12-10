@@ -225,7 +225,7 @@ namespace game {
 		{
 			return;
 		}
-		for (int i = 0; i < mTileTypes.size(); i++)
+		for (size_t i = 0; i < mTileTypes.size(); i++)
 		{
 			if (mTileTypes[i] == tileType)
 			{
@@ -243,7 +243,7 @@ namespace game {
 		{
 			return false;
 		}
-		for (int i = 0; i < mTileTypes.size(); i++)
+		for (size_t i = 0; i < mTileTypes.size(); i++)
 		{
 			if (mTileTypes[i] == tileType)
 			{

@@ -63,7 +63,7 @@ namespace gfx {
 		mStartAlpha(1.0f),
 		mEndAlpha(0.0f)
 	{
-		srand( time(NULL) );
+		srand( static_cast<unsigned int>(time(NULL)) );
 	}
 	ParticleSystem::~ParticleSystem()
 	{
@@ -187,12 +187,13 @@ namespace gfx {
 	{
 		preRender(dt);
 
-		int newParticles = 0;
-		if (mParticleList.size() < mMaxParticles)
+		unsigned int newParticles = 0;
+		if (mParticleList.size() < static_cast<unsigned int>(mMaxParticles))
 		{
 			mCurrentParticleCount += dt * mParticlesPerSecond;
-			newParticles = static_cast<int>(mCurrentParticleCount);
-			if (mParticleList.size() + newParticles > mMaxParticles) {
+			newParticles = static_cast<unsigned int>(mCurrentParticleCount);
+			if (mParticleList.size() + newParticles > static_cast<unsigned int>(mMaxParticles)) 
+			{
 				newParticles = mMaxParticles - mParticleList.size();
 			}
 			mCurrentParticleCount -= static_cast<float>(newParticles);
@@ -204,7 +205,7 @@ namespace gfx {
 
 		if (newParticles > 0)
 		{
-			for (int i = 0; i < newParticles; i++)
+			for (unsigned int i = 0; i < newParticles; i++)
 			{
 				newParticle();
 			}
@@ -214,7 +215,7 @@ namespace gfx {
 		float accY = getAccelerationY() * dt;
 		float ageResp = 1.0f / mMaxAge;
 		float alphaRange = mEndAlpha - mStartAlpha;
-		for (int i = 0; i < mParticleList.size(); i++)
+		for (size_t i = 0; i < mParticleList.size(); i++)
 		{
 			Particle *particle = mParticleList[i];
 
@@ -238,7 +239,7 @@ namespace gfx {
 	void ParticleSystem::newParticle()
 	{
 		float randValue = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) - 0.5f;
-		float angle = mDirection + M_PI2 * randValue * mDirectionVariation;
+		float angle = mDirection + M_PIF2 * randValue * mDirectionVariation;
 
 		randValue = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) - 0.5f;
 		float power = mPower + randValue * mPowerVariation;

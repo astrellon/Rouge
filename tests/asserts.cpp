@@ -17,6 +17,22 @@ namespace tests {
 		}
 		return true;
 	}
+	bool Asserts::_assert(int a, const char *file, int line) {
+		if (!a) {
+			dispErrorLine(file, line);
+			am_log("ERR", "- Assert failed!\n");
+			return false;
+		}
+		return true;
+	}
+	bool Asserts::_assert(void *a, const char *file, int line) {
+		if (!a) {
+			dispErrorLine(file, line);
+			am_log("ERR", "- Assert failed!\n");
+			return false;
+		}
+		return true;
+	}
 
 	bool Asserts::_equals(const char *file, unsigned int line, const int &expected, const int &actual, bool notCompare) {
 		_simple_compare(expected, actual, notCompare, file, line);

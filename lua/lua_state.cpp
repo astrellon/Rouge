@@ -293,7 +293,7 @@ namespace lua {
 	 */
 	bool LuaState::toBool()
 	{
-		bool val = lua_toboolean(mLua, -1);
+		bool val = lua_tobool(mLua, -1);
 		lua_pop(mLua, 1);
 		return val;
 	}
@@ -504,7 +504,7 @@ namespace lua {
 		}
 		else if (lua_isboolean(lua, -1))
 		{
-			bool value = lua_toboolean(lua, -1);
+			bool value = lua_tobool(lua, -1);
 			am_log("LUA", value ? "true" : "false");
 		}
 		return 0;

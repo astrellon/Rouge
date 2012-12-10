@@ -430,7 +430,7 @@ namespace game {
 		Item *item = Check_Item(lua, 1);
 		if (item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
-			item->setLocation(lua_tonumber(lua, -2), lua_tonumber(lua, -1));
+			item->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
 		}
 		return 0;
 	}

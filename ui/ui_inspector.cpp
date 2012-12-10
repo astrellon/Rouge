@@ -136,7 +136,7 @@ namespace ui {
 				  "\n<title>Types:</title> ";
 
 			Tile::TileTypeList &tileTypes = mTile->getTileTypes();
-			for (int i = 0; i < tileTypes.size(); i++)
+			for (size_t i = 0; i < tileTypes.size(); i++)
 			{
 				if (i > 0)
 				{

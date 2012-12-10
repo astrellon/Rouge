@@ -257,7 +257,7 @@ namespace gfx {
 		if (index >= 0)
 		{
 			index++;
-			if (index >= mChildren.size())
+			if (index >= static_cast<int>(mChildren.size()))
 			{
 				if (mParent != NULL)
 				{
@@ -277,12 +277,12 @@ namespace gfx {
 
 	int Node::getChild(Node *child) const
 	{
-		int index = 0;
+		size_t index = 0;
 		for (index = 0; index < mChildren.size(); ++index)
 		{
 			if (mChildren[index].get() == child)
 			{
-				return index;
+				return static_cast<int>(index);
 			}
 		}
 		return -1;

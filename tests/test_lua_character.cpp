@@ -167,7 +167,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getBaseStat"));
 		lua.push("arcane");
 		lua.call(1, 1);
-		float value = lua_tonumber(lua, -1);
+		float value = static_cast<float>(lua_tonumber(lua, -1));
 		lua.pop(1);
 		equalsDelta(5.0f, value, 0.0001f);
 

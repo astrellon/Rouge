@@ -497,7 +497,7 @@ namespace game {
 			StatModifierType type = MOD_ADD;
 			if (lua_isnumber(lua, -1))
 			{
-				value = lua_tonumber(lua, -1);
+				value = lua_tofloat(lua, -1);
 			}
 			else if (lua_isstring(lua, -1))
 			{

@@ -90,7 +90,7 @@ namespace gfx {
 			});
 
 			TextStyle result;
-			for (int i = 0; i < found.size(); i++)
+			for (size_t i = 0; i < found.size(); i++)
 			{
 				stringstream ss;
 				if (found[i].second.hasColour())

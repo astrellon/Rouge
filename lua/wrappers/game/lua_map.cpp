@@ -276,7 +276,7 @@ namespace game {
 		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
 		{
 			GameObject *object = (GameObject *)(lua_touserdata(lua, -1));
-			map->isValidLocation(lua_tonumber(lua, -3), lua_tonumber(lua, -2), object);
+			map->isValidLocation(lua_tofloat(lua, -3), lua_tofloat(lua, -2), object);
 		}
 		lua_pushnil(lua);
 		return 1;

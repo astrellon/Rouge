@@ -132,7 +132,7 @@ namespace game {
 			{
 				if (lua_isnumber(lua, -1))
 				{
-					float value = lua_tonumber(lua, -1);
+					float value = lua_tofloat(lua, -1);
 					stats->setBaseStat(stat, value);
 				}
 			}
@@ -164,7 +164,7 @@ namespace game {
 			int args = lua_gettop(lua);
 			if (args == 5)
 			{
-				bool magical = lua_toboolean(lua, -1);
+				bool magical = lua_tobool(lua, -1);
 				StatModifierType type = getStatModifier(lua, -2);
 				if (!lua_isnumber(lua, -3)) 
 				{
@@ -202,7 +202,7 @@ namespace game {
 			int args = lua_gettop(lua);
 			if (args == 5)
 			{
-				bool magical = lua_toboolean(lua, -1);
+				bool magical = lua_tobool(lua, -1);
 				StatModifierType type = getStatModifier(lua, -2);
 				if (!lua_isnumber(lua, -3)) 
 				{

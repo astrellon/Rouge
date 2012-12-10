@@ -138,8 +138,8 @@ namespace game {
 			return;
 		}
 
-		float localX = e->getLocalMouseX();
-		float localY = e->getLocalMouseY();
+		float localX = static_cast<float>(e->getLocalMouseX());
+		float localY = static_cast<float>(e->getLocalMouseY());
 		
 		if (localX < 0 || localY < 0 ||
 			localX > mCurrentMap->getWidth() ||
