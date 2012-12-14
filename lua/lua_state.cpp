@@ -479,7 +479,7 @@ namespace lua {
 	int LuaState::getWrapper(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		for (int i = 1; i < args; i++)
+		for (int i = 1; i <= args; i++)
 		{
 			if (lua_isstring(lua, i))
 			{

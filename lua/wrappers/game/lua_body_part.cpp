@@ -11,7 +11,10 @@ extern "C"
 using namespace am::lua;
 
 #include <game/body_part.h>
+#include <game/item.h>
 using namespace am::game;
+
+#include <lua/wrappers/game/lua_item.h>
 
 namespace am {
 namespace lua {
@@ -56,8 +59,8 @@ namespace game {
 			{ "new", BodyPart_ctor },
 			{ "__gc",  BodyPart_dtor },
 			{ "get_name", BodyPart_get_name },
-			{ "set_equipped_item", NULL },
-			{ "get_equipped_item", NULL },
+			{ "set_equipped_item", BodyPart_set_equipped_item },
+			{ "get_equipped_item", BodyPart_get_equipped_item },
 			{ NULL, NULL }
 		};
 
@@ -87,6 +90,31 @@ namespace game {
 		return 1;
 	}
 
+	int BodyPart_set_equipped_item(lua_State *lua)
+	{
+		BodyPart *part = Check_BodyPart(lua, 1);
+		Item *item = Check_Item(lua, 2);
+		if (part)
+		{
+			part->setEquippedItem(item);
+		}
+		return 0;
+	}
+	int BodyPart_get_equipped_item(lua_State *lua)
+	{
+		BodyPart *part = Check_BodyPart(lua, 1);
+		if (part)
+		{
+			Item *item = part->getEqippedItem();
+			if (item)
+			{
+				Item_wrap(lua, item);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
 }
 }
 }

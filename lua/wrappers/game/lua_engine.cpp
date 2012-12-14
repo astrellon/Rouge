@@ -18,6 +18,8 @@ using namespace am::game;
 #include "lua_game.h"
 #include "lua_character.h"
 #include "lua_item.h"
+#include "lua_race.h"
+#include "lua_tile_type.h"
 
 namespace am {
 namespace lua {
@@ -204,6 +206,104 @@ namespace game {
 			Engine::getEngine()->deregisterGameObject(obj);
 		}
 		return 0;
+	}
+
+	int Engine_add_race(lua_State *lua)
+	{
+		Race *race = Check_Race(lua, -1);
+		if (race)
+		{
+			lua_pushboolean(lua, Engine::getEngine()->addRace(race));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Engine_remove_race(lua_State *lua)
+	{
+		Race *race = NULL;
+		if (lua_isstring(lua, -1))
+		{
+			race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
+		}
+		else if (lua_isuserdata(lua, -1))
+		{
+			race = Check_Race(lua, -1);
+		}
+		else
+		{
+			lua_pushnil(lua);
+			return 1;
+		}
+
+		if (race)
+		{
+			lua_pushboolean(lua, Engine::getEngine()->removeRace(race));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Engine_get_race(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
+			if (race)
+			{
+				Race_wrap(lua, race);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Engine_get_unknown_race(lua_State *lua)
+	{
+		Race *race = Engine::getEngine()->getUnknownRace();
+		if (race)
+		{
+			Race_wrap(lua, race);
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Engine_add_tile_type(lua_State *lua)
+	{
+		TileType *type = Check_TileType(lua, -1);
+		if (type)
+		{
+			Engine::getEngine()->addTileType(type);
+		}
+		return 0;
+	}
+	int Engine_get_tile_type(lua_State *lua)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
+			if (type)
+			{
+				TileType_wrap(lua, type);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Engine_get_game(lua_State *lua)
+	{
+		Game *game = Engine::getGame();
+		if (game)
+		{
+			Game_wrap(lua, game);
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
 	}
 
 }

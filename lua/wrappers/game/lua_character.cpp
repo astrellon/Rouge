@@ -23,6 +23,7 @@ using namespace am::game;
 #include "lua_tile_type.h"
 #include "../lua_event_manager.h"
 #include "lua_coin_purse.h"
+#include "lua_race.h"
 
 namespace am {
 namespace lua {
@@ -432,9 +433,18 @@ namespace game {
 	int Character_set_race(lua_State *lua)
 	{
 		Character *obj = Check_Character(lua, 1);
-		if (obj && lua_isstring(lua, -1))
+		if (obj)
 		{
-			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
+			Race *race = NULL;
+			if (lua_isstring(lua, 2))
+			{
+				race = Engine::getEngine()->getRace(lua_tostring(lua, 2));
+			}
+			else
+			{
+				race = Check_Race(lua, 2);
+			}
+
 			if (race)
 			{
 				obj->setRace(race);
@@ -450,11 +460,11 @@ namespace game {
 			Race *race = obj->getRace();
 			if (race)
 			{
-				lua_pushstring(lua, obj->getRace()->getRaceName());
+				Race_wrap(lua, obj->getRace());
 			}
 			else
 			{
-				lua_pushstring(lua, Engine::getEngine()->getUnknownRace()->getRaceName());
+				Race_wrap(lua, Engine::getEngine()->getUnknownRace());
 			}
 			return 1;
 		}
@@ -615,8 +625,9 @@ namespace game {
 	{
 		Character *obj = Check_Character(lua, 1);
 		Map *map = Check_Map(lua, 2);
-		if (obj && map)
+		if (obj)
 		{
+			// Can be set to nil
 			obj->setMap(map);
 		}
 		return 0;

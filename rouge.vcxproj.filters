@@ -682,6 +682,9 @@
     <ClCompile Include="sys\mem_test_system.cpp">
       <Filter>sys\mem</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\game\lua_race.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1245,6 +1248,9 @@
     </ClInclude>
     <ClInclude Include="sys\mem_test_system.h">
       <Filter>sys\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\game\lua_race.h">
+      <Filter>lua\wrapper\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

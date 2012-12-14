@@ -23,6 +23,9 @@ namespace game {
 
 	int BodyPart_get_name(lua_State *lua);
 
+	int BodyPart_set_equipped_item(lua_State *lua);
+	int BodyPart_get_equipped_item(lua_State *lua);
+
 	am::game::BodyPart *Check_BodyPart(lua_State *lua, int n);
 
 }
