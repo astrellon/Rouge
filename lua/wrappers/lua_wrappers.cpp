@@ -18,11 +18,13 @@
 #include "game/lua_coin_purse.h"
 #include "game/lua_dialogue.h"
 #include "game/lua_race.h"
+using namespace am::lua::game;
+
+#include "gfx/lua_sprite.h"
+using namespace am::lua::gfx;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
-
-using namespace am::lua::game;
 
 namespace am {
 namespace lua {
@@ -47,6 +49,8 @@ namespace wrapper {
 		LuaState::registerWrapper("Quest", Quest_register);
 		LuaState::registerWrapper("Dialogue", Dialogue_register);
 		LuaState::registerWrapper("Race", Race_register);
+
+		LuaState::registerWrapper("Sprite", Sprite_register);
 
 		//LuaState::registerWrapper("EventManager", am::lua::ui::EventManager_register);
 	}

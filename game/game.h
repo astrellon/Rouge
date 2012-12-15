@@ -40,6 +40,7 @@ namespace game {
 		bool addMap(Map *map);
 		bool removeMap(Map *map);
 		bool removeMap(const char *mapName);
+		void removeAllMaps();
 
 		Map *getMapLua(const char *mapName);
 		Map *getMapLua(const string &mapName);

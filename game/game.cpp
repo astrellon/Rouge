@@ -268,6 +268,10 @@ namespace game {
 		}
 		return false;
 	}
+	void Game::removeAllMaps()
+	{
+		mMaps.clear();
+	}
 	
 	void Game::setCurrentMap(Map *map, bool addMap)
 	{

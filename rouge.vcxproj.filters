@@ -115,6 +115,9 @@
     <Filter Include="sys\mem">
       <UniqueIdentifier>{64b317d7-4105-45aa-8438-cf135cbaf096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua\wrapper\gfx">
+      <UniqueIdentifier>{db30da4d-fdb9-4444-8f59-df979d0968a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -685,6 +688,9 @@
     <ClCompile Include="lua\wrappers\game\lua_race.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\gfx\lua_sprite.cpp">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1251,6 +1257,9 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_race.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\gfx\lua_sprite.h">
+      <Filter>lua\wrapper\gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

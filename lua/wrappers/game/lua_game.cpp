@@ -56,6 +56,9 @@ namespace game {
 		{
 			{ "new", Game_ctor },
 			{ "__gc", Game_dtor },
+			{ "add_map", Game_add_map },
+			{ "remove_map", Game_remove_map },
+			{ "remove_all_maps", Game_remove_all_maps },
 			{ "get_map", Game_get_map },
 			{ "get_current_map", Game_get_current_map },
 			{ "set_current_map", Game_set_current_map },
@@ -81,6 +84,48 @@ namespace game {
 	Game *Check_Game(lua_State *lua, int n)
 	{
 		return *(Game **)luaL_checkudata(lua, n, Game_tableName);
+	}
+
+	int Game_add_map(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		Map *map = Check_Map(lua, 2);
+		if (game && map)
+		{
+			lua_pushboolean(lua, game->addMap(map));
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Game_remove_map(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game)
+		{
+			if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, game->removeMap(lua_tostring(lua, -1)));
+				return 1;
+			}
+			Map *map = Check_Map(lua, -1);
+			if (map)
+			{
+				lua_pushboolean(lua, game->removeMap(map));
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Game_remove_all_maps(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game)
+		{
+			game->removeAllMaps();
+		}
+		return 0;
 	}
 
 	int Game_get_map(lua_State *lua)

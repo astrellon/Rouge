@@ -333,7 +333,10 @@ namespace sys {
 
 		mPausedGame = false;
 
-		game->setCurrentMap("testMap");
+		//game->setCurrentMap("testMap");
+		LuaState lua;
+		luaL_loadfile(lua, "data/maps/testMap_2.lua");
+
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		Race *human = new Race("human");

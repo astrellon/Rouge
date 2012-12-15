@@ -20,6 +20,10 @@ namespace game {
 	int Game_dtor(lua_State *lua);
 	int Game_register(lua_State *lua);
 
+	int Game_add_map(lua_State *lua);
+	int Game_remove_map(lua_State *lua);
+	int Game_remove_all_maps(lua_State *lua);
+
 	int Game_get_map(lua_State *lua);
 	int Game_get_current_map(lua_State *lua);
 	int Game_set_current_map(lua_State *lua);
