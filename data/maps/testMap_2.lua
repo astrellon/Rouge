@@ -28,9 +28,13 @@ map:set_tiles({
 npc1 = Character.new("npc1")
 npc1:set_grid_location(2, 0)
 npc1:set_graphic(Sprite.new("characters/npc/front"))
+npc1:set_name("John")
 map:add_game_object(npc1)
 
 npc2 = Character.new("npc2")
 npc2:set_grid_location(4, 1)
+npc2:set_name("Fred")
 npc2:set_graphic(Sprite.new("characters/npc/front"))
 map:add_game_object(npc2)
+
+game:set_current_map(map)

@@ -56,6 +56,9 @@ namespace game {
 
 	int Character_get_coin_purse(lua_State *lua);
 
+	int Character_set_graphic(lua_State *lua);
+	int Character_get_graphic(lua_State *lua);
+
 	int Character_set_location(lua_State *lua);
 	int Character_get_location(lua_State *lua);
 

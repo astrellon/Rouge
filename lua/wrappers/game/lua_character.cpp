@@ -25,6 +25,9 @@ using namespace am::game;
 #include "lua_coin_purse.h"
 #include "lua_race.h"
 
+#include <lua/wrappers/gfx/lua_sprite.h>
+using namespace am::lua::gfx;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -100,6 +103,8 @@ namespace game {
 			{ "set_gender", Character_set_gender },
 			{ "get_gender", Character_get_gender },
 			{ "get_coin_purse", Character_get_coin_purse },
+			{ "set_graphic", Character_set_graphic },
+			{ "get_graphic", Character_get_graphic },
 			// GameObject methods
 			{ "set_location", Character_set_location },
 			{ "get_location", Character_get_location },
@@ -513,6 +518,40 @@ namespace game {
 		{
 			CoinPurse_wrap(lua, obj->getCoinPurse());
 			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_graphic(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			if (lua_isstring(lua, -1))
+			{
+				obj->setGraphic(new Sprite(lua_tostring(lua, -1)));
+			}
+			else
+			{
+				Sprite *sprite = Check_Sprite(lua, -1);
+				// Can be nil
+				obj->setGraphic(sprite);
+			}
+		}
+		return 0;
+	}
+	int Character_get_graphic(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			Sprite *sprite = obj->getGraphic();
+			if (sprite)
+			{
+				Sprite_wrap(lua, sprite);
+				return 1;
+			}
 		}
 		lua_pushnil(lua);
 		return 1;

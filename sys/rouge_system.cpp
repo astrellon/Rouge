@@ -89,13 +89,13 @@ namespace sys {
 		GameSystem::init();
 		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		TextStyle::loadStylesLua("data/textStyles.lua");
-
+		/*
 		LuaState lua;
 		if (!lua.loadFile("data/dialogue.lua"))
 		{
 			lua.logStack("DIAG");
 		}
-
+		*/
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
@@ -335,14 +335,28 @@ namespace sys {
 
 		//game->setCurrentMap("testMap");
 		LuaState lua;
-		luaL_loadfile(lua, "data/maps/testMap_2.lua");
+		int loadResult = luaL_loadfile(lua, "data/maps/testMap_2.lua");
+		{
+			stringstream ss;
+			ss << "Load result: " << loadResult;
+			am_log("LOAD", ss);
+		}
+		// Load file returns false when there are no errors.
+		if (loadResult)
+		{
+			lua.logStack("ERR LOADING");
+		}
+		else
+		{
+			lua.call(0, 0);
+		}
 
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		Race *human = new Race("human");
 		Engine::getEngine()->addRace(human);
 		
-		Handle<Character> npc(new Character());
+		/*Handle<Character> npc(new Character());
 		npc->setName("NPC");
 		npc->addPassibleType(Engine::getEngine()->getTileType("land"));
 		npc->setGraphic(new Sprite("characters/npc/front"));
@@ -353,7 +367,7 @@ namespace sys {
 		comp->setDialogueAvailable("diag2");
 		comp->setDialogueAvailable("diag3");
 		comp->setStartDialogue(game->getDialogue("diag1"));
-		game->addGameObject(npc);
+		game->addGameObject(npc);*/
 
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);
