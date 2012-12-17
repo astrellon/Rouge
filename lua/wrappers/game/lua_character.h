@@ -84,6 +84,9 @@ namespace game {
 
 	int Character_get_by_game_id(lua_State *lua);
 
+	int Character_set_dialogue_component(lua_State *lua);
+	int Character_get_dialogue_component(lua_State *lua);
+
 	int Character_set_game_id(lua_State *lua);
 	int Character_get_game_id(lua_State *lua);
 

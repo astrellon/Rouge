@@ -110,9 +110,17 @@ namespace game {
 	int DialogueComponent_set_start_dialogue(lua_State *lua)
 	{
 		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
-		Dialogue *diag = Check_Dialogue(lua, -1);
 		if (comp)
 		{
+			Dialogue *diag = NULL;
+			if (lua_isstring(lua, -1))
+			{
+				diag = Engine::getGame()->getDialogue(lua_tostring(lua, -1));
+			}
+			else
+			{
+				diag = Check_Dialogue(lua, -1);
+			}
 			comp->setStartDialogue(diag);
 		}
 		return 0;

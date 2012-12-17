@@ -13,6 +13,7 @@ using namespace am::lua;
 #include <game/character.h>
 #include <game/race.h>
 #include <game/engine.h>
+#include <game/dialogue_component.h>
 using namespace am::game;
 
 #include "lua_stats.h"
@@ -24,6 +25,7 @@ using namespace am::game;
 #include "../lua_event_manager.h"
 #include "lua_coin_purse.h"
 #include "lua_race.h"
+#include "lua_dialogue_component.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
 using namespace am::lua::gfx;
@@ -125,6 +127,8 @@ namespace game {
 			{ "set_game_id", Character_set_game_id },
 			{ "get_game_id", Character_get_game_id },
 			{ "get_by_game_id", Character_get_by_game_id },
+			{ "set_dialogue_component", Character_set_dialogue_component },
+			{ "get_dialogue_component", Character_get_dialogue_component },
 			// EventListener methods
 			{ "add_event_listener", Character_add_event_listener },
 			{ "remove_event_listener", Character_remove_event_listener },
@@ -756,6 +760,39 @@ namespace game {
 			if (obj)
 			{
 				Character_wrap(lua, obj);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Character_set_dialogue_component(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		DialogueComponent *comp = Check_DialogueComponent(lua, 2);
+		if (obj)
+		{
+			if (lua_isboolean(lua, 3))
+			{
+				obj->setDialogueComp(comp, lua_tobool(lua, 3));
+			}
+			else
+			{
+				obj->setDialogueComp(comp);
+			}
+		}
+		return 0;
+	}
+	int Character_get_dialogue_component(lua_State *lua)
+	{
+		Character *obj = Check_Character(lua, 1);
+		if (obj)
+		{
+			DialogueComponent *comp = obj->getDialogueComp();
+			if (comp)
+			{
+				DialogueComponent_wrap(lua, comp);
 				return 1;
 			}
 		}

@@ -1,6 +1,7 @@
 -- Test Lua Map
 -- Game Imports
 Map, Engine, Game, Character, Dialogue = import("Map", "Engine", "Game", "Character", "Dialogue")
+DialogueComponent = import("DialogueComponent")
 -- Gfx Imports
 Sprite = import("Sprite")
 
@@ -42,6 +43,14 @@ npc1:set_grid_location(2, 0)
 npc1:set_graphic(Sprite.new("characters/npc/front"))
 npc1:set_name("John")
 map:add_game_object(npc1)
+
+comp = DialogueComponent.new(npc1)
+npc1:set_dialogue_component(comp)
+comp:set_dialogue_available("diag1")
+comp:set_dialogue_available("diag2")
+comp:set_dialogue_available("diag3")
+comp:set_start_dialogue("diag1")
+
 
 npc2 = Character.new("npc2")
 npc2:set_grid_location(4, 1)

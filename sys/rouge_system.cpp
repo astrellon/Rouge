@@ -367,7 +367,7 @@ namespace sys {
 		comp->setDialogueAvailable("diag2");
 		comp->setDialogueAvailable("diag3");
 		comp->setStartDialogue(game->getDialogue("diag1"));
-		game->addGameObject(npc);*/
+		game->addGameObjectToMap(npc);*/
 
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);

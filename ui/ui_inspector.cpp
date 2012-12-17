@@ -111,7 +111,7 @@ namespace ui {
 					return;
 				}
 				Character *character = dynamic_cast<Character *>(clickedOn);
-				Character *mainChar = Engine::getEngine()->getCurrentGame()->getMainCharacter();
+				Character *mainChar = Engine::getGame()->getMainCharacter();
 				if (mainChar && mainChar->getDialogueComp() && character && character->getDialogueComp())
 				{
 					mainChar->getDialogueComp()->talkTo(character);
