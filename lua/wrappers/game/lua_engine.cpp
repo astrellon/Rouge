@@ -156,7 +156,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			GameObject *obj = Engine::getEngine()->getByGameId(lua_tostring(lua, -1));
+			GameObject *obj = Engine::getEngine()->getGameObject(lua_tostring(lua, -1));
 			if (obj)
 			{
 				Character *character = dynamic_cast<Character *>(obj);

@@ -67,19 +67,19 @@ namespace sys {
 			mainChar->setName("Melli");
 			game->setMainCharacter(mainChar);
 			game->registerGameObject(mainChar);
-			game->addGameObject(mainChar);
+			game->addGameObjectToMap(mainChar);
 
 			Handle<Character> npc(new Character());
 			npc->setName("Townsman");
 			game->registerGameObject(npc);
-			game->addGameObject(npc);
+			game->addGameObjectToMap(npc);
 
 			Handle<Item> sword(new Item());
 			sword->setItemFullname("Sword", "Iron", "of stab");
 			sword->setItemType(ItemCommon::SWORD);
 			sword->getStatModifiers().addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
 			sword->getStatModifiers().addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
-			game->addGameObject(sword);
+			game->addGameObjectToMap(sword);
 		}
 		{
 			Handle<Game> game2(new Game());

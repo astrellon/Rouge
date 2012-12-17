@@ -324,7 +324,7 @@ namespace game {
 		setCurrentMap(getMapLua(mapName));
 	}
 
-	bool Game::addGameObject(GameObject *object)
+	bool Game::addGameObjectToMap(GameObject *object)
 	{
 		if (mCurrentMap.get() == NULL)
 		{
@@ -345,7 +345,7 @@ namespace game {
 		}
 		return false;
 	}
-	bool Game::removeGameObject(GameObject *object)
+	bool Game::removeGameObjectFromMap(GameObject *object)
 	{
 		if (mCurrentMap.get() == NULL)
 		{
@@ -366,7 +366,7 @@ namespace game {
 		}
 		return false;
 	}
-	bool Game::hasGameObject(GameObject *object) const
+	bool Game::hasGameObjectInMap(GameObject *object) const
 	{
 		if (mCurrentMap.get() == NULL)
 		{
@@ -479,7 +479,7 @@ namespace game {
 		mCamera.update(dt);
 	}
 
-	GameObject *Game::getByGameId(const char *id) const
+	GameObject *Game::getGameObject(const char *id) const
 	{
 		if (id == NULL || id[0] == '\0')
 		{

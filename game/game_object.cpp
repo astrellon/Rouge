@@ -283,7 +283,7 @@ namespace game {
 		{
 			return false;
 		}
-		if (game->getByGameId(id) != NULL)
+		if (game->getGameObject(id) != NULL)
 		{
 			return false;
 		}
@@ -379,7 +379,7 @@ namespace game {
 	{
 		return sGameIdCount++;
 	}
-	GameObject *GameObject::getByGameId(const char *id)
+	GameObject *GameObject::getGameObject(const char *id)
 	{
 		if (id == NULL || id[0] == '\0')
 		{

@@ -8,7 +8,6 @@ extern "C"
 namespace am {
 namespace game {
 	class Map;
-	class GameObject;
 }
 
 namespace lua {
@@ -46,8 +45,6 @@ namespace game {
 	int Map_load_def(lua_State *lua);
 
 	am::game::Map *Check_Map(lua_State *lua, int n);
-
-	am::game::GameObject *getGameObject(lua_State *lua, int n);
 
 }
 }

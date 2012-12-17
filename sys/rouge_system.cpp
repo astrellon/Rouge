@@ -390,7 +390,7 @@ namespace sys {
 		stats.setBaseStat(Stat::DIVINE, 5);
 		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
 		stats.setBaseStat(Stat::MAX_DAMAGE, 7);
-		game->addGameObject(mPlayer.get());
+		game->addGameObjectToMap(mPlayer.get());
 
 		Handle<Item> sword(new Item());
 		sword->loadFromLua("sword");

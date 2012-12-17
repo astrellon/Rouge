@@ -13,7 +13,6 @@ using namespace am::lua;
 #include <game/map.h>
 #include <game/tile_instance.h>
 #include <game/character.h>
-#include <game/item.h>
 #include <game/game.h>
 #include <game/engine.h>
 using namespace am::game;
@@ -21,7 +20,7 @@ using namespace am::game;
 #include "lua_tile.h"
 #include "lua_tile_instance.h"
 #include "lua_character.h"
-#include "lua_item.h"
+#include "lua_game.h"
 
 #include <log/logger.h>
 
@@ -246,11 +245,8 @@ namespace game {
 		if (map)
 		{
 			GameObject *obj = getGameObject(lua, -1);
-			if (obj)
-			{
-				lua_pushboolean(lua, map->addGameObject(obj));
-				return 1;
-			}
+			lua_pushboolean(lua, map->addGameObject(obj));
+			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -261,11 +257,8 @@ namespace game {
 		if (map)
 		{
 			GameObject *obj = getGameObject(lua, -1);
-			if (obj)
-			{
-				lua_pushboolean(lua, map->removeGameObject(obj));
-				return 1;
-			}
+			lua_pushboolean(lua, map->removeGameObject(obj));
+			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -288,8 +281,11 @@ namespace game {
 		Map *map = Check_Map(lua, 1);
 		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
 		{
-			GameObject *object = (GameObject *)(lua_touserdata(lua, -1));
-			map->isValidLocation(lua_tofloat(lua, -3), lua_tofloat(lua, -2), object);
+			GameObject *obj = getGameObject(lua, -1);
+			if (obj)
+			{
+				map->isValidLocation(lua_tofloat(lua, -3), lua_tofloat(lua, -2), obj);
+			}
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -299,8 +295,11 @@ namespace game {
 		Map *map = Check_Map(lua, 1);
 		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
 		{
-			GameObject *object = (GameObject *)(lua_touserdata(lua, -1));
-			map->isValidGridLocation(lua_tointeger(lua, -3), lua_tointeger(lua, -2), object);
+			GameObject *obj = getGameObject(lua, -1);
+			if (obj)
+			{
+				map->isValidGridLocation(lua_tointeger(lua, -3), lua_tointeger(lua, -2), obj);
+			}
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -315,28 +314,6 @@ namespace game {
 			map->loadDef(wrap);
 		}
 		return 0;
-	}
-
-	am::game::GameObject *getGameObject(lua_State *lua, int n)
-	{
-		if (lua_isstring(lua, -1))
-		{
-			return Engine::getGame()->getByGameId(lua_tostring(lua, -1));
-		}
-		else if (lua_isuserdata(lua, -1))
-		{
-			Character *obj = Check_Character(lua, -1);
-			if (obj)
-			{
-				return obj;
-			}
-			Item *item = Check_Item(lua, -1);
-			if (item)
-			{
-				return item;
-			}
-		}
-		return NULL;
 	}
 
 }

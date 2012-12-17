@@ -318,11 +318,11 @@ namespace game {
 		return NULL;
 	}
 
-	GameObject *Engine::getByGameId(const char *id) const
+	GameObject *Engine::getGameObject(const char *id) const
 	{
 		if (mCurrentGame.get())
 		{
-			return mCurrentGame->getByGameId(id);
+			return mCurrentGame->getGameObject(id);
 		}
 		return NULL;
 	}

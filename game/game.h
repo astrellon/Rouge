@@ -55,9 +55,9 @@ namespace game {
 		Layer *getCharacterLayer();
 		Layer *getForeground();
 
-		bool addGameObject(GameObject *object);
-		bool removeGameObject(GameObject *object);
-		bool hasGameObject(GameObject *object) const;
+		bool addGameObjectToMap(GameObject *object);
+		bool removeGameObjectFromMap(GameObject *object);
+		bool hasGameObjectInMap(GameObject *object) const;
 
 		void moveObjectToMap(GameObject *object, const char *mapName, float x, float y, bool setAsCurrent = true);
 		void moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent = true);
@@ -74,7 +74,7 @@ namespace game {
 		void update(float dt);
 
 		// GameObject
-		GameObject *getByGameId(const char *id) const;
+		GameObject *getGameObject(const char *id) const;
 		void registerGameObject(GameObject *obj);
 		void deregisterGameObject(const char *id);
 		void deregisterGameObject(GameObject *obj);

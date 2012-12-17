@@ -1,6 +1,6 @@
 -- Test Lua Map
 -- Game Imports
-Map, Engine, Game, Character = import("Map", "Engine", "Game", "Character")
+Map, Engine, Game, Character, Dialogue = import("Map", "Engine", "Game", "Character", "Dialogue")
 -- Gfx Imports
 Sprite = import("Sprite")
 
@@ -24,6 +24,18 @@ map:set_tiles({
 	"brick:2", "brick:2", "grass:0", "swamp", "water", "water",
 	"brick:2", "brick:2", "grass:3", "swamp", "water", "water"
 })
+
+diag = Dialogue.new("diag1",
+	"Hello there ${char main} <? #='HART' @='diag2'>Next</?>")
+Dialogue.add_dialogue(diag)
+
+diag = Dialogue.new("diag2",
+	"My name is <? #='name' @='diag3'>Melli</?> How are you today?",
+	"How Are", "how_are", "locked")
+Dialogue.add_dialogue(diag)
+
+diag = Dialogue.new("diag3", "Melli is my name, <x>good bye</x>", "Name", "name", "locked")
+Dialogue.add_dialogue(diag)
 
 npc1 = Character.new("npc1")
 npc1:set_grid_location(2, 0)

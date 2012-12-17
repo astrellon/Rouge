@@ -41,7 +41,7 @@ namespace game {
 			return 1;
 		}
 
-		Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getByGameId(id));
+		Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id));
 		if (obj == NULL)
 		{
 			obj = new Character();
@@ -752,7 +752,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getByGameId(lua_tostring(lua, -1)));
+			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
 			if (obj)
 			{
 				Character_wrap(lua, obj);

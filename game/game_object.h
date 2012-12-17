@@ -73,7 +73,7 @@ namespace game {
 		virtual const char *getGameId() const;
 
 		//static int nextGameId();
-		//static GameObject *getByGameId(const char *id);
+		//static GameObject *getGameObject(const char *id);
 
 	protected:
 

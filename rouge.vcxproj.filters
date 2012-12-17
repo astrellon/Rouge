@@ -691,6 +691,9 @@
     <ClCompile Include="lua\wrappers\gfx\lua_sprite.cpp">
       <Filter>lua\wrapper\gfx</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\game\lua_dialogue_component.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1260,6 +1263,9 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\gfx\lua_sprite.h">
       <Filter>lua\wrapper\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\game\lua_dialogue_component.h">
+      <Filter>lua\wrapper\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

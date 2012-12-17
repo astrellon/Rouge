@@ -498,7 +498,7 @@ namespace game {
 	{
 		if (lua_isstring(lua, -1))
 		{
-			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getByGameId(lua_tostring(lua, -1)));
+			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
 			if (item)
 			{
 				Item_wrap(lua, item);

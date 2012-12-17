@@ -37,7 +37,7 @@ namespace tests {
 		assert(loadResult);
 		
 		{
-			Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getByGameId("testItem")));
+			Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject("testItem")));
 			assert(item != NULL);
 
 			equals(2, item->getReferenceCounter());

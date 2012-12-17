@@ -13,10 +13,17 @@ using namespace am::lua;
 #include <game/game.h>
 #include <game/engine.h>
 #include <game/map.h>
+#include <game/character.h>
+#include <game/item.h>
+#include <game/dialogue.h>
+#include <game/quest.h>
 using namespace am::game;
 
 #include "lua_map.h"
 #include "lua_character.h"
+#include "lua_item.h"
+#include "lua_dialogue.h"
+#include "lua_quest.h"
 
 namespace am {
 namespace lua {
@@ -62,13 +69,27 @@ namespace game {
 			{ "get_map", Game_get_map },
 			{ "get_current_map", Game_get_current_map },
 			{ "set_current_map", Game_set_current_map },
-			{ "add_game_object", Game_add_game_object },
-			{ "remove_game_object", Game_remove_game_object },
-			{ "has_game_object", Game_has_game_object },
+			{ "add_game_object_to_map", Game_add_game_object_to_map },
+			{ "remove_game_object_from_map", Game_remove_game_object_from_map },
+			{ "has_game_object_in_map", Game_has_game_object_in_map },
 			{ "move_object_to_map", Game_move_object_to_map },
 			{ "move_object_to_map_grid", Game_move_object_to_map_grid },
 			{ "get_main_character", Game_get_main_character },
 			{ "set_main_character", Game_set_main_character },
+			// GameObject
+			{ "get_game_object", Game_get_game_object },
+			{ "register_game_object", Game_register_game_object },
+			{ "deregister_game_object", Game_deregister_game_object },
+			// Dialogue
+			{ "add_dialogue", Game_add_dialogue },
+			{ "remove_dialogue", Game_remove_dialogue },
+			{ "remove_all_dialogue", Game_remove_all_dialogue },
+			{ "get_dialogue", Game_get_dialogue },
+			{ "get_available_dialogues", Game_get_available_dialogues },
+			// Quest
+			{ "add_quest", Game_add_quest },
+			{ "remove_quest", Game_remove_quest },
+			{ "get_quest", Game_get_quest },
 			{ NULL, NULL }
 		};
 
@@ -176,37 +197,37 @@ namespace game {
 		return 0;
 	}
 
-	int Game_add_game_object(lua_State *lua)
+	int Game_add_game_object_to_map(lua_State *lua)
 	{
 		Game *game = Check_Game(lua, 1);
 		if (game && lua_isuserdata(lua, -1))
 		{
-			GameObject *obj = reinterpret_cast<GameObject *>(lua_touserdata(lua, -1));
-			lua_pushboolean(lua, game->addGameObject(obj));
+			GameObject *obj = getGameObject(lua, -1);
+			lua_pushboolean(lua, game->addGameObjectToMap(obj));
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_remove_game_object(lua_State *lua)
+	int Game_remove_game_object_from_map(lua_State *lua)
 	{
 		Game *game = Check_Game(lua, 1);
 		if (game && lua_isuserdata(lua, -1))
 		{
-			GameObject *obj = reinterpret_cast<GameObject *>(lua_touserdata(lua, -1));
-			lua_pushboolean(lua, game->removeGameObject(obj));
+			GameObject *obj = getGameObject(lua, -1);
+			lua_pushboolean(lua, game->removeGameObjectFromMap(obj));
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_has_game_object(lua_State *lua)
+	int Game_has_game_object_in_map(lua_State *lua)
 	{
 		Game *game = Check_Game(lua, 1);
 		if (game && lua_isuserdata(lua, -1))
 		{
-			GameObject *obj = reinterpret_cast<GameObject *>(lua_touserdata(lua, -1));
-			lua_pushboolean(lua, game->hasGameObject(obj));
+			GameObject *obj = getGameObject(lua, -1);
+			lua_pushboolean(lua, game->hasGameObjectInMap(obj));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -218,7 +239,7 @@ namespace game {
 		Game *game = Check_Game(lua, 1);
 		if (game)
 		{
-			GameObject *obj = reinterpret_cast<GameObject *>(lua_touserdata(lua, 2));
+			GameObject *obj = getGameObject(lua, 2);
 			if (obj)
 			{
 				Map *map = NULL;
@@ -251,7 +272,7 @@ namespace game {
 		Game *game = Check_Game(lua, 1);
 		if (game)
 		{
-			GameObject *obj = reinterpret_cast<GameObject *>(lua_touserdata(lua, 2));
+			GameObject *obj = getGameObject(lua, 2);
 			if (obj)
 			{
 				Map *map = NULL;
@@ -304,6 +325,172 @@ namespace game {
 			game->setMainCharacter(character);
 		}
 		return 0;
+	}
+
+	int Game_get_game_object(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			GameObject *obj = game->getGameObject(lua_tostring(lua, -1));
+			wrapGameObject(lua, obj);
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Game_register_game_object(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		GameObject *obj = getGameObject(lua, -1);
+		if (game && obj)
+		{
+			game->registerGameObject(obj);
+		}
+		return 0;
+	}
+	int Game_deregister_game_object(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		GameObject *obj = getGameObject(lua, -1);
+		if (game && obj)
+		{
+			game->deregisterGameObject(obj);
+		}
+		return 0;
+	}
+
+	int Game_add_dialogue(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		Dialogue *diag = Check_Dialogue(lua, -1);
+		if (game && diag)
+		{
+			lua_pushboolean(lua, game->addDialogue(diag));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Game_remove_dialogue(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			lua_pushboolean(lua, game->removeDialogue(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Game_remove_all_dialogue(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game)
+		{
+			game->removeAllDialogue();
+		}
+		return 0;
+	}
+	int Game_get_dialogue(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			Dialogue *diag = game->getDialogue(lua_tostring(lua, -1));
+			if (diag)
+			{
+				Dialogue_wrap(lua, diag);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	int Game_get_available_dialogues(lua_State *lua)
+	{
+		// TODO
+		return 0;
+	}
+
+	int Game_add_quest(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		Quest *quest = Check_Quest(lua, -1);
+		if (game && quest)
+		{
+			lua_pushboolean(lua, game->addQuest(quest));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Game_remove_quest(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			lua_pushboolean(lua, game->removeQuest(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	int Game_get_quest(lua_State *lua)
+	{
+		Game *game = Check_Game(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			Quest *quest = game->getQuest(lua_tostring(lua, -1));
+			if (quest)
+			{
+				Quest_wrap(lua, quest);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	am::game::GameObject *getGameObject(lua_State *lua, int n)
+	{
+		if (lua_isstring(lua, -1))
+		{
+			return Engine::getGame()->getGameObject(lua_tostring(lua, -1));
+		}
+		else if (lua_isuserdata(lua, -1))
+		{
+			Character *obj = Check_Character(lua, -1);
+			if (obj)
+			{
+				return obj;
+			}
+			Item *item = Check_Item(lua, -1);
+			if (item)
+			{
+				return item;
+			}
+		}
+		return NULL;
+	}
+	void wrapGameObject(lua_State *lua, am::game::GameObject *obj)
+	{
+		if (obj)
+		{
+			Character *isChar = dynamic_cast<Character *>(obj);
+			if (isChar)
+			{
+				Character_wrap(lua, isChar);
+				return;
+			}
+			Item *isItem = dynamic_cast<Item *>(obj);
+			if (isItem)
+			{
+				Item_wrap(lua, isItem);
+				return;
+			}
+		}
+		lua_pushnil(lua);
 	}
 
 }

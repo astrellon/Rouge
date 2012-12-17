@@ -53,7 +53,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getByGameId("char1"));
+		Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("char1"));
 		equalsStr("Melli", char1->getName().c_str());
 
 		assert(lua.hasGlobalFunction("getName"));
@@ -116,7 +116,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getByGameId("charGender"));
+		Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charGender"));
 		equals(static_cast<int>(Gender::MALE), static_cast<int>(charGender->getGender()));
 
 		assert(lua.hasGlobalFunction("getGender"));
@@ -159,7 +159,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getByGameId("charStats"));
+		Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
 		equalsDelta(0.0f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
 
 		charStats->getStats().setBaseStat(Stat::ARCANE, 5.0f);
@@ -204,7 +204,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Handle<Character> charBodyPart = dynamic_cast<Character *>(Engine::getEngine()->getByGameId("charBodyPart"));
+		Handle<Character> charBodyPart = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charBodyPart"));
 
 		assert(lua.hasGlobalFunction("hasBodyPart"));
 		lua.push("arm");
