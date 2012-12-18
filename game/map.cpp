@@ -225,21 +225,21 @@ namespace game {
 		
 		int gridXStart = static_cast<int>(x * respX);
 		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * respX);
-		if (gridXEnd >= mMapWidth)
+		if (gridXStart >= mMapWidth || gridXEnd > mMapWidth)
 		{
 			return false;
 		}
 
 		int gridYStart = static_cast<int>(y * respY);
 		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * respY);
-		if (gridYEnd >= mMapHeight)
+		if (gridYStart >= mMapHeight || gridYEnd > mMapHeight)
 		{
 			return false;
 		}
 
-		for (int x = gridXStart; x <= gridXEnd; x++)
+		for (int x = gridXStart; x < gridXEnd; x++)
 		{
-			for (int y = gridYStart; y <= gridYEnd; y++)
+			for (int y = gridYStart; y < gridYEnd; y++)
 			{
 				if (!_isValidGridLocation(x, y, forObject))
 				{
