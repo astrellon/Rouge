@@ -224,22 +224,26 @@ namespace game {
 		float respY = Engine::getEngine()->getGridYSizeResp();
 		
 		int gridXStart = static_cast<int>(x * respX);
-		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * respX);
-		if (gridXStart >= mMapWidth || gridXEnd > mMapWidth)
+		// There is a small amount deducted so that objects which are exactly the size of a tile will have
+		// the same start and end grid location and objects that are not the exact size will start and end
+		// in the tiles they are supposed to.
+		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * respX - 0.0001f);
+		if (gridXStart >= mMapWidth || gridXEnd >= mMapWidth)
 		{
 			return false;
 		}
 
 		int gridYStart = static_cast<int>(y * respY);
-		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * respY);
-		if (gridYStart >= mMapHeight || gridYEnd > mMapHeight)
+		// See above for explaination.
+		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * respY - 0.0001f);
+		if (gridYStart >= mMapHeight || gridYEnd >= mMapHeight)
 		{
 			return false;
 		}
 
-		for (int x = gridXStart; x < gridXEnd; x++)
+		for (int x = gridXStart; x <= gridXEnd; x++)
 		{
-			for (int y = gridYStart; y < gridYEnd; y++)
+			for (int y = gridYStart; y <= gridYEnd; y++)
 			{
 				if (!_isValidGridLocation(x, y, forObject))
 				{

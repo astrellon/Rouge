@@ -113,5 +113,40 @@ namespace tests {
 		return true;
 	}
 
+	bool TestMap::testValidTilesBig() 
+	{
+		TileType landType("land");
+		TileType waterType("water");
+
+		Handle<Tile> land(new Tile("land"));
+		Handle<Tile> water(new Tile("water"));
+		Handle<Tile> swamp(new Tile("swamp"));
+		land->addTileType(&landType);
+		water->addTileType(&waterType);
+		swamp->addTileType(&landType);
+		swamp->addTileType(&waterType);
+
+		Handle<Map> testMap(new Map("testMap", 3, 2));
+		TileInstance *tiles = testMap->getTiles();
+		tiles[0].setTile(land);
+		tiles[1].setTile(swamp);
+		tiles[2].setTile(water);
+		tiles[3].setTile(land);
+		tiles[4].setTile(swamp);
+		tiles[5].setTile(water);
+
+		float tileSizeX = Engine::getEngine()->getGridXSize();
+		float tileSizeY = Engine::getEngine()->getGridYSize();
+
+		Handle<GameObject> landObj(new GameObject());
+		landObj->addPassibleType(&landType);
+		landObj->setSize(2.0f * tileSizeX, 2.0f * tileSizeY);
+
+		equals(false, testMap->isValidLocation(1.5f * tileSizeX, 0.0f, landObj));
+		equals(true, testMap->isValidGridLocation(0.0f, 0.0f, landObj));
+
+		return true;
+	}
+
 }
 }
