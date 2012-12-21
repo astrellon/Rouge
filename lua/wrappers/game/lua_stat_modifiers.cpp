@@ -49,12 +49,21 @@ namespace game {
 		return 0;
 	}
 
+	int StatModifiers_eq(lua_State *lua)
+	{
+		StatModifiers *lhs = Check_StatModifiers(lua, 1);
+		StatModifiers *rhs = Check_StatModifiers(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int StatModifiers_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", StatModifiers_ctor },
 			{ "__gc",  StatModifiers_dtor },
+			{ "__eq", StatModifiers_eq },
 			{ "add_modifier", StatModifiers_add_modifier },
 			{ "remove_modifier", StatModifiers_remove_modifier },
 			{ "add_modifiers", StatModifiers_add_modifiers },

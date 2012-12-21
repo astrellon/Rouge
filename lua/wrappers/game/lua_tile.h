@@ -18,8 +18,8 @@ namespace game {
 
 	int Tile_ctor(lua_State *lua);
 	void Tile_wrap(lua_State *lua, am::game::Tile *tile);
-
 	int Tile_dtor(lua_State *lua);
+	int Tile_eq(lua_State *lua);
 	int Tile_register(lua_State *lua);
 
 	int Tile_get_name(lua_State *lua);

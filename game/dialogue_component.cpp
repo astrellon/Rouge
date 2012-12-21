@@ -34,6 +34,8 @@ namespace game {
 		setTalkingTo(other);
 		Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue()));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
+
+		other->fireEvent<DialogueEvent>(e);
 	}
 	void DialogueComponent::talkTo(GameObject *other, Dialogue *diag)
 	{
@@ -44,6 +46,8 @@ namespace game {
 		setTalkingTo(other);
 		Handle<DialogueEvent> e(new DialogueEvent(diag));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
+
+		other->fireEvent<DialogueEvent>(e);
 	}
 	GameObject *DialogueComponent::getTalkingTo() const
 	{

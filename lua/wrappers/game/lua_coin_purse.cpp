@@ -44,12 +44,21 @@ namespace game {
 		return 0;
 	}
 
+	int CoinPurse_eq(lua_State *lua)
+	{
+		CoinPurse *lhs = Check_CoinPurse(lua, 1);
+		CoinPurse *rhs = Check_CoinPurse(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int CoinPurse_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", CoinPurse_ctor },
 			{ "__gc", CoinPurse_dtor },
+			{ "__eq", CoinPurse_eq },
 			{ "set_coin", CoinPurse_set_coin },
 			{ "get_coin", CoinPurse_get_coin },
 			{ "can_add_coin", CoinPurse_can_add_coin },

@@ -58,12 +58,21 @@ namespace game {
 		return 0;
 	}
 
+	int TileType_eq(lua_State *lua)
+	{
+		TileType *lhs = Check_TileType(lua, 1);
+		TileType *rhs = Check_TileType(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int TileType_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", TileType_ctor },
-			{ "__gc",  TileType_dtor },
+			{ "__gc", TileType_dtor },
+			{ "__eq", TileType_eq },
 			{ "get_name", TileType_get_name },
 			{ "get_full_name", TileType_get_full_name },
 			{ "set_full_name", TileType_set_full_name },

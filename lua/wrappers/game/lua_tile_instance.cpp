@@ -56,12 +56,21 @@ namespace game {
 		return 0;
 	}
 
+	int TileInstance_eq(lua_State *lua)
+	{
+		TileInstance *lhs = Check_TileInstance(lua, 1);
+		TileInstance *rhs = Check_TileInstance(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int TileInstance_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", TileInstance_ctor },
-			{ "__gc",  TileInstance_dtor },
+			{ "__gc", TileInstance_dtor },
+			{ "__eq", TileInstance_eq },
 			{ "get_tile", TileInstance_get_tile },
 			{ "set_tile", TileInstance_set_tile },
 			{ "set_tile_name", TileInstance_set_tile_name },

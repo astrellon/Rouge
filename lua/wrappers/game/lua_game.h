@@ -19,6 +19,7 @@ namespace game {
 	int Game_ctor(lua_State *lua);
 	void Game_wrap(lua_State *lua, am::game::Game *game);
 	int Game_dtor(lua_State *lua);
+	int Game_eq(lua_State *lua);
 	int Game_register(lua_State *lua);
 
 	int Game_add_map(lua_State *lua);

@@ -17,8 +17,8 @@ namespace game {
 
 	int Race_ctor(lua_State *lua);
 	void Race_wrap(lua_State *lua, am::game::Race *race);
-
 	int Race_dtor(lua_State *lua);
+	int Race_eq(lua_State *lua);
 	int Race_register(lua_State *lua);
 
 	int Race_get_race_name(lua_State *lua);

@@ -17,8 +17,8 @@ namespace game {
 
 	int Quest_ctor(lua_State *lua);
 	void Quest_wrap(lua_State *lua, am::game::Quest *quest);
-
 	int Quest_dtor(lua_State *lua);
+	int Quest_eq(lua_State *lua);
 	int Quest_register(lua_State *lua);
 
 	int Quest_set_complete(lua_State *lua);

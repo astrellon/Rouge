@@ -17,8 +17,8 @@ namespace game {
 
 	int StatModifiers_ctor(lua_State *lua);
 	void StatModifiers_wrap(lua_State *lua, am::game::StatModifiers *modifiers);
-
 	int StatModifiers_dtor(lua_State *lua);
+	int StatModifiers_eq(lua_State *lua);
 	int StatModifiers_register(lua_State *lua);
 
 	int StatModifiers_add_modifier(lua_State *lua);

@@ -51,11 +51,20 @@ comp:set_dialogue_available("diag2")
 comp:set_dialogue_available("diag3")
 comp:set_start_dialogue("diag1")
 
-
 npc2 = Character.new("npc2")
 npc2:set_grid_location(4, 1)
 npc2:set_name("Fred")
 npc2:set_graphic(Sprite.new("characters/npc/front"))
 map:add_game_object(npc2)
+
+npc1:add_event_listener("dialogue", function(event)
+	mainChar = game:get_main_character()
+	talkingToMain = event.talker == mainChar
+	if (talkingToMain) then
+		am_log("Talking to main character")
+	else
+		am_log("Not talking to main character")
+	end
+end)
 
 game:set_current_map(map)

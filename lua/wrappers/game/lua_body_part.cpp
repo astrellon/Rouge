@@ -52,12 +52,21 @@ namespace game {
 		return 0;
 	}
 
+	int BodyPart_eq(lua_State *lua)
+	{
+		BodyPart *lhs = Check_BodyPart(lua, 1);
+		BodyPart *rhs = Check_BodyPart(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int BodyPart_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", BodyPart_ctor },
 			{ "__gc",  BodyPart_dtor },
+			{ "__eq", BodyPart_eq },
 			{ "get_name", BodyPart_get_name },
 			{ "set_equipped_item", BodyPart_set_equipped_item },
 			{ "get_equipped_item", BodyPart_get_equipped_item },

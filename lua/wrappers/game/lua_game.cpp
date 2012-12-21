@@ -57,12 +57,21 @@ namespace game {
 		return 0;
 	}
 
+	int Game_eq(lua_State *lua)
+	{
+		Game *lhs = Check_Game(lua, 1);
+		Game *rhs = Check_Game(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Game_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Game_ctor },
 			{ "__gc", Game_dtor },
+			{ "__eq", Game_eq },
 			{ "add_map", Game_add_map },
 			{ "remove_map", Game_remove_map },
 			{ "remove_all_maps", Game_remove_all_maps },

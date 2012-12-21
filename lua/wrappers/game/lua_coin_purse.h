@@ -18,6 +18,7 @@ namespace game {
 	int CoinPurse_ctor(lua_State *lua);
 	void CoinPurse_wrap(lua_State *lua, am::game::CoinPurse *CoinPurse);
 	int CoinPurse_dtor(lua_State *lua);
+	int CoinPurse_eq(lua_State *lua);
 	int CoinPurse_register(lua_State *lua);
 
 	int CoinPurse_set_coin(lua_State *lua);

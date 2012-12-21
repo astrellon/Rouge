@@ -48,12 +48,21 @@ namespace gfx {
 		return 0;
 	}
 
+	int Sprite_eq(lua_State *lua)
+	{
+		Sprite *lhs = Check_Sprite(lua, 1);
+		Sprite *rhs = Check_Sprite(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Sprite_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Sprite_ctor },
-			{ "__gc",  Sprite_dtor },
+			{ "__gc", Sprite_dtor },
+			{ "__eq", Sprite_eq },
 			{ "set_asset", Sprite_set_asset },
 			{ "get_asset", NULL },
 			{ "set_frame_rate", NULL },

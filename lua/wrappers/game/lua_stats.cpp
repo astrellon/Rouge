@@ -50,12 +50,21 @@ namespace game {
 		return 0;
 	}
 
+	int Stats_eq(lua_State *lua)
+	{
+		Stats *lhs = Check_Stats(lua, 1);
+		Stats *rhs = Check_Stats(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Stats_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Stats_ctor },
-			{ "__gc",  Stats_dtor },
+			{ "__gc", Stats_dtor },
+			{ "__eq", Stats_eq },
 			{ "get_base_stat", Stats_get_base_stat },
 			{ "set_base_stat", Stats_set_base_stat },
 			{ "get_stat", Stats_get_stat },

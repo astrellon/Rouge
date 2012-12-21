@@ -50,12 +50,21 @@ namespace game {
 		return 0;
 	}
 
+	int Item_eq(lua_State *lua)
+	{
+		Item *lhs = Check_Item(lua, 1);
+		Item *rhs = Check_Item(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Item_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Item_ctor },
 			{ "__gc",  Item_dtor },
+			{ "__eq", Item_eq },
 			// Item methods
 			{ "set_graphic", NULL },
 			{ "get_graphic", NULL },

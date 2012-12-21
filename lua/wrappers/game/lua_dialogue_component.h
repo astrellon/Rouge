@@ -17,6 +17,7 @@ namespace game {
 	int DialogueComponent_ctor(lua_State *lua);
 	void DialogueComponent_wrap(lua_State *lua, am::game::DialogueComponent *DialogueComponent);
 	int DialogueComponent_dtor(lua_State *lua);
+	int DialogueComponent_eq(lua_State *lua);
 	int DialogueComponent_register(lua_State *lua);
 
 	int DialogueComponent_talk_to(lua_State *lua);

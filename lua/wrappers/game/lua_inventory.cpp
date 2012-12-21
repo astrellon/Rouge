@@ -56,12 +56,21 @@ namespace game {
 		return 0;
 	}
 
+	int Inventory_eq(lua_State *lua)
+	{
+		Inventory *lhs = Check_Inventory(lua, 1);
+		Inventory *rhs = Check_Inventory(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Inventory_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Inventory_ctor },
 			{ "__gc",  Inventory_dtor },
+			{ "__eq", Inventory_eq },
 			{ "get_space", Inventory_get_space },
 			{ "has_space_for", Inventory_has_space_for },
 			{ "add_item", Inventory_add_item },

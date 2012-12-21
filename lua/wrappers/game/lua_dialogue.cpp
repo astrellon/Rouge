@@ -73,12 +73,21 @@ namespace game {
 		return 0;
 	}
 
+	int Dialogue_eq(lua_State *lua)
+	{
+		Dialogue *lhs = Check_Dialogue(lua, 1);
+		Dialogue *rhs = Check_Dialogue(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Dialogue_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Dialogue_ctor },
 			{ "__gc", Dialogue_dtor },
+			{ "__eq", Dialogue_eq },
 			{ "set_text", Dialogue_set_text },
 			{ "get_text", Dialogue_get_text },
 			{ "set_title", Dialogue_set_title },

@@ -17,8 +17,8 @@ namespace game {
 
 	int Item_ctor(lua_State *lua);
 	void Item_wrap(lua_State *lua, am::game::Item *item);
-
 	int Item_dtor(lua_State *lua);
+	int Item_eq(lua_State *lua);
 	int Item_register(lua_State *lua);
 
 	int Item_set_item_type(lua_State *lua);

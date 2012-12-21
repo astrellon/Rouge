@@ -100,9 +100,6 @@
     <Filter Include="lua\wrapper\game">
       <UniqueIdentifier>{a230bc82-6e08-4791-a96f-a45ce3b33935}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\components">
-      <UniqueIdentifier>{97144952-4823-40f8-9f23-5b98efbaa11b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="tests\ui">
       <UniqueIdentifier>{0b579d88-70dd-430a-aa7b-92b343813089}</UniqueIdentifier>
     </Filter>
@@ -601,12 +598,6 @@
     <ClCompile Include="tests\test_lua_dialogue.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
-    <ClCompile Include="game\component.cpp">
-      <Filter>game\components</Filter>
-    </ClCompile>
-    <ClCompile Include="game\dialogue_component.cpp">
-      <Filter>game\components</Filter>
-    </ClCompile>
     <ClCompile Include="gfx\gfx_component.cpp">
       <Filter>gfx\base</Filter>
     </ClCompile>
@@ -693,6 +684,9 @@
     </ClCompile>
     <ClCompile Include="lua\wrappers\game\lua_dialogue_component.cpp">
       <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\dialogue_component.cpp">
+      <Filter>game\dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1177,12 +1171,6 @@
     <ClInclude Include="tests\test_lua_dialogue.h">
       <Filter>tests\game</Filter>
     </ClInclude>
-    <ClInclude Include="game\component.h">
-      <Filter>game\components</Filter>
-    </ClInclude>
-    <ClInclude Include="game\dialogue_component.h">
-      <Filter>game\components</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\gfx_component.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
@@ -1266,6 +1254,9 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_dialogue_component.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\dialogue_component.h">
+      <Filter>game\dialogue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

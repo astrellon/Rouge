@@ -73,12 +73,21 @@ namespace game {
 		return 0;
 	}
 
+	int Character_eq(lua_State *lua)
+	{
+		Character *lhs = Check_Character(lua, 1);
+		Character *rhs = Check_Character(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Character_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Character_ctor },
 			{ "__gc", Character_dtor },
+			{ "__eq", Character_eq },
 			// Character methods
 			{ "get_name", Character_get_name },
 			{ "set_name", Character_set_name },

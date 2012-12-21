@@ -38,7 +38,7 @@ namespace gfx {
 	Renderable::~Renderable()
 	{
 #ifdef _DEBUG
-		am_log("DELETING", mDebugName);
+		//am_log("DELETING", mDebugName);
 #endif
 		if (mParent)
 		{

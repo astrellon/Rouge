@@ -17,8 +17,8 @@ namespace game {
 
 	int TileType_ctor(lua_State *lua);
 	void TileType_wrap(lua_State *lua, am::game::TileType *type);
-
 	int TileType_dtor(lua_State *lua);
+	int TileType_eq(lua_State *lua);
 	int TileType_register(lua_State *lua);
 
 	int TileType_get_name(lua_State *lua);

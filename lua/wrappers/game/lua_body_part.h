@@ -17,8 +17,9 @@ namespace game {
 
 	int BodyPart_ctor(lua_State *lua);
 	void BodyPart_wrap(lua_State *lua, am::game::BodyPart *part);
-
 	int BodyPart_dtor(lua_State *lua);
+	int BodyPart_eq(lua_State *lua);
+
 	int BodyPart_register(lua_State *lua);
 
 	int BodyPart_get_name(lua_State *lua);

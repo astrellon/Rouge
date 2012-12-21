@@ -52,12 +52,21 @@ namespace game {
 		return 0;
 	}
 
+	int Quest_eq(lua_State *lua)
+	{
+		Quest *lhs = Check_Quest(lua, 1);
+		Quest *rhs = Check_Quest(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Quest_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Quest_ctor },
 			{ "__gc",  Quest_dtor },
+			{ "__eq", Quest_eq },
 			{ "set_complete", Quest_set_complete },
 			{ "is_completed", Quest_is_completed },
 			{ "set_title", Quest_set_title },
@@ -88,7 +97,6 @@ namespace game {
 	{
 		return *(Quest **)luaL_checkudata(lua, n, Quest_tableName);
 	}
-
 
 	int Quest_set_complete(lua_State *lua)
 	{

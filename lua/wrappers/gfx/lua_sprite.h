@@ -17,8 +17,8 @@ namespace gfx {
 
 	int Sprite_ctor(lua_State *lua);
 	void Sprite_wrap(lua_State *lua, am::gfx::Sprite *sprite);
-
 	int Sprite_dtor(lua_State *lua);
+	int Sprite_eq(lua_State *lua);
 	int Sprite_register(lua_State *lua);
 
 	int Sprite_set_asset(lua_State *lua);

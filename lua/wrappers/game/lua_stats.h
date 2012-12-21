@@ -21,8 +21,8 @@ namespace game {
 
 	int Stats_ctor(lua_State *lua);
 	void Stats_wrap(lua_State *lua, am::game::Stats *stats);
-
 	int Stats_dtor(lua_State *lua);
+	int Stats_eq(lua_State *lua);
 	int Stats_register(lua_State *lua);
 
 	int Stats_get_base_stat(lua_State *lua);

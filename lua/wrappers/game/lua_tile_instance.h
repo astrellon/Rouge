@@ -17,8 +17,8 @@ namespace game {
 
 	int TileInstance_ctor(lua_State *lua);
 	void TileInstance_wrap(lua_State *lua, am::game::TileInstance *inst);
-
 	int TileInstance_dtor(lua_State *lua);
+	int TileInstance_eq(lua_State *lua);
 	int TileInstance_register(lua_State *lua);
 
 	int TileInstance_get_tile(lua_State *lua);

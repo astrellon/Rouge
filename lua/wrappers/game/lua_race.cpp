@@ -49,12 +49,21 @@ namespace game {
 		return 0;
 	}
 
+	int Race_eq(lua_State *lua)
+	{
+		Race *lhs = Check_Race(lua, 1);
+		Race *rhs = Check_Race(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int Race_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", Race_ctor },
 			{ "__gc",  Race_dtor },
+			{ "__eq", Race_eq },
 			{ "get_race_name", Race_get_race_name },
 			{ NULL, NULL }
 		};

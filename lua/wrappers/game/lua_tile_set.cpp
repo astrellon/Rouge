@@ -54,12 +54,21 @@ namespace game {
 		return 0;
 	}
 
+	int TileSet_eq(lua_State *lua)
+	{
+		TileSet *lhs = Check_TileSet(lua, 1);
+		TileSet *rhs = Check_TileSet(lua, 2);
+		lua_pushboolean(lua, lhs == rhs);
+		return 1;
+	}
+
 	int TileSet_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
 		{
 			{ "new", TileSet_ctor },
-			{ "__gc",  TileSet_dtor },
+			{ "__gc", TileSet_dtor },
+			{ "__eq", TileSet_eq },
 			{ "set_name", TileSet_set_name },
 			{ "get_name", TileSet_get_name },
 			{ "set_full_name", TileSet_set_full_name },
