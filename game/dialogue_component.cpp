@@ -32,9 +32,12 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue()));
+		Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue(), false));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
+		other->fireEvent<DialogueEvent>(e);
 
+		e = new DialogueEvent(otherComp->getStartDialogue(), true);
+		mAttachedTo->fireEvent<DialogueEvent>(e);
 		other->fireEvent<DialogueEvent>(e);
 	}
 	void DialogueComponent::talkTo(GameObject *other, Dialogue *diag)
@@ -44,9 +47,12 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		Handle<DialogueEvent> e(new DialogueEvent(diag));
+		Handle<DialogueEvent> e(new DialogueEvent(diag, false));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
+		other->fireEvent<DialogueEvent>(e);
 
+		e = new DialogueEvent(diag, true);
+		mAttachedTo->fireEvent<DialogueEvent>(e);
 		other->fireEvent<DialogueEvent>(e);
 	}
 	GameObject *DialogueComponent::getTalkingTo() const

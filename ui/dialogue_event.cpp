@@ -6,10 +6,17 @@ using namespace am::game;
 namespace am {
 namespace ui {
 
-	DialogueEvent::DialogueEvent(Dialogue *dialogue) :
-		Event("dialogue"),
+	DialogueEvent::DialogueEvent(Dialogue *dialogue, bool addIdToEvent) :
+		Event(),
 		mDialogue(dialogue)
 	{
+		string ss = "dialogue";
+		if (addIdToEvent && dialogue)
+		{
+			ss += ':';
+			ss += dialogue->getId();
+		}
+		mType = ss;
 	}
 	DialogueEvent::~DialogueEvent()
 	{

@@ -16,7 +16,7 @@ namespace ui {
 
 	class DialogueEvent : public Event {
 	public:
-		DialogueEvent(Dialogue *dialogue);
+		DialogueEvent(Dialogue *dialogue, bool addIdToEvent);
 		~DialogueEvent();
 
 		Dialogue *getDialogue() const;

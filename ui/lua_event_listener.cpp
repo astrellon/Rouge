@@ -3,6 +3,7 @@
 #include <lua/wrappers/game/lua_item.h>
 #include <lua/wrappers/game/lua_inventory.h>
 #include <lua/wrappers/game/lua_character.h>
+#include <lua/wrappers/game/lua_dialogue.h>
 using namespace am::lua::game;
 
 #include <sstream>
@@ -132,6 +133,7 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
+		// Talked To
 		mLua.push("talkedTo");
 		Character *isChar = dynamic_cast<Character *>(e->getTalkedTo());
 		if (isChar)
@@ -143,6 +145,7 @@ namespace ui {
 			lua_pushnil(mLua);
 		}
 		lua_settable(mLua, -3);
+		// Talker
 		mLua.push("talker");
 		isChar = dynamic_cast<Character *>(e->getTalker());
 		if (isChar)
@@ -154,6 +157,19 @@ namespace ui {
 			lua_pushnil(mLua);
 		}
 		lua_settable(mLua, -3);
+		// Dialogue
+		mLua.push("dialogue");
+		Dialogue *diag = e->getDialogue();
+		if (diag)
+		{
+			Dialogue_wrap(mLua, diag);
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
+		lua_settable(mLua, -3);
+
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 

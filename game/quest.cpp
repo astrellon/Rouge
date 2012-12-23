@@ -1,5 +1,8 @@
 #include "quest.h"
 
+#include <base/handle.h>
+using namespace am::base;
+
 namespace am {
 namespace game {
 
@@ -36,6 +39,8 @@ namespace game {
 		{
 			return false;
 		}
+		Handle<Event> e(new Event("startQuest"));
+		fireEvent<Event>(e);
 		return true;
 	}
 	bool Quest::finishQuest()
@@ -45,6 +50,8 @@ namespace game {
 			return false;
 		}
 		setCompleted(true);
+		Handle<Event> e(new Event("finishQuest"));
+		fireEvent<Event>(e);
 		return true;
 	}
 

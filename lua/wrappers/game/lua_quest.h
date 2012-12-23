@@ -21,6 +21,9 @@ namespace game {
 	int Quest_eq(lua_State *lua);
 	int Quest_register(lua_State *lua);
 
+	int Quest_start_quest(lua_State *lua);
+	int Quest_finish_quest(lua_State *lua);
+
 	int Quest_set_complete(lua_State *lua);
 	int Quest_is_completed(lua_State *lua);
 

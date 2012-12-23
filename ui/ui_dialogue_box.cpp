@@ -65,16 +65,10 @@ namespace ui {
 				Dialogue *newDiag = Engine::getGame()->getDialogue(gotoDiag);
 				mTalker->getDialogueComp()->setSubjectLock(newDiag->getSubject());
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
-				//mTalker->talkTo(mTalkedTo, newDiag);
-				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, newDiag));
-				//mTalker->fireEvent<DialogueEvent>(e);
 			}
 			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
 			{
-				//mTalker->talkTo(mTalkedTo, NULL);
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, NULL);
-				//Handle<DialogueEvent> e(new DialogueEvent(mTalker, mTalkedTo, NULL));
-				//mTalker->fireEvent<DialogueEvent>(e);
 			}
 		}
 	}
