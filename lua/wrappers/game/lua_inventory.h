@@ -13,15 +13,10 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Inventory_tableName[] = "am_game_Inventory";
-
 	int Inventory_ctor(lua_State *lua);
-	void Inventory_wrap(lua_State *lua, am::game::Inventory *inv);
 	int Inventory_dtor(lua_State *lua);
 	int Inventory_eq(lua_State *lua);
 	int Inventory_register(lua_State *lua);
-
-	am::game::Inventory *Check_Inventory(lua_State *lua, int n);
 
 	int Inventory_get_space(lua_State *lua);
 	

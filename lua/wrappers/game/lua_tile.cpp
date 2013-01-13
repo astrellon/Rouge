@@ -31,32 +31,21 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Tile *tile = new Tile(lua_tostring(lua, -1));
-			Tile_wrap(lua, tile);
+			wrapRefObject<Tile>(lua, tile);
 			return 1;
 		}
 		else if (args == 2 && lua_isstring(lua, -2) && lua_isstring(lua, -1))
 		{
 			Tile *tile = new Tile(lua_tostring(lua, -2), lua_tostring(lua, -1));
-			Tile_wrap(lua, tile);
+			wrapRefObject<Tile>(lua, tile);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Tile_wrap(lua_State *lua, Tile *tile)
-	{
-		Tile ** udata = (Tile **)lua_newuserdata(lua, sizeof(Tile *));
-		*udata = tile;
-
-		tile->retain();
-
-		luaL_getmetatable(lua, Tile_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
 	int Tile_dtor(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			tile->release();
@@ -66,8 +55,8 @@ namespace game {
 
 	int Tile_eq(lua_State *lua)
 	{
-		Tile *lhs = Check_Tile(lua, 1);
-		Tile *rhs = Check_Tile(lua, 2);
+		Tile *lhs = castUData<Tile>(lua, 1);
+		Tile *rhs = castUData<Tile>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -96,7 +85,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Tile_tableName);
+		luaL_newmetatable(lua, Tile::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -105,14 +94,9 @@ namespace game {
 		return 1;
 	}
 
-	Tile *Check_Tile(lua_State *lua, int n)
-	{
-		return *(Tile **)luaL_checkudata(lua, n, Tile_tableName);
-	}
-
 	int Tile_get_name(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			lua_pushstring(lua, tile->getName().c_str());
@@ -123,7 +107,7 @@ namespace game {
 	}
 	int Tile_set_name(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile && lua_isstring(lua, -1))
 		{
 			tile->setName(lua_tostring(lua, -1));
@@ -133,7 +117,7 @@ namespace game {
 
 	int Tile_get_full_name(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			lua_pushstring(lua, tile->getFullName().c_str());
@@ -144,7 +128,7 @@ namespace game {
 	}
 	int Tile_set_full_name(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile && lua_isstring(lua, -1))
 		{
 			tile->setFullName(lua_tostring(lua, -1));
@@ -154,7 +138,7 @@ namespace game {
 
 	int Tile_get_description(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			lua_pushstring(lua, tile->getDescription().c_str());
@@ -165,7 +149,7 @@ namespace game {
 	}
 	int Tile_set_description(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile && lua_isstring(lua, -1))
 		{
 			tile->setDescription(lua_tostring(lua, -1));
@@ -175,10 +159,10 @@ namespace game {
 
 	int Tile_get_tile_set(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile && tile->getTileSet())
 		{
-			TileSet_wrap(lua, tile->getTileSet());
+			wrapRefObject<TileSet>(lua, tile->getTileSet());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -186,8 +170,8 @@ namespace game {
 	}
 	int Tile_set_tile_set(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
-		TileSet *set = Check_TileSet(lua, 2);
+		Tile *tile = castUData<Tile>(lua, 1);
+		TileSet *set = castUData<TileSet>(lua, 2);
 		if (tile && set)
 		{
 			tile->setTileSet(set);
@@ -197,7 +181,7 @@ namespace game {
 
 	int Tile_add_tile_type(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			TileType *tileType = getTileType(lua, -1);
@@ -210,7 +194,7 @@ namespace game {
 	}
 	int Tile_remove_tile_type(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			TileType *tileType = getTileType(lua, -1);
@@ -223,7 +207,7 @@ namespace game {
 	}
 	int Tile_remove_all_tile_types(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			tile->removeAllTileTypes();
@@ -232,7 +216,7 @@ namespace game {
 	}
 	int Tile_has_tile_type(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
 			TileType *tileType = getTileType(lua, -1);
@@ -248,7 +232,7 @@ namespace game {
 
 	int Tile_load_def(lua_State *lua)
 	{
-		Tile *tile = Check_Tile(lua, 1);
+		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile && lua_istable(lua, -1))
 		{
 			LuaState wrap(lua);
@@ -266,7 +250,7 @@ namespace game {
 		}
 		else
 		{
-			tileType = Check_TileType(lua, n);
+			tileType = castUData<TileType>(lua, n);
 		}
 		return tileType;
 	}

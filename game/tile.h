@@ -55,6 +55,9 @@ namespace game {
 
 		//void loadDef(JsonValue value);
 		void loadDef(LuaState &lua);
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 	
 	protected:
 	

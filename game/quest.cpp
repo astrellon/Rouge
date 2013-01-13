@@ -7,6 +7,8 @@ namespace am {
 namespace game {
 
 	//Quest::QuestMap Quest::sQuestMap;
+	const int Quest::LUA_ID = __COUNTER__;
+	const char *Quest::LUA_TABLENAME = "am_game_Quest";
 
 	Quest::Quest(const char *questId) :
 		mQuestId(questId),

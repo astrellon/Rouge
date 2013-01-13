@@ -28,6 +28,9 @@ namespace game {
 
 		virtual const StatModifierMap &getModifiers() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		StatModifierMap mModifiers;

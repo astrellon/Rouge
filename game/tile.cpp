@@ -18,6 +18,9 @@ using namespace std;
 namespace am {
 namespace game {
 
+	const int Tile::LUA_ID = __COUNTER__;
+	const char *Tile::LUA_TABLENAME = "am_game_Tile";
+
 	Tile::Tile(const char *name) :
 		mName(name),
 		mFullName("No full name"),

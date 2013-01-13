@@ -69,8 +69,9 @@ namespace tests {
 		virtual void runCases() {
 			runCase(testSimple);
 			runCase(testScripts);
+			runCase(testLoadScripts);
 			runCase(testWrapper);
-			runCase(testInheritance);
+			//runCase(testInheritance);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -81,6 +82,7 @@ namespace tests {
 
 		bool testSimple();
 		bool testScripts();
+		bool testLoadScripts();
 		bool testWrapper();
 		bool testInheritance();
 	

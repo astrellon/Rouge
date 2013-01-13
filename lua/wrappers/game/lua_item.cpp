@@ -26,23 +26,13 @@ namespace game {
 	{
 		Item *item = new Item();
 		
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		return 1;
 	}
-	void Item_wrap(lua_State *lua, Item *item)
-	{
-		Item ** udata = (Item **)lua_newuserdata(lua, sizeof(Item *));
-		*udata = item;
-
-		item->retain();
-
-		luaL_getmetatable(lua, Item_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
+	
 	int Item_dtor(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			item->release();
@@ -52,8 +42,8 @@ namespace game {
 
 	int Item_eq(lua_State *lua)
 	{
-		Item *lhs = Check_Item(lua, 1);
-		Item *rhs = Check_Item(lua, 2);
+		Item *lhs = castUData<Item>(lua, 1);
+		Item *rhs = castUData<Item>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -121,7 +111,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Item_tableName);
+		luaL_newmetatable(lua, Item::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -130,14 +120,9 @@ namespace game {
 		return 1;
 	}
 
-	Item *Check_Item(lua_State *lua, int n)
-	{
-		return *(Item **)luaL_checkudata(lua, n, Item_tableName);
-	}
-
 	int Item_set_item_type(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			ItemCommon::ItemType type = ItemCommon::UNKNOWN;
@@ -158,7 +143,7 @@ namespace game {
 	}
 	int Item_get_item_type(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			const char *name = item->getItemTypeName();
@@ -174,7 +159,7 @@ namespace game {
 
 	int Item_set_inventory_size(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			short width = static_cast<short>(lua_tointeger(lua, -2));
@@ -185,7 +170,7 @@ namespace game {
 	}
 	int Item_get_inventory_size(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushinteger(lua, item->getInventorySizeX());
@@ -199,7 +184,7 @@ namespace game {
 
 	int Item_set_item_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			Item::ItemLocation location = Item::MAX_LENGTH;
@@ -220,7 +205,7 @@ namespace game {
 	}
 	int Item_get_item_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			const char *name = item->getItemLocationTypeName(item->getItemLocation());
@@ -236,7 +221,7 @@ namespace game {
 
 	int Item_set_quest_item_id(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isnumber(lua, -1))
 		{
 			item->setQuestItemId(lua_tointeger(lua, -1));
@@ -245,7 +230,7 @@ namespace game {
 	}
 	int Item_get_quest_item_id(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushinteger(lua, item->getQuestItemId());
@@ -256,7 +241,7 @@ namespace game {
 	}
 	int Item_is_quest_item(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushboolean(lua, item->isQuestItem());
@@ -268,7 +253,7 @@ namespace game {
 
 	int Item_set_item_name(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isstring(lua, -1))
 		{
 			item->setItemName(lua_tostring(lua, -1));
@@ -277,7 +262,7 @@ namespace game {
 	}
 	int Item_get_item_name(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getItemName().c_str());
@@ -289,7 +274,7 @@ namespace game {
 
 	int Item_set_prefix(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isstring(lua, -1))
 		{
 			item->setPrefix(lua_tostring(lua, -1));
@@ -298,7 +283,7 @@ namespace game {
 	}
 	int Item_get_prefix(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getPrefix().c_str());
@@ -310,7 +295,7 @@ namespace game {
 
 	int Item_set_postfix(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isstring(lua, -1))
 		{
 			item->setPostfix(lua_tostring(lua, -1));
@@ -319,7 +304,7 @@ namespace game {
 	}
 	int Item_get_postfix(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getPostfix().c_str());
@@ -331,7 +316,7 @@ namespace game {
 
 	int Item_set_item_fullname(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			int args = lua_gettop(lua);
@@ -352,7 +337,7 @@ namespace game {
 	}
 	int Item_get_item_fullname(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getFullItemName().c_str());
@@ -364,8 +349,8 @@ namespace game {
 
 	int Item_set_item_from(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
-		Item *other = Check_Item(lua, 2);
+		Item *item = castUData<Item>(lua, 1);
+		Item *other = castUData<Item>(lua, 2);
 		if (item && other)
 		{
 			item->setItemFrom(*other);
@@ -375,10 +360,10 @@ namespace game {
 
 	int Item_get_stat_modifiers(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			StatModifiers_wrap(lua, &item->getStatModifiers());
+			wrapObject<StatModifiers>(lua, &item->getStatModifiers());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -387,7 +372,7 @@ namespace game {
 
 	int Item_load_def(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_istable(lua, -1))
 		{
 			LuaState wrap(lua);
@@ -401,7 +386,7 @@ namespace game {
 
 	int Item_get_width(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushnumber(lua, item->getWidth());
@@ -412,7 +397,7 @@ namespace game {
 	}
 	int Item_get_height(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushnumber(lua, item->getHeight());
@@ -424,7 +409,7 @@ namespace game {
 
 	int Item_get_name(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getName().c_str());
@@ -436,7 +421,7 @@ namespace game {
 
 	int Item_set_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			item->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
@@ -445,7 +430,7 @@ namespace game {
 	}
 	int Item_get_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushnumber(lua, item->getLocationX());
@@ -459,7 +444,7 @@ namespace game {
 
 	int Item_set_grid_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			item->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
@@ -468,7 +453,7 @@ namespace game {
 	}
 	int Item_get_grid_location(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushinteger(lua, item->getGridLocationX());
@@ -482,7 +467,7 @@ namespace game {
 
 	int Item_set_game_id(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item && lua_isstring(lua, -1))
 		{
 			lua_pushboolean(lua, item->setGameId(lua_tostring(lua, -1)));
@@ -493,7 +478,7 @@ namespace game {
 	}
 	int Item_get_game_id(lua_State *lua)
 	{
-		Item *item = Check_Item(lua, 1);
+		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
 			lua_pushstring(lua, item->getGameId());
@@ -510,7 +495,7 @@ namespace game {
 			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
 			if (item)
 			{
-				Item_wrap(lua, item);
+				wrapRefObject<Item>(lua, item);
 				return 1;
 			}
 		}

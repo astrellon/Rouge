@@ -24,35 +24,21 @@ namespace game {
 			const char *raceName = lua_tostring(lua, -1);
 			Race *race = new Race(raceName);
 		
-			Race_wrap(lua, race);
+			wrapObject<Race>(lua, race);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Race_wrap(lua_State *lua, Race *race)
-	{
-		Race ** udata = (Race **)lua_newuserdata(lua, sizeof(Race *));
-		*udata = race;
-
-		luaL_getmetatable(lua, Race_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
 	int Race_dtor(lua_State *lua)
 	{
-		/*Race *part = Check_Race(lua, 1);
-		if (part)
-		{
-			delete part;
-		}*/
 		return 0;
 	}
 
 	int Race_eq(lua_State *lua)
 	{
-		Race *lhs = Check_Race(lua, 1);
-		Race *rhs = Check_Race(lua, 2);
+		Race *lhs = castUData<Race>(lua, 1);
+		Race *rhs = castUData<Race>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -68,7 +54,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Race_tableName);
+		luaL_newmetatable(lua, Race::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -77,14 +63,9 @@ namespace game {
 		return 1;
 	}
 
-	Race *Check_Race(lua_State *lua, int n)
-	{
-		return *(Race **)luaL_checkudata(lua, n, Race_tableName);
-	}
-
 	int Race_get_race_name(lua_State *lua)
 	{
-		Race *race = Check_Race(lua, 1);
+		Race *race = castUData<Race>(lua, 1);
 		if (race)
 		{
 			lua_pushstring(lua, race->getRaceName());

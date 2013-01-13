@@ -42,6 +42,9 @@ namespace game {
 		static float getSpaceSizeX();
 		static float getSpaceSizeY();
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		unsigned short mSpacesX, mSpacesY;

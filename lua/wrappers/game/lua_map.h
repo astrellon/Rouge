@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Map_tableName[] = "am_game_Map";
-
 	int Map_ctor(lua_State *lua);
-	void Map_wrap(lua_State *lua, am::game::Map *map);
 	int Map_dtor(lua_State *lua);
 	int Map_eq(lua_State *lua);
 	int Map_register(lua_State *lua);
@@ -43,8 +40,6 @@ namespace game {
 	int Map_is_valid_grid_location(lua_State *lua);
 
 	int Map_load_def(lua_State *lua);
-
-	am::game::Map *Check_Map(lua_State *lua, int n);
 
 }
 }

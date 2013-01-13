@@ -24,6 +24,9 @@ namespace game {
 		virtual void setEquippedItem(Item *item);
 		virtual Item *getEqippedItem() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		string mName;

@@ -14,6 +14,7 @@ using namespace am::lua;
 #include <game/race.h>
 #include <game/engine.h>
 #include <game/dialogue_component.h>
+#include <game/map.h>
 using namespace am::game;
 
 #include "lua_stats.h"
@@ -49,23 +50,13 @@ namespace game {
 			obj = new Character();
 			obj->setGameId(id);
 		}
-		Character_wrap(lua, obj);
+		wrapRefObject<Character>(lua, obj);
 		return 1;
-	}
-	void Character_wrap(lua_State *lua, Character *character)
-	{
-		Character ** udata = (Character **)lua_newuserdata(lua, sizeof(Character *));
-		*udata = character;
-
-		character->retain();
-
-		luaL_getmetatable(lua, Character_tableName);
-		lua_setmetatable(lua, -2);
 	}
 
 	int Character_dtor(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			obj->release();
@@ -75,8 +66,8 @@ namespace game {
 
 	int Character_eq(lua_State *lua)
 	{
-		Character *lhs = Check_Character(lua, 1);
-		Character *rhs = Check_Character(lua, 2);
+		Character *lhs = castUData<Character>(lua, 1);
+		Character *rhs = castUData<Character>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -154,7 +145,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Character_tableName);
+		luaL_newmetatable(lua, Character::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -163,14 +154,9 @@ namespace game {
 		return 1;
 	}
 
-	Character *Check_Character(lua_State *lua, int n)
-	{
-		return *(Character **)luaL_checkudata(lua, n, Character_tableName);
-	}
-
 	int Character_get_name(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushstring(lua, obj->getName().c_str());
@@ -181,7 +167,7 @@ namespace game {
 	}
 	int Character_set_name(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			const char *name = luaL_checkstring(lua, 2);
@@ -195,7 +181,7 @@ namespace game {
 
 	int Character_set_pickup_reach(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_Number value = luaL_checknumber(lua, 2);
@@ -205,7 +191,7 @@ namespace game {
 	}
 	int Character_get_pickup_reach(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushnumber(lua, obj->getPickupReach());
@@ -217,11 +203,11 @@ namespace game {
 
 	int Character_get_stats(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Stats *stats = &obj->getStats();
-			Stats_wrap(lua, stats);
+			wrapObject<Stats>(lua, stats);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -230,10 +216,10 @@ namespace game {
 
 	int Character_add_body_part(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			BodyPart *part = Check_BodyPart(lua, 2);
+			BodyPart *part = castUData<BodyPart>(lua, 2);
 			if (part)
 			{
 				lua_pushboolean(lua, obj->addBodyPart(part));
@@ -245,10 +231,10 @@ namespace game {
 	}
 	int Character_remove_body_part(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			BodyPart *part = Check_BodyPart(lua, 2);
+			BodyPart *part = castUData<BodyPart>(lua, 2);
 			if (part)
 			{
 				lua_pushboolean(lua, obj->removeBodyPart(part));
@@ -260,10 +246,10 @@ namespace game {
 	}
 	int Character_has_body_part(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			BodyPart *part = Check_BodyPart(lua, 2);
+			BodyPart *part = castUData<BodyPart>(lua, 2);
 			if (part)
 			{
 				lua_pushboolean(lua, obj->hasBodyPart(part));
@@ -275,7 +261,7 @@ namespace game {
 	}
 	int Character_get_body_parts(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			LuaState L(lua);
@@ -285,7 +271,7 @@ namespace game {
 			for (iter = map.begin(); iter != map.end(); ++iter)
 			{
 				lua_pushstring(lua, iter->first.c_str());
-				BodyPart_wrap(lua, iter->second);
+				wrapObject<BodyPart>(lua, iter->second);
 				lua_settable(lua, -3);
 			}
 			return 1;
@@ -296,8 +282,8 @@ namespace game {
 
 	int Character_equip_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item)
 		{
 			if (lua_isstring(lua, -1))
@@ -307,7 +293,7 @@ namespace game {
 			}
 			else
 			{
-				BodyPart *part = Check_BodyPart(lua, 3);
+				BodyPart *part = castUData<BodyPart>(lua, 3);
 				if (part)
 				{
 					lua_pushboolean(lua, obj->equipItem(item, part->getName()));
@@ -320,7 +306,7 @@ namespace game {
 	}
 	int Character_unequip_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			if (lua_isstring(lua, -1))
@@ -330,7 +316,7 @@ namespace game {
 			}
 			else
 			{
-				BodyPart *part = Check_BodyPart(lua, 3);
+				BodyPart *part = castUData<BodyPart>(lua, 3);
 				if (part)
 				{
 					lua_pushboolean(lua, obj->unequipItem(part->getName()));
@@ -343,10 +329,10 @@ namespace game {
 	}
 	int Character_get_equipped(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isstring(lua, -1))
 		{
-			Item_wrap(lua, obj->getEquipped(lua_tostring(lua, -1)));
+			wrapRefObject<Item>(lua, obj->getEquipped(lua_tostring(lua, -1)));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -355,10 +341,10 @@ namespace game {
 
 	int Character_get_inventory(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			Inventory_wrap(lua, obj->getInventory());
+			wrapRefObject<Inventory>(lua, obj->getInventory());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -367,8 +353,8 @@ namespace game {
 
 	int Character_pickup_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item)
 		{
 			lua_pushboolean(lua, obj->pickupItem(item));
@@ -379,8 +365,8 @@ namespace game {
 	}
 	int Character_add_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item)
 		{
 			lua_pushboolean(lua, obj->addItem(item));
@@ -391,8 +377,8 @@ namespace game {
 	}
 	int Character_remove_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item)
 		{
 			lua_pushboolean(lua, obj->removeItem(item));
@@ -403,8 +389,8 @@ namespace game {
 	}
 	int Character_has_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item)
 		{
 			lua_pushboolean(lua, obj->hasItem(item));
@@ -415,8 +401,8 @@ namespace game {
 	}
 	int Character_drop_item(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (obj && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			lua_pushboolean(lua, obj->dropItem(item, lua_tofloat(lua, -2), lua_tofloat(lua, -1)));
@@ -428,7 +414,7 @@ namespace game {
 
 	int Character_set_age(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_Number value = luaL_checknumber(lua, 2);
@@ -438,7 +424,7 @@ namespace game {
 	}
 	int Character_get_age(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushnumber(lua, obj->getAge());
@@ -450,7 +436,7 @@ namespace game {
 
 	int Character_set_race(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Race *race = NULL;
@@ -460,7 +446,7 @@ namespace game {
 			}
 			else
 			{
-				race = Check_Race(lua, 2);
+				race = castUData<Race>(lua, 2);
 			}
 
 			if (race)
@@ -472,17 +458,17 @@ namespace game {
 	}
 	int Character_get_race(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Race *race = obj->getRace();
 			if (race)
 			{
-				Race_wrap(lua, obj->getRace());
+				wrapObject<Race>(lua, obj->getRace());
 			}
 			else
 			{
-				Race_wrap(lua, Engine::getEngine()->getUnknownRace());
+				wrapObject<Race>(lua, Engine::getEngine()->getUnknownRace());
 			}
 			return 1;
 		}
@@ -492,7 +478,7 @@ namespace game {
 
 	int Character_set_gender(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Gender::GenderType gender = Gender::MAX_GENDER_LENGTH;
@@ -514,7 +500,7 @@ namespace game {
 	}
 	int Character_get_gender(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushstring(lua, Gender::getGenderName(obj->getGender()));
@@ -526,10 +512,10 @@ namespace game {
 
 	int Character_get_coin_purse(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			CoinPurse_wrap(lua, obj->getCoinPurse());
+			wrapRefObject<CoinPurse>(lua, obj->getCoinPurse());
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -538,7 +524,7 @@ namespace game {
 
 	int Character_set_graphic(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			if (lua_isstring(lua, -1))
@@ -556,7 +542,7 @@ namespace game {
 	}
 	int Character_get_graphic(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Sprite *sprite = obj->getGraphic();
@@ -572,7 +558,7 @@ namespace game {
 
 	int Character_set_location(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			obj->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
@@ -581,7 +567,7 @@ namespace game {
 	}
 	int Character_get_location(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushnumber(lua, obj->getLocationX());
@@ -595,7 +581,7 @@ namespace game {
 
 	int Character_set_grid_location(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			obj->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
@@ -604,7 +590,7 @@ namespace game {
 	}
 	int Character_get_grid_location(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushinteger(lua, obj->getGridLocationX());
@@ -618,7 +604,7 @@ namespace game {
 
 	int Character_move(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			obj->move(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
@@ -627,7 +613,7 @@ namespace game {
 	}
 	int Character_move_grid(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			obj->moveGrid(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
@@ -637,7 +623,7 @@ namespace game {
 
 	int Character_talk_to(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && obj->getDialogueComp())
 		{
 			GameObject *other = (GameObject *)(lua_touserdata(lua, -1));
@@ -654,7 +640,7 @@ namespace game {
 
 	int Character_set_fixed_to_grid(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isboolean(lua, -1))
 		{
 			obj->setFixedToGrid(lua_tobool(lua, -1));
@@ -663,7 +649,7 @@ namespace game {
 	}
 	int Character_is_fixed_to_grid(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushboolean(lua, obj->isFixedToGrid());
@@ -675,8 +661,8 @@ namespace game {
 
 	int Character_set_map(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		Map *map = Check_Map(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		Map *map = castUData<Map>(lua, 2);
 		if (obj)
 		{
 			// Can be set to nil
@@ -686,13 +672,13 @@ namespace game {
 	}
 	int Character_get_map(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			Map *map = obj->getMap();
 			if (map)
 			{
-				Map_wrap(lua, map);
+				wrapRefObject<Map>(lua, map);
 				return 1;
 			}
 		}
@@ -702,8 +688,8 @@ namespace game {
 
 	int Character_add_passible_type(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		TileType *type = Check_TileType(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		TileType *type = castUData<TileType>(lua, 2);
 		if (obj && type)
 		{
 			obj->addPassibleType(type);
@@ -712,8 +698,8 @@ namespace game {
 	}
 	int Character_remove_passible_type(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		TileType *type = Check_TileType(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		TileType *type = castUData<TileType>(lua, 2);
 		if (obj && type)
 		{
 			obj->removePassibleType(type);
@@ -722,7 +708,7 @@ namespace game {
 	}
 	int Character_remove_all_passible_types(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			obj->removeAllPassibleTypes();
@@ -731,8 +717,8 @@ namespace game {
 	}
 	int Character_has_passible_type(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		TileType *type = Check_TileType(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		TileType *type = castUData<TileType>(lua, 2);
 		if (obj && type)
 		{
 			lua_pushboolean(lua, obj->hasPassibleType(type));
@@ -743,7 +729,7 @@ namespace game {
 	}
 	int Character_get_passible_types(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			LuaState L(lua);
@@ -752,7 +738,7 @@ namespace game {
 			for (int i = 0; i < static_cast<int>(list.size()); i++)
 			{
 				lua_pushinteger(lua, i);
-				TileType_wrap(lua, list[i]);
+				wrapObject<TileType>(lua, list[i]);
 				lua_settable(lua, -3);
 			}
 			return 1;
@@ -768,7 +754,7 @@ namespace game {
 			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
 			if (obj)
 			{
-				Character_wrap(lua, obj);
+				wrapRefObject<Character>(lua, obj);
 				return 1;
 			}
 		}
@@ -778,8 +764,8 @@ namespace game {
 
 	int Character_set_dialogue_component(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
-		DialogueComponent *comp = Check_DialogueComponent(lua, 2);
+		Character *obj = castUData<Character>(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 2);
 		if (obj)
 		{
 			if (lua_isboolean(lua, 3))
@@ -795,13 +781,13 @@ namespace game {
 	}
 	int Character_get_dialogue_component(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			DialogueComponent *comp = obj->getDialogueComp();
 			if (comp)
 			{
-				DialogueComponent_wrap(lua, comp);
+				wrapObject<DialogueComponent>(lua, comp);
 				return 1;
 			}
 		}
@@ -811,7 +797,7 @@ namespace game {
 
 	int Character_set_game_id(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isstring(lua, -1))
 		{
 			obj->setGameId(lua_tostring(lua, -1));
@@ -820,7 +806,7 @@ namespace game {
 	}
 	int Character_get_game_id(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushstring(lua, obj->getGameId());
@@ -832,7 +818,7 @@ namespace game {
 
 	int Character_add_event_listener(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
 			lua_pushboolean(lua, am::lua::ui::addEventListener(lua, obj));
@@ -843,7 +829,7 @@ namespace game {
 	}
 	int Character_remove_event_listener(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isstring(lua, 2) && lua_isfunction(lua, 3))
 		{
 			lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, obj));
@@ -854,7 +840,7 @@ namespace game {
 	}
 	int Character_has_event_listener(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isstring(lua, -1))
 		{
 			lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, -1)));
@@ -866,7 +852,7 @@ namespace game {
 
 	int Character_set_experience(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -1))
 		{
 			obj->setExperience(lua_tointeger(lua, -1));
@@ -875,7 +861,7 @@ namespace game {
 	}
 	int Character_add_experience(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -1))
 		{
 			obj->addExperience(lua_tointeger(lua, -1));
@@ -884,7 +870,7 @@ namespace game {
 	}
 	int Character_get_experience(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushinteger(lua, obj->getExperience());
@@ -896,7 +882,7 @@ namespace game {
 
 	int Character_set_level(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -1))
 		{
 			obj->setLevel(static_cast<short>(lua_tointeger(lua, -1)));
@@ -905,7 +891,7 @@ namespace game {
 	}
 	int Character_add_level(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -1))
 		{
 			obj->addLevel(static_cast<short>(lua_tointeger(lua, -1)));
@@ -914,7 +900,7 @@ namespace game {
 	}
 	int Character_get_level(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushinteger(lua, static_cast<lua_Integer>(obj->getLevel()));
@@ -926,7 +912,7 @@ namespace game {
 
 	int Character_set_max_level(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj && lua_isnumber(lua, -1))
 		{
 			obj->setMaxLevel(static_cast<short>(lua_tointeger(lua, -1)));
@@ -935,7 +921,7 @@ namespace game {
 	}
 	int Character_get_max_level(lua_State *lua)
 	{
-		Character *obj = Check_Character(lua, 1);
+		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
 			lua_pushinteger(lua, static_cast<lua_Integer>(obj->getMaxLevel()));

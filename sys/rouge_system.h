@@ -81,6 +81,8 @@ namespace sys {
 
 		PlayerHand *mPlayerHand;
 
+		LuaState mLuaEngine;
+
 		void setCurrentMenu(UIComponent *menu);
 
 		static RougeSystem *sRougeSystem;

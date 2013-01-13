@@ -20,6 +20,9 @@ namespace game {
 
 		friend class Inventory;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		Handle<Item> mItem;
 		unsigned short mX, mY;

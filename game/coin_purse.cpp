@@ -3,6 +3,9 @@
 namespace am {
 namespace game {
 
+	const int CoinPurse::LUA_ID = __COUNTER__;
+	const char *CoinPurse::LUA_TABLENAME = "am_game_CoinPurse";
+
 	CoinPurse::CoinPurse() :
 		mCoin(0),
 		mMaxCoin(0)

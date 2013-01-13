@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char CoinPurse_tableName[] = "am_game_CoinPurse";
-
 	int CoinPurse_ctor(lua_State *lua);
-	void CoinPurse_wrap(lua_State *lua, am::game::CoinPurse *CoinPurse);
 	int CoinPurse_dtor(lua_State *lua);
 	int CoinPurse_eq(lua_State *lua);
 	int CoinPurse_register(lua_State *lua);
@@ -32,8 +29,6 @@ namespace game {
 
 	int CoinPurse_set_max_coin(lua_State *lua);
 	int CoinPurse_get_max_coin(lua_State *lua);
-	
-	am::game::CoinPurse *Check_CoinPurse(lua_State *lua, int n);
 
 }
 }

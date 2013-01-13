@@ -5,6 +5,9 @@
 namespace am {
 namespace game {
 
+	const int Dialogue::LUA_ID = __COUNTER__;
+	const char *Dialogue::LUA_TABLENAME = "am_game_Dialogue";
+
 	Dialogue::Dialogue(const char *id, const char *text, const char *title, 
 		const char *subject, UnlockFlag unlock, DialogueAction action) :
 		mId(id),

@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Quest_tableName[] = "am_game_Quest";
-
 	int Quest_ctor(lua_State *lua);
-	void Quest_wrap(lua_State *lua, am::game::Quest *quest);
 	int Quest_dtor(lua_State *lua);
 	int Quest_eq(lua_State *lua);
 	int Quest_register(lua_State *lua);
@@ -43,8 +40,6 @@ namespace game {
 	int Quest_add_quest(lua_State *lua);
 	int Quest_remove_quest(lua_State *lua);
 	int Quest_get_quest(lua_State *lua);
-
-	am::game::Quest *Check_Quest(lua_State *lua, int n);
 
 }
 }

@@ -10,6 +10,7 @@ using namespace am::lua::game;
 using namespace std;
 
 #include <game/character.h>
+#include <game/inventory.h>
 using namespace am::game;
 
 namespace am {
@@ -97,10 +98,10 @@ namespace ui {
 		mLua.setTableValue("spotX", e->getSpotX());
 		mLua.setTableValue("spotY", e->getSpotY());
 		mLua.push("item");
-		Item_wrap(mLua, e->getItem());
+		wrapRefObject<Item>(mLua, e->getItem());
 		lua_settable(mLua, -3);
 		mLua.push("inventory");
-		Inventory_wrap(mLua, e->getInventory());
+		wrapRefObject<Inventory>(mLua, e->getInventory());
 		lua_settable(mLua, -3);
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
@@ -116,10 +117,10 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.setTableValue("bodyPartName", e->getBodyPartName());
 		mLua.push("item");
-		Item_wrap(mLua, e->getItem());
+		wrapRefObject<Item>(mLua, e->getItem());
 		lua_settable(mLua, -3);
 		mLua.push("character");
-		Character_wrap(mLua, e->getCharacter());
+		wrapRefObject<Character>(mLua, e->getCharacter());
 		lua_settable(mLua, -3);
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
@@ -138,7 +139,7 @@ namespace ui {
 		Character *isChar = dynamic_cast<Character *>(e->getTalkedTo());
 		if (isChar)
 		{
-			Character_wrap(mLua, isChar);
+			wrapRefObject<Character>(mLua, isChar);
 		}
 		else
 		{
@@ -150,7 +151,7 @@ namespace ui {
 		isChar = dynamic_cast<Character *>(e->getTalker());
 		if (isChar)
 		{
-			Character_wrap(mLua, isChar);
+			wrapRefObject<Character>(mLua, isChar);
 		}
 		else
 		{
@@ -162,7 +163,7 @@ namespace ui {
 		Dialogue *diag = e->getDialogue();
 		if (diag)
 		{
-			Dialogue_wrap(mLua, diag);
+			wrapObject<Dialogue>(mLua, diag);
 		}
 		else
 		{

@@ -58,6 +58,8 @@
 #include <game/item.h>
 #include <game/item_instance.h>
 
+#include <lua/wrappers/game/lua_map.h>
+
 namespace am {
 namespace sys {
 
@@ -89,13 +91,7 @@ namespace sys {
 		GameSystem::init();
 		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		TextStyle::loadStylesLua("data/textStyles.lua");
-		/*
-		LuaState lua;
-		if (!lua.loadFile("data/dialogue.lua"))
-		{
-			lua.logStack("DIAG");
-		}
-		*/
+
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
@@ -133,16 +129,12 @@ namespace sys {
 
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
-		
-		stringstream ss;
-		ss << "Renderable: " << sizeof(Renderable);
-		ss << "\nLayer: " << sizeof(Layer);
-		ss << "\nGameObject: " << sizeof(GameObject);
-		ss << "\nCharcter: " << sizeof(Character);
-		ss << "\nItem: " << sizeof(Item);
-		ss << "\nStats: " << sizeof(Stats);
-		am_log("SIZE", ss);
 
+		if (!mLuaEngine.loadFile("data/engine.lua")) 
+		{
+			mLuaEngine.logStack("ERROR: Unable to load main engine.lua file!");
+		}
+		
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);
 		scrollbar->setHeight(100.0f);
@@ -324,37 +316,35 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
-		Game *game = new Game(mEngine);
+		if (mLuaEngine.hasGlobalFunction("newGame"))
+		{
+			mLuaEngine.call(0, 0);
+		}
+		else
+		{
+			am_log("ERROR", "Main engine script does not have a 'newGame' function");
+			return;
+		}
+
+		//Game *game = new Game(mEngine);
 		// Got to re-enable the game hud on a new game.
 		mEngine->getGameHud()->setInteractive(true);
-		mEngine->setCurrentGame(game);
+		//mEngine->setCurrentGame(game);
 
 		mPlayerHand->setHandEnabled(true);
 
 		mPausedGame = false;
 
-		//game->setCurrentMap("testMap");
-		LuaState lua;
-		int loadResult = luaL_loadfile(lua, "data/maps/testMap_2.lua");
+		Game *game = Engine::getGame();
+		/*Map *map = game->getMapLua("testMap_2");
+		if (map)
 		{
-			stringstream ss;
-			ss << "Load result: " << loadResult;
-			am_log("LOAD", ss);
-		}
-		// Load file returns false when there are no errors.
-		if (loadResult)
-		{
-			lua.logStack("ERR LOADING");
-		}
-		else
-		{
-			lua.call(0, 0);
-		}
-
+			game->setCurrentMap(map);
+		}*/
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		Race *human = new Race("human");
-		Engine::getEngine()->addRace(human);
+		//Race *human = new Race("human");
+		//Engine::getEngine()->addRace(human);
 		
 		/*Handle<Character> npc(new Character());
 		npc->setName("NPC");
@@ -372,7 +362,7 @@ namespace sys {
 		mPlayer = new Character();
 		game->setMainCharacter(mPlayer);
 		mPlayer->setDialogueComp(new DialogueComponent());
-		mPlayer->setName("Melli the cutest cutie");
+		mPlayer->setName("Melanie");
 		mPlayer->addPassibleType(Engine::getEngine()->getTileType("land"));
 		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
 		mPlayer->setGridLocation(2, 1);

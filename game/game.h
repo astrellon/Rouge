@@ -91,6 +91,9 @@ namespace game {
 		bool removeQuest(const char *questId);
 		Quest *getQuest(const char *questId);
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		Handle<Map> mCurrentMap;

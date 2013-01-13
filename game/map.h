@@ -7,9 +7,6 @@
 #include <base/handle.h>
 using namespace am::base;
 
-//#include <util/json_value.h>
-//using namespace am::util;
-
 #include <lua/lua_state.h>
 using namespace am::lua;
 
@@ -31,9 +28,6 @@ namespace game {
 		Map(const char *name);
 		Map(const char *name, int width, int height);
 		~Map();
-
-		//virtual void retain();
-		//virtual void release();
 
 		virtual void deinit();
 	
@@ -65,12 +59,14 @@ namespace game {
 		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
-		//void loadDef(JsonValue loaded);
 		void loadDef(LuaState &lua);
 
 		void updateAssetSprites();
 
 		virtual void render(float dt);
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 

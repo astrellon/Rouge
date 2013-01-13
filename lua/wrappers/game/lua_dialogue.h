@@ -12,10 +12,7 @@ namespace am {
 namespace lua {
 namespace game {
 
-	const char Dialogue_tableName[] = "am_game_Dialogue";
-
 	int Dialogue_ctor(lua_State *lua);
-	void Dialogue_wrap(lua_State *lua, am::game::Dialogue *dialogue);
 	int Dialogue_dtor(lua_State *lua);
 	int Dialogue_eq(lua_State *lua);
 	int Dialogue_register(lua_State *lua);
@@ -42,8 +39,6 @@ namespace game {
 	int Dialogue_remove_dialogue(lua_State *lua);
 	int Dialogue_remove_all_dialogue(lua_State *lua);
 	int Dialogue_get_dialogue(lua_State *lua);
-
-	am::game::Dialogue *Check_Dialogue(lua_State *lua, int n);
 
 	Dialogue::UnlockFlag getUnlockFlag(lua_State *lua, int n);
 	Dialogue::DialogueAction getDialogueAction(lua_State *lua, int n);

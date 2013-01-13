@@ -290,6 +290,62 @@ namespace tests {
 		return true;
 	}
 
+	bool TestLua::testLoadScripts()
+	{
+		LuaState lua;
+		bool loaded = lua.loadString("name = \"Melli\"\n"
+			"local age = 23\n"
+			"function getName()\n"
+			"	return name\n"
+			"end\n"
+			"local function getAge()\n"
+			"	return age\n"
+			"end\n"
+			"function getNameAndAge()\n"
+			"	return getName(), getAge()\n"
+			"end");
+		if (!loaded) 
+		{
+			lua.logStack("ERR");
+			return false;
+		}
+
+		assert(lua.hasGlobalFunction("getName"));
+		lua.call(0, 1);
+		equalsStr("Melli", lua_tostring(lua, -1));
+		lua.pop(1);
+
+		assert(!lua.hasGlobalFunction("getAge"));
+		assert(lua.hasGlobalFunction("getNameAndAge"));
+		lua.call(0, 2);
+		equalsStr("Melli", lua_tostring(lua, -2));
+		equals(23, lua_tointeger(lua, -1));
+
+		loaded = lua.loadString("name = \"Alan\"\n"
+			"local age = 24\n"
+			"local function getAge()\n"
+			"	return age\n"
+			"end\n");
+		if (!loaded)
+		{
+			lua.logStack("ERR");
+			return false;
+		}
+
+		assert(lua.hasGlobalFunction("getName"));
+		lua.call(0, 1);
+		equalsStr("Alan", lua_tostring(lua, -1));
+		lua.pop(1);
+
+		assert(!lua.hasGlobalFunction("getAge"));
+		assert(lua.hasGlobalFunction("getNameAndAge"));
+		lua.call(0, 2);
+		equalsStr("Alan", lua_tostring(lua, -2));
+		equals(23, lua_tointeger(lua, -1));
+
+		return true;
+	}
+
 	bool TestLua::testWrapper()
 	{
 		LuaState lua;

@@ -11,6 +11,9 @@ using namespace am::base;
 #include <ui/ui_game_hud.h>
 using namespace am::ui;
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 #include "tile_set.h"
 
 namespace am {
@@ -76,10 +79,15 @@ namespace game {
 		TileType *getTileType(const char *name);
 		TileType *getTileType(const string &name);
 
+		LuaState &getLua();
+
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
 
 		static Game *getGame();
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 
@@ -105,6 +113,8 @@ namespace game {
 
 		RaceMap mRaces;
 		Race *mUnknownRace;
+
+		LuaState mLua;
 
 		void checkUsingTileSet();
 

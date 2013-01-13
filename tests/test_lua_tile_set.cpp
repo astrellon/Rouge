@@ -99,7 +99,7 @@ namespace tests {
 		Tile *tile = new Tile("myTile");
 
 		assert(lua.hasGlobalFunction("addTile"));
-		Tile_wrap(lua, tile);
+		wrapRefObject<Tile>(lua, tile);
 		lua.call(1, 0);
 
 		assert(lua.hasGlobalFunction("hasTile"));
@@ -109,7 +109,7 @@ namespace tests {
 		lua.pop(1);
 		
 		assert(lua.hasGlobalFunction("hasTile"));
-		Tile_wrap(lua, tile);
+		wrapRefObject<Tile>(lua, tile);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -118,7 +118,7 @@ namespace tests {
 		lua.push("myTile");
 		lua.call(1, 1);
 		lua_getmetatable(lua, -1);
-		Tile *get = Check_Tile(lua, 1);
+		Tile *get = castUData<Tile>(lua, 1);
 		lua.pop(1);
 		assert(tile == get);
 

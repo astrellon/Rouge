@@ -12,6 +12,8 @@ namespace game {
 
 	//int GameObject::sGameIdCount = 1;
 	//GameObject::GameObjectIdMap GameObject::sGameObjects;
+	const int GameObject::LUA_ID = __COUNTER__;
+	const char *GameObject::LUA_TABLENAME = "am_game_GameObject";
 
 	GameObject::GameObject() :
 		Layer(),

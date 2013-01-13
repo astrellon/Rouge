@@ -20,23 +20,13 @@ namespace game {
 	int CoinPurse_ctor(lua_State *lua)
 	{
 		CoinPurse *purse = new CoinPurse();
-		CoinPurse_wrap(lua, purse);
+		wrapRefObject<CoinPurse>(lua, purse);
 		return 1;
-	}
-	void CoinPurse_wrap(lua_State *lua, CoinPurse *purse)
-	{
-		CoinPurse ** udata = (CoinPurse **)lua_newuserdata(lua, sizeof(CoinPurse *));
-		*udata = purse;
-
-		purse->retain();
-
-		luaL_getmetatable(lua, CoinPurse_tableName);
-		lua_setmetatable(lua, -2);
 	}
 
 	int CoinPurse_dtor(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse)
 		{
 			purse->release();
@@ -46,8 +36,8 @@ namespace game {
 
 	int CoinPurse_eq(lua_State *lua)
 	{
-		CoinPurse *lhs = Check_CoinPurse(lua, 1);
-		CoinPurse *rhs = Check_CoinPurse(lua, 2);
+		CoinPurse *lhs = castUData<CoinPurse>(lua, 1);
+		CoinPurse *rhs = castUData<CoinPurse>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -70,7 +60,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, CoinPurse_tableName);
+		luaL_newmetatable(lua, CoinPurse::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -79,14 +69,14 @@ namespace game {
 		return 1;
 	}
 
-	CoinPurse *Check_CoinPurse(lua_State *lua, int n)
+	/*CoinPurse *castUData<CoinPurse>(lua_State *lua, int n)
 	{
 		return *(CoinPurse **)luaL_checkudata(lua, n, CoinPurse_tableName);
-	}
+	}*/
 
 	int CoinPurse_set_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			purse->setCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
@@ -95,7 +85,7 @@ namespace game {
 	}
 	int CoinPurse_get_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse)
 		{
 			lua_pushinteger(lua, static_cast<int>(purse->getCoin()));
@@ -107,7 +97,7 @@ namespace game {
 
 	int CoinPurse_can_add_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			lua_pushinteger(lua, static_cast<int>(purse->canAddCoin(lua_tointeger(lua, -1))));
@@ -118,7 +108,7 @@ namespace game {
 	}
 	int CoinPurse_can_remove_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			lua_pushinteger(lua, static_cast<int>(purse->canRemoveCoin(lua_tointeger(lua, -1))));
@@ -130,7 +120,7 @@ namespace game {
 
 	int CoinPurse_add_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			purse->addCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
@@ -139,7 +129,7 @@ namespace game {
 	}
 	int CoinPurse_remove_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			purse->removeCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
@@ -149,7 +139,7 @@ namespace game {
 
 	int CoinPurse_set_max_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse && lua_isnumber(lua, -1))
 		{
 			purse->setMaxCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
@@ -158,7 +148,7 @@ namespace game {
 	}
 	int CoinPurse_get_max_coin(lua_State *lua)
 	{
-		CoinPurse *purse = Check_CoinPurse(lua, 1);
+		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
 		if (purse)
 		{
 			lua_pushinteger(lua, static_cast<int>(purse->getMaxCoin()));

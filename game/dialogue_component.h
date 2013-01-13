@@ -46,6 +46,9 @@ namespace game {
 		virtual void setAttachedTo(GameObject *obj);
 		virtual GameObject *getAttachedTo() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		SubjectMap mUnlockedSubjects;

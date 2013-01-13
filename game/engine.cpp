@@ -20,6 +20,8 @@ namespace am {
 namespace game {
 
 	Engine *Engine::sMainEngine = NULL;
+	const int Engine::LUA_ID = __COUNTER__;
+	const char *Engine::LUA_TABLENAME = "am_game_Engine";
 
 	Engine::Engine() :
 		mCurrentGame(NULL),
@@ -82,6 +84,7 @@ namespace game {
 			}
 			mTileTypes.clear();
 		}
+		mLua.close();
 	}
 	void Engine::update(float dt)
 	{
@@ -254,6 +257,11 @@ namespace game {
 	TileSet *Engine::getTopLevelTileSet()
 	{
 		return mTopLevelTileSet.get();
+	}
+
+	LuaState &Engine::getLua()
+	{
+		return mLua;
 	}
 
 	void Engine::setEngine(Engine *engine)

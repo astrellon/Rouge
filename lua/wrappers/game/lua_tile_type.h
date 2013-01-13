@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char TileType_tableName[] = "am_game_TileType";
-
 	int TileType_ctor(lua_State *lua);
-	void TileType_wrap(lua_State *lua, am::game::TileType *type);
 	int TileType_dtor(lua_State *lua);
 	int TileType_eq(lua_State *lua);
 	int TileType_register(lua_State *lua);
@@ -28,8 +25,6 @@ namespace game {
 
 	int TileType_add_tile_type(lua_State *lua);
 	int TileType_get_tile_type(lua_State *lua);
-
-	am::game::TileType *Check_TileType(lua_State *lua, int n);
 
 }
 }

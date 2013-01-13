@@ -10,13 +10,13 @@ using namespace am::base;
 using namespace std;
 
 #include <game/dialogue.h>
+#include <game/tile_type.h>
 #include <game/dialogue_component.h>
 
 namespace am {
 namespace game {
 
 	class Map;
-	class TileType;
 
 	class GameObject : public Layer {
 	public:
@@ -72,8 +72,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		//static int nextGameId();
-		//static GameObject *getGameObject(const char *id);
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 

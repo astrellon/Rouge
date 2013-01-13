@@ -3,6 +3,9 @@
 namespace am {
 namespace game {
 
+	const int StatModifiers::LUA_ID = __COUNTER__;
+	const char *StatModifiers::LUA_TABLENAME = "am_game_StatModifiers";
+
 	StatModifiers::StatModifiers()
 	{
 	}

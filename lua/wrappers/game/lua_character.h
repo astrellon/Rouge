@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Character_tableName[] = "am_game_Character";
-
 	int Character_ctor(lua_State *lua);
-	void Character_wrap(lua_State *lua, am::game::Character *character);
 	int Character_dtor(lua_State *lua);
 	int Character_eq(lua_State *lua);
 	int Character_register(lua_State *lua);
@@ -105,8 +102,6 @@ namespace game {
 
 	int Character_set_max_level(lua_State *lua);
 	int Character_get_max_level(lua_State *lua);
-
-	am::game::Character *Check_Character(lua_State *lua, int n);
 
 }
 }

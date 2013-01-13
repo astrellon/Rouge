@@ -59,7 +59,7 @@ namespace tests {
 		Handle<Item> item(new Item());
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
 		lua.call(3, 1);
@@ -67,7 +67,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.push(5);
 		lua.push(0);
 		lua.call(3, 1);
@@ -76,7 +76,7 @@ namespace tests {
 
 		item->setInventorySize(7, 2);
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
 		lua.call(3, 1);
@@ -85,25 +85,25 @@ namespace tests {
 
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("addItem"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addItem"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
-		Item_wrap(lua, item);
+		wrapRefObject<Item>(lua, item);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);

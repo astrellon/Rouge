@@ -9,6 +9,16 @@
 namespace am {
 namespace lua {
 
+	int getUDataType(lua_State *lua, int n)
+	{
+		if (!lua_isuserdata(lua, n))
+		{
+			return -1;
+		}
+		int *data = reinterpret_cast<int *>(lua_touserdata(lua, n));
+		return data[0];
+	}
+
 	LuaState::WrapperMap LuaState::sWrapperMap;
 	int LuaState::sDepth = 0;
 

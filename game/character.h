@@ -85,6 +85,9 @@ namespace game {
 
 		virtual CoinPurse *getCoinPurse() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		Handle<IController> mController;

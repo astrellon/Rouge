@@ -27,21 +27,12 @@ namespace game {
 	{
 		StatModifiers *stats = new StatModifiers();
 		
-		StatModifiers_wrap(lua, stats);
+		wrapObject<StatModifiers>(lua, stats);
 		return 1;
 	}
-	void StatModifiers_wrap(lua_State *lua, StatModifiers *stats)
-	{
-		StatModifiers ** udata = (StatModifiers **)lua_newuserdata(lua, sizeof(StatModifiers *));
-		*udata = stats;
-
-		luaL_getmetatable(lua, StatModifiers_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
 	int StatModifiers_dtor(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
 			delete stats;
@@ -51,8 +42,8 @@ namespace game {
 
 	int StatModifiers_eq(lua_State *lua)
 	{
-		StatModifiers *lhs = Check_StatModifiers(lua, 1);
-		StatModifiers *rhs = Check_StatModifiers(lua, 2);
+		StatModifiers *lhs = castUData<StatModifiers>(lua, 1);
+		StatModifiers *rhs = castUData<StatModifiers>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -72,7 +63,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, StatModifiers_tableName);
+		luaL_newmetatable(lua, StatModifiers::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -81,14 +72,9 @@ namespace game {
 		return 1;
 	}
 
-	StatModifiers *Check_StatModifiers(lua_State *lua, int n)
-	{
-		return *(StatModifiers **)luaL_checkudata(lua, n, StatModifiers_tableName);
-	}
-
 	int StatModifiers_add_modifier(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
 			int args = lua_gettop(lua);
@@ -126,7 +112,7 @@ namespace game {
 	}
 	int StatModifiers_remove_modifier(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
 			int args = lua_gettop(lua);
@@ -165,8 +151,8 @@ namespace game {
 
 	int StatModifiers_add_modifiers(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
-		StatModifiers *other = Check_StatModifiers(lua, 2);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
+		StatModifiers *other = castUData<StatModifiers>(lua, 2);
 		if (stats && other)
 		{
 			stats->addModifiers(*other);
@@ -175,8 +161,8 @@ namespace game {
 	}
 	int StatModifiers_remove_modifiers(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
-		StatModifiers *other = Check_StatModifiers(lua, 2);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
+		StatModifiers *other = castUData<StatModifiers>(lua, 2);
 		if (stats && other)
 		{
 			stats->removeModifiers(*other);
@@ -186,7 +172,7 @@ namespace game {
 
 	int StatModifiers_calculate_stat(lua_State *lua)
 	{
-		StatModifiers *stats = Check_StatModifiers(lua, 1);
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
 			Stat::StatType type = getStat(lua, -2);

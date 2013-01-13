@@ -53,21 +53,13 @@ namespace game {
 			}
 			Dialogue *dialogue = new Dialogue(lua_tostring(lua, 1), lua_tostring(lua, 2),
 				title, subject, flag, action);
-			Dialogue_wrap(lua, dialogue);
+			wrapObject<Dialogue>(lua, dialogue);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Dialogue_wrap(lua_State *lua, Dialogue *dialogue)
-	{
-		Dialogue ** udata = (Dialogue **)lua_newuserdata(lua, sizeof(Dialogue *));
-		*udata = dialogue;
-
-		luaL_getmetatable(lua, Dialogue_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
+	
 	int Dialogue_dtor(lua_State *lua)
 	{
 		return 0;
@@ -75,8 +67,8 @@ namespace game {
 
 	int Dialogue_eq(lua_State *lua)
 	{
-		Dialogue *lhs = Check_Dialogue(lua, 1);
-		Dialogue *rhs = Check_Dialogue(lua, 2);
+		Dialogue *lhs = castUData<Dialogue>(lua, 1);
+		Dialogue *rhs = castUData<Dialogue>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -108,7 +100,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Dialogue_tableName);
+		luaL_newmetatable(lua, Dialogue::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -117,14 +109,9 @@ namespace game {
 		return 1;
 	}
 
-	Dialogue *Check_Dialogue(lua_State *lua, int n)
-	{
-		return *(Dialogue **)luaL_checkudata(lua, n, Dialogue_tableName);
-	}
-
 	int Dialogue_set_text(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag && lua_isstring(lua, -1))
 		{
 			diag->setText(lua_tostring(lua, -1));
@@ -133,7 +120,7 @@ namespace game {
 	}
 	int Dialogue_get_text(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, diag->getText());
@@ -145,7 +132,7 @@ namespace game {
 
 	int Dialogue_set_title(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag && lua_isstring(lua, -1))
 		{
 			diag->setTitle(lua_tostring(lua, -1));
@@ -154,7 +141,7 @@ namespace game {
 	}
 	int Dialogue_get_title(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, diag->getTitle());
@@ -166,7 +153,7 @@ namespace game {
 
 	int Dialogue_set_id(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag && lua_isstring(lua, -1))
 		{
 			diag->setId(lua_tostring(lua, -1));
@@ -175,7 +162,7 @@ namespace game {
 	}
 	int Dialogue_get_id(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, diag->getId());
@@ -187,7 +174,7 @@ namespace game {
 
 	int Dialogue_set_subject(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag && lua_isstring(lua, -1))
 		{
 			diag->setSubject(lua_tostring(lua, -1));
@@ -196,7 +183,7 @@ namespace game {
 	}
 	int Dialogue_get_subject(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, diag->getSubject());
@@ -208,7 +195,7 @@ namespace game {
 
 	int Dialogue_set_unlock_flag(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			Dialogue::UnlockFlag flag = getUnlockFlag(lua, -1);
@@ -221,7 +208,7 @@ namespace game {
 	}
 	int Dialogue_get_unlock_flag(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, Dialogue::getUnlockFlagName(diag->getUnlockFlag()));
@@ -233,7 +220,7 @@ namespace game {
 
 	int Dialogue_set_dialogue_action(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			Dialogue::DialogueAction action = getDialogueAction(lua, -1);
@@ -246,7 +233,7 @@ namespace game {
 	}
 	int Dialogue_get_dialogue_action(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushstring(lua, Dialogue::getDialogueActionName(diag->getDialogueAction()));
@@ -258,7 +245,7 @@ namespace game {
 
 	int Dialogue_add_dialogue(lua_State *lua)
 	{
-		Dialogue *diag = Check_Dialogue(lua, 1);
+		Dialogue *diag = castUData<Dialogue>(lua, 1);
 		if (diag)
 		{
 			lua_pushboolean(lua, Engine::getGame()->addDialogue(diag));
@@ -289,7 +276,7 @@ namespace game {
 			Dialogue *diag = Engine::getGame()->getDialogue(lua_tostring(lua, -1));
 			if (diag)
 			{
-				Dialogue_wrap(lua, diag);
+				wrapObject<Dialogue>(lua, diag);
 				return 1;
 			}
 		}

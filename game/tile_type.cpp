@@ -13,7 +13,8 @@ using namespace std;
 namespace am {
 namespace game {
 
-	//TileType::TileTypeMap TileType::sTileTypes;
+	const int TileType::LUA_ID = __COUNTER__;
+	const char *TileType::LUA_TABLENAME = "am_game_TileType";
 
 	TileType::TileType(const char *name, const char *fullName) :
 		mName(name)

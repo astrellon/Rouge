@@ -33,6 +33,9 @@ namespace game {
 		virtual void addModifiers(const StatModifiers &rhs);
 		virtual void removeModifiers(const StatModifiers &rhs);
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		GameObject *mAttachedTo;

@@ -60,7 +60,7 @@ namespace tests {
 		equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
-		Quest_wrap(lua, &manager);
+		wrapObject<Quest>(lua, &manager);
 
 		lua.call(1, 0);
 		Handle<Event> testEvent(new Event("testEvent"));

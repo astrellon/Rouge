@@ -24,6 +24,9 @@ namespace game {
 		virtual void setMaxCoin(unsigned int maxCoin);
 		virtual unsigned int getMaxCoin() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		unsigned int mCoin;

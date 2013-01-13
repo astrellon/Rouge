@@ -42,6 +42,9 @@ namespace game {
 		virtual void setAcceptedReward(bool accepted);
 		virtual bool hasAcceptedReward() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		string mQuestId;

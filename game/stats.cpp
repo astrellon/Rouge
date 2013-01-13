@@ -5,6 +5,9 @@
 namespace am {
 namespace game {
 
+	const int Stats::LUA_ID = __COUNTER__;
+	const char *Stats::LUA_TABLENAME = "am_game_Stats";
+
 	Stats::Stats()
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)

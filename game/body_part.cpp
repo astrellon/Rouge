@@ -3,7 +3,8 @@
 namespace am {
 namespace game {
 
-	//BodyPart::BodyPartMap BodyPart::sBodyParts;
+	const int BodyPart::LUA_ID = __COUNTER__;
+	const char *BodyPart::LUA_TABLENAME = "am_game_BodyPart";
 
 	BodyPart::BodyPart(const char *name, Item *equipped) :
 		mName(name),

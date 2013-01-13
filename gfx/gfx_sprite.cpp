@@ -10,6 +10,9 @@
 namespace am {
 namespace gfx {
 
+	const int Sprite::LUA_ID = __COUNTER__;
+	const char *Sprite::LUA_TABLENAME = "am_gfx_Sprite";
+
 	Sprite::Sprite() :
 		Renderable(),
 		mAsset(NULL),

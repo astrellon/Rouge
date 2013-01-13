@@ -13,6 +13,8 @@
 #include <ui/ui_inspector.h>
 #include <ui/keyboard_manager.h>
 
+#include <lua/wrappers/game/lua_map.h>
+
 #include "engine.h"
 #include "map.h"
 #include "player_hand.h"
@@ -22,6 +24,8 @@ namespace am {
 namespace game {
 
 	//Game::DialogueMap Game::mDialogueMap;
+	const int Game::LUA_ID = __COUNTER__;
+	const char *Game::LUA_TABLENAME = "am_game_Game";
 
 	Game::Game(Engine *engine) :
 		mEngine(engine),
@@ -83,13 +87,6 @@ namespace game {
 			}
 			mMaps.clear();
 		}
-		/*mGameObjects.clear();
-		Handle<IController> cont(mMainCharacter->getController());
-		if (cont)
-		{
-			cont->detach();
-			mMainCharacter->setController(NULL);
-		}*/
 	}
 
 	Map *Game::getMapLua(const char *mapName)
@@ -106,24 +103,26 @@ namespace game {
 
 		stringstream ss;
 		ss << "data/maps/" << mapName << ".lua";
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
+		//LuaState lua(false);
+		LuaState &lua = mEngine->getLua();
+		int loadError = luaL_loadfile(lua, ss.str().c_str());
+		if (loadError)
 		{
 			stringstream errss;
 			errss << "Unable to load map '" << mapName << "', using the path '";
 			errss << ss.str() << '\''; 
 			am_log("MAP", errss);
 			lua.logStack("MAPLUA");
-			lua.close();
 			return NULL;
 		}
-		Handle<Map> map(new Map(mapName.c_str()));
-		lua_getglobal(lua, "map");
-		map->loadDef(lua);
+		lua.call(0, 1);
+		Map *map = am::lua::castUData<Map>(lua, -1);
 
-		mMaps[mapName] = map;
-		lua.close();
-		return map.get();
+		if (map)
+		{
+			mMaps[mapName] = map;
+		}
+		return map;
 	}
 
 	Map *Game::getCurrentMap()

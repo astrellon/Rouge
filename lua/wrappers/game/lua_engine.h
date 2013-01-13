@@ -13,8 +13,6 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Engine_tableName[] = "am_game_Engine";
-
 	int Engine_register(lua_State *lua);
 
 	int Engine_set_current_game(lua_State *lua);

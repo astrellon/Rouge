@@ -15,6 +15,9 @@ namespace game {
 
 		const char *getRaceName() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		string mRaceName;

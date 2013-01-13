@@ -29,26 +29,15 @@ namespace game {
 		if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			Inventory *inv = new Inventory(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-			Inventory_wrap(lua, inv);
+			wrapRefObject<Inventory>(lua, inv);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Inventory_wrap(lua_State *lua, Inventory *inv)
-	{
-		Inventory ** udata = (Inventory **)lua_newuserdata(lua, sizeof(Inventory *));
-		*udata = inv;
-
-		inv->retain();
-
-		luaL_getmetatable(lua, Inventory_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
 	int Inventory_dtor(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
+		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
 			inv->release();
@@ -58,8 +47,8 @@ namespace game {
 
 	int Inventory_eq(lua_State *lua)
 	{
-		Inventory *lhs = Check_Inventory(lua, 1);
-		Inventory *rhs = Check_Inventory(lua, 2);
+		Inventory *lhs = castUData<Inventory>(lua, 1);
+		Inventory *rhs = castUData<Inventory>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -82,7 +71,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Inventory_tableName);
+		luaL_newmetatable(lua, Inventory::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -91,14 +80,9 @@ namespace game {
 		return 1;
 	}
 
-	Inventory *Check_Inventory(lua_State *lua, int n)
-	{
-		return *(Inventory **)luaL_checkudata(lua, n, Inventory_tableName);
-	}
-
 	int Inventory_get_space(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
+		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
 			lua_pushinteger(lua, inv->getSpacesX());
@@ -112,8 +96,8 @@ namespace game {
 
 	int Inventory_has_space_for(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Inventory *inv = castUData<Inventory>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (inv && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			lua_pushboolean(lua, inv->hasSpaceFor(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
@@ -124,8 +108,8 @@ namespace game {
 	}
 	int Inventory_add_item(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Inventory *inv = castUData<Inventory>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (inv && item)
 		{
 			if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
@@ -143,8 +127,8 @@ namespace game {
 	}
 	int Inventory_remove_item(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Inventory *inv = castUData<Inventory>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (inv && item)
 		{
 			lua_pushboolean(lua, inv->removeItem(item));
@@ -154,7 +138,7 @@ namespace game {
 	}
 	int Inventory_remove_all(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
+		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
 			lua_pushboolean(lua, inv->removeAll());
@@ -165,8 +149,8 @@ namespace game {
 	}
 	int Inventory_has_item(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		Inventory *inv = castUData<Inventory>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (inv && item)
 		{
 			lua_pushboolean(lua, inv->hasItem(item));
@@ -177,10 +161,10 @@ namespace game {
 	}
 	int Inventory_get_item_at(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
+		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
-			Item_wrap(lua, inv->getItemAt(lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+			wrapRefObject<Item>(lua, inv->getItemAt(lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -189,7 +173,7 @@ namespace game {
 
 	int Inventory_get_spots(lua_State *lua)
 	{
-		Inventory *inv = Check_Inventory(lua, 1);
+		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
 			LuaState L(lua);
@@ -201,7 +185,7 @@ namespace game {
 			{
 				L.newTable();
 				lua_pushstring(lua, "item");
-				Item_wrap(lua, iter->getItem());
+				wrapRefObject<Item>(lua, iter->getItem());
 				lua_settable(lua, -3);
 				L.setTableValue("x", iter->getX());
 				L.setTableValue("y", iter->getY());

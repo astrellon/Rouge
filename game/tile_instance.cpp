@@ -9,6 +9,9 @@ using am::util::Utils;
 namespace am {
 namespace game {
 
+	const int TileInstance::LUA_ID = __COUNTER__;
+	const char *TileInstance::LUA_TABLENAME = "am_game_TileInstance";
+
 	TileInstance::TileInstance() : 
 		mTile(NULL),
 		mTileFrame(0)

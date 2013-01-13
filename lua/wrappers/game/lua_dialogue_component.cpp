@@ -25,16 +25,8 @@ namespace game {
 	{
 		GameObject *obj = getGameObject(lua, -1);
 		DialogueComponent *comp = new DialogueComponent(obj);
-		DialogueComponent_wrap(lua, comp);
+		wrapObject<DialogueComponent>(lua, comp);
 		return 1;
-	}
-	void DialogueComponent_wrap(lua_State *lua, DialogueComponent *dialogue)
-	{
-		DialogueComponent ** udata = (DialogueComponent **)lua_newuserdata(lua, sizeof(DialogueComponent *));
-		*udata = dialogue;
-
-		luaL_getmetatable(lua, DialogueComponent_tableName);
-		lua_setmetatable(lua, -2);
 	}
 
 	int DialogueComponent_dtor(lua_State *lua)
@@ -44,8 +36,8 @@ namespace game {
 
 	int DialogueComponent_eq(lua_State *lua)
 	{
-		DialogueComponent *lhs = Check_DialogueComponent(lua, 1);
-		DialogueComponent *rhs = Check_DialogueComponent(lua, 2);
+		DialogueComponent *lhs = castUData<DialogueComponent>(lua, 1);
+		DialogueComponent *rhs = castUData<DialogueComponent>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -72,7 +64,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, DialogueComponent_tableName);
+		luaL_newmetatable(lua, DialogueComponent::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -81,18 +73,13 @@ namespace game {
 		return 1;
 	}
 
-	DialogueComponent *Check_DialogueComponent(lua_State *lua, int n)
-	{
-		return *(DialogueComponent **)luaL_checkudata(lua, n, DialogueComponent_tableName);
-	}
-
 	int DialogueComponent_talk_to(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		GameObject *other = getGameObject(lua, 2);
 		if (comp && other)
 		{
-			Dialogue *diag = Check_Dialogue(lua, 3);
+			Dialogue *diag = castUData<Dialogue>(lua, 3);
 			if (diag)
 			{
 				comp->talkTo(other, diag);
@@ -106,7 +93,7 @@ namespace game {
 	}
 	int DialogueComponent_get_talking_to(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp)
 		{
 			wrapGameObject(lua, comp->getTalkingTo());
@@ -118,7 +105,7 @@ namespace game {
 
 	int DialogueComponent_set_start_dialogue(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp)
 		{
 			Dialogue *diag = NULL;
@@ -128,7 +115,7 @@ namespace game {
 			}
 			else
 			{
-				diag = Check_Dialogue(lua, -1);
+				diag = castUData<Dialogue>(lua, -1);
 			}
 			comp->setStartDialogue(diag);
 		}
@@ -136,13 +123,13 @@ namespace game {
 	}
 	int DialogueComponent_get_start_dialogue(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp)
 		{
 			Dialogue *diag = comp->getStartDialogue();
 			if (diag)
 			{
-				Dialogue_wrap(lua, diag);
+				wrapObject<Dialogue>(lua, diag);
 				return 1;
 			}
 		}
@@ -152,7 +139,7 @@ namespace game {
 
 	int DialogueComponent_set_subject_lock(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp && lua_isstring(lua, 2))
 		{
 			if (lua_isboolean(lua, 3))
@@ -168,7 +155,7 @@ namespace game {
 	}
 	int DialogueComponent_is_subject_locked(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp && lua_isstring(lua, 2))
 		{
 			lua_pushboolean(lua, comp->isSubjectLocked(lua_tostring(lua, 2)));
@@ -180,7 +167,7 @@ namespace game {
 
 	int DialogueComponent_set_dialogue_available(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp && lua_isstring(lua, 2))
 		{
 			if (lua_isboolean(lua, 3))
@@ -196,7 +183,7 @@ namespace game {
 	}
 	int DialogueComponent_is_dialogue_available(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp && lua_isstring(lua, 2))
 		{
 			lua_pushboolean(lua, comp->isDialogueAvailable(lua_tostring(lua, 2)));
@@ -208,7 +195,7 @@ namespace game {
 
 	int DialogueComponent_set_attached_to(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		GameObject *obj = getGameObject(lua, 2);
 		if (comp)
 		{
@@ -218,7 +205,7 @@ namespace game {
 	}
 	int DialogueComponent_get_attached_to(lua_State *lua)
 	{
-		DialogueComponent *comp = Check_DialogueComponent(lua, 1);
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
 		if (comp)
 		{
 			wrapGameObject(lua, comp->getAttachedTo());

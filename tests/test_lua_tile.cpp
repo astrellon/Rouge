@@ -112,7 +112,7 @@ namespace tests {
 		Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
-		TileType_wrap(lua, type);
+		wrapObject<TileType>(lua, type);
 		lua.call(1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -124,11 +124,11 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
-		TileType_wrap(lua, type);
+		wrapObject<TileType>(lua, type);
 		lua.call(1, 0);
 		
 		assert(lua.hasGlobalFunction("hasTileType"));
-		TileType_wrap(lua, type);
+		wrapObject<TileType>(lua, type);
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -150,7 +150,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
-		TileType_wrap(lua, type);
+		wrapObject<TileType>(lua, type);
 		lua.call(1, 0);
 
 		assert(lua.hasGlobalFunction("hasTileType"));

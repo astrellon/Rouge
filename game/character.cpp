@@ -14,6 +14,9 @@ using namespace std;
 namespace am {
 namespace game {
 
+	const int Character::LUA_ID = __COUNTER__;
+	const char *Character::LUA_TABLENAME = "am_game_Character";
+
 	Character::Character() :
 		GameObject(),
 		mGraphic(NULL),

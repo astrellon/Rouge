@@ -22,6 +22,46 @@ using namespace am::base;
 namespace am {
 namespace lua {
 
+	template <class T>
+	inline void newUData(lua_State *lua, T *obj)
+	{
+		int *udata = reinterpret_cast<int *>(lua_newuserdata(lua, sizeof(int) + sizeof(T *)));
+		udata[0] = T::LUA_ID;
+		udata[1] = reinterpret_cast<int>(obj);
+	}
+
+	template <class T>
+	inline T *castUData(lua_State *lua, int n)
+	{
+		int *data = reinterpret_cast<int *>(lua_touserdata(lua, n));
+		int id = data[0];
+		if (id == T::LUA_ID)
+		{
+			return reinterpret_cast<T *>(data[1]);
+		}
+		return NULL;
+	}
+	int getUDataType(lua_State *lua, int n);
+
+	template <class T>
+	inline void wrapObject(lua_State *lua, T *object)
+	{
+		newUData<T>(lua, object);
+
+		luaL_getmetatable(lua, T::LUA_TABLENAME);
+		lua_setmetatable(lua, -2);
+	}
+	template <class T>
+	inline void wrapRefObject(lua_State *lua, T *object)
+	{
+		newUData<T>(lua, object);
+
+		object->retain();
+
+		luaL_getmetatable(lua, T::LUA_TABLENAME);
+		lua_setmetatable(lua, -2);
+	}
+
 	class LuaState : public IManaged {
 	public:
 

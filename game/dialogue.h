@@ -53,6 +53,9 @@ namespace game {
 		static DialogueAction toDialogueAction(int actionValue);
 		static const char *getDialogueActionName(DialogueAction action);
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		string mText;

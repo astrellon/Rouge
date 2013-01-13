@@ -11,6 +11,8 @@ extern "C"
 using namespace am::lua;
 
 #include <game/engine.h>
+#include <game/game.h>
+#include <game/race.h>
 using namespace am::game;
 
 #include "lua_tile.h"
@@ -52,7 +54,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Engine_tableName);
+		luaL_newmetatable(lua, Engine::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -63,7 +65,7 @@ namespace game {
 
 	int Engine_set_current_game(lua_State *lua)
 	{
-		Game *game = Check_Game(lua, 1);
+		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
 			Engine::getEngine()->setCurrentGame(game);
@@ -75,7 +77,7 @@ namespace game {
 		Game *game = Engine::getEngine()->getCurrentGame();
 		if (game)
 		{
-			Game_wrap(lua, game);
+			wrapRefObject<Game>(lua, game);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -119,7 +121,7 @@ namespace game {
 			Tile *tile = Engine::getEngine()->getTile(lua_tostring(lua, -1));
 			if (tile)
 			{
-				Tile_wrap(lua, tile);
+				wrapRefObject<Tile>(lua, tile);
 				return 1;
 			}
 		}
@@ -131,7 +133,7 @@ namespace game {
 		if (lua_isstring(lua, -1))
 		{
 			TileSet *set = Engine::getEngine()->getTileSetLua(lua_tostring(lua, -1));
-			TileSet_wrap(lua, set);
+			wrapRefObject<TileSet>(lua, set);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -139,7 +141,7 @@ namespace game {
 	}
 	int Engine_add_tile_set(lua_State *lua)
 	{
-		TileSet *set = Check_TileSet(lua, 1);
+		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
 			Engine::getEngine()->addTileSet(set);
@@ -148,7 +150,7 @@ namespace game {
 	}
 	int Engine_get_top_level_tile_set(lua_State *lua)
 	{
-		TileSet_wrap(lua, Engine::getEngine()->getTopLevelTileSet());
+		wrapRefObject<TileSet>(lua, Engine::getEngine()->getTopLevelTileSet());
 		return 1;
 	}
 
@@ -162,13 +164,13 @@ namespace game {
 				Character *character = dynamic_cast<Character *>(obj);
 				if (character)
 				{
-					Character_wrap(lua, character);
+					wrapRefObject<Character>(lua, character);
 					return 1;
 				}
 				Item *item = dynamic_cast<Item *>(obj);
 				if (item)
 				{
-					Item_wrap(lua, item);
+					wrapRefObject<Item>(lua, item);
 					return 1;
 				}
 			}
@@ -178,10 +180,10 @@ namespace game {
 	}
 	int Engine_register_game_object(lua_State *lua)
 	{
-		GameObject *obj = Check_Character(lua, -1);
+		GameObject *obj = castUData<Character>(lua, -1);
 		if (!obj)
 		{
-			obj = Check_Item(lua, -1);
+			obj = castUData<Item>(lua, -1);
 		}
 		if (obj)
 		{
@@ -196,10 +198,10 @@ namespace game {
 			Engine::getEngine()->deregisterGameObject(lua_tostring(lua, -1));
 			return 0;
 		}
-		GameObject *obj = Check_Character(lua, -1);
+		GameObject *obj = castUData<Character>(lua, -1);
 		if (!obj)
 		{
-			obj = Check_Item(lua, -1);
+			obj = castUData<Item>(lua, -1);
 		}
 		if (obj)
 		{
@@ -210,7 +212,7 @@ namespace game {
 
 	int Engine_add_race(lua_State *lua)
 	{
-		Race *race = Check_Race(lua, -1);
+		Race *race = castUData<Race>(lua, -1);
 		if (race)
 		{
 			lua_pushboolean(lua, Engine::getEngine()->addRace(race));
@@ -228,7 +230,7 @@ namespace game {
 		}
 		else if (lua_isuserdata(lua, -1))
 		{
-			race = Check_Race(lua, -1);
+			race = castUData<Race>(lua, -1);
 		}
 		else
 		{
@@ -251,7 +253,7 @@ namespace game {
 			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
 			if (race)
 			{
-				Race_wrap(lua, race);
+				wrapObject<Race>(lua, race);
 				return 1;
 			}
 		}
@@ -263,7 +265,7 @@ namespace game {
 		Race *race = Engine::getEngine()->getUnknownRace();
 		if (race)
 		{
-			Race_wrap(lua, race);
+			wrapObject<Race>(lua, race);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -272,7 +274,7 @@ namespace game {
 
 	int Engine_add_tile_type(lua_State *lua)
 	{
-		TileType *type = Check_TileType(lua, -1);
+		TileType *type = castUData<TileType>(lua, -1);
 		if (type)
 		{
 			Engine::getEngine()->addTileType(type);
@@ -286,7 +288,7 @@ namespace game {
 			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
 			if (type)
 			{
-				TileType_wrap(lua, type);
+				wrapObject<TileType>(lua, type);
 				return 1;
 			}
 		}
@@ -299,7 +301,7 @@ namespace game {
 		Game *game = Engine::getGame();
 		if (game)
 		{
-			Game_wrap(lua, game);
+			wrapRefObject<Game>(lua, game);
 			return 1;
 		}
 		lua_pushnil(lua);

@@ -22,7 +22,10 @@ namespace game {
 
 		void setTileFrame(int frame);
 		int getTileFrame() const;
-	
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		Tile *mTile;
 		int mTileFrame;

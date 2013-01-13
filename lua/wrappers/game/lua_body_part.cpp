@@ -27,24 +27,16 @@ namespace game {
 			const char *partName = lua_tostring(lua, -1);
 			BodyPart *part = new BodyPart(partName);
 		
-			BodyPart_wrap(lua, part);
+			wrapObject<BodyPart>(lua, part);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void BodyPart_wrap(lua_State *lua, BodyPart *part)
-	{
-		BodyPart ** udata = (BodyPart **)lua_newuserdata(lua, sizeof(BodyPart *));
-		*udata = part;
-
-		luaL_getmetatable(lua, BodyPart_tableName);
-		lua_setmetatable(lua, -2);
-	}
 
 	int BodyPart_dtor(lua_State *lua)
 	{
-		BodyPart *part = Check_BodyPart(lua, 1);
+		BodyPart *part = castUData<BodyPart>(lua, 1);
 		if (part)
 		{
 			delete part;
@@ -54,8 +46,8 @@ namespace game {
 
 	int BodyPart_eq(lua_State *lua)
 	{
-		BodyPart *lhs = Check_BodyPart(lua, 1);
-		BodyPart *rhs = Check_BodyPart(lua, 2);
+		BodyPart *lhs = castUData<BodyPart>(lua, 1);
+		BodyPart *rhs = castUData<BodyPart>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -73,7 +65,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, BodyPart_tableName);
+		luaL_newmetatable(lua, BodyPart::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -82,14 +74,9 @@ namespace game {
 		return 1;
 	}
 
-	BodyPart *Check_BodyPart(lua_State *lua, int n)
-	{
-		return *(BodyPart **)luaL_checkudata(lua, n, BodyPart_tableName);
-	}
-
 	int BodyPart_get_name(lua_State *lua)
 	{
-		BodyPart *part = Check_BodyPart(lua, 1);
+		BodyPart *part = castUData<BodyPart>(lua, 1);
 		if (part)
 		{
 			lua_pushstring(lua, part->getName());
@@ -101,8 +88,8 @@ namespace game {
 
 	int BodyPart_set_equipped_item(lua_State *lua)
 	{
-		BodyPart *part = Check_BodyPart(lua, 1);
-		Item *item = Check_Item(lua, 2);
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		Item *item = castUData<Item>(lua, 2);
 		if (part)
 		{
 			part->setEquippedItem(item);
@@ -111,13 +98,13 @@ namespace game {
 	}
 	int BodyPart_get_equipped_item(lua_State *lua)
 	{
-		BodyPart *part = Check_BodyPart(lua, 1);
+		BodyPart *part = castUData<BodyPart>(lua, 1);
 		if (part)
 		{
 			Item *item = part->getEqippedItem();
 			if (item)
 			{
-				Item_wrap(lua, item);
+				wrapRefObject<Item>(lua, item);
 				return 1;
 			}
 		}

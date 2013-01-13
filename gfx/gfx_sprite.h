@@ -46,6 +46,9 @@ namespace gfx {
 
 		void updateSprite(float dt);
 		void renderSprite();
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 		
 	protected:
 

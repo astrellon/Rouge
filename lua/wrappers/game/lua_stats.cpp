@@ -28,21 +28,12 @@ namespace game {
 	{
 		Stats *stats = new Stats();
 
-		Stats_wrap(lua, stats);
+		wrapObject<Stats>(lua, stats);
 		return 1;
 	}
-	void Stats_wrap(lua_State *lua, Stats *stats)
-	{
-		Stats ** udata = (Stats **)lua_newuserdata(lua, sizeof(Stats *));
-		*udata = stats;
-
-		luaL_getmetatable(lua, Stats_tableName);
-		lua_setmetatable(lua, -2);
-	}
-
 	int Stats_dtor(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			delete stats;
@@ -52,8 +43,8 @@ namespace game {
 
 	int Stats_eq(lua_State *lua)
 	{
-		Stats *lhs = Check_Stats(lua, 1);
-		Stats *rhs = Check_Stats(lua, 2);
+		Stats *lhs = castUData<Stats>(lua, 1);
+		Stats *rhs = castUData<Stats>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -75,18 +66,13 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Stats_tableName);
+		luaL_newmetatable(lua, Stats::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
 		lua_setfield(lua, -1, "__index");
 
 		return 1;
-	}
-
-	Stats *Check_Stats(lua_State *lua, int n)
-	{
-		return *(Stats **)luaL_checkudata(lua, n, Stats_tableName);
 	}
 
 	Stat::StatType getStat(lua_State *lua, int n)
@@ -118,7 +104,7 @@ namespace game {
 
 	int Stats_get_base_stat(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			Stat::StatType stat = getStat(lua, -1);
@@ -133,7 +119,7 @@ namespace game {
 	}
 	int Stats_set_base_stat(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			Stat::StatType stat = getStat(lua, -2);
@@ -151,7 +137,7 @@ namespace game {
 
 	int Stats_get_stat(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			Stat::StatType stat = getStat(lua, -1);
@@ -167,7 +153,7 @@ namespace game {
 
 	int Stats_add_modifier(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			int args = lua_gettop(lua);
@@ -205,7 +191,7 @@ namespace game {
 	}
 	int Stats_remove_modifier(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
+		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
 			int args = lua_gettop(lua);
@@ -244,8 +230,8 @@ namespace game {
 
 	int Stats_add_modifiers(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
-		StatModifiers *modifiers = Check_StatModifiers(lua, 2);
+		Stats *stats = castUData<Stats>(lua, 1);
+		StatModifiers *modifiers = castUData<StatModifiers>(lua, 2);
 		if (stats && modifiers)
 		{
 			stats->addModifiers(*modifiers);
@@ -254,8 +240,8 @@ namespace game {
 	}
 	int Stats_remove_modifiers(lua_State *lua)
 	{
-		Stats *stats = Check_Stats(lua, 1);
-		StatModifiers *modifiers = Check_StatModifiers(lua, 2);
+		Stats *stats = castUData<Stats>(lua, 1);
+		StatModifiers *modifiers = castUData<StatModifiers>(lua, 2);
 		if (stats && modifiers)
 		{
 			stats->removeModifiers(*modifiers);

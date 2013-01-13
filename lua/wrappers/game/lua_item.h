@@ -13,10 +13,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Item_tableName[] = "am_game_Item";
-
 	int Item_ctor(lua_State *lua);
-	void Item_wrap(lua_State *lua, am::game::Item *item);
 	int Item_dtor(lua_State *lua);
 	int Item_eq(lua_State *lua);
 	int Item_register(lua_State *lua);
@@ -67,8 +64,6 @@ namespace game {
 	int Item_get_game_id(lua_State *lua);
 
 	int Item_get_by_game_id(lua_State *lua);
-
-	am::game::Item *Check_Item(lua_State *lua, int n);
 
 }
 }

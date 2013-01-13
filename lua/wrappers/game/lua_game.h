@@ -14,10 +14,7 @@ namespace game {
 namespace lua {
 namespace game {
 
-	const char Game_tableName[] = "am_game_Game";
-
 	int Game_ctor(lua_State *lua);
-	void Game_wrap(lua_State *lua, am::game::Game *game);
 	int Game_dtor(lua_State *lua);
 	int Game_eq(lua_State *lua);
 	int Game_register(lua_State *lua);
@@ -53,8 +50,6 @@ namespace game {
 	int Game_add_quest(lua_State *lua);
 	int Game_remove_quest(lua_State *lua);
 	int Game_get_quest(lua_State *lua);
-
-	am::game::Game *Check_Game(lua_State *lua, int n);
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n);
 	void wrapGameObject(lua_State *lua, am::game::GameObject *obj);

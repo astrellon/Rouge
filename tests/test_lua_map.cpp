@@ -68,7 +68,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getMap"));
 		lua.call(0, 1);
-		Map *map = Check_Map(lua, -1);
+		Map *map = castUData<Map>(lua, -1);
 		assert(map != NULL);
 
 		equals(6, map->getMapWidth());

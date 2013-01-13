@@ -17,6 +17,9 @@ using namespace std;
 namespace am {
 namespace game {
 
+	const int Item::LUA_ID = __COUNTER__;
+	const char *Item::LUA_TABLENAME = "am_game_Item";
+
 	const char *Item::sItemLocationNames[] = {
 		"ground", "inventory", "hand", "MAX_LENGTH"
 	};

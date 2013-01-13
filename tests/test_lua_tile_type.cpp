@@ -82,7 +82,7 @@ namespace tests {
 
 		TileType *tileType = new TileType("testTileType", "Test Tile Type");
 		assert(lua.hasGlobalFunction("addTileType"));
-		TileType_wrap(lua, tileType);
+		wrapObject<TileType>(lua, tileType);
 		lua.call(1, 0);
 
 		assert(lua.hasGlobalFunction("getTileType"));

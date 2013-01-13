@@ -90,6 +90,9 @@ namespace game {
 
 		static const char *getItemLocationTypeName(ItemLocation location);
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		Handle<Sprite> mGraphic;

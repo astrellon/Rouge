@@ -34,32 +34,22 @@ namespace game {
 		if (args == 1 && lua_isstring(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -1));
-			Map_wrap(lua, map);
+			wrapRefObject<Map>(lua, map);
 			return 1;
 		}
 		else if (args == 3 && lua_isstring(lua, -3) && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			Map *map = new Map(lua_tostring(lua, -3), lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-			Map_wrap(lua, map);
+			wrapRefObject<Map>(lua, map);
 			return 1;
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	void Map_wrap(lua_State *lua, Map *map)
-	{
-		Map ** udata = (Map **)lua_newuserdata(lua, sizeof(Map *));
-		*udata = map;
-
-		map->retain();
-
-		luaL_getmetatable(lua, Map_tableName);
-		lua_setmetatable(lua, -2);
-	}
 
 	int Map_dtor(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			map->release();
@@ -69,8 +59,8 @@ namespace game {
 
 	int Map_eq(lua_State *lua)
 	{
-		Map *lhs = Check_Map(lua, 1);
-		Map *rhs = Check_Map(lua, 2);
+		Map *lhs = castUData<Map>(lua, 1);
+		Map *rhs = castUData<Map>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -102,7 +92,7 @@ namespace game {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Map_tableName);
+		luaL_newmetatable(lua, Map::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -111,14 +101,9 @@ namespace game {
 		return 1;
 	}
 
-	Map *Check_Map(lua_State *lua, int n)
-	{
-		return *(Map **)luaL_checkudata(lua, n, Map_tableName);
-	}
-
 	int Map_set_name(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isstring(lua, -1))
 		{
 			map->setName(lua_tostring(lua, -1));
@@ -127,7 +112,7 @@ namespace game {
 	}
 	int Map_get_name(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			lua_pushstring(lua, map->getName().c_str());
@@ -139,7 +124,7 @@ namespace game {
 
 	int Map_set_full_name(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isstring(lua, -1))
 		{
 			map->setFullName(lua_tostring(lua, -1));
@@ -148,7 +133,7 @@ namespace game {
 	}
 	int Map_get_full_name(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			lua_pushstring(lua, map->getFullName().c_str());
@@ -160,13 +145,13 @@ namespace game {
 
 	int Map_get_tile(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			Tile *tile = map->getTile(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
 			if (tile)
 			{
-				Tile_wrap(lua, tile);
+				wrapRefObject<Tile>(lua, tile);
 				return 1;
 			}
 		}
@@ -175,13 +160,13 @@ namespace game {
 	}
 	int Map_get_tile_instance(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			TileInstance *inst = map->getTileInstance(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
 			if (inst)
 			{
-				TileInstance_wrap(lua, inst);
+				wrapObject<TileInstance>(lua, inst);
 				return 1;
 			}
 		}
@@ -191,7 +176,7 @@ namespace game {
 
 	int Map_set_tiles(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_istable(lua, -1))
 		{
 			if (lua_isnumber(lua, 2) && lua_isnumber(lua, 3))
@@ -210,7 +195,7 @@ namespace game {
 				}
 				else
 				{
-					Tile *tile = Check_Tile(lua, -1);
+					Tile *tile = castUData<Tile>(lua, -1);
 					insts[i].setTile(tile);
 				}
 				lua_pop(lua, 1);
@@ -227,7 +212,7 @@ namespace game {
 
 	int Map_set_map_size(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 		{
 			map->setMapSize(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
@@ -236,7 +221,7 @@ namespace game {
 	}
 	int Map_get_map_size(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			lua_pushinteger(lua, map->getMapWidth());
@@ -250,7 +235,7 @@ namespace game {
 
 	int Map_add_game_object(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			GameObject *obj = getGameObject(lua, -1);
@@ -262,7 +247,7 @@ namespace game {
 	}
 	int Map_remove_game_object(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			GameObject *obj = getGameObject(lua, -1);
@@ -274,7 +259,7 @@ namespace game {
 	}
 	int Map_has_game_object(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
 			GameObject *obj = getGameObject(lua, -1);
@@ -287,7 +272,7 @@ namespace game {
 
 	int Map_is_valid_location(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
 		{
 			GameObject *obj = getGameObject(lua, -1);
@@ -301,7 +286,7 @@ namespace game {
 	}
 	int Map_is_valid_grid_location(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
 		{
 			GameObject *obj = getGameObject(lua, -1);
@@ -316,7 +301,7 @@ namespace game {
 
 	int Map_load_def(lua_State *lua)
 	{
-		Map *map = Check_Map(lua, 1);
+		Map *map = castUData<Map>(lua, 1);
 		if (map && lua_istable(lua, -1))
 		{
 			LuaState wrap(lua);

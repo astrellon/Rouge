@@ -107,7 +107,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTile"));
-		Tile_wrap(lua, tile);
+		wrapRefObject<Tile>(lua, tile);
 		lua.call(1, 0);
 
 		assert(topLevel->hasTile(tile));
@@ -116,7 +116,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("basicTile");
 		lua.call(1, 1);
-		Tile *user = Check_Tile(lua, 1);
+		Tile *user = castUData<Tile>(lua, 1);
 		assert(user == tile);
 		lua.pop(1);
 
