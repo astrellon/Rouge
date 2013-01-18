@@ -21,28 +21,67 @@ using namespace am::base;
 
 namespace am {
 namespace lua {
+	
+	/**
+	 * Helper struct for storing Lua userdata.
+	 * Contains an id which identifies the class and a pointer to
+	 * the current instance.
+	 */
+	typedef struct {
+		int id;
+		void *ptr;
+	} LuaUData;
 
+	/**
+	 * Allocates userdata memory in Lua.
+	 * Allocates enough space for a LuaUData struct.
+	 *
+	 * @param lua The lua_State to allocate the memory on.
+	 * @param obj The object to allocate the memory for.
+	 */
 	template <class T>
 	inline void newUData(lua_State *lua, T *obj)
 	{
-		int *udata = reinterpret_cast<int *>(lua_newuserdata(lua, sizeof(int) + sizeof(T *)));
-		udata[0] = T::LUA_ID;
-		udata[1] = reinterpret_cast<int>(obj);
+		LuaUData *udata = reinterpret_cast<LuaUData *>(
+			lua_newuserdata(lua, sizeof(LuaUData)));
+		udata->id = T::LUA_ID;
+		udata->ptr = obj;
 	}
 
+	/**
+	 * Attempts to cast the parameter at index n to the given class T.
+	 * This only works if the memory was allocated by the newUData function,
+	 * or if the userdata is structurally the same as a LuaUData struct.
+	 *
+	 * @param lua The lua_State to work on.
+	 * @param n The stack index to the value.
+	 * @return A non-NULL value if the id's match
+	 */
 	template <class T>
 	inline T *castUData(lua_State *lua, int n)
 	{
-		int *data = reinterpret_cast<int *>(lua_touserdata(lua, n));
-		int id = data[0];
-		if (id == T::LUA_ID)
+		LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
+		if (udata->id == T::LUA_ID)
 		{
-			return reinterpret_cast<T *>(data[1]);
+			return reinterpret_cast<T *>(udata->ptr);
 		}
 		return NULL;
 	}
 	int getUDataType(lua_State *lua, int n);
 
+	/**
+	 * Wraps an object instance into Lua.
+	 * This requires that this class have the static consts
+	 * - int LUA_ID
+	 * - const char *LUA_TABLENAME
+	 * These are both used to identify the class type at a later date
+	 * and for applying which metatable.
+	 *
+	 * Once the object is wrapped it is left on top of the Lua stack.
+	 *
+	 * @param lua The lua_State to work on.
+	 * @param object The object to wrap.
+	 */
 	template <class T>
 	inline void wrapObject(lua_State *lua, T *object)
 	{
@@ -51,6 +90,20 @@ namespace lua {
 		luaL_getmetatable(lua, T::LUA_TABLENAME);
 		lua_setmetatable(lua, -2);
 	}
+	/**
+	 * Wraps an object instance that extends IManaged into Lua.
+	 * This requires that this class have the static consts
+	 * - int LUA_ID
+	 * - const char *LUA_TABLENAME
+	 * - extends am::base::IManaged
+	 * The first two are both used to identify the class type at a later date
+	 * and for applying which metatable.
+	 *
+	 * Once the object is wrapped and retained then left on top of the Lua stack.
+	 *
+	 * @param lua The lua_State to work on.
+	 * @param object The object to wrap.
+	 */
 	template <class T>
 	inline void wrapRefObject(lua_State *lua, T *object)
 	{
@@ -62,16 +115,33 @@ namespace lua {
 		lua_setmetatable(lua, -2);
 	}
 
+	/**
+	 * Wrapped/Extension of the lua_State struct to provide extra functionality.
+	 *
+	 * Can either create a new lua_State struct or uses one that is passed
+	 * in. Created lua_State's can either be extended with extra functions
+	 * specific to the game engine, or can be left at only the default lua libraries.
+	 */
 	class LuaState : public IManaged {
 	public:
 
 		typedef map<string, lua_CFunction> WrapperMap;
 
+		/// Creates a new lua_State.
+		/// If includeLibraries is true then the 'import' function is exposed.
+		/// The 'import' function allows scripts to obtain wrappers for the
+		/// game classes as they need them.
+		/// An 'am_log' function is always added which is a simple pass through to
+		/// the internal logger functionality.
 		LuaState(bool includeLibraries = true);
+		/// Wraps an existing lua_State.
+		/// Does not expose any new functions to the Lua registry.
 		LuaState(lua_State *lua);
 		~LuaState();
 
+		/// Returns the internal lua_State.
 		lua_State *getLua();
+		/// Calls lua_close on the internal lua_State.
 		void close();
 
 		bool loadFile(const char *filename);
@@ -79,6 +149,8 @@ namespace lua {
 
 		void call(int n, int r);
 
+		/// Automatically allows for a LuaState to be cast back
+		/// to a lua_State when it's needed.
 		operator lua_State *();
 
 		int newTable(const char *tableName = NULL);

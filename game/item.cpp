@@ -44,6 +44,13 @@ namespace game {
 
 	}
 
+	Item *Item::clone() const
+	{
+		Item *newItem = new Item();
+		newItem->setItemFrom(*this);
+		return newItem;
+	}
+
 	void Item::setGraphic(Sprite *graphic, bool calcInvSize)
 	{
 		if (mGraphic)
@@ -127,7 +134,7 @@ namespace game {
 		mInventorySizeY = item.mInventorySizeY;
 		mStatModifiers = item.mStatModifiers;
 		mItemLocation = item.mItemLocation;
-		//mItemName = item.mItemName;
+
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
 		mItemValue = item.mItemValue;

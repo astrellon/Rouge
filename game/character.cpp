@@ -165,29 +165,42 @@ namespace game {
 		{
 			return false;
 		}
-		string name = part->getName();
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		return Character::removeBodyPart(part->getName());
+	}
+	bool Character::removeBodyPart(const char *partName)
+	{
+		if (partName == NULL)
+		{
+			return false;
+		}
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(partName);
 		if (iter != mBodyParts.end())
 		{
 			Item *equipped = iter->second->getEqippedItem();
 			if (equipped != NULL)
 			{
-				//mStats.removeModifiers(equipped->getStatModifiers());
-				_unequipItem(equipped, name.c_str());
+				_unequipItem(equipped, partName);
 			}
 			mBodyParts.erase(iter);
 			return true;
 		}
 		return false;
 	}
-	bool Character::hasBodyPart(BodyPart *part)
+	bool Character::hasBodyPart(BodyPart *part) const
 	{
 		if (part == NULL)
 		{
 			return false;
 		}
-		string name = part->getName();
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
+		return hasBodyPart(part->getName());
+	}
+	bool Character::hasBodyPart(const char *partName) const
+	{
+		if (partName == NULL)
+		{
+			return false;
+		}
+		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(partName);
 		if (iter == mBodyParts.end())
 		{
 			return false;
@@ -268,11 +281,11 @@ namespace game {
 		return mInventory;
 	}
 
-	bool Character::pickupItem(Item *item)
+	int Character::pickupItem(Item *item)
 	{
 		if (item == NULL)
 		{
-			return false;
+			return 0;
 		}
 		if (item->getItemLocation() == Item::GROUND)
 		{
@@ -281,11 +294,11 @@ namespace game {
 			if (dx > mPickupReach || dx < -mPickupReach || dy > mPickupReach || dy < -mPickupReach)
 			{
 				// Too far away.
-				return false;
+				return -1;
 			}
 		}
 		// There may not be space so this can still return false.
-		return addItem(item);
+		return addItem(item) ? 1 : -2;
 	}
 	bool Character::addItem(Item *item)
 	{
@@ -322,7 +335,11 @@ namespace game {
 
 		return mInventory->hasItem(item);
 	}
-	bool Character::dropItem(Item *item, float x, float y)
+	int Character::dropItem(Item *item)
+	{
+		return dropItem(item, getLocationX(), getLocationY());
+	}
+	int Character::dropItem(Item *item, float x, float y)
 	{
 		if (item == NULL || mMap == NULL ||
 			x < 0 || y < 0 ||
@@ -330,22 +347,21 @@ namespace game {
 			y >= mMap->getHeight())
 		{
 			am_log("CHAR", "Off map");
-			return false;
+			return 0;
 		}
 
 		float dx = getLocationX() - x;
 		float dy = getLocationY() - y;
-		if (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach)
+		if (mPickupReach > 0.0f && (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach))
 		{
 			am_log("CHAR", "Too far away");
-			return false;
+			return -1;
 		}
 
-		//if (!mMap->isValidGridLocation(gridX, gridY, item))
 		if (!mMap->isValidLocation(x, y, item))
 		{
 			am_log("CHAR", "Invalid location for item");
-			return false;
+			return -2;
 		}
 		//item->setGridLocation(gridX, gridY);
 		item->setLocation(x, y);
@@ -353,7 +369,7 @@ namespace game {
 		item->setItemLocation(Item::GROUND);
 
 		mInventory->removeItem(item);
-		return true;
+		return 1;
 	}
 
 	const char *Character::getGameObjectTypeName() const

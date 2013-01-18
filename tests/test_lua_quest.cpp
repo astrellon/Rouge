@@ -13,6 +13,8 @@ using namespace am::lua;
 #include <game/quest.h>
 using namespace am::game;
 
+#include <util/utils.h>
+
 extern "C" 
 { 
 #	include <lua/src/lua.h>
@@ -45,11 +47,8 @@ namespace tests {
 		main->setGameId("testMainChar");
 		game->setMainCharacter(main);
 
-		int loadResult = lua.loadString("Quest = import(\"Quest\")\n"
-			"Character = import(\"Character\")\n"
-			"Engine = import(\"Engine\")\n"
-			"Game = import(\"Game\")\n"
-			"CoinPurse = import(\"CoinPurse\")\n"
+		int loadResult = lua.loadString("Quest, Character, Engine, Game, CoinPurse = import("
+			"\"Quest\", \"Character\", \"Engine\", \"Game\", \"CoinPurse\")\n"
 
 			"local quest = Quest.new(\"testQuest\")\n"
 			"Quest.add_quest(quest)\n"
@@ -57,17 +56,17 @@ namespace tests {
 			"local main = game:get_main_character()\n"
 
 			"function startQuest(event)\n"
-			"	main:remove_event_listener(\"talk\", startQuest)\n"
-			"	main:add_event_listener(\"talk\", finishQuest)\n"
+			"	main:off(\"talk\", startQuest)\n"
+			"	main:on(\"talk\", finishQuest)\n"
 			"end\n"
 
 			"function finishQuest(event)\n"
-			"	main:remove_event_listener(\"talk\", finishQuest)\n"
+			"	main:off(\"talk\", finishQuest)\n"
 			"	main:add_experience(1000)\n"
-			"	main:get_coin_purse():add_coin(50)\n"
+			"	main:coin_purse():add_coin(50)\n"
 			"	quest:set_complete(true)\n"
 			"end\n"
-			"main:add_event_listener(\"talk\", startQuest)\n"
+			"main:on(\"talk\", startQuest)\n"
 			);
 
 		if (!loadResult)

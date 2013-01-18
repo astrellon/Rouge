@@ -14,6 +14,9 @@ using namespace am::lua;
 #include <ui/lua_event_listener.h>
 using namespace am::ui;
 
+#include <base/handle.h>
+using namespace am::base;
+
 #include <sstream>
 using namespace std;
 
@@ -156,7 +159,7 @@ namespace ui {
 			contextRef = luaL_ref(lua, LUA_REGISTRYINDEX);
 		}
 		int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
-		LuaEventListener *listener = new LuaEventListener(lua, funcRef, contextRef);
+		Handle<LuaEventListener> listener(new LuaEventListener(lua, funcRef, contextRef));
 		manager->removeEventListener(eventType, listener);
 		return true;
 	}

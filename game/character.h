@@ -57,7 +57,9 @@ namespace game {
 
 		virtual bool addBodyPart(BodyPart *part);
 		virtual bool removeBodyPart(BodyPart *part);
-		virtual bool hasBodyPart(BodyPart *part);
+		virtual bool removeBodyPart(const char *partName);
+		virtual bool hasBodyPart(BodyPart *part) const;
+		virtual bool hasBodyPart(const char *partName) const;
 		virtual const BodyPart::BodyPartMap &getBodyParts() const;
 
 		virtual bool equipItem(Item *item, const char *bodyPart);
@@ -66,11 +68,12 @@ namespace game {
 		
 		virtual Inventory *getInventory();
 
-		virtual bool pickupItem(Item *item);
+		virtual int pickupItem(Item *item);
 		virtual bool addItem(Item *item);
 		virtual bool removeItem(Item *item);
 		virtual bool hasItem(const Item *item) const;
-		virtual bool dropItem(Item *item, float x, float y);
+		virtual int dropItem(Item *item);
+		virtual int dropItem(Item *item, float x, float y);
 
 		virtual const char *getGameObjectTypeName() const;
 

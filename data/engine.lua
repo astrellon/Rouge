@@ -1,5 +1,5 @@
 -- Main game engine script
-Engine, Game, Race = import("Engine", "Game", "Race")
+Engine, Game, Race, Character = import("Engine", "Game", "Race", "Character")
 
 local game = nil
 
@@ -13,8 +13,12 @@ function newGame()
 	game = Game.new()
 	Engine.set_current_game(game)
 	
+	am_log("NEW", "New game")
+	
 	map = game:get_map("testMap_2")
 	if (map ~= nil) then
 		game:set_current_map(map)
 	end
+	
+	player = Character.new()
 end

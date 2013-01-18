@@ -32,6 +32,8 @@ namespace game {
 		Item();
 		~Item();
 
+		Item *clone() const;
+
 		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
 		virtual Sprite *getGraphic();
 

@@ -56,8 +56,9 @@ namespace game {
 			{ "__gc",  Item_dtor },
 			{ "__eq", Item_eq },
 			// Item methods
-			{ "set_graphic", NULL },
-			{ "get_graphic", NULL },
+			{ "clone", Item_clone },
+			{ "set_graphic", Item_set_graphic },
+			{ "get_graphic", Item_get_graphic },
 			{ "set_ground_graphic", NULL },
 			{ "get_ground_graphic", NULL },
 			{ "set_item_type", Item_set_item_type },
@@ -117,6 +118,52 @@ namespace game {
 		lua_pushvalue(lua, -1);
 		lua_setfield(lua, -1, "__index");
 
+		return 1;
+	}
+
+	int Item_clone(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			wrapRefObject<Item>(lua, item->clone());
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+
+	int Item_set_graphic(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		Sprite *graphic = castUData<Sprite>(lua, 2);
+		if (item && graphic)
+		{
+			if (lua_gettop(lua) == 3)
+			{
+				bool calcInvSize = lua_tobool(lua, 3);
+				item->setGraphic(graphic, calcInvSize);
+			}
+			else
+			{
+				item->setGraphic(graphic);
+			}
+		}
+		return 0;
+	}
+	int Item_get_graphic(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			Sprite *graphic = item->getGraphic();
+			if (graphic)
+			{
+				wrapRefObject<Sprite>(lua, graphic);
+				return 1;
+			}
+		}
+		lua_pushnil(lua);
 		return 1;
 	}
 

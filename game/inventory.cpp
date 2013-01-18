@@ -141,7 +141,7 @@ namespace game {
 	{
 		if (item == NULL)
 		{
-			return true;
+			return false;
 		}
 		
 		int index = findItem(item);

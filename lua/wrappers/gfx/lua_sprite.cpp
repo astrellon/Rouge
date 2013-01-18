@@ -22,25 +22,17 @@ namespace gfx {
 		if (lua_isstring(lua, 1))
 		{
 			Sprite *sprite = new Sprite(lua_tostring(lua, 1));
-			Sprite_wrap(lua, sprite);
+			wrapRefObject<Sprite>(lua, sprite);
 			return 1;
 		}
 		Sprite *sprite = new Sprite();
-		Sprite_wrap(lua, sprite);
+		wrapRefObject<Sprite>(lua, sprite);
 		return 1;
-	}
-	void Sprite_wrap(lua_State *lua, Sprite *sprite)
-	{
-		Sprite ** udata = (Sprite **)lua_newuserdata(lua, sizeof(Sprite *));
-		*udata = sprite;
-
-		luaL_getmetatable(lua, Sprite_tableName);
-		lua_setmetatable(lua, -2);
 	}
 
 	int Sprite_dtor(lua_State *lua)
 	{
-		Sprite *sprite = Check_Sprite(lua, 1);
+		Sprite *sprite = castUData<Sprite>(lua, 1);
 		if (sprite)
 		{
 			sprite->release();
@@ -50,8 +42,8 @@ namespace gfx {
 
 	int Sprite_eq(lua_State *lua)
 	{
-		Sprite *lhs = Check_Sprite(lua, 1);
-		Sprite *rhs = Check_Sprite(lua, 2);
+		Sprite *lhs = castUData<Sprite>(lua, 1);
+		Sprite *rhs = castUData<Sprite>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
 	}
@@ -91,7 +83,7 @@ namespace gfx {
 			{ NULL, NULL }
 		};
 
-		luaL_newmetatable(lua, Sprite_tableName);
+		luaL_newmetatable(lua, Sprite::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -100,14 +92,9 @@ namespace gfx {
 		return 1;
 	}
 
-	Sprite *Check_Sprite(lua_State *lua, int n)
-	{
-		return *(Sprite **)luaL_checkudata(lua, n, Sprite_tableName);
-	}
-
 	int Sprite_set_asset(lua_State *lua)
 	{
-		Sprite *sprite = Check_Sprite(lua, 1);
+		Sprite *sprite = castUData<Sprite>(lua, 1);
 		if (sprite)
 		{
 			if (lua_isstring(lua, -1))

@@ -359,8 +359,8 @@ namespace tests {
 			"name = \"none\"\n"
 			"function testFunc()\n"
 			"	obj = Character.new(\"testId\")\n"
-			"	name = obj:get_name()\n"
-			"	obj:set_name(name..\" changed\")\n"
+			"	name = obj:name()\n"
+			"	obj:name(name..\" changed\")\n"
 			"end");
 
 		string name = lua.getGlobalString("name");

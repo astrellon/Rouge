@@ -512,14 +512,19 @@ namespace lua {
 
 	int LuaState::lua_am_log(lua_State *lua)
 	{
+		const char *cat = "LUA";
+		if (lua_gettop(lua) == 2)
+		{
+			cat = lua_tostring(lua, -2);
+		}
 		if (lua_isstring(lua, -1) || lua_isnumber(lua, -1))
 		{
-			am_log("LUA", lua_tostring(lua, -1));
+			am_log(cat, lua_tostring(lua, -1));
 		}
 		else if (lua_isboolean(lua, -1))
 		{
 			bool value = lua_tobool(lua, -1);
-			am_log("LUA", value ? "true" : "false");
+			am_log(cat, value ? "true" : "false");
 		}
 		return 0;
 	}

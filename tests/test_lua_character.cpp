@@ -35,16 +35,15 @@ namespace tests {
 
 		int loadResult = lua.loadString("Character = import(\"Character\")\n"
 			"char = Character.new(\"char1\")\n"
-			"char:set_name(\"Melli\")\n"
-			"char:set_age(23.4)\n"
+			"char:name(\"Melli\"):age(23.4)\n"
 			"function changeName(name)\n"
-			"	char:set_name(name)\n"
+			"	char:name(name)\n"
 			"end\n"
 			"function getName()\n"
-			"	return char:get_name()\n"
+			"	return char:name()\n"
 			"end\n"
 			"function getAge()\n"
-			"	return char:get_age()\n"
+			"	return char:age()\n"
 			"end");
 		
 		if (!loadResult)
@@ -102,12 +101,12 @@ namespace tests {
 
 		int loadResult = lua.loadString("Character = import(\"Character\")\n"
 			"char = Character.new(\"charGender\")\n"
-			"char:set_gender(\"male\")\n"
+			"char:gender(\"male\")\n"
 			"function changeGender(gender)\n"
-			"	char:set_gender(gender)\n"
+			"	char:gender(gender)\n"
 			"end\n"
 			"function getGender()\n"
-			"	return char:get_gender()\n"
+			"	return char:gender()\n"
 			"end");
 		
 		if (!loadResult)
@@ -147,10 +146,10 @@ namespace tests {
 			"Stats = import(\"Stats\")\n"
 			"char = Character.new(\"charStats\")\n"
 			"function getBaseStat(stat)\n"
-			"	return char:get_stats():get_base_stat(stat)\n"
+			"	return char:stats():get_base_stat(stat)\n"
 			"end\n"
 			"function setBaseStat(stat, value)\n"
-			"	char:get_stats():set_base_stat(stat, value)\n"
+			"	char:stats():set_base_stat(stat, value)\n"
 			"end\n");
 		
 		if (!loadResult)

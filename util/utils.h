@@ -9,6 +9,10 @@ using namespace std;
 #	define IS_WHITE(c)	c == ' ' || c == '\t' || c == '\r' || c == '\n'
 #endif
 
+#ifndef STR
+#	define STR(s) #s
+#endif
+
 namespace am {
 namespace util {
 

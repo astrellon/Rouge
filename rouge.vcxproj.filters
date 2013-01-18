@@ -703,9 +703,6 @@
     <ClInclude Include="gfx\gfx_log_listener.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\gfx_renderable.h">
-      <Filter>gfx\base</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\gfx_sprite.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
@@ -1257,6 +1254,9 @@
     </ClInclude>
     <ClInclude Include="game\dialogue_component.h">
       <Filter>game\dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_renderable.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

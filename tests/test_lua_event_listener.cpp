@@ -42,10 +42,10 @@ namespace tests {
 			"listener.eventListen = function(context, event)\n"
 			"	eventCalled = event.type\n"
 			"	timesCalled = timesCalled + 1\n"
-			"	theManager:remove_event_listener(\"testEvent\", listener.eventListen, listener)\n"
+			"	theManager:off(\"testEvent\", listener.eventListen, listener)\n"
 			"end\n"
 			"function setManager(manager)\n"
-			"	manager:add_event_listener(\"testEvent\", listener.eventListen, listener)\n"
+			"	manager:on(\"testEvent\", listener.eventListen, listener)\n"
 			"	theManager = manager\n"
 			"end\n");
 		

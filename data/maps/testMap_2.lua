@@ -61,7 +61,7 @@ do
 	npc1 = Character.new("npc1")
 	npc1:set_grid_location(2, 0)
 	npc1:set_graphic(Sprite.new("characters/npc/front"))
-	npc1:set_name("John")
+	npc1:name("John")
 	map:add_game_object(npc1)
 
 	comp = DialogueComponent.new(npc1)
@@ -75,7 +75,7 @@ do
 
 	npc2 = Character.new("npc2")
 	npc2:set_grid_location(4, 1)
-	npc2:set_name("Fred")
+	npc2:name("Fred")
 	npc2:set_graphic(Sprite.new("characters/npc/front"))
 	map:add_game_object(npc2)
 
@@ -87,17 +87,17 @@ do
 
 	-- Quests
 	fredQuest = Quest.new("fredQuest")
-	fredQuest:add_event_listener("startQuest", function(event)
+	fredQuest:on("startQuest", function(event)
 		npc2:get_dialogue_component():set_dialogue_available("fredQuest")
 	end)
-	fredQuest:add_event_listener("finishQuest", function(event)
+	fredQuest:on("finishQuest", function(event)
 		am_log("Finished Fred Quest")
 	end)
 
-	npc1:add_event_listener("dialogue:startQuest", function(event)
+	npc1:on("dialogue:startQuest", function(event)
 		fredQuest:start_quest()
 	end)
-	npc2:add_event_listener("dialogue:fredQuest", function(event)
+	npc2:on("dialogue:fredQuest", function(event)
 		fredQuest:finish_quest()
 	end)
 	-- End Quests

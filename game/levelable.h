@@ -31,7 +31,7 @@ namespace game {
 
 		virtual void onLevelUp() {}
 
-		virtual void addLevels(short level);
+		virtual void addLevelsUntil(short level);
 
 	};
 

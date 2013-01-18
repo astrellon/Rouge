@@ -285,7 +285,12 @@ namespace game {
 		{
 			return false;
 		}
-		if (game->getGameObject(id) != NULL)
+		GameObject *other = game->getGameObject(id);
+		if (other == this)
+		{
+			return true;
+		}
+		if (other != NULL)
 		{
 			return false;
 		}
@@ -366,7 +371,7 @@ namespace game {
 
 	void GameObject::setDialogueComp(DialogueComponent *comp, bool setAttached)
 	{
-		if (setAttached)
+		if (setAttached && comp)
 		{
 			comp->setAttachedTo(this);
 		}
