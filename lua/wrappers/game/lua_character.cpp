@@ -36,6 +36,16 @@ namespace am {
 namespace lua {
 namespace game {
 
+	/**
+	 * @class
+	 * Class for representing a Character.
+	 */
+
+	/**
+	 * Creates or wraps a character instance.
+	 * @param String gameId The game id to create the character with or the game id
+	 * of an existing character.
+	 */
 	int Character_ctor(lua_State *lua)
 	{
 		const char *id = lua_tostring(lua, -1);
@@ -54,7 +64,9 @@ namespace game {
 		wrapRefObject<Character>(lua, obj);
 		return 1;
 	}
-
+	/**
+	 * Releases the reference of this character.
+	 */
 	int Character_dtor(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
@@ -64,12 +76,18 @@ namespace game {
 		}
 		return 0;
 	}
-
+	/**
+	 * Compares 2 characters, returns true if they are the same entity.
+	 * Will not return true for equivalent characters.
+	 * @param Character lhs A character to compare.
+	 * @param Character rhs The other character to compare.
+	 * @returns Boolean True if the characters are the same entity.
+	 */
 	int Character_eq(lua_State *lua)
 	{
 		Character *lhs = castUData<Character>(lua, 1);
 		Character *rhs = castUData<Character>(lua, 2);
-		lua_pushboolean(lua, lhs == rhs);
+		lua_pushboolean(lua, lhs && rhs && lhs == rhs);
 		return 1;
 	}
 
@@ -509,7 +527,7 @@ namespace game {
 	/**
 	 * Returns true if an item is in the characters inventory.
 	 * Returns false if the item was nil or not found.
-	 * @params Item item The item to search for.
+	 * @param Item item The item to search for.
 	 * @returns Boolean True if found successfully.
 	 */
 	int Character_has_item(lua_State *lua)
@@ -532,7 +550,7 @@ namespace game {
 	 * -1: Drop location was too far away (should not happen)
 	 * -2: Drop location was invalid for item.
 	 * -3: Error
-	 * @params Item item The item to drop
+	 * @param Item item The item to drop
 	 * @returns Integer Drop item return code.
 	 */
 	/**
@@ -543,9 +561,9 @@ namespace game {
 	 * -1: Drop location was too far away
 	 * -2: Drop location was invalid for item.
 	 * -3: Error
-	 * @params Item item The item to drop
-	 * @params Number x X map location to drop at
-	 * @params Number y Y map location to drop at
+	 * @param Item item The item to drop
+	 * @param Number x X map location to drop at
+	 * @param Number y Y map location to drop at
 	 * @returns Integer Drop item return code.
 	 */
 	int Character_drop_item(lua_State *lua)
@@ -573,7 +591,7 @@ namespace game {
 	 */
 	/**
 	 * Sets the age of the character.
-	 * @params Number age The new characters age
+	 * @param Number age The new characters age
 	 * @returns Character This.
 	 */
 	int Character_age(lua_State *lua)
@@ -939,7 +957,7 @@ namespace game {
 	 */
 	/**
 	 * Sets the map that the character is on, can be nil.
-	 * @params Map map The map to put the character on.
+	 * @param Map map The map to put the character on.
 	 * @returns Character This
 	 */
 	int Character_map(lua_State *lua)
@@ -987,7 +1005,7 @@ namespace game {
 	}
 	/**
 	 * Removes a tile type from the list of passible tiles.
-	 * @param TyileType tileType The tile type to remove.
+	 * @param TileType tileType The tile type to remove.
 	 * @returns Character This
 	 */
 	int Character_remove_passible_type(lua_State *lua)
@@ -1156,11 +1174,11 @@ namespace game {
 	
 	/**
 	 * Adds an event listener for an event fired on this character.
-	 * eg: <code>
-	 * character:on("talkTo", function(event) 
+	 * eg: <pre>
+	 * character:on("talkTo", function(event)
 	 *     am_log("Character talked to")
 	 * end)
-	 * </code>
+	 * </pre>
 	 * @param String eventType The event type or name to trigger on
 	 * @param Function listener The function to call when the event is fired.
 	 * @param Table [nil] content An option context for the listener to be
@@ -1181,13 +1199,13 @@ namespace game {
 	/**
 	 * Removes an event listener from this character.
 	 * eg: 
-	 * <code>
-	 * function talkToOnce(event) 
+	 * <pre>
+	 * function talkToOnce(event)
 	 *     am_log("Character talked to once")
 	 *     character:off("talkTo", talkToOnce)
-	 * end
+	 * end<br>
 	 * character:on("talkTo", talkToOnce)
-	 * </code>
+	 * </pre>
 	 * @param String eventType The event type the listener was listening for.
 	 * @param Function listener The listener function to remove.
 	 * @param Table [nil] context The context which the listener was going to 
@@ -1234,7 +1252,7 @@ namespace game {
 	 * too low for their current level.
 	 * If the character has a max level and the experience is more than 
 	 * the characters max level experience, it will be capped at that amount.
-	 * 
+	 * <br>
 	 * It is generally recommended to simply add experience to a character.
 	 * @param Integer experience The amount of experience to set on this character.
 	 * @returns Character This
@@ -1263,7 +1281,7 @@ namespace game {
 	 * Adds the given amount of experience to the total amount of 
 	 * experience this character has. The total will always be capped
 	 * at the characters max level if they have one.
-	 * @params Integer experience The amount of experience to add.
+	 * @param Integer experience The amount of experience to add.
 	 * @returns Character This
 	 */
 	int Character_add_experience(lua_State *lua)
@@ -1316,7 +1334,7 @@ namespace game {
 	 * This new level will not go over a characters max level if they have one set.
 	 * The characters experience will also be set the appropriate amount
 	 * for them to be this level.
-	 * @params Integer levels The number of levels to add to this character
+	 * @param Integer levels The number of levels to add to this character
 	 * @returns Character This
 	 */
 	int Character_add_level(lua_State *lua)

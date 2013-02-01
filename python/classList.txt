@@ -1,0 +1,10 @@
+// am::game wrappers
+__basePath ../lua/wrappers/game/
+BodyPart lua_body_part.cpp
+Character lua_character.cpp
+CoinPurse lua_coin_purse.cpp
+Dialogue lua_dialogue.cpp
+DialogueComponent lua_dialogue_component.cpp
+Engine lua_engine.cpp
+
+__basePath ../lua/wrappers/gfx/

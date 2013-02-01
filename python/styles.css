@@ -1,0 +1,25 @@
+body {
+	font-family: Helvetica, Arial;
+}
+div {
+	padding: 0.5em;
+}
+pre {
+	display: block;
+	background: #e0e5ef;
+}
+.type {
+	color: #26f;
+}
+.comment {
+	color: #152;
+}
+.name {
+	font-weight: bold;
+}
+.type_list {
+	padding-left: 1em;
+}
+.parameters, .returns {
+	font-weight: bold;
+}

@@ -17,6 +17,9 @@ namespace am {
 namespace lua {
 namespace game {
 
+	/**
+	 * Creates a new CoinPurse
+	 */
 	int CoinPurse_ctor(lua_State *lua)
 	{
 		CoinPurse *purse = new CoinPurse();
