@@ -21,7 +21,9 @@
 # Single line comments (//) can also be used.
 
 import luaDocs;
+import htmlOutput;
 import sys;
+import os;
 
 usage = "Usage: " + sys.argv[0] + " filename";
 usage += "\n\nA script for parsing Lua documentation from the function comments in the \nC++ wrapper code.";
@@ -37,3 +39,11 @@ if len(sys.argv) == 1:
 else:
 	docs = luaDocs.Documentation();
 	docs.parseList(sys.argv[1]);
+	
+	os.makedirs("classes", 0o777, True);
+	
+	for classDocName, classDoc in docs.classes.items():
+		output = htmlOutput.HtmlOutput();
+		output.load(classDoc);
+		output.write("classes/" + classDocName + ".html");
+		

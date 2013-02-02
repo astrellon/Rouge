@@ -6,5 +6,18 @@ CoinPurse lua_coin_purse.cpp
 Dialogue lua_dialogue.cpp
 DialogueComponent lua_dialogue_component.cpp
 Engine lua_engine.cpp
+Game lua_game.cpp
+Inventory lua_inventory.cpp
+Item lua_item.cpp
+Map lua_map.cpp
+Quest lua_quest.cpp
+Race lua_race.cpp
+StatModifies lua_stat_modifiers.cpp
+Stats lua_stats.cpp
+Tile lua_tile.cpp
+TileInstance lua_tile_instance.cpp
+TileSet lua_tile_set.cpp
+TileType lua_tile_type.cpp
 
 __basePath ../lua/wrappers/gfx/
+Sprite lua_sprite.cpp

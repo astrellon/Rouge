@@ -19,7 +19,7 @@ class HtmlOutput:
 	header = """
 		<head>
 			<title>$title</title>
-			<link rel='stylesheet' type='text/css' href='styles.css'/>
+			<link rel='stylesheet' type='text/css' href='../css/styles.css'/>
 		</head>
 	""";
 	class_body = """
@@ -205,10 +205,3 @@ class HtmlOutput:
 		node.append(self.createNode("<span>)</span>"));
 		
 		return node;
-
-docs = luaDocs.Documentation();
-docs.parseList("classList.txt");
-	
-output = HtmlOutput();
-output.load(docs.classes["Character"]);
-output.write("testout.html");
