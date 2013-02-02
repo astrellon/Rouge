@@ -265,6 +265,7 @@ class ClassDescription:
 		self.cppLookups = collections.OrderedDict();
 		self.fileContents = "";
 		self.wrappers = "";
+		self.inCode = False;
 		
 	def addFunction(self, funcDesc):
 		self.cppLookups[funcDesc.cppName] = funcDesc;
@@ -306,6 +307,16 @@ class ClassDescription:
 			meta = str(match.group()).lower();
 			if meta == "@class":
 				return "";
+				
+		code = line.find("<pre>");
+		if code >= 0:
+			self.inCode = True;
+		code = line.find("</pre>");
+		if code >= 0:
+			self.inCode = False;
+			
+		if self.inCode:
+			line = line + "\n";
 				
 		return line.replace("<br>", "\n");
 			
