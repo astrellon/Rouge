@@ -19,7 +19,10 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-	
+	/**
+	 * @class
+	 * Stores a representation of a BodyPart.
+	 */
 	/**
 	 * Creates a new BodyPart instance with the given name.
 	 * This name is used to identify the part when it is attached to a character.
@@ -51,7 +54,9 @@ namespace game {
 		return 0;
 	}
 	/**
-	 * Compares if two body parts are the same object in memory.
+	 * Compares if two body parts are the same object.
+	 * @param BodyPart rhs The BodyPart to compare with.
+	 * @returns Boolean True if they are the same object.
 	 */
 	int BodyPart_eq(lua_State *lua)
 	{

@@ -39,6 +39,14 @@ namespace game {
 	/**
 	 * @class
 	 * Class for representing a Character.
+	 * <pre>
+	 * Character, Game, Engine = import("Character", "Game", "Engine")
+	 * npc1 = Character.new("npc1")
+	 * npc1:name("Fredrick Smith")
+	 * 
+	 * game = Engine.get_game()
+	 * main = game:get_main_character()
+	 * </pre>
 	 */
 
 	/**
@@ -77,10 +85,9 @@ namespace game {
 		return 0;
 	}
 	/**
-	 * Compares 2 characters, returns true if they are the same entity.
+	 * Compares this character with another character reference.
 	 * Will not return true for equivalent characters.
-	 * @param Character lhs A character to compare.
-	 * @param Character rhs The other character to compare.
+	 * @param Character rhs The other character to compare with.
 	 * @returns Boolean True if the characters are the same entity.
 	 */
 	int Character_eq(lua_State *lua)
