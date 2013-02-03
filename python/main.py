@@ -40,10 +40,16 @@ else:
 	docs = luaDocs.Documentation();
 	docs.parseList(sys.argv[1]);
 	
+	
+	
 	os.makedirs("classes", 0o777, True);
 	
 	for classDocName, classDoc in docs.classes.items():
 		output = htmlOutput.HtmlOutput();
 		output.load(classDoc);
 		output.write("classes/" + classDocName + ".html");
+		
+	if len(luaDocs.warnings) > 0:
+		print("Warnings:");
+		print("- " + luaDocs.arrayJoin(luaDocs.warnings, "\n- "));
 		
