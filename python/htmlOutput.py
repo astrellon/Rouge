@@ -32,10 +32,13 @@ class HtmlOutput:
 		<div class='comment'>$comment</div>
 	""";
 	table_contents = """
-		<div class='table_of_contents'></div>
+		<div class='table_of_contents rounded'></div>
 	""";
 	functions = """
 		<div class='functions'></div>
+	""";
+	function_instance = """
+		<div class='function_instance rounded'></div>
 	""";
 	function_name = """
 		<div>
@@ -157,6 +160,8 @@ class HtmlOutput:
 		
 		def outputFuncs(funcs):
 			for funcDescName, funcDesc in funcs.items():
+				instDiv = self.createNode(HtmlOutput.function_instance);
+				functions.append(instDiv);
 				for funcInst in funcDesc.instances:
 					func = self.createNode(HtmlOutput.function);
 					func.append(self.createMainFuncName(funcDesc.name, funcInst));
@@ -176,7 +181,7 @@ class HtmlOutput:
 						for ret in funcInst.returns:
 							returns.append(self.createNode(HtmlOutput.returns_full, type=ret.type, comment=ret.comment));
 							
-					functions.append(func);
+					instDiv.append(func);
 					
 		outputFuncs(self.classDoc.specialFuncs);
 		outputFuncs(self.classDoc.funcs);
@@ -200,6 +205,9 @@ class HtmlOutput:
 			node.append(self.createNode(HtmlOutput.param_short, type=param.type, name=param.name, optional=optional));
 		node.append(self.createNode("<span>)</span>"));
 		
+		if name == "new" or name == "__gc":
+			return node;
+			
 		node.append(self.createNode("<code>-></code>"));
 		
 		node.append(self.createNode("<span>(</span>"));
