@@ -42,7 +42,7 @@ class HtmlOutput:
 	""";
 	function_name = """
 		<div>
-			<span id='$id' class='name'>$name</span>
+			<code>$static</code><span id='$id' class='name'>$name</span>
 		</div>
 	""";
 	function = """
@@ -101,14 +101,19 @@ class HtmlOutput:
 		self.writeNode(self.html.getroot());
 		
 	def writeNode(self, node):
-		whitespace = "    " * self.indent;
+		whitespace = "\t" * self.indent;
 		self.indent += 1;
 		if len(node.attrib) == 0:
 			self.output.write(whitespace + "<" + node.tag + ">");
 		else:
 			self.output.write(whitespace + "<" + node.tag);
 			for key,value in node.attrib.items():
-				self.output.write(" " + key + "='" + value + "'");
+				if len(value) > 0:
+					self.output.write(" " + key + "='" + value + "'");
+				# We'll assume that most attributes that are empty
+				# are potentially valid except for 'id'.
+				elif key != "id":
+					self.output.write(" " + key);
 			self.output.write(">");
 		childList = list(node);
 		
@@ -120,7 +125,7 @@ class HtmlOutput:
 				if len(childList) == 0:
 					self.output.write(nodeText);
 				else:
-					whitespace2 = whitespace + "    ";
+					whitespace2 = whitespace + "\t";
 					self.output.write("\n" + whitespace2 + nodeText);
 		
 		if len(childList) > 0:
@@ -160,6 +165,8 @@ class HtmlOutput:
 		
 		def outputFuncs(funcs):
 			for funcDescName, funcDesc in funcs.items():
+				if funcDesc.cppName == "NULL":
+					continue;
 				instDiv = self.createNode(HtmlOutput.function_instance);
 				functions.append(instDiv);
 				for funcInst in funcDesc.instances:
@@ -192,8 +199,11 @@ class HtmlOutput:
 		id = "";
 		if includeId:
 			id = name + "_" + instance.idList();
-			
-		node = self.createNode(HtmlOutput.function_name, name=name, id=id);
+		
+		static = "";
+		if instance.isStatic:
+			static = "static ";
+		node = self.createNode(HtmlOutput.function_name, name=name, id=id, static=static);
 		node.append(self.createNode("<span>(</span>"));
 		first = True;
 		for param in instance.params:

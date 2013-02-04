@@ -40,8 +40,6 @@ else:
 	docs = luaDocs.Documentation();
 	docs.parseList(sys.argv[1]);
 	
-	
-	
 	os.makedirs("classes", 0o777, True);
 	
 	for classDocName, classDoc in docs.classes.items():

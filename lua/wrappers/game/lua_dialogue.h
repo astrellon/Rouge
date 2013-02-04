@@ -17,23 +17,12 @@ namespace game {
 	int Dialogue_eq(lua_State *lua);
 	int Dialogue_register(lua_State *lua);
 
-	int Dialogue_set_text(lua_State *lua);
-	int Dialogue_get_text(lua_State *lua);
-
-	int Dialogue_set_title(lua_State *lua);
-	int Dialogue_get_title(lua_State *lua);
-
-	int Dialogue_set_id(lua_State *lua);
-	int Dialogue_get_id(lua_State *lua);
-
-	int Dialogue_set_subject(lua_State *lua);
-	int Dialogue_get_subject(lua_State *lua);
-
-	int Dialogue_set_unlock_flag(lua_State *lua);
-	int Dialogue_get_unlock_flag(lua_State *lua);
-
-	int Dialogue_set_dialogue_action(lua_State *lua);
-	int Dialogue_get_dialogue_action(lua_State *lua);
+	int Dialogue_text(lua_State *lua);
+	int Dialogue_title(lua_State *lua);
+	int Dialogue_id(lua_State *lua);
+	int Dialogue_subject(lua_State *lua);
+	int Dialogue_unlock_flag(lua_State *lua);
+	int Dialogue_dialogue_action(lua_State *lua);
 
 	int Dialogue_add_dialogue(lua_State *lua);
 	int Dialogue_remove_dialogue(lua_State *lua);

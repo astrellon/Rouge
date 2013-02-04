@@ -16,7 +16,14 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The CoinPurse class is used for representing a coin purse.
+	 * The purse can hold any number of coin up to a max value if one is
+	 * defined. It also provides functions for checking if the coin purse has
+	 * enough coin for a given transaction (adding or removal) and reports
+	 * how many coins will not fit or how many coins short the purse is.
+	 */
 	/**
 	 * Creates a new empty CoinPurse.
 	 */
@@ -39,10 +46,10 @@ namespace game {
 		return 0;
 	}
 	/**
-	 * Compares CoinPurses at the reference level.
+	 * Compares this CoinPurse with another CoinPurse object.
 	 *
 	 * @param CoinPurse rhs The other CoinPurse to compare with.
-	 * @returns Boolean True if they are the same CoinPurse entity.
+	 * @returns Boolean True if they are the same CoinPurse object.
 	 */
 	int CoinPurse_eq(lua_State *lua)
 	{
