@@ -1,5 +1,9 @@
 body {
 	font-family: Helvetica, Arial;
+	background: url("../images/background.png");
+}
+h2 {
+	text-shadow: 0 2px 2px #bbb;
 }
 div {
 	padding: 0.3em;
@@ -27,6 +31,8 @@ pre {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
+	box-shadow: 0 0 14px #ccc;
+	background: #fff;
 }
 .functions {
 	padding: 0;

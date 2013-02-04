@@ -26,7 +26,7 @@ class HtmlOutput:
 		<div class='class_body'></div>
 	""";
 	class_title = """
-		<h3>$title</h3>
+		<h2>$title</h2>
 	""";
 	comment = """
 		<div class='comment'>$comment</div>
