@@ -26,7 +26,11 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The Engine class provides core functionality that has affects
+	 * across multiple game instances.
+	 */
 	int Engine_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 

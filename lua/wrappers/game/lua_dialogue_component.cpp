@@ -43,7 +43,7 @@ namespace game {
 		return 1;
 	}
 	/**
-	 *
+	 * TODO
 	 */
 	int DialogueComponent_dtor(lua_State *lua)
 	{
