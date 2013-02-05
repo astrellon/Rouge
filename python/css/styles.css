@@ -11,6 +11,11 @@ div {
 pre {
 	display: block;
 	background: #e0e5ef;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #aaa;
+	box-shadow: 0 0 14px #ccc;
 }
 .type {
 	color: #26f;
