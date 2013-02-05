@@ -35,10 +35,10 @@ namespace tests {
 		
 		int loadResult = lua.loadString("Engine = import(\"Engine\")\n"
 			"function setGridSize(x, y)\n"
-			"	Engine.set_grid_size(x, y)\n"
+			"	Engine.grid_size(x, y)\n"
 			"end\n"
 			"function getGridSize()\n"
-			"	return Engine.get_grid_size()\n"
+			"	return Engine.grid_size()\n"
 			"end\n"
 			);
 		
@@ -76,7 +76,7 @@ namespace tests {
 		int loadResult = lua.loadString("Engine = import(\"Engine\")\n"
 			"Tile = import(\"Tile\")\n"
 			"TileSet = import(\"TileSet\")\n"
-			"topSet = Engine.get_top_level_tile_set()\n"
+			"topSet = Engine.top_level_tile_set()\n"
 			"function addTile(tile, set)\n"
 			"	if (set == nil) then\n"
 			"		topSet:add_tile(tile)\n"
@@ -85,7 +85,7 @@ namespace tests {
 			"	end\n"
 			"end\n"
 			"function getTile(tileName)\n"
-			"	return Engine.get_tile(tileName)\n"
+			"	return Engine.tile(tileName)\n"
 			"end\n"
 			);
 		

@@ -52,7 +52,7 @@ namespace tests {
 
 			"local quest = Quest.new(\"testQuest\")\n"
 			"Quest.add_quest(quest)\n"
-			"local game = Engine.get_current_game()\n"
+			"local game = Engine.game()\n"
 			"local main = game:get_main_character()\n"
 
 			"function startQuest(event)\n"

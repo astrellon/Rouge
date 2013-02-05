@@ -77,7 +77,7 @@ namespace game {
 	 */
 	int Engine_game(lua_State *lua)
 	{
-		if (lua_gettop(lua) == 1)
+		if (lua_gettop(lua) == 0)
 		{
 			Game *game = Engine::getEngine()->getCurrentGame();
 			if (game)
