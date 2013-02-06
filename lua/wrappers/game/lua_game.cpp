@@ -28,7 +28,17 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The Game class keeps track of all current game objects, loaded maps,
+	 * dialogue and quests. There should only be one Game instance in use
+	 * at a time and it should be registered with the main Engine as being
+	 * the current game. There can be many Game instances over the lifetime of
+	 * an Engine however.
+	 */
+	/**
+	 * Creates a new game instance.
+	 */
 	int Game_ctor(lua_State *lua)
 	{
 		Game *game = new Game(Engine::getEngine());
@@ -36,7 +46,9 @@ namespace game {
 		wrapRefObject<Game>(lua, game);
 		return 1;
 	}
-
+	/**
+	 * Release the reference counter on the game.
+	 */
 	int Game_dtor(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -46,7 +58,12 @@ namespace game {
 		}
 		return 0;
 	}
-
+	/**
+	 * Compares this game against another game object.
+	 *
+	 * @param Game rhs The other game object to compare.
+	 * @returns Boolean True if they are the same object.
+	 */
 	int Game_eq(lua_State *lua)
 	{
 		Game *lhs = castUData<Game>(lua, 1);
@@ -65,30 +82,28 @@ namespace game {
 			{ "add_map", Game_add_map },
 			{ "remove_map", Game_remove_map },
 			{ "remove_all_maps", Game_remove_all_maps },
-			{ "get_map", Game_get_map },
-			{ "get_current_map", Game_get_current_map },
-			{ "set_current_map", Game_set_current_map },
+			{ "map", Game_map },
+			{ "current_map", Game_current_map },
 			{ "add_game_object_to_map", Game_add_game_object_to_map },
 			{ "remove_game_object_from_map", Game_remove_game_object_from_map },
 			{ "has_game_object_in_map", Game_has_game_object_in_map },
 			{ "move_object_to_map", Game_move_object_to_map },
 			{ "move_object_to_map_grid", Game_move_object_to_map_grid },
-			{ "get_main_character", Game_get_main_character },
-			{ "set_main_character", Game_set_main_character },
+			{ "main", Game_main_character },
 			// GameObject
-			{ "get_game_object", Game_get_game_object },
+			{ "game_object", Game_get_game_object },
 			{ "register_game_object", Game_register_game_object },
 			{ "deregister_game_object", Game_deregister_game_object },
 			// Dialogue
 			{ "add_dialogue", Game_add_dialogue },
 			{ "remove_dialogue", Game_remove_dialogue },
 			{ "remove_all_dialogue", Game_remove_all_dialogue },
-			{ "get_dialogue", Game_get_dialogue },
-			{ "get_available_dialogues", Game_get_available_dialogues },
+			{ "dialogue", Game_dialogue },
+			{ "available_dialogues", Game_available_dialogues },
 			// Quest
 			{ "add_quest", Game_add_quest },
 			{ "remove_quest", Game_remove_quest },
-			{ "get_quest", Game_get_quest },
+			{ "quest", Game_quest },
 			{ NULL, NULL }
 		};
 
@@ -100,7 +115,15 @@ namespace game {
 
 		return 1;
 	}
-
+	/**
+	 * Manually adds a new map to the map pool. Maps generally can be loaded from
+	 * file automatically via the <code>map()</code> function. However if a map
+	 * has been created in code it'll have to be added with this function.
+	 * If a map with the same map name already exists it will be overridden in the map pool.
+	 *
+	 * @param Map map The map to add to the map pool.
+	 * @returns Boolean True if the map was successfully added, false indicates the map was nil or had no name.
+	 */
 	int Game_add_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -113,6 +136,20 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * Removes a map from the map pool.
+	 *
+	 * @param String mapName The name of the map to remove.
+	 * @returns Boolean True if the map was successfully removed, 
+	 *  false indicates that map was not in the map pool.
+	 */
+	/**
+	 * Removes a map from the map pool.
+	 *
+	 * @param Map map The map to remove.
+	 * @returns Boolean True if the map was successfully removed, 
+	 *  false indicates that map was not in the map pool.
+	 */
 	int Game_remove_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -133,17 +170,31 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * Removes all the maps from the map pool.
+	 *
+	 * @returns Game This
+	 */
 	int Game_remove_all_maps(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
 			game->removeAllMaps();
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
-
-	int Game_get_map(lua_State *lua)
+	/**
+	 * Returns a map from the map pool. If the map is not present
+	 * it will attempt to load the map from file under the data directory.
+	 * <p><code>data/maps/{mapName}.lua</code></p>
+	 * @param String mapName The name of the map to load.
+	 * @returns Map The found/loaded map, nil if it could not be found nor loaded.
+	 */
+	int Game_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game && lua_tostring(lua, -1))
@@ -158,39 +209,86 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_get_current_map(lua_State *lua)
+	/**
+	 * Returns true if a map with the given map name is found in the map pool.
+	 * @param String mapName The map name to look up.
+	 * @returns Boolean True if the map was found.
+	 */
+	int Game_has_map(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game && lua_isstring(lua, -1))
+		{
+			lua_pushboolean(lua, game->hasMap(lua_tostring(lua, -1)));
+			return 1;
+		}
+		lua_pushboolean(lua, false);
+		return 1;
+	}
+	/**
+	 * Returns the current active map, this will usually be the one that
+	 * the main character is on.
+	 *
+	 * @returns Map The current active map.
+	 */
+	/**
+	 * Sets the current active map.
+	 *
+	 * @param String mapName The name of the map to set as the active map.
+	 * @returns Game This.
+	 */
+	/**
+	 * Sets the current active map.
+	 *
+	 * @param Map map The map to set as the active map.
+	 * @returns Game This.
+	 */
+	int Game_current_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			Map *map = game->getCurrentMap();
-			if (map)
+			if (lua_gettop(lua) == 1)
 			{
-				wrapRefObject<Map>(lua, map);
+				Map *map = game->getCurrentMap();
+				if (map)
+				{
+					wrapRefObject<Map>(lua, map);
+					return 1;
+				}
+			}
+			else
+			{
+				if (lua_isstring(lua, -1))
+				{
+					game->setCurrentMap(lua_tostring(lua, -1));
+				}
+				else if (lua_isuserdata(lua, -1))
+				{
+					Map *map = castUData<Map>(lua, -1);
+					game->setCurrentMap(map);
+				}
+				lua_pushvalue(lua, 1);
 				return 1;
 			}
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_set_current_map(lua_State *lua)
-	{
-		Game *game = castUData<Game>(lua, 1);
-		if (game)
-		{
-			if (lua_isstring(lua, -1))
-			{
-				game->setCurrentMap(lua_tostring(lua, -1));
-			}
-			else if (lua_isuserdata(lua, -1))
-			{
-				Map *map = castUData<Map>(lua, -1);
-				game->setCurrentMap(map);
-			}
-		}
-		return 0;
-	}
-
+	/**
+	 * Adds a game object to the currently active map.
+	 *
+	 * @param GameObject gameObject The game object to add.
+	 * @returns Boolean True if the game object was successfully added.
+	 *  False indicates that either the current map or gameObject are nil.
+	 */
+	/**
+	 * Adds a game object to the currently active map.
+	 *
+	 * @param String gameObjectId The game object id of the game object to add.
+	 * @returns Boolean True if the game object was successfully added.
+	 *  False indicates that either the current map or gameObject are nil.
+	 */
 	int Game_add_game_object_to_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -200,9 +298,23 @@ namespace game {
 			lua_pushboolean(lua, game->addGameObjectToMap(obj));
 			return 1;
 		}
-		lua_pushnil(lua);
+		lua_pushboolean(lua, false);
 		return 1;
 	}
+	/**
+	 * Removes a game object from the current map.
+	 *
+	 * @param GameObject gameObject The game object to remove from the current map.
+	 * @returns Boolean True if the game object was successfully removed.
+	 *  False indicates that either the current map or gameObject are nil.
+	 */
+	/**
+	 * Removes a game object from the current map.
+	 *
+	 * @param String gameObjectId The game object id of the game object to remove from the current map.
+	 * @returns Boolean True if the game object was successfully removed.
+	 *  False indicates that either the current map or gameObject are nil.
+	 */
 	int Game_remove_game_object_from_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -212,9 +324,21 @@ namespace game {
 			lua_pushboolean(lua, game->removeGameObjectFromMap(obj));
 			return 1;
 		}
-		lua_pushnil(lua);
+		lua_pushboolean(lua, false);
 		return 1;
 	}
+	/**
+	 * Returns true if the game object is on the current map.
+	 *
+	 * @param GameObject gameObject The game object to look for.
+	 * @returns Boolean True if the game object was found on the current map.
+	 */
+	/**
+	 * Returns true if the game object is on the current map.
+	 *
+	 * @param String gameObjectId The game object id of the game object to look for.
+	 * @returns Boolean True if the game object was found on the current map.
+	 */
 	int Game_has_game_object_in_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -227,7 +351,38 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
+	/**
+	 * Moves a game object from their current map to a new map.
+	 *
+	 * @param GameObject gameObject The game object to move.
+	 * @param Map map The map to move to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map.
+	 * 
+	 * @param GameObject gameObject The game object to move.
+	 * @param String mapName The name of the map to move to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map at a given position.
+	 *
+	 * @param GameObject gameObject The game object to move.
+	 * @param Map map The map to move to.
+	 * @param Number positionX The x position to move the game object to.
+	 * @param Number positionY The y position to move the game object to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map at a given position.
+	 *
+	 * @param GameObject gameObject The game object to move.
+	 * @param String mapName The name of the map to move to.
+	 * @param Number positionX The x position to move the game object to.
+	 * @param Number positionY The y position to move the game object to.
+	 * @returns Game This
+	 */
 	int Game_move_object_to_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -258,9 +413,42 @@ namespace game {
 					}
 				}
 			}
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
+	/**
+	 * Moves a game object from their current map to a new map.
+	 * 
+	 * @param GameObject gameObject The game object to move.
+	 * @param Map map The map to move to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map.
+	 * 
+	 * @param GameObject gameObject The game object to move.
+	 * @param String mapName The name of the map to move to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map at a given grid position.
+	 * @param GameObject gameObject The game object to move.
+	 * @param Map map The map to move to.
+	 * @param Integer gridX The x grid position to move the game object to.
+	 * @param Integer gridY The y grid position to move the game object to.
+	 * @returns Game This
+	 */
+	/**
+	 * Moves a game object from their current map to a new map at a given grid position.
+	 * @param GameObject gameObject The game object to move.
+	 * @param String mapName The name of the map to move to.
+	 * @param Integer gridX The x grid position to move the game object to.
+	 * @param Integer gridY The y grid position to move the game object to.
+	 * @returns Game This
+	 */
 	int Game_move_object_to_map_grid(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -291,36 +479,58 @@ namespace game {
 					}
 				}
 			}
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
-
-	int Game_get_main_character(lua_State *lua)
+	/**
+	 * Returns the main character for this game.
+	 *
+	 * @returns Character The main character.
+	 */
+	/**
+	 * Sets the main character to the given character.
+	 * 
+	 * @param Character The new main character.
+	 * @returns Game This
+	 */
+	int Game_main_character(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			Character *character = game->getMainCharacter();
-			if (character)
+			if (lua_gettop(lua) == 1)
 			{
-				wrapRefObject<Character>(lua, character);
+				Character *character = game->getMainCharacter();
+				if (character)
+				{
+					wrapRefObject<Character>(lua, character);
+					return 1;
+				}
+			}
+			else if (lua_isuserdata(lua, -1))
+			{
+				Character *character = castUData<Character>(lua, -1);
+				if (character)
+				{
+					game->setMainCharacter(character);
+				}
+				lua_pushvalue(lua, 1);
 				return 1;
 			}
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_set_main_character(lua_State *lua)
-	{
-		Game *game = castUData<Game>(lua, 1);
-		Character *character = castUData<Character>(lua, 2);
-		if (game && character)
-		{
-			game->setMainCharacter(character);
-		}
-		return 0;
-	}
-
+	/**
+	 * Looks for a game object with the given game object id, returns nil if a 
+	 * game object could not be found.
+	 * 
+	 * @param String gameObjectId The game object id to look up.
+	 * @returns GameObject The found game object, or nil.
+	 */
 	int Game_get_game_object(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -333,27 +543,57 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * Registers a game object with the game instance.
+	 * 
+	 * @param GameObject gameObject The game object to register with this game.
+	 * @returns Game This
+	 */
 	int Game_register_game_object(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		GameObject *obj = getGameObject(lua, -1);
-		if (game && obj)
+		if (game)
 		{
-			game->registerGameObject(obj);
+			GameObject *obj = getGameObject(lua, -1);
+			if (obj)
+			{
+				game->registerGameObject(obj);
+			}
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
+	/**
+	 * Deregisters a game object with the game instance.
+	 *
+	 * @param GameObject gameObject The game object to deregister.
+	 * @returns Game This
+	 */
 	int Game_deregister_game_object(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		GameObject *obj = getGameObject(lua, -1);
-		if (game && obj)
+		if (game)
 		{
-			game->deregisterGameObject(obj);
+			GameObject *obj = getGameObject(lua, -1);
+			if (obj)
+			{
+				game->deregisterGameObject(obj);
+			}
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
-
+	/**
+	 * Adds the given dialogue to the dialogue pool.
+	 *
+	 * @param Dialogue dialogue The dialogue to add to the pool.
+	 * @returns Boolean True if the dialogue was successfully added, false
+	 *  indicates that dialogue was nil or was already in the pool.
+	 */
 	int Game_add_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -366,27 +606,64 @@ namespace game {
 		lua_pushboolean(lua, false);
 		return 1;
 	}
+	/**
+	 * Removes a dialogue from the dialogue pool.
+	 *
+	 * @param Dialogue dialogue The dialogue to remove.
+	 * @returns Boolean True if the dialogue was successfully removed, false
+	 *  indicates that the dialogue was nil or not found.
+	 */
+	/**
+	 * Removes a dialogue from the dialogue pool.
+	 *
+	 * @param String dialogueId The dialogue id of the dialogue to remove.
+	 * @returns Boolean True if the dialogue was successfully removed, false
+	 *  indicates that the dialogue was nil or not found.
+	 */
 	int Game_remove_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			lua_pushboolean(lua, game->removeDialogue(lua_tostring(lua, -1)));
-			return 1;
+			if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, game->removeDialogue(lua_tostring(lua, -1)));
+				return 1;
+			}
+			Dialogue *diag = castUData<Dialogue>(lua, -1);
+			if (diag)
+			{
+				lua_pushboolean(lua, game->removeDialogue(diag->getId()));
+				return 1;
+			}
 		}
 		lua_pushboolean(lua, false);
 		return 1;
 	}
+	/**
+	 * Removes all dialogue from the dialogue pool.
+	 *
+	 * @returns Game This
+	 */
 	int Game_remove_all_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
 			game->removeAllDialogue();
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
-	int Game_get_dialogue(lua_State *lua)
+	/**
+	 * Returns a dialogue with the given dialogue id, nil if no dialogue was found.
+	 *
+	 * @param String dialogueId The id of the dialogue to look up.
+	 * @returns Dialogue The found dialogue or nil.
+	 */
+	int Game_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game && lua_isstring(lua, -1))
@@ -401,12 +678,20 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Game_get_available_dialogues(lua_State *lua)
+	/**
+	 * TODO
+	 */
+	int Game_available_dialogues(lua_State *lua)
 	{
 		// TODO
 		return 0;
 	}
-
+	/**
+	 * Adds a quest to the quest pool.
+	 *
+	 * @param Quest quest The quest to add.
+	 * @returns Boolean True if the quest was successfully added.
+	 */
 	int Game_add_quest(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
@@ -419,18 +704,45 @@ namespace game {
 		lua_pushboolean(lua, false);
 		return 1;
 	}
+	/**
+	 * Removes a quest from the quest pool.
+	 *
+	 * @param Quest quest The quest to remove from the quest pool.
+	 * @returns Boolean True if the quest was successfully removed.
+	 */
+	/**
+	 * Removes a quest from the quest pool.
+	 *
+	 * @param String questId The id of the quest to remove from the quest pool.
+	 * @returns Boolean True if the quest was successfully removed.
+	 */
 	int Game_remove_quest(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			lua_pushboolean(lua, game->removeQuest(lua_tostring(lua, -1)));
-			return 1;
+			if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, game->removeQuest(lua_tostring(lua, -1)));
+				return 1;
+			}
+			Quest *quest = castUData<Quest>(lua, -1);
+			if (quest)
+			{
+				lua_pushboolean(lua, game->removeQuest(quest->getQuestId()));
+				return 1;
+			}
 		}
 		lua_pushboolean(lua, false);
 		return 1;
 	}
-	int Game_get_quest(lua_State *lua)
+	/**
+	 * Returns a quest with the given quest id, nil if the quest could not be found.
+	 *
+	 * @param String questId The id of the quest to look up.
+	 * @returns Quest The found quest, or nil.
+	 */
+	int Game_quest(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
 		if (game && lua_isstring(lua, -1))

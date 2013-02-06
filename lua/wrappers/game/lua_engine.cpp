@@ -229,8 +229,9 @@ namespace game {
 	}
 	/**
 	 * @static
-	 * Registers a game object with the game engine so that it can be
-	 * looked up from anywhere.
+	 * Registers a game object with the current game so that it can be
+	 * looked up from anywhere. This is just shorthand for getting
+	 * the current game and registering the game object with that.
 	 * @param GameObject gameObject The game object to register with the game engine.
 	 */
 	int Engine_register_game_object(lua_State *lua)
@@ -248,12 +249,14 @@ namespace game {
 	}
 	/**
 	 * @static
-	 * Removes a game object from the game engine.
+	 * Removes a game object from the current game. This is just 
+	 * shorthand for removing the game object from the current game.
 	 * @param String gameId The game id of the game object to remove.
 	 */
 	/**
 	 * @static
-	 * Removes a game object from the game engine.
+	 * Removes a game object from the game engine. This is just 
+	 * shorthand for removing the game object from the current game.
 	 * @param GameObject gameObject The game object to remove.
 	 */
 	int Engine_deregister_game_object(lua_State *lua)

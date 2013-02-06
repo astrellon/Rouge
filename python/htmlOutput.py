@@ -165,30 +165,33 @@ class HtmlOutput:
 		
 		def outputFuncs(funcs):
 			for funcDescName, funcDesc in funcs.items():
-				if funcDesc.cppName == "NULL":
-					continue;
-				instDiv = self.createNode(HtmlOutput.function_instance);
-				functions.append(instDiv);
-				for funcInst in funcDesc.instances:
-					func = self.createNode(HtmlOutput.function);
-					func.append(self.createMainFuncName(funcDesc.name, funcInst));
-					func.append(self.createNode(HtmlOutput.comment, comment=funcInst.comment));
-					if len(funcInst.params) > 0:
-						func.append(self.createNode(HtmlOutput.parameters));
-						params = self.createNode(HtmlOutput.type_list);
-						func.append(params);
-						for param in funcInst.params:
-							optional = "= " + param.optional if param.optional else "";
-							params.append(self.createNode(HtmlOutput.param_full, type=param.type, name=param.name, comment=param.comment, optional=optional));
-							
-					if len(funcInst.returns) > 0:
-						func.append(self.createNode(HtmlOutput.returns));
-						returns = self.createNode(HtmlOutput.type_list);
-						func.append(returns);
-						for ret in funcInst.returns:
-							returns.append(self.createNode(HtmlOutput.returns_full, type=ret.type, comment=ret.comment));
-							
-					instDiv.append(func);
+				try:
+					if funcDesc.cppName == "NULL":
+						continue;
+					instDiv = self.createNode(HtmlOutput.function_instance);
+					functions.append(instDiv);
+					for funcInst in funcDesc.instances:
+						func = self.createNode(HtmlOutput.function);
+						func.append(self.createMainFuncName(funcDesc.name, funcInst));
+						func.append(self.createNode(HtmlOutput.comment, comment=funcInst.comment));
+						if len(funcInst.params) > 0:
+							func.append(self.createNode(HtmlOutput.parameters));
+							params = self.createNode(HtmlOutput.type_list);
+							func.append(params);
+							for param in funcInst.params:
+								optional = "= " + param.optional if param.optional else "";
+								params.append(self.createNode(HtmlOutput.param_full, type=param.type, name=param.name, comment=param.comment, optional=optional));
+								
+						if len(funcInst.returns) > 0:
+							func.append(self.createNode(HtmlOutput.returns));
+							returns = self.createNode(HtmlOutput.type_list);
+							func.append(returns);
+							for ret in funcInst.returns:
+								returns.append(self.createNode(HtmlOutput.returns_full, type=ret.type, comment=ret.comment));
+								
+						instDiv.append(func);
+				except (ET.ParseError):
+					print("Error parseing HTML for function:", self.classDoc.name + "." + funcDescName);
 					
 		outputFuncs(self.classDoc.specialFuncs);
 		outputFuncs(self.classDoc.funcs);

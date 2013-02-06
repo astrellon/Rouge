@@ -53,7 +53,7 @@ namespace tests {
 			"local quest = Quest.new(\"testQuest\")\n"
 			"Quest.add_quest(quest)\n"
 			"local game = Engine.game()\n"
-			"local main = game:get_main_character()\n"
+			"local main = game:main()\n"
 
 			"function startQuest(event)\n"
 			"	main:off(\"talk\", startQuest)\n"

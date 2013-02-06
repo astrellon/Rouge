@@ -88,7 +88,7 @@ namespace game {
 			mMaps.clear();
 		}
 	}
-
+	
 	Map *Game::getMapLua(const char *mapName)
 	{
 		return getMapLua(string(mapName));
@@ -271,6 +271,21 @@ namespace game {
 	{
 		mMaps.clear();
 	}
+
+	bool Game::hasMap(const char *mapName)
+	{
+		if (mapName == NULL || mapName[0] == '\0')
+		{
+			return false;
+		}
+		MapMap::iterator iter = mMaps.find(string(mapName));
+		if (iter == mMaps.end())
+		{
+			return false;
+		}
+		return true;
+	}
+
 	
 	void Game::setCurrentMap(Map *map, bool addMap)
 	{
