@@ -52,7 +52,8 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		//lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(MouseEvent *e)
 	{

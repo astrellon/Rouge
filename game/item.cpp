@@ -46,8 +46,9 @@ namespace game {
 
 	Item *Item::clone() const
 	{
-		Item *newItem = new Item();
+		Handle<Item> newItem(new Item());
 		newItem->setItemFrom(*this);
+		newItem->retain();
 		return newItem;
 	}
 

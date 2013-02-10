@@ -63,8 +63,7 @@ namespace game {
 			{ "get_ground_graphic", NULL },
 			{ "set_item_type", Item_set_item_type },
 			{ "get_item_type", Item_get_item_type },
-			{ "set_inventory_size", Item_set_inventory_size },
-			{ "get_inventory_size", Item_get_inventory_size },
+			{ "inventory_size", Item_inventory_size },
 			{ "set_item_location", Item_set_item_location },
 			{ "get_item_location", Item_get_item_location },
 			{ "set_quest_item_id", Item_set_quest_item_id },
@@ -126,7 +125,8 @@ namespace game {
 		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			wrapRefObject<Item>(lua, item->clone());
+			Item *newItem = item->clone();
+			wrapRefObject<Item>(lua, newItem);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -204,25 +204,25 @@ namespace game {
 		return 1;
 	}
 
-	int Item_set_inventory_size(lua_State *lua)
-	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
-		{
-			short width = static_cast<short>(lua_tointeger(lua, -2));
-			short height = static_cast<short>(lua_tointeger(lua, -1));
-			item->setInventorySize(width, height);
-		}
-		return 0;
-	}
-	int Item_get_inventory_size(lua_State *lua)
+	int Item_inventory_size(lua_State *lua)
 	{
 		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			lua_pushinteger(lua, item->getInventorySizeX());
-			lua_pushinteger(lua, item->getInventorySizeY());
-			return 2;
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushinteger(lua, item->getInventorySizeX());
+				lua_pushinteger(lua, item->getInventorySizeY());
+				return 2;
+			}
+			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			{
+				short width = static_cast<short>(lua_tointeger(lua, -2));
+				short height = static_cast<short>(lua_tointeger(lua, -1));
+				item->setInventorySize(width, height);
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
 		}
 		lua_pushnil(lua);
 		lua_pushnil(lua);

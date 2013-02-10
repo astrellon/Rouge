@@ -31,7 +31,7 @@ namespace tests {
 			"item = import(\"Item\")\n"
 			"inv = Inventory.new(6, 4)\n"
 			"function getSpace()\n"
-			"	return inv:get_space()\n"
+			"	return inv:size()\n"
 			"end\n"
 			"function hasSpaceFor(item, x, y)\n"
 			"	return inv:has_space_for(item, x, y)\n"
@@ -107,6 +107,34 @@ namespace tests {
 		lua.call(1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
+
+		return true;
+	}
+
+	bool TestLuaInventory::testSpots() {
+		LuaState lua;
+		
+		int loadResult = lua.loadString("Inventory, Item = import(\"Inventory\", \"Item\")\n"
+			"inv = Inventory.new(3, 3)\n"
+			"scroll1 = Item.new()\n"
+			"scroll1:inventory_size(2, 1)\n"
+			"scroll1:set_item_name(\"Scroll 1\")\n"
+			"scroll2 = scroll1:clone()\n"
+			"scroll2:set_item_name(\"Scroll 2\")\n"
+			"inv:add_item(scroll1)\n"
+			"inv:add_item(scroll2)\n"
+
+			"spots = inv:spots()\n"
+			"for key, value in pairs(spots) do\n"
+			"    am_log(key .. \": \" .. value.item:get_name() .. \" at \" .. value.x .. \", \" .. value.y)\n"
+			"end\n"
+			);
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
 
 		return true;
 	}

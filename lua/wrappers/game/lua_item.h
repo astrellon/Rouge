@@ -26,8 +26,7 @@ namespace game {
 	int Item_set_item_type(lua_State *lua);
 	int Item_get_item_type(lua_State *lua);
 
-	int Item_set_inventory_size(lua_State *lua);
-	int Item_get_inventory_size(lua_State *lua);
+	int Item_inventory_size(lua_State *lua);
 
 	int Item_set_item_location(lua_State *lua);
 	int Item_get_item_location(lua_State *lua);

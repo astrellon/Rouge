@@ -59,7 +59,7 @@ namespace ui {
 					mManager->flagDeletion(this);
 				}
 				else
-				{                   
+				{
 					managerDeleted();
 				}
 			}
