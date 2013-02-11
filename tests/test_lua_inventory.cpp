@@ -118,15 +118,15 @@ namespace tests {
 			"inv = Inventory.new(3, 3)\n"
 			"scroll1 = Item.new()\n"
 			"scroll1:inventory_size(2, 1)\n"
-			"scroll1:set_item_name(\"Scroll 1\")\n"
+			"scroll1:item_name(\"Scroll 1\")\n"
 			"scroll2 = scroll1:clone()\n"
-			"scroll2:set_item_name(\"Scroll 2\")\n"
+			"scroll2:item_name(\"Scroll 2\")\n"
 			"inv:add_item(scroll1)\n"
 			"inv:add_item(scroll2)\n"
 
 			"spots = inv:spots()\n"
 			"for key, value in pairs(spots) do\n"
-			"    am_log(key .. \": \" .. value.item:get_name() .. \" at \" .. value.x .. \", \" .. value.y)\n"
+			"    am_log(key .. \": \" .. value.item:name() .. \" at \" .. value.x .. \", \" .. value.y)\n"
 			"end\n"
 			);
 		

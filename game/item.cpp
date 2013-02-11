@@ -34,7 +34,8 @@ namespace game {
 		mItemLocation(GROUND),
 		mItemValue(1),
 		mPrefix(-1),
-		mPostfix(-1)
+		mPostfix(-1),
+		mQuestItemId(-1)
 	{
 		setName("Item");
 		addPassibleType(Engine::getEngine()->getTileType("land"));

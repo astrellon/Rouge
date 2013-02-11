@@ -20,52 +20,33 @@ namespace game {
 
 	int Item_clone(lua_State *lua);
 
-	int Item_set_graphic(lua_State *lua);
-	int Item_get_graphic(lua_State *lua);
-
-	int Item_set_item_type(lua_State *lua);
-	int Item_get_item_type(lua_State *lua);
-
+	int Item_graphic(lua_State *lua);
+	int Item_ground_graphic(lua_State *lua);
+	int Item_item_type(lua_State *lua);
 	int Item_inventory_size(lua_State *lua);
-
-	int Item_set_item_location(lua_State *lua);
-	int Item_get_item_location(lua_State *lua);
-
-	int Item_set_quest_item_id(lua_State *lua);
-	int Item_get_quest_item_id(lua_State *lua);
+	int Item_item_location(lua_State *lua);
+	int Item_quest_item_id(lua_State *lua);
 	int Item_is_quest_item(lua_State *lua);
 
-	int Item_set_item_name(lua_State *lua);
-	int Item_get_item_name(lua_State *lua);
-
-	int Item_set_prefix(lua_State *lua);
-	int Item_get_prefix(lua_State *lua);
-
-	int Item_set_postfix(lua_State *lua);
-	int Item_get_postfix(lua_State *lua);
-
-	int Item_set_item_fullname(lua_State *lua);
-	int Item_get_item_fullname(lua_State *lua);
+	int Item_item_name(lua_State *lua);
+	int Item_prefix(lua_State *lua);
+	int Item_postfix(lua_State *lua);
+	int Item_item_fullname(lua_State *lua);
 
 	int Item_set_item_from(lua_State *lua);
 
+	int Item_stat_modifiers(lua_State *lua);
+
 	int Item_load_def(lua_State *lua);
 
-	int Item_get_width(lua_State *lua);
-	int Item_get_height(lua_State *lua);
+	int Item_width(lua_State *lua);
+	int Item_height(lua_State *lua);
+	int Item_name(lua_State *lua);
 
-	int Item_get_stat_modifiers(lua_State *lua);
+	int Item_location(lua_State *lua);
+	int Item_grid_location(lua_State *lua);
 
-	int Item_get_name(lua_State *lua);
-
-	int Item_set_location(lua_State *lua);
-	int Item_get_location(lua_State *lua);
-
-	int Item_set_grid_location(lua_State *lua);
-	int Item_get_grid_location(lua_State *lua);
-
-	int Item_set_game_id(lua_State *lua);
-	int Item_get_game_id(lua_State *lua);
+	int Item_game_id(lua_State *lua);
 
 	int Item_get_by_game_id(lua_State *lua);
 

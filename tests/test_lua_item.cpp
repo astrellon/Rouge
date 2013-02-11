@@ -27,7 +27,7 @@ namespace tests {
 		
 		int loadResult = lua.loadString("Item = import(\"Item\")\n"
 			"item = Item.new()\n"
-			"item:set_game_id(\"testItem\")\n"
+			"item:game_id(\"testItem\")\n"
 			);
 		
 		if (!loadResult)
