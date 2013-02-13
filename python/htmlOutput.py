@@ -3,19 +3,8 @@ import re;
 import xml.etree.ElementTree as ET
 import string;
 
-class Selector:
-	childSplit = re.compile("\s+|>");
-	selectorMatch = re.compile("(\.\w+)|(#\w+)|(\w+)|(\[\w+=\w+\])");
-	def __init__(self, node):
-		self.node = node;
-		self.results = [];
-		
-	def find(self, selector):
-		
-		for match in Selector.selectorMatch.finditer(selector):
-			print("Splitted:", match.group());
-
 class HtmlOutput:
+	
 	header = """
 		<head>
 			<title>$title</title>
@@ -103,6 +92,7 @@ class HtmlOutput:
 	def writeNode(self, node):
 		whitespace = "\t" * self.indent;
 		self.indent += 1;
+		
 		if len(node.attrib) == 0:
 			self.output.write(whitespace + "<" + node.tag + ">");
 		else:
@@ -121,6 +111,7 @@ class HtmlOutput:
 			nodeText = str(node.text).rstrip();
 			if node.tag == "pre":
 				nodeText = nodeText.replace("\n ", "\n");
+			
 			if len(nodeText) > 0:
 				if len(childList) == 0:
 					self.output.write(nodeText);
@@ -141,8 +132,8 @@ class HtmlOutput:
 		self.indent -= 1;
 	
 	def createNode(self, template, **args):
-		s = string.Template(template);
-		return ET.fromstring(s.substitute(args));
+		s = string.Template(template).substitute(args);
+		return ET.fromstring(s);
 		
 	def createTableOfContents(self):
 		node = self.createNode(HtmlOutput.table_contents);

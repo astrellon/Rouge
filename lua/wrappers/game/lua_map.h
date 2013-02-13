@@ -18,19 +18,14 @@ namespace game {
 	int Map_eq(lua_State *lua);
 	int Map_register(lua_State *lua);
 
-	int Map_set_name(lua_State *lua);
-	int Map_get_name(lua_State *lua);
+	int Map_name(lua_State *lua);
+	int Map_full_name(lua_State *lua);
 
-	int Map_set_full_name(lua_State *lua);
-	int Map_get_full_name(lua_State *lua);
+	int Map_tile(lua_State *lua);
+	int Map_tile_instance(lua_State *lua);
+	int Map_tiles(lua_State *lua);
 
-	int Map_get_tile(lua_State *lua);
-	int Map_get_tile_instance(lua_State *lua);
-
-	int Map_set_tiles(lua_State *lua);
-
-	int Map_set_map_size(lua_State *lua);
-	int Map_get_map_size(lua_State *lua);
+	int Map_map_size(lua_State *lua);
 
 	int Map_add_game_object(lua_State *lua);
 	int Map_remove_game_object(lua_State *lua);
