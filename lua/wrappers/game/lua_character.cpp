@@ -141,7 +141,7 @@ namespace game {
 			{ "has_passible_type", Character_has_passible_type },
 			{ "get_passible_types", Character_get_passible_types },
 			{ "game_id", Character_game_id },
-			{ "find", Character_get_by_game_id },
+			{ "find", Character_find },
 			{ "dialogue_component", Character_dialogue_component },
 			// EventListener methods
 			{ "on", Character_add_event_listener },
@@ -1088,7 +1088,7 @@ namespace game {
 	 * @param String gameId The game id to look up
 	 * @returns Character The found character or nil
 	 */
-	int Character_get_by_game_id(lua_State *lua)
+	int Character_find(lua_State *lua)
 	{
 		if (lua_isstring(lua, -1))
 		{

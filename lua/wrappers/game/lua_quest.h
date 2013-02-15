@@ -32,7 +32,7 @@ namespace game {
 
 	int Quest_add_quest(lua_State *lua);
 	int Quest_remove_quest(lua_State *lua);
-	int Quest_get_quest(lua_State *lua);
+	int Quest_find(lua_State *lua);
 
 }
 }

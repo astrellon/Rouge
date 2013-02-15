@@ -65,7 +65,7 @@ namespace game {
 	int Character_has_passible_type(lua_State *lua);
 	int Character_get_passible_types(lua_State *lua);
 
-	int Character_get_by_game_id(lua_State *lua);
+	int Character_find(lua_State *lua);
 
 	int Character_dialogue_component(lua_State *lua);
 	int Character_game_id(lua_State *lua);

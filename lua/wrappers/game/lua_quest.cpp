@@ -90,7 +90,7 @@ namespace game {
 			{ "has_event_listener", Quest_has_event_listener },
 			{ "add_quest", Quest_add_quest },
 			{ "remove_quest", Quest_remove_quest },
-			{ "find", Quest_get_quest },
+			{ "find", Quest_find },
 			{ NULL, NULL }
 		};
 
@@ -376,7 +376,7 @@ namespace game {
 	 * @param String questId The quest id of the quest to look up.
 	 * @returns Quest The found quest or nil.
 	 */
-	int Quest_get_quest(lua_State *lua)
+	int Quest_find(lua_State *lua)
 	{
 		if (lua_isstring(lua, -1))
 		{

@@ -48,7 +48,7 @@ namespace game {
 
 	int Item_game_id(lua_State *lua);
 
-	int Item_get_by_game_id(lua_State *lua);
+	int Item_find(lua_State *lua);
 
 }
 }

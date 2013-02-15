@@ -112,7 +112,7 @@ namespace game {
 			{ "get_passible_types", NULL },
 			{ "game_id", Item_game_id },
 			// Static GameObject methods
-			{ "find", Item_get_by_game_id },
+			{ "find", Item_find },
 			{ NULL, NULL }
 		};
 
@@ -771,7 +771,7 @@ namespace game {
 	 * @param String gameId The game id to look up.
 	 * @returns Item The found item or nil.
 	 */
-	int Item_get_by_game_id(lua_State *lua)
+	int Item_find(lua_State *lua)
 	{
 		if (lua_isstring(lua, -1))
 		{
