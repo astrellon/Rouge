@@ -18,7 +18,7 @@ namespace game {
 	int Race_eq(lua_State *lua);
 	int Race_register(lua_State *lua);
 
-	int Race_get_race_name(lua_State *lua);
+	int Race_race_name(lua_State *lua);
 
 }
 }

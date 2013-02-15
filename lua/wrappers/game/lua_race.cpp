@@ -16,7 +16,17 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The Race class represents the information relating to a specific race. 
+	 * This is mostly for general information such as name and potentially a lengthy description.
+	 * It is also used as an identifier for the race of a Character.
+	 */
+	/**
+	 * Creates a new race with the given race name.
+	 *
+	 * @param String raceName The race name that is used to identify this race.
+	 */
 	int Race_ctor(lua_State *lua)
 	{
 		if (lua_isstring(lua, -1))
@@ -30,11 +40,19 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * TODO
+	 */
 	int Race_dtor(lua_State *lua)
 	{
 		return 0;
 	}
-
+	/**
+	 * Compares this race against another race object.
+	 *
+	 * @param Race rhs The other race object to compare with.
+	 * @returns Boolean True if the the they are the same race object.
+	 */
 	int Race_eq(lua_State *lua)
 	{
 		Race *lhs = castUData<Race>(lua, 1);
@@ -50,7 +68,7 @@ namespace game {
 			{ "new", Race_ctor },
 			{ "__gc",  Race_dtor },
 			{ "__eq", Race_eq },
-			{ "get_race_name", Race_get_race_name },
+			{ "race_name", Race_race_name },
 			{ NULL, NULL }
 		};
 
@@ -63,7 +81,12 @@ namespace game {
 		return 1;
 	}
 
-	int Race_get_race_name(lua_State *lua)
+	/**
+	 * Returns the race name identifier for this race.
+	 *
+	 * @returns String The race name.
+	 */
+	int Race_race_name(lua_State *lua)
 	{
 		Race *race = castUData<Race>(lua, 1);
 		if (race)

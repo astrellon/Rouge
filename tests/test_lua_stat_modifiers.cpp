@@ -102,5 +102,29 @@ namespace tests {
 
 		return true;
 	}
+
+	bool TestLuaStatModifiers::testSimple2() {
+		LuaState lua;
+		StatModifiers mods;
+		
+		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
+			"mods = StatModifiers.new()\n"
+			"base_health = 5\n"
+			"mods:add_modifier(\"health\", 4, \"+\")\n"
+			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+			"mods:add_modifier(\"health\", 3, \"*\")\n"
+			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+			"mods:add_modifier(\"health\", 7, \"=\")\n"
+			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+		);
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		return true;
+	}
 }
 }

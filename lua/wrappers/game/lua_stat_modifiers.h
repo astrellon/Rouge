@@ -18,11 +18,9 @@ namespace game {
 	int StatModifiers_eq(lua_State *lua);
 	int StatModifiers_register(lua_State *lua);
 
-	int StatModifiers_add_modifier(lua_State *lua);
-	int StatModifiers_remove_modifier(lua_State *lua);
-
-	int StatModifiers_add_modifiers(lua_State *lua);
-	int StatModifiers_remove_modifiers(lua_State *lua);
+	int StatModifiers_add(lua_State *lua);
+	int StatModifiers_remove(lua_State *lua);
+	int StatModifiers_mods(lua_State *lua);
 
 	int StatModifiers_calculate_stat(lua_State *lua);
 

@@ -74,11 +74,13 @@ namespace game {
 
 	bool StatModifier::operator==(const StatModifier &rhs) const
 	{
-		return rhs.mValue == mValue && rhs.mType == mType && rhs.mStatsParent == mStatsParent;
+		float diff = rhs.mValue - mValue;
+		return diff < 0.00001f && diff > -0.00001f && rhs.mType == mType && rhs.mStatsParent == mStatsParent;
 	}
 	bool StatModifier::operator!=(const StatModifier &rhs) const
 	{
-		return rhs.mValue != mValue || rhs.mType != mType || rhs.mStatsParent != mStatsParent;
+		float diff = rhs.mValue - mValue;
+		return diff > 0.00001f || diff < -0.00001f || rhs.mType != mType || rhs.mStatsParent != mStatsParent;
 	}
 
 	StatModifierType StatModifier::getModifierType(const char *name)

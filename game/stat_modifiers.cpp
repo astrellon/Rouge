@@ -118,7 +118,7 @@ namespace game {
 				{
 					if (phase == MOD_SET)
 					{
-						value = value * modifier.getValue();
+						value = modifier.getValue();
 					}
 					else if (type == MOD_MULTIPLY)
 					{
