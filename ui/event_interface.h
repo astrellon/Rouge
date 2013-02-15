@@ -14,8 +14,6 @@ using namespace std;
 namespace am {
 namespace ui {
 
-	//class EventManager;
-
 	class EventInterface {
 	public:
 

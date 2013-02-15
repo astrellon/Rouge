@@ -141,7 +141,7 @@ namespace game {
 			{ "has_passible_type", Character_has_passible_type },
 			{ "get_passible_types", Character_get_passible_types },
 			{ "game_id", Character_game_id },
-			{ "get_by_game_id", Character_get_by_game_id },
+			{ "find", Character_get_by_game_id },
 			{ "dialogue_component", Character_dialogue_component },
 			// EventListener methods
 			{ "on", Character_add_event_listener },
@@ -1210,7 +1210,7 @@ namespace game {
 	 * function talkToOnce(event)
 	 *     am_log("Character talked to once")
 	 *     character:off("talkTo", talkToOnce)
-	 * end<br>
+	 * end
 	 * character:on("talkTo", talkToOnce)
 	 * </pre>
 	 * @param String eventType The event type the listener was listening for.

@@ -40,12 +40,12 @@ namespace tests {
 			"result()\n"
 
 			"map = Map.new(\"testMap\", 6, 7)\n"
-			"map:set_full_name(\"The Region of Test\")\n"
+			"map:full_name(\"The Region of Test\")\n"
 
 			"Engine.clear_using_tile_set()\n"
 			"Engine.using_tile_set(\"nature\")\n"
 
-			"map:set_tiles({\n"
+			"map:tiles({\n"
 			"	\"brick:0\", \"brick:2\", \"grass:0\", \"grass:2\", \"grass:3\", \"dirt:3\",\n"
 			"	\"brick:1\", \"brick:0\", \"grass:1\", \"dirt:0\", \"dirt:2\", \"grass:1\",\n"
 			"	\"brick:0\", \"brick:2\", \"grass:2\", \"dirt:3\", \"dirt:0\", \"grass:3\",\n"

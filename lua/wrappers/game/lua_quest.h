@@ -21,17 +21,10 @@ namespace game {
 	int Quest_start_quest(lua_State *lua);
 	int Quest_finish_quest(lua_State *lua);
 
-	int Quest_set_complete(lua_State *lua);
-	int Quest_is_completed(lua_State *lua);
-
-	int Quest_set_title(lua_State *lua);
-	int Quest_get_title(lua_State *lua);
-
-	int Quest_set_description(lua_State *lua);
-	int Quest_get_description(lua_State *lua);
-
-	int Quest_set_active_text(lua_State *lua);
-	int Quest_get_active_text(lua_State *lua);
+	int Quest_complete(lua_State *lua);
+	int Quest_title(lua_State *lua);
+	int Quest_description(lua_State *lua);
+	int Quest_active_text(lua_State *lua);
 
 	int Quest_add_event_listener(lua_State *lua);
 	int Quest_remove_event_listener(lua_State *lua);

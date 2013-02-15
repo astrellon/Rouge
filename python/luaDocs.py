@@ -59,6 +59,7 @@ class FunctionInstance:
 		self.parsing = None;
 		self.alsoSee = [];
 		self.inCode = False;
+		self.isPrivate = False;
 	def addParam(self, param):
 		self.params.append(param)
 		
@@ -101,7 +102,9 @@ class FunctionInstance:
 			if meta == "@static":
 				self.isStatic = True;
 				return "";
-				
+			if meta == "@private":
+				self.isPrivate = True;
+				return "";
 			if meta == "@param":
 				# A param line can be in either format of
 				# @param Type Name [Optional] Comment (Splits into 4)
@@ -193,7 +196,7 @@ class FunctionInstance:
 		for returnParam in self.returns:
 			returnParam.finished();
 			
-		if len(self.comment) == 0:
+		if len(self.comment) == 0 and not self.isPrivate:
 			warning("." + str(self) + " has no comment");
 		
 		self.parsing = None;

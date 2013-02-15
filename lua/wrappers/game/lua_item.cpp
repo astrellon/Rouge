@@ -112,7 +112,7 @@ namespace game {
 			{ "get_passible_types", NULL },
 			{ "game_id", Item_game_id },
 			// Static GameObject methods
-			{ "get_by_game_id", Item_get_by_game_id },
+			{ "find", Item_get_by_game_id },
 			{ NULL, NULL }
 		};
 
@@ -765,6 +765,7 @@ namespace game {
 		return 1;
 	}
 	/**
+	 * @static
 	 * Looks up an item in the current game engine with the given game id.
 	 *
 	 * @param String gameId The game id to look up.

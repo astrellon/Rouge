@@ -455,7 +455,9 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
+	/**
+	 * @private
+	 */
 	int Map_load_def(lua_State *lua)
 	{
 		Map *map = castUData<Map>(lua, 1);
