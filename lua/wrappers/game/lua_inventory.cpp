@@ -283,9 +283,8 @@ namespace game {
 			LuaState L(lua);
 			L.newTable();
 			const Inventory::InventorySpots &spots = inv->getInventory();
-			Inventory::InventorySpots::const_iterator iter;
 			int i = 1;
-			for (iter = spots.begin(); iter != spots.end(); ++iter)
+			for (auto iter = spots.begin(); iter != spots.end(); ++iter)
 			{
 				L.newTable();
 				lua_pushstring(lua, "item");

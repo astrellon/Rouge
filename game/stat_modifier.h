@@ -38,6 +38,10 @@ namespace game {
 
 		static StatModifierType getModifierType(const char *name);
 		static StatModifierType getModifierType(int value);
+		static const char *getModifierTypeString(StatModifierType type);
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 

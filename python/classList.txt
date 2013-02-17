@@ -12,6 +12,7 @@ Item lua_item.cpp
 Map lua_map.cpp
 Quest lua_quest.cpp
 Race lua_race.cpp
+StatModifier lua_stat_modifier.cpp
 StatModifies lua_stat_modifiers.cpp
 Stats lua_stats.cpp
 Tile lua_tile.cpp

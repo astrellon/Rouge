@@ -12,6 +12,9 @@ using namespace am::util;
 namespace am {
 namespace game {
 
+	const int StatModifiers::LUA_ID = __COUNTER__;
+	const char *StatModifiers::LUA_TABLENAME = "am_game_StatModifier";
+
 	const char *StatModifier::sStatModifierNames[] = {
 		"+", "*", "=", "MOD_MAX_LENGTH"
 	};
@@ -101,6 +104,14 @@ namespace game {
 			return MOD_MAX_LENGTH;
 		}
 		return static_cast<StatModifierType>(value);
+	}
+	const char *StatModifier::getModifierTypeString(StatModifierType type)
+	{
+		if (type < 0 || type >= MOD_MAX_LENGTH)
+		{
+			return NULL;
+		}
+		return sStatModifierNames[type];
 	}
 	
 }

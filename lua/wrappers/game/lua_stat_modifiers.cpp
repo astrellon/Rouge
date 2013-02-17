@@ -214,7 +214,7 @@ namespace game {
 	 * 
 	 * mods:add("health", 7, "=")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 25 (7 * 3 + 4)
-	 * 
+
 	 * -- Remove them all again but in a different order.
 	 * mods:remove("health", 3, "*")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 11 (7 + 4)
@@ -299,26 +299,16 @@ namespace game {
 	 */
 	int StatModifiers_mods(lua_State *lua)
 	{
-		return 0;
-	}
+		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
+		if (stats)
+		{
+			LuaState L(lua);
+			const StatModifiers::StatModifierMap mods = stats->getModifiers();
+			for (auto iter = mods.begin(); iter != mods.end(); ++iter)
+			{
+				L.newTable();
 
-	int StatModifiers_add_modifiers(lua_State *lua)
-	{
-		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
-		StatModifiers *other = castUData<StatModifiers>(lua, 2);
-		if (stats && other)
-		{
-			stats->addModifiers(*other);
-		}
-		return 0;
-	}
-	int StatModifiers_remove_modifiers(lua_State *lua)
-	{
-		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
-		StatModifiers *other = castUData<StatModifiers>(lua, 2);
-		if (stats && other)
-		{
-			stats->removeModifiers(*other);
+			}
 		}
 		return 0;
 	}
