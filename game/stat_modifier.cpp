@@ -12,8 +12,8 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	const int StatModifiers::LUA_ID = __COUNTER__;
-	const char *StatModifiers::LUA_TABLENAME = "am_game_StatModifier";
+	const int StatModifier::LUA_ID = __COUNTER__;
+	const char *StatModifier::LUA_TABLENAME = "am_game_StatModifier";
 
 	const char *StatModifier::sStatModifierNames[] = {
 		"+", "*", "=", "MOD_MAX_LENGTH"

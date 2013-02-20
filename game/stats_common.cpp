@@ -16,10 +16,26 @@ namespace game {
 
 	const char *Stat::getNiceStatName(StatType stat)
 	{
+		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
+		{
+			return NULL;
+		}
 		return sNiceStatNames[stat];
 	}
 	const char *Stat::getStatName(StatType stat)
 	{
+		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
+		{
+			return NULL;
+		}
+		return sStatNames[stat];
+	}
+	const char *Stat::getStatName(int stat)
+	{
+		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
+		{
+			return NULL;
+		}
 		return sStatNames[stat];
 	}
 

@@ -19,6 +19,10 @@ using namespace am::base;
 #define lua_tofloat(L,i)	static_cast<float>(lua_tonumber(L,i))
 #define lua_tobool(L,i)		(lua_toboolean(L,i) > 0)
 
+// Wraps the lua call function with a try catch and a log message with the same file and line as the error if there is one.
+// Should only be used for unit tests as it does not deal with the error, only log that there was one.
+#define lua_acall(L, i, n)	try { L.call(i, n); } catch (...) { am::lua::LuaState::displayLineError(__FILE__, __LINE__); }
+
 namespace am {
 namespace lua {
 	
@@ -207,6 +211,7 @@ namespace lua {
 
 		static void registerWrapper(const char *name, lua_CFunction call);
 		static int getWrapper(lua_State *lua);
+		static int luaAssert(lua_State *lua);
 		static void clearRegistered();
 
 		static void logStack(lua_State *lua, const char *cat);
@@ -214,12 +219,17 @@ namespace lua {
 
 		static int lua_am_log(lua_State *lua);
 
+		static void displayLineError(const char *file, int line);
+
 	protected:
 		lua_State *mLua;
 
 		static WrapperMap sWrapperMap;
 
 		static int sDepth;
+		static jmp_buf sRecoverBuff;
+
+		static void printTypeValue(lua_State *lua, int n, ostream &output);
 	};
 
 }

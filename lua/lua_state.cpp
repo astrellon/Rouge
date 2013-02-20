@@ -9,6 +9,8 @@
 namespace am {
 namespace lua {
 
+	jmp_buf LuaState::sRecoverBuff;
+
 	int getUDataType(lua_State *lua, int n)
 	{
 		if (!lua_isuserdata(lua, n))
@@ -30,9 +32,10 @@ namespace lua {
 		if (includeLibraries)
 		{
 			lua_register(mLua, "import", getWrapper);
+			lua_register(mLua, "assert", luaAssert);
 		}
 		// We always want error handler and logger function.
-		lua_atpanic(mLua, onError);
+		//lua_atpanic(mLua, onError);
 		lua_register(mLua, "am_log", lua_am_log);
 
 		am::lua::wrapper::AssignWrappers(mLua);
@@ -62,9 +65,11 @@ namespace lua {
 
 	int LuaState::onError(lua_State *lua)
 	{
-		stringstream ss;
-		printStack(lua, ss);
-		const char *sss = ss.str().c_str();
+		{
+			stringstream ss;
+			printStack(lua, ss);
+			am_log("LUAERR", ss);
+		}
 		return 0;
 	}
 
@@ -87,7 +92,12 @@ namespace lua {
 	
 	void LuaState::call(int n, int r)
 	{
-		lua_call(mLua, n, r);
+		int result = lua_pcall(mLua, n, r, 0);
+		if (result != LUA_OK)
+		{
+			//throw result;
+			throw std::runtime_error("Error calling Lua");
+		}
 	}
 
 	int LuaState::newTable(const char *tableName)
@@ -441,26 +451,9 @@ namespace lua {
 		{
 			output << i << ": ";
 			
-			int type = lua_type(lua, i);
-			output << ttypename(type);
-			switch(type) 
-			{
-			case LUA_TBOOLEAN:
-				output << ' ' << (lua_toboolean(lua, i) ? "true\n" : "false\n");
-				break;
-			case LUA_TSTRING:
-				output << ' ' << lua_tostring(lua, i) << '\n';
-				break;
-			default:
-				if (lua_isnumber(lua, i))
-				{
-					output << ' ' << lua_tonumber(lua, i) << '\n';
-				}
-				else
-				{
-					output << '\n';
-				}
-			}
+			printTypeValue(lua, i, output);
+
+			output << '\n';
 		}
 	}
 
@@ -510,6 +503,48 @@ namespace lua {
 		sWrapperMap.clear();
 	}
 
+	int LuaState::luaAssert(lua_State *lua)
+	{
+		if (lua_compare(lua, 1, 2, LUA_OPEQ) != 1)
+		{
+			stringstream ss;
+			ss << "\n- Expected:\t";
+			printTypeValue(lua, 1, ss);
+			ss << "\n- Actual:\t\t";
+			printTypeValue(lua, 2, ss);
+			return luaL_error(lua, "%s", ss.str().c_str());
+		}
+		return 0;
+	}
+	void LuaState::printTypeValue(lua_State *lua, int n, ostream &output)
+	{
+		int type = lua_type(lua, n);
+		output << ttypename(type) << ' ';
+		switch(type) 
+		{
+		case LUA_TNIL:
+			output << "nil";
+			break;
+		case LUA_TBOOLEAN:
+			output << (lua_tobool(lua, n) ? "true" : "false");
+			break;
+		case LUA_TSTRING:
+			output << lua_tostring(lua, n);
+			break;
+		case LUA_TNUMBER:
+			output << lua_tonumber(lua, n);
+			break;
+		case LUA_TTABLE:
+			output << "Table";
+			break;
+		case LUA_TFUNCTION:
+			output << "Function";
+			break;
+		default:
+			output << "Unknown";
+		}
+	}
+
 	int LuaState::lua_am_log(lua_State *lua)
 	{
 		const char *cat = "LUA";
@@ -526,7 +561,15 @@ namespace lua {
 			bool value = lua_tobool(lua, -1);
 			am_log(cat, value ? "true" : "false");
 		}
+		
 		return 0;
+	}
+
+	void LuaState::displayLineError(const char *file, int line)
+	{
+		stringstream ss;
+		ss << "Error calling Lua in " << file << " [" << line << "]";
+		am_log("LUAERR", ss);
 	}
 
 }

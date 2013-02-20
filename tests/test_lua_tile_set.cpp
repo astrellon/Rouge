@@ -45,25 +45,25 @@ namespace tests {
 			));
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("testTileSet", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setName"));
 		lua.push("newTestTileSet");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("newTestTileSet", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
 		lua.push("New Full Name");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 		
 		assert(lua.hasGlobalFunction("getFullName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("New Full Name", lua_tostring(lua, -1));
 		lua.pop(1);
 
@@ -92,7 +92,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTile"));
 		lua.push("myTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
@@ -100,23 +100,23 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("addTile"));
 		wrapRefObject<Tile>(lua, tile);
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasTile"));
 		lua.push("myTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 		
 		assert(lua.hasGlobalFunction("hasTile"));
 		wrapRefObject<Tile>(lua, tile);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("myTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		lua_getmetatable(lua, -1);
 		Tile *get = castUData<Tile>(lua, 1);
 		lua.pop(1);
@@ -124,11 +124,11 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("removeTile"));
 		lua.push("myTile");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasTile"));
 		lua.push("myTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 

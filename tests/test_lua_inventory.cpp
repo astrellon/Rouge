@@ -51,7 +51,7 @@ namespace tests {
 		assert(loadResult);
 
 		assert(lua.hasGlobalFunction("getSpace"));
-		lua.call(0, 2);
+		lua_acall(lua, 0, 2);
 		equals(6, lua_tointeger(lua, -2));
 		equals(4, lua_tointeger(lua, -1));
 		lua.pop(2);
@@ -62,7 +62,7 @@ namespace tests {
 		wrapRefObject<Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
-		lua.call(3, 1);
+		lua_acall(lua, 3, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
@@ -70,7 +70,7 @@ namespace tests {
 		wrapRefObject<Item>(lua, item);
 		lua.push(5);
 		lua.push(0);
-		lua.call(3, 1);
+		lua_acall(lua, 3, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
@@ -79,32 +79,32 @@ namespace tests {
 		wrapRefObject<Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
-		lua.call(3, 1);
+		lua_acall(lua, 3, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("addItem"));
 		wrapRefObject<Item>(lua, item);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addItem"));
 		wrapRefObject<Item>(lua, item);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
 		wrapRefObject<Item>(lua, item);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
 		wrapRefObject<Item>(lua, item);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 

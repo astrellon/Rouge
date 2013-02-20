@@ -27,6 +27,7 @@ namespace game {
 		virtual float calculateStat(Stat::StatType stat, float baseValue);
 
 		virtual const StatModifierMap &getModifiers() const;
+		virtual StatModifierMap &getModifiers();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

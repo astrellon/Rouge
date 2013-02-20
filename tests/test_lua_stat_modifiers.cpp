@@ -57,7 +57,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("calculateStat"));
 		lua.push("health");
 		lua.push(5.0f);
-		lua.call(2, 1);
+		lua_acall(lua, 2, 1);
 		equalsDelta(5.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
@@ -65,12 +65,12 @@ namespace tests {
 		lua.push("health");
 		lua.push(2.5f);
 		lua.push("*");
-		lua.call(3, 0);
+		lua_acall(lua, 3, 0);
 
 		assert(lua.hasGlobalFunction("calculateStat"));
 		lua.push("health");
 		lua.push(5.0f);
-		lua.call(2, 1);
+		lua_acall(lua, 2, 1);
 		equalsDelta(12.5f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
@@ -78,12 +78,12 @@ namespace tests {
 		lua.push("health");
 		lua.push(2.5f);
 		lua.push("+");
-		lua.call(3, 0);
+		lua_acall(lua, 3, 0);
 
 		assert(lua.hasGlobalFunction("calculateStat"));
 		lua.push("health");
 		lua.push(5.0f);
-		lua.call(2, 1);
+		lua_acall(lua, 2, 1);
 		equalsDelta(15.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
@@ -91,12 +91,12 @@ namespace tests {
 		lua.push("health");
 		lua.push(2.5f);
 		lua.push("*");
-		lua.call(3, 0);
+		lua_acall(lua, 3, 0);
 
 		assert(lua.hasGlobalFunction("calculateStat"));
 		lua.push("health");
 		lua.push(5.0f);
-		lua.call(2, 1);
+		lua_acall(lua, 2, 1);
 		equalsDelta(7.5f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
@@ -111,11 +111,11 @@ namespace tests {
 			"mods = StatModifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
-			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+			"assert(9, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 3, \"*\")\n"
-			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+			"assert(19, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 7, \"=\")\n"
-			"am_log(\"CH: \" .. mods:calculate_stat(\"health\", base_health))\n"
+			"assert(25, mods:calculate_stat(\"health\", base_health))\n"
 		);
 		
 		if (!loadResult)

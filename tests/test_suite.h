@@ -17,8 +17,13 @@ using std::stringstream;
 	}
 	
 #define runCase(f)	\
-	beforeCase();	\
-	if (!f()) { testsFailed++; }	\
+	beforeCase(); \
+	try { \
+	if (!f()) { \
+		testsFailed++; \
+	}}	catch (...)	{ \
+		testsFailed++; \
+	}\
 	totalTests++;	\
 	afterCase();
 
@@ -45,6 +50,14 @@ namespace tests {
 			beforeSuite();
 			runCases();
 			ss.str("");
+			try
+			{
+
+			}
+			catch (...)
+			{
+
+			}
 			ss << (totalTests - testsFailed) << " of " << totalTests << " passed ";
 
 			if (testsFailed > 0) {

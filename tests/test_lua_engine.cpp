@@ -51,10 +51,10 @@ namespace tests {
 		assert(lua.hasGlobalFunction("setGridSize"));
 		lua.push(8);
 		lua.push(5);
-		lua.call(2, 0);
+		lua_acall(lua, 2, 0);
 
 		assert(lua.hasGlobalFunction("getGridSize"));
-		lua.call(0, 2);
+		lua_acall(lua, 0, 2);
 		equals(8, lua_tointeger(lua, -2));
 		equals(5, lua_tointeger(lua, -1));
 		lua.pop(2);
@@ -102,20 +102,20 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("basicTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTile"));
 		wrapRefObject<Tile>(lua, tile);
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(topLevel->hasTile(tile));
 		assert(topLevel->hasTile("basicTile"));
 
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("basicTile");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		Tile *user = castUData<Tile>(lua, 1);
 		assert(user == tile);
 		lua.pop(1);

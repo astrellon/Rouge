@@ -52,34 +52,34 @@ namespace tests {
 			));
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("testTile", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setName"));
 		lua.push("newTestTile");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("newTestTile", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
 		lua.push("New Full Name");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 		
 		assert(lua.hasGlobalFunction("getFullName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("New Full Name", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setDescription"));
 		lua.push("New Description");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getDescription"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("New Description", lua_tostring(lua, -1));
 		lua.pop(1);
 
@@ -113,58 +113,58 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		wrapObject<TileType>(lua, type);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		lua.push("superType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, type);
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 		
 		assert(lua.hasGlobalFunction("hasTileType"));
 		wrapObject<TileType>(lua, type);
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		lua.push("superType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeTileType"));
 		lua.push("superType");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		lua.push("superType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, type);
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		lua.push("superType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeAllTileTypes"));
-		lua.call(0, 0);
+		lua_acall(lua, 0, 0);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 		lua.push("superType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
 

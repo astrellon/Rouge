@@ -86,90 +86,90 @@ namespace tests {
 		assert(diag1 != NULL);
 
 		assert(lua.hasGlobalFunction("getId"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("diag1", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setId"));
 		lua.push("notdiag1");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getId"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("notdiag1", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setId"));
 		lua.push("diag1");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getText"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Hello there", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setText"));
 		lua.push("Hi");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getText"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Hi", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getTitle"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("diag1", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setTitle"));
 		lua.push("Greetings");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getTitle"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Greetings", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getSubject"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("diag1", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setSubject"));
 		lua.push("greet");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getSubject"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("greet", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getUnlockFlag"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("none", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setUnlockFlag"));
 		lua.push("locked");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getUnlockFlag"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("locked", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getDialogueAction"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("none", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setDialogueAction"));
 		lua.push("shop");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getDialogueAction"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("shop", lua_tostring(lua, -1));
 		lua.pop(1);
 		

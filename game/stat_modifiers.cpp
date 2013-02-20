@@ -152,6 +152,10 @@ namespace game {
 	{
 		return mModifiers;
 	}
+	StatModifiers::StatModifierMap &StatModifiers::getModifiers()
+	{
+		return mModifiers;
+	}
 
 }
 }

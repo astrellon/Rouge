@@ -41,21 +41,21 @@ namespace tests {
 			));
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("testType", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getFullName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Test Type", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
 		lua.push("New Test Type");
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getFullName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("New Test Type", lua_tostring(lua, -1));
 		lua.pop(1);
 
@@ -76,18 +76,18 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getTileType"));
 		lua.push("testTileType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
 		TileType *tileType = new TileType("testTileType", "Test Tile Type");
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, tileType);
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getTileType"));
 		lua.push("testTileType");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		assert(!lua_isnil(lua, -1));
 		lua.pop(1);
 

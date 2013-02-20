@@ -303,14 +303,25 @@ namespace game {
 		if (stats)
 		{
 			LuaState L(lua);
-			const StatModifiers::StatModifierMap mods = stats->getModifiers();
-			for (auto iter = mods.begin(); iter != mods.end(); ++iter)
+			// Table to hold a map of stat name keys and arrays of stat mod values.
+			L.newTable();
+			StatModifiers::StatModifierMap mods = stats->getModifiers();
+			for (auto mapIter = mods.begin(); mapIter != mods.end(); ++mapIter)
 			{
-				L.newTable();
-
+				const char *statName = Stat::getStatName(mapIter->first);
+				lua_pushstring(lua, statName);
+				int i = 1;
+				for (auto iter = mapIter->second.begin(); iter != mapIter->second.end(); ++iter)
+				{
+					L.newTable();
+					wrapObject<StatModifier>(lua, &(*iter));
+					lua_rawseti(lua, -2, i++);
+				}
 			}
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
 
 	int StatModifiers_calculate_stat(lua_State *lua)

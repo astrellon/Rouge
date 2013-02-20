@@ -301,6 +301,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\game\lua_quest.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_race.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_stats.cpp" />
+    <ClCompile Include="lua\wrappers\game\lua_stat_modifier.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_stat_modifiers.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_tile.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_tile_instance.cpp" />
@@ -490,6 +491,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\game\lua_quest.h" />
     <ClInclude Include="lua\wrappers\game\lua_race.h" />
     <ClInclude Include="lua\wrappers\game\lua_stats.h" />
+    <ClInclude Include="lua\wrappers\game\lua_stat_modifier.h" />
     <ClInclude Include="lua\wrappers\game\lua_stat_modifiers.h" />
     <ClInclude Include="lua\wrappers\game\lua_tile.h" />
     <ClInclude Include="lua\wrappers\game\lua_tile_instance.h" />
