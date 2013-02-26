@@ -6,7 +6,7 @@
 namespace am {
 namespace game {
 
-	const int TileSet::LUA_ID = __COUNTER__;
+	const int TileSet::LUA_ID = 0x11;
 	const char *TileSet::LUA_TABLENAME = "am_game_TileSet";
 
 	TileSet::TileSet()

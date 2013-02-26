@@ -9,7 +9,7 @@ using am::util::Utils;
 namespace am {
 namespace game {
 
-	const int TileInstance::LUA_ID = __COUNTER__;
+	const int TileInstance::LUA_ID = 0x10;
 	const char *TileInstance::LUA_TABLENAME = "am_game_TileInstance";
 
 	TileInstance::TileInstance() : 

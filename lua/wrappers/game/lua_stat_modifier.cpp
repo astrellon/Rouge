@@ -83,7 +83,7 @@ namespace game {
 		StatModifier *stat = castUData<StatModifier>(lua, 1);
 		if (stat)
 		{
-			delete stat;
+		//	delete stat;
 		}
 		return 0;
 	}

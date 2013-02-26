@@ -12,7 +12,7 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	const int StatModifier::LUA_ID = __COUNTER__;
+	const int StatModifier::LUA_ID = 0x16;
 	const char *StatModifier::LUA_TABLENAME = "am_game_StatModifier";
 
 	const char *StatModifier::sStatModifierNames[] = {

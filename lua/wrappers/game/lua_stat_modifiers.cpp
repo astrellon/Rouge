@@ -14,6 +14,8 @@ using namespace am::lua;
 #include <game/stat_modifiers.h>
 using namespace am::game;
 
+#include <log/logger.h>
+
 #include <sstream>
 using namespace std;
 
@@ -294,8 +296,16 @@ namespace game {
 	}
 
 	/**
-	 * TODO Add a function which returns a sorted array (by mod type priority)
-	 * of all the modifiers on this collection.
+	 * Returns a map of stat name keys and arrays of all the modifcations values.
+	 * Each modification is a StatModifier instance and the value of the modificaiton can be changed.
+	 *
+	 * <pre>
+	 * StatModifiers, StatModifier = import("StatModifiers", "StatModifier")
+	 * mods = StatModifiers.new()
+	 * mods:add(5, "+")
+	 * </pre>
+	 *
+	 * @returns Table All the modifications as a Lua table.
 	 */
 	int StatModifiers_mods(lua_State *lua)
 	{
@@ -310,13 +320,14 @@ namespace game {
 			{
 				const char *statName = Stat::getStatName(mapIter->first);
 				lua_pushstring(lua, statName);
+				L.newTable();
 				int i = 1;
 				for (auto iter = mapIter->second.begin(); iter != mapIter->second.end(); ++iter)
 				{
-					L.newTable();
-					wrapObject<StatModifier>(lua, &(*iter));
+					wrapObject<StatModifier>(lua, *iter);
 					lua_rawseti(lua, -2, i++);
 				}
+				lua_settable(lua, -3);
 			}
 			return 1;
 		}

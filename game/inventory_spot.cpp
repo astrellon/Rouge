@@ -3,7 +3,7 @@
 namespace am {
 namespace game {
 
-	const int InventorySpot::LUA_ID = __COUNTER__;
+	const int InventorySpot::LUA_ID = 0x0A;
 	const char *InventorySpot::LUA_TABLENAME = "am_game_InventorySpot";
 
 	InventorySpot::InventorySpot() :

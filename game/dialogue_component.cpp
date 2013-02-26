@@ -8,7 +8,7 @@ using am::ui::DialogueEvent;
 namespace am {
 namespace game {
 
-	const int DialogueComponent::LUA_ID = __COUNTER__;
+	const int DialogueComponent::LUA_ID = 0x15;
 	const char *DialogueComponent::LUA_TABLENAME = "am_game_DialogueComponent";
 
 	DialogueComponent::DialogueComponent(GameObject *attached) :

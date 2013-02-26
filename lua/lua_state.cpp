@@ -22,6 +22,7 @@ namespace lua {
 	}
 
 	LuaState::WrapperMap LuaState::sWrapperMap;
+	LuaState::WrapperIdMap LuaState::sWrapperIdMap;
 	int LuaState::sDepth = 0;
 
 	LuaState::LuaState(bool includeLibraries)
@@ -34,8 +35,6 @@ namespace lua {
 			lua_register(mLua, "import", getWrapper);
 			lua_register(mLua, "assert", luaAssert);
 		}
-		// We always want error handler and logger function.
-		//lua_atpanic(mLua, onError);
 		lua_register(mLua, "am_log", lua_am_log);
 
 		am::lua::wrapper::AssignWrappers(mLua);
@@ -204,7 +203,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_isnumber(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			value = static_cast<int>(lua_tointeger(mLua, -1));
 			lua_pop(mLua, 1);
@@ -217,7 +216,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_isnumber(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			value = static_cast<double>(lua_tonumber(mLua, -1));
 			lua_pop(mLua, 1);
@@ -230,7 +229,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_isboolean(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TBOOLEAN)
 		{
 			value = lua_toboolean(mLua, -1) > 0;
 			lua_pop(mLua, 1);
@@ -244,7 +243,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_isnumber(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			return true;
 		}
@@ -255,7 +254,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_isstring(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TSTRING)
 		{
 			return true;
 		}
@@ -266,7 +265,7 @@ namespace lua {
 	{
 		lua_pushstring(mLua, key);
 		lua_gettable(mLua, -2);
-		if (lua_istable(mLua, -1))
+		if (lua_type(mLua, -1) == LUA_TTABLE)
 		{
 			return true;
 		}
@@ -369,53 +368,40 @@ namespace lua {
 		printTable(ss, n);
 		am_log(cat, ss);
 	}
-	void LuaState::printTable(ostream &output, int n)
+	void LuaState::printTable(ostream &output, int n, bool includeType)
 	{
 		if (!lua_istable(mLua, n))
 		{
-			output << lua_typename(mLua, n) << ' ';
-			int type = lua_type(mLua, n);
-			if (type == LUA_TSTRING)
-			{
-				output << lua_tostring(mLua, n);
-			}
-			else if (type == LUA_TNUMBER)
-			{
-				output << lua_tonumber(mLua, n);
-			}
-			else if (type == LUA_TNIL)
-			{
-				output << "nil";
-			}
-			else if (type == LUA_TNONE)
-			{
-				output << "none";
-			}
+			printTypeValue(mLua, n, output, includeType);
 			output << '\n';
 		}
 		else
 		{
 			sDepth++;
 			output << "{\n";
-			lua_pushnil(mLua);
-			while (lua_next(mLua, -2) != 0)
-			{
-				for (int i = 0; i < sDepth; i++)
+			if (sDepth > 10) {
+				output << "<Reached " << sDepth << " deep>";
+			}
+			else {
+				lua_pushnil(mLua);
+				while (lua_next(mLua, -2) != 0)
 				{
-					output << '\t';
+					for (int i = 0; i < sDepth; i++)
+					{
+						output << '\t';
+					}
+					if (lua_type(mLua, -2) == LUA_TSTRING)
+					{
+						output << lua_tostring(mLua, -2);
+					}
+					else
+					{
+						output << lua_tonumber(mLua, -2);
+					}
+					output << " = ";
+					printTable(output, -1, includeType);
+					pop(1);
 				}
-				if (lua_isstring(mLua, -2))
-				{
-					output << lua_tostring(mLua, -2);
-				}
-				else
-				{
-					output << lua_tonumber(mLua, -2);
-				}
-				output << " = ";
-				printTable(output, -1);
-				output << '\n';
-				pop(1);
 			}
 			sDepth--;
 			for (int i = 0; i < sDepth; i++)
@@ -475,16 +461,17 @@ namespace lua {
 		return mLua != lua.mLua;
 	}
 
-	void LuaState::registerWrapper(const char *name, lua_CFunction call)
+	void LuaState::registerWrapper(const char *name, lua_CFunction call, int id)
 	{
 		sWrapperMap[string(name)] = call;
+		sWrapperIdMap[id] = string(name);
 	}
 	int LuaState::getWrapper(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
 		for (int i = 1; i <= args; i++)
 		{
-			if (lua_isstring(lua, i))
+			if (lua_type(lua, i) == LUA_TSTRING)
 			{
 				string name = lua_tostring(lua, i);
 				WrapperMap::iterator iter = sWrapperMap.find(name);
@@ -516,10 +503,13 @@ namespace lua {
 		}
 		return 0;
 	}
-	void LuaState::printTypeValue(lua_State *lua, int n, ostream &output)
+	void LuaState::printTypeValue(lua_State *lua, int n, ostream &output, bool includeType)
 	{
 		int type = lua_type(lua, n);
-		output << ttypename(type) << ' ';
+		if (includeType)
+		{
+			output << ttypename(type) << ' ';
+		}
 		switch(type) 
 		{
 		case LUA_TNIL:
@@ -540,6 +530,19 @@ namespace lua {
 		case LUA_TFUNCTION:
 			output << "Function";
 			break;
+		case LUA_TUSERDATA:
+			{
+				LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
+				if (sWrapperIdMap.find(udata->id) != sWrapperIdMap.end())
+				{
+					output << sWrapperIdMap[udata->id];
+				}
+				else 
+				{
+					output << "Unknown userdata: " << udata->id;
+				}
+			}
+			break;
 		default:
 			output << "Unknown";
 		}
@@ -547,20 +550,22 @@ namespace lua {
 
 	int LuaState::lua_am_log(lua_State *lua)
 	{
-		const char *cat = "LUA";
-		if (lua_gettop(lua) == 2)
+		int args = lua_gettop(lua);
+		if (args == 0)
 		{
-			cat = lua_tostring(lua, -2);
+			return 0;
 		}
-		if (lua_isstring(lua, -1) || lua_isnumber(lua, -1))
+		stringstream ss;
+		LuaState L(lua);
+		for (int i = 1; i <= args; i++)
 		{
-			am_log(cat, lua_tostring(lua, -1));
+			if (i > 1)
+			{
+				ss << ", ";
+			}
+			L.printTable(ss, i, false);
 		}
-		else if (lua_isboolean(lua, -1))
-		{
-			bool value = lua_tobool(lua, -1);
-			am_log(cat, value ? "true" : "false");
-		}
+		am_log("LUA", ss);
 		
 		return 0;
 	}

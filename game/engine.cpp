@@ -20,7 +20,7 @@ namespace am {
 namespace game {
 
 	Engine *Engine::sMainEngine = NULL;
-	const int Engine::LUA_ID = __COUNTER__;
+	const int Engine::LUA_ID = 0x06;
 	const char *Engine::LUA_TABLENAME = "am_game_Engine";
 
 	Engine::Engine() :

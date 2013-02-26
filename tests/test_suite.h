@@ -23,6 +23,7 @@ using std::stringstream;
 		testsFailed++; \
 	}}	catch (...)	{ \
 		testsFailed++; \
+		onError();	\
 	}\
 	totalTests++;	\
 	afterCase();
@@ -42,6 +43,10 @@ namespace tests {
 	
 		virtual void beforeCase() {}
 		virtual void afterCase() {}
+
+		void onError() {
+			am_log("ASD", "ASJDLKAJDLSAD");
+		}
 	
 		virtual void run() {
 			stringstream ss;

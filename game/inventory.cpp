@@ -12,7 +12,7 @@ namespace game {
 	float Inventory::sSpaceSizeX = 16.0f;
 	float Inventory::sSpaceSizeY = 16.0f;
 
-	const int Inventory::LUA_ID = __COUNTER__;
+	const int Inventory::LUA_ID = 0x09;
 	const char *Inventory::LUA_TABLENAME = "am_game_Inventory";
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :

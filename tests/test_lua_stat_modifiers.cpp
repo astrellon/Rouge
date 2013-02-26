@@ -107,7 +107,7 @@ namespace tests {
 		LuaState lua;
 		StatModifiers mods;
 		
-		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
+		int loadResult = lua.loadString("StatModifier, StatModifiers = import(\"StatModifier\", \"StatModifiers\")\n"
 			"mods = StatModifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
@@ -116,6 +116,38 @@ namespace tests {
 			"assert(19, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 7, \"=\")\n"
 			"assert(25, mods:calculate_stat(\"health\", base_health))\n"
+			
+			"modsTable = mods:mods()\n"
+			"mod = modsTable[\"health\"][1]\n"
+			"am_log(mod:value())\n"
+			//"am_log(\"ASDASD\" .. modsTable[\"health\"][1]:value())\n"
+			//"assert(4, modsTable[\"health\"][1]:value())\n"
+		);
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		return true;
+	}
+
+	bool TestLuaStatModifiers::testMods() {
+
+		LuaState lua;
+		StatModifiers mods;
+		
+		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
+			"stats = StatModifiers.new()\n"
+			"base_health = 5\n"
+			"mods = stats:mods()\n"
+			"stats:add(\"health\", 4, \"+\")\n"
+			"mods = stats:mods()\n"
+			"stats:add(\"health\", 3, \"*\")\n"
+			"mods = stats:mods()\n"
+			"stats:add(\"health\", 7, \"=\")\n"
+			"mods = stats:mods()\n"
 		);
 		
 		if (!loadResult)

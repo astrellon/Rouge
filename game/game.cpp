@@ -24,7 +24,7 @@ namespace am {
 namespace game {
 
 	//Game::DialogueMap Game::mDialogueMap;
-	const int Game::LUA_ID = __COUNTER__;
+	const int Game::LUA_ID = 0x07;
 	const char *Game::LUA_TABLENAME = "am_game_Game";
 
 	Game::Game(Engine *engine) :

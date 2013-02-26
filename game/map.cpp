@@ -19,7 +19,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	const int Map::LUA_ID = __COUNTER__;
+	const int Map::LUA_ID = 0x0C;
 	const char *Map::LUA_TABLENAME = "am_game_Map";
 
 	Map::Map(const char *name) :

@@ -130,6 +130,7 @@ namespace lua {
 	public:
 
 		typedef map<string, lua_CFunction> WrapperMap;
+		typedef map<int, string> WrapperIdMap;
 
 		/// Creates a new lua_State.
 		/// If includeLibraries is true then the 'import' function is exposed.
@@ -202,14 +203,14 @@ namespace lua {
 		void printStack(ostream &output);
 
 		void logTable(const char *cat, int n);
-		void printTable(ostream &output, int n);
+		void printTable(ostream &output, int n, bool includeType = true);
 
 		bool operator==(const lua_State *lua) const;
 		bool operator==(const LuaState &rhs) const;
 		bool operator!=(const lua_State *lua) const;
 		bool operator!=(const LuaState &rhs) const;
 
-		static void registerWrapper(const char *name, lua_CFunction call);
+		static void registerWrapper(const char *name, lua_CFunction call, int id);
 		static int getWrapper(lua_State *lua);
 		static int luaAssert(lua_State *lua);
 		static void clearRegistered();
@@ -225,11 +226,12 @@ namespace lua {
 		lua_State *mLua;
 
 		static WrapperMap sWrapperMap;
+		static WrapperIdMap sWrapperIdMap;
 
 		static int sDepth;
 		static jmp_buf sRecoverBuff;
 
-		static void printTypeValue(lua_State *lua, int n, ostream &output);
+		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
 	};
 
 }

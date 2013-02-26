@@ -3,7 +3,7 @@
 namespace am {
 namespace game {
 
-	const int CoinPurse::LUA_ID = __COUNTER__;
+	const int CoinPurse::LUA_ID = 0x05;
 	const char *CoinPurse::LUA_TABLENAME = "am_game_CoinPurse";
 
 	CoinPurse::CoinPurse() :

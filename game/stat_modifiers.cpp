@@ -3,7 +3,7 @@
 namespace am {
 namespace game {
 
-	const int StatModifiers::LUA_ID = __COUNTER__;
+	const int StatModifiers::LUA_ID = 0x01;
 	const char *StatModifiers::LUA_TABLENAME = "am_game_StatModifiers";
 
 	StatModifiers::StatModifiers()
@@ -29,7 +29,7 @@ namespace game {
 		StatModifierVector::const_iterator iter = findStatModifier(modifiers, modifier);
 		if (iter == modifiers.end())
 		{
-			modifiers.push_back(modifier);
+			modifiers.push_back(new StatModifier(modifier));
 			return true;
 		}
 		return false;
@@ -61,7 +61,7 @@ namespace game {
 		StatModifiers::StatModifierVector::const_iterator iter;
 		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
 		{
-			if (*iter == modifier)
+			if (**iter == modifier)
 			{
 				break;
 			}
@@ -80,7 +80,7 @@ namespace game {
 			StatModifierVector::const_iterator iter;
 			for (iter = rhsModifiers.begin(); iter != rhsModifiers.end(); ++iter)
 			{
-				addStatModifier(stat, *iter);
+				addStatModifier(stat, **iter);
 			}
 		}
 	}
@@ -96,7 +96,7 @@ namespace game {
 			StatModifierVector::const_iterator iter;
 			for (iter = rhsModifiers.begin(); iter != rhsModifiers.end(); ++iter)
 			{
-				removeStatModifier(stat, *iter);
+				removeStatModifier(stat, **iter);
 			}
 		}
 	}
@@ -112,21 +112,21 @@ namespace game {
 		{
 			for (int i = 0; i < len; i++)
 			{
-				const StatModifier &modifier = modifiers[i];
-				StatModifierType type = modifier.getType();
+				const StatModifier *modifier = modifiers[i];
+				StatModifierType type = modifier->getType();
 				if (type == phase)
 				{
 					if (phase == MOD_SET)
 					{
-						value = modifier.getValue();
+						value = modifier->getValue();
 					}
 					else if (type == MOD_MULTIPLY)
 					{
-						value *= modifier.getValue();
+						value *= modifier->getValue();
 					}
 					else if (type == MOD_ADD)
 					{
-						value += modifier.getValue();
+						value += modifier->getValue();
 					}
 				}
 			}

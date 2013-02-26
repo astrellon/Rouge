@@ -24,6 +24,9 @@ namespace tests {
 		Base::Base() : name("Unknown") {}
 		Base::~Base() {}
 
+		const char *Base::LUA_TABLENAME = "am_tests_test_Base";
+		int Base::LUA_ID = 5000;
+
 		void Base::setName(const char *name)
 		{
 			this->name = name;
@@ -36,30 +39,22 @@ namespace tests {
 		int Base_ctor(lua_State *lua)
 		{
 			Base *base = new Base();
-			Base_wrap(lua, base);
+			wrapObject<Base>(lua, base);
 			return 1;
 		}
 		int Base_dtor(lua_State *lua)
 		{
-			Base *base = Check_Base(lua, 1);
+			Base *base = castUData<Base>(lua, 1);
 			if (base)
 			{
 				delete base;
 			}
 			return 0;
 		}
-		void Base_wrap(lua_State *lua, Base *base)
-		{
-			Base ** udata = (Base **)lua_newuserdata(lua, sizeof(Base *));
-			*udata = base;
-
-			luaL_getmetatable(lua, Base_tableName);
-			lua_setmetatable(lua, -2);
-		}
 
 		int Base_set_name(lua_State *lua)
 		{
-			Base *base = Check_Base(lua, 1);
+			Base *base = castUData<Base>(lua, 1);
 			if (base && lua_isstring(lua, 2))
 			{
 				base->setName(lua_tostring(lua, 2));
@@ -68,7 +63,7 @@ namespace tests {
 		}
 		int Base_get_name(lua_State *lua)
 		{
-			Base *base = Check_Base(lua, 1);
+			Base *base = castUData<Base>(lua, 1);
 			if (base)
 			{
 				lua_pushstring(lua, base->getName());
@@ -89,7 +84,7 @@ namespace tests {
 				{ NULL, NULL }
 			};
 
-			luaL_newmetatable(lua, Base_tableName);
+			luaL_newmetatable(lua, Base::LUA_TABLENAME);
 			luaL_setfuncs(lua, regs, 0);
 
 			lua_pushvalue(lua, -1);
@@ -97,13 +92,12 @@ namespace tests {
 		
 			return 1;
 		}
-		Base *Check_Base(lua_State *lua, int n)
-		{
-			return *(Base **)luaL_checkudata(lua, n, Base_tableName);
-		}
 
 		Child::Child() : Base(), age(0) {}
 		Child::~Child() {}
+
+		const char *Child::LUA_TABLENAME = "am_tests_test_Child";
+		int Child::LUA_ID = 5001;
 
 		void Child::setAge(int age)
 		{
@@ -117,12 +111,12 @@ namespace tests {
 		int Child_ctor(lua_State *lua)
 		{
 			Child *child = new Child();
-			Child_wrap(lua, child);
+			wrapObject<Child>(lua, child);
 			return 1;
 		}
 		int Child_dtor(lua_State *lua)
 		{
-			Child *child = Check_Child(lua, 1);
+			Child *child = castUData<Child>(lua, 1);
 			if (child)
 			{
 				delete child;
@@ -130,18 +124,9 @@ namespace tests {
 			return 0;
 		}
 
-		void Child_wrap(lua_State *lua, Child *child)
-		{
-			Child ** udata = (Child **)lua_newuserdata(lua, sizeof(Child *));
-			*udata = child;
-
-			luaL_getmetatable(lua, Child_tableName);
-			lua_setmetatable(lua, -2);
-		}
-
 		int Child_set_age(lua_State *lua)
 		{
-			Child *child = Check_Child(lua, 1);
+			Child *child = castUData<Child>(lua, 1);
 			if (child && lua_isnumber(lua, 2))
 			{
 				child->setAge(lua_tointeger(lua, 2));
@@ -150,7 +135,7 @@ namespace tests {
 		}
 		int Child_get_age(lua_State *lua)
 		{
-			Child *child = Check_Child(lua, 1);
+			Child *child = castUData<Child>(lua, 1);
 			if (child)
 			{
 				lua_pushinteger(lua, child->getAge());
@@ -171,21 +156,17 @@ namespace tests {
 				{ NULL, NULL }
 			};
 
-			luaL_newmetatable(lua, Child_tableName);
+			luaL_newmetatable(lua, Child::LUA_TABLENAME);
 			luaL_setfuncs(lua, regs, 0);
 
 			lua_pushstring(lua, "__index");
-			luaL_getmetatable(lua, Base_tableName);
+			luaL_getmetatable(lua, Base::LUA_TABLENAME);
 			lua_settable(lua, -3);
 			
 			lua_pushvalue(lua, -1);
 			lua_setfield(lua, -1, "__index");
 		
 			return 1;
-		}
-		Child *Check_Child(lua_State *lua, int n)
-		{
-			return *(Child **)luaL_checkudata(lua, n, Child_tableName);
 		}
 	}
 
@@ -382,8 +363,8 @@ namespace tests {
 	{
 		LuaState lua;
 
-		lua.registerWrapper("Base", test::Base_register);
-		lua.registerWrapper("Child", test::Child_register);
+		lua.registerWrapper("Base", test::Base_register, test::Base::LUA_ID);
+		lua.registerWrapper("Child", test::Child_register, test::Child::LUA_ID);
 
 		int loadResult = lua.loadString("Base, Child = import(\"Base\", \"Child\")\n"
 			"base = Base.new()\n"
@@ -407,14 +388,14 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getBase"));
 		lua.call(0, 1);
-		test::Base *base = test::Check_Base(lua, -1);
+		test::Base *base = castUData<test::Base>(lua, -1);
 		assert(base != NULL);
 
 		equalsStr("Melli", base->getName());
 
 		assert(lua.hasGlobalFunction("getChild"));
 		lua.call(0, 1);
-		test::Child *child = test::Check_Child(lua, -1);
+		test::Child *child = castUData<test::Child>(lua, -1);
 		assert(child != NULL);
 
 		equals(23, child->getAge());

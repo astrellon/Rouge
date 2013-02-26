@@ -25,18 +25,18 @@ namespace tests {
 			const char *getName() const;
 
 			string name;
+
+			static const char *LUA_TABLENAME;
+			static int LUA_ID;
 		};
 
-		const char Base_tableName[] = "am_tests_test_Base";
 		int Base_ctor(lua_State *lua);
 		int Base_dtor(lua_State *lua);
-		void Base_wrap(lua_State *lua, Base *base);
 
 		int Base_set_name(lua_State *lua);
 		int Base_get_name(lua_State *lua);
 
 		int Base_register(lua_State *lua);
-		Base *Check_Base(lua_State *lua, int n);
 
 		class Child : public Base {
 		public:
@@ -47,18 +47,18 @@ namespace tests {
 			int getAge() const;
 
 			int age;
+
+			static const char *LUA_TABLENAME;
+			static int LUA_ID;
 		};
 
-		const char Child_tableName[] = "am_tests_test_Child";
 		int Child_ctor(lua_State *lua);
 		int Child_dtor(lua_State *lua);
-		void Child_wrap(lua_State *lua, Child *child);
 
 		int Child_set_age(lua_State *lua);
 		int Child_get_age(lua_State *lua);
 
 		int Child_register(lua_State *lua);
-		Child *Check_Child(lua_State *lua, int n);
 	}
 
 	class TestLua : public TestSuite {
