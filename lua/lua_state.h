@@ -217,6 +217,7 @@ namespace lua {
 
 		static void logStack(lua_State *lua, const char *cat);
 		static void printStack(lua_State *lua, ostream &output);
+		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
 
 		static int lua_am_log(lua_State *lua);
 
@@ -230,8 +231,6 @@ namespace lua {
 
 		static int sDepth;
 		static jmp_buf sRecoverBuff;
-
-		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
 	};
 
 }

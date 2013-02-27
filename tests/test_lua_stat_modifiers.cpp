@@ -114,14 +114,13 @@ namespace tests {
 			"assert(9, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 3, \"*\")\n"
 			"assert(19, mods:calculate_stat(\"health\", base_health))\n"
-			"mods:add(\"health\", 7, \"=\")\n"
+			"mods:add(\"health\", 7, \"=\", false)\n"
 			"assert(25, mods:calculate_stat(\"health\", base_health))\n"
 			
 			"modsTable = mods:mods()\n"
-			"mod = modsTable[\"health\"][1]\n"
-			"am_log(mod:value())\n"
-			//"am_log(\"ASDASD\" .. modsTable[\"health\"][1]:value())\n"
-			//"assert(4, modsTable[\"health\"][1]:value())\n"
+			"assert(4, modsTable[\"health\"][1].value)\n"
+			"assert(\"*\", modsTable[\"health\"][2].type)\n"
+			"assert(false, modsTable[\"health\"][3].magical)\n"
 		);
 		
 		if (!loadResult)
@@ -140,14 +139,14 @@ namespace tests {
 		
 		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
 			"stats = StatModifiers.new()\n"
-			"base_health = 5\n"
+			"stats:add(\"health\", 5, \"+\", false)\n"
+			"stats:add(\"health\", 8, \"=\")\n"
+			"stats:add(\"health\", 2, \"*\")\n"
+
 			"mods = stats:mods()\n"
-			"stats:add(\"health\", 4, \"+\")\n"
-			"mods = stats:mods()\n"
-			"stats:add(\"health\", 3, \"*\")\n"
-			"mods = stats:mods()\n"
-			"stats:add(\"health\", 7, \"=\")\n"
-			"mods = stats:mods()\n"
+			"am_log(\"Magical: \" .. tostring(mods[\"health\"][1].magical))\n"
+			"am_log(\"Type: \" .. mods[\"health\"][2].type)\n"
+			"am_log(\"Value: \" .. mods[\"health\"][3].value)\n"
 		);
 		
 		if (!loadResult)

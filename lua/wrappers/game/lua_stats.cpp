@@ -78,11 +78,12 @@ namespace game {
 	Stat::StatType getStat(lua_State *lua, int n)
 	{
 		Stat::StatType stat = Stat::MAX_STAT_LENGTH;
-		if (lua_isnumber(lua, n))
+		int argType = lua_type(lua, n);
+		if (argType == LUA_TNUMBER)
 		{
 			stat = Stat::getStatType(lua_tointeger(lua, n));
 		}
-		else if (lua_isstring(lua, -1))
+		else if (argType == LUA_TSTRING)
 		{
 			stat = Stat::getStatType(lua_tostring(lua, n));
 		}
@@ -91,11 +92,12 @@ namespace game {
 	StatModifierType getStatModifier(lua_State *lua, int n)
 	{
 		StatModifierType type = MOD_MAX_LENGTH;
-		if (lua_isnumber(lua, n))
+		int argType = lua_type(lua, n);
+		if (argType == LUA_TNUMBER)
 		{
 			type = StatModifier::getModifierType(lua_tointeger(lua, n));
 		}
-		else if (lua_isstring(lua, -1))
+		else if (argType == LUA_TSTRING)
 		{
 			type = StatModifier::getModifierType(lua_tostring(lua, n));
 		}

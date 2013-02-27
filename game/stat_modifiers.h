@@ -12,7 +12,7 @@ namespace game {
 	class StatModifiers {
 	public:
 
-		typedef vector<StatModifier *> StatModifierVector;
+		typedef vector<StatModifier> StatModifierVector;
 		typedef map<int, StatModifierVector> StatModifierMap;
 
 		StatModifiers();

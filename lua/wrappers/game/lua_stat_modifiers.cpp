@@ -127,7 +127,7 @@ namespace game {
 	 *  to categorise how the modification is displayed. This may change in future.
 	 * @returns Integer Return code for success.
 	 * <ul>
-	 * <li>1: Stat modifier was added successfully.</li>
+	 * <li>1: The stat modifier was added successfully.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
 	 * <li>-1: The given stat name was invalid.</li>
 	 * <li>-2: The given value was not a number.</li>
@@ -145,6 +145,19 @@ namespace game {
 	 * <li>1: The stat modifiers were successfully merged.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
 	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * </ul>
+	 */
+	/**
+	 * Adds a StatModifier instance to this collection of modifiers.
+	 *
+	 * @param String statName The name of the stat this modifier will affect.
+	 * @param StatModifier mod The stat modifier to add.
+	 * @returns Integer Return code for success.
+	 * <ul>
+	 * <li>1: The stat modifier was added successfully.</li>
+	 * <li>0: The context object was not a stat modifier collection.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-4: The given stat modifier was not a valid stat modifier instance.</li>
 	 * </ul>
 	 */
 	int StatModifiers_add(lua_State *lua)
@@ -165,12 +178,27 @@ namespace game {
 				lua_pushinteger(lua, -1);
 				return 1;
 			}
+
 			Stat::StatType stat = getStat(lua, 2);
 			if (stat == Stat::MAX_STAT_LENGTH)
 			{
 				lua_pushinteger(lua, -1);
 				return 1;
 			}
+
+			if (args == 3)
+			{
+				StatModifier *mod = castUData<StatModifier>(lua, 3);
+				if (mod)
+				{
+					stats->addStatModifier(stat, *mod);
+					lua_pushinteger(lua, 1);
+					return 1;
+				}
+				lua_pushinteger(lua, -4);
+				return 1;
+			}
+
 			if (!lua_isnumber(lua, 3)) 
 			{
 				lua_pushinteger(lua, -2);
@@ -233,7 +261,7 @@ namespace game {
 	 * @param Boolean [true] magical If the added modifier was magical, it has be removed as magical.
 	 * @returns Integer Return code for success.
 	 * <ul>
-	 * <li>1: Stat modifier was added removed.</li>
+	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
 	 * <li>-1: The given stat name was invalid.</li>
 	 * <li>-2: The given value was not a number.</li>
@@ -251,6 +279,19 @@ namespace game {
 	 * <li>1: The stat modifiers were successfully removed.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
 	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * </ul>
+	 */
+	/**
+	 * Removes a stat modifier from this collection.
+	 *
+	 * @param String statName The name of the stat to remove this modifier from.
+	 * @param StatModifier mod The modifier to remove.
+	 * @returns Integer Return code for success.
+	 * <ul>
+	 * <li>1: The stat modifier was removed.</li>
+	 * <li>0: The context object was not a stat modifier collection.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-4: The given stat modifier was not a valid StatModifier instance.</li>
 	 * </ul>
 	 */
 	int StatModifiers_remove(lua_State *lua)
@@ -271,12 +312,27 @@ namespace game {
 				lua_pushinteger(lua, -1);
 				return 1;
 			}
+
 			Stat::StatType stat = getStat(lua, 2);
 			if (stat == Stat::MAX_STAT_LENGTH)
 			{
 				lua_pushinteger(lua, -1);
 				return 1;
 			}
+
+			if (args == 3)
+			{
+				StatModifier *mod = castUData<StatModifier>(lua, 3);
+				if (mod)
+				{
+					stats->removeStatModifier(stat, *mod);
+					lua_pushinteger(lua, 1);
+					return 1;
+				}
+				lua_pushinteger(lua, -4);
+				return 1;
+			}
+
 			if (!lua_isnumber(lua, 3)) 
 			{
 				lua_pushinteger(lua, -2);
@@ -297,12 +353,20 @@ namespace game {
 
 	/**
 	 * Returns a map of stat name keys and arrays of all the modifcations values.
-	 * Each modification is a StatModifier instance and the value of the modificaiton can be changed.
+	 * This is a copy of the internal mods map, changing values on this table will have no 
+	 * affect on the internal values.
 	 *
 	 * <pre>
 	 * StatModifiers, StatModifier = import("StatModifiers", "StatModifier")
-	 * mods = StatModifiers.new()
-	 * mods:add(5, "+")
+	 * statMods = StatModifiers.new()
+	 * statMods:add("health", 5, "+", false)
+	 * statMods:add("health", 8, "=")
+	 * statMods:add("health", 2, "*")
+	 *
+	 * mods = statMods:mods()
+	 * am_log("Magical: " .. tostring(mods["health"][1].magical)) -- Outputs "Magical: false"
+	 * am_log("Type: " .. mods["health"][2].type)                 -- Outputs "Type: ="
+	 * am_log("Value: " .. mods["health"][1].value)               -- Outputs "Value: 2"
 	 * </pre>
 	 *
 	 * @returns Table All the modifications as a Lua table.
@@ -315,7 +379,7 @@ namespace game {
 			LuaState L(lua);
 			// Table to hold a map of stat name keys and arrays of stat mod values.
 			L.newTable();
-			StatModifiers::StatModifierMap mods = stats->getModifiers();
+			const StatModifiers::StatModifierMap &mods = stats->getModifiers();
 			for (auto mapIter = mods.begin(); mapIter != mods.end(); ++mapIter)
 			{
 				const char *statName = Stat::getStatName(mapIter->first);
@@ -324,7 +388,10 @@ namespace game {
 				int i = 1;
 				for (auto iter = mapIter->second.begin(); iter != mapIter->second.end(); ++iter)
 				{
-					wrapObject<StatModifier>(lua, *iter);
+					L.newTable();
+					L.setTableValue("value", iter->getValue());
+					L.setTableValue("type", StatModifier::getModifierTypeString(iter->getType()));
+					L.setTableValue("magical", iter->isMagical());
 					lua_rawseti(lua, -2, i++);
 				}
 				lua_settable(lua, -3);
@@ -334,7 +401,14 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
+	/**
+	 * Calculates the final value for a given stat with the given base value.
+	 * Stats with no modifications will simply return the base value.
+	 *
+	 * @param String statName The stat name, nil will be returned if this is invalid.
+	 * @param Number baseValue The base value for the stat.
+	 * @returns Number The calculated stat value.
+	 */
 	int StatModifiers_calculate_stat(lua_State *lua)
 	{
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
