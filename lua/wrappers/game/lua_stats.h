@@ -22,16 +22,12 @@ namespace game {
 	int Stats_eq(lua_State *lua);
 	int Stats_register(lua_State *lua);
 
-	int Stats_get_base_stat(lua_State *lua);
-	int Stats_set_base_stat(lua_State *lua);
+	int Stats_base_stat(lua_State *lua);
+	int Stats_stat(lua_State *lua);
 
-	int Stats_get_stat(lua_State *lua);
-
-	int Stats_add_modifier(lua_State *lua);
-	int Stats_remove_modifier(lua_State *lua);
-
-	int Stats_add_modifiers(lua_State *lua);
-	int Stats_remove_modifiers(lua_State *lua);
+	int Stats_add(lua_State *lua);
+	int Stats_remove(lua_State *lua);
+	int Stats_mods(lua_State *lua);
 
 	Stat::StatType getStat(lua_State *lua, int arg);
 	StatModifierType getStatModifier(lua_State *lua, int n);

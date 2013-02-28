@@ -23,7 +23,14 @@ using namespace std;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The stats class stores all base values for each stat, as well as all the current
+	 * modifiers for each stat.
+	 */
+	/**
+	 * Creates a new stats instance.
+	 */
 	int Stats_ctor(lua_State *lua)
 	{
 		Stats *stats = new Stats();
@@ -31,6 +38,9 @@ namespace game {
 		wrapObject<Stats>(lua, stats);
 		return 1;
 	}
+	/**
+	 * Deletes a stats instance. TODO Check if it should do this.
+	 */
 	int Stats_dtor(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
@@ -40,7 +50,12 @@ namespace game {
 		}
 		return 0;
 	}
-
+	/**
+	 * Compares this stats object against another stats object.
+	 *
+	 * @param Stats rhs The other stats object to compare with.
+	 * @returns Boolean True if they are the same stats object.
+	 */
 	int Stats_eq(lua_State *lua)
 	{
 		Stats *lhs = castUData<Stats>(lua, 1);
@@ -56,13 +71,11 @@ namespace game {
 			{ "new", Stats_ctor },
 			{ "__gc", Stats_dtor },
 			{ "__eq", Stats_eq },
-			{ "get_base_stat", Stats_get_base_stat },
-			{ "set_base_stat", Stats_set_base_stat },
-			{ "get_stat", Stats_get_stat },
-			{ "add_modifier", Stats_add_modifier },
-			{ "remove_modifier", Stats_remove_modifier },
-			{ "add_modifiers", Stats_add_modifiers },
-			{ "remove_modifiers", Stats_remove_modifiers },
+			{ "base_stat", Stats_base_stat },
+			{ "stat", Stats_stat },
+			{ "add", Stats_add },
+			{ "remove", Stats_remove },
+			{ "mods", Stats_mods },
 			{ NULL, NULL }
 		};
 
@@ -74,7 +87,8 @@ namespace game {
 
 		return 1;
 	}
-
+	/// Parses the Lua value at the given index and returns the StatType enum
+	/// value. Stat::MAX_STAT_LENGTH will be returned if it is not a valid enum value.
 	Stat::StatType getStat(lua_State *lua, int n)
 	{
 		Stat::StatType stat = Stat::MAX_STAT_LENGTH;
@@ -89,6 +103,8 @@ namespace game {
 		}
 		return stat;
 	}
+	/// Parses the Lua value at the given index and returns the StatModifierType enum value.
+	/// MOD_MAX_LENGTH will be returned if it is not a valid stat modifier type.
 	StatModifierType getStatModifier(lua_State *lua, int n)
 	{
 		StatModifierType type = MOD_MAX_LENGTH;
@@ -104,40 +120,55 @@ namespace game {
 		return type;
 	}
 
-	int Stats_get_base_stat(lua_State *lua)
+	/**
+	 * Returns the base value for the given stat. This is the value of the stat before
+	 * any stat modifiers are applied.
+	 *
+	 * @param String statName The name of the stat to get the base value of.
+	 * @returns Number The base value.
+	 */
+	/**
+	 * Sets the base value of the given stat with the given value.
+	 *
+	 * @param String statName The name of the stat to set the base value of.
+	 * @param Number baseValue The new base value for the stat.
+	 * @returns Stats This
+	 */
+	int Stats_base_stat(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			Stat::StatType stat = getStat(lua, -1);
+			Stat::StatType stat = getStat(lua, 2);
 			if (stat != Stat::MAX_STAT_LENGTH)
 			{
-				lua_pushnumber(lua, stats->getBaseStat(stat));
-				return 1;
+				if (lua_gettop(lua) == 2)
+				{
+					lua_pushnumber(lua, stats->getBaseStat(stat));
+					return 1;
+				}
+				else if (lua_isnumber(lua, 3))
+				{
+					float value = lua_tofloat(lua, 3);
+					stats->setBaseStat(stat, value);
+					lua_pushvalue(lua, 1);
+					return 1;
+				}
 			}
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int Stats_set_base_stat(lua_State *lua)
-	{
-		Stats *stats = castUData<Stats>(lua, 1);
-		if (stats)
-		{
-			Stat::StatType stat = getStat(lua, -2);
-			if (stat != Stat::MAX_STAT_LENGTH)
-			{
-				if (lua_isnumber(lua, -1))
-				{
-					float value = lua_tofloat(lua, -1);
-					stats->setBaseStat(stat, value);
-				}
-			}
-		}
-		return 0;
-	}
 
-	int Stats_get_stat(lua_State *lua)
+	/**
+	 * Returns the calculated stat value for the given stat.
+	 * This uses the base value of the stat and any modifiers applied to that stat
+	 * to return the value from this function.
+	 *
+	 * @param String statName The name of the stat to get the calculated value of.
+	 * @returns Number The calculated stat value.
+	 */
+	int Stats_stat(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
@@ -152,105 +183,164 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
-	int Stats_add_modifier(lua_State *lua)
+	/**
+	 * Adds a modifier to the stat modifiers collection. This behaves the same
+	 * way as the stat modifiers class add function.
+	 * @see StatModifiers
+	 *
+	 * <pre>
+	 * Stats, StatModifiers = import("Stats", "StatModifiers")
+	 * stats = Stats.new()
+	 * stats:add("strength", 6, "+")
+	 * stats:mods():add("strength", 4, "*")
+	 * 
+	 * mods = stats:mods():mods()
+	 * am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: + 6"
+	 * am_log("Mod 2: " .. mods["strength"][2].type .. " " .. mods["strength"][2].value) -- Outputs "Mod 2: * 4"
+	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"
+	 * </pre>
+	 *
+	 * @param String statName The name of the stat to add the modifier to.
+	 * @param Number value The value of the stat modifier.
+	 * @param String type The type of the modifier.
+	 * @param Booleam [true] magical If the modifier is magical in nature.
+	 * @returns Integer Return codes
+	 * <ul>
+	 * <li>1: The stat modifier was added successfully.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-2: The given value was not a number.</li>
+	 * <li>-3: The given stat modifier was invalid.</li>
+	 * </ul>
+	 */
+	/**
+	 * Merges another stat modifiers collection into the stat modifiers collection of this stats object.
+	 * This behaves as if all the modifiers were taken from the given collection
+	 * and added through the other add modifier function.
+	 * @see StatModifiers
+	 *
+	 * @param StatModifiers mods The collection of stat modifiers to combine with this one.
+	 * @returns Integer Return code
+	 * <ul>
+	 * <li>1: The stat modifiers were successfully merged.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * </ul>
+	 */
+	/**
+	 * Adds a StatModifier instance to this stats collection of modifiers.
+	 * @see StatModifiers
+	 *
+	 * @param String statName The name of the stat this modifier will affect.
+	 * @param StatModifier mod The stat modifier to add.
+	 * @returns Integer Return code for success.
+	 * <ul>
+	 * <li>1: The stat modifier was added successfully.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-4: The given stat modifier was not a valid stat modifier instance.</li>
+	 * </ul>
+	 */
+	int Stats_add(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			int args = lua_gettop(lua);
-			if (args == 5)
-			{
-				bool magical = lua_tobool(lua, -1);
-				StatModifierType type = getStatModifier(lua, -2);
-				if (!lua_isnumber(lua, -3)) 
-				{
-					return 0;
-				}
-				float value = static_cast<float>(lua_tonumber(lua, -3));
-				Stat::StatType stat = getStat(lua, -4);
-				if (stat != Stat::MAX_STAT_LENGTH)
-				{
-					stats->addStatModifier(stat, StatModifier(value, type, magical));
-				}
-			}
-			else if (args == 4)
-			{
-				StatModifierType type = getStatModifier(lua, -1);
-				if (!lua_isnumber(lua, -2))
-				{
-					return 0;
-				}
-				float value = static_cast<float>(lua_tonumber(lua, -2));
-				Stat::StatType stat = getStat(lua, -3);
-				if (stat != Stat::MAX_STAT_LENGTH)
-				{
-					stats->addStatModifier(stat, StatModifier(value, type));
-				}
-			}
+			return addToStatModifier(lua, &stats->getModifiers());
 		}
-		return 0;
+		lua_pushinteger(lua, 0);
+		return 1;
 	}
-	int Stats_remove_modifier(lua_State *lua)
+	/**
+	 * Removes a modifier from the stat modifiers collection. This behaves the same
+	 * way as the stat modifiers class remove function.
+	 * @see StatModifiers
+	 *
+	 * <pre>
+	 * Stats, StatModifiers = import("Stats", "StatModifiers")
+	 * stats = Stats.new()
+	 * stats:add("strength", 6, "+")
+	 * stats:mods():add("strength", 4, "*")
+	 * 
+	 * mods = stats:mods():mods()
+	 * am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: + 6"
+	 * am_log("Mod 2: " .. mods["strength"][2].type .. " " .. mods["strength"][2].value) -- Outputs "Mod 2: * 4"
+	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"
+	 * 
+	 * stats:remove("strength", 6, "+")
+	 * mods = stats:mods()
+	 * am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: * 4"
+	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 20"
+	 * </pre>
+	 * 
+	 * @param String statName The name of the stat to remove this modifier from.
+	 * @param Number value The stat modifier value.
+	 * @param String modifierType The modifier type name.
+	 * @param Boolean [true] magical If the added modifier was magical, it has be removed as magical.
+	 * @returns Integer Return codes
+	 * <ul>
+	 * <li>1: The stat modifier was removed.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-2: The given value was not a number.</li>
+	 * <li>-3: The given stat modifier was invalid.</li>
+	 * </ul>
+	 */
+	/**
+	 * Removes all the stat modifiers from the given collection from this stats modifiers collection.
+	 * This behaves as if all the modifiers were taken from the given collection
+	 * and removed through the other remove modifier function.
+	 * @see StatModifiers
+	 *
+	 * @param StatModifiers mods The collection of stat modifiers to remove.
+	 * @returns Integer Return codes
+	 * <ul>
+	 * <li>1: The stat modifiers were successfully removed.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * </ul>
+	 */
+	/**
+	 * Removes a stat modifier from this stats modifiers collection.
+	 * @see StatModifiers
+	 *
+	 * @param String statName The name of the stat to remove this modifier from.
+	 * @param StatModifier mod The modifier to remove.
+	 * @returns Integer Return codes
+	 * <ul>
+	 * <li>1: The stat modifier was removed.</li>
+	 * <li>0: The context object was not a stats object.</li>
+	 * <li>-1: The given stat name was invalid.</li>
+	 * <li>-4: The given stat modifier was not a valid StatModifier instance.</li>
+	 * </ul>
+	 */
+	int Stats_remove(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			int args = lua_gettop(lua);
-			if (args == 5)
-			{
-				bool magical = lua_tobool(lua, -1);
-				StatModifierType type = getStatModifier(lua, -2);
-				if (!lua_isnumber(lua, -3)) 
-				{
-					return 0;
-				}
-				float value = static_cast<float>(lua_tonumber(lua, -3));
-				Stat::StatType stat = getStat(lua, -4);
-				if (stat != Stat::MAX_STAT_LENGTH)
-				{
-					stats->removeStatModifier(stat, StatModifier(value, type, magical));
-				}
-			}
-			else if (args == 4)
-			{
-				StatModifierType type = getStatModifier(lua, -1);
-				if (!lua_isnumber(lua, -2))
-				{
-					return 0;
-				}
-				float value = static_cast<float>(lua_tonumber(lua, -2));
-				Stat::StatType stat = getStat(lua, -3);
-				if (stat != Stat::MAX_STAT_LENGTH)
-				{
-					stats->removeStatModifier(stat, StatModifier(value, type));
-				}
-			}
+			return removeFromStatModifier(lua, &stats->getModifiers());
 		}
-		return 0;
+		lua_pushinteger(lua, 0);
+		return 1;
 	}
 
-	int Stats_add_modifiers(lua_State *lua)
+	/**
+	 * Returns the internal StatModifiers object.
+	 *
+	 * @returns StatModifiers The internal stat modifiers object.
+	 */
+	int Stats_mods(lua_State *lua)
 	{
 		Stats *stats = castUData<Stats>(lua, 1);
-		StatModifiers *modifiers = castUData<StatModifiers>(lua, 2);
-		if (stats && modifiers)
+		if (stats)
 		{
-			stats->addModifiers(*modifiers);
+			wrapObject<StatModifiers>(lua, &stats->getModifiers());
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
-	int Stats_remove_modifiers(lua_State *lua)
-	{
-		Stats *stats = castUData<Stats>(lua, 1);
-		StatModifiers *modifiers = castUData<StatModifiers>(lua, 2);
-		if (stats && modifiers)
-		{
-			stats->removeModifiers(*modifiers);
-		}
-		return 0;
-	}
-
 }
 }
 }

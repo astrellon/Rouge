@@ -130,5 +130,14 @@ namespace game {
 		}
 	}
 
+	StatModifiers &Stats::getModifiers()
+	{
+		return mModifiers;
+	}
+	const StatModifiers &Stats::getModifiers() const
+	{
+		return mModifiers;
+	}
+	
 }
 }

@@ -24,6 +24,9 @@ namespace game {
 
 	int StatModifiers_calculate_stat(lua_State *lua);
 
+	int addToStatModifier(lua_State *lua, am::game::StatModifiers *stats);
+	int removeFromStatModifier(lua_State *lua, am::game::StatModifiers *stats);
+
 }
 }
 }

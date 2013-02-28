@@ -125,7 +125,7 @@ namespace game {
 	 * @param Boolean [true] magical Defines if the modification is magical in-nature or not.
 	 *  This does not affect how the final stat value is calculated, but it does allow for the UI
 	 *  to categorise how the modification is displayed. This may change in future.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was added successfully.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -140,7 +140,7 @@ namespace game {
 	 * and added through the other add modifier function.
 	 *
 	 * @param StatModifiers mods The collection of stat modifiers to combine with this one.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully merged.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -152,7 +152,7 @@ namespace game {
 	 *
 	 * @param String statName The name of the stat this modifier will affect.
 	 * @param StatModifier mod The stat modifier to add.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was added successfully.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -165,58 +165,7 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			int args = lua_gettop(lua);
-			if (args == 2)
-			{
-				StatModifiers *other = castUData<StatModifiers>(lua, 2);
-				if (other)
-				{
-					stats->addModifiers(*other);
-					lua_pushinteger(lua, 1);
-					return 1;
-				}
-				lua_pushinteger(lua, -1);
-				return 1;
-			}
-
-			Stat::StatType stat = getStat(lua, 2);
-			if (stat == Stat::MAX_STAT_LENGTH)
-			{
-				lua_pushinteger(lua, -1);
-				return 1;
-			}
-
-			if (args == 3)
-			{
-				StatModifier *mod = castUData<StatModifier>(lua, 3);
-				if (mod)
-				{
-					stats->addStatModifier(stat, *mod);
-					lua_pushinteger(lua, 1);
-					return 1;
-				}
-				lua_pushinteger(lua, -4);
-				return 1;
-			}
-
-			if (!lua_isnumber(lua, 3)) 
-			{
-				lua_pushinteger(lua, -2);
-				return 1;
-			}
-			float value = static_cast<float>(lua_tonumber(lua, 3));
-			StatModifierType type = getStatModifier(lua, 4);
-			if (type == MOD_MAX_LENGTH)
-			{
-				lua_pushinteger(lua, -3);
-				return 1;
-			}
-			
-			bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
-			
-			stats->addStatModifier(stat, StatModifier(value, type, magical));
-			lua_pushinteger(lua, 1);
-			return 1;
+			return addToStatModifier(lua, stats);
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -244,7 +193,7 @@ namespace game {
 	 * 
 	 * mods:add("health", 7, "=")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 25 (7 * 3 + 4)
-
+	 * 
 	 * -- Remove them all again but in a different order.
 	 * mods:remove("health", 3, "*")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 11 (7 + 4)
@@ -255,11 +204,12 @@ namespace game {
 	 * mods:remove("health", 7, "=")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 5 (5)
 	 * </pre>
+	 *
 	 * @param String statName The name of the stat to remove this modifier from.
 	 * @param Number value The stat modifier value.
 	 * @param String modifierType The modifier type name.
 	 * @param Boolean [true] magical If the added modifier was magical, it has be removed as magical.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -274,7 +224,7 @@ namespace game {
 	 * and removed through the other remove modifier function.
 	 *
 	 * @param StatModifiers mods The collection of stat modifiers to remove.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully removed.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -286,7 +236,7 @@ namespace game {
 	 *
 	 * @param String statName The name of the stat to remove this modifier from.
 	 * @param StatModifier mod The modifier to remove.
-	 * @returns Integer Return code for success.
+	 * @returns Integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stat modifier collection.</li>
@@ -299,53 +249,7 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			int args = lua_gettop(lua);
-			if (args == 2)
-			{
-				StatModifiers *other = castUData<StatModifiers>(lua, 2);
-				if (other)
-				{
-					stats->removeModifiers(*other);
-					lua_pushinteger(lua, 1);
-					return 1;
-				}
-				lua_pushinteger(lua, -1);
-				return 1;
-			}
-
-			Stat::StatType stat = getStat(lua, 2);
-			if (stat == Stat::MAX_STAT_LENGTH)
-			{
-				lua_pushinteger(lua, -1);
-				return 1;
-			}
-
-			if (args == 3)
-			{
-				StatModifier *mod = castUData<StatModifier>(lua, 3);
-				if (mod)
-				{
-					stats->removeStatModifier(stat, *mod);
-					lua_pushinteger(lua, 1);
-					return 1;
-				}
-				lua_pushinteger(lua, -4);
-				return 1;
-			}
-
-			if (!lua_isnumber(lua, 3)) 
-			{
-				lua_pushinteger(lua, -2);
-				return 1;
-			}
-			float value = static_cast<float>(lua_tonumber(lua, 3));
-			StatModifierType type = getStatModifier(lua, 4);
-			
-			bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
-			
-			stats->removeStatModifier(stat, StatModifier(value, type, magical));
-			lua_pushinteger(lua, 1);
-			return 1;
+			return removeFromStatModifier(lua, stats);
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -362,7 +266,7 @@ namespace game {
 	 * statMods:add("health", 5, "+", false)
 	 * statMods:add("health", 8, "=")
 	 * statMods:add("health", 2, "*")
-	 *
+	 * 
 	 * mods = statMods:mods()
 	 * am_log("Magical: " .. tostring(mods["health"][1].magical)) -- Outputs "Magical: false"
 	 * am_log("Type: " .. mods["health"][2].type)                 -- Outputs "Type: ="
@@ -426,6 +330,130 @@ namespace game {
 			}
 		}
 		lua_pushnil(lua);
+		return 1;
+	}
+
+	int addToStatModifier(lua_State *lua, am::game::StatModifiers *stats)
+	{
+		if (!lua)
+		{
+			return 0;
+		}
+		if (!stats)
+		{
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+		int args = lua_gettop(lua);
+		if (args == 2)
+		{
+			StatModifiers *other = castUData<StatModifiers>(lua, 2);
+			if (other)
+			{
+				stats->addModifiers(*other);
+				lua_pushinteger(lua, 1);
+				return 1;
+			}
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+
+		Stat::StatType stat = getStat(lua, 2);
+		if (stat == Stat::MAX_STAT_LENGTH)
+		{
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+
+		if (args == 3)
+		{
+			StatModifier *mod = castUData<StatModifier>(lua, 3);
+			if (mod)
+			{
+				stats->addStatModifier(stat, *mod);
+				lua_pushinteger(lua, 1);
+				return 1;
+			}
+			lua_pushinteger(lua, -4);
+			return 1;
+		}
+
+		if (!lua_isnumber(lua, 3)) 
+		{
+			lua_pushinteger(lua, -2);
+			return 1;
+		}
+		float value = static_cast<float>(lua_tonumber(lua, 3));
+		StatModifierType type = getStatModifier(lua, 4);
+		if (type == MOD_MAX_LENGTH)
+		{
+			lua_pushinteger(lua, -3);
+			return 1;
+		}
+			
+		bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
+			
+		stats->addStatModifier(stat, StatModifier(value, type, magical));
+		lua_pushinteger(lua, 1);
+		return 1;
+	}
+	int removeFromStatModifier(lua_State *lua, am::game::StatModifiers *stats)
+	{
+		if (!lua)
+		{
+			return 0;
+		}
+		if (!stats)
+		{
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+		int args = lua_gettop(lua);
+		if (args == 2)
+		{
+			StatModifiers *other = castUData<StatModifiers>(lua, 2);
+			if (other)
+			{
+				stats->removeModifiers(*other);
+				lua_pushinteger(lua, 1);
+				return 1;
+			}
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+
+		Stat::StatType stat = getStat(lua, 2);
+		if (stat == Stat::MAX_STAT_LENGTH)
+		{
+			lua_pushinteger(lua, -1);
+			return 1;
+		}
+
+		if (args == 3)
+		{
+			StatModifier *mod = castUData<StatModifier>(lua, 3);
+			if (mod)
+			{
+				stats->removeStatModifier(stat, *mod);
+				lua_pushinteger(lua, 1);
+				return 1;
+			}
+			lua_pushinteger(lua, -4);
+			return 1;
+		}
+
+		if (!lua_isnumber(lua, 3)) 
+		{
+			lua_pushinteger(lua, -2);
+			return 1;
+		}
+		float value = static_cast<float>(lua_tonumber(lua, 3));
+		StatModifierType type = getStatModifier(lua, 4);
+			
+		bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
+			
+		stats->removeStatModifier(stat, StatModifier(value, type, magical));
+		lua_pushinteger(lua, 1);
 		return 1;
 	}
 

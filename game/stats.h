@@ -33,6 +33,9 @@ namespace game {
 		virtual void addModifiers(const StatModifiers &rhs);
 		virtual void removeModifiers(const StatModifiers &rhs);
 
+		virtual StatModifiers &getModifiers();
+		virtual const StatModifiers &getModifiers() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
