@@ -46,7 +46,7 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			delete stats;
+			//delete stats;
 		}
 		return 0;
 	}
@@ -246,7 +246,8 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			return addToStatModifier(lua, &stats->getModifiers());
+			lua_pushinteger(lua, addToStatModifier(lua, stats));
+			return 1;
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -319,7 +320,8 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			return removeFromStatModifier(lua, &stats->getModifiers());
+			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
+			return 1;
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -335,7 +337,7 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			wrapObject<StatModifiers>(lua, &stats->getModifiers());
+			wrapObject<StatModifiers>(lua, &stats->getStatModifiers());
 			return 1;
 		}
 		lua_pushnil(lua);

@@ -32,22 +32,22 @@ namespace tests {
 		assert(lua.loadString("Tile = import(\"Tile\")\n"
 			"tile = Tile.new(\"testTile\")\n"
 			"function getName()\n"
-			"	return tile:get_name()\n"
+			"	return tile:name()\n"
 			"end\n"
 			"function setName(name)\n"
-			"	return tile:set_name(name)\n"
+			"	return tile:name(name)\n"
 			"end\n"
 			"function getFullName()\n"
-			"	return tile:get_full_name()\n"
+			"	return tile:full_name()\n"
 			"end\n"
 			"function setFullName(name)\n"
-			"	tile:set_full_name(name)\n"
+			"	tile:full_name(name)\n"
 			"end\n"
 			"function getDescription()\n"
-			"	return tile:get_description()\n"
+			"	return tile:description()\n"
 			"end\n"
 			"function setDescription(desc)\n"
-			"	tile:set_description(desc)\n"
+			"	tile:description(desc)\n"
 			"end\n"
 			));
 
@@ -167,6 +167,30 @@ namespace tests {
 		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
+
+		return true;
+	}
+
+	bool TestLuaTile::testTileTypes2() {
+		LuaState lua;
+		
+		int loadResult = lua.loadString("Tile, TileType = import(\"Tile\", \"TileType\")\n"
+			"tile = Tile.new(\"testTileTypes2\")\n"
+			"land = TileType.new(\"land-a\")\n"
+			"water = TileType.new(\"water-a\")\n"
+			"tile:add_tile_type(land):add_tile_type(water)\n"
+			
+			"types = tile:tile_types()\n"
+			"assert(2, #types)\n"
+			"assert(\"land-a\", types[1]:get_name())\n"
+			"assert(\"water-a\", types[2]:get_name())\n"
+			);
+
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
 
 		return true;
 	}

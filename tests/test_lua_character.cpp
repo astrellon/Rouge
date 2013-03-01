@@ -146,10 +146,10 @@ namespace tests {
 			"Stats = import(\"Stats\")\n"
 			"char = Character.new(\"charStats\")\n"
 			"function getBaseStat(stat)\n"
-			"	return char:stats():get_base_stat(stat)\n"
+			"	return char:stats():base_stat(stat)\n"
 			"end\n"
 			"function setBaseStat(stat, value)\n"
-			"	char:stats():set_base_stat(stat, value)\n"
+			"	char:stats():base_stat(stat, value)\n"
 			"end\n");
 		
 		if (!loadResult)

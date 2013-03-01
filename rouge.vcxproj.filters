@@ -1264,5 +1264,8 @@
     <ClInclude Include="lua\wrappers\game\lua_stat_modifier.h">
       <Filter>lua\wrapper\game</Filter>
     </ClInclude>
+    <ClInclude Include="game\i_stat_modifiers.h">
+      <Filter>game\stats</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

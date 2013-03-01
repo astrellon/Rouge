@@ -5,16 +5,20 @@
 #include <map>
 using namespace std;
 
+#include <base/imanaged.h>
+using namespace am::base;
+
 #include "stats_common.h"
 #include "stat_modifier.h"
 #include "stat_modifiers.h"
+#include "i_stat_modifiers.h"
 
 namespace am {
 namespace game {
 
 	class GameObject;
 
-	class Stats {
+	class Stats : public IStatModifiers, public IManaged {
 	public:
 		Stats();
 		~Stats();
@@ -27,14 +31,19 @@ namespace game {
 
 		virtual float getStat(Stat::StatType stat);
 
-		virtual void addStatModifier(Stat::StatType stat, const StatModifier &modifier);
-		virtual void removeStatModifier(Stat::StatType stat, const StatModifier &modifier);
+		virtual bool addStatModifier(Stat::StatType stat, const StatModifier &modifier);
+		virtual bool removeStatModifier(Stat::StatType stat, const StatModifier &modifier);
 
-		virtual void addModifiers(const StatModifiers &rhs);
-		virtual void removeModifiers(const StatModifiers &rhs);
+		virtual void addModifiers(const IStatModifiers &rhs);
+		virtual void removeModifiers(const IStatModifiers &rhs);
 
-		virtual StatModifiers &getModifiers();
-		virtual const StatModifiers &getModifiers() const;
+		virtual float calculateStat(Stat::StatType type, float baseValue);
+
+		virtual const StatModifierMap &getModifiers() const;
+		virtual StatModifierMap &getModifiers();
+
+		virtual StatModifiers &getStatModifiers();
+		virtual const StatModifiers &getStatModifiers() const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -49,8 +58,6 @@ namespace game {
 		bool mDirtyStats[Stat::MAX_STAT_LENGTH];
 		
 		StatModifiers mModifiers;
-
-		void calculateStat(Stat::StatType stat);
 	};
 
 }

@@ -60,6 +60,19 @@ namespace game {
 			mTileSet->addTile(this);
 		}
 	}
+	bool Tile::setNameWithCheck(const char *name)
+	{
+		if (!name)
+		{
+			return false;
+		}
+		if (mTileSet && mTileSet->hasTile(name))
+		{
+			return false;
+		}
+		setName(name);
+		return true;
+	}
 	string Tile::getName() const
 	{
 		return mName;

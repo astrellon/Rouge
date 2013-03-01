@@ -32,6 +32,7 @@ namespace game {
 		string getFullName() const;
 
 		void addTile(Tile *tile);
+		bool addTileWithCheck(Tile *tile);
 		void removeTile(Tile *tile);
 		void removeTile(const char *tileName);
 		bool hasTile(Tile *tile);

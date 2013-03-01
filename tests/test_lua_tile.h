@@ -22,6 +22,7 @@ namespace tests {
 		virtual void runCases() {
 			runCase(testSimple);
 			runCase(testTileTypes);
+			runCase(testTileTypes2);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -32,6 +33,7 @@ namespace tests {
 
 		bool testSimple();
 		bool testTileTypes();
+		bool testTileTypes2();
 
 	};
 

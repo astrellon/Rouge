@@ -45,6 +45,15 @@ namespace game {
 			mTiles[tile->getName()] = tile;
 		}
 	}
+	bool TileSet::addTileWithCheck(Tile *tile)
+	{
+		if (tile && mTiles.find(tile->getName()) == mTiles.end())
+		{
+			mTiles[tile->getName()] = tile;
+			return true;
+		}
+		return false;
+	}
 	void TileSet::removeTile(Tile *tile)
 	{
 		if (tile)

@@ -409,6 +409,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\item.h" />
     <ClInclude Include="game\item_common.h" />
     <ClInclude Include="game\item_instance.h" />
+    <ClInclude Include="game\i_stat_modifiers.h" />
     <ClInclude Include="game\levelable.h" />
     <ClInclude Include="game\map.h" />
     <ClInclude Include="game\player_controller.h" />

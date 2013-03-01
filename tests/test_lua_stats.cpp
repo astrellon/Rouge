@@ -29,29 +29,29 @@ namespace tests {
 		
 		assert(lua.loadString("Stats = import(\"Stats\")\n"
 			"stats = Stats.new()\n"
-			"stats:add_modifier(\"strength\", 7.8, true)\n"
-			"stats:add_modifier(\"dex\", 3.2)\n"
+			"stats:add(\"strength\", 7.8, true)\n"
+			"stats:add(\"dex\", 3.2)\n"
 			"function getBaseStat(key)\n"
-			"	return stats:get_base_stat(key)\n"
+			"	return stats:base_stat(key)\n"
 			"end\n"
 			"function setBaseStat(key, value)\n"
-			"	stats:set_base_stat(key, value)\n"
+			"	stats:base_stat(key, value)\n"
 			"end\n"
 			"function getStat(key)\n"
-			"	return stats:get_stat(key)\n"
+			"	return stats:stat(key)\n"
 			"end\n"
 			"function addModifier(stat, value, type, magical)\n"
 			"	if (magical == nil) then\n"
-			"		stats:add_modifier(stat, value, type)\n"
+			"		stats:add(stat, value, type)\n"
 			"	else\n"
-			"		stats:add_modifier(stat, value, type, magical)\n"
+			"		stats:add(stat, value, type, magical)\n"
 			"	end\n"
 			"end\n"
 			"function removeModifier(stat, value, type, magical)\n"
 			"	if (magical == nil) then\n"
-			"		stats:remove_modifier(stat, value, type)\n"
+			"		stats:remove(stat, value, type)\n"
 			"	else\n"
-			"		stats:remove_modifier(stat, value, type, magical)\n"
+			"		stats:remove(stat, value, type, magical)\n"
 			"	end\n"
 			"end\n"
 			));
@@ -83,7 +83,7 @@ namespace tests {
 		lua.push("health");
 		lua.push(10.0f);
 		lua.push("*");
-		lua.pushnil();
+		lua_pushnil(lua);
 		lua_acall(lua, 4, 0);
 
 		assert(lua.hasGlobalFunction("getStat"));

@@ -165,7 +165,8 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			return addToStatModifier(lua, stats);
+			lua_pushinteger(lua, addToStatModifier(lua, stats));
+			return 1;
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -249,7 +250,8 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			return removeFromStatModifier(lua, stats);
+			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
+			return 1;
 		}
 		lua_pushinteger(lua, 0);
 		return 1;
@@ -333,7 +335,7 @@ namespace game {
 		return 1;
 	}
 
-	int addToStatModifier(lua_State *lua, am::game::StatModifiers *stats)
+	int addToStatModifier(lua_State *lua, am::game::IStatModifiers *stats)
 	{
 		if (!lua)
 		{
@@ -341,8 +343,7 @@ namespace game {
 		}
 		if (!stats)
 		{
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 		int args = lua_gettop(lua);
 		if (args == 2)
@@ -351,18 +352,15 @@ namespace game {
 			if (other)
 			{
 				stats->addModifiers(*other);
-				lua_pushinteger(lua, 1);
 				return 1;
 			}
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 
 		Stat::StatType stat = getStat(lua, 2);
 		if (stat == Stat::MAX_STAT_LENGTH)
 		{
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 
 		if (args == 3)
@@ -371,33 +369,28 @@ namespace game {
 			if (mod)
 			{
 				stats->addStatModifier(stat, *mod);
-				lua_pushinteger(lua, 1);
 				return 1;
 			}
-			lua_pushinteger(lua, -4);
-			return 1;
+			return -4;
 		}
 
 		if (!lua_isnumber(lua, 3)) 
 		{
-			lua_pushinteger(lua, -2);
-			return 1;
+			return -2;
 		}
 		float value = static_cast<float>(lua_tonumber(lua, 3));
 		StatModifierType type = getStatModifier(lua, 4);
 		if (type == MOD_MAX_LENGTH)
 		{
-			lua_pushinteger(lua, -3);
-			return 1;
+			return -3;
 		}
 			
 		bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
 			
 		stats->addStatModifier(stat, StatModifier(value, type, magical));
-		lua_pushinteger(lua, 1);
 		return 1;
 	}
-	int removeFromStatModifier(lua_State *lua, am::game::StatModifiers *stats)
+	int removeFromStatModifier(lua_State *lua, am::game::IStatModifiers *stats)
 	{
 		if (!lua)
 		{
@@ -405,8 +398,7 @@ namespace game {
 		}
 		if (!stats)
 		{
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 		int args = lua_gettop(lua);
 		if (args == 2)
@@ -415,18 +407,15 @@ namespace game {
 			if (other)
 			{
 				stats->removeModifiers(*other);
-				lua_pushinteger(lua, 1);
 				return 1;
 			}
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 
 		Stat::StatType stat = getStat(lua, 2);
 		if (stat == Stat::MAX_STAT_LENGTH)
 		{
-			lua_pushinteger(lua, -1);
-			return 1;
+			return -1;
 		}
 
 		if (args == 3)
@@ -435,17 +424,14 @@ namespace game {
 			if (mod)
 			{
 				stats->removeStatModifier(stat, *mod);
-				lua_pushinteger(lua, 1);
 				return 1;
 			}
-			lua_pushinteger(lua, -4);
-			return 1;
+			return -4;
 		}
 
 		if (!lua_isnumber(lua, 3)) 
 		{
-			lua_pushinteger(lua, -2);
-			return 1;
+			return -2;
 		}
 		float value = static_cast<float>(lua_tonumber(lua, 3));
 		StatModifierType type = getStatModifier(lua, 4);
@@ -453,7 +439,6 @@ namespace game {
 		bool magical = args >= 5 ? lua_tobool(lua, 5) : true;
 			
 		stats->removeStatModifier(stat, StatModifier(value, type, magical));
-		lua_pushinteger(lua, 1);
 		return 1;
 	}
 

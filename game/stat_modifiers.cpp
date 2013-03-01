@@ -69,10 +69,11 @@ namespace game {
 		return iter;
 	}
 
-	void StatModifiers::addModifiers(const StatModifiers &rhs)
+	void StatModifiers::addModifiers(const IStatModifiers &rhs)
 	{
+		const StatModifierMap &mods = rhs.getModifiers();
 		StatModifierMap::const_iterator rhsIter;
-		for (rhsIter = rhs.mModifiers.begin(); rhsIter != rhs.mModifiers.end(); ++rhsIter)
+		for (rhsIter = mods.begin(); rhsIter != mods.end(); ++rhsIter)
 		{
 			const StatModifierVector &rhsModifiers = rhsIter->second;
 			Stat::StatType stat = static_cast<Stat::StatType>(rhsIter->first);
@@ -85,10 +86,11 @@ namespace game {
 		}
 	}
 
-	void StatModifiers::removeModifiers(const StatModifiers &rhs)
+	void StatModifiers::removeModifiers(const IStatModifiers &rhs)
 	{
+		const StatModifierMap &mods = rhs.getModifiers();
 		StatModifierMap::const_iterator rhsIter;
-		for (rhsIter = rhs.mModifiers.begin(); rhsIter != rhs.mModifiers.end(); ++rhsIter)
+		for (rhsIter = mods.begin(); rhsIter != mods.end(); ++rhsIter)
 		{
 			const StatModifierVector &rhsModifiers = rhsIter->second;
 			Stat::StatType stat = static_cast<Stat::StatType>(rhsIter->first);
@@ -148,11 +150,11 @@ namespace game {
 		return value;
 	}
 
-	const StatModifiers::StatModifierMap &StatModifiers::getModifiers() const
+	const IStatModifiers::StatModifierMap &StatModifiers::getModifiers() const
 	{
 		return mModifiers;
 	}
-	StatModifiers::StatModifierMap &StatModifiers::getModifiers()
+	IStatModifiers::StatModifierMap &StatModifiers::getModifiers()
 	{
 		return mModifiers;
 	}

@@ -5,15 +5,13 @@ using namespace std;
 
 #include "stats_common.h"
 #include "stat_modifier.h"
+#include "i_stat_modifiers.h"
 
 namespace am {
 namespace game {
 
-	class StatModifiers {
+	class StatModifiers : public IStatModifiers {
 	public:
-
-		typedef vector<StatModifier> StatModifierVector;
-		typedef map<int, StatModifierVector> StatModifierMap;
 
 		StatModifiers();
 		~StatModifiers();
@@ -21,8 +19,8 @@ namespace game {
 		virtual bool addStatModifier(Stat::StatType stat, const StatModifier &modifier);
 		virtual bool removeStatModifier(Stat::StatType stat, const StatModifier &modifier);
 
-		virtual void addModifiers(const StatModifiers &rhs);
-		virtual void removeModifiers(const StatModifiers &rhs);
+		virtual void addModifiers(const IStatModifiers &rhs);
+		virtual void removeModifiers(const IStatModifiers &rhs);
 
 		virtual float calculateStat(Stat::StatType stat, float baseValue);
 

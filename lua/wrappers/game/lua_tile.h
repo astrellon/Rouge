@@ -19,22 +19,17 @@ namespace game {
 	int Tile_eq(lua_State *lua);
 	int Tile_register(lua_State *lua);
 
-	int Tile_get_name(lua_State *lua);
-	int Tile_set_name(lua_State *lua);
-
-	int Tile_get_full_name(lua_State *lua);
-	int Tile_set_full_name(lua_State *lua);
-
-	int Tile_get_description(lua_State *lua);
-	int Tile_set_description(lua_State *lua);
-
-	int Tile_get_tile_set(lua_State *lua);
-	int Tile_set_tile_set(lua_State *lua);
+	int Tile_name(lua_State *lua);
+	int Tile_full_name(lua_State *lua);
+	int Tile_description(lua_State *lua);
+	int Tile_tile_set(lua_State *lua);
 
 	int Tile_add_tile_type(lua_State *lua);
 	int Tile_remove_tile_type(lua_State *lua);
 	int Tile_remove_all_tile_types(lua_State *lua);
 	int Tile_has_tile_type(lua_State *lua);
+
+	int Tile_tile_types(lua_State *lua);
 
 	int Tile_load_def(lua_State *lua);
 

@@ -144,9 +144,9 @@ namespace tests {
 			"stats:add(\"health\", 2, \"*\")\n"
 
 			"mods = stats:mods()\n"
-			"am_log(\"Magical: \" .. tostring(mods[\"health\"][1].magical))\n"
-			"am_log(\"Type: \" .. mods[\"health\"][2].type)\n"
-			"am_log(\"Value: \" .. mods[\"health\"][3].value)\n"
+			"assert(false, mods[\"health\"][1].magical)\n"
+			"assert(\"=\", mods[\"health\"][2].type)\n"
+			"assert(2, mods[\"health\"][3].value)\n"
 		);
 		
 		if (!loadResult)

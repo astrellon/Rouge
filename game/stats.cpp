@@ -30,32 +30,36 @@ namespace game {
 		}
 		if (mDirtyStats[stat])
 		{
-			calculateStat(stat);
+			calculateStat(stat, mBaseStats[stat]);
 		}
 		return mCalculatedStats[stat];
 	}
 
-	void Stats::addStatModifier(Stat::StatType stat, const StatModifier &modifier)
+	bool Stats::addStatModifier(Stat::StatType stat, const StatModifier &modifier)
 	{
 		if (stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return;
+			return false;
 		}
 		if (mModifiers.addStatModifier(stat, modifier))
 		{
 			mDirtyStats[stat] = true;
+			return true;
 		}
+		return false;
 	}
-	void Stats::removeStatModifier(Stat::StatType stat, const StatModifier &modifier)
+	bool Stats::removeStatModifier(Stat::StatType stat, const StatModifier &modifier)
 	{
 		if (stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return;
+			return false;
 		}
 		if (mModifiers.removeStatModifier(stat, modifier))
 		{
 			mDirtyStats[stat] = true;
+			return true;
 		}
+		return false;
 	}
 
 	float Stats::getBaseStat(Stat::StatType stat) const
@@ -79,17 +83,17 @@ namespace game {
 		}
 	}
 
-	void Stats::calculateStat(Stat::StatType stat)
+	float Stats::calculateStat(Stat::StatType stat, float baseValue)
 	{
 		if (stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return;
+			return -1.0f;
 		}
 
-		float value = mBaseStats[stat];
-		value = mModifiers.calculateStat(stat, value);
+		float value = mModifiers.calculateStat(stat, baseValue);
 		mDirtyStats[stat] = false;
 		mCalculatedStats[stat] = value;
+		return value;
 	}
 
 	void Stats::setAttachedTo(GameObject *attached)
@@ -109,7 +113,7 @@ namespace game {
 		return mAttachedTo;
 	}
 	
-	void Stats::addModifiers(const StatModifiers &rhs)
+	void Stats::addModifiers(const IStatModifiers &rhs)
 	{
 		mModifiers.addModifiers(rhs);
 		const StatModifiers::StatModifierMap &modifiers = rhs.getModifiers();
@@ -119,7 +123,7 @@ namespace game {
 			mDirtyStats[iter->first] = true;
 		}
 	}
-	void Stats::removeModifiers(const StatModifiers &rhs)
+	void Stats::removeModifiers(const IStatModifiers &rhs)
 	{
 		mModifiers.removeModifiers(rhs);
 		const StatModifiers::StatModifierMap &modifiers = rhs.getModifiers();
@@ -130,11 +134,20 @@ namespace game {
 		}
 	}
 
-	StatModifiers &Stats::getModifiers()
+	const IStatModifiers::StatModifierMap &Stats::getModifiers() const
+	{
+		return mModifiers.getModifiers();
+	}
+	IStatModifiers::StatModifierMap &Stats::getModifiers()
+	{
+		return mModifiers.getModifiers();
+	}
+
+	StatModifiers &Stats::getStatModifiers()
 	{
 		return mModifiers;
 	}
-	const StatModifiers &Stats::getModifiers() const
+	const StatModifiers &Stats::getStatModifiers() const
 	{
 		return mModifiers;
 	}

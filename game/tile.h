@@ -33,6 +33,7 @@ namespace game {
 
 		string getName() const;
 		void setName(const char *name);
+		bool setNameWithCheck(const char *name);
 
 		string getFullName() const;
 		void setFullName(const char *name);
