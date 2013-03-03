@@ -19,7 +19,20 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The tile instance class represents where a single instance of a tile
+	 * with an extra data associated. Currently this is only which tile frame to render.
+	 */
+	/**
+	 * Creates a new tile instance, it will need to have a tile associated with it
+	 * before it can be used to render.
+	 */
+	/**
+	 * Creates a new tile instance with the given tile.
+	 *
+	 * @param TileInstance instance The tile this instance.
+	 */
 	int TileInstance_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
@@ -42,11 +55,20 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * TODO
+	 */
 	int TileInstance_dtor(lua_State *lua)
 	{
 		return 0;
 	}
 
+	/**
+	 * Compares this tile instance with another tile instance.
+	 *
+	 * @param TileInstance rhs The other tile instance to compare with.
+	 * @returns Boolean True if they are the same tile instance objects.
+	 */
 	int TileInstance_eq(lua_State *lua)
 	{
 		TileInstance *lhs = castUData<TileInstance>(lua, 1);
@@ -62,11 +84,8 @@ namespace game {
 			{ "new", TileInstance_ctor },
 			{ "__gc", TileInstance_dtor },
 			{ "__eq", TileInstance_eq },
-			{ "get_tile", TileInstance_get_tile },
-			{ "set_tile", TileInstance_set_tile },
-			{ "set_tile_name", TileInstance_set_tile_name },
-			{ "get_tile_frame", TileInstance_get_tile_frame },
-			{ "set_tile_frame", TileInstance_set_tile_frame },
+			{ "tile", TileInstance_tile },
+			{ "tile_frame", TileInstance_tile_frame },
 			{ NULL, NULL }
 		};
 
@@ -79,63 +98,83 @@ namespace game {
 		return 1;
 	}
 
-	int TileInstance_get_tile(lua_State *lua)
+	/**
+	 * Returns the tile this instance is representing, can be nil.
+	 *
+	 * @returns Tile The tile this instance is instancing.
+	 */
+	/**
+	 * Sets the tile this instance representings, can be nil.
+	 *
+	 * @param Tile tile The tile to represent.
+	 * @returns Boolean Always returns true.
+	 */
+	/**
+	 * Sets the tile based on the tile name, returns true if the tile
+	 * with given name was found.
+	 *
+	 * @param String tileName The name of the tile to instance.
+	 * @returns Boolean True if the a tile with the given name was found.
+	 */
+	int TileInstance_tile(lua_State *lua)
 	{
 		TileInstance *inst = castUData<TileInstance>(lua, 1);
 		if (inst)
 		{
-			Tile *tile = inst->getTile();
-			if (tile)
+			if (lua_gettop(lua) == 1)
 			{
-				wrapRefObject<Tile>(lua, tile);
+				Tile *tile = inst->getTile();
+				if (tile)
+				{
+					wrapRefObject<Tile>(lua, tile);
+					return 1;
+				}
+			}
+			else if (lua_isstring(lua, -1))
+			{
+				lua_pushboolean(lua, inst->setTileName(lua_tostring(lua, -1)));
+				return 1;
+			}
+			Tile *tile = castUData<Tile>(lua, 2);
+			inst->setTile(tile);
+			lua_pushboolean(lua, 1);
+			return 1;
+		}
+		lua_pushnil(lua);
+		return 1;
+	}
+	
+	/**
+	 * Returns the current tile frame.
+	 *
+	 * @returns Integer The current tile frame.
+	 */
+	/**
+	 * Sets the current tile frame. This frame refers to the frame in the tile graphic.
+	 * This will only work for tile graphics that have multiple frames and are not animated.
+	 *
+	 * @param Integer frame The new tile instance frame.
+	 * @returns TileInstance This
+	 */
+	int TileInstance_tile_frame(lua_State *lua)
+	{
+		TileInstance *inst = castUData<TileInstance>(lua, 1);
+		if (inst)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushinteger(lua, inst->getTileFrame());
+				return 1;
+			}
+			else
+			{
+				inst->setTileFrame(lua_tointeger(lua, -1));
+				lua_pushvalue(lua, 1);
 				return 1;
 			}
 		}
 		lua_pushnil(lua);
 		return 1;
-	}
-	int TileInstance_set_tile(lua_State *lua)
-	{
-		TileInstance *inst = castUData<TileInstance>(lua, 1);
-		Tile *tile = castUData<Tile>(lua, 2);
-		if (inst && tile)
-		{
-			inst->setTile(tile);
-		}
-		return 0;
-	}
-
-	int TileInstance_set_tile_name(lua_State *lua)
-	{
-		TileInstance *inst = castUData<TileInstance>(lua, 1);
-		if (inst && lua_isboolean(lua, -1))
-		{
-			lua_pushboolean(lua, inst->setTileName(lua_tostring(lua, -1)));
-			return 1;
-		}
-		lua_pushnil(lua);
-		return 1;
-	}
-
-	int TileInstance_get_tile_frame(lua_State *lua)
-	{
-		TileInstance *inst = castUData<TileInstance>(lua, 1);
-		if (inst)
-		{
-			lua_pushinteger(lua, inst->getTileFrame());
-			return 1;
-		}
-		lua_pushnil(lua);
-		return 1;
-	}
-	int TileInstance_set_tile_frame(lua_State *lua)
-	{
-		TileInstance *inst = castUData<TileInstance>(lua, 1);
-		if (inst && lua_isnumber(lua, -1))
-		{
-			inst->setTileFrame(lua_tointeger(lua, -1));
-		}
-		return 0;
 	}
 
 }
