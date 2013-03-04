@@ -20,19 +20,33 @@ namespace am {
 namespace lua {
 namespace game {
 
+	/**
+	 * @class
+	 * A tile set holds a collection of tiles. The tiles can then be refered
+	 * to by their tile set name and by their individual name. This allows for
+	 * multiple tiles to have the same name, as long as they are in different
+	 * tile sets.
+	 */
+	/**
+	 * Creates a new tile set with the given name.
+	 *
+	 * @param String name The tile set name.
+	 */
 	int TileSet_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		if (args == 1 && lua_isstring(lua, -1))
+		if (args == 1 && lua_type(lua, -1) == LUA_TSTRING)
 		{
 			TileSet *tile = new TileSet(lua_tostring(lua, -1));
 			wrapRefObject<TileSet>(lua, tile);
 			return 1;
 		}
-		TileSet *tile = new TileSet();
-		wrapRefObject<TileSet>(lua, tile);
+		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * Releases the reference counter on this tile set.
+	 */
 	int TileSet_dtor(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
@@ -42,7 +56,12 @@ namespace game {
 		}
 		return 0;
 	}
-
+	/**
+	 * Compares this tile set with another tile set.
+	 *
+	 * @param TileSet rhs The other tile set to compare with.
+	 * @returns Boolean True if they are the same tile set object.
+	 */
 	int TileSet_eq(lua_State *lua)
 	{
 		TileSet *lhs = castUData<TileSet>(lua, 1);
@@ -58,14 +77,12 @@ namespace game {
 			{ "new", TileSet_ctor },
 			{ "__gc", TileSet_dtor },
 			{ "__eq", TileSet_eq },
-			{ "set_name", TileSet_set_name },
-			{ "get_name", TileSet_get_name },
-			{ "set_full_name", TileSet_set_full_name },
-			{ "get_full_name", TileSet_get_full_name },
+			{ "name", TileSet_name },
+			{ "full_name", TileSet_full_name },
 			{ "add_tile", TileSet_add_tile },
 			{ "remove_tile", TileSet_remove_tile },
 			{ "has_tile", TileSet_has_tile },
-			{ "get_tile", TileSet_get_tile },
+			{ "tile", TileSet_tile },
 			{ "load_def", TileSet_load_def },
 			{ NULL, NULL }
 		};
@@ -78,17 +95,13 @@ namespace game {
 
 		return 1;
 	}
-
-	int TileSet_set_name(lua_State *lua)
-	{
-		TileSet *set = castUData<TileSet>(lua, 1);
-		if (set && lua_isstring(lua, -1))
-		{
-			set->setName(lua_tostring(lua, -1));
-		}
-		return 0;
-	}
-	int TileSet_get_name(lua_State *lua)
+	
+	/**
+	 * Returns the name of this tile set.
+	 *
+	 * @returns String The name of this tile set.
+	 */
+	int TileSet_name(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
@@ -99,28 +112,45 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
-	int TileSet_set_full_name(lua_State *lua)
-	{
-		TileSet *set = castUData<TileSet>(lua, 1);
-		if (set && lua_isstring(lua, -1))
-		{
-			set->setFullName(lua_tostring(lua, -1));
-		}
-		return 0;
-	}
-	int TileSet_get_full_name(lua_State *lua)
+	/**
+	 * Returns the full name of the tile set. This is used to display
+	 * the tile set name to the user.
+	 *
+	 * @returns String The full tile set name.
+	 */
+	/**
+	 * Sets the full name o the tile set. This is used to display
+	 * the tile set name to the user.
+	 *
+	 * @param String fullName The new full name of the tile set.
+	 * @returns TileSet This
+	 */
+	int TileSet_full_name(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
-			lua_pushstring(lua, set->getFullName().c_str());
-			return 1;
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, set->getFullName().c_str());
+				return 1;
+			}
+			else if (lua_type(lua, -1) == LUA_TSTRING)
+			{
+				set->setFullName(lua_tostring(lua, -1));
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-
+	/**
+	 * Adds a tile to this tile set.
+	 *
+	 * @param Tile tile The tile to add.
+	 * @returns TileSet This
+	 */
 	int TileSet_add_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
@@ -128,33 +158,64 @@ namespace game {
 		if (set && tile)
 		{
 			set->addTile(tile);
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
+	/**
+	 * Removes a tile from this tile set.
+	 *
+	 * @param String tileName The name of the tile to remove.
+	 * @returns TileSet This
+	 */
+	/**
+	 * Removes a tile from this tile set.
+	 *
+	 * @param Tile tile The tile to remove.
+	 * @returns TileSet This
+	 */
 	int TileSet_remove_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_type(lua, -1) == LUA_TSTRING)
 			{
 				set->removeTile(lua_tostring(lua, -1));
-				return 0;
+				lua_pushvalue(lua, 1);
+				return 1;
 			}
 			Tile *tile = castUData<Tile>(lua, 2);
 			if (tile)
 			{
 				set->removeTile(tile);
 			}
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		return 0;
+		lua_pushnil(lua);
+		return 1;
 	}
+	/**
+	 * Returns true if there is a tile with the given name in the tile set.
+	 *
+	 * @param String tileName The name of the tile to look for.
+	 * @returns Boolean True if the tile was found.
+	 */
+	/**
+	 * Retruns true if the given tile was found in this tile set.
+	 *
+	 * @param Tile tile The tile to look for.
+	 * @returns Boolean True if the tile was found.
+	 */
 	int TileSet_has_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_type(lua, -1) == LUA_TSTRING)
 			{
 				lua_pushboolean(lua, set->hasTile(lua_tostring(lua, -1)));
 				return 1;
@@ -169,10 +230,16 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-	int TileSet_get_tile(lua_State *lua)
+	/**
+	 * Looks for a tile in this tile set with the given name.
+	 *
+	 * @param String tileName The name of the tile to look for.
+	 * @returns Tile The found tile, or nil.
+	 */
+	int TileSet_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
-		if (set && lua_isstring(lua, -1))
+		if (set && lua_type(lua, -1) == LUA_TSTRING)
 		{
 			wrapRefObject<Tile>(lua, set->getTile(lua_tostring(lua, -1)));
 			return 1;
@@ -181,6 +248,9 @@ namespace game {
 		return 1;
 	}
 
+	/**
+	 * @private
+	 */
 	int TileSet_load_def(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);

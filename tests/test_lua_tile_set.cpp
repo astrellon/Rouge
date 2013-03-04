@@ -31,31 +31,19 @@ namespace tests {
 		assert(lua.loadString("TileSet = import(\"TileSet\")\n"
 			"set = TileSet.new(\"testTileSet\")\n"
 			"function getName()\n"
-			"	return set:get_name()\n"
-			"end\n"
-			"function setName(name)\n"
-			"	return set:set_name(name)\n"
+			"	return set:name()\n"
 			"end\n"
 			"function getFullName()\n"
-			"	return set:get_full_name()\n"
+			"	return set:full_name()\n"
 			"end\n"
 			"function setFullName(name)\n"
-			"	set:set_full_name(name)\n"
+			"	set:full_name(name)\n"
 			"end\n"
 			));
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
 		equalsStr("testTileSet", lua_tostring(lua, -1));
-		lua.pop(1);
-
-		assert(lua.hasGlobalFunction("setName"));
-		lua.push("newTestTileSet");
-		lua_acall(lua, 1, 0);
-
-		assert(lua.hasGlobalFunction("getName"));
-		lua_acall(lua, 0, 1);
-		equalsStr("newTestTileSet", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
@@ -83,7 +71,7 @@ namespace tests {
 			"	set:remove_tile(tile)\n"
 			"end\n"
 			"function getTile(tileName)\n"
-			"	return set:get_tile(tileName)\n"
+			"	return set:tile(tileName)\n"
 			"end\n"
 			"function hasTile(tile)\n"
 			"	return set:has_tile(tile)\n"
