@@ -18,7 +18,7 @@ namespace gfx {
 	int Sprite_eq(lua_State *lua);
 	int Sprite_register(lua_State *lua);
 
-	int Sprite_set_asset(lua_State *lua);
+	int Sprite_asset(lua_State *lua);
 
 }
 }

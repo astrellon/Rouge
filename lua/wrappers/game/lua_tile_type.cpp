@@ -20,7 +20,27 @@ using namespace am::util;
 namespace am {
 namespace lua {
 namespace game {
-
+	/**
+	 * @class
+	 * The tile type class represents the type of tile, such as land, water, lava, etc.
+	 * These types can be added to tiles so that a tile can have multiple types.
+	 * Each game object also contains a list of tile types which it can
+	 * pass through.
+	 */
+	/**
+	 * Creates a new tile type with the given name, this name should be unique
+	 * to all tile types.
+	 *
+	 * @param String tileTypeName The name of the tile type.
+	 */
+	/**
+	 * Creates a new tile type with the given name and full name. This name
+	 * should be unique to all tile types. The full name is used to display
+	 * the name of this tile type to the user.
+	 *
+	 * @param String tileTypeName The name of the tile type.
+	 * @param String fullName The full name of this tile type.
+	 */
 	int TileType_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
@@ -39,6 +59,9 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
+	/**
+	 * Deletes the tile type. TODO Check if it should do this.
+	 */
 	int TileType_dtor(lua_State *lua)
 	{
 		TileType *type = castUData<TileType>(lua, 1);
@@ -48,7 +71,12 @@ namespace game {
 		}
 		return 0;
 	}
-
+	/**
+	 * Compares this tile type against another tile type.
+	 *
+	 * @param TileType rhs The other tile type to compare with.
+	 * @returns Boolean Returns true if they are the same object.
+	 */
 	int TileType_eq(lua_State *lua)
 	{
 		TileType *lhs = castUData<TileType>(lua, 1);
@@ -64,13 +92,12 @@ namespace game {
 			{ "new", TileType_ctor },
 			{ "__gc", TileType_dtor },
 			{ "__eq", TileType_eq },
-			{ "get_name", TileType_get_name },
-			{ "get_full_name", TileType_get_full_name },
-			{ "set_full_name", TileType_set_full_name },
+			{ "name", TileType_name },
+			{ "full_name", TileType_full_name },
 			{ "load_def", NULL },
 			// Static TileType methods
 			{ "add_tile_type", TileType_add_tile_type },
-			{ "get_tile_type", TileType_get_tile_type },
+			{ "tile_type", TileType_tile_type },
 			{ NULL, NULL }
 		};
 
@@ -82,8 +109,12 @@ namespace game {
 
 		return 1;
 	}
-
-	int TileType_get_name(lua_State *lua)
+	/**
+	 * Returns the name of this tile type.
+	 *
+	 * @returns String This tile type's name.
+	 */
+	int TileType_name(lua_State *lua)
 	{
 		TileType *tile = castUData<TileType>(lua, 1);
 		if (tile)
@@ -94,28 +125,44 @@ namespace game {
 		lua_pushnil(lua);
 		return 1;
 	}
-
-	int TileType_get_full_name(lua_State *lua)
+	/**
+	 * Returns the full name of this tile type.
+	 *
+	 * @returns String This tile type's full name.
+	 */
+	/**
+	 * Sets the full name of the tile type.
+	 * This is used to display the name of the tile type to the user.
+	 *
+	 * @param String fullName The full name of the tile type.
+	 * @returns TileType This
+	 */
+	int TileType_full_name(lua_State *lua)
 	{
 		TileType *tile = castUData<TileType>(lua, 1);
 		if (tile)
 		{
-			lua_pushstring(lua, tile->getFullName());
-			return 1;
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, tile->getFullName());
+				return 1;
+			}
+			else if (lua_type(lua, -1) == LUA_TSTRING)
+			{
+				tile->setFullName(lua_tostring(lua, -1));
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
 		}
 		lua_pushnil(lua);
 		return 1;
 	}
-	int TileType_set_full_name(lua_State *lua)
-	{
-		TileType *tile = castUData<TileType>(lua, 1);
-		if (tile && lua_isstring(lua, -1))
-		{
-			tile->setFullName(lua_tostring(lua, -1));
-		}
-		return 0;
-	}
-
+	/**
+	 * @static
+	 * Register a tile type with the game engine.
+	 *
+	 * @param TileType tileType The tile type to register.
+	 */
 	int TileType_add_tile_type(lua_State *lua)
 	{
 		TileType *tile = castUData<TileType>(lua, 1);
@@ -125,9 +172,16 @@ namespace game {
 		}
 		return 0;
 	}
-	int TileType_get_tile_type(lua_State *lua)
+	/**
+	 * @static
+	 * Looks up a tile type with the given name.
+	 *
+	 * @param String tileTypeName The name of the tile type to look up.
+	 * @returns TileType The found tile type or nil.
+	 */
+	int TileType_tile_type(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_type(lua, -1) == LUA_TSTRING)
 		{
 			TileType *tile = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
 			if (tile)
