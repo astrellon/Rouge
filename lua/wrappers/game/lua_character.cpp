@@ -45,7 +45,7 @@ namespace game {
 	 * npc1:name("Fredrick Smith")
 	 * 
 	 * game = Engine.get_game()
-	 * main = game:get_main_character()
+	 * main = game:main()
 	 * </pre>
 	 */
 
@@ -843,6 +843,8 @@ namespace game {
 			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 			{
 				obj->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+				lua_pushvalue(lua, 1);
+				return 1;
 			}
 		}
 		lua_pushnil(lua);

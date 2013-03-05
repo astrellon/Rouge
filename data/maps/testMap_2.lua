@@ -59,30 +59,30 @@ do
 
 	-- Characters
 	npc1 = Character.new("npc1")
-	npc1:grid_location(2, 0)
-	npc1:graphic(Sprite.new("characters/npc/front"))
-	npc1:name("John")
+		:grid_location(2, 0)
+		:graphic(Sprite.new("characters/npc/front"))
+		:name("John")
 	map:add_game_object(npc1)
 
 	comp = DialogueComponent.new(npc1)
+		:available("diag1", true)
+		:available("diag2", true)
+		:available("diag3", true)
+		:available("startQuest", true)
+		:available("aboutFred", true)
+		:start_dialogue("diag1")
 	npc1:dialogue_component(comp)
-	comp:available("diag1", true)
-	comp:available("diag2", true)
-	comp:available("diag3", true)
-	comp:available("startQuest", true)
-	comp:available("aboutFred", true)
-	comp:start_dialogue("diag1")
 
 	npc2 = Character.new("npc2")
-	npc2:grid_location(4, 1)
-	npc2:name("Fred")
-	npc2:graphic(Sprite.new("characters/npc/front"))
+		:grid_location(4, 1)
+		:name("Fred")
+		:graphic(Sprite.new("characters/npc/front"))
 	map:add_game_object(npc2)
 
 	comp = DialogueComponent.new(npc2)
+		:available("imFred", true)
+		:start_dialogue("imFred")
 	npc2:dialogue_component(comp)
-	comp:available("imFred", true)
-	comp:start_dialogue("imFred")
 	-- End Character
 
 	-- Quests
