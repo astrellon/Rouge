@@ -66,11 +66,11 @@ do
 
 	comp = DialogueComponent.new(npc1)
 	npc1:dialogue_component(comp)
-	comp:available("diag1")
-	comp:available("diag2")
-	comp:available("diag3")
-	comp:available("startQuest")
-	comp:available("aboutFred")
+	comp:available("diag1", true)
+	comp:available("diag2", true)
+	comp:available("diag3", true)
+	comp:available("startQuest", true)
+	comp:available("aboutFred", true)
 	comp:start_dialogue("diag1")
 
 	npc2 = Character.new("npc2")
@@ -81,14 +81,14 @@ do
 
 	comp = DialogueComponent.new(npc2)
 	npc2:dialogue_component(comp)
-	comp:available("imFred")
+	comp:available("imFred", true)
 	comp:start_dialogue("imFred")
 	-- End Character
 
 	-- Quests
 	fredQuest = Quest.new("fredQuest")
 	fredQuest:on("startQuest", function(event)
-		npc2:dialogue_component():available("fredQuest")
+		npc2:dialogue_component():available("fredQuest", true)
 	end)
 	fredQuest:on("finishQuest", function(event)
 		am_log("Finished Fred Quest")

@@ -226,7 +226,7 @@ namespace game {
 	int DialogueComponent_dialogue_available(lua_State *lua)
 	{
 		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
-		if (comp && lua_isstring(lua, 2))
+		if (comp && lua_type(lua, 2) == LUA_TSTRING)
 		{
 			if (lua_gettop(lua) == 2)
 			{
