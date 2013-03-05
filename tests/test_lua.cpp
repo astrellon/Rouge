@@ -218,7 +218,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("testFunc"));
 		lua.push(4);
 		lua.push(5);
-		lua_call(lua, 2, 1);
+		lua_acall(lua, 2, 1);
 		int result = lua_tointeger(lua, -1);
 		equals(20, result);
 		lua.pop(1);
@@ -234,7 +234,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("testFunc"));
 		lua.push(4);
 		lua.push(5);
-		lua.call(2, 1);
+		lua_acall(lua, 2, 1);
 		result = lua_tointeger(lua, -1);
 		equals(20, result);
 		lua.pop(1);
@@ -243,7 +243,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("notafunc"));
 		equals(1, lua_gettop(lua));
 
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		const char *callResult = lua_tostring(lua, -1);
 		equalsStr(callResult, "hello there");
 		lua.pop(1);
@@ -260,7 +260,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("notafunc"));
 		equals(1, lua_gettop(lua));
 
-		lua_call(lua, 0, 1);
+		lua_acall(lua, 0, 1);
 		callResult = lua_tostring(lua, -1);
 		equalsStr(callResult, "how are you?");
 		lua.pop(1);
@@ -292,13 +292,13 @@ namespace tests {
 		}
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Melli", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(!lua.hasGlobalFunction("getAge"));
 		assert(lua.hasGlobalFunction("getNameAndAge"));
-		lua.call(0, 2);
+		lua_acall(lua, 0, 2);
 		equalsStr("Melli", lua_tostring(lua, -2));
 		equals(23, lua_tointeger(lua, -1));
 
@@ -314,13 +314,13 @@ namespace tests {
 		}
 
 		assert(lua.hasGlobalFunction("getName"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		equalsStr("Alan", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(!lua.hasGlobalFunction("getAge"));
 		assert(lua.hasGlobalFunction("getNameAndAge"));
-		lua.call(0, 2);
+		lua_acall(lua, 0, 2);
 		equalsStr("Alan", lua_tostring(lua, -2));
 		equals(23, lua_tointeger(lua, -1));
 
@@ -348,7 +348,7 @@ namespace tests {
 		equalsStr("none", name.c_str());
 
 		assert(lua.hasGlobalFunction("testFunc"));
-		lua.call(0, 0);
+		lua_acall(lua, 0, 0);
 
 		name = lua.getGlobalString("name");
 		equalsStr("Test Name", name.c_str());
@@ -387,14 +387,14 @@ namespace tests {
 		}
 
 		assert(lua.hasGlobalFunction("getBase"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		test::Base *base = castUData<test::Base>(lua, -1);
 		assert(base != NULL);
 
 		equalsStr("Melli", base->getName());
 
 		assert(lua.hasGlobalFunction("getChild"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 		test::Child *child = castUData<test::Child>(lua, -1);
 		assert(child != NULL);
 

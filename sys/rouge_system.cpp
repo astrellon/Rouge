@@ -318,7 +318,7 @@ namespace sys {
 
 		if (mLuaEngine.hasGlobalFunction("newGame"))
 		{
-			mLuaEngine.call(0, 0);
+			lua_acall(mLuaEngine, 0, 0);
 		}
 		else
 		{

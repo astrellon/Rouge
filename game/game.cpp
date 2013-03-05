@@ -115,14 +115,23 @@ namespace game {
 			lua.logStack("MAPLUA");
 			return NULL;
 		}
-		lua.call(0, 1);
-		Map *map = am::lua::castUData<Map>(lua, -1);
-
-		if (map)
+		try
 		{
-			mMaps[mapName] = map;
+			lua.call(0, 1);
+
+			Map *map = am::lua::castUData<Map>(lua, -1);
+
+			if (map)
+			{
+				mMaps[mapName] = map;
+			}
+			return map;
 		}
-		return map;
+		catch (std::runtime_error err)
+		{
+			am_log("MAP", err.what());
+		}
+		return NULL;
 	}
 
 	Map *Game::getCurrentMap()

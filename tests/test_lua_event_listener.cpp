@@ -62,7 +62,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("setManager"));
 		wrapObject<Quest>(lua, &manager);
 
-		lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 		Handle<Event> testEvent(new Event("testEvent"));
 		manager.fireEvent<Event>(testEvent);
 

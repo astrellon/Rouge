@@ -94,8 +94,10 @@ namespace lua {
 		int result = lua_pcall(mLua, n, r, 0);
 		if (result != LUA_OK)
 		{
-			//throw result;
-			throw std::runtime_error("Error calling Lua");
+			stringstream errss;
+			errss << "Error calling Lua: " << result << '\n';
+			printStack(mLua, errss);
+			throw std::runtime_error(errss.str().c_str());
 		}
 	}
 

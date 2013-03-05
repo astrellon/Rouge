@@ -11,14 +11,12 @@ onLoad()
 
 function newGame()
 	game = Game.new()
-	Engine.set_current_game(game)
+	Engine.game(game)
 	
-	am_log("NEW", "New game")
-	
-	map = game:get_map("testMap_2")
+	map = game:map("testMap_2")
 	if (map ~= nil) then
-		game:set_current_map(map)
+		game:current_map(map)
 	end
 	
-	player = Character.new()
+	-- player = Character.new()
 end

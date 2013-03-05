@@ -197,7 +197,7 @@ namespace game {
 	int Game_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_tostring(lua, -1))
+		if (game && lua_type(lua, -1) == LUA_TSTRING)
 		{
 			Map *map = game->getMapLua(lua_tostring(lua, -1));
 			if (map)

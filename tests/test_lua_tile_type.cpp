@@ -30,13 +30,13 @@ namespace tests {
 		assert(lua.loadString("TileType = import(\"TileType\")\n"
 			"type = TileType.new(\"testType\", \"Test Type\")\n"
 			"function getName()\n"
-			"	return type:get_name()\n"
+			"	return type:name()\n"
 			"end\n"
 			"function getFullName()\n"
-			"	return type:get_full_name()\n"
+			"	return type:full_name()\n"
 			"end\n"
 			"function setFullName(name)\n"
-			"	type:set_full_name(name)\n"
+			"	type:full_name(name)\n"
 			"end\n"
 			));
 
@@ -70,7 +70,7 @@ namespace tests {
 			"	TileType.add_tile_type(tile)\n"
 			"end\n"
 			"function getTileType(tileName)\n"
-			"	return TileType.get_tile_type(tileName)\n"
+			"	return TileType.tile_type(tileName)\n"
 			"end\n"
 			));
 

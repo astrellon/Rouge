@@ -6,18 +6,18 @@ do
 	-- Gfx Imports
 	Sprite = import("Sprite")
 
-	game = Engine.get_game()
+	game = Engine.game()
 
 	-- Map
 	map = Map.new("testMap", 6, 7)
-	map:set_full_name("The Region of Test")
+	map:full_name("The Region of Test")
 	game:add_map(map)
 
 	Engine.clear_using_tile_set()
 	Engine.using_tile_set("nature")
-	Engine.get_game():add_map(map)
+	Engine.game():add_map(map)
 
-	map:set_tiles({
+	map:tiles({
 		"brick:0", "brick:2", "grass:0", "grass:2", "grass:3", "dirt:3",
 		"grass:1", "brick:0", "grass:1", "dirt:0", "dirt:2", "grass:1",
 		"dirt:0", "brick:2", "grass:2", "dirt:3", "dirt:0", "grass:3",
@@ -59,36 +59,36 @@ do
 
 	-- Characters
 	npc1 = Character.new("npc1")
-	npc1:set_grid_location(2, 0)
-	npc1:set_graphic(Sprite.new("characters/npc/front"))
+	npc1:grid_location(2, 0)
+	npc1:graphic(Sprite.new("characters/npc/front"))
 	npc1:name("John")
 	map:add_game_object(npc1)
 
 	comp = DialogueComponent.new(npc1)
-	npc1:set_dialogue_component(comp)
-	comp:set_dialogue_available("diag1")
-	comp:set_dialogue_available("diag2")
-	comp:set_dialogue_available("diag3")
-	comp:set_dialogue_available("startQuest")
-	comp:set_dialogue_available("aboutFred")
-	comp:set_start_dialogue("diag1")
+	npc1:dialogue_component(comp)
+	comp:available("diag1")
+	comp:available("diag2")
+	comp:available("diag3")
+	comp:available("startQuest")
+	comp:available("aboutFred")
+	comp:start_dialogue("diag1")
 
 	npc2 = Character.new("npc2")
-	npc2:set_grid_location(4, 1)
+	npc2:grid_location(4, 1)
 	npc2:name("Fred")
-	npc2:set_graphic(Sprite.new("characters/npc/front"))
+	npc2:graphic(Sprite.new("characters/npc/front"))
 	map:add_game_object(npc2)
 
 	comp = DialogueComponent.new(npc2)
-	npc2:set_dialogue_component(comp)
-	comp:set_dialogue_available("imFred")
-	comp:set_start_dialogue("imFred")
+	npc2:dialogue_component(comp)
+	comp:available("imFred")
+	comp:start_dialogue("imFred")
 	-- End Character
 
 	-- Quests
 	fredQuest = Quest.new("fredQuest")
 	fredQuest:on("startQuest", function(event)
-		npc2:get_dialogue_component():set_dialogue_available("fredQuest")
+		npc2:dialogue_component():available("fredQuest")
 	end)
 	fredQuest:on("finishQuest", function(event)
 		am_log("Finished Fred Quest")

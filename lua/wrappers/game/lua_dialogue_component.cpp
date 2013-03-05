@@ -74,9 +74,9 @@ namespace game {
 			{ "talking_to", DialogueComponent_talking_to },
 			{ "start_dialogue", DialogueComponent_start_dialogue },
 			{ "locked", DialogueComponent_subject_lock },
-			{ "get_unlocked_subjects", NULL },
+			{ "unlocked_subjects", NULL },
 			{ "available", DialogueComponent_dialogue_available },
-			{ "get_dialogues_available", NULL },
+			{ "dialogues_available", NULL },
 			{ "attached_to", DialogueComponent_attached_to },
 			{ NULL, NULL }
 		};

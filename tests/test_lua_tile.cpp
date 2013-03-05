@@ -182,8 +182,8 @@ namespace tests {
 			
 			"types = tile:tile_types()\n"
 			"assert(2, #types)\n"
-			"assert(\"land-a\", types[1]:get_name())\n"
-			"assert(\"water-a\", types[2]:get_name())\n"
+			"assert(\"land-a\", types[1]:name())\n"
+			"assert(\"water-a\", types[2]:name())\n"
 			);
 
 		if (!loadResult)
