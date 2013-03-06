@@ -36,7 +36,21 @@ namespace ui {
 	{
 	}
 
+	void CharacterScreen::onEvent(Event *e)
+	{
+		if (e)
+		{
+			mTextDirty = true;
+		}
+	}
 	void CharacterScreen::onEvent(EquipEvent *e)
+	{
+		if (e)
+		{
+			mTextDirty = true;
+		}
+	}
+	void CharacterScreen::onEvent(StatEvent *e)
 	{
 		if (e)
 		{
@@ -52,6 +66,9 @@ namespace ui {
 			{
 				mCharacter->removeEventListener("equip", this);
 				mCharacter->removeEventListener("unequip", this);
+				mCharacter->removeEventListener("stat_change", this);
+				mCharacter->removeEventListener("level_change", this);
+				mCharacter->removeEventListener("experience_change", this);
 			}
 			mCharacter = character;
 			mTextDirty = true;
@@ -60,6 +77,9 @@ namespace ui {
 				mInventory->setInventory(character->getInventory());
 				mCharacter->addEventListener("equip", this);
 				mCharacter->addEventListener("unequip", this);
+				mCharacter->addEventListener("stat_change", this);
+				mCharacter->addEventListener("level_change", this);
+				mCharacter->addEventListener("experience_change", this);
 			}
 			else
 			{
@@ -114,6 +134,7 @@ namespace ui {
 		ss << "<char_screen>";
 		ss << "<title class='name'>Name:</title> " << mCharacter->getName() << "\n";
 		ss << "-------\n";
+		ss << "<title class='level'>Level:</title> " << mCharacter->getLevel() << " (" << mCharacter->getExperience() << ")\n";
 
 		Stats &stats = mCharacter->getStats();
 		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";

@@ -360,6 +360,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\mouse_common.cpp" />
     <ClCompile Include="ui\mouse_event.cpp" />
     <ClCompile Include="ui\mouse_manager.cpp" />
+    <ClCompile Include="ui\stat_event.cpp" />
     <ClCompile Include="ui\ui_asset_renderer.cpp" />
     <ClCompile Include="ui\ui_body_part_renderer.cpp" />
     <ClCompile Include="ui\ui_text_button.cpp" />
@@ -554,6 +555,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\mouse_common.h" />
     <ClInclude Include="ui\mouse_event.h" />
     <ClInclude Include="ui\mouse_manager.h" />
+    <ClInclude Include="ui\stat_event.h" />
     <ClInclude Include="ui\ui_asset_renderer.h" />
     <ClInclude Include="ui\ui_body_part_renderer.h" />
     <ClInclude Include="ui\ui_text_button.h" />

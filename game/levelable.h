@@ -1,5 +1,8 @@
 #pragma once
 
+#include <ui/event_interface.h>
+using namespace am::ui;
+
 namespace am {
 namespace game {
 
@@ -30,6 +33,8 @@ namespace game {
 		int mExperience;
 
 		virtual void onLevelUp() {}
+		virtual void onExperienceChange() {}
+		void _setExperience(int exp);
 
 		virtual void addLevelsUntil(short level);
 

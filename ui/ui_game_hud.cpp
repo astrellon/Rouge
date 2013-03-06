@@ -17,13 +17,17 @@ namespace ui {
 
 		mDialogueBox = new DialogueBox();
 		addChild(mDialogueBox);
+		mDialogueBox->setParentAnchor(X_LEFT, Y_BOTTOM);
+		mDialogueBox->setAnchor(X_LEFT, Y_BOTTOM);
 		mDialogueBox->setSize(200.0f, 100.0f);
-		mDialogueBox->setParentOffset(50.0f, 400.0f);
+		mDialogueBox->setParentOffset(20.0f, -20.0f);
 		
 		mDialogueChoices = new DialogueChoices();
 		addChild(mDialogueChoices);
+		mDialogueChoices->setParentAnchor(X_RIGHT, Y_BOTTOM);
+		mDialogueChoices->setAnchor(X_RIGHT, Y_BOTTOM);
 		mDialogueChoices->setSize(200.0f, 100.0f);
-		mDialogueChoices->setParentOffset(400.0f, 400.0f);
+		mDialogueChoices->setParentOffset(-20.0f, -20.0f);
 	}
 	GameHud::~GameHud()
 	{

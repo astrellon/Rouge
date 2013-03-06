@@ -34,6 +34,7 @@ namespace game {
 		addEventListener(MOUSE_UP, this);
 
 		mInventory = new Inventory(10, 6);
+		mStats.setAttachedTo(this);
 	}
 	Character::~Character()
 	{
@@ -421,5 +422,15 @@ namespace game {
 		fireEvent<EquipEvent>(new EquipEvent("unequip", this, bodyPartName, item));
 	}
 
+	void Character::onLevelUp()
+	{
+		Handle<Event> e(new Event("level_change"));
+		fireEvent<Event>(e);
+	}
+	void Character::onExperienceChange()
+	{
+		Handle<Event> e(new Event("experience_change"));
+		fireEvent<Event>(e);
+	}
 }
 }

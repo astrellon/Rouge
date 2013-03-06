@@ -115,6 +115,9 @@ namespace game {
 		Race *mRace;
 		Gender::GenderType mGender;
 
+		virtual void onLevelUp();
+		virtual void onExperienceChange();
+
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);
 	};

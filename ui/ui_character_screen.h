@@ -30,7 +30,9 @@ namespace ui {
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
+		virtual void onEvent(Event *e);
 		virtual void onEvent(EquipEvent *e);
+		virtual void onEvent(StatEvent *e);
 
 		virtual void render(float dt);
 

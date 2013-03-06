@@ -8,6 +8,9 @@ using namespace std;
 #include <base/imanaged.h>
 using namespace am::base;
 
+#include <ui/event_interface.h>
+using namespace am::ui;
+
 #include "stats_common.h"
 #include "stat_modifier.h"
 #include "stat_modifiers.h"
@@ -56,6 +59,9 @@ namespace game {
 		float mCalculatedStats[Stat::MAX_STAT_LENGTH];
 
 		bool mDirtyStats[Stat::MAX_STAT_LENGTH];
+
+		virtual void setStatDirty(int stat);
+		virtual void setStatDirty(Stat::StatType stat);
 		
 		StatModifiers mModifiers;
 	};

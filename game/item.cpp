@@ -652,5 +652,16 @@ namespace game {
 		}
 	}
 
+	void Item::onLevelUp()
+	{
+		Handle<Event> e(new Event("level_change"));
+		fireEvent<Event>(e);
+	}
+	void Item::onExperienceChange()
+	{
+		Handle<Event> e(new Event("experience_change"));
+		fireEvent<Event>(e);
+	}
+
 }
 }

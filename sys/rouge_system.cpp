@@ -134,6 +134,18 @@ namespace sys {
 		{
 			mLuaEngine.logStack("ERROR: Unable to load main engine.lua file!");
 		}
+
+		stringstream ss;
+		ss << "Char size: " << sizeof(Character);
+		am_log("SIZE", ss);
+
+		ss.str("");
+		ss << "Item size: " << sizeof(Item);
+		am_log("SIZE", ss);
+
+		ss.str("");
+		ss << "Stats size: " << sizeof(Stats);
+		am_log("SIZE", ss);
 		
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);

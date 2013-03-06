@@ -8,7 +8,8 @@ namespace game {
 	const int Stats::LUA_ID = 0x02;
 	const char *Stats::LUA_TABLENAME = "am_game_Stats";
 
-	Stats::Stats()
+	Stats::Stats() :
+		mAttachedTo(NULL)
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
 		{
@@ -43,7 +44,7 @@ namespace game {
 		}
 		if (mModifiers.addStatModifier(stat, modifier))
 		{
-			mDirtyStats[stat] = true;
+			setStatDirty(stat);
 			return true;
 		}
 		return false;
@@ -56,7 +57,7 @@ namespace game {
 		}
 		if (mModifiers.removeStatModifier(stat, modifier))
 		{
-			mDirtyStats[stat] = true;
+			setStatDirty(stat);
 			return true;
 		}
 		return false;
@@ -79,7 +80,7 @@ namespace game {
 		if (mBaseStats[stat] != value)
 		{
 			mBaseStats[stat] = value;
-			mDirtyStats[stat] = true;
+			setStatDirty(stat);
 		}
 	}
 
@@ -120,7 +121,7 @@ namespace game {
 		StatModifiers::StatModifierMap::const_iterator iter;
 		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
 		{
-			mDirtyStats[iter->first] = true;
+			setStatDirty(iter->first);
 		}
 	}
 	void Stats::removeModifiers(const IStatModifiers &rhs)
@@ -150,6 +151,25 @@ namespace game {
 	const StatModifiers &Stats::getStatModifiers() const
 	{
 		return mModifiers;
+	}
+
+	void Stats::setStatDirty(int stat)
+	{
+		mDirtyStats[stat] = true;
+		if (mAttachedTo)
+		{
+			Handle<StatEvent> e(new StatEvent(this, Stat::getStatType(stat)));
+			mAttachedTo->fireEvent<StatEvent>(e);
+		}
+	}
+	void Stats::setStatDirty(Stat::StatType stat)
+	{
+		mDirtyStats[stat] = true;
+		if (mAttachedTo)
+		{
+			Handle<StatEvent> e(new StatEvent(this, stat));
+			mAttachedTo->fireEvent<StatEvent>(e);
+		}
 	}
 	
 }

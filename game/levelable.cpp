@@ -27,7 +27,7 @@ namespace game {
 		}
 		if (mLevel < mMaxLevel || mMaxLevel <= 0)
 		{
-			mExperience = experience;
+			_setExperience(experience);
 		}
 	}
 	int Levelable::getExperience() const
@@ -77,5 +77,13 @@ namespace game {
 		}
 	}
 
+	inline void Levelable::_setExperience(int exp)
+	{
+		if (mExperience != exp)
+		{
+			mExperience = exp;
+			onExperienceChange();
+		}
+	}
 }
 }

@@ -121,6 +121,9 @@ namespace game {
 		//virtual void parseStats(const JsonObject &stats, bool magical);
 		virtual void parseStats(LuaState &lua, bool magical);
 
+		virtual void onLevelUp();
+		virtual void onExperienceChange();
+
 		void getPrePostfix(short &prefix, short &postfix) const;
 
 		static const char *sItemLocationNames[];

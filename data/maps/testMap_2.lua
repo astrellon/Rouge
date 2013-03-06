@@ -92,6 +92,7 @@ do
 	end)
 	fredQuest:on("finishQuest", function(event)
 		am_log("Finished Fred Quest")
+		game:main():add_experience(1000)
 	end)
 
 	npc1:on("dialogue:startQuest", function(event)
