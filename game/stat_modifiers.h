@@ -5,7 +5,7 @@ using namespace std;
 
 #include "stats_common.h"
 #include "stat_modifier.h"
-#include "i_stat_modifiers.h"
+#include "istat_modifiers.h"
 
 namespace am {
 namespace game {

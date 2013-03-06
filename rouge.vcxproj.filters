@@ -1267,11 +1267,11 @@
     <ClInclude Include="lua\wrappers\game\lua_stat_modifier.h">
       <Filter>lua\wrapper\game</Filter>
     </ClInclude>
-    <ClInclude Include="game\i_stat_modifiers.h">
-      <Filter>game\stats</Filter>
-    </ClInclude>
     <ClInclude Include="ui\stat_event.h">
       <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="game\istat_modifiers.h">
+      <Filter>game\stats</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
