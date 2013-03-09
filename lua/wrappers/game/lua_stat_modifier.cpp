@@ -157,8 +157,7 @@ namespace game {
 			else if (lua_isnumber(lua, 2))
 			{
 				mod->setValue(lua_tofloat(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -199,8 +198,7 @@ namespace game {
 				{
 					mod->setType(type);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -231,8 +229,7 @@ namespace game {
 			else if (lua_isboolean(lua, 2))
 			{
 				mod->setMagical(lua_tobool(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);

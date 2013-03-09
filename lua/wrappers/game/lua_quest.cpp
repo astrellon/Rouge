@@ -161,8 +161,7 @@ namespace game {
 			else if (lua_isboolean(lua, -1))
 			{
 				quest->setCompleted(lua_toboolean(lua, -1) > 0);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -192,8 +191,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				quest->setTitle(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -223,8 +221,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				quest->setDescription(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -255,8 +252,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				quest->setActiveText(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);

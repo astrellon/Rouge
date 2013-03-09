@@ -185,8 +185,7 @@ namespace game {
 				{
 					item->setGraphic(graphic);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -223,8 +222,7 @@ namespace game {
 			else
 			{
 				item->setGroundGraphic(castUData<Sprite>(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -277,8 +275,7 @@ namespace game {
 				{
 					item->setItemType(type);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -314,8 +311,7 @@ namespace game {
 				short width = static_cast<short>(lua_tointeger(lua, -2));
 				short height = static_cast<short>(lua_tointeger(lua, -1));
 				item->setInventorySize(width, height);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -362,8 +358,7 @@ namespace game {
 				{
 					item->setItemLocation(location);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -396,8 +391,7 @@ namespace game {
 			else if (lua_isnumber(lua, -1))
 			{
 				item->setQuestItemId(lua_tointeger(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -443,8 +437,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				item->setItemName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -479,8 +472,7 @@ namespace game {
 			{
 				item->setPrefix(NULL);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -514,8 +506,7 @@ namespace game {
 			{
 				item->setPostfix(NULL);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -556,8 +547,7 @@ namespace game {
 			{
 				item->setItemFullname(lua_tostring(lua, -3), lua_tostring(lua, -2), lua_tostring(lua, -1));
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -575,8 +565,7 @@ namespace game {
 		if (item && other)
 		{
 			item->setItemFrom(*other);
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -689,8 +678,7 @@ namespace game {
 			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 			{
 				item->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -725,8 +713,7 @@ namespace game {
 			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 			{
 				item->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			
 		}

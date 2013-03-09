@@ -204,8 +204,7 @@ namespace game {
 				{
 					obj->setName(name);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "name", "string name");
 		}
@@ -240,8 +239,7 @@ namespace game {
 			else if (lua_isnum(lua, 2))
 			{
 				obj->setPickupReach(lua_tofloat(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "pickup_reach", "number radius");
 		}
@@ -687,8 +685,7 @@ namespace game {
 			else if (lua_isnum(lua, 2))
 			{
 				obj->setAge(lua_tofloat(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "age", "number age");
 		}
@@ -733,8 +730,7 @@ namespace game {
 			else if(lua_isnil(lua, 2))
 			{
 				obj->setRace(NULL);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			else
 			{
@@ -750,8 +746,7 @@ namespace game {
 				if (race)
 				{
 					obj->setRace(race);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 			}
 			return LuaState::expectedArgs(lua, "race", 3, "string raceName", "Race race", "nil");
@@ -796,8 +791,7 @@ namespace game {
 				if (gender != Gender::MAX_GENDER_LENGTH) 
 				{
 					obj->setGender(gender);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 				return LuaState::expectedArgs(lua, "gender", "String genderName");
 			}
@@ -876,8 +870,7 @@ namespace game {
 				}
 				if (valid)
 				{
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 				return LuaState::expectedArgs(lua, "graphic", 3, "string assetName", "Sprite sprite", "nil");
 			}
@@ -909,8 +902,7 @@ namespace game {
 			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
 				obj->setLocation(lua_tofloat(lua, 2), lua_tofloat(lua, 3));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "location", "number x, number y");
 		}
@@ -941,8 +933,7 @@ namespace game {
 			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
 				obj->setGridLocation(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "grid_location", "integer x, integer y");
 		}
@@ -963,8 +954,7 @@ namespace game {
 			if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
 				obj->move(lua_tofloat(lua, 2), lua_tofloat(lua, 3));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "move", "number x, number y");
 		}
@@ -985,8 +975,7 @@ namespace game {
 			if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
 				obj->moveGrid(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "move_grid", "integer x, integer y");
 		}
@@ -1067,8 +1056,7 @@ namespace game {
 			else if (lua_isbool(lua, 2))
 			{
 				obj->setFixedToGrid(lua_tobool(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "fixed_to_grid", "boolean fixed");
 		}
@@ -1103,8 +1091,7 @@ namespace game {
 			else if (lua_isnil(lua, 2))
 			{
 				obj->setMap(NULL);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			else
 			{
@@ -1113,8 +1100,7 @@ namespace game {
 				{
 					// Can be set to nil
 					obj->setMap(map);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 			}
 			return LuaState::expectedArgs(lua, "map", 2, "nil map", "Map map");
@@ -1136,8 +1122,7 @@ namespace game {
 			if (type)
 			{
 				obj->addPassibleType(type);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "add_passible_type", "TileType tileType");
 		}
@@ -1157,8 +1142,7 @@ namespace game {
 			if (type)
 			{
 				obj->removePassibleType(type);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "remove_passible_type", "TileType tileType");
 		}
@@ -1174,8 +1158,7 @@ namespace game {
 		if (obj)
 		{
 			obj->removeAllPassibleTypes();
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		return LuaState::expectedContext(lua, "remove_all_passible_types", "Character");
 	}
@@ -1272,8 +1255,7 @@ namespace game {
 			else if (lua_isnil(lua, 2))
 			{
 				obj->setDialogueComp(NULL);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			else
 			{
@@ -1288,8 +1270,7 @@ namespace game {
 					{
 						obj->setDialogueComp(comp);
 					}
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 			}
 			return LuaState::expectedArgs(lua, "dialogue_component", 2, "DialogueComponent comp", "nil comp");
@@ -1437,8 +1418,7 @@ namespace game {
 			else if (lua_isnum(lua, 2))
 			{
 				obj->setExperience(lua_tointeger(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "experience", "integer experience");
 		}
@@ -1459,8 +1439,7 @@ namespace game {
 			if (lua_isnum(lua, 2))
 			{
 				obj->addExperience(lua_tointeger(lua, 2));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "add_experience", "integer experience");
 		}
@@ -1495,8 +1474,7 @@ namespace game {
 			else if (lua_isnum(lua, 2))
 			{
 				obj->setLevel(static_cast<short>(lua_tointeger(lua, 2)));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "level", "integer level");
 		}
@@ -1518,8 +1496,7 @@ namespace game {
 			if (lua_isnum(lua, 2))
 			{
 				obj->addLevel(static_cast<short>(lua_tointeger(lua, 2)));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "add_level", "integer level");
 		}
@@ -1550,8 +1527,7 @@ namespace game {
 			else if (lua_isnum(lua, 2))
 			{
 				obj->setMaxLevel(static_cast<short>(lua_tointeger(lua, 2)));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "max_level", "integer maxLevel");
 		}

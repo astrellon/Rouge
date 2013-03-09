@@ -189,8 +189,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				tile->setFullName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -220,8 +219,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				tile->setDescription(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -327,8 +325,7 @@ namespace game {
 			{
 				tile->addTileType(tileType);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -357,8 +354,7 @@ namespace game {
 			{
 				tile->removeTileType(tileType);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -374,8 +370,7 @@ namespace game {
 		if (tile)
 		{
 			tile->removeAllTileTypes();
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;

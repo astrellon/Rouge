@@ -151,8 +151,7 @@ namespace game {
 				{
 					float value = lua_tofloat(lua, 3);
 					stats->setBaseStat(stat, value);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 			}
 		}

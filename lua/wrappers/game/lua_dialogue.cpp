@@ -38,16 +38,16 @@ namespace game {
 	 */
 	int Dialogue_ctor(lua_State *lua)
 	{
-		if (lua_isstring(lua, 1) && lua_isstring(lua, 2))
+		if (lua_isstr(lua, 1) && lua_isstr(lua, 2))
 		{
 			int args = lua_gettop(lua);
 			const char *title = NULL;
-			if (args >= 3 && lua_isstring(lua, 3))
+			if (args >= 3 && lua_isstr(lua, 3))
 			{
 				title = lua_tostring(lua, 3);
 			}
 			const char *subject = NULL;
-			if (args >= 4 && lua_isstring(lua, 4))
+			if (args >= 4 && lua_isstr(lua, 4))
 			{
 				subject = lua_tostring(lua, 4);
 			}
@@ -74,8 +74,7 @@ namespace game {
 			wrapObject<Dialogue>(lua, dialogue);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", "string dialogueId, string text, string title [\"\"], string subject [\"\"], string unlock_flag [\"none\"], string action [\"none\"]");
 	}
 	/**
 	 * The Dialogue won't be destroyed until it is removed from the game engine.
@@ -94,6 +93,10 @@ namespace game {
 	int Dialogue_eq(lua_State *lua)
 	{
 		Dialogue *lhs = castUData<Dialogue>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Dialogue");
+		}
 		Dialogue *rhs = castUData<Dialogue>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -110,13 +113,13 @@ namespace game {
 			{ "title", Dialogue_title },
 			{ "id", Dialogue_id },
 			{ "subject", Dialogue_subject },
-			{ "unlock_flag", Dialogue_unlock_flag },
-			{ "dialogue_action", Dialogue_dialogue_action },
+			{ "unlock", Dialogue_unlock_flag },
+			{ "action", Dialogue_dialogue_action },
 			// Static
 			{ "add_dialogue", Dialogue_add_dialogue },
 			{ "remove_dialogue", Dialogue_remove_dialogue },
 			{ "remove_all_dialogue", Dialogue_remove_all_dialogue },
-			{ "get_dialogue", Dialogue_get_dialogue },
+			{ "dialogue", Dialogue_get_dialogue },
 			{ NULL, NULL }
 		};
 
@@ -148,15 +151,14 @@ namespace game {
 				lua_pushstring(lua, diag->getText());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				diag->setText(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				diag->setText(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "text", "string text");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "text", "Dialogue");
 	}
 	/**
 	 * Returns the title for this dialogue.
@@ -177,15 +179,14 @@ namespace game {
 				lua_pushstring(lua, diag->getTitle());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				diag->setTitle(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				diag->setTitle(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "title", "string title");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "title", "Dialogue");
 	}
 	/**
 	 * Returns the unique id for this dialogue.
@@ -206,15 +207,14 @@ namespace game {
 				lua_pushstring(lua, diag->getId());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				diag->setId(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				diag->setId(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "id", "string id");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "id", "Dialogue");
 	}
 	/**
 	 * Returns the subject title for this dialogue, this can be an empty string.
@@ -237,15 +237,14 @@ namespace game {
 				lua_pushstring(lua, diag->getSubject());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				diag->setSubject(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				diag->setSubject(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "subject", "string subject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "subject", "Dialogue");
 	}
 	
 	/**
@@ -271,19 +270,22 @@ namespace game {
 				lua_pushstring(lua, Dialogue::getUnlockFlagName(diag->getUnlockFlag()));
 				return 1;
 			}
-			else
+			else if (lua_isstr(lua, 2))
 			{
-				Dialogue::UnlockFlag flag = getUnlockFlag(lua, -1);
+				Dialogue::UnlockFlag flag = getUnlockFlag(lua, 2);
 				if (flag != Dialogue::UNLOCK_UNKNOWN)
 				{
 					diag->setUnlockFlag(flag);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				else
+				{
+					LuaState::warning(lua, "Valid dialogue unlock flag values are \"none\" or \"locked\"");
+				}
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "unlock", "string flag");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "unlock", "Dialogue");
 	}
 
 	/**
@@ -293,7 +295,7 @@ namespace game {
 	/**
 	 * Sets the dialogue action, these trigger special events when the
 	 * dialogue is used.
-	 * @param string Either "none", "shop" or "close"
+	 * @param string action Either "none", "shop" or "close"
 	 * @returns Dialogue This
 	 */
 	int Dialogue_dialogue_action(lua_State *lua)
@@ -306,19 +308,22 @@ namespace game {
 				lua_pushstring(lua, Dialogue::getDialogueActionName(diag->getDialogueAction()));
 				return 1;
 			}
-			else
+			else if (lua_isstr(lua, 2))
 			{
-				Dialogue::DialogueAction action = getDialogueAction(lua, -1);
+				Dialogue::DialogueAction action = getDialogueAction(lua, 2);
 				if (action != Dialogue::ACTION_UNKNOWN)
 				{
 					diag->setDialogueAction(action);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				else
+				{
+					LuaState::warning(lua, "Valid dialogue action values are \"none\", \"shop\" or \"close\"");
+				}
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "action", "string action");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "action", "Dialogue");
 	}
 	/**
 	 * @static
@@ -336,8 +341,7 @@ namespace game {
 			lua_pushboolean(lua, Engine::getGame()->addDialogue(diag));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@add_dialogue", "Dialogue dialogue");
 	}
 	/**
 	 * @static
@@ -347,13 +351,12 @@ namespace game {
 	 */
 	int Dialogue_remove_dialogue(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			lua_pushboolean(lua, Engine::getGame()->removeDialogue(lua_tostring(lua, -1)));
+			lua_pushboolean(lua, Engine::getGame()->removeDialogue(lua_tostring(lua, 1)));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@remove_dialogue", "string dialogueId");
 	}
 	/**
 	 * @static
@@ -372,26 +375,27 @@ namespace game {
 	 */
 	int Dialogue_get_dialogue(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			Dialogue *diag = Engine::getGame()->getDialogue(lua_tostring(lua, -1));
+			Dialogue *diag = Engine::getGame()->getDialogue(lua_tostring(lua, 1));
 			if (diag)
 			{
 				wrapObject<Dialogue>(lua, diag);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@dialogue", "string dialogueId");
 	}
 
 	Dialogue::UnlockFlag getUnlockFlag(lua_State *lua, int n)
 	{
-		if (lua_isstring(lua, n))
+		if (lua_isstr(lua, n))
 		{
 			return Dialogue::toUnlockFlag(lua_tostring(lua, n));
 		}
-		if (lua_isnumber(lua, n))
+		if (lua_isnum(lua, n))
 		{
 			return Dialogue::toUnlockFlag(lua_tointeger(lua, n));
 		}
@@ -399,11 +403,11 @@ namespace game {
 	}
 	Dialogue::DialogueAction getDialogueAction(lua_State *lua, int n)
 	{
-		if (lua_isstring(lua, n))
+		if (lua_isstr(lua, n))
 		{
 			return Dialogue::toDialogueAction(lua_tostring(lua, n));
 		}
-		if (lua_isnumber(lua, n))
+		if (lua_isnum(lua, n))
 		{
 			return Dialogue::toDialogueAction(lua_tointeger(lua, n));
 		}

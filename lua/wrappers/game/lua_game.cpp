@@ -181,8 +181,7 @@ namespace game {
 		if (game)
 		{
 			game->removeAllMaps();
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -268,8 +267,7 @@ namespace game {
 					Map *map = castUData<Map>(lua, -1);
 					game->setCurrentMap(map);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -413,8 +411,7 @@ namespace game {
 					}
 				}
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -479,8 +476,7 @@ namespace game {
 					}
 				}
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -517,8 +513,7 @@ namespace game {
 				{
 					game->setMainCharacter(character);
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -559,8 +554,7 @@ namespace game {
 			{
 				game->registerGameObject(obj);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -581,8 +575,7 @@ namespace game {
 			{
 				game->deregisterGameObject(obj);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -651,8 +644,7 @@ namespace game {
 		if (game)
 		{
 			game->removeAllDialogue();
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;

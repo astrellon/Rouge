@@ -21,6 +21,7 @@ using namespace am::base;
 #define lua_isnum(L,i)		(lua_type(L,i) == LUA_TNUMBER)
 #define lua_isstr(L,i)		(lua_type(L,i) == LUA_TSTRING)
 #define lua_isbool(L,i)		(lua_type(L,i) == LUA_TBOOLEAN)
+#define lua_first(L)		lua_pushvalue(L,1); return 1;
 
 // Wraps the lua call function with a try catch and a log message with the same file and line as the error if there is one.
 // Should only be used for unit tests as it does not deal with the error, only log that there was one.

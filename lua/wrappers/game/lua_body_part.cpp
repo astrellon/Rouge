@@ -140,15 +140,13 @@ namespace game {
 				if (lua_isnil(lua, 2))
 				{
 					part->setEquippedItem(NULL);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 				Item *item = castUData<Item>(lua, 2);
 				if (item)
 				{
 					part->setEquippedItem(item);
-					lua_pushvalue(lua, 1);
-					return 1;
+					lua_first(lua);
 				}
 			}
 			return LuaState::expectedArgs(lua, "item", 2, "Item item, nil item");

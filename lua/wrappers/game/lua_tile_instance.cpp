@@ -169,8 +169,7 @@ namespace game {
 			else
 			{
 				inst->setTileFrame(lua_tointeger(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);

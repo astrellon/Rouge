@@ -138,8 +138,7 @@ namespace game {
 			else if (lua_type(lua, -1) == LUA_TSTRING)
 			{
 				set->setFullName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -158,8 +157,7 @@ namespace game {
 		if (set && tile)
 		{
 			set->addTile(tile);
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -184,16 +182,14 @@ namespace game {
 			if (lua_type(lua, -1) == LUA_TSTRING)
 			{
 				set->removeTile(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 			Tile *tile = castUData<Tile>(lua, 2);
 			if (tile)
 			{
 				set->removeTile(tile);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;

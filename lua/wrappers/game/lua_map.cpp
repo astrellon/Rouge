@@ -146,8 +146,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				map->setName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -177,8 +176,7 @@ namespace game {
 			else if (lua_isstring(lua, -1))
 			{
 				map->setFullName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -312,8 +310,7 @@ namespace game {
 				}
 			}
 			map->updateAssetSprites();
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -345,8 +342,7 @@ namespace game {
 			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
 			{
 				map->setMapSize(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);

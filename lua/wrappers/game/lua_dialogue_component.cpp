@@ -110,8 +110,7 @@ namespace game {
 			{
 				comp->talkTo(other);
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -172,8 +171,7 @@ namespace game {
 					diag = castUData<Dialogue>(lua, -1);
 				}
 				comp->setStartDialogue(diag);
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
@@ -206,8 +204,7 @@ namespace game {
 				comp->setSubjectLock(lua_tostring(lua, 2), lua_tobool(lua, 3));
 			}
 			
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -237,8 +234,7 @@ namespace game {
 			{
 				comp->setDialogueAvailable(lua_tostring(lua, 2), lua_tobool(lua, 3));
 			}
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;
@@ -264,8 +260,7 @@ namespace game {
 				return 1;
 			}
 			comp->setAttachedTo(getGameObject(lua, 2));
-			lua_pushvalue(lua, 1);
-			return 1;
+			lua_first(lua);
 		}
 		lua_pushnil(lua);
 		return 1;

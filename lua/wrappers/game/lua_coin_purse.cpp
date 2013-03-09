@@ -42,8 +42,9 @@ namespace game {
 		if (purse)
 		{
 			purse->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "CoinPurse");
 	}
 	/**
 	 * Compares this CoinPurse with another CoinPurse object.
@@ -54,6 +55,10 @@ namespace game {
 	int CoinPurse_eq(lua_State *lua)
 	{
 		CoinPurse *lhs = castUData<CoinPurse>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "CoinPurse");
+		}
 		CoinPurse *rhs = castUData<CoinPurse>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -102,15 +107,14 @@ namespace game {
 				lua_pushinteger(lua, static_cast<int>(purse->getCoin()));
 				return 1;
 			}
-			else if (lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2))
 			{
-				purse->setCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
-				lua_pushvalue(lua, 1);
-				return 1;
+				purse->setCoin(static_cast<unsigned int>(lua_tointeger(lua, 2)));
+				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "coin", "integer coin");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "coin", "CoinPurse");
 	}
 	
 	/**
@@ -122,13 +126,16 @@ namespace game {
 	int CoinPurse_can_add_coin(lua_State *lua)
 	{
 		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
-		if (purse && lua_isnumber(lua, -1))
+		if (purse)
 		{
-			lua_pushinteger(lua, static_cast<int>(purse->canAddCoin(lua_tointeger(lua, -1))));
-			return 1;
+			if (lua_isnum(lua, 2))
+			{
+				lua_pushinteger(lua, static_cast<int>(purse->canAddCoin(lua_tointeger(lua, 2))));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "can_add_coin", "integer coin");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "can_add_coin", "CoinPurse");
 	}
 	/**
 	 * Returns how many coins cannot be taken out of the purse. A value of
@@ -139,13 +146,16 @@ namespace game {
 	int CoinPurse_can_remove_coin(lua_State *lua)
 	{
 		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
-		if (purse && lua_isnumber(lua, -1))
+		if (purse)
 		{
-			lua_pushinteger(lua, static_cast<int>(purse->canRemoveCoin(lua_tointeger(lua, -1))));
-			return 1;
+			if (lua_isnum(lua, 2))
+			{
+				lua_pushinteger(lua, static_cast<int>(purse->canRemoveCoin(lua_tointeger(lua, 2))));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "can_remove_coin", "integer coin");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "can_remove_coin", "CoinPurse");
 	}
 
 	/**
@@ -157,14 +167,16 @@ namespace game {
 	int CoinPurse_add_coin(lua_State *lua)
 	{
 		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
-		if (purse && lua_isnumber(lua, -1))
+		if (purse)
 		{
-			purse->addCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
-			lua_pushvalue(lua, 1);
-			return 1;
+			if (lua_isnum(lua, 2))
+			{
+				purse->addCoin(static_cast<unsigned int>(lua_tointeger(lua, 2)));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "add_coin", "integer coin");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_coin", "CoinPurse");
 	}
 	/**
 	 * Removes the given number of coins from the purse. If the purse does not
@@ -175,9 +187,14 @@ namespace game {
 	int CoinPurse_remove_coin(lua_State *lua)
 	{
 		CoinPurse *purse = castUData<CoinPurse>(lua, 1);
-		if (purse && lua_isnumber(lua, -1))
+		if (purse)
 		{
-			purse->removeCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
+			if (lua_isnum(lua, 2))
+			{
+				purse->removeCoin(static_cast<unsigned int>(lua_tointeger(lua, 2)));
+				lua_first(lua);
+			}
+			
 		}
 		return 0;
 	}
@@ -208,8 +225,7 @@ namespace game {
 			else if (lua_isnumber(lua, -1))
 			{
 				purse->setMaxCoin(static_cast<unsigned int>(lua_tointeger(lua, -1)));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);

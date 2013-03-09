@@ -150,8 +150,7 @@ namespace game {
 			else if (lua_type(lua, -1) == LUA_TSTRING)
 			{
 				tile->setFullName(lua_tostring(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				lua_first(lua);
 			}
 		}
 		lua_pushnil(lua);
