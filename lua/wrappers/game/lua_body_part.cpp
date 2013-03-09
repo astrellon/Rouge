@@ -30,16 +30,15 @@ namespace game {
 	 */
 	int BodyPart_ctor(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			const char *partName = lua_tostring(lua, -1);
+			const char *partName = lua_tostring(lua, 1);
 			BodyPart *part = new BodyPart(partName);
 		
 			wrapObject<BodyPart>(lua, part);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", "string partName");
 	}
 	/**
 	 * Deletes the body part.
@@ -50,8 +49,9 @@ namespace game {
 		if (part)
 		{
 			delete part;
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "BodyPart");
 	}
 	/**
 	 * Compares if two body parts are the same object.
@@ -61,6 +61,10 @@ namespace game {
 	int BodyPart_eq(lua_State *lua)
 	{
 		BodyPart *lhs = castUData<BodyPart>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "BodyPart");
+		}
 		BodyPart *rhs = castUData<BodyPart>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -74,7 +78,7 @@ namespace game {
 			{ "__gc",  BodyPart_dtor },
 			{ "__eq", BodyPart_eq },
 			{ "name", BodyPart_name },
-			{ "equipped_item", BodyPart_equipped_item },
+			{ "item", BodyPart_equipped_item },
 			{ NULL, NULL }
 		};
 
@@ -133,14 +137,23 @@ namespace game {
 			// Two or more args
 			else
 			{
-				part->setEquippedItem(castUData<Item>(lua, -1));
-				lua_pushvalue(lua, 1);
-				return 1;
+				if (lua_isnil(lua, 2))
+				{
+					part->setEquippedItem(NULL);
+					lua_pushvalue(lua, 1);
+					return 1;
+				}
+				Item *item = castUData<Item>(lua, 2);
+				if (item)
+				{
+					part->setEquippedItem(item);
+					lua_pushvalue(lua, 1);
+					return 1;
+				}
 			}
+			return LuaState::expectedArgs(lua, "item", 2, "Item item, nil item");
 		}
-		lua_pushnil(lua);
-		return 1;
-		
+		return LuaState::expectedContext(lua, "item", "BodyPart");
 	}
 }
 }

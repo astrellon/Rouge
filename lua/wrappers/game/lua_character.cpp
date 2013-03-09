@@ -62,7 +62,7 @@ namespace game {
 	{
 		if (!lua_isstr(lua, 1))
 		{
-			return LuaState::expectedArgs(lua, "Character.new", "string id");
+			return LuaState::expectedArgs(lua, "@new", "string id");
 		}
 
 		const char *id = lua_tostring(lua, 1);
