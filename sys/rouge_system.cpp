@@ -330,7 +330,16 @@ namespace sys {
 
 		if (mLuaEngine.hasGlobalFunction("newGame"))
 		{
-			lua_acall(mLuaEngine, 0, 0);
+			//lua_acall(mLuaEngine, 0, 0);
+			try
+			{
+				mLuaEngine.call(0, 0);
+			}
+			catch(std::runtime_error err)
+			{
+				am_log("LUAERR", err.what());
+				return;
+			}
 		}
 		else
 		{
@@ -346,6 +355,8 @@ namespace sys {
 		mPlayerHand->setHandEnabled(true);
 
 		mPausedGame = false;
+
+		return;
 
 		Game *game = Engine::getGame();
 		/*Map *map = game->getMapLua("testMap_2");
@@ -371,16 +382,16 @@ namespace sys {
 		comp->setStartDialogue(game->getDialogue("diag1"));
 		game->addGameObjectToMap(npc);*/
 
-		mPlayer = new Character();
-		game->setMainCharacter(mPlayer);
+		//mPlayer = new Character();
+		mPlayer = game->getMainCharacter();
 		mPlayer->setDialogueComp(new DialogueComponent());
-		mPlayer->setName("Melanie");
+		//mPlayer->setName("Melanie");
 		mPlayer->addPassibleType(Engine::getEngine()->getTileType("land"));
-		mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
-		mPlayer->setGridLocation(2, 1);
+		//mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
+		//mPlayer->setGridLocation(2, 1);
 		mPlayer->addBodyPart(new BodyPart("arm"));
-		mPlayer->setGender(Gender::FEMALE);
-		mPlayer->setRace(Engine::getEngine()->getRace("human"));
+		//mPlayer->setGender(Gender::FEMALE);
+		//mPlayer->setRace(Engine::getEngine()->getRace("human"));
 
 		Stats &stats = mPlayer->getStats();
 		stats.setBaseStat(Stat::HEALTH, 15);

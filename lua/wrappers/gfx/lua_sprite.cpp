@@ -28,7 +28,7 @@ namespace gfx {
 	/**
 	 * Creates a new sprite using the given asset name.
 	 *
-	 * @param String assetName Name of the asset for this sprite to use.
+	 * @param string assetName Name of the asset for this sprite to use.
 	 */
 	int Sprite_ctor(lua_State *lua)
 	{
@@ -58,7 +58,7 @@ namespace gfx {
 	 * Compares this sprite with another sprite object.
 	 *
 	 * @param Sprite rhs The other sprite to compare with.
-	 * @returns Boolean True if they are the same object.
+	 * @returns boolean True if they are the same object.
 	 */
 	int Sprite_eq(lua_State *lua)
 	{
@@ -114,12 +114,12 @@ namespace gfx {
 	 * Returns the asset name currently used by this sprite.
 	 * An empty string indicates that no asset has been set.
 	 *
-	 * @returns String The asset name is use.
+	 * @returns string The asset name is use.
 	 */
 	/**
 	 * Sets the asset name for this sprite to use.
 	 *
-	 * @param String assetName The name of the asset to use.
+	 * @param string assetName The name of the asset to use.
 	 * @returns Sprite This
 	 */
 	int Sprite_asset(lua_State *lua)

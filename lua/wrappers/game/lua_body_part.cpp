@@ -26,7 +26,7 @@ namespace game {
 	/**
 	 * Creates a new BodyPart instance with the given name.
 	 * This name is used to identify the part when it is attached to a character.
-	 * @param String name The body part name.
+	 * @param string name The body part name.
 	 */
 	int BodyPart_ctor(lua_State *lua)
 	{
@@ -56,7 +56,7 @@ namespace game {
 	/**
 	 * Compares if two body parts are the same object.
 	 * @param BodyPart rhs The BodyPart to compare with.
-	 * @returns Boolean True if they are the same object.
+	 * @returns boolean True if they are the same object.
 	 */
 	int BodyPart_eq(lua_State *lua)
 	{
@@ -90,7 +90,7 @@ namespace game {
 	/**
 	 * Returns the name of the body part.
 	 * A nil return indicates that there was an error.
-	 * @returns String Body part name.
+	 * @returns string Body part name.
 	 */
 	int BodyPart_name(lua_State *lua)
 	{

@@ -492,6 +492,89 @@ namespace lua {
 		sWrapperMap.clear();
 	}
 
+	int LuaState::expectedArgs(lua_State *lua, const char *funcName, const char *expected)
+	{
+		if (funcName == NULL || funcName[0] == '\0')
+		{
+			return 0;
+		}
+		stringstream ss;
+		int args = lua_gettop(lua);
+		int start = 2;
+		if (funcName[0] == '@')
+		{
+			start = 1;
+			funcName = funcName + 1;
+		}
+		for (int i = start; i <= args; i++)
+		{
+			if (i > start) {
+				ss << ", ";
+			}
+			printTypeValue(lua, i, ss, true);
+		}
+		luaL_error(lua, "Expected args: %s(%s) got %s(%s)", funcName, expected, funcName, ss.str().c_str());
+		return 0;
+	}
+	int LuaState::expectedArgs(lua_State *lua, const char *funcName, int n, ...)
+	{
+		if (funcName == NULL || funcName[0] == '\0')
+		{
+			return 0;
+		}
+
+		int start = 2;
+		if (funcName[0] == '@')
+		{
+			start = 1;
+			funcName = funcName + 1;
+		}
+
+		stringstream gotss;
+		int args = lua_gettop(lua);
+		for (int i = start; i <= args; i++)
+		{
+			if (i > start) 
+			{
+				gotss << ", ";
+			}
+			printTypeValue(lua, i, gotss, true);
+		}
+
+		stringstream ss;
+		LuaState::printStack(lua, ss);
+
+		stringstream expss;
+		va_list list;
+		va_start(list, n);
+		for (int i = 0; i < n; i++)
+		{
+			if (i > 0)
+			{
+				expss << " or ";
+			}
+			expss << '(' << va_arg(list, const char *) << ')';
+		}
+		luaL_error(lua, "Expected %s%s got %s(%s)", funcName, expss.str().c_str(), funcName, gotss.str().c_str());
+		return 0;
+	}
+	int LuaState::expectedContext(lua_State *lua, const char *funcName, const char *expected)
+	{
+		luaL_error(lua, "Wrong context, expected %s.%s got %s.%s", expected, funcName, getType(lua, 1), funcName);
+		return 0;
+	}
+
+	void LuaState::warning(lua_State *lua, const char *message)
+	{
+		lua_Debug ar;
+		lua_getstack(lua, 1, &ar);
+		lua_getinfo(lua, "nSl", &ar);
+		int line = ar.currentline;
+		stringstream ss;
+		ss << message << " [" << line << ']';
+		am_log("LUA WARN", ss);
+	}
+
 	int LuaState::luaAssert(lua_State *lua)
 	{
 		if (lua_compare(lua, 1, 2, LUA_OPEQ) != 1)
@@ -534,20 +617,30 @@ namespace lua {
 			break;
 		case LUA_TUSERDATA:
 			{
-				LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
-				if (sWrapperIdMap.find(udata->id) != sWrapperIdMap.end())
-				{
-					output << sWrapperIdMap[udata->id];
-				}
-				else 
-				{
-					output << "Unknown userdata: " << udata->id;
-				}
+				output << getType(lua, n);
 			}
 			break;
 		default:
 			output << "Unknown";
 		}
+	}
+
+	const char *LuaState::getType(lua_State *lua, int n)
+	{
+		int type = lua_type(lua, n);
+		if (type == LUA_TUSERDATA)
+		{
+			LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
+			if (sWrapperIdMap.find(udata->id) != sWrapperIdMap.end())
+			{
+				return sWrapperIdMap[udata->id].c_str();
+			}
+			else 
+			{
+				return "Unknown userdata";
+			}
+		}
+		return lua_typename(lua, n);
 	}
 
 	int LuaState::lua_am_log(lua_State *lua)

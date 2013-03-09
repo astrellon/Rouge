@@ -67,7 +67,7 @@ namespace game {
 	 * Compares this tile instance with another tile instance.
 	 *
 	 * @param TileInstance rhs The other tile instance to compare with.
-	 * @returns Boolean True if they are the same tile instance objects.
+	 * @returns boolean True if they are the same tile instance objects.
 	 */
 	int TileInstance_eq(lua_State *lua)
 	{
@@ -107,14 +107,14 @@ namespace game {
 	 * Sets the tile this instance representings, can be nil.
 	 *
 	 * @param Tile tile The tile to represent.
-	 * @returns Boolean Always returns true.
+	 * @returns boolean Always returns true.
 	 */
 	/**
 	 * Sets the tile based on the tile name, returns true if the tile
 	 * with given name was found.
 	 *
-	 * @param String tileName The name of the tile to instance.
-	 * @returns Boolean True if the a tile with the given name was found.
+	 * @param string tileName The name of the tile to instance.
+	 * @returns boolean True if the a tile with the given name was found.
 	 */
 	int TileInstance_tile(lua_State *lua)
 	{
@@ -147,13 +147,13 @@ namespace game {
 	/**
 	 * Returns the current tile frame.
 	 *
-	 * @returns Integer The current tile frame.
+	 * @returns integer The current tile frame.
 	 */
 	/**
 	 * Sets the current tile frame. This frame refers to the frame in the tile graphic.
 	 * This will only work for tile graphics that have multiple frames and are not animated.
 	 *
-	 * @param Integer frame The new tile instance frame.
+	 * @param integer frame The new tile instance frame.
 	 * @returns TileInstance This
 	 */
 	int TileInstance_tile_frame(lua_State *lua)

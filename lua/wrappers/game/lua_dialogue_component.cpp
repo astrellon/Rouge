@@ -53,7 +53,7 @@ namespace game {
 	 * Compares this DialogueComponent with another DialogueComponent.
 	 *
 	 * @param DialogueComponent rhs The other DialogueComponent to compare with.
-	 * @returns Boolean True if they are the same DialogueComponent object.
+	 * @returns boolean True if they are the same DialogueComponent object.
 	 */
 	int DialogueComponent_eq(lua_State *lua)
 	{
@@ -138,7 +138,7 @@ namespace game {
 	 */
 	/**
 	 * Sets the starting dialogue this component will use when talked to, can be nil.
-	 * @param String dialogueId The dialogue id of the dialogue to open with.
+	 * @param string dialogueId The dialogue id of the dialogue to open with.
 	 * @returns DialogueComponent This
 	 */
 	/**
@@ -181,13 +181,13 @@ namespace game {
 	}
 	/**
 	 * Returns if the given subject title is locked or unlocked.
-	 * @param String subject The subject to look up.
-	 * @returns Boolean True if the subject is locked, false if the subject is unlocked.
+	 * @param string subject The subject to look up.
+	 * @returns boolean True if the subject is locked, false if the subject is unlocked.
 	 */
 	/**
 	 * Sets if a dialogue subject is locked or unlocked for this dialogue component.
 	 * Unlocked subjects will be available to use in dialogue.
-	 * @param String subject The subject to lock or unlock.
+	 * @param string subject The subject to lock or unlock.
 	 * @param Booleam locked Sets is the subject is locked or unlocked.
 	 * @returns DialogueComponent This
 	 */
@@ -214,13 +214,13 @@ namespace game {
 	}
 	/**
 	 * Returns if the given dialogue is available from this component.
-	 * @param String dialogueId The dialogue id to look up.
-	 * @returns Boolean True if the dialogue is available.
+	 * @param string dialogueId The dialogue id to look up.
+	 * @returns boolean True if the dialogue is available.
 	 */
 	/**
 	 * Sets if the given dialogue will be available from this component.
-	 * @param String dialogueId The dialogue id to set.
-	 * @param Boolean available The availability of the given dialogue.
+	 * @param string dialogueId The dialogue id to set.
+	 * @param boolean available The availability of the given dialogue.
 	 * @returns DialogueComponent This
 	 */
 	int DialogueComponent_dialogue_available(lua_State *lua)

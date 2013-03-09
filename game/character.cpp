@@ -389,7 +389,14 @@ namespace game {
 
 	void Character::setRace(Race *race)
 	{
-		mRace = race;
+		if (!race)
+		{
+			mRace = Engine::getEngine()->getUnknownRace();
+		}
+		else
+		{
+			mRace = race;
+		}
 	}
 	Race *Character::getRace() const
 	{

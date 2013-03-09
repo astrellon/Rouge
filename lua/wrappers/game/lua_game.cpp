@@ -62,7 +62,7 @@ namespace game {
 	 * Compares this game against another game object.
 	 *
 	 * @param Game rhs The other game object to compare.
-	 * @returns Boolean True if they are the same object.
+	 * @returns boolean True if they are the same object.
 	 */
 	int Game_eq(lua_State *lua)
 	{
@@ -122,7 +122,7 @@ namespace game {
 	 * If a map with the same map name already exists it will be overridden in the map pool.
 	 *
 	 * @param Map map The map to add to the map pool.
-	 * @returns Boolean True if the map was successfully added, false indicates the map was nil or had no name.
+	 * @returns boolean True if the map was successfully added, false indicates the map was nil or had no name.
 	 */
 	int Game_add_map(lua_State *lua)
 	{
@@ -139,15 +139,15 @@ namespace game {
 	/**
 	 * Removes a map from the map pool.
 	 *
-	 * @param String mapName The name of the map to remove.
-	 * @returns Boolean True if the map was successfully removed, 
+	 * @param string mapName The name of the map to remove.
+	 * @returns boolean True if the map was successfully removed, 
 	 *  false indicates that map was not in the map pool.
 	 */
 	/**
 	 * Removes a map from the map pool.
 	 *
 	 * @param Map map The map to remove.
-	 * @returns Boolean True if the map was successfully removed, 
+	 * @returns boolean True if the map was successfully removed, 
 	 *  false indicates that map was not in the map pool.
 	 */
 	int Game_remove_map(lua_State *lua)
@@ -191,7 +191,7 @@ namespace game {
 	 * Returns a map from the map pool. If the map is not present
 	 * it will attempt to load the map from file under the data directory.
 	 * <p><code>data/maps/{mapName}.lua</code></p>
-	 * @param String mapName The name of the map to load.
+	 * @param string mapName The name of the map to load.
 	 * @returns Map The found/loaded map, nil if it could not be found nor loaded.
 	 */
 	int Game_map(lua_State *lua)
@@ -211,8 +211,8 @@ namespace game {
 	}
 	/**
 	 * Returns true if a map with the given map name is found in the map pool.
-	 * @param String mapName The map name to look up.
-	 * @returns Boolean True if the map was found.
+	 * @param string mapName The map name to look up.
+	 * @returns boolean True if the map was found.
 	 */
 	int Game_has_map(lua_State *lua)
 	{
@@ -234,7 +234,7 @@ namespace game {
 	/**
 	 * Sets the current active map.
 	 *
-	 * @param String mapName The name of the map to set as the active map.
+	 * @param string mapName The name of the map to set as the active map.
 	 * @returns Game This.
 	 */
 	/**
@@ -279,14 +279,14 @@ namespace game {
 	 * Adds a game object to the currently active map.
 	 *
 	 * @param GameObject gameObject The game object to add.
-	 * @returns Boolean True if the game object was successfully added.
+	 * @returns boolean True if the game object was successfully added.
 	 *  False indicates that either the current map or gameObject are nil.
 	 */
 	/**
 	 * Adds a game object to the currently active map.
 	 *
-	 * @param String gameObjectId The game object id of the game object to add.
-	 * @returns Boolean True if the game object was successfully added.
+	 * @param string gameObjectId The game object id of the game object to add.
+	 * @returns boolean True if the game object was successfully added.
 	 *  False indicates that either the current map or gameObject are nil.
 	 */
 	int Game_add_game_object_to_map(lua_State *lua)
@@ -305,14 +305,14 @@ namespace game {
 	 * Removes a game object from the current map.
 	 *
 	 * @param GameObject gameObject The game object to remove from the current map.
-	 * @returns Boolean True if the game object was successfully removed.
+	 * @returns boolean True if the game object was successfully removed.
 	 *  False indicates that either the current map or gameObject are nil.
 	 */
 	/**
 	 * Removes a game object from the current map.
 	 *
-	 * @param String gameObjectId The game object id of the game object to remove from the current map.
-	 * @returns Boolean True if the game object was successfully removed.
+	 * @param string gameObjectId The game object id of the game object to remove from the current map.
+	 * @returns boolean True if the game object was successfully removed.
 	 *  False indicates that either the current map or gameObject are nil.
 	 */
 	int Game_remove_game_object_from_map(lua_State *lua)
@@ -331,13 +331,13 @@ namespace game {
 	 * Returns true if the game object is on the current map.
 	 *
 	 * @param GameObject gameObject The game object to look for.
-	 * @returns Boolean True if the game object was found on the current map.
+	 * @returns boolean True if the game object was found on the current map.
 	 */
 	/**
 	 * Returns true if the game object is on the current map.
 	 *
-	 * @param String gameObjectId The game object id of the game object to look for.
-	 * @returns Boolean True if the game object was found on the current map.
+	 * @param string gameObjectId The game object id of the game object to look for.
+	 * @returns boolean True if the game object was found on the current map.
 	 */
 	int Game_has_game_object_in_map(lua_State *lua)
 	{
@@ -362,7 +362,7 @@ namespace game {
 	 * Moves a game object from their current map to a new map.
 	 * 
 	 * @param GameObject gameObject The game object to move.
-	 * @param String mapName The name of the map to move to.
+	 * @param string mapName The name of the map to move to.
 	 * @returns Game This
 	 */
 	/**
@@ -370,17 +370,17 @@ namespace game {
 	 *
 	 * @param GameObject gameObject The game object to move.
 	 * @param Map map The map to move to.
-	 * @param Number positionX The x position to move the game object to.
-	 * @param Number positionY The y position to move the game object to.
+	 * @param number positionX The x position to move the game object to.
+	 * @param number positionY The y position to move the game object to.
 	 * @returns Game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given position.
 	 *
 	 * @param GameObject gameObject The game object to move.
-	 * @param String mapName The name of the map to move to.
-	 * @param Number positionX The x position to move the game object to.
-	 * @param Number positionY The y position to move the game object to.
+	 * @param string mapName The name of the map to move to.
+	 * @param number positionX The x position to move the game object to.
+	 * @param number positionY The y position to move the game object to.
 	 * @returns Game This
 	 */
 	int Game_move_object_to_map(lua_State *lua)
@@ -430,23 +430,23 @@ namespace game {
 	 * Moves a game object from their current map to a new map.
 	 * 
 	 * @param GameObject gameObject The game object to move.
-	 * @param String mapName The name of the map to move to.
+	 * @param string mapName The name of the map to move to.
 	 * @returns Game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given grid position.
 	 * @param GameObject gameObject The game object to move.
 	 * @param Map map The map to move to.
-	 * @param Integer gridX The x grid position to move the game object to.
-	 * @param Integer gridY The y grid position to move the game object to.
+	 * @param integer gridX The x grid position to move the game object to.
+	 * @param integer gridY The y grid position to move the game object to.
 	 * @returns Game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given grid position.
 	 * @param GameObject gameObject The game object to move.
-	 * @param String mapName The name of the map to move to.
-	 * @param Integer gridX The x grid position to move the game object to.
-	 * @param Integer gridY The y grid position to move the game object to.
+	 * @param string mapName The name of the map to move to.
+	 * @param integer gridX The x grid position to move the game object to.
+	 * @param integer gridY The y grid position to move the game object to.
 	 * @returns Game This
 	 */
 	int Game_move_object_to_map_grid(lua_State *lua)
@@ -528,7 +528,7 @@ namespace game {
 	 * Looks for a game object with the given game object id, returns nil if a 
 	 * game object could not be found.
 	 * 
-	 * @param String gameObjectId The game object id to look up.
+	 * @param string gameObjectId The game object id to look up.
 	 * @returns GameObject The found game object, or nil.
 	 */
 	int Game_get_game_object(lua_State *lua)
@@ -591,7 +591,7 @@ namespace game {
 	 * Adds the given dialogue to the dialogue pool.
 	 *
 	 * @param Dialogue dialogue The dialogue to add to the pool.
-	 * @returns Boolean True if the dialogue was successfully added, false
+	 * @returns boolean True if the dialogue was successfully added, false
 	 *  indicates that dialogue was nil or was already in the pool.
 	 */
 	int Game_add_dialogue(lua_State *lua)
@@ -610,14 +610,14 @@ namespace game {
 	 * Removes a dialogue from the dialogue pool.
 	 *
 	 * @param Dialogue dialogue The dialogue to remove.
-	 * @returns Boolean True if the dialogue was successfully removed, false
+	 * @returns boolean True if the dialogue was successfully removed, false
 	 *  indicates that the dialogue was nil or not found.
 	 */
 	/**
 	 * Removes a dialogue from the dialogue pool.
 	 *
-	 * @param String dialogueId The dialogue id of the dialogue to remove.
-	 * @returns Boolean True if the dialogue was successfully removed, false
+	 * @param string dialogueId The dialogue id of the dialogue to remove.
+	 * @returns boolean True if the dialogue was successfully removed, false
 	 *  indicates that the dialogue was nil or not found.
 	 */
 	int Game_remove_dialogue(lua_State *lua)
@@ -660,7 +660,7 @@ namespace game {
 	/**
 	 * Returns a dialogue with the given dialogue id, nil if no dialogue was found.
 	 *
-	 * @param String dialogueId The id of the dialogue to look up.
+	 * @param string dialogueId The id of the dialogue to look up.
 	 * @returns Dialogue The found dialogue or nil.
 	 */
 	int Game_dialogue(lua_State *lua)
@@ -690,7 +690,7 @@ namespace game {
 	 * Adds a quest to the quest pool.
 	 *
 	 * @param Quest quest The quest to add.
-	 * @returns Boolean True if the quest was successfully added.
+	 * @returns boolean True if the quest was successfully added.
 	 */
 	int Game_add_quest(lua_State *lua)
 	{
@@ -708,13 +708,13 @@ namespace game {
 	 * Removes a quest from the quest pool.
 	 *
 	 * @param Quest quest The quest to remove from the quest pool.
-	 * @returns Boolean True if the quest was successfully removed.
+	 * @returns boolean True if the quest was successfully removed.
 	 */
 	/**
 	 * Removes a quest from the quest pool.
 	 *
-	 * @param String questId The id of the quest to remove from the quest pool.
-	 * @returns Boolean True if the quest was successfully removed.
+	 * @param string questId The id of the quest to remove from the quest pool.
+	 * @returns boolean True if the quest was successfully removed.
 	 */
 	int Game_remove_quest(lua_State *lua)
 	{
@@ -739,7 +739,7 @@ namespace game {
 	/**
 	 * Returns a quest with the given quest id, nil if the quest could not be found.
 	 *
-	 * @param String questId The id of the quest to look up.
+	 * @param string questId The id of the quest to look up.
 	 * @returns Quest The found quest, or nil.
 	 */
 	int Game_quest(lua_State *lua)

@@ -31,15 +31,15 @@ namespace game {
 	 * Creates a new tile type with the given name, this name should be unique
 	 * to all tile types.
 	 *
-	 * @param String tileTypeName The name of the tile type.
+	 * @param string tileTypeName The name of the tile type.
 	 */
 	/**
 	 * Creates a new tile type with the given name and full name. This name
 	 * should be unique to all tile types. The full name is used to display
 	 * the name of this tile type to the user.
 	 *
-	 * @param String tileTypeName The name of the tile type.
-	 * @param String fullName The full name of this tile type.
+	 * @param string tileTypeName The name of the tile type.
+	 * @param string fullName The full name of this tile type.
 	 */
 	int TileType_ctor(lua_State *lua)
 	{
@@ -75,7 +75,7 @@ namespace game {
 	 * Compares this tile type against another tile type.
 	 *
 	 * @param TileType rhs The other tile type to compare with.
-	 * @returns Boolean Returns true if they are the same object.
+	 * @returns boolean Returns true if they are the same object.
 	 */
 	int TileType_eq(lua_State *lua)
 	{
@@ -112,7 +112,7 @@ namespace game {
 	/**
 	 * Returns the name of this tile type.
 	 *
-	 * @returns String This tile type's name.
+	 * @returns string This tile type's name.
 	 */
 	int TileType_name(lua_State *lua)
 	{
@@ -128,13 +128,13 @@ namespace game {
 	/**
 	 * Returns the full name of this tile type.
 	 *
-	 * @returns String This tile type's full name.
+	 * @returns string This tile type's full name.
 	 */
 	/**
 	 * Sets the full name of the tile type.
 	 * This is used to display the name of the tile type to the user.
 	 *
-	 * @param String fullName The full name of the tile type.
+	 * @param string fullName The full name of the tile type.
 	 * @returns TileType This
 	 */
 	int TileType_full_name(lua_State *lua)
@@ -176,7 +176,7 @@ namespace game {
 	 * @static
 	 * Looks up a tile type with the given name.
 	 *
-	 * @param String tileTypeName The name of the tile type to look up.
+	 * @param string tileTypeName The name of the tile type to look up.
 	 * @returns TileType The found tile type or nil.
 	 */
 	int TileType_tile_type(lua_State *lua)

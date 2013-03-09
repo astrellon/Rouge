@@ -195,7 +195,8 @@ namespace tests {
 			"end\n"
 			"function hasBodyPart(part)\n"
 			"	return char:has_body_part(BodyPart.new(part))\n"
-			"end\n");
+			"end\n"
+			);
 		
 		if (!loadResult)
 		{

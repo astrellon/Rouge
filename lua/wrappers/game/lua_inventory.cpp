@@ -34,8 +34,8 @@ namespace game {
 	/**
 	 * Creates a new inventory instance.
 	 *
-	 * @param Integer width The width of the inventory in item size units.
-	 * @param Integer height The height of the inventory in item size units.
+	 * @param integer width The width of the inventory in item size units.
+	 * @param integer height The height of the inventory in item size units.
 	 */
 	int Inventory_ctor(lua_State *lua)
 	{
@@ -64,7 +64,7 @@ namespace game {
 	 * Compares this inventory with another inventory object.
 	 * Will not return true for equivalent inventories.
 	 * @param Inventory rhs The other inventory to compare with.
-	 * @returns Boolean True if the inventories are the same object.
+	 * @returns boolean True if the inventories are the same object.
 	 */
 	int Inventory_eq(lua_State *lua)
 	{
@@ -103,8 +103,8 @@ namespace game {
 	/**
 	 * Returns the width and height of this inventory.
 	 *
-	 * @returns Integer The width of the inventory.
-	 * @returns Integer The height of the inventory.
+	 * @returns integer The width of the inventory.
+	 * @returns integer The height of the inventory.
 	 */
 	int Inventory_size(lua_State *lua)
 	{
@@ -126,9 +126,9 @@ namespace game {
 	 * item blocking this items placement.
 	 *
 	 * @param Item item The item to place.
-	 * @param Integer x The x location to check at
-	 * @param Integer y The y location to check at
-	 * @returns Boolean True if there is space at the given location for the given item.
+	 * @param integer x The x location to check at
+	 * @param integer y The y location to check at
+	 * @returns boolean True if there is space at the given location for the given item.
 	 *  False otherwise if there isn't any space or the location is invalid.
 	 */
 	int Inventory_has_space_for(lua_State *lua)
@@ -148,16 +148,16 @@ namespace game {
 	 * found the item, false if the item was nil or if no spot could be found.
 	 *
 	 * @param Item item The item to add to the inventory.
-	 * @returns Boolean True if the item was added to the inventory successfully.
+	 * @returns boolean True if the item was added to the inventory successfully.
 	 */
 	/**
 	 * Attempts to add an item to the inventory at the given location, returns true
 	 * if the space required for the item was available.
 	 *
 	 * @param Item item The item to add to the inventory.
-	 * @param Integer x The x location to add the item at.
-	 * @param Integer y The y location to add the item at.
-	 * @returns Boolean True if the item was added to the inventory successfully.
+	 * @param integer x The x location to add the item at.
+	 * @param integer y The y location to add the item at.
+	 * @returns boolean True if the item was added to the inventory successfully.
 	 */
 	int Inventory_add_item(lua_State *lua)
 	{
@@ -183,7 +183,7 @@ namespace game {
 	 * and removed.
 	 *
 	 * @param Item item The item to remove from the inventory.
-	 * @returns Boolean True if the item was removed.
+	 * @returns boolean True if the item was removed.
 	 */
 	int Inventory_remove_item(lua_State *lua)
 	{
@@ -199,7 +199,7 @@ namespace game {
 	/**
 	 * Removes all items from the inventory.
 	 * 
-	 * @returns Boolean True if all items were successfully removed, false is there was an error.
+	 * @returns boolean True if all items were successfully removed, false is there was an error.
 	 */
 	int Inventory_remove_all(lua_State *lua)
 	{
@@ -216,7 +216,7 @@ namespace game {
 	 * Looks for the given item in the inventory. Returns true if the given item was found.
 	 *
 	 * @param Item item The item to look for in the inventory.
-	 * @returns Boolean True if the item was found.
+	 * @returns boolean True if the item was found.
 	 */
 	int Inventory_has_item(lua_State *lua)
 	{
@@ -234,8 +234,8 @@ namespace game {
 	 * Returns the item at the given location, nil if there is no item at that location.
 	 * Items do not overlap so there cannot be multiple items returned.
 	 *
-	 * @param Integer locationX The x location to look at.
-	 * @param Integer locationY The y location to look at.
+	 * @param integer locationX The x location to look at.
+	 * @param integer locationY The y location to look at.
 	 * @param Item The found item, or nil if it was nothing was found.
 	 */
 	int Inventory_item_at(lua_State *lua)

@@ -76,6 +76,9 @@ namespace tests {
 		}
 		assert(loadResult);
 
+		lua_Debug ar;
+		lua_getstack(lua, 1, &ar);
+
 		Quest *quest = Engine::getGame()->getQuest("testQuest");
 		assert(!quest->isCompleted());
 		

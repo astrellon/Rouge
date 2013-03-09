@@ -106,8 +106,8 @@ namespace game {
 	/**
 	 * @static
 	 * Sets the grid size in pixels for the tiles in the game.
-	 * @param Number gridX The x grid size
-	 * @param Number gridY The y grid size
+	 * @param number gridX The x grid size
+	 * @param number gridY The y grid size
 	 */
 	int Engine_grid_size(lua_State *lua)
 	{
@@ -129,7 +129,7 @@ namespace game {
 	 * Adds a tile set name to look up when loading tiles.
 	 * This allows maps to defines the list of tiles without having
 	 * to specify the tile set each time.
-	 * @param String tileSetName The tile set name to use
+	 * @param string tileSetName The tile set name to use
 	 */
 	int Engine_using_tile_set(lua_State *lua)
 	{
@@ -151,7 +151,7 @@ namespace game {
 	/**
 	 * @static
 	 * Looks up a tile based on its name and the current list of tile sets in use.
-	 * @param String tileName The tile name to look up.
+	 * @param string tileName The tile name to look up.
 	 * @returns Tile The found tile, or nil.
 	 */
 	int Engine_tile(lua_State *lua)
@@ -171,7 +171,7 @@ namespace game {
 	/**
 	 * @static
 	 * Looks up a tile set based on its name.
-	 * @param String tileSetName Tile set name to look up
+	 * @param string tileSetName Tile set name to look up
 	 * @returns TileSet The found tile set or nil.
 	 */
 	int Engine_tile_set(lua_State *lua)
@@ -215,7 +215,7 @@ namespace game {
 	 * @static
 	 * Looks up a game object by gameId.
 	 * Returns a game object if found, nil otherwise.
-	 * @param String gameId The game id to look up.
+	 * @param string gameId The game id to look up.
 	 * @returns GameObject The found game object, nil if not found.
 	 */
 	int Engine_get_by_game_id(lua_State *lua)
@@ -251,7 +251,7 @@ namespace game {
 	 * @static
 	 * Removes a game object from the current game. This is just 
 	 * shorthand for removing the game object from the current game.
-	 * @param String gameId The game id of the game object to remove.
+	 * @param string gameId The game id of the game object to remove.
 	 */
 	/**
 	 * @static
@@ -277,7 +277,7 @@ namespace game {
 	 * @static
 	 * Adds a race to the game engine.
 	 * @param Race race The race to add.
-	 * @returns Boolean True if the race was successfully added.
+	 * @returns boolean True if the race was successfully added.
 	 */
 	int Engine_add_race(lua_State *lua)
 	{
@@ -293,14 +293,14 @@ namespace game {
 	/**
 	 * @static
 	 * Removes a race from the game engine.
-	 * @param String raceName The name of the race to remove.
-	 * @returns Boolean True if the race was sucessfully removed.
+	 * @param string raceName The name of the race to remove.
+	 * @returns boolean True if the race was sucessfully removed.
 	 */
 	/**
 	 * @static
 	 * Removes a race from the game engine.
 	 * @param Race race The race to remove.
-	 * @returns Boolean True if the race was sucessfully removed.
+	 * @returns boolean True if the race was sucessfully removed.
 	 */
 	int Engine_remove_race(lua_State *lua)
 	{
@@ -330,7 +330,7 @@ namespace game {
 	/**
 	 * @static
 	 * Looks up a race in the game engine by name.
-	 * @param String raceName The race name to look up.
+	 * @param string raceName The race name to look up.
 	 * @returns Race The found race or nil.
 	 */
 	int Engine_race(lua_State *lua)
@@ -380,7 +380,7 @@ namespace game {
 	/**
 	 * @static
 	 * Looks up a tile tpye by name.
-	 * @param String tileTypeName The name of the tile type to lookup.
+	 * @param string tileTypeName The name of the tile type to lookup.
 	 * @returns TileType The found tile type or nil.
 	 */
 	int Engine_tile_type(lua_State *lua)

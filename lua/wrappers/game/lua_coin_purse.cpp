@@ -49,7 +49,7 @@ namespace game {
 	 * Compares this CoinPurse with another CoinPurse object.
 	 *
 	 * @param CoinPurse rhs The other CoinPurse to compare with.
-	 * @returns Boolean True if they are the same CoinPurse object.
+	 * @returns boolean True if they are the same CoinPurse object.
 	 */
 	int CoinPurse_eq(lua_State *lua)
 	{
@@ -85,11 +85,11 @@ namespace game {
 	}
 	/**
 	 * Returns the amount of coin in this coin purse.
-	 * @returns Integer The amount of coin.
+	 * @returns integer The amount of coin.
 	 */
 	/**
 	 * Sets the amount of coin in this coin purse.
-	 * @param Integer coin The amount of coin to set in this coin purse.
+	 * @param integer coin The amount of coin to set in this coin purse.
 	 * @returns CoinPurse This
 	 */
 	int CoinPurse_coin(lua_State *lua)
@@ -116,8 +116,8 @@ namespace game {
 	/**
 	 * Returns how many coins will not fit if the given amount were to be
 	 * added. A result of 0 means that all coins will fit.
-	 * @param Integer coin The amount of coin to test.
-	 * @returns Integer The amount of coins that won't fit, 0 if all coins will fit.
+	 * @param integer coin The amount of coin to test.
+	 * @returns integer The amount of coins that won't fit, 0 if all coins will fit.
 	 */
 	int CoinPurse_can_add_coin(lua_State *lua)
 	{
@@ -133,8 +133,8 @@ namespace game {
 	/**
 	 * Returns how many coins cannot be taken out of the purse. A value of
 	 * of zero means that all requested coins can be removed.
-	 * @param Integer coin The number of coins to attempt to take out.
-	 * @returns Integer The number of coins short.
+	 * @param integer coin The number of coins to attempt to take out.
+	 * @returns integer The number of coins short.
 	 */
 	int CoinPurse_can_remove_coin(lua_State *lua)
 	{
@@ -151,7 +151,7 @@ namespace game {
 	/**
 	 * Adds the given number of coins to the purse. If the amount of coin
 	 * won't fit they will be lost. Use can_add_coin to make sure this doesn't happen.
-	 * @param Integer coin The amount of coin to add to the purse.
+	 * @param integer coin The amount of coin to add to the purse.
 	 * @returns CoinPurse This
 	 */
 	int CoinPurse_add_coin(lua_State *lua)
@@ -169,7 +169,7 @@ namespace game {
 	/**
 	 * Removes the given number of coins from the purse. If the purse does not
 	 * have the number of coins then the purse will not go into negative.
-	 * @param Integer coin The amount of coin to remove from the purse.
+	 * @param integer coin The amount of coin to remove from the purse.
 	 * @returns CoinPurse This
 	 */
 	int CoinPurse_remove_coin(lua_State *lua)
@@ -185,14 +185,14 @@ namespace game {
 	/** 
 	 * Returns the maximum number of coins that this purse can hold.
 	 * A value of 0 means this purse is unlimited.
-	 * @returns Integer The number of coin this purse can fit.
+	 * @returns integer The number of coin this purse can fit.
 	 */
 	/**
 	 * Sets the max number of coin this purse can hold.
 	 * If the maximum is set to 0, then this purse will have unlimited space.
 	 * If the new maximum is lower than the current number of coin
 	 * then the additional coins will be lost.
-	 * @param Integer max_coin The new max coin amount.
+	 * @param integer max_coin The new max coin amount.
 	 * @returns CoinPurse This
 	 */
 	int CoinPurse_max_coin(lua_State *lua)

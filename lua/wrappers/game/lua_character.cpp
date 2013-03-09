@@ -32,6 +32,9 @@ using namespace am::game;
 #include <lua/wrappers/gfx/lua_sprite.h>
 using namespace am::lua::gfx;
 
+#include <sstream>
+using namespace std;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -51,18 +54,18 @@ namespace game {
 
 	/**
 	 * Creates or wraps a character instance.
-	 * @param String gameId The game id to create the character with or the game id
+	 *
+	 * @param string gameId The game id to create the character with or the game id
 	 * of an existing character.
 	 */
 	int Character_ctor(lua_State *lua)
 	{
-		const char *id = lua_tostring(lua, -1);
-		if (id == NULL)
+		if (!lua_isstr(lua, 1))
 		{
-			lua_pushnil(lua);
-			return 1;
+			return LuaState::expectedArgs(lua, "Character.new", "string id");
 		}
 
+		const char *id = lua_tostring(lua, 1);
 		Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id));
 		if (obj == NULL)
 		{
@@ -81,18 +84,25 @@ namespace game {
 		if (obj)
 		{
 			obj->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Character");
 	}
 	/**
 	 * Compares this character with another character reference.
 	 * Will not return true for equivalent characters.
+	 * 
 	 * @param Character rhs The other character to compare with.
-	 * @returns Boolean True if the characters are the same entity.
+	 * @returns boolean True if the characters are the same entity.
 	 */
 	int Character_eq(lua_State *lua)
 	{
 		Character *lhs = castUData<Character>(lua, 1);
+		if (!lhs)
+		{
+			LuaState::expectedContext(lua, "__eq", "Character");
+			return 0;
+		}
 		Character *rhs = castUData<Character>(lua, 2);
 		lua_pushboolean(lua, lhs && rhs && lhs == rhs);
 		return 1;
@@ -168,12 +178,13 @@ namespace game {
 	/**
 	 * Returns the name of the character.
 	 * A nil return indicates that there was an error.
-	 * @returns String The name of the character.
+	 *
+	 * @returns string The name of the character.
 	 */
 	/**
-	 * Sets the name of the character, a non string or nil argument
-	 * will set the name to an empty string.
-	 * @param String name The name to set the character.
+	 * Sets the name of the character.
+	 *
+	 * @param string name The name to set the character.
 	 * @returns Character This.
 	 */
 	int Character_name(lua_State *lua)
@@ -186,9 +197,9 @@ namespace game {
 				lua_pushstring(lua, obj->getName().c_str());
 				return 1;
 			}
-			else
+			else if (lua_isstr(lua, 2))
 			{
-				const char *name = luaL_checkstring(lua, 2);
+				const char *name = lua_tostring(lua, 2);
 				if (name)
 				{
 					obj->setName(name);
@@ -196,22 +207,24 @@ namespace game {
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "name", "string name");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "Character");
 	}
 
 	/**
 	 * Returns the pickup reach of the character.
 	 * The pickup reach is the radius around the character in grid units
 	 * in which the character is able to pickup items and interact with objects.
+	 *
 	 * @returns Number The pickup reach radius.
 	 */
 	/**
 	 * Sets the pickup reach radius for the character.
 	 * The pickup reach is the radius around the character in grid units
 	 * in which the character is able to pickup items and interact with objects.
-	 * @param Number radius The pickup reach radius.
+	 *
+	 * @param number radius The pickup reach radius.
 	 * @returns Character This.
 	 */
 	int Character_pickup_reach(lua_State *lua)
@@ -224,19 +237,20 @@ namespace game {
 				lua_pushnumber(lua, obj->getPickupReach());
 				return 1;
 			}
-			else if (lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2))
 			{
-				obj->setPickupReach(lua_tofloat(lua, -1));
+				obj->setPickupReach(lua_tofloat(lua, 2));
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "pickup_reach", "number radius");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "pickup_reach", "Character");
 	}
 	/**
 	 * Returns the Stats container linked with this character.
 	 * @see Stats
+	 *
 	 * @returns Stats The Stats container.
 	 */
 	int Character_stats(lua_State *lua)
@@ -248,93 +262,104 @@ namespace game {
 			wrapObject<Stats>(lua, stats);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "stats", "Character");
 	}
 	/**
 	 * Attempts to add a body part to the character.
-	 * Returns true if this was successful, false if the
-	 * 'part' parameter was not a BodyPart, 'part' was nil or if there is
-	 * already another BodyPart with the same name attached.
+	 * Returns true if this was successful, false if there was
+	 * another BodyPart with the same name attached.
+	 *
 	 * @param BodyPart part The BodyPart to add
-	 * @returns Boolean If 'part' was added successfully.
+	 * @returns boolean If part was added successfully.
 	 */
 	int Character_add_body_part(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		BodyPart *part = castUData<BodyPart>(lua, 2);
-		if (obj && part)
+		if (obj)
 		{
-			lua_pushboolean(lua, obj->addBodyPart(part));
-			return 1;
+			BodyPart *part = castUData<BodyPart>(lua, 2);
+			if (part)
+			{
+				lua_pushboolean(lua, obj->addBodyPart(part));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_body_part", "BodyPart part");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_body_part", "Character");
 	}
 	/**
 	 * Removes a BodyPart with the same name from the Character.
+	 *
 	 * @param BodyPart part The BodyPart to remove.
-	 * @returns Boolean True if the BodyPart was removed.
+	 * @returns boolean True if the BodyPart was removed.
 	 */
 	/**
 	 * Removes a BodyPart with the same name from the Character.
-	 * @param String partName The body part to remove.
-	 * @returns Boolean True if the BodyPart was removed.
+	 *
+	 * @param string partName The body part to remove.
+	 * @returns boolean True if the BodyPart was removed.
 	 */
 	int Character_remove_body_part(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, obj->removeBodyPart(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, obj->removeBodyPart(lua_tostring(lua, 2)));
 				return 1;
 			}
-			BodyPart *part = castUData<BodyPart>(lua, 2);
-			if (part)
+			else
 			{
-				lua_pushboolean(lua, obj->removeBodyPart(part));
-				return 1;
+				BodyPart *part = castUData<BodyPart>(lua, 2);
+				if (part)
+				{
+					lua_pushboolean(lua, obj->removeBodyPart(part));
+					return 1;
+				}
 			}
+			return LuaState::expectedArgs(lua, "remove_body_part", 2, "string partName", "BodyPart part");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_body_part", "Character");
 	}
 	/**
 	 * Tells if a BodyPart with the same name is attached to the Character.
+	 *
 	 * @param BodyPart part The BodyPart to check for.
-	 * @returns Boolean True if the BodyPart is attached.
+	 * @returns boolean True if the BodyPart is attached.
 	 */
 	/**
 	 * Tells if a BodyPart with the same name is attached to the Character.
-	 * @param String partName The body part to check for.
-	 * @returns Boolean True if the BodyPart is attached.
+	 *
+	 * @param string partName The body part to check for.
+	 * @returns boolean True if the BodyPart is attached.
 	 */
 	int Character_has_body_part(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, obj->hasBodyPart(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, obj->hasBodyPart(lua_tostring(lua, 2)));
 				return 1;
 			}
-			BodyPart *part = castUData<BodyPart>(lua, -1);
+
+			BodyPart *part = castUData<BodyPart>(lua, 2);
 			if (part)
 			{
 				lua_pushboolean(lua, obj->hasBodyPart(part));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "has_body_part", 2, "BodyPart part", "string partName");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "has_body_part", "Character");
 	}
 	/**
 	 * Returns a table of all the BodyPart's attached to this Character.
 	 * Returns nil if there was an error.
 	 * Each table entry is a key/value pair with the key being the BodyPart's name.
+	 *
 	 * @returns Table A table of all the BodyPart's.
 	 */
 	int Character_body_parts(lua_State *lua)
@@ -354,35 +379,36 @@ namespace game {
 			}
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "body_parts", "Character");
 	}
 
 	/**
 	 * Equips an item to the character on the given body part.
+	 *
 	 * @param Item item The item to equip, it cannot be nil.
 	 * @param BodyPart part The body part to equip the item to.
-	 * @returns Boolean True if the item was successfully equipped,
+	 * @returns boolean True if the item was successfully equipped,
 	 * false can mean that there was already an item equipped, 'part'
 	 * was nil, or 'part' was not an attached body part.
 	 */
 	/**
 	 * Equips an item to the character on the given body part.
+	 *
 	 * @param Item item The item to equip, it cannot be nil.
-	 * @param String partName The body part to equip the item to.
-	 * @returns Boolean True if the item was successfully equipped,
+	 * @param string partName The body part to equip the item to.
+	 * @returns boolean True if the item was successfully equipped,
 	 * false can mean that there was already an item equipped, 
 	 * or 'partName' was not an attached body part.
 	 */
 	int Character_equip_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (obj && item)
+		if (obj)
 		{
-			if (lua_isstring(lua, -1))
+			Item *item = castUData<Item>(lua, 2);
+			if (lua_isstr(lua, 3))
 			{
-				lua_pushboolean(lua, obj->equipItem(item, lua_tostring(lua, -1)));
+				lua_pushboolean(lua, obj->equipItem(item, lua_tostring(lua, 3)));
 				return 1;
 			}
 			else
@@ -394,21 +420,23 @@ namespace game {
 					return 1;
 				}
 			}
+			return LuaState::expectedArgs(lua, "equip_item", 2, "Item item, string partName", "Item item, BodyPart part");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "equip_item", "Character");
 	}
 	/**
 	 * Unequips the item on the given body part for this character.
+	 *
 	 * @param BodyPart part The body part to unequip the item from.
-	 * @returns Boolean True if the item was unequipped or if the body part
+	 * @returns boolean True if the item was unequipped or if the body part
 	 * was already empty. False can mean 'part' was nil or that 
 	 * 'part' was not an attached body part.
 	 */
 	/**
 	 * Unequips the item on the given body part for this character.
-	 * @param String partName The body part to unequip the item from.
-	 * @returns Boolean True if the item was unequipped or if the body part
+	 *
+	 * @param string partName The body part to unequip the item from.
+	 * @returns boolean True if the item was unequipped or if the body part
 	 * was already empty. False can mean that 'partName' was not an attached body part.
 	 */
 	int Character_unequip_item(lua_State *lua)
@@ -416,9 +444,9 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, obj->unequipItem(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, obj->unequipItem(lua_tostring(lua, 2)));
 				return 1;
 			}
 			else
@@ -430,33 +458,51 @@ namespace game {
 					return 1;
 				}
 			}
+			return LuaState::expectedArgs(lua, "unequip_item", 2, "BodyPart fromPart", "string fromPartName");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "unequip_item", "Character");
 	}
 	/**
 	 * Returns the item eqipped at the given body part.
-	 * @param String partName The body part to get the item from.
+	 *
+	 * @param string partName The body part to get the item from.
 	 * @returns Item The item equipped, nil if there was no item equipped
 	 * or if there was not body part with 'partName' found.
 	 */
 	int Character_equipped(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && lua_isstring(lua, -1))
+		if (obj)
 		{
-			Handle<Item> item(obj->getEquipped(lua_tostring(lua, -1)));
-			if (item.get())
+			const char *partName = NULL;
+			if (lua_isstr(lua, 2))
 			{
-				wrapRefObject<Item>(lua, item);
-				return 1;
+				partName = lua_tostring(lua, 2);
 			}
+			else
+			{
+				BodyPart *part = castUData<BodyPart>(lua, 2);
+				if (part)
+				{
+					partName = part->getName();
+				}
+			}
+			if (partName)
+			{
+				Handle<Item> item(obj->getEquipped(lua_tostring(lua, 2)));
+				if (item)
+				{
+					wrapRefObject<Item>(lua, item);
+					return 1;
+				}
+			}
+			return LuaState::expectedArgs(lua, "equipped", 2, "BodyPart part", "string partName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "equipped", "Character");
 	}
 	/**
 	 * Returns the inventory object attached to this character.
+	 *
 	 * @returns Inventory The attached inventory, nil if there was an error.
 	 */
 	int Character_inventory(lua_State *lua)
@@ -467,138 +513,165 @@ namespace game {
 			wrapRefObject<Inventory>(lua, obj->getInventory());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "inventory", "Character");
 	}
 	/**
 	 * Attempts to pickup an item.
 	 * Returns an integer return code:
-	 *  1: Success
-	 *  0: Given item was nil
-	 * -1: The item was too far away.
-	 * -2: There was not enough space in the characters inventory.
-	 * -3: Error
+	 * <ul>
+	 * <li>1: Success.</li>
+	 * <li>0: Given item was nil.</li>
+	 * <li>-1: The item was too far away.</li>
+	 * <li>-2: There was not enough space in the characters inventory.</li>
+	 * <li>-3: Error.</li>
+	 * </ul>
+	 *
 	 * @param Item item The item to attempt to pickup.
-	 * @returns Integer Return code for the pickup.
+	 * @returns integer Return code for the pickup.
 	 */
 	int Character_pickup_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (obj && item)
+		if (obj)
 		{
-			lua_pushinteger(lua, obj->pickupItem(item));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushinteger(lua, obj->pickupItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "pickup_item", "Item item");
 		}
-		lua_pushinteger(lua, -3);
-		return 1;
+		return LuaState::expectedContext(lua, "pickup_item", "Character");
 	}
 	/**
 	 * Adds an item to the characters inventory.
-	 * Returns true if it was successful, false if the item was nil or 
-	 * there was not enough space.
+	 * Returns true if it was successful, false there was not enough space.
+	 *
 	 * @param Item item The item to add.
-	 * @returns Boolean True for successful add.
+	 * @returns boolean True for successful add.
 	 */
 	int Character_add_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (obj && item)
+		if (obj)
 		{
-			lua_pushboolean(lua, obj->addItem(item));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushboolean(lua, obj->addItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_item", "Item item");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_item", "Character");
 	}
 	/**
 	 * Removes an item from the characters inventory.
 	 * Returns true if the item was removed, false if the item was nil
 	 * or if the item could not be found.
+	 *
 	 * @param Item item The item to remove.
-	 * @returns Boolean True if removal was successful.
+	 * @returns boolean True if removal was successful.
 	 */
 	int Character_remove_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (obj && item)
+		if (obj)
 		{
-			lua_pushboolean(lua, obj->removeItem(item));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushboolean(lua, obj->removeItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_item", "Item item");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_item", "Character");
 	}
 	/**
 	 * Returns true if an item is in the characters inventory.
 	 * Returns false if the item was nil or not found.
+	 *
 	 * @param Item item The item to search for.
-	 * @returns Boolean True if found successfully.
+	 * @returns boolean True if found successfully.
 	 */
 	int Character_has_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (obj && item)
+		if (obj)
 		{
-			lua_pushboolean(lua, obj->hasItem(item));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushboolean(lua, obj->hasItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_item", "Item item");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "has_item", "Character");
 	}
 	/**
 	 * Drops an item at the characters feet.
 	 * Return codes:
-	 *  1: Success
-	 *  0: Item was nil
-	 * -1: Drop location was too far away (should not happen)
-	 * -2: Drop location was invalid for item.
-	 * -3: Error
+	 * <ul>
+	 * <li>1: Success.</li>
+	 * <li>0: Item was nil.</li>
+	 * <li>-1: Drop location was too far away (should not happen).</li>
+	 * <li>-2: Drop location was invalid for item.</li>
+	 * <li>-3: Error.</li>
+	 * </ul>
+	 *
 	 * @param Item item The item to drop
-	 * @returns Integer Drop item return code.
+	 * @returns integer Drop item return code.
 	 */
 	/**
 	 * Drops an item at the given map coordinates.
 	 * Return codes:
-	 *  1: Success
-	 *  0: Item was nil
-	 * -1: Drop location was too far away
-	 * -2: Drop location was invalid for item.
-	 * -3: Error
+	 * <ul>
+	 * <li>1: Success.</li>
+	 * <li>0: Item was nil.</li>
+	 * <li>-1: Drop location was too far away.</li>
+	 * <li>-2: Drop location was invalid for item.</li>
+	 * <li>-3: Error.</li>
+	 * </ul>
+	 *
 	 * @param Item item The item to drop
-	 * @param Number x X map location to drop at
-	 * @param Number y Y map location to drop at
-	 * @returns Integer Drop item return code.
+	 * @param number x X map location to drop at
+	 * @param number y Y map location to drop at
+	 * @returns integer Drop item return code.
 	 */
 	int Character_drop_item(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
 		if (obj)
 		{
-			if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
 			{
-				lua_pushinteger(lua, obj->dropItem(item, lua_tofloat(lua, -2), lua_tofloat(lua, -1)));
+				if (lua_isnum(lua, 3) && lua_isnum(lua, 4))
+				{
+					lua_pushinteger(lua, obj->dropItem(item, lua_tofloat(lua, 3), lua_tofloat(lua, 4)));
+				}
+				else
+				{
+					lua_pushinteger(lua, obj->dropItem(item));
+				}
+				return 1;
 			}
-			else
-			{
-				lua_pushinteger(lua, obj->dropItem(item));
-			}
-			return 1;
+			return LuaState::expectedArgs(lua, "drop_item", 2, "Item item", "Item item, number x, number y");
 		}
-		lua_pushinteger(lua, -3);
-		return 1;
+		return LuaState::expectedContext(lua, "drop_item", "Character");
 	}
 	/**
 	 * Returns the age of the character.
+	 *
 	 * @returns Number The age of the character
 	 */
 	/**
 	 * Sets the age of the character.
-	 * @param Number age The new characters age
+	 *
+	 * @param number age The new characters age
 	 * @returns Character This.
 	 */
 	int Character_age(lua_State *lua)
@@ -611,15 +684,15 @@ namespace game {
 				lua_pushnumber(lua, obj->getAge());
 				return 1;
 			}
-			else if (lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2))
 			{
-				obj->setAge(lua_tofloat(lua, -1));
+				obj->setAge(lua_tofloat(lua, 2));
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "age", "number age");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "age", "Character");
 	}
 	/**
 	 * Returns the characters Race.
@@ -629,13 +702,20 @@ namespace game {
 	 * Sets the race of the character.
 	 * If the race could not be found in the game engine, 
 	 * the characters race is unchanged.
-	 * @param String raceName The name of the race.
+	 * 
+	 * @param string raceName The name of the race.
 	 * @returns Character This
 	 */
 	/**
 	 * Sets the race of the character.
-	 * If the race is nil the characters race is unchanged.
+	 *
 	 * @param Race race The race to change to.
+	 * @returns Character This
+	 */
+	/**
+	 * Sets the race to the unknown race.
+	 *
+	 * @param nil race Set the race to the unknown race.
 	 * @returns Character This
 	 */
 	int Character_race(lua_State *lua)
@@ -656,10 +736,16 @@ namespace game {
 				}
 				return 1;
 			}
+			else if(lua_isnil(lua, 2))
+			{
+				obj->setRace(NULL);
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
 			else
 			{
 				Race *race = NULL;
-				if (lua_isstring(lua, 2))
+				if (lua_type(lua, 2) == LUA_TSTRING)
 				{
 					race = Engine::getEngine()->getRace(lua_tostring(lua, 2));
 				}
@@ -667,27 +753,28 @@ namespace game {
 				{
 					race = castUData<Race>(lua, 2);
 				}
-
 				if (race)
 				{
 					obj->setRace(race);
+					lua_pushvalue(lua, 1);
+					return 1;
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
 			}
+			return LuaState::expectedArgs(lua, "race", 3, "string raceName", "Race race", "nil");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "race", "Character");
 	}
 	/**
 	 * Returns the gender of the character.
-	 * @returns String The characters gender
+	 *
+	 * @returns string The characters gender
 	 */
 	/**
 	 * Sets the characters gender.
 	 * Currently only supports "male" and "female", if it is not one of these
 	 * the characters gender is not changed.
-	 * @param String gender The gender to change to.
+	 *
+	 * @param string gender The gender to change to.
 	 * @returns Character This
 	 */
 	int Character_gender(lua_State *lua)
@@ -703,29 +790,30 @@ namespace game {
 			else
 			{
 				Gender::GenderType gender = Gender::MAX_GENDER_LENGTH;
-				if (lua_isnumber(lua, -1)) 
+				if (lua_isnum(lua, 2))
 				{
-					gender = Gender::getGenderInt(lua_tointeger(lua, -1));
+					gender = Gender::getGenderInt(lua_tointeger(lua, 2));
 				
 				}
-				else if (lua_isstring(lua, -1))
+				else if (lua_isstr(lua, 2))
 				{
-					gender = Gender::getGenderType(lua_tostring(lua, -1));
+					gender = Gender::getGenderType(lua_tostring(lua, 2));
 				}
 				if (gender != Gender::MAX_GENDER_LENGTH) 
 				{
 					obj->setGender(gender);
+					lua_pushvalue(lua, 1);
+					return 1;
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				return LuaState::expectedArgs(lua, "gender", "String genderName");
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "gender", "Character");
 	}
 	/**
 	 * Returns the characters coin purse.
 	 * This stores all the coin that the character currently holds.
+	 *
 	 * @returns CoinPurse The characters coin purse.
 	 */
 	int Character_coin_purse(lua_State *lua)
@@ -736,22 +824,30 @@ namespace game {
 			wrapRefObject<CoinPurse>(lua, obj->getCoinPurse());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "coin_purse", "Character");
 	}
 	/**
 	 * Returns the graphic attached to this character, can be nil.
+	 *
 	 * @returns am::lua::gfx::Sprite The characters sprite.
 	 */
 	/**
 	 * Sets the characters asset graphic.
 	 * Sets the assetName of the graphic for this character.
-	 * @param String assetName The asset name to the graphic.
+	 *
+	 * @param string assetName The asset name to the graphic.
 	 * @returns Character This
 	 */
 	/**
-	 * Sets the characters graphic, can be nil.
+	 * Sets the characters graphic.
+	 *
 	 * @param am::lua::gfx::Sprite sprite The graphic to set.
+	 * @returns Character This
+	 */
+	/**
+	 * Sets the character graphic to nil.
+	 *
+	 * @param nil graphic Set the graphic to nil.
 	 * @returns Character This
 	 */
 	int Character_graphic(lua_State *lua)
@@ -770,21 +866,28 @@ namespace game {
 			}
 			else
 			{
-				if (lua_isstring(lua, -1))
+				if (lua_isstr(lua, 2))
 				{
-					obj->setGraphic(new Sprite(lua_tostring(lua, -1)));
+					obj->setGraphic(new Sprite(lua_tostring(lua, 2)));
+				}
+				else if (lua_isnil(lua, 2))
+				{
+					obj->setGraphic(NULL);
 				}
 				else
 				{
 					// Can be nil
-					obj->setGraphic(castUData<Sprite>(lua, -1));
+					obj->setGraphic(castUData<Sprite>(lua, 2));
 				}
-				lua_pushvalue(lua, 1);
-				return 1;
+				if (obj)
+				{
+					lua_pushvalue(lua, 1);
+					return 1;
+				}
+				return LuaState::expectedArgs(lua, "graphic", 3, "string assetName", "Sprite sprite", "nil");
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "graphic", "Character");
 	}
 	/**
 	 * Returns the characters current map location.
@@ -793,8 +896,8 @@ namespace game {
 	 */
 	/**
 	 * Sets the characters map location.
-	 * @param Number x The x map value
-	 * @param Number y The y map value
+	 * @param number x The x map value
+	 * @param number y The y map value
 	 * @returns Character This
 	 */
 	int Character_location(lua_State *lua)
@@ -808,25 +911,25 @@ namespace game {
 				lua_pushnumber(lua, obj->getLocationY());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				obj->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
+				obj->setLocation(lua_tofloat(lua, 2), lua_tofloat(lua, 3));
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "location", "number x, number y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "location", "Character");
 	}
 	/**
 	 * Returns the characters currnet map grid location.
-	 * @returns Integer x The x grid value
-	 * @returns Integer y The y grid value
+	 * @returns integer x The x grid value
+	 * @returns integer y The y grid value
 	 */
 	/**
 	 * Sets the characters current map grid location.
-	 * @param Integer x The x grid value
-	 * @param Integer y The y grid value
+	 * @param integer x The x grid value
+	 * @param integer y The y grid value
 	 * @returns Character This
 	 */
 	int Character_grid_location(lua_State *lua)
@@ -840,53 +943,55 @@ namespace game {
 				lua_pushinteger(lua, obj->getGridLocationY());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				obj->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+				obj->setGridLocation(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "grid_location", "integer x, integer y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "grid_location", "Character");
 	}
 	/**
 	 * Moves a character by {x, y} amount.
 	 * If the new location isn't valid, the character isn't moved.
-	 * @param Number x The x amount to move by
-	 * @param Number y The y amount to move by
+	 * @param number x The x amount to move by
+	 * @param number y The y amount to move by
 	 * @returns Character This
 	 */
 	int Character_move(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (obj && lua_isnum(lua, 2) && lua_isnum(lua, 3))
 		{
-			obj->move(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
+			obj->move(lua_tofloat(lua, 2), lua_tofloat(lua, 3));
 			lua_pushvalue(lua, 1);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "move", "Character");
 	}
 	/**
 	 * Moves a character by {x, y} grid amounts.
 	 * If the new location isn't valid, the character isn't moved.
-	 * @param Integer x The x grid amount to by move by
-	 * @param Integer y The y grid amount to by move by
+	 * @param integer x The x grid amount to by move by
+	 * @param integer y The y grid amount to by move by
 	 * @returns Character This
 	 */
 	int Character_move_grid(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (obj)
 		{
-			obj->moveGrid(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-			lua_pushvalue(lua, 1);
-			return 1;
+			if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
+			{
+				obj->moveGrid(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "move_grid", "integer x, integer y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "move_grid", "Character");
 	}
 	/**
 	 * Initiates a conversation between this character
@@ -896,8 +1001,8 @@ namespace game {
 	 * either this character or the game object did not have a
 	 * DialogComponent attached.
 	 * @see DialogComponent
-	 * @param String id The game object id.
-	 * @returns Boolean True if the conversation was initiated.
+	 * @param string id The game object id.
+	 * @returns boolean True if the conversation was initiated.
 	 */
 	/**
 	 * Initiates a conversation between this character
@@ -907,66 +1012,85 @@ namespace game {
 	 * either this character or the game object did not have a
 	 * DialogComponent attached.
 	 * @see DialogComponent
-	 * @param GameObject gameObject The game object to start a converstation with.
-	 * @returns Boolean True if the conversation was initiated.
+	 * @param GameObject talkee The game object to start a converstation with.
+	 * @returns boolean True if the conversation was initiated.
 	 */
 	int Character_talk_to(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && obj->getDialogueComp())
+		if (obj)
 		{
-			//GameObject *other = (GameObject *)(lua_touserdata(lua, -1));
-			GameObject *other = getGameObject(lua, -1);
-			if (other->getDialogueComp())
+			if (obj->getDialogueComp())
 			{
-				obj->getDialogueComp()->talkTo(other);
-				lua_pushboolean(lua, true);
-				return 1;
+				GameObject *other = getGameObject(lua, -1);
+				if (other)
+				{
+					if (other->getDialogueComp())
+					{
+						obj->getDialogueComp()->talkTo(other);
+						lua_pushboolean(lua, true);
+						return 1;
+					}
+					LuaState::warning(lua, "Talkee game object needs a dialogue component to talk to");
+					lua_pushboolean(lua, false);
+					return 1;
+				}
+				return LuaState::expectedArgs(lua, "talk_to", "GameObject talkee");
 			}
+			LuaState::warning(lua, "Character needs a dialogue component to talk to another game object");
+			lua_pushboolean(lua, false);
+			return 1;
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "talk_to", "Character");
 	}
 	/**
 	 * Returns true if this character is fixed to the game grid
 	 * or false if the character is able to move freely about the map.
-	 * @returns Boolean True if the character is fixed to the grid.
+	 * @returns boolean True if the character is fixed to the grid.
 	 */
 	/**
 	 * Sets if the character is fixed to the grid or not.
 	 * If a character is fixed to the grid, they cannot move to positions
 	 * other than the center of each grid space.
-	 * @param Boolean fixed Sets the fixed to grid value.
+	 * @param boolean fixed Sets the fixed to grid value.
 	 * @returns Character This
 	 */
 	int Character_fixed_to_grid(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && lua_isboolean(lua, -1))
+		if (obj)
 		{
 			if (lua_gettop(lua) == 1)
 			{
 				lua_pushboolean(lua, obj->isFixedToGrid());
 				return 1;
 			}
-			else if (lua_isboolean(lua, -1))
+			else if (lua_isbool(lua, 2))
 			{
-				obj->setFixedToGrid(lua_tobool(lua, -1));
+				obj->setFixedToGrid(lua_tobool(lua, 2));
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "fixed_to_grid", "boolean fixed");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "fixed_to_grid", "Character");
 	}
 
 	/**
 	 * Returns the current map that this character is on, can be nil.
+	 *
 	 * @returns Map The map the character is on.
 	 */
 	/**
-	 * Sets the map that the character is on, can be nil.
+	 * Sets the map that the character is on.
+	 *
 	 * @param Map map The map to put the character on.
+	 * @returns Character This
+	 */
+	/**
+	 * Sets the map that the character is on to nil.
+	 *
+	 * @param nil map Sets the map to nil.
 	 * @returns Character This
 	 */
 	int Character_map(lua_State *lua)
@@ -983,17 +1107,26 @@ namespace game {
 					return 1;
 				}
 			}
-			else
+			else if (lua_isnil(lua, 2))
 			{
-				Map *map = castUData<Map>(lua, 2);
-				// Can be set to nil
-				obj->setMap(map);
+				obj->setMap(NULL);
 				lua_pushvalue(lua, 1);
 				return 1;
 			}
+			else
+			{
+				Map *map = castUData<Map>(lua, 2);
+				if (map)
+				{
+					// Can be set to nil
+					obj->setMap(map);
+					lua_pushvalue(lua, 1);
+					return 1;
+				}
+			}
+			return LuaState::expectedArgs(lua, "map", 2, "nil map", "Map map");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "map", "Character");
 	}
 	/**
 	 * Adds a tile type to the list of tile types that this character
@@ -1004,13 +1137,18 @@ namespace game {
 	int Character_add_passible_type(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		TileType *type = castUData<TileType>(lua, 2);
-		if (obj && type)
+		if (obj)
 		{
-			obj->addPassibleType(type);
+			TileType *type = castUData<TileType>(lua, 2);
+			if (type)
+			{
+				obj->addPassibleType(type);
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_passible_type", "TileType tileType");
 		}
-		lua_pushvalue(lua, 1);
-		return 1;
+		return LuaState::expectedContext(lua, "add_passible_type", "Character");
 	}
 	/**
 	 * Removes a tile type from the list of passible tiles.
@@ -1020,13 +1158,18 @@ namespace game {
 	int Character_remove_passible_type(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		TileType *type = castUData<TileType>(lua, 2);
-		if (obj && type)
+		if (obj)
 		{
-			obj->removePassibleType(type);
+			TileType *type = castUData<TileType>(lua, 2);
+			if (type)
+			{
+				obj->removePassibleType(type);
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_passible_type", "TileType tileType");
 		}
-		lua_pushvalue(lua, 1);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_passible_type", "Character");
 	}
 	/**
 	 * Removes all tile types from this characters passible list.
@@ -1038,27 +1181,31 @@ namespace game {
 		if (obj)
 		{
 			obj->removeAllPassibleTypes();
+			lua_pushvalue(lua, 1);
+			return 1;
 		}
-		lua_pushvalue(lua, 1);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_all_passible_types", "Character");
 	}
 	/**
 	 * Returns true if the given tile type is found on this characters
 	 * passible list.
 	 * @param TileType tileType The tile type to search for
-	 * @returns Boolean True if the tile type is found
+	 * @returns boolean True if the tile type is found
 	 */
 	int Character_has_passible_type(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		TileType *type = castUData<TileType>(lua, 2);
-		if (obj && type)
+		if (obj)
 		{
-			lua_pushboolean(lua, obj->hasPassibleType(type));
-			return 1;
+			TileType *type = castUData<TileType>(lua, 2);
+			if (type)
+			{
+				lua_pushboolean(lua, obj->hasPassibleType(type));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_passible_type", "TileType tileType");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_passible_type", "Character");
 	}
 	/**
 	 * Returns a table of all the passible tile types for this character.
@@ -1080,29 +1227,29 @@ namespace game {
 			}
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "get_passible_types", "Character");
 	}
 	/**
 	 * @static
 	 * Looks for a character with the given game id.
 	 * Nil is returned if it is not found.
-	 * @param String gameId The game id to look up
+	 * @param string gameId The game id to look up
 	 * @returns Character The found character or nil
 	 */
 	int Character_find(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
+			Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(lua_tostring(lua, 1)));
 			if (obj)
 			{
 				wrapRefObject<Character>(lua, obj);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@find", "string gameId");
 	}
 	/**
 	 * @see DialogueComponent
@@ -1112,7 +1259,7 @@ namespace game {
 	/**
 	 * Sets a dialogue component onto this character, can be nil.
 	 * @param DialogueComponent comp The dialogue component to attach to this character, can be nil.
-	 * @param Boolean [true] setAttached When true it also sets that this character
+	 * @param boolean [true] setAttached When true it also sets that this character
 	 * is the game object attached to the dialogue component.
 	 */
 	int Character_dialogue_component(lua_State *lua)
@@ -1144,19 +1291,18 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "dialogue_component", "Character");
 	}
 
 	/**
 	 * Returns the game id for this character.
-	 * @returns String The characters game id.
+	 * @returns string The characters game id.
 	 */
 	/**
 	 * Sets the characters game id, this is used to refer to this
 	 * character from the game engine. Should be unique.
-	 * @param String gameId The characters unique game id.
-	 * @returns Boolean True if the game id change was successful or if
+	 * @param string gameId The characters unique game id.
+	 * @returns boolean True if the game id change was successful or if
 	 * game id was the same as the given gameId. False indicates that
 	 * either there is no current game engine or there is another
 	 * game object with the same game id.
@@ -1177,8 +1323,7 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "id", "Character");
 	}
 	
 	/**
@@ -1188,11 +1333,11 @@ namespace game {
 	 *     am_log("Character talked to")
 	 * end)
 	 * </pre>
-	 * @param String eventType The event type or name to trigger on
+	 * @param string eventType The event type or name to trigger on
 	 * @param Function listener The function to call when the event is fired.
 	 * @param Table [nil] content An option context for the listener to be
 	 * called with.
-	 * @returns Boolean True if the event was added successfully.
+	 * @returns boolean True if the event was added successfully.
 	 */
 	int Character_add_event_listener(lua_State *lua)
 	{
@@ -1202,8 +1347,7 @@ namespace game {
 			lua_pushboolean(lua, am::lua::ui::addEventListener(lua, obj));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "on", "Character");
 	}
 	/**
 	 * Removes an event listener from this character.
@@ -1215,11 +1359,11 @@ namespace game {
 	 * end
 	 * character:on("talkTo", talkToOnce)
 	 * </pre>
-	 * @param String eventType The event type the listener was listening for.
+	 * @param string eventType The event type the listener was listening for.
 	 * @param Function listener The listener function to remove.
 	 * @param Table [nil] context The context which the listener was going to 
 	 * be called with, this is only optional if the listener was added with no context.
-	 * @returns Boolean True if the event listener was successfully removed.
+	 * @returns boolean True if the event listener was successfully removed.
 	 */
 	int Character_remove_event_listener(lua_State *lua)
 	{
@@ -1229,13 +1373,12 @@ namespace game {
 			lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, obj));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "off", "Character");
 	}
 	/**
 	 * Returns true when there is an event listener for the given eventType.
-	 * @param String eventType The event type to look up.
-	 * @returns Boolean True if there is any event listener 
+	 * @param string eventType The event type to look up.
+	 * @returns boolean True if there is any event listener 
 	 * that will be trigged by this event type.
 	 */
 	int Character_has_event_listener(lua_State *lua)
@@ -1246,12 +1389,11 @@ namespace game {
 			lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, -1)));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_event_listener", "Character");
 	}
 	/**
 	 * Returns the amount of experience this character has.
-	 * @returns Integer The amount of experience this character has.
+	 * @returns integer The amount of experience this character has.
 	 */
 	/**
 	 * Sets the amount of experience this character has.
@@ -1263,7 +1405,7 @@ namespace game {
 	 * the characters max level experience, it will be capped at that amount.
 	 * <br>
 	 * It is generally recommended to simply add experience to a character.
-	 * @param Integer experience The amount of experience to set on this character.
+	 * @param integer experience The amount of experience to set on this character.
 	 * @returns Character This
 	 */
 	int Character_experience(lua_State *lua)
@@ -1283,28 +1425,32 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "experience", "Character");
 	}
 	/**
 	 * Adds the given amount of experience to the total amount of 
 	 * experience this character has. The total will always be capped
 	 * at the characters max level if they have one.
-	 * @param Integer experience The amount of experience to add.
+	 * @param integer experience The amount of experience to add.
 	 * @returns Character This
 	 */
 	int Character_add_experience(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
-		if (obj && lua_isnumber(lua, -1))
+		if (obj)
 		{
-			obj->addExperience(lua_tointeger(lua, -1));
+			if (lua_isnum(lua, 2))
+			{
+				obj->addExperience(lua_tointeger(lua, 2));
+				lua_pushvalue(lua, 1);
+				return 1;
+			}
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "add_experience", "Character");
 	}
 	/**
 	 * Returns the characters current level.
-	 * @returns Integer The characters level
+	 * @returns integer The characters level
 	 */
 	/**
 	 * Sets the characters level.
@@ -1315,7 +1461,7 @@ namespace game {
 	 * if they have a max level set.
 	 *
 	 * It is generally recommended to use add_level instead of setting it directly.
-	 * @param Integer level The characters new level.
+	 * @param integer level The characters new level.
 	 * @returns Character This
 	 */
 	int Character_level(lua_State *lua)
@@ -1335,15 +1481,14 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "level", "Character");
 	}
 	/**
 	 * Adds the given amount of levels to this character.
 	 * This new level will not go over a characters max level if they have one set.
 	 * The characters experience will also be set the appropriate amount
 	 * for them to be this level.
-	 * @param Integer levels The number of levels to add to this character
+	 * @param integer levels The number of levels to add to this character
 	 * @returns Character This
 	 */
 	int Character_add_level(lua_State *lua)
@@ -1355,19 +1500,18 @@ namespace game {
 			lua_pushvalue(lua, 1);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_level", "Character");
 	}
 
 	/**
 	 * Returns this characters maximum level that they can achieve.
 	 * If max level is set to 0, their effective max level will be 2^15 (32768).
-	 * @returns Integer The characters current max level.
+	 * @returns integer The characters current max level.
 	 */
 	/**
 	 * Sets the characters max level. If the max level is set to 0, then their
 	 * effective max level will be 2^15 (32768).
-	 * @param Integer maxLevel The characters max level.
+	 * @param integer maxLevel The characters max level.
 	 * @returns Character This
 	 */
 	int Character_max_level(lua_State *lua)
@@ -1387,8 +1531,7 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "max_level", "Character");
 	}
 	
 }

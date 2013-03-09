@@ -40,9 +40,9 @@ namespace game {
 	 * <li>+ : Adds the given value directly onto the stat, this value can be negative. This mod is applied third.</li>
 	 * </ul>
 	 *
-	 * @param Number value The value of this modifier.
-	 * @param String type The stat modifier type.
-	 * @param Boolean [true] magical This currently does not change the behaviour of the modifier, however it does
+	 * @param number value The value of this modifier.
+	 * @param string type The stat modifier type.
+	 * @param boolean [true] magical This currently does not change the behaviour of the modifier, however it does
 	 *  allow the UI to show the origin of this mod better.
 	 */
 	int StatModifier_ctor(lua_State *lua)
@@ -101,7 +101,7 @@ namespace game {
 	 * am_log("Mod 2 == Mod 3? " .. (mod2 == mod2)) -- Output "Mod 2 == Mod 3? false"
 	 * </pre>
 	 * @param StatModifier modifiers The other stat modifiers object to compare with.
-	 * @returns Boolean True if they are the same stat modifiers object.
+	 * @returns boolean True if they are the same stat modifiers object.
 	 */
 	int StatModifier_eq(lua_State *lua)
 	{
@@ -141,7 +141,7 @@ namespace game {
 	/**
 	 * Sets the stat modifier value.
 	 *
-	 * @param Number value The new value for this modifier.
+	 * @param number value The new value for this modifier.
 	 * @returns StatModifier This
 	 */
 	int StatModifier_value(lua_State *lua)
@@ -168,7 +168,7 @@ namespace game {
 	/**
 	 * Returns the type of this stat modifier.
 	 *
-	 * @returns String The stat modifier type.
+	 * @returns string The stat modifier type.
 	 */
 	/**
 	 * Sets the stat modifier type.
@@ -179,7 +179,7 @@ namespace game {
 	 * <li>+ : Adds the given value directly onto the stat, this value can be negative. This mod is applied third.</li>
 	 * </ul>
 	 *
-	 * @param String type The new type for this modifier.
+	 * @param string type The new type for this modifier.
 	 * @returns StatModifier This
 	 */
 	int StatModifier_type(lua_State *lua)
@@ -210,12 +210,12 @@ namespace game {
 	/**
 	 * Returns the magical nature of this stat modifier.
 	 *
-	 * @returns Boolean True if this is a magical mod.
+	 * @returns boolean True if this is a magical mod.
 	 */
 	/**
 	 * Sets if modifier is magical in nature.
 	 *
-	 * @param Boolean magical The new magical flag for this modifier.
+	 * @param boolean magical The new magical flag for this modifier.
 	 * @returns StatModifier This
 	 */
 	int StatModifier_magical(lua_State *lua)

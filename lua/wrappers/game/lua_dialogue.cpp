@@ -29,12 +29,12 @@ namespace game {
 	 */
 	/**
 	 * Creates a new dialogue.
-	 * @param String dialogueId The unique id for this dialogue.
-	 * @param String text The dialogue text.
-	 * @param String [""] title The title for this dialogue.
-	 * @param String [""] subject The subject of this dialogue.
-	 * @param String ["none"] unlock_flag Either "none" or "locked".
-	 * @param String ["none"] action Either "none", "shop" or "close".
+	 * @param string dialogueId The unique id for this dialogue.
+	 * @param string text The dialogue text.
+	 * @param string [""] title The title for this dialogue.
+	 * @param string [""] subject The subject of this dialogue.
+	 * @param string ["none"] unlock_flag Either "none" or "locked".
+	 * @param string ["none"] action Either "none", "shop" or "close".
 	 */
 	int Dialogue_ctor(lua_State *lua)
 	{
@@ -89,7 +89,7 @@ namespace game {
 	 * Compares this Dialogue with another Dialogue object.
 	 *
 	 * @param Dialogue rhs The other Dialogue to compare with.
-	 * @returns Boolean True if they are the same Dialogue object.
+	 * @returns boolean True if they are the same Dialogue object.
 	 */
 	int Dialogue_eq(lua_State *lua)
 	{
@@ -131,11 +131,11 @@ namespace game {
 
 	/**
 	 * Returns the raw dialogue text.
-	 * @returns String The raw dialogue text.
+	 * @returns string The raw dialogue text.
 	 */
 	/**
 	 * Sets the raw dialogue text.
-	 * @param String text The new dialogue text.
+	 * @param string text The new dialogue text.
 	 * @returns Dialogue This
 	 */
 	int Dialogue_text(lua_State *lua)
@@ -160,11 +160,11 @@ namespace game {
 	}
 	/**
 	 * Returns the title for this dialogue.
-	 * @returns String The title for this dialogue.
+	 * @returns string The title for this dialogue.
 	 */
 	/**
 	 * Sets the dialogue title.
-	 * @param String title The new dialogue title.
+	 * @param string title The new dialogue title.
 	 * @returns Dialogue This
 	 */
 	int Dialogue_title(lua_State *lua)
@@ -189,11 +189,11 @@ namespace game {
 	}
 	/**
 	 * Returns the unique id for this dialogue.
-	 * @returns String This dialogues unique id.
+	 * @returns string This dialogues unique id.
 	 */
 	/**
 	 * Sets the dialogues id.
-	 * @param String id The dialogue's new id.
+	 * @param string id The dialogue's new id.
 	 * @returns Dialogue This
 	 */
 	int Dialogue_id(lua_State *lua)
@@ -218,13 +218,13 @@ namespace game {
 	}
 	/**
 	 * Returns the subject title for this dialogue, this can be an empty string.
-	 * @returns String The subject title.
+	 * @returns string The subject title.
 	 */
 	/**
 	 * Sets the subject title for this dialogue. The subject can determine
 	 * if a dialogue option is unlocked, as once any dialogue with a given subject
 	 * is unlocked, all dialogue's with the same subject are unlocked.
-	 * @param String subject The subject title for this dialogue.
+	 * @param string subject The subject title for this dialogue.
 	 * @returns Dialogue This
 	 */
 	int Dialogue_subject(lua_State *lua)
@@ -252,13 +252,13 @@ namespace game {
 	 * Returns the dialogue unlock flag. This determines if the dialogue
 	 * if locked by subject from the start or if it is always unlocked.
 	 *
-	 * @returns String Either "none" or "locked"
+	 * @returns string Either "none" or "locked"
 	 */
 	/**
 	 * Sets how the dialogue is unlocked, it is either locked by subject or
 	 * always unlocked.
 	 * 
-	 * @param String flag Either "none" or "locked"
+	 * @param string flag Either "none" or "locked"
 	 * @returns Dialogue This
 	 */
 	int Dialogue_unlock_flag(lua_State *lua)
@@ -288,12 +288,12 @@ namespace game {
 
 	/**
 	 * Returns the specific action associated with this dialogue.
-	 * @returns String Either "none", "shop" or "close"
+	 * @returns string Either "none", "shop" or "close"
 	 */
 	/**
 	 * Sets the dialogue action, these trigger special events when the
 	 * dialogue is used.
-	 * @param String Either "none", "shop" or "close"
+	 * @param string Either "none", "shop" or "close"
 	 * @returns Dialogue This
 	 */
 	int Dialogue_dialogue_action(lua_State *lua)
@@ -326,7 +326,7 @@ namespace game {
 	 * Dialogues in the dialogue pool can be automatically accessed
 	 * by the dialogue system.
 	 * @param Dialogue dialogue The dialogue to add.
-	 * @returns Boolean True if the dialogue was successfully added.
+	 * @returns boolean True if the dialogue was successfully added.
 	 */
 	int Dialogue_add_dialogue(lua_State *lua)
 	{
@@ -342,8 +342,8 @@ namespace game {
 	/**
 	 * @static
 	 * Removes a dialogue from the game engines dialogue pool.
-	 * @param String dialogueId The dialogue id to remove.
-	 * @returns Boolean True if the dialogue was successfully removed.
+	 * @param string dialogueId The dialogue id to remove.
+	 * @returns boolean True if the dialogue was successfully removed.
 	 */
 	int Dialogue_remove_dialogue(lua_State *lua)
 	{
@@ -367,7 +367,7 @@ namespace game {
 	/**
 	 * @static
 	 * Finds a dialogue in the dialogue pool with the given dialogue id.
-	 * @param String dialogueId The dialogue id to search for.
+	 * @param string dialogueId The dialogue id to search for.
 	 * @returns Dialogue The found dialogue or nil.
 	 */
 	int Dialogue_get_dialogue(lua_State *lua)

@@ -18,5 +18,12 @@ function newGame()
 		game:current_map(map)
 	end
 	
-	-- player = Character.new()
+	player = Character.new()
+	player:name("Melanine")
+		:graphic(Sprite.new("characters/mainCharacter"))
+		:grid_location(2, 1)
+		:gender("female")
+		:race("human")
+	
+	game:main(player)
 end

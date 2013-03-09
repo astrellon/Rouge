@@ -54,7 +54,7 @@ namespace game {
 	 * Compares this stats object against another stats object.
 	 *
 	 * @param Stats rhs The other stats object to compare with.
-	 * @returns Boolean True if they are the same stats object.
+	 * @returns boolean True if they are the same stats object.
 	 */
 	int Stats_eq(lua_State *lua)
 	{
@@ -124,14 +124,14 @@ namespace game {
 	 * Returns the base value for the given stat. This is the value of the stat before
 	 * any stat modifiers are applied.
 	 *
-	 * @param String statName The name of the stat to get the base value of.
+	 * @param string statName The name of the stat to get the base value of.
 	 * @returns Number The base value.
 	 */
 	/**
 	 * Sets the base value of the given stat with the given value.
 	 *
-	 * @param String statName The name of the stat to set the base value of.
-	 * @param Number baseValue The new base value for the stat.
+	 * @param string statName The name of the stat to set the base value of.
+	 * @param number baseValue The new base value for the stat.
 	 * @returns Stats This
 	 */
 	int Stats_base_stat(lua_State *lua)
@@ -165,7 +165,7 @@ namespace game {
 	 * This uses the base value of the stat and any modifiers applied to that stat
 	 * to return the value from this function.
 	 *
-	 * @param String statName The name of the stat to get the calculated value of.
+	 * @param string statName The name of the stat to get the calculated value of.
 	 * @returns Number The calculated stat value.
 	 */
 	int Stats_stat(lua_State *lua)
@@ -200,11 +200,11 @@ namespace game {
 	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"
 	 * </pre>
 	 *
-	 * @param String statName The name of the stat to add the modifier to.
-	 * @param Number value The value of the stat modifier.
-	 * @param String type The type of the modifier.
+	 * @param string statName The name of the stat to add the modifier to.
+	 * @param number value The value of the stat modifier.
+	 * @param string type The type of the modifier.
 	 * @param Booleam [true] magical If the modifier is magical in nature.
-	 * @returns Integer Return codes
+	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was added successfully.</li>
 	 * <li>0: The context object was not a stats object.</li>
@@ -220,7 +220,7 @@ namespace game {
 	 * @see StatModifiers
 	 *
 	 * @param StatModifiers mods The collection of stat modifiers to combine with this one.
-	 * @returns Integer Return code
+	 * @returns integer Return code
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully merged.</li>
 	 * <li>0: The context object was not a stats object.</li>
@@ -231,9 +231,9 @@ namespace game {
 	 * Adds a StatModifier instance to this stats collection of modifiers.
 	 * @see StatModifiers
 	 *
-	 * @param String statName The name of the stat this modifier will affect.
+	 * @param string statName The name of the stat this modifier will affect.
 	 * @param StatModifier mod The stat modifier to add.
-	 * @returns Integer Return code for success.
+	 * @returns integer Return code for success.
 	 * <ul>
 	 * <li>1: The stat modifier was added successfully.</li>
 	 * <li>0: The context object was not a stats object.</li>
@@ -274,11 +274,11 @@ namespace game {
 	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 20"
 	 * </pre>
 	 * 
-	 * @param String statName The name of the stat to remove this modifier from.
-	 * @param Number value The stat modifier value.
-	 * @param String modifierType The modifier type name.
-	 * @param Boolean [true] magical If the added modifier was magical, it has be removed as magical.
-	 * @returns Integer Return codes
+	 * @param string statName The name of the stat to remove this modifier from.
+	 * @param number value The stat modifier value.
+	 * @param string modifierType The modifier type name.
+	 * @param boolean [true] magical If the added modifier was magical, it has be removed as magical.
+	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stats object.</li>
@@ -294,7 +294,7 @@ namespace game {
 	 * @see StatModifiers
 	 *
 	 * @param StatModifiers mods The collection of stat modifiers to remove.
-	 * @returns Integer Return codes
+	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully removed.</li>
 	 * <li>0: The context object was not a stats object.</li>
@@ -305,9 +305,9 @@ namespace game {
 	 * Removes a stat modifier from this stats modifiers collection.
 	 * @see StatModifiers
 	 *
-	 * @param String statName The name of the stat to remove this modifier from.
+	 * @param string statName The name of the stat to remove this modifier from.
 	 * @param StatModifier mod The modifier to remove.
-	 * @returns Integer Return codes
+	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stats object.</li>

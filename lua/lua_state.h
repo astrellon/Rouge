@@ -18,6 +18,9 @@ using namespace am::base;
 
 #define lua_tofloat(L,i)	static_cast<float>(lua_tonumber(L,i))
 #define lua_tobool(L,i)		(lua_toboolean(L,i) > 0)
+#define lua_isnum(L,i)		(lua_type(L,i) == LUA_TNUMBER)
+#define lua_isstr(L,i)		(lua_type(L,i) == LUA_TSTRING)
+#define lua_isbool(L,i)		(lua_type(L,i) == LUA_TBOOLEAN)
 
 // Wraps the lua call function with a try catch and a log message with the same file and line as the error if there is one.
 // Should only be used for unit tests as it does not deal with the error, only log that there was one.
@@ -64,10 +67,13 @@ namespace lua {
 	template <class T>
 	inline T *castUData(lua_State *lua, int n)
 	{
-		LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
-		if (udata->id == T::LUA_ID)
+		if (lua_type(lua, n) == LUA_TUSERDATA)
 		{
-			return reinterpret_cast<T *>(udata->ptr);
+			LuaUData *udata = reinterpret_cast<LuaUData *>(lua_touserdata(lua, n));
+			if (udata->id == T::LUA_ID)
+			{
+				return reinterpret_cast<T *>(udata->ptr);
+			}
 		}
 		return NULL;
 	}
@@ -217,11 +223,17 @@ namespace lua {
 
 		static void logStack(lua_State *lua, const char *cat);
 		static void printStack(lua_State *lua, ostream &output);
+		static const char *getType(lua_State *lua, int n);
 		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
 
 		static int lua_am_log(lua_State *lua);
 
 		static void displayLineError(const char *file, int line);
+
+		static int expectedArgs(lua_State *lua, const char *funcName, const char *expected);
+		static int expectedArgs(lua_State *lua, const char *funcName, int n, ...);
+		static int expectedContext(lua_State *lua, const char* funcName, const char *expected);
+		static void warning(lua_State *lua, const char *message);
 
 	protected:
 		lua_State *mLua;

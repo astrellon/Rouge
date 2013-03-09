@@ -36,14 +36,14 @@ namespace game {
 	 * Creates a new map instance.
 	 * The map size will have to be set before any tile data can be set.
 	 *
-	 * @param String mapName The name of the map.
+	 * @param string mapName The name of the map.
 	 */
 	/**
 	 * Creates a new map instance.
 	 *
-	 * @param String mapName The name of the map.
-	 * @param Integer width The width of the map in tiles.
-	 * @param Integer height The height of the map in tiles.
+	 * @param string mapName The name of the map.
+	 * @param integer width The width of the map in tiles.
+	 * @param integer height The height of the map in tiles.
 	 */
 	int Map_ctor(lua_State *lua)
 	{
@@ -79,7 +79,7 @@ namespace game {
 	 * Compares this map against another map object.
 	 *
 	 * @param Map rhs The other map to compare with.
-	 * @returns Boolean True if they are the same map object.
+	 * @returns boolean True if they are the same map object.
 	 */
 	int Map_eq(lua_State *lua)
 	{
@@ -123,14 +123,14 @@ namespace game {
 	/**
 	 * Returns the map name which is also used as the maps id.
 	 *
-	 * @returns String The map name.
+	 * @returns string The map name.
 	 */
 	/**
 	 * Sets the map name, which is used as the map id.
 	 * TODO Currently this doesn't update the map of Maps, so it'll still be
 	 * referred to by it's previous name if it's been registered with a Game instance.
 	 *
-	 * @param String mapName The new map name.
+	 * @param string mapName The new map name.
 	 * @returns Map This
 	 */
 	int Map_name(lua_State *lua)
@@ -156,12 +156,12 @@ namespace game {
 	/**
 	 * Returns the full name of the map. This is used when displaying the map to the user.
 	 *
-	 * @returns String The map's full name.
+	 * @returns string The map's full name.
 	 */
 	/**
 	 * Sets the map's full name. This is used when displaying the map to the user.
 	 *
-	 * @param String fullName The map's new full name.
+	 * @param string fullName The map's new full name.
 	 * @returns Map This
 	 */
 	int Map_full_name(lua_State *lua)
@@ -187,8 +187,8 @@ namespace game {
 	/**
 	 * Returns the tile object on the tile instance at the given grid location.
 	 *
-	 * @param Integer x The x position of the tile.
-	 * @param Integer y The y position of the tile.
+	 * @param integer x The x position of the tile.
+	 * @param integer y The y position of the tile.
 	 * @returns Tile The found file, nil if out of bounds.
 	 */
 	int Map_tile(lua_State *lua)
@@ -209,8 +209,8 @@ namespace game {
 	/**
 	 * Returns the tile instance at the given grid location.
 	 *
-	 * @param Integer x The x position of the tile instance.
-	 * @param Integer y The y position of the tile instance.
+	 * @param integer x The x position of the tile instance.
+	 * @param integer y The y position of the tile instance.
 	 * @returns TileInstance The found tile instance, nil if out of bounds.
 	 */
 	int Map_tile_instance(lua_State *lua)
@@ -276,8 +276,8 @@ namespace game {
 	 * frame of the tile sprite.</span>
 	 *
 	 * @param Array tiles An array of tiles to set onto the map.
-	 * @param Integer width The width of the array given.
-	 * @param Integer height The height of the array given.
+	 * @param integer width The width of the array given.
+	 * @param integer height The height of the array given.
 	 * @returns Map This
 	 */
 	int Map_tiles(lua_State *lua)
@@ -321,14 +321,14 @@ namespace game {
 	/**
 	 * Returns the size of the map.
 	 *
-	 * @returns Integer The width of the map.
-	 * @returns Integer The height of the map.
+	 * @returns integer The width of the map.
+	 * @returns integer The height of the map.
 	 */
 	/**
 	 * Sets the size of the map. This destorys the old map data.
 	 *
-	 * @param Integer width The new width.
-	 * @param Integer height The new height.
+	 * @param integer width The new width.
+	 * @param integer height The new height.
 	 * @returns Map This
 	 */
 	int Map_map_size(lua_State *lua)
@@ -357,7 +357,7 @@ namespace game {
 	 * Adds a game object to this map.
 	 *
 	 * @param GameObject gameObject The game object to add to the map.
-	 * @returns Boolean True if the game object was successfully added to this map.
+	 * @returns boolean True if the game object was successfully added to this map.
 	 */
 	int Map_add_game_object(lua_State *lua)
 	{
@@ -375,7 +375,7 @@ namespace game {
 	 * Removes a game object from the map.
 	 *
 	 * @param GameObject The game object to remove from the map.
-	 * @returns Boolean True if the game object was successfully removed from the map.
+	 * @returns boolean True if the game object was successfully removed from the map.
 	 */
 	int Map_remove_game_object(lua_State *lua)
 	{
@@ -393,7 +393,7 @@ namespace game {
 	 * Returns true if the given game object is on this map.
 	 *
 	 * @param GameObject gameObject The game object to look up.
-	 * @returns Boolean True if the given game object was found.
+	 * @returns boolean True if the given game object was found.
 	 */
 	int Map_has_game_object(lua_State *lua)
 	{
@@ -412,9 +412,9 @@ namespace game {
 	 * This uses the game objects passibility array to tell if it can be at the given location.
 	 *
 	 * @param GameObject The game object to test with.
-	 * @param Number positionX The x position to test at.
-	 * @param Number positionY The y position to test at.
-	 * @returns Boolean True if the given position is valid for the given game object.
+	 * @param number positionX The x position to test at.
+	 * @param number positionY The y position to test at.
+	 * @returns boolean True if the given position is valid for the given game object.
 	 */
 	int Map_is_valid_location(lua_State *lua)
 	{
@@ -436,9 +436,9 @@ namespace game {
 	 * This uses the game objects passibility array to tell if it can be at the given grid location.
 	 *
 	 * @param GameObject The game object to test with.
-	 * @param Integer gridX The x grid position to test at.
-	 * @param Integer gridY The y grid position to test at.
-	 * @returns Boolean True if the given position is valid for the given game object.
+	 * @param integer gridX The x grid position to test at.
+	 * @param integer gridY The y grid position to test at.
+	 * @returns boolean True if the given position is valid for the given game object.
 	 */
 	int Map_is_valid_grid_location(lua_State *lua)
 	{

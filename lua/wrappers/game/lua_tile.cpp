@@ -34,15 +34,15 @@ namespace game {
 	 * Creates a new tile object with the given name, the name need only be unique within its tile set.
 	 * Until a full name is specified, the tile full name is "No full name"
 	 *
-	 * @param Stringname The name of the tile.
+	 * @param stringname The name of the tile.
 	 */
 	/**
 	 * Creates a new tile object with the given name and full name, 
 	 * the name need only be unique within its tile set.
 	 * Full name differs in that it is the name that is presented to the user.
 	 *
-	 * @param String name The name of the tile.
-	 * @param String description The description of the tile.
+	 * @param string name The name of the tile.
+	 * @param string description The description of the tile.
 	 */
 	int Tile_ctor(lua_State *lua)
 	{
@@ -79,7 +79,7 @@ namespace game {
 	 * Compares this tile against another tile object.
 	 *
 	 * @param Tile rhs The other tile to compare with.
-	 * @returns Boolean True if they are the same tile object.
+	 * @returns boolean True if they are the same tile object.
 	 */
 	int Tile_eq(lua_State *lua)
 	{
@@ -121,17 +121,17 @@ namespace game {
 	/**
 	 * Returns the tile name.
 	 *
-	 * @returns String The name of the tile.
+	 * @returns string The name of the tile.
 	 */
 	/**
 	 * Sets the name of the tile.
 	 * If there already exists a tile with the same name, it will be overridden
 	 * by this tile if the 'checkForExisting' argument is not true.
 	 *
-	 * @param String name The new name for this tile.
-	 * @param Boolean [false] checkForExisting When true the name will be not changed if there
+	 * @param string name The new name for this tile.
+	 * @param boolean [false] checkForExisting When true the name will be not changed if there
 	 *  is already a tile with the same name in the tile's tile set.
-	 * @returns Boolean True if the tile's name was changed.
+	 * @returns boolean True if the tile's name was changed.
 	 */
 	int Tile_name(lua_State *lua)
 	{
@@ -168,12 +168,12 @@ namespace game {
 	/**
 	 * Returns the full name of this tile, this is used to display the tile's name to the user.
 	 *
-	 * @returns String The tiles full name.
+	 * @returns string The tiles full name.
 	 */
 	/**
 	 * Sets the tile's full name, this is used to display the tile's name to the user.
 	 *
-	 * @param String fullName The tile's new full name.
+	 * @param string fullName The tile's new full name.
 	 * @returns Tile This
 	 */
 	int Tile_full_name(lua_State *lua)
@@ -199,12 +199,12 @@ namespace game {
 	/**
 	 * Returns the description for this tile.
 	 *
-	 * @returns String The tiles description.
+	 * @returns string The tiles description.
 	 */
 	/**
 	 * Sets the tile's description.
 	 *
-	 * @param String description The tile's description.
+	 * @param string description The tile's description.
 	 * @returns Tile This
 	 */
 	int Tile_description(lua_State *lua)
@@ -239,9 +239,9 @@ namespace game {
 	 * a tile with the same name then tile set is not changed.
 	 *
 	 * @param TileSet set The tile set to add to, can be nil.
-	 * @param Boolean [false] checkForExisting When true the tile set will not be changed if it 
+	 * @param boolean [false] checkForExisting When true the tile set will not be changed if it 
 	 *  already has a tile with the same name.
-	 * @returns Boolean True if the tile set was changed.
+	 * @returns boolean True if the tile set was changed.
 	 */
 	int Tile_tile_set(lua_State *lua)
 	{
@@ -314,7 +314,7 @@ namespace game {
 	 * Adds a tile type to the list of tile types.
 	 * If a type is already in the list, it will be ignored.
 	 * 
-	 * @param String tileTypeName The name of the tile type to add to the list.
+	 * @param string tileTypeName The name of the tile type to add to the list.
 	 * @returns Tile This
 	 */
 	int Tile_add_tile_type(lua_State *lua)
@@ -344,7 +344,7 @@ namespace game {
 	 * Removes a tile type from the list of tile types.
 	 * If a type is not in the list, it will be ignored.
 	 * 
-	 * @param String tileTypeName The name of the tile type to remove from the list.
+	 * @param string tileTypeName The name of the tile type to remove from the list.
 	 * @returns Tile This
 	 */
 	int Tile_remove_tile_type(lua_State *lua)
@@ -384,13 +384,13 @@ namespace game {
 	 * Returns true if the given tile type is in the list of tile types.
 	 *
 	 * @param TileType tileType The tile type to check for.
-	 * @returns Boolean True if the given tile type is in the list.
+	 * @returns boolean True if the given tile type is in the list.
 	 */
 	/**
 	 * Returns true if the given tile type is in the list of tile types.
 	 *
-	 * @param String tileTypeName The name of tile type to check for.
-	 * @returns Boolean True if the given tile type is in the list.
+	 * @param string tileTypeName The name of tile type to check for.
+	 * @returns boolean True if the given tile type is in the list.
 	 */
 	int Tile_has_tile_type(lua_State *lua)
 	{

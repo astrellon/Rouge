@@ -25,7 +25,7 @@ namespace game {
 	/**
 	 * Creates a new race with the given race name.
 	 *
-	 * @param String raceName The race name that is used to identify this race.
+	 * @param string raceName The race name that is used to identify this race.
 	 */
 	int Race_ctor(lua_State *lua)
 	{
@@ -51,7 +51,7 @@ namespace game {
 	 * Compares this race against another race object.
 	 *
 	 * @param Race rhs The other race object to compare with.
-	 * @returns Boolean True if the the they are the same race object.
+	 * @returns boolean True if the the they are the same race object.
 	 */
 	int Race_eq(lua_State *lua)
 	{
@@ -84,7 +84,7 @@ namespace game {
 	/**
 	 * Returns the race name identifier for this race.
 	 *
-	 * @returns String The race name.
+	 * @returns string The race name.
 	 */
 	int Race_race_name(lua_State *lua)
 	{

@@ -55,7 +55,7 @@ namespace game {
 	 * Returns true if the given item is the same as this item.
 	 *
 	 * @param Item rhs The other item to compare with.
-	 * @returns Boolean True if they are the same item.
+	 * @returns boolean True if they are the same item.
 	 */
 	int Item_eq(lua_State *lua)
 	{
@@ -154,7 +154,7 @@ namespace game {
 	 * Sets the graphic for the item, can be set to nil.
 	 *
 	 * @param Sprite graphic The new graphic for the item.
-	 * @param Boolean [false] calcInvSize Calculates the inventory size
+	 * @param boolean [false] calcInvSize Calculates the inventory size
 	 *  of the item based off the graphic size. This is based off the
 	 *  the size of the item compared to the size of each inventory slot size.
 	 * @returns Item This
@@ -235,7 +235,7 @@ namespace game {
 	 * what special properties the item has, such as if it
 	 * is coin or a potion.
 	 *
-	 * @returns String The item type.
+	 * @returns string The item type.
 	 */
 	/**
 	 * Sets the item type, can be one of the following values:
@@ -245,7 +245,7 @@ namespace game {
 	 * <li>potion</li><li>gold</li><li>unknown</li>
 	 * </ul>
 	 *
-	 * @param String itemType The item type to set on this item.
+	 * @param string itemType The item type to set on this item.
 	 * @returns Item This
 	 */
 	int Item_item_type(lua_State *lua)
@@ -288,14 +288,14 @@ namespace game {
 	 * Returns the inventory size of this item as a pair of
 	 * integers in inventory size units.
 	 *
-	 * @returns Integer The width in inventory units.
-	 * @returns Integer The height in inventory units.
+	 * @returns integer The width in inventory units.
+	 * @returns integer The height in inventory units.
 	 */
 	/**
 	 * Sets size of the inventory size in inventory units.
 	 *
-	 * @param Integer width The width in inventory units.
-	 * @param Integer height The height in inventory units.
+	 * @param integer width The width in inventory units.
+	 * @param integer height The height in inventory units.
 	 * @returns Item This
 	 */
 	int Item_inventory_size(lua_State *lua)
@@ -330,7 +330,7 @@ namespace game {
 	/**
 	 * Sets the item location as being either on the ground, in an inventory or in the player's hand.
 	 *
-	 * @param String location The location as either "ground", "inventory" or "hand"
+	 * @param string location The location as either "ground", "inventory" or "hand"
 	 * @returns Item This
 	 */
 	int Item_item_location(lua_State *lua)
@@ -375,12 +375,12 @@ namespace game {
 	 * this item to be kept track of. Any value above 0 is considered
 	 * to be a valid id.
 	 *
-	 * @returns Integer The quest ID of this time.
+	 * @returns integer The quest ID of this time.
 	 */
 	/**
 	 * Sets the quest ID, any value higher than 0 is considered a valid ID.
 	 *
-	 * @param Integer questId The new quest ID.
+	 * @param integer questId The new quest ID.
 	 * @returns Item This
 	 */
 	int Item_quest_item_id(lua_State *lua)
@@ -406,7 +406,7 @@ namespace game {
 	/**
 	 * Returns true if this item has a valid quest ID.
 	 * 
-	 * @returns Boolean True if this item is a quest item.
+	 * @returns boolean True if this item is a quest item.
 	 */
 	int Item_is_quest_item(lua_State *lua)
 	{
@@ -422,12 +422,12 @@ namespace game {
 	/**
 	 * Returns the main item name.
 	 * 
-	 * @returns String The main item name.
+	 * @returns string The main item name.
 	 */
 	/**
 	 * Sets the main item name, this goes between the prefix and the postfix.
 	 *
-	 * @param String name The main item name.
+	 * @param string name The main item name.
 	 * @returns Item This
 	 */
 	int Item_item_name(lua_State *lua)
@@ -453,12 +453,12 @@ namespace game {
 	/**
 	 * Returns the item prefix, this goes before the item name, can be an empty string.
 	 *
-	 * @returns String The item prefix.
+	 * @returns string The item prefix.
 	 */
 	/**
 	 * Sets the item prefix, nil is considered to be an empty string.
 	 *
-	 * @param String prefix The item prefix.
+	 * @param string prefix The item prefix.
 	 * @returns Item This
 	 */
 	int Item_prefix(lua_State *lua)
@@ -488,12 +488,12 @@ namespace game {
 	/**
 	 * Returns the item postfix, this goes after the item name, can be an empty string.
 	 *
-	 * @returns String The item postfix.
+	 * @returns string The item postfix.
 	 */
 	/**
 	 * Sets the item postfix, nil is considered to be an empty string.
 	 *
-	 * @param String postfix The item postfix.
+	 * @param string postfix The item postfix.
 	 * @returns Item This
 	 */
 	int Item_postfix(lua_State *lua)
@@ -523,14 +523,14 @@ namespace game {
 	/**
 	 * Returns the whole item name as one string.
 	 *
-	 * @returns String The whole item name.
+	 * @returns string The whole item name.
 	 */
 	/**
 	 * Sets the whole item name, the main name, prefix and postfix.
 	 *
-	 * @param String mainName The main item name.
-	 * @param String [""] prefix The item prefix.
-	 * @param String [""] postfix The item potsfix.
+	 * @param string mainName The main item name.
+	 * @param string [""] prefix The item prefix.
+	 * @param string [""] postfix The item potsfix.
 	 * @returns Item This
 	 */
 	int Item_item_fullname(lua_State *lua)
@@ -649,7 +649,7 @@ namespace game {
 	/**
 	 * An alias for returning the full item name.
 	 *
-	 * @returns String The full item name.
+	 * @returns string The full item name.
 	 */
 	int Item_name(lua_State *lua)
 	{
@@ -671,8 +671,8 @@ namespace game {
 	/**
 	 * Sets the item's location for the map it is currently on.
 	 *
-	 * @param Number locationX The x location value.
-	 * @param Number locationY The y location value.
+	 * @param number locationX The x location value.
+	 * @param number locationY The y location value.
 	 * @returns Item This
 	 */
 	int Item_location(lua_State *lua)
@@ -701,14 +701,14 @@ namespace game {
 	/**
 	 * Returns the item's grid location.
 	 *
-	 * @returns Integer The x grid location.
-	 * @returns Integer The y grid location.
+	 * @returns integer The x grid location.
+	 * @returns integer The y grid location.
 	 */
 	/**
 	 * Sets the item's grid location for the map it is currently on.
 	 *
-	 * @param Integer gridX The x grid location value.
-	 * @param Integer gridY The y grid location value.
+	 * @param integer gridX The x grid location value.
+	 * @param integer gridY The y grid location value.
 	 * @returns Item This
 	 */
 	int Item_grid_location(lua_State *lua)
@@ -737,13 +737,13 @@ namespace game {
 	/**
 	 * Returns the item's unique game id.
 	 *
-	 * @returns String The item's game id.
+	 * @returns string The item's game id.
 	 */
 	/**
 	 * Set's a new game id for this item.
 	 *
-	 * @param String gameId The new game id.
-	 * @returns Boolean True if the item's game id was successfully changed.
+	 * @param string gameId The new game id.
+	 * @returns boolean True if the item's game id was successfully changed.
 	 */
 	int Item_game_id(lua_State *lua)
 	{
@@ -768,7 +768,7 @@ namespace game {
 	 * @static
 	 * Looks up an item in the current game engine with the given game id.
 	 *
-	 * @param String gameId The game id to look up.
+	 * @param string gameId The game id to look up.
 	 * @returns Item The found item or nil.
 	 */
 	int Item_find(lua_State *lua)
