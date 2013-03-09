@@ -275,7 +275,7 @@ namespace game {
 	 * am_log("Value: " .. mods["health"][1].value)               -- Outputs "Value: 2"
 	 * </pre>
 	 *
-	 * @returns Table All the modifications as a Lua table.
+	 * @returns table All the modifications as a Lua table.
 	 */
 	int StatModifiers_mods(lua_State *lua)
 	{

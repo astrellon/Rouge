@@ -278,8 +278,8 @@ namespace game {
 	 * </pre>
 	 *
 	 * @param string eventType The event type or name to trigger on
-	 * @param Function listener The function to call when the event is fired.
-	 * @param Table [nil] content An option context for the listener to be
+	 * @param function listener The function to call when the event is fired.
+	 * @param table [nil] content An option context for the listener to be
 	 * called with.
 	 * @returns boolean True if the event was added successfully.
 	 */
@@ -300,8 +300,8 @@ namespace game {
 	 * but if an event listener needs to changed before the event is fire it can be done.
 	 *
 	 * @param string eventType The event type the listener was listening for.
-	 * @param Function listener The listener function to remove.
-	 * @param Table [nil] context The context which the listener was going to 
+	 * @param function listener The listener function to remove.
+	 * @param table [nil] context The context which the listener was going to 
 	 * be called with, this is only optional if the listener was added with no context.
 	 * @returns boolean True if the event listener was successfully removed.
 	 */
