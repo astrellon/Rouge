@@ -28,7 +28,7 @@ class FunctionParam:
 		self.optional = None;
 		
 	def finished(self):
-		if len(self.commentJoin) == 0:
+		if len(self.commentJoin) == 0 and self.type != "nil":
 			warning(str(self) + " has no comment");
 		self.comment = arrayJoin(self.commentJoin);
 		self.commentJoin = None;
@@ -114,9 +114,9 @@ class FunctionInstance:
 				# to make the whole comment if there is no optional.
 				split = FunctionInstance.whitespaceSplit.split(line, 4);
 				optional = None;
-				name = split[2];
 				type = split[1];
 				comment = "";
+				name = split[2];
 				# Check for optional
 				if name[0] == "[" and name[len(name) - 1] == "]":
 					# Grab the optional from the square brackets.
