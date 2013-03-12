@@ -39,14 +39,13 @@ namespace game {
 	 */
 	int Inventory_ctor(lua_State *lua)
 	{
-		if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (lua_isnum(lua, 1) && lua_isnum(lua, 2))
 		{
-			Inventory *inv = new Inventory(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			Inventory *inv = new Inventory(lua_tointeger(lua, 1), lua_tointeger(lua, 2));
 			wrapRefObject<Inventory>(lua, inv);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "new", "integer width, integer height");
 	}
 	/**
 	 * Releases the reference counter on this inventory.
@@ -57,8 +56,9 @@ namespace game {
 		if (inv)
 		{
 			inv->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Inventory");
 	}
 	/**
 	 * Compares this inventory with another inventory object.
@@ -69,6 +69,10 @@ namespace game {
 	int Inventory_eq(lua_State *lua)
 	{
 		Inventory *lhs = castUData<Inventory>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Inventory");
+		}
 		Inventory *rhs = castUData<Inventory>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -115,9 +119,7 @@ namespace game {
 			lua_pushinteger(lua, inv->getSpacesY());
 			return 2;
 		}
-		lua_pushnil(lua);
-		lua_pushnil(lua);
-		return 2;
+		return LuaState::expectedContext(lua, "size", "Inventory");
 	}
 	/**
 	 * Returns true if there is enough space to place the given item at
@@ -134,14 +136,20 @@ namespace game {
 	int Inventory_has_space_for(lua_State *lua)
 	{
 		Inventory *inv = castUData<Inventory>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (inv && item && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (inv)
 		{
-			lua_pushboolean(lua, inv->hasSpaceFor(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				if (lua_isnum(lua, 3) && lua_isnum(lua, 4))
+				{
+					lua_pushboolean(lua, inv->hasSpaceFor(item, lua_tointeger(lua, 3), lua_tointeger(lua, 4)));
+					return 1;
+				}
+			}
+			return LuaState::expectedArgs(lua, "has_space_for", "Item item, integer x, integer y");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "has_space_for", "Inventory");
 	}
 	/**
 	 * Attempts to add an item to the inventory, returns true if a spot was
@@ -162,21 +170,25 @@ namespace game {
 	int Inventory_add_item(lua_State *lua)
 	{
 		Inventory *inv = castUData<Inventory>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (inv && item)
+		if (inv)
 		{
-			if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
 			{
-				lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+				if (lua_gettop(lua) == 2)
+				{
+					lua_pushboolean(lua, inv->addItem(item));
+					return 1;
+				}
+				else if (lua_gettop(lua) == 4 && lua_isnum(lua, 3) && lua_isnum(lua, 4))
+				{
+					lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+					return 1;
+				}
 			}
-			else
-			{
-				lua_pushboolean(lua, inv->addItem(item));
-			}
-			return 1;
+			return LuaState::expectedArgs(lua, "add_item", 2, "Item item", "Item item, integer x, integer y");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_item", "Inventory");
 	}
 	/**
 	 * Removes the given item from the inventory, returns true if the item was found in the inventory
@@ -188,13 +200,17 @@ namespace game {
 	int Inventory_remove_item(lua_State *lua)
 	{
 		Inventory *inv = castUData<Inventory>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (inv && item)
+		if (inv)
 		{
-			lua_pushboolean(lua, inv->removeItem(item));
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushboolean(lua, inv->removeItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_item", "Item item");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_item", "Inventory");
 	}
 	/**
 	 * Removes all items from the inventory.
@@ -209,8 +225,7 @@ namespace game {
 			lua_pushboolean(lua, inv->removeAll());
 			return 1;
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_all", "Inventory");
 	}
 	/**
 	 * Looks for the given item in the inventory. Returns true if the given item was found.
@@ -221,14 +236,17 @@ namespace game {
 	int Inventory_has_item(lua_State *lua)
 	{
 		Inventory *inv = castUData<Inventory>(lua, 1);
-		Item *item = castUData<Item>(lua, 2);
-		if (inv && item)
+		if (inv)
 		{
-			lua_pushboolean(lua, inv->hasItem(item));
-			return 1;
+			Item *item = castUData<Item>(lua, 2);
+			if (item)
+			{
+				lua_pushboolean(lua, inv->hasItem(item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_item", "Item item");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "has_item", "Inventory");
 	}
 	/**
 	 * Returns the item at the given location, nil if there is no item at that location.
@@ -236,18 +254,21 @@ namespace game {
 	 *
 	 * @param integer locationX The x location to look at.
 	 * @param integer locationY The y location to look at.
-	 * @param Item The found item, or nil if it was nothing was found.
+	 * @returns Item The found item, or nil if it was nothing was found.
 	 */
 	int Inventory_item_at(lua_State *lua)
 	{
 		Inventory *inv = castUData<Inventory>(lua, 1);
 		if (inv)
 		{
-			wrapRefObject<Item>(lua, inv->getItemAt(lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
-			return 1;
+			if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
+			{
+				wrapRefObject<Item>(lua, inv->getItemAt(lua_tointeger(lua, 2), lua_tointeger(lua, 3)));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "item_at", "integer x, integer y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "item_at", "Inventory");
 	}
 	/**
 	 * Returns an array of tables which represent all the items in the inventory.
@@ -297,8 +318,7 @@ namespace game {
 
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "spots", "Inventory");
 	}
 
 }
