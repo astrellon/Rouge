@@ -752,18 +752,18 @@ namespace game {
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, n))
 		{
-			return Engine::getGame()->getGameObject(lua_tostring(lua, -1));
+			return Engine::getGame()->getGameObject(lua_tostring(lua, n));
 		}
-		else if (lua_isuserdata(lua, -1))
+		else if (lua_isuserdata(lua, n))
 		{
-			Character *obj = castUData<Character>(lua, -1);
+			Character *obj = castUData<Character>(lua, n);
 			if (obj)
 			{
 				return obj;
 			}
-			Item *item = castUData<Item>(lua, -1);
+			Item *item = castUData<Item>(lua, n);
 			if (item)
 			{
 				return item;
