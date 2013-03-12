@@ -85,6 +85,12 @@ namespace game {
 				wrapRefObject<Game>(lua, game);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
+		}
+		else if (lua_isnil(lua, 1))
+		{
+			Engine::getEngine()->setCurrentGame(NULL);
 		}
 		else
 		{
@@ -94,8 +100,7 @@ namespace game {
 				Engine::getEngine()->setCurrentGame(game);
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@game", 2, "Game game", "nil game");
 	}
 	/**
 	 * @static
@@ -117,12 +122,12 @@ namespace game {
 			lua_pushnumber(lua, Engine::getEngine()->getGridYSize());
 			return 2;
 		}
-		if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (lua_isnum(lua, 1) && lua_isnum(lua, 2))
 		{
-			Engine::getEngine()->setGridXSize(static_cast<float>(lua_tonumber(lua, -2)));
-			Engine::getEngine()->setGridYSize(static_cast<float>(lua_tonumber(lua, -1)));
+			Engine::getEngine()->setGridXSize(static_cast<float>(lua_tonumber(lua, 1)));
+			Engine::getEngine()->setGridYSize(static_cast<float>(lua_tonumber(lua, 2)));
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@grid_size", "number gridX, number gridY");
 	}
 	/**
 	 * @static
@@ -133,11 +138,12 @@ namespace game {
 	 */
 	int Engine_using_tile_set(lua_State *lua)
 	{
-		if (lua_isstring(lua, 1))
+		if (lua_isstr(lua, 1))
 		{
 			Engine::getEngine()->usingTileSet(lua_tostring(lua, 1));
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@using_tile_set", "string tileSetName");
 	}
 	/**
 	 * @static
@@ -156,17 +162,18 @@ namespace game {
 	 */
 	int Engine_tile(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			Tile *tile = Engine::getEngine()->getTile(lua_tostring(lua, -1));
+			Tile *tile = Engine::getEngine()->getTile(lua_tostring(lua, 1));
 			if (tile)
 			{
 				wrapRefObject<Tile>(lua, tile);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@tile", "string tileName");
 	}
 	/**
 	 * @static
@@ -176,14 +183,18 @@ namespace game {
 	 */
 	int Engine_tile_set(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			TileSet *set = Engine::getEngine()->getTileSetLua(lua_tostring(lua, -1));
-			wrapRefObject<TileSet>(lua, set);
+			TileSet *set = Engine::getEngine()->getTileSetLua(lua_tostring(lua, 1));
+			if (set)
+			{
+				wrapRefObject<TileSet>(lua, set);
+				return 1;
+			}
+			lua_pushnil(lua);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@tile_set", "string tileSetName");
 	}
 	/**
 	 * @static
@@ -196,8 +207,9 @@ namespace game {
 		if (set)
 		{
 			Engine::getEngine()->addTileSet(set);
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@add_tile_set", "TileSet tileSet");
 	}
 	/**
 	 * @static
@@ -220,12 +232,12 @@ namespace game {
 	 */
 	int Engine_get_by_game_id(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			wrapGameObject(lua, Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
+			wrapGameObject(lua, Engine::getEngine()->getGameObject(lua_tostring(lua, 1)));
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@game_object", "string gameId");
 	}
 	/**
 	 * @static
@@ -236,16 +248,17 @@ namespace game {
 	 */
 	int Engine_register_game_object(lua_State *lua)
 	{
-		GameObject *obj = castUData<Character>(lua, -1);
+		GameObject *obj = castUData<Character>(lua, 1);
 		if (!obj)
 		{
-			obj = castUData<Item>(lua, -1);
+			obj = castUData<Item>(lua, 1);
 		}
 		if (obj)
 		{
 			Engine::getEngine()->registerGameObject(obj);
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@register_game_object", "GameObject object");
 	}
 	/**
 	 * @static
@@ -261,17 +274,18 @@ namespace game {
 	 */
 	int Engine_deregister_game_object(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			Engine::getEngine()->deregisterGameObject(lua_tostring(lua, -1));
+			Engine::getEngine()->deregisterGameObject(lua_tostring(lua, 1));
 			return 0;
 		}
-		GameObject *obj = getGameObject(lua, -1);
+		GameObject *obj = getGameObject(lua, 1);
 		if (obj)
 		{
 			Engine::getEngine()->deregisterGameObject(obj);
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@deregister_game_object", 2, "string gameId", "GameObject gameObject");
 	}
 	/**
 	 * @static
@@ -281,14 +295,13 @@ namespace game {
 	 */
 	int Engine_add_race(lua_State *lua)
 	{
-		Race *race = castUData<Race>(lua, -1);
+		Race *race = castUData<Race>(lua, 1);
 		if (race)
 		{
 			lua_pushboolean(lua, Engine::getEngine()->addRace(race));
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@add_race", "Race race");
 	}
 	/**
 	 * @static
@@ -305,18 +318,13 @@ namespace game {
 	int Engine_remove_race(lua_State *lua)
 	{
 		Race *race = NULL;
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
-		}
-		else if (lua_isuserdata(lua, -1))
-		{
-			race = castUData<Race>(lua, -1);
+			race = Engine::getEngine()->getRace(lua_tostring(lua, 1));
 		}
 		else
 		{
-			lua_pushnil(lua);
-			return 1;
+			race = castUData<Race>(lua, 1);
 		}
 
 		if (race)
@@ -324,8 +332,7 @@ namespace game {
 			lua_pushboolean(lua, Engine::getEngine()->removeRace(race));
 			return 1;
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedArgs(lua, "@remove_race", 2, "string raceName", "Race race");
 	}
 	/**
 	 * @static
@@ -335,17 +342,18 @@ namespace game {
 	 */
 	int Engine_race(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, -1));
+			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, 1));
 			if (race)
 			{
 				wrapObject<Race>(lua, race);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@race", "string raceName");
 	}
 	/**
 	 * @static
@@ -370,12 +378,13 @@ namespace game {
 	 */
 	int Engine_add_tile_type(lua_State *lua)
 	{
-		TileType *type = castUData<TileType>(lua, -1);
+		TileType *type = castUData<TileType>(lua, 1);
 		if (type)
 		{
 			Engine::getEngine()->addTileType(type);
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@add_tile_type", "TileType tileType");
 	}
 	/**
 	 * @static
@@ -385,17 +394,18 @@ namespace game {
 	 */
 	int Engine_tile_type(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
+			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, 1));
 			if (type)
 			{
 				wrapObject<TileType>(lua, type);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@tile_type", "string tileTypeName");
 	}
 	
 }
