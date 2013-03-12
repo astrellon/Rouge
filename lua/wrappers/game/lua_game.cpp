@@ -55,8 +55,9 @@ namespace game {
 		if (game)
 		{
 			game->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Game");
 	}
 	/**
 	 * Compares this game against another game object.
@@ -67,6 +68,10 @@ namespace game {
 	int Game_eq(lua_State *lua)
 	{
 		Game *lhs = castUData<Game>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Game");
+		}
 		Game *rhs = castUData<Game>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -127,14 +132,17 @@ namespace game {
 	int Game_add_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		Map *map = castUData<Map>(lua, 2);
-		if (game && map)
+		if (game)
 		{
-			lua_pushboolean(lua, game->addMap(map));
-			return 1;
+			Map *map = castUData<Map>(lua, 2);
+			if (map)
+			{
+				lua_pushboolean(lua, game->addMap(map));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_map", "Map map");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_map", "Game");
 	}
 	/**
 	 * Removes a map from the map pool.
@@ -155,20 +163,20 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, game->removeMap(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, game->removeMap(lua_tostring(lua, 2)));
 				return 1;
 			}
-			Map *map = castUData<Map>(lua, -1);
+			Map *map = castUData<Map>(lua, 2);
 			if (map)
 			{
 				lua_pushboolean(lua, game->removeMap(map));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "remove_map", 2, "string mapName", "Map map");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_map", "Game");
 	}
 	/**
 	 * Removes all the maps from the map pool.
@@ -183,8 +191,7 @@ namespace game {
 			game->removeAllMaps();
 			lua_first(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_all_maps", "Game");
 	}
 	/**
 	 * Returns a map from the map pool. If the map is not present
@@ -196,17 +203,22 @@ namespace game {
 	int Game_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_type(lua, -1) == LUA_TSTRING)
+		if (game)
 		{
-			Map *map = game->getMapLua(lua_tostring(lua, -1));
-			if (map)
+			if (lua_isstr(lua, 2))
 			{
-				wrapRefObject<Map>(lua, map);
+				Map *map = game->getMapLua(lua_tostring(lua, 2));
+				if (map)
+				{
+					wrapRefObject<Map>(lua, map);
+					return 1;
+				}
+				lua_pushnil(lua);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "map", "string mapName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "map", "Game");
 	}
 	/**
 	 * Returns true if a map with the given map name is found in the map pool.
@@ -216,13 +228,16 @@ namespace game {
 	int Game_has_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			lua_pushboolean(lua, game->hasMap(lua_tostring(lua, -1)));
-			return 1;
+			if (lua_isstr(lua, 2))
+			{
+				lua_pushboolean(lua, game->hasMap(lua_tostring(lua, 2)));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_map", "string mapName");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "has_map", "Game");
 	}
 	/**
 	 * Returns the current active map, this will usually be the one that
@@ -255,49 +270,58 @@ namespace game {
 					wrapRefObject<Map>(lua, map);
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
 			}
 			else
 			{
-				if (lua_isstring(lua, -1))
+				if (lua_isstr(lua, 2))
 				{
-					game->setCurrentMap(lua_tostring(lua, -1));
+					game->setCurrentMap(lua_tostring(lua, 2));
+					lua_first(lua);
 				}
-				else if (lua_isuserdata(lua, -1))
+				else
 				{
-					Map *map = castUData<Map>(lua, -1);
-					game->setCurrentMap(map);
+					Map *map = castUData<Map>(lua, 2);
+					if (map)
+					{
+						game->setCurrentMap(map);
+						lua_first(lua);
+					}
 				}
-				lua_first(lua);
+				return LuaState::expectedArgs(lua, "current_map", 2, "string mapName", "Map map");
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "currentMap", "Game");
 	}
 	/**
 	 * Adds a game object to the currently active map.
 	 *
 	 * @param GameObject gameObject The game object to add.
 	 * @returns boolean True if the game object was successfully added.
-	 *  False indicates that either the current map or gameObject are nil.
+	 *  False indicates that either the current map is nil.
 	 */
 	/**
 	 * Adds a game object to the currently active map.
 	 *
 	 * @param string gameObjectId The game object id of the game object to add.
 	 * @returns boolean True if the game object was successfully added.
-	 *  False indicates that either the current map or gameObject are nil.
+	 *  False indicates that either the current map is nil.
 	 */
 	int Game_add_game_object_to_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isuserdata(lua, -1))
+		if (game)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, game->addGameObjectToMap(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, game->addGameObjectToMap(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_game_object_to_map", 2, "GameObject gameObject", "string gameId");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_game_object_to_map", "Game");
 	}
 	/**
 	 * Removes a game object from the current map.
@@ -316,14 +340,17 @@ namespace game {
 	int Game_remove_game_object_from_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isuserdata(lua, -1))
+		if (game)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, game->removeGameObjectFromMap(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, game->removeGameObjectFromMap(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_game_object_from_map", 2, "string gameId", "GameObject gameObject");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_game_object_from_map", "Game");
 	}
 	/**
 	 * Returns true if the game object is on the current map.
@@ -340,14 +367,17 @@ namespace game {
 	int Game_has_game_object_in_map(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isuserdata(lua, -1))
+		if (game)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, game->hasGameObjectInMap(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, game->hasGameObjectInMap(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_game_object_in_map", 2, "string gameId", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_game_object_in_map", "Game");
 	}
 	/**
 	 * Moves a game object from their current map to a new map.
@@ -370,6 +400,8 @@ namespace game {
 	 * @param Map map The map to move to.
 	 * @param number positionX The x position to move the game object to.
 	 * @param number positionY The y position to move the game object to.
+	 * @param boolean [true] setAsCurrent When true, the new map will become the current map and the camera will
+	 *  focus on the given game object.
 	 * @returns Game This
 	 */
 	/**
@@ -379,6 +411,8 @@ namespace game {
 	 * @param string mapName The name of the map to move to.
 	 * @param number positionX The x position to move the game object to.
 	 * @param number positionY The y position to move the game object to.
+	 * @param boolean [true] setAsCurrent When true, the new map will become the current map and the camera will
+	 *  focus on the given game object.
 	 * @returns Game This
 	 */
 	int Game_move_object_to_map(lua_State *lua)
@@ -386,35 +420,13 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			GameObject *obj = getGameObject(lua, 2);
-			if (obj)
+			if (moveGameObject(lua, game, false))
 			{
-				Map *map = NULL;
-				if (lua_isstring(lua, 3))
-				{
-					map = game->getMapLua(lua_tostring(lua, 3));
-				}
-				else if (lua_isuserdata(lua ,3))
-				{
-					map = castUData<Map>(lua, 3);
-				}
-				if (map && lua_isnumber(lua, 4) && lua_isnumber(lua, 5))
-				{
-					int args = lua_gettop(lua);
-					if (args == 6 && lua_isboolean(lua, 6))
-					{
-						game->moveObjectToMap(obj, map, lua_tofloat(lua, 4), lua_tofloat(lua, 5), lua_tobool(lua, 6));
-					}
-					else
-					{
-						game->moveObjectToMap(obj, map, lua_tofloat(lua, 4), lua_tofloat(lua, 5));
-					}
-				}
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "move_game_object_to_map", 2, "GameObject gameObject, string mapName, number x, number y, boolean setAsCurrent [true]", "GameObject gameObject, map map, number x, number y, boolean setAsCurrent [true]");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "move_game_object_to_map", "Game");
 	}
 	/**
 	 * Moves a game object from their current map to a new map.
@@ -451,35 +463,13 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			GameObject *obj = getGameObject(lua, 2);
-			if (obj)
+			if (moveGameObject(lua, game, true))
 			{
-				Map *map = NULL;
-				if (lua_isstring(lua, 3))
-				{
-					map = game->getMapLua(lua_tostring(lua, 3));
-				}
-				else if (lua_isuserdata(lua ,3))
-				{
-					map = castUData<Map>(lua, 3);
-				}
-				if (map && lua_isnumber(lua, 4) && lua_isnumber(lua, 5))
-				{
-					int args = lua_gettop(lua);
-					if (args == 6 && lua_isboolean(lua, 6))
-					{
-						game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5), lua_toboolean(lua, 6) > 0);
-					}
-					else
-					{
-						game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5));
-					}
-				}
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "move_game_object_to_map_grid", 2, "GameObject gameObject, string mapName, number x, number y, boolean setAsCurrent [true]", "GameObject gameObject, map map, integer x, integer y, boolean setAsCurrent [true]");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "move_game_object_to_map_grid", "Game");
 	}
 	/**
 	 * Returns the main character for this game.
@@ -505,19 +495,26 @@ namespace game {
 					wrapRefObject<Character>(lua, character);
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
 			}
-			else if (lua_isuserdata(lua, -1))
+			else if (lua_isnil(lua, 2))
 			{
-				Character *character = castUData<Character>(lua, -1);
+				game->setMainCharacter(NULL);
+				lua_first(lua);
+			}
+			else
+			{
+				Character *character = castUData<Character>(lua, 2);
 				if (character)
 				{
 					game->setMainCharacter(character);
+					lua_first(lua);
 				}
-				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "main", 2, "Character mainChar", "nil mainChar");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "main", "Game");
 	}
 	/**
 	 * Looks for a game object with the given game object id, returns nil if a 
@@ -529,14 +526,17 @@ namespace game {
 	int Game_get_game_object(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			GameObject *obj = game->getGameObject(lua_tostring(lua, -1));
-			wrapGameObject(lua, obj);
-			return 1;
+			if (lua_isstr(lua, 2))
+			{
+				GameObject *obj = game->getGameObject(lua_tostring(lua, 2));
+				wrapGameObject(lua, obj);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "game_object", "string gameId");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "game_object", "Game");
 	}
 	/**
 	 * Registers a game object with the game instance.
@@ -549,15 +549,15 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			GameObject *obj = getGameObject(lua, -1);
+			GameObject *obj = getGameObject(lua, 2);
 			if (obj)
 			{
 				game->registerGameObject(obj);
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "register_game_object", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "register_game_object", "Game");
 	}
 	/**
 	 * Deregisters a game object with the game instance.
@@ -570,15 +570,15 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			GameObject *obj = getGameObject(lua, -1);
+			GameObject *obj = getGameObject(lua, 2);
 			if (obj)
 			{
 				game->deregisterGameObject(obj);
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "deregister_game_object", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "deregister_game_object", "Game");
 	}
 	/**
 	 * Adds the given dialogue to the dialogue pool.
@@ -590,14 +590,17 @@ namespace game {
 	int Game_add_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		Dialogue *diag = castUData<Dialogue>(lua, -1);
-		if (game && diag)
+		if (game)
 		{
-			lua_pushboolean(lua, game->addDialogue(diag));
-			return 1;
+			Dialogue *diag = castUData<Dialogue>(lua, 2);
+			if (diag)
+			{
+				lua_pushboolean(lua, game->addDialogue(diag));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_dialogue", "Dialogue dialogue");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_dialogue", "Game");
 	}
 	/**
 	 * Removes a dialogue from the dialogue pool.
@@ -618,20 +621,20 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, game->removeDialogue(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, game->removeDialogue(lua_tostring(lua, 2)));
 				return 1;
 			}
-			Dialogue *diag = castUData<Dialogue>(lua, -1);
+			Dialogue *diag = castUData<Dialogue>(lua, 2);
 			if (diag)
 			{
 				lua_pushboolean(lua, game->removeDialogue(diag->getId()));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "remove_dialogue", 2, "string dialogueId", "Dialogue dialogue");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_dialogue", "Game");
 	}
 	/**
 	 * Removes all dialogue from the dialogue pool.
@@ -646,8 +649,7 @@ namespace game {
 			game->removeAllDialogue();
 			lua_first(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_all_dialogue", "Game");
 	}
 	/**
 	 * Returns a dialogue with the given dialogue id, nil if no dialogue was found.
@@ -658,17 +660,22 @@ namespace game {
 	int Game_dialogue(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			Dialogue *diag = game->getDialogue(lua_tostring(lua, -1));
-			if (diag)
+			if (lua_isstr(lua, 2))
 			{
-				wrapObject<Dialogue>(lua, diag);
+				Dialogue *diag = game->getDialogue(lua_tostring(lua, 2));
+				if (diag)
+				{
+					wrapObject<Dialogue>(lua, diag);
+					return 1;
+				}
+				lua_pushnil(lua);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "dialogue", "string dialogueId");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "dialogue", "Game");
 	}
 	/**
 	 * TODO
@@ -687,14 +694,17 @@ namespace game {
 	int Game_add_quest(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		Quest *quest = castUData<Quest>(lua, -1);
-		if (game && quest)
+		if (game)
 		{
-			lua_pushboolean(lua, game->addQuest(quest));
-			return 1;
+			Quest *quest = castUData<Quest>(lua, 2);
+			if (quest)
+			{
+				lua_pushboolean(lua, game->addQuest(quest));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_quest", "Quest quest");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "add_quest", "Game");
 	}
 	/**
 	 * Removes a quest from the quest pool.
@@ -713,20 +723,20 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			if (lua_isstring(lua, -1))
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, game->removeQuest(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, game->removeQuest(lua_tostring(lua, 2)));
 				return 1;
 			}
-			Quest *quest = castUData<Quest>(lua, -1);
+			Quest *quest = castUData<Quest>(lua, 2);
 			if (quest)
 			{
 				lua_pushboolean(lua, game->removeQuest(quest->getQuestId()));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "remove_quest", 2, "string questId", "Quest quest");
 		}
-		lua_pushboolean(lua, false);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_quest", "Game");
 	}
 	/**
 	 * Returns a quest with the given quest id, nil if the quest could not be found.
@@ -737,17 +747,22 @@ namespace game {
 	int Game_quest(lua_State *lua)
 	{
 		Game *game = castUData<Game>(lua, 1);
-		if (game && lua_isstring(lua, -1))
+		if (game)
 		{
-			Quest *quest = game->getQuest(lua_tostring(lua, -1));
-			if (quest)
+			if (lua_isstr(lua, 2))
 			{
-				wrapObject<Quest>(lua, quest);
+				Quest *quest = game->getQuest(lua_tostring(lua, 2));
+				if (quest)
+				{
+					wrapObject<Quest>(lua, quest);
+					return 1;
+				}
+				lua_pushnil(lua);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "quest", "string questId");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "quest", "Game"); 
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)
@@ -789,6 +804,49 @@ namespace game {
 			}
 		}
 		lua_pushnil(lua);
+	}
+
+	bool moveGameObject(lua_State *lua, Game *game, bool grid)
+	{
+		GameObject *obj = getGameObject(lua, 2);
+		if (obj)
+		{
+			Map *map = NULL;
+			int args = lua_gettop(lua);
+			bool valid = args == 5 || args == 6 && lua_isbool(lua, 6);
+			if (valid)
+			{
+				if (lua_isstring(lua, 3))
+				{
+					map = game->getMapLua(lua_tostring(lua, 3));
+				}
+				else
+				{
+					map = castUData<Map>(lua, 3);
+					valid = map != NULL;
+				}
+				valid &= lua_isnum(lua, 4) && lua_isnum(lua, 5);
+				
+				if (valid)
+				{
+					if (map)
+					{
+						int args = lua_gettop(lua);
+						bool setCurrent = args == 5 || (args == 6 && lua_tobool(lua, 6));
+						if (grid)
+						{
+							game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5), setCurrent);
+						}
+						else
+						{
+							game->moveObjectToMap(obj, map, lua_tofloat(lua, 4), lua_tofloat(lua, 5), setCurrent);
+						}
+					}
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
