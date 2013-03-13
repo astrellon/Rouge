@@ -48,20 +48,19 @@ namespace game {
 	int Map_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		if (args == 1 && lua_isstring(lua, -1))
+		if (args == 1 && lua_isstr(lua, 1))
 		{
-			Map *map = new Map(lua_tostring(lua, -1));
+			Map *map = new Map(lua_tostring(lua, 1));
 			wrapRefObject<Map>(lua, map);
 			return 1;
 		}
-		else if (args == 3 && lua_isstring(lua, -3) && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		else if (args == 3 && lua_isstr(lua, 1) && lua_isnum(lua, 2) && lua_isnum(lua, 3))
 		{
-			Map *map = new Map(lua_tostring(lua, -3), lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+			Map *map = new Map(lua_tostring(lua, 1), lua_tointeger(lua, 2), lua_tointeger(lua, 3));
 			wrapRefObject<Map>(lua, map);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "new", 2, "string mapName", "string mapName, integer width, integer height");
 	}
 	/**
 	 * Releases the reference counter on this map.
@@ -72,8 +71,9 @@ namespace game {
 		if (map)
 		{
 			map->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Map");
 	}
 	/**
 	 * Compares this map against another map object.
@@ -84,6 +84,10 @@ namespace game {
 	int Map_eq(lua_State *lua)
 	{
 		Map *lhs = castUData<Map>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Map");
+		}
 		Map *rhs = castUData<Map>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -143,14 +147,14 @@ namespace game {
 				lua_pushstring(lua, map->getName().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				map->setName(lua_tostring(lua, -1));
+				map->setName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "name", "string mapName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "Map");
 	}
 	/**
 	 * Returns the full name of the map. This is used when displaying the map to the user.
@@ -173,14 +177,14 @@ namespace game {
 				lua_pushstring(lua, map->getFullName().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				map->setFullName(lua_tostring(lua, -1));
+				map->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "full_name", "string fullName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "full_name", "Map");
 	}
 	/**
 	 * Returns the tile object on the tile instance at the given grid location.
@@ -214,17 +218,22 @@ namespace game {
 	int Map_tile_instance(lua_State *lua)
 	{
 		Map *map = castUData<Map>(lua, 1);
-		if (map && lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+		if (map)
 		{
-			TileInstance *inst = map->getTileInstance(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
-			if (inst)
+			if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				wrapObject<TileInstance>(lua, inst);
+				TileInstance *inst = map->getTileInstance(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+				if (inst)
+				{
+					wrapObject<TileInstance>(lua, inst);
+					return 1;
+				}
+				lua_pushnil(lua);
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "tile_instance", "integer x, integer y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile_instance", "Map");
 	}
 	/**
 	 * Sets the tiles for this map from an Array of tile names and frames.
@@ -273,7 +282,7 @@ namespace game {
 	 * The frameNumber is also optional and allows for specifying which
 	 * frame of the tile sprite.</span>
 	 *
-	 * @param Array tiles An array of tiles to set onto the map.
+	 * @param array tiles An array of tiles to set onto the map.
 	 * @param integer width The width of the array given.
 	 * @param integer height The height of the array given.
 	 * @returns Map This
@@ -281,11 +290,16 @@ namespace game {
 	int Map_tiles(lua_State *lua)
 	{
 		Map *map = castUData<Map>(lua, 1);
-		if (map && lua_istable(lua, -1))
+		if (map)
 		{
-			if (lua_isnumber(lua, 2) && lua_isnumber(lua, 3))
+			int args = lua_gettop(lua);
+			if (!lua_istable(lua, 2) || (args == 3 && !lua_isnum(lua, 3) && !lua_isnum(lua, 4)))
 			{
-				map->setMapSize(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
+				return LuaState::expectedArgs(lua, "tiles", 2, "array tiles", "array tiles, integer width, integer height");
+			}
+			if (args == 3)
+			{
+				map->setMapSize(lua_tointeger(lua, 3), lua_tointeger(lua, 4));
 			}
 			int total = map->getMapWidth() * map->getMapHeight();
 			lua_pushnil(lua);
@@ -312,8 +326,7 @@ namespace game {
 			map->updateAssetSprites();
 			lua_first(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tiles", "Map");
 	}
 	/**
 	 * Returns the size of the map.
@@ -339,15 +352,14 @@ namespace game {
 				lua_pushinteger(lua, map->getMapHeight());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				map->setMapSize(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+				map->setMapSize(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "map_size", "integer width, integer height");
 		}
-		lua_pushnil(lua);
-		lua_pushnil(lua);
-		return 2;
+		return LuaState::expectedContext(lua, "map_size", "Map");
 	}
 	/**
 	 * Adds a game object to this map.
@@ -360,12 +372,15 @@ namespace game {
 		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, map->addGameObject(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, map->addGameObject(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_game_object", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_game_object", "Map");
 	}
 	/**
 	 * Removes a game object from the map.
@@ -378,12 +393,15 @@ namespace game {
 		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, map->removeGameObject(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, map->removeGameObject(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_game_object", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_game_object", "Map");
 	}
 	/**
 	 * Returns true if the given game object is on this map.
@@ -396,18 +414,21 @@ namespace game {
 		Map *map = castUData<Map>(lua, 1);
 		if (map)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			lua_pushboolean(lua, map->hasGameObject(obj));
-			return 1;
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, map->hasGameObject(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_game_object", "GameObject gameObject");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_game_object", "Map");
 	}
 	/**
 	 * Used to tell if the given game object can be placed at the given location.
 	 * This uses the game objects passibility array to tell if it can be at the given location.
 	 *
-	 * @param GameObject The game object to test with.
+	 * @param GameObject gameObject The game object to test with.
 	 * @param number positionX The x position to test at.
 	 * @param number positionY The y position to test at.
 	 * @returns boolean True if the given position is valid for the given game object.
@@ -415,23 +436,23 @@ namespace game {
 	int Map_is_valid_location(lua_State *lua)
 	{
 		Map *map = castUData<Map>(lua, 1);
-		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
+		if (map)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			if (obj)
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj && lua_isnum(lua, 3) && lua_isnum(lua, 4))
 			{
-				lua_pushboolean(lua, map->isValidLocation(lua_tofloat(lua, -3), lua_tofloat(lua, -2), obj));
+				lua_pushboolean(lua, map->isValidLocation(lua_tofloat(lua, 3), lua_tofloat(lua, 4), obj));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "is_valid_location", "GameObject gameObject, number x, number y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "is_valid_location", "Map");
 	}
 	/**
 	 * Used to tell if the given game object can be placed at the given grid location.
 	 * This uses the game objects passibility array to tell if it can be at the given grid location.
 	 *
-	 * @param GameObject The game object to test with.
+	 * @param GameObject gameObject The game object to test with.
 	 * @param integer gridX The x grid position to test at.
 	 * @param integer gridY The y grid position to test at.
 	 * @returns boolean True if the given position is valid for the given game object.
@@ -439,17 +460,17 @@ namespace game {
 	int Map_is_valid_grid_location(lua_State *lua)
 	{
 		Map *map = castUData<Map>(lua, 1);
-		if (map && lua_isnumber(lua, -3) && lua_isnumber(lua, -2))
+		if (map)
 		{
-			GameObject *obj = getGameObject(lua, -1);
-			if (obj)
+			GameObject *obj = getGameObject(lua, 2);
+			if (obj && lua_isnum(lua, 3) && lua_isnum(lua, 4))
 			{
-				lua_pushboolean(lua, map->isValidGridLocation(lua_tointeger(lua, -3), lua_tointeger(lua, -2), obj));
+				lua_pushboolean(lua, map->isValidGridLocation(lua_tointeger(lua, 3), lua_tointeger(lua, 4), obj));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "is_valid_grid_location", "GameObject gameObject, integer x, integer y");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "is_valid_grid_location", "Map");
 	}
 	/**
 	 * @private
