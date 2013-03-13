@@ -175,14 +175,15 @@ namespace game {
 			Item *item = castUData<Item>(lua, 2);
 			if (item)
 			{
-				if (lua_gettop(lua) == 2)
+				int args = lua_gettop(lua);
+				if (args == 2)
 				{
 					lua_pushboolean(lua, inv->addItem(item));
 					return 1;
 				}
-				else if (lua_gettop(lua) == 4 && lua_isnum(lua, 3) && lua_isnum(lua, 4))
+				else if (args == 4 && lua_isnum(lua, 3) && lua_isnum(lua, 4))
 				{
-					lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, -2), lua_tointeger(lua, -1)));
+					lua_pushboolean(lua, inv->addItem(item, lua_tointeger(lua, 3), lua_tointeger(lua, 4)));
 					return 1;
 				}
 			}

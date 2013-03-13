@@ -18,6 +18,9 @@ using namespace am::game;
 
 #include <log/logger.h>
 
+#include <sstream>
+using std::stringstream;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -48,8 +51,9 @@ namespace game {
 		if (item)
 		{
 			item->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Item");
 	}
 	/**
 	 * Returns true if the given item is the same as this item.
@@ -60,6 +64,10 @@ namespace game {
 	int Item_eq(lua_State *lua)
 	{
 		Item *lhs = castUData<Item>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Item");
+		}
 		Item *rhs = castUData<Item>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -139,8 +147,7 @@ namespace game {
 			wrapRefObject<Item>(lua, newItem);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "clone", "Item");
 	}
 	/**
 	 * Returns the graphic used to display the item. This
@@ -172,24 +179,33 @@ namespace game {
 					wrapRefObject<Sprite>(lua, graphic);
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
+			}
+			else if (lua_isnil(lua, 2))
+			{
+				item->setGraphic(NULL);
 			}
 			else
 			{
 				Sprite *graphic = castUData<Sprite>(lua, 2);
-				if (lua_gettop(lua) == 3)
+				int args = lua_gettop(lua);
+				if (graphic && (args == 2 || (args == 3 && lua_isbool(lua, 3))))
 				{
-					bool calcInvSize = lua_tobool(lua, 3);
-					item->setGraphic(graphic, calcInvSize);
+					if (args == 3)
+					{
+						item->setGraphic(graphic, lua_tobool(lua, 3));
+					}
+					else
+					{
+						item->setGraphic(graphic);
+					}
+					lua_first(lua);
 				}
-				else
-				{
-					item->setGraphic(graphic);
-				}
-				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "graphic", 2, "Sprite graphic, bool [true] calcSize", "nil graphic");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "graphic", "Item");
 	}
 	/**
 	 * Returns the graphic used to display the item on the ground. This
@@ -219,14 +235,23 @@ namespace game {
 					return 1;
 				}
 			}
-			else
+			else if (lua_isnil(lua, 2))
 			{
-				item->setGroundGraphic(castUData<Sprite>(lua, 2));
+				item->setGroundGraphic(NULL);
 				lua_first(lua);
 			}
+			else
+			{
+				Sprite *graphic = castUData<Sprite>(lua, 2);
+				if (graphic)
+				{
+					item->setGroundGraphic(graphic);
+					lua_first(lua);
+				}
+			}
+			return LuaState::expectedArgs(lua, "ground_graphic", 2, "Sprite graphic", "nil graphic");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "ground_graphic", "Item");
 	}
 	/**
 	 * Returns the item type. The item type defines
@@ -259,27 +284,39 @@ namespace game {
 					lua_pushstring(lua, name);
 					return 1;
 				}
+				lua_pushstring(lua, "");
+				return 1;
 			}
 			else
 			{
 				ItemCommon::ItemType type = ItemCommon::UNKNOWN;
-				if (lua_isnumber(lua, -1))
+				if (lua_isnum(lua, 2))
 				{
-					type = ItemCommon::getItemType(lua_tointeger(lua, -1));
+					type = ItemCommon::getItemType(lua_tointeger(lua, 2));
 				}
-				else if (lua_isstring(lua, -1))
+				else if (lua_isstr(lua, 2))
 				{
-					type = ItemCommon::getItemType(lua_tostring(lua, -1));
+					type = ItemCommon::getItemType(lua_tostring(lua, 2));
+				}
+				else
+				{
+					return LuaState::expectedArgs(lua, "item_type", 2, "string typeName", "integer typeId");
 				}
 				if (type != ItemCommon::UNKNOWN)
 				{
 					item->setItemType(type);
 				}
+				else
+				{
+					stringstream ss;
+					ss << "Unknown item type: ";
+					LuaState::printTypeValue(lua, 2, ss);
+					LuaState::warning(lua, ss.str().c_str());
+				}
 				lua_first(lua);
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "item_type", "item");
 	}
 	/**
 	 * Returns the inventory size of this item as a pair of
@@ -306,17 +343,16 @@ namespace game {
 				lua_pushinteger(lua, item->getInventorySizeY());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				short width = static_cast<short>(lua_tointeger(lua, -2));
-				short height = static_cast<short>(lua_tointeger(lua, -1));
+				short width = static_cast<short>(lua_tointeger(lua, 2));
+				short height = static_cast<short>(lua_tointeger(lua, 3));
 				item->setInventorySize(width, height);
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "inventory_size", "integer width, integer height");
 		}
-		lua_pushnil(lua);
-		lua_pushnil(lua);
-		return 2;
+		return LuaState::expectedContext(lua, "inventory_size", "Item");
 	}
 	/**
 	 * Returns the item location, as being in either in an inventory, in the player's hand or on the ground.
@@ -342,27 +378,39 @@ namespace game {
 					lua_pushstring(lua, name);
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
 			}
 			else
 			{
 				Item::ItemLocation location = Item::MAX_LENGTH;
-				if (lua_isnumber(lua, -1))
+				if (lua_isnum(lua, 2))
 				{
-					location = Item::getItemLocationType(lua_tointeger(lua, -1));
+					location = Item::getItemLocationType(lua_tointeger(lua, 2));
 				}
-				else if (lua_isstring(lua, -1))
+				else if (lua_isstr(lua, 2))
 				{
-					location = Item::getItemLocationType(lua_tostring(lua, -1));
+					location = Item::getItemLocationType(lua_tostring(lua, 2));
+				}
+				else
+				{
+					return LuaState::expectedArgs(lua, "item_location", 2, "string locationName", "integer locationId");
 				}
 				if (location != Item::MAX_LENGTH)
 				{
 					item->setItemLocation(location);
 				}
+				else
+				{
+					stringstream ss;
+					ss << "Unknown item location: ";
+					LuaState::printTypeValue(lua, 2, ss);
+					LuaState::warning(lua, ss.str().c_str());
+				}
 				lua_first(lua);
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "item_location", "Item");
 	}
 	/**
 	 * Returns the quest ID for this item.
@@ -388,14 +436,14 @@ namespace game {
 				lua_pushinteger(lua, item->getQuestItemId());
 				return 1;
 			}
-			else if (lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2))
 			{
-				item->setQuestItemId(lua_tointeger(lua, -1));
+				item->setQuestItemId(lua_tointeger(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "quest_item_id", "integer questId");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "quest_item_id", "Item");
 	}
 	/**
 	 * Returns true if this item has a valid quest ID.
@@ -410,8 +458,7 @@ namespace game {
 			lua_pushboolean(lua, item->isQuestItem());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "is_quest_item", "Item");
 	}
 	/**
 	 * Returns the main item name.
@@ -434,14 +481,14 @@ namespace game {
 				lua_pushstring(lua, item->getItemName().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				item->setItemName(lua_tostring(lua, -1));
+				item->setItemName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "item_name", "string name");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "item_name", "Item");
 	}
 	/**
 	 * Returns the item prefix, this goes before the item name, can be an empty string.
@@ -464,18 +511,14 @@ namespace game {
 				lua_pushstring(lua, item->getPrefix().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				item->setPrefix(lua_tostring(lua, -1));
+				item->setPrefix(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
-			else
-			{
-				item->setPrefix(NULL);
-			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "prefix", "string prefix");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "prefix", "Item");
 	}
 	/**
 	 * Returns the item postfix, this goes after the item name, can be an empty string.
@@ -498,18 +541,14 @@ namespace game {
 				lua_pushstring(lua, item->getPostfix().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				item->setPostfix(lua_tostring(lua, -1));
+				item->setPostfix(lua_tostring(lua, 2));
+				lua_first(lua);
 			}
-			else
-			{
-				item->setPostfix(NULL);
-			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "postfix", "string postfix");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "postfix", "Item");
 	}
 	/**
 	 * Returns the whole item name as one string.
@@ -535,22 +574,25 @@ namespace game {
 				lua_pushstring(lua, item->getFullItemName().c_str());
 				return 1;
 			}
-			else if (args == 2 && lua_tostring(lua, -1))
+			else if (args == 2 && lua_isstr(lua, -1))
 			{
 				item->setItemFullname(lua_tostring(lua, -1));
 			}
-			else if (args == 3 && lua_tostring(lua, -2) && lua_tostring(lua, -1))
+			else if (args == 3 && lua_isstr(lua, -2) && lua_isstr(lua, -1))
 			{
 				item->setItemFullname(lua_tostring(lua, -2), lua_tostring(lua, -1));
 			}
-			else if (args == 4 && lua_tostring(lua, -3) && lua_tostring(lua, -2) && lua_tostring(lua, -1))
+			else if (args == 4 && lua_isstr(lua, -3) && lua_isstr(lua, -2) && lua_isstr(lua, -1))
 			{
 				item->setItemFullname(lua_tostring(lua, -3), lua_tostring(lua, -2), lua_tostring(lua, -1));
 			}
+			else
+			{
+				return LuaState::expectedArgs(lua, "item_fullname", "string mainName, string [""] prefix, string [""] postfix");
+			}
 			lua_first(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "item_fullname", "Item");
 	}
 	/**
 	 * Sets all the values from the given item onto this item.
@@ -561,14 +603,17 @@ namespace game {
 	int Item_set_item_from(lua_State *lua)
 	{
 		Item *item = castUData<Item>(lua, 1);
-		Item *other = castUData<Item>(lua, 2);
-		if (item && other)
+		if (item)
 		{
-			item->setItemFrom(*other);
-			lua_first(lua);
+			Item *other = castUData<Item>(lua, 2);
+			if (other)
+			{
+				item->setItemFrom(*other);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "set_item_from", "Item other");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "set_item_from", "Item");
 	}
 	/**
 	 * Returns the stats modifiers object for this item.
@@ -584,8 +629,7 @@ namespace game {
 			wrapObject<StatModifiers>(lua, &item->getStatModifiers());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "stat_modifiers", "Item");
 	}
 	/**
 	 * TODO
@@ -616,8 +660,7 @@ namespace game {
 			lua_pushnumber(lua, item->getWidth());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "width", "Item");
 	}
 	/**
 	 * Returns the item height for the main graphic.
@@ -632,8 +675,7 @@ namespace game {
 			lua_pushnumber(lua, item->getHeight());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "height", "Item");
 	}
 	/**
 	 * An alias for returning the full item name.
@@ -648,8 +690,7 @@ namespace game {
 			lua_pushstring(lua, item->getName().c_str());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "Item");
 	}
 	/**
 	 * Returns the item's location.
@@ -675,15 +716,14 @@ namespace game {
 				lua_pushnumber(lua, item->getLocationY());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				item->setLocation(lua_tofloat(lua, -2), lua_tofloat(lua, -1));
+				item->setLocation(lua_tofloat(lua, 3), lua_tofloat(lua, 3));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "location", "number x, number y");
 		}
-		lua_pushnil(lua);
-		lua_pushnil(lua);
-		return 2;
+		return LuaState::expectedContext(lua, "location", "Item");
 	}
 
 	/**
@@ -710,16 +750,14 @@ namespace game {
 				lua_pushinteger(lua, item->getGridLocationY());
 				return 2;
 			}
-			else if (lua_isnumber(lua, -2) && lua_isnumber(lua, -1))
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
 			{
-				item->setGridLocation(lua_tointeger(lua, -2), lua_tointeger(lua, -1));
+				item->setGridLocation(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
 				lua_first(lua);
 			}
-			
+			return LuaState::expectedArgs(lua, "grid_location", "integer x, integer y");
 		}
-		lua_pushnil(lua);
-		lua_pushnil(lua);
-		return 2;
+		return LuaState::expectedContext(lua, "grid_location", "Item");
 	}
 	/**
 	 * Returns the item's unique game id.
@@ -742,14 +780,14 @@ namespace game {
 				lua_pushstring(lua, item->getGameId());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, item->setGameId(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, item->setGameId(lua_tostring(lua, 2)));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "game_id", "string gameId");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "game_id", "Item");
 	}
 	/**
 	 * @static
@@ -760,17 +798,18 @@ namespace game {
 	 */
 	int Item_find(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, -1)));
+			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, 1)));
 			if (item)
 			{
 				wrapRefObject<Item>(lua, item);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@find", "string gameId");
 	}
 
 }

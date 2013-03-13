@@ -126,6 +126,7 @@ namespace game {
 		{
 			Engine::getEngine()->setGridXSize(static_cast<float>(lua_tonumber(lua, 1)));
 			Engine::getEngine()->setGridYSize(static_cast<float>(lua_tonumber(lua, 2)));
+			return 0;
 		}
 		return LuaState::expectedArgs(lua, "@grid_size", "number gridX, number gridY");
 	}

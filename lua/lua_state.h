@@ -25,7 +25,7 @@ using namespace am::base;
 
 // Wraps the lua call function with a try catch and a log message with the same file and line as the error if there is one.
 // Should only be used for unit tests as it does not deal with the error, only log that there was one.
-#define lua_acall(L, i, n)	try { L.call(i, n); } catch (...) { am::lua::LuaState::displayLineError(__FILE__, __LINE__); }
+#define lua_acall(L, i, n)	try { L.call(i, n); } catch (...) { am::lua::LuaState::displayLineError(L, __FILE__, __LINE__); }
 
 namespace am {
 namespace lua {
@@ -229,7 +229,7 @@ namespace lua {
 
 		static int lua_am_log(lua_State *lua);
 
-		static void displayLineError(const char *file, int line);
+		static void displayLineError(lua_State *lua, const char *file, int line);
 
 		static int expectedArgs(lua_State *lua, const char *funcName, const char *expected);
 		static int expectedArgs(lua_State *lua, const char *funcName, int n, ...);

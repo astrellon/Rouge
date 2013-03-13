@@ -665,10 +665,11 @@ namespace lua {
 		return 0;
 	}
 
-	void LuaState::displayLineError(const char *file, int line)
+	void LuaState::displayLineError(lua_State *lua, const char *file, int line)
 	{
 		stringstream ss;
-		ss << "Error calling Lua in " << file << " [" << line << "]";
+		ss << "Error calling Lua in " << file << " [" << line << "]\n";
+		printStack(lua, ss);
 		am_log("LUAERR", ss);
 	}
 
