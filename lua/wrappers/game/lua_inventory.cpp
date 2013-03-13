@@ -45,7 +45,7 @@ namespace game {
 			wrapRefObject<Inventory>(lua, inv);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "new", "integer width, integer height");
+		return LuaState::expectedArgs(lua, "@new", "integer width, integer height");
 	}
 	/**
 	 * Releases the reference counter on this inventory.

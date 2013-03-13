@@ -43,7 +43,7 @@ namespace game {
 			obj = getGameObject(lua, 1);
 			if (!obj && !lua_isnil(lua, 1))
 			{
-				return LuaState::expectedArgs(lua, "new", 2, "GameObject attachTo", "nil attachTo");
+				return LuaState::expectedArgs(lua, "@new", 2, "GameObject attachTo", "nil attachTo");
 			}
 		}
 		DialogueComponent *comp = new DialogueComponent(obj);

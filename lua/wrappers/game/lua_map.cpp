@@ -60,7 +60,7 @@ namespace game {
 			wrapRefObject<Map>(lua, map);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "new", 2, "string mapName", "string mapName, integer width, integer height");
+		return LuaState::expectedArgs(lua, "@new", 2, "string mapName", "string mapName, integer width, integer height");
 	}
 	/**
 	 * Releases the reference counter on this map.

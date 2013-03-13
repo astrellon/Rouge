@@ -29,16 +29,15 @@ namespace game {
 	 */
 	int Race_ctor(lua_State *lua)
 	{
-		if (lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			const char *raceName = lua_tostring(lua, -1);
+			const char *raceName = lua_tostring(lua, 1);
 			Race *race = new Race(raceName);
 		
 			wrapObject<Race>(lua, race);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", "string raceName");
 	}
 	/**
 	 * TODO
@@ -56,6 +55,10 @@ namespace game {
 	int Race_eq(lua_State *lua)
 	{
 		Race *lhs = castUData<Race>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Race");
+		}
 		Race *rhs = castUData<Race>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -94,8 +97,7 @@ namespace game {
 			lua_pushstring(lua, race->getRaceName());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "race_name", "Race");
 	}
 
 }
