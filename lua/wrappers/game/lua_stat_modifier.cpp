@@ -54,7 +54,7 @@ namespace game {
 			wrapObject<StatModifier>(lua, stat);
 			return 1;
 		}
-		else if (lua_isnumber(lua, 1) && lua_isstring(lua, 2))
+		else if (lua_isnum(lua, 1) && lua_isstr(lua, 2))
 		{
 			StatModifierType type = getStatModifier(lua, 2);
 			if (type == MOD_MAX_LENGTH)
@@ -72,8 +72,7 @@ namespace game {
 			wrapObject<StatModifier>(lua, stat);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", 2, "", "number value, string type, boolean [true] magical");
 	}
 	/**
 	 * Deletes the stat modifier object.
@@ -106,6 +105,10 @@ namespace game {
 	int StatModifier_eq(lua_State *lua)
 	{
 		StatModifier *lhs = castUData<StatModifier>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "StatModifier");
+		}
 		StatModifier *rhs = castUData<StatModifier>(lua, 2);
 		lua_pushboolean(lua, lhs && rhs && (*lhs == *rhs));
 		return 1;
@@ -154,14 +157,14 @@ namespace game {
 				lua_pushnumber(lua, mod->getValue());
 				return 1;
 			}
-			else if (lua_isnumber(lua, 2))
+			else if (lua_isnum(lua, 2))
 			{
 				mod->setValue(lua_tofloat(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "value", "number value");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "value", "StatModifier");
 	}
 
 	/**
@@ -191,18 +194,25 @@ namespace game {
 				lua_pushstring(lua, StatModifier::getModifierTypeString(mod->getType()));
 				return 1;
 			}
-			else if (lua_isstring(lua, 2))
+			else if (lua_isstr(lua, 2))
 			{
 				StatModifierType type = getStatModifier(lua, 2);
 				if (type != MOD_MAX_LENGTH)
 				{
 					mod->setType(type);
 				}
+				else
+				{
+					stringstream ss;
+					ss << "Invalid stat modifier type (";
+					LuaState::printTypeValue(lua, 2, ss);
+					LuaState::warning(lua, ss.str().c_str());
+				}
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "type", "string type");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "type", "StatModifier");
 	}
 
 	/**
@@ -226,14 +236,14 @@ namespace game {
 				lua_pushboolean(lua, mod->isMagical());
 				return 1;
 			}
-			else if (lua_isboolean(lua, 2))
+			else if (lua_isbool(lua, 2))
 			{
 				mod->setMagical(lua_tobool(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "magical", "boolean magical");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "magical", "StatModifier");
 	}
 
 }
