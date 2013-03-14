@@ -59,6 +59,10 @@ namespace game {
 	int Stats_eq(lua_State *lua)
 	{
 		Stats *lhs = castUData<Stats>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Stats");
+		}
 		Stats *rhs = castUData<Stats>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -155,16 +159,16 @@ namespace game {
 					lua_pushnumber(lua, stats->getBaseStat(stat));
 					return 1;
 				}
-				else if (lua_isnumber(lua, 3))
+				else if (lua_isnum(lua, 3))
 				{
 					float value = lua_tofloat(lua, 3);
 					stats->setBaseStat(stat, value);
 					lua_first(lua);
 				}
 			}
+			return LuaState::expectedArgs(lua, "base_stat", "string statName, number baseValue");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "base_stat", "Stats");
 	}
 
 	/**
@@ -186,9 +190,9 @@ namespace game {
 				lua_pushnumber(lua, stats->getStat(stat));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "stat", "string statName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "stat", "Stats");
 	}
 	/**
 	 * Adds a modifier to the stat modifiers collection. This behaves the same
@@ -256,8 +260,7 @@ namespace game {
 			lua_pushinteger(lua, addToStatModifier(lua, stats));
 			return 1;
 		}
-		lua_pushinteger(lua, 0);
-		return 1;
+		return LuaState::expectedContext(lua, "add", "Stats");
 	}
 	/**
 	 * Removes a modifier from the stat modifiers collection. This behaves the same
@@ -330,8 +333,7 @@ namespace game {
 			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
 			return 1;
 		}
-		lua_pushinteger(lua, 0);
-		return 1;
+		return LuaState::expectedContext(lua, "remove", "Stats");
 	}
 
 	/**
@@ -347,8 +349,7 @@ namespace game {
 			wrapObject<StatModifiers>(lua, &stats->getStatModifiers());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "mods", "Stats");
 	}
 }
 }
