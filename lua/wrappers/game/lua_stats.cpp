@@ -101,6 +101,14 @@ namespace game {
 		{
 			stat = Stat::getStatType(lua_tostring(lua, n));
 		}
+		else
+		{
+			stringstream ss;
+			ss << "Invalid stat name (";
+			LuaState::printTypeValue(lua, n, ss);
+			ss << ')';
+			LuaState::warning(lua, ss.str().c_str());
+		}
 		return stat;
 	}
 	/// Parses the Lua value at the given index and returns the StatModifierType enum value.

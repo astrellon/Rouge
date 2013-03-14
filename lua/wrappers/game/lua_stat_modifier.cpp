@@ -206,6 +206,7 @@ namespace game {
 					stringstream ss;
 					ss << "Invalid stat modifier type (";
 					LuaState::printTypeValue(lua, 2, ss);
+					ss << ')';
 					LuaState::warning(lua, ss.str().c_str());
 				}
 				lua_first(lua);

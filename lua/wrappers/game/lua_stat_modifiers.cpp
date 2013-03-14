@@ -47,8 +47,9 @@ namespace game {
 		if (stats)
 		{
 			delete stats;
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "StatModifiers");
 	}
 	/**
 	 * Compares this stat modifiers object with the given one.
@@ -59,6 +60,10 @@ namespace game {
 	int StatModifiers_eq(lua_State *lua)
 	{
 		StatModifiers *lhs = castUData<StatModifiers>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "StatModifiers");
+		}
 		StatModifiers *rhs = castUData<StatModifiers>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -168,8 +173,7 @@ namespace game {
 			lua_pushinteger(lua, addToStatModifier(lua, stats));
 			return 1;
 		}
-		lua_pushinteger(lua, 0);
-		return 1;
+		return LuaState::expectedContext(lua, "add", "StatModifiers");
 	}
 	/**
 	 * Removes a stat modifier from the collection.
@@ -253,8 +257,7 @@ namespace game {
 			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
 			return 1;
 		}
-		lua_pushinteger(lua, 0);
-		return 1;
+		return LuaState::expectedContext(lua, "remove", "StatModifiers");
 	}
 
 	/**
@@ -304,8 +307,7 @@ namespace game {
 			}
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "mods", "StatModifiers");
 	}
 	/**
 	 * Calculates the final value for a given stat with the given base value.
@@ -320,19 +322,22 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			Stat::StatType type = getStat(lua, -2);
-			if (type != Stat::MAX_STAT_LENGTH)
+			if (lua_isstr(lua, 2))
 			{
-				if (lua_isnumber(lua, -1))
+				Stat::StatType type = getStat(lua, 2);
+				if (type != Stat::MAX_STAT_LENGTH)
 				{
-					float value = static_cast<float>(lua_tonumber(lua, -1));
-					lua_pushnumber(lua, stats->calculateStat(type, value));
-					return 1;
+					if (lua_isnum(lua, 3))
+					{
+						float value = static_cast<float>(lua_tonumber(lua, 3));
+						lua_pushnumber(lua, stats->calculateStat(type, value));
+						return 1;
+					}
 				}
 			}
+			return LuaState::expectedArgs(lua, "calculate_stat", "string statName, number baseValue");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "calculate_stat", "StatModifiers");
 	}
 
 	int addToStatModifier(lua_State *lua, am::game::IStatModifiers *stats)
@@ -374,7 +379,7 @@ namespace game {
 			return -4;
 		}
 
-		if (!lua_isnumber(lua, 3)) 
+		if (!lua_isnum(lua, 3)) 
 		{
 			return -2;
 		}
@@ -429,7 +434,7 @@ namespace game {
 			return -4;
 		}
 
-		if (!lua_isnumber(lua, 3)) 
+		if (!lua_isnum(lua, 3)) 
 		{
 			return -2;
 		}
