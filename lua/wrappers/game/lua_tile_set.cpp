@@ -35,14 +35,13 @@ namespace game {
 	int TileSet_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		if (args == 1 && lua_type(lua, -1) == LUA_TSTRING)
+		if (lua_isstr(lua, 1))
 		{
-			TileSet *tile = new TileSet(lua_tostring(lua, -1));
+			TileSet *tile = new TileSet(lua_tostring(lua, 1));
 			wrapRefObject<TileSet>(lua, tile);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", "string name");
 	}
 	/**
 	 * Releases the reference counter on this tile set.
@@ -53,8 +52,9 @@ namespace game {
 		if (set)
 		{
 			set->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "TileSet");
 	}
 	/**
 	 * Compares this tile set with another tile set.
@@ -135,14 +135,14 @@ namespace game {
 				lua_pushstring(lua, set->getFullName().c_str());
 				return 1;
 			}
-			else if (lua_type(lua, -1) == LUA_TSTRING)
+			else if (lua_isstr(lua, 2))
 			{
-				set->setFullName(lua_tostring(lua, -1));
+				set->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "full_name", "string fullName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "full_name", "TileSet");
 	}
 	/**
 	 * Adds a tile to this tile set.
@@ -153,14 +153,17 @@ namespace game {
 	int TileSet_add_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
-		Tile *tile = castUData<Tile>(lua, 2);
-		if (set && tile)
+		if (set)
 		{
-			set->addTile(tile);
-			lua_first(lua);
+			Tile *tile = castUData<Tile>(lua, 2);
+			if (tile)
+			{
+				set->addTile(tile);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "add_tile", "Tile tile");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_tile", "TileSet");
 	}
 	/**
 	 * Removes a tile from this tile set.
@@ -179,20 +182,20 @@ namespace game {
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
-			if (lua_type(lua, -1) == LUA_TSTRING)
+			if (lua_isstr(lua, 2))
 			{
-				set->removeTile(lua_tostring(lua, -1));
+				set->removeTile(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
 			Tile *tile = castUData<Tile>(lua, 2);
 			if (tile)
 			{
 				set->removeTile(tile);
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "remove_tile", 2, "Tile tile", "string tileName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_tile", "TileSet");
 	}
 	/**
 	 * Returns true if there is a tile with the given name in the tile set.
@@ -211,9 +214,9 @@ namespace game {
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set)
 		{
-			if (lua_type(lua, -1) == LUA_TSTRING)
+			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, set->hasTile(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, set->hasTile(lua_tostring(lua, 2)));
 				return 1;
 			}
 			Tile *tile = castUData<Tile>(lua, 2);
@@ -222,9 +225,9 @@ namespace game {
 				lua_pushboolean(lua, set->hasTile(tile));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "has_tile", 2, "Tile tile", "string tileName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_tile", "TileSet");
 	}
 	/**
 	 * Looks for a tile in this tile set with the given name.
@@ -235,13 +238,22 @@ namespace game {
 	int TileSet_tile(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
-		if (set && lua_type(lua, -1) == LUA_TSTRING)
+		if (set)
 		{
-			wrapRefObject<Tile>(lua, set->getTile(lua_tostring(lua, -1)));
-			return 1;
+			if (lua_isstr(lua, 2))
+			{
+				Tile *tile = set->getTile(lua_tostring(lua, 2));
+				if (tile)
+				{
+					wrapRefObject<Tile>(lua, tile);
+					return 1;
+				}
+				lua_pushnil(lua);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "tile", "string tileName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile", "TileSet");
 	}
 
 	/**

@@ -71,6 +71,10 @@ namespace game {
 	int TileInstance_eq(lua_State *lua)
 	{
 		TileInstance *lhs = castUData<TileInstance>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "TileInstance");
+		}
 		TileInstance *rhs = castUData<TileInstance>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
