@@ -32,11 +32,15 @@ namespace gfx {
 	 */
 	int Sprite_ctor(lua_State *lua)
 	{
-		if (lua_type(lua, 1) == LUA_TSTRING)
+		if (lua_gettop(lua) == 1)
 		{
-			Sprite *sprite = new Sprite(lua_tostring(lua, 1));
-			wrapRefObject<Sprite>(lua, sprite);
-			return 1;
+			if (lua_isstr(lua, 1))
+			{
+				Sprite *sprite = new Sprite(lua_tostring(lua, 1));
+				wrapRefObject<Sprite>(lua, sprite);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "@new", "string assetName");
 		}
 		Sprite *sprite = new Sprite();
 		wrapRefObject<Sprite>(lua, sprite);
@@ -63,6 +67,10 @@ namespace gfx {
 	int Sprite_eq(lua_State *lua)
 	{
 		Sprite *lhs = castUData<Sprite>(lua, 1);
+		if (!lhs)
+		{
+			return LuaState::expectedContext(lua, "__eq", "Sprite");
+		}
 		Sprite *rhs = castUData<Sprite>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
 		return 1;
@@ -138,14 +146,14 @@ namespace gfx {
 				lua_pushstring(lua, "");
 				return 1;
 			}
-			else if (lua_type(lua, -1) == LUA_TSTRING)
+			else if (lua_isstr(lua, 2))
 			{
-				sprite->setAsset(lua_tostring(lua, -1));
+				sprite->setAsset(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "asset", "string assetName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "asset", "Sprite");
 	}
 
 }
