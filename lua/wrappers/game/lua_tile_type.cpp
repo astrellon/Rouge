@@ -43,21 +43,24 @@ namespace game {
 	 */
 	int TileType_ctor(lua_State *lua)
 	{
-		int args = lua_gettop(lua);
-		if (args == 1 && lua_isstring(lua, -1))
+		if (lua_isstr(lua, 1))
 		{
-			TileType *tile = new TileType(lua_tostring(lua, -1));
-			wrapObject<TileType>(lua, tile);
-			return 1;
+			TileType *tile = NULL;
+			if (lua_isstr(lua, 2))
+			{
+				tile = new TileType(lua_tostring(lua, 1), lua_tostring(lua, 2));
+			}
+			else
+			{
+				tile = new TileType(lua_tostring(lua, 1));
+			}
+			if (tile)
+			{
+				wrapObject<TileType>(lua, tile);
+				return 1;
+			}
 		}
-		else if (args == 2 && lua_isstring(lua, -2) && lua_isstring(lua, -1))
-		{
-			TileType *tile = new TileType(lua_tostring(lua, -2), lua_tostring(lua, -1));
-			wrapObject<TileType>(lua, tile);
-			return 1;
-		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", 2, "string tileTypeName", "string tileTypeName, string fullName");
 	}
 	/**
 	 * Deletes the tile type. TODO Check if it should do this.
@@ -68,8 +71,9 @@ namespace game {
 		if (type)
 		{
 			delete type;
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "TileType");
 	}
 	/**
 	 * Compares this tile type against another tile type.
@@ -122,8 +126,7 @@ namespace game {
 			lua_pushstring(lua, tile->getName());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "TileType");
 	}
 	/**
 	 * Returns the full name of this tile type.
@@ -147,14 +150,14 @@ namespace game {
 				lua_pushstring(lua, tile->getFullName());
 				return 1;
 			}
-			else if (lua_type(lua, -1) == LUA_TSTRING)
+			else if (lua_isstr(lua, 2))
 			{
-				tile->setFullName(lua_tostring(lua, -1));
+				tile->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "full_name", "string fullName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "full_name", "TileType");
 	}
 	/**
 	 * @static
@@ -168,8 +171,9 @@ namespace game {
 		if (tile)
 		{
 			Engine::getEngine()->addTileType(tile);
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedArgs(lua, "@add_tile_type", "TileType tileType");
 	}
 	/**
 	 * @static
@@ -180,17 +184,18 @@ namespace game {
 	 */
 	int TileType_tile_type(lua_State *lua)
 	{
-		if (lua_type(lua, -1) == LUA_TSTRING)
+		if (lua_isstr(lua, 1))
 		{
-			TileType *tile = Engine::getEngine()->getTileType(lua_tostring(lua, -1));
+			TileType *tile = Engine::getEngine()->getTileType(lua_tostring(lua, 1));
 			if (tile)
 			{
 				wrapObject<TileType>(lua, tile);
 				return 1;
 			}
+			lua_pushnil(lua);
+			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@tile_type", "string tileTypeName");
 	}
 
 }
