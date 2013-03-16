@@ -42,25 +42,24 @@ namespace game {
 	 * Full name differs in that it is the name that is presented to the user.
 	 *
 	 * @param string name The name of the tile.
-	 * @param string description The description of the tile.
+	 * @param string fullName The full name of the tile.
 	 */
 	int Tile_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		if (args == 1 && lua_isstring(lua, -1))
+		if (args == 1 && lua_isstr(lua, 1))
 		{
-			Tile *tile = new Tile(lua_tostring(lua, -1));
+			Tile *tile = new Tile(lua_tostring(lua, 1));
 			wrapRefObject<Tile>(lua, tile);
 			return 1;
 		}
-		else if (args == 2 && lua_isstring(lua, -2) && lua_isstring(lua, -1))
+		else if (args == 2 && lua_isstr(lua, 1) && lua_isstr(lua, 2))
 		{
-			Tile *tile = new Tile(lua_tostring(lua, -2), lua_tostring(lua, -1));
+			Tile *tile = new Tile(lua_tostring(lua, 1), lua_tostring(lua, 2));
 			wrapRefObject<Tile>(lua, tile);
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", 2, "string name", "string name, string fullName");
 	}
 	/**
 	 * Release the reference count on this tile.
@@ -71,8 +70,9 @@ namespace game {
 		if (tile)
 		{
 			tile->release();
+			return 0;
 		}
-		return 0;
+		return LuaState::expectedContext(lua, "__gc", "Tile");
 	}
 
 	/**
@@ -144,25 +144,36 @@ namespace game {
 				lua_pushstring(lua, tile->getName().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, 2))
+			else if (lua_isstr(lua, 2))
 			{
 				bool checkForExisting = false;
+				bool valid = true;
 				if (args >= 3)
 				{
-					checkForExisting = lua_tobool(lua, 3);
+					if (lua_isbool(lua, 3))
+					{
+						checkForExisting = lua_tobool(lua, 3);
+					}
+					else
+					{
+						valid = false;
+					}
 				}
 				if (checkForExisting)
 				{
-					lua_pushboolean(lua, tile->setNameWithCheck(lua_tostring(lua, -1)));
+					lua_pushboolean(lua, tile->setNameWithCheck(lua_tostring(lua, 2)));
 					return 1;
 				}
-				tile->setName(lua_tostring(lua, -1));
-				lua_pushboolean(lua, 1);
-				return 1;
+				if (valid)
+				{
+					tile->setName(lua_tostring(lua, 2));
+					lua_pushboolean(lua, 1);
+					return 1;
+				}
 			}
+			return LuaState::expectedArgs(lua, "name", "string name, boolean [false] checkForExisting");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "Tile");
 	}
 
 	/**
@@ -186,14 +197,14 @@ namespace game {
 				lua_pushstring(lua, tile->getFullName().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				tile->setFullName(lua_tostring(lua, -1));
+				tile->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "full_name", "string fullName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "full_name", "Tile");
 	}
 	/**
 	 * Returns the description for this tile.
@@ -216,14 +227,14 @@ namespace game {
 				lua_pushstring(lua, tile->getDescription().c_str());
 				return 1;
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				tile->setDescription(lua_tostring(lua, -1));
+				tile->setDescription(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "description", "string description");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "description", "Tile");
 	}
 	/**
 	 * Returns the tile set that this tile is apart of, nil will be return if it is not part of a tile set.
@@ -254,6 +265,8 @@ namespace game {
 					wrapRefObject<TileSet>(lua, tile->getTileSet());
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
 			}
 			else
 			{
@@ -296,9 +309,9 @@ namespace game {
 					return 1;
 				}
 			}
+			return LuaState::expectedArgs(lua, "tile_set", "TileSet tileSet, boolean [false] checkForExisting");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile_set", "Tile");
 	}
 
 	/**
@@ -320,15 +333,15 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			TileType *tileType = getTileType(lua, -1);
+			TileType *tileType = getTileType(lua, 2);
 			if (tileType)
 			{
 				tile->addTileType(tileType);
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "add_tile_type", 2, "TileType tileType", "string tileTypeName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "add_tile_type", "Tile");
 	}
 	/**
 	 * Removes a tile type from the list of tile types.
@@ -349,15 +362,15 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			TileType *tileType = getTileType(lua, -1);
+			TileType *tileType = getTileType(lua, 2);
 			if (tileType)
 			{
 				tile->removeTileType(tileType);
+				lua_first(lua);
 			}
-			lua_first(lua);
+			return LuaState::expectedArgs(lua, "remove_tile_type", 2, "TileType tileType", "string tileTypeName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_tile_type", "Tile");
 	}
 	/**
 	 * Removes all tile types from this tiles list of tile types.
@@ -372,8 +385,7 @@ namespace game {
 			tile->removeAllTileTypes();
 			lua_first(lua);
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "remove_all_tile_types", "Tile");
 	}
 	/**
 	 * Returns true if the given tile type is in the list of tile types.
@@ -392,15 +404,15 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			TileType *tileType = getTileType(lua, -1);
+			TileType *tileType = getTileType(lua, 2);
 			if (tileType)
 			{
 				lua_pushboolean(lua, tile->hasTileType(tileType));
 				return 1;
 			}
+			return LuaState::expectedArgs(lua, "has_tile_type", 2, "TileType tileType", "string tileTypeName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "has_tile_type", "Tile");
 	}
 	/**
 	 * Returns an array of all the tile types in this tiles list of tile tpyes.
@@ -431,14 +443,12 @@ namespace game {
 			int i = 1;
 			for (auto iter = types.begin(); iter != types.end(); ++iter)
 			{
-				//L.setTableValue("name", (*iter)->getName());
 				wrapObject<TileType>(lua, *iter);
 				lua_rawseti(lua, -2, i++);
 			}
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile_types", "Tile");
 	}
 
 	/**
