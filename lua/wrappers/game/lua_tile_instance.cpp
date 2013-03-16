@@ -31,7 +31,7 @@ namespace game {
 	/**
 	 * Creates a new tile instance with the given tile.
 	 *
-	 * @param TileInstance instance The tile this instance.
+	 * @param Tile tile The tile this instance.
 	 */
 	int TileInstance_ctor(lua_State *lua)
 	{
@@ -52,8 +52,7 @@ namespace game {
 				return 1;
 			}
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedArgs(lua, "@new", 2, "", "Tile tile");
 	}
 	/**
 	 * TODO
@@ -130,18 +129,21 @@ namespace game {
 					return 1;
 				}
 			}
-			else if (lua_isstring(lua, -1))
+			else if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, inst->setTileName(lua_tostring(lua, -1)));
+				lua_pushboolean(lua, inst->setTileName(lua_tostring(lua, 2)));
 				return 1;
 			}
 			Tile *tile = castUData<Tile>(lua, 2);
-			inst->setTile(tile);
-			lua_pushboolean(lua, 1);
-			return 1;
+			if (tile)
+			{
+				inst->setTile(tile);
+				lua_pushboolean(lua, 1);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "tile", 2, "Tile tile", "string tileName");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile", "TileInstance");
 	}
 	
 	/**
@@ -166,14 +168,14 @@ namespace game {
 				lua_pushinteger(lua, inst->getTileFrame());
 				return 1;
 			}
-			else
+			else if (lua_isnum(lua, 2))
 			{
-				inst->setTileFrame(lua_tointeger(lua, -1));
+				inst->setTileFrame(lua_tointeger(lua, 2));
 				lua_first(lua);
 			}
+			return LuaState::expectedArgs(lua, "tile_frame", "integer frame");
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "tile_frame", "TileInstance");
 	}
 
 }
