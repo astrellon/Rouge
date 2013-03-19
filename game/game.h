@@ -70,13 +70,18 @@ namespace game {
 		void setMainCharacter(Character *character);
 		Character *getMainCharacter();
 
+		void addCharDefinition(Character *character, const char *name);
+		Character *getCharDefinition(const char *name);
+		void addItemDefinition(Item *item, const char *name);
+		Item getItemDefinition(const char *name);
+
 		Camera *getCamera();
 
 		void update(float dt);
 
 		// GameObject
 		GameObject *getGameObject(const char *id) const;
-		void registerGameObject(GameObject *obj);
+		bool registerGameObject(GameObject *obj);
 		void deregisterGameObject(const char *id);
 		void deregisterGameObject(GameObject *obj);
 
@@ -107,6 +112,17 @@ namespace game {
 
 		typedef map<string, Handle<Map> > MapMap;
 		MapMap mMaps;
+
+		string mLoadingFile;
+
+		typedef map<string, bool> FilesLoadedMap;
+		FilesLoadedMap mFilesLoaded;
+
+		typedef map<string, Handle<Item> >ItemMap;
+		ItemMap mItemDefinitions;
+
+		typedef map<string, Handle<Character> > CharacterMap;
+		CharacterMap mCharDefinitions;
 
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;

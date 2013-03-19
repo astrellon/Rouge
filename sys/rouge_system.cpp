@@ -356,8 +356,6 @@ namespace sys {
 
 		mPausedGame = false;
 
-		return;
-
 		Game *game = Engine::getGame();
 		/*Map *map = game->getMapLua("testMap_2");
 		if (map)
@@ -404,6 +402,9 @@ namespace sys {
 		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
 		stats.setBaseStat(Stat::MAX_DAMAGE, 7);
 		game->addGameObjectToMap(mPlayer.get());
+
+		game->getCharDefinition("npcs:melli");
+		game->getCharDefinition("mel");
 
 		Handle<Item> sword(new Item());
 		sword->loadFromLua("sword");

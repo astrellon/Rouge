@@ -40,6 +40,9 @@ namespace game {
 	int Game_register_game_object(lua_State *lua);
 	int Game_deregister_game_object(lua_State *lua);
 
+	int Game_char_def(lua_State *lua);
+	int Game_item_def(lua_State *lua);
+
 	int Game_add_dialogue(lua_State *lua);
 	int Game_remove_dialogue(lua_State *lua);
 	int Game_remove_all_dialogue(lua_State *lua);

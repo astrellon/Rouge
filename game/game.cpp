@@ -30,32 +30,32 @@ namespace game {
 	Game::Game(Engine *engine) :
 		mEngine(engine),
 		mCurrentMap(NULL),
-		mActiveObjects(NULL)
+		mActiveObjects(NULL),
+		mGameLayer(new Layer()),
+		mBackground(new Layer()),
+		mItemLayer(new Layer()),
+		mCharacterLayer(new Layer()),
+		mForeground(new Layer())
 	{
 		if (engine == NULL)
 		{
 			mEngine = Engine::getEngine();
 		}
-		mGameLayer = new Layer();
 		mGameLayer->setName("Game->GameLayer");
 		mGameLayer->setInteractive(true);
 
-		mBackground = new Layer();
 		mBackground->setName("Background");
 		mBackground->setInteractive(true);
 		mGameLayer->addChild(mBackground.get());
 
-		mItemLayer = new Layer();
 		mItemLayer->setName("ItemLayer");
 		mItemLayer->setInteractive(true);
 		mGameLayer->addChild(mItemLayer.get());
 
-		mCharacterLayer = new Layer();
 		mCharacterLayer->setName("CharacterLayer");
 		mCharacterLayer->setInteractive(true);
 		mGameLayer->addChild(mCharacterLayer.get());
 
-		mForeground = new Layer();
 		mForeground->setName("Foreground");
 		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
@@ -489,6 +489,60 @@ namespace game {
 		return mMainCharacter;
 	}
 
+	void Game::addCharDefinition(Character *character, const char *name)
+	{
+		if (character == NULL || name == NULL || name[0] == '\0')
+		{
+			return;
+		}
+		string path = mLoadingFile;
+		path += name;
+		mCharDefinitions[path] = character;
+	}
+	Character *Game::getCharDefinition(const char *name)
+	{
+		if (name == NULL || name[0] == '\0')
+		{
+			return NULL;
+		}
+		string str(name);
+		auto find = mCharDefinitions.find(str);
+		if (find != mCharDefinitions.end())
+		{
+			return find->second;
+		}
+		string filename;
+		string charname;
+		size_t index = str.find(':');
+		if (index > 0)
+		{
+			filename = "data/chars/";
+			mLoadingFile = str.substr(0, index);
+			filename += mLoadingFile;
+			filename += ".lua";
+			charname = str.substr(index + 1);
+		}
+		else
+		{
+			filename = "data/chars/default.lua";
+			charname = str;
+		}
+
+		// Check if the file has already been loaded and previously did
+		// not find the character.
+		auto findFile = mFilesLoaded.find(filename);
+		if (findFile == mFilesLoaded.end())
+		{
+			return NULL;
+		}
+
+		LuaState lua;
+		lua.loadFile(filename.c_str());
+
+		mLoadingFile = "";
+		return NULL;
+	}
+	
 	void Game::update(float dt)
 	{
 		if (mActiveObjects)
@@ -515,13 +569,19 @@ namespace game {
 		}
 		return NULL;
 	}
-	void Game::registerGameObject(GameObject *obj)
+	bool Game::registerGameObject(GameObject *obj)
 	{
 		if (obj == NULL)
 		{
-			return;
+			return false;
 		}
-		mGameObjects[obj->getGameId()] = obj;
+		const char *id = obj->getGameId();
+		if (id == NULL || id[0] == '\0')
+		{
+			return false;
+		}
+		mGameObjects[string(id)] = obj;
+		return true;
 	}
 	void Game::deregisterGameObject(const char *id)
 	{

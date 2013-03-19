@@ -25,6 +25,9 @@ using namespace am::game;
 #include "lua_dialogue.h"
 #include "lua_quest.h"
 
+#include <sstream>
+using std::stringstream;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -552,7 +555,14 @@ namespace game {
 			GameObject *obj = getGameObject(lua, 2);
 			if (obj)
 			{
-				game->registerGameObject(obj);
+				if (!game->registerGameObject(obj))
+				{
+					stringstream ss;
+					ss << "Unable to register game object: ";
+					LuaState::printTypeValue(lua, 2, ss, true);
+					ss << " (" << obj->getName() << " does not have a game id";
+					LuaState::warning(lua, ss.str().c_str());
+				}
 				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "register_game_object", "GameObject gameObject");
@@ -580,6 +590,49 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "deregister_game_object", "Game");
 	}
+
+	/**
+	 * Returns the character definition with the given name.
+	 * The definition name can be made up of the.
+	 */
+	int Game_char_def(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				if (lua_gettop(lua) == 2)
+				{
+					Character *obj = game->getCharDefinition(lua_tostring(lua, 2));
+					if (obj)
+					{
+						wrapRefObject<Character>(lua, obj);
+						return 1;
+					}
+					lua_pushnil(lua);
+					return 1;
+				}
+				else if (lua_isnil(lua, 3))
+				{
+					game->addCharDefinition(NULL, lua_tostring(lua, 2));
+					lua_first(lua);
+				}
+				else
+				{
+					Character *obj = castUData<Character>(lua, 3);
+					if (obj)
+					{
+						game->addCharDefinition(obj, lua_tostring(lua, 2));
+						lua_first(lua);
+					}
+				}
+			}
+			return LuaState::expectedArgs(lua, "char_def", 3, "string defName", "string defName, Character char", "string defName, nil char");
+		}
+		return LuaState::expectedContext(lua, "char_def", "Game");
+	}
+
 	/**
 	 * Adds the given dialogue to the dialogue pool.
 	 *

@@ -334,12 +334,13 @@ namespace game {
 		}
 		return NULL;
 	}
-	void Engine::registerGameObject(GameObject *obj)
+	bool Engine::registerGameObject(GameObject *obj)
 	{
 		if (mCurrentGame.get())
 		{
-			mCurrentGame->registerGameObject(obj);
+			return mCurrentGame->registerGameObject(obj);
 		}
+		return false;
 	}
 	void Engine::deregisterGameObject(const char *id)
 	{

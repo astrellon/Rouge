@@ -84,6 +84,10 @@ do
 		:start_dialogue("imFred")
 	npc2:dialogue_component(comp)
 	-- End Character
+	
+	-- Items
+	
+	-- End Items
 
 	-- Quests
 	fredQuest = Quest.new("fredQuest")

@@ -1,5 +1,6 @@
 -- Main game engine script
 Engine, Game, Race, Character = import("Engine", "Game", "Race", "Character")
+Sprite = import("Sprite")
 
 local game = nil
 
@@ -18,9 +19,9 @@ function newGame()
 		game:current_map(map)
 	end
 	
-	player = Character.new()
+	player = Character.new("melli")
 	player:name("Melanine")
-		:graphic(Sprite.new("characters/mainCharacter"))
+		:graphic(Sprite.new("characters/mainChar/front"))
 		:grid_location(2, 1)
 		:gender("female")
 		:race("human")

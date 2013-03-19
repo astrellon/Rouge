@@ -23,6 +23,9 @@ using namespace am::game;
 #include "lua_race.h"
 #include "lua_tile_type.h"
 
+#include <sstream>
+using std::stringstream;
+
 namespace am {
 namespace lua {
 namespace game {
@@ -91,6 +94,7 @@ namespace game {
 		else if (lua_isnil(lua, 1))
 		{
 			Engine::getEngine()->setCurrentGame(NULL);
+			return 0;
 		}
 		else
 		{
@@ -98,6 +102,7 @@ namespace game {
 			if (game)
 			{
 				Engine::getEngine()->setCurrentGame(game);
+				return 0;
 			}
 		}
 		return LuaState::expectedArgs(lua, "@game", 2, "Game game", "nil game");
@@ -256,7 +261,14 @@ namespace game {
 		}
 		if (obj)
 		{
-			Engine::getEngine()->registerGameObject(obj);
+			if (!Engine::getEngine()->registerGameObject(obj))
+			{
+				stringstream ss;
+				ss << "Unable to register game object: ";
+				LuaState::printTypeValue(lua, 2, ss, true);
+				ss << " (" << obj->getName() << " does not have a game id";
+				LuaState::warning(lua, ss.str().c_str());
+			}
 			return 0;
 		}
 		return LuaState::expectedArgs(lua, "@register_game_object", "GameObject object");

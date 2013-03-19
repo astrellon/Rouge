@@ -60,9 +60,17 @@ namespace game {
 	 */
 	int Character_ctor(lua_State *lua)
 	{
-		if (!lua_isstr(lua, 1))
+		int args = lua_gettop(lua);
+		if (args >= 1 && !lua_isstr(lua, 1))
 		{
-			return LuaState::expectedArgs(lua, "@new", "string id");
+			return LuaState::expectedArgs(lua, "@new", 2, "", "string id");
+		}
+
+		if (args == 0)
+		{
+			Character *obj = new Character();
+			wrapRefObject<Character>(lua, obj);
+			return 1;
 		}
 
 		const char *id = lua_tostring(lua, 1);
