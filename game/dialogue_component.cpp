@@ -18,6 +18,15 @@ namespace game {
 	{
 		setAttachedTo(attached);
 	}
+	DialogueComponent::DialogueComponent(const DialogueComponent &copy) :
+		mStartDialogue(copy.mStartDialogue),
+		mTalkingTo(NULL),
+		mAttachedTo(NULL),
+		mUnlockedSubjects(copy.mUnlockedSubjects),
+		mDialoguesAvailable(copy.mDialoguesAvailable)
+	{
+
+	}
 	DialogueComponent::~DialogueComponent()
 	{
 
@@ -85,13 +94,13 @@ namespace game {
 	{
 		if (subject == NULL || subject[0] == '\0')
 		{
-			return false;
+			return true;
 		}
 		string subjectStr(subject);
 		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
 		if (iter == mUnlockedSubjects.end())
 		{
-			return false;
+			return true;
 		}
 		return iter->second;
 	}

@@ -33,9 +33,10 @@ namespace game {
 	class Character : public IEventListener, public GameObject, public Levelable {
 	public:
 		Character();
+		Character(const Character &copy);
 		~Character();
 
-		void setGraphic(Sprite *graphic);
+		void setGraphic(Sprite *graphic, bool calcCameraOffset = true);
 		Sprite *getGraphic();
 
 		virtual void update(float dt);

@@ -114,6 +114,10 @@ namespace base {
 		{
 			return *mObject != rhs;
 		}
+		bool operator!=(const Handle<T> &rhs) const
+		{
+			return mObject != rhs.get();
+		}
 
 	private:
 		T *mObject;

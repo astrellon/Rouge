@@ -12,6 +12,14 @@ namespace gfx {
 	{
 		
 	}
+	Layer::Layer(const Layer &copy) :
+		Renderable(copy)
+	{
+		/*for (auto iter = copy.mChildren.begin(); iter != copy.mChildren.end(); ++iter)
+		{
+			addChild(*iter);
+		}*/
+	}
 	Layer::~Layer()
 	{
 

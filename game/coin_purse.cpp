@@ -12,6 +12,12 @@ namespace game {
 	{
 		
 	}
+	CoinPurse::CoinPurse(const CoinPurse &copy) :
+		mCoin(copy.mCoin),
+		mMaxCoin(copy.mMaxCoin)
+	{
+
+	}
 	CoinPurse::~CoinPurse()
 	{
 

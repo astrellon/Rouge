@@ -26,6 +26,7 @@ namespace game {
 		typedef map<string, bool> SubjectMap;
 
 		DialogueComponent(GameObject *attachedTo = NULL);
+		DialogueComponent(const DialogueComponent &copy);
 		~DialogueComponent();
 
 		virtual void talkTo(GameObject *other);

@@ -28,6 +28,31 @@ namespace game {
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
 	}
+	GameObject::GameObject(const GameObject &copy) :
+		Layer(copy),
+		mName(copy.mName),
+		mFixedToGrid(copy.mFixedToGrid),
+		mOnlyOnPassable(copy.mOnlyOnPassable),
+		mLocationX(copy.mLocationX),
+		mLocationY(copy.mLocationY),
+		mCameraOffsetX(copy.mCameraOffsetX),
+		mCameraOffsetY(copy.mCameraOffsetY),
+		mPassibleTypes(copy.mPassibleTypes)
+	{
+		if (copy.mMap)
+		{
+			copy.mMap->addGameObject(this);
+		}
+		else
+		{
+			mMap = NULL;
+		}
+		if (copy.mDialogueComp)
+		{
+			mDialogueComp = new DialogueComponent(*copy.mDialogueComp);
+			mDialogueComp->setAttachedTo(this);
+		}
+	}
 	GameObject::~GameObject()
 	{
 		if (mMap)

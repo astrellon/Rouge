@@ -30,6 +30,7 @@ namespace game {
 		};
 
 		Item();
+		Item(const Item &copy);
 		~Item();
 
 		Item *clone() const;

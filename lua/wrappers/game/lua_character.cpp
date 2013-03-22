@@ -15,6 +15,7 @@ using namespace am::lua;
 #include <game/engine.h>
 #include <game/dialogue_component.h>
 #include <game/map.h>
+#include <game/game.h>
 using namespace am::game;
 
 #include "lua_stats.h"
@@ -124,6 +125,8 @@ namespace game {
 			{ "__gc", Character_dtor },
 			{ "__eq", Character_eq },
 			// Character methods
+			{ "from_def", Character_from_def },
+
 			{ "name", Character_name },
 			{ "pickup_reach", Character_pickup_reach },
 			{ "stats", Character_stats },
@@ -181,6 +184,68 @@ namespace game {
 		lua_setfield(lua, -1, "__index");
 		
 		return 1;
+	}
+
+	/**
+	 * @static
+	 * Creates a new Character from the character definition.
+	 * Character definitions are automatically loaded if one with
+	 * the given name is not registered.
+	 * <br>Example (a test map Lua file)
+	 * <pre>
+	 * Character = import("Character")
+	 * npc = Character.from_def("npcs:male1")
+	 * if (npc ~= nil)
+	 *     npc:name("Fred")
+	 * end
+	 * </pre>
+	 * In "data/chars/npcs.lua":
+	 * <pre>
+	 * Character, Engine, Game = import("Character", "Engine", "Game")
+	 * game = Engine.game()
+	 * 
+	 * npc = Character.new()
+	 * npc:age(21):gender("male"):graphic(Sprite.new("characters/npc/front"))
+	 * 
+	 * -- Here the npc is registered with the name "male1" and "npcs:" will 
+	 * -- automatically be prepended because of the filename.
+	 * game:add_char_definition(npc, "male1") 
+	 * </pre>
+	 *
+	 * @param string defName The name of the character definition.
+	 * @param string [""] gameId The game id to give to the newly created character.
+	 * @returns Character A copy of the character from the given definition, or nil if no definition was found.
+	 */
+	int Character_from_def(lua_State *lua)
+	{
+		int args = lua_gettop(lua);
+		if (lua_isstr(lua, 1) && (args == 1 || args > 1 && lua_isstr(lua, 2)))
+		{
+			Game *game = Engine::getGame();
+			if (game)
+			{
+				Character *def = game->getCharDefinition(lua_tostring(lua, 1));
+				if (def)
+				{
+					Character *newChar = new Character(*def);
+					if (lua_isstr(lua, 2))
+					{
+						newChar->setGameId(lua_tostring(lua, 2));
+					}
+				}
+				stringstream ss;
+				ss << "No character with the definition '" << lua_tostring(lua, 1) << "' was found.";
+				LuaState::warning(lua, ss.str().c_str());
+				lua_pushnil(lua);
+				return 1;
+			}
+			stringstream ss;
+			ss << "Unable to get definition (" << lua_tostring(lua, 1) << " when a game is not running";
+			LuaState::warning(lua, ss.str().c_str());
+			lua_pushnil(lua);
+			return 1;
+		}
+		return LuaState::expectedArgs(lua, "@from_def", "string defName, string [\"\"] gameId");
 	}
 
 	/**

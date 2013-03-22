@@ -17,6 +17,7 @@ namespace tests {
 		virtual void runCases() {
 			runCase(testSimple);
 			runCase(testEquipped);
+			runCase(testCopy);
 			//runCase(testSelector);
 		}
 	
@@ -28,6 +29,7 @@ namespace tests {
 
 		bool testSimple();
 		bool testEquipped();
+		bool testCopy();
 		//bool testSelector();
 	
 	};

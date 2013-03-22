@@ -24,6 +24,7 @@ namespace game {
 	class Stats : public IStatModifiers, public IManaged {
 	public:
 		Stats();
+		Stats(const Stats &copy);
 		~Stats();
 
 		virtual void setAttachedTo(GameObject *attached);

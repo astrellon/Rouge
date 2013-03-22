@@ -26,8 +26,6 @@ namespace game {
 
 	Item::Item() :
 		GameObject(),
-		mGraphic(NULL),
-		mGroundGraphic(NULL),
 		mItemType(ItemCommon::UNKNOWN),
 		mInventorySizeX(1),
 		mInventorySizeY(1),
@@ -39,6 +37,29 @@ namespace game {
 	{
 		setName("Item");
 		addPassibleType(Engine::getEngine()->getTileType("land"));
+	}
+	Item::Item(const Item &copy) :
+		GameObject(copy),
+		mItemType(copy.mItemType),
+		mInventorySizeX(copy.mInventorySizeX),
+		mInventorySizeY(copy.mInventorySizeY),
+		mItemLocation(copy.mItemLocation),
+		mItemValue(copy.mItemValue),
+		mPrefix(copy.mPrefix),
+		mPostfix(copy.mPostfix),
+		mQuestItemId(copy.mQuestItemId),
+		mStatModifiers(copy.mStatModifiers)
+	{
+		if (copy.mGraphic)
+		{
+			mGraphic = new Sprite(*copy.mGraphic);
+		}
+		if (copy.mGroundGraphic)
+		{
+			mGroundGraphic = new Sprite(*copy.mGroundGraphic);
+		}
+		retain();
+		updateGraphic();
 	}
 	Item::~Item()
 	{

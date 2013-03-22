@@ -18,6 +18,16 @@ namespace game {
 			mDirtyStats[i] = true;
 		}
 	}
+	Stats::Stats(const Stats &copy) :
+		mAttachedTo(NULL)
+	{
+		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
+		{
+			mBaseStats[i] = copy.mBaseStats[i];
+			mCalculatedStats[i] = 0.0f;
+			mDirtyStats[i] = true;
+		}
+	}
 	Stats::~Stats()
 	{
 

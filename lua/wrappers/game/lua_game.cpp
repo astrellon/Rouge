@@ -102,6 +102,7 @@ namespace game {
 			{ "game_object", Game_get_game_object },
 			{ "register_game_object", Game_register_game_object },
 			{ "deregister_game_object", Game_deregister_game_object },
+			{ "char_def", Game_char_def },
 			// Dialogue
 			{ "add_dialogue", Game_add_dialogue },
 			{ "remove_dialogue", Game_remove_dialogue },

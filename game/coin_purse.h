@@ -10,6 +10,7 @@ namespace game {
 	public:
 
 		CoinPurse();
+		CoinPurse(const CoinPurse &copy);
 		~CoinPurse();
 
 		virtual void setCoin(unsigned int coin);

@@ -27,7 +27,22 @@ namespace game {
 			mSpotMap[i] = NULL;
 		}
 	}
-
+	Inventory::Inventory(const Inventory &copy) :
+		EventInterface(),
+		mSpacesX(copy.mSpacesX),
+		mSpacesY(copy.mSpacesY)
+	{
+		int size = mSpacesX * mSpacesY;
+		mSpotMap = new Item *[size];
+		for (int i = 0; i < size; i++)
+		{
+			mSpotMap[i] = NULL;
+		}
+		for (auto iter = copy.mSpots.begin(); iter != copy.mSpots.end(); ++iter)
+		{
+			addItem(new Item(*iter->mItem), iter->mX, iter->mY);
+		}
+	}
 	Inventory::~Inventory()
 	{
 		delete mSpotMap;

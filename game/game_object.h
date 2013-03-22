@@ -25,6 +25,7 @@ namespace game {
 		typedef map<string, bool> SubjectMap;
 
 		GameObject();
+		GameObject(const GameObject &rhs);
 		~GameObject();
 
 		virtual void setName(const char *name);

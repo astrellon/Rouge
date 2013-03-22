@@ -19,6 +19,7 @@ namespace game {
 		typedef vector< InventorySpot > InventorySpots;
 
 		Inventory(unsigned short width, unsigned short height);
+		Inventory(const Inventory &copy);
 		~Inventory();
 
 		unsigned short getSpacesX() const;

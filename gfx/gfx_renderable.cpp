@@ -35,6 +35,20 @@ namespace gfx {
 		mRenderColour = false;
 #endif
 	}
+	Renderable::Renderable(const Renderable &copy) :
+		IManaged(),
+		mWidth(copy.mWidth),
+		mHeight(copy.mHeight),
+		mInteractive(copy.mInteractive),
+		mParent(NULL),
+		mVisible(copy.mVisible),
+		mGfxComponent(copy.mGfxComponent),
+		mTransform(copy.mTransform)
+	{
+#ifdef _DEBUG
+		mRenderColour = copy.mRenderColour;
+#endif
+	}
 	Renderable::~Renderable()
 	{
 #ifdef _DEBUG

@@ -6,6 +6,7 @@ namespace base {
 	class IManaged {
 	public:
 		IManaged();
+		IManaged(const IManaged &copy);
 		virtual ~IManaged();
 
 		virtual void release();

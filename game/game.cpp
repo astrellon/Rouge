@@ -531,15 +531,21 @@ namespace game {
 		// Check if the file has already been loaded and previously did
 		// not find the character.
 		auto findFile = mFilesLoaded.find(filename);
-		if (findFile == mFilesLoaded.end())
+		if (findFile == mFilesLoaded.end() || !findFile->second)
 		{
 			return NULL;
 		}
 
 		LuaState lua;
 		lua.loadFile(filename.c_str());
-
 		mLoadingFile = "";
+		mFilesLoaded[filename] = true;
+
+		find = mCharDefinitions.find(str);
+		if (find != mCharDefinitions.end())
+		{
+			return find->second;
+		}
 		return NULL;
 	}
 	

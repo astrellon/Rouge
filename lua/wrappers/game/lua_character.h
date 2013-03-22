@@ -17,6 +17,8 @@ namespace game {
 	int Character_dtor(lua_State *lua);
 	int Character_eq(lua_State *lua);
 	int Character_register(lua_State *lua);
+
+	int Character_from_def(lua_State *lua);
 	
 	int Character_name(lua_State *lua);
 	int Character_pickup_reach(lua_State *lua);

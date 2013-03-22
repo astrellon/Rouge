@@ -7,6 +7,10 @@ namespace base {
 		mRefCounter(0)
 	{
 	}
+	IManaged::IManaged(const IManaged &copy) :
+		mRefCounter(0)
+	{
+	}
 	IManaged::~IManaged()
 	{
 	}

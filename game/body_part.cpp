@@ -12,6 +12,14 @@ namespace game {
 	{
 
 	}
+	BodyPart::BodyPart(const BodyPart &copy) :
+		mName(copy.mName)
+	{
+		if (copy.mEqippeditem)
+		{
+			mEqippeditem = new Item(*copy.mEqippeditem);
+		}
+	}
 	BodyPart::~BodyPart()
 	{
 

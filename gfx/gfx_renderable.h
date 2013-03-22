@@ -23,6 +23,7 @@ namespace gfx {
 	class Renderable : virtual public IManaged, public EventInterface {
 	public:
 		Renderable();
+		Renderable(const Renderable &copy);
 		virtual ~Renderable();
 
 		virtual void deinit();

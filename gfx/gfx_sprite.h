@@ -18,6 +18,7 @@ namespace gfx {
 	class Sprite : public Renderable {
 	public:
 		Sprite();
+		Sprite(const Sprite &copy);
 		Sprite(Asset *asset);
 		Sprite(const char *assetName);
 		~Sprite();

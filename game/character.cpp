@@ -19,6 +19,7 @@ namespace game {
 
 	Character::Character() :
 		GameObject(),
+		Levelable(),
 		mGraphic(NULL),
 		mController(NULL),
 		mMoveX(0),
@@ -36,6 +37,33 @@ namespace game {
 		mInventory = new Inventory(10, 6);
 		mStats.setAttachedTo(this);
 	}
+	Character::Character(const Character &copy) :
+		GameObject(copy),
+		Levelable(copy),
+		mController(copy.mController),
+		mAge(copy.mAge),
+		mGender(copy.mGender),
+		mRace(copy.mRace),
+		mPickupReach(copy.mPickupReach),
+		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
+		mStats(copy.mStats)
+	{
+		// Copy BodyParts, Inventory, Stats
+		if (copy.mGraphic)
+		{
+			//mGraphic = new Sprite(*copy.mGraphic);
+			setGraphic(new Sprite(*copy.mGraphic), false);
+		}
+		mStats = copy.mStats;
+		mStats.setAttachedTo(this);
+
+		mInventory = new Inventory(*copy.mInventory);
+		for (auto iter = copy.mBodyParts.begin(); iter != copy.mBodyParts.end(); ++iter)
+		{
+			//mBodyParts[iter->first] = new BodyPart(*iter->second);
+			addBodyPart(new BodyPart(*iter->second));
+		}
+	}
 	Character::~Character()
 	{
 		if (mController)
@@ -44,7 +72,7 @@ namespace game {
 		}
 	}
 
-	void Character::setGraphic(Sprite *graphic)
+	void Character::setGraphic(Sprite *graphic, bool calcCameraOffset)
 	{
 		if (mGraphic.get())
 		{
@@ -55,8 +83,11 @@ namespace game {
 		{
 			addChild(graphic);
 			// Aim for head-ish area.
-			mCameraOffsetX = graphic->getWidth() * 0.5f;
-			mCameraOffsetY = graphic->getHeight() * 0.3f;
+			if (calcCameraOffset)
+			{
+				mCameraOffsetX = graphic->getWidth() * 0.5f;
+				mCameraOffsetY = graphic->getHeight() * 0.3f;
+			}
 		}
 	}
 	Sprite *Character::getGraphic()

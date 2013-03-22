@@ -23,6 +23,16 @@ namespace gfx {
 	{
 		//mColour.setColour(1.0f, 0.0f, 1.0f, 0.75f);
 	}
+	Sprite::Sprite(const Sprite &copy) :
+		Renderable(copy),
+		mAsset(copy.mAsset),
+		mCurrentFrame(copy.mCurrentFrame),
+		mFrameRate(copy.mFrameRate),
+		mCurrentTime(copy.mCurrentTime),
+		mScaleNineState(copy.mScaleNineState)
+	{
+
+	}
 	Sprite::Sprite(Asset *asset) :
 		Renderable(),
 		mAsset(asset),

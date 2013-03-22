@@ -15,6 +15,7 @@ namespace gfx {
 	public:
 		// GlLayer methods
 		Layer();
+		Layer(const Layer &copy);
 		~Layer();
 
 		virtual void deinit();

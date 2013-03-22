@@ -17,6 +17,7 @@ namespace game {
 		typedef map<string, BodyPart *> BodyPartMap;
 
 		BodyPart(const char *name, Item *equipped = NULL);
+		BodyPart(const BodyPart &copy);
 		~BodyPart();
 
 		const char *getName() const;
