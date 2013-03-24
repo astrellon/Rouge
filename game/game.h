@@ -70,6 +70,8 @@ namespace game {
 		void setMainCharacter(Character *character);
 		Character *getMainCharacter();
 
+		string getLoadingFile() const;
+
 		void addCharDefinition(Character *character, const char *name);
 		Character *getCharDefinition(const char *name);
 		void addItemDefinition(Item *item, const char *name);
@@ -113,7 +115,8 @@ namespace game {
 		typedef map<string, Handle<Map> > MapMap;
 		MapMap mMaps;
 
-		string mLoadingFile;
+		typedef vector<string> LoadingFilesStack;
+		LoadingFilesStack mLoadingFiles;
 
 		typedef map<string, bool> FilesLoadedMap;
 		FilesLoadedMap mFilesLoaded;

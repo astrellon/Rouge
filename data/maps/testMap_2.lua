@@ -1,15 +1,15 @@
 -- Test Lua Map
 do
 	-- Game Imports
-	Map, Engine, Game, Character, Dialogue = import("Map", "Engine", "Game", "Character", "Dialogue")
-	DialogueComponent, Quest = import("DialogueComponent", "Quest")
+	local Map, Engine, Game, Character, Dialogue = import("Map", "Engine", "Game", "Character", "Dialogue")
+	local DialogueComponent, Quest = import("DialogueComponent", "Quest")
 	-- Gfx Imports
-	Sprite = import("Sprite")
+	local Sprite = import("Sprite")
 
-	game = Engine.game()
+	local game = Engine.game()
 
 	-- Map
-	map = Map.new("testMap", 6, 7)
+	local map = Map.new("testMap", 6, 7)
 	map:full_name("The Region of Test")
 	game:add_map(map)
 
@@ -30,7 +30,7 @@ do
 	-- End Map
 
 	-- Dialogue
-	diag = Dialogue.new("diag1",
+	local diag = Dialogue.new("diag1",
 		"Hello there ${char main} <? @='diag2'>Next</?>")
 	Dialogue.add_dialogue(diag)
 
@@ -58,13 +58,13 @@ do
 	-- End Dialogue
 
 	-- Characters
-	npc1 = Character.new("npc1")
+	local npc1 = Character.from_def("npcs:male1")
 		:grid_location(2, 0)
 		:graphic(Sprite.new("characters/npc/front"))
 		:name("John")
 	map:add_game_object(npc1)
 
-	comp = DialogueComponent.new(npc1)
+	local comp = DialogueComponent.new(npc1)
 		:available("diag1", true)
 		:available("diag2", true)
 		:available("diag3", true)
@@ -73,7 +73,7 @@ do
 		:start_dialogue("diag1")
 	npc1:dialogue_component(comp)
 
-	npc2 = Character.new("npc2")
+	local npc2 = Character.from_def("npcs:male2")
 		:grid_location(4, 1)
 		:name("Fred")
 		:graphic(Sprite.new("characters/npc/front"))
@@ -90,7 +90,7 @@ do
 	-- End Items
 
 	-- Quests
-	fredQuest = Quest.new("fredQuest")
+	local fredQuest = Quest.new("fredQuest")
 	fredQuest:on("startQuest", function(event)
 		npc2:dialogue_component():available("fredQuest", true)
 	end)

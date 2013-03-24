@@ -151,20 +151,28 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			Stat::StatType stat = getStat(lua, 2);
-			if (stat != Stat::MAX_STAT_LENGTH)
-			{
-				if (lua_gettop(lua) == 2)
+			if (lua_isstr(lua, 2) || lua_isnum(lua, 2)) {
+				Stat::StatType stat = getStat(lua, 2);
+				if (stat != Stat::MAX_STAT_LENGTH)
 				{
-					lua_pushnumber(lua, stats->getBaseStat(stat));
-					return 1;
+					if (lua_gettop(lua) == 2)
+					{
+						lua_pushnumber(lua, stats->getBaseStat(stat));
+						return 1;
+					}
+					else if (lua_isnum(lua, 3))
+					{
+						float value = lua_tofloat(lua, 3);
+						stats->setBaseStat(stat, value);
+						lua_first(lua);
+					}
 				}
-				else if (lua_isnum(lua, 3))
-				{
-					float value = lua_tofloat(lua, 3);
-					stats->setBaseStat(stat, value);
-					lua_first(lua);
-				}
+				stringstream ss;
+				ss << "Invalid stat name (";
+				LuaState::printTypeValue(lua, 2, ss);
+				ss << ") for Stats.base_value";
+				LuaState::warning(lua, ss.str().c_str());
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "base_stat", "string statName, number baseValue");
 		}

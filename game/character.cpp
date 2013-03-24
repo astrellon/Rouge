@@ -46,7 +46,8 @@ namespace game {
 		mRace(copy.mRace),
 		mPickupReach(copy.mPickupReach),
 		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
-		mStats(copy.mStats)
+		mMoveX(0),
+		mMoveY(0)
 	{
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
@@ -54,7 +55,7 @@ namespace game {
 			//mGraphic = new Sprite(*copy.mGraphic);
 			setGraphic(new Sprite(*copy.mGraphic), false);
 		}
-		mStats = copy.mStats;
+		mStats = Stats(copy.mStats);
 		mStats.setAttachedTo(this);
 
 		mInventory = new Inventory(*copy.mInventory);

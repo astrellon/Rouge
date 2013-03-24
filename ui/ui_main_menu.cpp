@@ -90,6 +90,5 @@ namespace ui {
 		btn->setAnchor(X_CENTER, Y_CENTER);
 	}
 
-
 }
 }

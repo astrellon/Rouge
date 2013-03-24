@@ -489,13 +489,19 @@ namespace game {
 		return mMainCharacter;
 	}
 
+	string Game::getLoadingFile() const
+	{
+		return mLoadingFiles.back();
+	}
+
 	void Game::addCharDefinition(Character *character, const char *name)
 	{
 		if (character == NULL || name == NULL || name[0] == '\0')
 		{
 			return;
 		}
-		string path = mLoadingFile;
+		string path = mLoadingFiles.back();
+		path += ':';
 		path += name;
 		mCharDefinitions[path] = character;
 	}
@@ -506,6 +512,13 @@ namespace game {
 			return NULL;
 		}
 		string str(name);
+		size_t index = str.find(':');
+		if (index == string::npos && !mLoadingFiles.empty())
+		{
+			string temp = mLoadingFiles.back();
+			temp += ':';
+			str = temp + str;
+		}
 		auto find = mCharDefinitions.find(str);
 		if (find != mCharDefinitions.end())
 		{
@@ -513,14 +526,21 @@ namespace game {
 		}
 		string filename;
 		string charname;
-		size_t index = str.find(':');
 		if (index > 0)
 		{
 			filename = "data/chars/";
-			mLoadingFile = str.substr(0, index);
-			filename += mLoadingFile;
+			//mLoadingFile = str.substr(0, index);
+			mLoadingFiles.push_back(str.substr(0, index));
+			filename += mLoadingFiles.back();
 			filename += ".lua";
 			charname = str.substr(index + 1);
+		}
+		else if (!mLoadingFiles.empty())
+		{
+			filename = "data/chars/";
+			filename += mLoadingFiles.back();
+			filename += ".lua";
+			charname = str;
 		}
 		else
 		{
@@ -531,15 +551,28 @@ namespace game {
 		// Check if the file has already been loaded and previously did
 		// not find the character.
 		auto findFile = mFilesLoaded.find(filename);
-		if (findFile == mFilesLoaded.end() || !findFile->second)
+		if (findFile != mFilesLoaded.end() && findFile->second)
 		{
 			return NULL;
 		}
 
-		LuaState lua;
-		lua.loadFile(filename.c_str());
-		mLoadingFile = "";
 		mFilesLoaded[filename] = true;
+
+		//LuaState lua;
+		//if (!lua.loadFile(filename.c_str()))
+		if (!mEngine->getLua().loadFile(filename.c_str()))
+		{
+			stringstream ss;
+			ss << "Error loading file: '" << filename << "':\n";
+			mEngine->getLua().printStack(ss);
+			am_log("LUAERR", ss);
+			return NULL;
+		}
+
+		if (!mLoadingFiles.empty())
+		{
+			mLoadingFiles.pop_back();
+		}
 
 		find = mCharDefinitions.find(str);
 		if (find != mCharDefinitions.end())

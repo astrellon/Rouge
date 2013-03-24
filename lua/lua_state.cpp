@@ -473,7 +473,7 @@ namespace lua {
 		int args = lua_gettop(lua);
 		for (int i = 1; i <= args; i++)
 		{
-			if (lua_type(lua, i) == LUA_TSTRING)
+			if (lua_isstr(lua, i))
 			{
 				string name = lua_tostring(lua, i);
 				WrapperMap::iterator iter = sWrapperMap.find(name);

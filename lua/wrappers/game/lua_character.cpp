@@ -191,7 +191,7 @@ namespace game {
 	 * Creates a new Character from the character definition.
 	 * Character definitions are automatically loaded if one with
 	 * the given name is not registered.
-	 * <br>Example (a test map Lua file)
+	 * <p>Example (a test map Lua file):</p>
 	 * <pre>
 	 * Character = import("Character")
 	 * npc = Character.from_def("npcs:male1")
@@ -199,7 +199,7 @@ namespace game {
 	 *     npc:name("Fred")
 	 * end
 	 * </pre>
-	 * In "data/chars/npcs.lua":
+	 * <p>In "data/chars/npcs.lua":</p>
 	 * <pre>
 	 * Character, Engine, Game = import("Character", "Engine", "Game")
 	 * game = Engine.game()
@@ -232,6 +232,8 @@ namespace game {
 					{
 						newChar->setGameId(lua_tostring(lua, 2));
 					}
+					wrapRefObject<Character>(lua, newChar);
+					return 1;
 				}
 				stringstream ss;
 				ss << "No character with the definition '" << lua_tostring(lua, 1) << "' was found.";
@@ -338,9 +340,17 @@ namespace game {
 	/**
 	 * Attempts to add a body part to the character.
 	 * Returns true if this was successful, false if there was
-	 * another BodyPart with the same name attached.
+	 * another body part with the same name attached.
 	 *
-	 * @param BodyPart part The BodyPart to add
+	 * @param BodyPart part The body part to add
+	 * @returns boolean If part was added successfully.
+	 */
+	/**
+	 * Attempts to add a body part with the given name to the character.
+	 * Returns true if this was successful, false if there was
+	 * another body part with the same name attached.
+	 *
+	 * @param string partName The name of the body part to create and add to the character.
 	 * @returns boolean If part was added successfully.
 	 */
 	int Character_add_body_part(lua_State *lua)
@@ -348,13 +358,18 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
+			if (lua_isstr(lua, 2))
+			{
+				lua_pushboolean(lua, obj->addBodyPart(new BodyPart(lua_tostring(lua, 2))));
+				return 1;
+			}
 			BodyPart *part = castUData<BodyPart>(lua, 2);
 			if (part)
 			{
 				lua_pushboolean(lua, obj->addBodyPart(part));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_body_part", "BodyPart part");
+			return LuaState::expectedArgs(lua, "add_body_part", 2, "BodyPart part", "string partName");
 		}
 		return LuaState::expectedContext(lua, "add_body_part", "Character");
 	}

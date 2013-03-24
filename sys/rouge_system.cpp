@@ -135,18 +135,6 @@ namespace sys {
 			mLuaEngine.logStack("ERROR: Unable to load main engine.lua file!");
 		}
 
-		stringstream ss;
-		ss << "Char size: " << sizeof(Character);
-		am_log("SIZE", ss);
-
-		ss.str("");
-		ss << "Item size: " << sizeof(Item);
-		am_log("SIZE", ss);
-
-		ss.str("");
-		ss << "Stats size: " << sizeof(Stats);
-		am_log("SIZE", ss);
-		
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);
 		scrollbar->setHeight(100.0f);
@@ -402,9 +390,6 @@ namespace sys {
 		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
 		stats.setBaseStat(Stat::MAX_DAMAGE, 7);
 		game->addGameObjectToMap(mPlayer.get());
-
-		game->getCharDefinition("npcs:melli");
-		game->getCharDefinition("mel");
 
 		Handle<Item> sword(new Item());
 		sword->loadFromLua("sword");
