@@ -103,6 +103,7 @@ namespace game {
 			{ "register_game_object", Game_register_game_object },
 			{ "deregister_game_object", Game_deregister_game_object },
 			{ "char_def", Game_char_def },
+			{ "item_def", Game_item_def },
 			// Dialogue
 			{ "add_dialogue", Game_add_dialogue },
 			{ "remove_dialogue", Game_remove_dialogue },
@@ -594,7 +595,29 @@ namespace game {
 
 	/**
 	 * Returns the character definition with the given name.
-	 * The definition name can be made up of the.
+	 * The definition name is made up of the file to load the definition from
+	 * and the individual name. For example <code>npcs:male1</code><span> If this
+	 * definition is not found then the </span><code>data/defs/npcs.lua</code><span> file
+	 * is loaded then the definition is looked for again.</span>
+	 *
+	 * @param string defName The definition name of the character to load.
+	 * @returns Character The found definition or nil.
+	 */
+	/**
+	 * Registers a character with the given definition name.
+	 * Definition names are always namespaced to the file they were loaded from.
+	 * For example <code>filename:defname</code><span> This filename should be relative
+	 * to the </span><code>data/defs/</code><span> folder. If no filename is given then the current
+	 * file being loaded will be used.
+	 * 
+	 * The files under </span><code>data/defs/</code><span> will be automatically loaded
+	 * when a definition with their filename is used. Definitions can also be
+	 * registered from outside of those files, however they will need to always
+	 * provide a filename. Definitions can be overridden.</span>
+	 *
+	 * @param string defName The name to store the character definition under.
+	 * @param Character def The character definition to store.
+	 * @returns Game This
 	 */
 	int Game_char_def(lua_State *lua)
 	{
@@ -632,6 +655,70 @@ namespace game {
 			return LuaState::expectedArgs(lua, "char_def", 3, "string defName", "string defName, Character char", "string defName, nil char");
 		}
 		return LuaState::expectedContext(lua, "char_def", "Game");
+	}
+
+	/**
+	 * Returns the item definition with the given name.
+	 * The definition name is made up of the file to load the definition from
+	 * and the individual name. For example <code>human:sword</code><span> If this
+	 * definition is not found then the </span><code>data/defs/human.lua</code><span> file
+	 * is loaded then the definition is looked for again.</span>
+	 *
+	 * @param string defName The definition name of the item to load.
+	 * @returns Item The found definition or nil.
+	 */
+	/**
+	 * Registers a character with the given definition name.
+	 * Definition names are always namespaced to the file they were loaded from.
+	 * For example <code>filename:defname</code><span> This filename should be relative
+	 * to the </span><code>data/defs/</code><span> folder. If no filename is given then the current
+	 * file being loaded will be used.
+	 * 
+	 * The files under </span><code>data/defs/</code><span> will be automatically loaded
+	 * when a definition with their filename is used. Definitions can also be
+	 * registered from outside of those files, however they will need to always
+	 * provide a filename. Definitions can be overridden.</span>
+	 *
+	 * @param string defName The name to store the item definition under.
+	 * @param Item def The item definition to store.
+	 * @returns Game This
+	 */
+	int Game_item_def(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				if (lua_gettop(lua) == 2)
+				{
+					Item *obj = game->getItemDefinition(lua_tostring(lua, 2));
+					if (obj)
+					{
+						wrapRefObject<Item>(lua, obj);
+						return 1;
+					}
+					lua_pushnil(lua);
+					return 1;
+				}
+				else if (lua_isnil(lua, 3))
+				{
+					game->addItemDefinition(NULL, lua_tostring(lua, 2));
+					lua_first(lua);
+				}
+				else
+				{
+					Item *obj = castUData<Item>(lua, 3);
+					if (obj)
+					{
+						game->addItemDefinition(obj, lua_tostring(lua, 2));
+						lua_first(lua);
+					}
+				}
+			}
+			return LuaState::expectedArgs(lua, "item_def", 3, "string defName", "string defName, Item item", "string defName, nil item");
+		}
+		return LuaState::expectedContext(lua, "item_def", "Game");
 	}
 
 	/**

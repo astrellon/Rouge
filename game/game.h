@@ -19,6 +19,8 @@ using namespace am::ui;
 #include "character.h"
 #include "quest.h"
 
+#include <log/logger.h>
+
 namespace am {
 
 namespace gfx {
@@ -75,7 +77,7 @@ namespace game {
 		void addCharDefinition(Character *character, const char *name);
 		Character *getCharDefinition(const char *name);
 		void addItemDefinition(Item *item, const char *name);
-		Item getItemDefinition(const char *name);
+		Item *getItemDefinition(const char *name);
 
 		Camera *getCamera();
 
@@ -143,6 +145,98 @@ namespace game {
 
 		typedef map<string, Quest *> QuestMap;
 		QuestMap mQuestMap;
+
+		template <class T>
+		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
+		{
+			if (def == NULL || name == NULL || name[0] == '\0')
+			{
+				return;
+			}
+			if (!mLoadingFiles.empty())
+			{
+				string path = mLoadingFiles.back();
+				path += ':';
+				path += name;
+				defMap[path] = def;
+				return;
+			}
+			defMap[string(name)] = def;
+		}
+		template <class T>
+		T *getDefinition(map< string, Handle<T> > &defMap, const char *name)
+		{
+			if (name == NULL || name[0] == '\0')
+			{
+				return NULL;
+			}
+			string str(name);
+			size_t index = str.find(':');
+			if (index == string::npos && !mLoadingFiles.empty())
+			{
+				string temp = mLoadingFiles.back();
+				temp += ':';
+				str = temp + str;
+			}
+			auto find = defMap.find(str);
+			if (find != defMap.end())
+			{
+				return find->second;
+			}
+			string filename;
+			string charname;
+			if (index > 0)
+			{
+				filename = "data/defs/";
+				mLoadingFiles.push_back(str.substr(0, index));
+				filename += mLoadingFiles.back();
+				filename += ".lua";
+				charname = str.substr(index + 1);
+			}
+			else if (!mLoadingFiles.empty())
+			{
+				filename = "data/defs/";
+				filename += mLoadingFiles.back();
+				filename += ".lua";
+				charname = str;
+			}
+			else
+			{
+				filename = "data/defs/default.lua";
+				charname = str;
+			}
+
+			// Check if the file has already been loaded and previously did
+			// not find the character.
+			auto findFile = mFilesLoaded.find(filename);
+			if (findFile != mFilesLoaded.end() && findFile->second)
+			{
+				return NULL;
+			}
+
+			mFilesLoaded[filename] = true;
+
+			if (!mEngine->getLua().loadFile(filename.c_str()))
+			{
+				stringstream ss;
+				ss << "Error loading file: '" << filename << "':\n";
+				mEngine->getLua().printStack(ss);
+				am_log("LUAERR", ss);
+				return NULL;
+			}
+
+			if (!mLoadingFiles.empty())
+			{
+				mLoadingFiles.pop_back();
+			}
+
+			find = defMap.find(str);
+			if (find != defMap.end())
+			{
+				return find->second;
+			}
+			return NULL;
+		}
 
 	};
 
