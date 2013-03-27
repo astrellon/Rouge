@@ -18,6 +18,7 @@ namespace game {
 	int Item_eq(lua_State *lua);
 	int Item_register(lua_State *lua);
 
+	int Item_from_def(lua_State *lua);
 	int Item_clone(lua_State *lua);
 
 	int Item_graphic(lua_State *lua);

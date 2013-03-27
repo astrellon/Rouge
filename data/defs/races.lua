@@ -6,6 +6,12 @@ do
 	
 	local human = Character.new()
 	human:name("Human")
+		:age(21)
+		:graphic(Sprite.new("characters/npc/front"))
+		:gender("male")
+		:race("human")
+		:add_passible_type("land")
+	
 	human:add_body_part("left_arm")
 	human:add_body_part("right_arm")
 	human:add_body_part("head")
@@ -22,8 +28,6 @@ do
 		:base_stat("maxDamage", 4)
 		:base_stat("minDamage", 3)
 		:base_stat("armour", 2)
-	human:age(21)
-		:graphic(Sprite.new("characters/npc/front"))
-		:gender("male")
+	
 	game:char_def("human", human)
 end

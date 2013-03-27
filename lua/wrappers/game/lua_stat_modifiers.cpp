@@ -46,7 +46,6 @@ namespace game {
 		StatModifiers *stats = castUData<StatModifiers>(lua, 1);
 		if (stats)
 		{
-			delete stats;
 			return 0;
 		}
 		return LuaState::expectedContext(lua, "__gc", "StatModifiers");

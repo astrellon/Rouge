@@ -199,7 +199,7 @@ namespace game {
 	 *     npc:name("Fred")
 	 * end
 	 * </pre>
-	 * <p>In "data/chars/npcs.lua":</p>
+	 * <p>In "data/defs/npcs.lua":</p>
 	 * <pre>
 	 * Character, Engine, Game = import("Character", "Engine", "Game")
 	 * game = Engine.game()
@@ -209,7 +209,7 @@ namespace game {
 	 * 
 	 * -- Here the npc is registered with the name "male1" and "npcs:" will 
 	 * -- automatically be prepended because of the filename.
-	 * game:add_char_definition(npc, "male1") 
+	 * game:char_def("male1", npc) 
 	 * </pre>
 	 *
 	 * @param string defName The name of the character definition.
@@ -1198,7 +1198,15 @@ namespace game {
 	/**
 	 * Adds a tile type to the list of tile types that this character
 	 * can move freely on. TileTypes can be added multiple times.
+	 * 
 	 * @param TileType tileType The type to add to the list.
+	 * @returns Character This
+	 */
+	/**
+	 * Adds a tile type to the list of tile types that this character
+	 * can move freely on. Tile types can be added multiple times.
+	 * 
+	 * @param string tileTypeName The name of the type to add to the list.
 	 * @returns Character This
 	 */
 	int Character_add_passible_type(lua_State *lua)
@@ -1206,13 +1214,30 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
+			if (lua_isstr(lua, 2))
+			{
+				TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, 2));
+				if (type)
+				{
+					obj->addPassibleType(type);
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Unknown tile type '";
+					LuaState::printTypeValue(lua, 2, ss);
+					ss << "' unable to add";
+					LuaState::warning(lua, ss.str().c_str());
+				}
+				lua_first(lua);
+			}
 			TileType *type = castUData<TileType>(lua, 2);
 			if (type)
 			{
 				obj->addPassibleType(type);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "add_passible_type", "TileType tileType");
+			return LuaState::expectedArgs(lua, "add_passible_type", 2, "TileType tileType", "string tileTypeName");
 		}
 		return LuaState::expectedContext(lua, "add_passible_type", "Character");
 	}

@@ -12,6 +12,7 @@ using namespace am::lua;
 
 #include <game/item.h>
 #include <game/engine.h>
+#include <game/game.h>
 using namespace am::game;
 
 #include "lua_stat_modifiers.h"
@@ -80,6 +81,7 @@ namespace game {
 			{ "new", Item_ctor },
 			{ "__gc",  Item_dtor },
 			{ "__eq", Item_eq },
+			{ "from_def", Item_from_def },
 			// Item methods
 			{ "clone", Item_clone },
 			{ "graphic", Item_graphic },
@@ -132,6 +134,68 @@ namespace game {
 
 		return 1;
 	}
+
+	/**
+	 * @static
+	 * Creates a new Item from the item definition.
+	 * Item definitions are automatically loaded if one with
+	 * the given name is not registered.
+	 * <p>Example (a test map Lua file):</p>
+	 * <pre>
+	 * Item = import("Item")
+	 * item = Item.from_def("wooden:sword")
+	 * if (item ~= nil)
+	 *     item:name("Fred's Sword")
+	 * end
+	 * </pre>
+	 * <p>In "data/defs/wooden.lua":</p>
+	 * <pre>
+	 * Item, Engine, Game = import("Item", "Engine", "Game")
+	 * game = Engine.game()
+	 * 
+	 * item = Item.new()
+	 * item:item_type("sword")
+	 *     :graphic(Sprite.new("item/sword"))
+	 *     :groundGraphic(Sprite.new("item/swordGround"))
+	 * 
+	 * -- Here the npc is registered with the name "sword" and "wooden:" will 
+	 * -- automatically be prepended because of the filename.
+	 * game:item_def("sword", item) 
+	 * </pre>
+	 *
+	 * @param string defName The name of the item definition.
+	 * @returns Item A copy of the item from the given definition, or nil if no definition was found.
+	 */
+	int Item_from_def(lua_State *lua)
+	{
+		int args = lua_gettop(lua);
+		if (lua_isstr(lua, 1) && (args == 1 || args > 1 && lua_isstr(lua, 2)))
+		{
+			Game *game = Engine::getGame();
+			if (game)
+			{
+				Item *def = game->getItemDefinition(lua_tostring(lua, 1));
+				if (def)
+				{
+					Item *newItem = new Item(*def);
+					wrapRefObject<Item>(lua, newItem);
+					return 1;
+				}
+				stringstream ss;
+				ss << "No item with the definition '" << lua_tostring(lua, 1) << "' was found.";
+				LuaState::warning(lua, ss.str().c_str());
+				lua_pushnil(lua);
+				return 1;
+			}
+			stringstream ss;
+			ss << "Unable to get definition (" << lua_tostring(lua, 1) << " when a game is not running";
+			LuaState::warning(lua, ss.str().c_str());
+			lua_pushnil(lua);
+			return 1;
+		}
+		return LuaState::expectedArgs(lua, "@from_def", "string defName");
+	}
+
 	/**
 	 * Creates a copy of this item, will create
 	 * a new instance of the sprites used for the graphics.

@@ -318,7 +318,6 @@ namespace sys {
 
 		if (mLuaEngine.hasGlobalFunction("newGame"))
 		{
-			//lua_acall(mLuaEngine, 0, 0);
 			try
 			{
 				mLuaEngine.call(0, 0);
@@ -335,78 +334,22 @@ namespace sys {
 			return;
 		}
 
-		//Game *game = new Game(mEngine);
 		// Got to re-enable the game hud on a new game.
 		mEngine->getGameHud()->setInteractive(true);
-		//mEngine->setCurrentGame(game);
 
 		mPlayerHand->setHandEnabled(true);
 
 		mPausedGame = false;
 
 		Game *game = Engine::getGame();
-		/*Map *map = game->getMapLua("testMap_2");
-		if (map)
-		{
-			game->setCurrentMap(map);
-		}*/
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		//Race *human = new Race("human");
-		//Engine::getEngine()->addRace(human);
-		
-		/*Handle<Character> npc(new Character());
-		npc->setName("NPC");
-		npc->addPassibleType(Engine::getEngine()->getTileType("land"));
-		npc->setGraphic(new Sprite("characters/npc/front"));
-		npc->setGridLocation(3, 2);
-		DialogueComponent *comp = new DialogueComponent();
-		npc->setDialogueComp(comp);
-		comp->setDialogueAvailable("diag1");
-		comp->setDialogueAvailable("diag2");
-		comp->setDialogueAvailable("diag3");
-		comp->setStartDialogue(game->getDialogue("diag1"));
-		game->addGameObjectToMap(npc);*/
-
-		//mPlayer = new Character();
 		mPlayer = game->getMainCharacter();
-		mPlayer->setDialogueComp(new DialogueComponent());
-		//mPlayer->setName("Melanie");
-		mPlayer->addPassibleType(Engine::getEngine()->getTileType("land"));
-		//mPlayer->setGraphic(new Sprite("characters/mainChar/front"));
-		//mPlayer->setGridLocation(2, 1);
-		mPlayer->addBodyPart(new BodyPart("arm"));
-		//mPlayer->setGender(Gender::FEMALE);
-		//mPlayer->setRace(Engine::getEngine()->getRace("human"));
-
-		Stats &stats = mPlayer->getStats();
-		stats.setBaseStat(Stat::HEALTH, 15);
-		stats.setBaseStat(Stat::MAX_HEALTH, 18);
-		stats.setBaseStat(Stat::STRENGTH, 6);
-		stats.setBaseStat(Stat::DEXTERITY, 10);
-		stats.setBaseStat(Stat::CONSTITUTION, 7);
-		stats.setBaseStat(Stat::ARCANE, 4);
-		stats.setBaseStat(Stat::DIVINE, 5);
-		stats.setBaseStat(Stat::MIN_DAMAGE, 4);
-		stats.setBaseStat(Stat::MAX_DAMAGE, 7);
-		game->addGameObjectToMap(mPlayer.get());
-
-		Handle<Item> sword(new Item());
-		sword->loadFromLua("sword");
-
-		Handle<Item> sword2(new Item());
-		sword2->setItemFrom(*sword);
-
-		Handle<Item> shield(new Item());
-		shield->loadFromLua("shield");
-
-		Handle<Item> scroll(new Item());
-		scroll->setGraphic(new Sprite("items/scroll"), true);
-		scroll->setItemName("Scroll");
-
-		mPlayer->getInventory()->addItem(sword2);
-		mPlayer->getInventory()->addItem(shield);
-		mPlayer->equipItem(sword, "arm");
+		if (!mPlayer->getDialogueComp())
+		{
+			mPlayer->setDialogueComp(new DialogueComponent());
+		}
+		
 		mPlayer->addEventListener("dialogue", this);
 
 		PlayerController *controller = new PlayerController();
