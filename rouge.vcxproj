@@ -342,6 +342,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_lua_tile_type.cpp" />
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
+    <ClCompile Include="tests\test_path_tokeniser.cpp" />
     <ClCompile Include="tests\test_suite.cpp" />
     <ClCompile Include="ui\dialogue_event.cpp" />
     <ClCompile Include="ui\equip_event.cpp" />
@@ -384,6 +385,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\value_change_event.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
+    <ClCompile Include="util\path_tokeniser.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
     <ClCompile Include="util\text_tokeniser.cpp" />
     <ClCompile Include="util\tokeniser.cpp" />
@@ -537,6 +539,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_lua_tile_type.h" />
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />
+    <ClInclude Include="tests\test_path_tokeniser.h" />
     <ClInclude Include="tests\test_suite.h" />
     <ClInclude Include="ui\dialogue_event.h" />
     <ClInclude Include="ui\equip_event.h" />
@@ -579,6 +582,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\value_change_event.h" />
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
+    <ClInclude Include="util\path_tokeniser.h" />
     <ClInclude Include="util\stat_tokeniser.h" />
     <ClInclude Include="util\text_tokeniser.h" />
     <ClInclude Include="util\tokeniser.h" />

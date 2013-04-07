@@ -694,6 +694,12 @@
     <ClCompile Include="ui\stat_event.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="util\path_tokeniser.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_path_tokeniser.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1272,6 +1278,12 @@
     </ClInclude>
     <ClInclude Include="game\istat_modifiers.h">
       <Filter>game\stats</Filter>
+    </ClInclude>
+    <ClInclude Include="util\path_tokeniser.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_path_tokeniser.h">
+      <Filter>tests\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

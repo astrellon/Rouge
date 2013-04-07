@@ -5,6 +5,9 @@
 namespace am {
 namespace util {
 
+	// A tokeniser for JSON, worked for most things except Unicode
+	// and is currently unused since the move to Lua.
+
 class Tokeniser {
 public:
 	Tokeniser(const char *str);
