@@ -46,6 +46,9 @@ namespace sys {
 		virtual void setFullscreen(bool fullscreen) = 0;
 		virtual bool getFullscreen() const = 0;
 
+		virtual bool isDirectory(const char *folderName) = 0;
+		virtual bool createDirectory(const char *folderName) = 0;
+
 	};
 
 }

@@ -14,9 +14,6 @@ using namespace am::gfx;
 #include <ui/ievent_listener.h>
 using namespace am::ui;
 
-#include <util/selector.h>
-using namespace am::util;
-
 #include "icontroller.h"
 #include "game_object.h"
 #include "body_part.h"
@@ -88,6 +85,8 @@ namespace game {
 		virtual Gender::GenderType getGender() const;
 
 		virtual CoinPurse *getCoinPurse() const;
+
+		virtual data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

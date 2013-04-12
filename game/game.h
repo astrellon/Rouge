@@ -11,7 +11,11 @@ using namespace am::base;
 
 #include <ui/ievent_listener.h>
 #include <ui/ui_inspector.h>
+#include <ui/event_interface.h>
 using namespace am::ui;
+
+#include <util/idata.h>
+using namespace am::util;
 
 #include "game_object.h"
 #include "camera.h"
@@ -32,7 +36,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IEventListener {
+	class Game : public IEventListener, public EventInterface {
 	public:
 		Game(Engine *engine = NULL);
 		~Game();
@@ -66,6 +70,12 @@ namespace game {
 		void moveObjectToMap(GameObject *object, Map *map, float x, float y, bool setAsCurrent = true);
 		void moveObjectToMapGrid(GameObject *object, const char *mapName, int x, int y, bool setAsCurrent = true);
 		void moveObjectToMapGrid(GameObject *object, Map *map, int x, int y, bool setAsCurrent = true);
+
+		void startGame();
+		bool hasStarted() const;
+
+		void saveGame(const char *saveName);
+		void loadGame(const char *saveName);
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -111,6 +121,7 @@ namespace game {
 		Engine *mEngine;
 
 		Camera mCamera;
+		bool mStarted;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 
@@ -238,6 +249,7 @@ namespace game {
 			return NULL;
 		}
 
+		data::IData *saveGameData();
 	};
 
 }

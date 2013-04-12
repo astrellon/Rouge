@@ -93,6 +93,8 @@ namespace game {
 
 		static const char *getItemLocationTypeName(ItemLocation location);
 
+		virtual data::IData *getSaveObject();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 

@@ -77,6 +77,9 @@ namespace sys {
 		virtual void setFullscreen(bool fullscreen);
 		virtual bool getFullscreen() const;
 
+		virtual bool isDirectory(const char *folderName);
+		virtual bool createDirectory(const char *folderName);
+
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();
 

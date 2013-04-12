@@ -58,31 +58,35 @@ do
 	-- End Dialogue
 
 	-- Characters
-	local npc1 = Character.from_def("npcs:male1")
-		:grid_location(2, 0)
-		:graphic(Sprite.new("characters/npc/front"))
-		:name("John")
-	map:add_game_object(npc1)
-
-	local comp = DialogueComponent.new(npc1)
-		:available("diag1", true)
-		:available("diag2", true)
-		:available("diag3", true)
-		:available("startQuest", true)
-		:available("aboutFred", true)
-		:start_dialogue("diag1")
-	npc1:dialogue_component(comp)
-
-	local npc2 = Character.from_def("npcs:male2")
-		:grid_location(4, 1)
-		:name("Fred")
-		:graphic(Sprite.new("characters/npc/front"))
-	map:add_game_object(npc2)
-
-	comp = DialogueComponent.new(npc2)
-		:available("imFred", true)
-		:start_dialogue("imFred")
-	npc2:dialogue_component(comp)
+	local npc1, newChar = Character.new("map2_john", "npcs:male1")
+	if (newChar) then
+		npc1:grid_location(2, 0)
+			:graphic(Sprite.new("characters/npc/front"))
+			:name("John")
+		map:add_game_object(npc1)
+		
+		local comp = DialogueComponent.new(npc1)
+			:available("diag1", true)
+			:available("diag2", true)
+			:available("diag3", true)
+			:available("startQuest", true)
+			:available("aboutFred", true)
+			:start_dialogue("diag1")
+		npc1:dialogue_component(comp)
+	end
+	
+	local npc2, newChar = Character.new("map2_fred", "npcs:male2")
+	if (newChar) then
+		npc2:grid_location(4, 1)
+			:name("Fred")
+			:graphic(Sprite.new("characters/npc/front"))
+		map:add_game_object(npc2)
+		
+		comp = DialogueComponent.new(npc2)
+			:available("imFred", true)
+			:start_dialogue("imFred")
+		npc2:dialogue_component(comp)
+	end
 	-- End Character
 	
 	-- Items

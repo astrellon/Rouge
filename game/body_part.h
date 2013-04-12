@@ -10,6 +10,13 @@ using namespace std;
 #include <game/item.h>
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class BodyPart {
@@ -25,13 +32,15 @@ namespace game {
 		virtual void setEquippedItem(Item *item);
 		virtual Item *getEqippedItem() const;
 
+		virtual data::IData *getSaveObject();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
 
 		string mName;
-		Handle<Item> mEqippeditem;
+		Handle<Item> mEquippedItem;
 
 	};
 

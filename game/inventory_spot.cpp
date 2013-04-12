@@ -1,5 +1,7 @@
 #include "inventory_spot.h"
 
+#include <util/data_map.h>
+
 namespace am {
 namespace game {
 
@@ -35,6 +37,18 @@ namespace game {
 	unsigned short InventorySpot::getY() const
 	{
 		return mY;
+	}
+
+	data::IData *InventorySpot::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		output->push("x", mX);
+		output->push("y", mY);
+		if (mItem)
+		{
+			output->push("item", mItem->getSaveObject());
+		}
+		return output;
 	}
 
 }

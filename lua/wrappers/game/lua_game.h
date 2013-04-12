@@ -53,6 +53,9 @@ namespace game {
 	int Game_remove_quest(lua_State *lua);
 	int Game_quest(lua_State *lua);
 
+	int Game_start_game(lua_State *lua);
+	int Game_has_started(lua_State *lua);
+
 	am::game::GameObject *getGameObject(lua_State *lua, int n);
 	void wrapGameObject(lua_State *lua, am::game::GameObject *obj);
 	bool moveGameObject(lua_State *lua, am::game::Game *game, bool grid);

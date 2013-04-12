@@ -6,6 +6,13 @@ using namespace am::base;
 #include "item.h"
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class InventorySpot {
@@ -19,6 +26,8 @@ namespace game {
 		unsigned short getY() const;
 
 		friend class Inventory;
+
+		data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

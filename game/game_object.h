@@ -7,6 +7,7 @@ using namespace am::gfx;
 using namespace am::base;
 
 #include <vector>
+#include <ostream>
 using namespace std;
 
 #include <game/dialogue.h>
@@ -14,6 +15,13 @@ using namespace std;
 #include <game/dialogue_component.h>
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class Map;
@@ -59,7 +67,10 @@ namespace game {
 		virtual float getCameraOffsetY() const;
 
 		virtual void setMap(Map *map);
-		virtual Map *getMap();
+		virtual Map *getMap() const;
+
+		virtual void setOriginalMap(Map *map);
+		virtual Map *getOriginalMap() const;
 
 		virtual void addPassibleType(TileType *tileType);
 		virtual void removePassibleType(TileType *tileType);
@@ -72,6 +83,8 @@ namespace game {
 
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
+
+		virtual data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -94,6 +107,7 @@ namespace game {
 		string mName;
 
 		Map *mMap;
+		Map *mOriginalMap;
 
 		Handle<DialogueComponent> mDialogueComp;
 

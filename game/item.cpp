@@ -7,6 +7,7 @@
 #include <ui/mouse_manager.h>
 
 #include <util/utils.h>
+#include <util/data_map.h>
 using namespace am::util;
 
 #include <log/logger.h>
@@ -671,6 +672,28 @@ namespace game {
 		{
 			postfix = mName.size() - postfix - 1;
 		}
+	}
+
+	data::IData *Item::getSaveObject()
+	{
+		data::IData *obj_output = GameObject::getSaveObject();
+		data::Map *output = dynamic_cast<data::Map *>(obj_output);
+		if (!output)
+		{
+			am_log("ERROR", "Save game object from GameObject not a data::Map!");
+			return NULL;
+		}
+
+		output->push("itemType", ItemCommon::getItemTypeName(mItemType));
+		output->push("itemLocation", getItemLocationTypeName(mItemLocation));
+
+		output->push("inventorySizeX", mInventorySizeX);
+		output->push("inventorySizeY", mInventorySizeY);
+		output->push("questItemId", mQuestItemId);
+
+		output->push("itemValue", static_cast<int>(mItemValue));
+
+		return output;
 	}
 
 	void Item::onLevelUp()

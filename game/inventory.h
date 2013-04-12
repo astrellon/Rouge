@@ -11,6 +11,13 @@ using namespace am::ui;
 #include "inventory_spot.h"
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class Inventory : public IManaged, public EventInterface {
@@ -38,6 +45,8 @@ namespace game {
 		const InventorySpots &getInventory() const;
 
 		void logContents() const;
+
+		data::IData *getSaveObject();
 
 		static void setSpaceSize(float sizeX, float sizeY);
 		static float getSpaceSizeX();

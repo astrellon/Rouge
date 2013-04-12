@@ -115,6 +115,9 @@
     <Filter Include="lua\wrapper\gfx">
       <UniqueIdentifier>{db30da4d-fdb9-4444-8f59-df979d0968a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util\data">
+      <UniqueIdentifier>{04687b04-a581-4b29-9667-f8081590e33d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -700,6 +703,33 @@
     <ClCompile Include="tests\test_path_tokeniser.cpp">
       <Filter>tests\util</Filter>
     </ClCompile>
+    <ClCompile Include="util\idata.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_number.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_boolean.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_string.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_array.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_util_data.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_integer.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_map.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="math\math.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1284,6 +1314,36 @@
     </ClInclude>
     <ClInclude Include="tests\test_path_tokeniser.h">
       <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="save_ostream.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\idata.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_number.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_boolean.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_string.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_array.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_util_data.h">
+      <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_integer.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_map.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="math\math.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,10 @@
 #include "scale_nine.h"
 
+#include <string>
+
+#include <math/math.h>
+using namespace am;
+
 namespace am {
 namespace gfx {
 
@@ -60,6 +65,51 @@ namespace gfx {
 	float ScaleNine::getBottom() const
 	{
 		return mBottom;
+	}
+
+	bool ScaleNine::atDefault() const
+	{
+		return math::abs(mLeft) < 0.000001f &&
+			math::abs(mTop) < 0.000001f &&
+			math::abs(mRight) - 1.0f < 0.000001f &&
+			math::abs(mBottom) - 1.0f < 0.000001f;
+	}
+
+	const char *ScaleNine::getStateName(ScaleNineState state)
+	{
+		switch (state)
+		{
+		case SCALE_NINE_NONE:
+			return "none";
+		case SCALE_NINE_HORIZONTAL:
+			return "horizontal";
+		case SCALE_NINE_VERTICAL:
+			return "vertical";
+		case SCALE_NINE_BOTH:
+			return "both";
+		default:
+			return "unknown";
+		}
+	}
+	ScaleNineState ScaleNine::getState(const char *stateName)
+	{
+		if (stateName == NULL || stateName[0] == '\0' || strcmp(stateName, "none") == 0)
+		{
+			return SCALE_NINE_NONE;
+		}
+		if (strcmp(stateName, "horizontal") == 0)
+		{
+			return SCALE_NINE_HORIZONTAL;
+		}
+		if (strcmp(stateName, "vertical") == 0)
+		{
+			return SCALE_NINE_VERTICAL;
+		}
+		if (strcmp(stateName, "both") == 0)
+		{
+			return SCALE_NINE_BOTH;
+		}
+		return SCALE_NINE_NONE;
 	}
 
 }

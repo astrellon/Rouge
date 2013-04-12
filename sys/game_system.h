@@ -74,6 +74,9 @@ namespace sys {
 		virtual ISystem *getLinkedSystem();
 		virtual Engine *getEngine();
 
+		virtual bool isDirectory(const char *folderName);
+		virtual bool createDirectory(const char *folderName);
+
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 

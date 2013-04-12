@@ -7,11 +7,12 @@
 #include "game.h"
 #include "dialogue_component.h"
 
+#include <util/data_map.h>
+#include <util/data_array.h>
+
 namespace am {
 namespace game {
 
-	//int GameObject::sGameIdCount = 1;
-	//GameObject::GameObjectIdMap GameObject::sGameObjects;
 	const int GameObject::LUA_ID = 0x08;
 	const char *GameObject::LUA_TABLENAME = "am_game_GameObject";
 
@@ -23,7 +24,8 @@ namespace game {
 		mCameraOffsetY(0.0f),
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
-		mMap(NULL)
+		mMap(NULL),
+		mOriginalMap(NULL)
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -37,16 +39,22 @@ namespace game {
 		mLocationY(copy.mLocationY),
 		mCameraOffsetX(copy.mCameraOffsetX),
 		mCameraOffsetY(copy.mCameraOffsetY),
-		mPassibleTypes(copy.mPassibleTypes)
+		mPassibleTypes(copy.mPassibleTypes),
+		mMap(NULL),
+		mOriginalMap(NULL)
 	{
 		if (copy.mMap)
 		{
 			copy.mMap->addGameObject(this);
+			mMap = copy.mMap;
+			mMap->retain();
+			mOriginalMap = copy.mOriginalMap;
+			if (mOriginalMap)
+			{
+				mOriginalMap->retain();
+			}
 		}
-		else
-		{
-			mMap = NULL;
-		}
+		
 		if (copy.mDialogueComp)
 		{
 			mDialogueComp = new DialogueComponent(*copy.mDialogueComp);
@@ -59,6 +67,12 @@ namespace game {
 		{
 			Map *map = mMap;
 			mMap = NULL;
+			map->release();
+		}
+		if (mOriginalMap)
+		{
+			Map *map = mOriginalMap;
+			mOriginalMap = NULL;
 			map->release();
 		}
 	}
@@ -201,16 +215,37 @@ namespace game {
 			mMap->release();
 		}
 		mMap = map;
+		// First map we were added to is our original map.
+		if (mOriginalMap == NULL)
+		{
+			setOriginalMap(map);
+		}
 		if (mMap)
 		{
 			mMap->retain();
 		}
 	}
-	Map *GameObject::getMap()
+	Map *GameObject::getMap() const
 	{
 		return mMap;
 	}
 
+	void GameObject::setOriginalMap(Map *map)
+	{
+		if (mOriginalMap)
+		{
+			mOriginalMap->release();
+		}
+		mOriginalMap = map;
+		if (mOriginalMap)
+		{
+			mOriginalMap->retain();
+		}
+	}
+	Map *GameObject::getOriginalMap() const
+	{
+		return mOriginalMap;
+	}
 	void GameObject::setFixedToGrid(bool fixed)
 	{
 		mFixedToGrid = fixed;
@@ -329,71 +364,6 @@ namespace game {
 		return mGameId.c_str();
 	}
 
-	/*void GameObject::setStartDialogue(Dialogue *diag)
-	{
-		mStartDialogue = diag;
-	}
-	Dialogue *GameObject::getStartDialogue() const
-	{
-		return mStartDialogue;
-	}
-
-	void GameObject::setSubjectLock(const char *subject, bool locked)
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return;
-		}
-		string subjectStr(subject);
-		mUnlockedSubjects[subjectStr] = locked;
-	}
-	bool GameObject::isSubjectLocked(const char *subject) const
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return false;
-		}
-		string subjectStr(subject);
-		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
-		if (iter == mUnlockedSubjects.end())
-		{
-			return false;
-		}
-		return iter->second;
-	}
-	const GameObject::SubjectMap &GameObject::getUnlockedSubjects() const
-	{
-		return mUnlockedSubjects;
-	}
-
-	void GameObject::setDialogueAvailable(const char *subject, bool available)
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return;
-		}
-		string subjectStr(subject);
-		mDialoguesAvailable[subjectStr] = available;
-	}
-	bool GameObject::isDialogueAvailable(const char *subject) const
-	{
-		if (subject == NULL || subject[0] == '\0')
-		{
-			return false;
-		}
-		string subjectStr(subject);
-		SubjectMap::const_iterator iter = mDialoguesAvailable.find(subjectStr);
-		if (iter == mDialoguesAvailable.end())
-		{
-			return false;
-		}
-		return iter->second;
-	}
-	const GameObject::SubjectMap &GameObject::getDialoguesAvailable() const
-	{
-		return mDialoguesAvailable;
-	}*/
-
 	void GameObject::setDialogueComp(DialogueComponent *comp, bool setAttached)
 	{
 		if (setAttached && comp)
@@ -407,46 +377,34 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	/*int GameObject::nextGameId()
+	data::IData *GameObject::getSaveObject()
 	{
-		return sGameIdCount++;
-	}
-	GameObject *GameObject::getGameObject(const char *id)
-	{
-		if (id == NULL || id[0] == '\0')
-		{
-			return NULL;
-		}
-		GameObjectIdMap::iterator iter = sGameObjects.find(string(id));
-		if (iter != sGameObjects.end())
-		{
-			return iter->second;
-		}
-		return NULL;
-	}
+		data::Map *output = new data::Map();
+		output->push("gameId", mGameId);
+		output->push("fixedToGrid", mFixedToGrid);
+		output->push("onlyOnPassable", mOnlyOnPassable);
+		output->push("locationX", mLocationX);
+		output->push("locationY", mLocationY);
+		output->push("cameraOffsetX", mCameraOffsetX);
+		output->push("cameraOffsetY", mCameraOffsetY);
 
-	void GameObject::addGameObject(GameObject *obj)
-	{
-		if (obj == NULL)
+		data::Array *passibleTypes = new data::Array();
+		
+		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
-			return;
+			passibleTypes->push((*iter)->getName());
 		}
-		//int id = nextGameId();
-		//obj->setGameId(id);
-		sGameObjects[obj->mGameId] = obj;
+		if (mMap)
+		{
+			output->push("map", mMap->getName());
+		}
+		if (mOriginalMap)
+		{
+			output->push("originalMap", mOriginalMap->getName());
+		}
+
+		return output;
 	}
-	void GameObject::removeGameObject(GameObject *obj)
-	{
-		if (obj == NULL)
-		{
-			return;
-		}
-		GameObjectIdMap::iterator iter = sGameObjects.find(obj->mGameId);
-		if (iter != sGameObjects.end())
-		{
-			sGameObjects.erase(iter);
-		}
-	}*/
 
 	const char *GameObject::getGameObjectTypeName() const
 	{

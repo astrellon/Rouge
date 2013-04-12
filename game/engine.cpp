@@ -64,7 +64,6 @@ namespace game {
 			mCurrentGame->deinit();
 		}
 		LuaState::clearRegistered();
-
 		/*{
 			TileSetMap tileSets = mTileSets;
 			TileSetMap::iterator iter;

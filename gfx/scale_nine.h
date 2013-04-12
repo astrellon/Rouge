@@ -24,6 +24,11 @@ namespace gfx {
 		float getTop() const;
 		float getBottom() const;
 
+		static const char *getStateName(ScaleNineState state);
+		static ScaleNineState getState(const char *stateName);
+
+		bool atDefault() const;
+
 	protected:
 
 		float mLeft;

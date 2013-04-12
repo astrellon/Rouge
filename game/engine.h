@@ -9,6 +9,7 @@ using namespace std;
 using namespace am::base;
 
 #include <ui/ui_game_hud.h>
+#include <ui/event_interface.h>
 using namespace am::ui;
 
 #include <lua/lua_state.h>
@@ -17,6 +18,11 @@ using namespace am::lua;
 #include "tile_set.h"
 
 namespace am {
+namespace sys {
+	class ISystem;
+}
+using namespace am::sys;
+
 namespace game {
 
 	class Game;
@@ -29,7 +35,7 @@ namespace game {
 	typedef map<string, Race *> RaceMap;
 	typedef map<string, TileType *> TileTypeMap;
 
-	class Engine {
+	class Engine : public EventInterface {
 	public:
 		Engine();
 		~Engine();

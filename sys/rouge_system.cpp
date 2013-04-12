@@ -258,7 +258,7 @@ namespace sys {
 		{
 			if (key == 'A')
 			{
-				game->moveObjectToMapGrid(mPlayer.get(), "testMap2", 3, 1, true);
+				game->moveObjectToMapGrid(mPlayer.get(), "testMap_2", 3, 1, true);
 			}
 			if (key == 'S')
 			{
@@ -307,6 +307,14 @@ namespace sys {
 		}
 	}
 
+	void RougeSystem::onEvent(Event *e)
+	{
+		if (e->getType().compare("startGame") == 0)
+		{
+			startGame();
+		}
+	}
+
 	void RougeSystem::newGame()
 	{
 		MouseManager::getManager()->clearCurrentlyFiring();
@@ -320,7 +328,13 @@ namespace sys {
 		{
 			try
 			{
-				mLuaEngine.call(0, 0);
+				mLuaEngine.push("testScenario1");
+				mLuaEngine.call(1, 1);
+				int result = mLuaEngine.toInteger();
+				if (result != 1)
+				{
+					am_log("LUAERR", "Error starting scenario");
+				}
 			}
 			catch(std::runtime_error err)
 			{
@@ -333,7 +347,19 @@ namespace sys {
 			am_log("ERROR", "Main engine script does not have a 'newGame' function");
 			return;
 		}
+		Game *game = Engine::getGame();
+		if (game)
+		{
+			if (game->hasStarted())
+			{
+				startGame();
+			}
+			game->addEventListener("startGame", this);
+		}
 
+	}
+	void RougeSystem::startGame()
+	{
 		// Got to re-enable the game hud on a new game.
 		mEngine->getGameHud()->setInteractive(true);
 
@@ -342,6 +368,7 @@ namespace sys {
 		mPausedGame = false;
 
 		Game *game = Engine::getGame();
+		game->saveGame("save1");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = game->getMainCharacter();
@@ -368,7 +395,6 @@ namespace sys {
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
 	}
-
 	void RougeSystem::setCurrentMenu(UIComponent *menu)
 	{
 		if (mCurrentMenu.get())

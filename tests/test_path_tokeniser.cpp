@@ -39,6 +39,11 @@ namespace tests {
 		equalsStr("main.lua", tokeniser4.nextToken());
 		token = tokeniser4.nextToken();
 		assert(NULL == token);
+
+		PathTokeniser tokeniser5("folder");
+		equalsStr("folder", tokeniser5.nextToken());
+		token = tokeniser5.nextToken();
+		assert(NULL == token);
 		return true;
 	}
 

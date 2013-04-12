@@ -54,35 +54,79 @@ namespace game {
 	 */
 
 	/**
+	 * @static
 	 * Creates or wraps a character instance.
 	 *
-	 * @param string gameId The game id to create the character with or the game id
-	 * of an existing character.
+	 * For example, the first time a character is created (as in the case of a new game)
+	 * there should not be any existing character with the same gameId. In which case
+	 * a new character will be created.
+	 * If the character was not pre-existing then it will need all the specific values
+	 * set onto it. However if it was pre-existing then you are unlikely to want to set
+	 * it's current values back to what they were when the character was first created.
+	 * However event listeners are not maintained between saves, so they will have to be
+	 * added to an existing (loaded) character as well as a new one.
+	 *
+	 * @param string [""] gameId The game id to create the character with or the game id
+	 *  of an existing character.
+	 * @returns Character The newly created character or returns an existing character
+	 *  with the same gameId.
+	 * @returns Boolean True if the character was newly created or false if it 
+	 *  already existed.
+	 */
+	/**
+	 * @static
+	 * Behaves the same as the base constructor however the new character will be created
+	 * from the given character definition if it has to be created.
+	 * 
+	 * @param string [""] gameId The game id to create the character with or the game id
+	 *  of an existing character.
+	 * @param string defName The character definition name to look up when creating the
+	 *  character if it one did not exist.
+	 * @returns Character The newly created character or returns an existing character
+	 *  with the same gameId.
+	 * @returns Boolean True if the character was newly created or false if it 
+	 *  already existed.
 	 */
 	int Character_ctor(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
-		if (args >= 1 && !lua_isstr(lua, 1))
+		if (args == 1 && !lua_isstr(lua, 1) || 
+			args > 1 && !lua_isstr(lua, 1) && !lua_isstr(lua, 2))
 		{
-			return LuaState::expectedArgs(lua, "@new", 2, "", "string id");
+			return LuaState::expectedArgs(lua, "@new", 3, "", "string id", "string id, string defName");
 		}
 
 		if (args == 0)
 		{
 			Character *obj = new Character();
 			wrapRefObject<Character>(lua, obj);
-			return 1;
+			lua_pushboolean(lua, true);
+			return 2;
 		}
 
+		bool newChar = false;
 		const char *id = lua_tostring(lua, 1);
-		Character *obj = dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id));
-		if (obj == NULL)
+		Handle<Character> obj(dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id)));
+		if (!obj)
 		{
-			obj = new Character();
+			newChar = true;
+			if (lua_isstr(lua, 2))
+			{
+				Handle<Character> def(Engine::getGame()->getCharDefinition(lua_tostring(lua, 2)));
+				if (def)
+				{
+					obj = new Character(*def);
+				}
+			}
+			if (!obj)
+			{
+				obj = new Character();
+			}
 			obj->setGameId(id);
 		}
 		wrapRefObject<Character>(lua, obj);
-		return 1;
+		lua_pushboolean(lua, newChar);
+		return 2;
 	}
 	/**
 	 * Releases the reference of this character.
@@ -156,6 +200,7 @@ namespace game {
 			{ "talk_to", Character_talk_to },
 			{ "fixed_to_grid", Character_fixed_to_grid },
 			{ "map", Character_map },
+			{ "original_map", Character_original_map },
 			{ "add_passible_type", Character_add_passible_type },
 			{ "remove_passible_type", Character_remove_passible_type },
 			{ "remove_all_passible_types", Character_remove_all_passible_types },
@@ -249,7 +294,7 @@ namespace game {
 		}
 		return LuaState::expectedArgs(lua, "@from_def", "string defName, string [\"\"] gameId");
 	}
-
+	
 	/**
 	 * Returns the name of the character.
 	 * A nil return indicates that there was an error.
@@ -1175,6 +1220,8 @@ namespace game {
 					wrapRefObject<Map>(lua, map);
 					return 1;
 				}
+				lua_pushnil(lua);
+				return 1;
 			}
 			else if (lua_isnil(lua, 2))
 			{
@@ -1188,6 +1235,58 @@ namespace game {
 				{
 					// Can be set to nil
 					obj->setMap(map);
+					lua_first(lua);
+				}
+			}
+			return LuaState::expectedArgs(lua, "map", 2, "nil map", "Map map");
+		}
+		return LuaState::expectedContext(lua, "map", "Character");
+	}
+
+	/**
+	 * Returns the original map that this character was on, can be nil.
+	 *
+	 * @returns Map The map the character was originally on.
+	 */
+	/**
+	 * Sets the map that the character was originally on, can be nil.
+	 * This is usually set automatically the first time a character is
+	 * added to a map. This is primarily used for reloading the character
+	 * and knowing where to find likely find any event handlers and additional
+	 * information relating to the character that is not stored directly on the
+	 * character.
+	 *
+	 * @param Map map The map the character was originally was on.
+	 * @returns Character This
+	 */
+	int Character_original_map(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				Map *map = obj->getOriginalMap();
+				if (map)
+				{
+					wrapRefObject<Map>(lua, map);
+					return 1;
+				}
+				lua_pushnil(lua);
+				return 1;
+			}
+			else if (lua_isnil(lua, 2))
+			{
+				obj->setOriginalMap(NULL);
+				lua_first(lua);
+			}
+			else
+			{
+				Map *map = castUData<Map>(lua, 2);
+				if (map)
+				{
+					// Can be set to nil
+					obj->setOriginalMap(map);
 					lua_first(lua);
 				}
 			}

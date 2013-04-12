@@ -6,6 +6,9 @@
 
 #include <ui/equip_event.h>
 
+#include <util/data_map.h>
+using namespace am::util;
+
 #include <sstream>
 using namespace std;
 
@@ -52,7 +55,6 @@ namespace game {
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
 		{
-			//mGraphic = new Sprite(*copy.mGraphic);
 			setGraphic(new Sprite(*copy.mGraphic), false);
 		}
 		mStats = Stats(copy.mStats);
@@ -61,7 +63,6 @@ namespace game {
 		mInventory = new Inventory(*copy.mInventory);
 		for (auto iter = copy.mBodyParts.begin(); iter != copy.mBodyParts.end(); ++iter)
 		{
-			//mBodyParts[iter->first] = new BodyPart(*iter->second);
 			addBodyPart(new BodyPart(*iter->second));
 		}
 	}
@@ -447,6 +448,46 @@ namespace game {
 	CoinPurse *Character::getCoinPurse() const
 	{
 		return mCoinPurse;
+	}
+
+	data::IData *Character::getSaveObject()
+	{
+		data::IData *obj_output = GameObject::getSaveObject();
+		data::Map *output = dynamic_cast<data::Map *>(obj_output);
+		if (!output)
+		{
+			am_log("ERROR", "Save game object from GameObject not a data::Map!");
+			return NULL;
+		}
+
+		output->push("moveX", mMoveX);
+		output->push("moveY", mMoveY);
+
+		output->push("pickupReach", mPickupReach);
+		output->push("age", mAge);
+		if (mRace)
+		{
+			output->push("race", mRace->getRaceName());
+		}
+		output->push("gender", Gender::getGenderName(mGender));
+
+		data::Map *bodyParts = new data::Map();
+		for (auto iter = mBodyParts.begin(); iter != mBodyParts.end(); ++iter)
+		{
+			bodyParts->push(iter->first, iter->second->getSaveObject());
+		}
+		output->push("bodyParts", bodyParts);
+
+		if (mInventory)
+		{
+			output->push("inventory", mInventory->getSaveObject());
+		}
+
+		if (mGraphic)
+		{
+			output->push("graphic", mGraphic->getSaveObject());
+		}
+		return output;
 	}
 
 	void Character::_equipItem(Item *item, const char *bodyPartName)

@@ -42,11 +42,11 @@ namespace game {
 
 	const char *ItemCommon::getItemTypeName(ItemCommon::ItemType type)
 	{
-		if (type < 0 && type >= UNKNOWN)
+		if (type < 0 || type >= UNKNOWN)
 		{
-			return ItemTypeNameIds[type];
+			return NULL;
 		}
-		return NULL;
+		return ItemTypeNameIds[type];
 	}
 
 }

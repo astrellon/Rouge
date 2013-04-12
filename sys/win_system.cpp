@@ -4,6 +4,9 @@
 
 #include "game_system.h"
 
+#include <util/path_tokeniser.h>
+using namespace am::util;
+
 namespace am {
 namespace sys {
 
@@ -323,6 +326,58 @@ namespace sys {
 
 		mProgramRunning = false;
 		mRunning = false;
+	}
+
+	bool WinSystem::isDirectory(const char *folderName)
+	{
+		DWORD result = GetFileAttributes(folderName);
+		return result & FILE_ATTRIBUTE_DIRECTORY && result != INVALID_FILE_ATTRIBUTES;
+	}
+	bool WinSystem::createDirectory(const char *folderName)
+	{
+		if (folderName == NULL || folderName[0] == '\0')
+		{
+			return false;
+		}
+
+		string path;
+		PathTokeniser tokeniser(folderName);
+		const char *token = tokeniser.nextToken();
+		if (!token)
+		{
+			return false;
+		}
+		
+		// Don't support creating network folders at this time.
+		if (strcmp(token, "\\\\") == 0)
+		{
+			return false;
+		}
+		path = token;
+		
+		while (token)
+		{
+			bool result = CreateDirectory(path.c_str(), NULL);
+			if (!result)
+			{
+				DWORD error = GetLastError();
+				// If the folder already exists then we don't care.
+				if (error != ERROR_ALREADY_EXISTS)
+				{
+					string err("Error creating folder path ");
+					err += path;
+					am_log("PATH", err);
+					return false;
+				}
+			}
+			token = tokeniser.nextToken();
+			if (token)
+			{
+				path += '\\';
+				path += token;
+			}
+		}
+		return true;
 	}
 
 	void WinSystem::setCursorHidden(bool hide)

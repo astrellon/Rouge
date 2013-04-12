@@ -1,5 +1,8 @@
 #include "body_part.h"
 
+#include <util/data_map.h>
+using namespace am::util;
+
 namespace am {
 namespace game {
 
@@ -8,16 +11,16 @@ namespace game {
 
 	BodyPart::BodyPart(const char *name, Item *equipped) :
 		mName(name),
-		mEqippeditem(equipped)
+		mEquippedItem(equipped)
 	{
 
 	}
 	BodyPart::BodyPart(const BodyPart &copy) :
 		mName(copy.mName)
 	{
-		if (copy.mEqippeditem)
+		if (copy.mEquippedItem)
 		{
-			mEqippeditem = new Item(*copy.mEqippeditem);
+			mEquippedItem = new Item(*copy.mEquippedItem);
 		}
 	}
 	BodyPart::~BodyPart()
@@ -32,11 +35,22 @@ namespace game {
 
 	void BodyPart::setEquippedItem(Item *item)
 	{
-		mEqippeditem = item;
+		mEquippedItem = item;
 	}
 	Item *BodyPart::getEqippedItem() const
 	{
-		return mEqippeditem;
+		return mEquippedItem;
+	}
+
+	data::IData *BodyPart::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		output->push("name", mName);
+		if (mEquippedItem)
+		{
+			output->push("equippedItem", mEquippedItem->getSaveObject());
+		}
+		return output;
 	}
 
 	/*void BodyPart::addBodyPart(BodyPart *part)

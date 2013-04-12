@@ -7,6 +7,8 @@
 
 #include <log/logger.h>
 
+#include <util/data_map.h>
+
 namespace am {
 namespace gfx {
 
@@ -143,6 +145,31 @@ namespace gfx {
 	float Sprite::getFrameTime() const
 	{
 		return mCurrentTime;
+	}
+
+	data::IData *Sprite::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		if (mAsset)
+		{
+			output->push("asset", mAsset->getName());
+		}
+		if (mWidth != 0 || !mAsset)
+		{
+			output->push("width", mWidth);
+		}
+		if (mHeight != 0 || !mAsset)
+		{
+			output->push("height", mHeight);
+		}
+		if (mAsset && mAsset->getTotalFrames() > 1)
+		{
+			output->push("currentFrame", mCurrentFrame);
+			output->push("frameRate", mFrameRate);
+			output->push("currentTime", mCurrentTime);
+		}
+		output->push("scaleNineState", ScaleNine::getStateName(mScaleNineState));
+		return output;
 	}
 
 	void Sprite::render(float dt)

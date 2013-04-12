@@ -3,6 +3,9 @@
 #include <ui/inventory_event.h>
 using namespace am::ui;
 
+#include <util/data_map.h>
+#include <util/data_array.h>
+
 #include <sstream>
 #include <log/logger.h>
 
@@ -278,6 +281,22 @@ namespace game {
 	float Inventory::getSpaceSizeY()
 	{
 		return sSpaceSizeY;
+	}
+
+	data::IData *Inventory::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		output->push("spacesX", mSpacesX);
+		output->push("spacesY", mSpacesY);
+
+		data::Array *spots = new data::Array();
+		for (auto iter = mSpots.begin(); iter != mSpots.end(); ++iter)
+		{
+			spots->push(iter->getSaveObject());
+		}
+
+		output->push("spots", spots);
+		return output;
 	}
 
 	void Inventory::logContents() const

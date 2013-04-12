@@ -1,10 +1,13 @@
 #pragma once
 
-#include <base\handle.h>
+#include <base/handle.h>
 using namespace am::base;
 
 #include <vector>
 using namespace std;
+
+#include <util/idata.h>
+using namespace am::util;
 
 #include "gfx_renderable.h"
 #include "texture_window.h"
@@ -47,6 +50,8 @@ namespace gfx {
 
 		void updateSprite(float dt);
 		void renderSprite();
+
+		data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

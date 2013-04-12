@@ -19,6 +19,7 @@ namespace game {
 	int Character_register(lua_State *lua);
 
 	int Character_from_def(lua_State *lua);
+	int Character_create(lua_State *lua);
 	
 	int Character_name(lua_State *lua);
 	int Character_pickup_reach(lua_State *lua);
@@ -60,6 +61,7 @@ namespace game {
 
 	int Character_fixed_to_grid(lua_State *lua);
 	int Character_map(lua_State *lua);
+	int Character_original_map(lua_State *lua);
 
 	int Character_add_passible_type(lua_State *lua);
 	int Character_remove_passible_type(lua_State *lua);

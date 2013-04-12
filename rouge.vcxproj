@@ -311,6 +311,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
+    <ClCompile Include="math\math.cpp" />
     <ClCompile Include="math\transform.cpp" />
     <ClCompile Include="math\transform_lite.cpp" />
     <ClCompile Include="main.cpp" />
@@ -344,6 +345,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_path_tokeniser.cpp" />
     <ClCompile Include="tests\test_suite.cpp" />
+    <ClCompile Include="tests\test_util_data.cpp" />
     <ClCompile Include="ui\dialogue_event.cpp" />
     <ClCompile Include="ui\equip_event.cpp" />
     <ClCompile Include="ui\event.cpp" />
@@ -385,6 +387,13 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\value_change_event.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
+    <ClCompile Include="util\data_array.cpp" />
+    <ClCompile Include="util\data_boolean.cpp" />
+    <ClCompile Include="util\data_integer.cpp" />
+    <ClCompile Include="util\data_map.cpp" />
+    <ClCompile Include="util\data_number.cpp" />
+    <ClCompile Include="util\data_string.cpp" />
+    <ClCompile Include="util\idata.cpp" />
     <ClCompile Include="util\path_tokeniser.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
     <ClCompile Include="util\text_tokeniser.cpp" />
@@ -505,11 +514,13 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
+    <ClInclude Include="math\math.h" />
     <ClInclude Include="math\matrix.h" />
     <ClInclude Include="math\transform.h" />
     <ClInclude Include="math\transform_lite.h" />
     <ClInclude Include="math\vector.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="save_ostream.h" />
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />
     <ClInclude Include="sys\mem_test_system.h" />
@@ -541,6 +552,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_path_tokeniser.h" />
     <ClInclude Include="tests\test_suite.h" />
+    <ClInclude Include="tests\test_util_data.h" />
     <ClInclude Include="ui\dialogue_event.h" />
     <ClInclude Include="ui\equip_event.h" />
     <ClInclude Include="ui\event.h" />
@@ -582,6 +594,13 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\value_change_event.h" />
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
+    <ClInclude Include="util\data_array.h" />
+    <ClInclude Include="util\data_boolean.h" />
+    <ClInclude Include="util\data_integer.h" />
+    <ClInclude Include="util\data_map.h" />
+    <ClInclude Include="util\data_number.h" />
+    <ClInclude Include="util\data_string.h" />
+    <ClInclude Include="util\idata.h" />
     <ClInclude Include="util\path_tokeniser.h" />
     <ClInclude Include="util\stat_tokeniser.h" />
     <ClInclude Include="util\text_tokeniser.h" />

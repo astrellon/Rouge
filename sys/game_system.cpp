@@ -133,8 +133,6 @@ namespace sys {
 			delete mGfxListener;
 			mGfxListener = NULL;
 		}
-		//GfxEngine::getEngine()->deinit();
-		//mEngine->deinit();
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
@@ -224,6 +222,23 @@ namespace sys {
 	TextList *GameSystem::getDebugConsole()
 	{
 		return mDebugConsole.get();
+	}
+
+	bool GameSystem::isDirectory(const char *folderName)
+	{
+		if (mLinkedSystem)
+		{
+			return mLinkedSystem->isDirectory(folderName);
+		}
+		return false;
+	}
+	bool GameSystem::createDirectory(const char *folderName)
+	{
+		if (mLinkedSystem)
+		{
+			return mLinkedSystem->createDirectory(folderName);
+		}
+		return false;
 	}
 
 }

@@ -114,6 +114,9 @@ namespace game {
 			{ "add_quest", Game_add_quest },
 			{ "remove_quest", Game_remove_quest },
 			{ "quest", Game_quest },
+			
+			{ "start_game", Game_start_game },
+			{ "has_started", Game_has_started },
 			{ NULL, NULL }
 		};
 
@@ -904,6 +907,38 @@ namespace game {
 			return LuaState::expectedArgs(lua, "quest", "string questId");
 		}
 		return LuaState::expectedContext(lua, "quest", "Game"); 
+	}
+	/**
+	 * Tells the game that it can start. This should be called
+	 * once it is ready to display the normal game HUD and have
+	 * the appropriate game input listeners installed.
+	 *
+	 * @returns Game This
+	 */
+	int Game_start_game(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			game->startGame();
+			lua_first(lua);
+		}
+		return LuaState::expectedContext(lua, "start_game", "Game");
+	}
+	/**
+	 * Returns true if the game has started.
+	 *
+	 * @returns boolean True if the game has started.
+	 */
+	int Game_has_started(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			lua_pushboolean(lua, game->hasStarted());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "has_started", "Game");
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)

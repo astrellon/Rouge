@@ -2,6 +2,8 @@
 
 #include <sstream>
 #include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
 
 #include <gfx/gfx_layer.h>
 #include <gfx/gfx_engine.h>
@@ -12,6 +14,10 @@
 #include <ui/keyboard_manager.h>
 
 #include <lua/wrappers/game/lua_map.h>
+
+#include <sys/game_system.h>
+
+#include <util/data_map.h>
 
 #include "engine.h"
 #include "map.h"
@@ -32,7 +38,8 @@ namespace game {
 		mBackground(new Layer()),
 		mItemLayer(new Layer()),
 		mCharacterLayer(new Layer()),
-		mForeground(new Layer())
+		mForeground(new Layer()),
+		mStarted(false)
 	{
 		if (engine == NULL)
 		{
@@ -692,6 +699,103 @@ namespace game {
 			return iter->second;
 		}
 		return NULL;
+	}
+
+	void Game::startGame()
+	{
+		mStarted = true;
+		Handle<Event> e(new Event("startGame"));
+		fireEvent<Event>(e);
+	}
+	bool Game::hasStarted() const
+	{
+		return mStarted;
+	}
+
+	void Game::saveGame(const char *saveName)
+	{
+		if (saveName == NULL || saveName[0] == '\0')
+		{
+			return;
+		}
+
+		string dir = "saves/";
+		dir += saveName;
+		dir += '/';
+		string fileName = dir;
+		fileName += "main.lua";
+		
+		GameSystem::getGameSystem()->createDirectory(dir.c_str());
+
+		ofstream output(fileName);
+		if (output)
+		{
+			// Save file already exists, do something?
+			// PANIC! D:
+		}
+		output << "-- Rouge Saved Game\n";
+		
+		output << "-- This contains data about the current game.\n\n";
+		data::IData *gameData = saveGameData();
+		if (gameData)
+		{
+			output << "local game = " << gameData->toLua();
+			gameData->release();
+			gameData = NULL;
+		}
+		
+		output << "-- List of characters based on gameid\n";
+		output << "local characters = {\n";
+		size_t size = mGameObjects.size();
+		size_t i = 0;
+		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+		{
+			gameData = iter->second->getSaveObject();
+			if (gameData)
+			{
+				output << gameData->toLua();
+				gameData->release();
+				gameData = NULL;
+			}
+			else
+			{
+				size--;
+			}
+			if (i < size - 1)
+			{
+				output << ",\n";
+			}
+			i++;
+		}
+		output << "}\n\n";
+
+
+		//saveGameData(output);
+
+		output.close();
+	}
+	void Game::loadGame(const char *saveName)
+	{
+		if (saveName == NULL || saveName[0] == '\0')
+		{
+			return;
+		}
+	}
+
+	data::IData *Game::saveGameData()
+	{
+		data::Map *data = new data::Map();
+		data->push("__comment", "This contains data about the current game.");
+		if (mMainCharacter)
+		{
+			data->push("mainChar", mMainCharacter->getGameId());
+		}
+		if (mCurrentMap)
+		{
+			data->push("currentMap", mCurrentMap->getName());
+		}
+
+		return data;
 	}
 
 }

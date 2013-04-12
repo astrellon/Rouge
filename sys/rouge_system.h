@@ -44,12 +44,15 @@ namespace sys {
 		virtual void reshape(int width, int height);
 
 		virtual void onKeyUp(int key);
+
+		virtual void onEvent(Event *e);
 		virtual void onEvent(DialogueEvent *e);
 
 		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine);
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
+		void startGame();
 		void togglePause();
 		void toggleInGameMenu();
 		bool isPaused();
