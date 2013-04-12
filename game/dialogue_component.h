@@ -16,6 +16,13 @@ using am::ui::IEventManager;
 #include <game/dialogue.h>
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class GameObject;
@@ -46,6 +53,8 @@ namespace game {
 
 		virtual void setAttachedTo(GameObject *obj);
 		virtual GameObject *getAttachedTo() const;
+
+		virtual data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

@@ -3,6 +3,9 @@
 #include <ui/dialogue_event.h>
 using am::ui::DialogueEvent;
 
+#include <util/data_map.h>
+#include <util/data_array.h>
+
 #include <game/game_object.h>
 
 namespace am {
@@ -165,6 +168,31 @@ namespace game {
 		{
 			mTalkingTo->retain();
 		}
+	}
+
+	data::IData *DialogueComponent::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		data::Array *unlocked = new data::Array();
+		for (auto iter = mUnlockedSubjects.begin(); iter != mUnlockedSubjects.end(); ++iter)
+		{
+			unlocked->push(iter->first);
+		}
+		output->push("unlockedSubjects", unlocked);
+
+		data::Array *available = new data::Array();
+		for (auto iter = mDialoguesAvailable.begin(); iter != mDialoguesAvailable.end(); ++iter)
+		{
+			available->push(iter->first);
+		}
+		output->push("dialoguesAvailable", available);
+
+		if (mStartDialogue)
+		{
+			output->push("startDialogue", mStartDialogue->getId());
+		}
+
+		return output;
 	}
 
 }

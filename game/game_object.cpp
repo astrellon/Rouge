@@ -403,6 +403,10 @@ namespace game {
 			output->push("originalMap", mOriginalMap->getName());
 		}
 
+		if (mDialogueComp)
+		{
+			output->push("dialogueComponent", mDialogueComp->getSaveObject());
+		}
 		return output;
 	}
 
