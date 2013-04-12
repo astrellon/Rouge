@@ -67,6 +67,11 @@ namespace data {
 
 	std::string Map::toLua() const
 	{
+		size_t size = mValue.size();
+		if (size == 0)
+		{
+			return "{}";
+		}
 		std::string str("{\n");
 
 		std::string tabsShort;
@@ -78,7 +83,7 @@ namespace data {
 		bool first = true;
 		auto cmtIter = mValue.find("__comment");
 		Handle<data::IData> comment;
-		size_t size = mValue.size();
+		
 		if (cmtIter != mValue.end() && cmtIter->second->type() == data::String::TYPE)
 		{
 			comment = cmtIter->second;

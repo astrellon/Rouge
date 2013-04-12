@@ -17,6 +17,13 @@ using namespace am::ui;
 #include "istat_modifiers.h"
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class GameObject;
@@ -48,6 +55,8 @@ namespace game {
 
 		virtual StatModifiers &getStatModifiers();
 		virtual const StatModifiers &getStatModifiers() const;
+
+		virtual data::IData *getSaveObject();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

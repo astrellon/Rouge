@@ -5,6 +5,13 @@
 using namespace std;
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	enum StatModifierType 
@@ -35,6 +42,8 @@ namespace game {
 
 		bool operator==(const StatModifier &rhs) const;
 		bool operator!=(const StatModifier &rhs) const;
+
+		data::IData *getSaveObject();
 
 		static StatModifierType getModifierType(const char *name);
 		static StatModifierType getModifierType(int value);

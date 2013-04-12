@@ -478,6 +478,7 @@ namespace game {
 		}
 		output->push("bodyParts", bodyParts);
 
+		output->push("stats", mStats.getSaveObject());
 		if (mInventory)
 		{
 			output->push("inventory", mInventory->getSaveObject());

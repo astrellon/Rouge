@@ -744,7 +744,7 @@ namespace game {
 			gameData = NULL;
 		}
 		
-		output << "-- List of characters based on gameid\n";
+		output << "\n-- List of characters based on gameid\n";
 		output << "local characters = {\n";
 		size_t size = mGameObjects.size();
 		size_t i = 0;

@@ -1,6 +1,7 @@
 #include "stat_modifier.h"
 
 #include <util/utils.h>
+#include <util/data_map.h>
 using namespace am::util;
 
 #include <string>
@@ -112,6 +113,16 @@ namespace game {
 			return NULL;
 		}
 		return sStatModifierNames[type];
+	}
+
+	data::IData *StatModifier::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		output->push("value", mValue);
+		output->push("magical", mMagical);
+		output->push("type", getModifierTypeString(mType));
+
+		return output;
 	}
 	
 }

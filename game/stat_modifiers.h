@@ -8,6 +8,13 @@ using namespace std;
 #include "istat_modifiers.h"
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class StatModifiers : public IStatModifiers {
@@ -27,13 +34,14 @@ namespace game {
 		virtual const StatModifierMap &getModifiers() const;
 		virtual StatModifierMap &getModifiers();
 
+		virtual data::IData *getSaveObject();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
 
 		StatModifierMap mModifiers;
-
 
 		StatModifierVector::const_iterator findStatModifier(
 			const StatModifierVector &modifiers, const StatModifier &modifier);

@@ -1,5 +1,8 @@
 #include "stat_modifiers.h"
 
+#include <util/data_map.h>
+#include <util/data_array.h>
+
 namespace am {
 namespace game {
 
@@ -157,6 +160,22 @@ namespace game {
 	IStatModifiers::StatModifierMap &StatModifiers::getModifiers()
 	{
 		return mModifiers;
+	}
+
+	data::IData *StatModifiers::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		for (auto iter = mModifiers.begin(); iter != mModifiers.end(); ++iter)
+		{
+			data::Array *modifiers = new data::Array();
+			for (auto modIter = iter->second.begin(); modIter != iter->second.end(); ++modIter)
+			{
+				modifiers->push(modIter->getSaveObject());
+			}
+			output->push(Stat::getStatName(iter->first), modifiers);
+		}
+
+		return output;
 	}
 
 }

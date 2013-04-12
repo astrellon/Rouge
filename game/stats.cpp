@@ -2,6 +2,8 @@
 
 #include "game_object.h"
 
+#include <util/data_map.h>
+
 namespace am {
 namespace game {
 
@@ -180,6 +182,20 @@ namespace game {
 			Handle<StatEvent> e(new StatEvent(this, stat));
 			mAttachedTo->fireEvent<StatEvent>(e);
 		}
+	}
+
+	data::IData *Stats::getSaveObject()
+	{
+		data::Map *output = new data::Map();
+		data::Map *baseStats = new data::Map();
+		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
+		{
+			baseStats->push(Stat::getStatName(i), mBaseStats[i]);
+		}
+		output->push("baseStats", baseStats);
+		output->push("modifiers", mModifiers.getSaveObject());
+
+		return output;
 	}
 	
 }

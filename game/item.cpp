@@ -693,6 +693,16 @@ namespace game {
 
 		output->push("itemValue", static_cast<int>(mItemValue));
 
+		if (mGraphic)
+		{
+			output->push("graphic", mGraphic->getSaveObject());
+		}
+		if (mGroundGraphic)
+		{
+			output->push("groundGraphic", mGroundGraphic->getSaveObject());
+		}
+		output->push("statModifiers", mStatModifiers.getSaveObject());
+
 		return output;
 	}
 
