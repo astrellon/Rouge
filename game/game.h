@@ -22,6 +22,7 @@ using namespace am::util;
 #include "map.h"
 #include "character.h"
 #include "quest.h"
+#include "loading_state.h"
 
 #include <log/logger.h>
 
@@ -31,6 +32,12 @@ namespace gfx {
 	class Layer;
 }
 using namespace am::gfx;
+
+namespace util {
+namespace data {
+	class Map;
+}
+}
 
 namespace game {
 
@@ -75,7 +82,7 @@ namespace game {
 		bool hasStarted() const;
 
 		void saveGame(const char *saveName);
-		void loadGame(const char *saveName);
+		int loadGame(const char *saveName);
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -110,6 +117,9 @@ namespace game {
 		bool addQuest(Quest *quest);
 		bool removeQuest(const char *questId);
 		Quest *getQuest(const char *questId);
+
+		// LoadingState
+		LoadingState *getLoadingState();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -147,6 +157,8 @@ namespace game {
 		Handle<Layer> mForeground;
 
 		Handle<Character> mMainCharacter;
+
+		Handle<LoadingState> mLoadingState;
 
 		typedef map<string, GameObject *> GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
@@ -250,6 +262,7 @@ namespace game {
 		}
 
 		data::IData *saveGameData();
+		void loadGameData(data::Map *obj);
 	};
 
 }

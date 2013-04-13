@@ -53,6 +53,7 @@ namespace sys {
 
 		void newGame();
 		void startGame();
+		void loadGame(const char *savename);
 		void togglePause();
 		void toggleInGameMenu();
 		bool isPaused();

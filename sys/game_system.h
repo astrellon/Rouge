@@ -75,6 +75,7 @@ namespace sys {
 		virtual Engine *getEngine();
 
 		virtual bool isDirectory(const char *folderName);
+		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
 
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);

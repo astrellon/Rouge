@@ -331,7 +331,14 @@ namespace sys {
 	bool WinSystem::isDirectory(const char *folderName)
 	{
 		DWORD result = GetFileAttributes(folderName);
+		// If it has the directory attribute and isn't an invalid file (doesn't exist or error)
 		return result & FILE_ATTRIBUTE_DIRECTORY && result != INVALID_FILE_ATTRIBUTES;
+	}
+	bool WinSystem::isFile(const char *filename)
+	{
+		DWORD result = GetFileAttributes(filename);
+		// If it doesn't have the directory attribute and isn't an invalid file (doesn't exist or error)
+		return !(result & FILE_ATTRIBUTE_DIRECTORY) && result != INVALID_FILE_ATTRIBUTES;
 	}
 	bool WinSystem::createDirectory(const char *folderName)
 	{

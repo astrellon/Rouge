@@ -109,14 +109,14 @@
     <Filter Include="lua\wrapper\ui">
       <UniqueIdentifier>{f31acdec-2b43-4479-8b37-1406f5d19123}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sys\mem">
-      <UniqueIdentifier>{64b317d7-4105-45aa-8438-cf135cbaf096}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lua\wrapper\gfx">
       <UniqueIdentifier>{db30da4d-fdb9-4444-8f59-df979d0968a0}</UniqueIdentifier>
     </Filter>
     <Filter Include="util\data">
       <UniqueIdentifier>{04687b04-a581-4b29-9667-f8081590e33d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sys\base\mem">
+      <UniqueIdentifier>{64b317d7-4105-45aa-8438-cf135cbaf096}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -677,7 +677,7 @@
       <Filter>ui\events</Filter>
     </ClCompile>
     <ClCompile Include="sys\mem_test_system.cpp">
-      <Filter>sys\mem</Filter>
+      <Filter>sys\base\mem</Filter>
     </ClCompile>
     <ClCompile Include="lua\wrappers\game\lua_race.cpp">
       <Filter>lua\wrapper\game</Filter>
@@ -726,6 +726,9 @@
     </ClCompile>
     <ClCompile Include="math\math.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="game\loading_state.cpp">
+      <Filter>game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1280,7 +1283,7 @@
       <Filter>tests\game</Filter>
     </ClInclude>
     <ClInclude Include="sys\mem_test_system.h">
-      <Filter>sys\mem</Filter>
+      <Filter>sys\base\mem</Filter>
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_race.h">
       <Filter>lua\wrapper\game</Filter>
@@ -1338,6 +1341,9 @@
     </ClInclude>
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="game\loading_state.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

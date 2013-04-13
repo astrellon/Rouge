@@ -73,6 +73,7 @@ namespace ui {
 		if (e->getEventTarget() == mLoadGame.get())
 		{
 			am_log("BTN", "LOAD GAME");
+			mRougeSystem->loadGame("save1");
 			return;
 		}
 		if (e->getEventTarget() == mStartGame.get())

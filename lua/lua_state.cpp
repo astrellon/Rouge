@@ -363,6 +363,16 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return valueStr;
 	}
+	bool LuaState::getGlobal(const char *name)
+	{
+		lua_getglobal(mLua, name);
+		if (lua_isnil(mLua, -1))
+		{
+			pop(1);
+			return false;
+		}
+		return true;
+	}
 
 	void LuaState::logTable(const char *cat, int n)
 	{

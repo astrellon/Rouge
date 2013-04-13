@@ -17,7 +17,10 @@
 
 #include <sys/game_system.h>
 
+#include <util/data_array.h>
 #include <util/data_map.h>
+#include <util/data_string.h>
+#include <util/data_number.h>
 
 #include "engine.h"
 #include "map.h"
@@ -771,12 +774,72 @@ namespace game {
 
 		output.close();
 	}
-	void Game::loadGame(const char *saveName)
+	int Game::loadGame(const char *saveName)
 	{
 		if (saveName == NULL || saveName[0] == '\0')
 		{
-			return;
+			return 0;
 		}
+
+		string dir = "saves/";
+		dir += saveName;
+		dir += '/';
+		string fileName = dir;
+		fileName += "main.lua";
+
+		if (!GameSystem::getGameSystem()->isFile(fileName.c_str()))
+		{
+			return 0;
+		}
+
+		mLoadingState = new LoadingState();
+
+		LuaState lua(false);
+		if (!lua.loadFile(fileName.c_str()))
+		{
+			lua.logStack("LOADERR");
+			return -1;
+		}
+
+		if (lua.getGlobal("game"))
+		{
+			Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
+			Handle<data::Map> gameData(dynamic_cast<data::Map *>(gameDataObj.get()));
+			if (!gameData)
+			{
+				stringstream ss;
+				ss << "Load file 'game' object was a '" << gameDataObj->typeName() << "' not an 'Map'";
+				am_log("LOADERR", ss);
+				lua.close();
+				return -2;
+			}
+
+			loadGameData(gameData);
+			lua.pop(1);
+		}
+		if (lua.getGlobal("characters"))
+		{
+			Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
+			Handle<data::Array> charData(dynamic_cast<data::Array *>(charDataObj.get()));
+			if (!charData)
+			{
+				stringstream ss;
+				ss << "Load file 'characters' object was a '" << charDataObj->typeName() << "' not an 'Array'";
+				am_log("LOADERR", ss);
+				lua.close();
+				return -3;
+			}
+
+
+			lua.pop(1);
+		}
+
+		return 1;
+	}
+
+	LoadingState *Game::getLoadingState()
+	{
+		return mLoadingState.get();
 	}
 
 	data::IData *Game::saveGameData()
@@ -793,6 +856,27 @@ namespace game {
 		}
 
 		return data;
+	}
+
+	void Game::loadGameData(data::Map *obj)
+	{
+		if (!obj)
+		{
+			return;
+		}
+		Handle<data::Map> hobj(obj);
+
+		Handle<data::String> str(obj->at<data::String>("mainChar"));
+		if (str)
+		{
+			mLoadingState->setMainCharacter(str->string());
+		}
+
+		str = obj->at<data::String>("currentMap");
+		if (str)
+		{
+			mLoadingState->setCurrentMap(str->string());
+		}
 	}
 
 }

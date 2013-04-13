@@ -224,6 +224,17 @@ namespace sys {
 		checkPaused();
 	}
 
+	void RougeSystem::loadGame(const char *savename)
+	{
+		if (savename == NULL || savename[0] == '\0')
+		{
+			return;
+		}
+
+		Game *game = new Game();
+		game->loadGame(savename);
+	}
+
 	void RougeSystem::onKeyUp(int key)
 	{
 		// 27 is currently escape.

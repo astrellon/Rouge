@@ -203,6 +203,7 @@ namespace lua {
 		double getGlobalDouble(const char *name);
 		bool getGlobalBool(const char *name);
 		string getGlobalString(const char *name);
+		bool getGlobal(const char *name);
 
 		static int onError(lua_State *mLua);
 

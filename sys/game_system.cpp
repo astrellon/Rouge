@@ -232,6 +232,14 @@ namespace sys {
 		}
 		return false;
 	}
+	bool GameSystem::isFile(const char *filename)
+	{
+		if (mLinkedSystem)
+		{
+			return mLinkedSystem->isFile(filename);
+		}
+		return false;
+	}
 	bool GameSystem::createDirectory(const char *folderName)
 	{
 		if (mLinkedSystem)
