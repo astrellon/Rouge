@@ -7,5 +7,8 @@ namespace math {
 	float abs(float input);
 	int abs(int input);
 
+	int round(double input);
+	int round(float input);
+
 }
 }

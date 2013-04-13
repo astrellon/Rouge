@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#include <math/math.h>
+
 namespace am {
 namespace util {
 namespace data {
@@ -11,6 +13,10 @@ namespace data {
 
 	Number::Number() :
 		mValue(0.0)
+	{
+	}
+	Number::Number(int v) :
+		mValue(v)
 	{
 	}
 	Number::Number(double v) :
@@ -25,9 +31,17 @@ namespace data {
 	{
 		mValue = v;
 	}
+	void Number::value(int v)
+	{
+		mValue = static_cast<double>(v);
+	}
 	double Number::value() const
 	{
 		return mValue;
+	}
+	int Number::valuei() const
+	{
+		return am::math::round(mValue);
 	}
 
 	std::string Number::toLua() const

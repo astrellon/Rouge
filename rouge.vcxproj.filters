@@ -721,9 +721,6 @@
     <ClCompile Include="tests\test_util_data.cpp">
       <Filter>tests\util</Filter>
     </ClCompile>
-    <ClCompile Include="util\data_integer.cpp">
-      <Filter>util\data</Filter>
-    </ClCompile>
     <ClCompile Include="util\data_map.cpp">
       <Filter>util\data</Filter>
     </ClCompile>
@@ -1335,9 +1332,6 @@
     </ClInclude>
     <ClInclude Include="tests\test_util_data.h">
       <Filter>tests\util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\data_integer.h">
-      <Filter>util\data</Filter>
     </ClInclude>
     <ClInclude Include="util\data_map.h">
       <Filter>util\data</Filter>

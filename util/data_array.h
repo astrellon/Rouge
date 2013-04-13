@@ -53,7 +53,7 @@ namespace data {
 
 		Array_internal &inner();
 
-		std::string toLua() const;
+		virtual std::string toLua() const;
 
 		const static int TYPE;
 		const static char *TYPENAME;

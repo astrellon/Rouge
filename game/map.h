@@ -63,6 +63,9 @@ namespace game {
 
 		void updateAssetSprites();
 
+		void setFilename(const char *filename);
+		const char *getFilename() const;
+
 		virtual void render(float dt);
 
 		static const int LUA_ID;
@@ -78,6 +81,7 @@ namespace game {
 
 		string mName;
 		string mFullName;
+		string mFilename;
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;

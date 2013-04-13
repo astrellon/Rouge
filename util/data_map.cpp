@@ -3,7 +3,6 @@
 #include "data_boolean.h"
 #include "data_number.h"
 #include "data_string.h"
-#include "data_integer.h"
 
 namespace am {
 namespace util {
@@ -40,7 +39,7 @@ namespace data {
 	}
 	void Map::push(const std::string &key, int v)
 	{
-		mValue[key] = new Integer(v);
+		mValue[key] = new Number(v);
 	}
 	void Map::push(const std::string &key, bool v)
 	{

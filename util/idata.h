@@ -4,6 +4,9 @@
 
 #include <base/imanaged.h>
 
+#include <lua/lua_state.h>
+using namespace am::lua;
+
 namespace am {
 namespace util {
 namespace data {
@@ -26,6 +29,8 @@ namespace data {
 		bool boolean() const;
 
 		virtual std::string toLua() const = 0;
+
+		static IData *fromLua(LuaState &lua, int n);
 
 		const static int TYPE;
 		const static char *TYPENAME;

@@ -10,6 +10,7 @@ namespace data {
 	public:
 
 		Number();
+		Number(int v);
 		Number(double v);
 		~Number();
 
@@ -23,7 +24,9 @@ namespace data {
 		}
 
 		void value(double v);
+		void value(int v);
 		double value() const;
+		int valuei() const;
 
 		virtual std::string toLua() const;
 

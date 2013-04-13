@@ -739,13 +739,13 @@ namespace game {
 		data::IData *gameData = saveGameData();
 		if (gameData)
 		{
-			output << "local game = " << gameData->toLua();
+			output << "game = " << gameData->toLua();
 			gameData->release();
 			gameData = NULL;
 		}
 		
 		output << "\n-- List of characters based on gameid\n";
-		output << "local characters = {\n";
+		output << "characters = {\n";
 		size_t size = mGameObjects.size();
 		size_t i = 0;
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
@@ -768,9 +768,6 @@ namespace game {
 			i++;
 		}
 		output << "}\n\n";
-
-
-		//saveGameData(output);
 
 		output.close();
 	}

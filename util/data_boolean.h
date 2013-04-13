@@ -25,7 +25,7 @@ namespace data {
 		void value(bool v);
 		bool value() const;
 
-		std::string toLua() const;
+		virtual std::string toLua() const;
 
 		const static int TYPE;
 		const static char *TYPENAME;

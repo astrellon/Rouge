@@ -334,6 +334,15 @@ namespace game {
 		return mForeground.get();
 	}
 
+	void Map::setFilename(const char *filename)
+	{
+		mFilename = filename;
+	}
+	const char *Map::getFilename() const
+	{
+		return mFilename.c_str();
+	}
+
 	void Map::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

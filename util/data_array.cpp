@@ -3,7 +3,6 @@
 #include "data_boolean.h"
 #include "data_number.h"
 #include "data_string.h"
-#include "data_integer.h"
 
 namespace am {
 namespace util {
@@ -38,7 +37,7 @@ namespace data {
 	}
 	void Array::push(int v)
 	{
-		mValue.push_back(new Integer(v));
+		mValue.push_back(new Number(v));
 	}
 	void Array::push(bool v)
 	{
