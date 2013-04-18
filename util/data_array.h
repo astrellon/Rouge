@@ -41,8 +41,10 @@ namespace data {
 
 		IData *operator[](unsigned int index);
 
+		IData *at(unsigned int index) const;
+
 		template <class T>
-		T *at(unsigned int index)
+		T *at(unsigned int index) const
 		{
 			if (index >= mValue.size())
 			{
@@ -52,6 +54,8 @@ namespace data {
 		}
 
 		Array_internal &inner();
+
+		static Array *checkDataType(IData *data, const char *className);
 
 		virtual std::string toLua() const;
 

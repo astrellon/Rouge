@@ -2,6 +2,14 @@
 
 #include <util/data_map.h>
 #include <util/data_array.h>
+#include <util/data_string.h>
+#include <util/data_number.h>
+
+#include <sstream>
+
+#include <log/logger.h>
+
+#include "loading_state.h"
 
 namespace am {
 namespace game {
@@ -162,7 +170,7 @@ namespace game {
 		return mModifiers;
 	}
 
-	data::IData *StatModifiers::getSaveObject()
+	data::IData *StatModifiers::serialise()
 	{
 		data::Map *output = new data::Map();
 		for (auto iter = mModifiers.begin(); iter != mModifiers.end(); ++iter)
@@ -170,12 +178,47 @@ namespace game {
 			data::Array *modifiers = new data::Array();
 			for (auto modIter = iter->second.begin(); modIter != iter->second.end(); ++modIter)
 			{
-				modifiers->push(modIter->getSaveObject());
+				modifiers->push(modIter->serialise());
 			}
 			output->push(Stat::getStatName(iter->first), modifiers);
 		}
 
 		return output;
+	}
+	void StatModifiers::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stat modifiers"));
+		if (!dataMap)
+		{
+			return;
+		}
+		
+		for (auto iter = dataMap->begin(); iter != dataMap->end(); ++iter)
+		{
+			Stat::StatType type = Stat::getStatType(iter->first.c_str());
+			if (type == Stat::MAX_STAT_LENGTH)
+			{
+				stringstream ss;
+				ss << "Unknown stat type '" << iter->first << "', unable to load stat modifiers.";
+				am_log("LOADERR", ss);
+				continue;
+			}
+
+			Handle<data::Array> arr(data::Array::checkDataType(iter->second.get(), "stat modifiers"));
+			if (arr)
+			{
+				continue;
+			}
+
+			for (auto modIter = arr->begin(); modIter != arr->end(); ++iter)
+			{
+				StatModifier mod;
+				if (mod.deserialise(state, modIter->get()))
+				{
+					addStatModifier(type, mod);
+				}
+			}
+		}
 	}
 
 }

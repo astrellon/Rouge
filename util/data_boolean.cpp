@@ -33,6 +33,11 @@ namespace data {
 		return mValue ? "true" : "false";
 	}
 
+	Boolean *Boolean::checkDataType(IData *data, const char *className)
+	{
+		return IData::checkDataType<Boolean>(data, className);
+	}
+
 }
 }
 }

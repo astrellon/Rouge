@@ -1,5 +1,9 @@
 #include "data_array.h"
 
+#include <sstream>
+
+#include <log/logger.h>
+
 #include "data_boolean.h"
 #include "data_number.h"
 #include "data_string.h"
@@ -56,6 +60,10 @@ namespace data {
 	{
 		return mValue[index];
 	}
+	IData *Array::at(unsigned int index) const
+	{
+		return mValue[index];
+	}
 
 	Array::Array_internal &Array::inner()
 	{
@@ -77,6 +85,11 @@ namespace data {
 		}
 		str += "}";
 		return str;
+	}
+
+	Array *Array::checkDataType(IData *data, const char *className)
+	{
+		return IData::checkDataType<Array>(data, className);
 	}
 
 }

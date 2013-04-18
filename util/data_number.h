@@ -28,7 +28,15 @@ namespace data {
 		double value() const;
 		int valuei() const;
 
+		template <class T>
+		T value() const
+		{
+			return static_cast<T>(mValue);
+		}
+
 		virtual std::string toLua() const;
+
+		static Number *checkDataType(IData *data, const char *className);
 
 		const static int TYPE;
 		const static char *TYPENAME;

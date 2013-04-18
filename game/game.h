@@ -121,6 +121,8 @@ namespace game {
 		// LoadingState
 		LoadingState *getLoadingState();
 
+		const char *getScenarioName() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -149,6 +151,8 @@ namespace game {
 
 		typedef map<string, Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
+
+		string mScenarioName;
 
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;

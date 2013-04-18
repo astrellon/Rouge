@@ -184,7 +184,7 @@ namespace game {
 		}
 	}
 
-	data::IData *Stats::getSaveObject()
+	data::IData *Stats::serialise()
 	{
 		data::Map *output = new data::Map();
 		data::Map *baseStats = new data::Map();
@@ -193,7 +193,7 @@ namespace game {
 			baseStats->push(Stat::getStatName(i), mBaseStats[i]);
 		}
 		output->push("baseStats", baseStats);
-		output->push("modifiers", mModifiers.getSaveObject());
+		output->push("modifiers", mModifiers.serialise());
 
 		return output;
 	}

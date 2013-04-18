@@ -4,11 +4,10 @@ Sprite = import("Sprite")
 
 local game = nil
 
-function onLoad()
+function onEngineLoad()
 	local human = Race.new("human")
 	Engine.add_race(human)
 end
-onLoad()
 
 function newGame(scenario_name)
 	game = Game.new()
@@ -19,6 +18,22 @@ function newGame(scenario_name)
 		am_log("Unable to find main.lua for " .. scenario_name)
 		return 0
 	end
-	scenario()(game)
+	scenario().newGame(game)
+	return 1
+end
+
+function loadGame(scenario_name, save_name)
+	game = Game.new()
+	Engine.game(game)
+	
+	scenario = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
+	if (scenario == nil) then
+		am_log("Unable to find main.lua for " .. scenario_name)
+		return 0
+	end
+	
+	game:load_game(save_name)
+	scenario().loadGame(game)
+	
 	return 1
 end

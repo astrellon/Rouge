@@ -7,6 +7,10 @@
 #include <ui/equip_event.h>
 
 #include <util/data_map.h>
+#include <util/data_number.h>
+#include <util/data_boolean.h>
+#include <util/data_array.h>
+#include <util/data_string.h>
 using namespace am::util;
 
 #include <sstream>
@@ -450,9 +454,9 @@ namespace game {
 		return mCoinPurse;
 	}
 
-	data::IData *Character::getSaveObject()
+	data::IData *Character::serialise()
 	{
-		data::IData *obj_output = GameObject::getSaveObject();
+		data::IData *obj_output = GameObject::serialise();
 		data::Map *output = dynamic_cast<data::Map *>(obj_output);
 		if (!output)
 		{
@@ -474,21 +478,93 @@ namespace game {
 		data::Map *bodyParts = new data::Map();
 		for (auto iter = mBodyParts.begin(); iter != mBodyParts.end(); ++iter)
 		{
-			bodyParts->push(iter->first, iter->second->getSaveObject());
+			bodyParts->push(iter->first, iter->second->serialise());
 		}
 		output->push("bodyParts", bodyParts);
 
-		output->push("stats", mStats.getSaveObject());
+		output->push("stats", mStats.serialise());
 		if (mInventory)
 		{
-			output->push("inventory", mInventory->getSaveObject());
+			output->push("inventory", mInventory->serialise());
 		}
 
 		if (mGraphic)
 		{
-			output->push("graphic", mGraphic->getSaveObject());
+			output->push("graphic", mGraphic->serialise());
 		}
 		return output;
+	}
+	int Character::deserialise(LoadingState *state, data::IData *data)
+	{
+		int loadResult = GameObject::deserialise(state, data);
+		if (loadResult < 1)
+		{
+			return loadResult;
+		}
+
+		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		if (!dataMap)
+		{	// Shouldn't happen due to GameObject::deserialise
+			return -1;
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("moveX"));
+		if (num)
+		{
+			mMoveX = num->valuei();
+		}
+		num = dataMap->at<data::Number>("moveY");
+		if (num)
+		{
+			mMoveY = num->valuei();
+		}
+
+		num = dataMap->at<data::Number>("pickupReach");
+		if (num)
+		{
+			setPickupReach(num->value<float>());
+		}
+
+		num = dataMap->at<data::Number>("age");
+		if (num)
+		{
+			setAge(num->value<float>());
+		}
+
+		Handle<data::String> str(dataMap->at<data::String>("race"));
+		if (str)
+		{
+			setRace(Engine::getEngine()->getRace(str->string()));
+		}
+
+		str = dataMap->at<data::String>("gender");
+		if (str)
+		{
+			Gender::GenderType gender = Gender::getGenderType(str->string());
+			if (gender != Gender::MAX_GENDER_LENGTH)
+			{
+				setGender(gender);
+			}
+			else
+			{
+				stringstream ss;
+				ss << "Unknown gender '" << str->string() << '\'';
+				am_log("LOADERR", ss);
+			}
+		}
+
+		Handle<data::IData> tempData(dataMap->at("inventory"));
+		if (tempData)
+		{
+			mInventory->deserialise(state, tempData);
+		}
+
+		tempData = dataMap->at("graphic");
+		if (tempData)
+		{
+			mGraphic = new Sprite();
+			mGraphic->deserialise(state, tempData);
+		}
 	}
 
 	void Character::_equipItem(Item *item, const char *bodyPartName)

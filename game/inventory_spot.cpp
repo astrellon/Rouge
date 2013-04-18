@@ -1,6 +1,12 @@
 #include "inventory_spot.h"
 
 #include <util/data_map.h>
+#include <util/data_number.h>
+
+#include <sstream>
+#include <log/logger.h>
+
+#include "loading_state.h"
 
 namespace am {
 namespace game {
@@ -39,16 +45,46 @@ namespace game {
 		return mY;
 	}
 
-	data::IData *InventorySpot::getSaveObject()
+	data::IData *InventorySpot::serialise()
 	{
 		data::Map *output = new data::Map();
 		output->push("x", mX);
 		output->push("y", mY);
 		if (mItem)
 		{
-			output->push("item", mItem->getSaveObject());
+			output->push("item", mItem->serialise());
 		}
 		return output;
+	}
+	void InventorySpot::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		if (!dataMap)
+		{
+			stringstream ss;
+			ss << "Unable to load inventory spot from a '" << data->typeName();
+			ss << "', must be a Map.";
+			am_log("LOADERR", ss);
+			return;
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("x"));
+		if (num)
+		{
+			mX = num->value<unsigned short>();
+		}
+		num = dataMap->at<data::Number>("y");
+		if (num)
+		{
+			mY = num->value<unsigned short>();
+		}
+
+		Handle<data::IData> tempData(dataMap->at("item"));
+		if (tempData)
+		{
+			mItem = new Item();
+			mItem->deserialise(state, tempData);
+		}
 	}
 
 }

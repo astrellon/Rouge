@@ -6,9 +6,13 @@
 #include "tile_type.h"
 #include "game.h"
 #include "dialogue_component.h"
+#include "loading_state.h"
 
 #include <util/data_map.h>
 #include <util/data_array.h>
+#include <util/data_boolean.h>
+#include <util/data_string.h>
+#include <util/data_number.h>
 
 namespace am {
 namespace game {
@@ -377,7 +381,7 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	data::IData *GameObject::getSaveObject()
+	data::IData *GameObject::serialise()
 	{
 		data::Map *output = new data::Map();
 		output->push("gameId", mGameId);
@@ -388,26 +392,137 @@ namespace game {
 		output->push("cameraOffsetX", mCameraOffsetX);
 		output->push("cameraOffsetY", mCameraOffsetY);
 
-		data::Array *passibleTypes = new data::Array();
-		
+		Handle<data::Array> passibleTypes(new data::Array());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
 			passibleTypes->push((*iter)->getName());
 		}
+		output->push("passibleTypes", passibleTypes);
 		if (mMap)
 		{
-			output->push("map", mMap->getName());
+			output->push("map", mMap->getFilename());
 		}
 		if (mOriginalMap)
 		{
-			output->push("originalMap", mOriginalMap->getName());
+			output->push("originalMap", mOriginalMap->getFilename());
 		}
 
 		if (mDialogueComp)
 		{
-			output->push("dialogueComponent", mDialogueComp->getSaveObject());
+			output->push("dialogueComponent", mDialogueComp->serialise());
 		}
 		return output;
+	}
+
+	int GameObject::deserialise(LoadingState *state, data::IData *data)
+	{
+		if (!state || !data)
+		{
+			am_log("LOADERR", "Loading game object as loading state or data was NULL");
+			return 0;
+		}
+		
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "game object"));
+		if (!dataMap)
+		{
+			return -1;
+		}
+
+		Handle<data::String> str(dataMap->at<data::String>("gameId"));
+		if (str)
+		{
+			state->setGameId(str->string(), this);
+		}
+		
+		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));
+		if (boo)
+		{
+			mFixedToGrid = boo->boolean();
+		}
+
+		boo = dataMap->at<data::Boolean>("onlyOnPassable");
+		if (boo)
+		{
+			mOnlyOnPassable = boo->boolean();
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
+		if (num)
+		{
+			mLocationX = num->number<float>();
+		}
+		num = dataMap->at<data::Number>("locationY");
+		if (num)
+		{
+			mLocationY = num->number<float>();
+		}
+
+		num = dataMap->at<data::Number>("cameraOffsetX");
+		if (num)
+		{
+			mCameraOffsetX = num->number<float>();
+		}
+		num = dataMap->at<data::Number>("cameraOffsetY");
+		if (num)
+		{
+			mCameraOffsetY = num->number<float>();
+		}
+
+		Handle<data::Array> arr(dataMap->at<data::Array>("passibleTypes"));
+		if (arr)
+		{
+			Engine *engine = Engine::getEngine();
+			for (auto iter = arr->begin(); iter != arr->end(); ++iter)
+			{
+				const char *tileTypeName = (*iter)->string();
+				if (!tileTypeName)
+				{
+					stringstream ss;
+					ss << "Unable to set tile type from type '" << (*iter)->typeName();
+					ss << "' must be a String.";
+					am_log("LOADERR", ss);
+					continue;
+				}
+				TileType *tileType = engine->getTileType(tileTypeName);
+				if (!tileType)
+				{
+					stringstream ss;
+					ss << "Unable to find tile type '" << tileTypeName << "'.";
+					am_log("LOADERR", ss);
+					continue;
+				}
+				addPassibleType(tileType);
+			}
+		}
+
+		str = dataMap->at<data::String>("map");
+		if (str)
+		{
+			const char *mapName = str->string();
+			if (!mapName)
+			{
+				am_log("LOADERR", "Unable to add game object to NULL or empty string map.");
+			}
+			else
+			{
+				state->addGameObjectToMap(this, mapName);
+			}
+		}
+
+		str = dataMap->at<data::String>("originalMap");
+		if (str)
+		{
+			state->addMapToLoad(str->string());
+		}
+
+		Handle<data::IData> tempData(dataMap->at("dialogueComponent"));
+		if (tempData)
+		{
+			DialogueComponent *comp = new DialogueComponent();
+			comp->deserialise(state, tempData);
+		}
+
+		return 1;
 	}
 
 	const char *GameObject::getGameObjectTypeName() const

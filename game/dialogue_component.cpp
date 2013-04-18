@@ -1,12 +1,18 @@
 #include "dialogue_component.h"
 
+#include <sstream>
+
 #include <ui/dialogue_event.h>
 using am::ui::DialogueEvent;
 
 #include <util/data_map.h>
+#include <util/data_string.h>
 #include <util/data_array.h>
 
-#include <game/game_object.h>
+#include <log/logger.h>
+
+#include "game_object.h"
+#include "loading_state.h"
 
 namespace am {
 namespace game {
@@ -170,13 +176,17 @@ namespace game {
 		}
 	}
 
-	data::IData *DialogueComponent::getSaveObject()
+	data::IData *DialogueComponent::serialise()
 	{
 		data::Map *output = new data::Map();
 		data::Array *unlocked = new data::Array();
 		for (auto iter = mUnlockedSubjects.begin(); iter != mUnlockedSubjects.end(); ++iter)
 		{
-			unlocked->push(iter->first);
+			// If not locked
+			if (!iter->second)
+			{
+				unlocked->push(iter->first);
+			}
 		}
 		output->push("unlockedSubjects", unlocked);
 
@@ -193,6 +203,66 @@ namespace game {
 		}
 
 		return output;
+	}
+
+	void DialogueComponent::deserialise(LoadingState *state, data::IData *data)
+	{
+		if (!data)
+		{
+			return;
+		}
+		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		if (!dataMap)
+		{
+			stringstream ss;
+			ss << "Unable to load dialogue component from '" << data->typeName();
+			ss << "' expected a Map.";
+			am_log("LOADERR", ss);
+			return;
+		}
+		Handle<data::Array> unlocked(dataMap->at<data::Array>("unlockedSubjects"));
+		if (unlocked)
+		{
+			for (auto iter = unlocked->begin(); iter != unlocked->end(); ++iter)
+			{
+				if ((*iter)->type() == data::String::TYPE)
+				{
+					setSubjectLock((*iter)->string());
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Unlocked subject array element must be a String not a '";
+					ss << (*iter)->typeName() << '\'';
+					am_log("LOADERR", ss);
+				}
+			}
+		}
+
+		Handle<data::Array> available(dataMap->at<data::Array>("dialoguesAvailable"));
+		if (available)
+		{
+			for (auto iter = available->begin(); iter != available->end(); ++iter)
+			{
+				if ((*iter)->type() == data::String::TYPE)
+				{
+					setDialogueAvailable((*iter)->string());
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Dialogue available array element must be a String not a '";
+					ss << (*iter)->typeName() << '\'';
+					am_log("LOADERR", ss);
+				}
+			}
+		}
+
+		Handle<data::String> start(dataMap->at<data::String>("startDialogue"));
+		if (start)
+		{
+			state->setStartDialogue(start->string(), this);
+		}
 	}
 
 }

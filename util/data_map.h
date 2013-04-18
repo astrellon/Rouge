@@ -40,10 +40,10 @@ namespace data {
 		void push(const std::string &key, const char *v);
 		void push(const std::string &key, const std::string &v);
 
-		IData *operator[](std::string key);
+		IData *at(const std::string &key);
 
 		template <class T>
-		T *at(std::string key)
+		T *at(const std::string &key)
 		{
 			auto iter = mValue.find(key);
 			if (iter == mValue.end())
@@ -56,6 +56,8 @@ namespace data {
 		Map_internal &inner();
 
 		virtual std::string toLua() const;
+
+		static Map *checkDataType(IData *data, const char *className);
 
 		const static int TYPE;
 		const static char *TYPENAME;

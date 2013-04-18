@@ -56,7 +56,7 @@ namespace game {
 		virtual StatModifiers &getStatModifiers();
 		virtual const StatModifiers &getStatModifiers() const;
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

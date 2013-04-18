@@ -4,10 +4,13 @@
 using namespace am::ui;
 
 #include <util/data_map.h>
+#include <util/data_number.h>
 #include <util/data_array.h>
 
 #include <sstream>
 #include <log/logger.h>
+
+#include "loading_state.h"
 
 namespace am {
 namespace game {
@@ -19,28 +22,16 @@ namespace game {
 	const char *Inventory::LUA_TABLENAME = "am_game_Inventory";
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
-		EventInterface(),
-		mSpacesX(width),
-		mSpacesY(height)
+		EventInterface()
 	{
-		int size = width * height;
-		mSpotMap = new Item *[size];
-		for (int i = 0; i < size; i++)
-		{
-			mSpotMap[i] = NULL;
-		}
+		setSpaces(width, height);
 	}
 	Inventory::Inventory(const Inventory &copy) :
 		EventInterface(),
 		mSpacesX(copy.mSpacesX),
 		mSpacesY(copy.mSpacesY)
 	{
-		int size = mSpacesX * mSpacesY;
-		mSpotMap = new Item *[size];
-		for (int i = 0; i < size; i++)
-		{
-			mSpotMap[i] = NULL;
-		}
+		setSpaces(copy.mSpacesX, copy.mSpacesY);
 		for (auto iter = copy.mSpots.begin(); iter != copy.mSpots.end(); ++iter)
 		{
 			addItem(new Item(*iter->mItem), iter->mX, iter->mY);
@@ -283,7 +274,7 @@ namespace game {
 		return sSpaceSizeY;
 	}
 
-	data::IData *Inventory::getSaveObject()
+	data::IData *Inventory::serialise()
 	{
 		data::Map *output = new data::Map();
 		output->push("spacesX", mSpacesX);
@@ -292,11 +283,71 @@ namespace game {
 		data::Array *spots = new data::Array();
 		for (auto iter = mSpots.begin(); iter != mSpots.end(); ++iter)
 		{
-			spots->push(iter->getSaveObject());
+			spots->push(iter->serialise());
 		}
 
 		output->push("spots", spots);
 		return output;
+	}
+	void Inventory::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		if (!dataMap)
+		{
+			stringstream ss;
+			ss << "Unable to load inventory from a '" << data->typeName();
+			ss << "', must be a Map.";
+			am_log("LOADERR", ss);
+			return;
+		}
+
+		removeAll();
+
+		unsigned short width = mSpacesX;
+		unsigned short height = mSpacesY;
+		Handle<data::Number> num(dataMap->at<data::Number>("spacesX"));
+		if (num)
+		{
+			width = num->value<unsigned short>();
+		}
+
+		num = dataMap->at<data::Number>("spacesY");
+		if (num)
+		{
+			height = num->value<unsigned short>();
+		}
+
+		if (width != mSpacesX || height != mSpacesY)
+		{
+			if (width > 0 && height > 0)
+			{
+				setSpaces(width, height);
+			}
+			else
+			{
+				stringstream ss;
+				ss << "An inventory with space " << width << " x " << height;
+				ss << " is invalid";
+				am_log("LOADERR", ss);
+			}
+		}
+
+		Handle<data::Array> arr(dataMap->at<data::Array>("spots"));
+		if (arr)
+		{
+			for (auto iter = arr->begin(); iter != arr->end(); ++iter)
+			{
+				InventorySpot spot;
+				spot.deserialise(state, iter->get());
+				if (!addItem(spot.mItem, spot.mX, spot.mY))
+				{
+					stringstream ss;
+					ss << "Error adding item to inventory at " << spot.mX;
+					ss << " x " << spot.mY;
+					am_log("LOADERR", ss);
+				}
+			}
+		}
 	}
 
 	void Inventory::logContents() const
@@ -315,6 +366,18 @@ namespace game {
 			ss << " @(" << spot.getX() << ", " << spot.getY() << ")";
 			am_log("INV", ss);
 
+		}
+	}
+
+	void Inventory::setSpaces(unsigned short width, unsigned short height)
+	{
+		int size = width * height;
+		mSpotMap = new Item *[size];
+		mSpacesX = width;
+		mSpacesY = height;
+		for (int i = 0; i < size; i++)
+		{
+			mSpotMap[i] = NULL;
 		}
 	}
 

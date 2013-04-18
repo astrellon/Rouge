@@ -26,6 +26,7 @@ using namespace am::util;
 namespace game {
 
 	class GameObject;
+	class LoadingState;
 
 	class DialogueComponent : public IManaged {
 	public:
@@ -54,7 +55,8 @@ namespace game {
 		virtual void setAttachedTo(GameObject *obj);
 		virtual GameObject *getAttachedTo() const;
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
+		virtual void deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

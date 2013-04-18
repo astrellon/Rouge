@@ -86,7 +86,8 @@ namespace game {
 
 		virtual CoinPurse *getCoinPurse() const;
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
+		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

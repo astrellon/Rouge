@@ -42,13 +42,13 @@ namespace game {
 		return mEquippedItem;
 	}
 
-	data::IData *BodyPart::getSaveObject()
+	data::IData *BodyPart::serialise()
 	{
 		data::Map *output = new data::Map();
 		output->push("name", mName);
 		if (mEquippedItem)
 		{
-			output->push("equippedItem", mEquippedItem->getSaveObject());
+			output->push("equippedItem", mEquippedItem->serialise());
 		}
 		return output;
 	}

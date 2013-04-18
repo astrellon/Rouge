@@ -14,6 +14,10 @@ using namespace am::util;
 #include "scale_nine.h"
 
 namespace am {
+namespace game {
+	class LoadingState;
+}
+
 namespace gfx {
 
 	class Asset;
@@ -51,7 +55,8 @@ namespace gfx {
 		void updateSprite(float dt);
 		void renderSprite();
 
-		data::IData *getSaveObject();
+		data::IData *serialise();
+		void deserialise(am::game::LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

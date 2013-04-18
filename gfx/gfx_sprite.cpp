@@ -7,6 +7,11 @@
 
 #include <log/logger.h>
 
+#include <game/loading_state.h>
+
+#include <util/data_string.h>
+#include <util/data_number.h>
+#include <util/data_boolean.h>
 #include <util/data_map.h>
 
 namespace am {
@@ -147,7 +152,7 @@ namespace gfx {
 		return mCurrentTime;
 	}
 
-	data::IData *Sprite::getSaveObject()
+	data::IData *Sprite::serialise()
 	{
 		data::Map *output = new data::Map();
 		if (mAsset)
@@ -170,6 +175,54 @@ namespace gfx {
 		}
 		output->push("scaleNineState", ScaleNine::getStateName(mScaleNineState));
 		return output;
+	}
+	void Sprite::deserialise(am::game::LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		if (!dataMap)
+		{
+			stringstream ss;
+			ss << "Unable to load sprite from '" << data->typeName();
+		}
+
+		Handle<data::String> str(dataMap->at<data::String>("asset"));
+		if (str)
+		{
+			setAsset(str->string());
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("width"));
+		if (num)
+		{
+			mWidth = num->value<float>();
+		}
+		num = dataMap->at<data::Number>("height");
+		if (num)
+		{
+			mHeight = num->value<float>();
+		}
+
+		num = dataMap->at<data::Number>("currentFrame");
+		if (num)
+		{
+			mCurrentFrame = num->valuei();
+		}
+		num = dataMap->at<data::Number>("frameRate");
+		if (num)
+		{
+			mFrameRate = num->value<float>();
+		}
+		num = dataMap->at<data::Number>("currentTime");
+		if (num)
+		{
+			mCurrentTime = num->value<float>();
+		}
+
+		str = dataMap->at<data::String>("scaleNineState");
+		if (str)
+		{
+			setScaleNineState(ScaleNine::getState(str->string()));
+		}
 	}
 
 	void Sprite::render(float dt)

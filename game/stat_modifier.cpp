@@ -1,6 +1,9 @@
 #include "stat_modifier.h"
 
 #include <util/utils.h>
+#include <util/data_string.h>
+#include <util/data_boolean.h>
+#include <util/data_number.h>
 #include <util/data_map.h>
 using namespace am::util;
 
@@ -9,6 +12,7 @@ using namespace am::util;
 #include <time.h>
 
 #include "stats.h"
+#include "loading_state.h"
 
 namespace am {
 namespace game {
@@ -115,7 +119,7 @@ namespace game {
 		return sStatModifierNames[type];
 	}
 
-	data::IData *StatModifier::getSaveObject()
+	data::IData *StatModifier::serialise()
 	{
 		data::Map *output = new data::Map();
 		output->push("value", mValue);
@@ -123,6 +127,34 @@ namespace game {
 		output->push("type", getModifierTypeString(mType));
 
 		return output;
+	}
+	bool StatModifier::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stat modifier"));
+		if (!dataMap)
+		{
+			return false;
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("value"));
+		if (num)
+		{
+			setValue(num->value<float>());
+		}
+		
+		Handle<data::String> str(dataMap->at<data::String>("type"));
+		if (str)
+		{
+			setType(getModifierType(str->string()));
+		}
+
+		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("magical"));
+		if (boo)
+		{
+			setMagical(boo->boolean());
+		}
+
+		return true;
 	}
 	
 }

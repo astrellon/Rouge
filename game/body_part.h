@@ -32,7 +32,7 @@ namespace game {
 		virtual void setEquippedItem(Item *item);
 		virtual Item *getEqippedItem() const;
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

@@ -15,6 +15,8 @@ using namespace am::util;
 
 namespace game {
 
+	class LoadingState;
+
 	class InventorySpot {
 	public:
 		InventorySpot();
@@ -27,7 +29,8 @@ namespace game {
 
 		friend class Inventory;
 
-		data::IData *getSaveObject();
+		data::IData *serialise();
+		void deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

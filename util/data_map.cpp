@@ -1,5 +1,9 @@
 #include "data_map.h"
 
+#include <sstream>
+
+#include <log/logger.h>
+
 #include "data_boolean.h"
 #include "data_number.h"
 #include "data_string.h"
@@ -54,7 +58,7 @@ namespace data {
 		mValue[key] = new String(v.c_str());
 	}
 
-	IData *Map::operator[](std::string key)
+	IData *Map::at(const std::string &key)
 	{
 		return mValue[key];
 	}
@@ -133,6 +137,11 @@ namespace data {
 		{
 			tabs[i] = '\t';
 		}
+	}
+
+	Map *Map::checkDataType(IData *data, const char *className)
+	{
+		return IData::checkDataType<Map>(data, className);
 	}
 
 }

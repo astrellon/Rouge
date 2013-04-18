@@ -8,6 +8,8 @@
 
 #include <util/utils.h>
 #include <util/data_map.h>
+#include <util/data_string.h>
+#include <util/data_number.h>
 using namespace am::util;
 
 #include <log/logger.h>
@@ -674,9 +676,9 @@ namespace game {
 		}
 	}
 
-	data::IData *Item::getSaveObject()
+	data::IData *Item::serialise()
 	{
-		data::IData *obj_output = GameObject::getSaveObject();
+		data::IData *obj_output = GameObject::serialise();
 		data::Map *output = dynamic_cast<data::Map *>(obj_output);
 		if (!output)
 		{
@@ -695,15 +697,82 @@ namespace game {
 
 		if (mGraphic)
 		{
-			output->push("graphic", mGraphic->getSaveObject());
+			output->push("graphic", mGraphic->serialise());
 		}
 		if (mGroundGraphic)
 		{
-			output->push("groundGraphic", mGroundGraphic->getSaveObject());
+			output->push("groundGraphic", mGroundGraphic->serialise());
 		}
-		output->push("statModifiers", mStatModifiers.getSaveObject());
+		output->push("statModifiers", mStatModifiers.serialise());
 
 		return output;
+	}
+	int Item::deserialise(LoadingState *state, data::IData *data)
+	{
+		int gameObjDeserialise = GameObject::deserialise(state, data);
+		if (gameObjDeserialise < 1)
+		{
+			return gameObjDeserialise;
+		}
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "item"));
+		if (!dataMap)
+		{
+			return -1;
+		}
+
+		Handle<data::IData> tempData(dataMap->at("graphic"));
+		if (tempData)
+		{
+			mGraphic = new Sprite();
+			mGraphic->deserialise(state, tempData);
+		}
+		tempData = dataMap->at("groundGraphic");
+		if (tempData)
+		{
+			mGroundGraphic = new Sprite();
+			mGroundGraphic->deserialise(state, tempData);
+		}
+
+		Handle<data::String> str(dataMap->at<data::String>("itemType"));
+		if (str)
+		{
+			setItemType(ItemCommon::getItemType(str->string()));
+		}
+		str = dataMap->at<data::String>("itemLocation");
+		if (str)
+		{
+			setItemLocation(getItemLocationType(str->string()));
+		}
+		updateGraphic();
+
+		Handle<data::Number> num(dataMap->at<data::Number>("inventorySizeX"));
+		if (num)
+		{
+			mInventorySizeX = num->value<short>();
+		}
+		num = dataMap->at<data::Number>("inventorySizeY");
+		if (num)
+		{
+			mInventorySizeY = num->value<short>();
+		}
+
+		num = dataMap->at<data::Number>("questItemId");
+		if (num)
+		{
+			setQuestItemId(num->valuei());
+		}
+
+		num = dataMap->at<data::Number>("itemValue");
+		if (num)
+		{
+			setItemValue(num->value<unsigned int>());
+		}
+
+		tempData = dataMap->at<data::IData>("statModifiers");
+		if (tempData)
+		{
+			
+		}
 	}
 
 	void Item::onLevelUp()

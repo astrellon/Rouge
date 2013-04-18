@@ -20,6 +20,8 @@ using namespace am::util;
 
 namespace game {
 
+	class LoadingState;
+
 	class Inventory : public IManaged, public EventInterface {
 	public:
 
@@ -46,7 +48,8 @@ namespace game {
 
 		void logContents() const;
 
-		data::IData *getSaveObject();
+		data::IData *serialise();
+		void deserialise(LoadingState *state, data::IData *data);
 
 		static void setSpaceSize(float sizeX, float sizeY);
 		static float getSpaceSizeX();
@@ -61,6 +64,8 @@ namespace game {
 		InventorySpots mSpots;
 
 		Item **mSpotMap;
+
+		void setSpaces(unsigned short width, unsigned short height);
 
 		int findItem(const Item *item) const;
 		bool findSpotFor(const Item *, int &x, int &y) const;

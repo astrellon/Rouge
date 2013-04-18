@@ -53,6 +53,7 @@ namespace sys {
 
 		void newGame();
 		void startGame();
+		void saveGame(const char *savename);
 		void loadGame(const char *savename);
 		void togglePause();
 		void toggleInGameMenu();
@@ -84,9 +85,7 @@ namespace sys {
 		bool mInDialogue;
 
 		PlayerHand *mPlayerHand;
-
-		LuaState mLuaEngine;
-
+		
 		void setCurrentMenu(UIComponent *menu);
 
 		static RougeSystem *sRougeSystem;

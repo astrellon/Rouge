@@ -51,6 +51,11 @@ namespace data {
 		return ss.str();
 	}
 
+	Number *Number::checkDataType(IData *data, const char *className)
+	{
+		return IData::checkDataType<Number>(data, className);
+	}
+
 }
 }
 }

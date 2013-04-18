@@ -25,6 +25,7 @@ using namespace am::util;
 namespace game {
 
 	class Map;
+	class LoadingState;
 
 	class GameObject : public Layer {
 	public:
@@ -84,7 +85,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
+		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

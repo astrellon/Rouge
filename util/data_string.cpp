@@ -35,6 +35,11 @@ namespace data {
 		return str;
 	}
 
+	String *String::checkDataType(IData *data, const char *className)
+	{
+		return IData::checkDataType<String>(data, className);
+	}
+
 }
 }
 }

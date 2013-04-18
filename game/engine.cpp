@@ -262,6 +262,79 @@ namespace game {
 	{
 		return mLua;
 	}
+	bool Engine::loadLuaEngine(const char *scriptName)
+	{
+		if (!mLua.loadFile(scriptName)) 
+		{
+			stringstream ss;
+			ss << "ERROR: Unable to load engine script file '" << scriptName << '\'';
+			mLua.logStack(ss.str().c_str());
+			return false;
+		}
+
+		if (mLua.hasGlobalFunction("onEngineLoad"))
+		{
+			mLua.call(0, 0);
+		}
+		return true;
+	}
+
+	bool Engine::newGame(const char *scenarioName)
+	{
+		if (mLua.hasGlobalFunction("newGame"))
+		{
+			try
+			{
+				mLua.push(scenarioName);
+				mLua.call(1, 1);
+				int result = mLua.toInteger();
+				if (result != 1)
+				{
+					am_log("LUAERR", "Error starting scenario");
+				}
+			}
+			catch(std::runtime_error err)
+			{
+				am_log("LUAERR", err.what());
+				return false;
+			}
+		}
+		else
+		{
+			am_log("ERROR", "Main engine script does not have a 'newGame' function");
+			return false;
+		}
+		return true;
+	}
+
+	bool Engine::loadGame(const char *scenarioName, const char *saveName)
+	{
+		if (mLua.hasGlobalFunction("loadGame"))
+		{
+			try
+			{
+				mLua.push(scenarioName);
+				mLua.push(saveName);
+				mLua.call(2, 1);
+				int result = mLua.toInteger();
+				if (result != 1)
+				{
+					am_log("LUAERR", "Error loading scenario");
+				}
+			}
+			catch(std::runtime_error err)
+			{
+				am_log("LUAERR", err.what());
+				return false;
+			}
+		}
+		else
+		{
+			am_log("ERROR", "Main engine script does not have a 'loadGame' function");
+			return false;
+		}
+		return true;
+	}
 
 	void Engine::setEngine(Engine *engine)
 	{

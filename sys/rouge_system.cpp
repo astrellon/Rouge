@@ -130,10 +130,7 @@ namespace sys {
 		mPlayerHand = new PlayerHand();
 		PlayerHand::setPlayerHand(mPlayerHand);
 
-		if (!mLuaEngine.loadFile("data/engine.lua")) 
-		{
-			mLuaEngine.logStack("ERROR: Unable to load main engine.lua file!");
-		}
+		mEngine->loadLuaEngine("data/engine.lua");
 
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);
@@ -224,6 +221,24 @@ namespace sys {
 		checkPaused();
 	}
 
+	void RougeSystem::saveGame(const char *savename)
+	{
+		if (savename == NULL || savename[0] == '\0')
+		{
+			return;
+		}
+
+		Game *game = Engine::getGame();
+		if (game)
+		{
+			game->saveGame(savename);
+		}
+		else
+		{
+			am_log("SAVEERR", "Cannot save when no game is in progress.");
+		}
+	}
+
 	void RougeSystem::loadGame(const char *savename)
 	{
 		if (savename == NULL || savename[0] == '\0')
@@ -231,8 +246,25 @@ namespace sys {
 			return;
 		}
 
-		Game *game = new Game();
-		game->loadGame(savename);
+		MouseManager::getManager()->clearCurrentlyFiring();
+		Game *oldGame = mEngine->getCurrentGame();
+		if (oldGame != NULL)
+		{
+			GfxEngine::getEngine()->getGameLayer()->clear();
+		}
+
+		if (mEngine->loadGame("testScenario1", savename))
+		{
+			Game *game = Engine::getGame();
+			if (game)
+			{
+				if (game->hasStarted())
+				{
+					startGame();
+				}
+				game->addEventListener("startGame", this);
+			}
+		}
 	}
 
 	void RougeSystem::onKeyUp(int key)
@@ -335,39 +367,18 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
-		if (mLuaEngine.hasGlobalFunction("newGame"))
+		if (mEngine->newGame("testScenario1"))
 		{
-			try
+			Game *game = Engine::getGame();
+			if (game)
 			{
-				mLuaEngine.push("testScenario1");
-				mLuaEngine.call(1, 1);
-				int result = mLuaEngine.toInteger();
-				if (result != 1)
+				if (game->hasStarted())
 				{
-					am_log("LUAERR", "Error starting scenario");
+					startGame();
 				}
-			}
-			catch(std::runtime_error err)
-			{
-				am_log("LUAERR", err.what());
-				return;
+				game->addEventListener("startGame", this);
 			}
 		}
-		else
-		{
-			am_log("ERROR", "Main engine script does not have a 'newGame' function");
-			return;
-		}
-		Game *game = Engine::getGame();
-		if (game)
-		{
-			if (game->hasStarted())
-			{
-				startGame();
-			}
-			game->addEventListener("startGame", this);
-		}
-
 	}
 	void RougeSystem::startGame()
 	{
@@ -379,7 +390,6 @@ namespace sys {
 		mPausedGame = false;
 
 		Game *game = Engine::getGame();
-		game->saveGame("save1");
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = game->getMainCharacter();

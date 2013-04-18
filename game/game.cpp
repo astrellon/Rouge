@@ -130,6 +130,7 @@ namespace game {
 
 			if (map)
 			{
+				map->setFilename(mapName.c_str());
 				mMaps[mapName] = map;
 			}
 			return map;
@@ -715,6 +716,11 @@ namespace game {
 		return mStarted;
 	}
 
+	const char *Game::getScenarioName() const
+	{
+		return mScenarioName.c_str();
+	}
+
 	void Game::saveGame(const char *saveName)
 	{
 		if (saveName == NULL || saveName[0] == '\0')
@@ -753,7 +759,7 @@ namespace game {
 		size_t i = 0;
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
-			gameData = iter->second->getSaveObject();
+			gameData = iter->second->serialise();
 			if (gameData)
 			{
 				output << gameData->toLua();
@@ -830,10 +836,17 @@ namespace game {
 				return -3;
 			}
 
-
+			for (auto iter = charData->begin(); iter != charData->end(); ++iter)
+			{
+				Handle<Character> newChar(new Character());
+				newChar->deserialise(mLoadingState, iter->get());
+				registerGameObject(newChar);
+			}
 			lua.pop(1);
 		}
 
+		mLoadingState->postLoad(this);
+		
 		return 1;
 	}
 
@@ -854,6 +867,7 @@ namespace game {
 		{
 			data->push("currentMap", mCurrentMap->getName());
 		}
+		data->push("scenarioName", mScenarioName.c_str());
 
 		return data;
 	}
@@ -876,6 +890,12 @@ namespace game {
 		if (str)
 		{
 			mLoadingState->setCurrentMap(str->string());
+		}
+
+		str = obj->at<data::String>("scenarioName");
+		if (str)
+		{
+			mScenarioName = str->string();
 		}
 	}
 

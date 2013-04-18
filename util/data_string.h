@@ -29,6 +29,8 @@ namespace data {
 
 		virtual std::string toLua() const;
 
+		static String *checkDataType(IData *data, const char *className);
+
 		const static int TYPE;
 		const static char *TYPENAME;
 

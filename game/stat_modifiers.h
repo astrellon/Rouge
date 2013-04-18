@@ -17,6 +17,8 @@ using namespace am::util;
 
 namespace game {
 
+	class LoadingState;
+
 	class StatModifiers : public IStatModifiers {
 	public:
 
@@ -34,7 +36,8 @@ namespace game {
 		virtual const StatModifierMap &getModifiers() const;
 		virtual StatModifierMap &getModifiers();
 
-		virtual data::IData *getSaveObject();
+		virtual data::IData *serialise();
+		virtual void deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

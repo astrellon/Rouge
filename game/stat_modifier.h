@@ -20,6 +20,7 @@ namespace game {
 	};
 
 	class Stats;
+	class LoadingState;
 
 	class StatModifier {
 	public:
@@ -43,7 +44,8 @@ namespace game {
 		bool operator==(const StatModifier &rhs) const;
 		bool operator!=(const StatModifier &rhs) const;
 
-		data::IData *getSaveObject();
+		virtual data::IData *serialise();
+		virtual bool deserialise(LoadingState *state, data::IData *data);
 
 		static StatModifierType getModifierType(const char *name);
 		static StatModifierType getModifierType(int value);

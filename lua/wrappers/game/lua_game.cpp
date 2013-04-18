@@ -117,6 +117,7 @@ namespace game {
 			
 			{ "start_game", Game_start_game },
 			{ "has_started", Game_has_started },
+			{ "load_game", Game_load_game },
 			{ NULL, NULL }
 		};
 
@@ -939,6 +940,27 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "has_started", "Game");
+	}
+
+	/**
+	 * Attemps to load the game from a save file.
+	 *
+	 * @param string saveName The name of the save file to load.
+	 * @returns integer A 1 for success, or 0 for error.
+	 */
+	int Game_load_game(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				lua_pushinteger(lua, game->loadGame(lua_tostring(lua, 2)));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "load_game", "string save_name");
+		}
+		return LuaState::expectedContext(lua, "load_game", "Game");
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)

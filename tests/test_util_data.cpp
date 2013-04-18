@@ -47,9 +47,9 @@ namespace tests {
 		map->push("array", arr2);
 		map->push("__comment", "Test comment");
 
-		equalsStr("Melli", (*map)["name"]->string());
-		equals(22, (*map)["age"]->integer());
-		equals(true, (*map)["female"]->boolean());
+		equalsStr("Melli", map->at("name")->string());
+		equals(22, map->at("age")->integer());
+		equals(true, map->at("female")->boolean());
 		Handle<Array> mapArr(map->at<Array>("array"));
 		assert(mapArr.get());
 
