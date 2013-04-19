@@ -253,7 +253,7 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
-		if (mEngine->loadGame("testScenario1", savename))
+		if (mEngine->loadGame(savename))
 		{
 			Game *game = Engine::getGame();
 			if (game)

@@ -117,7 +117,7 @@ namespace game {
 			if (!map)
 			{
 				stringstream ss;
-				ss << "Unable to load map during loading '" << iter->first << '\'';
+				ss << "Map failed to load '" << iter->first << '\'';
 				am_log("LOADERR", ss);
 				continue;
 			}

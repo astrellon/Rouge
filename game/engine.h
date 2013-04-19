@@ -89,7 +89,7 @@ namespace game {
 		bool loadLuaEngine(const char *scriptName);
 
 		bool newGame(const char *scenarioName);
-		bool loadGame(const char *scenarioName, const char *saveName);
+		bool loadGame(const char *saveName);
 
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);

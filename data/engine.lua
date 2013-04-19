@@ -22,9 +22,13 @@ function newGame(scenario_name)
 	return 1
 end
 
-function loadGame(scenario_name, save_name)
+function loadGame(save_name)
 	game = Game.new()
 	Engine.game(game)
+	
+	game:load_game(save_name);
+	
+	scenario_name = game:scenario_name()
 	
 	scenario = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
 	if (scenario == nil) then
@@ -32,7 +36,6 @@ function loadGame(scenario_name, save_name)
 		return 0
 	end
 	
-	game:load_game(save_name)
 	scenario().loadGame(game)
 	
 	return 1

@@ -553,18 +553,42 @@ namespace game {
 			}
 		}
 
+		Handle<data::Map> bodyParts(dataMap->at<data::Map>("bodyParts"));
+		if (bodyParts)
+		{
+			for (auto iter = bodyParts->begin(); iter != bodyParts->end(); ++iter)
+			{
+				BodyPart *part = new BodyPart(iter->first.c_str());
+				if (!part->deserialise(state, iter->second.get()))
+				{
+					delete part;
+					continue;
+				}
+				addBodyPart(part);
+			}
+		}
+
 		Handle<data::IData> tempData(dataMap->at("inventory"));
 		if (tempData)
 		{
 			mInventory->deserialise(state, tempData);
 		}
 
+		tempData = dataMap->at("stats");
+		if (tempData)
+		{
+			mStats.deserialise(state, tempData);
+		}
+
 		tempData = dataMap->at("graphic");
 		if (tempData)
 		{
-			mGraphic = new Sprite();
-			mGraphic->deserialise(state, tempData);
+			Sprite *graphic = new Sprite();
+			graphic->deserialise(state, tempData);
+			setGraphic(graphic, false);
 		}
+
+		return 1;
 	}
 
 	void Character::_equipItem(Item *item, const char *bodyPartName)

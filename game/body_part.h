@@ -19,6 +19,8 @@ using namespace am::util;
 
 namespace game {
 
+	class LoadingState;
+
 	class BodyPart {
 	public:
 		typedef map<string, BodyPart *> BodyPartMap;
@@ -33,6 +35,7 @@ namespace game {
 		virtual Item *getEqippedItem() const;
 
 		virtual data::IData *serialise();
+		virtual bool deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

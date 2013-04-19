@@ -27,6 +27,7 @@ using namespace am::util;
 namespace game {
 
 	class GameObject;
+	class LoadingState;
 
 	class Stats : public IStatModifiers, public IManaged {
 	public:
@@ -57,6 +58,7 @@ namespace game {
 		virtual const StatModifiers &getStatModifiers() const;
 
 		virtual data::IData *serialise();
+		virtual void deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

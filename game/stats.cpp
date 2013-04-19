@@ -1,8 +1,11 @@
 #include "stats.h"
 
 #include "game_object.h"
+#include "loading_state.h"
 
 #include <util/data_map.h>
+#include <util/data_array.h>
+#include <util/data_number.h>
 
 namespace am {
 namespace game {
@@ -196,6 +199,49 @@ namespace game {
 		output->push("modifiers", mModifiers.serialise());
 
 		return output;
+	}
+	void Stats::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stats"));
+		if (!dataMap)
+		{
+			return;
+		}
+
+		Handle<data::Map> baseStats(dataMap->at<data::Map>("baseStats"));
+		if (baseStats)
+		{
+			for (auto iter = baseStats->begin(); iter != baseStats->end(); ++iter)
+			{
+				Stat::StatType type = Stat::getStatType(iter->first.c_str());
+				if (type == Stat::MAX_STAT_LENGTH)
+				{
+					stringstream ss;
+					ss << "Unknown stat '" << iter->first << '\'';
+					am_log("LOADERR", ss);
+					continue;
+				}
+				Handle<data::Number> num(dynamic_cast<data::Number *>(iter->second.get()));
+				if (num)
+				{
+					setBaseStat(type, num->value<float>());
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Cannot load base stat '" << iter->first << "' from a '";
+					ss << iter->second->typeName() << "'";
+					am_log("LOADERR", ss);
+					continue;
+				}
+			}
+		}
+
+		Handle<data::IData> tempData(dataMap->at("modifiers"));
+		if (tempData)
+		{
+			mModifiers.deserialise(state, tempData);
+		}
 	}
 	
 }

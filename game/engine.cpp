@@ -304,18 +304,21 @@ namespace game {
 			am_log("ERROR", "Main engine script does not have a 'newGame' function");
 			return false;
 		}
+		if (mCurrentGame)
+		{
+			mCurrentGame->setScenarioName(scenarioName);
+		}
 		return true;
 	}
 
-	bool Engine::loadGame(const char *scenarioName, const char *saveName)
+	bool Engine::loadGame(const char *saveName)
 	{
 		if (mLua.hasGlobalFunction("loadGame"))
 		{
 			try
 			{
-				mLua.push(scenarioName);
 				mLua.push(saveName);
-				mLua.call(2, 1);
+				mLua.call(1, 1);
 				int result = mLua.toInteger();
 				if (result != 1)
 				{

@@ -121,6 +121,7 @@ namespace game {
 		// LoadingState
 		LoadingState *getLoadingState();
 
+		void setScenarioName(const char *scenarioName);
 		const char *getScenarioName() const;
 
 		static const int LUA_ID;

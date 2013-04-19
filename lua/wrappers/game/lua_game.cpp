@@ -118,6 +118,7 @@ namespace game {
 			{ "start_game", Game_start_game },
 			{ "has_started", Game_has_started },
 			{ "load_game", Game_load_game },
+			{ "scenario_name", Game_scenario_name },
 			{ NULL, NULL }
 		};
 
@@ -961,6 +962,24 @@ namespace game {
 			return LuaState::expectedArgs(lua, "load_game", "string save_name");
 		}
 		return LuaState::expectedContext(lua, "load_game", "Game");
+	}
+
+	/**
+	 * Returns the scenario name which this game is based off.
+	 * 
+	 * The scenario name is set by the engine during a new game.
+	 *
+	 * @returns string The games scenario name.
+	 */
+	int Game_scenario_name(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			lua_pushstring(lua, game->getScenarioName());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "scenario_name", "Game");
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)

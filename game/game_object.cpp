@@ -446,16 +446,19 @@ namespace game {
 			mOnlyOnPassable = boo->boolean();
 		}
 
+		float locationX = mLocationX;
+		float locationY = mLocationY;
 		Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
 		if (num)
 		{
-			mLocationX = num->number<float>();
+			locationX = num->number<float>();
 		}
 		num = dataMap->at<data::Number>("locationY");
 		if (num)
 		{
-			mLocationY = num->number<float>();
+			locationY = num->number<float>();
 		}
+		setLocation(locationX, locationY);
 
 		num = dataMap->at<data::Number>("cameraOffsetX");
 		if (num)

@@ -3,6 +3,8 @@
 #include <util/data_map.h>
 using namespace am::util;
 
+#include "loading_state.h"
+
 namespace am {
 namespace game {
 
@@ -45,12 +47,31 @@ namespace game {
 	data::IData *BodyPart::serialise()
 	{
 		data::Map *output = new data::Map();
-		output->push("name", mName);
 		if (mEquippedItem)
 		{
 			output->push("equippedItem", mEquippedItem->serialise());
 		}
 		return output;
+	}
+
+	bool BodyPart::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "body part"));
+		if (!dataMap)
+		{
+			return false;
+		}
+
+		Handle<data::IData> tempData(dataMap->at("equippedItem"));
+		if (tempData)
+		{
+			Handle<Item> item(new Item());
+			if (item->deserialise(state, tempData) == 1)
+			{
+				setEquippedItem(item);
+			}
+		}
+		return true;
 	}
 
 	/*void BodyPart::addBodyPart(BodyPart *part)

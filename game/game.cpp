@@ -716,6 +716,10 @@ namespace game {
 		return mStarted;
 	}
 
+	void Game::setScenarioName(const char *scenarioName)
+	{
+		mScenarioName = scenarioName;
+	}
 	const char *Game::getScenarioName() const
 	{
 		return mScenarioName.c_str();
@@ -865,7 +869,7 @@ namespace game {
 		}
 		if (mCurrentMap)
 		{
-			data->push("currentMap", mCurrentMap->getName());
+			data->push("currentMap", mCurrentMap->getFilename());
 		}
 		data->push("scenarioName", mScenarioName.c_str());
 
