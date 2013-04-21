@@ -57,7 +57,7 @@ namespace data {
 
 		virtual std::string toLua() const;
 
-		static Map *checkDataType(IData *data, const char *className);
+		static Map *checkDataType(IData *data, const char *className, bool checkEmpty = true);
 
 		const static int TYPE;
 		const static char *TYPENAME;

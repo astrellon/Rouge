@@ -1,6 +1,7 @@
 #include "body_part.h"
 
 #include <util/data_map.h>
+#include <util/data_array.h>
 using namespace am::util;
 
 #include "loading_state.h"

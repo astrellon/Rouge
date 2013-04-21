@@ -492,6 +492,8 @@ namespace game {
 		{
 			output->push("graphic", mGraphic->serialise());
 		}
+
+		output->push("levelable", Levelable::serialise());
 		return output;
 	}
 	int Character::deserialise(LoadingState *state, data::IData *data)
@@ -586,6 +588,12 @@ namespace game {
 			Sprite *graphic = new Sprite();
 			graphic->deserialise(state, tempData);
 			setGraphic(graphic, false);
+		}
+
+		tempData = dataMap->at("levelable");
+		if (tempData)
+		{
+			Levelable::deserialise(state, tempData);
 		}
 
 		return 1;

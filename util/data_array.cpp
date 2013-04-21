@@ -7,6 +7,7 @@
 #include "data_boolean.h"
 #include "data_number.h"
 #include "data_string.h"
+#include "data_map.h"
 
 namespace am {
 namespace util {
@@ -87,8 +88,24 @@ namespace data {
 		return str;
 	}
 
-	Array *Array::checkDataType(IData *data, const char *className)
+	Array *Array::checkDataType(IData *data, const char *className, bool checkEmpty)
 	{
+		if (checkEmpty)
+		{
+			Handle<Array> arr(dynamic_cast<Array *>(data));
+			if (!arr)
+			{
+				Handle<Map> map(dynamic_cast<Map *>(data));
+				if (map)
+				{
+					if (map->inner().size() > 0)
+					{
+						IData::logCheckErrorMessage<Array>(map->typeName(), className);
+					}
+				}
+			}
+			return arr;
+		}
 		return IData::checkDataType<Array>(data, className);
 	}
 

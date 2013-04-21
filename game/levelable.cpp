@@ -1,5 +1,11 @@
 #include "levelable.h"
 
+#include <util/idata.h>
+#include <util/data_map.h>
+#include <util/data_number.h>
+
+#include "loading_state.h"
+
 namespace am {
 namespace game {
 
@@ -75,6 +81,41 @@ namespace game {
 			mExperience = getExperienceForLevel(mLevel);
 			onLevelUp();
 		}
+	}
+
+	data::IData *Levelable::serialise()
+	{
+		data::Map *output = new data::Map();
+		output->push("level", mLevel);
+		output->push("maxLevel", mMaxLevel);
+		output->push("experience", mExperience);
+
+		return output;
+	}
+	int Levelable::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Map> dataMap(data::Map::checkDataType(data, "levelable"));
+		if (!dataMap)
+		{
+			return 0;
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("maxLevel"));
+		if (num)
+		{
+			setMaxLevel(num->value<short>());
+		}
+		num = dataMap->at<data::Number>("level");
+		if (num)
+		{
+			setLevel(num->value<short>());
+		}
+		num = dataMap->at<data::Number>("experience");
+		if (num)
+		{
+			setExperience(num->valuei());
+		}
+		return 1;
 	}
 
 	inline void Levelable::_setExperience(int exp)

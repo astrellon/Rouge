@@ -55,7 +55,7 @@ namespace data {
 
 		Array_internal &inner();
 
-		static Array *checkDataType(IData *data, const char *className);
+		static Array *checkDataType(IData *data, const char *className, bool checkEmpty = true);
 
 		virtual std::string toLua() const;
 

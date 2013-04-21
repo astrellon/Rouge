@@ -6,6 +6,7 @@
 
 #include "data_boolean.h"
 #include "data_number.h"
+#include "data_array.h"
 #include "data_string.h"
 
 namespace am {
@@ -139,8 +140,24 @@ namespace data {
 		}
 	}
 
-	Map *Map::checkDataType(IData *data, const char *className)
+	Map *Map::checkDataType(IData *data, const char *className, bool checkEmpty)
 	{
+		if (checkEmpty)
+		{
+			Handle<Map> map(dynamic_cast<Map *>(data));
+			if (!map)
+			{
+				Handle<Array> arr(dynamic_cast<Array *>(data));
+				if (arr)
+				{
+					if (arr->inner().size() > 0)
+					{
+						IData::logCheckErrorMessage<Map>(arr->typeName(), className);
+					}
+				}
+			}
+			return map;
+		}
 		return IData::checkDataType<Map>(data, className);
 	}
 

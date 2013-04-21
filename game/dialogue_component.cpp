@@ -193,7 +193,10 @@ namespace game {
 		data::Array *available = new data::Array();
 		for (auto iter = mDialoguesAvailable.begin(); iter != mDialoguesAvailable.end(); ++iter)
 		{
-			available->push(iter->first);
+			if (iter->second)
+			{
+				available->push(iter->first);
+			}
 		}
 		output->push("dialoguesAvailable", available);
 

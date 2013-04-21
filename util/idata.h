@@ -42,15 +42,12 @@ namespace data {
 		}
 
 		template <class T>
-		static T *checkDataType(IData *data, const char *className)
+		static T *checkDataType(IData *data, const char *className, bool logMessage = true)
 		{
 			T *result = dynamic_cast<T *>(data);
 			if (!result)
 			{
-				std::stringstream ss;
-				ss << "Unable to load " << className << " from '" << data->typeName()
-					<< "', must be a " << T::TYPENAME;
-				am_log("LOADERR", ss);
+				logCheckErrorMessage<T>(data->typeName(), className);
 				return NULL;
 			}
 			return result;
@@ -62,6 +59,17 @@ namespace data {
 
 		const static int TYPE;
 		const static char *TYPENAME;
+
+	protected:
+
+		template <class T>
+		static void logCheckErrorMessage(const char *dataType, const char *className)
+		{
+			std::stringstream ss;
+			ss << "Unable to load " << className << " from '" << dataType
+			   << "', must be a " << T::TYPENAME;
+			am_log("LOADERR", ss);
+		}
 
 	};
 

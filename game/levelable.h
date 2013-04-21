@@ -4,7 +4,16 @@
 using namespace am::ui;
 
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
+
+	class LoadingState;
 
 	class Levelable {
 	public:
@@ -22,6 +31,9 @@ namespace game {
 
 		virtual void setMaxLevel(short level);
 		virtual short getMaxLevel() const;
+
+		virtual data::IData *serialise();
+		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		virtual int getExperienceForLevel(short level) const;
 		virtual short getLevelFromExperience(int experience) const;

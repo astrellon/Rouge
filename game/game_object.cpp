@@ -391,6 +391,7 @@ namespace game {
 		output->push("locationY", mLocationY);
 		output->push("cameraOffsetX", mCameraOffsetX);
 		output->push("cameraOffsetY", mCameraOffsetY);
+		output->push("name", mName);
 
 		Handle<data::Array> passibleTypes(new data::Array());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
@@ -471,6 +472,12 @@ namespace game {
 			mCameraOffsetY = num->number<float>();
 		}
 
+		str = dataMap->at<data::String>("name");
+		if (str)
+		{
+			setName(str->string());
+		}
+
 		Handle<data::Array> arr(dataMap->at<data::Array>("passibleTypes"));
 		if (arr)
 		{
@@ -523,6 +530,7 @@ namespace game {
 		{
 			DialogueComponent *comp = new DialogueComponent();
 			comp->deserialise(state, tempData);
+			setDialogueComp(comp);
 		}
 
 		return 1;
