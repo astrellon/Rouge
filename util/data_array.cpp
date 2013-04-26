@@ -16,18 +16,42 @@ namespace data {
 	const int Array::TYPE = 4;
 	const char *Array::TYPENAME = "Array";
 
+	const int Array::LUA_ID = 0x18;
+	const char *Array::LUA_TABLENAME = "am_util_data_Array";
+
 	Array::Array()
 	{
 	}
+	Array::Array(const Array &copy) :
+		mComment(copy.mComment)
+	{
+		for (auto iter = copy.begin(); iter != copy.end(); ++iter)
+		{
+			mValue.push_back((*iter)->clone());
+		}
+	}
 	Array::~Array()
 	{
+	}
+
+	IData *Array::clone() const
+	{
+		return new Array(*this);
 	}
 
 	Array::iterator Array::begin()
 	{
 		return mValue.begin();
 	}
+	Array::const_iterator Array::begin() const
+	{
+		return mValue.begin();
+	}
 	Array::iterator Array::end()
+	{
+		return mValue.end();
+	}
+	Array::const_iterator Array::end() const
 	{
 		return mValue.end();
 	}
@@ -57,6 +81,10 @@ namespace data {
 		mValue.push_back(new String(v.c_str()));
 	}
 
+	void Array::remove(unsigned int index)
+	{
+		mValue.erase(mValue.begin() + index);
+	}
 	IData *Array::operator[](unsigned int index)
 	{
 		return mValue[index];
@@ -64,6 +92,22 @@ namespace data {
 	IData *Array::at(unsigned int index) const
 	{
 		return mValue[index];
+	}
+
+	void Array::comment(const char *comment)
+	{
+		if (comment == NULL)
+		{
+			mComment.clear();
+		}
+		else
+		{
+			mComment = comment;
+		}
+	}
+	const char *Array::comment() const
+	{
+		return mComment.c_str();
 	}
 
 	Array::Array_internal &Array::inner()

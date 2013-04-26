@@ -11,6 +11,7 @@ namespace data {
 
 		Boolean();
 		Boolean(bool v);
+		Boolean(const Boolean &copy);
 		~Boolean();
 
 		virtual int type() const
@@ -21,6 +22,8 @@ namespace data {
 		{
 			return TYPENAME;
 		}
+
+		virtual IData *clone() const;
 
 		void value(bool v);
 		bool value() const;

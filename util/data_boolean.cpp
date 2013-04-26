@@ -15,8 +15,17 @@ namespace data {
 		mValue(v)
 	{
 	}
+	Boolean::Boolean(const Boolean &copy) :
+		mValue(copy.mValue)
+	{
+	}
 	Boolean::~Boolean()
 	{
+	}
+
+	IData *Boolean::clone() const
+	{
+		return new Boolean(*this);
 	}
 
 	void Boolean::value(bool v)

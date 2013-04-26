@@ -38,12 +38,14 @@
 #include <game/race.h>
 #include "game/lua_dialogue_component.h"
 #include <game/dialogue_component.h>
-
 using namespace am::lua::game;
 
 #include "gfx/lua_sprite.h"
 #include <gfx/gfx_sprite.h>
 using namespace am::lua::gfx;
+
+#include "util/lua_data_map.h"
+#include <util/data_map.h>
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -75,6 +77,8 @@ namespace wrapper {
 		LuaState::registerWrapper("DialogueComponent", DialogueComponent_register, DialogueComponent::LUA_ID);
 
 		LuaState::registerWrapper("Sprite", Sprite_register, Sprite::LUA_ID);
+
+		LuaState::registerWrapper("DataMap", am::lua::util::data::DataMap_register, data::Map::LUA_ID);
 	}
 	
 }

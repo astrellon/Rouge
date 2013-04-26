@@ -17,9 +17,13 @@ namespace data {
 
 		typedef std::map<std::string, Handle<IData> > Map_internal;
 		typedef Map_internal::iterator iterator;
+		typedef Map_internal::const_iterator const_iterator;
 
 		Map();
+		Map(const Map &copy);
 		~Map();
+
+		virtual IData *clone() const;
 
 		virtual int type() const
 		{
@@ -31,7 +35,9 @@ namespace data {
 		}
 
 		iterator begin();
+		const_iterator begin() const;
 		iterator end();
+		const_iterator end() const;
 
 		void push(const std::string &key, IData *v);
 		void push(const std::string &key, double v);
@@ -55,6 +61,9 @@ namespace data {
 
 		Map_internal &inner();
 
+		virtual void comment(const char *comment);
+		virtual const char *comment() const;
+
 		virtual std::string toLua() const;
 
 		static Map *checkDataType(IData *data, const char *className, bool checkEmpty = true);
@@ -62,9 +71,13 @@ namespace data {
 		const static int TYPE;
 		const static char *TYPENAME;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		Map_internal mValue;
+		std::string mComment;
 
 		static int sDepth;
 

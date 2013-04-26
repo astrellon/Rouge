@@ -118,6 +118,9 @@
     <Filter Include="sys\base\mem">
       <UniqueIdentifier>{64b317d7-4105-45aa-8438-cf135cbaf096}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua\wrapper\util">
+      <UniqueIdentifier>{f05e3168-2e51-4199-8462-d6f4a102189a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -729,6 +732,15 @@
     </ClCompile>
     <ClCompile Include="game\loading_state.cpp">
       <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\util\lua_data_map.cpp">
+      <Filter>lua\wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_data_map.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\util\lua_data_array.cpp">
+      <Filter>lua\wrapper\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1344,6 +1356,15 @@
     </ClInclude>
     <ClInclude Include="game\loading_state.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\util\lua_data_map.h">
+      <Filter>lua\wrapper\util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_data_map.h">
+      <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\util\lua_data_array.h">
+      <Filter>lua\wrapper\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

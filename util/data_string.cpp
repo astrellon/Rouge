@@ -14,8 +14,17 @@ namespace data {
 		mValue(v)
 	{
 	}
+	String::String(const String &copy) :
+		mValue(copy.mValue)
+	{
+	}
 	String::~String()
 	{
+	}
+
+	IData *String::clone() const
+	{
+		return new String(*this);
 	}
 
 	void String::value(const char *v)

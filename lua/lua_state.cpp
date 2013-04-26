@@ -23,6 +23,7 @@ namespace lua {
 
 	LuaState::WrapperMap LuaState::sWrapperMap;
 	LuaState::WrapperIdMap LuaState::sWrapperIdMap;
+	int LuaState::sWrapperMaxId = -1;
 	int LuaState::sDepth = 0;
 
 	LuaState::LuaState(bool includeLibraries)
@@ -477,6 +478,14 @@ namespace lua {
 	{
 		sWrapperMap[string(name)] = call;
 		sWrapperIdMap[id] = string(name);
+		if (id > sWrapperMaxId)
+		{
+			sWrapperMaxId = id;
+		}
+	}
+	int LuaState::getMaxRegisteredId()
+	{
+		return sWrapperMaxId;
 	}
 	int LuaState::getWrapper(lua_State *lua)
 	{

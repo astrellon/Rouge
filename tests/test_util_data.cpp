@@ -45,7 +45,7 @@ namespace tests {
 		map->push("age", 22);
 		map->push("female", true);
 		map->push("array", arr2);
-		map->push("__comment", "Test comment");
+		map->comment("Test comment");
 
 		equalsStr("Melli", map->at("name")->string());
 		equals(22, map->at("age")->integer());

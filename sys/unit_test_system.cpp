@@ -32,6 +32,7 @@ using namespace am::gfx;
 #include <tests/test_item.h>
 #include <tests/test_path_tokeniser.h>
 #include <tests/test_util_data.h>
+#include <tests/test_lua_data_map.h>
 using namespace am::tests;
 
 namespace am {
@@ -99,6 +100,7 @@ namespace sys {
 		runSuite(TestItem);
 		runSuite(TestPathTokeniser);
 		runSuite(TestUtilData);
+		runSuite(TestLuaDataMap);
 
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)

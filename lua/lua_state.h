@@ -222,6 +222,7 @@ namespace lua {
 		static int getWrapper(lua_State *lua);
 		static int luaAssert(lua_State *lua);
 		static void clearRegistered();
+		static int getMaxRegisteredId();
 
 		static void logStack(lua_State *lua, const char *cat);
 		static void printStack(lua_State *lua, ostream &output);
@@ -242,6 +243,7 @@ namespace lua {
 
 		static WrapperMap sWrapperMap;
 		static WrapperIdMap sWrapperIdMap;
+		static int sWrapperMaxId;
 
 		static int sDepth;
 		static jmp_buf sRecoverBuff;

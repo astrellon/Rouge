@@ -10,7 +10,7 @@
 namespace am {
 namespace game {
 
-	const int Stats::LUA_ID = 0x02;
+	const int Stats::LUA_ID = 0x01;
 	const char *Stats::LUA_TABLENAME = "am_game_Stats";
 
 	Stats::Stats() :

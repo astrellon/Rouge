@@ -29,7 +29,8 @@ namespace game {
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
 		mMap(NULL),
-		mOriginalMap(NULL)
+		mOriginalMap(NULL),
+		mAttributes(new data::Map())
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -45,8 +46,13 @@ namespace game {
 		mCameraOffsetY(copy.mCameraOffsetY),
 		mPassibleTypes(copy.mPassibleTypes),
 		mMap(NULL),
-		mOriginalMap(NULL)
+		mOriginalMap(NULL),
+		mAttributes(NULL)
 	{
+		if (copy.mAttributes)
+		{
+			mAttributes = dynamic_cast<data::Map *>(copy.mAttributes->clone());
+		}
 		if (copy.mMap)
 		{
 			copy.mMap->addGameObject(this);

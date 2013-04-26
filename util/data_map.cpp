@@ -18,18 +18,42 @@ namespace data {
 	const int Map::TYPE = 6;
 	const char *Map::TYPENAME = "Map";
 
+	const int Map::LUA_ID = 0x17;
+	const char *Map::LUA_TABLENAME = "am_util_data_Map";
+
 	Map::Map()
 	{
 	}
+	Map::Map(const Map &copy) :
+		mComment(copy.mComment)
+	{
+		for (auto iter = copy.begin(); iter != copy.end(); ++iter)
+		{
+			mValue[iter->first] = iter->second->clone();
+		}
+	}
 	Map::~Map()
 	{
+	}
+
+	IData *Map::clone() const
+	{
+		return new Map(*this);
 	}
 
 	Map::iterator Map::begin()
 	{
 		return mValue.begin();
 	}
+	Map::const_iterator Map::begin() const
+	{
+		return mValue.begin();
+	}
 	Map::iterator Map::end()
+	{
+		return mValue.end();
+	}
+	Map::const_iterator Map::end() const
 	{
 		return mValue.end();
 	}
@@ -85,25 +109,17 @@ namespace data {
 		tabsLong += '\t';
 
 		bool first = true;
-		auto cmtIter = mValue.find("__comment");
-		Handle<data::IData> comment;
-		
-		if (cmtIter != mValue.end() && cmtIter->second->type() == data::String::TYPE)
+		if (!mComment.empty())
 		{
-			comment = cmtIter->second;
 			str += tabsLong;
 			str += "--[[ ";
-			str += cmtIter->second->string();
+			str += mComment;
 			str += " --]]\n";
 			--size;
 		}
 		size_t i = 0;
 		for (auto iter = mValue.begin(); iter != mValue.end(); ++iter)
 		{
-			if (cmtIter == iter)
-			{
-				continue;
-			}
 			str += tabsLong;
 			str += iter->first;
 			str += " = ";
@@ -120,6 +136,22 @@ namespace data {
 		str += tabsShort;
 		str += '}';
 		return str;
+	}
+
+	void Map::comment(const char *comment)
+	{
+		if (comment == NULL)
+		{
+			mComment.clear();
+		}
+		else
+		{
+			mComment = comment;
+		}
+	}
+	const char *Map::comment() const
+	{
+		return mComment.c_str();
 	}
 
 	void Map::changeDepth(int delta)

@@ -23,8 +23,17 @@ namespace data {
 		mValue(v)
 	{
 	}
+	Number::Number(const Number &copy) :
+		mValue(copy.mValue)
+	{
+	}
 	Number::~Number()
 	{
+	}
+
+	IData *Number::clone() const
+	{
+		return new Number(*this);
 	}
 
 	void Number::value(double v)

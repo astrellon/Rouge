@@ -13,6 +13,7 @@ namespace data {
 
 		String();
 		String(const char *v);
+		String(const String &copy);
 		~String();
 
 		virtual int type() const
@@ -23,6 +24,8 @@ namespace data {
 		{
 			return TYPENAME;
 		}
+
+		virtual IData *clone() const;
 
 		void value(const char *v);
 		const char *value() const;

@@ -18,6 +18,7 @@ namespace am {
 namespace util {
 namespace data {
 	class IData;
+	class Map;
 }
 }
 using namespace am::util;
@@ -85,6 +86,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
+		//virtual data::IData *getAttributes();
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -110,6 +113,8 @@ namespace game {
 
 		Map *mMap;
 		Map *mOriginalMap;
+
+		data::Map *mAttributes;
 
 		Handle<DialogueComponent> mDialogueComp;
 

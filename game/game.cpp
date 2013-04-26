@@ -862,7 +862,7 @@ namespace game {
 	data::IData *Game::saveGameData()
 	{
 		data::Map *data = new data::Map();
-		data->push("__comment", "This contains data about the current game.");
+		data->comment("This contains data about the current game.");
 		if (mMainCharacter)
 		{
 			data->push("mainChar", mMainCharacter->getGameId());

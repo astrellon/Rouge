@@ -16,8 +16,10 @@ namespace data {
 
 		typedef std::vector< Handle<IData> > Array_internal;
 		typedef Array_internal::iterator iterator;
+		typedef Array_internal::const_iterator const_iterator;
 
 		Array();
+		Array(const Array &copy);
 		~Array();
 
 		virtual int type() const
@@ -29,8 +31,12 @@ namespace data {
 			return TYPENAME;
 		}
 
+		virtual IData *clone() const;
+
 		iterator begin();
+		const_iterator begin() const;
 		iterator end();
+		const_iterator end() const;
 
 		void push(IData *v);
 		void push(double v);
@@ -42,6 +48,7 @@ namespace data {
 		IData *operator[](unsigned int index);
 
 		IData *at(unsigned int index) const;
+		void remove(unsigned int index);
 
 		template <class T>
 		T *at(unsigned int index) const
@@ -55,16 +62,23 @@ namespace data {
 
 		Array_internal &inner();
 
+		virtual void comment(const char *comment);
+		virtual const char *comment() const;
+
 		static Array *checkDataType(IData *data, const char *className, bool checkEmpty = true);
 
 		virtual std::string toLua() const;
 
-		const static int TYPE;
-		const static char *TYPENAME;
+		static const int TYPE;
+		static const char *TYPENAME;
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 
 		Array_internal mValue;
+		std::string mComment;
 	};
 
 }

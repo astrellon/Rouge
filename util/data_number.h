@@ -12,6 +12,7 @@ namespace data {
 		Number();
 		Number(int v);
 		Number(double v);
+		Number(const Number &copy);
 		~Number();
 
 		virtual int type() const
@@ -22,6 +23,8 @@ namespace data {
 		{
 			return TYPENAME;
 		}
+
+		virtual IData *clone() const;
 
 		void value(double v);
 		void value(int v);

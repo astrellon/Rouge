@@ -26,6 +26,8 @@ namespace data {
 			return TYPENAME;
 		}
 
+		virtual IData *clone() const = 0;
+
 		const char *string() const;
 		int integer() const;
 		double number() const;
