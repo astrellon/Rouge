@@ -60,6 +60,7 @@ namespace data {
 		}
 
 		Map_internal &inner();
+		void remove(const char *key);
 
 		virtual void comment(const char *comment);
 		virtual const char *comment() const;

@@ -238,9 +238,6 @@
     <ClCompile Include="sys\game_system.cpp">
       <Filter>sys\base</Filter>
     </ClCompile>
-    <ClCompile Include="sys\rouge_system.cpp">
-      <Filter>sys\rouge</Filter>
-    </ClCompile>
     <ClCompile Include="sys\win_system.cpp">
       <Filter>sys\win</Filter>
     </ClCompile>
@@ -741,6 +738,12 @@
     </ClCompile>
     <ClCompile Include="lua\wrappers\util\lua_data_array.cpp">
       <Filter>lua\wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="sys\rouge_system.cpp">
+      <Filter>sys\rouge</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_nil.cpp">
+      <Filter>util\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1365,6 +1368,9 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\util\lua_data_array.h">
       <Filter>lua\wrapper\util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_nil.h">
+      <Filter>util\data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

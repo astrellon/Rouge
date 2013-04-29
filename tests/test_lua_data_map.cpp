@@ -31,7 +31,7 @@ namespace tests {
 	bool TestLuaDataMap::testSimple() {
 		LuaState lua;
 		
-		bool loadResult = lua.loadString("DataMap = import(\"DataMap\")\n"
+		bool loadResult = lua.loadString("DataMap, DataArray = import(\"DataMap\", \"DataArray\")\n"
 			"map = DataMap.new()\n"
 			"map:at(\"num\", 5)\n"
 			"map:at(\"str\", \"test\")\n"
@@ -40,9 +40,28 @@ namespace tests {
 			"	y = 3.2,\n"
 			"	origin = false\n"
 			"})\n"
+			"map:at(\"niltest\", nil)\n"
 			"map:at(\"names\", {\"jeb\", \"bob\", \"bill\"})\n"
 			"function getMap()\n"
 			"	return map\n"
+			"end\n"
+			"size = 0\n"
+			"check_key = {\n"
+			"	num = 5,\n"
+			"	str = \"test\",\n"
+			"	pos = map:at(\"pos\"),\n"
+			"	names = map:at(\"names\"),\n"
+			"	niltest = nil\n"
+			"}\n"
+			"function loop()\n"
+			"	size = 0\n"
+			"	map:each(function(key, value)\n"
+			"		size = size + 1\n"
+			"		if (check_key[key] ~= value) then\n"
+			"			am_log(\"Did not match: \", key, \" = \", value)\n"
+			"			assert(false)\n"
+			"		end\n"
+			"	end)\n"
 			"end\n"
 			);
 		if (!loadResult)
@@ -52,7 +71,7 @@ namespace tests {
 		}
 
 		assert(lua.hasGlobalFunction("getMap"));
-		lua.call(0, 1);
+		lua_acall(lua, 0, 1);
 
 		Handle<util::data::Map> dataMap(castUData<util::data::Map>(lua, -1));
 		assert(dataMap);
@@ -96,6 +115,9 @@ namespace tests {
 		str = names->at<util::data::String>(2);
 		assert(str);
 		equalsStr("bill", str->string());
+
+		assert(lua.hasGlobalFunction("loop"));
+		lua_acall(lua, 0, 0);
 
 		return true;
 	}

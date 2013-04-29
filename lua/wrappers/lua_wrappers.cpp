@@ -46,6 +46,8 @@ using namespace am::lua::gfx;
 
 #include "util/lua_data_map.h"
 #include <util/data_map.h>
+#include "util/lua_data_array.h"
+#include <util/data_array.h>
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -79,6 +81,7 @@ namespace wrapper {
 		LuaState::registerWrapper("Sprite", Sprite_register, Sprite::LUA_ID);
 
 		LuaState::registerWrapper("DataMap", am::lua::util::data::DataMap_register, data::Map::LUA_ID);
+		LuaState::registerWrapper("DataArray", am::lua::util::data::DataArray_register, data::Array::LUA_ID);
 	}
 	
 }

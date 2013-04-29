@@ -394,6 +394,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="util\data_array.cpp" />
     <ClCompile Include="util\data_boolean.cpp" />
     <ClCompile Include="util\data_map.cpp" />
+    <ClCompile Include="util\data_nil.cpp" />
     <ClCompile Include="util\data_number.cpp" />
     <ClCompile Include="util\data_string.cpp" />
     <ClCompile Include="util\idata.cpp" />
@@ -604,6 +605,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="util\data_array.h" />
     <ClInclude Include="util\data_boolean.h" />
     <ClInclude Include="util\data_map.h" />
+    <ClInclude Include="util\data_nil.h" />
     <ClInclude Include="util\data_number.h" />
     <ClInclude Include="util\data_string.h" />
     <ClInclude Include="util\idata.h" />

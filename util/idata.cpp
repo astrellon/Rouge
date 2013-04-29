@@ -6,6 +6,7 @@
 #include "data_boolean.h"
 #include "data_array.h"
 #include "data_map.h"
+#include "data_nil.h"
 
 #include <math/math.h>
 
@@ -15,6 +16,8 @@ namespace data {
 
 	const int IData::TYPE = 0;
 	const char *IData::TYPENAME = "IData";
+
+	IData *IData::NIL = new Nil();
 
 	const char *IData::string() const
 	{
@@ -46,6 +49,10 @@ namespace data {
 		{
 			return dynamic_cast<const Boolean *>(this)->value();
 		}
+		return false;
+	}
+	bool IData::isNil() const
+	{
 		return false;
 	}
 
@@ -102,6 +109,10 @@ namespace data {
 			else if (type == LUA_TBOOLEAN)
 			{
 				return new Boolean(lua_tobool(lua, n));
+			}
+			else if (type == LUA_TNIL)
+			{
+				return NIL;
 			}
 			return NULL;
 		}

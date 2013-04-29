@@ -22,3 +22,7 @@ TileType lua_tile_type.cpp
 
 __basePath ../lua/wrappers/gfx/
 Sprite lua_sprite.cpp
+
+__basePath ../lua/wrappers/util/
+DataMap lua_data_map.cpp
+DataArray lua_data_array.cpp

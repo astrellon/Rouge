@@ -32,6 +32,7 @@ namespace data {
 		int integer() const;
 		double number() const;
 		bool boolean() const;
+		virtual bool isNil() const;
 
 		template <class T>
 		T number() const
@@ -58,6 +59,8 @@ namespace data {
 		virtual std::string toLua() const = 0;
 
 		static IData *fromLua(LuaState &lua, int n);
+
+		static IData *NIL;
 
 		const static int TYPE;
 		const static char *TYPENAME;

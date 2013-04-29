@@ -93,6 +93,11 @@ namespace data {
 		return mValue;
 	}
 
+	void Map::remove(const char *key)
+	{
+		mValue.erase(key);
+	}
+
 	std::string Map::toLua() const
 	{
 		size_t size = mValue.size();
