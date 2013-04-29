@@ -7,7 +7,7 @@
 #include <ui/mouse_manager.h>
 
 #include <util/utils.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_string.h>
 #include <util/data_number.h>
 using namespace am::util;
@@ -679,7 +679,7 @@ namespace game {
 	data::IData *Item::serialise()
 	{
 		data::IData *obj_output = GameObject::serialise();
-		data::Map *output = dynamic_cast<data::Map *>(obj_output);
+		data::Table *output = dynamic_cast<data::Table *>(obj_output);
 		if (!output)
 		{
 			am_log("ERROR", "Save game object from GameObject not a data::Map!");
@@ -714,7 +714,7 @@ namespace game {
 		{
 			return gameObjDeserialise;
 		}
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "item"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "item"));
 		if (!dataMap)
 		{
 			return -1;
@@ -771,8 +771,9 @@ namespace game {
 		tempData = dataMap->at<data::IData>("statModifiers");
 		if (tempData)
 		{
-			
+			mStatModifiers.deserialise(state, tempData);
 		}
+		return 1;
 	}
 
 	void Item::onLevelUp()

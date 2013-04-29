@@ -13,7 +13,7 @@ namespace am {
 namespace util {
 namespace data {
 	class IData;
-	class Map;
+	class Table;
 }
 }
 
@@ -21,16 +21,15 @@ namespace lua {
 namespace util {
 namespace data {
 
-	int DataMap_ctor(lua_State *lua);
-	int DataMap_dtor(lua_State *lua);
-	int DataMap_eq(lua_State *lua);
-	int DataMap_register(lua_State *lua);
+	int DataTable_ctor(lua_State *lua);
+	int DataTable_dtor(lua_State *lua);
+	int DataTable_eq(lua_State *lua);
+	int DataTable_register(lua_State *lua);
 
-	int DataMap_at(lua_State *lua);
-	int DataMap_len(lua_State *lua);
-	int DataMap_remove(lua_State *lua);
-
-	int DataMap_each(lua_State *lua);
+	int DataTable_at(lua_State *lua);
+	int DataTable_len(lua_State *lua);
+	int DataTable_remove(lua_State *lua);
+	int DataTable_each(lua_State *lua);
 
 	bool pushData(lua_State *lua, am::util::data::IData *data);
 

@@ -35,7 +35,7 @@ using namespace am::gfx;
 
 namespace util {
 namespace data {
-	class Map;
+	class Table;
 }
 }
 
@@ -267,7 +267,7 @@ namespace game {
 		}
 
 		data::IData *saveGameData();
-		void loadGameData(data::Map *obj);
+		void loadGameData(data::Table *obj);
 	};
 
 }

@@ -1,11 +1,9 @@
 #include "idata.h"
 
 #include "data_string.h"
-//#include "data_integer.h"
 #include "data_number.h"
 #include "data_boolean.h"
-#include "data_array.h"
-#include "data_map.h"
+#include "data_table.h"
 #include "data_nil.h"
 
 #include <math/math.h>
@@ -60,40 +58,22 @@ namespace data {
 	{
 		if (lua_istable(lua, n))
 		{
-			bool isArray = true;
+			util::data::Table *table = new util::data::Table();
 			lua.pushnil();
 			while (lua_next(lua, -2) != 0)
 			{
-				if (lua_type(lua, -2) == LUA_TSTRING)
+				int luaType = lua_type(lua, -2);
+				if (luaType == LUA_TSTRING)
 				{
-					isArray = false;
-					lua.pop(1);
-					lua.pop(1);
-					break;
+					table->push(lua_tostring(lua, -2), fromLua(lua, -1));
 				}
-
+				else if (luaType == LUA_TNUMBER)
+				{
+					table->push(fromLua(lua, -1));
+				}
 				lua.pop(1);
 			}
-
-			if (isArray)
-			{
-				Array *arr = new Array();
-				lua.pushnil();
-				while (lua_next(lua, -2) != 0)
-				{
-					arr->push(fromLua(lua, -1));
-					lua.pop(1);
-				}
-				return arr;
-			}
-			Map *map = new Map();
-			lua.pushnil();
-			while (lua_next(lua, -2) != 0)
-			{
-				map->push(lua_tostring(lua, -2), fromLua(lua, -1));
-				lua.pop(1);
-			}
-			return map;
+			return table;
 		}
 		else
 		{

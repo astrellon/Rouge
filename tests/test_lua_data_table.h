@@ -14,17 +14,17 @@ extern "C"
 namespace am {
 namespace tests {
 
-	class TestLuaDataMap : public TestSuite {
+	class TestLuaDataTable : public TestSuite {
 	public:
-		TestLuaDataMap() {}
-		~TestLuaDataMap() {}
+		TestLuaDataTable() {}
+		~TestLuaDataTable() {}
 	
 		virtual void runCases() {
 			runCase(testSimple);
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::lua::util::data::DataMap";
+			return "am::lua::util::data::DataTable";
 		}
 
 	protected:

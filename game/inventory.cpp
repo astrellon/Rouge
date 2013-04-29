@@ -3,9 +3,8 @@
 #include <ui/inventory_event.h>
 using namespace am::ui;
 
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
-#include <util/data_array.h>
 
 #include <sstream>
 #include <log/logger.h>
@@ -276,11 +275,11 @@ namespace game {
 
 	data::IData *Inventory::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		output->push("spacesX", mSpacesX);
 		output->push("spacesY", mSpacesY);
 
-		data::Array *spots = new data::Array();
+		data::Table *spots = new data::Table();
 		for (auto iter = mSpots.begin(); iter != mSpots.end(); ++iter)
 		{
 			spots->push(iter->serialise());
@@ -291,7 +290,7 @@ namespace game {
 	}
 	void Inventory::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;
@@ -332,10 +331,10 @@ namespace game {
 			}
 		}
 
-		Handle<data::Array> arr(dataMap->at<data::Array>("spots"));
+		Handle<data::Table> arr(dataMap->at<data::Table>("spots"));
 		if (arr)
 		{
-			for (auto iter = arr->begin(); iter != arr->end(); ++iter)
+			for (auto iter = arr->beginArray(); iter != arr->endArray(); ++iter)
 			{
 				InventorySpot spot;
 				spot.deserialise(state, iter->get());

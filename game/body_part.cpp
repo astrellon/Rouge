@@ -1,7 +1,6 @@
 #include "body_part.h"
 
-#include <util/data_map.h>
-#include <util/data_array.h>
+#include <util/data_table.h>
 using namespace am::util;
 
 #include "loading_state.h"
@@ -47,7 +46,7 @@ namespace game {
 
 	data::IData *BodyPart::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		if (mEquippedItem)
 		{
 			output->push("equippedItem", mEquippedItem->serialise());
@@ -57,7 +56,7 @@ namespace game {
 
 	bool BodyPart::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "body part"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "body part"));
 		if (!dataMap)
 		{
 			return false;
@@ -74,30 +73,6 @@ namespace game {
 		}
 		return true;
 	}
-
-	/*void BodyPart::addBodyPart(BodyPart *part)
-	{
-		if (part == NULL)
-		{
-			return;
-		}
-		string name = part->getName();
-		sBodyParts[name] = part;
-	}
-	BodyPart *BodyPart::getBodyPart(const char *name)
-	{
-		if (name == NULL || name[0] == '\0')
-		{
-			return NULL;
-		}
-		string nameStr = name;
-		BodyPartMap::iterator iter = sBodyParts.find(nameStr);
-		if (iter == sBodyParts.end())
-		{
-			return NULL;
-		}
-		return iter->second;
-	}*/
 
 }
 }

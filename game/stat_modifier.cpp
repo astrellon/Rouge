@@ -4,7 +4,7 @@
 #include <util/data_string.h>
 #include <util/data_boolean.h>
 #include <util/data_number.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 using namespace am::util;
 
 #include <string>
@@ -121,7 +121,7 @@ namespace game {
 
 	data::IData *StatModifier::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		output->push("value", mValue);
 		output->push("magical", mMagical);
 		output->push("type", getModifierTypeString(mType));
@@ -130,7 +130,7 @@ namespace game {
 	}
 	bool StatModifier::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stat modifier"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifier"));
 		if (!dataMap)
 		{
 			return false;

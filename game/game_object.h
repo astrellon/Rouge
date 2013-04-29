@@ -18,7 +18,7 @@ namespace am {
 namespace util {
 namespace data {
 	class IData;
-	class Map;
+	class Table;
 }
 }
 using namespace am::util;
@@ -114,7 +114,7 @@ namespace game {
 		Map *mMap;
 		Map *mOriginalMap;
 
-		data::Map *mAttributes;
+		data::Table *mAttributes;
 
 		Handle<DialogueComponent> mDialogueComp;
 

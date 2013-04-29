@@ -6,10 +6,9 @@
 
 #include <ui/equip_event.h>
 
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
 #include <util/data_boolean.h>
-#include <util/data_array.h>
 #include <util/data_string.h>
 using namespace am::util;
 
@@ -457,7 +456,7 @@ namespace game {
 	data::IData *Character::serialise()
 	{
 		data::IData *obj_output = GameObject::serialise();
-		data::Map *output = dynamic_cast<data::Map *>(obj_output);
+		data::Table *output = dynamic_cast<data::Table *>(obj_output);
 		if (!output)
 		{
 			am_log("ERROR", "Save game object from GameObject not a data::Map!");
@@ -475,7 +474,7 @@ namespace game {
 		}
 		output->push("gender", Gender::getGenderName(mGender));
 
-		data::Map *bodyParts = new data::Map();
+		data::Table *bodyParts = new data::Table();
 		for (auto iter = mBodyParts.begin(); iter != mBodyParts.end(); ++iter)
 		{
 			bodyParts->push(iter->first, iter->second->serialise());
@@ -504,7 +503,7 @@ namespace game {
 			return loadResult;
 		}
 
-		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{	// Shouldn't happen due to GameObject::deserialise
 			return -1;
@@ -555,10 +554,10 @@ namespace game {
 			}
 		}
 
-		Handle<data::Map> bodyParts(dataMap->at<data::Map>("bodyParts"));
+		Handle<data::Table> bodyParts(dataMap->at<data::Table>("bodyParts"));
 		if (bodyParts)
 		{
-			for (auto iter = bodyParts->begin(); iter != bodyParts->end(); ++iter)
+			for (auto iter = bodyParts->beginMap(); iter != bodyParts->endMap(); ++iter)
 			{
 				BodyPart *part = new BodyPart(iter->first.c_str());
 				if (!part->deserialise(state, iter->second.get()))

@@ -312,8 +312,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
-    <ClCompile Include="lua\wrappers\util\lua_data_array.cpp" />
-    <ClCompile Include="lua\wrappers\util\lua_data_map.cpp" />
+    <ClCompile Include="lua\wrappers\util\lua_data_table.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="math\transform.cpp" />
     <ClCompile Include="math\transform_lite.cpp" />
@@ -332,7 +331,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_levelable.cpp" />
     <ClCompile Include="tests\test_lua.cpp" />
     <ClCompile Include="tests\test_lua_character.cpp" />
-    <ClCompile Include="tests\test_lua_data_map.cpp" />
+    <ClCompile Include="tests\test_lua_data_table.cpp" />
     <ClCompile Include="tests\test_lua_dialogue.cpp" />
     <ClCompile Include="tests\test_lua_engine.cpp" />
     <ClCompile Include="tests\test_lua_event_listener.cpp" />
@@ -391,12 +390,11 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\value_change_event.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
-    <ClCompile Include="util\data_array.cpp" />
     <ClCompile Include="util\data_boolean.cpp" />
-    <ClCompile Include="util\data_map.cpp" />
     <ClCompile Include="util\data_nil.cpp" />
     <ClCompile Include="util\data_number.cpp" />
     <ClCompile Include="util\data_string.cpp" />
+    <ClCompile Include="util\data_table.cpp" />
     <ClCompile Include="util\idata.cpp" />
     <ClCompile Include="util\path_tokeniser.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
@@ -519,8 +517,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
-    <ClInclude Include="lua\wrappers\util\lua_data_array.h" />
-    <ClInclude Include="lua\wrappers\util\lua_data_map.h" />
+    <ClInclude Include="lua\wrappers\util\lua_data_table.h" />
     <ClInclude Include="math\math.h" />
     <ClInclude Include="math\matrix.h" />
     <ClInclude Include="math\transform.h" />
@@ -543,7 +540,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_levelable.h" />
     <ClInclude Include="tests\test_lua.h" />
     <ClInclude Include="tests\test_lua_character.h" />
-    <ClInclude Include="tests\test_lua_data_map.h" />
+    <ClInclude Include="tests\test_lua_data_table.h" />
     <ClInclude Include="tests\test_lua_dialogue.h" />
     <ClInclude Include="tests\test_lua_engine.h" />
     <ClInclude Include="tests\test_lua_event_listener.h" />
@@ -602,12 +599,11 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\value_change_event.h" />
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
-    <ClInclude Include="util\data_array.h" />
     <ClInclude Include="util\data_boolean.h" />
-    <ClInclude Include="util\data_map.h" />
     <ClInclude Include="util\data_nil.h" />
     <ClInclude Include="util\data_number.h" />
     <ClInclude Include="util\data_string.h" />
+    <ClInclude Include="util\data_table.h" />
     <ClInclude Include="util\idata.h" />
     <ClInclude Include="util\path_tokeniser.h" />
     <ClInclude Include="util\stat_tokeniser.h" />

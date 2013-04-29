@@ -5,9 +5,8 @@
 #include <ui/dialogue_event.h>
 using am::ui::DialogueEvent;
 
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_string.h>
-#include <util/data_array.h>
 
 #include <log/logger.h>
 
@@ -178,8 +177,8 @@ namespace game {
 
 	data::IData *DialogueComponent::serialise()
 	{
-		data::Map *output = new data::Map();
-		data::Array *unlocked = new data::Array();
+		data::Table *output = new data::Table();
+		data::Table *unlocked = new data::Table();
 		for (auto iter = mUnlockedSubjects.begin(); iter != mUnlockedSubjects.end(); ++iter)
 		{
 			// If not locked
@@ -190,7 +189,7 @@ namespace game {
 		}
 		output->push("unlockedSubjects", unlocked);
 
-		data::Array *available = new data::Array();
+		data::Table *available = new data::Table();
 		for (auto iter = mDialoguesAvailable.begin(); iter != mDialoguesAvailable.end(); ++iter)
 		{
 			if (iter->second)
@@ -214,7 +213,7 @@ namespace game {
 		{
 			return;
 		}
-		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;
@@ -223,10 +222,10 @@ namespace game {
 			am_log("LOADERR", ss);
 			return;
 		}
-		Handle<data::Array> unlocked(dataMap->at<data::Array>("unlockedSubjects"));
+		Handle<data::Table> unlocked(dataMap->at<data::Table>("unlockedSubjects"));
 		if (unlocked)
 		{
-			for (auto iter = unlocked->begin(); iter != unlocked->end(); ++iter)
+			for (auto iter = unlocked->beginArray(); iter != unlocked->endArray(); ++iter)
 			{
 				if ((*iter)->type() == data::String::TYPE)
 				{
@@ -242,10 +241,10 @@ namespace game {
 			}
 		}
 
-		Handle<data::Array> available(dataMap->at<data::Array>("dialoguesAvailable"));
+		Handle<data::Table> available(dataMap->at<data::Table>("dialoguesAvailable"));
 		if (available)
 		{
-			for (auto iter = available->begin(); iter != available->end(); ++iter)
+			for (auto iter = available->beginArray(); iter != available->endArray(); ++iter)
 			{
 				if ((*iter)->type() == data::String::TYPE)
 				{

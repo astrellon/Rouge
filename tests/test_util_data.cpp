@@ -8,9 +8,8 @@
 #include <util/idata.h>
 #include <util/data_number.h>
 #include <util/data_boolean.h>
-#include <util/data_array.h>
 #include <util/data_string.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 using namespace am::util::data;
 
 #include <lua/lua_state.h>
@@ -21,18 +20,18 @@ namespace tests {
 
 	bool TestUtilData::testSimple() {
 		
-		Array arr;
+		util::data::Table arr;
 		arr.push(true);
 		arr.push(5.6);
 
-		Handle<Array> arr2(new Array());
+		Handle<util::data::Table> arr2(new util::data::Table());
 		equals(1, arr2->getReferenceCounter());
 		arr2->push(2);
 		arr2->push("hello");
 		arr.push(arr2);
 		equals(2, arr2->getReferenceCounter());
 
-		Handle<Array> arr2ref(arr.at<Array>(2));
+		Handle<util::data::Table> arr2ref(arr.at<util::data::Table>(2));
 		equals(3, arr2->getReferenceCounter());
 		equals(3, arr2ref->getReferenceCounter());
 
@@ -40,7 +39,7 @@ namespace tests {
 		equals(2, arr2ref->at<Number>(0)->integer());
 		equalsStr("hello", arr2ref->at<String>(1)->value());
 
-		Handle<Map> map(new Map());
+		Handle<util::data::Table> map(new util::data::Table());
 		map->push("name", "Melli");
 		map->push("age", 22);
 		map->push("female", true);
@@ -50,7 +49,7 @@ namespace tests {
 		equalsStr("Melli", map->at("name")->string());
 		equals(22, map->at("age")->integer());
 		equals(true, map->at("female")->boolean());
-		Handle<Array> mapArr(map->at<Array>("array"));
+		Handle<util::data::Table> mapArr(map->at<util::data::Table>("array"));
 		assert(mapArr.get());
 
 		std::string testOut = map->toLua();
@@ -106,9 +105,9 @@ namespace tests {
 			lua_getglobal(lua, "arr");
 			Handle<IData> arr(IData::fromLua(lua, -1));
 			assert(arr);
-			Handle<Array> a(dynamic_cast<Array *>(arr.get()));
+			Handle<util::data::Table> a(dynamic_cast<util::data::Table *>(arr.get()));
 			assert(a);
-			equals(5u, a->inner().size());
+			equals(5u, a->arrayInner().size());
 
 			Handle<Number> num(a->at<Number>(0));
 			assert(num);
@@ -126,9 +125,9 @@ namespace tests {
 			assert(str);
 			equalsStr("arr str", str->string());
 
-			Handle<Array> a2(a->at<Array>(4));
+			Handle<util::data::Table> a2(a->at<util::data::Table>(4));
 			assert(a2);
-			equals(2u, a2->inner().size());
+			equals(2u, a2->arrayInner().size());
 
 			num = a2->at<Number>(0);
 			assert(num);
@@ -145,9 +144,9 @@ namespace tests {
 			lua_getglobal(lua, "map");
 			Handle<IData> map(IData::fromLua(lua, -1));
 			assert(map);
-			Handle<Map> m(dynamic_cast<Map *>(map.get()));
+			Handle<util::data::Table> m(dynamic_cast<util::data::Table *>(map.get()));
 			assert(m);
-			equals(3u, m->inner().size());
+			equals(3u, m->mapInner().size());
 
 			Handle<String> str(m->at<String>("name"));
 			assert(str);
@@ -157,9 +156,9 @@ namespace tests {
 			assert(num);
 			equals(22, num->integer());
 
-			Handle<Map> m2(m->at<Map>("pos"));
+			Handle<util::data::Table> m2(m->at<util::data::Table>("pos"));
 			assert(m2);
-			equals(2u, m2->inner().size());
+			equals(2u, m2->mapInner().size());
 
 			num = m2->at<Number>("x");
 			assert(num);

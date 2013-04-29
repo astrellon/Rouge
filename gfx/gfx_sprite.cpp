@@ -12,7 +12,7 @@
 #include <util/data_string.h>
 #include <util/data_number.h>
 #include <util/data_boolean.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 
 namespace am {
 namespace gfx {
@@ -154,7 +154,7 @@ namespace gfx {
 
 	data::IData *Sprite::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		if (mAsset)
 		{
 			output->push("asset", mAsset->getName());
@@ -178,7 +178,7 @@ namespace gfx {
 	}
 	void Sprite::deserialise(am::game::LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;

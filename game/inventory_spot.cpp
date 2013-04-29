@@ -1,6 +1,6 @@
 #include "inventory_spot.h"
 
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
 
 #include <sstream>
@@ -47,7 +47,7 @@ namespace game {
 
 	data::IData *InventorySpot::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		output->push("x", mX);
 		output->push("y", mY);
 		if (mItem)
@@ -58,7 +58,7 @@ namespace game {
 	}
 	void InventorySpot::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(dynamic_cast<data::Map *>(data));
+		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;

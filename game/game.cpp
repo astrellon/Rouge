@@ -17,8 +17,7 @@
 
 #include <sys/game_system.h>
 
-#include <util/data_array.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_string.h>
 #include <util/data_number.h>
 
@@ -814,7 +813,7 @@ namespace game {
 		if (lua.getGlobal("game"))
 		{
 			Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
-			Handle<data::Map> gameData(dynamic_cast<data::Map *>(gameDataObj.get()));
+			Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
 			if (!gameData)
 			{
 				stringstream ss;
@@ -830,7 +829,7 @@ namespace game {
 		if (lua.getGlobal("characters"))
 		{
 			Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
-			Handle<data::Array> charData(dynamic_cast<data::Array *>(charDataObj.get()));
+			Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
 			if (!charData)
 			{
 				stringstream ss;
@@ -840,7 +839,7 @@ namespace game {
 				return -3;
 			}
 
-			for (auto iter = charData->begin(); iter != charData->end(); ++iter)
+			for (auto iter = charData->beginArray(); iter != charData->endArray(); ++iter)
 			{
 				Handle<Character> newChar(new Character());
 				newChar->deserialise(mLoadingState, iter->get());
@@ -861,7 +860,7 @@ namespace game {
 
 	data::IData *Game::saveGameData()
 	{
-		data::Map *data = new data::Map();
+		data::Table *data = new data::Table();
 		data->comment("This contains data about the current game.");
 		if (mMainCharacter)
 		{
@@ -876,13 +875,13 @@ namespace game {
 		return data;
 	}
 
-	void Game::loadGameData(data::Map *obj)
+	void Game::loadGameData(data::Table *obj)
 	{
 		if (!obj)
 		{
 			return;
 		}
-		Handle<data::Map> hobj(obj);
+		Handle<data::Table> hobj(obj);
 
 		Handle<data::String> str(obj->at<data::String>("mainChar"));
 		if (str)

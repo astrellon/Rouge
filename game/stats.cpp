@@ -3,8 +3,7 @@
 #include "game_object.h"
 #include "loading_state.h"
 
-#include <util/data_map.h>
-#include <util/data_array.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
 
 namespace am {
@@ -189,8 +188,8 @@ namespace game {
 
 	data::IData *Stats::serialise()
 	{
-		data::Map *output = new data::Map();
-		data::Map *baseStats = new data::Map();
+		data::Table *output = new data::Table();
+		data::Table *baseStats = new data::Table();
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
 		{
 			baseStats->push(Stat::getStatName(i), mBaseStats[i]);
@@ -202,16 +201,16 @@ namespace game {
 	}
 	void Stats::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stats"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "stats"));
 		if (!dataMap)
 		{
 			return;
 		}
 
-		Handle<data::Map> baseStats(dataMap->at<data::Map>("baseStats"));
+		Handle<data::Table> baseStats(dataMap->at<data::Table>("baseStats"));
 		if (baseStats)
 		{
-			for (auto iter = baseStats->begin(); iter != baseStats->end(); ++iter)
+			for (auto iter = baseStats->beginMap(); iter != baseStats->endMap(); ++iter)
 			{
 				Stat::StatType type = Stat::getStatType(iter->first.c_str());
 				if (type == Stat::MAX_STAT_LENGTH)

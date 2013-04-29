@@ -1,4 +1,4 @@
-#include "test_lua_data_map.h"
+#include "test_lua_data_table.h"
 
 #include <tests/asserts.h>
 
@@ -8,14 +8,13 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
-#include <util/data_map.h>
-#include <util/data_array.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
 #include <util/data_string.h>
 #include <util/data_boolean.h>
 using namespace am::util;
 
-#include <lua/wrappers/util/lua_data_map.h>
+#include <lua/wrappers/util/lua_data_table.h>
 using namespace am::lua::util;
 
 extern "C" 
@@ -28,11 +27,11 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaDataMap::testSimple() {
+	bool TestLuaDataTable::testSimple() {
 		LuaState lua;
 		
-		bool loadResult = lua.loadString("DataMap, DataArray = import(\"DataMap\", \"DataArray\")\n"
-			"map = DataMap.new()\n"
+		bool loadResult = lua.loadString("DataTable = import(\"DataTable\")\n"
+			"map = DataTable.new()\n"
 			"map:at(\"num\", 5)\n"
 			"map:at(\"str\", \"test\")\n"
 			"map:at(\"pos\", {\n"
@@ -63,6 +62,10 @@ namespace tests {
 			"		end\n"
 			"	end)\n"
 			"end\n"
+			"local testTable = {\n"
+			"	5, 3, 1, \"hello\", "
+			"	num = 6, name = \"Melli\", cute = true\n"
+			"}\n"
 			);
 		if (!loadResult)
 		{
@@ -73,7 +76,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getMap"));
 		lua_acall(lua, 0, 1);
 
-		Handle<util::data::Map> dataMap(castUData<util::data::Map>(lua, -1));
+		Handle<util::data::Table> dataMap(castUData<util::data::Table>(lua, -1));
 		assert(dataMap);
 
 		Handle<util::data::Number> num(dataMap->at<util::data::Number>("num"));
@@ -84,9 +87,9 @@ namespace tests {
 		assert(str);
 		equalsStr("test", str->string());
 
-		Handle<util::data::Map> pos(dataMap->at<util::data::Map>("pos"));
+		Handle<util::data::Table> pos(dataMap->at<util::data::Table>("pos"));
 		assert(pos);
-		equals(3u, pos->inner().size());
+		equals(3u, pos->mapInner().size());
 
 		num = pos->at<util::data::Number>("x");
 		assert(num);
@@ -100,9 +103,9 @@ namespace tests {
 		assert(boo);
 		assert(!boo->boolean());
 
-		Handle<util::data::Array> names(dataMap->at<util::data::Array>("names"));
+		Handle<util::data::Table> names(dataMap->at<util::data::Table>("names"));
 		assert(names);
-		equals(3u, names->inner().size());
+		equals(3u, names->arrayInner().size());
 
 		str = names->at<util::data::String>(0);
 		assert(str);

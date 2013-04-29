@@ -715,14 +715,8 @@
     <ClCompile Include="util\data_string.cpp">
       <Filter>util\data</Filter>
     </ClCompile>
-    <ClCompile Include="util\data_array.cpp">
-      <Filter>util\data</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_util_data.cpp">
       <Filter>tests\util</Filter>
-    </ClCompile>
-    <ClCompile Include="util\data_map.cpp">
-      <Filter>util\data</Filter>
     </ClCompile>
     <ClCompile Include="math\math.cpp">
       <Filter>math</Filter>
@@ -730,20 +724,20 @@
     <ClCompile Include="game\loading_state.cpp">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="lua\wrappers\util\lua_data_map.cpp">
-      <Filter>lua\wrapper\util</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\test_lua_data_map.cpp">
-      <Filter>tests\util</Filter>
-    </ClCompile>
-    <ClCompile Include="lua\wrappers\util\lua_data_array.cpp">
-      <Filter>lua\wrapper\util</Filter>
-    </ClCompile>
     <ClCompile Include="sys\rouge_system.cpp">
       <Filter>sys\rouge</Filter>
     </ClCompile>
     <ClCompile Include="util\data_nil.cpp">
       <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="util\data_table.cpp">
+      <Filter>util\data</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\util\lua_data_table.cpp">
+      <Filter>lua\wrapper\util</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_data_table.cpp">
+      <Filter>tests\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1345,14 +1339,8 @@
     <ClInclude Include="util\data_string.h">
       <Filter>util\data</Filter>
     </ClInclude>
-    <ClInclude Include="util\data_array.h">
-      <Filter>util\data</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_util_data.h">
       <Filter>tests\util</Filter>
-    </ClInclude>
-    <ClInclude Include="util\data_map.h">
-      <Filter>util\data</Filter>
     </ClInclude>
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
@@ -1360,17 +1348,17 @@
     <ClInclude Include="game\loading_state.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="lua\wrappers\util\lua_data_map.h">
-      <Filter>lua\wrapper\util</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\test_lua_data_map.h">
-      <Filter>tests\util</Filter>
-    </ClInclude>
-    <ClInclude Include="lua\wrappers\util\lua_data_array.h">
-      <Filter>lua\wrapper\util</Filter>
-    </ClInclude>
     <ClInclude Include="util\data_nil.h">
       <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="util\data_table.h">
+      <Filter>util\data</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\util\lua_data_table.h">
+      <Filter>lua\wrapper\util</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_data_table.h">
+      <Filter>tests\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

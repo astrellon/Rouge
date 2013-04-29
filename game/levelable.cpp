@@ -1,7 +1,7 @@
 #include "levelable.h"
 
 #include <util/idata.h>
-#include <util/data_map.h>
+#include <util/data_table.h>
 #include <util/data_number.h>
 
 #include "loading_state.h"
@@ -85,7 +85,7 @@ namespace game {
 
 	data::IData *Levelable::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		output->push("level", mLevel);
 		output->push("maxLevel", mMaxLevel);
 		output->push("experience", mExperience);
@@ -94,7 +94,7 @@ namespace game {
 	}
 	int Levelable::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "levelable"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "levelable"));
 		if (!dataMap)
 		{
 			return 0;

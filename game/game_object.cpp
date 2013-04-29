@@ -8,8 +8,7 @@
 #include "dialogue_component.h"
 #include "loading_state.h"
 
-#include <util/data_map.h>
-#include <util/data_array.h>
+#include <util/data_table.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
 #include <util/data_number.h>
@@ -30,7 +29,7 @@ namespace game {
 		mOnlyOnPassable(false),
 		mMap(NULL),
 		mOriginalMap(NULL),
-		mAttributes(new data::Map())
+		mAttributes(new data::Table())
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -51,7 +50,7 @@ namespace game {
 	{
 		if (copy.mAttributes)
 		{
-			mAttributes = dynamic_cast<data::Map *>(copy.mAttributes->clone());
+			mAttributes = dynamic_cast<data::Table *>(copy.mAttributes->clone());
 		}
 		if (copy.mMap)
 		{
@@ -389,7 +388,7 @@ namespace game {
 
 	data::IData *GameObject::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		output->push("gameId", mGameId);
 		output->push("fixedToGrid", mFixedToGrid);
 		output->push("onlyOnPassable", mOnlyOnPassable);
@@ -399,7 +398,7 @@ namespace game {
 		output->push("cameraOffsetY", mCameraOffsetY);
 		output->push("name", mName);
 
-		Handle<data::Array> passibleTypes(new data::Array());
+		Handle<data::Table> passibleTypes(new data::Table());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
 			passibleTypes->push((*iter)->getName());
@@ -429,7 +428,7 @@ namespace game {
 			return 0;
 		}
 		
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "game object"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "game object"));
 		if (!dataMap)
 		{
 			return -1;
@@ -484,11 +483,11 @@ namespace game {
 			setName(str->string());
 		}
 
-		Handle<data::Array> arr(dataMap->at<data::Array>("passibleTypes"));
+		Handle<data::Table> arr(dataMap->at<data::Table>("passibleTypes"));
 		if (arr)
 		{
 			Engine *engine = Engine::getEngine();
-			for (auto iter = arr->begin(); iter != arr->end(); ++iter)
+			for (auto iter = arr->beginArray(); iter != arr->endArray(); ++iter)
 			{
 				const char *tileTypeName = (*iter)->string();
 				if (!tileTypeName)

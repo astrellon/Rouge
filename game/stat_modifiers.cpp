@@ -1,7 +1,6 @@
 #include "stat_modifiers.h"
 
-#include <util/data_map.h>
-#include <util/data_array.h>
+#include <util/data_table.h>
 #include <util/data_string.h>
 #include <util/data_number.h>
 
@@ -172,10 +171,10 @@ namespace game {
 
 	data::IData *StatModifiers::serialise()
 	{
-		data::Map *output = new data::Map();
+		data::Table *output = new data::Table();
 		for (auto iter = mModifiers.begin(); iter != mModifiers.end(); ++iter)
 		{
-			data::Array *modifiers = new data::Array();
+			data::Table *modifiers = new data::Table();
 			for (auto modIter = iter->second.begin(); modIter != iter->second.end(); ++modIter)
 			{
 				modifiers->push(modIter->serialise());
@@ -187,13 +186,13 @@ namespace game {
 	}
 	void StatModifiers::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Map> dataMap(data::Map::checkDataType(data, "stat modifiers"));
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifiers"));
 		if (!dataMap)
 		{
 			return;
 		}
 		
-		for (auto iter = dataMap->begin(); iter != dataMap->end(); ++iter)
+		for (auto iter = dataMap->beginMap(); iter != dataMap->endMap(); ++iter)
 		{
 			Stat::StatType type = Stat::getStatType(iter->first.c_str());
 			if (type == Stat::MAX_STAT_LENGTH)
@@ -204,13 +203,13 @@ namespace game {
 				continue;
 			}
 
-			Handle<data::Array> arr(data::Array::checkDataType(iter->second.get(), "stat modifiers"));
+			Handle<data::Table> arr(data::Table::checkDataType(iter->second.get(), "stat modifiers"));
 			if (arr)
 			{
 				continue;
 			}
 
-			for (auto modIter = arr->begin(); modIter != arr->end(); ++iter)
+			for (auto modIter = arr->beginArray(); modIter != arr->endArray(); ++iter)
 			{
 				StatModifier mod;
 				if (mod.deserialise(state, modIter->get()))
