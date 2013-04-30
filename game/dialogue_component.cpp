@@ -187,7 +187,7 @@ namespace game {
 				unlocked->push(iter->first);
 			}
 		}
-		output->push("unlockedSubjects", unlocked);
+		output->at("unlockedSubjects", unlocked);
 
 		data::Table *available = new data::Table();
 		for (auto iter = mDialoguesAvailable.begin(); iter != mDialoguesAvailable.end(); ++iter)
@@ -197,11 +197,11 @@ namespace game {
 				available->push(iter->first);
 			}
 		}
-		output->push("dialoguesAvailable", available);
+		output->at("dialoguesAvailable", available);
 
 		if (mStartDialogue)
 		{
-			output->push("startDialogue", mStartDialogue->getId());
+			output->at("startDialogue", mStartDialogue->getId());
 		}
 
 		return output;

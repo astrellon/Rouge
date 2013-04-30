@@ -80,7 +80,9 @@ namespace data {
 			{ "__len", DataTable_len },
 
 			{ "at", DataTable_at },
-			{ "each", DataTable_each },
+			{ "push", DataTable_push },
+			{ "pairs", DataTable_pairs },
+			{ "ipairs", DataTable_ipairs },
 			{ "remove", DataTable_remove },
 			{ NULL, NULL }
 		};
@@ -135,7 +137,7 @@ namespace data {
 						am::util::data::IData *data = am::util::data::IData::fromLua(L, 3);
 						if (data)
 						{
-							table->push(lua_tostring(lua, 2), data);
+							table->at(lua_tostring(lua, 2), data);
 							lua_first(lua);
 						}
 					}
@@ -145,7 +147,7 @@ namespace data {
 			{
 				if (lua_gettop(lua) == 2)
 				{
-					am::util::data::IData *data = table->at(lua_tointeger(lua, 2));
+					am::util::data::IData *data = table->at(lua_tointeger(lua, 2) - 1);
 					if (!pushData(lua, data))
 					{
 						lua_pushnil(lua);
@@ -161,7 +163,7 @@ namespace data {
 						am::util::data::IData *data = am::util::data::IData::fromLua(L, 3);
 						if (data)
 						{
-							table->arrayInner()[lua_tointeger(lua, 2)] = data;
+							table->at(lua_tointeger(lua, 2) - 1, data);
 							lua_first(lua);
 						}
 					}
@@ -170,6 +172,61 @@ namespace data {
 			return LuaState::expectedArgs(lua, "at", 4, "integer index", "integer index, primative value", "string key", "string key, primative value");
 		}
 		return LuaState::expectedContext(lua, "at", "DataTable");
+	}
+
+	/**
+	 * Pushes a value or list of primatives on to the end of this data table.
+	 * 
+	 * A primative is a number, string, boolean, nil or table of primatives.
+	 *
+	 * <pre>
+	 * DataTable = import("DataTable")
+	 * array = DataTable.new()
+	 * array:push(5)
+	 * am_log("Size 1: " .. #array)		-- Outputs: Size 1: 1
+	 * 
+	 * array:push("String", true)
+	 * am_log("Size 2: " .. #array)		-- Outputs: Size 2: 3
+	 * </pre>
+	 * 
+	 * @param primative... values The list of values to push on to the end.
+	 * @returns DataTable This
+	 */
+	int DataTable_push(lua_State *lua)
+	{
+		am::util::data::Table *table = castUData<am::util::data::Table>(lua, 1);
+		if (table)
+		{
+			bool valid = true;
+			int args = lua_gettop(lua);
+			if (args > 1)
+			{
+				for (int n = 2; n < args; ++n)
+				{
+					int luaType = lua_type(lua, n);
+					if (!IS_LUA_PRIMATIVE(luaType))
+					{
+						valid = false;
+						break;
+					}
+				}
+				if (valid)
+				{
+					LuaState L(lua);
+					for (int n = 2; n < args; ++n)
+					{
+						am::util::data::IData *data = am::util::data::IData::fromLua(L, n);
+						if (data)
+						{
+							table->push(data);
+						}
+					}
+					lua_first(lua);
+				}
+			}
+			return LuaState::expectedArgs(lua, "push", 2, "primative value");
+		}
+		return LuaState::expectedContext(lua, "push", "DataTable");
 	}
 
 	/**
@@ -252,8 +309,8 @@ namespace data {
 	}
 
 	/**
-	 * The each function provides similar functionality to that of the pairs function.
-	 * The each function takes a function as it's argument and that function will be
+	 * The pairs function provides similar functionality to that of the Lua pairs function.
+	 * The pairs function takes a function as it's argument and that function will be
 	 * called once per key/value in the data table. If that function returns false
 	 * then the loop is stopped.
 	 *
@@ -263,19 +320,23 @@ namespace data {
 	 * table:at("num", 5)
 	 * table:at("str", "String")
 	 * table:at("bool", true)
-	 * table:each(function(key, value)\n
+	 * table:at(1, "one")
+	 * table:at(2, "two")
+	 * table:pairs(function(key, value)\n
 	 *     am_log(key .. " = ", value)
 	 * end)
 	 * -- The output order is not gurrantied
-	 * -- num = 5
-	 * -- str = "String"
-	 * -- bool = true
+	 * -- 1 = "one"
+	 * -- 2 = "two"
+	 * -- "num" = 5
+	 * -- "str" = "String"
+	 * -- "bool" = true
 	 * </pre>
 	 *
 	 * @param function handler The each function handler.
 	 * @returns DataTable This
 	 */
-	int DataTable_each(lua_State *lua)
+	int DataTable_pairs(lua_State *lua)
 	{
 		am::util::data::Table *table = castUData<am::util::data::Table>(lua, 1);
 		if (table)
@@ -319,9 +380,60 @@ namespace data {
 				}
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "each", "function handler");
+			return LuaState::expectedArgs(lua, "pairs", "function handler");
 		}
-		return LuaState::expectedContext(lua, "each", "DataTable");
+		return LuaState::expectedContext(lua, "pairs", "DataTable");
+	}
+
+	/**
+	 * The ipairs function provides similar functionality to that of the Lua ipairs function.
+	 * The ipairs function takes a function as it's argument and that function will be
+	 * called once per index/value in the data table. If that function returns false
+	 * then the loop is stopped.
+	 *
+	 * <pre>
+	 * DataTable = import("DataTable")
+	 * table = DataTable.new()
+	 * table:push("one", "two", 3)
+	 * table:ipairs(function(index, value)\n
+	 *     am_log(index .. " = ", value)
+	 * end)
+	 * -- The output order is not gurrantied
+	 * -- 1 = "one"
+	 * -- 2 = "two"
+	 * -- 3 = 3
+	 * </pre>
+	 *
+	 * @param function handler The each function handler.
+	 * @returns DataTable This
+	 */
+	int DataTable_ipairs(lua_State *lua)
+	{
+		am::util::data::Table *table = castUData<am::util::data::Table>(lua, 1);
+		if (table)
+		{
+			if (lua_isfunction(lua, 2))
+			{
+				int i = 1;
+				for (auto iter = table->beginArray(); iter != table->endArray(); ++iter, ++i)
+				{
+					lua_pushvalue(lua, 2);
+					lua_pushinteger(lua, i);
+					if (!pushData(lua, iter->get()))
+					{
+						lua_pushnil(lua);
+					}
+					lua_call(lua, 2, 1);
+					if (lua_isbool(lua, -1) && !lua_tobool(lua, -1))
+					{
+						break;
+					}
+				}
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "ipairs", "function handler");
+		}
+		return LuaState::expectedContext(lua, "ipairs", "DataTable");
 	}
 
 	bool pushData(lua_State *lua, am::util::data::IData *data)

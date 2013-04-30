@@ -122,9 +122,9 @@ namespace game {
 	data::IData *StatModifier::serialise()
 	{
 		data::Table *output = new data::Table();
-		output->push("value", mValue);
-		output->push("magical", mMagical);
-		output->push("type", getModifierTypeString(mType));
+		output->at("value", mValue);
+		output->at("magical", mMagical);
+		output->at("type", getModifierTypeString(mType));
 
 		return output;
 	}

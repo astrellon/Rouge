@@ -179,7 +179,7 @@ namespace game {
 			{
 				modifiers->push(modIter->serialise());
 			}
-			output->push(Stat::getStatName(iter->first), modifiers);
+			output->at(Stat::getStatName(iter->first), modifiers);
 		}
 
 		return output;

@@ -49,7 +49,7 @@ namespace game {
 		data::Table *output = new data::Table();
 		if (mEquippedItem)
 		{
-			output->push("equippedItem", mEquippedItem->serialise());
+			output->at("equippedItem", mEquippedItem->serialise());
 		}
 		return output;
 	}

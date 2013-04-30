@@ -86,9 +86,9 @@ namespace game {
 	data::IData *Levelable::serialise()
 	{
 		data::Table *output = new data::Table();
-		output->push("level", mLevel);
-		output->push("maxLevel", mMaxLevel);
-		output->push("experience", mExperience);
+		output->at("level", mLevel);
+		output->at("maxLevel", mMaxLevel);
+		output->at("experience", mExperience);
 
 		return output;
 	}

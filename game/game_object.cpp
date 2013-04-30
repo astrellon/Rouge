@@ -389,33 +389,33 @@ namespace game {
 	data::IData *GameObject::serialise()
 	{
 		data::Table *output = new data::Table();
-		output->push("gameId", mGameId);
-		output->push("fixedToGrid", mFixedToGrid);
-		output->push("onlyOnPassable", mOnlyOnPassable);
-		output->push("locationX", mLocationX);
-		output->push("locationY", mLocationY);
-		output->push("cameraOffsetX", mCameraOffsetX);
-		output->push("cameraOffsetY", mCameraOffsetY);
-		output->push("name", mName);
+		output->at("gameId", mGameId);
+		output->at("fixedToGrid", mFixedToGrid);
+		output->at("onlyOnPassable", mOnlyOnPassable);
+		output->at("locationX", mLocationX);
+		output->at("locationY", mLocationY);
+		output->at("cameraOffsetX", mCameraOffsetX);
+		output->at("cameraOffsetY", mCameraOffsetY);
+		output->at("name", mName);
 
 		Handle<data::Table> passibleTypes(new data::Table());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
 			passibleTypes->push((*iter)->getName());
 		}
-		output->push("passibleTypes", passibleTypes);
+		output->at("passibleTypes", passibleTypes);
 		if (mMap)
 		{
-			output->push("map", mMap->getFilename());
+			output->at("map", mMap->getFilename());
 		}
 		if (mOriginalMap)
 		{
-			output->push("originalMap", mOriginalMap->getFilename());
+			output->at("originalMap", mOriginalMap->getFilename());
 		}
 
 		if (mDialogueComp)
 		{
-			output->push("dialogueComponent", mDialogueComp->serialise());
+			output->at("dialogueComponent", mDialogueComp->serialise());
 		}
 		return output;
 	}

@@ -192,10 +192,10 @@ namespace game {
 		data::Table *baseStats = new data::Table();
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
 		{
-			baseStats->push(Stat::getStatName(i), mBaseStats[i]);
+			baseStats->at(Stat::getStatName(i), mBaseStats[i]);
 		}
-		output->push("baseStats", baseStats);
-		output->push("modifiers", mModifiers.serialise());
+		output->at("baseStats", baseStats);
+		output->at("modifiers", mModifiers.serialise());
 
 		return output;
 	}

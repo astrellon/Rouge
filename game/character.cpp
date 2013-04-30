@@ -463,36 +463,36 @@ namespace game {
 			return NULL;
 		}
 
-		output->push("moveX", mMoveX);
-		output->push("moveY", mMoveY);
-
-		output->push("pickupReach", mPickupReach);
-		output->push("age", mAge);
+		output->at("moveX", mMoveX);
+		output->at("moveY", mMoveY);
+				
+		output->at("pickupReach", mPickupReach);
+		output->at("age", mAge);
 		if (mRace)
 		{
-			output->push("race", mRace->getRaceName());
+			output->at("race", mRace->getRaceName());
 		}
-		output->push("gender", Gender::getGenderName(mGender));
+		output->at("gender", Gender::getGenderName(mGender));
 
 		data::Table *bodyParts = new data::Table();
 		for (auto iter = mBodyParts.begin(); iter != mBodyParts.end(); ++iter)
 		{
-			bodyParts->push(iter->first, iter->second->serialise());
+			bodyParts->at(iter->first, iter->second->serialise());
 		}
-		output->push("bodyParts", bodyParts);
+		output->at("bodyParts", bodyParts);
 
-		output->push("stats", mStats.serialise());
+		output->at("stats", mStats.serialise());
 		if (mInventory)
 		{
-			output->push("inventory", mInventory->serialise());
+			output->at("inventory", mInventory->serialise());
 		}
 
 		if (mGraphic)
 		{
-			output->push("graphic", mGraphic->serialise());
+			output->at("graphic", mGraphic->serialise());
 		}
 
-		output->push("levelable", Levelable::serialise());
+		output->at("levelable", Levelable::serialise());
 		return output;
 	}
 	int Character::deserialise(LoadingState *state, data::IData *data)

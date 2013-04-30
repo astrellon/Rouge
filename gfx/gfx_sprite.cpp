@@ -157,23 +157,23 @@ namespace gfx {
 		data::Table *output = new data::Table();
 		if (mAsset)
 		{
-			output->push("asset", mAsset->getName());
+			output->at("asset", mAsset->getName());
 		}
 		if (mWidth != 0 || !mAsset)
 		{
-			output->push("width", mWidth);
+			output->at("width", mWidth);
 		}
 		if (mHeight != 0 || !mAsset)
 		{
-			output->push("height", mHeight);
+			output->at("height", mHeight);
 		}
 		if (mAsset && mAsset->getTotalFrames() > 1)
 		{
-			output->push("currentFrame", mCurrentFrame);
-			output->push("frameRate", mFrameRate);
-			output->push("currentTime", mCurrentTime);
+			output->at("currentFrame", mCurrentFrame);
+			output->at("frameRate", mFrameRate);
+			output->at("currentTime", mCurrentTime);
 		}
-		output->push("scaleNineState", ScaleNine::getStateName(mScaleNineState));
+		output->at("scaleNineState", ScaleNine::getStateName(mScaleNineState));
 		return output;
 	}
 	void Sprite::deserialise(am::game::LoadingState *state, data::IData *data)

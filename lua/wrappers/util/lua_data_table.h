@@ -27,9 +27,11 @@ namespace data {
 	int DataTable_register(lua_State *lua);
 
 	int DataTable_at(lua_State *lua);
+	int DataTable_push(lua_State *lua);
 	int DataTable_len(lua_State *lua);
 	int DataTable_remove(lua_State *lua);
-	int DataTable_each(lua_State *lua);
+	int DataTable_pairs(lua_State *lua);
+	int DataTable_ipairs(lua_State *lua);
 
 	bool pushData(lua_State *lua, am::util::data::IData *data);
 

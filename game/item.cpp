@@ -686,24 +686,23 @@ namespace game {
 			return NULL;
 		}
 
-		output->push("itemType", ItemCommon::getItemTypeName(mItemType));
-		output->push("itemLocation", getItemLocationTypeName(mItemLocation));
+		output->at("itemType", ItemCommon::getItemTypeName(mItemType));
+		output->at("itemLocation", getItemLocationTypeName(mItemLocation));
+		output->at("inventorySizeX", mInventorySizeX);
+		output->at("inventorySizeY", mInventorySizeY);
+		output->at("questItemId", mQuestItemId);
 
-		output->push("inventorySizeX", mInventorySizeX);
-		output->push("inventorySizeY", mInventorySizeY);
-		output->push("questItemId", mQuestItemId);
-
-		output->push("itemValue", static_cast<int>(mItemValue));
+		output->at("itemValue", static_cast<int>(mItemValue));
 
 		if (mGraphic)
 		{
-			output->push("graphic", mGraphic->serialise());
+			output->at("graphic", mGraphic->serialise());
 		}
 		if (mGroundGraphic)
 		{
-			output->push("groundGraphic", mGroundGraphic->serialise());
+			output->at("groundGraphic", mGroundGraphic->serialise());
 		}
-		output->push("statModifiers", mStatModifiers.serialise());
+		output->at("statModifiers", mStatModifiers.serialise());
 
 		return output;
 	}

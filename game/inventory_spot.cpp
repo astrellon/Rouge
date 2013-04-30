@@ -48,11 +48,11 @@ namespace game {
 	data::IData *InventorySpot::serialise()
 	{
 		data::Table *output = new data::Table();
-		output->push("x", mX);
-		output->push("y", mY);
+		output->at("x", mX);
+		output->at("y", mY);
 		if (mItem)
 		{
-			output->push("item", mItem->serialise());
+			output->at("item", mItem->serialise());
 		}
 		return output;
 	}

@@ -276,8 +276,8 @@ namespace game {
 	data::IData *Inventory::serialise()
 	{
 		data::Table *output = new data::Table();
-		output->push("spacesX", mSpacesX);
-		output->push("spacesY", mSpacesY);
+		output->at("spacesX", mSpacesX);
+		output->at("spacesY", mSpacesY);
 
 		data::Table *spots = new data::Table();
 		for (auto iter = mSpots.begin(); iter != mSpots.end(); ++iter)
@@ -285,7 +285,7 @@ namespace game {
 			spots->push(iter->serialise());
 		}
 
-		output->push("spots", spots);
+		output->at("spots", spots);
 		return output;
 	}
 	void Inventory::deserialise(LoadingState *state, data::IData *data)

@@ -40,10 +40,10 @@ namespace tests {
 		equalsStr("hello", arr2ref->at<String>(1)->value());
 
 		Handle<util::data::Table> map(new util::data::Table());
-		map->push("name", "Melli");
-		map->push("age", 22);
-		map->push("female", true);
-		map->push("array", arr2);
+		map->at("name", "Melli");
+		map->at("age", 22);
+		map->at("female", true);
+		map->at("array", arr2);
 		map->comment("Test comment");
 
 		equalsStr("Melli", map->at("name")->string());

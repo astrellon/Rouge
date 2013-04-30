@@ -65,7 +65,7 @@ namespace data {
 				int luaType = lua_type(lua, -2);
 				if (luaType == LUA_TSTRING)
 				{
-					table->push(lua_tostring(lua, -2), fromLua(lua, -1));
+					table->at(lua_tostring(lua, -2), fromLua(lua, -1));
 				}
 				else if (luaType == LUA_TNUMBER)
 				{

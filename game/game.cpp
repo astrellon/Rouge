@@ -864,13 +864,13 @@ namespace game {
 		data->comment("This contains data about the current game.");
 		if (mMainCharacter)
 		{
-			data->push("mainChar", mMainCharacter->getGameId());
+			data->at("mainChar", mMainCharacter->getGameId());
 		}
 		if (mCurrentMap)
 		{
-			data->push("currentMap", mCurrentMap->getFilename());
+			data->at("currentMap", mCurrentMap->getFilename());
 		}
-		data->push("scenarioName", mScenarioName.c_str());
+		data->at("scenarioName", mScenarioName.c_str());
 
 		return data;
 	}
