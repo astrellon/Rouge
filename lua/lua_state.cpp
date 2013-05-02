@@ -34,7 +34,8 @@ namespace lua {
 		if (includeLibraries)
 		{
 			lua_register(mLua, "import", getWrapper);
-			lua_register(mLua, "assert", luaAssert);
+			lua_register(mLua, "equals", luaEquals);
+			lua_register(mLua, "not_equals", luaNotEquals);
 		}
 		lua_register(mLua, "am_log", lua_am_log);
 
@@ -594,12 +595,25 @@ namespace lua {
 		am_log("LUA WARN", ss);
 	}
 
-	int LuaState::luaAssert(lua_State *lua)
+	int LuaState::luaEquals(lua_State *lua)
 	{
 		if (lua_compare(lua, 1, 2, LUA_OPEQ) != 1)
 		{
 			stringstream ss;
 			ss << "\n- Expected:\t";
+			printTypeValue(lua, 1, ss);
+			ss << "\n- Actual:\t\t";
+			printTypeValue(lua, 2, ss);
+			return luaL_error(lua, "%s", ss.str().c_str());
+		}
+		return 0;
+	}
+	int LuaState::luaNotEquals(lua_State *lua)
+	{
+		if (lua_compare(lua, 1, 2, LUA_OPEQ) == 1)
+		{
+			stringstream ss;
+			ss << "\n- Did not expect:\t";
 			printTypeValue(lua, 1, ss);
 			ss << "\n- Actual:\t\t";
 			printTypeValue(lua, 2, ss);

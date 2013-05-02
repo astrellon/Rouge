@@ -44,10 +44,6 @@ using namespace am::lua::game;
 #include <gfx/gfx_sprite.h>
 using namespace am::lua::gfx;
 
-/*#include "util/lua_data_map.h"
-#include <util/data_map.h>
-#include "util/lua_data_array.h"
-#include <util/data_array.h>*/
 #include "util/lua_data_table.h"
 #include <util/data_table.h>
 

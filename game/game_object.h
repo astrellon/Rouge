@@ -86,7 +86,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		//virtual data::IData *getAttributes();
+		virtual void setAttributes(data::Table *table);
+		virtual data::Table *getAttributes(bool create = false);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -114,7 +115,7 @@ namespace game {
 		Map *mMap;
 		Map *mOriginalMap;
 
-		data::Table *mAttributes;
+		Handle<data::Table> mAttributes;
 
 		Handle<DialogueComponent> mDialogueComp;
 

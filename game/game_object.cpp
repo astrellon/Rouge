@@ -28,8 +28,7 @@ namespace game {
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
 		mMap(NULL),
-		mOriginalMap(NULL),
-		mAttributes(new data::Table())
+		mOriginalMap(NULL)
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -386,6 +385,19 @@ namespace game {
 		return mDialogueComp;
 	}
 
+	void GameObject::setAttributes(data::Table *table)
+	{
+		mAttributes = table;
+	}
+	data::Table *GameObject::getAttributes(bool create)
+	{
+		if (!mAttributes && create)
+		{
+			mAttributes = new data::Table();
+		}
+		return mAttributes;
+	}
+
 	data::IData *GameObject::serialise()
 	{
 		data::Table *output = new data::Table();
@@ -416,6 +428,11 @@ namespace game {
 		if (mDialogueComp)
 		{
 			output->at("dialogueComponent", mDialogueComp->serialise());
+		}
+
+		if (mAttributes)
+		{
+			output->at("attributes", mAttributes);
 		}
 		return output;
 	}
@@ -536,6 +553,12 @@ namespace game {
 			DialogueComponent *comp = new DialogueComponent();
 			comp->deserialise(state, tempData);
 			setDialogueComp(comp);
+		}
+
+		Handle<data::Table> attrs(dataMap->at<data::Table>("attributes"));
+		if (attrs)
+		{
+			mAttributes = attrs;
 		}
 
 		return 1;

@@ -111,16 +111,16 @@ namespace tests {
 			"mods = StatModifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
-			"assert(9, mods:calculate_stat(\"health\", base_health))\n"
+			"equals(9, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 3, \"*\")\n"
-			"assert(19, mods:calculate_stat(\"health\", base_health))\n"
+			"equals(19, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 7, \"=\", false)\n"
-			"assert(25, mods:calculate_stat(\"health\", base_health))\n"
+			"equals(25, mods:calculate_stat(\"health\", base_health))\n"
 			
 			"modsTable = mods:mods()\n"
-			"assert(4, modsTable[\"health\"][1].value)\n"
-			"assert(\"*\", modsTable[\"health\"][2].type)\n"
-			"assert(false, modsTable[\"health\"][3].magical)\n"
+			"equals(4, modsTable[\"health\"][1].value)\n"
+			"equals(\"*\", modsTable[\"health\"][2].type)\n"
+			"equals(false, modsTable[\"health\"][3].magical)\n"
 		);
 		
 		if (!loadResult)
@@ -144,9 +144,9 @@ namespace tests {
 			"stats:add(\"health\", 2, \"*\")\n"
 
 			"mods = stats:mods()\n"
-			"assert(false, mods[\"health\"][1].magical)\n"
-			"assert(\"=\", mods[\"health\"][2].type)\n"
-			"assert(2, mods[\"health\"][3].value)\n"
+			"equals(false, mods[\"health\"][1].magical)\n"
+			"equals(\"=\", mods[\"health\"][2].type)\n"
+			"equals(2, mods[\"health\"][3].value)\n"
 		);
 		
 		if (!loadResult)

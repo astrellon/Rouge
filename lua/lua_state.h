@@ -220,7 +220,8 @@ namespace lua {
 
 		static void registerWrapper(const char *name, lua_CFunction call, int id);
 		static int getWrapper(lua_State *lua);
-		static int luaAssert(lua_State *lua);
+		static int luaEquals(lua_State *lua);
+		static int luaNotEquals(lua_State *lua);
 		static void clearRegistered();
 		static int getMaxRegisteredId();
 

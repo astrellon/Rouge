@@ -229,5 +229,30 @@ namespace tests {
 		return true;
 	}
 
+	bool TestLuaCharacter::testAttrs()
+	{
+		LuaState lua;
+
+		int loadResult = lua.loadString("Character, DataTable = import(\"Character\", \"DataTable\")\n"
+			"char = Character.new()\n"
+			"attrs = char:attrs()\n"
+			"equals(attrs, nil)\n"
+			"attrs = char:attrs(true)\n"
+			"not_equals(attrs, nil)\n"
+			"attrs:push(2)\n"
+			"attrs:push(5)\n"
+			"attrs:push(8)\n"
+			"attrs2 = char:attrs(true)\n"
+			"equals(attrs, attrs2)\n"
+			);
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		return true;
+	}
 }
 }

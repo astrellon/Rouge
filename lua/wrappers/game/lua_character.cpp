@@ -18,6 +18,9 @@ using namespace am::lua;
 #include <game/game.h>
 using namespace am::game;
 
+#include <util/data_table.h>
+using namespace am::util;
+
 #include "lua_stats.h"
 #include "lua_body_part.h"
 #include "lua_item.h"
@@ -219,6 +222,8 @@ namespace game {
 			{ "level", Character_level },
 			{ "add_level", Character_add_level },
 			{ "max_level", Character_max_level },
+			// Attributes
+			{ "attrs", Character_attrs },
 			{ NULL, NULL }
 		};
 
@@ -1745,7 +1750,59 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "max_level", "Character");
 	}
-	
+	/**
+	 * Returns the characters attribute data table.
+	 * By default if no attribute data table is present nil is returned unless true
+	 * is passed as the first argument, then a data table is created if one is not present.
+	 * 
+	 * @param boolean [false] createTable Create a data table if one didn't exist.
+	 * @returns DataTable The data table on this character.
+	 */
+	/**
+	 * Sets the data table on this character, can be set to nil.
+	 *
+	 * @param DataTable attrTable The data table to set on the character.
+	 * @returns Character This
+	 */
+	int Character_attrs(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			int args = lua_gettop(lua);
+			bool getAttrs = args == 1 || (args == 2 && lua_isbool(lua, 2));
+			if (getAttrs)
+			{
+				bool create = args == 2 && lua_tobool(lua, 2);
+				data::Table *table = obj->getAttributes(create);
+				if (table)
+				{
+					wrapRefObject<data::Table>(lua, table);
+				}
+				else
+				{
+					lua_pushnil(lua);
+				}
+				return 1;
+			}
+			else
+			{
+				data::Table *table = castUData<data::Table>(lua, 2);
+				if (table)
+				{
+					obj->setAttributes(table);
+					lua_first(lua);
+				}
+				if (lua_isnil(lua, 2))
+				{
+					obj->setAttributes(NULL);
+					lua_first(lua);
+				}
+			}
+			return LuaState::expectedArgs(lua, "attrs", 2, "DataTable attrsTable", "nil attrsTable");
+		}
+		return LuaState::expectedContext(lua, "attrs", "Character");
+	}
 }
 }
 }
