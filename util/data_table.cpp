@@ -188,7 +188,7 @@ namespace data {
 
 	std::string Table::toLua() const
 	{
-		size_t size = mMapValue.size();
+		size_t size = mMapValue.size() + mArrayValue.size();
 		if (size == 0)
 		{
 			return "{}";
@@ -208,7 +208,6 @@ namespace data {
 			str += "--[[ ";
 			str += mComment;
 			str += " --]]\n";
-			--size;
 		}
 		size_t i = 0;
 		for (auto iter = mArrayValue.begin(); iter != mArrayValue.end(); ++iter)

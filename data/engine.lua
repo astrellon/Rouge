@@ -1,5 +1,6 @@
 -- Main game engine script
 Engine, Game, Race, Character, Item, Inventory = import("Engine", "Game", "Race", "Character", "Item", "Inventory")
+DataTable = import("DataTable")
 Sprite = import("Sprite")
 
 local game = nil
@@ -13,9 +14,9 @@ function newGame(scenario_name)
 	game = Game.new()
 	Engine.game(game)
 	
-	scenario = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
+	scenario, msg = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
 	if (scenario == nil) then
-		am_log("Unable to find main.lua for " .. scenario_name)
+		am_log("Unable to find main.lua for " .. scenario_name .. "\n" .. msg)
 		return 0
 	end
 	scenario().newGame(game)

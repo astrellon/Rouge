@@ -201,7 +201,7 @@ namespace data {
 			int args = lua_gettop(lua);
 			if (args > 1)
 			{
-				for (int n = 2; n < args; ++n)
+				for (int n = 2; n <= args; ++n)
 				{
 					int luaType = lua_type(lua, n);
 					if (!IS_LUA_PRIMATIVE(luaType))
@@ -213,7 +213,7 @@ namespace data {
 				if (valid)
 				{
 					LuaState L(lua);
-					for (int n = 2; n < args; ++n)
+					for (int n = 2; n <= args; ++n)
 					{
 						am::util::data::IData *data = am::util::data::IData::fromLua(L, n);
 						if (data)

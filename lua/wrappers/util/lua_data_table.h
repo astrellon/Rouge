@@ -5,9 +5,8 @@ extern "C"
 #	include <lua/src/lstate.h>
 }
 
-#define IS_LUA_PRIMATIVE(type) type == LUA_TNUMBER || type == LUA_TBOOLEAN || \
-	type == LUA_TSTRING || type == LUA_TTABLE || \
-	type == LUA_TNIL
+#define IS_LUA_PRIMATIVE(type) (type == LUA_TNUMBER || type == LUA_TBOOLEAN || \
+	type == LUA_TSTRING || type == LUA_TTABLE || type == LUA_TNIL)
 
 namespace am {
 namespace util {

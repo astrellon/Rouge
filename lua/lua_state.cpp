@@ -36,6 +36,7 @@ namespace lua {
 			lua_register(mLua, "import", getWrapper);
 			lua_register(mLua, "equals", luaEquals);
 			lua_register(mLua, "not_equals", luaNotEquals);
+			lua_register(mLua, "print_stack", luaPrintStack);
 		}
 		lua_register(mLua, "am_log", lua_am_log);
 
@@ -437,6 +438,14 @@ namespace lua {
 		stringstream ss;
 		printStack(lua, ss);
 		am_log(cat, ss);
+	}
+
+	int LuaState::luaPrintStack(lua_State *lua)
+	{
+		stringstream ss;
+		printStack(lua, ss);
+		lua_pushstring(lua, ss.str().c_str());
+		return 1;
 	}
 
 	void LuaState::printStack(ostream &output)

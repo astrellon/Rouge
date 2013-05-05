@@ -23,5 +23,7 @@ return {
 	end,
 	loadGame = function(game)
 		game:start_game()
+		
+		player = game:main()
 	end
 }
