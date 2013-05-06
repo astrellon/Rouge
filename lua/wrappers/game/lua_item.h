@@ -51,6 +51,8 @@ namespace game {
 
 	int Item_find(lua_State *lua);
 
+	int Item_attrs(lua_State *lua);
+
 }
 }
 }

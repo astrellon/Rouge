@@ -59,6 +59,8 @@ namespace game {
 	int Game_load_game(lua_State *lua);
 	int Game_scenario_name(lua_State *lua);
 
+	int Game_attrs(lua_State *lua);
+
 	am::game::GameObject *getGameObject(lua_State *lua, int n);
 	void wrapGameObject(lua_State *lua, am::game::GameObject *obj);
 	bool moveGameObject(lua_State *lua, am::game::Game *game, bool grid);

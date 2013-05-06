@@ -15,6 +15,8 @@ using namespace am::lua;
 #include <game/game.h>
 using namespace am::game;
 
+#include "lua_iattribute_data.h"
+
 #include <lua/wrappers/lua_event_manager.h>
 
 namespace am {
@@ -94,6 +96,7 @@ namespace game {
 			{ "add_quest", Quest_add_quest },
 			{ "remove_quest", Quest_remove_quest },
 			{ "find", Quest_find },
+			{ "attrs", Quest_attrs },
 			{ NULL, NULL }
 		};
 
@@ -390,6 +393,30 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "@find", "string questId");
+	}
+
+	/**
+	 * Returns the quests attribute data table.
+	 * By default if no attribute data table is present nil is returned unless true
+	 * is passed as the first argument, then a data table is created if one is not present.
+	 * 
+	 * @param boolean [false] createTable Create a data table if one didn't exist.
+	 * @returns DataTable The data table on this quest.
+	 */
+	/**
+	 * Sets the data table on this quest, can be set to nil.
+	 *
+	 * @param DataTable attrTable The data table to set on the quest.
+	 * @returns Quest This
+	 */
+	int Quest_attrs(lua_State *lua)
+	{
+		Quest *quest = castUData<Quest>(lua, 1);
+		if (quest)
+		{
+			return IAttributeData_attrs(lua, quest);
+		}
+		return LuaState::expectedContext(lua, "attrs", "Quest");
 	}
 
 }

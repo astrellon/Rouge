@@ -95,6 +95,7 @@ do
 
 	-- Quests
 	local fredQuest = Quest.new("fredQuest")
+	game:add_quest(fredQuest)
 	fredQuest:on("startQuest", function(event)
 		npc2:dialogue_component():available("fredQuest", true)
 	end)

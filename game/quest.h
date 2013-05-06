@@ -7,12 +7,22 @@ using namespace std;
 #include <ui/event_interface.h>
 using namespace am::ui;
 
+#include <game/iattribute_data.h>
+
 namespace am {
+namespace util {
+namespace data {
+	class IData;
+}
+}
+using namespace am::util;
+
 namespace game {
 
 	class Character;
+	class LoadingState;
 
-	class Quest : public EventInterface {
+	class Quest : public EventInterface, public IAttributeData {
 	public:
 		
 		Quest(const char *questId);
@@ -41,6 +51,9 @@ namespace game {
 
 		virtual void setAcceptedReward(bool accepted);
 		virtual bool hasAcceptedReward() const;
+
+		virtual data::IData *serialise();
+		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

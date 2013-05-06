@@ -32,6 +32,7 @@ using namespace am::util;
 #include "lua_race.h"
 #include "lua_dialogue_component.h"
 #include "lua_game.h"
+#include "lua_iattribute_data.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
 using namespace am::lua::gfx;
@@ -1769,37 +1770,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			int args = lua_gettop(lua);
-			bool getAttrs = args == 1 || (args == 2 && lua_isbool(lua, 2));
-			if (getAttrs)
-			{
-				bool create = args == 2 && lua_tobool(lua, 2);
-				data::Table *table = obj->getAttributes(create);
-				if (table)
-				{
-					wrapRefObject<data::Table>(lua, table);
-				}
-				else
-				{
-					lua_pushnil(lua);
-				}
-				return 1;
-			}
-			else
-			{
-				data::Table *table = castUData<data::Table>(lua, 2);
-				if (table)
-				{
-					obj->setAttributes(table);
-					lua_first(lua);
-				}
-				if (lua_isnil(lua, 2))
-				{
-					obj->setAttributes(NULL);
-					lua_first(lua);
-				}
-			}
-			return LuaState::expectedArgs(lua, "attrs", 2, "DataTable attrsTable", "nil attrsTable");
+			return IAttributeData_attrs(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "attrs", "Character");
 	}

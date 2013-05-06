@@ -34,6 +34,7 @@ namespace game {
 	int Quest_remove_quest(lua_State *lua);
 	int Quest_find(lua_State *lua);
 
+	int Quest_attrs(lua_State *lua);
 }
 }
 }

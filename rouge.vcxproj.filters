@@ -739,6 +739,12 @@
     <ClCompile Include="tests\test_lua_data_table.cpp">
       <Filter>tests\util</Filter>
     </ClCompile>
+    <ClCompile Include="game\iattribute_data.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\game\lua_iattribute_data.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1359,6 +1365,12 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua_data_table.h">
       <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\iattribute_data.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\game\lua_iattribute_data.h">
+      <Filter>lua\wrapper\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@ using namespace std;
 #include <game/dialogue.h>
 #include <game/tile_type.h>
 #include <game/dialogue_component.h>
+#include <game/iattribute_data.h>
 
 namespace am {
 namespace util {
@@ -28,7 +29,7 @@ namespace game {
 	class Map;
 	class LoadingState;
 
-	class GameObject : public Layer {
+	class GameObject : public Layer, public IAttributeData {
 	public:
 
 		typedef vector<TileType *> PassibleTypeList;
@@ -86,9 +87,6 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		virtual void setAttributes(data::Table *table);
-		virtual data::Table *getAttributes(bool create = false);
-
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -114,8 +112,6 @@ namespace game {
 
 		Map *mMap;
 		Map *mOriginalMap;
-
-		Handle<data::Table> mAttributes;
 
 		Handle<DialogueComponent> mDialogueComp;
 

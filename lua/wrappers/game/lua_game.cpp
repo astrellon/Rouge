@@ -24,6 +24,7 @@ using namespace am::game;
 #include "lua_item.h"
 #include "lua_dialogue.h"
 #include "lua_quest.h"
+#include "lua_iattribute_data.h"
 
 #include <sstream>
 using std::stringstream;
@@ -119,6 +120,7 @@ namespace game {
 			{ "has_started", Game_has_started },
 			{ "load_game", Game_load_game },
 			{ "scenario_name", Game_scenario_name },
+			{ "attrs", Game_attrs },
 			{ NULL, NULL }
 		};
 
@@ -980,6 +982,30 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "scenario_name", "Game");
+	}
+
+	/**
+	 * Returns the game's attribute data table.
+	 * By default if no attribute data table is present nil is returned unless true
+	 * is passed as the first argument, then a data table is created if one is not present.
+	 * 
+	 * @param boolean [false] createTable Create a data table if one didn't exist.
+	 * @returns DataTable The data table on this game.
+	 */
+	/**
+	 * Sets the data table on this game, can be set to nil.
+	 *
+	 * @param DataTable attrTable The data table to set on the game.
+	 * @returns Game This
+	 */
+	int Game_attrs(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			return IAttributeData_attrs(lua, game);
+		}
+		return LuaState::expectedContext(lua, "attrs", "Game");
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)

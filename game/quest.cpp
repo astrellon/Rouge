@@ -3,6 +3,11 @@
 #include <base/handle.h>
 using namespace am::base;
 
+#include <util/data_table.h>
+#include <util/data_boolean.h>
+
+#include "loading_state.h"
+
 namespace am {
 namespace game {
 
@@ -109,6 +114,47 @@ namespace game {
 	bool Quest::hasAcceptedReward() const
 	{
 		return mAcceptedReward;
+	}
+
+	data::IData *Quest::serialise()
+	{
+		data::Table *output = new data::Table();
+		output->at("completed", mCompleted);
+		output->at("acceptedReward", mAcceptedReward);
+		output->at("enabled", mEnabled);
+
+		IAttributeData::serialise(output);
+
+		return output;
+	}
+	int Quest::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "quest"));
+		if (!dataMap)
+		{
+			return 0;
+		}
+
+		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("completed"));
+		if (boo)
+		{
+			setCompleted(boo->boolean());
+		}
+
+		boo = dataMap->at<data::Boolean>("acceptedReward");
+		if (boo)
+		{
+			setAcceptedReward(boo->boolean());
+		}
+
+		boo = dataMap->at<data::Boolean>("enabled");
+		if (boo)
+		{
+			setEnabled(boo->boolean());
+		}
+
+		IAttributeData::deserialise(state, dataMap);
+		return 1;
 	}
 
 }

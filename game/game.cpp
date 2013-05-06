@@ -748,38 +748,38 @@ namespace game {
 		output << "-- Rouge Saved Game\n";
 		
 		output << "-- This contains data about the current game.\n\n";
-		data::IData *gameData = saveGameData();
+		Handle<data::IData> gameData(saveGameData());
 		if (gameData)
 		{
 			output << "game = " << gameData->toLua();
-			gameData->release();
-			gameData = NULL;
 		}
 		
 		output << "\n-- List of characters based on gameid\n";
-		output << "characters = {\n";
-		size_t size = mGameObjects.size();
-		size_t i = 0;
+		output << "characters = \n";
+		Handle<data::Table> list(new data::Table());
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
 			gameData = iter->second->serialise();
 			if (gameData)
 			{
-				output << gameData->toLua();
-				gameData->release();
-				gameData = NULL;
+				list->push(gameData);
 			}
-			else
-			{
-				size--;
-			}
-			if (i < size - 1)
-			{
-				output << ",\n";
-			}
-			i++;
 		}
-		output << "}\n\n";
+		output << list->toLua();
+		output << "\n-- List of currently active quests\n";
+		output << "quests = \n";
+
+		list = new data::Table();
+		for (auto iter = mQuestMap.begin(); iter != mQuestMap.end(); ++iter)
+		{
+			gameData = iter->second->serialise();
+			if (gameData)
+			{
+				list->at(iter->first, gameData);
+			}
+		}
+		output << list->toLua();
+		output << "\n";
 
 		output.close();
 	}
@@ -871,6 +871,7 @@ namespace game {
 			data->at("currentMap", mCurrentMap->getFilename());
 		}
 		data->at("scenarioName", mScenarioName.c_str());
+		IAttributeData::serialise(data);
 
 		return data;
 	}
@@ -900,6 +901,8 @@ namespace game {
 		{
 			mScenarioName = str->string();
 		}
+
+		IAttributeData::deserialise(mLoadingState, hobj);
 	}
 
 }

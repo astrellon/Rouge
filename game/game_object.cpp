@@ -35,6 +35,7 @@ namespace game {
 	}
 	GameObject::GameObject(const GameObject &copy) :
 		Layer(copy),
+		IAttributeData(copy),
 		mName(copy.mName),
 		mFixedToGrid(copy.mFixedToGrid),
 		mOnlyOnPassable(copy.mOnlyOnPassable),
@@ -44,13 +45,8 @@ namespace game {
 		mCameraOffsetY(copy.mCameraOffsetY),
 		mPassibleTypes(copy.mPassibleTypes),
 		mMap(NULL),
-		mOriginalMap(NULL),
-		mAttributes(NULL)
+		mOriginalMap(NULL)
 	{
-		if (copy.mAttributes)
-		{
-			mAttributes = dynamic_cast<data::Table *>(copy.mAttributes->clone());
-		}
 		if (copy.mMap)
 		{
 			copy.mMap->addGameObject(this);
@@ -385,19 +381,6 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	void GameObject::setAttributes(data::Table *table)
-	{
-		mAttributes = table;
-	}
-	data::Table *GameObject::getAttributes(bool create)
-	{
-		if (!mAttributes && create)
-		{
-			mAttributes = new data::Table();
-		}
-		return mAttributes;
-	}
-
 	data::IData *GameObject::serialise()
 	{
 		data::Table *output = new data::Table();
@@ -430,10 +413,7 @@ namespace game {
 			output->at("dialogueComponent", mDialogueComp->serialise());
 		}
 
-		if (mAttributes)
-		{
-			output->at("attributes", mAttributes);
-		}
+		IAttributeData::serialise(output);
 		return output;
 	}
 
@@ -555,11 +535,7 @@ namespace game {
 			setDialogueComp(comp);
 		}
 
-		Handle<data::Table> attrs(dataMap->at<data::Table>("attributes"));
-		if (attrs)
-		{
-			mAttributes = attrs;
-		}
+		IAttributeData::deserialise(state, dataMap);
 
 		return 1;
 	}

@@ -16,6 +16,7 @@ using namespace am::lua;
 using namespace am::game;
 
 #include "lua_stat_modifiers.h"
+#include "lua_iattribute_data.h"
 
 #include <log/logger.h>
 
@@ -123,6 +124,7 @@ namespace game {
 			{ "game_id", Item_game_id },
 			// Static GameObject methods
 			{ "find", Item_find },
+			{ "attrs", Item_attrs },
 			{ NULL, NULL }
 		};
 
@@ -874,6 +876,30 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "@find", "string gameId");
+	}
+
+	/**
+	 * Returns the items attribute data table.
+	 * By default if no attribute data table is present nil is returned unless true
+	 * is passed as the first argument, then a data table is created if one is not present.
+	 * 
+	 * @param boolean [false] createTable Create a data table if one didn't exist.
+	 * @returns DataTable The data table on this character.
+	 */
+	/**
+	 * Sets the data table on this item, can be set to nil.
+	 *
+	 * @param DataTable attrTable The data table to set on the item.
+	 * @returns Item This
+	 */
+	int Item_attrs(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			return IAttributeData_attrs(lua, item);
+		}
+		return LuaState::expectedContext(lua, "attrs", "Item");
 	}
 
 }

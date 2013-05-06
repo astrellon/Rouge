@@ -23,6 +23,7 @@ using namespace am::util;
 #include "character.h"
 #include "quest.h"
 #include "loading_state.h"
+#include "iattribute_data.h"
 
 #include <log/logger.h>
 
@@ -43,7 +44,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IEventListener, public EventInterface {
+	class Game : public IEventListener, public EventInterface, public IAttributeData {
 	public:
 		Game(Engine *engine = NULL);
 		~Game();
