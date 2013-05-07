@@ -22,6 +22,7 @@ using namespace am::game;
 namespace am {
 namespace lua {
 namespace game {
+
 	/**
 	 * @class
 	 * Holds information relating to a single quest. This information
@@ -31,30 +32,41 @@ namespace game {
 	 * steps required, rewards and events to itself.
 	 */
 	/**
-	 * Creates a new quest with the given quest id.
+	 * Creates a new quest with the given quest id unless an existing quest
+	 * with the same questId exists. If the quest was already existing
+	 * then the 2nd return values is true.
 	 *
 	 * @param string questId The quest id for this quest.
+	 * @returns Quest The newly created quest or returns the quest that had the
+	 *  same questId.
+	 * @returns boolean True if the quest was newly created, false otherwise.
 	 */
 	int Quest_ctor(lua_State *lua)
 	{
 		if (lua_isstr(lua, 1))
 		{
-			Quest *quest = new Quest(lua_tostring(lua, 1));
-			wrapObject<Quest>(lua, quest);
-			return 1;
+			Quest *quest = Engine::getGame()->getQuest(lua_tostring(lua, 1));
+			bool newQuest = false;
+			if (!quest)
+			{
+				quest = new Quest(lua_tostring(lua, 1));
+				newQuest = true;
+			}
+			wrapRefObject<Quest>(lua, quest);
+			lua_pushboolean(lua, newQuest);
+			return 2;
 		}
 		return LuaState::expectedArgs(lua, "@new", "string questId");
 	}
 	/**
-	 * Deletes the quest, TODO check if this actually works, should
-	 * probably extend Quest from IManaged.
+	 * Releases the reference on the internal quest.
 	 */
 	int Quest_dtor(lua_State *lua)
 	{
 		Quest *quest = castUData<Quest>(lua, 1);
 		if (quest)
 		{
-			delete quest;
+			quest->release();
 			return 0;
 		}
 		return LuaState::expectedContext(lua, "__gc", "Quest");

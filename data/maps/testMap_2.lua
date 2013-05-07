@@ -94,8 +94,11 @@ do
 	-- End Items
 
 	-- Quests
-	local fredQuest = Quest.new("fredQuest")
-	game:add_quest(fredQuest)
+	local fredQuest, newQuest = Quest.new("fredQuest")
+	if (newQuest) then
+		fredQuest:title("Fred Quest")
+		game:add_quest(fredQuest)
+	end
 	fredQuest:on("startQuest", function(event)
 		npc2:dialogue_component():available("fredQuest", true)
 	end)

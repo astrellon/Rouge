@@ -20,8 +20,8 @@ using namespace am::util;
 #include "game_object.h"
 #include "camera.h"
 #include "map.h"
-#include "character.h"
 #include "quest.h"
+#include "character.h"
 #include "loading_state.h"
 #include "iattribute_data.h"
 
@@ -166,13 +166,13 @@ namespace game {
 
 		Handle<LoadingState> mLoadingState;
 
-		typedef map<string, GameObject *> GameObjectIdMap;
+		typedef map<string, Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
 		typedef map<string, Dialogue *> DialogueMap;
 		DialogueMap mDialogueMap;
 
-		typedef map<string, Quest *> QuestMap;
+		typedef map<string, Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
 
 		template <class T>

@@ -674,7 +674,7 @@ namespace game {
 			mQuestMap[quest->getQuestId()] = quest;
 			return true;
 		}
-		return  false;
+		return false;
 	}
 	bool Game::removeQuest(const char *questId)
 	{
@@ -833,7 +833,7 @@ namespace game {
 			if (!charData)
 			{
 				stringstream ss;
-				ss << "Load file 'characters' object was a '" << charDataObj->typeName() << "' not an 'Array'";
+				ss << "Load file 'characters' object was a '" << charDataObj->typeName() << "' not a 'Table'";
 				am_log("LOADERR", ss);
 				lua.close();
 				return -3;
@@ -844,6 +844,27 @@ namespace game {
 				Handle<Character> newChar(new Character());
 				newChar->deserialise(mLoadingState, iter->get());
 				registerGameObject(newChar);
+			}
+			lua.pop(1);
+		}
+		if (lua.getGlobal("quests"))
+		{
+			Handle<data::IData> questDataObj(data::IData::fromLua(lua, -1));
+			Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
+			if (!questData)
+			{
+				stringstream ss;
+				ss << "Load file 'quests' object was a '" << questDataObj->typeName() << "' not a 'Table'";
+				am_log("LOADERR", ss);
+				lua.close();
+				return -4;
+			}
+
+			for (auto iter = questData->beginMap(); iter != questData->endMap(); ++iter)
+			{
+				Handle<Quest> newQuest(new Quest(iter->first.c_str()));
+				newQuest->deserialise(mLoadingState, iter->second.get());
+				addQuest(newQuest);
 			}
 			lua.pop(1);
 		}

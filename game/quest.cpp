@@ -11,7 +11,6 @@ using namespace am::base;
 namespace am {
 namespace game {
 
-	//Quest::QuestMap Quest::sQuestMap;
 	const int Quest::LUA_ID = 0x0D;
 	const char *Quest::LUA_TABLENAME = "am_game_Quest";
 
