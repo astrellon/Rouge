@@ -492,6 +492,11 @@ namespace game {
 			output->at("graphic", mGraphic->serialise());
 		}
 
+		if (mCoinPurse)
+		{
+			output->at("coinPurse", mCoinPurse->serialise());
+		}
+
 		output->at("levelable", Levelable::serialise());
 		return output;
 	}
@@ -593,6 +598,12 @@ namespace game {
 		if (tempData)
 		{
 			Levelable::deserialise(state, tempData);
+		}
+
+		tempData = dataMap->at("coinPurse");
+		if (tempData && mCoinPurse)
+		{
+			mCoinPurse->deserialise(state, tempData);
 		}
 
 		return 1;

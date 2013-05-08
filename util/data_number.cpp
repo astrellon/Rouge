@@ -19,6 +19,10 @@ namespace data {
 		mValue(v)
 	{
 	}
+	Number::Number(unsigned int v) :
+		mValue(v)
+	{
+	}
 	Number::Number(double v) :
 		mValue(v)
 	{

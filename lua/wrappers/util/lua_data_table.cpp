@@ -263,7 +263,7 @@ namespace data {
 	 * am_log("Size 1: " .. #table)	-- Outputs: Size 1: 3
 	 * table:remove("num", "bool")
 	 * 
-	 * am_log("Size 2: " .. #ma)	-- Outputs: Size 2: 1
+	 * am_log("Size 2: " .. #table)	-- Outputs: Size 2: 1
 	 * </pre>
 	 * 
 	 * @param string... keys The keys to remove.

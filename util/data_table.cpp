@@ -90,6 +90,10 @@ namespace data {
 	{
 		mMapValue[key] = new Number(v);
 	}
+	void Table::at(const std::string &key, unsigned int v)
+	{
+		mMapValue[key] = new Number(v);
+	}
 	void Table::at(const std::string &key, bool v)
 	{
 		mMapValue[key] = new Boolean(v);
@@ -112,6 +116,10 @@ namespace data {
 		mArrayValue.push_back(new Number(v));
 	}
 	void Table::push(int v)
+	{
+		mArrayValue.push_back(new Number(v));
+	}
+	void Table::push(unsigned int v)
 	{
 		mArrayValue.push_back(new Number(v));
 	}
@@ -139,6 +147,11 @@ namespace data {
 		mArrayValue[index] = new Number(v);
 	}
 	void Table::at(int index, int v)
+	{
+		fillArray(index);
+		mArrayValue[index] = new Number(v);
+	}
+	void Table::at(int index, unsigned int v)
 	{
 		fillArray(index);
 		mArrayValue[index] = new Number(v);

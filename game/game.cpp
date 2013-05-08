@@ -755,7 +755,7 @@ namespace game {
 		}
 		
 		output << "\n-- List of characters based on gameid\n";
-		output << "characters = \n";
+		output << "characters = ";
 		Handle<data::Table> list(new data::Table());
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
@@ -767,7 +767,7 @@ namespace game {
 		}
 		output << list->toLua();
 		output << "\n-- List of currently active quests\n";
-		output << "quests = \n";
+		output << "quests = ";
 
 		list = new data::Table();
 		for (auto iter = mQuestMap.begin(); iter != mQuestMap.end(); ++iter)

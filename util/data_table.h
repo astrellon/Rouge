@@ -52,6 +52,7 @@ namespace data {
 		void at(const std::string &key, IData *v);
 		void at(const std::string &key, double v);
 		void at(const std::string &key, int v);
+		void at(const std::string &key, unsigned int v);
 		void at(const std::string &key, bool v);
 		void at(const std::string &key, const char *v);
 		void at(const std::string &key, const std::string &v);
@@ -59,6 +60,7 @@ namespace data {
 		void at(int index, IData *v);
 		void at(int index, double v);
 		void at(int index, int v);
+		void at(int index, unsigned int v);
 		void at(int index, bool v);
 		void at(int index, const char *v);
 		void at(int index, const std::string &v);
@@ -66,6 +68,7 @@ namespace data {
 		void push(IData *v);
 		void push(double v);
 		void push(int v);
+		void push(unsigned int v);
 		void push(bool v);
 		void push(const char *v);
 		void push(const std::string &v);

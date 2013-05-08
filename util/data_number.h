@@ -11,6 +11,7 @@ namespace data {
 
 		Number();
 		Number(int v);
+		Number(unsigned int v);
 		Number(double v);
 		Number(const Number &copy);
 		~Number();

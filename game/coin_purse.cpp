@@ -1,5 +1,10 @@
 #include "coin_purse.h"
 
+#include <game/loading_state.h>
+
+#include <util/data_table.h>
+#include <util/data_number.h>
+
 namespace am {
 namespace game {
 
@@ -88,6 +93,36 @@ namespace game {
 	unsigned int CoinPurse::getMaxCoin() const
 	{
 		return mMaxCoin;
+	}
+
+	data::IData *CoinPurse::serialise()
+	{
+		data::Table *output = new data::Table();
+		output->at("coin", mCoin);
+		output->at("maxCoin", mMaxCoin);
+
+		return output;
+	}
+	int CoinPurse::deserialise(LoadingState *state, data::IData *data)
+	{
+		Handle<data::Table> dataMap(data::Table::checkDataType(data, "coin purse"));
+		if (!dataMap)
+		{
+			return 0;
+		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("maxCoin"));
+		if (num)
+		{
+			setMaxCoin(num->value<unsigned int>());
+		}
+		num = dataMap->at<data::Number>("coin");
+		if (num)
+		{
+			setCoin(num->value<unsigned int>());
+		}
+
+		return 1;
 	}
 
 }
