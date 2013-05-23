@@ -74,8 +74,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\GPP\.adev\rouge\sfx\ogg\;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'">
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
@@ -101,7 +101,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
@@ -319,6 +319,13 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="math\transform.cpp" />
     <ClCompile Include="math\transform_lite.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sfx\openal\aldlist.cpp" />
+    <ClCompile Include="sfx\openal\LoadOAL.cpp" />
+    <ClCompile Include="sfx\sfx_engine.cpp" />
+    <ClCompile Include="sfx\sfx_isound.cpp" />
+    <ClCompile Include="sfx\sfx_sound_ogg.cpp" />
+    <ClCompile Include="sfx\sfx_sound_wav.cpp" />
+    <ClCompile Include="sfx\sfx_source.cpp" />
     <ClCompile Include="sys\game_system.cpp" />
     <ClCompile Include="sys\mem_test_system.cpp" />
     <ClCompile Include="sys\rouge_system.cpp" />
@@ -529,6 +536,13 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="math\vector.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="save_ostream.h" />
+    <ClInclude Include="sfx\openal\aldlist.h" />
+    <ClInclude Include="sfx\openal\LoadOAL.h" />
+    <ClInclude Include="sfx\sfx_engine.h" />
+    <ClInclude Include="sfx\sfx_isound.h" />
+    <ClInclude Include="sfx\sfx_sound_ogg.h" />
+    <ClInclude Include="sfx\sfx_sound_wav.h" />
+    <ClInclude Include="sfx\sfx_source.h" />
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />
     <ClInclude Include="sys\mem_test_system.h" />

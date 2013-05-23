@@ -121,6 +121,12 @@
     <Filter Include="lua\wrapper\util">
       <UniqueIdentifier>{f05e3168-2e51-4199-8462-d6f4a102189a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sfx">
+      <UniqueIdentifier>{170704bb-5192-4f7b-9454-c952f9ae29ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sfx\openal">
+      <UniqueIdentifier>{8095e337-561c-4a94-b578-d95128f1c753}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -744,6 +750,27 @@
     </ClCompile>
     <ClCompile Include="lua\wrappers\game\lua_iattribute_data.cpp">
       <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_engine.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_isound.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_sound_ogg.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_sound_wav.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_source.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\openal\aldlist.cpp">
+      <Filter>sfx\openal</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\openal\LoadOAL.cpp">
+      <Filter>sfx\openal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1371,6 +1398,27 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_iattribute_data.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_engine.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_isound.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_sound_ogg.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_sound_wav.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_source.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\openal\aldlist.h">
+      <Filter>sfx\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\openal\LoadOAL.h">
+      <Filter>sfx\openal</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
