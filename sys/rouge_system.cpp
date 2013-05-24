@@ -60,6 +60,11 @@
 
 #include <lua/wrappers/game/lua_map.h>
 
+#include <sfx/sfx_isound.h>
+#include <sfx/sfx_engine.h>
+#include <sfx/sfx_source.h>
+using namespace am::sfx;
+
 namespace am {
 namespace sys {
 
@@ -131,6 +136,12 @@ namespace sys {
 		PlayerHand::setPlayerHand(mPlayerHand);
 
 		mEngine->loadLuaEngine("data/engine.lua");
+
+		SfxEngine *sfxEngine = SfxEngine::getEngine();
+		ISound *bgm = sfxEngine->loadStream("data/sfx/bgm.ogg");
+		Source *bgmSource = new Source(bgm);
+		bgmSource->setGain(0.2f);
+		bgmSource->play();
 
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);

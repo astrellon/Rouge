@@ -6,12 +6,15 @@ using namespace std;
 
 #include <al.h>
 
+#include <base/imanaged.h>
+using namespace am::base;
+
 namespace am {
 namespace sfx {
 
 	class Source;
 
-	class ISound {
+	class ISound : public IManaged {
 	public:
 
 		enum SpeakerInfo

@@ -10,6 +10,8 @@
 
 #include "openal/aldlist.h"
 
+#include <util/utils.h>
+
 namespace am {
 namespace sfx {
 
@@ -50,7 +52,9 @@ namespace sfx {
 		mOggRawTotal(NULL),
 		mOggInfo(NULL),
 		mOggComment(NULL),
-		mOggOpenCallbacks(NULL)
+		mOggOpenCallbacks(NULL),
+		mBackgroundMusic(NULL),
+		mBackgroundMusicSource(NULL)
 	{
 	}
 
@@ -133,6 +137,12 @@ namespace sfx {
 			}
 			mSourcePool.push_back(SourceId(source));
 		}
+
+		mBackgroundMusicSource = new Source();
+		// Background music is always played at the same location as the listener.
+		mBackgroundMusicSource->setSourceRelative(true);
+		mBackgroundMusicSource->retain();
+
 		return result;
 	}
 
@@ -160,6 +170,17 @@ namespace sfx {
 		}
 		mSourcePool.clear();
 
+		if (mBackgroundMusicSource)
+		{
+			mBackgroundMusicSource->release();
+			mBackgroundMusicSource = NULL;
+		}
+		if (mBackgroundMusic)
+		{
+			mBackgroundMusic->release();
+			mBackgroundMusic = NULL;
+		}
+
 		mInited = false;
 	}
 
@@ -182,14 +203,20 @@ namespace sfx {
 		if (ext.compare("wav") == 0)
 		{
 			SoundWav *wav = new SoundWav();
-			wav->loadStream(filename, numBuffers);
-			return wav;
+			if (wav->loadStream(filename, numBuffers))
+			{
+				return wav;
+			}
+			delete wav;
 		}
 		else if (ext.compare("ogg") == 0)
 		{
 			SoundOgg *ogg = new SoundOgg();
-			ogg->loadStream(filename, numBuffers);
-			return ogg;
+			if (ogg->loadStream(filename, numBuffers))
+			{
+				return ogg;
+			}
+			delete ogg;
 		}
 		return NULL;
 	}
@@ -216,6 +243,31 @@ namespace sfx {
 				mSourcePool[i].source->update();
 			}
 		}
+	}
+
+	void SfxEngine::setBackgroundMusic(ISound *sound)
+	{
+		if (mBackgroundMusic)
+		{
+			mBackgroundMusic->release();
+			mBackgroundMusicSource->stop();
+		}
+		mBackgroundMusic = sound;
+		if (mBackgroundMusic)
+		{
+			mBackgroundMusic->retain();
+		}
+		mBackgroundMusicSource->setSound(mBackgroundMusic);
+		mBackgroundMusicSource->play();
+	}
+	ISound *SfxEngine::getBackgroundMusic() const
+	{
+		return mBackgroundMusic;
+	}
+
+	Listener &SfxEngine::getListener()
+	{
+		return mListener;
 	}
 
 	int SfxEngine::getNumSources() const
@@ -246,13 +298,22 @@ namespace sfx {
 		}
 	}
 
-	void SfxEngine::setEngine(SfxEngine *engine)
-	{
-		sEngine = engine;
-	}
 	SfxEngine *SfxEngine::getEngine()
 	{
+		if (sEngine == NULL)
+		{
+			sEngine = new SfxEngine();
+		}
 		return sEngine;
+	}
+	void SfxEngine::deinitSfxEngine()
+	{
+		if (sEngine)
+		{
+			sEngine->deinit();
+			delete sEngine;
+			sEngine = NULL;
+		}
 	}
 
 	void SfxEngine::checkError(const char *message, const char *filename)
@@ -393,8 +454,7 @@ namespace sfx {
 		{
 			if (filename[i] == '.')
 			{
-				// TODO Use the toLowerCase
-				return string(filename + i + 1);
+				return am::util::Utils::toLowerCase(filename + i + 1);
 			}
 		}
 		return "";

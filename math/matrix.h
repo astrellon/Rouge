@@ -21,7 +21,7 @@ namespace math {
 		Matrix(void) { identity(); }
 		~Matrix(void) {}
 
-		void rotate(const Vector<T> &axis, double angle)
+		void rotate(const Vector4<T> &axis, double angle)
 		{
 			identity();
 			double c = cos(angle);
@@ -45,7 +45,7 @@ namespace math {
 			zz = static_cast<T>(t * z * z + c);
 		}
 
-		void transformVectorConst(Vector<T> &vec) const
+		void transformVectorConst(Vector4<T> &vec) const
 		{
 			T x = vec.x;
 			T y = vec.y;
@@ -56,13 +56,13 @@ namespace math {
 			vec.z = x * zx + y * zy + z * zz;
 		}
 
-		Vector<T> transformVector(const Vector<T> &vec) const
+		Vector4<T> transformVector(const Vector4<T> &vec) const
 		{
 			T x = vec.x;
 			T y = vec.y;
 			T z = vec.z;
 		
-			return Vector<T>(x * xx + y * xy + z * xz, 
+			return Vector4<T>(x * xx + y * xy + z * xz, 
 				x * yx + y * yy + z * yz,
 				x * zx + y * zy + z * zz);
 		}
@@ -175,21 +175,21 @@ namespace math {
 			wz += dz;
 		}
 
-		inline void translate(const Vector<T> &vec)
+		inline void translate(const Vector4<T> &vec)
 		{
 			wx += vec.x;
 			wy += vec.y;
 			wz += vec.z;
 		}
 	
-		inline void translateVector(Vector<T> &vec) const {
+		inline void translateVector(Vector4<T> &vec) const {
 			vec.x += wx;
 			vec.y += wy;
 			vec.z += wz;
 		}
 	
-		inline Vector<T> translateVectorConst(const Vector<T> &vec) const {
-			return Vector<T>(vec.x + wx, vec.y + wy, vec.z + wz, 1);
+		inline Vector4<T> translateVectorConst(const Vector4<T> &vec) const {
+			return Vector4<T>(vec.x + wx, vec.y + wy, vec.z + wz, 1);
 		}
 
 		inline Matrix<T> &operator=(const Matrix<T> &rhs)

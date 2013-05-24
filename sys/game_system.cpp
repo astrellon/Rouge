@@ -12,6 +12,9 @@
 #include <gfx/gfx_log_listener.h>
 #include <gfx/gfx_engine.h>
 
+#include <sfx/sfx_engine.h>
+using namespace am::sfx;
+
 #include <log/logger.h>
 
 #include <ui/mouse_manager.h>
@@ -100,6 +103,14 @@ namespace sys {
 		gfxEngine ->init();
 		
 		mEngine->init();
+
+		am::sfx::SfxEngine *sfxEngine = am::sfx::SfxEngine::getEngine();
+		sfxEngine->init();
+		if (!sfxEngine->createContext())
+		{
+			am_log("SFXERR", "Error creating sound context");
+			// TODO Figure out what should happen here.
+		}
 		
 		mDebugConsole = new TextList();
 		mDebugConsole->setName("DebugConsole");
@@ -121,6 +132,12 @@ namespace sys {
 	void GameSystem::update(float dt)
 	{
 		mEngine->update(dt);
+
+		SfxEngine *engine = SfxEngine::getEngine();
+		if (engine)
+		{
+			engine->update();
+		}
 	}
 	void GameSystem::display(float dt)
 	{

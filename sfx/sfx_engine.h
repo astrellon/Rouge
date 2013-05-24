@@ -9,6 +9,8 @@ using namespace std;
 #include <Windows.h>
 #include <sfx/ogg/Vorbis/vorbisfile.h>
 
+#include <sfx/sfx_listener.h>
+
 namespace am {
 namespace sfx {
 
@@ -57,8 +59,13 @@ namespace sfx {
 		ISound *loadSound(const char *filename);
 		ISound *loadStream(const char *filename, int numBuffers = 4);
 
+		void setBackgroundMusic(ISound *bgm);
+		ISound *getBackgroundMusic() const;
+
+		Listener &getListener();
+
 		static SfxEngine *getEngine();
-		static void setEngine(SfxEngine *engine);
+		static void deinitSfxEngine();
 
 		static const char *getErrorCode(ALenum errorCode);
 		static void checkError(const char *message = NULL, const char *filename = NULL);
@@ -75,9 +82,12 @@ namespace sfx {
 
 		int nextPoolIndex();
 
-		static SfxEngine *sEngine;
+		Source *mBackgroundMusicSource;
+		ISound *mBackgroundMusic;
 
-		
+		Listener mListener;
+
+		static SfxEngine *sEngine;
 
 		// OGG Specific variables/functions
 	public:

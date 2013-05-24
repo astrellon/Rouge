@@ -73,7 +73,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	delete gameSystem;
 	delete mouseManager;
 	delete keyboardManager;
-	GfxEngine::deinitGfxEngine();
+	am::gfx::GfxEngine::deinitGfxEngine();
+	am::sfx::SfxEngine::deinitSfxEngine();
 	am::util::Colour::removeAllColours();
 
 	am::log::Logger::clearMainLogger();

@@ -1,0 +1,60 @@
+#pragma once
+
+#include <map>
+#include <string>
+using namespace std;
+
+#include <al.h>
+
+#include <base/imanaged.h>
+using namespace am::base;
+
+#include <math/vector.h>
+using namespace am::math;
+
+namespace am {
+namespace sfx {
+
+	class Listener : public IManaged {
+	public:
+		
+		Listener();
+		~Listener();
+
+		void setGain(float gain);
+		float getGain() const;
+
+		void setEnabled(bool enabled);
+		bool isEnabled() const;
+
+#ifdef SOUND_3D
+		void setPosition(float x, float y, float z);
+		void setVelocity(float x, float y, float z);
+		void setOrientation(float x, float y, float z);
+#else
+		void setPosition(float x, float y);
+		void setVelocity(float x, float y);
+		void setOrientation(float x, float y);
+#endif
+
+	protected:
+
+		bool mEnabled;
+		float mGain;
+
+#ifdef SOUND_3D
+		Vector4f mPosition;
+		Vector4f mVelocity;
+		Vector4f mOrientation;
+#else
+		Vector2f mPosition;
+		Vector2f mVelocity;
+		Vector2f mOrientation;
+#endif
+
+		void applyToListener();
+
+	};
+
+}
+}

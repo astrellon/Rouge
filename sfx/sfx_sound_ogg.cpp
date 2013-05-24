@@ -50,7 +50,7 @@ namespace sfx {
 		FILE *file = fopen(filename, "rb");
 		if (!file)
 		{
-			throw ("Unable to find file");
+			return false;
 		}
 
 		mNumBuffers = 1;
@@ -91,7 +91,7 @@ namespace sfx {
 		FILE *file = fopen(filename, "rb");
 		if (!file)
 		{
-			throw ("Unable to find file");
+			return false;
 		}
 
 		mNumBuffers = numBuffers;

@@ -6,26 +6,14 @@
 namespace am {
 namespace sfx {
 
-	_Vector3::_Vector3() :
-		x(0.0f),
-		y(0.0f),
-		z(0.0f)
-	{
-	}
-	_Vector3::_Vector3(float x, float y, float z) :
-		x(x),
-		y(y),
-		z(z)
-	{
-	}
-
 	Source::Source() :
 		mSource(-1),
 		mLooping(false),
 		mGain(1.0f),
 		mReferenceDistance(1.0f),
 		mRolloffFactor(1.0f),
-		mPriority(1)
+		mPriority(1),
+		mSourceRelative(false)
 	{
 	}
 	Source::Source(ISound *sound) :
@@ -34,7 +22,8 @@ namespace sfx {
 		mGain(1.0f),
 		mReferenceDistance(1.0f),
 		mRolloffFactor(1.0f),
-		mPriority(1)
+		mPriority(1),
+		mSourceRelative(false)
 	{
 		setSound(sound);
 	}
@@ -103,6 +92,19 @@ namespace sfx {
 		return mLooping;
 	}
 
+	void Source::setSourceRelative(bool value)
+	{
+		mSourceRelative = value;
+		if (mSource != -1)
+		{
+			alSourcei(mSource, AL_SOURCE_RELATIVE, value);
+		}
+	}
+	bool Source::isSourceRelative() const
+	{
+		return mSourceRelative;
+	}
+
 	void Source::setGain(float gain)
 	{
 		mGain = gain;
@@ -151,6 +153,7 @@ namespace sfx {
 		return mPriority;
 	}
 
+#ifdef SOUND_3D
 	void Source::setPosition(float x, float y, float z)
 	{
 		mPosition.x = x;
@@ -171,6 +174,26 @@ namespace sfx {
 			alSource3f(mSource, AL_VELOCITY, x, y, z);
 		}
 	}
+#else
+	void Source::setPosition(float x, float y)
+	{
+		mPosition.x = x;
+		mPosition.y = y;
+		if (mSource != -1)
+		{
+			alSource3f(mSource, AL_POSITION, x, y, 0.0f);
+		}
+	}
+	void Source::setVelocity(float x, float y)
+	{
+		mVelocity.x = x;
+		mVelocity.y = y;
+		if (mSource != -1)
+		{
+			alSource3f(mSource, AL_VELOCITY, x, y, 0.0f);
+		}
+	}
+#endif
 
 	ALint Source::getStatus()
 	{
@@ -197,8 +220,14 @@ namespace sfx {
 		alSourcef(mSource, AL_REFERENCE_DISTANCE, mReferenceDistance);
 		alSourcef(mSource, AL_ROLLOFF_FACTOR, mRolloffFactor);
 		alSourcei(mSource, AL_LOOPING, mLooping);
+		alSourcei(mSource, AL_SOURCE_RELATIVE, mSourceRelative);
+#ifdef SOUND_3D
 		alSource3f(mSource, AL_POSITION, mPosition.x, mPosition.y, mPosition.z);
 		alSource3f(mSource, AL_VELOCITY, mVelocity.x, mVelocity.y, mVelocity.z);
+#else
+		alSource3f(mSource, AL_POSITION, mPosition.x, mPosition.y, 0.0f);
+		alSource3f(mSource, AL_VELOCITY, mVelocity.x, mVelocity.y, 0.0f);
+#endif
 	}
 	void Source::releaseSource()
 	{

@@ -6,21 +6,18 @@ using namespace std;
 
 #include <al.h>
 
+#include <base/imanaged.h>
+using namespace am::base;
+
+#include <math/vector.h>
+using namespace am::math;
+
 namespace am {
 namespace sfx {
 
 	class ISound;
 
-	typedef struct _Vector3 {
-		float x;
-		float y;
-		float z;
-
-		_Vector3();
-		_Vector3(float x, float y, float z);
-	} Vector3;
-
-	class Source {
+	class Source : public IManaged {
 	public:
 		
 		Source();
@@ -38,6 +35,9 @@ namespace sfx {
 		void setLooping(bool value);
 		bool isLooping() const;
 
+		void setSourceRelative(bool value);
+		bool isSourceRelative() const;
+
 		void setPriority(unsigned int priority);
 		unsigned int getPriority() const;
 
@@ -50,8 +50,13 @@ namespace sfx {
 		void setRolloffFactor(float factor);
 		float getRolloffFactor() const;
 
+#ifdef SOUND_3D
 		void setPosition(float x, float y, float z);
 		void setVelocity(float x, float y, float z);
+#else
+		void setPosition(float x, float y);
+		void setVelocity(float x, float y);
+#endif
 
 		ALint getStatus();
 		ALuint getSourceId() const;
@@ -59,6 +64,7 @@ namespace sfx {
 	protected:
 
 		bool mLooping;
+		bool mSourceRelative;
 		unsigned int mPriority;
 		ISound *mSound;
 		ALuint mSource;
@@ -66,8 +72,13 @@ namespace sfx {
 		float mReferenceDistance;
 		float mRolloffFactor;
 
-		Vector3 mPosition;
-		Vector3 mVelocity;
+#ifdef SOUND_3D
+		Vector4f mPosition;
+		Vector4f mVelocity;
+#else
+		Vector2f mPosition;
+		Vector2f mVelocity;
+#endif
 
 		void applyToSource();
 		void releaseSource();

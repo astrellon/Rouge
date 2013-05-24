@@ -26,6 +26,7 @@ using namespace std;
 #include <ui/mouse_manager.h>
 #include <ui/keyboard_manager.h>
 #include <gfx/gfx_engine.h>
+#include <sfx/sfx_engine.h>
 #include <game/engine.h>
 #include <game/game.h>
 
