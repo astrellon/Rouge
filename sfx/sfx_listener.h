@@ -31,10 +31,16 @@ namespace sfx {
 		void setPosition(float x, float y, float z);
 		void setVelocity(float x, float y, float z);
 		void setOrientation(float x, float y, float z);
+		Vector4f getPosition() const;
+		Vector4f getVelocity() const;
+		Vector4f getOrientation() const;
 #else
 		void setPosition(float x, float y);
 		void setVelocity(float x, float y);
 		void setOrientation(float x, float y);
+		Vector2f getPosition() const;
+		Vector2f getVelocity() const;
+		Vector2f getOrientation() const;
 #endif
 
 	protected:

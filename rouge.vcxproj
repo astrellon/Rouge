@@ -323,6 +323,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="sfx\openal\LoadOAL.cpp" />
     <ClCompile Include="sfx\sfx_engine.cpp" />
     <ClCompile Include="sfx\sfx_isound.cpp" />
+    <ClCompile Include="sfx\sfx_listener.cpp" />
     <ClCompile Include="sfx\sfx_sound_ogg.cpp" />
     <ClCompile Include="sfx\sfx_sound_wav.cpp" />
     <ClCompile Include="sfx\sfx_source.cpp" />
@@ -540,6 +541,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sfx\openal\LoadOAL.h" />
     <ClInclude Include="sfx\sfx_engine.h" />
     <ClInclude Include="sfx\sfx_isound.h" />
+    <ClInclude Include="sfx\sfx_listener.h" />
     <ClInclude Include="sfx\sfx_sound_ogg.h" />
     <ClInclude Include="sfx\sfx_sound_wav.h" />
     <ClInclude Include="sfx\sfx_source.h" />

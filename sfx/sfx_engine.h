@@ -31,7 +31,8 @@ namespace sfx {
 		_SourceId();
 		_SourceId(ALuint id);
 
-		unsigned int getPriority() const;
+		bool isStreaming() const;
+		float getGain() const;
 	} SourceId;
 
 	class SfxEngine {
@@ -64,6 +65,9 @@ namespace sfx {
 
 		Listener &getListener();
 
+		void addInactiveSource(Source *source);
+		void removeInactiveSource(Source *source);
+
 		static SfxEngine *getEngine();
 		static void deinitSfxEngine();
 
@@ -86,6 +90,11 @@ namespace sfx {
 		ISound *mBackgroundMusic;
 
 		Listener mListener;
+
+		typedef vector<Source *> SourceList;
+		SourceList mInactiveSources;
+
+		size_t findInactiveSource(Source *source);
 
 		static SfxEngine *sEngine;
 

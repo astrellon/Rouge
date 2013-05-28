@@ -772,6 +772,9 @@
     <ClCompile Include="sfx\openal\LoadOAL.cpp">
       <Filter>sfx\openal</Filter>
     </ClCompile>
+    <ClCompile Include="sfx\sfx_listener.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1419,6 +1422,9 @@
     </ClInclude>
     <ClInclude Include="sfx\openal\LoadOAL.h">
       <Filter>sfx\openal</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_listener.h">
+      <Filter>sfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

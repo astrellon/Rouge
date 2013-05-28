@@ -32,13 +32,21 @@ namespace sfx {
 		source(NULL)
 	{
 	}
-	unsigned int _SourceId::getPriority() const
+	bool _SourceId::isStreaming() const
 	{
 		if (source == NULL)
 		{
-			return 0u;
+			return false;
 		}
-		return source->getPriority();
+		return source->getSound()->isStream();
+	}
+	float _SourceId::getGain() const
+	{
+		if (source == NULL)
+		{
+			return -1.0f;
+		}
+		return source->calcGain();
 	}
 
 	SfxEngine::SfxEngine() :
@@ -270,6 +278,50 @@ namespace sfx {
 		return mListener;
 	}
 
+	void SfxEngine::addInactiveSource(Source *source)
+	{
+		if (!source)
+		{
+			return;
+		}
+		size_t index = findInactiveSource(source);
+		if (index == -1)
+		{
+			return;
+		}
+		source->retain();
+		mInactiveSources.push_back(source);
+	}
+	void SfxEngine::removeInactiveSource(Source *source)
+	{
+		if (!source)
+		{
+			return;
+		}
+		size_t index = findInactiveSource(source);
+		if (index == -1)
+		{
+			return;
+		}
+		mInactiveSources.erase(mInactiveSources.begin() + index);
+		source->release();
+	}
+	size_t SfxEngine::findInactiveSource(Source *source)
+	{
+		if (!source)
+		{
+			return -1;
+		}
+		for (size_t i = 0; i < mInactiveSources.size(); i++)
+		{
+			if (mInactiveSources[i] == source)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	int SfxEngine::getNumSources() const
 	{
 		return static_cast<int>(mSourcePool.size());
@@ -282,8 +334,12 @@ namespace sfx {
 			return false;
 		}
 		int poolIndex = nextPoolIndex();
-		result = mSourcePool[mSourcePoolPos].id;
-		mSourcePool[mSourcePoolPos].source = forSource;
+		if (mSourcePool[poolIndex].source != NULL)
+		{
+			mSourcePool[poolIndex].source->stopOutOfRange();
+		}
+		result = mSourcePool[poolIndex].id;
+		mSourcePool[poolIndex].source = forSource;
 		return true;
 	}
 	void SfxEngine::releaseSource(ALuint source)
@@ -357,21 +413,41 @@ namespace sfx {
 	int SfxEngine::nextPoolIndex()
 	{
 		int initialPos = mSourcePoolPos;
-		unsigned int findPriority = 0;
-		while (mSourcePool[mSourcePoolPos].getPriority() > findPriority)
+		// Look for any unused sources
+		while (mSourcePool[mSourcePoolPos].source != NULL)
 		{
 			mSourcePoolPos++;
 			if (mSourcePoolPos >= mSourcePool.size())
 			{
 				mSourcePoolPos = 0;
 			}
-			// If the position is the same, then we've looped around
-			// the pool, so find a higher priority sound.
 			if (mSourcePoolPos == initialPos)
 			{
-				findPriority++;
+				break;
 			}
 		}
+		if (mSourcePool[mSourcePoolPos].source == NULL)
+		{
+			return mSourcePoolPos;
+		}
+		// All sources are in use, so lets look for the quietest
+		// non-streaming source.
+		float currentGain = 0.0f;
+		int pos = -1;
+		for (int i = 0; i < mSourcePool.size(); i++)
+		{
+			if (!mSourcePool[i].isStreaming())
+			{
+				float gain = mSourcePool[i].getGain();
+				if (gain < currentGain || pos < 0)
+				{
+					currentGain = gain;
+					pos = i;
+				}
+			}
+		}
+		// Now we should have the quiest non-streaming sound source that we can use.
+		mSourcePoolPos = pos;
 		return mSourcePoolPos;
 	}
 

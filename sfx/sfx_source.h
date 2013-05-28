@@ -26,6 +26,7 @@ namespace sfx {
 
 		void play();
 		void stop();
+		void stopOutOfRange();
 
 		void update();
 
@@ -38,8 +39,8 @@ namespace sfx {
 		void setSourceRelative(bool value);
 		bool isSourceRelative() const;
 
-		void setPriority(unsigned int priority);
-		unsigned int getPriority() const;
+		//void setPriority(unsigned int priority);
+		//unsigned int getPriority() const;
 
 		void setGain(float gain);
 		float getGain() const;
@@ -53,10 +54,16 @@ namespace sfx {
 #ifdef SOUND_3D
 		void setPosition(float x, float y, float z);
 		void setVelocity(float x, float y, float z);
+		Vector4f getPosition() const;
+		Vector4f getVelocity() const;
 #else
 		void setPosition(float x, float y);
 		void setVelocity(float x, float y);
+		Vector2f getPosition() const;
+		Vector2f getVelocity() const;
 #endif
+
+		float calcGain() const;
 
 		ALint getStatus();
 		ALuint getSourceId() const;
@@ -65,7 +72,7 @@ namespace sfx {
 
 		bool mLooping;
 		bool mSourceRelative;
-		unsigned int mPriority;
+		bool mPlaying;
 		ISound *mSound;
 		ALuint mSource;
 		float mGain;
