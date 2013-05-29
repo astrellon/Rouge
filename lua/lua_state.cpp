@@ -34,7 +34,7 @@ namespace lua {
 		if (includeLibraries)
 		{
 			lua_register(mLua, "import", getWrapper);
-			lua_register(mLua, "equals", luaEquals);
+			lua_register(mLua, "am_equals", luaEquals);
 			lua_register(mLua, "not_equals", luaNotEquals);
 			lua_register(mLua, "print_stack", luaPrintStack);
 		}

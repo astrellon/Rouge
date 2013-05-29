@@ -55,8 +55,8 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getGridSize"));
 		lua_acall(lua, 0, 2);
-		equals(8, lua_tointeger(lua, -2));
-		equals(5, lua_tointeger(lua, -1));
+		am_equals(8, lua_tointeger(lua, -2));
+		am_equals(5, lua_tointeger(lua, -1));
 		lua.pop(2);
 
 		Engine::setEngine(prevEng);

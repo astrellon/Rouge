@@ -85,23 +85,23 @@ namespace tests {
 
 		Handle<util::data::Number> num(dataMap->at<util::data::Number>("num"));
 		assert(num);
-		equalsDelta(5.0, num->number(), 0.00001);
+		am_equalsDelta(5.0, num->number(), 0.00001);
 
 		Handle<util::data::String> str(dataMap->at<util::data::String>("str"));
 		assert(str);
-		equalsStr("test", str->string());
+		am_equalsStr("test", str->string());
 
 		Handle<util::data::Table> pos(dataMap->at<util::data::Table>("pos"));
 		assert(pos);
-		equals(3u, pos->mapInner().size());
+		am_equals(3u, pos->mapInner().size());
 
 		num = pos->at<util::data::Number>("x");
 		assert(num);
-		equalsDelta(5.4, num->number(), 0.00001);
+		am_equalsDelta(5.4, num->number(), 0.00001);
 
 		num = pos->at<util::data::Number>("y");
 		assert(num);
-		equalsDelta(3.2, num->number(), 0.00001);
+		am_equalsDelta(3.2, num->number(), 0.00001);
 
 		Handle<util::data::Boolean> boo(pos->at<util::data::Boolean>("origin"));
 		assert(boo);
@@ -109,19 +109,19 @@ namespace tests {
 
 		Handle<util::data::Table> names(dataMap->at<util::data::Table>("names"));
 		assert(names);
-		equals(3u, names->arrayInner().size());
+		am_equals(3u, names->arrayInner().size());
 
 		str = names->at<util::data::String>(0);
 		assert(str);
-		equalsStr("jeb", str->string());
+		am_equalsStr("jeb", str->string());
 
 		str = names->at<util::data::String>(1);
 		assert(str);
-		equalsStr("bob", str->string());
+		am_equalsStr("bob", str->string());
 
 		str = names->at<util::data::String>(2);
 		assert(str);
-		equalsStr("bill", str->string());
+		am_equalsStr("bill", str->string());
 
 		assert(lua.hasGlobalFunction("loop"));
 		lua_acall(lua, 0, 0);

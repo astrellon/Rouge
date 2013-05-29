@@ -55,8 +55,8 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getSpace"));
 		lua_acall(lua, 0, 2);
-		equals(6, lua_tointeger(lua, -2));
-		equals(4, lua_tointeger(lua, -1));
+		am_equals(6, lua_tointeger(lua, -2));
+		am_equals(4, lua_tointeger(lua, -1));
 		lua.pop(2);
 
 		Handle<Item> item(new Item());

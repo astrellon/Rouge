@@ -15,6 +15,7 @@ using namespace std;
 #include "tile_instance.h"
 #include "tile_type.h"
 #include "engine.h"
+#include "game.h"
 
 namespace am {
 namespace game {
@@ -174,6 +175,15 @@ namespace game {
 		if (iter == mObjects.end())
 		{
 			mObjects.push_back(object);
+			Game *game = Engine::getGame();
+			if (game && game->getCurrentMap() == this)
+			{
+				Source *source = object->getSource(false);
+				if (source)
+				{
+					source->play();
+				}
+			}
 			object->setMap(this);
 			return true;
 		}

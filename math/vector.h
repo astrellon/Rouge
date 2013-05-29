@@ -131,7 +131,8 @@ namespace math {
 			return *this;
 		}
 
-		inline Vector4<T> multiply(const Vector4<T> &rhs) const {
+		inline Vector4<T> multiply(const Vector4<T> &rhs) const 
+		{
 			return Vector4<T>(x * rhs.x, y * rhs.y, z * rhs.z);
 		}
 
@@ -150,9 +151,9 @@ namespace math {
 			return *this;
 		}
 
-		inline bool equals(const Vector4<T> &rhs, double tolerance = 0)
-		const {
-			if(tolerance > 0.0)
+		inline bool equals(const Vector4<T> &rhs, double tolerance = 0)	const 
+		{
+			if (tolerance > 0.0)
 			{
 				double dx = static_cast<double>(rhs.x - x);
 				double dy = static_cast<double>(rhs.y - y);
@@ -353,9 +354,9 @@ namespace math {
 			return *this;
 		}
 
-		inline bool equals(const Vector2<T> &rhs, double tolerance = 0)
-		const {
-			if(tolerance > 0.0)
+		inline bool equals(const Vector2<T> &rhs, double tolerance = 0) const 
+		{
+			if (tolerance > 0.0)
 			{
 				double dx = static_cast<double>(rhs.x - x);
 				double dy = static_cast<double>(rhs.y - y);

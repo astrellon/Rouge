@@ -59,7 +59,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getBaseStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(0.0f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(0.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setBaseStat"));
@@ -70,13 +70,13 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getBaseStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(5.7f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(5.7f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(5.7f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(5.7f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addModifier"));
@@ -89,7 +89,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(57.0f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(57.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addModifier"));
@@ -102,7 +102,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(60.0f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(60.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeModifier"));
@@ -115,7 +115,7 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getStat"));
 		lua.push("health");
 		lua_acall(lua, 1, 1);
-		equalsDelta(8.7f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(8.7f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		return true;

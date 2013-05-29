@@ -381,6 +381,20 @@ namespace game {
 		return mDialogueComp;
 	}
 
+	Source *GameObject::getSource(bool create)
+	{
+		if (create && !mSoundSource)
+		{
+			setSource(new Source());
+		}
+		return mSoundSource;
+	}
+	void GameObject::setSource(Source *source)
+	{
+		mSoundSource = source;
+		applyToSource();
+	}
+
 	data::IData *GameObject::serialise()
 	{
 		data::Table *output = new data::Table();
@@ -538,6 +552,15 @@ namespace game {
 		IAttributeData::deserialise(state, dataMap);
 
 		return 1;
+	}
+
+	void GameObject::applyToSource()
+	{
+		if (!mSoundSource)
+		{
+			return;
+		}
+		mSoundSource->setPosition(mLocationX, mLocationY);
 	}
 
 	const char *GameObject::getGameObjectTypeName() const

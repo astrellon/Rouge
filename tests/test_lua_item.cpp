@@ -40,11 +40,11 @@ namespace tests {
 			Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject("testItem")));
 			assert(item != NULL);
 
-			equals(2, item->getReferenceCounter());
+			am_equals(2, item->getReferenceCounter());
 			
 			lua.close();
 
-			equals(1, item->getReferenceCounter());
+			am_equals(1, item->getReferenceCounter());
 
 		}
 		

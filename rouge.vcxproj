@@ -534,8 +534,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="math\matrix.h" />
     <ClInclude Include="math\transform.h" />
     <ClInclude Include="math\transform_lite.h" />
-    <ClInclude Include="math\vector.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="math\vector.h" />
     <ClInclude Include="save_ostream.h" />
     <ClInclude Include="sfx\openal\aldlist.h" />
     <ClInclude Include="sfx\openal\LoadOAL.h" />

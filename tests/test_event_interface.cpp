@@ -21,7 +21,7 @@ namespace tests {
 		{
 			Handle<Event> e(new Event("test"));
 			inter.fireEvent<Event>(e);
-			equals(0, mEventCounter);
+			am_equals(0, mEventCounter);
 		}
 		catch (...) 
 		{
@@ -35,7 +35,7 @@ namespace tests {
 		{
 			Handle<Event> e(new Event("test"));
 			inter.fireEvent<Event>(e);
-			equals(1, mEventCounter);
+			am_equals(1, mEventCounter);
 		}
 		catch (...) 
 		{
@@ -49,7 +49,7 @@ namespace tests {
 		{
 			Handle<Event> e(new Event("test"));
 			inter.fireEvent<Event>(e);
-			equals(1, mEventCounter);
+			am_equals(1, mEventCounter);
 		}
 		catch (...) 
 		{

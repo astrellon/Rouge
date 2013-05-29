@@ -53,28 +53,28 @@ namespace tests {
 		assert(loadResult);
 
 		Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("char1"));
-		equalsStr("Melli", char1->getName().c_str());
+		am_equalsStr("Melli", char1->getName().c_str());
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
 		const char *name = lua_tostring(lua, -1);
-		equalsStr("Melli", name);
+		am_equalsStr("Melli", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua_acall(lua, 0, 1);
-		equalsDelta(23.4f, lua_tonumber(lua, -1), 0.001f);
+		am_equalsDelta(23.4f, lua_tonumber(lua, -1), 0.001f);
 		lua.pop(1);
 
 		char1->setName("Melanie");
-		equalsStr("Melanie", char1->getName().c_str());
+		am_equalsStr("Melanie", char1->getName().c_str());
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
 		name = lua_tostring(lua, -1);
-		equalsStr("Melanie", name);
+		am_equalsStr("Melanie", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua_acall(lua, 0, 1);
-		equalsDelta(23.4f, lua_tonumber(lua, -1), 0.001f);
+		am_equalsDelta(23.4f, lua_tonumber(lua, -1), 0.001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("changeName"));
@@ -82,15 +82,15 @@ namespace tests {
 		lua_acall(lua, 1, 0);
 		char1->setAge(56.8f);
 
-		equalsStr("Mel", char1->getName().c_str());
+		am_equalsStr("Mel", char1->getName().c_str());
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
 		name = lua_tostring(lua, -1);
-		equalsStr("Mel", name);
+		am_equalsStr("Mel", name);
 		lua.pop(1);
 		assert(lua.hasGlobalFunction("getAge"));
 		lua_acall(lua, 0, 1);
-		equalsDelta(56.8f, lua_tonumber(lua, -1), 0.001f);
+		am_equalsDelta(56.8f, lua_tonumber(lua, -1), 0.001f);
 		lua.pop(1);
 
 		return true;
@@ -116,23 +116,23 @@ namespace tests {
 		assert(loadResult);
 
 		Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charGender"));
-		equals(static_cast<int>(Gender::MALE), static_cast<int>(charGender->getGender()));
+		am_equals(static_cast<int>(Gender::MALE), static_cast<int>(charGender->getGender()));
 
 		assert(lua.hasGlobalFunction("getGender"));
 		lua_acall(lua, 0, 1);
 		const char *genderName = lua_tostring(lua, -1);
-		equalsStr("male", genderName);
+		am_equalsStr("male", genderName);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("changeGender"));
 		lua.push("female");
 		lua_acall(lua, 1, 0);
-		equals(static_cast<int>(Gender::FEMALE), static_cast<int>(charGender->getGender()));
+		am_equals(static_cast<int>(Gender::FEMALE), static_cast<int>(charGender->getGender()));
 
 		assert(lua.hasGlobalFunction("getGender"));
 		lua_acall(lua, 0, 1);
 		genderName = lua_tostring(lua, -1);
-		equalsStr("female", genderName);
+		am_equalsStr("female", genderName);
 		lua.pop(1);
 
 		return true;
@@ -159,7 +159,7 @@ namespace tests {
 		assert(loadResult);
 
 		Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
-		equalsDelta(0.0f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+		am_equalsDelta(0.0f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
 
 		charStats->getStats().setBaseStat(Stat::ARCANE, 5.0f);
 
@@ -168,14 +168,14 @@ namespace tests {
 		lua_acall(lua, 1, 1);
 		float value = static_cast<float>(lua_tonumber(lua, -1));
 		lua.pop(1);
-		equalsDelta(5.0f, value, 0.0001f);
+		am_equalsDelta(5.0f, value, 0.0001f);
 
 		assert(lua.hasGlobalFunction("setBaseStat"));
 		lua.push("arcane");
 		lua.push(8.9f);
 		lua_acall(lua, 2, 0);
 
-		equalsDelta(8.9f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+		am_equalsDelta(8.9f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
 
 		return true;
 	}
@@ -236,14 +236,14 @@ namespace tests {
 		int loadResult = lua.loadString("Character, DataTable = import(\"Character\", \"DataTable\")\n"
 			"char = Character.new()\n"
 			"attrs = char:attrs()\n"
-			"equals(attrs, nil)\n"
+			"am_equals(attrs, nil)\n"
 			"attrs = char:attrs(true)\n"
 			"not_equals(attrs, nil)\n"
 			"attrs:push(2)\n"
 			"attrs:push(5)\n"
 			"attrs:push(8)\n"
 			"attrs2 = char:attrs(true)\n"
-			"equals(attrs, attrs2)\n"
+			"am_equals(attrs, attrs2)\n"
 			);
 		
 		if (!loadResult)

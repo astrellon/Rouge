@@ -56,8 +56,8 @@ namespace tests {
 		assert(loadResult);
 
 		string eventCalled = lua.getGlobalString("eventCalled");
-		equalsStr("none", eventCalled.c_str());
-		equals(0, lua.getGlobalInt("timesCalled"));
+		am_equalsStr("none", eventCalled.c_str());
+		am_equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
 		wrapObject<Quest>(lua, &manager);
@@ -67,15 +67,15 @@ namespace tests {
 		manager.fireEvent<Event>(testEvent);
 
 		eventCalled = lua.getGlobalString("eventCalled");
-		equalsStr("testEvent", eventCalled.c_str());
-		equals(1, lua.getGlobalInt("timesCalled"));
+		am_equalsStr("testEvent", eventCalled.c_str());
+		am_equals(1, lua.getGlobalInt("timesCalled"));
 
 		Handle<Event> testEvent2(new Event("testEvent"));
 		manager.fireEvent<Event>(testEvent2);
 
 		eventCalled = lua.getGlobalString("eventCalled");
-		equalsStr("testEvent", eventCalled.c_str());
-		equals(1, lua.getGlobalInt("timesCalled"));
+		am_equalsStr("testEvent", eventCalled.c_str());
+		am_equals(1, lua.getGlobalInt("timesCalled"));
 		
 		return true;
 	}
@@ -104,24 +104,24 @@ namespace tests {
 
 		lua_getglobal(lua, "eventCalled");
 		const char *eventCalled = lua_tostring(lua, -1);
-		equalsStr("none", eventCalled) == 0);
-		equals(-1, lua.getGlobalInt("mouseX"));
-		equals(-1, lua.getGlobalInt("mouseY"));
-		equals(-1, lua.getGlobalInt("mouseButton"));
-		equals(-1, lua.getGlobalInt("localX"));
-		equals(-1, lua.getGlobalInt("localY"));
+		am_equalsStr("none", eventCalled) == 0);
+		am_equals(-1, lua.getGlobalInt("mouseX"));
+		am_equals(-1, lua.getGlobalInt("mouseY"));
+		am_equals(-1, lua.getGlobalInt("mouseButton"));
+		am_equals(-1, lua.getGlobalInt("localX"));
+		am_equals(-1, lua.getGlobalInt("localY"));
 
 		Handle<MouseEvent> e(new MouseEvent(MOUSE_MOVE, LEFT_BUTTON, 8, 10));
 		manager.fireEvent<MouseEvent>(e);
 
 		lua_getglobal(lua, "eventCalled");
 		eventCalled = lua_tostring(lua, -1);
-		equalsStr("mouse_move", eventCalled) == 0);
-		equals(8, lua.getGlobalInt("mouseX"));
-		equals(10, lua.getGlobalInt("mouseY"));
-		equals(1, lua.getGlobalInt("mouseButton"));
-		equals(8, lua.getGlobalInt("localX"));
-		equals(10, lua.getGlobalInt("localY"));
+		am_equalsStr("mouse_move", eventCalled) == 0);
+		am_equals(8, lua.getGlobalInt("mouseX"));
+		am_equals(10, lua.getGlobalInt("mouseY"));
+		am_equals(1, lua.getGlobalInt("mouseButton"));
+		am_equals(8, lua.getGlobalInt("localX"));
+		am_equals(10, lua.getGlobalInt("localY"));
 		*/
 		return true;
 	}

@@ -53,7 +53,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("testTile", lua_tostring(lua, -1));
+		am_equalsStr("testTile", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setName"));
@@ -62,7 +62,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("newTestTile", lua_tostring(lua, -1));
+		am_equalsStr("newTestTile", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
@@ -71,7 +71,7 @@ namespace tests {
 		
 		assert(lua.hasGlobalFunction("getFullName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("New Full Name", lua_tostring(lua, -1));
+		am_equalsStr("New Full Name", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setDescription"));
@@ -80,7 +80,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getDescription"));
 		lua_acall(lua, 0, 1);
-		equalsStr("New Description", lua_tostring(lua, -1));
+		am_equalsStr("New Description", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		return true;
@@ -181,9 +181,9 @@ namespace tests {
 			"tile:add_tile_type(land):add_tile_type(water)\n"
 			
 			"types = tile:tile_types()\n"
-			"equals(2, #types)\n"
-			"equals(\"land-a\", types[1]:name())\n"
-			"equals(\"water-a\", types[2]:name())\n"
+			"am_equals(2, #types)\n"
+			"am_equals(\"land-a\", types[1]:name())\n"
+			"am_equals(\"water-a\", types[2]:name())\n"
 			);
 
 		if (!loadResult)

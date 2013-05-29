@@ -82,17 +82,17 @@ namespace tests {
 		Quest *quest = Engine::getGame()->getQuest("testQuest");
 		assert(!quest->isCompleted());
 		
-		equals(0, main->getExperience());
-		equals(0, main->getLevel());
-		equals(0u, main->getCoinPurse()->getCoin());
+		am_equals(0, main->getExperience());
+		am_equals(0, main->getLevel());
+		am_equals(0u, main->getCoinPurse()->getCoin());
 
 		Handle<Event> startEvent(new Event("talk"));
 		main->fireEvent<Event>(startEvent);
 		main->fireEvent<Event>(startEvent);
 
-		equals(1000, main->getExperience());
-		equals(1, main->getLevel());
-		equals(50u, main->getCoinPurse()->getCoin());
+		am_equals(1000, main->getExperience());
+		am_equals(1, main->getLevel());
+		am_equals(50u, main->getCoinPurse()->getCoin());
 
 		Engine::setEngine(prevEng);
 

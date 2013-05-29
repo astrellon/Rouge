@@ -305,6 +305,17 @@ namespace game {
 	
 	void Game::setCurrentMap(Map *map, bool addMap)
 	{
+		if (mActiveObjects)
+		{
+			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			{
+				Source *source = (*iter)->getSource(false);
+				if (source)
+				{
+					source->stop();
+				}
+			}
+		}
 		mBackground->clear();
 		mItemLayer->clear();
 		mCharacterLayer->clear();
@@ -331,6 +342,11 @@ namespace game {
 				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 				{
 					mCharacterLayer->addChild(iter->get());
+					Source *source = (*iter)->getSource(false);
+					if (source)
+					{
+						source->play();
+					}
 				}
 			}
 			else

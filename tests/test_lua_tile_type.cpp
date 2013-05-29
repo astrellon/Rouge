@@ -42,12 +42,12 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("testType", lua_tostring(lua, -1));
+		am_equalsStr("testType", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("getFullName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("Test Type", lua_tostring(lua, -1));
+		am_equalsStr("Test Type", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("setFullName"));
@@ -56,7 +56,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getFullName"));
 		lua_acall(lua, 0, 1);
-		equalsStr("New Test Type", lua_tostring(lua, -1));
+		am_equalsStr("New Test Type", lua_tostring(lua, -1));
 		lua.pop(1);
 
 		return true;

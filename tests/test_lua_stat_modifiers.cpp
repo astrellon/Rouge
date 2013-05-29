@@ -58,7 +58,7 @@ namespace tests {
 		lua.push("health");
 		lua.push(5.0f);
 		lua_acall(lua, 2, 1);
-		equalsDelta(5.0f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(5.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addModifier"));
@@ -71,7 +71,7 @@ namespace tests {
 		lua.push("health");
 		lua.push(5.0f);
 		lua_acall(lua, 2, 1);
-		equalsDelta(12.5f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(12.5f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addModifier"));
@@ -84,7 +84,7 @@ namespace tests {
 		lua.push("health");
 		lua.push(5.0f);
 		lua_acall(lua, 2, 1);
-		equalsDelta(15.0f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(15.0f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeModifier"));
@@ -97,7 +97,7 @@ namespace tests {
 		lua.push("health");
 		lua.push(5.0f);
 		lua_acall(lua, 2, 1);
-		equalsDelta(7.5f, lua_tonumber(lua, -1), 0.0001f);
+		am_equalsDelta(7.5f, lua_tonumber(lua, -1), 0.0001f);
 		lua.pop(1);
 
 		return true;
@@ -111,16 +111,16 @@ namespace tests {
 			"mods = StatModifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
-			"equals(9, mods:calculate_stat(\"health\", base_health))\n"
+			"am_equals(9, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 3, \"*\")\n"
-			"equals(19, mods:calculate_stat(\"health\", base_health))\n"
+			"am_equals(19, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 7, \"=\", false)\n"
-			"equals(25, mods:calculate_stat(\"health\", base_health))\n"
+			"am_equals(25, mods:calculate_stat(\"health\", base_health))\n"
 			
 			"modsTable = mods:mods()\n"
-			"equals(4, modsTable[\"health\"][1].value)\n"
-			"equals(\"*\", modsTable[\"health\"][2].type)\n"
-			"equals(false, modsTable[\"health\"][3].magical)\n"
+			"am_equals(4, modsTable[\"health\"][1].value)\n"
+			"am_equals(\"*\", modsTable[\"health\"][2].type)\n"
+			"am_equals(false, modsTable[\"health\"][3].magical)\n"
 		);
 		
 		if (!loadResult)
@@ -144,9 +144,9 @@ namespace tests {
 			"stats:add(\"health\", 2, \"*\")\n"
 
 			"mods = stats:mods()\n"
-			"equals(false, mods[\"health\"][1].magical)\n"
-			"equals(\"=\", mods[\"health\"][2].type)\n"
-			"equals(2, mods[\"health\"][3].value)\n"
+			"am_equals(false, mods[\"health\"][1].magical)\n"
+			"am_equals(\"=\", mods[\"health\"][2].type)\n"
+			"am_equals(2, mods[\"health\"][3].value)\n"
 		);
 		
 		if (!loadResult)

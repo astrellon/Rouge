@@ -32,26 +32,26 @@ namespace tests {
 		tiles[1].setTile(water);
 		tiles[2].setTile(swamp);
 
-		equals(3, testMap->getMapWidth());
-		equals(1, testMap->getMapHeight());
+		am_equals(3, testMap->getMapWidth());
+		am_equals(1, testMap->getMapHeight());
 
-		equalsDelta(3.0f * Engine::getEngine()->getGridXSize(), testMap->getWidth(), 0.001f);
-		equalsDelta(1.0f * Engine::getEngine()->getGridYSize(), testMap->getHeight(), 0.001f);
+		am_equalsDelta(3.0f * Engine::getEngine()->getGridXSize(), testMap->getWidth(), 0.001f);
+		am_equalsDelta(1.0f * Engine::getEngine()->getGridYSize(), testMap->getHeight(), 0.001f);
 
 		assert(testMap->getTile(0, 0) == land.get());
 		assert(testMap->getTile(1, 0) == water.get());
 		assert(testMap->getTile(2, 0) == swamp.get());
 
 		const Tile::TileTypeList &landTileTypes = land->getTileTypes();
-		equals(1u, landTileTypes.size());
+		am_equals(1u, landTileTypes.size());
 		assert(landTileTypes[0] == &landType);
 
 		const Tile::TileTypeList &waterTileTypes = water->getTileTypes();
-		equals(1u, waterTileTypes.size());
+		am_equals(1u, waterTileTypes.size());
 		assert(waterTileTypes[0] == &waterType);
 
 		const Tile::TileTypeList &swampTileTypes = swamp->getTileTypes();
-		equals(2u, swampTileTypes.size());
+		am_equals(2u, swampTileTypes.size());
 		assert(swampTileTypes[0] == &landType);
 		assert(swampTileTypes[1] == &waterType);
 
@@ -79,22 +79,22 @@ namespace tests {
 
 		Handle<GameObject> landObj(new GameObject());
 		landObj->addPassibleType(&landType);
-		equals(true, testMap->isValidGridLocation(0, 0, landObj));
-		equals(true, testMap->isValidGridLocation(1, 0, landObj));
-		equals(false, testMap->isValidGridLocation(2, 0, landObj));
+		am_equals(true, testMap->isValidGridLocation(0, 0, landObj));
+		am_equals(true, testMap->isValidGridLocation(1, 0, landObj));
+		am_equals(false, testMap->isValidGridLocation(2, 0, landObj));
 
 		Handle<GameObject> waterObj(new GameObject());
 		waterObj->addPassibleType(&waterType);
-		equals(false, testMap->isValidGridLocation(0, 0, waterObj));
-		equals(true, testMap->isValidGridLocation(1, 0, waterObj));
-		equals(true, testMap->isValidGridLocation(2, 0, waterObj));
+		am_equals(false, testMap->isValidGridLocation(0, 0, waterObj));
+		am_equals(true, testMap->isValidGridLocation(1, 0, waterObj));
+		am_equals(true, testMap->isValidGridLocation(2, 0, waterObj));
 
 		Handle<GameObject> swampObj(new GameObject());
 		swampObj->addPassibleType(&landType);
 		swampObj->addPassibleType(&waterType);
-		equals(true, testMap->isValidGridLocation(0, 0, swampObj));
-		equals(true, testMap->isValidGridLocation(1, 0, swampObj));
-		equals(true, testMap->isValidGridLocation(2, 0, swampObj));
+		am_equals(true, testMap->isValidGridLocation(0, 0, swampObj));
+		am_equals(true, testMap->isValidGridLocation(1, 0, swampObj));
+		am_equals(true, testMap->isValidGridLocation(2, 0, swampObj));
 
 		float tileSizeX = Engine::getEngine()->getGridXSize();
 		float tileSizeY = Engine::getEngine()->getGridYSize();
@@ -102,13 +102,13 @@ namespace tests {
 		landObj->setWidth(tileSizeX * 0.5f);
 		landObj->setHeight(tileSizeY * 0.5f);
 		
-		equals(true, testMap->isValidLocation(0.0f, 0.0f, landObj));
-		equals(true, testMap->isValidLocation(0.4f * tileSizeX, 0.4f * tileSizeY, landObj));
-		equals(false, testMap->isValidLocation(0.6f * tileSizeX, 0.6f * tileSizeY, landObj));
+		am_equals(true, testMap->isValidLocation(0.0f, 0.0f, landObj));
+		am_equals(true, testMap->isValidLocation(0.4f * tileSizeX, 0.4f * tileSizeY, landObj));
+		am_equals(false, testMap->isValidLocation(0.6f * tileSizeX, 0.6f * tileSizeY, landObj));
 
-		equals(true, testMap->isValidLocation(1.4f * tileSizeX, 0.4f * tileSizeY, landObj));
-		equals(false, testMap->isValidLocation(1.6f * tileSizeX, 0.4f * tileSizeY, landObj));
-		equals(false, testMap->isValidLocation(2.4f * tileSizeX, 0.4f * tileSizeY, landObj));
+		am_equals(true, testMap->isValidLocation(1.4f * tileSizeX, 0.4f * tileSizeY, landObj));
+		am_equals(false, testMap->isValidLocation(1.6f * tileSizeX, 0.4f * tileSizeY, landObj));
+		am_equals(false, testMap->isValidLocation(2.4f * tileSizeX, 0.4f * tileSizeY, landObj));
 
 		return true;
 	}
@@ -142,8 +142,8 @@ namespace tests {
 		landObj->addPassibleType(&landType);
 		landObj->setSize(2.0f * tileSizeX, 2.0f * tileSizeY);
 
-		equals(false, testMap->isValidLocation(1.5f * tileSizeX, 0.0f, landObj));
-		equals(true, testMap->isValidGridLocation(0.0f, 0.0f, landObj));
+		am_equals(false, testMap->isValidLocation(1.5f * tileSizeX, 0.0f, landObj));
+		am_equals(true, testMap->isValidGridLocation(0.0f, 0.0f, landObj));
 
 		return true;
 	}

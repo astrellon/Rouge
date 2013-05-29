@@ -45,13 +45,13 @@ namespace tests {
 
 		manager->onMouseDown(LEFT_BUTTON, 51, 52);
 		assert(NULL != targetListener.lastEvent.get());
-		equals(1, targetListener.lastEvent->getLocalMouseX());
-		equals(2, targetListener.lastEvent->getLocalMouseY());
+		am_equals(1, targetListener.lastEvent->getLocalMouseX());
+		am_equals(2, targetListener.lastEvent->getLocalMouseY());
 
 		assert(NULL != layerListener.lastEvent.get());
 		assert(layerListener.lastEvent->getEventTarget() == target1);
-		equals(1, layerListener.lastEvent->getLocalMouseX());
-		equals(2, layerListener.lastEvent->getLocalMouseY());
+		am_equals(1, layerListener.lastEvent->getLocalMouseX());
+		am_equals(2, layerListener.lastEvent->getLocalMouseY());
 
 		return true;
 	}

@@ -17,10 +17,10 @@ namespace tests {
 		Engine::getEngine()->setCurrentGame(game);
 
 		Dialogue *testDiag = new Dialogue("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
-		equalsStr("diag1", testDiag->getId());
-		equalsStr("Hello there, my name is", testDiag->getText());
-		equalsStr("Greetings", testDiag->getTitle());
-		equalsStr("greeting", testDiag->getSubject());
+		am_equalsStr("diag1", testDiag->getId());
+		am_equalsStr("Hello there, my name is", testDiag->getText());
+		am_equalsStr("Greetings", testDiag->getTitle());
+		am_equalsStr("greeting", testDiag->getSubject());
 		assert(Dialogue::UNLOCK_NONE == testDiag->getUnlockFlag());
 
 		game->removeAllDialogue();
@@ -40,16 +40,16 @@ namespace tests {
 		vector<Dialogue *> dialogues;
 		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 
-		equals(1u, dialogues.size());
+		am_equals(1u, dialogues.size());
 		assert(dialogues[0] == testDiag);
 
 		dialogues.clear();
-		equals(0u, dialogues.size());
+		am_equals(0u, dialogues.size());
 
 		testPlayer->getDialogueComp()->setSubjectLock("name");
 
 		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
-		equals(2u, dialogues.size());
+		am_equals(2u, dialogues.size());
 
 		return true;
 	}

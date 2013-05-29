@@ -71,30 +71,30 @@ namespace tests {
 		Map *map = castUData<Map>(lua, -1);
 		assert(map != NULL);
 
-		equals(6, map->getMapWidth());
-		equals(7, map->getMapHeight());
+		am_equals(6, map->getMapWidth());
+		am_equals(7, map->getMapHeight());
 
-		equalsStr("The Region of Test", map->getFullName().c_str());
+		am_equalsStr("The Region of Test", map->getFullName().c_str());
 
 		Tile *tile = map->getTile(0, 0);
 		assert(tile);
-		equalsStr("brick", tile->getName().c_str());
-		equals(0, map->getTileInstance(0, 0)->getTileFrame());
+		am_equalsStr("brick", tile->getName().c_str());
+		am_equals(0, map->getTileInstance(0, 0)->getTileFrame());
 
 		tile = map->getTile(3, 0);
 		assert(tile);
-		equalsStr("grass", tile->getName().c_str());
-		equals(2, map->getTileInstance(3, 0)->getTileFrame());
+		am_equalsStr("grass", tile->getName().c_str());
+		am_equals(2, map->getTileInstance(3, 0)->getTileFrame());
 
 		tile = map->getTile(4, 4);
 		assert(tile);
-		equalsStr("swamp", tile->getName().c_str());
-		equals(0, map->getTileInstance(4, 4)->getTileFrame());
+		am_equalsStr("swamp", tile->getName().c_str());
+		am_equals(0, map->getTileInstance(4, 4)->getTileFrame());
 
 		tile = map->getTile(5, 6);
 		assert(tile);
-		equalsStr("water", tile->getName().c_str());
-		equals(0, map->getTileInstance(5, 6)->getTileFrame());
+		am_equalsStr("water", tile->getName().c_str());
+		am_equals(0, map->getTileInstance(5, 6)->getTileFrame());
 
 		return true;
 	}

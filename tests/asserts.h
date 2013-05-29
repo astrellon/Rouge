@@ -78,26 +78,26 @@ namespace tests {
 #	define assert(a) \
 	if (!Asserts::_assert(a, __FILE__, __LINE__)) { return false; }
 
-#	define equals(expected, actual) \
+#	define am_equals(expected, actual) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, false)) { return false; }
-#	define equalsDelta(expected, actual, delta) \
+#	define am_equalsDelta(expected, actual, delta) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, false, delta)) { return false; }
 
-#	define notEquals(expected, actual) \
+#	define am_notEquals(expected, actual) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true)) { return false; }
-#	define notEqualsDelta(expected, actual, delta) \
+#	define am_notEqualsDelta(expected, actual, delta) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true, delta)) { return false; }
 
-#	define equalsStr(expected, actual)	\
+#	define am_equalsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define notEqualsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, true)) { return false; }
 #else
 #	define assert(a) _assert(a, __FILE__, __LINE__)
 
-#	define equals(expected, actual) _equals(__FILE__, __LINE__, expected, actual, false)
-#	define equalsDelta(expected, actual, delta) _equals(__FILE__, __LINE__, expected, actual, false, delta)
+#	define am_equals(expected, actual) _equals(__FILE__, __LINE__, expected, actual, false)
+#	define am_equalsDelta(expected, actual, delta) _equals(__FILE__, __LINE__, expected, actual, false, delta)
 
-#	define notEquals(expected, actual) _equals(__FILE__, __LINE__, expected, actual, true)
-#	define notEqualsDelta(expected, actual, delta) _equals(__FILE__, __LINE__, expected, actual, true, delta)
+#	define am_notEquals(expected, actual) _equals(__FILE__, __LINE__, expected, actual, true)
+#	define am_notEqualsDelta(expected, actual, delta) _equals(__FILE__, __LINE__, expected, actual, true, delta)
 #endif

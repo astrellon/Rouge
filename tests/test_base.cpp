@@ -11,17 +11,17 @@ namespace tests {
 
 	bool TestBase::testSimple() {
 		Handle<TestManaged> handled(new TestManaged());
-		equals(1, handled->getCounter());
+		am_equals(1, handled->getCounter());
 
 		handled->retain();
-		equals(2, handled->getCounter());
+		am_equals(2, handled->getCounter());
 
 		handled->release();
-		equals(1, handled->getCounter());
+		am_equals(1, handled->getCounter());
 
 		Handle<TestManaged> other(handled);
-		equals(2, handled->getCounter());
-		equals(2, other->getCounter());
+		am_equals(2, handled->getCounter());
+		am_equals(2, other->getCounter());
 
 		return true;
 	}

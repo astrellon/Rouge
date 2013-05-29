@@ -898,9 +898,6 @@
     <ClInclude Include="math\transform_lite.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="math\vector.h">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="sys\game_system.h">
       <Filter>sys\base</Filter>
     </ClInclude>
@@ -1425,6 +1422,9 @@
     </ClInclude>
     <ClInclude Include="sfx\sfx_listener.h">
       <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="math\vector.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

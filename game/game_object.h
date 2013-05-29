@@ -15,6 +15,9 @@ using namespace std;
 #include <game/dialogue_component.h>
 #include <game/iattribute_data.h>
 
+#include <sfx/sfx_source.h>
+using namespace am::sfx;
+
 namespace am {
 namespace util {
 namespace data {
@@ -87,6 +90,9 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
+		virtual Source *getSource(bool create = true);
+		virtual void setSource(Source *source);
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -114,6 +120,9 @@ namespace game {
 		Map *mOriginalMap;
 
 		Handle<DialogueComponent> mDialogueComp;
+		Handle<Source> mSoundSource;
+
+		void applyToSource();
 
 	};
 

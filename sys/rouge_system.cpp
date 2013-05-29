@@ -411,6 +411,10 @@ namespace sys {
 		
 		mPlayer->addEventListener("dialogue", this);
 
+		GameObject *torch = new GameObject();
+		torch->addChild(new Sprite("smallTorch"));
+		game->getCurrentMap()->addGameObject(torch);
+
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);
 
