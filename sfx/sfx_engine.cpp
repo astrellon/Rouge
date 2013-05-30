@@ -10,6 +10,8 @@
 
 #include "openal/aldlist.h"
 
+#include <log/logger.h>
+
 #include <util/utils.h>
 
 namespace am {
@@ -64,6 +66,7 @@ namespace sfx {
 		mBackgroundMusic(NULL),
 		mBackgroundMusicSource(NULL)
 	{
+		mListener.setEnabled(true);
 	}
 
 	void SfxEngine::init()
@@ -195,13 +198,22 @@ namespace sfx {
 	ISound *SfxEngine::loadSound(const char *filename)
 	{
 		string ext = getExtension(filename);
-		if (ext.compare("wav") == 0)
+		try
 		{
-			return new SoundWav(filename);
+			if (ext.compare("wav") == 0)
+			{
+				return new SoundWav(filename);
+			}
+			else if (ext.compare("ogg") == 0)
+			{
+				return new SoundOgg(filename);
+			}
 		}
-		else if (ext.compare("ogg") == 0)
+		catch (const char *error)
 		{
-			return new SoundOgg(filename);
+			stringstream ss;
+			ss << "Error loading sound '" << filename << "': " << error;
+			am_log("SFXERR", ss);
 		}
 		return NULL;
 	}
@@ -244,6 +256,16 @@ namespace sfx {
 
 	void SfxEngine::update()
 	{
+		for (size_t i = 0; i < mInactiveSources.size(); i++)
+		{
+			if (!mInactiveSources[i]->isOutOfRange())
+			{
+				mInactiveSources[i]->play();
+				mInactiveSources[i]->release();
+				mInactiveSources.erase(mInactiveSources.begin() + i);
+				i--;
+			}
+		}
 		for (size_t i = 0; i < mSourcePool.size(); i++)
 		{
 			if (mSourcePool[i].source)
@@ -285,7 +307,7 @@ namespace sfx {
 			return;
 		}
 		size_t index = findInactiveSource(source);
-		if (index == -1)
+		if (index != -1)
 		{
 			return;
 		}

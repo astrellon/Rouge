@@ -105,7 +105,16 @@ namespace sys {
 		mEngine->init();
 
 		am::sfx::SfxEngine *sfxEngine = am::sfx::SfxEngine::getEngine();
-		sfxEngine->init();
+		try
+		{
+			sfxEngine->init();
+		}
+		catch (const char *error)
+		{
+			stringstream ss;
+			ss << "Unable to initialise sound engine: " << error;
+			am_log("SFXERR", ss);
+		}
 		if (!sfxEngine->createContext())
 		{
 			am_log("SFXERR", "Error creating sound context");

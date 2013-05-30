@@ -39,9 +39,6 @@ namespace sfx {
 		void setSourceRelative(bool value);
 		bool isSourceRelative() const;
 
-		//void setPriority(unsigned int priority);
-		//unsigned int getPriority() const;
-
 		void setGain(float gain);
 		float getGain() const;
 
@@ -64,6 +61,7 @@ namespace sfx {
 #endif
 
 		float calcGain() const;
+		bool isOutOfRange() const;
 
 		ALint getStatus();
 		ALuint getSourceId() const;

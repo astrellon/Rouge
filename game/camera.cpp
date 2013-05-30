@@ -1,6 +1,8 @@
 #include "camera.h"
 
 #include "gfx/gfx_engine.h"
+#include <sfx/sfx_engine.h>
+using namespace am::sfx;
 
 namespace am {
 namespace game {
@@ -59,7 +61,13 @@ namespace game {
 
 	void Camera::update(float dt)
 	{
-		GfxEngine::getEngine()->setCameraLocation(getLocationX(), getLocationY());
+		float locX = getLocationX();
+		float locY = getLocationY();
+		GfxEngine::getEngine()->setCameraLocation(locX, locY);
+		stringstream ss;
+		ss << "Setting sound loc to: " << locX << ", " << locY;
+		//am_log("SFX", ss);
+		SfxEngine::getEngine()->getListener().setPosition(locX, locY);
 	}
 
 }

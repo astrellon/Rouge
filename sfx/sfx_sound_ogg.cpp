@@ -20,13 +20,13 @@ namespace sfx {
 		mOggFile(NULL),
 		mData(NULL)
 	{
-		if (toStream)
+		if (toStream && !loadStream(filename))
 		{
-			loadStream(filename);
+			throw ("Unable to find file");
 		}
-		else
+		else if (!toStream && !loadSound(filename))
 		{
-			loadSound(filename);
+			throw ("Unable to find file");
 		}
 	}
 	SoundOgg::~SoundOgg()
@@ -46,6 +46,7 @@ namespace sfx {
 
 	bool SoundOgg::loadSound(const char *filename)
 	{
+		mFilename = "";
 		SfxEngine *engine = SfxEngine::getEngine();
 		FILE *file = fopen(filename, "rb");
 		if (!file)
@@ -81,12 +82,14 @@ namespace sfx {
 			mOggFile = NULL;
 
 			fclose(file);
+			mFilename = filename;
 			return true;
 		}
 		return false;
 	}
 	bool SoundOgg::loadStream(const char *filename, int numBuffers)
 	{
+		mFilename = "";
 		SfxEngine *engine = SfxEngine::getEngine();
 		FILE *file = fopen(filename, "rb");
 		if (!file)
@@ -132,6 +135,7 @@ namespace sfx {
 				}
 			}
 			SfxEngine::checkError();
+			mFilename = filename;
 			return true;
 		}
 		return false;
@@ -156,7 +160,6 @@ namespace sfx {
 			alSourceUnqueueBuffers(mStreamSource, 1, &buffer);
 
 			// Read more audio data (if there is any)
-			//pWaveLoader->ReadWaveData(WaveID, pData, ulBufferSize, &ulBytesWritten);
 			if (fillBuffer(buffer))
 			{
 				// Queue Buffer on the Source
@@ -178,37 +181,21 @@ namespace sfx {
 		{
 			format = AL_FORMAT_MONO16;
 			return true;
-			// Set BufferSize to 250ms (Frequency * 2 (16bit) divided by 4 (quarter of a second))
-			//ulBufferSize = ulFrequency >> 1;
-			// IMPORTANT : The Buffer Size must be an exact multiple of the BlockAlignment ...
-			//ulBufferSize -= (ulBufferSize % 2);
 		}
 		else if (numChannels == 2)
 		{
 			format = AL_FORMAT_STEREO16;
 			return true;
-			// Set BufferSize to 250ms (Frequency * 4 (16bit stereo) divided by 4 (quarter of a second))
-			//ulBufferSize = ulFrequency;
-			// IMPORTANT : The Buffer Size must be an exact multiple of the BlockAlignment ...
-			//ulBufferSize -= (ulBufferSize % 4);
 		}
 		else if (numChannels == 4)
 		{
 			format = alGetEnumValue("AL_FORMAT_QUAD16");
 			return true;
-			// Set BufferSize to 250ms (Frequency * 8 (16bit 4-channel) divided by 4 (quarter of a second))
-			//ulBufferSize = ulFrequency * 2;
-			// IMPORTANT : The Buffer Size must be an exact multiple of the BlockAlignment ...
-			//ulBufferSize -= (ulBufferSize % 8);
 		}
 		else if (numChannels == 6)
 		{
 			format = alGetEnumValue("AL_FORMAT_51CHN16");
 			return true;
-			// Set BufferSize to 250ms (Frequency * 12 (16bit 6-channel) divided by 4 (quarter of a second))
-			//ulBufferSize = ulFrequency * 3;
-			// IMPORTANT : The Buffer Size must be an exact multiple of the BlockAlignment ...
-			//ulBufferSize -= (ulBufferSize % 12);
 		}
 		return false;
 	}

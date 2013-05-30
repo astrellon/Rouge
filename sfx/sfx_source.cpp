@@ -38,6 +38,10 @@ namespace sfx {
 		{
 			return;
 		}
+		if (isOutOfRange())
+		{
+			stopOutOfRange();
+		}
 		bool result = SfxEngine::getEngine()->getSource(mSource, this);
 		if (!result)
 		{
@@ -50,6 +54,10 @@ namespace sfx {
 	}
 	void Source::stop()
 	{
+		if (mPlaying && mSource == -1)
+		{
+			SfxEngine::getEngine()->removeInactiveSource(this);
+		}
 		mPlaying = false;
 		releaseSource();
 	}
@@ -62,19 +70,25 @@ namespace sfx {
 		mPlaying = mLooping;
 		if (mPlaying)
 		{
-			//SfxEngine::getEngine()->add
+			SfxEngine::getEngine()->addInactiveSource(this);
 		}
 		releaseSource();
+	}
+
+	bool Source::isOutOfRange() const
+	{
+		float gain = calcGain();
+		return gain < 0.02f;
 	}
 
 	void Source::update()
 	{
 		if (mSound)
 		{
-			float gain = calcGain();
-			if (gain < 0.001f)
+			if (isOutOfRange())
 			{
 				stopOutOfRange();
+				return;
 			}
 			mSound->update();
 			ALint status = getStatus();
@@ -229,7 +243,15 @@ namespace sfx {
 
 	float Source::calcGain() const
 	{
-		float distance = SfxEngine::getEngine()->getListener().getPosition().distance(mPosition);
+		float distance = 0.0f;
+		if (mSourceRelative)
+		{
+			distance = static_cast<float>(mPosition.length());
+		}
+		else
+		{
+			distance = SfxEngine::getEngine()->getListener().getPosition().distance(mPosition);
+		}
 		distance = max(distance, mReferenceDistance);
 		float gain = mReferenceDistance / (mReferenceDistance + mRolloffFactor * (distance - mReferenceDistance));
 		return gain * mGain;

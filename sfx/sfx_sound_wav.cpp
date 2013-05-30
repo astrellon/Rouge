@@ -100,6 +100,7 @@ namespace sfx {
 
 	bool SoundWav::loadSound(const char *filename)
 	{
+		mFilename = "";
 		mNumBuffers = 1;
 		mNumBuffersInUse = 1;
 		mBuffers = new ALuint[1];
@@ -142,6 +143,7 @@ namespace sfx {
 			//errorCheck();
 			//clean up and return true if successful
 			fclose(mFileStream);
+			mFilename = filename;
 			return true;
 		} 
 		catch(std::string error) 
@@ -162,6 +164,7 @@ namespace sfx {
 
 	bool SoundWav::loadStream(const char *filename, int numBuffers)
 	{
+		mFilename = "";
 		mNumBuffers = numBuffers;
 		// Generate an AL Buffer
 		mBuffers = new ALuint[numBuffers];
@@ -205,6 +208,7 @@ namespace sfx {
 
 			//errorCheck();
 			//clean up and return true if successful
+			mFilename = filename;
 			return true;
 		} 
 		catch(std::string error) 

@@ -50,6 +50,7 @@ namespace sfx {
 
 		virtual bool loadSound(const char *filename) = 0;
 		virtual bool loadStream(const char *filename, int buffers = 4) = 0;
+		virtual const char *getFilename() const;
 
 		virtual void attachSource(ALuint source);
 		virtual void detachSource(ALuint source);
@@ -63,6 +64,7 @@ namespace sfx {
 	protected:
 		
 		bool mStream;
+		string mFilename;
 		ALuint *mBuffers;
 		ALushort mNumBuffers;
 		ALushort mNumBuffersInUse;

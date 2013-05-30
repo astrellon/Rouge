@@ -73,6 +73,10 @@ namespace sfx {
 		}
 	}
 
+	const char *ISound::getFilename() const
+	{
+		return mFilename.c_str();
+	}
 
 }
 }

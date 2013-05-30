@@ -138,8 +138,9 @@ namespace sys {
 		mEngine->loadLuaEngine("data/engine.lua");
 
 		SfxEngine *sfxEngine = SfxEngine::getEngine();
-		ISound *bgm = sfxEngine->loadStream("data/sfx/bgm.ogg");
+		ISound *bgm = sfxEngine->loadStream("data/sounds/bgm.ogg");
 		Source *bgmSource = new Source(bgm);
+		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
 
@@ -412,8 +413,14 @@ namespace sys {
 		mPlayer->addEventListener("dialogue", this);
 
 		GameObject *torch = new GameObject();
+		torch->setGridLocation(3, 0);
 		torch->addChild(new Sprite("smallTorch"));
-		game->getCurrentMap()->addGameObject(torch);
+		Source *source = torch->getSource();
+		source->setGain(0.2f);
+		source->setReferenceDistance(25);
+		source->setSound(SfxEngine::getEngine()->loadSound("data/sounds/torch.ogg"));
+		source->setLooping(true);
+		game->addGameObjectToMap(torch);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

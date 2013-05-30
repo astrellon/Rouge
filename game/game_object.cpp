@@ -106,6 +106,10 @@ namespace game {
 			mLocationX = x;
 			mLocationY = y;
 		}
+		if (mSoundSource)
+		{
+			mSoundSource->setPosition(x, y);
+		}
 		if (setDraw)
 		{
 			mTransform.setXY(x, y);
@@ -131,6 +135,10 @@ namespace game {
 		{
 			mLocationX = flocX;
 			mLocationY = flocY;
+			if (mSoundSource)
+			{
+				mSoundSource->setPosition(mLocationX, mLocationY);
+			}
 			if (setDraw)
 			{
 				mTransform.setXY(mLocationX, mLocationY);
@@ -560,6 +568,9 @@ namespace game {
 		{
 			return;
 		}
+		stringstream ss;
+		ss << "Setting sound source position: " << mLocationX << ", " << mLocationY;
+		am_log("SFX", ss);
 		mSoundSource->setPosition(mLocationX, mLocationY);
 	}
 
