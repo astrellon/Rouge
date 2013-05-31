@@ -44,6 +44,10 @@ using namespace am::lua::game;
 #include <gfx/gfx_sprite.h>
 using namespace am::lua::gfx;
 
+#include "sfx/lua_sound.h"
+#include <sfx/sfx_isound.h>
+using namespace am::lua::sfx;
+
 #include "util/lua_data_table.h"
 #include <util/data_table.h>
 
@@ -78,9 +82,9 @@ namespace wrapper {
 
 		LuaState::registerWrapper("Sprite", Sprite_register, Sprite::LUA_ID);
 
-		//LuaState::registerWrapper("DataMap", am::lua::util::data::DataMap_register, data::Map::LUA_ID);
-		//LuaState::registerWrapper("DataArray", am::lua::util::data::DataArray_register, data::Array::LUA_ID);
 		LuaState::registerWrapper("DataTable", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
+
+		LuaState::registerWrapper("Sound", Sound_register, am::sfx::ISound::LUA_ID);
 	}
 	
 }

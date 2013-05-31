@@ -15,6 +15,10 @@ using namespace am::lua;
 #include <game/race.h>
 using namespace am::game;
 
+#include <sfx/sfx_engine.h>
+#include <sfx/sfx_isound.h>
+using namespace am::sfx;
+
 #include "lua_tile.h"
 #include "lua_tile_set.h"
 #include "lua_game.h"
@@ -55,6 +59,7 @@ namespace game {
 			{ "unknown_race", Engine_unknown_race },
 			{ "add_tile_type", Engine_add_tile_type },
 			{ "tile_type", Engine_tile_type },
+			{ "bgm", Engine_bgm },
 			{ NULL, NULL }
 		};
 
@@ -419,6 +424,72 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "@tile_type", "string tileTypeName");
+	}
+
+	/**
+	 * @static
+	 * Returns the sound object of the currently playing background music.
+	 *
+	 * @returns Sound The current playing background music sound object.
+	 */
+	/**
+	 * @static
+	 * Sets the background music to stream from the given filename.
+	 * Unsupported files or unfound files will not change the music.
+	 *
+	 * @param string filename The filename of the file to stream as music.
+	 * @returns boolean True if the music was successfully changed.
+	 */
+	/**
+	 * @static
+	 * Sets the background music to the given sound object. The background
+	 * music source is always set to be looping, so this works best with
+	 * music designed for looping or with cue points.
+	 *
+	 * @param Sound bgm The new sound object to use as background music.
+	 */
+	/**
+	 * @static
+	 * Turns the background music off.
+	 *
+	 * @param nil turn_off Turns music off.
+	 */
+	int Engine_bgm(lua_State *lua)
+	{
+		if (lua_gettop(lua) == 0)
+		{
+			ISound *bgm = SfxEngine::getEngine()->getBackgroundMusic();
+			if (bgm)
+			{
+				wrapRefObject<ISound>(lua, bgm);
+				return 1;
+			}
+			lua_pushnil(lua);
+			return 1;
+		}
+		else if (lua_isstr(lua, 1))
+		{
+			ISound *bgm = SfxEngine::getEngine()->loadStream(lua_tostring(lua, 1));
+			if (bgm)
+			{
+				SfxEngine::getEngine()->setBackgroundMusic(bgm);
+			}
+			return 0;
+		}
+		else if (lua_isuserdata(lua, 1))
+		{
+			ISound *bgm = castUData<ISound>(lua, 1);
+			if (bgm)
+			{
+				SfxEngine::getEngine()->setBackgroundMusic(bgm);
+				return 0;
+			}
+		}
+		else if (lua_isnil(lua, 1))
+		{
+			SfxEngine::getEngine()->setBackgroundMusic(NULL);
+		}
+		return LuaState::expectedArgs(lua, "@bgm", 2, "string filename", "nil set_no_sound", "Sound bgm");
 	}
 	
 }

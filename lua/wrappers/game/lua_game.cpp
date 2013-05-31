@@ -121,6 +121,7 @@ namespace game {
 			{ "load_game", Game_load_game },
 			{ "scenario_name", Game_scenario_name },
 			{ "attrs", Game_attrs },
+
 			{ NULL, NULL }
 		};
 
