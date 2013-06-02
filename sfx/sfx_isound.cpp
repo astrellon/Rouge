@@ -3,6 +3,9 @@
 namespace am {
 namespace sfx {
 
+	const int ISound::LUA_ID = 0x30;
+	const char *ISound::LUA_TABLENAME = "am_sfx_Sound";
+
 	ISound::ISound() :
 		mStream(false),
 		mNumBuffers(0),

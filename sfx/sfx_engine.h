@@ -4,18 +4,20 @@
 #include <string>
 using namespace std;
 
+#include <base/handle.h>
+using namespace am::base;
+
 #include <al.h>
 
 #include <Windows.h>
 #include <sfx/ogg/Vorbis/vorbisfile.h>
 
 #include <sfx/sfx_listener.h>
+#include <sfx/sfx_isound.h>
+#include <sfx/sfx_source_point.h>
 
 namespace am {
 namespace sfx {
-
-	class ISound;
-	class Source;
 
 	typedef struct _DeviceName {
 		string deviceName;
@@ -26,7 +28,7 @@ namespace sfx {
 
 	typedef struct _SourceId {
 		ALuint id;
-		Source *source;
+		ISource *source;
 
 		_SourceId();
 		_SourceId(ALuint id);
@@ -41,6 +43,7 @@ namespace sfx {
 
 		typedef vector<DeviceName> DeviceList;
 		typedef vector<SourceId> SourcePool;
+		typedef map<string, Handle<ISound> > SoundMap;
 
 		void init();
 		bool hasInited() const;
@@ -48,7 +51,7 @@ namespace sfx {
 		void deinit();
 
 		int getNumSources() const;
-		bool getSource(ALuint &source, Source *forSource);
+		bool getSource(ALuint &source, ISource *forSource);
 		void releaseSource(ALuint source);
 
 		const DeviceList &getDeviceList();
@@ -61,12 +64,13 @@ namespace sfx {
 		ISound *loadStream(const char *filename, int numBuffers = 4);
 
 		void setBackgroundMusic(ISound *bgm);
+		void setBackgroundMusic(const char *filename);
 		ISound *getBackgroundMusic() const;
 
 		Listener &getListener();
 
-		void addInactiveSource(Source *source);
-		void removeInactiveSource(Source *source);
+		void addInactiveSource(ISource *source);
+		void removeInactiveSource(ISource *source);
 
 		static SfxEngine *getEngine();
 		static void deinitSfxEngine();
@@ -86,15 +90,17 @@ namespace sfx {
 
 		int nextPoolIndex();
 
-		Source *mBackgroundMusicSource;
-		ISound *mBackgroundMusic;
+		Handle<SourcePoint> mBackgroundMusicSource;
+		Handle<ISound> mBackgroundMusic;
+
+		SoundMap mSoundMap;
 
 		Listener mListener;
 
-		typedef vector<Source *> SourceList;
+		typedef vector< Handle<ISource> > SourceList;
 		SourceList mInactiveSources;
 
-		size_t findInactiveSource(Source *source);
+		size_t findInactiveSource(ISource *source);
 
 		static SfxEngine *sEngine;
 

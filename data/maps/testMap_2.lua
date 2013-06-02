@@ -16,6 +16,7 @@ do
 	Engine.clear_using_tile_set()
 	Engine.using_tile_set("nature")
 	Engine.game():add_map(map)
+	Engine.game():add_map(map)
 
 	map:tiles({
 		"brick:0", "brick:2", "grass:0", "grass:2", "grass:3", "dirt:3","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0",

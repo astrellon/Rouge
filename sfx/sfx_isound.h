@@ -61,6 +61,9 @@ namespace sfx {
 
 		virtual ALuint getBufferByteSize();
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		bool mStream;

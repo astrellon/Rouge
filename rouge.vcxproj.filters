@@ -127,6 +127,12 @@
     <Filter Include="sfx\openal">
       <UniqueIdentifier>{8095e337-561c-4a94-b578-d95128f1c753}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua\wrapper\sfx">
+      <UniqueIdentifier>{7a0577ed-3a65-42c8-959e-783d420ede3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\sfx">
+      <UniqueIdentifier>{38da8767-cefd-42e1-b59c-8d8e55859895}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -763,9 +769,6 @@
     <ClCompile Include="sfx\sfx_sound_wav.cpp">
       <Filter>sfx</Filter>
     </ClCompile>
-    <ClCompile Include="sfx\sfx_source.cpp">
-      <Filter>sfx</Filter>
-    </ClCompile>
     <ClCompile Include="sfx\openal\aldlist.cpp">
       <Filter>sfx\openal</Filter>
     </ClCompile>
@@ -773,6 +776,18 @@
       <Filter>sfx\openal</Filter>
     </ClCompile>
     <ClCompile Include="sfx\sfx_listener.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\sfx\lua_sound.cpp">
+      <Filter>lua\wrapper\sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_sound.cpp">
+      <Filter>tests\sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_isource.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\sfx_source_point.cpp">
       <Filter>sfx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1411,9 +1426,6 @@
     <ClInclude Include="sfx\sfx_sound_wav.h">
       <Filter>sfx</Filter>
     </ClInclude>
-    <ClInclude Include="sfx\sfx_source.h">
-      <Filter>sfx</Filter>
-    </ClInclude>
     <ClInclude Include="sfx\openal\aldlist.h">
       <Filter>sfx\openal</Filter>
     </ClInclude>
@@ -1425,6 +1437,18 @@
     </ClInclude>
     <ClInclude Include="math\vector.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\sfx\lua_sound.h">
+      <Filter>lua\wrapper\sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_sound.h">
+      <Filter>tests\sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_isource.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_source_point.h">
+      <Filter>sfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

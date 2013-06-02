@@ -15,7 +15,7 @@ using namespace std;
 #include <game/dialogue_component.h>
 #include <game/iattribute_data.h>
 
-#include <sfx/sfx_source.h>
+#include <sfx/sfx_isource.h>
 using namespace am::sfx;
 
 namespace am {
@@ -54,6 +54,10 @@ namespace game {
 		virtual int getGridLocationX() const;
 		virtual int getGridLocationY() const;
 
+		virtual bool setGridLocationF(float x, float y, bool setDraw = true);
+		virtual float getGridLocationXF() const;
+		virtual float getGridLocationYF() const;
+
 		virtual void setDialogueComp(DialogueComponent *comp, bool setAttached = true);
 		virtual DialogueComponent *getDialogueComp() const;
 
@@ -90,8 +94,8 @@ namespace game {
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
 
-		virtual Source *getSource(bool create = true);
-		virtual void setSource(Source *source);
+		virtual ISource *getSource(bool create = true);
+		virtual void setSource(ISource *source);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -120,7 +124,7 @@ namespace game {
 		Map *mOriginalMap;
 
 		Handle<DialogueComponent> mDialogueComp;
-		Handle<Source> mSoundSource;
+		Handle<ISource> mSoundSource;
 
 		void applyToSource();
 

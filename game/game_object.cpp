@@ -13,6 +13,8 @@
 #include <util/data_string.h>
 #include <util/data_number.h>
 
+#include <sfx/sfx_source_point.h>
+
 namespace am {
 namespace game {
 
@@ -154,6 +156,37 @@ namespace game {
 	int GameObject::getGridLocationY() const
 	{
 		return static_cast<int>(mLocationY * Engine::getEngine()->getGridYSizeResp());
+	}
+
+	bool GameObject::setGridLocationF(float x, float y, bool setDraw)
+	{
+		float flocX = Engine::getEngine()->getGridXSize() * x;
+		float flocY = Engine::getEngine()->getGridYSize() * y;
+		int locX = static_cast<int>(flocX);
+		int locY = static_cast<int>(flocY);
+		if (!mMap || (mMap && mMap->isValidLocation(flocX, flocY, this)))
+		{
+			mLocationX = flocX;
+			mLocationY = flocY;
+			if (mSoundSource)
+			{
+				mSoundSource->setPosition(mLocationX, mLocationY);
+			}
+			if (setDraw)
+			{
+				mTransform.setXY(mLocationX, mLocationY);
+			}
+			return true;
+		}
+		return false;
+	}
+	float GameObject::getGridLocationXF() const
+	{
+		return mLocationX * Engine::getEngine()->getGridXSizeResp();
+	}
+	float GameObject::getGridLocationYF() const
+	{
+		return mLocationY * Engine::getEngine()->getGridYSizeResp();
 	}
 
 	void GameObject::move(float x, float y)
@@ -389,15 +422,15 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	Source *GameObject::getSource(bool create)
+	ISource *GameObject::getSource(bool create)
 	{
 		if (create && !mSoundSource)
 		{
-			setSource(new Source());
+			setSource(new SourcePoint());
 		}
 		return mSoundSource;
 	}
-	void GameObject::setSource(Source *source)
+	void GameObject::setSource(ISource *source)
 	{
 		mSoundSource = source;
 		applyToSource();

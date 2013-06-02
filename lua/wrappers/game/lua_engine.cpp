@@ -487,7 +487,7 @@ namespace game {
 		}
 		else if (lua_isnil(lua, 1))
 		{
-			SfxEngine::getEngine()->setBackgroundMusic(NULL);
+			SfxEngine::getEngine()->setBackgroundMusic((ISound *)NULL);
 		}
 		return LuaState::expectedArgs(lua, "@bgm", 2, "string filename", "nil set_no_sound", "Sound bgm");
 	}

@@ -178,7 +178,7 @@ namespace game {
 			Game *game = Engine::getGame();
 			if (game && game->getCurrentMap() == this)
 			{
-				Source *source = object->getSource(false);
+				ISource *source = object->getSource(false);
 				if (source)
 				{
 					source->play();

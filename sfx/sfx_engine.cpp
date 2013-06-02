@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <sstream>
 
-#include "sfx_source.h"
+#include "sfx_isource.h"
+#include "sfx_source_point.h"
 #include "sfx_sound_wav.h"
 #include "sfx_sound_ogg.h"
 
@@ -149,10 +150,9 @@ namespace sfx {
 			mSourcePool.push_back(SourceId(source));
 		}
 
-		mBackgroundMusicSource = new Source();
+		mBackgroundMusicSource = new SourcePoint();
 		// Background music is always played at the same location as the listener.
 		mBackgroundMusicSource->setSourceRelative(true);
-		mBackgroundMusicSource->retain();
 
 		return result;
 	}
@@ -183,12 +183,10 @@ namespace sfx {
 
 		if (mBackgroundMusicSource)
 		{
-			mBackgroundMusicSource->release();
 			mBackgroundMusicSource = NULL;
 		}
 		if (mBackgroundMusic)
 		{
-			mBackgroundMusic->release();
 			mBackgroundMusic = NULL;
 		}
 
@@ -197,17 +195,41 @@ namespace sfx {
 
 	ISound *SfxEngine::loadSound(const char *filename)
 	{
-		string ext = getExtension(filename);
+		string fileStr(filename);
+
+		auto find = mSoundMap.find(fileStr);
+		if (find != mSoundMap.end())
+		{
+			return find->second;
+		}
+
+		stringstream ss;
+		if (fileStr[0] == '/')
+		{
+			ss << "data" << fileStr;
+		}
+		else
+		{
+			ss << "data/sounds/" << fileStr;
+		}
+		
+		string ext = getExtension(fileStr.c_str());
 		try
 		{
+			ISound *result = NULL;
 			if (ext.compare("wav") == 0)
 			{
-				return new SoundWav(filename);
+				result = new SoundWav(ss.str().c_str());
 			}
 			else if (ext.compare("ogg") == 0)
 			{
-				return new SoundOgg(filename);
+				result = new SoundOgg(ss.str().c_str());
 			}
+			if (result)
+			{
+				mSoundMap[fileStr] = result;
+			}
+			return result;
 		}
 		catch (const char *error)
 		{
@@ -219,11 +241,22 @@ namespace sfx {
 	}
 	ISound *SfxEngine::loadStream(const char *filename, int numBuffers)
 	{
+		string fileStr(filename);
+		stringstream ss;
+		if (fileStr[0] == '/')
+		{
+			ss << "data" << fileStr;
+		}
+		else
+		{
+			ss << "data/sounds/" << fileStr;
+		}
+
 		string ext = getExtension(filename);
 		if (ext.compare("wav") == 0)
 		{
 			SoundWav *wav = new SoundWav();
-			if (wav->loadStream(filename, numBuffers))
+			if (wav->loadStream(ss.str().c_str(), numBuffers))
 			{
 				return wav;
 			}
@@ -232,7 +265,7 @@ namespace sfx {
 		else if (ext.compare("ogg") == 0)
 		{
 			SoundOgg *ogg = new SoundOgg();
-			if (ogg->loadStream(filename, numBuffers))
+			if (ogg->loadStream(ss.str().c_str(), numBuffers))
 			{
 				return ogg;
 			}
@@ -261,7 +294,6 @@ namespace sfx {
 			if (!mInactiveSources[i]->isOutOfRange())
 			{
 				mInactiveSources[i]->play();
-				mInactiveSources[i]->release();
 				mInactiveSources.erase(mInactiveSources.begin() + i);
 				i--;
 			}
@@ -279,16 +311,19 @@ namespace sfx {
 	{
 		if (mBackgroundMusic)
 		{
-			mBackgroundMusic->release();
 			mBackgroundMusicSource->stop();
 		}
 		mBackgroundMusic = sound;
-		if (mBackgroundMusic)
-		{
-			mBackgroundMusic->retain();
-		}
 		mBackgroundMusicSource->setSound(mBackgroundMusic);
 		mBackgroundMusicSource->play();
+	}
+	void SfxEngine::setBackgroundMusic(const char *filename)
+	{
+		ISound *bgm = loadStream(filename);
+		if (bgm)
+		{
+			setBackgroundMusic(bgm);
+		}
 	}
 	ISound *SfxEngine::getBackgroundMusic() const
 	{
@@ -300,7 +335,7 @@ namespace sfx {
 		return mListener;
 	}
 
-	void SfxEngine::addInactiveSource(Source *source)
+	void SfxEngine::addInactiveSource(ISource *source)
 	{
 		if (!source)
 		{
@@ -311,10 +346,9 @@ namespace sfx {
 		{
 			return;
 		}
-		source->retain();
 		mInactiveSources.push_back(source);
 	}
-	void SfxEngine::removeInactiveSource(Source *source)
+	void SfxEngine::removeInactiveSource(ISource *source)
 	{
 		if (!source)
 		{
@@ -326,9 +360,8 @@ namespace sfx {
 			return;
 		}
 		mInactiveSources.erase(mInactiveSources.begin() + index);
-		source->release();
 	}
-	size_t SfxEngine::findInactiveSource(Source *source)
+	size_t SfxEngine::findInactiveSource(ISource *source)
 	{
 		if (!source)
 		{
@@ -336,7 +369,7 @@ namespace sfx {
 		}
 		for (size_t i = 0; i < mInactiveSources.size(); i++)
 		{
-			if (mInactiveSources[i] == source)
+			if (mInactiveSources[i].get() == source)
 			{
 				return i;
 			}
@@ -349,7 +382,7 @@ namespace sfx {
 		return static_cast<int>(mSourcePool.size());
 	}
 
-	bool SfxEngine::getSource(ALuint &result, Source *forSource)
+	bool SfxEngine::getSource(ALuint &result, ISource *forSource)
 	{
 		if (mSourcePool.empty())
 		{

@@ -62,7 +62,7 @@
 
 #include <sfx/sfx_isound.h>
 #include <sfx/sfx_engine.h>
-#include <sfx/sfx_source.h>
+#include <sfx/sfx_source_point.h>
 using namespace am::sfx;
 
 namespace am {
@@ -138,8 +138,8 @@ namespace sys {
 		mEngine->loadLuaEngine("data/engine.lua");
 
 		SfxEngine *sfxEngine = SfxEngine::getEngine();
-		ISound *bgm = sfxEngine->loadStream("data/sounds/bgm.ogg");
-		Source *bgmSource = new Source(bgm);
+		ISound *bgm = sfxEngine->loadStream("18765__reinsamba__evening-in-the-forest.ogg");
+		SourcePoint *bgmSource = new SourcePoint(bgm);
 		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
@@ -413,12 +413,12 @@ namespace sys {
 		mPlayer->addEventListener("dialogue", this);
 
 		GameObject *torch = new GameObject();
-		torch->setGridLocation(3, 0);
+		torch->setGridLocationF(3.5, 0.5);
 		torch->addChild(new Sprite("smallTorch"));
-		Source *source = torch->getSource();
-		source->setGain(0.2f);
-		source->setReferenceDistance(25);
-		source->setSound(SfxEngine::getEngine()->loadSound("data/sounds/torch.ogg"));
+		ISource *source = torch->getSource();
+		source->setGain(0.5f);
+		source->setReferenceDistance(5);
+		source->setSound(SfxEngine::getEngine()->loadSound("189212__vurca__burning-fire.ogg"));
 		source->setLooping(true);
 		game->addGameObjectToMap(torch);
 

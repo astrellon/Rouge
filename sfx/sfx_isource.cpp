@@ -1,4 +1,4 @@
-#include "sfx_source.h"
+#include "sfx_isource.h"
 
 #include "sfx_engine.h"
 #include "sfx_isound.h"
@@ -6,33 +6,29 @@
 namespace am {
 namespace sfx {
 
-	Source::Source() :
+	ISource::ISource() :
 		mSource(-1),
 		mLooping(false),
 		mGain(1.0f),
 		mReferenceDistance(1.0f),
-		mRolloffFactor(1.0f),
-		//mPriority(1),
-		mSourceRelative(false)
+		mRolloffFactor(1.0f)
 	{
 	}
-	Source::Source(ISound *sound) :
+	ISource::ISource(ISound *sound) :
 		mSource(-1),
 		mLooping(false),
 		mGain(1.0f),
 		mReferenceDistance(1.0f),
-		mRolloffFactor(1.0f),
-		//mPriority(1),
-		mSourceRelative(false)
+		mRolloffFactor(1.0f)
 	{
 		setSound(sound);
 	}
-	Source::~Source()
+	ISource::~ISource()
 	{
 		releaseSource();
 	}
 
-	void Source::play()
+	void ISource::play()
 	{
 		if (!mSound)
 		{
@@ -52,7 +48,7 @@ namespace sfx {
 		mSound->attachSource(mSource);
  		alSourcePlay(mSource);
 	}
-	void Source::stop()
+	void ISource::stop()
 	{
 		if (mPlaying && mSource == -1)
 		{
@@ -61,7 +57,7 @@ namespace sfx {
 		mPlaying = false;
 		releaseSource();
 	}
-	void Source::stopOutOfRange()
+	void ISource::stopOutOfRange()
 	{
 		// If we've been told to stop because we're out of range and
 		// we're not a looping sound then just stop.
@@ -75,13 +71,7 @@ namespace sfx {
 		releaseSource();
 	}
 
-	bool Source::isOutOfRange() const
-	{
-		float gain = calcGain();
-		return gain < 0.02f;
-	}
-
-	void Source::update()
+	void ISource::update()
 	{
 		if (mSound)
 		{
@@ -99,17 +89,17 @@ namespace sfx {
 		}
 	}
 
-	void Source::setSound(ISound *sound)
+	void ISource::setSound(ISound *sound)
 	{
 		releaseSource();
 		mSound = sound;
 	}
-	ISound *Source::getSound() const
+	ISound *ISource::getSound() const
 	{
 		return mSound;
 	}
 
-	void Source::setLooping(bool value)
+	void ISource::setLooping(bool value)
 	{
 		mLooping = value;
 		if (mSource != -1)
@@ -117,25 +107,12 @@ namespace sfx {
 			alSourcei(mSource, AL_LOOPING, value);
 		}
 	}
-	bool Source::isLooping() const
+	bool ISource::isLooping() const
 	{
 		return mLooping;
 	}
 
-	void Source::setSourceRelative(bool value)
-	{
-		mSourceRelative = value;
-		if (mSource != -1)
-		{
-			alSourcei(mSource, AL_SOURCE_RELATIVE, value);
-		}
-	}
-	bool Source::isSourceRelative() const
-	{
-		return mSourceRelative;
-	}
-
-	void Source::setGain(float gain)
+	void ISource::setGain(float gain)
 	{
 		mGain = gain;
 		if (mSource != -1)
@@ -143,12 +120,12 @@ namespace sfx {
 			alSourcef(mSource, AL_GAIN, gain);
 		}
 	}
-	float Source::getGain() const
+	float ISource::getGain() const
 	{
 		return mGain;
 	}
 
-	void Source::setReferenceDistance(float distance)
+	void ISource::setReferenceDistance(float distance)
 	{
 		mReferenceDistance = distance;
 		if (mSource != -1)
@@ -156,12 +133,12 @@ namespace sfx {
 			alSourcef(mSource, AL_REFERENCE_DISTANCE, distance);
 		}
 	}
-	float Source::getReferenceDistance() const
+	float ISource::getReferenceDistance() const
 	{
 		return mReferenceDistance;
 	}
 
-	void Source::setRolloffFactor(float factor)
+	void ISource::setRolloffFactor(float factor)
 	{
 		mRolloffFactor = factor;
 		if (mSource != -1)
@@ -169,22 +146,13 @@ namespace sfx {
 			alSourcef(mSource, AL_ROLLOFF_FACTOR, factor);
 		}
 	}
-	float Source::getRolloffFactor() const
+	float ISource::getRolloffFactor() const
 	{
 		return mRolloffFactor;
 	}
 
-	/*void Source::setPriority(unsigned int priority)
-	{
-		mPriority = priority;
-	}
-	unsigned int Source::getPriority() const
-	{
-		return mPriority;
-	}*/
-
 #ifdef SOUND_3D
-	void Source::setPosition(float x, float y, float z)
+	void ISource::setPosition(float x, float y, float z)
 	{
 		mPosition.x = x;
 		mPosition.y = y;
@@ -194,7 +162,7 @@ namespace sfx {
 			alSource3f(mSource, AL_POSITION, x, y, z);
 		}
 	}
-	void Source::setVelocity(float x, float y, float z)
+	void ISource::setVelocity(float x, float y, float z)
 	{
 		mVelocity.x = x;
 		mVelocity.y = y;
@@ -204,16 +172,16 @@ namespace sfx {
 			alSource3f(mSource, AL_VELOCITY, x, y, z);
 		}
 	}
-	Vector4f Source::getPosition() const
+	Vector4f ISource::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector4f Source::getVelocity() const
+	Vector4f ISource::getVelocity() const
 	{
 		return mVelocity;
 	}
 #else
-	void Source::setPosition(float x, float y)
+	void ISource::setPosition(float x, float y)
 	{
 		mPosition.x = x;
 		mPosition.y = y;
@@ -222,7 +190,7 @@ namespace sfx {
 			alSource3f(mSource, AL_POSITION, x, y, 0.0f);
 		}
 	}
-	void Source::setVelocity(float x, float y)
+	void ISource::setVelocity(float x, float y)
 	{
 		mVelocity.x = x;
 		mVelocity.y = y;
@@ -231,33 +199,17 @@ namespace sfx {
 			alSource3f(mSource, AL_VELOCITY, x, y, 0.0f);
 		}
 	}
-	Vector2f Source::getPosition() const
+	Vector2f ISource::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector2f Source::getVelocity() const
+	Vector2f ISource::getVelocity() const
 	{
 		return mVelocity;
 	}
 #endif
 
-	float Source::calcGain() const
-	{
-		float distance = 0.0f;
-		if (mSourceRelative)
-		{
-			distance = static_cast<float>(mPosition.length());
-		}
-		else
-		{
-			distance = SfxEngine::getEngine()->getListener().getPosition().distance(mPosition);
-		}
-		distance = max(distance, mReferenceDistance);
-		float gain = mReferenceDistance / (mReferenceDistance + mRolloffFactor * (distance - mReferenceDistance));
-		return gain * mGain;
-	}
-
-	ALint Source::getStatus()
+	ALint ISource::getStatus()
 	{
 		ALint result = AL_NONE;
 		if (mSource != -1)
@@ -267,12 +219,12 @@ namespace sfx {
 		return result;
 	}
 
-	ALuint Source::getSourceId() const
+	ALuint ISource::getSourceId() const
 	{
 		return mSource;
 	}
 
-	void Source::applyToSource()
+	void ISource::applyToSource()
 	{
 		if (mSource == -1)
 		{
@@ -282,7 +234,6 @@ namespace sfx {
 		alSourcef(mSource, AL_REFERENCE_DISTANCE, mReferenceDistance);
 		alSourcef(mSource, AL_ROLLOFF_FACTOR, mRolloffFactor);
 		alSourcei(mSource, AL_LOOPING, mLooping);
-		alSourcei(mSource, AL_SOURCE_RELATIVE, mSourceRelative);
 #ifdef SOUND_3D
 		alSource3f(mSource, AL_POSITION, mPosition.x, mPosition.y, mPosition.z);
 		alSource3f(mSource, AL_VELOCITY, mVelocity.x, mVelocity.y, mVelocity.z);
@@ -291,7 +242,7 @@ namespace sfx {
 		alSource3f(mSource, AL_VELOCITY, mVelocity.x, mVelocity.y, 0.0f);
 #endif
 	}
-	void Source::releaseSource()
+	void ISource::releaseSource()
 	{
 		if (mSource != -1)
 		{
@@ -304,5 +255,6 @@ namespace sfx {
 			mSource = -1;
 		}
 	}
+
 }
 }

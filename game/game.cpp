@@ -309,7 +309,7 @@ namespace game {
 		{
 			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 			{
-				Source *source = (*iter)->getSource(false);
+				ISource *source = (*iter)->getSource(false);
 				if (source)
 				{
 					source->stop();
@@ -342,7 +342,7 @@ namespace game {
 				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 				{
 					mCharacterLayer->addChild(iter->get());
-					Source *source = (*iter)->getSource(false);
+					ISource *source = (*iter)->getSource(false);
 					if (source)
 					{
 						source->play();

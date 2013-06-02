@@ -25,3 +25,6 @@ Sprite lua_sprite.cpp
 
 __basePath ../lua/wrappers/util/
 DataTable lua_data_table.cpp
+
+__basePath ../lua/wrappers/sfx/
+Sound lua_sound.cpp
