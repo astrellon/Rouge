@@ -328,6 +328,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="sfx\sfx_listener.cpp" />
     <ClCompile Include="sfx\sfx_sound_ogg.cpp" />
     <ClCompile Include="sfx\sfx_sound_wav.cpp" />
+    <ClCompile Include="sfx\sfx_source_area.cpp" />
     <ClCompile Include="sfx\sfx_source_point.cpp" />
     <ClCompile Include="sys\game_system.cpp" />
     <ClCompile Include="sys\mem_test_system.cpp" />
@@ -549,6 +550,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sfx\sfx_listener.h" />
     <ClInclude Include="sfx\sfx_sound_ogg.h" />
     <ClInclude Include="sfx\sfx_sound_wav.h" />
+    <ClInclude Include="sfx\sfx_source_area.h" />
     <ClInclude Include="sfx\sfx_source_point.h" />
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />

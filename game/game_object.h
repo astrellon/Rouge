@@ -128,6 +128,8 @@ namespace game {
 
 		void applyToSource();
 
+		virtual void postRender(float dt);
+
 	};
 
 	typedef vector<Handle<GameObject> > ObjectList;

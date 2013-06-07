@@ -790,6 +790,9 @@
     <ClCompile Include="sfx\sfx_source_point.cpp">
       <Filter>sfx</Filter>
     </ClCompile>
+    <ClCompile Include="sfx\sfx_source_area.cpp">
+      <Filter>sfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1448,6 +1451,9 @@
       <Filter>sfx</Filter>
     </ClInclude>
     <ClInclude Include="sfx\sfx_source_point.h">
+      <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sfx\sfx_source_area.h">
       <Filter>sfx</Filter>
     </ClInclude>
   </ItemGroup>

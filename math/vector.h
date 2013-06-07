@@ -420,6 +420,7 @@ namespace math {
 			y = (T)rhs;
 			return *this;
 		}
+
 		inline bool operator ==(const Vector2<T> &rhs) const
 		{
 			return x == rhs.x && y == rhs.y;

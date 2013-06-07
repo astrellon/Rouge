@@ -291,6 +291,7 @@ namespace sfx {
 	{
 		for (size_t i = 0; i < mInactiveSources.size(); i++)
 		{
+			mInactiveSources[i]->update();
 			if (!mInactiveSources[i]->isOutOfRange())
 			{
 				mInactiveSources[i]->play();

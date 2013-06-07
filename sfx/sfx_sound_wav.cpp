@@ -1,6 +1,6 @@
 #include "sfx_sound_wav.h"
 
-#include "sfx_source.h"
+#include "sfx_isource.h"
 
 #include <iostream>
 #include <sstream>

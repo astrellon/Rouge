@@ -63,6 +63,7 @@
 #include <sfx/sfx_isound.h>
 #include <sfx/sfx_engine.h>
 #include <sfx/sfx_source_point.h>
+#include <sfx/sfx_source_area.h>
 using namespace am::sfx;
 
 namespace am {
@@ -415,9 +416,12 @@ namespace sys {
 		GameObject *torch = new GameObject();
 		torch->setGridLocationF(3.5, 0.5);
 		torch->addChild(new Sprite("smallTorch"));
-		ISource *source = torch->getSource();
-		source->setGain(0.5f);
-		source->setReferenceDistance(5);
+		SourceArea *source = new SourceArea();
+		torch->setSource(source);
+		source->setGain(1.0f);
+		source->setReferenceDistance(80);
+		source->setWidth(5.0f * Engine::getEngine()->getGridXSize());
+		source->setHeight(1.0f * Engine::getEngine()->getGridYSize());
 		source->setSound(SfxEngine::getEngine()->loadSound("189212__vurca__burning-fire.ogg"));
 		source->setLooping(true);
 		game->addGameObjectToMap(torch);

@@ -1,5 +1,7 @@
 #include "game_object.h"
 
+#include <gl.h>
+
 #include "map.h"
 
 #include "engine.h"
@@ -14,6 +16,7 @@
 #include <util/data_number.h>
 
 #include <sfx/sfx_source_point.h>
+#include <sfx/sfx_source_area.h>
 
 namespace am {
 namespace game {
@@ -610,6 +613,40 @@ namespace game {
 	const char *GameObject::getGameObjectTypeName() const
 	{
 		return "gameobject";
+	}
+
+	void GameObject::postRender(float dt)
+	{
+		if (mSoundSource)
+		{
+			SourceArea *area = dynamic_cast<SourceArea *>(mSoundSource.get());
+			if (area)
+			{
+				Vector2f rel = area->getPosition().sub(mLocationX, mLocationY);
+				glBegin(GL_LINES);
+				glColor3f(1.0f, 0.0f, 0.0f);
+				glPushMatrix();
+				glTranslatef(rel.x, rel.y, 0.0f);
+				glVertex2f(0.0f, 0.0f);
+				glVertex2f(area->getWidth(), 0.0f);
+				glVertex2f(area->getWidth(), area->getHeight());
+				glVertex2f(0.0f, area->getHeight());
+				glPopMatrix();
+				glEnd();
+
+				Vector2f relPos = area->getClosestPosition().sub(mLocationX, mLocationY);
+				glBegin(GL_TRIANGLES);
+				//glPushMatrix();
+				//glTranslatef(relPos.x, relPos.y, 0.0f);
+				glColor3f(0.2f, 1.0f, 0.2f);
+				glVertex2f(relPos.x - 5.0f, relPos.y - 5.0f);
+				glVertex2f(relPos.x, relPos.y + 5.0f);
+				glVertex2f(relPos.x + 5.0f, relPos.y - 5.0f);
+				//glPopMatrix();
+				glEnd();
+			}
+		}
+		Layer::postRender(dt);
 	}
 }
 }
