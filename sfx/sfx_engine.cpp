@@ -145,6 +145,8 @@ namespace sfx {
 				// however we can deal with situations where we are on hardware that doesn't
 				// support that many.
 				// Win7 with an integrated Realtek showed 256 sources.
+				// Also the number of sources we can have doesn't directly relate to the number of 
+				// sources that we can play at once.
 				break;
 			}
 			mSourcePool.push_back(SourceId(source));
@@ -272,6 +274,11 @@ namespace sfx {
 			delete ogg;
 		}
 		return NULL;
+	}
+
+	bool SfxEngine::oggLoaded() const
+	{
+		return mOggHandle != NULL;
 	}
 
 	void SfxEngine::displayInUse()

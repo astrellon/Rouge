@@ -48,6 +48,10 @@ namespace sfx {
 	{
 		mFilename = "";
 		SfxEngine *engine = SfxEngine::getEngine();
+		if (!engine->oggLoaded())
+		{
+			return false;
+		}
 		FILE *file = fopen(filename, "rb");
 		if (!file)
 		{
@@ -91,6 +95,10 @@ namespace sfx {
 	{
 		mFilename = "";
 		SfxEngine *engine = SfxEngine::getEngine();
+		if (!engine->oggLoaded())
+		{
+			return false;
+		}
 		FILE *file = fopen(filename, "rb");
 		if (!file)
 		{

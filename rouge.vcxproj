@@ -75,7 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\git\GPP\.adev\rouge\sfx\ogg\;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'">
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
@@ -87,7 +87,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\git\GPP\.adev\rouge\sfx\ogg\;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Mem|Win32'">
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
@@ -107,7 +107,10 @@
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
-xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'">

@@ -77,7 +77,6 @@ namespace sfx {
 		{
 			if (isOutOfRange())
 			{
-				stopOutOfRange();
 				return;
 			}
 			mSound->update();

@@ -72,6 +72,8 @@ namespace sfx {
 		void addInactiveSource(ISource *source);
 		void removeInactiveSource(ISource *source);
 
+		bool oggLoaded() const;
+
 		static SfxEngine *getEngine();
 		static void deinitSfxEngine();
 
@@ -122,7 +124,6 @@ namespace sfx {
 		OggInfo getOggInfo() const;
 		OggComment getOggComment() const;
 		OggOpenCallbacks getOggOpenCallbacks() const;
-		HINSTANCE mOggHandle;
 
 	protected:
 		// Function Pointer Variables
@@ -133,6 +134,8 @@ namespace sfx {
 		OggInfo	mOggInfo;
 		OggComment mOggComment;
 		OggOpenCallbacks mOggOpenCallbacks;
+
+		HINSTANCE mOggHandle;
 		
 		bool initOgg();
 		void deinitOgg();

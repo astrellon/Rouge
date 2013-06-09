@@ -419,7 +419,7 @@ namespace sys {
 		SourceArea *source = new SourceArea();
 		torch->setSource(source);
 		source->setGain(1.0f);
-		source->setReferenceDistance(80);
+		//source->setReferenceDistance(50);
 		source->setWidth(5.0f * Engine::getEngine()->getGridXSize());
 		source->setHeight(1.0f * Engine::getEngine()->getGridYSize());
 		source->setSound(SfxEngine::getEngine()->loadSound("189212__vurca__burning-fire.ogg"));
