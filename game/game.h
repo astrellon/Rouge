@@ -100,6 +100,9 @@ namespace game {
 		Camera *getCamera();
 
 		void update(float dt);
+		void onGameTick();
+		void setCurrentGameTickLength(float dt);
+		//void nextObjectTurn();
 
 		// GameObject
 		GameObject *getGameObject(const char *id) const;
@@ -124,6 +127,12 @@ namespace game {
 
 		void setScenarioName(const char *scenarioName);
 		const char *getScenarioName() const;
+
+		// This is different to pausing the game.
+		// As it relates to the game tick itself waiting for
+		// something to happen like user input.
+		void setGameTickPaused(bool paused);
+		bool isGameTickPaused() const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -166,6 +175,10 @@ namespace game {
 
 		Handle<LoadingState> mLoadingState;
 
+		int mGameTickPosition;
+		bool mGameTickPaused;
+		float mCurrentTickDt;
+
 		typedef map<string, Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
@@ -174,6 +187,8 @@ namespace game {
 
 		typedef map<string, Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
+
+		void endGameTick();
 
 		template <class T>
 		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
@@ -269,6 +284,8 @@ namespace game {
 
 		data::IData *saveGameData();
 		void loadGameData(data::Table *obj);
+
+		void setTickPositionMainChar();
 	};
 
 }

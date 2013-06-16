@@ -199,6 +199,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="base\imanaged.cpp" />
+    <ClCompile Include="game\ai_controller.cpp" />
     <ClCompile Include="game\body_part.cpp" />
     <ClCompile Include="game\camera.cpp" />
     <ClCompile Include="game\character.cpp" />
@@ -211,7 +212,9 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="game\game_object.cpp" />
     <ClCompile Include="game\gender.cpp" />
+    <ClCompile Include="game\iaction.cpp" />
     <ClCompile Include="game\iattribute_data.cpp" />
+    <ClCompile Include="game\icontroller.cpp" />
     <ClCompile Include="game\inventory.cpp" />
     <ClCompile Include="game\inventory_spot.cpp" />
     <ClCompile Include="game\item.cpp" />
@@ -220,6 +223,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\levelable.cpp" />
     <ClCompile Include="game\loading_state.cpp" />
     <ClCompile Include="game\map.cpp" />
+    <ClCompile Include="game\move_action.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
     <ClCompile Include="game\player_hand.cpp" />
     <ClCompile Include="game\quest.cpp" />
@@ -422,6 +426,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
   <ItemGroup>
     <ClInclude Include="base\handle.h" />
     <ClInclude Include="base\imanaged.h" />
+    <ClInclude Include="game\ai_controller.h" />
     <ClInclude Include="game\body_part.h" />
     <ClInclude Include="game\camera.h" />
     <ClInclude Include="game\character.h" />
@@ -434,6 +439,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\game_object.h" />
     <ClInclude Include="game\gender.h" />
+    <ClInclude Include="game\iaction.h" />
     <ClInclude Include="game\iattribute_data.h" />
     <ClInclude Include="game\icontroller.h" />
     <ClInclude Include="game\inventory.h" />
@@ -445,6 +451,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\levelable.h" />
     <ClInclude Include="game\loading_state.h" />
     <ClInclude Include="game\map.h" />
+    <ClInclude Include="game\move_action.h" />
     <ClInclude Include="game\player_controller.h" />
     <ClInclude Include="game\player_hand.h" />
     <ClInclude Include="game\quest.h" />

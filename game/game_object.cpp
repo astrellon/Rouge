@@ -91,6 +91,11 @@ namespace game {
 
 	}
 
+	bool GameObject::onGameTick(float dt)
+	{
+		return true;
+	}
+
 	void GameObject::setName(const char *name)
 	{
 		mName = name;
@@ -192,7 +197,7 @@ namespace game {
 		return mLocationY * Engine::getEngine()->getGridYSizeResp();
 	}
 
-	void GameObject::move(float x, float y)
+	bool GameObject::move(float x, float y)
 	{
 		const Engine *engine = Engine::getEngine();
 		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
@@ -201,18 +206,25 @@ namespace game {
 		int newGridY = static_cast<int>((mLocationY + y) * engine->getGridYSizeResp());
 		float dx = 0.0f;
 		float dy = 0.0f;
+		int valid = 0;
 		if (mMap->isValidGridLocation(gridX, newGridY, this))
 		{
+			valid++;
 			dy = y;
 		}
 		if (mMap->isValidGridLocation(newGridX, gridY, this))
 		{
+			valid++;
 			dx = x;
 		}
-		setLocation(mLocationX + dx, mLocationY + dy);
+		if (valid > 0)
+		{
+			setLocation(mLocationX + dx, mLocationY + dy);
+		}
+		return valid > 0;
 	}
 
-	void GameObject::moveGrid(int x, int y)
+	bool GameObject::moveGrid(int x, int y)
 	{
 		const Engine *engine = Engine::getEngine();
 		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
@@ -221,16 +233,20 @@ namespace game {
 		int newGridY = gridY + y;
 		float dx = 0.0f;
 		float dy = 0.0f;
+		int valid = 0;
 		if (mMap->isValidGridLocation(gridX, newGridY, this))
 		{
+			valid++;
 			dy = static_cast<float>(y) * engine->getGridYSize();
 		}
 		if (mMap->isValidGridLocation(newGridX, gridY, this))
 		{
+			valid++;
 			dx = static_cast<float>(x) * engine->getGridXSize();
 		}
 		if (mMap->isValidGridLocation(newGridX, newGridY, this))
 		{
+			valid++;
 			dy = static_cast<float>(y) * engine->getGridYSize();
 			dx = static_cast<float>(x) * engine->getGridXSize();
 		}
@@ -239,7 +255,11 @@ namespace game {
 			dy = 0.0f;
 			dx = 0.0f;
 		}
-		setLocation(mLocationX + dx, mLocationY + dy);
+		if (valid > 0)
+		{
+			setLocation(mLocationX + dx, mLocationY + dy);
+		}
+		return valid > 0;
 	}
 
 	void GameObject::setCameraOffset(float x, float y)

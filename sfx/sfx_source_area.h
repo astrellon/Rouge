@@ -18,6 +18,7 @@ namespace sfx {
 		~SourceArea();
 
 		virtual void update();
+		virtual void recalc();
 
 		virtual float calcGain() const;
 		virtual float calcGain(float distance) const;

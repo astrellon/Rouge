@@ -413,7 +413,7 @@ namespace sys {
 		
 		mPlayer->addEventListener("dialogue", this);
 
-		GameObject *torch = new GameObject();
+		/*GameObject *torch = new GameObject();
 		torch->setGridLocationF(3.5, 0.5);
 		torch->addChild(new Sprite("smallTorch"));
 		SourceArea *source = new SourceArea();
@@ -424,7 +424,7 @@ namespace sys {
 		source->setHeight(1.0f * Engine::getEngine()->getGridYSize());
 		source->setSound(SfxEngine::getEngine()->loadSound("189212__vurca__burning-fire.ogg"));
 		source->setLooping(true);
-		game->addGameObjectToMap(torch);
+		game->addGameObjectToMap(torch);*/
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);
@@ -441,6 +441,8 @@ namespace sys {
 
 		setCurrentMenu(NULL);
 		mGameHud->setVisible(true);
+
+		game->onGameTick();
 	}
 	void RougeSystem::setCurrentMenu(UIComponent *menu)
 	{

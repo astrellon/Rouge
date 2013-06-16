@@ -37,39 +37,37 @@ namespace sfx {
 	{
 		if (mSound)
 		{
-			SfxEngine *engine = SfxEngine::getEngine();
-			if (!mListener.equals(engine->getListener().getPosition(), 0.00001))
+			if (isOutOfRange(mClosestPosition.x, mClosestPosition.y))
 			{
-				mClosestPosition = mListener = engine->getListener().getPosition();
-				
-				if (mClosestPosition.x < mPosition.x)
-				{
-					mClosestPosition.x = mPosition.x;
-				}
-				if (mClosestPosition.x > mPosition.x + mWidth)
-				{
-					mClosestPosition.x = mPosition.x + mWidth;
-				}
-
-				if (mClosestPosition.y < mPosition.y)
-				{
-					mClosestPosition.y = mPosition.y;
-				}
-				if (mClosestPosition.y > mPosition.y + mHeight)
-				{
-					mClosestPosition.y = mPosition.y + mHeight;
-				}
-
-				alSource3f(mSource, AL_POSITION, mClosestPosition.x, mClosestPosition.y, 0.0f);
-
-				if (isOutOfRange(mClosestPosition.x, mClosestPosition.y))
-				{
-					stopOutOfRange();
-				}
-
+				stopOutOfRange();
 			}
 			ISource::update();
 		}
+	}
+	void SourceArea::recalc()
+	{
+		SfxEngine *engine = SfxEngine::getEngine();
+		mClosestPosition = mListener = engine->getListener().getPosition();
+				
+		if (mClosestPosition.x < mPosition.x)
+		{
+			mClosestPosition.x = mPosition.x;
+		}
+		if (mClosestPosition.x > mPosition.x + mWidth)
+		{
+			mClosestPosition.x = mPosition.x + mWidth;
+		}
+
+		if (mClosestPosition.y < mPosition.y)
+		{
+			mClosestPosition.y = mPosition.y;
+		}
+		if (mClosestPosition.y > mPosition.y + mHeight)
+		{
+			mClosestPosition.y = mPosition.y + mHeight;
+		}
+
+		alSource3f(mSource, AL_POSITION, mClosestPosition.x, mClosestPosition.y, 0.0f);
 	}
 
 	bool SourceArea::isOutOfRange() const

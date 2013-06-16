@@ -48,7 +48,7 @@ do
 	Dialogue.add_dialogue(diag)
 
 	diag = Dialogue.new("aboutFred",
-		"Oh Fred, he's a guy, who does stuff what not not.", "About Fred", "aboutFred", "locked")
+		"Oh Fred, he's a guy, who does stuff what not.", "About Fred", "aboutFred", "locked")
 	Dialogue.add_dialogue(diag)
 
 	diag = Dialogue.new("imFred", "Hi, my name is Fred")

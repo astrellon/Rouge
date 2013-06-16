@@ -1,8 +1,10 @@
 #include "character.h"
 
 #include "engine.h"
+#include "game.h"
 #include "map.h"
 #include "race.h"
+#include "ai_controller.h"
 
 #include <ui/equip_event.h>
 
@@ -27,7 +29,7 @@ namespace game {
 		GameObject(),
 		Levelable(),
 		mGraphic(NULL),
-		mController(NULL),
+		mController(new AiController()),
 		mMoveX(0),
 		mMoveY(0),
 		mAge(1.0f),
@@ -102,19 +104,34 @@ namespace game {
 
 	void Character::update(float dt)
 	{
-		if (mController.get())
+		
+	}
+	bool Character::onGameTick(float dt)
+	{
+		if (mController)
 		{
 			mController->update(this, dt);
 		}
-		if (mMoveX != 0 || mMoveY != 0)
+		Handle<IAction> currentAction(getCurrentAction());
+		if (currentAction)
+		{
+			if (!currentAction->update(this, dt))
+			{
+				mActions.erase(mActions.begin());
+			}
+		}
+
+		if (!mController)
+		{
+			return true;
+		}
+		return false;
+
+		/*if (mMoveX != 0 || mMoveY != 0)
 		{
 			Engine *engine = Engine::getEngine();
 			moveGrid(mMoveX, mMoveY);
-			//float dx = engine->getGridXSize() * static_cast<float>(mMoveX);
-			//float dy = engine->getGridYSize() * static_cast<float>(mMoveY);
-
-			//move(dx, dy);
-		}
+		}*/
 	}
 
 	void Character::setController(IController *controller)
@@ -453,6 +470,57 @@ namespace game {
 		return mCoinPurse;
 	}
 
+	void Character::addAction(IAction *action)
+	{
+		if (action && findAction(action) == -1)
+		{
+			mActions.push_back(action);
+		}
+	}
+	void Character::removeAction(IAction *action)
+	{
+		if (action)
+		{
+			size_t index = findAction(action);
+			if (index != -1)
+			{
+				if (action == getCurrentAction())
+				{
+					stopCurrentAction();
+				}
+				mActions.erase(mActions.begin() + index);
+			}
+		}
+	}
+	void Character::removeAllActions()
+	{
+		if (!mActions.empty())
+		{
+			stopCurrentAction();
+			mActions.clear();
+		}
+	}
+	const Character::ActionQueue &Character::getActionQueue() const
+	{
+		return mActions;
+	}
+	void Character::stopCurrentAction()
+	{
+		Handle<IAction> current(getCurrentAction());
+		if (current)
+		{
+			current->stop();
+		}
+	}
+	IAction *Character::getCurrentAction() const
+	{
+		if (mActions.empty())
+		{
+			return NULL;
+		}
+		return mActions[0];
+	}
+
 	data::IData *Character::serialise()
 	{
 		data::IData *obj_output = GameObject::serialise();
@@ -630,6 +698,22 @@ namespace game {
 	{
 		Handle<Event> e(new Event("experience_change"));
 		fireEvent<Event>(e);
+	}
+
+	size_t Character::findAction(IAction *action)
+	{
+		if (!action)
+		{
+			return -1;
+		}
+		for (size_t i = 0; i < mActions.size(); i++)
+		{
+			if (mActions[i].get() == action)
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 }
 }

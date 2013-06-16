@@ -61,8 +61,8 @@ namespace game {
 		virtual void setDialogueComp(DialogueComponent *comp, bool setAttached = true);
 		virtual DialogueComponent *getDialogueComp() const;
 
-		virtual void move(float x, float y);
-		virtual void moveGrid(int x, int y);
+		virtual bool move(float x, float y);
+		virtual bool moveGrid(int x, int y);
 
 		virtual void setFixedToGrid(bool fixed);
 		virtual bool isFixedToGrid() const;
@@ -70,7 +70,15 @@ namespace game {
 		virtual void setOnlyOnPassable(bool only);
 		virtual bool isOnlyOnPassable() const;
 
+		// The update function relates to changes in real time, the dt
+		// value will be in milliseconds since the last update.
 		virtual void update(float dt);
+		// The onGameTick function relates to one in-game tick.
+		// If game tick returns true then it is okay for the game to
+		// move onto the next game object.
+		// Otherwise it will wait until it is told that it is the next
+		// game objects game tick.
+		virtual bool onGameTick(float dt);
 
 		virtual void setCameraOffset(float x, float y);
 		virtual float getCameraOffsetX() const;

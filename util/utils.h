@@ -50,6 +50,9 @@ namespace util {
 
 		static string toLowerCase(const char *input);
 		static string toUpperCase(const char *input);
+
+		static float randf();
+		static void setRandSeed(unsigned int seed);
 	};
 
 }

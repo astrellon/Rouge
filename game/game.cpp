@@ -41,7 +41,10 @@ namespace game {
 		mItemLayer(new Layer()),
 		mCharacterLayer(new Layer()),
 		mForeground(new Layer()),
-		mStarted(false)
+		mStarted(false),
+		mGameTickPosition(0),
+		mCurrentTickDt(0.0f),
+		mGameTickPaused(true)
 	{
 		if (engine == NULL)
 		{
@@ -334,6 +337,8 @@ namespace game {
 			mForeground->addChild(map->getForeground());
 			mActiveObjects = map->getObjects();
 
+			setTickPositionMainChar();
+
 			mCurrentMap->addEventListener(MOUSE_UP, this);
 			
 			if (mActiveObjects)
@@ -539,13 +544,92 @@ namespace game {
 	{
 		if (mActiveObjects)
 		{
-			ObjectList::iterator iter;
-			for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 			{
 				iter->get()->update(dt);
 			}
 		}
 		mCamera.update(dt);
+	}
+	void Game::onGameTick()
+	{
+		//mGameTickPosition = 0;
+		//mCurrentTickDt = 0.0f;
+
+		/*if (mActiveObjects)
+		{
+			mActiveObjects->at(mGameTickPosition)->onGameTick(dt);
+			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			{
+				iter->get()->onGameTick(dt);
+			}
+		}*/
+		//nextObjectTurn();
+		//mMainCharacter->onGameTick(0.0f);
+		if (mActiveObjects == NULL || mGameTickPaused)
+		{
+			return;
+		}
+		if (mGameTickPosition >= mActiveObjects->size())
+		{
+			mGameTickPosition = 0;
+		}
+
+		if (mGameTickPosition == 0)
+		{
+			// Start of new turn.
+		}
+
+		GameObject *obj = mActiveObjects->at(mGameTickPosition);
+		obj->onGameTick(mCurrentTickDt);
+		mGameTickPosition++;
+		//->onGameTick(mCurrentTickDt);
+	}
+	/*void Game::nextObjectTurn()
+	{
+		for (; mGameTickPosition < mActiveObjects->size(); mGameTickPosition++)
+		{
+			GameObject *obj = mActiveObjects->at(mGameTickPosition);
+			if (obj == mMainCharacter)
+			{
+				continue;
+			}
+
+			if (!obj->onGameTick(mCurrentTickDt))
+			{
+				mGameTickPosition++;
+				break;
+			}
+		}
+		*/
+		/*if (mActiveObjects == NULL || mGameTickPosition >= mActiveObjects->size())
+		{
+			onGameTick();
+			return;
+		}
+
+		GameObject *obj = mActiveObjects->at(mGameTickPosition);
+		if (obj == mMainCharacter)
+		{
+			mGameTickPosition++;
+			nextObjectTurn();
+			return;
+		}
+
+		bool gotoNextGameObj = obj->onGameTick(mCurrentTickDt);
+		mGameTickPosition++;
+		if (gotoNextGameObj)
+		{
+			nextObjectTurn();
+		}*/
+	//}
+	void Game::setCurrentGameTickLength(float dt)
+	{
+		mCurrentTickDt = dt;
+	}
+	void Game::endGameTick()
+	{
+
 	}
 
 	GameObject *Game::getGameObject(const char *id) const
@@ -720,9 +804,20 @@ namespace game {
 		return NULL;
 	}
 
+	void Game::setGameTickPaused(bool paused)
+	{
+		mGameTickPaused = paused;
+	}
+	bool Game::isGameTickPaused() const
+	{
+		return mGameTickPaused;
+	}
+
 	void Game::startGame()
 	{
 		mStarted = true;
+		setGameTickPaused(false);
+		setTickPositionMainChar();
 		Handle<Event> e(new Event("startGame"));
 		fireEvent<Event>(e);
 	}
@@ -940,6 +1035,22 @@ namespace game {
 		}
 
 		IAttributeData::deserialise(mLoadingState, hobj);
+	}
+
+	void Game::setTickPositionMainChar()
+	{
+		if (mActiveObjects)
+		{
+			for (size_t i = 0; i < mActiveObjects->size(); i++)
+			{
+				GameObject *obj = mActiveObjects->at(i);
+				if (obj == mMainCharacter)
+				{
+					mGameTickPosition = i;
+					break;
+				}
+			}
+		}
 	}
 
 }

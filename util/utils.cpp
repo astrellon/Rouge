@@ -112,5 +112,14 @@ namespace util {
 		return pos - position;
 	}
 
+	float Utils::randf()
+	{
+		return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+	}
+	void Utils::setRandSeed(unsigned int seed)
+	{
+		srand(seed);
+	}
+
 }
 }

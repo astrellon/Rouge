@@ -133,6 +133,12 @@
     <Filter Include="tests\sfx">
       <UniqueIdentifier>{38da8767-cefd-42e1-b59c-8d8e55859895}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\actions">
+      <UniqueIdentifier>{f97a9762-118f-4c91-a2eb-7376eeedcb06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\controllers">
+      <UniqueIdentifier>{95bbab78-79d4-4b5a-a65a-1ada6d440da7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -224,9 +230,6 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\map.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\player_controller.cpp">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\tile.cpp">
@@ -793,6 +796,21 @@
     <ClCompile Include="sfx\sfx_source_area.cpp">
       <Filter>sfx</Filter>
     </ClCompile>
+    <ClCompile Include="game\iaction.cpp">
+      <Filter>game\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="game\move_action.cpp">
+      <Filter>game\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="game\player_controller.cpp">
+      <Filter>game\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="game\icontroller.cpp">
+      <Filter>game\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ai_controller.cpp">
+      <Filter>game\controllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -886,13 +904,7 @@
     <ClInclude Include="game\game_object.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="game\icontroller.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="game\map.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\player_controller.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\tile.h">
@@ -1455,6 +1467,21 @@
     </ClInclude>
     <ClInclude Include="sfx\sfx_source_area.h">
       <Filter>sfx</Filter>
+    </ClInclude>
+    <ClInclude Include="game\iaction.h">
+      <Filter>game\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="game\move_action.h">
+      <Filter>game\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="game\player_controller.h">
+      <Filter>game\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="game\icontroller.h">
+      <Filter>game\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ai_controller.h">
+      <Filter>game\controllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

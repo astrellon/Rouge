@@ -29,6 +29,7 @@ namespace sfx {
 		virtual void stopOutOfRange();
 
 		virtual void update();
+		virtual void recalc();
 
 		virtual void setSound(ISound *sound);
 		virtual ISound *getSound() const;

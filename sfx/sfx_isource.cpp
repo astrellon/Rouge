@@ -88,6 +88,11 @@ namespace sfx {
 		}
 	}
 
+	void ISource::recalc()
+	{
+
+	}
+
 	void ISource::setSound(ISound *sound)
 	{
 		releaseSource();

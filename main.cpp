@@ -4,6 +4,8 @@
 #endif
 #include "main.h"
 
+#include <util/utils.h>
+
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 #ifdef TESTING_MEM
@@ -11,6 +13,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	VLDSetReportOptions(VLD_OPT_REPORT_TO_FILE, L"memleaks.log");
 	//VLDSetOptions(VLD_OPT_AGGREGATE_DUPLICATES, 1000, 1000);
 #endif
+
+	am::util::Utils::setRandSeed(time_t(NULL));
 
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);

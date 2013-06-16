@@ -21,6 +21,7 @@ using namespace am::ui;
 #include "gender.h"
 #include "coin_purse.h"
 #include "levelable.h"
+#include "iaction.h"
 
 namespace am {
 namespace game {
@@ -29,6 +30,8 @@ namespace game {
 
 	class Character : public IEventListener, public GameObject, public Levelable {
 	public:
+
+		typedef vector< Handle<IAction> > ActionQueue;
 		Character();
 		Character(const Character &copy);
 		~Character();
@@ -37,6 +40,7 @@ namespace game {
 		Sprite *getGraphic();
 
 		virtual void update(float dt);
+		virtual bool onGameTick(float dt);
 
 		virtual void setController(IController *controller);
 		virtual IController *getController();
@@ -86,6 +90,13 @@ namespace game {
 
 		virtual CoinPurse *getCoinPurse() const;
 
+		virtual void addAction(IAction *action);
+		virtual void removeAction(IAction *action);
+		virtual void removeAllActions();
+		virtual const ActionQueue &getActionQueue() const;
+		virtual void stopCurrentAction();
+		virtual IAction *getCurrentAction() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -110,6 +121,8 @@ namespace game {
 		Handle<Inventory> mInventory;
 		Handle<CoinPurse> mCoinPurse;
 
+		ActionQueue mActions;
+
 		Stats mStats;
 
 		float mAge;
@@ -119,6 +132,7 @@ namespace game {
 		virtual void onLevelUp();
 		virtual void onExperienceChange();
 
+		size_t findAction(IAction *action);
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);
 	};

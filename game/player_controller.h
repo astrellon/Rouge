@@ -19,6 +19,8 @@ namespace game {
 		virtual void update(Character *character, float dt);
 		virtual void detach();
 
+		void performAction();
+
 	protected:
 
 		int mMoveX;
@@ -26,6 +28,7 @@ namespace game {
 		bool mRunning;
 		bool mRemoved;
 		bool mAttached;
+		Character *mCharacter;
 	};
 
 }

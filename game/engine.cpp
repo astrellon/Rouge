@@ -90,6 +90,8 @@ namespace game {
 		if (mCurrentGame.get())
 		{
 			mCurrentGame->update(dt);
+			// Should likely be in it's own callback.
+			mCurrentGame->onGameTick();
 		}
 	}
 
