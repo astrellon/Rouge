@@ -13,7 +13,8 @@ namespace am {
 namespace game {
 
 	AiController::AiController() :
-		IController()
+		IController(),
+		mCharacter(NULL)
 	{
 		mAttached = true;
 		mRemoved = false;
