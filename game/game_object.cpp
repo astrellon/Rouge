@@ -10,6 +10,8 @@
 #include "dialogue_component.h"
 #include "loading_state.h"
 
+#include <math/math.h>
+
 #include <util/data_table.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
@@ -122,6 +124,12 @@ namespace game {
 		}
 		if (setDraw)
 		{
+			if (mFixedToGrid)
+			{
+				Engine *engine = Engine::getEngine();
+				x = am::math::round(x * engine->getGridXSizeResp()) * engine->getGridXSize();
+				y = am::math::round(y * engine->getGridXSizeResp()) * engine->getGridYSize();
+			}
 			mTransform.setXY(x, y);
 		}
 		
@@ -219,6 +227,14 @@ namespace game {
 		}
 		if (valid > 0)
 		{
+			float newPosX = mLocationX + x;
+			float newPosY = mLocationY + y;
+			if (!mMap->isValidLocation(newPosX, newPosY, this))
+			//if (!mMap->isValidGridLocation(newGridX, newGridY, this))
+
+			{
+				return false;
+			}
 			setLocation(mLocationX + dx, mLocationY + dy);
 		}
 		return valid > 0;

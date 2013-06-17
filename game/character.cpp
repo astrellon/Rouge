@@ -37,6 +37,7 @@ namespace game {
 		mRace(NULL),
 		mCoinPurse(new CoinPurse())
 	{
+		mFixedToGrid = true;
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
 		mMaxLevel = 50;
