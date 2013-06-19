@@ -811,6 +811,9 @@
     <ClCompile Include="game\ai_controller.cpp">
       <Filter>game\controllers</Filter>
     </ClCompile>
+    <ClCompile Include="game\astar_node.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1482,6 +1485,9 @@
     </ClInclude>
     <ClInclude Include="game\ai_controller.h">
       <Filter>game\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="game\astar_node.h">
+      <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

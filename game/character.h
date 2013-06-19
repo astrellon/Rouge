@@ -22,6 +22,7 @@ using namespace am::ui;
 #include "coin_purse.h"
 #include "levelable.h"
 #include "iaction.h"
+#include "astar_node.h"
 
 namespace am {
 namespace game {
@@ -97,6 +98,9 @@ namespace game {
 		virtual void stopCurrentAction();
 		virtual IAction *getCurrentAction() const;
 
+		virtual void setDestination(float x, float y);
+		virtual void setGridDestination(int x, int y);
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -129,12 +133,16 @@ namespace game {
 		Race *mRace;
 		Gender::GenderType mGender;
 
+		NodePath mDestination;
+
 		virtual void onLevelUp();
 		virtual void onExperienceChange();
 
 		size_t findAction(IAction *action);
 		void _equipItem(Item *item, const char *bodyPartName);
 		void _unequipItem(Item *item, const char *bodyPartName);
+
+		virtual void postRender(float dt);
 	};
 
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #ifndef IS_WHITE
@@ -53,6 +54,22 @@ namespace util {
 
 		static float randf();
 		static void setRandSeed(unsigned int seed);
+
+		template <class T>
+		static bool listContains(const vector<T> &list, const T &item)
+		{
+			bool found = false;
+			int size = static_cast<int>(list.size());
+			for (int i = 0; i < size; i++)
+			{
+				if (list[i] == item)
+				{
+					found = true;
+					break;
+				}
+			}
+			return found;
+		}
 	};
 
 }

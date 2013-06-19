@@ -2,6 +2,8 @@
 
 #include <log/logger.h>
 
+#include <algorithm>
+
 #include <gl.h>
 #include <gfx/gfx_engine.h>
 
@@ -26,7 +28,8 @@ namespace game {
 	Map::Map(const char *name) :
 		mName(name),
 		mTiles(NULL),
-		mEnabledMapCulling(true)
+		mEnabledMapCulling(true),
+		mMapData(NULL)
 	{
 		mBackground = new Layer();
 		mBackground->addChild(this);
@@ -38,7 +41,8 @@ namespace game {
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
 		mTiles(NULL),
-		mEnabledMapCulling(true)
+		mEnabledMapCulling(true),
+		mMapData(NULL)
 	{
 		setMapSize(width, height);
 		mBackground = new Layer();
@@ -141,6 +145,17 @@ namespace game {
 
 		mWidth = static_cast<float>(width) * Engine::getEngine()->getGridXSize();
 		mHeight = static_cast<float>(height) * Engine::getEngine()->getGridYSize();
+
+		mMapData = new AStarNode*[width];
+		for(int x = 0; x < width; x++)
+		{
+			mMapData[x] = new AStarNode[height];
+			for(int y = 0; y < height; y++)
+			{
+				mMapData[x][y].position.x = static_cast<float>(x);
+				mMapData[x][y].position.y = static_cast<float>(y);
+			}
+		}
 	}
 
 	int Map::getMapWidth() const
@@ -158,6 +173,16 @@ namespace game {
 		{
 			delete [] mTiles;
 			mTiles = NULL;
+		}
+
+		if (mMapData)
+		{
+			for(int x = 0; x < mMapWidth; x++)
+			{
+				delete [] mMapData[x];
+			}
+			delete [] mMapData;
+			mMapData = NULL;
 		}
 	}
 
@@ -553,6 +578,157 @@ namespace game {
 		}
 		glPopMatrix();
 	}
+
+	bool Map::search(const Vector2i &start, const Vector2i &end, NodePath &path, const GameObject *forObj)
+	{
+		if (start.x < 0 || start.x >= mWidth ||
+			start.y < 0 || start.y >= mHeight ||
+			end.x < 0 || end.x >= mWidth ||
+			end.y < 0 || end.y >= mHeight)
+		{
+			return false;
+		}
+
+		if (start.x == end.x && start.y == end.y)
+		{
+			return true;
+		}
+
+		int startGroup = mMapData[start.x][start.y].group;
+		int endGroup = mMapData[end.x][end.y].group;
+		if(startGroup != endGroup)
+		{
+			return false;
+		}
+
+		mOpenList.clear();
+		mClosedList.clear();
+
+		mNodeUseCounter++;
+
+		mOpenList.push_back(&mMapData[start.x][start.y]);
+
+		AStarNode *endNode = &mMapData[end.x][end.y];
+		endNode->parent = NULL;
+
+		while(!mOpenList.empty())
+		{
+			AStarNode *node = mOpenList.front();
+			if(node->useCounter < mNodeUseCounter)
+			{
+				node->g = 0;
+				node->useCounter = mNodeUseCounter;
+				node->parent = NULL;
+			}
+		
+			if (node == endNode)
+			{
+				// Complete
+				getPath(node, path);
+				return true;
+			}
+			else
+			{
+				mOpenList.erase(mOpenList.begin());
+				mClosedList.push_back(node);
+
+				mNeighbors.clear();
+				getNeighbors(node->position, forObj);
+				for(vector<AStarNode *>::iterator iter = mNeighbors.begin(); iter != mNeighbors.end(); ++iter)
+				{
+					AStarNode *n = *iter;
+					if (!Utils::listContains<AStarNode *>(mOpenList, n) &&
+						!Utils::listContains<AStarNode *>(mClosedList, n))
+					{
+						if (n->useCounter < mNodeUseCounter)
+						{
+							n->g = 0;
+							n->useCounter = mNodeUseCounter;
+						}
+						n->g += node->g;
+
+						n->f = n->g + manhattanDistance(n->position, endNode->position);
+
+						n->parent = node;
+						mOpenList.push_back(n);
+					}
+				}
+
+				mNeighbors.clear();
+				sortAStarList(mOpenList);
+			}
+		}
+		// NO PATH! D:
+		return false;
+	}
+
+	void Map::getPath(AStarNode *node, NodePath &path)
+	{
+		while(node != NULL)
+		{
+			path.push_back(node->position);
+			node = node->parent;
+		}
+
+		reverse(path.begin(), path.end());
+	}
+
+	inline bool Map::checkNeighbor(const int &x, const int &y, const GameObject *forObj)
+	{
+		if(x >= 0 && x < mWidth && y >= 0 && y < mHeight)
+		{
+			AStarNode *node = &mMapData[x][y];
+
+			if (isValidGridLocation(x, y, forObj))
+			{
+				mNeighbors.push_back(node);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void Map::getNeighbors(Vector2f position, const GameObject *forObj)
+	{
+		int posX = static_cast<int>(position.x);
+		int posY = static_cast<int>(position.y);
+
+		bool left =		checkNeighbor(posX - 1,	posY, forObj);
+		bool top =		checkNeighbor(posX,		posY - 1, forObj);
+		bool right =	checkNeighbor(posX + 1,	posY, forObj);
+		bool bottom =	checkNeighbor(posX,		posY + 1, forObj);
+
+		if (left && top)
+		{
+			checkNeighbor(posX - 1, posY - 1, forObj);
+		}
+		if (top && right)
+		{
+			checkNeighbor(posX + 1, posY - 1, forObj);
+		}
+		if (bottom && left)
+		{
+			checkNeighbor(posX - 1, posY + 1, forObj);
+		}
+		if (bottom && right)
+		{
+			checkNeighbor(posX + 1, posY + 1, forObj);
+		}
+	}
+
+	inline double Map::manhattanDistance(const Vector2f &p1, const Vector2f &p2)
+	{
+		return abs(p1.x - p2.x) + abs(p1.y - p2.y);
+	}
+	inline void Map::sortAStarList(AStarList &list)
+	{
+		sort(list.begin(), list.end(), compare);
+	}
+	inline bool Map::compare(AStarNode *n1, AStarNode *n2)
+	{
+		return n1->f < n2->f;
+	}
+
 
 }
 }

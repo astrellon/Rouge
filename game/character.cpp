@@ -14,10 +14,14 @@
 #include <util/data_string.h>
 using namespace am::util;
 
+#include <math/math.h>
+
 #include <sstream>
 using namespace std;
 
 #include <log/logger.h>
+
+#include <gl.h>
 
 namespace am {
 namespace game {
@@ -143,14 +147,6 @@ namespace game {
 	{
 		return mController;
 	}
-	/*
-	void Character::move(float x, float y)
-	{
-		//int gridX = static_cast<int>((mLocationX + x) * Engine::getEngine()->getGridXSizeResp());
-		//int gridY = static_cast<int>((mLocationY + y) * Engine::getEngine()->getGridXSizeResp());
-		setLocation(mLocationX + x, mLocationY + y);
-	}
-	*/
 	void Character::setMoveVector(int x, int y)
 	{
 		mMoveX = x;
@@ -522,6 +518,30 @@ namespace game {
 		return mActions[0];
 	}
 
+	void Character::setDestination(float x, float y)
+	{
+		int gridX = round(x * Engine::getEngine()->getGridXSizeResp());
+		int gridY = round(y * Engine::getEngine()->getGridYSizeResp());
+
+		setGridDestination(gridX, gridY);
+	}
+	void Character::setGridDestination(int x, int y)
+	{
+		if (!mMap)
+		{
+			return;
+		}
+		if (x < 0 || x >= mMap->getMapWidth() ||
+			y < 0 || y >= mMap->getMapHeight())
+		{
+			return;
+		}
+
+		mDestination.clear();
+		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
+			Vector2i(x, y), mDestination, this);
+	}
+
 	data::IData *Character::serialise()
 	{
 		data::IData *obj_output = GameObject::serialise();
@@ -715,6 +735,27 @@ namespace game {
 			}
 		}
 		return -1;
+	}
+
+	void Character::postRender(float dt)
+	{
+		if (!mDestination.empty())
+		{
+			glPushMatrix();
+			
+			Engine *engine = Engine::getEngine();
+			glTranslatef(-mLocationX + engine->getGridXSize() * 0.5f, -mLocationY + engine->getGridYSize() * 0.5f, 0.0f);
+			glBegin(GL_LINES);
+			glColor3d(1.0, 0.3, 0.2);
+				for (size_t i = 0; i < mDestination.size() - 1; i++)
+				{
+					glVertex2f(mDestination[i].x * engine->getGridXSize(), mDestination[i].y * engine->getGridYSize());
+					glVertex2f(mDestination[i + 1].x * engine->getGridXSize(), mDestination[i + 1].y * engine->getGridYSize());
+				}
+			glEnd();
+			glPopMatrix();
+		}
+		GameObject::postRender(dt);
 	}
 }
 }

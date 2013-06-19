@@ -11,6 +11,7 @@ using namespace am::base;
 using namespace am::lua;
 
 #include "game_object.h"
+#include "astar_node.h"
 
 namespace am {
 namespace gfx {
@@ -68,10 +69,25 @@ namespace game {
 
 		virtual void render(float dt);
 
+		bool search(const Vector2i &start, const Vector2i &end, NodePath &path, const GameObject *forObj);
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
+
+		AStarNode **mMapData;
+
+		AStarList mOpenList;
+		AStarList mClosedList;
+		AStarList mNeighbors;
+		long mNodeUseCounter;
+
+		void getPath(AStarNode *node, NodePath &path);
+		void getNeighbors(Vector2f position, const GameObject *forObj);
+		bool checkNeighbor(const int &x, const int &y, const GameObject *forObj);
+		static double manhattanDistance(const Vector2f &p1, const Vector2f &p2);
+		static bool compare(AStarNode *n1, AStarNode *n2);
 
 		TileInstance *mTiles;
 		int mMapWidth;
@@ -93,7 +109,9 @@ namespace game {
 		// graphic in sync, and as well as not doubling up on computing the current frame.
 		typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
 		AssetSpriteMap mAssetSprites;
-	
+
+		void sortAStarList(AStarList &list);
+
 		void clear();
 		ObjectList::const_iterator findGameObject(GameObject *object) const;
 

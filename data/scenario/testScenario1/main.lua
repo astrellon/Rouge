@@ -11,7 +11,7 @@ return {
 		player = Character.from_def("races:human", "melli")
 		player:name("Melanine")
 			:graphic(Sprite.new("characters/mainChar/front"))
-			:grid_location(2, 1)
+			:grid_location(2, 4)
 			:gender("female")
 		player:inventory():add_item(Item.from_def("wooden:sword"))
 		player:inventory():add_item(Item.from_def("wooden:shield"))
