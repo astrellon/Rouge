@@ -52,7 +52,8 @@ namespace sys {
 	GameSystem::GameSystem(ISystem *linked, Engine *engine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
-		mDebugConsole(NULL)
+		mDebugConsole(NULL),
+		mGfxListener(NULL)
 	{
 		Colour::addStandardNamedColoursLua("data/namedColours.lua");
 	}
