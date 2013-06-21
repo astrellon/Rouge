@@ -115,27 +115,23 @@ namespace game {
 	/**
 	 * @static
 	 * Returns the grid size in pixels for the tiles in the game.
-	 * @returns Number Grid x size
-	 * @returns Number Grid y size
+	 * @returns Number Grid size
 	 */
 	/**
 	 * @static
 	 * Sets the grid size in pixels for the tiles in the game.
-	 * @param number gridX The x grid size
-	 * @param number gridY The y grid size
+	 * @param number gridX The grid size
 	 */
 	int Engine_grid_size(lua_State *lua)
 	{
 		if (lua_gettop(lua) == 0)
 		{
-			lua_pushnumber(lua, Engine::getEngine()->getGridXSize());
-			lua_pushnumber(lua, Engine::getEngine()->getGridYSize());
+			lua_pushnumber(lua, Engine::getEngine()->getGridSize());
 			return 2;
 		}
 		if (lua_isnum(lua, 1) && lua_isnum(lua, 2))
 		{
-			Engine::getEngine()->setGridXSize(static_cast<float>(lua_tonumber(lua, 1)));
-			Engine::getEngine()->setGridYSize(static_cast<float>(lua_tonumber(lua, 2)));
+			Engine::getEngine()->setGridSize(static_cast<float>(lua_tonumber(lua, 1)));
 			return 0;
 		}
 		return LuaState::expectedArgs(lua, "@grid_size", "number gridX, number gridY");

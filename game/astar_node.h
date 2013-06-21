@@ -37,6 +37,7 @@ namespace game {
 		// Should be float instead of int because as it's more
 		// flexible.
 		Vector2f position;
+		Vector2i gridPosition;
 
 		AStarNode *parent;
 	};

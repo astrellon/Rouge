@@ -43,7 +43,7 @@ namespace game {
 	{
 		mFixedToGrid = true;
 		setName("Character");
-		mPickupReach = Engine::getEngine()->getGridXSize() * 1.5f;
+		mPickupReach = Engine::getEngine()->getGridSize() * 1.5f;
 		mMaxLevel = 50;
 		addEventListener(MOUSE_UP, this);
 
@@ -124,6 +124,12 @@ namespace game {
 			{
 				mActions.erase(mActions.begin());
 			}
+		}
+		if (!mDestination.empty() && mDestinationPos >= 0 && mDestinationPos < mDestination.size())
+		{
+			Vector2f toDest(mDestination[mDestinationPos].sub(Vector2f(mLocationX, mLocationY)));
+			toDest.normalise();
+			
 		}
 
 		if (!mController)
@@ -520,8 +526,8 @@ namespace game {
 
 	void Character::setDestination(float x, float y)
 	{
-		int gridX = round(x * Engine::getEngine()->getGridXSizeResp());
-		int gridY = round(y * Engine::getEngine()->getGridYSizeResp());
+		int gridX = round(x * Engine::getEngine()->getGridSizeResp());
+		int gridY = round(y * Engine::getEngine()->getGridSizeResp());
 
 		setGridDestination(gridX, gridY);
 	}
@@ -538,6 +544,7 @@ namespace game {
 		}
 
 		mDestination.clear();
+		mDestinationPos = 0;
 		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
 			Vector2i(x, y), mDestination, this);
 	}
@@ -744,13 +751,13 @@ namespace game {
 			glPushMatrix();
 			
 			Engine *engine = Engine::getEngine();
-			glTranslatef(-mLocationX + engine->getGridXSize() * 0.5f, -mLocationY + engine->getGridYSize() * 0.5f, 0.0f);
+			glTranslatef(-mLocationX + engine->getGridSize() * 0.5f, -mLocationY + engine->getGridSize() * 0.5f, 0.0f);
 			glBegin(GL_LINES);
 			glColor3d(1.0, 0.3, 0.2);
 				for (size_t i = 0; i < mDestination.size() - 1; i++)
 				{
-					glVertex2f(mDestination[i].x * engine->getGridXSize(), mDestination[i].y * engine->getGridYSize());
-					glVertex2f(mDestination[i + 1].x * engine->getGridXSize(), mDestination[i + 1].y * engine->getGridYSize());
+					glVertex2f(mDestination[i].x, mDestination[i].y);
+					glVertex2f(mDestination[i + 1].x, mDestination[i + 1].y);
 				}
 			glEnd();
 			glPopMatrix();

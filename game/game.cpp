@@ -231,8 +231,8 @@ namespace game {
 			GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
 			{
-				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridXSizeResp());
-				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridYSizeResp());
+				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
+				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
 
 				Tile *tile = mCurrentMap->getTile(gridX, gridY);
 				Inspector *inspector = gameHud->getInspector();
@@ -471,14 +471,14 @@ namespace game {
 	}
 	void Game::moveObjectToMapGrid(GameObject *object, const char *mapName, int x, int y, bool setAsCurrent)
 	{
-		float gx = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
-		float gy = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		float gx = Engine::getEngine()->getGridSize() * static_cast<float>(x);
+		float gy = Engine::getEngine()->getGridSize() * static_cast<float>(y);
 		moveObjectToMap(object, mapName, gx, gy, setAsCurrent);
 	}
 	void Game::moveObjectToMapGrid(GameObject *object, Map *map, int x, int y, bool setAsCurrent)
 	{
-		float gx = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
-		float gy = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		float gx = Engine::getEngine()->getGridSize() * static_cast<float>(x);
+		float gy = Engine::getEngine()->getGridSize() * static_cast<float>(y);
 		moveObjectToMap(object, map, gx, gy, setAsCurrent);
 	}
 

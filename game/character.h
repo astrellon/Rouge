@@ -134,6 +134,7 @@ namespace game {
 		Gender::GenderType mGender;
 
 		NodePath mDestination;
+		int mDestinationPos;
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();

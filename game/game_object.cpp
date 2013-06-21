@@ -127,8 +127,8 @@ namespace game {
 			if (mFixedToGrid)
 			{
 				Engine *engine = Engine::getEngine();
-				x = am::math::round(x * engine->getGridXSizeResp()) * engine->getGridXSize();
-				y = am::math::round(y * engine->getGridXSizeResp()) * engine->getGridYSize();
+				x = am::math::round(x * engine->getGridSizeResp()) * engine->getGridSize();
+				y = am::math::round(y * engine->getGridSizeResp()) * engine->getGridSize();
 			}
 			mTransform.setXY(x, y);
 		}
@@ -145,8 +145,8 @@ namespace game {
 
 	bool GameObject::setGridLocation(int x, int y, bool setDraw)
 	{
-		float flocX = Engine::getEngine()->getGridXSize() * static_cast<float>(x);
-		float flocY = Engine::getEngine()->getGridYSize() * static_cast<float>(y);
+		float flocX = Engine::getEngine()->getGridSize() * static_cast<float>(x);
+		float flocY = Engine::getEngine()->getGridSize() * static_cast<float>(y);
 		int locX = static_cast<int>(flocX);
 		int locY = static_cast<int>(flocY);
 		if (!mMap || (mMap && mMap->isValidGridLocation(x, y, this)))
@@ -167,17 +167,17 @@ namespace game {
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return static_cast<int>(mLocationX * Engine::getEngine()->getGridXSizeResp());
+		return static_cast<int>(mLocationX * Engine::getEngine()->getGridSizeResp());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return static_cast<int>(mLocationY * Engine::getEngine()->getGridYSizeResp());
+		return static_cast<int>(mLocationY * Engine::getEngine()->getGridSizeResp());
 	}
 
 	bool GameObject::setGridLocationF(float x, float y, bool setDraw)
 	{
-		float flocX = Engine::getEngine()->getGridXSize() * x;
-		float flocY = Engine::getEngine()->getGridYSize() * y;
+		float flocX = Engine::getEngine()->getGridSize() * x;
+		float flocY = Engine::getEngine()->getGridSize() * y;
 		int locX = static_cast<int>(flocX);
 		int locY = static_cast<int>(flocY);
 		if (!mMap || (mMap && mMap->isValidLocation(flocX, flocY, this)))
@@ -198,20 +198,20 @@ namespace game {
 	}
 	float GameObject::getGridLocationXF() const
 	{
-		return mLocationX * Engine::getEngine()->getGridXSizeResp();
+		return mLocationX * Engine::getEngine()->getGridSizeResp();
 	}
 	float GameObject::getGridLocationYF() const
 	{
-		return mLocationY * Engine::getEngine()->getGridYSizeResp();
+		return mLocationY * Engine::getEngine()->getGridSizeResp();
 	}
 
 	bool GameObject::move(float x, float y)
 	{
 		const Engine *engine = Engine::getEngine();
-		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
-		int gridY = static_cast<int>(mLocationY * engine->getGridYSizeResp());
-		int newGridX = static_cast<int>((mLocationX + x) * engine->getGridXSizeResp());
-		int newGridY = static_cast<int>((mLocationY + y) * engine->getGridYSizeResp());
+		int gridX = static_cast<int>(mLocationX * engine->getGridSizeResp());
+		int gridY = static_cast<int>(mLocationY * engine->getGridSizeResp());
+		int newGridX = static_cast<int>((mLocationX + x) * engine->getGridSizeResp());
+		int newGridY = static_cast<int>((mLocationY + y) * engine->getGridSizeResp());
 		float dx = 0.0f;
 		float dy = 0.0f;
 		int valid = 0;
@@ -243,8 +243,8 @@ namespace game {
 	bool GameObject::moveGrid(int x, int y)
 	{
 		const Engine *engine = Engine::getEngine();
-		int gridX = static_cast<int>(mLocationX * engine->getGridXSizeResp());
-		int gridY = static_cast<int>(mLocationY * engine->getGridYSizeResp());
+		int gridX = static_cast<int>(mLocationX * engine->getGridSizeResp());
+		int gridY = static_cast<int>(mLocationY * engine->getGridSizeResp());
 		int newGridX = gridX + x;
 		int newGridY = gridY + y;
 		float dx = 0.0f;
@@ -253,18 +253,18 @@ namespace game {
 		if (mMap->isValidGridLocation(gridX, newGridY, this))
 		{
 			valid++;
-			dy = static_cast<float>(y) * engine->getGridYSize();
+			dy = static_cast<float>(y) * engine->getGridSize();
 		}
 		if (mMap->isValidGridLocation(newGridX, gridY, this))
 		{
 			valid++;
-			dx = static_cast<float>(x) * engine->getGridXSize();
+			dx = static_cast<float>(x) * engine->getGridSize();
 		}
 		if (mMap->isValidGridLocation(newGridX, newGridY, this))
 		{
 			valid++;
-			dy = static_cast<float>(y) * engine->getGridYSize();
-			dx = static_cast<float>(x) * engine->getGridXSize();
+			dy = static_cast<float>(y) * engine->getGridSize();
+			dx = static_cast<float>(x) * engine->getGridSize();
 		}
 		else
 		{

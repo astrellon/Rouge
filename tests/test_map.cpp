@@ -35,8 +35,8 @@ namespace tests {
 		am_equals(3, testMap->getMapWidth());
 		am_equals(1, testMap->getMapHeight());
 
-		am_equalsDelta(3.0f * Engine::getEngine()->getGridXSize(), testMap->getWidth(), 0.001f);
-		am_equalsDelta(1.0f * Engine::getEngine()->getGridYSize(), testMap->getHeight(), 0.001f);
+		am_equalsDelta(3.0f * Engine::getEngine()->getGridSize(), testMap->getWidth(), 0.001f);
+		am_equalsDelta(1.0f * Engine::getEngine()->getGridSize(), testMap->getHeight(), 0.001f);
 
 		assert(testMap->getTile(0, 0) == land.get());
 		assert(testMap->getTile(1, 0) == water.get());
@@ -96,8 +96,8 @@ namespace tests {
 		am_equals(true, testMap->isValidGridLocation(1, 0, swampObj));
 		am_equals(true, testMap->isValidGridLocation(2, 0, swampObj));
 
-		float tileSizeX = Engine::getEngine()->getGridXSize();
-		float tileSizeY = Engine::getEngine()->getGridYSize();
+		float tileSizeX = Engine::getEngine()->getGridSize();
+		float tileSizeY = Engine::getEngine()->getGridSize();
 
 		landObj->setWidth(tileSizeX * 0.5f);
 		landObj->setHeight(tileSizeY * 0.5f);
@@ -135,8 +135,8 @@ namespace tests {
 		tiles[4].setTile(swamp);
 		tiles[5].setTile(water);
 
-		float tileSizeX = Engine::getEngine()->getGridXSize();
-		float tileSizeY = Engine::getEngine()->getGridYSize();
+		float tileSizeX = Engine::getEngine()->getGridSize();
+		float tileSizeY = Engine::getEngine()->getGridSize();
 
 		Handle<GameObject> landObj(new GameObject());
 		landObj->addPassibleType(&landType);

@@ -15,6 +15,10 @@ using namespace am::ui;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <math/vector.h>
+#include <math/math.h>
+using namespace am::math;
+
 #include "tile_set.h"
 
 namespace am {
@@ -47,13 +51,9 @@ namespace game {
 		void setCurrentGame(Game *game);
 		Game *getCurrentGame();
 
-		void setGridXSize(float size);
-		float getGridXSize() const;
-		float getGridXSizeResp() const;
-
-		void setGridYSize(float size);
-		float getGridYSize() const;
-		float getGridYSizeResp() const;
+		void setGridSize(float size);
+		float getGridSize() const;
+		float getGridSizeResp() const;
 
 		void usingTileSet(const char *tileSetName);
 		void clearUsingTileSet();
@@ -91,6 +91,9 @@ namespace game {
 		bool newGame(const char *scenarioName);
 		bool loadGame(const char *saveName);
 
+		Vector2f gridToWorld(const Vector2i &grid) const;
+		Vector2i worldToGrid(const Vector2f &world) const;
+
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
 
@@ -103,11 +106,9 @@ namespace game {
 
 		Handle<Game> mCurrentGame;
 
-		float mGridXSize;
-		float mGridYSize;
+		float mGridSize;
 
-		float mGridXSizeResp;
-		float mGridYSizeResp;
+		float mGridSizeResp;
 
 		typedef map<string, int> UsingTileSet;
 		UsingTileSet mUsingTileSetNames;

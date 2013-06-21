@@ -69,7 +69,7 @@ namespace game {
 
 		virtual void render(float dt);
 
-		bool search(const Vector2i &start, const Vector2i &end, NodePath &path, const GameObject *forObj);
+		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -84,7 +84,7 @@ namespace game {
 		long mNodeUseCounter;
 
 		void getPath(AStarNode *node, NodePath &path);
-		void getNeighbors(Vector2f position, const GameObject *forObj);
+		void getNeighbors(const Vector2i &position, const GameObject *forObj);
 		bool checkNeighbor(const int &x, const int &y, const GameObject *forObj);
 		static double manhattanDistance(const Vector2f &p1, const Vector2f &p2);
 		static bool compare(AStarNode *n1, AStarNode *n2);

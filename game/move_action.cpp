@@ -54,8 +54,8 @@ namespace game {
 		}
 		Vector2f subbed = curr.sub(mDestination);
 		subbed.normalise();
-		subbed.x *= Engine::getEngine()->getGridXSize() * 0.5f;
-		subbed.y *= Engine::getEngine()->getGridYSize() * 0.5f;
+		subbed.x *= Engine::getEngine()->getGridSize() * 0.5f;
+		subbed.y *= Engine::getEngine()->getGridSize() * 0.5f;
 		if (!obj->move(subbed.x, subbed.y))
 		{
 			mCompleted = true;

@@ -412,7 +412,7 @@ namespace sys {
 		}
 		
 		mPlayer->addEventListener("dialogue", this);
-		mPlayer->setGridDestination(10, 4);
+		mPlayer->setGridDestination(11, 4);
 
 		/*GameObject *torch = new GameObject();
 		torch->setGridLocationF(3.5, 0.5);

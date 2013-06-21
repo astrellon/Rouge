@@ -57,22 +57,6 @@ namespace game {
 		clear();
 	}
 
-	/*void Map::retain()
-	{
-		IManaged::retain();
-		stringstream ss;
-		ss << "Map retain: " << getReferenceCounter();
-		am_log("MAP", ss);
-	}
-	void Map::release()
-	{
-		int counter = getReferenceCounter() - 1;
-		IManaged::release();
-		stringstream ss;
-		ss << "Map release: " << counter;
-		am_log("MAP", ss);
-	}*/
-
 	void Map::deinit()
 	{
 		clear();
@@ -143,8 +127,10 @@ namespace game {
 		mMapWidth = width;
 		mMapHeight = height;
 
-		mWidth = static_cast<float>(width) * Engine::getEngine()->getGridXSize();
-		mHeight = static_cast<float>(height) * Engine::getEngine()->getGridYSize();
+		float gridSize = Engine::getEngine()->getGridSize();
+
+		mWidth = static_cast<float>(width) * gridSize;
+		mHeight = static_cast<float>(height) * gridSize;
 
 		mMapData = new AStarNode*[width];
 		for(int x = 0; x < width; x++)
@@ -152,8 +138,11 @@ namespace game {
 			mMapData[x] = new AStarNode[height];
 			for(int y = 0; y < height; y++)
 			{
-				mMapData[x][y].position.x = static_cast<float>(x);
-				mMapData[x][y].position.y = static_cast<float>(y);
+				AStarNode &node = mMapData[x][y];
+				node.position.x = static_cast<float>(x * gridSize);
+				node.position.y = static_cast<float>(y * gridSize);
+				node.gridPosition.x = x;
+				node.gridPosition.y = y;
 			}
 		}
 	}
@@ -258,22 +247,21 @@ namespace game {
 			return false;
 		}
 
-		float respX = Engine::getEngine()->getGridXSizeResp();
-		float respY = Engine::getEngine()->getGridYSizeResp();
+		float resp = Engine::getEngine()->getGridSizeResp();
 		
-		int gridXStart = static_cast<int>(x * respX);
+		int gridXStart = static_cast<int>(x * resp);
 		// There is a small amount deducted so that objects which are exactly the size of a tile will have
 		// the same start and end grid location and objects that are not the exact size will start and end
 		// in the tiles they are supposed to.
-		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * respX - 0.0001f);
+		int gridXEnd = static_cast<int>((x + forObject->getWidth()) * resp - 0.0001f);
 		if (gridXStart >= mMapWidth || gridXEnd >= mMapWidth)
 		{
 			return false;
 		}
 
-		int gridYStart = static_cast<int>(y * respY);
+		int gridYStart = static_cast<int>(y * resp);
 		// See above for explaination.
-		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * respY - 0.0001f);
+		int gridYEnd = static_cast<int>((y + forObject->getHeight()) * resp - 0.0001f);
 		if (gridYStart >= mMapHeight || gridYEnd >= mMapHeight)
 		{
 			return false;
@@ -496,8 +484,7 @@ namespace game {
 		mAssetSprites.clear();
 
 		int numTiles = mMapWidth * mMapHeight;
-		float gridX = Engine::getEngine()->getGridXSize();
-		float gridY = Engine::getEngine()->getGridYSize();
+		float grid = Engine::getEngine()->getGridSize();
 
 		for (int i = 0; i < numTiles; i++)
 		{
@@ -509,8 +496,8 @@ namespace game {
 				{
 					Sprite *assetSprite = new Sprite(asset);
 					mAssetSprites[asset] = assetSprite;
-					assetSprite->setWidth(gridX);
-					assetSprite->setHeight(gridY);
+					assetSprite->setWidth(grid);
+					assetSprite->setHeight(grid);
 				}
 			}
 		}
@@ -524,8 +511,8 @@ namespace game {
 			iter->second->updateSprite(dt);
 		}
 
-		float gridX = Engine::getEngine()->getGridXSize();
-		float gridY = Engine::getEngine()->getGridYSize();
+		float grid = Engine::getEngine()->getGridSize();
+		float gridResp = Engine::getEngine()->getGridSizeResp();
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float cameraX = gfxEngine->getCameraX();
@@ -541,22 +528,22 @@ namespace game {
 
 		if (mEnabledMapCulling)
 		{
-			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) / gridX);
+			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) * gridResp);
 			minX = max(0, camMinX);
-			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) / gridX) + 1;
+			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) * gridResp) + 1;
 			maxX = min(mMapWidth, camMaxX);
 
-			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) / gridY);
+			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) * gridResp);
 			minY = max(0, camMinY);
-			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) / gridY) + 1;
+			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) * gridResp) + 1;
 			maxY = min(mMapHeight, camMaxY);
 		}
 		glPushMatrix();
 		int t = minY * mMapWidth + minX;
 		int tStep = mMapWidth - (maxX - minX);
 
-		float resetX = -(maxX - minX) * gridX;
-		glTranslatef(minX * gridX, minY * gridY, 0.0f);
+		float resetX = -(maxX - minX) * grid;
+		glTranslatef(minX * grid, minY * grid, 0.0f);
 		for (int y = minY; y < maxY; y++)
 		{
 			t = y * mMapWidth + minX;
@@ -571,15 +558,15 @@ namespace game {
 				sprite->renderSprite();
 				t++;
 
-				glTranslatef(gridX, 0.0f, 0.0f);
+				glTranslatef(grid, 0.0f, 0.0f);
 			}
 			//t += tStep;
-			glTranslatef(resetX, gridY, 0.0f);
+			glTranslatef(resetX, grid, 0.0f);
 		}
 		glPopMatrix();
 	}
 
-	bool Map::search(const Vector2i &start, const Vector2i &end, NodePath &path, const GameObject *forObj)
+	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{
 		if (start.x < 0 || start.x >= mWidth ||
 			start.y < 0 || start.y >= mHeight ||
@@ -599,6 +586,37 @@ namespace game {
 		if(startGroup != endGroup)
 		{
 			return false;
+		}
+
+		if (!isValidGridLocation(end.x, end.y, forObj))
+		{
+			// Move back towards the start position until we do find a passable location.
+			Engine *engine = Engine::getEngine();
+			Vector2f fstart(start);
+			Vector2f fend(end);
+			Vector2f toStart(fend.sub(fstart));
+			int numSteps = static_cast<int>(toStart.length() * 2.0f);
+			toStart.normalise();
+			toStart.scale(0.5f);
+
+			for (int step = 0; step < numSteps; step++)
+			{
+				fend = fend.sub(toStart);
+				Vector2i grid(fend);
+				if (isValidGridLocation(grid.x, grid.y, forObj))
+				{
+					break;
+				}
+			}
+
+			end.x = round(fend.x);
+			end.y = round(fend.y);
+
+			endGroup = mMapData[end.x][end.y].group;
+			if(startGroup != endGroup)
+			{
+				return false;
+			}
 		}
 
 		mOpenList.clear();
@@ -633,7 +651,7 @@ namespace game {
 				mClosedList.push_back(node);
 
 				mNeighbors.clear();
-				getNeighbors(node->position, forObj);
+				getNeighbors(node->gridPosition, forObj);
 				for(vector<AStarNode *>::iterator iter = mNeighbors.begin(); iter != mNeighbors.end(); ++iter)
 				{
 					AStarNode *n = *iter;
@@ -688,11 +706,10 @@ namespace game {
 		return false;
 	}
 
-	void Map::getNeighbors(Vector2f position, const GameObject *forObj)
+	void Map::getNeighbors(const Vector2i &position, const GameObject *forObj)
 	{
-		int posX = static_cast<int>(position.x);
-		int posY = static_cast<int>(position.y);
-
+		int posX = position.x;
+		int posY = position.y;
 		bool left =		checkNeighbor(posX - 1,	posY, forObj);
 		bool top =		checkNeighbor(posX,		posY - 1, forObj);
 		bool right =	checkNeighbor(posX + 1,	posY, forObj);
@@ -718,7 +735,7 @@ namespace game {
 
 	inline double Map::manhattanDistance(const Vector2f &p1, const Vector2f &p2)
 	{
-		return abs(p1.x - p2.x) + abs(p1.y - p2.y);
+		return am::math::abs(p1.x - p2.x) + am::math::abs(p1.y - p2.y);
 	}
 	inline void Map::sortAStarList(AStarList &list)
 	{

@@ -25,10 +25,8 @@ namespace game {
 
 	Engine::Engine() :
 		mCurrentGame(NULL),
-		mGridXSize(32.0f),
-		mGridYSize(32.0f),
-		mGridXSizeResp(1.0f / 32.0f),
-		mGridYSizeResp(1.0f / 32.0f),
+		mGridSize(32.0f),
+		mGridSizeResp(1.0f / 32.0f),
 		mUsingTileSetDirty(true),
 		mUnknownRace(new Race("Unknown"))
 	{
@@ -93,6 +91,15 @@ namespace game {
 			// Should likely be in it's own callback.
 			mCurrentGame->onGameTick();
 		}
+	}
+
+	inline Vector2f Engine::gridToWorld(const Vector2i &grid) const
+	{
+		return Vector2f(static_cast<float>(grid.x) * mGridSize, static_cast<float>(grid.y) * mGridSize);
+	}
+	inline Vector2i Engine::worldToGrid(const Vector2f &world) const
+	{
+		return Vector2i(round(world.x * mGridSizeResp), round(world.y * mGridSizeResp));
 	}
 
 	void Engine::setCurrentGame(Game *game)
@@ -350,7 +357,7 @@ namespace game {
 		return sMainEngine;
 	}
 
-	void Engine::setGridXSize(float size)
+	void Engine::setGridSize(float size)
 	{
 		if (size > -0.0001f && size < 0.0f)
 		{
@@ -360,38 +367,16 @@ namespace game {
 		{
 			size = 0.0001f;
 		}
-		mGridXSize = size;
-		mGridXSizeResp = 1.0f / size;
+		mGridSize = size;
+		mGridSizeResp = 1.0f / size;
 	}
-	float Engine::getGridXSize() const
+	float Engine::getGridSize() const
 	{
-		return mGridXSize;
+		return mGridSize;
 	}
-	float Engine::getGridXSizeResp() const
+	float Engine::getGridSizeResp() const
 	{
-		return mGridXSizeResp;
-	}
-
-	void Engine::setGridYSize(float size)
-	{
-		if (size > -0.0001f && size < 0.0f)
-		{
-			size = -0.0001f;
-		}
-		if (size < 0.0001f && size >= 0.0f)
-		{
-			size = 0.0001f;
-		}
-		mGridYSize = size;
-		mGridYSizeResp = 1.0f / size;
-	}
-	float Engine::getGridYSize() const
-	{
-		return mGridYSize;
-	}
-	float Engine::getGridYSizeResp() const
-	{
-		return mGridYSizeResp;
+		return mGridSizeResp;
 	}
 
 	Game *Engine::getGame()
