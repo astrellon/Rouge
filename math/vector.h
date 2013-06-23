@@ -372,8 +372,16 @@ namespace math {
 		inline double length() const { 
 			return sqrt(static_cast<double>(x * x + y * y)); 
 		}
+		template <class F>
+		F length() const {
+			return static_cast<F>(length());
+		}
 		inline double lengthSqrd() const { 
 			return static_cast<double>(x * x + y * y);
+		}
+		template <class F>
+		F lengthSqrd() const {
+			return static_cast<F>(lengthSqrd());
 		}
 		inline double dot(const Vector2<T> &rhs) const { 
 			return static_cast<double>(x * rhs.x + y * rhs.y); 

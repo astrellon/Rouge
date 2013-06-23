@@ -127,9 +127,39 @@ namespace game {
 		}
 		if (!mDestination.empty() && mDestinationPos >= 0 && mDestinationPos < mDestination.size())
 		{
-			Vector2f toDest(mDestination[mDestinationPos].sub(Vector2f(mLocationX, mLocationY)));
-			toDest.normalise();
-			
+			float timeTaken = 0.0f;
+			Vector2f pos(mLocationX, mLocationY);
+			while (timeTaken < dt)
+			{
+				const Vector2f &dest(mDestination[mDestinationPos]);
+				Vector2f toDest(dest.sub(pos));
+				float length = toDest.length<float>();
+				if (length < 1.0f)
+				{
+					setLocation(dest.x, dest.y);
+					mDestinationPos++;
+					if (mDestinationPos >= mDestination.size())
+					{
+						break;
+					}
+					continue;
+				}
+				Vector2f toDestSpeed(toDest);
+				float speed = 5.0;
+				float distTime = length / speed;
+				if (distTime > dt - timeTaken)
+				{
+					distTime = dt - timeTaken;
+				}
+				toDestSpeed.normalise();
+				toDestSpeed.scale(speed * distTime);
+
+				move(toDestSpeed.x, toDestSpeed.y);
+
+				timeTaken += distTime;
+				pos.x = mLocationX;
+				pos.y = mLocationY;
+			}
 		}
 
 		if (!mController)

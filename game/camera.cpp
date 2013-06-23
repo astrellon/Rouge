@@ -1,8 +1,12 @@
 #include "camera.h"
 
-#include "gfx/gfx_engine.h"
+#include <gfx/gfx_engine.h>
+
 #include <sfx/sfx_engine.h>
 using namespace am::sfx;
+
+#include <game/engine.h>
+using namespace am::game;
 
 namespace am {
 namespace game {
@@ -25,7 +29,7 @@ namespace game {
 	}
 	GameObject *Camera::getFollowing()
 	{
-		return mFollowing.get();
+		return mFollowing;
 	}
 
 	void Camera::setDestination(float x, float y)
@@ -44,16 +48,24 @@ namespace game {
 
 	float Camera::getLocationX()
 	{
-		if (mFollowing.get())
+		if (mFollowing)
 		{
+			if (mFollowing->isFixedToGrid())
+			{
+				return mFollowing->getGridLocationX() * Engine::getEngine()->getGridSize() + mFollowing->getCameraOffsetX();
+			}
 			return mFollowing->getLocationX() + mFollowing->getCameraOffsetX();
 		}
 		return mLocationX;
 	}
 	float Camera::getLocationY()
 	{
-		if (mFollowing.get())
+		if (mFollowing)
 		{
+			if (mFollowing->isFixedToGrid())
+			{
+				return mFollowing->getGridLocationY() * Engine::getEngine()->getGridSize() + mFollowing->getCameraOffsetY();
+			}
 			return mFollowing->getLocationY() + mFollowing->getCameraOffsetY();
 		}
 		return mLocationY;

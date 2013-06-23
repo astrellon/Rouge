@@ -167,11 +167,11 @@ namespace game {
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return static_cast<int>(mLocationX * Engine::getEngine()->getGridSizeResp());
+		return am::math::round(mLocationX * Engine::getEngine()->getGridSizeResp());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return static_cast<int>(mLocationY * Engine::getEngine()->getGridSizeResp());
+		return am::math::round(mLocationY * Engine::getEngine()->getGridSizeResp());
 	}
 
 	bool GameObject::setGridLocationF(float x, float y, bool setDraw)
