@@ -97,6 +97,9 @@ namespace game {
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);
 
+		static float gridSize();
+		static float gridSizeResp();
+
 		static Game *getGame();
 
 		static const int LUA_ID;

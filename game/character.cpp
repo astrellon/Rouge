@@ -23,6 +23,8 @@ using namespace std;
 
 #include <gl.h>
 
+#include "engine.h"
+
 namespace am {
 namespace game {
 
@@ -34,8 +36,6 @@ namespace game {
 		Levelable(),
 		mGraphic(NULL),
 		mController(new AiController()),
-		mMoveX(0),
-		mMoveY(0),
 		mAge(1.0f),
 		mGender(Gender::MALE),
 		mRace(NULL),
@@ -58,9 +58,7 @@ namespace game {
 		mGender(copy.mGender),
 		mRace(copy.mRace),
 		mPickupReach(copy.mPickupReach),
-		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
-		mMoveX(0),
-		mMoveY(0)
+		mCoinPurse(new CoinPurse(*copy.mCoinPurse))
 	{
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
@@ -125,21 +123,23 @@ namespace game {
 				mActions.erase(mActions.begin());
 			}
 		}
-		if (!mDestination.empty() && mDestinationPos >= 0 && mDestinationPos < mDestination.size())
+		if (!mDestinationPath.empty() && mDestinationPos >= 0 && mDestinationPos < mDestinationPath.size())
 		{
 			float timeTaken = 0.0f;
 			Vector2f pos(mLocationX, mLocationY);
 			while (timeTaken < dt)
 			{
-				const Vector2f &dest(mDestination[mDestinationPos]);
+				const Vector2f &dest(mDestinationPath[mDestinationPos]);
 				Vector2f toDest(dest.sub(pos));
 				float length = toDest.length<float>();
 				if (length < 1.0f)
 				{
 					setLocation(dest.x, dest.y);
 					mDestinationPos++;
-					if (mDestinationPos >= mDestination.size())
+					if (mDestinationPos >= mDestinationPath.size())
 					{
+						mDestinationPath.clear();
+						mDestinationPos = 0;
 						break;
 					}
 					continue;
@@ -167,12 +167,30 @@ namespace game {
 			return true;
 		}
 		return false;
-
-		/*if (mMoveX != 0 || mMoveY != 0)
+	}
+	Vector2f Character::getDestination() const
+	{
+		return mDestination;
+	}
+	Vector2i Character::getGridDestination() const
+	{
+		return Engine::getEngine()->worldToGrid(mDestination);
+	}
+	float Character::getDestinationLength() const
+	{
+		if (mDestinationPath.empty() || mDestinationPos >= mDestinationPath.size())
 		{
-			Engine *engine = Engine::getEngine();
-			moveGrid(mMoveX, mMoveY);
-		}*/
+			return 0.0f;
+		}
+		const Vector2f &destPos(mDestinationPath[mDestinationPos]);
+		Vector2f toDest(destPos.sub(Vector2f(mLocationX, mLocationY)));
+		float length = toDest.length();
+		for (int index = mDestinationPos + 1; index < mDestinationPath.size(); index++)
+		{
+			Vector2f diff = mDestinationPath[index].sub(mDestinationPath[index + 1]);
+			length += diff.length();
+		}
+		return length;
 	}
 
 	void Character::setController(IController *controller)
@@ -183,20 +201,7 @@ namespace game {
 	{
 		return mController;
 	}
-	void Character::setMoveVector(int x, int y)
-	{
-		mMoveX = x;
-		mMoveY = y;
-	}
-	int Character::getMoveVectorX() const
-	{
-		return mMoveX;
-	}
-	int Character::getMoveVectorY() const
-	{
-		return mMoveY;
-	}
-
+	
 	void Character::setPickupReach(float reach)
 	{
 		if (reach < 0.0f) {
@@ -450,7 +455,6 @@ namespace game {
 			am_log("CHAR", "Invalid location for item");
 			return -2;
 		}
-		//item->setGridLocation(gridX, gridY);
 		item->setLocation(x, y);
 		mMap->addGameObject(item);
 		item->setItemLocation(Item::GROUND);
@@ -573,10 +577,15 @@ namespace game {
 			return;
 		}
 
-		mDestination.clear();
+		mDestinationPath.clear();
+		mDestination = Engine::getEngine()->gridToWorld(Vector2i(x, y));
 		mDestinationPos = 0;
 		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
-			Vector2i(x, y), mDestination, this);
+			Vector2i(x, y), mDestinationPath, this);
+	}
+	bool Character::hasDestination() const
+	{
+		return !mDestinationPath.empty();
 	}
 
 	data::IData *Character::serialise()
@@ -589,9 +598,6 @@ namespace game {
 			return NULL;
 		}
 
-		output->at("moveX", mMoveX);
-		output->at("moveY", mMoveY);
-				
 		output->at("pickupReach", mPickupReach);
 		output->at("age", mAge);
 		if (mRace)
@@ -640,18 +646,7 @@ namespace game {
 			return -1;
 		}
 
-		Handle<data::Number> num(dataMap->at<data::Number>("moveX"));
-		if (num)
-		{
-			mMoveX = num->valuei();
-		}
-		num = dataMap->at<data::Number>("moveY");
-		if (num)
-		{
-			mMoveY = num->valuei();
-		}
-
-		num = dataMap->at<data::Number>("pickupReach");
+		Handle<data::Number> num(dataMap->at<data::Number>("pickupReach"));
 		if (num)
 		{
 			setPickupReach(num->value<float>());
@@ -776,7 +771,7 @@ namespace game {
 
 	void Character::postRender(float dt)
 	{
-		if (!mDestination.empty())
+		if (!mDestinationPath.empty())
 		{
 			glPushMatrix();
 			
@@ -784,10 +779,10 @@ namespace game {
 			glTranslatef(-mLocationX + engine->getGridSize() * 0.5f, -mLocationY + engine->getGridSize() * 0.5f, 0.0f);
 			glBegin(GL_LINES);
 			glColor3d(1.0, 0.3, 0.2);
-				for (size_t i = 0; i < mDestination.size() - 1; i++)
+				for (size_t i = 0; i < mDestinationPath.size() - 1; i++)
 				{
-					glVertex2f(mDestination[i].x, mDestination[i].y);
-					glVertex2f(mDestination[i + 1].x, mDestination[i + 1].y);
+					glVertex2f(mDestinationPath[i].x, mDestinationPath[i].y);
+					glVertex2f(mDestinationPath[i + 1].x, mDestinationPath[i + 1].y);
 				}
 			glEnd();
 			glPopMatrix();

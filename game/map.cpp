@@ -29,7 +29,8 @@ namespace game {
 		mName(name),
 		mTiles(NULL),
 		mEnabledMapCulling(true),
-		mMapData(NULL)
+		mMapData(NULL),
+		mNodeUseCounter(0)
 	{
 		mBackground = new Layer();
 		mBackground->addChild(this);
@@ -42,7 +43,8 @@ namespace game {
 		mName(name),
 		mTiles(NULL),
 		mEnabledMapCulling(true),
-		mMapData(NULL)
+		mMapData(NULL),
+		mNodeUseCounter(0)
 	{
 		setMapSize(width, height);
 		mBackground = new Layer();

@@ -93,11 +93,11 @@ namespace game {
 		}
 	}
 
-	inline Vector2f Engine::gridToWorld(const Vector2i &grid) const
+	Vector2f Engine::gridToWorld(const Vector2i &grid) const
 	{
 		return Vector2f(static_cast<float>(grid.x) * mGridSize, static_cast<float>(grid.y) * mGridSize);
 	}
-	inline Vector2i Engine::worldToGrid(const Vector2f &world) const
+	Vector2i Engine::worldToGrid(const Vector2f &world) const
 	{
 		return Vector2i(round(world.x * mGridSizeResp), round(world.y * mGridSizeResp));
 	}
@@ -377,6 +377,23 @@ namespace game {
 	float Engine::getGridSizeResp() const
 	{
 		return mGridSizeResp;
+	}
+
+	float Engine::gridSize()
+	{
+		if (sMainEngine)
+		{
+			return sMainEngine->getGridSize();
+		}
+		return 0.0f;
+	}
+	float Engine::gridSizeResp()
+	{
+		if (sMainEngine)
+		{
+			return sMainEngine->getGridSizeResp();
+		}
+		return 0.0f;
 	}
 
 	Game *Engine::getGame()

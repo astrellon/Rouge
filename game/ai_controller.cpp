@@ -34,12 +34,20 @@ namespace game {
 	{
 		mActive = true;
 
-		float r = Utils::randf();
+		if (!character->hasDestination())
+		{
+			Map *map = Engine::getGame()->getCurrentMap();
+			float destX = Utils::randf() * static_cast<float>(map->getMapWidth()) * Engine::gridSize();
+			float destY = Utils::randf() * static_cast<float>(map->getMapHeight()) * Engine::gridSize();
+			character->setDestination(destX, destY);
+		}
+
+		/*float r = Utils::randf();
 		int dx = (r > 0.9f ? 1 : (r < 0.1f ? -1 : 0));
 		r = Utils::randf();
 		int dy = (r > 0.9f ? 1 : (r < 0.1f ? -1 : 0));
 
-		character->moveGrid(dx, dy);
+		character->moveGrid(dx, dy);*/
 		//character->move(5.0f, 0.0f);
 		/*
 		const Character::ActionQueue &queue = character->getActionQueue();

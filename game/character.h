@@ -46,10 +46,6 @@ namespace game {
 		virtual void setController(IController *controller);
 		virtual IController *getController();
 
-		virtual void setMoveVector(int x, int y);
-		virtual int getMoveVectorX() const;
-		virtual int getMoveVectorY() const;
-
 		virtual void setPickupReach(float reach);
 		virtual float getPickupReach() const;
 
@@ -100,6 +96,10 @@ namespace game {
 
 		virtual void setDestination(float x, float y);
 		virtual void setGridDestination(int x, int y);
+		virtual Vector2f getDestination() const;
+		virtual Vector2i getGridDestination() const;
+		virtual float getDestinationLength() const;
+		virtual bool hasDestination() const;
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -110,9 +110,6 @@ namespace game {
 	protected:
 
 		Handle<IController> mController;
-
-		int mMoveX;
-		int mMoveY;
 
 		float mPickupReach;
 
@@ -133,7 +130,8 @@ namespace game {
 		Race *mRace;
 		Gender::GenderType mGender;
 
-		NodePath mDestination;
+		NodePath mDestinationPath;
+		Vector2f mDestination;
 		int mDestinationPos;
 
 		virtual void onLevelUp();
