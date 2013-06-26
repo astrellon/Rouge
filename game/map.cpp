@@ -18,6 +18,7 @@ using namespace std;
 #include "tile_type.h"
 #include "engine.h"
 #include "game.h"
+#include "pathfinder.h"
 
 namespace am {
 namespace game {
@@ -29,8 +30,7 @@ namespace game {
 		mName(name),
 		mTiles(NULL),
 		mEnabledMapCulling(true),
-		mMapData(NULL),
-		mNodeUseCounter(0)
+		mMapData(NULL)
 	{
 		mBackground = new Layer();
 		mBackground->addChild(this);
@@ -43,8 +43,7 @@ namespace game {
 		mName(name),
 		mTiles(NULL),
 		mEnabledMapCulling(true),
-		mMapData(NULL),
-		mNodeUseCounter(0)
+		mMapData(NULL)
 	{
 		setMapSize(width, height);
 		mBackground = new Layer();
@@ -570,184 +569,9 @@ namespace game {
 
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{
-		if (start.x < 0 || start.x >= mWidth ||
-			start.y < 0 || start.y >= mHeight ||
-			end.x < 0 || end.x >= mWidth ||
-			end.y < 0 || end.y >= mHeight)
-		{
-			return false;
-		}
-
-		if (start.x == end.x && start.y == end.y)
-		{
-			return true;
-		}
-
-		int startGroup = mMapData[start.x][start.y].group;
-		int endGroup = mMapData[end.x][end.y].group;
-		if(startGroup != endGroup)
-		{
-			return false;
-		}
-
-		if (!isValidGridLocation(end.x, end.y, forObj))
-		{
-			// Move back towards the start position until we do find a passable location.
-			Engine *engine = Engine::getEngine();
-			Vector2f fstart(start);
-			Vector2f fend(end);
-			Vector2f toStart(fend.sub(fstart));
-			int numSteps = static_cast<int>(toStart.length() * 2.0f);
-			toStart.normalise();
-			toStart.scale(0.5f);
-
-			for (int step = 0; step < numSteps; step++)
-			{
-				fend = fend.sub(toStart);
-				Vector2i grid(fend);
-				if (isValidGridLocation(grid.x, grid.y, forObj))
-				{
-					break;
-				}
-			}
-
-			end.x = round(fend.x);
-			end.y = round(fend.y);
-
-			endGroup = mMapData[end.x][end.y].group;
-			if(startGroup != endGroup)
-			{
-				return false;
-			}
-		}
-
-		mOpenList.clear();
-		mClosedList.clear();
-
-		mNodeUseCounter++;
-
-		mOpenList.push_back(&mMapData[start.x][start.y]);
-
-		AStarNode *endNode = &mMapData[end.x][end.y];
-		endNode->parent = NULL;
-
-		while(!mOpenList.empty())
-		{
-			AStarNode *node = mOpenList.front();
-			if(node->useCounter < mNodeUseCounter)
-			{
-				node->g = 0;
-				node->useCounter = mNodeUseCounter;
-				node->parent = NULL;
-			}
-		
-			if (node == endNode)
-			{
-				// Complete
-				getPath(node, path);
-				return true;
-			}
-			else
-			{
-				mOpenList.erase(mOpenList.begin());
-				mClosedList.push_back(node);
-
-				mNeighbors.clear();
-				getNeighbors(node->gridPosition, forObj);
-				for(vector<AStarNode *>::iterator iter = mNeighbors.begin(); iter != mNeighbors.end(); ++iter)
-				{
-					AStarNode *n = *iter;
-					if (!Utils::listContains<AStarNode *>(mOpenList, n) &&
-						!Utils::listContains<AStarNode *>(mClosedList, n))
-					{
-						if (n->useCounter < mNodeUseCounter)
-						{
-							n->g = 0;
-							n->useCounter = mNodeUseCounter;
-						}
-						n->g += node->g;
-
-						n->f = n->g + manhattanDistance(n->position, endNode->position);
-
-						n->parent = node;
-						mOpenList.push_back(n);
-					}
-				}
-
-				mNeighbors.clear();
-				sortAStarList(mOpenList);
-			}
-		}
-		// NO PATH! D:
-		return false;
+		Pathfinder *pathfinder = Pathfinder::getPathfinder();
+		return pathfinder->search(start, end, path, this, forObj);
 	}
-
-	void Map::getPath(AStarNode *node, NodePath &path)
-	{
-		while(node != NULL)
-		{
-			path.push_back(node->position);
-			node = node->parent;
-		}
-
-		reverse(path.begin(), path.end());
-	}
-
-	inline bool Map::checkNeighbor(const int &x, const int &y, const GameObject *forObj)
-	{
-		if(x >= 0 && x < mWidth && y >= 0 && y < mHeight)
-		{
-			AStarNode *node = &mMapData[x][y];
-
-			if (isValidGridLocation(x, y, forObj))
-			{
-				mNeighbors.push_back(node);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	void Map::getNeighbors(const Vector2i &position, const GameObject *forObj)
-	{
-		int posX = position.x;
-		int posY = position.y;
-		bool left =		checkNeighbor(posX - 1,	posY, forObj);
-		bool top =		checkNeighbor(posX,		posY - 1, forObj);
-		bool right =	checkNeighbor(posX + 1,	posY, forObj);
-		bool bottom =	checkNeighbor(posX,		posY + 1, forObj);
-
-		if (left && top)
-		{
-			checkNeighbor(posX - 1, posY - 1, forObj);
-		}
-		if (top && right)
-		{
-			checkNeighbor(posX + 1, posY - 1, forObj);
-		}
-		if (bottom && left)
-		{
-			checkNeighbor(posX - 1, posY + 1, forObj);
-		}
-		if (bottom && right)
-		{
-			checkNeighbor(posX + 1, posY + 1, forObj);
-		}
-	}
-
-	inline double Map::manhattanDistance(const Vector2f &p1, const Vector2f &p2)
-	{
-		return am::math::abs(p1.x - p2.x) + am::math::abs(p1.y - p2.y);
-	}
-	inline void Map::sortAStarList(AStarList &list)
-	{
-		sort(list.begin(), list.end(), compare);
-	}
-	inline bool Map::compare(AStarNode *n1, AStarNode *n2)
-	{
-		return n1->f < n2->f;
-	}
-
 
 }
 }

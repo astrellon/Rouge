@@ -77,17 +77,7 @@ namespace game {
 	protected:
 
 		AStarNode **mMapData;
-
-		AStarList mOpenList;
-		AStarList mClosedList;
-		AStarList mNeighbors;
-		long mNodeUseCounter;
-
-		void getPath(AStarNode *node, NodePath &path);
-		void getNeighbors(const Vector2i &position, const GameObject *forObj);
-		bool checkNeighbor(const int &x, const int &y, const GameObject *forObj);
-		static double manhattanDistance(const Vector2f &p1, const Vector2f &p2);
-		static bool compare(AStarNode *n1, AStarNode *n2);
+		friend class Pathfinder;
 
 		TileInstance *mTiles;
 		int mMapWidth;
@@ -109,8 +99,6 @@ namespace game {
 		// graphic in sync, and as well as not doubling up on computing the current frame.
 		typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
 		AssetSpriteMap mAssetSprites;
-
-		void sortAStarList(AStarList &list);
 
 		void clear();
 		ObjectList::const_iterator findGameObject(GameObject *object) const;
