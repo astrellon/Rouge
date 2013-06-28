@@ -109,6 +109,12 @@ table.insert(styles, style)
 
 style = {}
 style.nodeType = "title"
+style.attributes = {class = "speed"}
+style.style = {colour = "0.5 0.85 0.95"}
+table.insert(styles, style)
+
+style = {}
+style.nodeType = "title"
 style.attributes = {class = "damage"}
 style.style = {colour = "0.9 0. 7 0.5"}
 table.insert(styles, style)

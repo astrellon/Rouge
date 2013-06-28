@@ -16,6 +16,7 @@ namespace game {
 			MIN_DAMAGE,
 			MAX_DAMAGE,
 			ARMOUR,
+			SPEED,
 			MAX_STAT_LENGTH
 		};
 

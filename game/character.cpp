@@ -145,14 +145,14 @@ namespace game {
 					continue;
 				}
 				Vector2f toDestSpeed(toDest);
-				float speed = 5.0;
+				float speed = getSpeed() * Engine::gridSize();
 				float distTime = length / speed;
 				if (distTime > dt - timeTaken)
 				{
 					distTime = dt - timeTaken;
 				}
 				toDestSpeed.normalise();
-				toDestSpeed.scale(speed * distTime);
+				toDestSpeed = toDestSpeed.scale(speed * distTime);
 
 				move(toDestSpeed.x, toDestSpeed.y);
 
@@ -614,6 +614,11 @@ namespace game {
 	bool Character::hasDestination() const
 	{
 		return !mDestinationPath.empty();
+	}
+
+	float Character::getSpeed()
+	{
+		return mStats.getStat(Stat::SPEED);
 	}
 
 	data::IData *Character::serialise()

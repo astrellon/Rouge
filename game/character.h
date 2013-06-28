@@ -105,6 +105,8 @@ namespace game {
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
+		virtual float getSpeed();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 

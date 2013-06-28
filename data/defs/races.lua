@@ -28,6 +28,7 @@ do
 		:base_stat("maxDamage", 4)
 		:base_stat("minDamage", 3)
 		:base_stat("armour", 2)
+		:base_stat("speed", 1)
 	
 	game:char_def("human", human)
 end
