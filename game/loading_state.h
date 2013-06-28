@@ -31,8 +31,16 @@ namespace game {
 	class LoadingState : public IManaged {
 	public:
 
+		typedef struct _GameObjectInfo {
+			Handle<GameObject> gameObj;
+			bool hasDestination;
+
+			_GameObjectInfo();
+			_GameObjectInfo(GameObject *gameObj);
+		} GameObjectInfo;
+
 		typedef map<string, bool> MapsToLoad;
-		typedef map<string, Handle<GameObject> > GameObjectIdMap;
+		typedef map<string, GameObjectInfo> GameObjectInfoMap;
 		typedef map<string, vector<Handle<GameObject> > > GameObjectsToMap;
 		typedef map<string, vector<Handle<DialogueComponent> > > StartDialogueMap;
 
@@ -56,7 +64,12 @@ namespace game {
 		// For keeping track of which gameId each game object wants to have.
 		void setGameId(const char *gameId, GameObject *gameObj);
 		GameObject *getGameId(const char *gameId) const;
-		const GameObjectIdMap &getGameIdMap() const;
+
+		void setGameObjHasDestination(const char *gameId, bool hasDestination);
+		bool getGameObjHasDestination(const char *gameId) const;
+
+		const GameObjectInfoMap &getGameInfoMap() const;
+		const GameObjectInfo &getGameInfo(const char *gameId) const;
 
 		// For keeping track of the starting dialogue for a dialogue component.
 		void setStartDialogue(const char *startDialogue, DialogueComponent *comp);
@@ -67,7 +80,7 @@ namespace game {
 	protected:
 
 		MapsToLoad mMapsToLoad;
-		GameObjectIdMap mGameObjectIdMap;
+		GameObjectInfoMap mGameObjectInfoMap;
 		GameObjectsToMap mGameObjectsToMap;
 		StartDialogueMap mStartDialogueMap;
 

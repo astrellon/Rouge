@@ -101,6 +101,7 @@ namespace game {
 
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;
+		virtual void registerSelf(const char *id);
 
 		virtual ISource *getSource(bool create = true);
 		virtual void setSource(ISource *source);

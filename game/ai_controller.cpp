@@ -42,23 +42,6 @@ namespace game {
 			character->setDestination(destX, destY);
 		}
 
-		/*float r = Utils::randf();
-		int dx = (r > 0.9f ? 1 : (r < 0.1f ? -1 : 0));
-		r = Utils::randf();
-		int dy = (r > 0.9f ? 1 : (r < 0.1f ? -1 : 0));
-
-		character->moveGrid(dx, dy);*/
-		//character->move(5.0f, 0.0f);
-		/*
-		const Character::ActionQueue &queue = character->getActionQueue();
-		if (queue.empty())
-		{
-			Map *map = Engine::getGame()->getCurrentMap();
-			float destX = Utils::randf() * static_cast<float>(map->getMapWidth()) * Engine::getEngine()->getGridXSize();
-			float destY = Utils::randf() * static_cast<float>(map->getMapHeight()) * Engine::getEngine()->getGridYSize();
-			character->addAction(new MoveAction(destX, destY));
-		}*/
-
 		mActive = false;
 	}
 

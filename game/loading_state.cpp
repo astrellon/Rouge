@@ -5,9 +5,20 @@
 #include "engine.h"
 #include "dialogue.h"
 #include "game.h"
+#include "character.h"
 
 namespace am {
 namespace game {
+
+	LoadingState::_GameObjectInfo::_GameObjectInfo() :
+		hasDestination(false)
+	{
+	}
+	LoadingState::_GameObjectInfo::_GameObjectInfo(GameObject *gameObj) :
+		hasDestination(false),
+		gameObj(gameObj)
+	{
+	}
 
 	LoadingState::LoadingState()
 	{
@@ -71,7 +82,7 @@ namespace game {
 			am_log("LOADERR", "Attempting to set a gameId onto a NULL gameObj");
 			return;
 		}
-		mGameObjectIdMap[string(gameId)] = gameObj;
+		mGameObjectInfoMap[string(gameId)].gameObj = gameObj;
 	}
 	GameObject *LoadingState::getGameId(const char *gameId) const
 	{
@@ -79,16 +90,38 @@ namespace game {
 		{
 			return NULL;
 		}
-		auto iter = mGameObjectIdMap.find(string(gameId));
-		if (iter != mGameObjectIdMap.end())
+		auto iter = mGameObjectInfoMap.find(string(gameId));
+		if (iter != mGameObjectInfoMap.end())
 		{
-			return iter->second;
+			return iter->second.gameObj;
 		}
 		return NULL;
 	}
-	const LoadingState::GameObjectIdMap &LoadingState::getGameIdMap() const
+
+	void LoadingState::setGameObjHasDestination(const char *gameId, bool hasDestination)
 	{
-		return mGameObjectIdMap;
+		if (!gameId || gameId[0] == '\0')
+		{
+			return;
+		}
+		mGameObjectInfoMap[string(gameId)].hasDestination = hasDestination;
+	}
+	bool LoadingState::getGameObjHasDestination(const char *gameId) const
+	{
+		if (!gameId || gameId[0] == '\0')
+		{
+			return false;
+		}
+		auto iter = mGameObjectInfoMap.find(string(gameId));
+		if (iter != mGameObjectInfoMap.end())
+		{
+			return iter->second.hasDestination;
+		}
+		return false;
+	}
+	const LoadingState::GameObjectInfoMap &LoadingState::getGameInfoMap() const
+	{
+		return mGameObjectInfoMap;
 	}
 
 	void LoadingState::setStartDialogue(const char *startDialogue, DialogueComponent *comp)
@@ -106,9 +139,13 @@ namespace game {
 
 	void LoadingState::postLoad(Game *game)
 	{
-		for (auto iter = mGameObjectIdMap.begin(); iter != mGameObjectIdMap.end(); ++iter)
+		for (auto iter = mGameObjectInfoMap.begin(); iter != mGameObjectInfoMap.end(); ++iter)
 		{
-			iter->second->setGameId(iter->first.c_str());
+			GameObject *obj = iter->second.gameObj;
+			if (obj)
+			{
+				obj->registerSelf(iter->first.c_str());
+			}
 		}
 
 		for (auto iter = mMapsToLoad.begin(); iter != mMapsToLoad.end(); ++iter)
@@ -155,6 +192,15 @@ namespace game {
 		if (!mMainCharacter.empty())
 		{
 			game->setMainCharacter(dynamic_cast<Character *>(game->getGameObject(mMainCharacter.c_str())));
+		}
+
+		for (auto iter = mGameObjectInfoMap.begin(); iter != mGameObjectInfoMap.end(); ++iter)
+		{
+			Character *obj = dynamic_cast<Character *>(iter->second.gameObj.get());
+			if (obj && iter->second.hasDestination)
+			{
+				obj->recalcDestination();
+			}
 		}
 	}
 

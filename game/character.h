@@ -100,6 +100,7 @@ namespace game {
 		virtual Vector2i getGridDestination() const;
 		virtual float getDestinationLength() const;
 		virtual bool hasDestination() const;
+		virtual void recalcDestination();
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

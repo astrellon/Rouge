@@ -438,14 +438,23 @@ namespace game {
 		{
 			return false;
 		}
-		game->deregisterGameObject(this);
-		mGameId = id;
-		game->registerGameObject(this);
+		registerSelf(id);
 		return true;
 	}
 	const char *GameObject::getGameId() const
 	{
 		return mGameId.c_str();
+	}
+	void GameObject::registerSelf(const char *id)
+	{
+		Game *game = Engine::getEngine()->getCurrentGame();
+		if (!game)
+		{
+			return;
+		}
+		game->deregisterGameObject(this);
+		mGameId = id;
+		game->registerGameObject(this);
 	}
 
 	void GameObject::setDialogueComp(DialogueComponent *comp, bool setAttached)
@@ -529,6 +538,7 @@ namespace game {
 		if (str)
 		{
 			state->setGameId(str->string(), this);
+			mGameId = str->string();
 		}
 		
 		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));

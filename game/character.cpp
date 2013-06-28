@@ -560,10 +560,38 @@ namespace game {
 
 	void Character::setDestination(float x, float y)
 	{
-		int gridX = round(x * Engine::getEngine()->getGridSizeResp());
-		int gridY = round(y * Engine::getEngine()->getGridSizeResp());
+		if (!mMap)
+		{
+			return;
+		}
+		if (x < 0 || x >= static_cast<float>(mMap->getMapWidth()) * Engine::gridSize() ||
+			y < 0 || y >= static_cast<float>(mMap->getMapHeight()) * Engine::gridSize())
+		{
+			return;
+		}
 
-		setGridDestination(gridX, gridY);
+		mDestination = Vector2f(x, y);
+		recalcDestination();
+	}
+	void Character::recalcDestination()
+	{
+		Vector2i gridDest = Engine::getEngine()->worldToGrid(mDestination);
+
+		mDestinationPath.clear();
+		mDestinationPos = 0;
+		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
+			gridDest, mDestinationPath, this);
+
+		if (!mDestinationPath.empty())
+		{
+			Vector2i endGrid = Engine::getEngine()->worldToGrid(mDestinationPath.back());
+			Vector2i diff = endGrid.sub(gridDest);
+			if (diff.x != 0 || diff.y != 0)
+			{
+				// Move to the little bit at the end.
+				mDestinationPath.back() = mDestination;
+			}
+		}
 	}
 	void Character::setGridDestination(int x, int y)
 	{
@@ -629,6 +657,12 @@ namespace game {
 			output->at("coinPurse", mCoinPurse->serialise());
 		}
 
+		if (hasDestination())
+		{
+			output->at("destinationX", mDestination.x);
+			output->at("destinationY", mDestination.y);
+		}
+
 		output->at("levelable", Levelable::serialise());
 		return output;
 	}
@@ -656,6 +690,17 @@ namespace game {
 		if (num)
 		{
 			setAge(num->value<float>());
+		}
+
+		num = dataMap->at<data::Number>("destinationX");
+		Handle<data::Number> num2(dataMap->at<data::Number>("destinationY"));
+		if (num && num2)
+		{
+			// The destination path will be calculated in hte post-loading stage
+			// once we have a map with all its data loaded.
+			mDestination.x = num->value<float>();
+			mDestination.y = num2->value<float>();
+			state->setGameObjHasDestination(mGameId.c_str(), true);
 		}
 
 		Handle<data::String> str(dataMap->at<data::String>("race"));

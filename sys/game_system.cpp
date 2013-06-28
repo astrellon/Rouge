@@ -1,6 +1,7 @@
 #include "game_system.h"
 
 #include <game/engine.h>
+#include <game/pathfinder.h>
 
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_text_field.h>
@@ -160,6 +161,7 @@ namespace sys {
 			delete mGfxListener;
 			mGfxListener = NULL;
 		}
+		Pathfinder::releasePathfinder();
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
