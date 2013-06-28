@@ -82,8 +82,8 @@
     <IncludePath>$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Tests|Win32'">
-    <LibraryPath>gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
@@ -138,7 +138,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"

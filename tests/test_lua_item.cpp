@@ -27,7 +27,12 @@ namespace tests {
 		
 		int loadResult = lua.loadString("Item = import(\"Item\")\n"
 			"item = Item.new()\n"
-			"item:game_id(\"testItem\")\n"
+			"function setGameId()\n"
+			"	item:game_id(\"testItem\")\n"
+			"end\n"
+			"function getItem()\n"
+			"	return item\n"
+			"end\n"
 			);
 		
 		if (!loadResult)
@@ -37,14 +42,22 @@ namespace tests {
 		assert(loadResult);
 		
 		{
-			Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject("testItem")));
+			assert(lua.hasGlobalFunction("getItem"));
+			lua.call(0, 1);
+			Handle<Item> item(castUData<Item>(lua, 1));
+
 			assert(item != NULL);
 
 			am_equals(2, item->getReferenceCounter());
+
+			assert(lua.hasGlobalFunction("setGameId"));
+			lua.call(0, 0);
+
+			am_equals(3, item->getReferenceCounter());
 			
 			lua.close();
 
-			am_equals(1, item->getReferenceCounter());
+			am_equals(2, item->getReferenceCounter());
 
 		}
 		

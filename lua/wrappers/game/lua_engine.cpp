@@ -127,14 +127,14 @@ namespace game {
 		if (lua_gettop(lua) == 0)
 		{
 			lua_pushnumber(lua, Engine::getEngine()->getGridSize());
-			return 2;
+			return 1;
 		}
-		if (lua_isnum(lua, 1) && lua_isnum(lua, 2))
+		if (lua_isnum(lua, 1))
 		{
 			Engine::getEngine()->setGridSize(static_cast<float>(lua_tonumber(lua, 1)));
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@grid_size", "number gridX, number gridY");
+		return LuaState::expectedArgs(lua, "@grid_size", "number size");
 	}
 	/**
 	 * @static

@@ -34,8 +34,8 @@ namespace tests {
 		Engine::setEngine(eng);
 		
 		int loadResult = lua.loadString("Engine = import(\"Engine\")\n"
-			"function setGridSize(x, y)\n"
-			"	Engine.grid_size(x, y)\n"
+			"function setGridSize(size)\n"
+			"	Engine.grid_size(size)\n"
 			"end\n"
 			"function getGridSize()\n"
 			"	return Engine.grid_size()\n"
@@ -50,13 +50,11 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("setGridSize"));
 		lua.push(8);
-		lua.push(5);
-		lua_acall(lua, 2, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getGridSize"));
-		lua_acall(lua, 0, 2);
-		am_equals(8, lua_tointeger(lua, -2));
-		am_equals(5, lua_tointeger(lua, -1));
+		lua_acall(lua, 0, 1);
+		am_equals(8, lua_tointeger(lua, -1));
 		lua.pop(2);
 
 		Engine::setEngine(prevEng);
