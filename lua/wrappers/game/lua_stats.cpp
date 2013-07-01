@@ -35,7 +35,7 @@ namespace game {
 	{
 		Stats *stats = new Stats();
 
-		wrapObject<Stats>(lua, stats);
+		wrapRefObject<Stats>(lua, stats);
 		return 1;
 	}
 	/**
@@ -46,6 +46,7 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
+			stats->release();
 			//delete stats;
 		}
 		return 0;
@@ -354,7 +355,7 @@ namespace game {
 		Stats *stats = castUData<Stats>(lua, 1);
 		if (stats)
 		{
-			wrapObject<StatModifiers>(lua, &stats->getStatModifiers());
+			wrapRefObject<StatModifiers>(lua, stats->getStatModifiers());
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "mods", "Stats");

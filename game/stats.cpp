@@ -13,7 +13,8 @@ namespace game {
 	const char *Stats::LUA_TABLENAME = "am_game_Stats";
 
 	Stats::Stats() :
-		mAttachedTo(NULL)
+		mAttachedTo(NULL),
+		mModifiers(new StatModifiers())
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
 		{
@@ -23,7 +24,8 @@ namespace game {
 		}
 	}
 	Stats::Stats(const Stats &copy) :
-		mAttachedTo(NULL)
+		mAttachedTo(NULL),
+		mModifiers(new StatModifiers())
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
 		{
@@ -34,7 +36,6 @@ namespace game {
 	}
 	Stats::~Stats()
 	{
-
 	}
 
 	float Stats::getStat(Stat::StatType stat)
@@ -56,7 +57,7 @@ namespace game {
 		{
 			return false;
 		}
-		if (mModifiers.addStatModifier(stat, modifier))
+		if (mModifiers->addStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
 			return true;
@@ -69,7 +70,7 @@ namespace game {
 		{
 			return false;
 		}
-		if (mModifiers.removeStatModifier(stat, modifier))
+		if (mModifiers->removeStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
 			return true;
@@ -105,7 +106,7 @@ namespace game {
 			return -1.0f;
 		}
 
-		float value = mModifiers.calculateStat(stat, baseValue);
+		float value = mModifiers->calculateStat(stat, baseValue);
 		mDirtyStats[stat] = false;
 		mCalculatedStats[stat] = value;
 		return value;
@@ -130,7 +131,7 @@ namespace game {
 	
 	void Stats::addModifiers(const IStatModifiers &rhs)
 	{
-		mModifiers.addModifiers(rhs);
+		mModifiers->addModifiers(rhs);
 		const StatModifiers::StatModifierMap &modifiers = rhs.getModifiers();
 		StatModifiers::StatModifierMap::const_iterator iter;
 		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
@@ -140,7 +141,7 @@ namespace game {
 	}
 	void Stats::removeModifiers(const IStatModifiers &rhs)
 	{
-		mModifiers.removeModifiers(rhs);
+		mModifiers->removeModifiers(rhs);
 		const StatModifiers::StatModifierMap &modifiers = rhs.getModifiers();
 		StatModifiers::StatModifierMap::const_iterator iter;
 		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
@@ -151,18 +152,18 @@ namespace game {
 
 	const IStatModifiers::StatModifierMap &Stats::getModifiers() const
 	{
-		return mModifiers.getModifiers();
+		return mModifiers->getModifiers();
 	}
 	IStatModifiers::StatModifierMap &Stats::getModifiers()
 	{
-		return mModifiers.getModifiers();
+		return mModifiers->getModifiers();
 	}
 
-	StatModifiers &Stats::getStatModifiers()
+	StatModifiers *Stats::getStatModifiers()
 	{
 		return mModifiers;
 	}
-	const StatModifiers &Stats::getStatModifiers() const
+	const StatModifiers *Stats::getStatModifiers() const
 	{
 		return mModifiers;
 	}
@@ -195,7 +196,7 @@ namespace game {
 			baseStats->at(Stat::getStatName(i), mBaseStats[i]);
 		}
 		output->at("baseStats", baseStats);
-		output->at("modifiers", mModifiers.serialise());
+		output->at("modifiers", mModifiers->serialise());
 
 		return output;
 	}
@@ -239,7 +240,7 @@ namespace game {
 		Handle<data::IData> tempData(dataMap->at("modifiers"));
 		if (tempData)
 		{
-			mModifiers.deserialise(state, tempData);
+			mModifiers->deserialise(state, tempData);
 		}
 	}
 	

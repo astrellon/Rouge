@@ -17,12 +17,18 @@ namespace ui {
 		virtual const bool *getKeysDown() const;
 		virtual bool isKeyDown(int key) const;
 
+		virtual const bool *getKeysPressed() const;
+		virtual bool isKeyPressed(int key) const;
+
+		virtual void onNewGameTick();
+
 		static void setManager(KeyboardManager *manager);
 		static KeyboardManager *getManager();
 
 	protected:
 
-		bool *mKeys;
+		bool mKeys[256];
+		bool mKeysPressed[256];
 
 		static KeyboardManager *sMainManager;
 	};

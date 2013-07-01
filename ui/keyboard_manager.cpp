@@ -10,17 +10,16 @@ namespace ui {
 
 	KeyboardManager *KeyboardManager::sMainManager;
 
-	KeyboardManager::KeyboardManager() :
-		mKeys(new bool[256])
+	KeyboardManager::KeyboardManager()
 	{
 		for (int i = 0; i < 256; i++)
 		{
 			mKeys[i] = false;
+			mKeysPressed[i] = false;
 		}
 	}
 	KeyboardManager::~KeyboardManager()
 	{
-		delete mKeys;
 	}
 
 	void KeyboardManager::onKeyDown(int key, bool systemKey)
@@ -28,6 +27,7 @@ namespace ui {
 		if (systemKey)
 		{
 			mKeys[key] = true;
+			mKeysPressed[key] = true;
 		}
 		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key, systemKey));
 		fireEvent<KeyboardEvent>(e.get());
@@ -46,6 +46,23 @@ namespace ui {
 	bool KeyboardManager::isKeyDown(int key) const
 	{
 		return mKeys[key];
+	}
+
+	const bool *KeyboardManager::getKeysPressed() const
+	{
+		return mKeysPressed;
+	}
+	bool KeyboardManager::isKeyPressed(int key) const
+	{
+		return mKeysPressed[key];
+	}
+
+	void KeyboardManager::onNewGameTick()
+	{
+		for (int i = 0; i < 256; i++)
+		{
+			mKeysPressed[i] = false;
+		}
 	}
 
 	void KeyboardManager::setManager(KeyboardManager *manager)

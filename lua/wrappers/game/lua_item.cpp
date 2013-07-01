@@ -692,7 +692,7 @@ namespace game {
 		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			wrapObject<StatModifiers>(lua, &item->getStatModifiers());
+			wrapRefObject<StatModifiers>(lua, &item->getStatModifiers());
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "stat_modifiers", "Item");

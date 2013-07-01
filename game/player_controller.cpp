@@ -5,7 +5,6 @@
 
 #include <log/logger.h>
 
-#include "character.h"
 #include "engine.h"
 #include "game.h"
 
@@ -14,8 +13,6 @@ namespace game {
 
 	PlayerController::PlayerController() :
 		IController(),
-		mMoveX(0),
-		mMoveY(0),
 		mRunning(false)
 	{
 		KeyboardManager::getManager()->addEventListener("key_down", this);
@@ -36,60 +33,63 @@ namespace game {
 	void PlayerController::onEvent(KeyboardEvent *e)
 	{
 		const bool *keys = KeyboardManager::getManager()->getKeysDown();
-		int x = 0;
-		if (keys[37])
-		{
-			x -= 1;
-		}
-		if (keys[39])
-		{
-			x += 1;
-		}
-		int y = 0;
-		if (keys[38])
-		{
-			y -= 1;
-		}
-		if (keys[40])
-		{
-			y += 1;
-		}
-		mMoveX = x;
-		mMoveY = y;
 
 		if (mActive)
 		{
-			performAction();
+			int x = keys[39] - keys[37];
+			int y = keys[40] - keys[38];
+			if (x != 0 || y != 0)
+			{
+				// Player has moved.
+				move(x, y);
+				return;
+			}
 		}
 	}
 
 	void PlayerController::update(Character *character, float dt)
 	{
 		mCharacter = character;
-		mCharacter->retain();
 		Engine::getGame()->setGameTickPaused(true);
 		mActive = true;
-		if (mMoveX != 0 && mMoveY != 0)
+
+		const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
+		if (pressed[40])
+		{
+			move(0, -1);
+		}
+		/*if (mMoveX != 0 && mMoveY != 0)
 		{
 			performAction();
-		}
+		}*/
 	}
 
-	void PlayerController::performAction()
+	void PlayerController::move(int dx, int dy)
 	{
-		mCharacter->moveGrid(mMoveX, mMoveY);
-		mCharacter->release();
-		mCharacter = NULL;
+		float waitTime = 1.0f;
+		if (dx != 0 || dy != 0)
+		{
+			float dist = sqrt(static_cast<float>(dx * dx + dy * dy));
+			waitTime = dist / mCharacter->getSpeed();
+		}
 
-		mMoveX = 0;
-		mMoveY = 0;
+		stringstream ss;
+		ss << "Wait time: " << waitTime << " (" << mCharacter->getSpeed() << ")";
+		am_log("PLYER", ss);
+
+		mCharacter->moveGrid(dx, dy);
+		mCharacter = NULL;
 
 		mActive = false;
 
+		setGameTick(waitTime);
+	}
+
+	void PlayerController::setGameTick(float dt)
+	{
 		Game *game = Engine::getGame();
-		game->setCurrentGameTickLength(1.0f);
+		game->setCurrentGameTickLength(dt);
 		game->setGameTickPaused(false);
-		//game->nextObjectTurn();
 	}
 
 	void PlayerController::detach()

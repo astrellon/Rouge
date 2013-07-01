@@ -6,6 +6,7 @@
 using namespace std;
 
 #include <base/imanaged.h>
+#include <base/handle.h>
 using namespace am::base;
 
 #include <ui/event_interface.h>
@@ -54,8 +55,8 @@ namespace game {
 		virtual const StatModifierMap &getModifiers() const;
 		virtual StatModifierMap &getModifiers();
 
-		virtual StatModifiers &getStatModifiers();
-		virtual const StatModifiers &getStatModifiers() const;
+		virtual StatModifiers *getStatModifiers();
+		virtual const StatModifiers *getStatModifiers() const;
 
 		virtual data::IData *serialise();
 		virtual void deserialise(LoadingState *state, data::IData *data);
@@ -75,7 +76,8 @@ namespace game {
 		virtual void setStatDirty(int stat);
 		virtual void setStatDirty(Stat::StatType stat);
 		
-		StatModifiers mModifiers;
+		Handle<StatModifiers> mModifiers;
+		//StatModifiers mModifiers;
 	};
 
 }

@@ -13,6 +13,7 @@ return {
 			:graphic(Sprite.new("characters/mainChar/front"))
 			:grid_location(2, 4)
 			:gender("female")
+			:stats():base_stat("speed", 2)
 		player:inventory():add_item(Item.from_def("wooden:sword"))
 		player:inventory():add_item(Item.from_def("wooden:shield"))
 		

@@ -149,6 +149,7 @@ namespace sys {
 		{
 			engine->update();
 		}
+		KeyboardManager::getManager()->onNewGameTick();
 	}
 	void GameSystem::display(float dt)
 	{

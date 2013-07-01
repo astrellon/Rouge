@@ -383,7 +383,7 @@ namespace game {
 		if (obj)
 		{
 			Stats *stats = &obj->getStats();
-			wrapObject<Stats>(lua, stats);
+			wrapRefObject<Stats>(lua, stats);
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "stats", "Character");

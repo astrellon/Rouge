@@ -35,7 +35,7 @@ namespace game {
 	{
 		StatModifiers *stats = new StatModifiers();
 		
-		wrapObject<StatModifiers>(lua, stats);
+		wrapRefObject<StatModifiers>(lua, stats);
 		return 1;
 	}
 	/**
