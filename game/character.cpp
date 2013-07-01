@@ -39,7 +39,8 @@ namespace game {
 		mAge(1.0f),
 		mGender(Gender::MALE),
 		mRace(NULL),
-		mCoinPurse(new CoinPurse())
+		mCoinPurse(new CoinPurse()),
+		mStats(new Stats())
 	{
 		mFixedToGrid = true;
 		setName("Character");
@@ -48,7 +49,7 @@ namespace game {
 		addEventListener(MOUSE_UP, this);
 
 		mInventory = new Inventory(10, 6);
-		mStats.setAttachedTo(this);
+		mStats->setAttachedTo(this);
 	}
 	Character::Character(const Character &copy) :
 		GameObject(copy),
@@ -65,8 +66,8 @@ namespace game {
 		{
 			setGraphic(new Sprite(*copy.mGraphic), false);
 		}
-		mStats = Stats(copy.mStats);
-		mStats.setAttachedTo(this);
+		mStats = new Stats(*copy.mStats);
+		mStats->setAttachedTo(this);
 
 		mInventory = new Inventory(*copy.mInventory);
 		for (auto iter = copy.mBodyParts.begin(); iter != copy.mBodyParts.end(); ++iter)
@@ -223,7 +224,11 @@ namespace game {
 		return mGraphic->getHeight();
 	}
 
-	Stats &Character::getStats()
+	Stats *Character::getStats()
+	{
+		return mStats;
+	}
+	const Stats *Character::getStats() const
 	{
 		return mStats;
 	}
@@ -618,7 +623,7 @@ namespace game {
 
 	float Character::getSpeed()
 	{
-		return mStats.getStat(Stat::SPEED);
+		return mStats->getStat(Stat::SPEED);
 	}
 
 	data::IData *Character::serialise()
@@ -646,7 +651,7 @@ namespace game {
 		}
 		output->at("bodyParts", bodyParts);
 
-		output->at("stats", mStats.serialise());
+		output->at("stats", mStats->serialise());
 		if (mInventory)
 		{
 			output->at("inventory", mInventory->serialise());
@@ -754,7 +759,7 @@ namespace game {
 		tempData = dataMap->at("stats");
 		if (tempData)
 		{
-			mStats.deserialise(state, tempData);
+			mStats->deserialise(state, tempData);
 		}
 
 		tempData = dataMap->at("graphic");
@@ -783,12 +788,12 @@ namespace game {
 	void Character::_equipItem(Item *item, const char *bodyPartName)
 	{
 		item->setItemLocation(Item::INVENTORY);
-		mStats.addModifiers(item->getStatModifiers());
+		mStats->addModifiers(item->getStatModifiers());
 		fireEvent<EquipEvent>(new EquipEvent("equip", this, bodyPartName, item));
 	}
 	void Character::_unequipItem(Item *item, const char *bodyPartName)
 	{
-		mStats.removeModifiers(item->getStatModifiers());
+		mStats->removeModifiers(item->getStatModifiers());
 		fireEvent<EquipEvent>(new EquipEvent("unequip", this, bodyPartName, item));
 	}
 

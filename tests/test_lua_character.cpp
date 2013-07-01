@@ -159,9 +159,9 @@ namespace tests {
 		assert(loadResult);
 
 		Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
-		am_equalsDelta(0.0f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+		am_equalsDelta(0.0f, charStats->getStats()->getBaseStat(Stat::ARCANE), 0.0001f);
 
-		charStats->getStats().setBaseStat(Stat::ARCANE, 5.0f);
+		charStats->getStats()->setBaseStat(Stat::ARCANE, 5.0f);
 
 		assert(lua.hasGlobalFunction("getBaseStat"));
 		lua.push("arcane");
@@ -175,7 +175,7 @@ namespace tests {
 		lua.push(8.9f);
 		lua_acall(lua, 2, 0);
 
-		am_equalsDelta(8.9f, charStats->getStats().getBaseStat(Stat::ARCANE), 0.0001f);
+		am_equalsDelta(8.9f, charStats->getStats()->getBaseStat(Stat::ARCANE), 0.0001f);
 
 		return true;
 	}

@@ -47,7 +47,6 @@ namespace game {
 		if (stats)
 		{
 			stats->release();
-			//delete stats;
 		}
 		return 0;
 	}

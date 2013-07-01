@@ -136,16 +136,16 @@ namespace ui {
 		ss << "-------\n";
 		ss << "<title class='level'>Level:</title> " << mCharacter->getLevel() << " (" << mCharacter->getExperience() << ")\n";
 
-		Stats &stats = mCharacter->getStats();
-		ss << "<title class='health'>Health:</title> " << stats.getStat(Stat::HEALTH) << " / " << stats.getStat(Stat::MAX_HEALTH) << "\n";
-		ss << "<title class='armour'>Armour:</title> " << stats.getStat(Stat::ARMOUR) << "\n";
-		ss << "<title class='strength'>Strength:</title> " << stats.getStat(Stat::STRENGTH) << "\n";
-		ss << "<title class='dexterity'>Dexterity:</title> " << stats.getStat(Stat::DEXTERITY) << "\n";
-		ss << "<title class='constitution'>Constitution:</title> " << stats.getStat(Stat::CONSTITUTION) << "\n";
-		ss << "<title class='divine'>Divine:</title> " << stats.getStat(Stat::DIVINE) << "\n";
-		ss << "<title class='arcane'>Arcane:</title> " << stats.getStat(Stat::ARCANE) << "\n";
-		ss << "<title class='speed'>Speed:</title> " << stats.getStat(Stat::SPEED) << "\n";
-		ss << "<title class='damage'>Damage:</title> " << stats.getStat(Stat::MIN_DAMAGE) << " - " << stats.getStat(Stat::MAX_DAMAGE) << "\n";
+		Stats *stats = mCharacter->getStats();
+		ss << "<title class='health'>Health:</title> " << stats->getStat(Stat::HEALTH) << " / " << stats->getStat(Stat::MAX_HEALTH) << "\n";
+		ss << "<title class='armour'>Armour:</title> " << stats->getStat(Stat::ARMOUR) << "\n";
+		ss << "<title class='strength'>Strength:</title> " << stats->getStat(Stat::STRENGTH) << "\n";
+		ss << "<title class='dexterity'>Dexterity:</title> " << stats->getStat(Stat::DEXTERITY) << "\n";
+		ss << "<title class='constitution'>Constitution:</title> " << stats->getStat(Stat::CONSTITUTION) << "\n";
+		ss << "<title class='divine'>Divine:</title> " << stats->getStat(Stat::DIVINE) << "\n";
+		ss << "<title class='arcane'>Arcane:</title> " << stats->getStat(Stat::ARCANE) << "\n";
+		ss << "<title class='speed'>Speed:</title> " << stats->getStat(Stat::SPEED) << "\n";
+		ss << "<title class='damage'>Damage:</title> " << stats->getStat(Stat::MIN_DAMAGE) << " - " << stats->getStat(Stat::MAX_DAMAGE) << "\n";
 		
 		ss << "</char_screen>";
 		mInfo->setText(ss.str());

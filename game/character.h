@@ -52,7 +52,8 @@ namespace game {
 		virtual float getWidth();
 		virtual float getHeight();
 
-		virtual Stats &getStats();
+		virtual Stats *getStats();
+		virtual const Stats *getStats() const;
 
 		virtual bool addBodyPart(BodyPart *part);
 		virtual bool removeBodyPart(BodyPart *part);
@@ -127,7 +128,7 @@ namespace game {
 
 		ActionQueue mActions;
 
-		Stats mStats;
+		Handle<Stats> mStats;
 
 		float mAge;
 		Race *mRace;

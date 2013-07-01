@@ -115,11 +115,11 @@ namespace game {
 			stringstream ss;
 			if (getBase)
 			{
-				ss << character->getStats().getBaseStat(stat);
+				ss << character->getStats()->getBaseStat(stat);
 			}
 			else
 			{
-				ss << character->getStats().getStat(stat);
+				ss << character->getStats()->getStat(stat);
 			}
 			return ss.str();
 		}

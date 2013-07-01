@@ -382,8 +382,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			Stats *stats = &obj->getStats();
-			wrapRefObject<Stats>(lua, stats);
+			wrapRefObject<Stats>(lua, obj->getStats());
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "stats", "Character");

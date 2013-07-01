@@ -44,6 +44,13 @@ namespace game {
 				move(x, y);
 				return;
 			}
+			if (keys[' '])
+			{
+				// Wait for 1 second.
+				am_log("PLYER", "Wait");
+				setGameTick(1.0f);
+				return;
+			}
 		}
 	}
 

@@ -28,29 +28,29 @@ namespace tests {
 
 		assert(testChar->getInventory());
 
-		Stats &stats = testChar->getStats();
-		stats.setBaseStat(Stat::STRENGTH, 10.0f);
+		Stats *stats = testChar->getStats();
+		stats->setBaseStat(Stat::STRENGTH, 10.0f);
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		Handle<Item> sword(new Item());
 		StatModifiers &modifiers = sword->getStatModifiers();
 		modifiers.addStatModifier(Stat::STRENGTH, StatModifier(5, MOD_ADD));
 
-		stats.addModifiers(modifiers);
+		stats->addModifiers(modifiers);
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(15.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(15.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		stats.removeModifiers(modifiers);
+		stats->removeModifiers(modifiers);
 
 		modifiers.addStatModifier(Stat::STRENGTH, StatModifier(2.0f, MOD_MULTIPLY));
 
-		stats.addModifiers(modifiers);
+		stats->addModifiers(modifiers);
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(25.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(25.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		return true;
 	}
@@ -60,11 +60,11 @@ namespace tests {
 		Handle<Character> testChar(new Character());
 		testChar->setName("TestChar");
 		
-		Stats &stats = testChar->getStats();
-		stats.setBaseStat(Stat::STRENGTH, 10.0f);
+		Stats *stats = testChar->getStats();
+		stats->setBaseStat(Stat::STRENGTH, 10.0f);
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		BodyPart *part = new BodyPart("arm");
 		assert(testChar->addBodyPart(part));
@@ -73,13 +73,13 @@ namespace tests {
 		sword->getStatModifiers().addStatModifier(Stat::STRENGTH, StatModifier(5.0f, MOD_ADD));
 		assert(testChar->equipItem(sword, "arm"));
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(15.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(15.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		assert(testChar->unequipItem("arm"));
 
-		am_equalsDelta(10.0f, stats.getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(10.0f, stats.getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		return true;
 	}
@@ -131,11 +131,11 @@ namespace tests {
 		shield->setInventorySize(2, 2);
 		inv->addItem(shield, 4, 2);
 
-		testChar->getStats().setBaseStat(Stat::HEALTH, 10.0f);
-		testChar->getStats().setBaseStat(Stat::STRENGTH, 5.5f);
-		testChar->getStats().setBaseStat(Stat::MAX_DAMAGE, 4.0f);
-		testChar->getStats().setBaseStat(Stat::MIN_DAMAGE, 4.0f);
-		testChar->getStats().setBaseStat(Stat::ARMOUR, 7.0f);
+		testChar->getStats()->setBaseStat(Stat::HEALTH, 10.0f);
+		testChar->getStats()->setBaseStat(Stat::STRENGTH, 5.5f);
+		testChar->getStats()->setBaseStat(Stat::MAX_DAMAGE, 4.0f);
+		testChar->getStats()->setBaseStat(Stat::MIN_DAMAGE, 4.0f);
+		testChar->getStats()->setBaseStat(Stat::ARMOUR, 7.0f);
 		
 		Handle<Item> swordEquip(new Item(*sword));
 		swordEquip->setItemFullname("Sword", "Wooden", "of Hit");
@@ -143,11 +143,11 @@ namespace tests {
 		testChar->addBodyPart(new BodyPart("torso"));
 		testChar->addBodyPart(new BodyPart("legs"));
 
-		am_equalsDelta(10.0f, testChar->getStats().getStat(Stat::HEALTH), 0.0001f);
-		am_equalsDelta(5.5f, testChar->getStats().getStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(9.0f, testChar->getStats().getStat(Stat::MAX_DAMAGE), 0.0001f);
-		am_equalsDelta(7.0f, testChar->getStats().getStat(Stat::MIN_DAMAGE), 0.0001f);
-		am_equalsDelta(7.0f, testChar->getStats().getStat(Stat::ARMOUR), 0.0001f);
+		am_equalsDelta(10.0f, testChar->getStats()->getStat(Stat::HEALTH), 0.0001f);
+		am_equalsDelta(5.5f, testChar->getStats()->getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(9.0f, testChar->getStats()->getStat(Stat::MAX_DAMAGE), 0.0001f);
+		am_equalsDelta(7.0f, testChar->getStats()->getStat(Stat::MIN_DAMAGE), 0.0001f);
+		am_equalsDelta(7.0f, testChar->getStats()->getStat(Stat::ARMOUR), 0.0001f);
 
 		Handle<Character> copyChar(new Character(*testChar));
 		am_equalsDelta(24.0f, copyChar->getAge(), 0.0001f);
@@ -215,11 +215,11 @@ namespace tests {
 		am_equals(2, copyShield->getInventorySizeX());
 		am_equals(2, copyShield->getInventorySizeY());
 
-		am_equalsDelta(10.0f, testChar->getStats().getBaseStat(Stat::HEALTH), 0.0001f);
-		am_equalsDelta(5.5f, testChar->getStats().getBaseStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(4.0f, testChar->getStats().getBaseStat(Stat::MAX_DAMAGE), 0.0001f);
-		am_equalsDelta(4.0f, testChar->getStats().getBaseStat(Stat::MIN_DAMAGE), 0.0001f);
-		am_equalsDelta(7.0f, testChar->getStats().getBaseStat(Stat::ARMOUR), 0.0001f);
+		am_equalsDelta(10.0f, testChar->getStats()->getBaseStat(Stat::HEALTH), 0.0001f);
+		am_equalsDelta(5.5f, testChar->getStats()->getBaseStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(4.0f, testChar->getStats()->getBaseStat(Stat::MAX_DAMAGE), 0.0001f);
+		am_equalsDelta(4.0f, testChar->getStats()->getBaseStat(Stat::MIN_DAMAGE), 0.0001f);
+		am_equalsDelta(7.0f, testChar->getStats()->getBaseStat(Stat::ARMOUR), 0.0001f);
 
 		const BodyPart::BodyPartMap &parts = copyChar->getBodyParts();
 		assert(parts.find(string("arm")) != parts.end());
@@ -229,11 +229,11 @@ namespace tests {
 		assert(swordEquipCopy.get() && swordEquipCopy != swordEquip);
 		am_equalsStr("Wooden Sword of Hit", swordEquipCopy->getFullItemName());
 
-		am_equalsDelta(10.0f, copyChar->getStats().getStat(Stat::HEALTH), 0.0001f);
-		am_equalsDelta(5.5f, copyChar->getStats().getStat(Stat::STRENGTH), 0.0001f);
-		am_equalsDelta(9.0f, copyChar->getStats().getStat(Stat::MAX_DAMAGE), 0.0001f);
-		am_equalsDelta(7.0f, copyChar->getStats().getStat(Stat::MIN_DAMAGE), 0.0001f);
-		am_equalsDelta(7.0f, copyChar->getStats().getStat(Stat::ARMOUR), 0.0001f);
+		am_equalsDelta(10.0f, copyChar->getStats()->getStat(Stat::HEALTH), 0.0001f);
+		am_equalsDelta(5.5f, copyChar->getStats()->getStat(Stat::STRENGTH), 0.0001f);
+		am_equalsDelta(9.0f, copyChar->getStats()->getStat(Stat::MAX_DAMAGE), 0.0001f);
+		am_equalsDelta(7.0f, copyChar->getStats()->getStat(Stat::MIN_DAMAGE), 0.0001f);
+		am_equalsDelta(7.0f, copyChar->getStats()->getStat(Stat::ARMOUR), 0.0001f);
 
 		Engine::setEngine(prevEngine);
 		delete eng;
