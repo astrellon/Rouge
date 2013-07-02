@@ -25,11 +25,19 @@ namespace game {
 	public:
 		typedef map<string, BodyPart *> BodyPartMap;
 
-		BodyPart(const char *name, Item *equipped = NULL);
+		enum BodyPartType {
+			HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
+		};
+
+		BodyPart(const char *name, BodyPartType type, Item *equipped = NULL);
 		BodyPart(const BodyPart &copy);
 		~BodyPart();
 
 		const char *getName() const;
+		BodyPartType getType() const;
+
+		bool isMainWeapon() const;
+		bool isOffWeapon() const;
 
 		virtual void setEquippedItem(Item *item);
 		virtual Item *getEqippedItem() const;
@@ -40,10 +48,24 @@ namespace game {
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
+		static const char *getNiceBodyPartName(BodyPartType type);
+		static const char *getBodyPartName(BodyPartType type);
+		static const char *getBodyPartName(int type);
+
+		static BodyPartType getBodyPartType(int typeValue);
+		static BodyPartType getBodyPartTypeFromNice(const char *typeName);
+		static BodyPartType getBodyPartType(const char *typeName);
+
 	protected:
+
+		static const char *sNiceBodyPartTypeNames[];
+		static const char *sBodyPartTypeNames[];
 
 		string mName;
 		Handle<Item> mEquippedItem;
+		BodyPartType mType;
+		bool mMainWeapon;
+		bool mOffWeapon;
 
 	};
 

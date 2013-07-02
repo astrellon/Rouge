@@ -194,6 +194,23 @@ namespace game {
 		return length;
 	}
 
+	void Character::attack(GameObject *enemy, Item *withItem)
+	{
+		if (!enemy)
+		{
+			return;
+		}
+
+		float dist = distanceToGrid(enemy);
+		stringstream ss;
+		ss << "Dist: " << dist;
+		am_log("ATTK", ss);
+		if (dist > 1.5f)
+		{
+			return;
+		}
+	}
+
 	void Character::setController(IController *controller)
 	{
 		mController = controller;

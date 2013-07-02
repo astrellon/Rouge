@@ -106,6 +106,9 @@ namespace game {
 		virtual ISource *getSource(bool create = true);
 		virtual void setSource(ISource *source);
 
+		virtual float distanceTo(GameObject *obj) const;
+		virtual float distanceToGrid(GameObject *obj) const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 

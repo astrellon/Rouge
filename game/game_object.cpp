@@ -205,6 +205,27 @@ namespace game {
 		return mLocationY * Engine::getEngine()->getGridSizeResp();
 	}
 
+	float GameObject::distanceTo(GameObject *obj) const
+	{
+		if (!obj)
+		{
+			return 0.0f;
+		}
+		float dx = obj->mLocationX - mLocationX;
+		float dy = obj->mLocationY - mLocationY;
+		return sqrt(dx * dx + dy * dy);
+	}
+	float GameObject::distanceToGrid(GameObject *obj) const
+	{
+		if (!obj)
+		{
+			return 0.0f;
+		}
+		int dx = obj->getGridLocationX() - getGridLocationX();
+		int dy = obj->getGridLocationY() - getGridLocationY();
+		return sqrt(static_cast<float>(dx * dx + dy * dy));
+	}
+
 	bool GameObject::move(float x, float y)
 	{
 		const Engine *engine = Engine::getEngine();

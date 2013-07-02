@@ -75,6 +75,8 @@ namespace game {
 		virtual int dropItem(Item *item);
 		virtual int dropItem(Item *item, float x, float y);
 
+		virtual void attack(GameObject *enemy, Item *withItem);
+
 		virtual const char *getGameObjectTypeName() const;
 
 		virtual void setAge(float age);
