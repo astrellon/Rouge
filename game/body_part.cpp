@@ -1,6 +1,9 @@
 #include "body_part.h"
 
 #include <util/data_table.h>
+#include <util/data_number.h>
+#include <util/data_boolean.h>
+#include <util/data_string.h>
 using namespace am::util;
 
 #include "loading_state.h"
@@ -12,16 +15,18 @@ namespace game {
 	const char *BodyPart::LUA_TABLENAME = "am_game_BodyPart";
 
 	const char *BodyPart::sNiceBodyPartTypeNames[] = {
-		"Hand", "Arm", "Leg", "Head", "Torso", "Neck", "Shoulders", "Legs", "Feet", "MAX_BODY_TYPE_LENGTH"
+		"Unknown Part", "Hand", "Arm", "Leg", "Head", "Torso", "Neck", "Shoulders", "Legs", "Feet", "MAX_BODY_TYPE_LENGTH"
 	};
 	const char *BodyPart::sBodyPartTypeNames[] = {
-		"hand", "arm", "leg", "head", "torso", "neck", "shoulders", "legs", "feet", "MAX_BODY_TYPE_LENGTH"
+		"unknown_part", "hand", "arm", "leg", "head", "torso", "neck", "shoulders", "legs", "feet", "MAX_BODY_TYPE_LENGTH"
 	};
 
 	BodyPart::BodyPart(const char *name, BodyPartType type, Item *equipped) :
 		mName(name),
 		mType(type),
-		mEquippedItem(equipped)
+		mEquippedItem(equipped),
+		mMainWeapon(false),
+		mOffWeapon(false)
 	{
 
 	}
@@ -43,9 +48,36 @@ namespace game {
 	{
 		return mName.c_str();
 	}
+	
+	void BodyPart::setType(BodyPart::BodyPartType type)
+	{
+		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
+		{
+			type = UNKNOWN_PART;
+		}
+		mType = type;
+	}
 	BodyPart::BodyPartType BodyPart::getType() const
 	{
 		return mType;
+	}
+
+	void BodyPart::setMainWeapon(bool mainWeapon)
+	{
+		mMainWeapon = mainWeapon;
+	}
+	bool BodyPart::isMainWeapon() const
+	{
+		return mMainWeapon;
+	}
+
+	void BodyPart::setOffWeapon(bool offWeapon)
+	{
+		mOffWeapon = offWeapon;
+	}
+	bool BodyPart::isOffWeapon() const
+	{
+		return mOffWeapon;
 	}
 
 	void BodyPart::setEquippedItem(Item *item)
@@ -64,6 +96,9 @@ namespace game {
 		{
 			output->at("equippedItem", mEquippedItem->serialise());
 		}
+		output->at("partType", getBodyPartName(mType));
+		output->at("mainWeapon", mMainWeapon);
+		output->at("offWeapon", mOffWeapon);
 		return output;
 	}
 
@@ -73,6 +108,23 @@ namespace game {
 		if (!dataMap)
 		{
 			return false;
+		}
+
+		Handle<data::String> str(dataMap->at<data::String>("partType"));
+		if (str)
+		{
+			setType(getBodyPartType(str->string()));
+		}
+
+		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("mainWeapon"));
+		if (boo)
+		{
+			setMainWeapon(boo->boolean());
+		}
+		boo = dataMap->at<data::Boolean>("offWeapon");
+		if (boo)
+		{
+			setOffWeapon(boo->boolean());
 		}
 
 		Handle<data::IData> tempData(dataMap->at("equippedItem"));

@@ -27,18 +27,24 @@ namespace game {
 	 * Creates a new BodyPart instance with the given name.
 	 * This name is used to identify the part when it is attached to a character.
 	 * @param string name The body part name.
+	 * @param string [UNKNOWN_PART] type The body part type.
 	 */
 	int BodyPart_ctor(lua_State *lua)
 	{
 		if (lua_isstr(lua, 1))
 		{
 			const char *partName = lua_tostring(lua, 1);
-			BodyPart *part = new BodyPart(partName);
+			BodyPart::BodyPartType type = BodyPart::UNKNOWN_PART;
+			if (lua_isstr(lua, 2))
+			{
+				type = BodyPart::getBodyPartType(lua_tostring(lua, 2));
+			}
+			BodyPart *part = new BodyPart(partName, type);
 		
 			wrapObject<BodyPart>(lua, part);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@new", "string partName");
+		return LuaState::expectedArgs(lua, "@new", "string partName, string [UNKNOWN_PART] type");
 	}
 	/**
 	 * Deletes the body part.

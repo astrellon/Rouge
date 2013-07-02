@@ -26,17 +26,22 @@ namespace game {
 		typedef map<string, BodyPart *> BodyPartMap;
 
 		enum BodyPartType {
-			HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
+			UNKNOWN_PART, HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
 		};
 
-		BodyPart(const char *name, BodyPartType type, Item *equipped = NULL);
+		BodyPart(const char *name, BodyPartType type = BodyPart::UNKNOWN_PART, Item *equipped = NULL);
 		BodyPart(const BodyPart &copy);
 		~BodyPart();
 
 		const char *getName() const;
+
+		void setType(BodyPartType type);
 		BodyPartType getType() const;
 
+		void setMainWeapon(bool mainWeapon);
 		bool isMainWeapon() const;
+
+		void setOffWeapon(bool offWeapon);
 		bool isOffWeapon() const;
 
 		virtual void setEquippedItem(Item *item);

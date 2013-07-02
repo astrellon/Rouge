@@ -401,6 +401,7 @@ namespace game {
 	 * another body part with the same name attached.
 	 *
 	 * @param string partName The name of the body part to create and add to the character.
+	 * @param string [UNKNOWN_PART] partType The type of the body part.
 	 * @returns boolean If part was added successfully.
 	 */
 	int Character_add_body_part(lua_State *lua)
@@ -410,6 +411,11 @@ namespace game {
 		{
 			if (lua_isstr(lua, 2))
 			{
+				BodyPart::BodyPartType type = BodyPart::UNKNOWN_PART;
+				if (lua_isstr(lua, 3))
+				{
+					type = BodyPart::getBodyPartType(lua_tostring(lua, 3));
+				}
 				lua_pushboolean(lua, obj->addBodyPart(new BodyPart(lua_tostring(lua, 2))));
 				return 1;
 			}
@@ -419,7 +425,7 @@ namespace game {
 				lua_pushboolean(lua, obj->addBodyPart(part));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_body_part", 2, "BodyPart part", "string partName");
+			return LuaState::expectedArgs(lua, "add_body_part", 2, "BodyPart part", "string partName, string [UNKNOWN_PART] partType");
 		}
 		return LuaState::expectedContext(lua, "add_body_part", "Character");
 	}
