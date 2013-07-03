@@ -81,16 +81,11 @@ namespace game {
 
 		virtual StatModifiers &getStatModifiers();
 
-		//virtual void loadDef(JsonValue value);
-		virtual void loadDef(LuaState &lua);
-
 		virtual float getWidth();
 		virtual float getHeight();
 
 		virtual string getName() const;
 		virtual const char *getGameObjectTypeName() const;
-
-		virtual void loadFromLua(const char *filename);
 
 		static ItemLocation getItemLocationType(const char *typeName);
 		static ItemLocation getItemLocationType(int typeValue);

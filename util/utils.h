@@ -58,37 +58,25 @@ namespace util {
 		template <class T>
 		static bool listContains(const vector<T> &list, const T &item)
 		{
-			return find(list, item) != list.end();
+			return find(list, item) != -1;
 		}
 
 		template <class T>
-		static typename vector<T>::iterator find(vector<T> &list, const T &item)
+		static int find(const vector<T> &list, const T &item)
 		{
-			vector<T>::iterator iter;
-			for (iter = list.begin(); iter != list.end(); ++iter)
+			size_t size = list.size();
+			int result = -1;
+			for (size_t i = 0; i < size; ++i)
 			{
-				if (*iter == item)
+				if (list[i] == item)
 				{
+					result = static_cast<int>(i);
 					break;
 				}
 			}
-			return iter;
+			return result;
 		}
 
-		template <class T>
-		static typename vector<T>::const_iterator find(const vector<T> &list, const T &item)
-		{
-			vector<T>::const_iterator iter;
-			for (iter = list.begin(); iter != list.end(); ++iter)
-			{
-				if (*iter == item)
-				{
-					break;
-				}
-			}
-			return iter;
-		}
-		
 	};
 
 }

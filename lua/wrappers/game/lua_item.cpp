@@ -98,7 +98,6 @@ namespace game {
 			{ "item_fullname", Item_item_fullname },
 			{ "set_item_from", Item_set_item_from },
 			{ "stat_modifiers", Item_stat_modifiers },
-			{ "load_def", Item_load_def },
 			{ "width", Item_width },
 			{ "height", Item_height },
 			{ "name", Item_name },
@@ -696,22 +695,6 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "stat_modifiers", "Item");
-	}
-	/**
-	 * TODO
-	 */
-	int Item_load_def(lua_State *lua)
-	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item && lua_istable(lua, -1))
-		{
-			LuaState wrap(lua);
-			item->loadDef(wrap);
-			lua_pushboolean(lua, true);
-			return 1;
-		}
-		lua_pushboolean(lua, false);
-		return 1;
 	}
 	/**
 	 * Returns the item width for the main graphic.

@@ -34,8 +34,6 @@ namespace game {
 	int Map_is_valid_location(lua_State *lua);
 	int Map_is_valid_grid_location(lua_State *lua);
 
-	int Map_load_def(lua_State *lua);
-
 }
 }
 }

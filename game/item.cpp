@@ -370,141 +370,6 @@ namespace game {
 		return mName.substr(mName.size() - mPostfix);
 	}
 
-	void Item::loadDef(LuaState &lua)
-	{
-		if (!lua_istable(lua, -1))
-		{
-			stringstream ss;
-			ss << "Cannot load definition of item from type '" << lua_typename(lua, -1) << "'";
-			am_log("ITEM", ss);
-			return;
-		}
-		if (lua.isTableString("graphic"))
-		{
-			setGraphic(new Sprite(lua_tostring(lua, -1)), true);
-			lua.pop(1);
-		}
-		if (lua.isTableString("groundGraphic"))
-		{
-			setGroundGraphic(new Sprite(lua_tostring(lua, -1)));
-			lua.pop(1);
-		}
-		if (lua.isTableNumber("sizeX"))
-		{
-			mInventorySizeX = lua.toInteger();
-			if (mInventorySizeX < 1)
-			{
-				mInventorySizeX = 1;
-			}
-		}
-		if (lua.isTableNumber("sizeY"))
-		{
-			mInventorySizeY = lua.toInteger();
-			if (mInventorySizeY < 1)
-			{
-				mInventorySizeY = 1;
-			}
-		}
-		string name;
-		string prefix;
-		string postfix;
-		if (lua.isTableString("name"))
-		{
-			//mItemName = lua_tostring(lua, -1);
-			name = lua_tostring(lua, -1);
-			lua.pop(1);
-		}
-		if (lua.isTableString("prefix"))
-		{
-			//mPrefix = lua_tostring(lua, -1);
-			prefix = lua_tostring(lua, -1);
-			lua.pop(1);
-		}
-		if (lua.isTableString("postfix"))
-		{
-			//mPostfix = lua_tostring(lua, -1);
-			postfix = lua_tostring(lua, -1);
-			lua.pop(1);
-		}
-		//updateFullname();
-		setItemFullname(name.c_str(), prefix.c_str(), postfix.c_str());
-
-		if (lua.isTableString("itemType"))
-		{
-			setItemTypeName(lua_tostring(lua, -1));
-			lua.pop(1);
-		}
-		if (lua.isTableNumber("questId"))
-		{
-			setQuestItemId(lua.toInteger());
-		}
-		if (lua.isTableTable("stats"))
-		{
-			parseStats(lua, false);
-			lua.pop(1);
-		}
-		if (lua.isTableTable("magicalStats"))
-		{
-			parseStats(lua, true);
-			lua.pop(1);
-		}
-		if (lua.isTableNumber("value"))
-		{
-			setItemValue(lua.toInteger());
-		}
-	}
-
-	/*void Item::parseStats(const JsonObject &stats, bool magical)
-	{
-		JsonObject::const_iterator iter;
-		for (iter = stats.begin(); iter != stats.end(); ++iter)
-		{
-			Stat::StatType statType = Stat::getStatType(iter->first.c_str());
-			if (statType == Stat::MAX_STAT_LENGTH)
-			{
-				stringstream ss;
-				ss << "Unknown stat type '" << iter->first << "'";
-				am_log("ITEM", ss);
-				continue;
-			}
-			JsonType jsonType = iter->second.getType();
-			float value = 0.0f;
-			StatModifierType type = MOD_ADD;
-			if (jsonType == JV_INT || jsonType == JV_FLOAT)
-			{
-				value = iter->second.getFloat();
-			}
-			else if (jsonType == JV_STR)
-			{
-				string *str = iter->second.getStr();
-				int foundAdd = static_cast<int>(str->find('+'));
-				int foundMulti = static_cast<int>(str->find('%'));
-				if (foundAdd >= 0 && foundMulti >= 0)
-				{
-					type = MOD_MULTIPLY;
-				}
-				else if (foundMulti >= 0)
-				{
-					type = MOD_SET;
-				}
-
-				int i = max(0, max(foundAdd, foundMulti));
-
-				bool parsed = Utils::fromString<float>(value, str->c_str() + i + 1);
-				if (!parsed)
-				{
-					stringstream ss;
-					ss << "Unable to parse stat '" << str->c_str() << "'";
-					am_log("ITEM", ss);
-				}
-				else
-				{
-					StatModifier modifier(value, type, magical);
-					mStatModifiers.addStatModifier(statType, modifier);
-				}
-			}
-		}
-	}*/
 	void Item::parseStats(LuaState &lua, bool magical)
 	{
 		if (!lua_istable(lua, -1))
@@ -568,48 +433,6 @@ namespace game {
 		}
 	}
 
-	void Item::loadFromLua(const char *filename)
-	{
-		LuaState lua(false);
-		stringstream ss;
-		ss << "data/items/" << filename << ".lua";
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			stringstream errss;
-			errss << "Error loading item lua file '" << filename << "'";
-			am_log("ITEM", errss);
-			lua.logStack("ITEMLUA");
-			lua.close();
-			return;
-		}
-		lua_getglobal(lua, "item");
-		if (!lua_istable(lua, -1))
-		{
-			stringstream errss;
-			errss << "Did not find global item table: " << lua_typename(lua, -1);
-			am_log("ITEMLUA", errss);
-			lua.close();
-		}
-		loadDef(lua);
-		lua.close();
-	}
-
-	/*void Item::updateFullname()
-	{
-		if (mPrefix.size() > 0)
-		{
-			mFullname = mPrefix + ' ' + mItemName;
-		}
-		else
-		{
-			mFullname = mItemName;
-		}
-		if (mPostfix.size() > 0)
-		{
-			mFullname += ' ' + mPostfix;
-		}
-	}*/
-
 	float Item::getWidth()
 	{
 		return mCurrentGraphic->getWidth();
@@ -669,10 +492,10 @@ namespace game {
 	}
 	bool Item::removeBodyPartType(BodyPartType::PartType type)
 	{
-		BodyPartTypeList::const_iterator find = Utils::find(mEquipableTo, type);
-		if (find == mEquipableTo.end())
+		int index = Utils::find(mEquipableTo, type);
+		if (index >= 0)
 		{
-			mEquipableTo.erase(find);
+			mEquipableTo.erase(mEquipableTo.begin() + index);
 			return true;
 		}
 		return false;

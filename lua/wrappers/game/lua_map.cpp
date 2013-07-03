@@ -112,7 +112,6 @@ namespace game {
 			{ "has_game_object", Map_has_game_object },
 			{ "is_valid_location", Map_is_valid_location },
 			{ "is_valid_grid_location", Map_is_valid_grid_location },
-			{ "load_def", Map_load_def },
 			{ NULL, NULL }
 		};
 
@@ -471,19 +470,6 @@ namespace game {
 			return LuaState::expectedArgs(lua, "is_valid_grid_location", "GameObject gameObject, integer x, integer y");
 		}
 		return LuaState::expectedContext(lua, "is_valid_grid_location", "Map");
-	}
-	/**
-	 * @private
-	 */
-	int Map_load_def(lua_State *lua)
-	{
-		Map *map = castUData<Map>(lua, 1);
-		if (map && lua_istable(lua, -1))
-		{
-			LuaState wrap(lua);
-			map->loadDef(wrap);
-		}
-		return 0;
 	}
 
 }

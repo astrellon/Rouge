@@ -60,7 +60,7 @@ namespace game {
 		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
-		void loadDef(LuaState &lua);
+		//void loadDef(LuaState &lua);
 
 		void updateAssetSprites();
 

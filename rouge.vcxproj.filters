@@ -820,6 +820,9 @@
     <ClCompile Include="game\body_part_common.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_utils.cpp">
+      <Filter>tests\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1500,6 +1503,9 @@
     </ClInclude>
     <ClInclude Include="game\body_part_common.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_utils.h">
+      <Filter>tests\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -366,7 +366,7 @@ namespace game {
 	{
 		return mFilename.c_str();
 	}
-
+	/*
 	void Map::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -478,7 +478,7 @@ namespace game {
 
 			lua.pop(1);
 		}
-	}
+	}*/
 
 	void Map::updateAssetSprites()
 	{
