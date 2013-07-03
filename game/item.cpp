@@ -658,6 +658,34 @@ namespace game {
 		return sItemLocationNames[location];
 	}
 
+	bool Item::addBodyPartType(BodyPartType::PartType type)
+	{
+		if (!hasBodyPartType(type))
+		{
+			mEquipableTo.push_back(type);
+			return true;
+		}
+		return false;
+	}
+	bool Item::removeBodyPartType(BodyPartType::PartType type)
+	{
+		BodyPartTypeList::const_iterator find = Utils::find(mEquipableTo, type);
+		if (find == mEquipableTo.end())
+		{
+			mEquipableTo.erase(find);
+			return true;
+		}
+		return false;
+	}
+	bool Item::hasBodyPartType(BodyPartType::PartType type)
+	{
+		return Utils::listContains(mEquipableTo, type);
+	}
+	const Item::BodyPartTypeList &Item::getBodyPartTypeList() const
+	{
+		return mEquipableTo;
+	}
+
 	void Item::getPrePostfix(short &prefix, short &postfix) const
 	{
 		if (prefix < 0) {

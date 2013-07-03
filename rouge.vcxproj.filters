@@ -817,6 +817,9 @@
     <ClCompile Include="game\pathfinder.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="game\body_part_common.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1493,6 +1496,9 @@
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\pathfinder.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\body_part_common.h">
       <Filter>game</Filter>
     </ClInclude>
   </ItemGroup>

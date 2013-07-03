@@ -34,10 +34,10 @@ namespace game {
 		if (lua_isstr(lua, 1))
 		{
 			const char *partName = lua_tostring(lua, 1);
-			BodyPart::BodyPartType type = BodyPart::UNKNOWN_PART;
+			BodyPartType::PartType type = BodyPartType::UNKNOWN_PART;
 			if (lua_isstr(lua, 2))
 			{
-				type = BodyPart::getBodyPartType(lua_tostring(lua, 2));
+				type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
 			}
 			BodyPart *part = new BodyPart(partName, type);
 		

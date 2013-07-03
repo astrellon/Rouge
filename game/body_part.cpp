@@ -14,14 +14,7 @@ namespace game {
 	const int BodyPart::LUA_ID = 0x03;
 	const char *BodyPart::LUA_TABLENAME = "am_game_BodyPart";
 
-	const char *BodyPart::sNiceBodyPartTypeNames[] = {
-		"Unknown Part", "Hand", "Arm", "Leg", "Head", "Torso", "Neck", "Shoulders", "Legs", "Feet", "MAX_BODY_TYPE_LENGTH"
-	};
-	const char *BodyPart::sBodyPartTypeNames[] = {
-		"unknown_part", "hand", "arm", "leg", "head", "torso", "neck", "shoulders", "legs", "feet", "MAX_BODY_TYPE_LENGTH"
-	};
-
-	BodyPart::BodyPart(const char *name, BodyPartType type, Item *equipped) :
+	BodyPart::BodyPart(const char *name, BodyPartType::PartType type, Item *equipped) :
 		mName(name),
 		mType(type),
 		mEquippedItem(equipped),
@@ -49,15 +42,15 @@ namespace game {
 		return mName.c_str();
 	}
 	
-	void BodyPart::setType(BodyPart::BodyPartType type)
+	void BodyPart::setType(BodyPartType::PartType type)
 	{
-		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
+		if (type < 0 || type >= BodyPartType::MAX_BODY_TYPE_LENGTH)
 		{
-			type = UNKNOWN_PART;
+			type = BodyPartType::UNKNOWN_PART;
 		}
 		mType = type;
 	}
-	BodyPart::BodyPartType BodyPart::getType() const
+	BodyPartType::PartType BodyPart::getType() const
 	{
 		return mType;
 	}
@@ -96,7 +89,7 @@ namespace game {
 		{
 			output->at("equippedItem", mEquippedItem->serialise());
 		}
-		output->at("partType", getBodyPartName(mType));
+		output->at("partType", BodyPartType::getBodyPartName(mType));
 		output->at("mainWeapon", mMainWeapon);
 		output->at("offWeapon", mOffWeapon);
 		return output;
@@ -113,7 +106,7 @@ namespace game {
 		Handle<data::String> str(dataMap->at<data::String>("partType"));
 		if (str)
 		{
-			setType(getBodyPartType(str->string()));
+			setType(BodyPartType::getBodyPartType(str->string()));
 		}
 
 		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("mainWeapon"));
@@ -137,70 +130,6 @@ namespace game {
 			}
 		}
 		return true;
-	}
-
-	const char *BodyPart::getNiceBodyPartName(BodyPartType type)
-	{
-		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
-		{
-			return NULL;
-		}
-		return sNiceBodyPartTypeNames[type];
-	}
-	const char *BodyPart::getBodyPartName(BodyPartType type)
-	{
-		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
-		{
-			return NULL;
-		}
-		return sBodyPartTypeNames[type];
-	}
-	const char *BodyPart::getBodyPartName(int type)
-	{
-		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
-		{
-			return NULL;
-		}
-		return sBodyPartTypeNames[type];
-	}
-	
-	BodyPart::BodyPartType BodyPart::getBodyPartType(int typeValue)
-	{
-		if (typeValue < 0 || typeValue > MAX_BODY_TYPE_LENGTH)
-		{
-			return MAX_BODY_TYPE_LENGTH;
-		}
-		return static_cast<BodyPartType>(typeValue);
-	}
-	BodyPart::BodyPartType BodyPart::getBodyPartTypeFromNice(const char *typeName)
-	{
-		if (typeName == NULL || typeName[0] == '\0')
-		{
-			return MAX_BODY_TYPE_LENGTH;
-		}
-		for (int i = 0; i < MAX_BODY_TYPE_LENGTH; i++)
-		{
-			if (strcmp(typeName, sNiceBodyPartTypeNames[i]) == 0)
-			{
-				return static_cast<BodyPartType>(i);
-			}
-		}
-		return MAX_BODY_TYPE_LENGTH;
-	}
-	BodyPart::BodyPartType BodyPart::getBodyPartType(const char *typeName)
-	{
-		if (typeName == NULL || typeName[0] == '\0')
-		{
-			return MAX_BODY_TYPE_LENGTH;
-		}
-		for (int i = 0; i < MAX_BODY_TYPE_LENGTH; i++)
-		{
-			if (strcmp(typeName, sBodyPartTypeNames[i]) == 0)
-			{
-				return static_cast<BodyPartType>(i);
-			}
-		}
-		return MAX_BODY_TYPE_LENGTH;
 	}
 
 }

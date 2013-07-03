@@ -8,6 +8,7 @@ using namespace am::base;
 using namespace std;
 
 #include <game/item.h>
+#include <game/body_part_common.h>
 
 namespace am {
 namespace util {
@@ -25,18 +26,14 @@ namespace game {
 	public:
 		typedef map<string, BodyPart *> BodyPartMap;
 
-		enum BodyPartType {
-			UNKNOWN_PART, HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
-		};
-
-		BodyPart(const char *name, BodyPartType type = BodyPart::UNKNOWN_PART, Item *equipped = NULL);
+		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = NULL);
 		BodyPart(const BodyPart &copy);
 		~BodyPart();
 
 		const char *getName() const;
 
-		void setType(BodyPartType type);
-		BodyPartType getType() const;
+		void setType(BodyPartType::PartType type);
+		BodyPartType::PartType getType() const;
 
 		void setMainWeapon(bool mainWeapon);
 		bool isMainWeapon() const;
@@ -53,22 +50,11 @@ namespace game {
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
-		static const char *getNiceBodyPartName(BodyPartType type);
-		static const char *getBodyPartName(BodyPartType type);
-		static const char *getBodyPartName(int type);
-
-		static BodyPartType getBodyPartType(int typeValue);
-		static BodyPartType getBodyPartTypeFromNice(const char *typeName);
-		static BodyPartType getBodyPartType(const char *typeName);
-
 	protected:
-
-		static const char *sNiceBodyPartTypeNames[];
-		static const char *sBodyPartTypeNames[];
 
 		string mName;
 		Handle<Item> mEquippedItem;
-		BodyPartType mType;
+		BodyPartType::PartType mType;
 		bool mMainWeapon;
 		bool mOffWeapon;
 

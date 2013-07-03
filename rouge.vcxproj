@@ -202,6 +202,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\ai_controller.cpp" />
     <ClCompile Include="game\astar_node.cpp" />
     <ClCompile Include="game\body_part.cpp" />
+    <ClCompile Include="game\body_part_common.cpp" />
     <ClCompile Include="game\camera.cpp" />
     <ClCompile Include="game\character.cpp" />
     <ClCompile Include="game\coin_purse.cpp" />
@@ -431,6 +432,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\ai_controller.h" />
     <ClInclude Include="game\astar_node.h" />
     <ClInclude Include="game\body_part.h" />
+    <ClInclude Include="game\body_part_common.h" />
     <ClInclude Include="game\camera.h" />
     <ClInclude Include="game\character.h" />
     <ClInclude Include="game\coin_purse.h" />

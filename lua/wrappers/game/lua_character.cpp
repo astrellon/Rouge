@@ -411,10 +411,10 @@ namespace game {
 		{
 			if (lua_isstr(lua, 2))
 			{
-				BodyPart::BodyPartType type = BodyPart::UNKNOWN_PART;
+				BodyPartType::PartType type = BodyPartType::UNKNOWN_PART;
 				if (lua_isstr(lua, 3))
 				{
-					type = BodyPart::getBodyPartType(lua_tostring(lua, 3));
+					type = BodyPartType::getBodyPartType(lua_tostring(lua, 3));
 				}
 				lua_pushboolean(lua, obj->addBodyPart(new BodyPart(lua_tostring(lua, 2))));
 				return 1;

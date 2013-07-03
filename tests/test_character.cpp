@@ -66,7 +66,7 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		BodyPart *part = new BodyPart("arm", BodyPart::ARM);
+		BodyPart *part = new BodyPart("arm", BodyPartType::ARM);
 		assert(testChar->addBodyPart(part));
 
 		Handle<Item> sword(new Item());
@@ -139,9 +139,9 @@ namespace tests {
 		
 		Handle<Item> swordEquip(new Item(*sword));
 		swordEquip->setItemFullname("Sword", "Wooden", "of Hit");
-		testChar->addBodyPart(new BodyPart("arm", BodyPart::ARM, swordEquip));
-		testChar->addBodyPart(new BodyPart("torso", BodyPart::TORSO));
-		testChar->addBodyPart(new BodyPart("legs", BodyPart::LEGS));
+		testChar->addBodyPart(new BodyPart("arm", BodyPartType::ARM, swordEquip));
+		testChar->addBodyPart(new BodyPart("torso", BodyPartType::TORSO));
+		testChar->addBodyPart(new BodyPart("legs", BodyPartType::LEGS));
 
 		am_equalsDelta(10.0f, testChar->getStats()->getStat(Stat::HEALTH), 0.0001f);
 		am_equalsDelta(5.5f, testChar->getStats()->getStat(Stat::STRENGTH), 0.0001f);

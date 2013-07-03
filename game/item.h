@@ -4,6 +4,7 @@
 using namespace am::base;
 
 #include <string>
+#include <vector>
 using namespace std;
 
 #include <gfx/gfx_sprite.h>
@@ -18,6 +19,7 @@ using namespace am::lua;
 #include "game_object.h"
 #include "item_common.h"
 #include "stat_modifiers.h"
+#include "body_part_common.h"
 
 namespace am {
 namespace game {
@@ -28,6 +30,8 @@ namespace game {
 		enum ItemLocation {
 			GROUND, INVENTORY, HAND, MAX_LENGTH
 		};
+
+		typedef vector<BodyPartType::PartType> BodyPartTypeList;
 
 		Item();
 		Item(const Item &copy);
@@ -93,6 +97,11 @@ namespace game {
 
 		static const char *getItemLocationTypeName(ItemLocation location);
 
+		virtual bool addBodyPartType(BodyPartType::PartType type);
+		virtual bool removeBodyPartType(BodyPartType::PartType type);
+		virtual bool hasBodyPartType(BodyPartType::PartType type);
+		virtual const BodyPartTypeList &getBodyPartTypeList() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -119,6 +128,7 @@ namespace game {
 		unsigned int mItemValue;
 
 		StatModifiers mStatModifiers;
+		BodyPartTypeList mEquipableTo;
 
 		virtual void updateGraphic();
 

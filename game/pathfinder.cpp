@@ -132,8 +132,8 @@ namespace game {
 				for(auto iter = mNeighbors.begin(); iter != mNeighbors.end(); ++iter)
 				{
 					AStarNode *n = *iter;
-					if (!Utils::listContains<AStarNode *>(mOpenList, n) &&
-						!Utils::listContains<AStarNode *>(mClosedList, n))
+					if (!Utils::listContains(mOpenList, n) &&
+						!Utils::listContains(mClosedList, n))
 					{
 						if (n->useCounter < mNodeUseCounter)
 						{
