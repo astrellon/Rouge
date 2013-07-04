@@ -73,9 +73,26 @@ namespace game {
 		return mOffWeapon;
 	}
 
-	void BodyPart::setEquippedItem(Item *item)
+	bool BodyPart::setEquippedItem(Item *item, bool forceEquip)
 	{
-		mEquippedItem = item;
+		// If we aren't forcing the equip or if the item is null
+		// then we want to chance and it's a valid set.
+		if (forceEquip || !item || mType == BodyPartType::UNKNOWN_PART || mType == BodyPartType::ANY)
+		{
+			mEquippedItem = item;
+			return true;
+		}
+		// Otherwise we want to make sure that the types match.
+		const BodyPartType::TypeList &typeList = item->getBodyPartTypeList();
+		for (size_t i = 0; i < typeList.size(); i++)
+		{
+			if (typeList[i] == mType)
+			{
+				mEquippedItem = item;
+				return true;
+			}
+		}
+		return false;
 	}
 	Item *BodyPart::getEqippedItem() const
 	{

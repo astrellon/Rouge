@@ -51,6 +51,11 @@ namespace game {
 
 	int Item_attrs(lua_State *lua);
 
+	int Item_add_body_type(lua_State *lua);
+	int Item_remove_body_type(lua_State *lua);
+	int Item_has_body_type(lua_State *lua);
+	int Item_get_body_types(lua_State *lua);
+
 }
 }
 }

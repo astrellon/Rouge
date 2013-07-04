@@ -21,6 +21,7 @@ namespace tests {
 	
 		virtual void runCases() {
 			runCase(testSimple);
+			runCase(testBodyPartTypes);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -30,6 +31,7 @@ namespace tests {
 	protected:
 
 		bool testSimple();
+		bool testBodyPartTypes();
 
 	};
 

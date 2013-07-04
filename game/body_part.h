@@ -41,7 +41,7 @@ namespace game {
 		void setOffWeapon(bool offWeapon);
 		bool isOffWeapon() const;
 
-		virtual void setEquippedItem(Item *item);
+		virtual bool setEquippedItem(Item *item, bool forceEquip = true);
 		virtual Item *getEqippedItem() const;
 
 		virtual data::IData *serialise();

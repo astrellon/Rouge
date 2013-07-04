@@ -31,8 +31,6 @@ namespace game {
 			GROUND, INVENTORY, HAND, MAX_LENGTH
 		};
 
-		typedef vector<BodyPartType::PartType> BodyPartTypeList;
-
 		Item();
 		Item(const Item &copy);
 		~Item();
@@ -95,7 +93,7 @@ namespace game {
 		virtual bool addBodyPartType(BodyPartType::PartType type);
 		virtual bool removeBodyPartType(BodyPartType::PartType type);
 		virtual bool hasBodyPartType(BodyPartType::PartType type);
-		virtual const BodyPartTypeList &getBodyPartTypeList() const;
+		virtual const BodyPartType::TypeList &getBodyPartTypeList() const;
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -123,7 +121,7 @@ namespace game {
 		unsigned int mItemValue;
 
 		StatModifiers mStatModifiers;
-		BodyPartTypeList mEquipableTo;
+		BodyPartType::TypeList mEquipableTo;
 
 		virtual void updateGraphic();
 

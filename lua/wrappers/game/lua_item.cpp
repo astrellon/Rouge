@@ -107,7 +107,7 @@ namespace game {
 			{ "talk_to", NULL },
 			{ "move", NULL },
 			{ "move_grid", NULL },
-			{ "set_f2ixed_to_grid", NULL },
+			{ "set_fixed_to_grid", NULL },
 			{ "is_fixed_to_grid", NULL },
 			{ "set_only_on_passable", NULL },
 			{ "is_only_on_passable", NULL },
@@ -124,6 +124,10 @@ namespace game {
 			// Static GameObject methods
 			{ "find", Item_find },
 			{ "attrs", Item_attrs },
+			{ "add_body_type", Item_add_body_type },
+			{ "remove_body_type", Item_remove_body_type },
+			{ "has_body_type", Item_has_body_type },
+			{ "get_body_types", Item_get_body_types },
 			{ NULL, NULL }
 		};
 
@@ -883,6 +887,120 @@ namespace game {
 			return IAttributeData_attrs(lua, item);
 		}
 		return LuaState::expectedContext(lua, "attrs", "Item");
+	}
+
+	/**
+	 * Adds a new body type which this item can be equipped to.
+	 * If the new body type is already on the item it will be ignored.
+	 * 
+	 * @param string partType The name of the body part.
+	 * @returns Item This
+	 */
+	int Item_add_body_type(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
+				if (type != BodyPartType::MAX_BODY_TYPE_LENGTH)
+				{
+					item->addBodyPartType(type);
+					lua_first(lua);
+				}
+				stringstream ss;
+				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
+				LuaState::warning(lua, ss.str().c_str());
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "add_body_type", "string bodyType");
+		}
+		return LuaState::expectedContext(lua, "add_body_type", "Item");
+	}
+
+	/**
+	 * Remove a new body type from this item that it can be equipped to.
+	 * If the body type is not on the item, this function will be ignored.
+	 * 
+	 * @param string partType The name of the body part.
+	 * @returns Item This
+	 */
+	int Item_remove_body_type(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
+				if (type != BodyPartType::MAX_BODY_TYPE_LENGTH)
+				{
+					item->removeBodyPartType(type);
+					lua_first(lua);
+				}
+				stringstream ss;
+				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
+				LuaState::warning(lua, ss.str().c_str());
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "remove_body_type", "string bodyType");
+		}
+		return LuaState::expectedContext(lua, "remove_body_type", "Item");
+	}
+
+	/**
+	 * Checks if a new body type is on this item.
+	 * 
+	 * @param string partType The name of the body part.
+	 * @returns boolean True if the body part type was found on this item.
+	 */
+	int Item_has_body_type(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
+				if (type != BodyPartType::MAX_BODY_TYPE_LENGTH)
+				{
+					lua_pushboolean(lua, item->hasBodyPartType(type));
+					return 1;
+				}
+				stringstream ss;
+				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
+				LuaState::warning(lua, ss.str().c_str());
+				lua_pushboolean(lua, false);
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_body_type", "string bodyType");
+		}
+		return LuaState::expectedContext(lua, "has_body_type", "Item");
+	}
+
+	/**
+	 * Returns the set of all the body part types that this
+	 * item can be equipped on to.
+	 *
+	 * @returns table A set of all the body part types.
+	 */
+	int Item_get_body_types(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			lua_newtable(lua);
+			const BodyPartType::TypeList &list = item->getBodyPartTypeList();
+			for (size_t i = 0; i < list.size(); i++)
+			{
+				lua_pushstring(lua, BodyPartType::getBodyPartName(list[i]));
+				lua_pushboolean(lua, true);
+				lua_settable(lua, -3);
+			}
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "get_body_types", "Item");
 	}
 
 }

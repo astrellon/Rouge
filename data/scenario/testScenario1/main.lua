@@ -14,7 +14,9 @@ return {
 			:grid_location(2, 4)
 			:gender("female")
 			:stats():base_stat("speed", 2)
-		player:inventory():add_item(Item.from_def("wooden:sword"))
+		local sword = Item.from_def("wooden:sword")
+		sword:add_body_type("arm"):add_body_type("hand")	
+		player:inventory():add_item(sword)
 		player:inventory():add_item(Item.from_def("wooden:shield"))
 		
 		game:add_game_object_to_map(player)
@@ -26,5 +28,9 @@ return {
 		game:start_game()
 		
 		player = game:main()
+		
+		local sword = Item.find("sword1")
+		am_log("Sword1? ", sword)
+		am_log(sword:get_body_types())
 	end
 }

@@ -1,5 +1,8 @@
 #include "body_part_common.h"
 
+#include <util/data_table.h>
+#include <util/data_string.h>
+
 #include <cstring>
 
 namespace am {
@@ -74,6 +77,33 @@ namespace game {
 			}
 		}
 		return MAX_BODY_TYPE_LENGTH;
+	}
+
+	data::IData *BodyPartType::serialiseTypeList(const BodyPartType::TypeList &list)
+	{
+		data::Table *output = new data::Table();
+		for (size_t i = 0; i < list.size(); i++)
+		{
+			output->push(getBodyPartName(list[i]));
+		}
+		return output;
+	}
+	void BodyPartType::deserialiseTypeList(data::IData *data, BodyPartType::TypeList &result)
+	{
+		Handle<data::Table> typeList(data::Table::checkDataType(data, "body part type list"));
+		if (!typeList)
+		{
+			return;
+		}
+
+		for (auto iter = typeList->beginArray(); iter != typeList->endArray(); ++iter)
+		{
+			BodyPartType::PartType type = getBodyPartType(iter->get()->string());
+			if (type != BodyPartType::MAX_BODY_TYPE_LENGTH)
+			{
+				result.push_back(type);
+			}
+		}
 	}
 
 }

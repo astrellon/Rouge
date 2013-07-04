@@ -504,7 +504,7 @@ namespace game {
 	{
 		return Utils::listContains(mEquipableTo, type);
 	}
-	const Item::BodyPartTypeList &Item::getBodyPartTypeList() const
+	const BodyPartType::TypeList &Item::getBodyPartTypeList() const
 	{
 		return mEquipableTo;
 	}
@@ -554,6 +554,8 @@ namespace game {
 			output->at("groundGraphic", mGroundGraphic->serialise());
 		}
 		output->at("statModifiers", mStatModifiers.serialise());
+		
+		output->at("equipableTo", BodyPartType::serialiseTypeList(mEquipableTo));
 
 		return output;
 	}
@@ -622,6 +624,12 @@ namespace game {
 		if (tempData)
 		{
 			mStatModifiers.deserialise(state, tempData);
+		}
+
+		tempData = dataMap->at<data::IData>("equipableTo");
+		if (tempData)
+		{
+			BodyPartType::deserialiseTypeList(tempData, mEquipableTo);
 		}
 		return 1;
 	}
