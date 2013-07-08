@@ -10,7 +10,7 @@
 #include "GLee\GLee.h"
 #include <gl\gl.h>
 #include <gl\glu.h>
-#include <stdlib.h>
+#include <stdlib.h>   
 
 #include <iostream>
 
