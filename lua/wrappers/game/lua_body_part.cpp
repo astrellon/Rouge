@@ -41,7 +41,7 @@ namespace game {
 			}
 			BodyPart *part = new BodyPart(partName, type);
 		
-			wrapObject<BodyPart>(lua, part);
+			wrapRefObject<BodyPart>(lua, part);
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "@new", "string partName, string [UNKNOWN_PART] type");
@@ -54,7 +54,7 @@ namespace game {
 		BodyPart *part = castUData<BodyPart>(lua, 1);
 		if (part)
 		{
-			delete part;
+			part->release();
 			return 0;
 		}
 		return LuaState::expectedContext(lua, "__gc", "BodyPart");
@@ -131,7 +131,7 @@ namespace game {
 			// No args
 			if (lua_gettop(lua) == 1) 
 			{
-				Item *item = part->getEqippedItem();
+				Item *item = part->getEquippedItem();
 				if (item)
 				{
 					wrapRefObject<Item>(lua, item);

@@ -511,12 +511,11 @@ namespace game {
 		{
 			LuaState L(lua);
 			L.newTable();
-			const BodyPart::BodyPartMap &map = obj->getBodyParts();
-			BodyPart::BodyPartMap::const_iterator iter;
-			for (iter = map.begin(); iter != map.end(); ++iter)
+			const BodyParts::PartList &list = obj->getBodyParts().getAllParts();
+			for (size_t i = 0; i < list.size(); i++)
 			{
-				lua_pushstring(lua, iter->first.c_str());
-				wrapObject<BodyPart>(lua, iter->second);
+				lua_pushstring(lua, list[i]->getName());
+				wrapRefObject<BodyPart>(lua, list[i]);
 				lua_settable(lua, -3);
 			}
 			return 1;
@@ -605,7 +604,7 @@ namespace game {
 		return LuaState::expectedContext(lua, "unequip_item", "Character");
 	}
 	/**
-	 * Returns the item eqipped at the given body part.
+	 * Returns the item equipped at the given body part.
 	 *
 	 * @param string partName The body part to get the item from.
 	 * @returns Item The item equipped, nil if there was no item equipped

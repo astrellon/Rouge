@@ -139,6 +139,12 @@
     <Filter Include="game\controllers">
       <UniqueIdentifier>{95bbab78-79d4-4b5a-a65a-1ada6d440da7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\body_part">
+      <UniqueIdentifier>{caf257c1-1e22-4bc6-9452-358e90aa9f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\pathfinding">
+      <UniqueIdentifier>{e91dab06-ef9b-4c5c-9cd4-3171b4a84952}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -411,9 +417,6 @@
     </ClCompile>
     <ClCompile Include="gfx\gfx_font.cpp">
       <Filter>gfx\base\text</Filter>
-    </ClCompile>
-    <ClCompile Include="game\body_part.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="ui\focus_manager.cpp">
       <Filter>ui\gui</Filter>
@@ -811,17 +814,23 @@
     <ClCompile Include="game\ai_controller.cpp">
       <Filter>game\controllers</Filter>
     </ClCompile>
-    <ClCompile Include="game\astar_node.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\pathfinder.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\body_part_common.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="tests\test_utils.cpp">
       <Filter>tests\util</Filter>
+    </ClCompile>
+    <ClCompile Include="game\body_part.cpp">
+      <Filter>game\body_part</Filter>
+    </ClCompile>
+    <ClCompile Include="game\body_part_common.cpp">
+      <Filter>game\body_part</Filter>
+    </ClCompile>
+    <ClCompile Include="game\astar_node.cpp">
+      <Filter>game\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="game\pathfinder.cpp">
+      <Filter>game\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="game\body_parts.cpp">
+      <Filter>game\body_part</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1092,9 +1101,6 @@
     </ClInclude>
     <ClInclude Include="tests\test_character.h">
       <Filter>tests\game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\body_part.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui_body_part_renderer.h">
       <Filter>ui\rouge</Filter>
@@ -1495,17 +1501,23 @@
     <ClInclude Include="game\ai_controller.h">
       <Filter>game\controllers</Filter>
     </ClInclude>
-    <ClInclude Include="game\astar_node.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\pathfinder.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\body_part_common.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="tests\test_utils.h">
       <Filter>tests\util</Filter>
+    </ClInclude>
+    <ClInclude Include="game\body_part.h">
+      <Filter>game\body_part</Filter>
+    </ClInclude>
+    <ClInclude Include="game\body_part_common.h">
+      <Filter>game\body_part</Filter>
+    </ClInclude>
+    <ClInclude Include="game\astar_node.h">
+      <Filter>game\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="game\pathfinder.h">
+      <Filter>game\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="game\body_parts.h">
+      <Filter>game\body_part</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

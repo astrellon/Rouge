@@ -59,7 +59,8 @@ namespace game {
 		mGender(copy.mGender),
 		mRace(copy.mRace),
 		mPickupReach(copy.mPickupReach),
-		mCoinPurse(new CoinPurse(*copy.mCoinPurse))
+		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
+		mInventory(new Inventory(*copy.mInventory))
 	{
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
@@ -69,10 +70,10 @@ namespace game {
 		mStats = new Stats(*copy.mStats);
 		mStats->setAttachedTo(this);
 
-		mInventory = new Inventory(*copy.mInventory);
-		for (auto iter = copy.mBodyParts.begin(); iter != copy.mBodyParts.end(); ++iter)
+		const BodyParts::PartList &partList = copy.getBodyParts().getAllParts();
+		for (auto iter = partList.begin(); iter != partList.end(); ++iter)
 		{
-			addBodyPart(new BodyPart(*iter->second));
+			addBodyPart(new BodyPart(*iter->get()));
 		}
 	}
 	Character::~Character()
@@ -124,7 +125,7 @@ namespace game {
 				mActions.erase(mActions.begin());
 			}
 		}
-		if (!mDestinationPath.empty() && mDestinationPos >= 0 && mDestinationPos < mDestinationPath.size())
+		if (!mDestinationPath.empty() && mDestinationPos >= 0 && mDestinationPos < static_cast<int>(mDestinationPath.size()))
 		{
 			float timeTaken = 0.0f;
 			Vector2f pos(mLocationX, mLocationY);
@@ -137,7 +138,7 @@ namespace game {
 				{
 					setLocation(dest.x, dest.y);
 					mDestinationPos++;
-					if (mDestinationPos >= mDestinationPath.size())
+					if (mDestinationPos >= static_cast<int>(mDestinationPath.size()))
 					{
 						mDestinationPath.clear();
 						mDestinationPos = 0;
@@ -179,7 +180,7 @@ namespace game {
 	}
 	float Character::getDestinationLength() const
 	{
-		if (mDestinationPath.empty() || mDestinationPos >= mDestinationPath.size())
+		if (mDestinationPath.empty() || mDestinationPos >= static_cast<int>(mDestinationPath.size()))
 		{
 			return 0.0f;
 		}
@@ -222,7 +223,8 @@ namespace game {
 	
 	void Character::setPickupReach(float reach)
 	{
-		if (reach < 0.0f) {
+		if (reach < 0.0f) 
+		{
 			reach = -reach;
 		}
 		mPickupReach = reach;
@@ -256,16 +258,15 @@ namespace game {
 		{
 			return false;
 		}
-		string name = part->getName();
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
-		if (iter == mBodyParts.end())
+		const char *name = part->getName();
+		if (!mBodyParts.hasBodyPart(name))
 		{
-			Item *equipped = part->getEqippedItem();
+			Item *equipped = part->getEquippedItem();
 			if (equipped != NULL)
 			{
-				_equipItem(equipped, name.c_str());
+				_equipItem(equipped, name);
 			}
-			mBodyParts[name] = part;
+			mBodyParts.addBodyPart(part);
 			return true;
 		}
 		stringstream ss;
@@ -287,41 +288,28 @@ namespace game {
 		{
 			return false;
 		}
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(partName);
-		if (iter != mBodyParts.end())
+		Handle<BodyPart> part = mBodyParts.getBodyPart(partName);
+		if (part != NULL)
 		{
-			Item *equipped = iter->second->getEqippedItem();
+			Item *equipped = part->getEquippedItem();
 			if (equipped != NULL)
 			{
 				_unequipItem(equipped, partName);
 			}
-			mBodyParts.erase(iter);
+			mBodyParts.removeBodyPart(partName);
 			return true;
 		}
 		return false;
 	}
 	bool Character::hasBodyPart(BodyPart *part) const
 	{
-		if (part == NULL)
-		{
-			return false;
-		}
-		return hasBodyPart(part->getName());
+		return mBodyParts.hasBodyPart(part);
 	}
 	bool Character::hasBodyPart(const char *partName) const
 	{
-		if (partName == NULL)
-		{
-			return false;
-		}
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(partName);
-		if (iter == mBodyParts.end())
-		{
-			return false;
-		}
-		return true;
+		return mBodyParts.hasBodyPart(partName);
 	}
-	const BodyPart::BodyPartMap &Character::getBodyParts() const
+	const BodyParts &Character::getBodyParts() const
 	{
 		return mBodyParts;
 	}
@@ -332,26 +320,25 @@ namespace game {
 		{
 			return false;
 		}
-		string name = bodyPart;
-		BodyPart::BodyPartMap::iterator iter = mBodyParts.find(name);
-		if (iter == mBodyParts.end())
+		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
+		if (part == NULL)
 		{
 			stringstream ss;
 			ss << "Cannot equip item '" << item->getFullItemName() << "' on to '";
-			ss << getName() << "' because they do not have a '" << name << "'";
+			ss << getName() << "' because they do not have a '" << bodyPart << "'";
 			am_log("CHAR", ss);
 			return false;
 		}
-		Item *alreadyEquipped = iter->second->getEqippedItem();
+		Item *alreadyEquipped = part->getEquippedItem();
 		if (alreadyEquipped == NULL)
 		{
-			iter->second->setEquippedItem(item);
+			part->setEquippedItem(item);
 			_equipItem(item, bodyPart);
 			return true;
 		}
 		stringstream ss;
 		ss << "'" << getName() << "' already has '" << alreadyEquipped->getFullItemName();
-		ss << "' equipped on " << name;
+		ss << "' equipped on " << bodyPart;
 		am_log("CHAR", ss);
 		return false;
 	}
@@ -361,18 +348,17 @@ namespace game {
 		{
 			return false;
 		}
-		string name = bodyPart;
-		BodyPart::BodyPartMap::iterator iter = mBodyParts.find(name);
-		if (iter == mBodyParts.end())
+		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
+		if (part == NULL)
 		{
 			return false;
 		}
-		Item *equipped = iter->second->getEqippedItem();
+		Item *equipped = part->getEquippedItem();
 		if (equipped != NULL)
 		{
 			_unequipItem(equipped, bodyPart);
 		}
-		iter->second->setEquippedItem(NULL);
+		part->setEquippedItem(NULL);
 		return true;
 	}
 	Item *Character::getEquipped(const char *bodyPart) const
@@ -381,13 +367,12 @@ namespace game {
 		{
 			return NULL;
 		}
-		string name = bodyPart;
-		BodyPart::BodyPartMap::const_iterator iter = mBodyParts.find(name);
-		if (iter == mBodyParts.end())
+		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
+		if (part == NULL)
 		{
 			return NULL;
 		}
-		return iter->second->getEqippedItem();
+		return part->getEquippedItem();
 	}
 
 	Inventory *Character::getInventory()
@@ -661,12 +646,7 @@ namespace game {
 		}
 		output->at("gender", Gender::getGenderName(mGender));
 
-		data::Table *bodyParts = new data::Table();
-		for (auto iter = mBodyParts.begin(); iter != mBodyParts.end(); ++iter)
-		{
-			bodyParts->at(iter->first, iter->second->serialise());
-		}
-		output->at("bodyParts", bodyParts);
+		output->at("bodyParts", mBodyParts.serialise());
 
 		output->at("stats", mStats->serialise());
 		if (mInventory)
@@ -755,15 +735,13 @@ namespace game {
 		Handle<data::Table> bodyParts(dataMap->at<data::Table>("bodyParts"));
 		if (bodyParts)
 		{
-			for (auto iter = bodyParts->beginMap(); iter != bodyParts->endMap(); ++iter)
+			if (mBodyParts.deserialise(state, bodyParts))
 			{
-				BodyPart *part = new BodyPart(iter->first.c_str());
-				if (!part->deserialise(state, iter->second.get()))
+				const BodyParts::PartList &parts = mBodyParts.getAllParts();
+				for (auto iter = parts.begin(); iter != parts.end(); ++iter)
 				{
-					delete part;
-					continue;
+					addBodyPart(iter->get());
 				}
-				addBodyPart(part);
 			}
 		}
 

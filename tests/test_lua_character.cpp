@@ -188,13 +188,13 @@ namespace tests {
 			"BodyPart = import(\"BodyPart\")\n"
 			"char = Character.new(\"charBodyPart\")\n"
 			"function addBodyPart(part)\n"
-			"	return char:add_body_part(BodyPart.new(part))\n"
+			"	return char:add_body_part(part)\n"
 			"end\n"
 			"function removeBodyPart(part)\n"
-			"	return char:remove_body_part(BodyPart.new(part))\n"
+			"	return char:remove_body_part(part)\n"
 			"end\n"
 			"function hasBodyPart(part)\n"
-			"	return char:has_body_part(BodyPart.new(part))\n"
+			"	return char:has_body_part(part)\n"
 			"end\n"
 			);
 		
@@ -213,15 +213,24 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addBodyPart"));
+		Handle<BodyPart> part(new BodyPart("arm"));
+		wrapRefObject<BodyPart>(lua, part);
+		lua_acall(lua, 1, 1);
+		assert(lua_toboolean(lua, -1));
+		lua.pop(1);
+
+		assert(!charBodyPart->hasBodyPart(new BodyPart("arm")));
+		assert(charBodyPart->hasBodyPart(part));
+		assert(charBodyPart->hasBodyPart("arm"));
+
+		assert(lua.hasGlobalFunction("hasBodyPart"));
 		lua.push("arm");
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
-		assert(charBodyPart->hasBodyPart(new BodyPart("arm")));
-
 		assert(lua.hasGlobalFunction("hasBodyPart"));
-		lua.push("arm");
+		wrapRefObject<BodyPart>(lua, part);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);

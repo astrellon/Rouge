@@ -23,6 +23,7 @@ using namespace am::ui;
 #include "levelable.h"
 #include "iaction.h"
 #include "astar_node.h"
+#include "body_parts.h"
 
 namespace am {
 namespace game {
@@ -60,7 +61,7 @@ namespace game {
 		virtual bool removeBodyPart(const char *partName);
 		virtual bool hasBodyPart(BodyPart *part) const;
 		virtual bool hasBodyPart(const char *partName) const;
-		virtual const BodyPart::BodyPartMap &getBodyParts() const;
+		virtual const BodyParts &getBodyParts() const;
 
 		virtual bool equipItem(Item *item, const char *bodyPart);
 		virtual bool unequipItem(const char *bodyPart);
@@ -119,7 +120,8 @@ namespace game {
 
 		float mPickupReach;
 
-		BodyPart::BodyPartMap mBodyParts;
+		BodyParts mBodyParts;
+		//BodyPart::BodyParts mBodyParts;
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.

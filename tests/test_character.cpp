@@ -190,8 +190,8 @@ namespace tests {
 		am_equalsStr("of Death", copySword->getPostfix());
 		am_equalsStr("Wooden Sword of Death", copySword->getFullItemName());
 		assert(ItemCommon::SWORD == copySword->getItemType());
-		assert(2, copySword->getInventorySizeX());
-		assert(3, copySword->getInventorySizeY());
+		am_equals(2, copySword->getInventorySizeX());
+		am_equals(3, copySword->getInventorySizeY());
 
 		assert(copySword->getGraphic() != sword->getGraphic());
 		assert(copySword->getGraphic()->getAsset() == sword->getGraphic()->getAsset());
@@ -221,11 +221,11 @@ namespace tests {
 		am_equalsDelta(4.0f, testChar->getStats()->getBaseStat(Stat::MIN_DAMAGE), 0.0001f);
 		am_equalsDelta(7.0f, testChar->getStats()->getBaseStat(Stat::ARMOUR), 0.0001f);
 
-		const BodyPart::BodyPartMap &parts = copyChar->getBodyParts();
-		assert(parts.find(string("arm")) != parts.end());
-		assert(parts.find(string("torso")) != parts.end());
-		assert(parts.find(string("legs")) != parts.end());
-		Handle<Item> swordEquipCopy(parts.at(string("arm"))->getEqippedItem());
+		const BodyParts &parts = copyChar->getBodyParts();
+		assert(parts.hasBodyPart("arm"));
+		assert(parts.hasBodyPart("torso"));
+		assert(parts.hasBodyPart("legs"));
+		Handle<Item> swordEquipCopy(parts.getBodyPart("arm")->getEquippedItem());
 		assert(swordEquipCopy.get() && swordEquipCopy != swordEquip);
 		am_equalsStr("Wooden Sword of Hit", swordEquipCopy->getFullItemName());
 

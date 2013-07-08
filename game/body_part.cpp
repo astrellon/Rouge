@@ -14,6 +14,14 @@ namespace game {
 	const int BodyPart::LUA_ID = 0x03;
 	const char *BodyPart::LUA_TABLENAME = "am_game_BodyPart";
 
+	// Protected ctor
+	BodyPart::BodyPart() :
+		mType(BodyPartType::UNKNOWN_PART),
+		mMainWeapon(false),
+		mOffWeapon(false)
+	{
+
+	}
 	BodyPart::BodyPart(const char *name, BodyPartType::PartType type, Item *equipped) :
 		mName(name),
 		mType(type),
@@ -94,7 +102,7 @@ namespace game {
 		}
 		return false;
 	}
-	Item *BodyPart::getEqippedItem() const
+	Item *BodyPart::getEquippedItem() const
 	{
 		return mEquippedItem;
 	}
@@ -107,6 +115,7 @@ namespace game {
 			output->at("equippedItem", mEquippedItem->serialise());
 		}
 		output->at("partType", BodyPartType::getBodyPartName(mType));
+		output->at("partName", mName);
 		output->at("mainWeapon", mMainWeapon);
 		output->at("offWeapon", mOffWeapon);
 		return output;
@@ -120,7 +129,17 @@ namespace game {
 			return false;
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("partType"));
+		Handle<data::String> str(dataMap->at<data::String>("partName"));
+		if (str)
+		{
+			mName = str->string();
+		}
+		else if (mName.empty())
+		{
+			return false;
+		}
+
+		str = dataMap->at<data::String>("partType");
 		if (str)
 		{
 			setType(BodyPartType::getBodyPartType(str->string()));
@@ -147,6 +166,16 @@ namespace game {
 			}
 		}
 		return true;
+	}
+	BodyPart *BodyPart::fromDeserialise(LoadingState *state, data::IData *data)
+	{
+		BodyPart *part = new BodyPart();
+		if (!part->deserialise(state, data))
+		{
+			delete part;
+			part = NULL;
+		}
+		return part;
 	}
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <base/handle.h>
+#include <base/imanaged.h>
 using namespace am::base;
 
 #include <string>
@@ -22,10 +23,8 @@ namespace game {
 
 	class LoadingState;
 
-	class BodyPart {
+	class BodyPart : public IManaged {
 	public:
-		typedef map<string, BodyPart *> BodyPartMap;
-
 		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = NULL);
 		BodyPart(const BodyPart &copy);
 		~BodyPart();
@@ -42,15 +41,19 @@ namespace game {
 		bool isOffWeapon() const;
 
 		virtual bool setEquippedItem(Item *item, bool forceEquip = true);
-		virtual Item *getEqippedItem() const;
+		virtual Item *getEquippedItem() const;
 
 		virtual data::IData *serialise();
 		virtual bool deserialise(LoadingState *state, data::IData *data);
+
+		static BodyPart *fromDeserialise(LoadingState *state, data::IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
+
+		BodyPart();
 
 		string mName;
 		Handle<Item> mEquippedItem;
