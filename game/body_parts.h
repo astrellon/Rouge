@@ -42,6 +42,11 @@ namespace game {
 		bool hasBodyPart(const BodyPart *part) const;
 		const PartList &getAllParts() const;
 
+		BodyPart *getNextAttackPart();
+		int getNumMainWeaponParts() const;
+		int getNumOffWeaponParts() const;
+		int getNumTotalWeaponParts() const;
+
 		data::IData *serialise();
 		int deserialise(LoadingState *state, data::IData *data);
 
@@ -50,8 +55,8 @@ namespace game {
 
 	protected:
 
-		//PartMap mPartMap;
 		PartList mPartList;
+		int mAttackIndex;
 
 	};
 

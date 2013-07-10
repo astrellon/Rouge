@@ -12,6 +12,7 @@ return {
 		player:name("Melanine")
 			:graphic(Sprite.new("characters/mainChar/front"))
 			:gender("female")
+			:grid_location(2, 4)
 		
 		game:add_game_object_to_map(player)
 		game:main(player)

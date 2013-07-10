@@ -70,6 +70,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	
 	gameSystem->startLoop();
 
+	// The main game loop has finished, shut down phase.
 	gameSystem->deinit();
 
 	// Remove things which have event listeners before the

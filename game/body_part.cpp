@@ -20,7 +20,6 @@ namespace game {
 		mMainWeapon(false),
 		mOffWeapon(false)
 	{
-
 	}
 	BodyPart::BodyPart(const char *name, BodyPartType::PartType type, Item *equipped) :
 		mName(name),
@@ -29,11 +28,12 @@ namespace game {
 		mMainWeapon(false),
 		mOffWeapon(false)
 	{
-
 	}
 	BodyPart::BodyPart(const BodyPart &copy) :
 		mName(copy.mName),
-		mType(copy.mType)
+		mType(copy.mType),
+		mMainWeapon(copy.mMainWeapon),
+		mOffWeapon(copy.mOffWeapon)
 	{
 		if (copy.mEquippedItem)
 		{

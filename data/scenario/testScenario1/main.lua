@@ -9,13 +9,13 @@ return {
 		end
 		
 		player = Character.from_def("races:human", "melli")
-		player:name("Melanine")
+		player:name("Melanie")
 			:graphic(Sprite.new("characters/mainChar/front"))
 			:grid_location(2, 4)
 			:gender("female")
 			:stats():base_stat("speed", 2)
 		local sword = Item.from_def("wooden:sword")
-		sword:add_body_type("arm"):add_body_type("hand")	
+		sword:add_body_type("arm", "arm"):add_body_type("hand", "hand")	
 		player:inventory():add_item(sword)
 		player:inventory():add_item(Item.from_def("wooden:shield"))
 		

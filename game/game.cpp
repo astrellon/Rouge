@@ -197,51 +197,59 @@ namespace game {
 			}
 		}
 
-		if (clickedOn.size() > 0 && e->getMouseButton() == LEFT_BUTTON)
+		if (e->getMouseButton() == RIGHT_BUTTON)
 		{
-			Item *item = dynamic_cast<Item *>(clickedOn[0].get());
-			if (item)
+			if (clickedOn.size() > 0)
 			{
-				// If holding shift, it goes straight into the inventory.
-				if (KeyboardManager::getManager()->isKeyDown(16))
+				Item *item = dynamic_cast<Item *>(clickedOn[0].get());
+				if (item)
 				{
-					mMainCharacter->pickupItem(item);
-				}
-				else
-				{
-					PlayerHand *hand = PlayerHand::getPlayerHand();
-					if (hand && hand->getInhand() == NULL)
+					// If holding shift, it goes straight into the inventory.
+					if (KeyboardManager::getManager()->isKeyDown(16))
 					{
-						hand->setInhand(item);
-						mItemLayer->removeChild(item);
-						item->setItemLocation(Item::HAND);
+						mMainCharacter->pickupItem(item);
 					}
+					else
+					{
+						PlayerHand *hand = PlayerHand::getPlayerHand();
+						if (hand && hand->getInhand() == NULL)
+						{
+							hand->setInhand(item);
+							mItemLayer->removeChild(item);
+							item->setItemLocation(Item::HAND);
+						}
+					}
+					return;
 				}
-				return;
+				GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
+				mMainCharacter->attack(obj, NULL);
+				if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
+				{
+					mMainCharacter->getDialogueComp()->talkTo(obj);
+					return;
+				}
 			}
-			GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-			mMainCharacter->attack(obj, NULL);
-			if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
+			else
 			{
-				mMainCharacter->getDialogueComp()->talkTo(obj);
-				return;
+			
+				GameHud *gameHud = Engine::getEngine()->getGameHud();
+				if (gameHud)
+				{
+					int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
+					int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
+
+					Tile *tile = mCurrentMap->getTile(gridX, gridY);
+					Inspector *inspector = gameHud->getInspector();
+					inspector->setTile(tile);
+
+					inspector->clearGameObjects();
+					inspector->addGameObjects(clickedOn);
+				}
 			}
 		}
-		else
+		else if (e->getMouseButton() == LEFT_BUTTON)
 		{
-			GameHud *gameHud = Engine::getEngine()->getGameHud();
-			if (gameHud)
-			{
-				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
-				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
-
-				Tile *tile = mCurrentMap->getTile(gridX, gridY);
-				Inspector *inspector = gameHud->getInspector();
-				inspector->setTile(tile);
-
-				inspector->clearGameObjects();
-				inspector->addGameObjects(clickedOn);
-			}
+			mMainCharacter->setDestination(localX, localY);
 		}
 	}
 

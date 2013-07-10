@@ -84,8 +84,8 @@ namespace game {
 				}
 			}
 
-			end.x = round(fend.x);
-			end.y = round(fend.y);
+			end.x = static_cast<int>(fend.x);
+			end.y = static_cast<int>(fend.y);
 
 			endGroup = map->mMapData[end.x][end.y].group;
 			if(startGroup != endGroup)

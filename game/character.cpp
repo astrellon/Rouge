@@ -828,12 +828,22 @@ namespace game {
 			Engine *engine = Engine::getEngine();
 			glTranslatef(-mLocationX + engine->getGridSize() * 0.5f, -mLocationY + engine->getGridSize() * 0.5f, 0.0f);
 			glBegin(GL_LINES);
-			glColor3d(1.0, 0.3, 0.2);
+				glColor3d(1.0, 0.3, 0.2);
 				for (size_t i = 0; i < mDestinationPath.size() - 1; i++)
 				{
 					glVertex2f(mDestinationPath[i].x, mDestinationPath[i].y);
 					glVertex2f(mDestinationPath[i + 1].x, mDestinationPath[i + 1].y);
 				}
+			glEnd();
+			glPopMatrix();
+
+			glPushMatrix();
+			glTranslatef(mDestination.x - mLocationX, mDestination.y - mLocationY, 0.0f);
+			glBegin(GL_TRIANGLES);
+				glColor3d(0.3, 1.0, 0.2);
+				glVertex2f(-5.0f, -5.0f);
+				glVertex2f(0.0f, 5.0f);
+				glVertex2f(5.0f, -5.0f);
 			glEnd();
 			glPopMatrix();
 		}

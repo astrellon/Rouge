@@ -248,9 +248,15 @@ namespace math {
 	template <class T>
 	class Vector2 {
 	public:
-		Vector2() : x(0), y(0) {
+		Vector2() : x(0), y(0) 
+		{
 		}
-		Vector2(T x, T y) :x(x), y(y) {
+		Vector2(T x, T y) :x(x), y(y) 
+		{
+		}
+		template <class F>
+		Vector2(const Vector2<F> &rhs) : x(static_cast<T>(rhs.x)), y(static_cast<T>(rhs.y))
+		{
 		}
 		~Vector2() {}
 	

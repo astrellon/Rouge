@@ -17,11 +17,13 @@ namespace game {
 	const int BodyParts::LUA_ID = 0x31;
 	const char *BodyParts::LUA_TABLENAME = "am_game_BodyParts";
 
-	BodyParts::BodyParts()
+	BodyParts::BodyParts() :
+		mAttackIndex(-1)
 	{
 
 	}
 	BodyParts::BodyParts(const BodyParts &copy) :
+		mAttackIndex(copy.mAttackIndex),
 		mPartList(copy.mPartList)
 	{
 
@@ -38,6 +40,10 @@ namespace game {
 			return false;
 		}
 		mPartList.push_back(part);
+		if (mAttackIndex < 0 && (part->isMainWeapon() || part->isOffWeapon()))
+		{
+			mAttackIndex = static_cast<int>(mPartList.size()) - 1;
+		}
 		return true;
 	}
 	bool BodyParts::removeBodyPart(const char *partName)
@@ -46,11 +52,15 @@ namespace game {
 		{
 			return false;
 		}
-		for (auto iter = mPartList.begin(); iter != mPartList.end(); ++iter)
+		for (size_t i = 0; i < mPartList.size(); i++)
 		{
-			if (strcmp(iter->get()->getName(), partName) == 0)
+			if (strcmp(mPartList[i]->getName(), partName) == 0)
 			{
-				mPartList.erase(iter);
+				mPartList.erase(mPartList.begin() + i);
+				if (i == mAttackIndex)
+				{
+					mAttackIndex--;
+				}
 				return true;
 			}
 		}
@@ -62,11 +72,15 @@ namespace game {
 		{
 			return false;
 		}
-		for (auto iter = mPartList.begin(); iter != mPartList.end(); ++iter)
+		for (size_t i = 0; i < mPartList.size(); i++)
 		{
-			if (iter->get() == part)
+			if (mPartList[i].get() == part)
 			{
-				mPartList.erase(iter);
+				mPartList.erase(mPartList.begin() + i);
+				if (i == mAttackIndex)
+				{
+					mAttackIndex--;
+				}
 				return true;
 			}
 		}
@@ -133,13 +147,78 @@ namespace game {
 		return mPartList;
 	}
 
+	BodyPart *BodyParts::getNextAttackPart()
+	{
+		int startIndex = mAttackIndex;
+		mAttackIndex++;
+		BodyPart *result = NULL;
+		while (mAttackIndex != startIndex)
+		{
+			BodyPart *part = mPartList[mAttackIndex];
+			if (part->isMainWeapon() || part->isOffWeapon())
+			{
+				result = part;
+				break;
+			}
+			mAttackIndex++;
+			if (mAttackIndex >= static_cast<int>(mPartList.size()))
+			{
+				mAttackIndex = 0;
+			}
+		}
+		return result;
+	}
+
+	int BodyParts::getNumMainWeaponParts() const
+	{
+		int total = 0;
+		for (size_t i = 0; i < mPartList.size(); i++)
+		{
+			if (mPartList[i]->isMainWeapon())
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+	int BodyParts::getNumOffWeaponParts() const
+	{
+		int total = 0;
+		for (size_t i = 0; i < mPartList.size(); i++)
+		{
+			if (mPartList[i]->isOffWeapon())
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+	int BodyParts::getNumTotalWeaponParts() const
+	{
+		int total = 0;
+		for (size_t i = 0; i < mPartList.size(); i++)
+		{
+			if (mPartList[i]->isMainWeapon() || mPartList[i]->isOffWeapon())
+			{
+				total++;
+			}
+		}
+		return total;
+	}
+
 	data::IData *BodyParts::serialise()
 	{
 		data::Table *output = new data::Table();
+
+		data::Table *partList = new data::Table();
 		for (auto iter = mPartList.begin(); iter != mPartList.end(); ++iter)
 		{
-			output->push(iter->get()->serialise());
+			partList->push(iter->get()->serialise());
 		}
+		output->at("partList", partList);
+
+		output->at("attackIndex", mAttackIndex);
+
 		return output;
 	}
 
@@ -160,6 +239,14 @@ namespace game {
 			}
 			mPartList.push_back(part);
 		}
+
+		Handle<data::Number> num(dataMap->at<data::Number>("attackIndex"));
+		if (num)
+		{
+			mAttackIndex = num->integer();
+		}
+		return 1;
 	}
+
 }
 }

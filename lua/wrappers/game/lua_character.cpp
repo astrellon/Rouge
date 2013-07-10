@@ -416,7 +416,7 @@ namespace game {
 				{
 					type = BodyPartType::getBodyPartType(lua_tostring(lua, 3));
 				}
-				lua_pushboolean(lua, obj->addBodyPart(new BodyPart(lua_tostring(lua, 2))));
+				lua_pushboolean(lua, obj->addBodyPart(new BodyPart(lua_tostring(lua, 2), type)));
 				return 1;
 			}
 			BodyPart *part = castUData<BodyPart>(lua, 2);
