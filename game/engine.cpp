@@ -99,7 +99,7 @@ namespace game {
 	}
 	Vector2i Engine::worldToGrid(const Vector2f &world) const
 	{
-		return Vector2i(round(world.x * mGridSizeResp), round(world.y * mGridSizeResp));
+		return Vector2i(floor(world.x * mGridSizeResp), floor(world.y * mGridSizeResp));
 	}
 
 	void Engine::setCurrentGame(Game *game)

@@ -589,16 +589,17 @@ namespace game {
 		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
 			gridDest, mDestinationPath, this);
 
-		if (!mDestinationPath.empty())
+		// Not as useful as first thought, might be useful for characters that aren't fixed to the grid.
+		/*if (!mDestinationPath.empty())
 		{
 			Vector2i endGrid = Engine::getEngine()->worldToGrid(mDestinationPath.back());
 			Vector2i diff = endGrid.sub(gridDest);
-			if (diff.x != 0 || diff.y != 0)
+			if (diff.x == 0 || diff.y == 0 && mMap->isValidLocation(mDestination.x, mDestination.y, this))
 			{
 				// Move to the little bit at the end.
 				mDestinationPath.back() = mDestination;
 			}
-		}
+		}*/
 	}
 	void Character::setGridDestination(int x, int y)
 	{

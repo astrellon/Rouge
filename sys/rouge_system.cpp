@@ -380,7 +380,7 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
-		if (mEngine->newGame("testAStar"))
+		if (mEngine->newGame("testScenario1"))
 		{
 			Game *game = Engine::getGame();
 			if (game)
