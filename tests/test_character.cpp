@@ -66,7 +66,7 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		BodyPart *part = new BodyPart("arm", BodyPartType::ARM);
+		Handle<BodyPart> part(new BodyPart("arm", BodyPartType::ARM));
 		assert(testChar->addBodyPart(part));
 
 		Handle<Item> sword(new Item());
@@ -81,6 +81,23 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
+		Handle<BodyPart> leftHand(new BodyPart("left_hand", BodyPartType::HAND));
+		leftHand->setWeaponPart(true);
+		Handle<BodyPart> rightHand(new BodyPart("right_hand", BodyPartType::HAND));
+		rightHand->setWeaponPart(true);
+		testChar->addBodyPart(leftHand);
+		testChar->addBodyPart(rightHand);
+
+		Handle<Item> twoHandSword(new Item());
+		twoHandSword->setBodyPartsRequired(2);
+		twoHandSword->addBodyPartType(BodyPartType::HAND);
+
+		// Not enough body parts
+		am_equals(-4, testChar->canEquipItem(twoHandSword, leftHand));
+		rightHand->setCanHoldOnto(leftHand);
+		am_equals(1, testChar->canEquipItem(twoHandSword, leftHand));
+		//rightHand->setCanHoldOnto(leftHand);
+		
 		return true;
 	}
 

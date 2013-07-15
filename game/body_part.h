@@ -34,13 +34,23 @@ namespace game {
 		void setType(BodyPartType::PartType type);
 		BodyPartType::PartType getType() const;
 
-		void setMainWeapon(bool mainWeapon);
-		bool isMainWeapon() const;
+		void setWeaponPart(bool asWeapon);
+		bool isWeaponPart() const;
 
-		void setOffWeapon(bool offWeapon);
-		bool isOffWeapon() const;
+		//void setOffWeapon(bool offWeapon);
+		//bool isOffWeapon() const;
+
+		//void setCanHoldOntoName(const char *partName);
+		//const char *getCanHoldOntoName() const;
+
+		void setCanHoldOnto(BodyPart *part);
+		BodyPart *getCanHoldOnto() const;
+
+		void setIsHoldingOnto(bool setHolding);
+		bool isHoldingOnto() const;
 
 		virtual bool setEquippedItem(Item *item, bool forceEquip = true);
+		virtual bool canEquipItem(Item *item) const;
 		virtual Item *getEquippedItem() const;
 
 		virtual data::IData *serialise();
@@ -56,10 +66,12 @@ namespace game {
 		BodyPart();
 
 		string mName;
+		Handle<BodyPart> mCanHoldOnto;
 		Handle<Item> mEquippedItem;
 		BodyPartType::PartType mType;
-		bool mMainWeapon;
-		bool mOffWeapon;
+		bool mIsHoldingOnto;
+		bool mWeaponPart;
+		//bool mOffWeapon;
 
 	};
 

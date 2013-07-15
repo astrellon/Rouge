@@ -95,6 +95,9 @@ namespace game {
 		virtual bool hasBodyPartType(BodyPartType::PartType type);
 		virtual const BodyPartType::TypeList &getBodyPartTypeList() const;
 
+		virtual void setBodyPartsRequired(unsigned int num);
+		virtual unsigned int getBodyPartsRequired() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -119,6 +122,7 @@ namespace game {
 		int mQuestItemId;
 
 		unsigned int mItemValue;
+		unsigned int mBodyPartsRequired;
 
 		StatModifiers mStatModifiers;
 		BodyPartType::TypeList mEquipableTo;

@@ -210,6 +210,8 @@ namespace game {
 		{
 			return;
 		}
+
+
 	}
 
 	void Character::setController(IController *controller)
@@ -314,32 +316,51 @@ namespace game {
 		return mBodyParts;
 	}
 	
-	bool Character::equipItem(Item *item, const char *bodyPart)
+	bool Character::equipItem(Item *item, const char *partName)
 	{
-		if (item == NULL || bodyPart == NULL || bodyPart[0] == '\0')
+		if (!item || !partName || partName[0] == '\0')
 		{
 			return false;
 		}
-		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
+		BodyPart *part = mBodyParts.getBodyPart(partName);
 		if (part == NULL)
 		{
 			stringstream ss;
 			ss << "Cannot equip item '" << item->getFullItemName() << "' on to '";
-			ss << getName() << "' because they do not have a '" << bodyPart << "'";
+			ss << getName() << "' because they do not have a '" << partName << "'";
 			am_log("CHAR", ss);
 			return false;
 		}
-		Item *alreadyEquipped = part->getEquippedItem();
-		if (alreadyEquipped == NULL)
+		return equipItem(item, part);
+	}
+	bool Character::equipItem(Item *item, BodyPart *part)
+	{
+		if (!item || !part)
+		{
+			return false;
+		}
+
+		//Item *alreadyEquipped = part->getEquippedItem();
+		int canResult = canEquipItem(item, part);
+		if (canResult)
 		{
 			part->setEquippedItem(item);
-			_equipItem(item, bodyPart);
+			_equipItem(item, part->getName());
+			if (item->getBodyPartsRequired() > 1)
+			{
+				BodyParts::PartList linked;
+				mBodyParts.getLinkedParts(part, linked);
+				for (size_t i = 0; i < linked.size(); i++)
+				{
+					linked[i]->setIsHoldingOnto(true);
+				}
+			}
 			return true;
 		}
-		stringstream ss;
+		/*stringstream ss;
 		ss << "'" << getName() << "' already has '" << alreadyEquipped->getFullItemName();
-		ss << "' equipped on " << bodyPart;
-		am_log("CHAR", ss);
+		ss << "' equipped on " << part->getName();
+		am_log("CHAR", ss);*/
 		return false;
 	}
 	bool Character::unequipItem(const char *bodyPart)
@@ -360,6 +381,99 @@ namespace game {
 		}
 		part->setEquippedItem(NULL);
 		return true;
+	}
+	int Character::canEquipItem(Item *item, const char *partName) const
+	{
+		if (!item || !partName || partName[0] == '\0')
+		{
+			return 0;
+		}
+		BodyPart *part = mBodyParts.getBodyPart(partName);
+		if (part == NULL)
+		{
+			stringstream ss;
+			ss << "Cannot check for can equip item '" << item->getFullItemName() << "' on to '";
+			ss << getName() << "' because they do not have a '" << partName << "'";
+			am_log("CHAR", ss);
+			return -1;
+		}
+		return canEquipItem(item, part);
+	}
+	int Character::canEquipItem(Item *item, BodyPart *part) const
+	{
+		// Can't deal with null for checks.
+		if (!item || !part)
+		{
+			return 0;
+		}
+
+		// Is this a body part that's on this character?
+		if (!mBodyParts.hasBodyPart(part))
+		{
+			return -1;
+		}
+
+		// Can the body part be used to equip the given item?
+		if (!part->canEquipItem(item))
+		{
+			return -2;
+		}
+
+		unsigned int bodyPartsRequired = item->getBodyPartsRequired();
+		int result = 2;
+		// Item requires multiple body parts to be equipped.
+		if (bodyPartsRequired > 1u)
+		{
+			BodyParts::PartList linked;
+			if (!mBodyParts.getLinkedParts(part, linked))
+			{
+				// There's been an error so it's unlikely that we should allow equipping at this point.
+				return -3;
+			}
+
+			unsigned int bodyPartsAvailable = linked.size();
+			// There are not enough body parts that can be used to equip the item.
+			if (bodyPartsAvailable < bodyPartsRequired - 1)
+			{
+				return -4;
+			}
+			// Loop through body parts that can be used to equip an
+			// item for the main given body part.
+			
+			for (size_t i = 0; i < linked.size(); i++)
+			{
+				// This linked body part cannot equip the item
+				if (!linked[i]->canEquipItem(item))
+				{
+					// If this means that there's not enough available
+					// linked body parts in total then the item cannot be equipped.
+					if (bodyPartsAvailable < bodyPartsRequired - 1)
+					{
+						return -2;
+					}
+					// Seems that we still have enough body parts and perhaps
+					// they can be used to equip the item.
+					else
+					{
+						bodyPartsAvailable--;
+					}
+				}
+				// The linked part is able to equip the item, but it is currently
+				// has another item equipped or is holding another item.
+				if (linked[i]->getEquippedItem() || linked[i]->isHoldingOnto())
+				{
+					result = 1;
+				}
+			}
+		}
+		// Only one part is required and we already know at this point that the main
+		// part is capable of equipping the item. So check if it's already in use
+		else if (part->getEquippedItem() || part->isHoldingOnto())
+		{
+			result = 1;
+		}
+
+		return result;
 	}
 	Item *Character::getEquipped(const char *bodyPart) const
 	{
@@ -688,6 +802,7 @@ namespace game {
 			return -1;
 		}
 
+		state->pushCurrentCharacter(this);
 		Handle<data::Number> num(dataMap->at<data::Number>("pickupReach"));
 		if (num)
 		{
@@ -778,6 +893,7 @@ namespace game {
 			mCoinPurse->deserialise(state, tempData);
 		}
 
+		state->popCurrentCharacter();
 		return 1;
 	}
 

@@ -63,8 +63,44 @@ namespace game {
 		virtual bool hasBodyPart(const char *partName) const;
 		virtual const BodyParts &getBodyParts() const;
 
-		virtual bool equipItem(Item *item, const char *bodyPart);
+		virtual bool equipItem(Item *item, const char *partName);
+		virtual bool equipItem(Item *item, BodyPart *part);
 		virtual bool unequipItem(const char *bodyPart);
+		/**
+		 * Returns if the item can be equipped onto the given body part.
+		 * The difference between 'can' and 'able is 'can' indicates that the item
+		 * can be equipped but currently a body part is in use and so currently
+		 * cannot have another item equipped. Able indicates that it can be equipped
+		 * and the character is also able to do so at this time.
+		 *
+		 * Return codes:
+		 *  2: Able to be equipped
+		 *  1: Can be equipped
+		 *  0: The item is NULL or the partName is NULL or the partName is an empty string.
+		 * -1: No part with the given partName was found.
+		 * -2: The item cannot be equipped due to body part type mismatches.
+		 * -3: There was an error getting the list of linked body parts.
+		 * -4: For items that require multiple body parts to equip, there were not enough parts (available or not).
+		 */
+		virtual int canEquipItem(Item *item, const char *partName) const;
+
+		/**
+		 * Returns if the item can be equipped onto the given body part.
+		 * The difference between 'can' and 'able is 'can' indicates that the item
+		 * can be equipped but currently a body part is in use and so currently
+		 * cannot have another item equipped. Able indicates that it can be equipped
+		 * and the character is also able to do so at this time.
+		 *
+		 * Return codes:
+		 *  2: Able to be equipped
+		 *  1: Can be equipped
+		 *  0: The item is NULL or the partName is NULL or the partName is an empty string.
+		 * -1: The given part was not found on the list of character body parts.
+		 * -2: The item cannot be equipped due to body part type mismatches.
+		 * -3: There was an error getting the list of linked body parts.
+		 * -4: For items that require multiple body parts to equip, there were not enough parts (available or not).
+		 */
+		virtual int canEquipItem(Item *item, BodyPart *part) const;
 		virtual Item *getEquipped(const char *bodyPart) const;
 		
 		virtual Inventory *getInventory();
@@ -141,6 +177,8 @@ namespace game {
 		NodePath mDestinationPath;
 		Vector2f mDestination;
 		int mDestinationPos;
+
+		bool mUnarmed;
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();

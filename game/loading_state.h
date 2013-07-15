@@ -11,6 +11,8 @@ using namespace std;
 
 #include "game_object.h"
 #include "dialogue_component.h"
+#include "item.h"
+#include "body_part.h"
 
 namespace am {
 namespace game {
@@ -39,10 +41,22 @@ namespace game {
 			_GameObjectInfo(GameObject *gameObj);
 		} GameObjectInfo;
 
-		typedef map<string, bool> MapsToLoad;
-		typedef map<string, GameObjectInfo> GameObjectInfoMap;
-		typedef map<string, vector<Handle<GameObject> > > GameObjectsToMap;
-		typedef map<string, vector<Handle<DialogueComponent> > > StartDialogueMap;
+		typedef struct _BodyPartInfo {
+			Handle<Character> character;
+			Handle<BodyPart> bodyPart;
+			Handle<Item> item;
+			string canHoldOnto;
+
+			_BodyPartInfo();
+			_BodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto);
+		} BodyPartInfo;
+
+		typedef map< string, bool > MapsToLoad;
+		typedef map< string, GameObjectInfo > GameObjectInfoMap;
+		typedef map< string, vector< Handle< GameObject> > > GameObjectsToMap;
+		typedef map< string, vector< Handle< DialogueComponent> > > StartDialogueMap;
+		typedef vector< BodyPartInfo > BodyPartInfoList;
+		typedef vector< Handle<Character > > CharacterStack;
 
 		LoadingState();
 		~LoadingState();
@@ -75,6 +89,12 @@ namespace game {
 		void setStartDialogue(const char *startDialogue, DialogueComponent *comp);
 		const StartDialogueMap &getStartDialogueMap() const;
 
+		void pushCurrentCharacter(Character *character);
+		void popCurrentCharacter();
+		Character *getCurrentCharacter() const;
+
+		void addBodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto);
+
 		void postLoad(Game *game);
 
 	protected:
@@ -83,6 +103,8 @@ namespace game {
 		GameObjectInfoMap mGameObjectInfoMap;
 		GameObjectsToMap mGameObjectsToMap;
 		StartDialogueMap mStartDialogueMap;
+		BodyPartInfoList mBodyPartInfoList;
+		CharacterStack mCharacterStack;
 
 		string mCurrentMap;
 		string mMainCharacter;

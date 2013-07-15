@@ -40,7 +40,7 @@ namespace game {
 			return false;
 		}
 		mPartList.push_back(part);
-		if (mAttackIndex < 0 && (part->isMainWeapon() || part->isOffWeapon()))
+		if (mAttackIndex < 0 && (part->isWeaponPart()))
 		{
 			mAttackIndex = static_cast<int>(mPartList.size()) - 1;
 		}
@@ -155,7 +155,7 @@ namespace game {
 		while (mAttackIndex != startIndex)
 		{
 			BodyPart *part = mPartList[mAttackIndex];
-			if (part->isMainWeapon() || part->isOffWeapon())
+			if (part->isWeaponPart())
 			{
 				result = part;
 				break;
@@ -169,7 +169,37 @@ namespace game {
 		return result;
 	}
 
-	int BodyParts::getNumMainWeaponParts() const
+	bool BodyParts::getLinkedParts(const char *linkedToName, PartList &result) const
+	{
+		if (!linkedToName || linkedToName[0] == '\0')
+		{
+			return false;
+		}
+		return getLinkedParts(getBodyPart(linkedToName), result);
+	}
+	bool BodyParts::getLinkedParts(BodyPart *linkedTo, PartList &result) const
+	{
+		if (!linkedTo)
+		{
+			return false;
+		}
+
+		for (size_t i = 0; i < mPartList.size(); i++)
+		{
+			BodyPart *part = mPartList[i];
+			if (part == linkedTo)
+			{
+				continue;
+			}
+			if (part->getCanHoldOnto() == linkedTo)
+			{
+				result.push_back(part);
+			}
+		}
+		return true;
+	}
+
+	/*int BodyParts::getNumMainWeaponParts() const
 	{
 		int total = 0;
 		for (size_t i = 0; i < mPartList.size(); i++)
@@ -192,13 +222,13 @@ namespace game {
 			}
 		}
 		return total;
-	}
-	int BodyParts::getNumTotalWeaponParts() const
+	}*/
+	int BodyParts::getNumWeaponParts() const
 	{
 		int total = 0;
 		for (size_t i = 0; i < mPartList.size(); i++)
 		{
-			if (mPartList[i]->isMainWeapon() || mPartList[i]->isOffWeapon())
+			if (mPartList[i]->isWeaponPart())
 			{
 				total++;
 			}

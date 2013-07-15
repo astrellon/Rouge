@@ -36,7 +36,8 @@ namespace game {
 		mItemValue(1),
 		mPrefix(-1),
 		mPostfix(-1),
-		mQuestItemId(-1)
+		mQuestItemId(-1),
+		mBodyPartsRequired(1)
 	{
 		setName("Item");
 		addPassibleType(Engine::getEngine()->getTileType("land"));
@@ -51,7 +52,8 @@ namespace game {
 		mPrefix(copy.mPrefix),
 		mPostfix(copy.mPostfix),
 		mQuestItemId(copy.mQuestItemId),
-		mStatModifiers(copy.mStatModifiers)
+		mStatModifiers(copy.mStatModifiers),
+		mBodyPartsRequired(copy.mBodyPartsRequired)
 	{
 		if (copy.mGraphic)
 		{
@@ -509,6 +511,15 @@ namespace game {
 		return mEquipableTo;
 	}
 
+	void Item::setBodyPartsRequired(unsigned int num)
+	{
+		mBodyPartsRequired = num;
+	}
+	unsigned int Item::getBodyPartsRequired() const
+	{
+		return mBodyPartsRequired;
+	}
+
 	void Item::getPrePostfix(short &prefix, short &postfix) const
 	{
 		if (prefix < 0) {
@@ -556,6 +567,8 @@ namespace game {
 		output->at("statModifiers", mStatModifiers.serialise());
 		
 		output->at("equipableTo", BodyPartType::serialiseTypeList(mEquipableTo));
+
+		output->at("bodyPartsRequired", mBodyPartsRequired);
 
 		return output;
 	}
@@ -630,6 +643,12 @@ namespace game {
 		if (tempData)
 		{
 			BodyPartType::deserialiseTypeList(tempData, mEquipableTo);
+		}
+
+		num = dataMap->at<data::Number>("bodyPartsRequired");
+		if (num)
+		{
+			setBodyPartsRequired(num->value<unsigned int>());
 		}
 		return 1;
 	}

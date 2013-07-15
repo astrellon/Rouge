@@ -26,7 +26,6 @@ namespace game {
 
 	class BodyParts {
 	public:
-		//typedef map<string, Handle<BodyPart> > PartMap;
 		typedef vector< Handle<BodyPart> > PartList;
 
 		BodyParts();
@@ -43,9 +42,12 @@ namespace game {
 		const PartList &getAllParts() const;
 
 		BodyPart *getNextAttackPart();
-		int getNumMainWeaponParts() const;
-		int getNumOffWeaponParts() const;
-		int getNumTotalWeaponParts() const;
+		//int getNumMainWeaponParts() const;
+		//int getNumOffWeaponParts() const;
+		int getNumWeaponParts() const;
+		
+		bool getLinkedParts(const char *linkedToName, PartList &result) const;
+		bool getLinkedParts(BodyPart *linkedTo, PartList &result) const;
 
 		data::IData *serialise();
 		int deserialise(LoadingState *state, data::IData *data);

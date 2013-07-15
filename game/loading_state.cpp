@@ -20,6 +20,20 @@ namespace game {
 	{
 	}
 
+	LoadingState::_BodyPartInfo::_BodyPartInfo()
+	{
+	}
+	LoadingState::_BodyPartInfo::_BodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto) :
+		character(character),
+		bodyPart(part),
+		item(item)
+	{
+		if (canHoldOnto)
+		{
+			this->canHoldOnto = canHoldOnto;
+		}
+	}
+
 	LoadingState::LoadingState()
 	{
 
@@ -137,6 +151,38 @@ namespace game {
 		return mStartDialogueMap;
 	}
 
+	void LoadingState::pushCurrentCharacter(Character *character)
+	{
+		if (character)
+		{
+			mCharacterStack.push_back(character);	
+		}
+	}
+	void LoadingState::popCurrentCharacter()
+	{
+		if (!mCharacterStack.empty())
+		{
+			mCharacterStack.pop_back();
+		}
+	}
+	Character *LoadingState::getCurrentCharacter() const
+	{
+		if (mCharacterStack.empty())
+		{
+			return NULL;
+		}
+		return  mCharacterStack.back();
+	}
+
+	void LoadingState::addBodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto)
+	{
+		if (!character || !part || (item == NULL && (canHoldOnto == NULL || canHoldOnto[0] == '\0')))
+		{
+			return;
+		}
+		mBodyPartInfoList.push_back(BodyPartInfo(character, part, item, canHoldOnto));
+	}
+
 	void LoadingState::postLoad(Game *game)
 	{
 		for (auto iter = mGameObjectInfoMap.begin(); iter != mGameObjectInfoMap.end(); ++iter)
@@ -200,6 +246,22 @@ namespace game {
 			if (obj && iter->second.hasDestination)
 			{
 				obj->recalcDestination();
+			}
+		}
+
+		for (auto iter = mBodyPartInfoList.begin(); iter != mBodyPartInfoList.end(); ++iter)
+		{
+			if (!iter->canHoldOnto.empty())
+			{
+				// Reconnect the name of the body part with the body part itself.
+				iter->bodyPart->setCanHoldOnto(iter->character->getBodyParts().getBodyPart(iter->canHoldOnto.c_str()));
+			}
+			if (iter->item)
+			{
+				// Attempt to equip the item onto the body part.
+				// This is done here instead of earlier on for
+				// items that require multiple body parts to be equipped. (eg 2-handed weapons).
+				iter->character->equipItem(iter->item, iter->bodyPart);
 			}
 		}
 	}

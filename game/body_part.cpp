@@ -17,23 +17,26 @@ namespace game {
 	// Protected ctor
 	BodyPart::BodyPart() :
 		mType(BodyPartType::UNKNOWN_PART),
-		mMainWeapon(false),
-		mOffWeapon(false)
+		mWeaponPart(false),
+		//mOffWeapon(false),
+		mIsHoldingOnto(false)
 	{
 	}
 	BodyPart::BodyPart(const char *name, BodyPartType::PartType type, Item *equipped) :
 		mName(name),
 		mType(type),
 		mEquippedItem(equipped),
-		mMainWeapon(false),
-		mOffWeapon(false)
+		mWeaponPart(false),
+		//mOffWeapon(false),
+		mIsHoldingOnto(false)
 	{
 	}
 	BodyPart::BodyPart(const BodyPart &copy) :
 		mName(copy.mName),
 		mType(copy.mType),
-		mMainWeapon(copy.mMainWeapon),
-		mOffWeapon(copy.mOffWeapon)
+		mWeaponPart(copy.mWeaponPart),
+		//mOffWeapon(copy.mOffWeapon),
+		mIsHoldingOnto(false)
 	{
 		if (copy.mEquippedItem)
 		{
@@ -63,22 +66,40 @@ namespace game {
 		return mType;
 	}
 
-	void BodyPart::setMainWeapon(bool mainWeapon)
+	void BodyPart::setWeaponPart(bool weaponPart)
 	{
-		mMainWeapon = mainWeapon;
+		mWeaponPart = weaponPart;
 	}
-	bool BodyPart::isMainWeapon() const
+	bool BodyPart::isWeaponPart() const
 	{
-		return mMainWeapon;
+		return mWeaponPart;
 	}
 
-	void BodyPart::setOffWeapon(bool offWeapon)
+	/*void BodyPart::setOffWeapon(bool offWeapon)
 	{
 		mOffWeapon = offWeapon;
 	}
 	bool BodyPart::isOffWeapon() const
 	{
 		return mOffWeapon;
+	}*/
+
+	void BodyPart::setCanHoldOnto(BodyPart *part)
+	{
+		mCanHoldOnto = part;
+	}
+	BodyPart *BodyPart::getCanHoldOnto() const
+	{
+		return mCanHoldOnto;
+	}
+
+	void BodyPart::setIsHoldingOnto(bool setHolding)
+	{
+		mIsHoldingOnto = setHolding;
+	}
+	bool BodyPart::isHoldingOnto() const
+	{
+		return mIsHoldingOnto;
 	}
 
 	bool BodyPart::setEquippedItem(Item *item, bool forceEquip)
@@ -91,12 +112,19 @@ namespace game {
 			return true;
 		}
 		// Otherwise we want to make sure that the types match.
+		if (canEquipItem(item))
+		{
+			mEquippedItem = item;
+		}
+		return false;
+	}
+	bool BodyPart::canEquipItem(Item *item) const
+	{
 		const BodyPartType::TypeList &typeList = item->getBodyPartTypeList();
 		for (size_t i = 0; i < typeList.size(); i++)
 		{
 			if (typeList[i] == mType)
 			{
-				mEquippedItem = item;
 				return true;
 			}
 		}
@@ -116,8 +144,12 @@ namespace game {
 		}
 		output->at("partType", BodyPartType::getBodyPartName(mType));
 		output->at("partName", mName);
-		output->at("mainWeapon", mMainWeapon);
-		output->at("offWeapon", mOffWeapon);
+		output->at("isWeaponPart", mWeaponPart);
+		//output->at("offWeapon", mOffWeapon);
+		if (mCanHoldOnto)
+		{
+			output->at("canHoldOnto", mCanHoldOnto->getName());
+		}
 		return output;
 	}
 
@@ -145,26 +177,37 @@ namespace game {
 			setType(BodyPartType::getBodyPartType(str->string()));
 		}
 
-		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("mainWeapon"));
+		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("isWeaponPart"));
 		if (boo)
 		{
-			setMainWeapon(boo->boolean());
+			setWeaponPart(boo->boolean());
 		}
-		boo = dataMap->at<data::Boolean>("offWeapon");
+		/*boo = dataMap->at<data::Boolean>("offWeapon");
 		if (boo)
 		{
 			setOffWeapon(boo->boolean());
-		}
+		}*/
 
+		Handle<Item> item(new Item());
 		Handle<data::IData> tempData(dataMap->at("equippedItem"));
 		if (tempData)
 		{
-			Handle<Item> item(new Item());
-			if (item->deserialise(state, tempData) == 1)
+			if (item->deserialise(state, tempData) != 1)
 			{
-				setEquippedItem(item);
+				//setEquippedItem(item);
+				item = NULL;
 			}
 		}
+
+		// Can hold onto it deserialised by the loading state.
+		string canHoldOnto;
+		str = dataMap->at<data::String>("canHoldOnto");
+		if (str)
+		{
+			canHoldOnto = str->string();
+		}
+
+		state->addBodyPartInfo(state->getCurrentCharacter(), this, item, canHoldOnto.c_str());
 		return true;
 	}
 	BodyPart *BodyPart::fromDeserialise(LoadingState *state, data::IData *data)
