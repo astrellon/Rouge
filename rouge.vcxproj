@@ -348,6 +348,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="sys\win_system.cpp" />
     <ClCompile Include="tests\asserts.cpp" />
     <ClCompile Include="tests\test_base.cpp" />
+    <ClCompile Include="tests\test_body_parts.cpp" />
     <ClCompile Include="tests\test_character.cpp" />
     <ClCompile Include="tests\test_dialogue.cpp" />
     <ClCompile Include="tests\test_event_interface.cpp" />
@@ -579,6 +580,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sys\win_system.h" />
     <ClInclude Include="tests\asserts.h" />
     <ClInclude Include="tests\test_base.h" />
+    <ClInclude Include="tests\test_body_parts.h" />
     <ClInclude Include="tests\test_character.h" />
     <ClInclude Include="tests\test_dialogue.h" />
     <ClInclude Include="tests\test_event_interface.h" />

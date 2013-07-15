@@ -19,9 +19,6 @@
     <Filter Include="sys\win">
       <UniqueIdentifier>{fdf03f62-4fac-463d-938e-ec6090fe5387}</UniqueIdentifier>
     </Filter>
-    <Filter Include="log">
-      <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
-    </Filter>
     <Filter Include="math">
       <UniqueIdentifier>{685e5bbe-a0c2-4733-9993-93a5a78c91e7}</UniqueIdentifier>
     </Filter>
@@ -145,6 +142,9 @@
     <Filter Include="game\pathfinding">
       <UniqueIdentifier>{e91dab06-ef9b-4c5c-9cd4-3171b4a84952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gfx\log">
+      <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -263,13 +263,13 @@
       <Filter>sys\win</Filter>
     </ClCompile>
     <ClCompile Include="log\flie_log_listener.cpp">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClCompile>
     <ClCompile Include="log\log_entry.cpp">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClCompile>
     <ClCompile Include="log\logger.cpp">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClCompile>
     <ClCompile Include="game\item.cpp">
       <Filter>game</Filter>
@@ -832,6 +832,9 @@
     <ClCompile Include="game\body_parts.cpp">
       <Filter>game\body_part</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_body_parts.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -962,16 +965,16 @@
       <Filter>sys\win</Filter>
     </ClInclude>
     <ClInclude Include="log\file_log_listener.h">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClInclude>
     <ClInclude Include="log\ilog_listener.h">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClInclude>
     <ClInclude Include="log\log_entry.h">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClInclude>
     <ClInclude Include="log\logger.h">
-      <Filter>log</Filter>
+      <Filter>gfx\log</Filter>
     </ClInclude>
     <ClInclude Include="game\item.h">
       <Filter>game</Filter>
@@ -1518,6 +1521,9 @@
     </ClInclude>
     <ClInclude Include="game\body_parts.h">
       <Filter>game\body_part</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_body_parts.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
