@@ -1,6 +1,7 @@
 #pragma once
 
 #include <base/handle.h>
+#include <base/return_codes.h>
 using namespace am::base;
 
 #include <string>
@@ -74,15 +75,15 @@ namespace game {
 		 * and the character is also able to do so at this time.
 		 *
 		 * Return codes:
-		 *  2: Able to be equipped
-		 *  1: Can be equipped
-		 *  0: The item is NULL or the partName is NULL or the partName is an empty string.
-		 * -1: No part with the given partName was found.
-		 * -2: The item cannot be equipped due to body part type mismatches.
-		 * -3: There was an error getting the list of linked body parts.
-		 * -4: For items that require multiple body parts to equip, there were not enough parts (available or not).
+		 *  ABLE_TO_EQUIP: Able to be equipped
+		 *  CAN_EQUIP: Can be equipped
+		 *  NULL_PARAMETER: The item is NULL or the partName is NULL or the partName is an empty string.
+		 *  BODY_PART_NOT_FOUND: No part with the given partName was found.
+		 *  BODY_PART_TYPE_MISMATCH: The item cannot be equipped due to body part type mismatches.
+		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.
+		 *  NOT_ENOUGH_BODY_PARTS: For items that require multiple body parts to equip, there were not enough parts (available or not).
 		 */
-		virtual int canEquipItem(Item *item, const char *partName) const;
+		virtual ReturnCode canEquipItem(Item *item, const char *partName) const;
 
 		/**
 		 * Returns if the item can be equipped onto the given body part.
@@ -92,15 +93,15 @@ namespace game {
 		 * and the character is also able to do so at this time.
 		 *
 		 * Return codes:
-		 *  2: Able to be equipped
-		 *  1: Can be equipped
-		 *  0: The item is NULL or the partName is NULL or the partName is an empty string.
-		 * -1: The given part was not found on the list of character body parts.
-		 * -2: The item cannot be equipped due to body part type mismatches.
-		 * -3: There was an error getting the list of linked body parts.
-		 * -4: For items that require multiple body parts to equip, there were not enough parts (available or not).
+		 *  ABLE_TO_EQUIP: Able to be equipped
+		 *  CAN_EQUIP: Can be equipped
+		 *  NULL_PARAMETER: The item is NULL or the partName is NULL or the partName is an empty string.
+		 *  BODY_PART_NOT_FOUND: The given part was not found on the list of character body parts.
+		 *  BODY_PART_TYPE_MISMATCH: The item cannot be equipped due to body part type mismatches.
+		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.
+		 *  NOT_ENOUGH_BODY_PARTS: For items that require multiple body parts to equip, there were not enough parts (available or not).
 		 */
-		virtual int canEquipItem(Item *item, BodyPart *part) const;
+		virtual ReturnCode canEquipItem(Item *item, BodyPart *part) const;
 		virtual Item *getEquipped(const char *bodyPart) const;
 		
 		virtual Inventory *getInventory();

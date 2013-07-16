@@ -93,9 +93,9 @@ namespace tests {
 		twoHandSword->addBodyPartType(BodyPartType::HAND);
 
 		// Not enough body parts
-		am_equals(-4, testChar->canEquipItem(twoHandSword, leftHand));
+		am_equals(NOT_ENOUGH_BODY_PARTS, testChar->canEquipItem(twoHandSword, leftHand));
 		rightHand->setCanHoldOnto(leftHand);
-		am_equals(1, testChar->canEquipItem(twoHandSword, leftHand));
+		am_equals(ABLE_TO_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
 		//rightHand->setCanHoldOnto(leftHand);
 		
 		return true;

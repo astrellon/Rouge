@@ -12,8 +12,12 @@ namespace base {
 		// Character related.
 		ABLE_TO_EQUIP =				0x0100,
 		CAN_EQUIP =					0x0101,
-		PART_NOT_FOUND =			-0x0100,
-		BODY_PART_TYPE_MISMATCH =	-0x0101
+		BODY_PART_TYPE_MISMATCH =	-0x0100,
+		NOT_ENOUGH_BODY_PARTS =		-0x0101,
+
+		// Body Parts related
+		BODY_PART_FOUND =			0x0200,
+		BODY_PART_NOT_FOUND =		-0x0200,
 	};
 
 	const char *getErrorMessage(ReturnCode code);

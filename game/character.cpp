@@ -382,11 +382,11 @@ namespace game {
 		part->setEquippedItem(NULL);
 		return true;
 	}
-	int Character::canEquipItem(Item *item, const char *partName) const
+	ReturnCode Character::canEquipItem(Item *item, const char *partName) const
 	{
 		if (!item || !partName || partName[0] == '\0')
 		{
-			return 0;
+			return NULL_PARAMETER;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(partName);
 		if (part == NULL)
@@ -395,32 +395,32 @@ namespace game {
 			ss << "Cannot check for can equip item '" << item->getFullItemName() << "' on to '";
 			ss << getName() << "' because they do not have a '" << partName << "'";
 			am_log("CHAR", ss);
-			return -1;
+			return BODY_PART_NOT_FOUND;
 		}
 		return canEquipItem(item, part);
 	}
-	int Character::canEquipItem(Item *item, BodyPart *part) const
+	ReturnCode Character::canEquipItem(Item *item, BodyPart *part) const
 	{
 		// Can't deal with null for checks.
 		if (!item || !part)
 		{
-			return 0;
+			return NULL_PARAMETER;
 		}
 
 		// Is this a body part that's on this character?
 		if (!mBodyParts.hasBodyPart(part))
 		{
-			return -1;
+			return BODY_PART_NOT_FOUND;
 		}
 
 		// Can the body part be used to equip the given item?
 		if (!part->canEquipItem(item))
 		{
-			return -2;
+			return BODY_PART_TYPE_MISMATCH;
 		}
 
 		unsigned int bodyPartsRequired = item->getBodyPartsRequired();
-		int result = 2;
+		ReturnCode result = ABLE_TO_EQUIP;
 		// Item requires multiple body parts to be equipped.
 		if (bodyPartsRequired > 1u)
 		{
@@ -428,14 +428,14 @@ namespace game {
 			if (!mBodyParts.getLinkedParts(part, linked))
 			{
 				// There's been an error so it's unlikely that we should allow equipping at this point.
-				return -3;
+				return INTERNAL_ERROR;
 			}
 
 			unsigned int bodyPartsAvailable = linked.size();
 			// There are not enough body parts that can be used to equip the item.
 			if (bodyPartsAvailable < bodyPartsRequired - 1)
 			{
-				return -4;
+				return NOT_ENOUGH_BODY_PARTS;
 			}
 			// Loop through body parts that can be used to equip an
 			// item for the main given body part.
@@ -449,7 +449,7 @@ namespace game {
 					// linked body parts in total then the item cannot be equipped.
 					if (bodyPartsAvailable < bodyPartsRequired - 1)
 					{
-						return -2;
+						return NOT_ENOUGH_BODY_PARTS;
 					}
 					// Seems that we still have enough body parts and perhaps
 					// they can be used to equip the item.
@@ -462,7 +462,7 @@ namespace game {
 				// has another item equipped or is holding another item.
 				if (linked[i]->getEquippedItem() || linked[i]->isHoldingOnto())
 				{
-					result = 1;
+					result = CAN_EQUIP;
 				}
 			}
 		}
@@ -470,7 +470,7 @@ namespace game {
 		// part is capable of equipping the item. So check if it's already in use
 		else if (part->getEquippedItem() || part->isHoldingOnto())
 		{
-			result = 1;
+			result = CAN_EQUIP;
 		}
 
 		return result;
