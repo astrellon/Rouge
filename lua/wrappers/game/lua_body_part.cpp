@@ -21,10 +21,10 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * Stores a representation of a BodyPart.
+	 * Stores a representation of a body part.
 	 */
 	/**
-	 * Creates a new BodyPart instance with the given name.
+	 * Creates a new body part instance with the given name.
 	 * This name is used to identify the part when it is attached to a character.
 	 * @param string name The body part name.
 	 * @param string [UNKNOWN_PART] type The body part type.
@@ -57,11 +57,11 @@ namespace game {
 			part->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "BodyPart");
+		return LuaState::expectedContext(lua, "__gc", "am.body_part");
 	}
 	/**
 	 * Compares if two body parts are the same object.
-	 * @param BodyPart rhs The BodyPart to compare with.
+	 * @param am.body_part rhs The body part to compare with.
 	 * @returns boolean True if they are the same object.
 	 */
 	int BodyPart_eq(lua_State *lua)
@@ -69,7 +69,7 @@ namespace game {
 		BodyPart *lhs = castUData<BodyPart>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "BodyPart");
+			return LuaState::expectedContext(lua, "__eq", "am.body_part");
 		}
 		BodyPart *rhs = castUData<BodyPart>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -84,7 +84,12 @@ namespace game {
 			{ "__gc",  BodyPart_dtor },
 			{ "__eq", BodyPart_eq },
 			{ "name", BodyPart_name },
-			{ "item", BodyPart_equipped_item },
+			{ "type", BodyPart_type },
+			{ "can_hold_onto", BodyPart_can_hold_onto },
+			{ "weapon_part", BodyPart_weapon_part },
+			{ "is_holding_onto", BodyPart_is_holding_onto },
+			{ "can_equip_item", BodyPart_can_equip_item },
+			{ "item", BodyPart_item },
 			{ NULL, NULL }
 		};
 
@@ -110,8 +115,134 @@ namespace game {
 			lua_pushstring(lua, part->getName());
 			return 1;
 		}
-		lua_pushnil(lua);
-		return 1;
+		return LuaState::expectedContext(lua, "name", "am.body_part");
+	}
+
+	/**
+	 * Returns the type of the body part as a string.
+	 *
+	 * @returns string Body part type.
+	 */
+	/**
+	 * Sets the type of the body part.
+	 *
+	 * @param string type The type to set the body part to.
+	 * @returns am.body_part This
+	 * @returns am.return_code Return code.
+	 */
+	int BodyPart_type(lua_State *lua)
+	{
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		if (part)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, BodyPartType::getBodyPartName(part->getType()));
+				return 1;
+			}
+			else if (lua_isstr(lua, 2))
+			{
+				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
+				if (type == BodyPartType::MAX_BODY_TYPE_LENGTH)
+				{
+					stringstream ss;
+					ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
+					LuaState::warning(lua, ss.str().c_str());
+				}
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "type", "string partType");
+		}
+		return LuaState::expectedContext(lua, "type", "am.body_part");
+	}
+
+	int BodyPart_can_hold_onto(lua_State *lua)
+	{
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		if (part)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				BodyPart *other = part->getCanHoldOnto();
+				if (other)
+				{
+					wrapRefObject<BodyPart>(lua, other);
+					return 1;
+				}
+				lua_pushnil(lua);
+				return 1;
+			}
+			else
+			{
+				if (lua_isnil(lua, 2))
+				{
+					part->setCanHoldOnto(NULL);
+					lua_first(lua);
+				}
+				BodyPart *other = castUData<BodyPart>(lua, 2);
+				if (other)
+				{
+					part->setCanHoldOnto(other);
+					lua_first(lua);
+				}
+			}
+			return LuaState::expectedArgs(lua, "can_hold_onto", 2, "BodyPart part, nil part");
+		}
+		return LuaState::expectedContext(lua, "can_hold_onto", "am.body_part");
+	}
+
+	int BodyPart_weapon_part(lua_State *lua)
+	{
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		if (part)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushboolean(lua, part->isWeaponPart());
+				return 1;
+			}
+			else if (lua_isbool(lua, 2))
+			{
+				part->setWeaponPart(lua_tobool(lua, 2));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "weapon_part", "bool isWeapon");
+		}
+		return LuaState::expectedContext(lua, "weapon_part", "am.body_part");
+	}
+
+	int BodyPart_is_holding_onto(lua_State *lua)
+	{
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		if (part)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushboolean(lua, part->isHoldingOnto());
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "is_holding_onto", "");
+		}
+		return LuaState::expectedContext(lua, "is_holding_onto", "am.body_part");
+	}
+
+	int BodyPart_can_equip_item(lua_State *lua)
+	{
+		BodyPart *part = castUData<BodyPart>(lua, 1);
+		if (part)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				Handle<Item> item(castUData<Item>(lua, 2));
+				if (item)
+				{
+					lua_pushboolean(lua, part->canEquipItem(item));
+					return 1;
+				}
+			}
+			return LuaState::expectedArgs(lua, "can_equip_item", "Item item");
+		}
+		return LuaState::expectedContext(lua, "can_equip_item", "am.body_part");
 	}
 
 	/**
@@ -121,9 +252,9 @@ namespace game {
 	 */
 	/**
 	 * Returns the equipped item on this body part.
-	 * @returns Item The equipped item, can be nil.
+	 * @returns am.item The equipped item, can be nil.
 	 */
-	int BodyPart_equipped_item(lua_State *lua)
+	int BodyPart_item(lua_State *lua)
 	{
 		BodyPart *part = castUData<BodyPart>(lua, 1);
 		if (part)
@@ -157,7 +288,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "item", 2, "Item item, nil item");
 		}
-		return LuaState::expectedContext(lua, "item", "BodyPart");
+		return LuaState::expectedContext(lua, "item", "am.body_part");
 	}
 }
 }

@@ -19,7 +19,7 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Dialogue class represents a single dialogue segment.
+	 * The dialogue class represents a single dialogue segment.
 	 * Each segment has a wall of text, a title, a subject, an unlock flag
 	 * and an action.
 	 * <br>
@@ -29,7 +29,7 @@ namespace game {
 	 */
 	/**
 	 * Creates a new dialogue.
-	 * @param string dialogueId The unique id for this dialogue.
+	 * @param string dialogue_id The unique id for this dialogue.
 	 * @param string text The dialogue text.
 	 * @param string [""] title The title for this dialogue.
 	 * @param string [""] subject The subject of this dialogue.
@@ -74,10 +74,10 @@ namespace game {
 			wrapObject<Dialogue>(lua, dialogue);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@new", "string dialogueId, string text, string title [\"\"], string subject [\"\"], string unlock_flag [\"none\"], string action [\"none\"]");
+		return LuaState::expectedArgs(lua, "@new", "string dialogue_id, string text, string title [\"\"], string subject [\"\"], string unlock_flag [\"none\"], string action [\"none\"]");
 	}
 	/**
-	 * The Dialogue won't be destroyed until it is removed from the game engine.
+	 * The dialogue won't be destroyed until it is removed from the game engine.
 	 * @see remove_dialogue()
 	 */
 	int Dialogue_dtor(lua_State *lua)
@@ -85,17 +85,17 @@ namespace game {
 		return 0;
 	}
 	/**
-	 * Compares this Dialogue with another Dialogue object.
+	 * Compares this dialogue with another dialogue object.
 	 *
-	 * @param Dialogue rhs The other Dialogue to compare with.
-	 * @returns boolean True if they are the same Dialogue object.
+	 * @param am.dialogue rhs The other dialogue to compare with.
+	 * @returns boolean True if they are the same dialogue object.
 	 */
 	int Dialogue_eq(lua_State *lua)
 	{
 		Dialogue *lhs = castUData<Dialogue>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Dialogue");
+			return LuaState::expectedContext(lua, "__eq", "am.dialogue");
 		}
 		Dialogue *rhs = castUData<Dialogue>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -139,7 +139,7 @@ namespace game {
 	/**
 	 * Sets the raw dialogue text.
 	 * @param string text The new dialogue text.
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_text(lua_State *lua)
 	{
@@ -158,7 +158,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "text", "string text");
 		}
-		return LuaState::expectedContext(lua, "text", "Dialogue");
+		return LuaState::expectedContext(lua, "text", "am.dialogue");
 	}
 	/**
 	 * Returns the title for this dialogue.
@@ -167,7 +167,7 @@ namespace game {
 	/**
 	 * Sets the dialogue title.
 	 * @param string title The new dialogue title.
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_title(lua_State *lua)
 	{
@@ -186,7 +186,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "title", "string title");
 		}
-		return LuaState::expectedContext(lua, "title", "Dialogue");
+		return LuaState::expectedContext(lua, "title", "am.dialogue");
 	}
 	/**
 	 * Returns the unique id for this dialogue.
@@ -195,7 +195,7 @@ namespace game {
 	/**
 	 * Sets the dialogues id.
 	 * @param string id The dialogue's new id.
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_id(lua_State *lua)
 	{
@@ -214,7 +214,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "id", "string id");
 		}
-		return LuaState::expectedContext(lua, "id", "Dialogue");
+		return LuaState::expectedContext(lua, "id", "am.dialogue");
 	}
 	/**
 	 * Returns the subject title for this dialogue, this can be an empty string.
@@ -225,7 +225,7 @@ namespace game {
 	 * if a dialogue option is unlocked, as once any dialogue with a given subject
 	 * is unlocked, all dialogue's with the same subject are unlocked.
 	 * @param string subject The subject title for this dialogue.
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_subject(lua_State *lua)
 	{
@@ -244,7 +244,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "subject", "string subject");
 		}
-		return LuaState::expectedContext(lua, "subject", "Dialogue");
+		return LuaState::expectedContext(lua, "subject", "am.dialogue");
 	}
 	
 	/**
@@ -258,7 +258,7 @@ namespace game {
 	 * always unlocked.
 	 * 
 	 * @param string flag Either "none" or "locked"
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_unlock_flag(lua_State *lua)
 	{
@@ -285,7 +285,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "unlock", "string flag");
 		}
-		return LuaState::expectedContext(lua, "unlock", "Dialogue");
+		return LuaState::expectedContext(lua, "unlock", "am.dialogue");
 	}
 
 	/**
@@ -296,7 +296,7 @@ namespace game {
 	 * Sets the dialogue action, these trigger special events when the
 	 * dialogue is used.
 	 * @param string action Either "none", "shop" or "close"
-	 * @returns Dialogue This
+	 * @returns am.dialogue This
 	 */
 	int Dialogue_dialogue_action(lua_State *lua)
 	{
@@ -323,14 +323,14 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "action", "string action");
 		}
-		return LuaState::expectedContext(lua, "action", "Dialogue");
+		return LuaState::expectedContext(lua, "action", "am.dialogue");
 	}
 	/**
 	 * @static
 	 * Adds a dialogue to the game engines dialogue pool.
 	 * Dialogues in the dialogue pool can be automatically accessed
 	 * by the dialogue system.
-	 * @param Dialogue dialogue The dialogue to add.
+	 * @param am.dialogue dialogue The dialogue to add.
 	 * @returns boolean True if the dialogue was successfully added.
 	 */
 	int Dialogue_add_dialogue(lua_State *lua)
@@ -341,12 +341,12 @@ namespace game {
 			lua_pushboolean(lua, Engine::getGame()->addDialogue(diag));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@add_dialogue", "Dialogue dialogue");
+		return LuaState::expectedArgs(lua, "@add_dialogue", "am.dialogue dialogue");
 	}
 	/**
 	 * @static
 	 * Removes a dialogue from the game engines dialogue pool.
-	 * @param string dialogueId The dialogue id to remove.
+	 * @param string dialogue_id The dialogue id to remove.
 	 * @returns boolean True if the dialogue was successfully removed.
 	 */
 	int Dialogue_remove_dialogue(lua_State *lua)
@@ -356,7 +356,7 @@ namespace game {
 			lua_pushboolean(lua, Engine::getGame()->removeDialogue(lua_tostring(lua, 1)));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@remove_dialogue", "string dialogueId");
+		return LuaState::expectedArgs(lua, "@remove_dialogue", "string dialogue_id");
 	}
 	/**
 	 * @static
@@ -370,8 +370,8 @@ namespace game {
 	/**
 	 * @static
 	 * Finds a dialogue in the dialogue pool with the given dialogue id.
-	 * @param string dialogueId The dialogue id to search for.
-	 * @returns Dialogue The found dialogue or nil.
+	 * @param string dialogue_id The dialogue id to search for.
+	 * @returns am.dialogue The found dialogue or nil.
 	 */
 	int Dialogue_get_dialogue(lua_State *lua)
 	{
@@ -386,7 +386,7 @@ namespace game {
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@dialogue", "string dialogueId");
+		return LuaState::expectedArgs(lua, "@dialogue", "string dialogue_id");
 	}
 
 	Dialogue::UnlockFlag getUnlockFlag(lua_State *lua, int n)

@@ -23,16 +23,16 @@ namespace game {
 
 	/**
 	 * @class 
-	 * The DialogueComponent class stores all the data to do with the dialogue
-	 * that can be attached to a GameObject.<br>
+	 * The dialogue component class stores all the data to do with the dialogue
+	 * that can be attached to a game object.<br>
 	 * This includes the starting dialogue this component will open with, and all the currently
 	 * available dialogue options, and which dialogues this component has unlocked.<br>
-	 * GameObjects do not have a dialogue component by default so one must be
+	 * game objects do not have a dialogue component by default so one must be
 	 * created and attached.
 	 */
 	/**
-	 * Creates a new DialogueComponent.
-	 * @param GameObject [nil] attachTo Attaches this dialogue component to the given GameObject
+	 * Creates a new dialogue component.
+	 * @param am.game_object [nil] attach_to Attaches this dialogue component to the given game object
 	 *  if it is not null.
 	 */
 	int DialogueComponent_ctor(lua_State *lua)
@@ -43,32 +43,37 @@ namespace game {
 			obj = getGameObject(lua, 1);
 			if (!obj && !lua_isnil(lua, 1))
 			{
-				return LuaState::expectedArgs(lua, "@new", 2, "GameObject attachTo", "nil attachTo");
+				return LuaState::expectedArgs(lua, "@new", 2, "GameObject attach_to", "nil attach_to");
 			}
 		}
 		DialogueComponent *comp = new DialogueComponent(obj);
-		wrapObject<DialogueComponent>(lua, comp);
+		wrapRefObject<DialogueComponent>(lua, comp);
 		return 1;
 	}
 	/**
-	 * TODO
+	 * Releases the reference counter on this dialogue component.
 	 */
 	int DialogueComponent_dtor(lua_State *lua)
 	{
+		DialogueComponent *comp = castUData<DialogueComponent>(lua, 1);
+		if (comp)
+		{
+			comp->release();
+		}
 		return 0;
 	}
 	/**
-	 * Compares this DialogueComponent with another DialogueComponent.
+	 * Compares this dialogue component with another dialogue component.
 	 *
-	 * @param DialogueComponent rhs The other DialogueComponent to compare with.
-	 * @returns boolean True if they are the same DialogueComponent object.
+	 * @param am.dialogue_component rhs The other dialogue component to compare with.
+	 * @returns boolean True if they are the same dialogue component object.
 	 */
 	int DialogueComponent_eq(lua_State *lua)
 	{
 		DialogueComponent *lhs = castUData<DialogueComponent>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "DialogueComponent");
+			return LuaState::expectedContext(lua, "__eq", "am.dialogue_component");
 		}
 		DialogueComponent *rhs = castUData<DialogueComponent>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -102,13 +107,13 @@ namespace game {
 		return 1;
 	}
 	/**
-	 * Attempts to start a dialogue with another GameObject.
-	 * The other GameObject must have a DialogueComponent attached to talk to.
+	 * Attempts to start a dialogue with another game object.
+	 * The other game object must have a dialogue component attached to talk to.
 	 *
-	 * @param GameObject talkee The game object to talk to.
-	 * @param Dialogue [nil] withDialogue By default the talk to function will start a conversation
+	 * @param am.game_object talkee The game object to talk to.
+	 * @param am.dialogue [nil] with_dialogue By default the talk to function will start a conversation
 	 *  using the start_dialogue value, this allows for that to be overridden for this talk.
-	 * @returns DialogueComponent This
+	 * @returns am.dialogue_component This
 	 */
 	int DialogueComponent_talk_to(lua_State *lua)
 	{
@@ -140,14 +145,14 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "talk_to", "GameObject talkee, DialogueComponent withDialogue [nil]");
+			return LuaState::expectedArgs(lua, "talk_to", "am.game_object talkee, am.dialogue_component [nil] with_dialogue");
 		}
-		return LuaState::expectedContext(lua, "talk_to", "DialogueComponent");
+		return LuaState::expectedContext(lua, "talk_to", "am.dialogue_component");
 	}
 	/**
-	 * Returns the GameObject that this DialogueComponent is currently talking to.
+	 * Returns the game object that this dialogue component is currently talking to.
 	 * Will return nil if there is no dialogue.
-	 * @returns GameObject The game object being talked to or nil.
+	 * @returns am.game_object The game object being talked to or nil.
 	 */
 	int DialogueComponent_talking_to(lua_State *lua)
 	{
@@ -157,21 +162,21 @@ namespace game {
 			wrapGameObject(lua, comp->getTalkingTo());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "talking_to", "DialogueComponent");
+		return LuaState::expectedContext(lua, "talking_to", "am.dialogue_component");
 	}
 	/**
 	 * Returns the openning dialogue this component will use when talked to, or nil.
-	 * @returns Dialogue The starting dialogue, or nil.
+	 * @returns am.dialogue The starting dialogue, or nil.
 	 */
 	/**
 	 * Sets the starting dialogue this component will use when talked to, can be nil.
-	 * @param string dialogueId The dialogue id of the dialogue to open with.
-	 * @returns DialogueComponent This
+	 * @param string dialogue_id The dialogue id of the dialogue to open with.
+	 * @returns am.dialogue_component This
 	 */
 	/**
 	 * Sets the starting dialogue this component will use when talked to, can be nil.
-	 * @param Dialogue dialogue The dialogue to open with.
-	 * @returns DialogueComponent This
+	 * @param am.dialogue dialogue The dialogue to open with.
+	 * @returns am.dialogue_component This
 	 */
 	int DialogueComponent_start_dialogue(lua_State *lua)
 	{
@@ -215,10 +220,10 @@ namespace game {
 					comp->setStartDialogue(diag);
 					lua_first(lua);
 				}
-				return LuaState::expectedArgs(lua, "start_dialogue", 3, "string dialogueId", "Dialogue dialogue", "nil dialogue");
+				return LuaState::expectedArgs(lua, "start_dialogue", 3, "string dialogue_id", "am.dialogue dialogue", "nil dialogue");
 			}
 		}
-		return LuaState::expectedContext(lua, "start_dialogue", "DialogueComponent");
+		return LuaState::expectedContext(lua, "start_dialogue", "am.dialogue_component");
 	}
 	/**
 	 * Returns if the given subject title is locked or unlocked.
@@ -230,7 +235,7 @@ namespace game {
 	 * Unlocked subjects will be available to use in dialogue.
 	 * @param string subject The subject to lock or unlock.
 	 * @param boolean locked Sets is the subject is locked or unlocked.
-	 * @returns DialogueComponent This
+	 * @returns am.dialogue_component This
 	 */
 	int DialogueComponent_subject_lock(lua_State *lua)
 	{
@@ -253,18 +258,18 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "locked", "string subject, boolean locked");
 		}
-		return LuaState::expectedContext(lua, "locked", "DialogueComponent");
+		return LuaState::expectedContext(lua, "locked", "am.dialogue_component");
 	}
 	/**
 	 * Returns if the given dialogue is available from this component.
-	 * @param string dialogueId The dialogue id to look up.
+	 * @param string dialogue_id The dialogue id to look up.
 	 * @returns boolean True if the dialogue is available.
 	 */
 	/**
 	 * Sets if the given dialogue will be available from this component.
-	 * @param string dialogueId The dialogue id to set.
+	 * @param string dialogue_id The dialogue id to set.
 	 * @param boolean available The availability of the given dialogue.
-	 * @returns DialogueComponent This
+	 * @returns am.dialogue_component This
 	 */
 	int DialogueComponent_dialogue_available(lua_State *lua)
 	{
@@ -286,21 +291,21 @@ namespace game {
 						lua_first(lua);
 					}
 				}
-				return LuaState::expectedArgs(lua, "available", "string dialogueId, boolean available");
+				return LuaState::expectedArgs(lua, "available", "string dialogue_id, boolean available");
 			}
-			return LuaState::expectedArgs(lua, "available", "string dialogueId");
+			return LuaState::expectedArgs(lua, "available", "string dialogue_id");
 		}
-		return LuaState::expectedContext(lua, "available", "DialogueComponent");
+		return LuaState::expectedContext(lua, "available", "am.dialogue_component");
 	}
 	
 	/**
 	 * Returns the game object this dialogue component is attached to, can be nil.
-	 * @returns GameObject The game object this is attached to.
+	 * @returns am.game_object The game object this is attached to.
 	 */
 	/**
 	 * Attaches this dialogue component to a game object, can be nil.
-	 * @param GameObject gameObject The game object to attach to.
-	 * @returns DialogueComponent This
+	 * @param am.game_object game_object The game object to attach to.
+	 * @returns am.dialogue_component This
 	 */
 	int DialogueComponent_attached_to(lua_State *lua)
 	{
@@ -323,9 +328,9 @@ namespace game {
 				comp->setAttachedTo(obj);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "attached_to", "GameObject gameobject");
+			return LuaState::expectedArgs(lua, "attached_to", "am.game_object game_object");
 		}
-		return LuaState::expectedContext(lua, "attached_to", "DialogueComponent");
+		return LuaState::expectedContext(lua, "attached_to", "am.dialogue_component");
 	}
 	
 }

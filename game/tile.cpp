@@ -37,11 +37,9 @@ namespace game {
 		mGraphic(NULL),
 		mTileSet(NULL)
 	{
-		//printf("Creating tile '%s', '%s'\n", name, fullName);
 	}
 	Tile::~Tile()
 	{
-		//printf("Deleting tile '%s'\n", mFullName.c_str());
 	}
 
 	void Tile::setName(const char *name)
@@ -122,52 +120,6 @@ namespace game {
 		return mTileSet;
 	}
 
-	/*void Tile::loadDef(JsonValue value) 
-	{
-		if (value.has("assetName", JV_STR))
-		{
-			mGraphic = GfxEngine::getEngine()->getAsset(value["assetName"].getCStr());
-		}
-		else
-		{
-			stringstream ss;
-			ss << "Tile '" << mName << "' did not have a graphic defined";
-			am_log("TILE", ss);
-		}
-		if (value.has("fullName", JV_STR))
-		{
-			mFullName = value["fullName"].getCStr();
-		}
-		if (value.has("description", JV_STR))
-		{
-			mDescription = value["description"].getCStr();
-		}
-		if (value.has("tileTypes", JV_ARR))
-		{
-			JsonArray *types = value["tileTypes"].getArr();
-			JsonArray::iterator iter;
-			for (iter = types->begin(); iter != types->end(); ++iter)
-			{
-				if (iter->getType() != JV_STR)
-				{
-					stringstream errss;
-					errss << "Tile type must be a string and not a '" << iter->getTypeName() << "'";
-					am_log("TILE", errss);
-					continue;
-				}
-				string tileName = Utils::toLowerCase(iter->getCStr());
-				TileType *type = TileType::getTileType(tileName.c_str());
-				if (type == NULL)
-				{
-					stringstream errss;
-					errss << "Unable to find tile type '" << tileName << "' for tile '" << getName() << "'";
-					am_log("TILE", errss);
-					continue;
-				}
-				addTileType(type);
-			}
-		}
-	}*/
 	void Tile::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -210,7 +162,7 @@ namespace game {
 				else
 				{
 					string tileName = Utils::toLowerCase(lua_tostring(lua, -1));
-					TileType *type = Engine::getEngine()->getTileType(tileName.c_str());
+					Handle<TileType> type(Engine::getEngine()->getTileType(tileName.c_str()));
 					if (type == NULL)
 					{
 						stringstream errss;
@@ -243,7 +195,7 @@ namespace game {
 		}
 		for (size_t i = 0; i < mTileTypes.size(); i++)
 		{
-			if (mTileTypes[i] == tileType)
+			if (mTileTypes[i].get() == tileType)
 			{
 				mTileTypes.erase(mTileTypes.begin() + i);
 			}
@@ -261,7 +213,7 @@ namespace game {
 		}
 		for (size_t i = 0; i < mTileTypes.size(); i++)
 		{
-			if (mTileTypes[i] == tileType)
+			if (mTileTypes[i].get() == tileType)
 			{
 				return true;
 			}

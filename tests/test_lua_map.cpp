@@ -29,8 +29,7 @@ namespace tests {
 	bool TestLuaMap::testSimple() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Map = import(\"Map\")\n"
-			"Engine = import(\"Engine\")\n"
+		int loadResult = lua.loadString(
 			"local result = loadfile(\"data\\\\tileTypes2.lua\")\n"
 			"if (result == nil) then\n"
 			"	am_log(\"Error loading\")\n"
@@ -39,11 +38,11 @@ namespace tests {
 			"end\n"
 			"result()\n"
 
-			"map = Map.new(\"testMap\", 6, 7)\n"
+			"map = am.map.new(\"testMap\", 6, 7)\n"
 			"map:full_name(\"The Region of Test\")\n"
 
-			"Engine.clear_using_tile_set()\n"
-			"Engine.using_tile_set(\"nature\")\n"
+			"am.engine.clear_using_tile_set()\n"
+			"am.engine.using_tile_set(\"nature\")\n"
 
 			"map:tiles({\n"
 			"	\"brick:0\", \"brick:2\", \"grass:0\", \"grass:2\", \"grass:3\", \"dirt:3\",\n"

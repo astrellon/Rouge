@@ -28,8 +28,8 @@ namespace tests {
 		LuaState lua;
 		StatModifiers mods;
 		
-		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
-			"stats = StatModifiers.new()\n"
+		int loadResult = lua.loadString(
+			"stats = am.stat_modifiers.new()\n"
 			"function addModifier(stat, value, type, magical)\n"
 			"	if (magical == nil) then\n"
 			"		stats:add(stat, value, type)\n"
@@ -107,8 +107,8 @@ namespace tests {
 		LuaState lua;
 		StatModifiers mods;
 		
-		int loadResult = lua.loadString("StatModifier, StatModifiers = import(\"StatModifier\", \"StatModifiers\")\n"
-			"mods = StatModifiers.new()\n"
+		int loadResult = lua.loadString(
+			"mods = am.stat_modifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
 			"am_equals(9, mods:calculate_stat(\"health\", base_health))\n"
@@ -137,8 +137,8 @@ namespace tests {
 		LuaState lua;
 		StatModifiers mods;
 		
-		int loadResult = lua.loadString("StatModifiers = import(\"StatModifiers\")\n"
-			"stats = StatModifiers.new()\n"
+		int loadResult = lua.loadString(
+			"stats = am.stat_modifiers.new()\n"
 			"stats:add(\"health\", 5, \"+\", false)\n"
 			"stats:add(\"health\", 8, \"=\")\n"
 			"stats:add(\"health\", 2, \"*\")\n"

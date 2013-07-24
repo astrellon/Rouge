@@ -25,7 +25,7 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Inventory class represents an inventory of items, it is not linked
+	 * The inventory class represents an inventory of items, it is not linked
 	 * to a specific game object however a game object can be linked to an inventory.
 	 * This allows for any character or item to hold an inventory.<br>
 	 * An inventory has a size and as such the maximum number of items that can
@@ -58,12 +58,12 @@ namespace game {
 			inv->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "Inventory");
+		return LuaState::expectedContext(lua, "__gc", "am.inventory");
 	}
 	/**
 	 * Compares this inventory with another inventory object.
 	 * Will not return true for equivalent inventories.
-	 * @param Inventory rhs The other inventory to compare with.
+	 * @param am.inventory rhs The other inventory to compare with.
 	 * @returns boolean True if the inventories are the same object.
 	 */
 	int Inventory_eq(lua_State *lua)
@@ -71,7 +71,7 @@ namespace game {
 		Inventory *lhs = castUData<Inventory>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Inventory");
+			return LuaState::expectedContext(lua, "__eq", "am.inventory");
 		}
 		Inventory *rhs = castUData<Inventory>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -119,7 +119,7 @@ namespace game {
 			lua_pushinteger(lua, inv->getSpacesY());
 			return 2;
 		}
-		return LuaState::expectedContext(lua, "size", "Inventory");
+		return LuaState::expectedContext(lua, "size", "am.inventory");
 	}
 	/**
 	 * Returns true if there is enough space to place the given item at
@@ -127,7 +127,7 @@ namespace game {
 	 * the item outside of the bounds of the inventory or that there is another
 	 * item blocking this items placement.
 	 *
-	 * @param Item item The item to place.
+	 * @param am.item item The item to place.
 	 * @param integer x The x location to check at
 	 * @param integer y The y location to check at
 	 * @returns boolean True if there is space at the given location for the given item.
@@ -147,22 +147,22 @@ namespace game {
 					return 1;
 				}
 			}
-			return LuaState::expectedArgs(lua, "has_space_for", "Item item, integer x, integer y");
+			return LuaState::expectedArgs(lua, "has_space_for", "am.item item, integer x, integer y");
 		}
-		return LuaState::expectedContext(lua, "has_space_for", "Inventory");
+		return LuaState::expectedContext(lua, "has_space_for", "am.inventory");
 	}
 	/**
 	 * Attempts to add an item to the inventory, returns true if a spot was
 	 * found the item, false if the item was nil or if no spot could be found.
 	 *
-	 * @param Item item The item to add to the inventory.
+	 * @param am.item item The item to add to the inventory.
 	 * @returns boolean True if the item was added to the inventory successfully.
 	 */
 	/**
 	 * Attempts to add an item to the inventory at the given location, returns true
 	 * if the space required for the item was available.
 	 *
-	 * @param Item item The item to add to the inventory.
+	 * @param am.item item The item to add to the inventory.
 	 * @param integer x The x location to add the item at.
 	 * @param integer y The y location to add the item at.
 	 * @returns boolean True if the item was added to the inventory successfully.
@@ -187,15 +187,15 @@ namespace game {
 					return 1;
 				}
 			}
-			return LuaState::expectedArgs(lua, "add_item", 2, "Item item", "Item item, integer x, integer y");
+			return LuaState::expectedArgs(lua, "add_item", 2, "am.item item", "am.item item, integer x, integer y");
 		}
-		return LuaState::expectedContext(lua, "add_item", "Inventory");
+		return LuaState::expectedContext(lua, "add_item", "am.inventory");
 	}
 	/**
 	 * Removes the given item from the inventory, returns true if the item was found in the inventory
 	 * and removed.
 	 *
-	 * @param Item item The item to remove from the inventory.
+	 * @param am.item item The item to remove from the inventory.
 	 * @returns boolean True if the item was removed.
 	 */
 	int Inventory_remove_item(lua_State *lua)
@@ -209,9 +209,9 @@ namespace game {
 				lua_pushboolean(lua, inv->removeItem(item));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "remove_item", "Item item");
+			return LuaState::expectedArgs(lua, "remove_item", "am.item item");
 		}
-		return LuaState::expectedContext(lua, "remove_item", "Inventory");
+		return LuaState::expectedContext(lua, "remove_item", "am.inventory");
 	}
 	/**
 	 * Removes all items from the inventory.
@@ -226,12 +226,12 @@ namespace game {
 			lua_pushboolean(lua, inv->removeAll());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "remove_all", "Inventory");
+		return LuaState::expectedContext(lua, "remove_all", "am.inventory");
 	}
 	/**
 	 * Looks for the given item in the inventory. Returns true if the given item was found.
 	 *
-	 * @param Item item The item to look for in the inventory.
+	 * @param am.item item The item to look for in the inventory.
 	 * @returns boolean True if the item was found.
 	 */
 	int Inventory_has_item(lua_State *lua)
@@ -245,9 +245,9 @@ namespace game {
 				lua_pushboolean(lua, inv->hasItem(item));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_item", "Item item");
+			return LuaState::expectedArgs(lua, "has_item", "am.item item");
 		}
-		return LuaState::expectedContext(lua, "has_item", "Inventory");
+		return LuaState::expectedContext(lua, "has_item", "am.inventory");
 	}
 	/**
 	 * Returns the item at the given location, nil if there is no item at that location.
@@ -255,7 +255,7 @@ namespace game {
 	 *
 	 * @param integer locationX The x location to look at.
 	 * @param integer locationY The y location to look at.
-	 * @returns Item The found item, or nil if it was nothing was found.
+	 * @returns am.item The found item, or nil if it was nothing was found.
 	 */
 	int Inventory_item_at(lua_State *lua)
 	{
@@ -269,15 +269,14 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "item_at", "integer x, integer y");
 		}
-		return LuaState::expectedContext(lua, "item_at", "Inventory");
+		return LuaState::expectedContext(lua, "item_at", "am.inventory");
 	}
 	/**
 	 * Returns an array of tables which represent all the items in the inventory.
 	 * Each array element contains the item, and x and y locations.
 	 * <pre>
-	 * Inventory, Item = import("Inventory", "Item")
-	 * inv = Inventory.new(3, 3)
-	 * scroll1 = Item.new()
+	 * inv = am.inventory.new(3, 3)
+	 * scroll1 = am.item.new()
 	 * scroll1:inventory_size(2, 1)
 	 * scroll2 = scroll1:clone()
 	 * scroll1:name("Scroll 1")
@@ -319,7 +318,7 @@ namespace game {
 
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "spots", "Inventory");
+		return LuaState::expectedContext(lua, "spots", "am.inventory");
 	}
 
 }

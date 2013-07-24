@@ -19,14 +19,14 @@ namespace lua {
 namespace sfx {
 	/**
 	 * @class
-	 * Simple wrapper for the ISound class, currently only allows for loading
+	 * Simple wrapper for the sound class, currently only allows for loading
 	 * a sound.
 	 */
 	/**
 	 * Creates a new sound from a filename as either a whole sound or a streaming sound.
 	 *
 	 * @param string filename The path to the sound file.
-	 * @param [false] boolean toStream When true the sound will be loaded for streaming
+	 * @param boolean [false] to_stream When true the sound will be loaded for streaming
 	 *  which is best for long music tracks. However streaming sounds can only be attached
 	 *  to one sound source. Non-streaming sounds cna be attached to as many sound sources
 	 *  as you like.
@@ -56,7 +56,7 @@ namespace sfx {
 				return 1;
 			}
 		}
-		return LuaState::expectedArgs(lua, "@new", "string filename, bool [false] toStream");
+		return LuaState::expectedArgs(lua, "@new", "string filename, bool [false] to_stream");
 	}
 	/**
 	 * Releases the reference counter on the sound.
@@ -73,7 +73,7 @@ namespace sfx {
 	/**
 	 * Compares this sound with another sound object.
 	 *
-	 * @param Sound rhs The other sound to compare with.
+	 * @param am.sound rhs The other sound to compare with.
 	 * @returns boolean True if they are the same object.
 	 */
 	int Sound_eq(lua_State *lua)
@@ -81,7 +81,7 @@ namespace sfx {
 		ISound *lhs = castUData<ISound>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Sound");
+			return LuaState::expectedContext(lua, "__eq", "am.sound");
 		}
 		ISound *rhs = castUData<ISound>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -122,7 +122,7 @@ namespace sfx {
 			lua_pushstring(lua, sound->getFilename());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "filename", "Sound");
+		return LuaState::expectedContext(lua, "filename", "am.sound");
 	}
 
 	/**
@@ -138,7 +138,7 @@ namespace sfx {
 			lua_pushboolean(lua, sound->isStream());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "streaming", "Sound");
+		return LuaState::expectedContext(lua, "streaming", "am.sound");
 	}
 	
 }

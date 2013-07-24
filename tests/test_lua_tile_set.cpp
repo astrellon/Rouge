@@ -28,8 +28,8 @@ namespace tests {
 	bool TestLuaTileSet::testSimple() {
 		LuaState lua;
 		
-		assert(lua.loadString("TileSet = import(\"TileSet\")\n"
-			"set = TileSet.new(\"testTileSet\")\n"
+		assert(lua.loadString(
+			"set = am.tile_set.new(\"testTileSet\")\n"
 			"function getName()\n"
 			"	return set:name()\n"
 			"end\n"
@@ -61,9 +61,8 @@ namespace tests {
 	bool TestLuaTileSet::testTiles() {
 		LuaState lua;
 		
-		assert(lua.loadString("TileSet = import(\"TileSet\")\n"
-			"Tile = import(\"Tile\")\n"
-			"set = TileSet.new(\"testTileSet\")\n"
+		assert(lua.loadString(
+			"set = am.tile_set.new(\"testTileSet\")\n"
 			"function addTile(tile)\n"
 			"	set:add_tile(tile)\n"
 			"end\n"

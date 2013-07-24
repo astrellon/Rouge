@@ -31,7 +31,7 @@ namespace game {
 	/**
 	 * Creates a new tile instance with the given tile.
 	 *
-	 * @param Tile tile The tile this instance.
+	 * @param am.tile tile The tile this instance.
 	 */
 	int TileInstance_ctor(lua_State *lua)
 	{
@@ -52,7 +52,7 @@ namespace game {
 				return 1;
 			}
 		}
-		return LuaState::expectedArgs(lua, "@new", 2, "", "Tile tile");
+		return LuaState::expectedArgs(lua, "@new", 2, "", "am.tile tile");
 	}
 	/**
 	 * TODO
@@ -65,7 +65,7 @@ namespace game {
 	/**
 	 * Compares this tile instance with another tile instance.
 	 *
-	 * @param TileInstance rhs The other tile instance to compare with.
+	 * @param am.tile_instance rhs The other tile instance to compare with.
 	 * @returns boolean True if they are the same tile instance objects.
 	 */
 	int TileInstance_eq(lua_State *lua)
@@ -73,7 +73,7 @@ namespace game {
 		TileInstance *lhs = castUData<TileInstance>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "TileInstance");
+			return LuaState::expectedContext(lua, "__eq", "am.tile_instance");
 		}
 		TileInstance *rhs = castUData<TileInstance>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -104,19 +104,19 @@ namespace game {
 	/**
 	 * Returns the tile this instance is representing, can be nil.
 	 *
-	 * @returns Tile The tile this instance is instancing.
+	 * @returns am.tile The tile this instance is instancing.
 	 */
 	/**
 	 * Sets the tile this instance representings, can be nil.
 	 *
-	 * @param Tile tile The tile to represent.
+	 * @param am.tile tile The tile to represent.
 	 * @returns boolean Always returns true.
 	 */
 	/**
 	 * Sets the tile based on the tile name, returns true if the tile
 	 * with given name was found.
 	 *
-	 * @param string tileName The name of the tile to instance.
+	 * @param string tile_name The name of the tile to instance.
 	 * @returns boolean True if the a tile with the given name was found.
 	 */
 	int TileInstance_tile(lua_State *lua)
@@ -145,9 +145,9 @@ namespace game {
 				lua_pushboolean(lua, 1);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "tile", 2, "Tile tile", "string tileName");
+			return LuaState::expectedArgs(lua, "tile", 2, "am.tile tile", "string tile_name");
 		}
-		return LuaState::expectedContext(lua, "tile", "TileInstance");
+		return LuaState::expectedContext(lua, "tile", "am.tile_instance");
 	}
 	
 	/**
@@ -160,7 +160,7 @@ namespace game {
 	 * This will only work for tile graphics that have multiple frames and are not animated.
 	 *
 	 * @param integer frame The new tile instance frame.
-	 * @returns TileInstance This
+	 * @returns am.tile_instance This
 	 */
 	int TileInstance_tile_frame(lua_State *lua)
 	{
@@ -179,7 +179,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "tile_frame", "integer frame");
 		}
-		return LuaState::expectedContext(lua, "tile_frame", "TileInstance");
+		return LuaState::expectedContext(lua, "tile_frame", "am.tile_instance");
 	}
 
 }

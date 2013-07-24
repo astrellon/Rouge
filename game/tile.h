@@ -25,7 +25,7 @@ namespace game {
 	class Tile : public IManaged {
 	public:
 
-		typedef vector<TileType *> TileTypeList;
+		typedef vector< Handle<TileType> > TileTypeList;
 
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);

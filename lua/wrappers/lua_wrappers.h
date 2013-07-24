@@ -9,7 +9,8 @@ namespace am {
 namespace lua {
 namespace wrapper {
 
-	void AssignWrappers(lua_State *lua);
+	void addWrapper(lua_State *lua, const char *name, lua_CFunction call, int id);
+	void AssignWrappers(lua_State *lua, int tableRef);
 	
 }
 }

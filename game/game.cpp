@@ -222,7 +222,8 @@ namespace game {
 					return;
 				}
 				GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-				mMainCharacter->attack(obj, NULL);
+				ReturnCode result = mMainCharacter->attack(obj, NULL);
+				am_log("ATTKRES", am::base::getErrorMessage(result));
 				if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
 				{
 					mMainCharacter->getDialogueComp()->talkTo(obj);

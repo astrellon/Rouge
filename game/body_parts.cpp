@@ -153,19 +153,30 @@ namespace game {
 
 	BodyPart *BodyParts::getNextWeaponPart()
 	{
+		int len = static_cast<int>(mPartList.size());
 		int startIndex = mAttackIndex;
+		if (startIndex < 0 || startIndex >= len)
+		{
+			startIndex = len - 1;
+		}
 		mAttackIndex++;
+		if (mAttackIndex >= len)
+		{
+			mAttackIndex = 0;
+		}
+
 		BodyPart *result = NULL;
 		while (mAttackIndex != startIndex)
 		{
 			BodyPart *part = mPartList[mAttackIndex];
-			if (part->isWeaponPart())
+			// Has to be a weapon part and not currently holding something else.
+			if (part->isWeaponPart() && !part->isHoldingOnto())
 			{
 				result = part;
 				break;
 			}
 			mAttackIndex++;
-			if (mAttackIndex >= static_cast<int>(mPartList.size()))
+			if (mAttackIndex >= len)
 			{
 				mAttackIndex = 0;
 			}

@@ -54,12 +54,12 @@ namespace game {
 			set->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "TileSet");
+		return LuaState::expectedContext(lua, "__gc", "am.tile_set");
 	}
 	/**
 	 * Compares this tile set with another tile set.
 	 *
-	 * @param TileSet rhs The other tile set to compare with.
+	 * @param am.tile_set rhs The other tile set to compare with.
 	 * @returns boolean True if they are the same tile set object.
 	 */
 	int TileSet_eq(lua_State *lua)
@@ -122,8 +122,8 @@ namespace game {
 	 * Sets the full name o the tile set. This is used to display
 	 * the tile set name to the user.
 	 *
-	 * @param string fullName The new full name of the tile set.
-	 * @returns TileSet This
+	 * @param string full_name The new full name of the tile set.
+	 * @returns am.tile_set This
 	 */
 	int TileSet_full_name(lua_State *lua)
 	{
@@ -140,15 +140,15 @@ namespace game {
 				set->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "full_name", "string fullName");
+			return LuaState::expectedArgs(lua, "full_name", "string full_name");
 		}
-		return LuaState::expectedContext(lua, "full_name", "TileSet");
+		return LuaState::expectedContext(lua, "full_name", "am.tile_set");
 	}
 	/**
 	 * Adds a tile to this tile set.
 	 *
-	 * @param Tile tile The tile to add.
-	 * @returns TileSet This
+	 * @param am.tile tile The tile to add.
+	 * @returns am.tile_set This
 	 */
 	int TileSet_add_tile(lua_State *lua)
 	{
@@ -161,21 +161,21 @@ namespace game {
 				set->addTile(tile);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "add_tile", "Tile tile");
+			return LuaState::expectedArgs(lua, "add_tile", "am.tile tile");
 		}
-		return LuaState::expectedContext(lua, "add_tile", "TileSet");
+		return LuaState::expectedContext(lua, "add_tile", "am.tile_set");
 	}
 	/**
 	 * Removes a tile from this tile set.
 	 *
-	 * @param string tileName The name of the tile to remove.
-	 * @returns TileSet This
+	 * @param string tile_name The name of the tile to remove.
+	 * @returns am.tile_set This
 	 */
 	/**
 	 * Removes a tile from this tile set.
 	 *
-	 * @param Tile tile The tile to remove.
-	 * @returns TileSet This
+	 * @param am.tile tile The tile to remove.
+	 * @returns am.tile_set This
 	 */
 	int TileSet_remove_tile(lua_State *lua)
 	{
@@ -193,20 +193,20 @@ namespace game {
 				set->removeTile(tile);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "remove_tile", 2, "Tile tile", "string tileName");
+			return LuaState::expectedArgs(lua, "remove_tile", 2, "am.tile tile", "string tile_name");
 		}
-		return LuaState::expectedContext(lua, "remove_tile", "TileSet");
+		return LuaState::expectedContext(lua, "remove_tile", "am.tile_set");
 	}
 	/**
 	 * Returns true if there is a tile with the given name in the tile set.
 	 *
-	 * @param string tileName The name of the tile to look for.
+	 * @param string tile_name The name of the tile to look for.
 	 * @returns boolean True if the tile was found.
 	 */
 	/**
 	 * Retruns true if the given tile was found in this tile set.
 	 *
-	 * @param Tile tile The tile to look for.
+	 * @param am.tile tile The tile to look for.
 	 * @returns boolean True if the tile was found.
 	 */
 	int TileSet_has_tile(lua_State *lua)
@@ -225,15 +225,15 @@ namespace game {
 				lua_pushboolean(lua, set->hasTile(tile));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_tile", 2, "Tile tile", "string tileName");
+			return LuaState::expectedArgs(lua, "has_tile", 2, "am.tile tile", "string tile_name");
 		}
-		return LuaState::expectedContext(lua, "has_tile", "TileSet");
+		return LuaState::expectedContext(lua, "has_tile", "am.tile_set");
 	}
 	/**
 	 * Looks for a tile in this tile set with the given name.
 	 *
-	 * @param string tileName The name of the tile to look for.
-	 * @returns Tile The found tile, or nil.
+	 * @param string tile_name The name of the tile to look for.
+	 * @returns am.tile The found tile, or nil.
 	 */
 	int TileSet_tile(lua_State *lua)
 	{
@@ -251,9 +251,9 @@ namespace game {
 				lua_pushnil(lua);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "tile", "string tileName");
+			return LuaState::expectedArgs(lua, "tile", "string tile_name");
 		}
-		return LuaState::expectedContext(lua, "tile", "TileSet");
+		return LuaState::expectedContext(lua, "tile", "am.tile_set");
 	}
 
 	/**

@@ -27,8 +27,8 @@ namespace tests {
 	bool TestLuaStats::testSimple() {
 		LuaState lua;
 		
-		assert(lua.loadString("Stats = import(\"Stats\")\n"
-			"stats = Stats.new()\n"
+		assert(lua.loadString(
+			"stats = am.stats.new()\n"
 			"stats:add(\"strength\", 7.8, true)\n"
 			"stats:add(\"dex\", 3.2)\n"
 			"function getBaseStat(key)\n"

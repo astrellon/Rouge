@@ -28,9 +28,9 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Item class represents a single item within the game.
+	 * TheiItem class represents a single item within the game.
 	 * All items are individual and are not dependant on other
-	 * item's or an item definition. Item's can be cloned and have their values
+	 * item's or an item definition. Items can be cloned and have their values
 	 * set from another item however if a definition like system is required.
 	 */
 	/**
@@ -55,12 +55,12 @@ namespace game {
 			item->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "Item");
+		return LuaState::expectedContext(lua, "__gc", "am.item");
 	}
 	/**
 	 * Returns true if the given item is the same as this item.
 	 *
-	 * @param Item rhs The other item to compare with.
+	 * @param am.item rhs The other item to compare with.
 	 * @returns boolean True if they are the same item.
 	 */
 	int Item_eq(lua_State *lua)
@@ -68,7 +68,7 @@ namespace game {
 		Item *lhs = castUData<Item>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Item");
+			return LuaState::expectedContext(lua, "__eq", "am.item");
 		}
 		Item *rhs = castUData<Item>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -142,33 +142,31 @@ namespace game {
 
 	/**
 	 * @static
-	 * Creates a new Item from the item definition.
+	 * Creates a new item from the item definition.
 	 * Item definitions are automatically loaded if one with
 	 * the given name is not registered.
 	 * <p>Example (a test map Lua file):</p>
 	 * <pre>
-	 * Item = import("Item")
-	 * item = Item.from_def("wooden:sword")
+	 * item = am.item.from_def("wooden:sword")
 	 * if (item ~= nil)
 	 *     item:name("Fred's Sword")
 	 * end
 	 * </pre>
 	 * <p>In "data/defs/wooden.lua":</p>
 	 * <pre>
-	 * Item, Engine, Game = import("Item", "Engine", "Game")
-	 * game = Engine.game()
+	 * game = am.engine.game()
 	 * 
-	 * item = Item.new()
+	 * item = am.item.new()
 	 * item:item_type("sword")
-	 *     :graphic(Sprite.new("item/sword"))
-	 *     :groundGraphic(Sprite.new("item/swordGround"))
+	 *     :graphic(am.sprite.new("item/sword"))
+	 *     :groundGraphic(am.sprite.new("item/swordGround"))
 	 * 
 	 * -- Here the npc is registered with the name "sword" and "wooden:" will 
 	 * -- automatically be prepended because of the filename.
 	 * game:item_def("sword", item) 
 	 * </pre>
 	 *
-	 * @param string defName The name of the item definition.
+	 * @param string def_name The name of the item definition.
 	 * @returns Item A copy of the item from the given definition, or nil if no definition was found.
 	 */
 	int Item_from_def(lua_State *lua)
@@ -198,14 +196,14 @@ namespace game {
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@from_def", "string defName");
+		return LuaState::expectedArgs(lua, "@from_def", "string def_name");
 	}
 
 	/**
 	 * Creates a copy of this item, will create
 	 * a new instance of the sprites used for the graphics.
 	 *
-	 * @returns Item The newly cloned item.
+	 * @returns am.item The newly cloned item.
 	 */
 	int Item_clone(lua_State *lua)
 	{
@@ -216,7 +214,7 @@ namespace game {
 			wrapRefObject<Item>(lua, newItem);
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "clone", "Item");
+		return LuaState::expectedContext(lua, "clone", "am.item");
 	}
 	/**
 	 * Returns the graphic used to display the item. This
@@ -224,16 +222,16 @@ namespace game {
 	 * and will also be used as the ground graphic if one
 	 * is not set.
 	 *
-	 * @returns Sprite The graphic for the item, can be nil.
+	 * @returns am.sprite The graphic for the item, can be nil.
 	 */
 	/**
 	 * Sets the graphic for the item, can be set to nil.
 	 *
-	 * @param Sprite graphic The new graphic for the item.
-	 * @param boolean [false] calcInvSize Calculates the inventory size
+	 * @param am.sprite graphic The new graphic for the item.
+	 * @param boolean [false] calc_size Calculates the inventory size
 	 *  of the item based off the graphic size. This is based off the
 	 *  the size of the item compared to the size of each inventory slot size.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_graphic(lua_State *lua)
 	{
@@ -272,9 +270,9 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "graphic", 2, "Sprite graphic, bool [true] calcSize", "nil graphic");
+			return LuaState::expectedArgs(lua, "graphic", 2, "am.sprite graphic, bool [true] calc_size", "nil graphic");
 		}
-		return LuaState::expectedContext(lua, "graphic", "Item");
+		return LuaState::expectedContext(lua, "graphic", "am.item");
 	}
 	/**
 	 * Returns the graphic used to display the item on the ground. This
@@ -282,13 +280,13 @@ namespace game {
 	 * and will also be used as the inventory graphic if one
 	 * is not set.
 	 *
-	 * @returns Sprite The ground graphic for the item, can be nil.
+	 * @returns am.sprite The ground graphic for the item, can be nil.
 	 */
 	/**
 	 * Sets the ground graphic for the item, can be set to nil.
 	 *
-	 * @param Sprite graphic The new ground graphic for the item.
-	 * @returns Item This
+	 * @param am.sprite graphic The new ground graphic for the item.
+	 * @returns am.item This
 	 */
 	int Item_ground_graphic(lua_State *lua)
 	{
@@ -318,9 +316,9 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "ground_graphic", 2, "Sprite graphic", "nil graphic");
+			return LuaState::expectedArgs(lua, "ground_graphic", 2, "am.sprite graphic", "nil graphic");
 		}
-		return LuaState::expectedContext(lua, "ground_graphic", "Item");
+		return LuaState::expectedContext(lua, "ground_graphic", "am.item");
 	}
 	/**
 	 * Returns the item type. The item type defines
@@ -337,8 +335,8 @@ namespace game {
 	 * <li>potion</li><li>gold</li><li>unknown</li>
 	 * </ul>
 	 *
-	 * @param string itemType The item type to set on this item.
-	 * @returns Item This
+	 * @param string item_type The item type to set on this item.
+	 * @returns am.item This
 	 */
 	int Item_item_type(lua_State *lua)
 	{
@@ -369,7 +367,7 @@ namespace game {
 				}
 				else
 				{
-					return LuaState::expectedArgs(lua, "item_type", 2, "string typeName", "integer typeId");
+					return LuaState::expectedArgs(lua, "item_type", 2, "string type_name", "integer type_id");
 				}
 				if (type != ItemCommon::UNKNOWN)
 				{
@@ -399,7 +397,7 @@ namespace game {
 	 *
 	 * @param integer width The width in inventory units.
 	 * @param integer height The height in inventory units.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_inventory_size(lua_State *lua)
 	{
@@ -421,7 +419,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "inventory_size", "integer width, integer height");
 		}
-		return LuaState::expectedContext(lua, "inventory_size", "Item");
+		return LuaState::expectedContext(lua, "inventory_size", "am.item");
 	}
 	/**
 	 * Returns the item location, as being in either in an inventory, in the player's hand or on the ground.
@@ -432,7 +430,7 @@ namespace game {
 	 * Sets the item location as being either on the ground, in an inventory or in the player's hand.
 	 *
 	 * @param string location The location as either "ground", "inventory" or "hand"
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_item_location(lua_State *lua)
 	{
@@ -463,7 +461,7 @@ namespace game {
 				}
 				else
 				{
-					return LuaState::expectedArgs(lua, "item_location", 2, "string locationName", "integer locationId");
+					return LuaState::expectedArgs(lua, "item_location", 2, "string location_name", "integer location_id");
 				}
 				if (location != Item::MAX_LENGTH)
 				{
@@ -479,7 +477,7 @@ namespace game {
 				lua_first(lua);
 			}
 		}
-		return LuaState::expectedContext(lua, "item_location", "Item");
+		return LuaState::expectedContext(lua, "item_location", "am.item");
 	}
 	/**
 	 * Returns the quest ID for this item.
@@ -492,8 +490,8 @@ namespace game {
 	/**
 	 * Sets the quest ID, any value higher than 0 is considered a valid ID.
 	 *
-	 * @param integer questId The new quest ID.
-	 * @returns Item This
+	 * @param integer quest_id The new quest ID.
+	 * @returns am.item This
 	 */
 	int Item_quest_item_id(lua_State *lua)
 	{
@@ -510,9 +508,9 @@ namespace game {
 				item->setQuestItemId(lua_tointeger(lua, 2));
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "quest_item_id", "integer questId");
+			return LuaState::expectedArgs(lua, "quest_item_id", "integer quest_id");
 		}
-		return LuaState::expectedContext(lua, "quest_item_id", "Item");
+		return LuaState::expectedContext(lua, "quest_item_id", "am.item");
 	}
 	/**
 	 * Returns true if this item has a valid quest ID.
@@ -527,7 +525,7 @@ namespace game {
 			lua_pushboolean(lua, item->isQuestItem());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "is_quest_item", "Item");
+		return LuaState::expectedContext(lua, "is_quest_item", "am.item");
 	}
 	/**
 	 * Returns the main item name.
@@ -538,7 +536,7 @@ namespace game {
 	 * Sets the main item name, this goes between the prefix and the postfix.
 	 *
 	 * @param string name The main item name.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_item_name(lua_State *lua)
 	{
@@ -557,7 +555,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "item_name", "string name");
 		}
-		return LuaState::expectedContext(lua, "item_name", "Item");
+		return LuaState::expectedContext(lua, "item_name", "am.item");
 	}
 	/**
 	 * Returns the item prefix, this goes before the item name, can be an empty string.
@@ -568,7 +566,7 @@ namespace game {
 	 * Sets the item prefix, nil is considered to be an empty string.
 	 *
 	 * @param string prefix The item prefix.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_prefix(lua_State *lua)
 	{
@@ -587,7 +585,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "prefix", "string prefix");
 		}
-		return LuaState::expectedContext(lua, "prefix", "Item");
+		return LuaState::expectedContext(lua, "prefix", "am.item");
 	}
 	/**
 	 * Returns the item postfix, this goes after the item name, can be an empty string.
@@ -598,7 +596,7 @@ namespace game {
 	 * Sets the item postfix, nil is considered to be an empty string.
 	 *
 	 * @param string postfix The item postfix.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_postfix(lua_State *lua)
 	{
@@ -617,7 +615,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "postfix", "string postfix");
 		}
-		return LuaState::expectedContext(lua, "postfix", "Item");
+		return LuaState::expectedContext(lua, "postfix", "am.item");
 	}
 	/**
 	 * Returns the whole item name as one string.
@@ -627,10 +625,10 @@ namespace game {
 	/**
 	 * Sets the whole item name, the main name, prefix and postfix.
 	 *
-	 * @param string mainName The main item name.
+	 * @param string main_name The main item name.
 	 * @param string [""] prefix The item prefix.
 	 * @param string [""] postfix The item potsfix.
-	 * @returns Item This
+	 * @returns am.item This
 	 */
 	int Item_item_fullname(lua_State *lua)
 	{
@@ -657,17 +655,17 @@ namespace game {
 			}
 			else
 			{
-				return LuaState::expectedArgs(lua, "item_fullname", "string mainName, string [""] prefix, string [""] postfix");
+				return LuaState::expectedArgs(lua, "item_fullname", "string main_name, string [""] prefix, string [""] postfix");
 			}
 			lua_first(lua);
 		}
-		return LuaState::expectedContext(lua, "item_fullname", "Item");
+		return LuaState::expectedContext(lua, "item_fullname", "am.item");
 	}
 	/**
 	 * Sets all the values from the given item onto this item.
 	 *
-	 * @param Item other The other item to set the values from.
-	 * @returns Item This
+	 * @param am.item other The other item to set the values from.
+	 * @returns am.item This
 	 */
 	int Item_set_item_from(lua_State *lua)
 	{
@@ -680,15 +678,15 @@ namespace game {
 				item->setItemFrom(*other);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "set_item_from", "Item other");
+			return LuaState::expectedArgs(lua, "set_item_from", "am.item other");
 		}
-		return LuaState::expectedContext(lua, "set_item_from", "Item");
+		return LuaState::expectedContext(lua, "set_item_from", "am.item");
 	}
 	/**
 	 * Returns the stats modifiers object for this item.
-	 * @see StatsModifiers
+	 * @see am.stats_modifiers
 	 *
-	 * @returns StatsModifiers The stats modifiers object.
+	 * @returns am.stats_modifiers The stats modifiers object.
 	 */
 	int Item_stat_modifiers(lua_State *lua)
 	{
@@ -698,12 +696,12 @@ namespace game {
 			wrapRefObject<StatModifiers>(lua, &item->getStatModifiers());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "stat_modifiers", "Item");
+		return LuaState::expectedContext(lua, "stat_modifiers", "am.item");
 	}
 	/**
 	 * Returns the item width for the main graphic.
 	 *
-	 * @returns Number The width of the item graphic.
+	 * @returns number The width of the item graphic.
 	 */
 	int Item_width(lua_State *lua)
 	{
@@ -713,12 +711,12 @@ namespace game {
 			lua_pushnumber(lua, item->getWidth());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "width", "Item");
+		return LuaState::expectedContext(lua, "width", "am.item");
 	}
 	/**
 	 * Returns the item height for the main graphic.
 	 *
-	 * @returns Number The height of the item graphic.
+	 * @returns number The height of the item graphic.
 	 */
 	int Item_height(lua_State *lua)
 	{
@@ -728,7 +726,7 @@ namespace game {
 			lua_pushnumber(lua, item->getHeight());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "height", "Item");
+		return LuaState::expectedContext(lua, "height", "am.item");
 	}
 	/**
 	 * An alias for returning the full item name.
@@ -743,20 +741,20 @@ namespace game {
 			lua_pushstring(lua, item->getName().c_str());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "name", "Item");
+		return LuaState::expectedContext(lua, "name", "am.item");
 	}
 	/**
 	 * Returns the item's location.
 	 *
-	 * @returns Number The x location.
-	 * @returns Number The y location.
+	 * @returns number The x location.
+	 * @returns number The y location.
 	 */
 	/**
 	 * Sets the item's location for the map it is currently on.
 	 *
-	 * @param number locationX The x location value.
-	 * @param number locationY The y location value.
-	 * @returns Item This
+	 * @param number location_x The x location value.
+	 * @param number location_y The y location value.
+	 * @returns am.item This
 	 */
 	int Item_location(lua_State *lua)
 	{
@@ -776,7 +774,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "location", "number x, number y");
 		}
-		return LuaState::expectedContext(lua, "location", "Item");
+		return LuaState::expectedContext(lua, "location", "am.item");
 	}
 
 	/**
@@ -788,9 +786,9 @@ namespace game {
 	/**
 	 * Sets the item's grid location for the map it is currently on.
 	 *
-	 * @param integer gridX The x grid location value.
-	 * @param integer gridY The y grid location value.
-	 * @returns Item This
+	 * @param integer grid_x The x grid location value.
+	 * @param integer grid_y The y grid location value.
+	 * @returns am.item This
 	 */
 	int Item_grid_location(lua_State *lua)
 	{
@@ -810,7 +808,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "grid_location", "integer x, integer y");
 		}
-		return LuaState::expectedContext(lua, "grid_location", "Item");
+		return LuaState::expectedContext(lua, "grid_location", "am.item");
 	}
 	/**
 	 * Returns the item's unique game id.
@@ -820,7 +818,7 @@ namespace game {
 	/**
 	 * Set's a new game id for this item.
 	 *
-	 * @param string gameId The new game id.
+	 * @param string game_id The new game id.
 	 * @returns boolean True if the item's game id was successfully changed.
 	 */
 	int Item_game_id(lua_State *lua)
@@ -838,22 +836,22 @@ namespace game {
 				lua_pushboolean(lua, item->setGameId(lua_tostring(lua, 2)));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "game_id", "string gameId");
+			return LuaState::expectedArgs(lua, "game_id", "string game_id");
 		}
-		return LuaState::expectedContext(lua, "game_id", "Item");
+		return LuaState::expectedContext(lua, "game_id", "am.item");
 	}
 	/**
 	 * @static
 	 * Looks up an item in the current game engine with the given game id.
 	 *
-	 * @param string gameId The game id to look up.
-	 * @returns Item The found item or nil.
+	 * @param string game_id The game id to look up.
+	 * @returns am.item The found item or nil.
 	 */
 	int Item_find(lua_State *lua)
 	{
 		if (lua_isstr(lua, 1))
 		{
-			am::game::Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, 1)));
+			Item *item = dynamic_cast<Item *>(Engine::getEngine()->getGameObject(lua_tostring(lua, 1)));
 			if (item)
 			{
 				wrapRefObject<Item>(lua, item);
@@ -862,7 +860,7 @@ namespace game {
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@find", "string gameId");
+		return LuaState::expectedArgs(lua, "@find", "string game_id");
 	}
 
 	/**
@@ -870,14 +868,14 @@ namespace game {
 	 * By default if no attribute data table is present nil is returned unless true
 	 * is passed as the first argument, then a data table is created if one is not present.
 	 * 
-	 * @param boolean [false] createTable Create a data table if one didn't exist.
-	 * @returns DataTable The data table on this character.
+	 * @param boolean [false] create_table Create a data table if one didn't exist.
+	 * @returns am.data_table The data table on this character.
 	 */
 	/**
 	 * Sets the data table on this item, can be set to nil.
 	 *
-	 * @param DataTable attrTable The data table to set on the item.
-	 * @returns Item This
+	 * @param am.data_table attr_table The data table to set on the item.
+	 * @returns am.item This
 	 */
 	int Item_attrs(lua_State *lua)
 	{
@@ -886,15 +884,15 @@ namespace game {
 		{
 			return IAttributeData_attrs(lua, item);
 		}
-		return LuaState::expectedContext(lua, "attrs", "Item");
+		return LuaState::expectedContext(lua, "attrs", "am.item");
 	}
 
 	/**
 	 * Adds a new body type which this item can be equipped to.
 	 * If the new body type is already on the item it will be ignored.
 	 * 
-	 * @param string partType The name of the body part.
-	 * @returns Item This
+	 * @param string part_type The name of the body part.
+	 * @returns am.item This
 	 */
 	int Item_add_body_type(lua_State *lua)
 	{
@@ -914,17 +912,17 @@ namespace game {
 				LuaState::warning(lua, ss.str().c_str());
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "add_body_type", "string bodyType");
+			return LuaState::expectedArgs(lua, "add_body_type", "string body_type");
 		}
-		return LuaState::expectedContext(lua, "add_body_type", "Item");
+		return LuaState::expectedContext(lua, "add_body_type", "am.item");
 	}
 
 	/**
 	 * Remove a new body type from this item that it can be equipped to.
 	 * If the body type is not on the item, this function will be ignored.
 	 * 
-	 * @param string partType The name of the body part.
-	 * @returns Item This
+	 * @param string part_type The name of the body part.
+	 * @returns am.item This
 	 */
 	int Item_remove_body_type(lua_State *lua)
 	{
@@ -944,15 +942,15 @@ namespace game {
 				LuaState::warning(lua, ss.str().c_str());
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "remove_body_type", "string bodyType");
+			return LuaState::expectedArgs(lua, "remove_body_type", "string body_type");
 		}
-		return LuaState::expectedContext(lua, "remove_body_type", "Item");
+		return LuaState::expectedContext(lua, "remove_body_type", "am.item");
 	}
 
 	/**
 	 * Checks if a new body type is on this item.
 	 * 
-	 * @param string partType The name of the body part.
+	 * @param string part_type The name of the body part.
 	 * @returns boolean True if the body part type was found on this item.
 	 */
 	int Item_has_body_type(lua_State *lua)
@@ -974,9 +972,9 @@ namespace game {
 				lua_pushboolean(lua, false);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_body_type", "string bodyType");
+			return LuaState::expectedArgs(lua, "has_body_type", "string body_type");
 		}
-		return LuaState::expectedContext(lua, "has_body_type", "Item");
+		return LuaState::expectedContext(lua, "has_body_type", "am.item");
 	}
 
 	/**
@@ -1000,7 +998,7 @@ namespace game {
 			}
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "get_body_types", "Item");
+		return LuaState::expectedContext(lua, "get_body_types", "am.item");
 	}
 
 }

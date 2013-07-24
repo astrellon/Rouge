@@ -104,7 +104,7 @@ namespace game {
 
 				string tileName = Utils::toLowerCase(lua_tostring(lua, -2));
 
-				TileType *loadedType = new TileType(tileName.c_str());
+				Handle<TileType> loadedType(new TileType(tileName.c_str()));
 				if (!loadedType->loadFromDef(lua))
 				{
 					stringstream errss;

@@ -25,8 +25,8 @@ namespace tests {
 	bool TestLuaItem::testSimple() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Item = import(\"Item\")\n"
-			"item = Item.new()\n"
+		int loadResult = lua.loadString(
+			"item = am.item.new()\n"
 			"function setGameId()\n"
 			"	item:game_id(\"testItem\")\n"
 			"end\n"
@@ -67,8 +67,8 @@ namespace tests {
 	bool TestLuaItem::testBodyPartTypes() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Item = import(\"Item\")\n"
-			"item = Item.new()\n"
+		int loadResult = lua.loadString(
+			"item = am.item.new()\n"
 			"function addPart(part)\n"
 			"	item:add_body_type(part)\n"
 			"end\n"

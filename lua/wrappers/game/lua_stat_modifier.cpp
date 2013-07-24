@@ -25,7 +25,7 @@ namespace game {
 	 * @class
 	 * The stat modifier object represents a single single stat modifier. Such as + 5 or + 10% or = 4.5.
 	 * The modifier is not linked to a stat until it is placed into a stat modifiers collection.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 */
 	/**
 	 * Creates a new empty stat modifier object.
@@ -82,7 +82,7 @@ namespace game {
 		StatModifier *stat = castUData<StatModifier>(lua, 1);
 		if (stat)
 		{
-		//	delete stat;
+			delete stat;
 		}
 		return 0;
 	}
@@ -91,15 +91,14 @@ namespace game {
 	 * Unlike many of the other Lua objects, this comparison will check
 	 * if the objects are equivalent.
 	 * <pre>
-	 * StatModifier = import("StatModifier")
-	 * mod1 = StatModifier.new(5, "+")
-	 * mod2 = StatModifier.new(5, "+")
-	 * mod3 = StatModifier.new(5, "*")
+	 * mod1 = am.stat_modifier.new(5, "+")
+	 * mod2 = am.stat_modifier.new(5, "+")
+	 * mod3 = am.stat_modifier.new(5, "*")
 	 * am_log("Mod 1 == Mod 2? " .. (mod1 == mod2)) -- Output "Mod 1 == Mod 2? true"
 	 * am_log("Mod 1 == Mod 3? " .. (mod1 == mod3)) -- Output "Mod 1 == Mod 3? false"
 	 * am_log("Mod 2 == Mod 3? " .. (mod2 == mod2)) -- Output "Mod 2 == Mod 3? false"
 	 * </pre>
-	 * @param StatModifier modifiers The other stat modifiers object to compare with.
+	 * @param am.stat_modifier modifiers The other stat modifiers object to compare with.
 	 * @returns boolean True if they are the same stat modifiers object.
 	 */
 	int StatModifier_eq(lua_State *lua)
@@ -107,7 +106,7 @@ namespace game {
 		StatModifier *lhs = castUData<StatModifier>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "StatModifier");
+			return LuaState::expectedContext(lua, "__eq", "am.stat_modifier");
 		}
 		StatModifier *rhs = castUData<StatModifier>(lua, 2);
 		lua_pushboolean(lua, lhs && rhs && (*lhs == *rhs));
@@ -139,13 +138,13 @@ namespace game {
 	/**
 	 * Returns the value of this stat modifier.
 	 *
-	 * @returns Number The stat modifier value.
+	 * @returns number The stat modifier value.
 	 */
 	/**
 	 * Sets the stat modifier value.
 	 *
 	 * @param number value The new value for this modifier.
-	 * @returns StatModifier This
+	 * @returns am.stat_modifier This
 	 */
 	int StatModifier_value(lua_State *lua)
 	{
@@ -164,7 +163,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "value", "number value");
 		}
-		return LuaState::expectedContext(lua, "value", "StatModifier");
+		return LuaState::expectedContext(lua, "value", "am.stat_modifier");
 	}
 
 	/**
@@ -182,7 +181,7 @@ namespace game {
 	 * </ul>
 	 *
 	 * @param string type The new type for this modifier.
-	 * @returns StatModifier This
+	 * @returns am.stat_modifier This
 	 */
 	int StatModifier_type(lua_State *lua)
 	{
@@ -213,7 +212,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "type", "string type");
 		}
-		return LuaState::expectedContext(lua, "type", "StatModifier");
+		return LuaState::expectedContext(lua, "type", "am.stat_modifier");
 	}
 
 	/**
@@ -225,7 +224,7 @@ namespace game {
 	 * Sets if modifier is magical in nature.
 	 *
 	 * @param boolean magical The new magical flag for this modifier.
-	 * @returns StatModifier This
+	 * @returns am.stat_modifier This
 	 */
 	int StatModifier_magical(lua_State *lua)
 	{
@@ -244,7 +243,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "magical", "boolean magical");
 		}
-		return LuaState::expectedContext(lua, "magical", "StatModifier");
+		return LuaState::expectedContext(lua, "magical", "am.stat_modifier");
 	}
 
 }

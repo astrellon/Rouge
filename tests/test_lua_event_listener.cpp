@@ -34,7 +34,7 @@ namespace tests {
 		Quest manager("testQuest");
 		LuaState lua;
 
-		int loadResult = lua.loadString("import(\"Quest\")\n"
+		int loadResult = lua.loadString(
 			"eventCalled = \"none\"\n"
 			"timesCalled = 0\n"
 			"theManager = nil\n"
@@ -60,7 +60,7 @@ namespace tests {
 		am_equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
-		wrapObject<Quest>(lua, &manager);
+		wrapRefObject<Quest>(lua, &manager);
 
 		lua_acall(lua, 1, 0);
 		Handle<Event> testEvent(new Event("testEvent"));

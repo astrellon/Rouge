@@ -33,12 +33,12 @@ namespace game {
 	 */
 	/**
 	 * Creates a new quest with the given quest id unless an existing quest
-	 * with the same questId exists. If the quest was already existing
+	 * with the same quest_id exists. If the quest was already existing
 	 * then the 2nd return values is true.
 	 *
-	 * @param string questId The quest id for this quest.
-	 * @returns Quest The newly created quest or returns the quest that had the
-	 *  same questId.
+	 * @param string quest_id The quest id for this quest.
+	 * @returns am.quest The newly created quest or returns the quest that had the
+	 *  same quest_id.
 	 * @returns boolean True if the quest was newly created, false otherwise.
 	 */
 	int Quest_ctor(lua_State *lua)
@@ -56,7 +56,7 @@ namespace game {
 			lua_pushboolean(lua, newQuest);
 			return 2;
 		}
-		return LuaState::expectedArgs(lua, "@new", "string questId");
+		return LuaState::expectedArgs(lua, "@new", "string quest_id");
 	}
 	/**
 	 * Releases the reference on the internal quest.
@@ -69,12 +69,12 @@ namespace game {
 			quest->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "Quest");
+		return LuaState::expectedContext(lua, "__gc", "am.quest");
 	}
 	/**
 	 * Compares if this quest is the same as the given quest object.
 	 *
-	 * @param Quest rhs The other quest to compare with.
+	 * @param am.quest rhs The other quest to compare with.
 	 * @returns boolean True if they are the same quest object.
 	 */
 	int Quest_eq(lua_State *lua)
@@ -82,7 +82,7 @@ namespace game {
 		Quest *lhs = castUData<Quest>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Quest");
+			return LuaState::expectedContext(lua, "__eq", "am.quest");
 		}
 		Quest *rhs = castUData<Quest>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -135,7 +135,7 @@ namespace game {
 			lua_pushboolean(lua, quest->startQuest());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "start_quest", "Quest");
+		return LuaState::expectedContext(lua, "start_quest", "am.quest");
 	}
 	/**
 	 * Sets that the quest has been finished, this will return false is the quest has already
@@ -151,7 +151,7 @@ namespace game {
 			lua_pushboolean(lua, quest->finishQuest());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "finish_quest", "Quest");
+		return LuaState::expectedContext(lua, "finish_quest", "am.quest");
 	}
 	/**
 	 * Returns true if the quest has been completed/finished.
@@ -162,7 +162,7 @@ namespace game {
 	 * Silently sets the quest completed/finished flag, this does not fire any events.
 	 *
 	 * @param boolean completed Sets if the quest has been completed/finished.
-	 * @returns Quest This
+	 * @returns am.quest This
 	 */
 	int Quest_complete(lua_State *lua)
 	{
@@ -181,7 +181,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "complete", "boolean complete");
 		}
-		return LuaState::expectedContext(lua, "complete", "Quest");
+		return LuaState::expectedContext(lua, "complete", "am.quest");
 	}
 	/**
 	 * Returns the title of this quest.
@@ -192,7 +192,7 @@ namespace game {
 	 * Sets the title of this quest.
 	 *
 	 * @param string title The new quest title.
-	 * @returns Quest This
+	 * @returns am.quest This
 	 */
 	int Quest_title(lua_State *lua)
 	{
@@ -211,7 +211,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "title", "string title");
 		}
-		return LuaState::expectedContext(lua, "title", "Quest");
+		return LuaState::expectedContext(lua, "title", "am.quest");
 	}
 	/**
 	 * Returns the quest description.
@@ -222,7 +222,7 @@ namespace game {
 	 * Sets the quest description.
 	 *
 	 * @param string description The new quest description.
-	 * @returns Quest This
+	 * @returns am.quest This
 	 */
 	int Quest_description(lua_State *lua)
 	{
@@ -241,7 +241,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "description", "string description");
 		}
-		return LuaState::expectedContext(lua, "description", "Quest");
+		return LuaState::expectedContext(lua, "description", "am.quest");
 	}
 	/**
 	 * Returns the current active text for the quest. This can change over time as
@@ -253,7 +253,7 @@ namespace game {
 	 * Sets the active text, this should change to reflect how the player is progressing through the quest.
 	 *
 	 * @param string text The new active text.
-	 * @returns Quest This
+	 * @returns am.quest This
 	 */
 	int Quest_active_text(lua_State *lua)
 	{
@@ -272,13 +272,12 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "active_text", "string text");
 		}
-		return LuaState::expectedContext(lua, "active_text", "Quest");
+		return LuaState::expectedContext(lua, "active_text", "am.quest");
 	}
 	/**
 	 * Adds an event listener to this quest.
 	 * <pre>
-	 * Quest = import("Quest")
-	 * quest = Quest.new("testQuest")
+	 * quest = am.quest.new("testQuest")
 	 * quest:on("startQuest", function(event)
 	 *     am_log("Quest started")
 	 *     quest:finish_quest()
@@ -289,7 +288,7 @@ namespace game {
 	 * quest:start_quest()
 	 * </pre>
 	 *
-	 * @param string eventType The event type or name to trigger on
+	 * @param string event_name The event type or name to trigger on
 	 * @param function listener The function to call when the event is fired.
 	 * @param table [nil] content An option context for the listener to be
 	 * called with.
@@ -305,16 +304,16 @@ namespace game {
 				lua_pushboolean(lua, am::lua::ui::addEventListener(lua, quest));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "on", "string eventName, function listener");
+			return LuaState::expectedArgs(lua, "on", "string event_name, function listener");
 		}
-		return LuaState::expectedContext(lua, "on", "Quest");
+		return LuaState::expectedContext(lua, "on", "am.quest");
 	}
 	/**
 	 * Removes an event listener from the quest.
 	 * Currently the quest only has events which should only fire once, 
 	 * but if an event listener needs to changed before the event is fire it can be done.
 	 *
-	 * @param string eventType The event type the listener was listening for.
+	 * @param string event_name The event type the listener was listening for.
 	 * @param function listener The listener function to remove.
 	 * @param table [nil] context The context which the listener was going to 
 	 * be called with, this is only optional if the listener was added with no context.
@@ -330,13 +329,13 @@ namespace game {
 				lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, quest));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "off", "string eventName, function listener");
+			return LuaState::expectedArgs(lua, "off", "string event_name, function listener");
 		}
-		return LuaState::expectedContext(lua, "off", "Quest");
+		return LuaState::expectedContext(lua, "off", "am.quest");
 	}
 	/**
-	 * Returns true when there is an event listener for the given eventType.
-	 * @param string eventType The event type to look up.
+	 * Returns true when there is an event listener for the given event name.
+	 * @param string event_name The event type to look up.
 	 * @returns boolean True if there is any event listener 
 	 * that will be trigged by this event type.
 	 */
@@ -348,14 +347,14 @@ namespace game {
 			lua_pushboolean(lua, quest->hasEventListener(lua_tostring(lua, 2)));
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "has_event_listener", "Quest");
+		return LuaState::expectedContext(lua, "has_event_listener", "am.quest");
 	}
 	/**
 	 * @static
 	 * Adds a quest to the game engine pool of quests. This allows for them to be
 	 * looked up from anywhere using their quest id.
 	 *
-	 * @param Quest quest The quest to add to the pool.
+	 * @param am.quest quest The quest to add to the pool.
 	 * @returns boolean True if the quest was successfully added.
 	 */
 	int Quest_add_quest(lua_State *lua)
@@ -366,13 +365,13 @@ namespace game {
 			lua_pushboolean(lua, Engine::getGame()->addQuest(quest));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@add_quest", "Quest quest");
+		return LuaState::expectedArgs(lua, "@add_quest", "am.quest quest");
 	}
 	/**
 	 * @static
 	 * Removes a quest from the quest pool using its quest id.
 	 *
-	 * @param string questId The quest id for the quest to remove.
+	 * @param string quest_id The quest id for the quest to remove.
 	 * @returns boolean True if the quest was successfully removed.
 	 */
 	int Quest_remove_quest(lua_State *lua)
@@ -382,14 +381,14 @@ namespace game {
 			lua_pushboolean(lua, Engine::getGame()->removeQuest(lua_tostring(lua, 1)));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@remove_quest", "string questId");
+		return LuaState::expectedArgs(lua, "@remove_quest", "string quest_id");
 	}
 	/**
 	 * @static
 	 * Returns the found quest from the quest pool.
 	 * 
-	 * @param string questId The quest id of the quest to look up.
-	 * @returns Quest The found quest or nil.
+	 * @param string quest_id The quest id of the quest to look up.
+	 * @returns am.quest The found quest or nil.
 	 */
 	int Quest_find(lua_State *lua)
 	{
@@ -398,13 +397,13 @@ namespace game {
 			Quest *quest = dynamic_cast<Quest *>(Engine::getGame()->getQuest(lua_tostring(lua, 1)));
 			if (quest)
 			{
-				wrapObject<Quest>(lua, quest);
+				wrapRefObject<Quest>(lua, quest);
 				return 1;
 			}
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@find", "string questId");
+		return LuaState::expectedArgs(lua, "@find", "string quest_id");
 	}
 
 	/**
@@ -412,14 +411,14 @@ namespace game {
 	 * By default if no attribute data table is present nil is returned unless true
 	 * is passed as the first argument, then a data table is created if one is not present.
 	 * 
-	 * @param boolean [false] createTable Create a data table if one didn't exist.
-	 * @returns DataTable The data table on this quest.
+	 * @param boolean [false] create_table Create a data table if one didn't exist.
+	 * @returns am.data_table The data table on this quest.
 	 */
 	/**
 	 * Sets the data table on this quest, can be set to nil.
 	 *
-	 * @param DataTable attrTable The data table to set on the quest.
-	 * @returns Quest This
+	 * @param am.data_table attr_table The data table to set on the quest.
+	 * @returns am.quest This
 	 */
 	int Quest_attrs(lua_State *lua)
 	{
@@ -428,7 +427,7 @@ namespace game {
 		{
 			return IAttributeData_attrs(lua, quest);
 		}
-		return LuaState::expectedContext(lua, "attrs", "Quest");
+		return LuaState::expectedContext(lua, "attrs", "am.quest");
 	}
 
 }

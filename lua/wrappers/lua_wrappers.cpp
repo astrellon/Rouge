@@ -58,33 +58,43 @@ namespace am {
 namespace lua {
 namespace wrapper {
 
-	void AssignWrappers(lua_State *lua)
+	void addWrapper(lua_State *lua, const char *name, lua_CFunction call, int id)
 	{
-		LuaState::registerWrapper("Character", Character_register, Character::LUA_ID);
-		LuaState::registerWrapper("Stats", Stats_register, Stats::LUA_ID);
-		LuaState::registerWrapper("BodyPart", BodyPart_register, BodyPart::LUA_ID);
-		LuaState::registerWrapper("StatModifiers", StatModifiers_register, StatModifiers::LUA_ID);
-		LuaState::registerWrapper("StatModifier", StatModifier_register, StatModifier::LUA_ID);
-		LuaState::registerWrapper("Item", Item_register, Item::LUA_ID);
-		LuaState::registerWrapper("Inventory", Inventory_register, Inventory::LUA_ID);
-		LuaState::registerWrapper("Map", Map_register, Map::LUA_ID);
-		LuaState::registerWrapper("Tile", Tile_register, Tile::LUA_ID);
-		LuaState::registerWrapper("TileSet", TileSet_register, TileSet::LUA_ID);
-		LuaState::registerWrapper("TileType", TileType_register, TileType::LUA_ID);
-		LuaState::registerWrapper("TileInstance", TileInstance_register, TileInstance::LUA_ID);
-		LuaState::registerWrapper("Engine", Engine_register, Engine::LUA_ID);
-		LuaState::registerWrapper("Game", Game_register, Game::LUA_ID);
-		LuaState::registerWrapper("CoinPurse", CoinPurse_register, CoinPurse::LUA_ID);
-		LuaState::registerWrapper("Quest", Quest_register, Quest::LUA_ID);
-		LuaState::registerWrapper("Dialogue", Dialogue_register, Dialogue::LUA_ID);
-		LuaState::registerWrapper("Race", Race_register, Race::LUA_ID);
-		LuaState::registerWrapper("DialogueComponent", DialogueComponent_register, DialogueComponent::LUA_ID);
+		lua_pushstring(lua, name);
+		call(lua);
+		lua_settable(lua, -3);
+		LuaState::registerWrapper(name, id);
+	}
 
-		LuaState::registerWrapper("Sprite", Sprite_register, Sprite::LUA_ID);
+	void AssignWrappers(lua_State *lua, int tableRef)
+	{
+		lua_rawgeti(lua, LUA_REGISTRYINDEX, tableRef);
 
-		LuaState::registerWrapper("DataTable", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
+		addWrapper(lua, "character", Character_register, Character::LUA_ID);
+		addWrapper(lua, "stats", Stats_register, Stats::LUA_ID);
+		addWrapper(lua, "body_part", BodyPart_register, BodyPart::LUA_ID);
+		addWrapper(lua, "stat_modifiers", StatModifiers_register, StatModifiers::LUA_ID);
+		addWrapper(lua, "stat_modifier", StatModifier_register, StatModifier::LUA_ID);
+		addWrapper(lua, "item", Item_register, Item::LUA_ID);
+		addWrapper(lua, "inventory", Inventory_register, Inventory::LUA_ID);
+		addWrapper(lua, "map", Map_register, Map::LUA_ID);
+		addWrapper(lua, "tile", Tile_register, Tile::LUA_ID);
+		addWrapper(lua, "tile_set", TileSet_register, TileSet::LUA_ID);
+		addWrapper(lua, "tile_type", TileType_register, TileType::LUA_ID);
+		addWrapper(lua, "tile_instance", TileInstance_register, TileInstance::LUA_ID);
+		addWrapper(lua, "engine", Engine_register, Engine::LUA_ID);
+		addWrapper(lua, "game", Game_register, Game::LUA_ID);
+		addWrapper(lua, "coin_purse", CoinPurse_register, CoinPurse::LUA_ID);
+		addWrapper(lua, "quest", Quest_register, Quest::LUA_ID);
+		addWrapper(lua, "dialogue", Dialogue_register, Dialogue::LUA_ID);
+		addWrapper(lua, "race", Race_register, Race::LUA_ID);
+		addWrapper(lua, "dialogue_component", DialogueComponent_register, DialogueComponent::LUA_ID);
+		addWrapper(lua, "sprite", Sprite_register, Sprite::LUA_ID);
+		addWrapper(lua, "data_table", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
+		addWrapper(lua, "sound", Sound_register, am::sfx::ISound::LUA_ID);
 
-		LuaState::registerWrapper("Sound", Sound_register, am::sfx::ISound::LUA_ID);
+		lua_pop(lua, 1);
+
 	}
 	
 }

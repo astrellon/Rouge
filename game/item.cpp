@@ -174,6 +174,10 @@ namespace game {
 	{
 		return mStatModifiers;
 	}
+	StatModifiers &Item::getStatModifiersSelf()
+	{
+		return mStatModifiersSelf;
+	}
 
 	void Item::setInventorySize(short sizeX, short sizeY)
 	{
@@ -372,69 +376,6 @@ namespace game {
 		return mName.substr(mName.size() - mPostfix);
 	}
 
-	void Item::parseStats(LuaState &lua, bool magical)
-	{
-		if (!lua_istable(lua, -1))
-		{
-			return;
-		}
-		lua_pushnil(lua);
-		while (lua_next(lua, -2) != 0)
-		{
-			if (!lua_isstring(lua, -2))
-			{
-				lua.pop(1);
-				continue;
-			}
-			Stat::StatType statType = Stat::getStatType(lua_tostring(lua, -2));
-			if (statType == Stat::MAX_STAT_LENGTH)
-			{
-				stringstream ss;
-				ss << "Unknown stat type '" << lua_tostring(lua, -2) << "'";
-				am_log("ITEM", ss);
-				lua.pop(1);
-				continue;
-			}
-
-			float value = 0.0f;
-			StatModifierType type = MOD_ADD;
-			if (lua_isnumber(lua, -1))
-			{
-				value = lua_tofloat(lua, -1);
-			}
-			else if (lua_isstring(lua, -1))
-			{
-				string str = lua_tostring(lua, -1);
-				int foundAdd = static_cast<int>(str.find('+'));
-				int foundMulti = static_cast<int>(str.find('%'));
-				if (foundAdd >= 0 && foundMulti >= 0)
-				{
-					type = MOD_MULTIPLY;
-				}
-				else if (foundMulti >= 0)
-				{
-					type = MOD_SET;
-				}
-
-				int i = max(0, max(foundAdd, foundMulti));
-
-				bool parsed = Utils::fromString<float>(value, str.c_str() + i + 1);
-				if (!parsed)
-				{
-					stringstream ss;
-					ss << "Unable to parse stat '" << str.c_str() << "'";
-					am_log("ITEM", ss);
-				}
-				else
-				{
-					StatModifier modifier(value, type, magical);
-					mStatModifiers.addStatModifier(statType, modifier);
-				}
-			}
-			lua.pop(1);
-		}
-	}
-
 	float Item::getWidth()
 	{
 		return mCurrentGraphic->getWidth();
@@ -565,6 +506,7 @@ namespace game {
 			output->at("groundGraphic", mGroundGraphic->serialise());
 		}
 		output->at("statModifiers", mStatModifiers.serialise());
+		output->at("statModifiersSelf", mStatModifiersSelf.serialise());
 		
 		output->at("equipableTo", BodyPartType::serialiseTypeList(mEquipableTo));
 
@@ -637,6 +579,11 @@ namespace game {
 		if (tempData)
 		{
 			mStatModifiers.deserialise(state, tempData);
+		}
+		tempData = dataMap->at<data::IData>("statModifiersSelf");
+		if (tempData)
+		{
+			mStatModifiersSelf.deserialise(state, tempData);
 		}
 
 		tempData = dataMap->at<data::IData>("equipableTo");

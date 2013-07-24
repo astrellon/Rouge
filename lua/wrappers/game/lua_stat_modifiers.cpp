@@ -48,12 +48,12 @@ namespace game {
 		{
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "StatModifiers");
+		return LuaState::expectedContext(lua, "__gc", "am.stat_modifiers");
 	}
 	/**
 	 * Compares this stat modifiers object with the given one.
 	 *
-	 * @param StatModifiers modifiers The other stat modifiers object to compare with.
+	 * @param am.stat_modifiers modifiers The other stat modifiers object to compare with.
 	 * @returns boolean True if they are the same stat modifiers object.
 	 */
 	int StatModifiers_eq(lua_State *lua)
@@ -61,7 +61,7 @@ namespace game {
 		StatModifiers *lhs = castUData<StatModifiers>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "StatModifiers");
+			return LuaState::expectedContext(lua, "__eq", "am.stat_modifiers");
 		}
 		StatModifiers *rhs = castUData<StatModifiers>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -110,8 +110,7 @@ namespace game {
 	 * </ul>
 	 * <span>An example</span>
 	 * <pre>
-	 * StatModifiers = import("StatModifiers")
-	 * mods = StatModifiers.new()
+	 * mods = am.stat_modifiers.new()
 	 * 
 	 * base_health = 5
 	 * mods:add("health", 4, "+")
@@ -123,9 +122,9 @@ namespace game {
 	 * mods:add("health", 7, "=")
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 25 (7 * 3 + 4)
 	 * </pre>
-	 * @param string statName The name of the stat this modifier will affect.
+	 * @param string stat_name The name of the stat this modifier will affect.
 	 * @param number value The stat modifier value.
-	 * @param string modifierType The modifier type name.
+	 * @param string modifier_type The modifier type name.
 	 * @param boolean [true] magical Defines if the modification is magical in-nature or not.
 	 *  This does not affect how the final stat value is calculated, but it does allow for the UI
 	 *  to categorise how the modification is displayed. This may change in future.
@@ -143,7 +142,7 @@ namespace game {
 	 * This behaves as if all the modifiers were taken from the given collection
 	 * and added through the other add modifier function.
 	 *
-	 * @param StatModifiers mods The collection of stat modifiers to combine with this one.
+	 * @param am.stat_modifiers mods The collection of stat modifiers to combine with this one.
 	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully merged.</li>
@@ -154,7 +153,7 @@ namespace game {
 	/**
 	 * Adds a StatModifier instance to this collection of modifiers.
 	 *
-	 * @param string statName The name of the stat this modifier will affect.
+	 * @param string stat_name The name of the stat this modifier will affect.
 	 * @param StatModifier mod The stat modifier to add.
 	 * @returns integer Return codes
 	 * <ul>
@@ -172,7 +171,7 @@ namespace game {
 			lua_pushinteger(lua, addToStatModifier(lua, stats));
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "add", "StatModifiers");
+		return LuaState::expectedContext(lua, "add", "am.stat_modifiers");
 	}
 	/**
 	 * Removes a stat modifier from the collection.
@@ -182,11 +181,10 @@ namespace game {
 	 * So if you previous added a + 5 to Health, to remove it you remove a + 5 to Health.
 	 * <p><b>Note:</b><span> Internally the values are stored as 32-bit floats, as such two different
 	 * modifier values are considered the same if their different is less than 0.00001.</span></p>
-	 * @see StatModifiers.add
+	 * @see am.stat_modifiers.add
 	 *
 	 * <pre>
-	 * StatModifiers = import("StatModifiers")
-	 * mods = StatModifiers.new()
+	 * mods = am.stat_modifiers.new()
 	 * 
 	 * base_health = 5
 	 * mods:add("health", 4, "+")
@@ -209,9 +207,9 @@ namespace game {
 	 * am_log("Calculated Health: " .. mods:calculate_stat("health", base_health)) -- Outputs 5 (5)
 	 * </pre>
 	 *
-	 * @param string statName The name of the stat to remove this modifier from.
+	 * @param string stat_name The name of the stat to remove this modifier from.
 	 * @param number value The stat modifier value.
-	 * @param string modifierType The modifier type name.
+	 * @param string modifier_type The modifier type name.
 	 * @param boolean [true] magical If the added modifier was magical, it has be removed as magical.
 	 * @returns integer Return codes
 	 * <ul>
@@ -227,7 +225,7 @@ namespace game {
 	 * This behaves as if all the modifiers were taken from the given collection
 	 * and removed through the other remove modifier function.
 	 *
-	 * @param StatModifiers mods The collection of stat modifiers to remove.
+	 * @param am.stat_modifiers mods The collection of stat modifiers to remove.
 	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully removed.</li>
@@ -238,7 +236,7 @@ namespace game {
 	/**
 	 * Removes a stat modifier from this collection.
 	 *
-	 * @param string statName The name of the stat to remove this modifier from.
+	 * @param string stat_name The name of the stat to remove this modifier from.
 	 * @param StatModifier mod The modifier to remove.
 	 * @returns integer Return codes
 	 * <ul>
@@ -256,7 +254,7 @@ namespace game {
 			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "remove", "StatModifiers");
+		return LuaState::expectedContext(lua, "remove", "am.stat_modifiers");
 	}
 
 	/**
@@ -265,8 +263,7 @@ namespace game {
 	 * affect on the internal values.
 	 *
 	 * <pre>
-	 * StatModifiers, StatModifier = import("StatModifiers", "StatModifier")
-	 * statMods = StatModifiers.new()
+	 * statMods = am.stat_modifiers.new()
 	 * statMods:add("health", 5, "+", false)
 	 * statMods:add("health", 8, "=")
 	 * statMods:add("health", 2, "*")
@@ -306,15 +303,15 @@ namespace game {
 			}
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "mods", "StatModifiers");
+		return LuaState::expectedContext(lua, "mods", "am.stat_modifiers");
 	}
 	/**
 	 * Calculates the final value for a given stat with the given base value.
 	 * Stats with no modifications will simply return the base value.
 	 *
-	 * @param string statName The stat name, nil will be returned if this is invalid.
+	 * @param string stat_name The stat name, nil will be returned if this is invalid.
 	 * @param number baseValue The base value for the stat.
-	 * @returns Number The calculated stat value.
+	 * @returns number The calculated stat value.
 	 */
 	int StatModifiers_calculate_stat(lua_State *lua)
 	{
@@ -334,9 +331,9 @@ namespace game {
 					}
 				}
 			}
-			return LuaState::expectedArgs(lua, "calculate_stat", "string statName, number baseValue");
+			return LuaState::expectedArgs(lua, "calculate_stat", "string stat_name, number baseValue");
 		}
-		return LuaState::expectedContext(lua, "calculate_stat", "StatModifiers");
+		return LuaState::expectedContext(lua, "calculate_stat", "am.stat_modifiers");
 	}
 
 	int addToStatModifier(lua_State *lua, am::game::IStatModifiers *stats)

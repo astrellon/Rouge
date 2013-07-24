@@ -49,7 +49,7 @@ namespace game {
 				lua_first(lua);
 			}
 		}
-		return LuaState::expectedArgs(lua, "attrs", 2, "DataTable attrsTable", "nil attrsTable");
+		return LuaState::expectedArgs(lua, "attrs", 2, "am.data_table attrs_table", "nil attrs_table");
 	}
 
 }

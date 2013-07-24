@@ -27,9 +27,8 @@ namespace tests {
 	bool TestLuaInventory::testSimple() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Inventory = import(\"Inventory\")\n"
-			"item = import(\"Item\")\n"
-			"inv = Inventory.new(6, 4)\n"
+		int loadResult = lua.loadString(
+			"inv = am.inventory.new(6, 4)\n"
 			"function getSpace()\n"
 			"	return inv:size()\n"
 			"end\n"
@@ -117,9 +116,9 @@ namespace tests {
 	bool TestLuaInventory::testSpots() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Inventory, Item = import(\"Inventory\", \"Item\")\n"
-			"inv = Inventory.new(3, 3)\n"
-			"scroll1 = Item.new()\n"
+		int loadResult = lua.loadString(
+			"inv = am.inventory.new(3, 3)\n"
+			"scroll1 = am.item.new()\n"
 			"scroll1:inventory_size(2, 1)\n"
 			"scroll1:item_name(\"Scroll 1\")\n"
 			"scroll2 = scroll1:clone()\n"

@@ -105,6 +105,7 @@ namespace sys {
 		runSuite(TestLuaDataTable);
 		runSuite(TestUtils);
 		runSuite(TestBodyParts);
+		
 
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)

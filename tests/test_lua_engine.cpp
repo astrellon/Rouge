@@ -33,12 +33,12 @@ namespace tests {
 		Engine *eng = new Engine();
 		Engine::setEngine(eng);
 		
-		int loadResult = lua.loadString("Engine = import(\"Engine\")\n"
+		int loadResult = lua.loadString(
 			"function setGridSize(size)\n"
-			"	Engine.grid_size(size)\n"
+			"	am.engine.grid_size(size)\n"
 			"end\n"
 			"function getGridSize()\n"
-			"	return Engine.grid_size()\n"
+			"	return am.engine.grid_size()\n"
 			"end\n"
 			);
 		
@@ -71,10 +71,8 @@ namespace tests {
 		eng->init();
 		Engine::setEngine(eng);
 		
-		int loadResult = lua.loadString("Engine = import(\"Engine\")\n"
-			"Tile = import(\"Tile\")\n"
-			"TileSet = import(\"TileSet\")\n"
-			"topSet = Engine.top_level_tile_set()\n"
+		int loadResult = lua.loadString(
+			"topSet = am.engine.top_level_tile_set()\n"
 			"function addTile(tile, set)\n"
 			"	if (set == nil) then\n"
 			"		topSet:add_tile(tile)\n"
@@ -83,7 +81,7 @@ namespace tests {
 			"	end\n"
 			"end\n"
 			"function getTile(tileName)\n"
-			"	return Engine.tile(tileName)\n"
+			"	return am.engine.tile(tileName)\n"
 			"end\n"
 			);
 		

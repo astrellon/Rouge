@@ -218,12 +218,10 @@ namespace lua {
 		bool operator!=(const lua_State *lua) const;
 		bool operator!=(const LuaState &rhs) const;
 
-		static void registerWrapper(const char *name, lua_CFunction call, int id);
-		static int getWrapper(lua_State *lua);
+		static void registerWrapper(const char *name, int id);
 		static int luaEquals(lua_State *lua);
 		static int luaNotEquals(lua_State *lua);
 		static int luaPrintStack(lua_State *lua);
-		static void clearRegistered();
 		static int getMaxRegisteredId();
 
 		static void logStack(lua_State *lua, const char *cat);
@@ -231,7 +229,7 @@ namespace lua {
 		static const char *getType(lua_State *lua, int n);
 		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
 
-		static int lua_am_log(lua_State *lua);
+		static int luaAmLog(lua_State *lua);
 
 		static void displayLineError(lua_State *lua, const char *file, int line);
 
@@ -243,7 +241,6 @@ namespace lua {
 	protected:
 		lua_State *mLua;
 
-		static WrapperMap sWrapperMap;
 		static WrapperIdMap sWrapperIdMap;
 		static int sWrapperMaxId;
 

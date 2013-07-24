@@ -195,23 +195,45 @@ namespace game {
 		return length;
 	}
 
-	void Character::attack(GameObject *enemy, Item *withItem)
+	ReturnCode Character::attack(GameObject *enemy, Item *withItem)
 	{
 		if (!enemy)
 		{
-			return;
+			return NULL_PARAMETER;
 		}
 
 		float dist = distanceToGrid(enemy);
-		stringstream ss;
-		ss << "Dist: " << dist;
-		am_log("ATTK", ss);
 		if (dist > 1.5f)
 		{
-			return;
+			return OUT_OF_RANGE;
 		}
 
+		BodyPart *weaponPart = mBodyParts.getNextWeaponPart();
+		if (!weaponPart)
+		{
+			// Sad times, no way to attack.
+			return NO_WEAPON_PART;
+		}
 
+		Stats temp = *mStats;
+		Handle<Item> attackItem(weaponPart->getEquippedItem());
+		if (attackItem)
+		{
+			// Armed attack
+			temp.addModifiers(attackItem->getStatModifiersSelf());
+		}
+		else
+		{
+			// Unarmed attack
+		}
+
+		float minDamage = temp.getStat(Stat::MIN_DAMAGE);
+		float maxDamage = temp.getStat(Stat::MAX_DAMAGE);
+		stringstream ss;
+		ss << "Attack damage: " << minDamage << " - " << maxDamage;
+		am_log("ATTK", ss);
+
+		return SUCCESS;
 	}
 
 	void Character::setController(IController *controller)

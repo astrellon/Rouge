@@ -47,12 +47,10 @@ namespace tests {
 		main->setGameId("testMainChar");
 		game->setMainCharacter(main);
 
-		int loadResult = lua.loadString("Quest, Character, Engine, Game, CoinPurse = import("
-			"\"Quest\", \"Character\", \"Engine\", \"Game\", \"CoinPurse\")\n"
-
-			"local quest = Quest.new(\"testQuest\")\n"
-			"Quest.add_quest(quest)\n"
-			"local game = Engine.game()\n"
+		int loadResult = lua.loadString(
+			"local quest = am.quest.new(\"testQuest\")\n"
+			"am.quest.add_quest(quest)\n"
+			"local game = am.engine.game()\n"
 			"local main = game:main()\n"
 			"local questStarted = false\n"
 

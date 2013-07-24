@@ -31,15 +31,15 @@ namespace game {
 	 * Creates a new tile type with the given name, this name should be unique
 	 * to all tile types.
 	 *
-	 * @param string tileTypeName The name of the tile type.
+	 * @param string tile_type_name The name of the tile type.
 	 */
 	/**
 	 * Creates a new tile type with the given name and full name. This name
 	 * should be unique to all tile types. The full name is used to display
 	 * the name of this tile type to the user.
 	 *
-	 * @param string tileTypeName The name of the tile type.
-	 * @param string fullName The full name of this tile type.
+	 * @param string tile_type_name The name of the tile type.
+	 * @param string full_name The full name of this tile type.
 	 */
 	int TileType_ctor(lua_State *lua)
 	{
@@ -56,29 +56,29 @@ namespace game {
 			}
 			if (tile)
 			{
-				wrapObject<TileType>(lua, tile);
+				wrapRefObject<TileType>(lua, tile);
 				return 1;
 			}
 		}
-		return LuaState::expectedArgs(lua, "@new", 2, "string tileTypeName", "string tileTypeName, string fullName");
+		return LuaState::expectedArgs(lua, "@new", 2, "string tile_type_name", "string tile_type_name, string full_name");
 	}
 	/**
-	 * Deletes the tile type. TODO Check if it should do this.
+	 * Releases the reference counter on the tile type.
 	 */
 	int TileType_dtor(lua_State *lua)
 	{
 		TileType *type = castUData<TileType>(lua, 1);
 		if (type)
 		{
-			delete type;
+			type->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "TileType");
+		return LuaState::expectedContext(lua, "__gc", "am.tile_type");
 	}
 	/**
 	 * Compares this tile type against another tile type.
 	 *
-	 * @param TileType rhs The other tile type to compare with.
+	 * @param am.tile_type rhs The other tile type to compare with.
 	 * @returns boolean Returns true if they are the same object.
 	 */
 	int TileType_eq(lua_State *lua)
@@ -126,7 +126,7 @@ namespace game {
 			lua_pushstring(lua, tile->getName());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "name", "TileType");
+		return LuaState::expectedContext(lua, "name", "am.tile_type");
 	}
 	/**
 	 * Returns the full name of this tile type.
@@ -137,8 +137,8 @@ namespace game {
 	 * Sets the full name of the tile type.
 	 * This is used to display the name of the tile type to the user.
 	 *
-	 * @param string fullName The full name of the tile type.
-	 * @returns TileType This
+	 * @param string full_name The full name of the tile type.
+	 * @returns am.tile_type This
 	 */
 	int TileType_full_name(lua_State *lua)
 	{
@@ -155,15 +155,15 @@ namespace game {
 				tile->setFullName(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "full_name", "string fullName");
+			return LuaState::expectedArgs(lua, "full_name", "string full_name");
 		}
-		return LuaState::expectedContext(lua, "full_name", "TileType");
+		return LuaState::expectedContext(lua, "full_name", "am.tile_type");
 	}
 	/**
 	 * @static
 	 * Register a tile type with the game engine.
 	 *
-	 * @param TileType tileType The tile type to register.
+	 * @param am.tile_type tile_type The tile type to register.
 	 */
 	int TileType_add_tile_type(lua_State *lua)
 	{
@@ -173,14 +173,14 @@ namespace game {
 			Engine::getEngine()->addTileType(tile);
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@add_tile_type", "TileType tileType");
+		return LuaState::expectedArgs(lua, "@add_tile_type", "am.tile_type tile_type");
 	}
 	/**
 	 * @static
 	 * Looks up a tile type with the given name.
 	 *
-	 * @param string tileTypeName The name of the tile type to look up.
-	 * @returns TileType The found tile type or nil.
+	 * @param string tile_type_name The name of the tile type to look up.
+	 * @returns am.tile_type The found tile type or nil.
 	 */
 	int TileType_tile_type(lua_State *lua)
 	{
@@ -189,13 +189,13 @@ namespace game {
 			TileType *tile = Engine::getEngine()->getTileType(lua_tostring(lua, 1));
 			if (tile)
 			{
-				wrapObject<TileType>(lua, tile);
+				wrapRefObject<TileType>(lua, tile);
 				return 1;
 			}
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@tile_type", "string tileTypeName");
+		return LuaState::expectedArgs(lua, "@tile_type", "string tile_type_name");
 	}
 
 }

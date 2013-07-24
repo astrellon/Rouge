@@ -53,7 +53,7 @@ namespace game {
 	/**
 	 * Compares this stats object against another stats object.
 	 *
-	 * @param Stats rhs The other stats object to compare with.
+	 * @param am.stats rhs The other stats object to compare with.
 	 * @returns boolean True if they are the same stats object.
 	 */
 	int Stats_eq(lua_State *lua)
@@ -61,7 +61,7 @@ namespace game {
 		Stats *lhs = castUData<Stats>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Stats");
+			return LuaState::expectedContext(lua, "__eq", "am.stats");
 		}
 		Stats *rhs = castUData<Stats>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -136,15 +136,15 @@ namespace game {
 	 * Returns the base value for the given stat. This is the value of the stat before
 	 * any stat modifiers are applied.
 	 *
-	 * @param string statName The name of the stat to get the base value of.
-	 * @returns Number The base value.
+	 * @param string stat_name The name of the stat to get the base value of.
+	 * @returns number The base value.
 	 */
 	/**
 	 * Sets the base value of the given stat with the given value.
 	 *
-	 * @param string statName The name of the stat to set the base value of.
-	 * @param number baseValue The new base value for the stat.
-	 * @returns Stats This
+	 * @param string stat_name The name of the stat to set the base value of.
+	 * @param number base_value The new base value for the stat.
+	 * @returns am.stats This
 	 */
 	int Stats_base_stat(lua_State *lua)
 	{
@@ -170,13 +170,13 @@ namespace game {
 				stringstream ss;
 				ss << "Invalid stat name (";
 				LuaState::printTypeValue(lua, 2, ss);
-				ss << ") for Stats.base_value";
+				ss << ") for am.stats.base_value";
 				LuaState::warning(lua, ss.str().c_str());
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "base_stat", "string statName, number baseValue");
+			return LuaState::expectedArgs(lua, "base_stat", "string stat_name, number base_value");
 		}
-		return LuaState::expectedContext(lua, "base_stat", "Stats");
+		return LuaState::expectedContext(lua, "base_stat", "am.stats");
 	}
 
 	/**
@@ -184,8 +184,8 @@ namespace game {
 	 * This uses the base value of the stat and any modifiers applied to that stat
 	 * to return the value from this function.
 	 *
-	 * @param string statName The name of the stat to get the calculated value of.
-	 * @returns Number The calculated stat value.
+	 * @param string stat_name The name of the stat to get the calculated value of.
+	 * @returns number The calculated stat value.
 	 */
 	int Stats_stat(lua_State *lua)
 	{
@@ -198,18 +198,17 @@ namespace game {
 				lua_pushnumber(lua, stats->getStat(stat));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "stat", "string statName");
+			return LuaState::expectedArgs(lua, "stat", "string stat_name");
 		}
-		return LuaState::expectedContext(lua, "stat", "Stats");
+		return LuaState::expectedContext(lua, "stat", "am.stats");
 	}
 	/**
 	 * Adds a modifier to the stat modifiers collection. This behaves the same
 	 * way as the stat modifiers class add function.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 *
 	 * <pre>
-	 * Stats, StatModifiers = import("Stats", "StatModifiers")
-	 * stats = Stats.new()
+	 * stats = am.stats.new()
 	 * stats:add("strength", 6, "+")
 	 * stats:mods():add("strength", 4, "*")
 	 * 
@@ -219,7 +218,7 @@ namespace game {
 	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"
 	 * </pre>
 	 *
-	 * @param string statName The name of the stat to add the modifier to.
+	 * @param string stat_name The name of the stat to add the modifier to.
 	 * @param number value The value of the stat modifier.
 	 * @param string type The type of the modifier.
 	 * @param Booleam [true] magical If the modifier is magical in nature.
@@ -236,22 +235,22 @@ namespace game {
 	 * Merges another stat modifiers collection into the stat modifiers collection of this stats object.
 	 * This behaves as if all the modifiers were taken from the given collection
 	 * and added through the other add modifier function.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 *
-	 * @param StatModifiers mods The collection of stat modifiers to combine with this one.
+	 * @param am.stat_modifiers mods The collection of stat modifiers to combine with this one.
 	 * @returns integer Return code
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully merged.</li>
 	 * <li>0: The context object was not a stats object.</li>
-	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * <li>-1: The given stat modifiers collection was not a stat modifier instance.</li>
 	 * </ul>
 	 */
 	/**
-	 * Adds a StatModifier instance to this stats collection of modifiers.
-	 * @see StatModifiers
+	 * Adds a stat modifier instance to this stats collection of modifiers.
+	 * @see am.stat_modifiers
 	 *
-	 * @param string statName The name of the stat this modifier will affect.
-	 * @param StatModifier mod The stat modifier to add.
+	 * @param string stat_name The name of the stat this modifier will affect.
+	 * @param am.stat_modifier mod The stat modifier to add.
 	 * @returns integer Return code for success.
 	 * <ul>
 	 * <li>1: The stat modifier was added successfully.</li>
@@ -268,16 +267,15 @@ namespace game {
 			lua_pushinteger(lua, addToStatModifier(lua, stats));
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "add", "Stats");
+		return LuaState::expectedContext(lua, "add", "am.stats");
 	}
 	/**
 	 * Removes a modifier from the stat modifiers collection. This behaves the same
 	 * way as the stat modifiers class remove function.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 *
 	 * <pre>
-	 * Stats, StatModifiers = import("Stats", "StatModifiers")
-	 * stats = Stats.new()
+	 * stats = am.stats.new()
 	 * stats:add("strength", 6, "+")
 	 * stats:mods():add("strength", 4, "*")
 	 * 
@@ -292,9 +290,9 @@ namespace game {
 	 * am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 20"
 	 * </pre>
 	 * 
-	 * @param string statName The name of the stat to remove this modifier from.
+	 * @param string stat_name The name of the stat to remove this modifier from.
 	 * @param number value The stat modifier value.
-	 * @param string modifierType The modifier type name.
+	 * @param string modifier_type The modifier type name.
 	 * @param boolean [true] magical If the added modifier was magical, it has be removed as magical.
 	 * @returns integer Return codes
 	 * <ul>
@@ -309,28 +307,28 @@ namespace game {
 	 * Removes all the stat modifiers from the given collection from this stats modifiers collection.
 	 * This behaves as if all the modifiers were taken from the given collection
 	 * and removed through the other remove modifier function.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 *
-	 * @param StatModifiers mods The collection of stat modifiers to remove.
+	 * @param am.stat_modifiers mods The collection of stat modifiers to remove.
 	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifiers were successfully removed.</li>
 	 * <li>0: The context object was not a stats object.</li>
-	 * <li>-1: The given stat modifiers collection was not a StatModifier instance.</li>
+	 * <li>-1: The given stat modifiers collection was not a stat modifier instance.</li>
 	 * </ul>
 	 */
 	/**
 	 * Removes a stat modifier from this stats modifiers collection.
-	 * @see StatModifiers
+	 * @see am.stat_modifiers
 	 *
-	 * @param string statName The name of the stat to remove this modifier from.
-	 * @param StatModifier mod The modifier to remove.
+	 * @param string stat_name The name of the stat to remove this modifier from.
+	 * @param am.stat_modifier mod The modifier to remove.
 	 * @returns integer Return codes
 	 * <ul>
 	 * <li>1: The stat modifier was removed.</li>
 	 * <li>0: The context object was not a stats object.</li>
 	 * <li>-1: The given stat name was invalid.</li>
-	 * <li>-4: The given stat modifier was not a valid StatModifier instance.</li>
+	 * <li>-4: The given stat modifier was not a valid stat modifier instance.</li>
 	 * </ul>
 	 */
 	int Stats_remove(lua_State *lua)
@@ -341,13 +339,13 @@ namespace game {
 			lua_pushinteger(lua, removeFromStatModifier(lua, stats));
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "remove", "Stats");
+		return LuaState::expectedContext(lua, "remove", "am.stats");
 	}
 
 	/**
-	 * Returns the internal StatModifiers object.
+	 * Returns the internal stat modifiers object.
 	 *
-	 * @returns StatModifiers The internal stat modifiers object.
+	 * @returns am.stat_modifiers The internal stat modifiers object.
 	 */
 	int Stats_mods(lua_State *lua)
 	{
@@ -357,7 +355,7 @@ namespace game {
 			wrapRefObject<StatModifiers>(lua, stats->getStatModifiers());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "mods", "Stats");
+		return LuaState::expectedContext(lua, "mods", "am.stats");
 	}
 }
 }

@@ -20,6 +20,8 @@ using namespace am::lua;
 using namespace am::math;
 
 #include "tile_set.h"
+#include "race.h"
+#include "tile_type.h"
 
 namespace am {
 namespace sys {
@@ -32,12 +34,10 @@ namespace game {
 	class Game;
 	class GameObject;
 	class Tile;
-	class TileType;
-	class Race;
 
 	typedef map<string, Handle<TileSet> > TileSetMap;
-	typedef map<string, Race *> RaceMap;
-	typedef map<string, TileType *> TileTypeMap;
+	typedef map<string, Handle<Race> > RaceMap;
+	typedef map<string, Handle<TileType> > TileTypeMap;
 
 	class Engine : public EventInterface {
 	public:

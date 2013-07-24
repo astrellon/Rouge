@@ -77,7 +77,16 @@ namespace game {
 
 		virtual void setItemFrom(const Item &item);
 
+		/**
+		 * These are the stat modifiers that are applied
+		 * to the character as a whole that equips it.
+		 */
 		virtual StatModifiers &getStatModifiers();
+		/**
+		 * These stat modifiers that are applied only when
+		 * this item is in use, such as when it's being used to attack.
+		 */
+		virtual StatModifiers &getStatModifiersSelf();
 
 		virtual float getWidth();
 		virtual float getHeight();
@@ -125,12 +134,10 @@ namespace game {
 		unsigned int mBodyPartsRequired;
 
 		StatModifiers mStatModifiers;
+		StatModifiers mStatModifiersSelf;
 		BodyPartType::TypeList mEquipableTo;
 
 		virtual void updateGraphic();
-
-		//virtual void parseStats(const JsonObject &stats, bool magical);
-		virtual void parseStats(LuaState &lua, bool magical);
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();

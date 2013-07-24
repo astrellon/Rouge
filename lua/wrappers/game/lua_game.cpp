@@ -34,11 +34,11 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Game class keeps track of all current game objects, loaded maps,
-	 * dialogue and quests. There should only be one Game instance in use
-	 * at a time and it should be registered with the main Engine as being
-	 * the current game. There can be many Game instances over the lifetime of
-	 * an Engine however.
+	 * The game class keeps track of all current game objects, loaded maps,
+	 * dialogue and quests. There should only be one game instance in use
+	 * at a time and it should be registered with the main engine as being
+	 * the current game. There can be many game instances over the lifetime of
+	 * an engine however.
 	 */
 	/**
 	 * Creates a new game instance.
@@ -61,12 +61,12 @@ namespace game {
 			game->release();
 			return 0;
 		}
-		return LuaState::expectedContext(lua, "__gc", "Game");
+		return LuaState::expectedContext(lua, "__gc", "am.game");
 	}
 	/**
 	 * Compares this game against another game object.
 	 *
-	 * @param Game rhs The other game object to compare.
+	 * @param am.game rhs The other game object to compare.
 	 * @returns boolean True if they are the same object.
 	 */
 	int Game_eq(lua_State *lua)
@@ -74,7 +74,7 @@ namespace game {
 		Game *lhs = castUData<Game>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Game");
+			return LuaState::expectedContext(lua, "__eq", "am.game");
 		}
 		Game *rhs = castUData<Game>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -139,7 +139,7 @@ namespace game {
 	 * has been created in code it'll have to be added with this function.
 	 * If a map with the same map name already exists it will be overridden in the map pool.
 	 *
-	 * @param Map map The map to add to the map pool.
+	 * @param am.map map The map to add to the map pool.
 	 * @returns boolean True if the map was successfully added, false indicates the map was nil or had no name.
 	 */
 	int Game_add_map(lua_State *lua)
@@ -153,21 +153,21 @@ namespace game {
 				lua_pushboolean(lua, game->addMap(map));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_map", "Map map");
+			return LuaState::expectedArgs(lua, "add_map", "am.map map");
 		}
-		return LuaState::expectedContext(lua, "add_map", "Game");
+		return LuaState::expectedContext(lua, "add_map", "am.game");
 	}
 	/**
 	 * Removes a map from the map pool.
 	 *
-	 * @param string mapName The name of the map to remove.
+	 * @param string map_name The name of the map to remove.
 	 * @returns boolean True if the map was successfully removed, 
 	 *  false indicates that map was not in the map pool.
 	 */
 	/**
 	 * Removes a map from the map pool.
 	 *
-	 * @param Map map The map to remove.
+	 * @param am.map map The map to remove.
 	 * @returns boolean True if the map was successfully removed, 
 	 *  false indicates that map was not in the map pool.
 	 */
@@ -187,14 +187,14 @@ namespace game {
 				lua_pushboolean(lua, game->removeMap(map));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "remove_map", 2, "string mapName", "Map map");
+			return LuaState::expectedArgs(lua, "remove_map", 2, "string map_name", "am.map map");
 		}
-		return LuaState::expectedContext(lua, "remove_map", "Game");
+		return LuaState::expectedContext(lua, "remove_map", "am.game");
 	}
 	/**
 	 * Removes all the maps from the map pool.
 	 *
-	 * @returns Game This
+	 * @returns am.game This
 	 */
 	int Game_remove_all_maps(lua_State *lua)
 	{
@@ -204,14 +204,14 @@ namespace game {
 			game->removeAllMaps();
 			lua_first(lua);
 		}
-		return LuaState::expectedContext(lua, "remove_all_maps", "Game");
+		return LuaState::expectedContext(lua, "remove_all_maps", "am.game");
 	}
 	/**
 	 * Returns a map from the map pool. If the map is not present
 	 * it will attempt to load the map from file under the data directory.
-	 * <p><code>data/maps/{mapName}.lua</code></p>
-	 * @param string mapName The name of the map to load.
-	 * @returns Map The found/loaded map, nil if it could not be found nor loaded.
+	 * <p><code>data/maps/{map_name}.lua</code></p>
+	 * @param string map_name The name of the map to load.
+	 * @returns am.map The found/loaded map, nil if it could not be found nor loaded.
 	 */
 	int Game_map(lua_State *lua)
 	{
@@ -229,13 +229,13 @@ namespace game {
 				lua_pushnil(lua);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "map", "string mapName");
+			return LuaState::expectedArgs(lua, "map", "string map_name");
 		}
-		return LuaState::expectedContext(lua, "map", "Game");
+		return LuaState::expectedContext(lua, "map", "am.game");
 	}
 	/**
 	 * Returns true if a map with the given map name is found in the map pool.
-	 * @param string mapName The map name to look up.
+	 * @param string map_name The map name to look up.
 	 * @returns boolean True if the map was found.
 	 */
 	int Game_has_map(lua_State *lua)
@@ -248,27 +248,27 @@ namespace game {
 				lua_pushboolean(lua, game->hasMap(lua_tostring(lua, 2)));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_map", "string mapName");
+			return LuaState::expectedArgs(lua, "has_map", "string map_name");
 		}
-		return LuaState::expectedContext(lua, "has_map", "Game");
+		return LuaState::expectedContext(lua, "has_map", "am.game");
 	}
 	/**
 	 * Returns the current active map, this will usually be the one that
 	 * the main character is on.
 	 *
-	 * @returns Map The current active map.
+	 * @returns am.map The current active map.
 	 */
 	/**
 	 * Sets the current active map.
 	 *
-	 * @param string mapName The name of the map to set as the active map.
-	 * @returns Game This.
+	 * @param string map_name The name of the map to set as the active map.
+	 * @returns am.game This.
 	 */
 	/**
 	 * Sets the current active map.
 	 *
-	 * @param Map map The map to set as the active map.
-	 * @returns Game This.
+	 * @param am.map map The map to set as the active map.
+	 * @returns am.game This.
 	 */
 	int Game_current_map(lua_State *lua)
 	{
@@ -302,15 +302,15 @@ namespace game {
 						lua_first(lua);
 					}
 				}
-				return LuaState::expectedArgs(lua, "current_map", 2, "string mapName", "Map map");
+				return LuaState::expectedArgs(lua, "current_map", 2, "string map_name", "am.map map");
 			}
 		}
-		return LuaState::expectedContext(lua, "currentMap", "Game");
+		return LuaState::expectedContext(lua, "currentMap", "am.game");
 	}
 	/**
 	 * Adds a game object to the currently active map.
 	 *
-	 * @param GameObject gameObject The game object to add.
+	 * @param am.game_object game_object The game object to add.
 	 * @returns boolean True if the game object was successfully added.
 	 *  False indicates that either the current map is nil.
 	 */
@@ -332,23 +332,23 @@ namespace game {
 				lua_pushboolean(lua, game->addGameObjectToMap(obj));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_game_object_to_map", 2, "GameObject gameObject", "string gameId");
+			return LuaState::expectedArgs(lua, "add_game_object_to_map", 2, "am.game_object game_object", "string game_id");
 		}
-		return LuaState::expectedContext(lua, "add_game_object_to_map", "Game");
+		return LuaState::expectedContext(lua, "add_game_object_to_map", "am.game");
 	}
 	/**
 	 * Removes a game object from the current map.
 	 *
-	 * @param GameObject gameObject The game object to remove from the current map.
+	 * @param am.game_object game_object The game object to remove from the current map.
 	 * @returns boolean True if the game object was successfully removed.
-	 *  False indicates that either the current map or gameObject are nil.
+	 *  False indicates that either the current map or game_object are nil.
 	 */
 	/**
 	 * Removes a game object from the current map.
 	 *
 	 * @param string gameObjectId The game object id of the game object to remove from the current map.
 	 * @returns boolean True if the game object was successfully removed.
-	 *  False indicates that either the current map or gameObject are nil.
+	 *  False indicates that either the current map or game_object are nil.
 	 */
 	int Game_remove_game_object_from_map(lua_State *lua)
 	{
@@ -361,14 +361,14 @@ namespace game {
 				lua_pushboolean(lua, game->removeGameObjectFromMap(obj));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "remove_game_object_from_map", 2, "string gameId", "GameObject gameObject");
+			return LuaState::expectedArgs(lua, "remove_game_object_from_map", 2, "string game_id", "am.game_object game_object");
 		}
-		return LuaState::expectedContext(lua, "remove_game_object_from_map", "Game");
+		return LuaState::expectedContext(lua, "remove_game_object_from_map", "am.game");
 	}
 	/**
 	 * Returns true if the game object is on the current map.
 	 *
-	 * @param GameObject gameObject The game object to look for.
+	 * @param am.game_object game_object The game object to look for.
 	 * @returns boolean True if the game object was found on the current map.
 	 */
 	/**
@@ -388,45 +388,45 @@ namespace game {
 				lua_pushboolean(lua, game->hasGameObjectInMap(obj));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_game_object_in_map", 2, "string gameId", "GameObject gameObject");
+			return LuaState::expectedArgs(lua, "has_game_object_in_map", 2, "string game_id", "am.game_object game_object");
 		}
-		return LuaState::expectedContext(lua, "has_game_object_in_map", "Game");
+		return LuaState::expectedContext(lua, "has_game_object_in_map", "am.game");
 	}
 	/**
 	 * Moves a game object from their current map to a new map.
 	 *
-	 * @param GameObject gameObject The game object to move.
-	 * @param Map map The map to move to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param am.map map The map to move to.
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map.
 	 * 
-	 * @param GameObject gameObject The game object to move.
-	 * @param string mapName The name of the map to move to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param string map_name The name of the map to move to.
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given position.
 	 *
-	 * @param GameObject gameObject The game object to move.
-	 * @param Map map The map to move to.
-	 * @param number positionX The x position to move the game object to.
-	 * @param number positionY The y position to move the game object to.
-	 * @param boolean [true] setAsCurrent When true, the new map will become the current map and the camera will
+	 * @param am.game_object game_object The game object to move.
+	 * @param am.map map The map to move to.
+	 * @param number position_x The x position to move the game object to.
+	 * @param number position_y The y position to move the game object to.
+	 * @param boolean [true] set_as_current When true, the new map will become the current map and the camera will
 	 *  focus on the given game object.
-	 * @returns Game This
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given position.
 	 *
-	 * @param GameObject gameObject The game object to move.
-	 * @param string mapName The name of the map to move to.
-	 * @param number positionX The x position to move the game object to.
-	 * @param number positionY The y position to move the game object to.
-	 * @param boolean [true] setAsCurrent When true, the new map will become the current map and the camera will
+	 * @param am.game_object game_object The game object to move.
+	 * @param string map_name The name of the map to move to.
+	 * @param number position_x The x position to move the game object to.
+	 * @param number position_y The y position to move the game object to.
+	 * @param boolean [true] set_as_current When true, the new map will become the current map and the camera will
 	 *  focus on the given game object.
-	 * @returns Game This
+	 * @returns am.game This
 	 */
 	int Game_move_object_to_map(lua_State *lua)
 	{
@@ -437,39 +437,39 @@ namespace game {
 			{
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "move_game_object_to_map", 2, "GameObject gameObject, string mapName, number x, number y, boolean setAsCurrent [true]", "GameObject gameObject, map map, number x, number y, boolean setAsCurrent [true]");
+			return LuaState::expectedArgs(lua, "move_game_object_to_map", 2, "am.game_object game_object, string map_name, number x, number y, boolean [true] set_as_current", "am.game_object game_object, map map, number x, number y, boolean set_as_current [true]");
 		}
-		return LuaState::expectedContext(lua, "move_game_object_to_map", "Game");
+		return LuaState::expectedContext(lua, "move_game_object_to_map", "am.game");
 	}
 	/**
 	 * Moves a game object from their current map to a new map.
 	 * 
-	 * @param GameObject gameObject The game object to move.
-	 * @param Map map The map to move to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param am.map map The map to move to.
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map.
 	 * 
-	 * @param GameObject gameObject The game object to move.
-	 * @param string mapName The name of the map to move to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param string map_name The name of the map to move to.
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given grid position.
-	 * @param GameObject gameObject The game object to move.
-	 * @param Map map The map to move to.
-	 * @param integer gridX The x grid position to move the game object to.
-	 * @param integer gridY The y grid position to move the game object to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param am.map map The map to move to.
+	 * @param integer grid_x The x grid position to move the game object to.
+	 * @param integer grid_y The y grid position to move the game object to.
+	 * @returns am.game This
 	 */
 	/**
 	 * Moves a game object from their current map to a new map at a given grid position.
-	 * @param GameObject gameObject The game object to move.
-	 * @param string mapName The name of the map to move to.
-	 * @param integer gridX The x grid position to move the game object to.
-	 * @param integer gridY The y grid position to move the game object to.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to move.
+	 * @param string map_name The name of the map to move to.
+	 * @param integer grid_x The x grid position to move the game object to.
+	 * @param integer grid_y The y grid position to move the game object to.
+	 * @returns am.game This
 	 */
 	int Game_move_object_to_map_grid(lua_State *lua)
 	{
@@ -480,20 +480,20 @@ namespace game {
 			{
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "move_game_object_to_map_grid", 2, "GameObject gameObject, string mapName, number x, number y, boolean setAsCurrent [true]", "GameObject gameObject, map map, integer x, integer y, boolean setAsCurrent [true]");
+			return LuaState::expectedArgs(lua, "move_game_object_to_map_grid", 2, "am.game_object game_object, string map_name, number x, number y, boolean [true] set_as_current", "am.game_object game_object, map map, integer x, integer y, boolean [true] set_as_current");
 		}
-		return LuaState::expectedContext(lua, "move_game_object_to_map_grid", "Game");
+		return LuaState::expectedContext(lua, "move_game_object_to_map_grid", "am.game");
 	}
 	/**
 	 * Returns the main character for this game.
 	 *
-	 * @returns Character The main character.
+	 * @returns am.character The main character.
 	 */
 	/**
 	 * Sets the main character to the given character.
 	 * 
-	 * @param Character The new main character.
-	 * @returns Game This
+	 * @param am.character main_char The new main character.
+	 * @returns am.game This
 	 */
 	int Game_main_character(lua_State *lua)
 	{
@@ -525,16 +525,16 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "main", 2, "Character mainChar", "nil mainChar");
+			return LuaState::expectedArgs(lua, "main", 2, "am.character main_char", "nil main_char");
 		}
-		return LuaState::expectedContext(lua, "main", "Game");
+		return LuaState::expectedContext(lua, "main", "am.game");
 	}
 	/**
 	 * Looks for a game object with the given game object id, returns nil if a 
 	 * game object could not be found.
 	 * 
 	 * @param string gameObjectId The game object id to look up.
-	 * @returns GameObject The found game object, or nil.
+	 * @returns am.game_object The found game object, or nil.
 	 */
 	int Game_get_game_object(lua_State *lua)
 	{
@@ -547,15 +547,15 @@ namespace game {
 				wrapGameObject(lua, obj);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "game_object", "string gameId");
+			return LuaState::expectedArgs(lua, "game_object", "string game_id");
 		}
-		return LuaState::expectedContext(lua, "game_object", "Game");
+		return LuaState::expectedContext(lua, "game_object", "am.game");
 	}
 	/**
 	 * Registers a game object with the game instance.
 	 * 
-	 * @param GameObject gameObject The game object to register with this game.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to register with this game.
+	 * @returns am.game This
 	 */
 	int Game_register_game_object(lua_State *lua)
 	{
@@ -575,15 +575,15 @@ namespace game {
 				}
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "register_game_object", "GameObject gameObject");
+			return LuaState::expectedArgs(lua, "register_game_object", "am.game_object game_object");
 		}
-		return LuaState::expectedContext(lua, "register_game_object", "Game");
+		return LuaState::expectedContext(lua, "register_game_object", "am.game");
 	}
 	/**
 	 * Deregisters a game object with the game instance.
 	 *
-	 * @param GameObject gameObject The game object to deregister.
-	 * @returns Game This
+	 * @param am.game_object game_object The game object to deregister.
+	 * @returns am.game This
 	 */
 	int Game_deregister_game_object(lua_State *lua)
 	{
@@ -596,9 +596,9 @@ namespace game {
 				game->deregisterGameObject(obj);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "deregister_game_object", "GameObject gameObject");
+			return LuaState::expectedArgs(lua, "deregister_game_object", "am.game_object game_object");
 		}
-		return LuaState::expectedContext(lua, "deregister_game_object", "Game");
+		return LuaState::expectedContext(lua, "deregister_game_object", "am.game");
 	}
 
 	/**
@@ -608,8 +608,8 @@ namespace game {
 	 * definition is not found then the </span><code>data/defs/npcs.lua</code><span> file
 	 * is loaded then the definition is looked for again.</span>
 	 *
-	 * @param string defName The definition name of the character to load.
-	 * @returns Character The found definition or nil.
+	 * @param string def_name The definition name of the character to load.
+	 * @returns am.character The found definition or nil.
 	 */
 	/**
 	 * Registers a character with the given definition name.
@@ -623,9 +623,9 @@ namespace game {
 	 * registered from outside of those files, however they will need to always
 	 * provide a filename. Definitions can be overridden.</span>
 	 *
-	 * @param string defName The name to store the character definition under.
-	 * @param Character def The character definition to store.
-	 * @returns Game This
+	 * @param string def_name The name to store the character definition under.
+	 * @param am.character def The character definition to store.
+	 * @returns am.game This
 	 */
 	int Game_char_def(lua_State *lua)
 	{
@@ -660,9 +660,9 @@ namespace game {
 					}
 				}
 			}
-			return LuaState::expectedArgs(lua, "char_def", 3, "string defName", "string defName, Character char", "string defName, nil char");
+			return LuaState::expectedArgs(lua, "char_def", 3, "string def_name", "string def_name, am.character char", "string def_name, nil char");
 		}
-		return LuaState::expectedContext(lua, "char_def", "Game");
+		return LuaState::expectedContext(lua, "char_def", "am.game");
 	}
 
 	/**
@@ -672,8 +672,8 @@ namespace game {
 	 * definition is not found then the </span><code>data/defs/human.lua</code><span> file
 	 * is loaded then the definition is looked for again.</span>
 	 *
-	 * @param string defName The definition name of the item to load.
-	 * @returns Item The found definition or nil.
+	 * @param string def_name The definition name of the item to load.
+	 * @returns am.item The found definition or nil.
 	 */
 	/**
 	 * Registers a character with the given definition name.
@@ -687,9 +687,9 @@ namespace game {
 	 * registered from outside of those files, however they will need to always
 	 * provide a filename. Definitions can be overridden.</span>
 	 *
-	 * @param string defName The name to store the item definition under.
-	 * @param Item def The item definition to store.
-	 * @returns Game This
+	 * @param string def_name The name to store the item definition under.
+	 * @param am.item def The item definition to store.
+	 * @returns am.game This
 	 */
 	int Game_item_def(lua_State *lua)
 	{
@@ -724,15 +724,15 @@ namespace game {
 					}
 				}
 			}
-			return LuaState::expectedArgs(lua, "item_def", 3, "string defName", "string defName, Item item", "string defName, nil item");
+			return LuaState::expectedArgs(lua, "item_def", 3, "string def_name", "string def_name, am.item item", "string def_name, nil item");
 		}
-		return LuaState::expectedContext(lua, "item_def", "Game");
+		return LuaState::expectedContext(lua, "item_def", "am.game");
 	}
 
 	/**
 	 * Adds the given dialogue to the dialogue pool.
 	 *
-	 * @param Dialogue dialogue The dialogue to add to the pool.
+	 * @param am.dialogue dialogue The dialogue to add to the pool.
 	 * @returns boolean True if the dialogue was successfully added, false
 	 *  indicates that dialogue was nil or was already in the pool.
 	 */
@@ -747,21 +747,21 @@ namespace game {
 				lua_pushboolean(lua, game->addDialogue(diag));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_dialogue", "Dialogue dialogue");
+			return LuaState::expectedArgs(lua, "add_dialogue", "am.dialogue dialogue");
 		}
-		return LuaState::expectedContext(lua, "add_dialogue", "Game");
+		return LuaState::expectedContext(lua, "add_dialogue", "am.game");
 	}
 	/**
 	 * Removes a dialogue from the dialogue pool.
 	 *
-	 * @param Dialogue dialogue The dialogue to remove.
+	 * @param am.dialogue dialogue The dialogue to remove.
 	 * @returns boolean True if the dialogue was successfully removed, false
 	 *  indicates that the dialogue was nil or not found.
 	 */
 	/**
 	 * Removes a dialogue from the dialogue pool.
 	 *
-	 * @param string dialogueId The dialogue id of the dialogue to remove.
+	 * @param string dialogue_id The dialogue id of the dialogue to remove.
 	 * @returns boolean True if the dialogue was successfully removed, false
 	 *  indicates that the dialogue was nil or not found.
 	 */
@@ -781,14 +781,14 @@ namespace game {
 				lua_pushboolean(lua, game->removeDialogue(diag->getId()));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "remove_dialogue", 2, "string dialogueId", "Dialogue dialogue");
+			return LuaState::expectedArgs(lua, "remove_dialogue", 2, "string dialogue_id", "am.dialogue dialogue");
 		}
-		return LuaState::expectedContext(lua, "remove_dialogue", "Game");
+		return LuaState::expectedContext(lua, "remove_dialogue", "am.game");
 	}
 	/**
 	 * Removes all dialogue from the dialogue pool.
 	 *
-	 * @returns Game This
+	 * @returns am.game This
 	 */
 	int Game_remove_all_dialogue(lua_State *lua)
 	{
@@ -798,13 +798,13 @@ namespace game {
 			game->removeAllDialogue();
 			lua_first(lua);
 		}
-		return LuaState::expectedContext(lua, "remove_all_dialogue", "Game");
+		return LuaState::expectedContext(lua, "remove_all_dialogue", "am.game");
 	}
 	/**
 	 * Returns a dialogue with the given dialogue id, nil if no dialogue was found.
 	 *
-	 * @param string dialogueId The id of the dialogue to look up.
-	 * @returns Dialogue The found dialogue or nil.
+	 * @param string dialogue_id The id of the dialogue to look up.
+	 * @returns am.dialogue The found dialogue or nil.
 	 */
 	int Game_dialogue(lua_State *lua)
 	{
@@ -822,9 +822,9 @@ namespace game {
 				lua_pushnil(lua);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "dialogue", "string dialogueId");
+			return LuaState::expectedArgs(lua, "dialogue", "string dialogue_id");
 		}
-		return LuaState::expectedContext(lua, "dialogue", "Game");
+		return LuaState::expectedContext(lua, "dialogue", "am.game");
 	}
 	/**
 	 * TODO
@@ -837,7 +837,7 @@ namespace game {
 	/**
 	 * Adds a quest to the quest pool.
 	 *
-	 * @param Quest quest The quest to add.
+	 * @param am.quest quest The quest to add.
 	 * @returns boolean True if the quest was successfully added.
 	 */
 	int Game_add_quest(lua_State *lua)
@@ -851,20 +851,20 @@ namespace game {
 				lua_pushboolean(lua, game->addQuest(quest));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "add_quest", "Quest quest");
+			return LuaState::expectedArgs(lua, "add_quest", "am.quest quest");
 		}
-		return LuaState::expectedContext(lua, "add_quest", "Game");
+		return LuaState::expectedContext(lua, "add_quest", "am.game");
 	}
 	/**
 	 * Removes a quest from the quest pool.
 	 *
-	 * @param Quest quest The quest to remove from the quest pool.
+	 * @param am.quest quest The quest to remove from the quest pool.
 	 * @returns boolean True if the quest was successfully removed.
 	 */
 	/**
 	 * Removes a quest from the quest pool.
 	 *
-	 * @param string questId The id of the quest to remove from the quest pool.
+	 * @param string quest_id The id of the quest to remove from the quest pool.
 	 * @returns boolean True if the quest was successfully removed.
 	 */
 	int Game_remove_quest(lua_State *lua)
@@ -883,15 +883,15 @@ namespace game {
 				lua_pushboolean(lua, game->removeQuest(quest->getQuestId()));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "remove_quest", 2, "string questId", "Quest quest");
+			return LuaState::expectedArgs(lua, "remove_quest", 2, "string quest_id", "am.quest quest");
 		}
-		return LuaState::expectedContext(lua, "remove_quest", "Game");
+		return LuaState::expectedContext(lua, "remove_quest", "am.game");
 	}
 	/**
 	 * Returns a quest with the given quest id, nil if the quest could not be found.
 	 *
-	 * @param string questId The id of the quest to look up.
-	 * @returns Quest The found quest, or nil.
+	 * @param string quest_id The id of the quest to look up.
+	 * @returns am.quest The found quest, or nil.
 	 */
 	int Game_quest(lua_State *lua)
 	{
@@ -903,22 +903,22 @@ namespace game {
 				Quest *quest = game->getQuest(lua_tostring(lua, 2));
 				if (quest)
 				{
-					wrapObject<Quest>(lua, quest);
+					wrapRefObject<Quest>(lua, quest);
 					return 1;
 				}
 				lua_pushnil(lua);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "quest", "string questId");
+			return LuaState::expectedArgs(lua, "quest", "string quest_id");
 		}
-		return LuaState::expectedContext(lua, "quest", "Game"); 
+		return LuaState::expectedContext(lua, "quest", "am.game"); 
 	}
 	/**
 	 * Tells the game that it can start. This should be called
 	 * once it is ready to display the normal game HUD and have
 	 * the appropriate game input listeners installed.
 	 *
-	 * @returns Game This
+	 * @returns am.game This
 	 */
 	int Game_start_game(lua_State *lua)
 	{
@@ -928,7 +928,7 @@ namespace game {
 			game->startGame();
 			lua_first(lua);
 		}
-		return LuaState::expectedContext(lua, "start_game", "Game");
+		return LuaState::expectedContext(lua, "start_game", "am.game");
 	}
 	/**
 	 * Returns true if the game has started.
@@ -943,13 +943,13 @@ namespace game {
 			lua_pushboolean(lua, game->hasStarted());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "has_started", "Game");
+		return LuaState::expectedContext(lua, "has_started", "am.game");
 	}
 
 	/**
 	 * Attemps to load the game from a save file.
 	 *
-	 * @param string saveName The name of the save file to load.
+	 * @param string save_name The name of the save file to load.
 	 * @returns integer A 1 for success, or 0 for error.
 	 */
 	int Game_load_game(lua_State *lua)
@@ -964,7 +964,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "load_game", "string save_name");
 		}
-		return LuaState::expectedContext(lua, "load_game", "Game");
+		return LuaState::expectedContext(lua, "load_game", "am.game");
 	}
 
 	/**
@@ -982,7 +982,7 @@ namespace game {
 			lua_pushstring(lua, game->getScenarioName());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "scenario_name", "Game");
+		return LuaState::expectedContext(lua, "scenario_name", "am.game");
 	}
 
 	/**
@@ -990,14 +990,14 @@ namespace game {
 	 * By default if no attribute data table is present nil is returned unless true
 	 * is passed as the first argument, then a data table is created if one is not present.
 	 * 
-	 * @param boolean [false] createTable Create a data table if one didn't exist.
-	 * @returns DataTable The data table on this game.
+	 * @param boolean [false] create_table Create a data table if one didn't exist.
+	 * @returns am.data_table The data table on this game.
 	 */
 	/**
 	 * Sets the data table on this game, can be set to nil.
 	 *
-	 * @param DataTable attrTable The data table to set on the game.
-	 * @returns Game This
+	 * @param am.data_table attrTable The data table to set on the game.
+	 * @returns am.game This
 	 */
 	int Game_attrs(lua_State *lua)
 	{
@@ -1006,7 +1006,7 @@ namespace game {
 		{
 			return IAttributeData_attrs(lua, game);
 		}
-		return LuaState::expectedContext(lua, "attrs", "Game");
+		return LuaState::expectedContext(lua, "attrs", "am.game");
 	}
 
 	am::game::GameObject *getGameObject(lua_State *lua, int n)

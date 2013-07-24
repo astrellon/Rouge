@@ -30,8 +30,8 @@ namespace tests {
 	bool TestLuaDataTable::testSimple() {
 		LuaState lua;
 		
-		bool loadResult = lua.loadString("DataTable = import(\"DataTable\")\n"
-			"map = DataTable.new()\n"
+		bool loadResult = lua.loadString(
+			"map = am.data_table.new()\n"
 			"map:at(\"num\", 5)\n"
 			"map:at(\"str\", \"test\")\n"
 			"map:at(\"pos\", {\n"

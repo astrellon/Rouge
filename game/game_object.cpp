@@ -384,7 +384,7 @@ namespace game {
 		}
 		for (size_t i = 0; i < mPassibleTypes.size(); i++)
 		{
-			if (mPassibleTypes[i] == tileType)
+			if (mPassibleTypes[i].get() == tileType)
 			{
 				mPassibleTypes.erase(mPassibleTypes.begin() + i);
 			}
@@ -402,7 +402,7 @@ namespace game {
 		}
 		for (size_t i = 0; i < mPassibleTypes.size(); i++)
 		{
-			if (mPassibleTypes[i] == tileType)
+			if (mPassibleTypes[i].get() == tileType)
 			{
 				return true;
 			}
@@ -620,7 +620,7 @@ namespace game {
 					am_log("LOADERR", ss);
 					continue;
 				}
-				TileType *tileType = engine->getTileType(tileTypeName);
+				Handle<TileType> tileType(engine->getTileType(tileTypeName));
 				if (!tileType)
 				{
 					stringstream ss;

@@ -1,11 +1,11 @@
 #pragma once
 
+#include <base/imanaged.h>
+using namespace am::base;
+
 #include <map>
 #include <string>
 using namespace std;
-
-//#include <util/json_value.h>
-//using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -13,7 +13,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileType {
+	class TileType : public IManaged {
 	public:
 		TileType(const char *name, const char *fullName = NULL);
 		~TileType();

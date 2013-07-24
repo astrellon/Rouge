@@ -29,8 +29,8 @@ namespace tests {
 	bool TestLuaTile::testSimple() {
 		LuaState lua;
 		
-		assert(lua.loadString("Tile = import(\"Tile\")\n"
-			"tile = Tile.new(\"testTile\")\n"
+		assert(lua.loadString(
+			"tile = am.tile.new(\"testTile\")\n"
 			"function getName()\n"
 			"	return tile:name()\n"
 			"end\n"
@@ -89,9 +89,8 @@ namespace tests {
 	bool TestLuaTile::testTileTypes() {
 		LuaState lua;
 		
-		assert(lua.loadString("Tile = import(\"Tile\")\n"
-			"TileType = import(\"TileType\")\n"
-			"tile = Tile.new(\"testTile2\")\n"
+		assert(lua.loadString(
+			"tile = am.tile.new(\"testTile2\")\n"
 			"function addTileType(type)\n"
 			"	tile:add_tile_type(type)\n"
 			"end\n"
@@ -108,7 +107,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 
-		TileType *type = new TileType("superType", "Super Type");
+		Handle<TileType> type(new TileType("superType", "Super Type"));
 		Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
@@ -174,10 +173,10 @@ namespace tests {
 	bool TestLuaTile::testTileTypes2() {
 		LuaState lua;
 		
-		int loadResult = lua.loadString("Tile, TileType = import(\"Tile\", \"TileType\")\n"
-			"tile = Tile.new(\"testTileTypes2\")\n"
-			"land = TileType.new(\"land-a\")\n"
-			"water = TileType.new(\"water-a\")\n"
+		int loadResult = lua.loadString(
+			"tile = am.tile.new(\"testTileTypes2\")\n"
+			"land = am.tile_type.new(\"land-a\")\n"
+			"water = am.tile_type.new(\"water-a\")\n"
 			"tile:add_tile_type(land):add_tile_type(water)\n"
 			
 			"types = tile:tile_types()\n"

@@ -20,8 +20,14 @@ namespace game {
 	int BodyPart_register(lua_State *lua);
 
 	int BodyPart_name(lua_State *lua);
+	int BodyPart_type(lua_State *lua);
 
-	int BodyPart_equipped_item(lua_State *lua);
+	int BodyPart_can_hold_onto(lua_State *lua);
+	int BodyPart_weapon_part(lua_State *lua);
+	int BodyPart_is_holding_onto(lua_State *lua);
+
+	int BodyPart_can_equip_item(lua_State *lua);
+	int BodyPart_item(lua_State *lua);
 
 }
 }

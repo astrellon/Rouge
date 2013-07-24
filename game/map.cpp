@@ -308,7 +308,7 @@ namespace game {
 		return false;
 	}
 
-	bool Map::isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const
+	bool Map::isValidGridLocation(int gridX, int gridY, const vector< Handle<TileType> > &passibles) const
 	{
 		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
 		{

@@ -33,8 +33,8 @@ namespace tests {
 
 		Engine::getEngine()->setCurrentGame(new Game());
 
-		int loadResult = lua.loadString("Character = import(\"Character\")\n"
-			"char = Character.new(\"char1\")\n"
+		int loadResult = lua.loadString(
+			"char = am.character.new(\"char1\")\n"
 			"char:name(\"Melli\"):age(23.4)\n"
 			"function changeName(name)\n"
 			"	char:name(name)\n"
@@ -99,8 +99,8 @@ namespace tests {
 	bool TestLuaCharacter::testGender() {
 		LuaState lua;
 
-		int loadResult = lua.loadString("Character = import(\"Character\")\n"
-			"char = Character.new(\"charGender\")\n"
+		int loadResult = lua.loadString(
+			"char = am.character.new(\"charGender\")\n"
 			"char:gender(\"male\")\n"
 			"function changeGender(gender)\n"
 			"	char:gender(gender)\n"
@@ -142,9 +142,8 @@ namespace tests {
 	{
 		LuaState lua;
 
-		int loadResult = lua.loadString("Character = import(\"Character\")\n"
-			"Stats = import(\"Stats\")\n"
-			"char = Character.new(\"charStats\")\n"
+		int loadResult = lua.loadString(
+			"char = am.character.new(\"charStats\")\n"
 			"function getBaseStat(stat)\n"
 			"	return char:stats():base_stat(stat)\n"
 			"end\n"
@@ -184,9 +183,8 @@ namespace tests {
 	{
 		LuaState lua;
 
-		int loadResult = lua.loadString("Character = import(\"Character\")\n"
-			"BodyPart = import(\"BodyPart\")\n"
-			"char = Character.new(\"charBodyPart\")\n"
+		int loadResult = lua.loadString(
+			"char = am.character.new(\"charBodyPart\")\n"
 			"function addBodyPart(part)\n"
 			"	return char:add_body_part(part)\n"
 			"end\n"
@@ -242,8 +240,8 @@ namespace tests {
 	{
 		LuaState lua;
 
-		int loadResult = lua.loadString("Character, DataTable = import(\"Character\", \"DataTable\")\n"
-			"char = Character.new()\n"
+		int loadResult = lua.loadString(
+			"char = am.character.new()\n"
 			"attrs = char:attrs()\n"
 			"am_equals(attrs, nil)\n"
 			"attrs = char:attrs(true)\n"

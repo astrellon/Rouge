@@ -102,21 +102,22 @@ namespace game {
 		return mIsHoldingOnto;
 	}
 
-	bool BodyPart::setEquippedItem(Item *item, bool forceEquip)
+	ReturnCode BodyPart::setEquippedItem(Item *item, bool forceEquip)
 	{
 		// If we aren't forcing the equip or if the item is null
 		// then we want to chance and it's a valid set.
 		if (forceEquip || !item || mType == BodyPartType::UNKNOWN_PART || mType == BodyPartType::ANY)
 		{
 			mEquippedItem = item;
-			return true;
+			return SUCCESS;
 		}
 		// Otherwise we want to make sure that the types match.
 		if (canEquipItem(item))
 		{
 			mEquippedItem = item;
+			return SUCCESS;
 		}
-		return false;
+		return BODY_PART_TYPE_MISMATCH;
 	}
 	bool BodyPart::canEquipItem(Item *item) const
 	{

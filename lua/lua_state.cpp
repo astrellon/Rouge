@@ -21,7 +21,6 @@ namespace lua {
 		return data[0];
 	}
 
-	LuaState::WrapperMap LuaState::sWrapperMap;
 	LuaState::WrapperIdMap LuaState::sWrapperIdMap;
 	int LuaState::sWrapperMaxId = -1;
 	int LuaState::sDepth = 0;
@@ -33,14 +32,29 @@ namespace lua {
 		luaL_openlibs(mLua);
 		if (includeLibraries)
 		{
-			lua_register(mLua, "import", getWrapper);
 			lua_register(mLua, "am_equals", luaEquals);
 			lua_register(mLua, "not_equals", luaNotEquals);
 			lua_register(mLua, "print_stack", luaPrintStack);
-		}
-		lua_register(mLua, "am_log", lua_am_log);
 
-		am::lua::wrapper::AssignWrappers(mLua);
+			// Table that will be 'am' global table.
+			lua_newtable(mLua);
+			// Table that will be the metatable for 'am' global table.
+			lua_newtable(mLua);
+			// Table that will be am.__index
+			lua_pushstring(mLua, "__index");
+			lua_newtable(mLua);
+		
+			lua_pushvalue(mLua, -1);
+			int amTable = luaL_ref(mLua, LUA_REGISTRYINDEX);
+
+			am::lua::wrapper::AssignWrappers(mLua, amTable);
+			lua_settable(mLua, -3);
+
+			lua_setmetatable(mLua, -2);
+			lua_setglobal(mLua, "am");
+		}
+		lua_register(mLua, "am_log", luaAmLog);
+
 	}
 	LuaState::LuaState(lua_State *lua)
 	{
@@ -484,9 +498,8 @@ namespace lua {
 		return mLua != lua.mLua;
 	}
 
-	void LuaState::registerWrapper(const char *name, lua_CFunction call, int id)
+	void LuaState::registerWrapper(const char *name, int id)
 	{
-		sWrapperMap[string(name)] = call;
 		sWrapperIdMap[id] = string(name);
 		if (id > sWrapperMaxId)
 		{
@@ -497,30 +510,7 @@ namespace lua {
 	{
 		return sWrapperMaxId;
 	}
-	int LuaState::getWrapper(lua_State *lua)
-	{
-		int args = lua_gettop(lua);
-		for (int i = 1; i <= args; i++)
-		{
-			if (lua_isstr(lua, i))
-			{
-				string name = lua_tostring(lua, i);
-				WrapperMap::iterator iter = sWrapperMap.find(name);
-				if (iter != sWrapperMap.end())
-				{
-					iter->second(lua);
-				}
-				continue;
-			}
-			lua_pushnil(lua);
-		}
-		return args;
-	}
-	void LuaState::clearRegistered()
-	{
-		sWrapperMap.clear();
-	}
-
+	
 	int LuaState::expectedArgs(lua_State *lua, const char *funcName, const char *expected)
 	{
 		if (funcName == NULL || funcName[0] == '\0')
@@ -685,7 +675,7 @@ namespace lua {
 		return lua_typename(lua, n);
 	}
 
-	int LuaState::lua_am_log(lua_State *lua)
+	int LuaState::luaAmLog(lua_State *lua)
 	{
 		int args = lua_gettop(lua);
 		if (args == 0)

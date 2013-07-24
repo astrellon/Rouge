@@ -35,7 +35,7 @@ namespace game {
 	class GameObject : public Layer, public IAttributeData {
 	public:
 
-		typedef vector<TileType *> PassibleTypeList;
+		typedef vector< Handle<TileType> > PassibleTypeList;
 		typedef map<string, bool> SubjectMap;
 
 		GameObject();

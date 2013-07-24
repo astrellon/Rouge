@@ -18,14 +18,14 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Race class represents the information relating to a specific race. 
+	 * The race class represents the information relating to a specific race. 
 	 * This is mostly for general information such as name and potentially a lengthy description.
 	 * It is also used as an identifier for the race of a Character.
 	 */
 	/**
 	 * Creates a new race with the given race name.
 	 *
-	 * @param string raceName The race name that is used to identify this race.
+	 * @param string race_name The race name that is used to identify this race.
 	 */
 	int Race_ctor(lua_State *lua)
 	{
@@ -34,10 +34,10 @@ namespace game {
 			const char *raceName = lua_tostring(lua, 1);
 			Race *race = new Race(raceName);
 		
-			wrapObject<Race>(lua, race);
+			wrapRefObject<Race>(lua, race);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@new", "string raceName");
+		return LuaState::expectedArgs(lua, "@new", "string race_name");
 	}
 	/**
 	 * TODO
@@ -49,7 +49,7 @@ namespace game {
 	/**
 	 * Compares this race against another race object.
 	 *
-	 * @param Race rhs The other race object to compare with.
+	 * @param am.race rhs The other race object to compare with.
 	 * @returns boolean True if the the they are the same race object.
 	 */
 	int Race_eq(lua_State *lua)
@@ -57,7 +57,7 @@ namespace game {
 		Race *lhs = castUData<Race>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Race");
+			return LuaState::expectedContext(lua, "__eq", "am.race");
 		}
 		Race *rhs = castUData<Race>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -97,7 +97,7 @@ namespace game {
 			lua_pushstring(lua, race->getRaceName());
 			return 1;
 		}
-		return LuaState::expectedContext(lua, "race_name", "Race");
+		return LuaState::expectedContext(lua, "race_name", "am.race");
 	}
 
 }

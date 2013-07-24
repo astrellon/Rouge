@@ -2,6 +2,7 @@
 
 #include <base/handle.h>
 #include <base/imanaged.h>
+#include <base/return_codes.h>
 using namespace am::base;
 
 #include <string>
@@ -37,19 +38,20 @@ namespace game {
 		void setWeaponPart(bool asWeapon);
 		bool isWeaponPart() const;
 
-		//void setOffWeapon(bool offWeapon);
-		//bool isOffWeapon() const;
-
-		//void setCanHoldOntoName(const char *partName);
-		//const char *getCanHoldOntoName() const;
-
 		void setCanHoldOnto(BodyPart *part);
 		BodyPart *getCanHoldOnto() const;
 
 		void setIsHoldingOnto(bool setHolding);
 		bool isHoldingOnto() const;
 
-		virtual bool setEquippedItem(Item *item, bool forceEquip = true);
+		/**
+		 * Attemps to set the equipped item on this body part.
+		 * Return codes:
+		 *  SUCCESS: The item was equipped.
+		 *  BODY_PART_TYPE_MISMATCH: Unable to equip the item because the item does
+		 *		not support this body part type.
+		 */
+		virtual ReturnCode setEquippedItem(Item *item, bool forceEquip = true);
 		virtual bool canEquipItem(Item *item) const;
 		virtual Item *getEquippedItem() const;
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <base/imanaged.h>
+using namespace am::base;
+
 #include <string>
 #include <map>
 using namespace std;
@@ -7,7 +10,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	class Race {
+	class Race : public IManaged {
 	public:
 
 		Race(const char *raceName);

@@ -19,7 +19,7 @@ namespace lua {
 namespace gfx {
 	/**
 	 * @class
-	 * Simple wrapper for the Sprite class, currently only allows for changing
+	 * Simple wrapper for the sprite class, currently only allows for changing
 	 * the asset used by the sprite by name.
 	 */
 	/**
@@ -28,7 +28,7 @@ namespace gfx {
 	/**
 	 * Creates a new sprite using the given asset name.
 	 *
-	 * @param string assetName Name of the asset for this sprite to use.
+	 * @param string asset_name Name of the asset for this sprite to use.
 	 */
 	int Sprite_ctor(lua_State *lua)
 	{
@@ -40,7 +40,7 @@ namespace gfx {
 				wrapRefObject<Sprite>(lua, sprite);
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "@new", "string assetName");
+			return LuaState::expectedArgs(lua, "@new", "string asset_name");
 		}
 		Sprite *sprite = new Sprite();
 		wrapRefObject<Sprite>(lua, sprite);
@@ -61,7 +61,7 @@ namespace gfx {
 	/**
 	 * Compares this sprite with another sprite object.
 	 *
-	 * @param Sprite rhs The other sprite to compare with.
+	 * @param am.sprite rhs The other sprite to compare with.
 	 * @returns boolean True if they are the same object.
 	 */
 	int Sprite_eq(lua_State *lua)
@@ -69,7 +69,7 @@ namespace gfx {
 		Sprite *lhs = castUData<Sprite>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "Sprite");
+			return LuaState::expectedContext(lua, "__eq", "am.sprite");
 		}
 		Sprite *rhs = castUData<Sprite>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -127,8 +127,8 @@ namespace gfx {
 	/**
 	 * Sets the asset name for this sprite to use.
 	 *
-	 * @param string assetName The name of the asset to use.
-	 * @returns Sprite This
+	 * @param string asset_name The name of the asset to use.
+	 * @returns am.sprite This
 	 */
 	int Sprite_asset(lua_State *lua)
 	{
@@ -151,9 +151,9 @@ namespace gfx {
 				sprite->setAsset(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "asset", "string assetName");
+			return LuaState::expectedArgs(lua, "asset", "string asset_name");
 		}
-		return LuaState::expectedContext(lua, "asset", "Sprite");
+		return LuaState::expectedContext(lua, "asset", "am.sprite");
 	}
 
 }

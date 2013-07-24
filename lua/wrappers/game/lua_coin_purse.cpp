@@ -18,14 +18,14 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The CoinPurse class is used for representing a coin purse.
+	 * The coin purse class is used for representing a coin purse.
 	 * The purse can hold any number of coin up to a max value if one is
 	 * defined. It also provides functions for checking if the coin purse has
 	 * enough coin for a given transaction (adding or removal) and reports
 	 * how many coins will not fit or how many coins short the purse is.
 	 */
 	/**
-	 * Creates a new empty CoinPurse.
+	 * Creates a new empty coin purse.
 	 */
 	int CoinPurse_ctor(lua_State *lua)
 	{
@@ -34,7 +34,7 @@ namespace game {
 		return 1;
 	}
 	/**
-	 * Release the reference count on this CoinPurse.
+	 * Release the reference count on this coin purse.
 	 */
 	int CoinPurse_dtor(lua_State *lua)
 	{
@@ -47,17 +47,17 @@ namespace game {
 		return LuaState::expectedContext(lua, "__gc", "CoinPurse");
 	}
 	/**
-	 * Compares this CoinPurse with another CoinPurse object.
+	 * Compares this coin purse with another coin purse object.
 	 *
-	 * @param CoinPurse rhs The other CoinPurse to compare with.
-	 * @returns boolean True if they are the same CoinPurse object.
+	 * @param am.coin_purse rhs The other coin purse to compare with.
+	 * @returns boolean True if they are the same coin purse object.
 	 */
 	int CoinPurse_eq(lua_State *lua)
 	{
 		CoinPurse *lhs = castUData<CoinPurse>(lua, 1);
 		if (!lhs)
 		{
-			return LuaState::expectedContext(lua, "__eq", "CoinPurse");
+			return LuaState::expectedContext(lua, "__eq", "am.coin_purse");
 		}
 		CoinPurse *rhs = castUData<CoinPurse>(lua, 2);
 		lua_pushboolean(lua, lhs == rhs);
@@ -95,7 +95,7 @@ namespace game {
 	/**
 	 * Sets the amount of coin in this coin purse.
 	 * @param integer coin The amount of coin to set in this coin purse.
-	 * @returns CoinPurse This
+	 * @returns am.coin_purse This
 	 */
 	int CoinPurse_coin(lua_State *lua)
 	{
@@ -114,7 +114,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "coin", "integer coin");
 		}
-		return LuaState::expectedContext(lua, "coin", "CoinPurse");
+		return LuaState::expectedContext(lua, "coin", "am.coin_purse");
 	}
 	
 	/**
@@ -135,7 +135,7 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "can_add_coin", "integer coin");
 		}
-		return LuaState::expectedContext(lua, "can_add_coin", "CoinPurse");
+		return LuaState::expectedContext(lua, "can_add_coin", "am.coin_purse");
 	}
 	/**
 	 * Returns how many coins cannot be taken out of the purse. A value of
@@ -155,14 +155,14 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "can_remove_coin", "integer coin");
 		}
-		return LuaState::expectedContext(lua, "can_remove_coin", "CoinPurse");
+		return LuaState::expectedContext(lua, "can_remove_coin", "am.coin_purse");
 	}
 
 	/**
 	 * Adds the given number of coins to the purse. If the amount of coin
 	 * won't fit they will be lost. Use can_add_coin to make sure this doesn't happen.
 	 * @param integer coin The amount of coin to add to the purse.
-	 * @returns CoinPurse This
+	 * @returns am.coin_purse This
 	 */
 	int CoinPurse_add_coin(lua_State *lua)
 	{
@@ -176,13 +176,13 @@ namespace game {
 			}
 			return LuaState::expectedArgs(lua, "add_coin", "integer coin");
 		}
-		return LuaState::expectedContext(lua, "add_coin", "CoinPurse");
+		return LuaState::expectedContext(lua, "add_coin", "am.coin_purse");
 	}
 	/**
 	 * Removes the given number of coins from the purse. If the purse does not
 	 * have the number of coins then the purse will not go into negative.
 	 * @param integer coin The amount of coin to remove from the purse.
-	 * @returns CoinPurse This
+	 * @returns am.coin_purse This
 	 */
 	int CoinPurse_remove_coin(lua_State *lua)
 	{
@@ -210,7 +210,7 @@ namespace game {
 	 * If the new maximum is lower than the current number of coin
 	 * then the additional coins will be lost.
 	 * @param integer max_coin The new max coin amount.
-	 * @returns CoinPurse This
+	 * @returns am.coin_purse This
 	 */
 	int CoinPurse_max_coin(lua_State *lua)
 	{

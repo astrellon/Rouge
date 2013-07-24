@@ -24,12 +24,11 @@ using namespace am::ui;
 #include "levelable.h"
 #include "iaction.h"
 #include "astar_node.h"
+#include "race.h"
 #include "body_parts.h"
 
 namespace am {
 namespace game {
-
-	class Race;
 
 	class Character : public IEventListener, public GameObject, public Levelable {
 	public:
@@ -113,7 +112,7 @@ namespace game {
 		virtual int dropItem(Item *item);
 		virtual int dropItem(Item *item, float x, float y);
 
-		virtual void attack(GameObject *enemy, Item *withItem);
+		virtual ReturnCode attack(GameObject *enemy, Item *withItem);
 
 		virtual const char *getGameObjectTypeName() const;
 
@@ -172,7 +171,7 @@ namespace game {
 		Handle<Stats> mStats;
 
 		float mAge;
-		Race *mRace;
+		Handle<Race> mRace;
 		Gender::GenderType mGender;
 
 		NodePath mDestinationPath;

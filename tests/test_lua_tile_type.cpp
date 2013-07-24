@@ -27,8 +27,8 @@ namespace tests {
 	bool TestLuaTileType::testSimple() {
 		LuaState lua;
 		
-		assert(lua.loadString("TileType = import(\"TileType\")\n"
-			"type = TileType.new(\"testType\", \"Test Type\")\n"
+		assert(lua.loadString(
+			"type = am.tile_type.new(\"testType\", \"Test Type\")\n"
 			"function getName()\n"
 			"	return type:name()\n"
 			"end\n"
@@ -65,12 +65,12 @@ namespace tests {
 	bool TestLuaTileType::testStatics() {
 		LuaState lua;
 		
-		assert(lua.loadString("TileType = import(\"TileType\")\n"
+		assert(lua.loadString(
 			"function addTileType(tile)\n"
-			"	TileType.add_tile_type(tile)\n"
+			"	am.tile_type.add_tile_type(tile)\n"
 			"end\n"
 			"function getTileType(tileName)\n"
-			"	return TileType.tile_type(tileName)\n"
+			"	return am.tile_type.tile_type(tileName)\n"
 			"end\n"
 			));
 
@@ -80,7 +80,7 @@ namespace tests {
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
-		TileType *tileType = new TileType("testTileType", "Test Tile Type");
+		Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, tileType);
 		lua_acall(lua, 1, 0);

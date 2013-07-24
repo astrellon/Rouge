@@ -35,7 +35,7 @@ namespace lua {
 namespace game {
 	/**
 	 * @class
-	 * The Engine class provides core functionality that has affects
+	 * The engine class provides core functionality that has affects
 	 * across multiple game instances.
 	 */
 	int Engine_register(lua_State *lua)
@@ -76,12 +76,12 @@ namespace game {
 	 * @static
 	 * Returns the current game set on the engine, can be nil if
 	 * there is no game running.
-	 * @returns Game The current game.
+	 * @returns am.game The current game.
 	 */
 	/**
 	 * @static
 	 * Sets the current game.
-	 * @param Game game The new current game
+	 * @param am.game game The new current game
 	 */
 	int Engine_game(lua_State *lua)
 	{
@@ -115,12 +115,12 @@ namespace game {
 	/**
 	 * @static
 	 * Returns the grid size in pixels for the tiles in the game.
-	 * @returns Number Grid size
+	 * @returns number Grid size
 	 */
 	/**
 	 * @static
 	 * Sets the grid size in pixels for the tiles in the game.
-	 * @param number gridX The grid size
+	 * @param number size The grid size
 	 */
 	int Engine_grid_size(lua_State *lua)
 	{
@@ -141,7 +141,7 @@ namespace game {
 	 * Adds a tile set name to look up when loading tiles.
 	 * This allows maps to defines the list of tiles without having
 	 * to specify the tile set each time.
-	 * @param string tileSetName The tile set name to use
+	 * @param string tile_set_name The tile set name to use
 	 */
 	int Engine_using_tile_set(lua_State *lua)
 	{
@@ -150,7 +150,7 @@ namespace game {
 			Engine::getEngine()->usingTileSet(lua_tostring(lua, 1));
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@using_tile_set", "string tileSetName");
+		return LuaState::expectedArgs(lua, "@using_tile_set", "string tile_set_name");
 	}
 	/**
 	 * @static
@@ -164,8 +164,8 @@ namespace game {
 	/**
 	 * @static
 	 * Looks up a tile based on its name and the current list of tile sets in use.
-	 * @param string tileName The tile name to look up.
-	 * @returns Tile The found tile, or nil.
+	 * @param string tile_name The tile name to look up.
+	 * @returns am.tile The found tile, or nil.
 	 */
 	int Engine_tile(lua_State *lua)
 	{
@@ -180,13 +180,13 @@ namespace game {
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@tile", "string tileName");
+		return LuaState::expectedArgs(lua, "@tile", "string tile_name");
 	}
 	/**
 	 * @static
 	 * Looks up a tile set based on its name.
-	 * @param string tileSetName Tile set name to look up
-	 * @returns TileSet The found tile set or nil.
+	 * @param string tile_set_name Tile set name to look up
+	 * @returns am.tile_set The found tile set or nil.
 	 */
 	int Engine_tile_set(lua_State *lua)
 	{
@@ -201,12 +201,12 @@ namespace game {
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@tile_set", "string tileSetName");
+		return LuaState::expectedArgs(lua, "@tile_set", "string tile_set_name");
 	}
 	/**
 	 * @static
 	 * Adds a tile set to the game engines list of tile sets.
-	 * @param TileSet tileSet The tile set to add.
+	 * @param am.tile_set tile_set The tile set to add.
 	 */
 	int Engine_add_tile_set(lua_State *lua)
 	{
@@ -216,14 +216,14 @@ namespace game {
 			Engine::getEngine()->addTileSet(set);
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@add_tile_set", "TileSet tileSet");
+		return LuaState::expectedArgs(lua, "@add_tile_set", "am.tile_set tile_set");
 	}
 	/**
 	 * @static
 	 * Returns the top level tile set.
 	 * The top level tile set is the default tile set
 	 * which all tile look ups will look up if all others fail.
-	 * @returns TileSet The top level tile set.
+	 * @returns am.tile_set The top level tile set.
 	 */
 	int Engine_top_level_tile_set(lua_State *lua)
 	{
@@ -234,8 +234,8 @@ namespace game {
 	 * @static
 	 * Looks up a game object by gameId.
 	 * Returns a game object if found, nil otherwise.
-	 * @param string gameId The game id to look up.
-	 * @returns GameObject The found game object, nil if not found.
+	 * @param string game_id The game id to look up.
+	 * @returns am.game_object The found game object, nil if not found.
 	 */
 	int Engine_get_by_game_id(lua_State *lua)
 	{
@@ -251,7 +251,7 @@ namespace game {
 	 * Registers a game object with the current game so that it can be
 	 * looked up from anywhere. This is just shorthand for getting
 	 * the current game and registering the game object with that.
-	 * @param GameObject gameObject The game object to register with the game engine.
+	 * @param am.game_object game_object The game object to register with the game engine.
 	 */
 	int Engine_register_game_object(lua_State *lua)
 	{
@@ -272,19 +272,19 @@ namespace game {
 			}
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@register_game_object", "GameObject object");
+		return LuaState::expectedArgs(lua, "@register_game_object", "am.game_object object");
 	}
 	/**
 	 * @static
 	 * Removes a game object from the current game. This is just 
 	 * shorthand for removing the game object from the current game.
-	 * @param string gameId The game id of the game object to remove.
+	 * @param string game_id The game id of the game object to remove.
 	 */
 	/**
 	 * @static
 	 * Removes a game object from the game engine. This is just 
 	 * shorthand for removing the game object from the current game.
-	 * @param GameObject gameObject The game object to remove.
+	 * @param am.game_object game_object The game object to remove.
 	 */
 	int Engine_deregister_game_object(lua_State *lua)
 	{
@@ -299,12 +299,12 @@ namespace game {
 			Engine::getEngine()->deregisterGameObject(obj);
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@deregister_game_object", 2, "string gameId", "GameObject gameObject");
+		return LuaState::expectedArgs(lua, "@deregister_game_object", 2, "string gameId", "am.game_object game_object");
 	}
 	/**
 	 * @static
 	 * Adds a race to the game engine.
-	 * @param Race race The race to add.
+	 * @param am.race race The race to add.
 	 * @returns boolean True if the race was successfully added.
 	 */
 	int Engine_add_race(lua_State *lua)
@@ -315,18 +315,18 @@ namespace game {
 			lua_pushboolean(lua, Engine::getEngine()->addRace(race));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@add_race", "Race race");
+		return LuaState::expectedArgs(lua, "@add_race", "am.race race");
 	}
 	/**
 	 * @static
 	 * Removes a race from the game engine.
-	 * @param string raceName The name of the race to remove.
+	 * @param string race_name The name of the race to remove.
 	 * @returns boolean True if the race was sucessfully removed.
 	 */
 	/**
 	 * @static
 	 * Removes a race from the game engine.
-	 * @param Race race The race to remove.
+	 * @param am.race race The race to remove.
 	 * @returns boolean True if the race was sucessfully removed.
 	 */
 	int Engine_remove_race(lua_State *lua)
@@ -346,13 +346,13 @@ namespace game {
 			lua_pushboolean(lua, Engine::getEngine()->removeRace(race));
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@remove_race", 2, "string raceName", "Race race");
+		return LuaState::expectedArgs(lua, "@remove_race", 2, "string race_name", "Race race");
 	}
 	/**
 	 * @static
 	 * Looks up a race in the game engine by name.
-	 * @param string raceName The race name to look up.
-	 * @returns Race The found race or nil.
+	 * @param string race_name The race name to look up.
+	 * @returns am.race The found race or nil.
 	 */
 	int Engine_race(lua_State *lua)
 	{
@@ -361,25 +361,25 @@ namespace game {
 			Race *race = Engine::getEngine()->getRace(lua_tostring(lua, 1));
 			if (race)
 			{
-				wrapObject<Race>(lua, race);
+				wrapRefObject<Race>(lua, race);
 				return 1;
 			}
 			lua_pushnil(lua);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@race", "string raceName");
+		return LuaState::expectedArgs(lua, "@race", "string race_name");
 	}
 	/**
 	 * @static
 	 * Returns the 'unknown' race.
-	 * @returns Race The unknown race
+	 * @returns am.race The unknown race
 	 */
 	int Engine_unknown_race(lua_State *lua)
 	{
 		Race *race = Engine::getEngine()->getUnknownRace();
 		if (race)
 		{
-			wrapObject<Race>(lua, race);
+			wrapRefObject<Race>(lua, race);
 			return 1;
 		}
 		lua_pushnil(lua);
@@ -388,29 +388,29 @@ namespace game {
 	/**
 	 * @static
 	 * Adds a tile type to the game engine.
-	 * @param TileType tileType The type to add.
+	 * @param am.tile_type tile_type The type to add.
 	 */
 	int Engine_add_tile_type(lua_State *lua)
 	{
-		TileType *type = castUData<TileType>(lua, 1);
+		Handle<TileType> type(castUData<TileType>(lua, 1));
 		if (type)
 		{
 			Engine::getEngine()->addTileType(type);
 			return 0;
 		}
-		return LuaState::expectedArgs(lua, "@add_tile_type", "TileType tileType");
+		return LuaState::expectedArgs(lua, "@add_tile_type", "am.tile_type tile_type");
 	}
 	/**
 	 * @static
 	 * Looks up a tile tpye by name.
-	 * @param string tileTypeName The name of the tile type to lookup.
-	 * @returns TileType The found tile type or nil.
+	 * @param string tile_type_name The name of the tile type to lookup.
+	 * @returns am.tile_type The found tile type or nil.
 	 */
 	int Engine_tile_type(lua_State *lua)
 	{
 		if (lua_isstr(lua, 1))
 		{
-			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, 1));
+			Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 1)));
 			if (type)
 			{
 				wrapObject<TileType>(lua, type);
@@ -426,7 +426,7 @@ namespace game {
 	 * @static
 	 * Returns the sound object of the currently playing background music.
 	 *
-	 * @returns Sound The current playing background music sound object.
+	 * @returns am.sound The current playing background music sound object.
 	 */
 	/**
 	 * @static
@@ -442,7 +442,7 @@ namespace game {
 	 * music source is always set to be looping, so this works best with
 	 * music designed for looping or with cue points.
 	 *
-	 * @param Sound bgm The new sound object to use as background music.
+	 * @param am.sound bgm The new sound object to use as background music.
 	 */
 	/**
 	 * @static
@@ -485,7 +485,7 @@ namespace game {
 		{
 			SfxEngine::getEngine()->setBackgroundMusic((ISound *)NULL);
 		}
-		return LuaState::expectedArgs(lua, "@bgm", 2, "string filename", "nil set_no_sound", "Sound bgm");
+		return LuaState::expectedArgs(lua, "@bgm", 2, "string filename", "nil set_no_sound", "am.sound bgm");
 	}
 	
 }

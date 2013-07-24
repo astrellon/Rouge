@@ -96,7 +96,12 @@ namespace tests {
 		am_equals(NOT_ENOUGH_BODY_PARTS, testChar->canEquipItem(twoHandSword, leftHand));
 		rightHand->setCanHoldOnto(leftHand);
 		am_equals(ABLE_TO_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
-		//rightHand->setCanHoldOnto(leftHand);
+
+		Handle<Item> dagger(new Item());
+		dagger->addBodyPartType(BodyPartType::HAND);
+		am_equals(SUCCESS, rightHand->setEquippedItem(dagger));
+
+		am_equals(CAN_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
 		
 		return true;
 	}

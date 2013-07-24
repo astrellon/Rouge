@@ -32,9 +32,9 @@ namespace tests {
 		Game *game = new Game();
 		Engine::getEngine()->setCurrentGame(game);
 
-		int loadResult = lua.loadString("Dialogue = import(\"Dialogue\")\n"
-			"diag = Dialogue.new(\"diag1\", \"Hello there\")\n"
-			"Dialogue.add_dialogue(diag)\n"
+		int loadResult = lua.loadString(
+			"diag = am.dialogue.new(\"diag1\", \"Hello there\")\n"
+			"am.dialogue.add_dialogue(diag)\n"
 			"function getId()\n"
 			"	return diag:id()\n"
 			"end\n"

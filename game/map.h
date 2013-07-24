@@ -57,7 +57,7 @@ namespace game {
 		bool isValidLocation(float x, float y, GameObject *forObject) const;
 		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
-		bool isValidGridLocation(int gridX, int gridY, const vector<TileType *> &passibles) const;
+		bool isValidGridLocation(int gridX, int gridY, const vector< Handle<TileType> > &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
 		//void loadDef(LuaState &lua);
