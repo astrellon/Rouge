@@ -1,15 +1,12 @@
 do
-	local Engine, Game, Item, StatModifiers = import("Engine", "Game", "Item", "StatModifiers")
-	local Sprite = import("Sprite")
-
-	local game = Engine.game()
+	local game = am.engine.game()
 	
 	-- Wooden Sword
-	local item = Item.new()
+	local item = am.item.new()
 	item:item_fullname("Sword", "Wooden")
 		:item_type("sword")
-		:graphic(Sprite.new("items/sword"))
-		:ground_graphic(Sprite.new("items/swordGround"))
+		:graphic(am.sprite.new("items/sword"))
+		:ground_graphic(am.sprite.new("items/swordGround"))
 		
 	local stats = item:stat_modifiers()
 	stats:add("minDamage", 2, "+")
@@ -17,10 +14,10 @@ do
 	game:item_def("sword", item)
 	
 	-- Wooden Shield
-	item = Item.new()
+	item = am.item.new()
 	item:item_fullname("Shield", "Wooden")
 		:item_type("shield")
-		:graphic(Sprite.new("items/shield"))
+		:graphic(am.sprite.new("items/shield"))
 		
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")

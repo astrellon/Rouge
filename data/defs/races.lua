@@ -1,13 +1,10 @@
 do
-	local Engine, Game, Character, Stats = import("Engine", "Game", "Character", "Stats")
-	local Sprite = import("Sprite")
-
-	local game = Engine.game()
+	local game = am.engine.game()
 	
-	local human = Character.new()
+	local human = am.character.new()
 	human:name("Human")
 		:age(21)
-		:graphic(Sprite.new("characters/npc/front"))
+		:graphic(am.sprite.new("characters/npc/front"))
 		:gender("male")
 		:race("human")
 		:add_passible_type("land")

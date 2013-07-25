@@ -265,7 +265,7 @@ namespace game {
 			return false;
 		}
 
-		if (mLua.hasGlobalFunction("onEngineLoad"))
+		if (mLua.hasGlobalFunction("on_engine_load"))
 		{
 			mLua.call(0, 0);
 		}
@@ -274,7 +274,7 @@ namespace game {
 
 	bool Engine::newGame(const char *scenarioName)
 	{
-		if (mLua.hasGlobalFunction("newGame"))
+		if (mLua.hasGlobalFunction("new_game"))
 		{
 			try
 			{
@@ -306,7 +306,7 @@ namespace game {
 
 	bool Engine::loadGame(const char *saveName)
 	{
-		if (mLua.hasGlobalFunction("loadGame"))
+		if (mLua.hasGlobalFunction("load_game"))
 		{
 			try
 			{
