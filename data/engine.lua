@@ -2,12 +2,12 @@
 
 local game = nil
 
-function on_engine_load()
+function am.on_engine_load()
 	local human = am.race.new("human")
 	am.engine.add_race(human)
 end
 
-function new_game(scenario_name)
+function am.new_game(scenario_name)
 	game = am.game.new()
 	am.engine.game(game)
 	
@@ -20,7 +20,7 @@ function new_game(scenario_name)
 	return 1
 end
 
-function load_game(save_name)
+function am.load_game(save_name)
 	game = am.game.new()
 	am.engine.game(game)
 	

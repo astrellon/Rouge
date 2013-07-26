@@ -85,9 +85,9 @@ namespace tests {
 			"end\n"
 			"function printParts()\n"
 			"	parts = item:get_body_types()\n"
-			"	am_equals(2, tableLength(parts))\n"
-			"	am_equals(true, parts[\"arm\"])\n"
-			"	am_equals(true, parts[\"hand\"])\n"
+			"	am.debug.equals(2, tableLength(parts))\n"
+			"	am.debug.equals(true, parts[\"arm\"])\n"
+			"	am.debug.equals(true, parts[\"hand\"])\n"
 			"end\n"
 			);
 		

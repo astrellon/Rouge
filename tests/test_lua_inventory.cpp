@@ -128,7 +128,7 @@ namespace tests {
 
 			"spots = inv:spots()\n"
 			"for key, value in pairs(spots) do\n"
-			"    am_log(key .. \": \" .. value.item:name() .. \" at \" .. value.x .. \", \" .. value.y)\n"
+			"    am.debug.log(key .. \": \" .. value.item:name() .. \" at \" .. value.x .. \", \" .. value.y)\n"
 			"end\n"
 			);
 		

@@ -6,6 +6,8 @@
 
 #include <lua/wrappers/lua_wrappers.h>
 
+#include <lua/wrappers/lua_debug.h>
+
 namespace am {
 namespace lua {
 
@@ -24,41 +26,44 @@ namespace lua {
 	LuaState::WrapperIdMap LuaState::sWrapperIdMap;
 	int LuaState::sWrapperMaxId = -1;
 	int LuaState::sDepth = 0;
+	int LuaState::sMaxDepth = 10;
 
-	LuaState::LuaState(bool includeLibraries)
+	LuaState::LuaState(bool includeLibraries) :
+		mAmTableRef(-1),
+		mAmTableIndexRef(-1)
 	{
 		mLua = luaL_newstate();
 		// We always want the standard libs as they provide basic table manipulation.
 		luaL_openlibs(mLua);
+
+		lua_newtable(mLua);
+		lua_pushvalue(mLua, -1);
+		mAmTableRef = luaL_ref(mLua, LUA_REGISTRYINDEX);
+
 		if (includeLibraries)
 		{
-			lua_register(mLua, "am_equals", luaEquals);
-			lua_register(mLua, "not_equals", luaNotEquals);
-			lua_register(mLua, "print_stack", luaPrintStack);
-
-			// Table that will be 'am' global table.
-			lua_newtable(mLua);
-			// Table that will be the metatable for 'am' global table.
-			lua_newtable(mLua);
-			// Table that will be am.__index
-			lua_pushstring(mLua, "__index");
-			lua_newtable(mLua);
-		
-			lua_pushvalue(mLua, -1);
-			int amTable = luaL_ref(mLua, LUA_REGISTRYINDEX);
-
-			am::lua::wrapper::AssignWrappers(mLua, amTable);
-			lua_settable(mLua, -3);
-
-			lua_setmetatable(mLua, -2);
-			lua_setglobal(mLua, "am");
+			am::lua::wrapper::AssignWrappers(mLua, mAmTableRef);
 		}
-		lua_register(mLua, "am_log", luaAmLog);
+		// Debug tools
+		am::lua::debug::Debug_register(mLua);
 
+		lua_setglobal(mLua, "am");
 	}
-	LuaState::LuaState(lua_State *lua)
+	LuaState::LuaState(lua_State *lua) :
+		mAmTableRef(-1)
 	{
 		mLua = lua;
+		if (getGlobal("am"))
+		{
+			if (lua_type(mLua, -1) == LUA_TTABLE)
+			{
+				mAmTableRef = luaL_ref(mLua, LUA_REGISTRYINDEX);
+			}
+			else
+			{
+				pop(1);
+			}
+		}
 	}
 	LuaState::~LuaState()
 	{
@@ -336,6 +341,22 @@ namespace lua {
 		return val;
 	}
 
+	bool LuaState::hasAmType(const char *keyName, int luaType)
+	{
+		if (mAmTableRef < 0)
+		{
+			return false;
+		}
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mAmTableRef);
+		if (!lua_istable(mLua, -1))
+		{
+			pop(1);
+			return false;
+		}
+		lua_pushstring(mLua, keyName);
+		lua_gettable(mLua, -2);
+		return lua_type(mLua, -1) == luaType;
+	}
 	bool LuaState::hasGlobalFunction(const char *func, bool popAfter)
 	{
 		lua_getglobal(mLua, func);
@@ -408,7 +429,7 @@ namespace lua {
 		{
 			sDepth++;
 			output << "{\n";
-			if (sDepth > 10) {
+			if (sDepth > sMaxDepth) {
 				output << "<Reached " << sDepth << " deep>";
 			}
 			else {
@@ -594,6 +615,15 @@ namespace lua {
 		am_log("LUA WARN", ss);
 	}
 
+	void LuaState::setMaxTableDepth(int depth)
+	{
+		sMaxDepth = depth;
+	}
+	int LuaState::getMaxTableDepth()
+	{
+		return sMaxDepth;
+	}
+
 	int LuaState::luaEquals(lua_State *lua)
 	{
 		if (lua_compare(lua, 1, 2, LUA_OPEQ) != 1)
@@ -703,6 +733,29 @@ namespace lua {
 		ss << "Error calling Lua in " << file << " [" << line << "]\n";
 		printStack(lua, ss);
 		am_log("LUAERR", ss);
+	}
+
+	// LuaHandle
+	LuaHandle::LuaHandle(lua_State *lua, unsigned int popElements) :
+		mLua(lua),
+		mPop(popElements)
+	{
+	}
+	LuaHandle::~LuaHandle()
+	{
+		if (mPop > 0 && mLua)
+		{
+			lua_pop(mLua, mPop);
+		}
+	}
+
+	void LuaHandle::setPop(unsigned int pop)
+	{
+		mPop = pop;
+	}
+	unsigned int LuaHandle::getPop() const
+	{
+		return mPop;
 	}
 
 }

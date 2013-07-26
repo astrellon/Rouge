@@ -180,9 +180,9 @@ namespace tests {
 			"tile:add_tile_type(land):add_tile_type(water)\n"
 			
 			"types = tile:tile_types()\n"
-			"am_equals(2, #types)\n"
-			"am_equals(\"land-a\", types[1]:name())\n"
-			"am_equals(\"water-a\", types[2]:name())\n"
+			"am.debug.equals(2, #types)\n"
+			"am.debug.equals(\"land-a\", types[1]:name())\n"
+			"am.debug.equals(\"water-a\", types[2]:name())\n"
 			);
 
 		if (!loadResult)

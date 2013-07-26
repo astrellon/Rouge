@@ -111,16 +111,16 @@ namespace tests {
 			"mods = am.stat_modifiers.new()\n"
 			"base_health = 5\n"
 			"mods:add(\"health\", 4, \"+\")\n"
-			"am_equals(9, mods:calculate_stat(\"health\", base_health))\n"
+			"am.debug.equals(9, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 3, \"*\")\n"
-			"am_equals(19, mods:calculate_stat(\"health\", base_health))\n"
+			"am.debug.equals(19, mods:calculate_stat(\"health\", base_health))\n"
 			"mods:add(\"health\", 7, \"=\", false)\n"
-			"am_equals(25, mods:calculate_stat(\"health\", base_health))\n"
+			"am.debug.equals(25, mods:calculate_stat(\"health\", base_health))\n"
 			
 			"modsTable = mods:mods()\n"
-			"am_equals(4, modsTable[\"health\"][1].value)\n"
-			"am_equals(\"*\", modsTable[\"health\"][2].type)\n"
-			"am_equals(false, modsTable[\"health\"][3].magical)\n"
+			"am.debug.equals(4, modsTable[\"health\"][1].value)\n"
+			"am.debug.equals(\"*\", modsTable[\"health\"][2].type)\n"
+			"am.debug.equals(false, modsTable[\"health\"][3].magical)\n"
 		);
 		
 		if (!loadResult)
@@ -144,9 +144,9 @@ namespace tests {
 			"stats:add(\"health\", 2, \"*\")\n"
 
 			"mods = stats:mods()\n"
-			"am_equals(false, mods[\"health\"][1].magical)\n"
-			"am_equals(\"=\", mods[\"health\"][2].type)\n"
-			"am_equals(2, mods[\"health\"][3].value)\n"
+			"am.debug.equals(false, mods[\"health\"][1].magical)\n"
+			"am.debug.equals(\"=\", mods[\"health\"][2].type)\n"
+			"am.debug.equals(2, mods[\"health\"][3].value)\n"
 		);
 		
 		if (!loadResult)

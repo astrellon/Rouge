@@ -28,3 +28,6 @@ data_table lua_data_table.cpp
 
 __basePath ../lua/wrappers/sfx/
 sound lua_sound.cpp
+
+__basePath ../lua/wrappers/
+debug lua_debug.cpp

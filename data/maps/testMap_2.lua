@@ -1,11 +1,10 @@
 -- Test Lua Map
 do
 	local game = am.engine.game()
-
+	
 	-- Map
 	local map = am.map.new("testMap", 18, 8)
 	map:full_name("The Region of Test")
-	game:add_map(map)
 
 	am.engine.clear_using_tile_set()
 	am.engine.using_tile_set("nature")
@@ -22,6 +21,8 @@ do
 		"brick:2", "brick:2", "grass:0", "swamp", "water", "water",     "grass:0","water","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0",
 		"brick:2", "brick:2", "grass:3", "swamp", "water", "water",     "grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3"
 	})
+	
+	game:add_map(map)
 	-- End Map
 
 	-- Dialogue

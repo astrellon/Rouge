@@ -142,7 +142,7 @@
     <Filter Include="game\pathfinding">
       <UniqueIdentifier>{e91dab06-ef9b-4c5c-9cd4-3171b4a84952}</UniqueIdentifier>
     </Filter>
-    <Filter Include="gfx\log">
+    <Filter Include="log">
       <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -263,13 +263,13 @@
       <Filter>sys\win</Filter>
     </ClCompile>
     <ClCompile Include="log\flie_log_listener.cpp">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClCompile>
     <ClCompile Include="log\log_entry.cpp">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClCompile>
     <ClCompile Include="log\logger.cpp">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClCompile>
     <ClCompile Include="game\item.cpp">
       <Filter>game</Filter>
@@ -838,6 +838,9 @@
     <ClCompile Include="base\return_codes.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_debug.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -968,16 +971,16 @@
       <Filter>sys\win</Filter>
     </ClInclude>
     <ClInclude Include="log\file_log_listener.h">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="log\ilog_listener.h">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="log\log_entry.h">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="log\logger.h">
-      <Filter>gfx\log</Filter>
+      <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="game\item.h">
       <Filter>game</Filter>
@@ -1530,6 +1533,9 @@
     </ClInclude>
     <ClInclude Include="base\return_codes.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_debug.h">
+      <Filter>lua\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

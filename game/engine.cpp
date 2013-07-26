@@ -265,17 +265,20 @@ namespace game {
 			return false;
 		}
 
-		if (mLua.hasGlobalFunction("on_engine_load"))
+		if (mLua.hasAmType("on_engine_load", LUA_TFUNCTION))
 		{
 			mLua.call(0, 0);
+			mLua.pop(1);
 		}
 		return true;
 	}
 
 	bool Engine::newGame(const char *scenarioName)
 	{
-		if (mLua.hasGlobalFunction("new_game"))
+		//if (mLua.hasGlobalFunction("new_game"))
+		if (mLua.hasAmType("new_game", LUA_TFUNCTION))
 		{
+			LuaHandle handle(mLua, 1);
 			try
 			{
 				mLua.push(scenarioName);
@@ -294,7 +297,7 @@ namespace game {
 		}
 		else
 		{
-			am_log("ERROR", "Main engine script does not have a 'newGame' function");
+			am_log("ERROR", "Main engine script does not have a 'new_game' function");
 			return false;
 		}
 		if (mCurrentGame)
@@ -306,8 +309,9 @@ namespace game {
 
 	bool Engine::loadGame(const char *saveName)
 	{
-		if (mLua.hasGlobalFunction("load_game"))
+		if (mLua.hasAmType("load_game", LUA_TFUNCTION))
 		{
+			LuaHandle handle(mLua, 1);
 			try
 			{
 				mLua.push(saveName);
@@ -326,7 +330,7 @@ namespace game {
 		}
 		else
 		{
-			am_log("ERROR", "Main engine script does not have a 'loadGame' function");
+			am_log("ERROR", "Main engine script does not have a 'load_game' function");
 			return false;
 		}
 		return true;

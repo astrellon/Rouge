@@ -198,6 +198,7 @@ namespace lua {
 		int toInteger();
 		bool toBool();
 
+		bool hasAmType(const char *keyName, int luaType);
 		bool hasGlobalFunction(const char *func, bool popAfter = false);
 		int getGlobalInt(const char *name);
 		double getGlobalDouble(const char *name);
@@ -238,14 +239,33 @@ namespace lua {
 		static int expectedContext(lua_State *lua, const char* funcName, const char *expected);
 		static void warning(lua_State *lua, const char *message);
 
+		static void setMaxTableDepth(int depth);
+		static int getMaxTableDepth();
+
 	protected:
 		lua_State *mLua;
+		int mAmTableRef;
+		int mAmTableIndexRef;
 
 		static WrapperIdMap sWrapperIdMap;
 		static int sWrapperMaxId;
 
 		static int sDepth;
+		static int sMaxDepth;
 		static jmp_buf sRecoverBuff;
+	};
+
+	class LuaHandle {
+	public:
+		LuaHandle(lua_State *lua, unsigned int popElements = 0);
+		virtual ~LuaHandle();
+
+		void setPop(unsigned int pop);
+		unsigned int getPop() const;
+
+	protected:
+		lua_State *mLua;
+		unsigned int mPop;
 	};
 
 }

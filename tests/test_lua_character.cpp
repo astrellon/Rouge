@@ -243,14 +243,14 @@ namespace tests {
 		int loadResult = lua.loadString(
 			"char = am.character.new()\n"
 			"attrs = char:attrs()\n"
-			"am_equals(attrs, nil)\n"
+			"am.debug.equals(attrs, nil)\n"
 			"attrs = char:attrs(true)\n"
-			"not_equals(attrs, nil)\n"
+			"am.debug.not_equals(attrs, nil)\n"
 			"attrs:push(2)\n"
 			"attrs:push(5)\n"
 			"attrs:push(8)\n"
 			"attrs2 = char:attrs(true)\n"
-			"am_equals(attrs, attrs2)\n"
+			"am.debug.equals(attrs, attrs2)\n"
 			);
 		
 		if (!loadResult)

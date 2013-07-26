@@ -32,9 +32,9 @@ namespace tests {
 		int loadResult = lua.loadString(
 			"local result = loadfile(\"data\\\\tileTypes2.lua\")\n"
 			"if (result == nil) then\n"
-			"	am_log(\"Error loading\")\n"
+			"	am.debug.log(\"Error loading\")\n"
 			"else\n"
-			"	am_log(\"No error\")\n"
+			"	am.debug.log(\"No error\")\n"
 			"end\n"
 			"result()\n"
 

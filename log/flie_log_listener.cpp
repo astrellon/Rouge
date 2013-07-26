@@ -20,6 +20,8 @@ namespace log {
 		{
 			logger->removeLogListener(this);
 		}
+		mFile.flush();
+		mFile.close();
 	}
 
 	void FileLogListener::onNewEntry(const LogEntry &entry)
