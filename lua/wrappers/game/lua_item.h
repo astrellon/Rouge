@@ -37,6 +37,7 @@ namespace game {
 	int Item_set_item_from(lua_State *lua);
 
 	int Item_stat_modifiers(lua_State *lua);
+	int Item_stat_modifiers_self(lua_State *lua);
 
 	int Item_width(lua_State *lua);
 	int Item_height(lua_State *lua);

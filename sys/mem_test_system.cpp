@@ -77,8 +77,8 @@ namespace sys {
 			Handle<Item> sword(new Item());
 			sword->setItemFullname("Sword", "Iron", "of stab");
 			sword->setItemType(ItemCommon::SWORD);
-			sword->getStatModifiers().addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
-			sword->getStatModifiers().addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
+			sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
+			sword->getStatModifiers()->addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
 			game->addGameObjectToMap(sword);
 		}
 		{

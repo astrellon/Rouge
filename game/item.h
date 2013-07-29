@@ -81,12 +81,12 @@ namespace game {
 		 * These are the stat modifiers that are applied
 		 * to the character as a whole that equips it.
 		 */
-		virtual StatModifiers &getStatModifiers();
+		virtual StatModifiers *getStatModifiers();
 		/**
 		 * These stat modifiers that are applied only when
 		 * this item is in use, such as when it's being used to attack.
 		 */
-		virtual StatModifiers &getStatModifiersSelf();
+		virtual StatModifiers *getStatModifiersSelf();
 
 		virtual float getWidth();
 		virtual float getHeight();
@@ -133,8 +133,8 @@ namespace game {
 		unsigned int mItemValue;
 		unsigned int mBodyPartsRequired;
 
-		StatModifiers mStatModifiers;
-		StatModifiers mStatModifiersSelf;
+		Handle<StatModifiers> mStatModifiers;
+		Handle<StatModifiers> mStatModifiersSelf;
 		BodyPartType::TypeList mEquipableTo;
 
 		virtual void updateGraphic();

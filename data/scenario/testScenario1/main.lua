@@ -2,7 +2,7 @@
 -- 
 return {
 	new_game = function(game)
-		am_log("NEW GAME!!!!!")
+		am.debug.log("NEW GAME!!!!!")
 		map = game:map("testMap_2")
 		if (map ~= nil) then
 			game:current_map(map)
@@ -16,7 +16,8 @@ return {
 			:stats():base_stat("speed", 2)
 		local sword = am.item.from_def("wooden:sword")
 		sword:add_body_type("arm", "arm"):add_body_type("hand", "hand")	
-		player:inventory():add_item(sword)
+		player:equip_item(sword, "left_hand")
+		--player:inventory():add_item(sword)
 		player:inventory():add_item(am.item.from_def("wooden:shield"))
 		
 		game:add_game_object_to_map(player)

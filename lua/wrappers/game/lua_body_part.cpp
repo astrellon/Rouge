@@ -47,7 +47,7 @@ namespace game {
 		return LuaState::expectedArgs(lua, "@new", "string partName, string [UNKNOWN_PART] type");
 	}
 	/**
-	 * Deletes the body part.
+	 * Releases body part reference counter.
 	 */
 	int BodyPart_dtor(lua_State *lua)
 	{

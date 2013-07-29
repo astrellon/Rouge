@@ -35,8 +35,8 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
 		Handle<Item> sword(new Item());
-		StatModifiers &modifiers = sword->getStatModifiers();
-		modifiers.addStatModifier(Stat::STRENGTH, StatModifier(5, MOD_ADD));
+		StatModifiers *modifiers = sword->getStatModifiers();
+		modifiers->addStatModifier(Stat::STRENGTH, StatModifier(5, MOD_ADD));
 
 		stats->addModifiers(modifiers);
 
@@ -45,7 +45,7 @@ namespace tests {
 
 		stats->removeModifiers(modifiers);
 
-		modifiers.addStatModifier(Stat::STRENGTH, StatModifier(2.0f, MOD_MULTIPLY));
+		modifiers->addStatModifier(Stat::STRENGTH, StatModifier(2.0f, MOD_MULTIPLY));
 
 		stats->addModifiers(modifiers);
 
@@ -70,7 +70,7 @@ namespace tests {
 		assert(testChar->addBodyPart(part));
 
 		Handle<Item> sword(new Item());
-		sword->getStatModifiers().addStatModifier(Stat::STRENGTH, StatModifier(5.0f, MOD_ADD));
+		sword->getStatModifiers()->addStatModifier(Stat::STRENGTH, StatModifier(5.0f, MOD_ADD));
 		assert(testChar->equipItem(sword, "arm"));
 
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
@@ -138,16 +138,16 @@ namespace tests {
 		Handle<Item> sword(new Item());
 		sword->setGraphic(new Sprite("items/sword"));
 		sword->setGroundGraphic(new Sprite("items/swordGround"));
-		sword->getStatModifiers().addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
-		sword->getStatModifiers().addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
+		sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
+		sword->getStatModifiers()->addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
 		sword->setItemFullname("Sword", "Wooden", "of Death");
 		sword->setItemType(ItemCommon::SWORD);
 		sword->setInventorySize(2, 3);
 		inv->addItem(sword, 0, 0);
 
 		Handle<Item> shield(new Item());
-		shield->getStatModifiers().addStatModifier(Stat::ARMOUR, StatModifier(4.0f, MOD_MULTIPLY));
-		shield->getStatModifiers().addStatModifier(Stat::ARMOUR, StatModifier(2.0f, MOD_ADD));
+		shield->getStatModifiers()->addStatModifier(Stat::ARMOUR, StatModifier(4.0f, MOD_MULTIPLY));
+		shield->getStatModifiers()->addStatModifier(Stat::ARMOUR, StatModifier(2.0f, MOD_ADD));
 		shield->setItemFullname("Shield", "Padded", "of ASD");
 		shield->setItemType(ItemCommon::SHIELD);
 		shield->setInventorySize(2, 2);
@@ -201,12 +201,12 @@ namespace tests {
 		
 		Handle<Item> copySword(copyInv->getItemAt(0, 0));
 		assert(copySword.get() && copySword != sword);
-		am_equals(1u, copySword->getStatModifiers().getModifiers()[Stat::MAX_DAMAGE].size());
-		am_equalsDelta(5.0f, copySword->getStatModifiers().getModifiers()[Stat::MAX_DAMAGE][0].getValue(), 0.0001f);
-		assert(MOD_ADD == copySword->getStatModifiers().getModifiers()[Stat::MAX_DAMAGE][0].getType());
-		am_equals(1u, copySword->getStatModifiers().getModifiers()[Stat::MIN_DAMAGE].size());
-		assert(MOD_ADD == copySword->getStatModifiers().getModifiers()[Stat::MIN_DAMAGE][0].getType());
-		am_equalsDelta(3.0f, copySword->getStatModifiers().getModifiers()[Stat::MIN_DAMAGE][0].getValue(), 0.0001f);
+		am_equals(1u, copySword->getStatModifiers()->getModifiers()[Stat::MAX_DAMAGE].size());
+		am_equalsDelta(5.0f, copySword->getStatModifiers()->getModifiers()[Stat::MAX_DAMAGE][0].getValue(), 0.0001f);
+		assert(MOD_ADD == copySword->getStatModifiers()->getModifiers()[Stat::MAX_DAMAGE][0].getType());
+		am_equals(1u, copySword->getStatModifiers()->getModifiers()[Stat::MIN_DAMAGE].size());
+		assert(MOD_ADD == copySword->getStatModifiers()->getModifiers()[Stat::MIN_DAMAGE][0].getType());
+		am_equalsDelta(3.0f, copySword->getStatModifiers()->getModifiers()[Stat::MIN_DAMAGE][0].getValue(), 0.0001f);
 		am_equalsStr("Sword", copySword->getItemName());
 		am_equalsStr("Wooden", copySword->getPrefix());
 		am_equalsStr("of Death", copySword->getPostfix());
@@ -223,11 +223,11 @@ namespace tests {
 
 		Handle<Item> copyShield(copyInv->getItemAt(4, 2));
 		assert(copyShield.get() && copyShield != shield);
-		am_equals(2u, copyShield->getStatModifiers().getModifiers()[Stat::ARMOUR].size());
-		am_equalsDelta(4.0f, copyShield->getStatModifiers().getModifiers()[Stat::ARMOUR][0].getValue(), 0.0001f);
-		assert(MOD_MULTIPLY == copyShield->getStatModifiers().getModifiers()[Stat::ARMOUR][0].getType());
-		am_equalsDelta(2.0f, copyShield->getStatModifiers().getModifiers()[Stat::ARMOUR][1].getValue(), 0.0001f);
-		assert(MOD_ADD == copyShield->getStatModifiers().getModifiers()[Stat::ARMOUR][1].getType());
+		am_equals(2u, copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR].size());
+		am_equalsDelta(4.0f, copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR][0].getValue(), 0.0001f);
+		assert(MOD_MULTIPLY == copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR][0].getType());
+		am_equalsDelta(2.0f, copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR][1].getValue(), 0.0001f);
+		assert(MOD_ADD == copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR][1].getType());
 
 		am_equalsStr("Shield", copyShield->getItemName());
 		am_equalsStr("Padded", copyShield->getPrefix());

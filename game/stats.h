@@ -49,6 +49,8 @@ namespace game {
 
 		virtual void addModifiers(const IStatModifiers &rhs);
 		virtual void removeModifiers(const IStatModifiers &rhs);
+		virtual void addModifiers(const IStatModifiers *rhs);
+		virtual void removeModifiers(const IStatModifiers *rhs);
 
 		virtual float calculateStat(Stat::StatType type, float baseValue);
 

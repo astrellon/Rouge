@@ -149,6 +149,20 @@ namespace game {
 			mDirtyStats[iter->first] = true;
 		}
 	}
+	void Stats::addModifiers(const IStatModifiers *rhs)
+	{
+		if (rhs)
+		{
+			addModifiers(*rhs);
+		}
+	}
+	void Stats::removeModifiers(const IStatModifiers *rhs)
+	{
+		if (rhs)
+		{
+			removeModifiers(*rhs);
+		}
+	}
 
 	const IStatModifiers::StatModifierMap &Stats::getModifiers() const
 	{

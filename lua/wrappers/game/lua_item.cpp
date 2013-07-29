@@ -98,6 +98,7 @@ namespace game {
 			{ "item_fullname", Item_item_fullname },
 			{ "set_item_from", Item_set_item_from },
 			{ "stat_modifiers", Item_stat_modifiers },
+			{ "stat_modifiers_self", Item_stat_modifiers_self },
 			{ "width", Item_width },
 			{ "height", Item_height },
 			{ "name", Item_name },
@@ -693,11 +694,28 @@ namespace game {
 		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			wrapRefObject<StatModifiers>(lua, &item->getStatModifiers());
+			wrapRefObject<StatModifiers>(lua, item->getStatModifiers());
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "stat_modifiers", "am.item");
 	}
+	/**
+	 * Returns the self stats modifiers object for this item.
+	 * @see am.stats_modifiers
+	 *
+	 * @returns am.stats_modifiers The self stats modifiers object.
+	 */
+	int Item_stat_modifiers_self(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			wrapRefObject<StatModifiers>(lua, item->getStatModifiersSelf());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "stat_modifiers_self", "am.item");
+	}
+
 	/**
 	 * Returns the item width for the main graphic.
 	 *

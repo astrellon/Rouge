@@ -37,7 +37,9 @@ namespace game {
 		mPrefix(-1),
 		mPostfix(-1),
 		mQuestItemId(-1),
-		mBodyPartsRequired(1)
+		mBodyPartsRequired(1),
+		mStatModifiers(new StatModifiers()),
+		mStatModifiersSelf(new StatModifiers())
 	{
 		setName("Item");
 		addPassibleType(Engine::getEngine()->getTileType("land"));
@@ -52,7 +54,6 @@ namespace game {
 		mPrefix(copy.mPrefix),
 		mPostfix(copy.mPostfix),
 		mQuestItemId(copy.mQuestItemId),
-		mStatModifiers(copy.mStatModifiers),
 		mBodyPartsRequired(copy.mBodyPartsRequired)
 	{
 		if (copy.mGraphic)
@@ -62,6 +63,22 @@ namespace game {
 		if (copy.mGroundGraphic)
 		{
 			mGroundGraphic = new Sprite(*copy.mGroundGraphic);
+		}
+		if (copy.mStatModifiers)
+		{
+			mStatModifiers = new StatModifiers(*copy.mStatModifiers);
+		}
+		else
+		{
+			mStatModifiers = new StatModifiers();
+		}
+		if (copy.mStatModifiersSelf)
+		{
+			mStatModifiersSelf = new StatModifiers(*copy.mStatModifiersSelf);
+		}
+		else
+		{
+			mStatModifiersSelf = new StatModifiers();
 		}
 		retain();
 		updateGraphic();
@@ -163,6 +180,9 @@ namespace game {
 		mStatModifiers = item.mStatModifiers;
 		mItemLocation = item.mItemLocation;
 
+		mStatModifiers = new StatModifiers(*item.mStatModifiers);
+		mStatModifiersSelf = new StatModifiers(*item.mStatModifiersSelf);
+
 		mPrefix = item.mPrefix;
 		mPostfix = item.mPostfix;
 		mItemValue = item.mItemValue;
@@ -170,11 +190,11 @@ namespace game {
 		updateGraphic();
 	}
 
-	StatModifiers &Item::getStatModifiers()
+	StatModifiers *Item::getStatModifiers()
 	{
 		return mStatModifiers;
 	}
-	StatModifiers &Item::getStatModifiersSelf()
+	StatModifiers *Item::getStatModifiersSelf()
 	{
 		return mStatModifiersSelf;
 	}
@@ -505,8 +525,8 @@ namespace game {
 		{
 			output->at("groundGraphic", mGroundGraphic->serialise());
 		}
-		output->at("statModifiers", mStatModifiers.serialise());
-		output->at("statModifiersSelf", mStatModifiersSelf.serialise());
+		output->at("statModifiers", mStatModifiers->serialise());
+		output->at("statModifiersSelf", mStatModifiersSelf->serialise());
 		
 		output->at("equipableTo", BodyPartType::serialiseTypeList(mEquipableTo));
 
@@ -578,12 +598,12 @@ namespace game {
 		tempData = dataMap->at<data::IData>("statModifiers");
 		if (tempData)
 		{
-			mStatModifiers.deserialise(state, tempData);
+			mStatModifiers->deserialise(state, tempData);
 		}
 		tempData = dataMap->at<data::IData>("statModifiersSelf");
 		if (tempData)
 		{
-			mStatModifiersSelf.deserialise(state, tempData);
+			mStatModifiersSelf->deserialise(state, tempData);
 		}
 
 		tempData = dataMap->at<data::IData>("equipableTo");

@@ -95,7 +95,6 @@ namespace game {
 			}
 		}
 	}
-
 	void StatModifiers::removeModifiers(const IStatModifiers &rhs)
 	{
 		const StatModifierMap &mods = rhs.getModifiers();
@@ -110,6 +109,20 @@ namespace game {
 			{
 				removeStatModifier(stat, *iter);
 			}
+		}
+	}
+	void StatModifiers::addModifiers(const IStatModifiers *rhs)
+	{
+		if (rhs)
+		{
+			addModifiers(*rhs);
+		}
+	}
+	void StatModifiers::removeModifiers(const IStatModifiers *rhs)
+	{
+		if (rhs)
+		{
+			removeModifiers(*rhs);
 		}
 	}
 

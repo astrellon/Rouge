@@ -8,7 +8,7 @@ do
 		:graphic(am.sprite.new("items/sword"))
 		:ground_graphic(am.sprite.new("items/swordGround"))
 		
-	local stats = item:stat_modifiers()
+	local stats = item:stat_modifiers_self()
 	stats:add("minDamage", 2, "+")
 	stats:add("maxDamage", 4, "+")
 	game:item_def("sword", item)
