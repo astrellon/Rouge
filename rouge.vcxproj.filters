@@ -841,6 +841,9 @@
     <ClCompile Include="lua\wrappers\lua_debug.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\lua_return_codes.cpp">
+      <Filter>lua\wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1535,6 +1538,9 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_debug.h">
+      <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_return_codes.h">
       <Filter>lua\wrapper</Filter>
     </ClInclude>
   </ItemGroup>

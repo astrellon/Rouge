@@ -71,6 +71,7 @@ namespace tests {
 			runCase(testScripts);
 			runCase(testLoadScripts);
 			runCase(testWrapper);
+			runCase(testReturnCodes);
 			//runCase(testInheritance);
 		}
 	
@@ -85,7 +86,8 @@ namespace tests {
 		bool testLoadScripts();
 		bool testWrapper();
 		bool testInheritance();
-	
+		bool testReturnCodes();
+
 	};
 
 }

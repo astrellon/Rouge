@@ -51,6 +51,8 @@ using namespace am::lua::sfx;
 #include "util/lua_data_table.h"
 #include <util/data_table.h>
 
+#include "lua_return_codes.h"
+
 #include <lua/lua_state.h>
 using namespace am::lua;
 
@@ -92,6 +94,8 @@ namespace wrapper {
 		addWrapper(lua, "sprite", Sprite_register, Sprite::LUA_ID);
 		addWrapper(lua, "data_table", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
 		addWrapper(lua, "sound", Sound_register, am::sfx::ISound::LUA_ID);
+
+		ReturnCodes_register(lua);
 
 		lua_pop(lua, 1);
 

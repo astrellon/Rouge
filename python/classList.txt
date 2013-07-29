@@ -31,3 +31,4 @@ sound lua_sound.cpp
 
 __basePath ../lua/wrappers/
 debug lua_debug.cpp
+return_codes lua_return_codes.cpp

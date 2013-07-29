@@ -427,5 +427,20 @@ namespace tests {
 		return true;
 	}
 
+	bool TestLua::testReturnCodes()
+	{
+		LuaState lua;
+		if (!lua.loadString(
+			"am.debug.equals(1, am.codes.success)\n"
+			"am.debug.equals(\"success\", am.codes.message(am.codes.success))\n"
+			))
+		{
+			lua.logStack("LUAERR");
+			return false;
+		}
+
+		return true;
+	}
+
 }
 }

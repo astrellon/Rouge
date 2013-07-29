@@ -141,9 +141,12 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
       <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
-xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -166,9 +169,12 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
-xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Mem|Win32'">
@@ -326,6 +332,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\lua_debug.cpp" />
     <ClCompile Include="lua\wrappers\lua_event_manager.cpp" />
     <ClCompile Include="lua\wrappers\lua_renderable.cpp" />
+    <ClCompile Include="lua\wrappers\lua_return_codes.cpp" />
     <ClCompile Include="lua\wrappers\lua_wrappers.cpp" />
     <ClCompile Include="lua\wrappers\sfx\lua_sound.cpp" />
     <ClCompile Include="lua\wrappers\util\lua_data_table.cpp" />
@@ -556,6 +563,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\lua_debug.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
+    <ClInclude Include="lua\wrappers\lua_return_codes.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />
     <ClInclude Include="lua\wrappers\sfx\lua_sound.h" />
     <ClInclude Include="lua\wrappers\util\lua_data_table.h" />
