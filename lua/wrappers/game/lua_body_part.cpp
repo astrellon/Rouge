@@ -27,7 +27,7 @@ namespace game {
 	 * Creates a new body part instance with the given name.
 	 * This name is used to identify the part when it is attached to a character.
 	 * @param string name The body part name.
-	 * @param string [UNKNOWN_PART] type The body part type.
+	 * @param string ["unknown_part"] type The body part type.
 	 */
 	int BodyPart_ctor(lua_State *lua)
 	{
@@ -44,7 +44,7 @@ namespace game {
 			wrapRefObject<BodyPart>(lua, part);
 			return 1;
 		}
-		return LuaState::expectedArgs(lua, "@new", "string partName, string [UNKNOWN_PART] type");
+		return LuaState::expectedArgs(lua, "@new", "string partName, string [\"unknown_part\"] type");
 	}
 	/**
 	 * Releases body part reference counter.
@@ -128,7 +128,11 @@ namespace game {
 	 *
 	 * @param string type The type to set the body part to.
 	 * @returns am.body_part This
-	 * @returns am.return_code Return code.
+	 * @returns am.code Return code. Can return either:
+	 *  <ul>
+	 *  <li><b>success</b><span>: The body part type was changed.</span></li>
+	 *  <li><b>body_part_type_unknown</b><span>: The type name was unknown.</span></li>
+	 *  </ul>
 	 */
 	int BodyPart_type(lua_State *lua)
 	{
@@ -143,19 +147,33 @@ namespace game {
 			else if (lua_isstr(lua, 2))
 			{
 				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
-				if (type == BodyPartType::MAX_BODY_TYPE_LENGTH)
-				{
-					stringstream ss;
-					ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
-					LuaState::warning(lua, ss.str().c_str());
-				}
-				lua_first(lua);
+				lua_pushvalue(lua, 1);
+				lua_pushinteger(lua, type == BodyPartType::MAX_BODY_TYPE_LENGTH ? BODY_PART_TYPE_UNKNOWN : SUCCESS);
+				return 2;
 			}
-			return LuaState::expectedArgs(lua, "type", "string partType");
+			return LuaState::expectedArgs(lua, "type", "string type");
 		}
 		return LuaState::expectedContext(lua, "type", "am.body_part");
 	}
 
+	/**
+	 * Returns the body part which this body part can aid in equipping items.
+	 *
+	 * @returns am.body_part The other body part that this body part can hold onto to help equip items.
+	 */
+	/**
+	 * Sets the body part which this body part can help with equipping items.
+	 * Body parts which are not both added to the same character cannot help each other.
+	 *
+	 * @params am.body_part part_to_hold The body part to hold.
+	 * @returns am.body_part This
+	 */
+	/**
+	 * Removes the body part that this part was helping.
+	 *
+	 * @params nil part_to_hold Remove.
+	 * @returns am.body_part This
+	 */
 	int BodyPart_can_hold_onto(lua_State *lua)
 	{
 		BodyPart *part = castUData<BodyPart>(lua, 1);
@@ -186,11 +204,23 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "can_hold_onto", 2, "BodyPart part, nil part");
+			return LuaState::expectedArgs(lua, "can_hold_onto", 2, "am.body_part part, nil part");
 		}
 		return LuaState::expectedContext(lua, "can_hold_onto", "am.body_part");
 	}
 
+	/**
+	 * Returns true if this is considered a weapon body part.
+	 * Weapon body parts are cycled through during the attack sequence.
+	 *
+	 * @returns boolean True if this is a weapon body part.
+	 */
+	/**
+	 * Sets if this body part should be used as a weapon.
+	 *
+	 * @param boolean is_weapon_body Sets if this is a weapon body part.
+	 * @returns am.body_part This.
+	 */
 	int BodyPart_weapon_part(lua_State *lua)
 	{
 		BodyPart *part = castUData<BodyPart>(lua, 1);
@@ -211,6 +241,14 @@ namespace game {
 		return LuaState::expectedContext(lua, "weapon_part", "am.body_part");
 	}
 
+	/**
+	 * If this body part can hold onto another body part and this body part
+	 * is currently helping hold onto an item then this will return true.
+	 * Essentially this means that this part has an item equipped but it should not be
+	 * considered a different item from the part that actually has the item equipped.
+	 *
+	 * @returns boolean True if this is currently helping equip another body parts item.
+	 */
 	int BodyPart_is_holding_onto(lua_State *lua)
 	{
 		BodyPart *part = castUData<BodyPart>(lua, 1);
@@ -226,6 +264,16 @@ namespace game {
 		return LuaState::expectedContext(lua, "is_holding_onto", "am.body_part");
 	}
 
+	/**
+	 * Returns true if the given item can be equipped at all on this body part.
+	 * This compares the body part type with the list of body part types that the item supports.
+	 * This only indicates if the item could be equipped onto this part, it does not take
+	 * into consideration other character specific requirements or if there is currently
+	 * another item equipped that would prevent the item from being equipped immediately.
+	 *
+	 * @param am.item item The item to compare.
+	 * @returns boolean True if the item could be equipped.
+	 */
 	int BodyPart_can_equip_item(lua_State *lua)
 	{
 		BodyPart *part = castUData<BodyPart>(lua, 1);
@@ -240,15 +288,15 @@ namespace game {
 					return 1;
 				}
 			}
-			return LuaState::expectedArgs(lua, "can_equip_item", "Item item");
+			return LuaState::expectedArgs(lua, "can_equip_item", "am.item item");
 		}
 		return LuaState::expectedContext(lua, "can_equip_item", "am.body_part");
 	}
 
 	/**
 	 * Sets the given item as the equipped item on this body part.
-	 * @param Item item The item to equip, can be nil.
-	 * @returns BodyPart This.
+	 * @param am.item item The item to equip, can be nil.
+	 * @returns am.body_part This.
 	 */
 	/**
 	 * Returns the equipped item on this body part.
@@ -286,7 +334,7 @@ namespace game {
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "item", 2, "Item item, nil item");
+			return LuaState::expectedArgs(lua, "item", 2, "am.item item, nil item");
 		}
 		return LuaState::expectedContext(lua, "item", "am.body_part");
 	}

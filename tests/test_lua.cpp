@@ -431,8 +431,8 @@ namespace tests {
 	{
 		LuaState lua;
 		if (!lua.loadString(
-			"am.debug.equals(1, am.codes.success)\n"
-			"am.debug.equals(\"success\", am.codes.message(am.codes.success))\n"
+			"am.debug.equals(1, am.code.success)\n"
+			"am.debug.equals(\"success\", am.code.message(am.codes.success))\n"
 			))
 		{
 			lua.logStack("LUAERR");

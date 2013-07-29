@@ -21,6 +21,7 @@ namespace base {
 			// Body Parts
 		case BODY_PART_FOUND:		return "body part was already found in the parts list.";
 		case BODY_PART_NOT_FOUND:	return "unable to find the body part with the given part name.";
+		case BODY_PART_TYPE_UNKNOWN:	return "the body part type name does not match a known type name.";
 			// Default
 		default:
 			return "unknown return code.";

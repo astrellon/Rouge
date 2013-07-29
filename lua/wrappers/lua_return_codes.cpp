@@ -31,6 +31,7 @@ namespace lua {
 	 * <li>no_weapon_part</li>
 	 * <li>body_part_found</li>
 	 * <li>body_part_not_found</li>
+	 * <li>body_part_type_unknown</li>
 	 * </ul>
 	 */
 	int ReturnCodes_register(lua_State *lua)
@@ -41,7 +42,7 @@ namespace lua {
 			{ NULL, NULL }
 		};
 
-		lua_pushstring(lua, "codes");
+		lua_pushstring(lua, "code");
 		lua_newtable(lua);
 
 		luaL_setfuncs(lua, regs, 0);
@@ -58,6 +59,7 @@ namespace lua {
 		L.setTableValue("no_weapon_part", NO_WEAPON_PART);
 		L.setTableValue("body_part_found", BODY_PART_FOUND);
 		L.setTableValue("body_part_not_found", BODY_PART_NOT_FOUND);
+		L.setTableValue("body_part_type_unknown", BODY_PART_TYPE_UNKNOWN);
 
 		lua_settable(lua, -3);
 

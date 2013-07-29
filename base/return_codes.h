@@ -20,6 +20,7 @@ namespace base {
 		// Body Parts related
 		BODY_PART_FOUND =			0x0200,
 		BODY_PART_NOT_FOUND =		-0x0200,
+		BODY_PART_TYPE_UNKNOWN =	-0x0201
 	};
 
 	const char *getErrorMessage(ReturnCode code);
