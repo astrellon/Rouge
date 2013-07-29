@@ -66,9 +66,11 @@ namespace lua {
 
 	/**
 	 * @static
-	 * Takes a variable number of arguments and prints them to the logger.
+	 * Accepts a return code value (represented by an integer) and returns
+	 * a more detailed message about that return code.
 	 * 
-	 * @param ... args A variable number of Lua objects to log.
+	 * @param am.code return_code The return code to get the message for.
+	 * @returns string The message associated with the given return code.
 	 */
 	inline int ReturnCodes_message(lua_State *lua)
 	{
