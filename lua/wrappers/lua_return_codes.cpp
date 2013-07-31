@@ -78,8 +78,16 @@ namespace lua {
 	{
 		if (lua_isnum(lua, 1))
 		{
-			lua_pushstring(lua, getErrorMessage(static_cast<ReturnCode>(lua_tointeger(lua, 1))));
-			return 1;
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, getErrorMessage(static_cast<ReturnCode>(lua_tointeger(lua, 1))));
+				return 1;
+			}
+			else if (lua_isstr(lua, 2))
+			{
+				// Add a new error message.
+				// Maybe
+			}
 		}
 		return LuaState::expectedArgs(lua, "message", "am.code code_value");
 	}

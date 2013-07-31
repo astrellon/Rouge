@@ -83,8 +83,9 @@ namespace game {
 		/**
 		 * Looks for the next part in the weapon list.
 		 * Returns NULL only where there are no weapon parts.
+		 * Loop is set to true when the body parts index has wrapped around.
 		 */
-		BodyPart *getNextWeaponPart();
+		BodyPart *getNextWeaponPart(bool &looped);
 		/**
 		 * Returns the total number of weapon parts in this collection.
 		 */

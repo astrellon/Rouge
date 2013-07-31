@@ -151,10 +151,11 @@ namespace game {
 		return mPartList;
 	}
 
-	BodyPart *BodyParts::getNextWeaponPart()
+	BodyPart *BodyParts::getNextWeaponPart(bool &looped)
 	{
 		int len = static_cast<int>(mPartList.size());
 		int startIndex = mAttackIndex;
+		looped = false;
 		if (startIndex < 0 || startIndex >= len)
 		{
 			startIndex = len - 1;
@@ -179,6 +180,7 @@ namespace game {
 			if (mAttackIndex >= len)
 			{
 				mAttackIndex = 0;
+				looped = true;
 			}
 		}
 		return result;

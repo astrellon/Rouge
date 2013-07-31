@@ -2,14 +2,15 @@
 
 #include <game/character.h>
 #include <game/item.h>
+#include <game/body_part.h>
 
 namespace am {
 namespace ui {
 
-	EquipEvent::EquipEvent(const char *type, Character *character, const char *bodyPartName, Item *item) :
+	EquipEvent::EquipEvent(const char *type, Character *character, BodyPart *part, Item *item) :
 		Event(type),
 		mCharacter(character),
-		mBodyPartName(bodyPartName),
+		mPart(part),
 		mItem(item)
 	{
 		if (character)
@@ -19,6 +20,10 @@ namespace ui {
 		if (item)
 		{
 			item->retain();
+		}
+		if (part)
+		{
+			part->retain();
 		}
 	}
 	EquipEvent::~EquipEvent()
@@ -31,6 +36,10 @@ namespace ui {
 		{
 			mItem->release();
 		}
+		if (mPart)
+		{
+			mPart->release();
+		}
 	}
 
 	Character *EquipEvent::getCharacter() const
@@ -41,9 +50,10 @@ namespace ui {
 	{
 		return mItem;
 	}
-	const char *EquipEvent::getBodyPartName() const
+	BodyPart *EquipEvent::getBodyPart() const
 	{
-		return mBodyPartName.c_str();
+		return mPart;
 	}
+
 }
 }

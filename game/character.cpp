@@ -12,6 +12,7 @@
 #include <util/data_number.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
+#include <util/utils.h>
 using namespace am::util;
 
 #include <math/math.h>
@@ -40,7 +41,8 @@ namespace game {
 		mGender(Gender::MALE),
 		mRace(NULL),
 		mCoinPurse(new CoinPurse()),
-		mStats(new Stats())
+		mStats(new Stats()),
+		mArmedCounter(0)
 	{
 		mFixedToGrid = true;
 		setName("Character");
@@ -60,7 +62,8 @@ namespace game {
 		mRace(copy.mRace),
 		mPickupReach(copy.mPickupReach),
 		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
-		mInventory(new Inventory(*copy.mInventory))
+		mInventory(new Inventory(*copy.mInventory)),
+		mArmedCounter(0)
 	{
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
@@ -186,8 +189,8 @@ namespace game {
 		}
 		const Vector2f &destPos(mDestinationPath[mDestinationPos]);
 		Vector2f toDest(destPos.sub(Vector2f(mLocationX, mLocationY)));
-		float length = toDest.length();
-		for (int index = mDestinationPos + 1; index < mDestinationPath.size(); index++)
+		float length = static_cast<float>(toDest.length());
+		for (size_t index = mDestinationPos + 1; index < mDestinationPath.size(); index++)
 		{
 			Vector2f diff = mDestinationPath[index].sub(mDestinationPath[index + 1]);
 			length += diff.length();
@@ -202,17 +205,20 @@ namespace game {
 			return NULL_PARAMETER;
 		}
 
-		float dist = distanceToGrid(enemy);
-		if (dist > 1.5f)
-		{
-			return OUT_OF_RANGE;
-		}
-
-		BodyPart *weaponPart = mBodyParts.getNextWeaponPart();
+		bool looped = false;
+		BodyPart *weaponPart = getNextWeaponPart(looped);
 		if (!weaponPart)
 		{
 			// Sad times, no way to attack.
 			return NO_WEAPON_PART;
+		}
+
+		// TODO Determine the max distance for a weapon based on the
+		// equipped item/body part.
+		float dist = distanceToGrid(enemy);
+		if (dist > 1.5f)
+		{
+			return OUT_OF_RANGE;
 		}
 
 		Stats temp = *mStats;
@@ -229,9 +235,16 @@ namespace game {
 
 		float minDamage = temp.getStat(Stat::MIN_DAMAGE);
 		float maxDamage = temp.getStat(Stat::MAX_DAMAGE);
+		
+		float attackDamage = Utils::randf(minDamage, maxDamage);
 		stringstream ss;
-		ss << "Attack damage: " << minDamage << " - " << maxDamage;
+		ss << "Attack damage: " << minDamage << " - " << maxDamage << " (" << attackDamage << ")";
 		am_log("ATTK", ss);
+
+		if (looped)
+		{
+			// We've attacked with all our weapons this 'round'.
+		}
 
 		return SUCCESS;
 	}
@@ -288,7 +301,7 @@ namespace game {
 			Item *equipped = part->getEquippedItem();
 			if (equipped != NULL)
 			{
-				_equipItem(equipped, name);
+				_equipItem(equipped, part);
 			}
 			mBodyParts.addBodyPart(part);
 			return true;
@@ -318,7 +331,7 @@ namespace game {
 			Item *equipped = part->getEquippedItem();
 			if (equipped != NULL)
 			{
-				_unequipItem(equipped, partName);
+				_unequipItem(equipped, part);
 			}
 			mBodyParts.removeBodyPart(partName);
 			return true;
@@ -367,7 +380,7 @@ namespace game {
 		if (canResult)
 		{
 			part->setEquippedItem(item);
-			_equipItem(item, part->getName());
+			_equipItem(item, part);
 			if (item->getBodyPartsRequired() > 1)
 			{
 				BodyParts::PartList linked;
@@ -379,10 +392,6 @@ namespace game {
 			}
 			return true;
 		}
-		/*stringstream ss;
-		ss << "'" << getName() << "' already has '" << alreadyEquipped->getFullItemName();
-		ss << "' equipped on " << part->getName();
-		am_log("CHAR", ss);*/
 		return false;
 	}
 	bool Character::unequipItem(const char *bodyPart)
@@ -399,7 +408,7 @@ namespace game {
 		Item *equipped = part->getEquippedItem();
 		if (equipped != NULL)
 		{
-			_unequipItem(equipped, bodyPart);
+			_unequipItem(equipped, part);
 		}
 		part->setEquippedItem(NULL);
 		return true;
@@ -919,16 +928,33 @@ namespace game {
 		return 1;
 	}
 
-	void Character::_equipItem(Item *item, const char *bodyPartName)
+	void Character::_equipItem(Item *item, BodyPart *part)
 	{
+		if (!part || !item)
+		{
+			return;
+		}
+
+		if (part->isWeaponPart())
+		{
+			mArmedCounter++;
+		}
 		item->setItemLocation(Item::INVENTORY);
 		mStats->addModifiers(item->getStatModifiers());
-		fireEvent<EquipEvent>(new EquipEvent("equip", this, bodyPartName, item));
+		fireEvent<EquipEvent>(new EquipEvent("equip", this, part, item));
 	}
-	void Character::_unequipItem(Item *item, const char *bodyPartName)
+	void Character::_unequipItem(Item *item, BodyPart *part)
 	{
+		if (!part || !item)
+		{
+			return;
+		}
+		if (part->isWeaponPart())
+		{
+			mArmedCounter--;
+		}
 		mStats->removeModifiers(item->getStatModifiers());
-		fireEvent<EquipEvent>(new EquipEvent("unequip", this, bodyPartName, item));
+		fireEvent<EquipEvent>(new EquipEvent("unequip", this, part, item));
 	}
 
 	void Character::onLevelUp()
@@ -940,6 +966,32 @@ namespace game {
 	{
 		Handle<Event> e(new Event("experience_change"));
 		fireEvent<Event>(e);
+	}
+
+	BodyPart *Character::getNextWeaponPart(bool &looped)
+	{
+		looped = false;
+		size_t len = mBodyParts.getAllParts().size();
+		for (size_t i = 0; i < len; i++)
+		{
+			BodyPart *part = mBodyParts.getNextWeaponPart(looped);
+			if (part == NULL)
+			{
+				break;
+			}
+			if (part->getEquippedItem() == NULL)
+			{
+				if (mArmedCounter == 0)
+				{
+					return part;
+				}
+			}
+			else
+			{
+				return part;
+			}
+		}
+		return NULL;
 	}
 
 	size_t Character::findAction(IAction *action)

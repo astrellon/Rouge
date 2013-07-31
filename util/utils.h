@@ -14,6 +14,9 @@ using namespace std;
 #	define STR(s) #s
 #endif
 
+#include <base/handle.h>
+using namespace am::base;
+
 namespace am {
 namespace util {
 
@@ -53,6 +56,7 @@ namespace util {
 		static string toUpperCase(const char *input);
 
 		static float randf();
+		static float randf(float lower, float upper);
 		static void setRandSeed(unsigned int seed);
 
 		template <class T>

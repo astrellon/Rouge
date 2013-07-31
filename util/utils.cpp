@@ -116,6 +116,12 @@ namespace util {
 	{
 		return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 	}
+	float Utils::randf(float lower, float upper)
+	{
+		float num = randf();
+		float diff = upper - lower;
+		return num * diff + lower;
+	}
 	void Utils::setRandSeed(unsigned int seed)
 	{
 		srand(seed);

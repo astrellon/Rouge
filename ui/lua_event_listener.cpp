@@ -65,11 +65,11 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		mLua.setTableValue("localX", e->getLocalMouseX());
-		mLua.setTableValue("localY", e->getLocalMouseY());
-		mLua.setTableValue("mouseButton", static_cast<int>(e->getMouseButton()));
-		mLua.setTableValue("mouseX", e->getMouseX());
-		mLua.setTableValue("mouseY", e->getMouseY());
+		mLua.setTableValue("local_x", e->getLocalMouseX());
+		mLua.setTableValue("local_y", e->getLocalMouseY());
+		mLua.setTableValue("mouse_button", static_cast<int>(e->getMouseButton()));
+		mLua.setTableValue("mouse_x", e->getMouseX());
+		mLua.setTableValue("mouse_y", e->getMouseY());
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(KeyboardEvent *e)
@@ -83,7 +83,7 @@ namespace ui {
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.setTableValue("key", e->getKey());
-		mLua.setTableValue("isSystemKey", e->isSystemKey());
+		mLua.setTableValue("is_system_key", e->isSystemKey());
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
 	void LuaEventListener::onEvent(InventoryEvent *e)
@@ -116,7 +116,9 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		mLua.setTableValue("bodyPartName", e->getBodyPartName());
+		mLua.push("body_part");
+		wrapRefObject<BodyPart>(mLua, e->getBodyPart());
+		lua_settable(mLua, -3);
 		mLua.push("item");
 		wrapRefObject<Item>(mLua, e->getItem());
 		lua_settable(mLua, -3);
@@ -136,7 +138,7 @@ namespace ui {
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
 		// Talked To
-		mLua.push("talkedTo");
+		mLua.push("talked_to");
 		Character *isChar = dynamic_cast<Character *>(e->getTalkedTo());
 		if (isChar)
 		{

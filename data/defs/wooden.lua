@@ -7,6 +7,7 @@ do
 		:item_type("sword")
 		:graphic(am.sprite.new("items/sword"))
 		:ground_graphic(am.sprite.new("items/swordGround"))
+		:inventory_size(1, 2)
 		
 	local stats = item:stat_modifiers_self()
 	stats:add("minDamage", 2, "+")
@@ -18,6 +19,7 @@ do
 	item:item_fullname("Shield", "Wooden")
 		:item_type("shield")
 		:graphic(am.sprite.new("items/shield"))
+		:inventory_size(2, 2)
 		
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")

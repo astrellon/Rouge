@@ -28,16 +28,20 @@ namespace tests {
 		parts.addBodyPart(new BodyPart("legs", BodyPartType::LEGS));
 		assert(parts.getBodyPart("legs"));
 
-		Handle<BodyPart> attackPart(parts.getNextWeaponPart());
+		bool looped = false;
+		Handle<BodyPart> attackPart(parts.getNextWeaponPart(looped));
 		assert(attackPart.get());
+		am_equals(false, looped);
 		am_equalsStr("left_hand", attackPart->getName());
 
-		attackPart = parts.getNextWeaponPart();
+		attackPart = parts.getNextWeaponPart(looped);
 		assert(attackPart.get());
+		am_equals(false, looped);
 		am_equalsStr("right_hand", attackPart->getName());
 
-		attackPart = parts.getNextWeaponPart();
+		attackPart = parts.getNextWeaponPart(looped);
 		assert(attackPart.get());
+		am_equals(true, looped);
 		am_equalsStr("left_hand", attackPart->getName());
 
 		BodyParts::PartList linked;

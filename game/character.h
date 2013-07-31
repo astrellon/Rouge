@@ -157,7 +157,6 @@ namespace game {
 		float mPickupReach;
 
 		BodyParts mBodyParts;
-		//BodyPart::BodyParts mBodyParts;
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
@@ -178,14 +177,16 @@ namespace game {
 		Vector2f mDestination;
 		int mDestinationPos;
 
-		bool mUnarmed;
+		int mArmedCounter;
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();
 
+		virtual BodyPart *getNextWeaponPart(bool &looped);
+
 		size_t findAction(IAction *action);
-		void _equipItem(Item *item, const char *bodyPartName);
-		void _unequipItem(Item *item, const char *bodyPartName);
+		void _equipItem(Item *item, BodyPart *part);
+		void _unequipItem(Item *item, BodyPart *part);
 
 		virtual void postRender(float dt);
 	};

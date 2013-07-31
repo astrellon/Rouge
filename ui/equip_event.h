@@ -7,6 +7,7 @@ using namespace std;
 
 namespace am {
 namespace game {
+	class BodyPart;
 	class Character;
 	class Item;
 }
@@ -16,16 +17,16 @@ namespace ui {
 
 	class EquipEvent : public Event {
 	public:
-		EquipEvent(const char *type, Character *character, const char *bodyPartName, Item *item);
+		EquipEvent(const char *type, Character *character, BodyPart *part, Item *item);
 		~EquipEvent();
 
 		Character *getCharacter() const;
 		Item *getItem() const;
-		const char *getBodyPartName() const;
+		BodyPart *getBodyPart() const;
 
 	protected:
 
-		string mBodyPartName;
+		BodyPart *mPart;
 		Character *mCharacter;
 		Item *mItem;
 	};
