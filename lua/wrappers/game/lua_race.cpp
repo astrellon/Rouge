@@ -72,7 +72,7 @@ namespace game {
 			{ "__gc",  Race_dtor },
 			{ "__eq", Race_eq },
 			{ "race_name", Race_race_name },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Race::LUA_TABLENAME);

@@ -23,7 +23,7 @@ namespace data {
 		{
 			return dynamic_cast<const String *>(this)->value();
 		}
-		return NULL;
+		return nullptr;
 	}
 	int IData::integer() const
 	{
@@ -94,7 +94,7 @@ namespace data {
 			{
 				return NIL;
 			}
-			return NULL;
+			return nullptr;
 		}
 	}
 

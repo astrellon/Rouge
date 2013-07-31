@@ -27,7 +27,7 @@ namespace game {
 	StatModifier::StatModifier() :
 		mValue(0),
 		mType(MOD_ADD),
-		mStatsParent(NULL),
+		mStatsParent(nullptr),
 		mMagical(true)
 	{
 
@@ -35,7 +35,7 @@ namespace game {
 	StatModifier::StatModifier(float value, StatModifierType type, bool magical) :
 		mValue(value),
 		mType(type),
-		mStatsParent(NULL),
+		mStatsParent(nullptr),
 		mMagical(magical)
 	{
 
@@ -114,7 +114,7 @@ namespace game {
 	{
 		if (type < 0 || type >= MOD_MAX_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sStatModifierNames[type];
 	}

@@ -6,7 +6,7 @@ using namespace am::gfx;
 namespace am {
 namespace game {
 
-	PlayerHand *PlayerHand::sPlayerHand = NULL;
+	PlayerHand *PlayerHand::sPlayerHand = nullptr;
 
 	PlayerHand::PlayerHand() :
 		mEnabled(false)
@@ -43,11 +43,11 @@ namespace game {
 
 	void PlayerHand::updateGraphic()
 	{
-		if (!mEnabled || mInhand.get() == NULL)
+		if (!mEnabled || mInhand.get() == nullptr)
 		{
 			GfxEngine::getEngine()->setCursor(GfxEngine::getEngine()->getDefaultCursor());
 		}
-		else if (mInhand.get() != NULL)
+		else if (mInhand.get() != nullptr)
 		{
 			GfxEngine::getEngine()->setCursor(mInhand);
 		}

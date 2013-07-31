@@ -40,15 +40,15 @@ namespace tests {
 		manager->setRootLayer(rootLayer);
 
 		manager->onMouseDown(LEFT_BUTTON, 0, 0);
-		assert(NULL == targetListener.lastEvent.get());
-		assert(NULL == layerListener.lastEvent.get());
+		assert(nullptr == targetListener.lastEvent.get());
+		assert(nullptr == layerListener.lastEvent.get());
 
 		manager->onMouseDown(LEFT_BUTTON, 51, 52);
-		assert(NULL != targetListener.lastEvent.get());
+		assert(nullptr != targetListener.lastEvent.get());
 		am_equals(1, targetListener.lastEvent->getLocalMouseX());
 		am_equals(2, targetListener.lastEvent->getLocalMouseY());
 
-		assert(NULL != layerListener.lastEvent.get());
+		assert(nullptr != layerListener.lastEvent.get());
 		assert(layerListener.lastEvent->getEventTarget() == target1);
 		am_equals(1, layerListener.lastEvent->getLocalMouseX());
 		am_equals(2, layerListener.lastEvent->getLocalMouseY());

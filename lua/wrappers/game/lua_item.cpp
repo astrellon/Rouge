@@ -105,22 +105,22 @@ namespace game {
 			// GameObject methods
 			{ "location", Item_location },
 			{ "grid_location", Item_grid_location },
-			{ "talk_to", NULL },
-			{ "move", NULL },
-			{ "move_grid", NULL },
-			{ "set_fixed_to_grid", NULL },
-			{ "is_fixed_to_grid", NULL },
-			{ "set_only_on_passable", NULL },
-			{ "is_only_on_passable", NULL },
-			{ "set_camera_offset", NULL },
-			{ "get_camera_offset", NULL },
-			{ "set_map", NULL },
-			{ "get_map", NULL },
-			{ "add_passible_type", NULL },
-			{ "remove_passible_type", NULL },
-			{ "remove_all_passible_type", NULL },
-			{ "has_passible_type", NULL },
-			{ "get_passible_types", NULL },
+			{ "talk_to", nullptr },
+			{ "move", nullptr },
+			{ "move_grid", nullptr },
+			{ "set_fixed_to_grid", nullptr },
+			{ "is_fixed_to_grid", nullptr },
+			{ "set_only_on_passable", nullptr },
+			{ "is_only_on_passable", nullptr },
+			{ "set_camera_offset", nullptr },
+			{ "get_camera_offset", nullptr },
+			{ "set_map", nullptr },
+			{ "get_map", nullptr },
+			{ "add_passible_type", nullptr },
+			{ "remove_passible_type", nullptr },
+			{ "remove_all_passible_type", nullptr },
+			{ "has_passible_type", nullptr },
+			{ "get_passible_types", nullptr },
 			{ "game_id", Item_game_id },
 			// Static GameObject methods
 			{ "find", Item_find },
@@ -129,7 +129,7 @@ namespace game {
 			{ "remove_body_type", Item_remove_body_type },
 			{ "has_body_type", Item_has_body_type },
 			{ "get_body_types", Item_get_body_types },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Item::LUA_TABLENAME);
@@ -252,7 +252,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				item->setGraphic(NULL);
+				item->setGraphic(nullptr);
 			}
 			else
 			{
@@ -305,7 +305,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				item->setGroundGraphic(NULL);
+				item->setGroundGraphic(nullptr);
 				lua_first(lua);
 			}
 			else
@@ -347,7 +347,7 @@ namespace game {
 			if (lua_gettop(lua) == 1)
 			{
 				const char *name = item->getItemTypeName();
-				if (name != NULL)
+				if (name != nullptr)
 				{
 					lua_pushstring(lua, name);
 					return 1;
@@ -441,7 +441,7 @@ namespace game {
 			if (lua_gettop(lua) == 1)
 			{
 				const char *name = item->getItemLocationTypeName(item->getItemLocation());
-				if (name != NULL)
+				if (name != nullptr)
 				{
 					lua_pushstring(lua, name);
 					return 1;

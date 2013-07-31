@@ -15,7 +15,7 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	Pathfinder *Pathfinder::sPathfinder = NULL;
+	Pathfinder *Pathfinder::sPathfinder = nullptr;
 
 	Pathfinder *Pathfinder::getPathfinder()
 	{
@@ -30,7 +30,7 @@ namespace game {
 		if (sPathfinder)
 		{
 			delete sPathfinder;
-			sPathfinder = NULL;
+			sPathfinder = nullptr;
 		}
 	}
 
@@ -59,7 +59,7 @@ namespace game {
 		int endGroup = map->mMapData[end.x][end.y].group;
 		if(startGroup != endGroup)
 		{
-			mMap = NULL;
+			mMap = nullptr;
 			return false;
 		}
 
@@ -90,7 +90,7 @@ namespace game {
 			endGroup = map->mMapData[end.x][end.y].group;
 			if(startGroup != endGroup)
 			{
-				mMap = NULL;
+				mMap = nullptr;
 				return false;
 			}
 		}
@@ -103,7 +103,7 @@ namespace game {
 		mOpenList.push_back(&map->mMapData[start.x][start.y]);
 
 		AStarNode *endNode = &map->mMapData[end.x][end.y];
-		endNode->parent = NULL;
+		endNode->parent = nullptr;
 
 		while(!mOpenList.empty())
 		{
@@ -112,14 +112,14 @@ namespace game {
 			{
 				node->g = 0;
 				node->useCounter = mNodeUseCounter;
-				node->parent = NULL;
+				node->parent = nullptr;
 			}
 		
 			if (node == endNode)
 			{
 				// Complete
 				getPath(node, path);
-				mMap = NULL;
+				mMap = nullptr;
 				return true;
 			}
 			else
@@ -154,13 +154,13 @@ namespace game {
 			}
 		}
 		// NO PATH! D:
-		mMap = NULL;
+		mMap = nullptr;
 		return false;
 	}
 
 	void Pathfinder::getPath(AStarNode *node, NodePath &path)
 	{
-		while(node != NULL)
+		while(node != nullptr)
 		{
 			path.push_back(node->position);
 			node = node->parent;

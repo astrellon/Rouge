@@ -45,10 +45,10 @@ ALDeviceList::ALDeviceList()
 	defaultDeviceIndex = 0;
 
 	// grab function pointers for 1.0-API functions, and if successful proceed to enumerate all devices
-	if (LoadOAL10Library(NULL, &ALFunction) == TRUE) {
-		if (ALFunction.alcIsExtensionPresent(NULL, "ALC_ENUMERATION_EXT")) {
-			devices = (char *)ALFunction.alcGetString(NULL, ALC_DEVICE_SPECIFIER);
-			defaultDeviceName = (char *)ALFunction.alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+	if (LoadOAL10Library(nullptr, &ALFunction) == TRUE) {
+		if (ALFunction.alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT")) {
+			devices = (char *)ALFunction.alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
+			defaultDeviceName = (char *)ALFunction.alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
 			index = 0;
 			// go through device list (each device terminated with a single NULL, list terminated with double NULL)
 			while (*devices != NULL) {
@@ -57,7 +57,7 @@ ALDeviceList::ALDeviceList()
 				}
 				ALCdevice *device = ALFunction.alcOpenDevice(devices);
 				if (device) {
-					ALCcontext *context = ALFunction.alcCreateContext(device, NULL);
+					ALCcontext *context = ALFunction.alcCreateContext(device, nullptr);
 					if (context) {
 						ALFunction.alcMakeContextCurrent(context);
 						// if new actual device name isn't already in the list, then add it...
@@ -68,7 +68,7 @@ ALDeviceList::ALDeviceList()
 								bNewName = false;
 							}
 						}
-						if ((bNewName) && (actualDeviceName != NULL) && (strlen(actualDeviceName) > 0)) {
+						if ((bNewName) && (actualDeviceName != nullptr) && (strlen(actualDeviceName) > 0)) {
 							memset(&ALDeviceInfo, 0, sizeof(ALDEVICEINFO));
 							ALDeviceInfo.bSelected = true;
 							ALDeviceInfo.strDeviceName = actualDeviceName;
@@ -109,7 +109,7 @@ ALDeviceList::ALDeviceList()
 
 							vDeviceInfo.push_back(ALDeviceInfo);
 						}
-						ALFunction.alcMakeContextCurrent(NULL);
+						ALFunction.alcMakeContextCurrent(nullptr);
 						ALFunction.alcDestroyContext(context);
 					}
 					ALFunction.alcCloseDevice(device);
@@ -156,7 +156,7 @@ char * ALDeviceList::GetDeviceName(int index)
 	if (index < GetNumDevices())
 		return (char *)vDeviceInfo[index].strDeviceName.c_str();
 	else
-		return NULL;
+		return nullptr;
 }
 
 /*

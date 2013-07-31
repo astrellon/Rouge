@@ -25,10 +25,10 @@ namespace gfx {
 		IManaged(),
 		mWidth(0),
 		mHeight(0),
-		mParent(NULL),
+		mParent(nullptr),
 		mInteractive(false),
 		mVisible(true),
-		mGfxComponent(NULL)
+		mGfxComponent(nullptr)
 		//mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 #ifdef _DEBUG
@@ -40,7 +40,7 @@ namespace gfx {
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
 		mInteractive(copy.mInteractive),
-		mParent(NULL),
+		mParent(nullptr),
 		mVisible(copy.mVisible),
 		mGfxComponent(copy.mGfxComponent),
 		mTransform(copy.mTransform)
@@ -57,7 +57,7 @@ namespace gfx {
 		if (mParent)
 		{
 			mParent->removeChild(this);
-			mParent = NULL;
+			mParent = nullptr;
 		}
 	}
 
@@ -260,7 +260,7 @@ namespace gfx {
 		float offsetX = -getPositionX();
 		float offsetY = -getPositionY();
 		const Layer *parent = getParent();
-		while (parent != NULL)
+		while (parent != nullptr)
 		{
 			offsetX -= parent->getPositionX();
 			offsetY -= parent->getPositionY();
@@ -275,7 +275,7 @@ namespace gfx {
 		float offsetX = getPositionX();
 		float offsetY = getPositionY();
 		const Layer *parent = getParent();
-		while (parent != NULL)
+		while (parent != nullptr)
 		{
 			offsetX += parent->getPositionX();
 			offsetY += parent->getPositionY();

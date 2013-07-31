@@ -13,9 +13,9 @@ Tokeniser::~Tokeniser() {
 }
 
 const char *Tokeniser::nextToken() {
-	if (ctok == NULL || 
+	if (ctok == nullptr || 
 		*ctok == '\0') {
-		return NULL;
+		return nullptr;
 	}
 		
 	char ch = *ctok;

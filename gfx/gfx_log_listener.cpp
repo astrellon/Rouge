@@ -35,7 +35,7 @@ namespace gfx {
 	{
 		if (e->getEventTarget() == mTextList.get())
 		{
-			mTextList = NULL;
+			mTextList = nullptr;
 		}
 	}
 

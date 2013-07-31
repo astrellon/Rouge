@@ -26,7 +26,7 @@ namespace gfx {
 	bool TextStyleSelector::setNodeType(const char *type)
 	{
 		string typeStr;
-		if (type == NULL || type[0] == '\0')
+		if (type == nullptr || type[0] == '\0')
 		{
 			typeStr = "text";
 		}
@@ -48,7 +48,7 @@ namespace gfx {
 
 	bool TextStyleSelector::addClass(const char *klass)
 	{
-		if (klass != NULL && klass[0] != '\0')
+		if (klass != nullptr && klass[0] != '\0')
 		{
 			string klassStr = klass;
 			ClassMap::iterator iter = mClasses.find(klassStr);
@@ -62,7 +62,7 @@ namespace gfx {
 	}
 	bool TextStyleSelector::removeClass(const char *klass)
 	{
-		if (klass == NULL || klass[0] == '\0')
+		if (klass == nullptr || klass[0] == '\0')
 		{
 			return false;
 		}
@@ -76,7 +76,7 @@ namespace gfx {
 	}
 	bool TextStyleSelector::hasClass(const char *klass) const
 	{
-		if (klass == NULL || klass[0] == '\0')
+		if (klass == nullptr || klass[0] == '\0')
 		{
 			return false;
 		}
@@ -99,11 +99,11 @@ namespace gfx {
 
 	bool TextStyleSelector::setAttribute(const char *name, const char *value)
 	{
-		if (name == NULL || name[0] == '\0')
+		if (name == nullptr || name[0] == '\0')
 		{
 			return false;
 		}
-		if (value == NULL)
+		if (value == nullptr)
 		{
 			return removeAttribute(name);
 		}
@@ -121,7 +121,7 @@ namespace gfx {
 				mClasses.clear();
 				const char *token = tokeniser.nextToken();
 				bool changed = false;
-				while(token != NULL)
+				while(token != nullptr)
 				{
 					changed |= addClass(token);
 					token = tokeniser.nextToken();
@@ -148,7 +148,7 @@ namespace gfx {
 	}
 	bool TextStyleSelector::removeAttribute(const char *name)
 	{
-		if (name == NULL || name[0] == '\0')
+		if (name == nullptr || name[0] == '\0')
 		{
 			return false;
 		}
@@ -162,16 +162,16 @@ namespace gfx {
 	}
 	const char *TextStyleSelector::getAttribute(const char *name) const
 	{
-		if (name == NULL || name[0] == '\0')
+		if (name == nullptr || name[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		AttributeMap::const_iterator iter = mAttributes.find(string(name));
 		if (iter != mAttributes.end())
 		{
 			return iter->second.c_str();
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	bool TextStyleSelector::setFlag(Flag flag)

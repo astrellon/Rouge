@@ -83,7 +83,7 @@ namespace tests {
 		assert(loadResult);
 
 		Dialogue *diag1 = game->getDialogue("diag1");
-		assert(diag1 != NULL);
+		assert(diag1 != nullptr);
 
 		assert(lua.hasGlobalFunction("getId"));
 		lua_acall(lua, 0, 1);

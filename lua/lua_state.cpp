@@ -127,7 +127,7 @@ namespace lua {
 	{
 		lua_newtable(mLua);
 		lua_pushvalue(mLua, -1);
-		if (tableName != NULL)
+		if (tableName != nullptr)
 		{
 			lua_pushvalue(mLua, -1);
 			lua_setglobal(mLua, tableName);
@@ -394,7 +394,7 @@ namespace lua {
 		lua_getglobal(mLua, name);
 		const char *value = lua_tostring(mLua, -1);
 		string valueStr;
-		if (value != NULL)
+		if (value != nullptr)
 		{
 			valueStr = value;
 		}
@@ -534,7 +534,7 @@ namespace lua {
 	
 	int LuaState::expectedArgs(lua_State *lua, const char *funcName, const char *expected)
 	{
-		if (funcName == NULL || funcName[0] == '\0')
+		if (funcName == nullptr || funcName[0] == '\0')
 		{
 			return 0;
 		}
@@ -558,7 +558,7 @@ namespace lua {
 	}
 	int LuaState::expectedArgs(lua_State *lua, const char *funcName, int n, ...)
 	{
-		if (funcName == NULL || funcName[0] == '\0')
+		if (funcName == nullptr || funcName[0] == '\0')
 		{
 			return 0;
 		}

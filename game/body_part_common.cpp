@@ -19,7 +19,7 @@ namespace game {
 	{
 		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sNiceBodyPartTypeNames[type];
 	}
@@ -27,7 +27,7 @@ namespace game {
 	{
 		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sBodyPartTypeNames[type];
 	}
@@ -35,7 +35,7 @@ namespace game {
 	{
 		if (type < 0 || type >= MAX_BODY_TYPE_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sBodyPartTypeNames[type];
 	}
@@ -50,7 +50,7 @@ namespace game {
 	}
 	BodyPartType::PartType BodyPartType::getBodyPartTypeFromNice(const char *typeName)
 	{
-		if (typeName == NULL || typeName[0] == '\0')
+		if (typeName == nullptr || typeName[0] == '\0')
 		{
 			return MAX_BODY_TYPE_LENGTH;
 		}
@@ -65,7 +65,7 @@ namespace game {
 	}
 	BodyPartType::PartType BodyPartType::getBodyPartType(const char *typeName)
 	{
-		if (typeName == NULL || typeName[0] == '\0')
+		if (typeName == nullptr || typeName[0] == '\0')
 		{
 			return MAX_BODY_TYPE_LENGTH;
 		}

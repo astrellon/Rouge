@@ -20,16 +20,16 @@ namespace game {
 	const char *DialogueComponent::LUA_TABLENAME = "am_game_DialogueComponent";
 
 	DialogueComponent::DialogueComponent(GameObject *attached) :
-		mStartDialogue(NULL),
-		mTalkingTo(NULL),
-		mAttachedTo(NULL)
+		mStartDialogue(nullptr),
+		mTalkingTo(nullptr),
+		mAttachedTo(nullptr)
 	{
 		setAttachedTo(attached);
 	}
 	DialogueComponent::DialogueComponent(const DialogueComponent &copy) :
 		mStartDialogue(copy.mStartDialogue),
-		mTalkingTo(NULL),
-		mAttachedTo(NULL),
+		mTalkingTo(nullptr),
+		mAttachedTo(nullptr),
 		mUnlockedSubjects(copy.mUnlockedSubjects),
 		mDialoguesAvailable(copy.mDialoguesAvailable)
 	{
@@ -42,7 +42,7 @@ namespace game {
 
 	void DialogueComponent::talkTo(GameObject *other)
 	{
-		if (mAttachedTo == NULL || other == NULL)
+		if (mAttachedTo == nullptr || other == nullptr)
 		{
 			return;
 		}
@@ -62,7 +62,7 @@ namespace game {
 	}
 	void DialogueComponent::talkTo(GameObject *other, Dialogue *diag)
 	{
-		if (mAttachedTo == NULL || other == NULL)
+		if (mAttachedTo == nullptr || other == nullptr)
 		{
 			return;
 		}
@@ -91,7 +91,7 @@ namespace game {
 
 	void DialogueComponent::setSubjectLock(const char *subject, bool locked)
 	{
-		if (subject == NULL || subject[0] == '\0')
+		if (subject == nullptr || subject[0] == '\0')
 		{
 			return;
 		}
@@ -100,7 +100,7 @@ namespace game {
 	}
 	bool DialogueComponent::isSubjectLocked(const char *subject) const
 	{
-		if (subject == NULL || subject[0] == '\0')
+		if (subject == nullptr || subject[0] == '\0')
 		{
 			return true;
 		}
@@ -119,7 +119,7 @@ namespace game {
 
 	void DialogueComponent::setDialogueAvailable(const char *subject, bool available)
 	{
-		if (subject == NULL || subject[0] == '\0')
+		if (subject == nullptr || subject[0] == '\0')
 		{
 			return;
 		}
@@ -128,7 +128,7 @@ namespace game {
 	}
 	bool DialogueComponent::isDialogueAvailable(const char *subject) const
 	{
-		if (subject == NULL || subject[0] == '\0')
+		if (subject == nullptr || subject[0] == '\0')
 		{
 			return false;
 		}
@@ -147,12 +147,12 @@ namespace game {
 
 	void DialogueComponent::setAttachedTo(GameObject *attached)
 	{
-		if (mAttachedTo != NULL)
+		if (mAttachedTo != nullptr)
 		{
 			mAttachedTo->release();
 		}
 		mAttachedTo = attached;
-		if (mAttachedTo != NULL)
+		if (mAttachedTo != nullptr)
 		{
 			mAttachedTo->retain();
 		}
@@ -164,12 +164,12 @@ namespace game {
 
 	void DialogueComponent::setTalkingTo(GameObject *other)
 	{
-		if (mTalkingTo != NULL)
+		if (mTalkingTo != nullptr)
 		{
 			mTalkingTo->release();
 		}
 		mTalkingTo = other;
-		if (mTalkingTo != NULL)
+		if (mTalkingTo != nullptr)
 		{
 			mTalkingTo->retain();
 		}

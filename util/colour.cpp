@@ -144,7 +144,7 @@ namespace util {
 	}
 	void Colour::parseFromString(const char *str)
 	{
-		if (str == NULL || str[0] == '\0')
+		if (str == nullptr || str[0] == '\0')
 		{
 			return;
 		}
@@ -162,7 +162,7 @@ namespace util {
 			Tokeniser tokeniser(str);
 			const char *token = tokeniser.nextToken();
 			float value = 0.0f;
-			if (token != NULL)
+			if (token != nullptr)
 			{
 				bool parsed = Utils::fromString(value, token);
 				if (parsed)
@@ -176,7 +176,7 @@ namespace util {
 			}
 
 			token = tokeniser.nextToken();
-			if (token != NULL)
+			if (token != nullptr)
 			{
 				bool parsed = Utils::fromString(value, token);
 				if (parsed)
@@ -186,7 +186,7 @@ namespace util {
 			}
 
 			token = tokeniser.nextToken();
-			if (token != NULL)
+			if (token != nullptr)
 			{
 				bool parsed = Utils::fromString(value, token);
 				if (parsed)
@@ -196,7 +196,7 @@ namespace util {
 			}
 
 			token = tokeniser.nextToken();
-			if (token != NULL)
+			if (token != nullptr)
 			{
 				bool parsed = Utils::fromString(value, token);
 				if (parsed)
@@ -317,7 +317,7 @@ namespace util {
 
 	void Colour::addStandardNamedColoursLua(const char *filename)
 	{
-		if (filename != NULL)
+		if (filename != nullptr)
 		{
 			LuaState lua(false);
 			if (lua.loadFile(filename))

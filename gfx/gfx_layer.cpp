@@ -51,21 +51,21 @@ namespace gfx {
 		ChildList::iterator iter;
 		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
 		{
-			(*iter)->setParent(NULL);
+			(*iter)->setParent(nullptr);
 		}
 		mChildren.clear();
 	}
 
 	void Layer::addChild(Renderable *child)
 	{
-		if (child == NULL)
+		if (child == nullptr)
 		{
 			return;
 		}
 		ChildList::const_iterator iter = findChild(child);
 		if (iter == mChildren.end())
 		{
-			if (child->getParent() != NULL)
+			if (child->getParent() != nullptr)
 			{
 				if (child->getParent() == this)
 				{
@@ -90,7 +90,7 @@ namespace gfx {
 		// one reference to it.
 		Handle<Renderable> childHandle(child);
 		ChildList::const_iterator iter = findChild(child);
-		if (child->getParent() != NULL)
+		if (child->getParent() != nullptr)
 		{
 			child->getParent()->removeChild(child);
 		}
@@ -104,20 +104,20 @@ namespace gfx {
 	}
 	void Layer::removeChild(Renderable *child)
 	{
-		if (child == NULL)
+		if (child == nullptr)
 		{
 			return;
 		}
 		ChildList::const_iterator iter = findChild(child);
 		if (iter != mChildren.end())
 		{
-			child->setParent(NULL);
+			child->setParent(nullptr);
 			mChildren.erase(iter);
 		}
 	}
 	bool Layer::hasChild(Renderable *child) const
 	{
-		if (child == NULL)
+		if (child == nullptr)
 		{
 			return false;
 		}
@@ -128,7 +128,7 @@ namespace gfx {
 		if (index >= static_cast<int>(mChildren.size()) ||
 			index < 0)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mChildren[index];
 	}

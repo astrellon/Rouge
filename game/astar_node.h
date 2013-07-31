@@ -23,7 +23,7 @@ namespace game {
 			h = 0.0;
 			f = 0.0;
 			g = 1.0;
-			parent = NULL;
+			parent = nullptr;
 		}
 
 		double f;

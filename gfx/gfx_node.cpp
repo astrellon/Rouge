@@ -59,7 +59,7 @@ namespace gfx {
 
 	void Node::addChild(Node *child)
 	{
-		if (child == NULL)
+		if (child == nullptr)
 		{
 			return;
 		}
@@ -72,7 +72,7 @@ namespace gfx {
 				mText.clear();
 				addChild(newNode);
 			}
-			if (child->mParent != NULL)
+			if (child->mParent != nullptr)
 			{
 				child->mParent->removeChild(child);
 			}
@@ -82,7 +82,7 @@ namespace gfx {
 	}
 	void Node::removeChild(Node *child)
 	{
-		if (child == NULL)
+		if (child == nullptr)
 		{
 			return;
 		}
@@ -90,7 +90,7 @@ namespace gfx {
 		if (index >= 0)
 		{
 			mChildren.erase(mChildren.begin() + index);
-			child->setParent(NULL);
+			child->setParent(nullptr);
 		}
 	}
 	void Node::clear()
@@ -116,7 +116,7 @@ namespace gfx {
 	{
 		if (index < 0 || index >= static_cast<int>(mChildren.size()))
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mChildren[index];
 	}
@@ -226,20 +226,20 @@ namespace gfx {
 		{
 			return this;
 		}
-		return NULL;
+		return nullptr;
 	}
 	Node *Node::nextSibling()
 	{
-		if (mParent.get() != NULL)
+		if (mParent.get() != nullptr)
 		{
 			return mParent->getChildAfter(this);
 		}
-		return NULL;
+		return nullptr;
 	}
 	
 	TextStyle Node::getTextStyle()
 	{
-		if (mNodeType.compare("text") == 0 && mParent.get() != NULL)
+		if (mNodeType.compare("text") == 0 && mParent.get() != nullptr)
 		{
 			return mParent->getTextStyle();
 		}
@@ -259,11 +259,11 @@ namespace gfx {
 			index++;
 			if (index >= static_cast<int>(mChildren.size()))
 			{
-				if (mParent != NULL)
+				if (mParent != nullptr)
 				{
 					return mParent->getChildAfter(this);
 				}
-				return NULL;
+				return nullptr;
 			}
 			Node *child = mChildren[index];
 			if (child->mChildren.size() > 0)
@@ -272,7 +272,7 @@ namespace gfx {
 			}
 			return child;
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	int Node::getChild(Node *child) const

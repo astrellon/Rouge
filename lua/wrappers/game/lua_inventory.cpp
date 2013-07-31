@@ -93,7 +93,7 @@ namespace game {
 			{ "has_item", Inventory_has_item },
 			{ "item_at", Inventory_item_at },
 			{ "spots", Inventory_spots },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Inventory::LUA_TABLENAME);

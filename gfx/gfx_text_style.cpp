@@ -113,7 +113,7 @@ namespace gfx {
 				return &iter->second;
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	void TextStyle::addStyle(const TextStyleSelector &node, const TextStyle &style)

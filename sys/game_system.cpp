@@ -38,7 +38,7 @@ using namespace am::math;
 namespace am {
 namespace sys {
 
-	GameSystem *GameSystem::sGameSystem = NULL;
+	GameSystem *GameSystem::sGameSystem = nullptr;
 
 	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine)
 	{
@@ -53,8 +53,8 @@ namespace sys {
 	GameSystem::GameSystem(ISystem *linked, Engine *engine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
-		mDebugConsole(NULL),
-		mGfxListener(NULL)
+		mDebugConsole(nullptr),
+		mGfxListener(nullptr)
 	{
 		Colour::addStandardNamedColoursLua("data/namedColours.lua");
 	}
@@ -160,7 +160,7 @@ namespace sys {
 		if (mGfxListener)
 		{
 			delete mGfxListener;
-			mGfxListener = NULL;
+			mGfxListener = nullptr;
 		}
 		Pathfinder::releasePathfinder();
 	}

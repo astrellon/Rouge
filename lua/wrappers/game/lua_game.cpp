@@ -122,7 +122,7 @@ namespace game {
 			{ "scenario_name", Game_scenario_name },
 			{ "attrs", Game_attrs },
 
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Game::LUA_TABLENAME);
@@ -513,7 +513,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				game->setMainCharacter(NULL);
+				game->setMainCharacter(nullptr);
 				lua_first(lua);
 			}
 			else
@@ -647,7 +647,7 @@ namespace game {
 				}
 				else if (lua_isnil(lua, 3))
 				{
-					game->addCharDefinition(NULL, lua_tostring(lua, 2));
+					game->addCharDefinition(nullptr, lua_tostring(lua, 2));
 					lua_first(lua);
 				}
 				else
@@ -711,7 +711,7 @@ namespace game {
 				}
 				else if (lua_isnil(lua, 3))
 				{
-					game->addItemDefinition(NULL, lua_tostring(lua, 2));
+					game->addItemDefinition(nullptr, lua_tostring(lua, 2));
 					lua_first(lua);
 				}
 				else
@@ -1028,7 +1028,7 @@ namespace game {
 				return item;
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 	void wrapGameObject(lua_State *lua, am::game::GameObject *obj)
 	{
@@ -1055,7 +1055,7 @@ namespace game {
 		GameObject *obj = getGameObject(lua, 2);
 		if (obj)
 		{
-			Map *map = NULL;
+			Map *map = nullptr;
 			int args = lua_gettop(lua);
 			bool valid = args == 5 || args == 6 && lua_isbool(lua, 6);
 			if (valid)
@@ -1067,7 +1067,7 @@ namespace game {
 				else
 				{
 					map = castUData<Map>(lua, 3);
-					valid = map != NULL;
+					valid = map != nullptr;
 				}
 				valid &= lua_isnum(lua, 4) && lua_isnum(lua, 5);
 				

@@ -26,7 +26,7 @@ namespace game {
 
 	class BodyPart : public IManaged {
 	public:
-		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = NULL);
+		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = nullptr);
 		BodyPart(const BodyPart &copy);
 		~BodyPart();
 

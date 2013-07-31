@@ -18,14 +18,14 @@ namespace ui {
 
 	void IEventListener::addListeningTo(EventInterface *e)
 	{
-		if (e != NULL)
+		if (e != nullptr)
 		{
 			mListeningTo.push_back(e);
 		}
 	}
 	void IEventListener::removeListeningTo(EventInterface *e)
 	{
-		if (e != NULL)
+		if (e != nullptr)
 		{
 			ListeningList::const_iterator iter;
 			for (iter = mListeningTo.begin(); iter != mListeningTo.end(); ++iter)

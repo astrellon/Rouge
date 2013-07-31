@@ -109,7 +109,7 @@ namespace game {
 			{ "remove_quest", Quest_remove_quest },
 			{ "find", Quest_find },
 			{ "attrs", Quest_attrs },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Quest::LUA_TABLENAME);

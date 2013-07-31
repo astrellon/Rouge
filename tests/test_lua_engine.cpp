@@ -94,7 +94,7 @@ namespace tests {
 		Tile *tile = new Tile("basicTile");
 		TileSet *topLevel = eng->getTopLevelTileSet();
 		assert(!topLevel->hasTile(tile));
-		assert(eng->getTile("basicTile") == NULL);
+		assert(eng->getTile("basicTile") == nullptr);
 
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("basicTile");

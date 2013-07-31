@@ -5,7 +5,7 @@ namespace util {
 
 	string Utils::toLowerCase(const char *input)
 	{
-		if (input == NULL)
+		if (input == nullptr)
 		{
 			return string();
 		}
@@ -29,7 +29,7 @@ namespace util {
 
 	string Utils::toUpperCase(const char *input)
 	{
-		if (input == NULL)
+		if (input == nullptr)
 		{
 			return string();
 		}

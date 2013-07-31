@@ -15,11 +15,11 @@ namespace game {
 		mUnlockFlag(unlock),
 		mAction(action)
 	{
-		if (title != NULL)
+		if (title != nullptr)
 		{
 			mTitle = title;
 		}
-		if (subject != NULL)
+		if (subject != nullptr)
 		{
 			mSubject = subject;
 		}

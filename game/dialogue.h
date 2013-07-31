@@ -24,7 +24,7 @@ namespace game {
 		// Is a list of dialogue subjects
 		//typedef vector<string> DialogueChoices;
 
-		Dialogue(const char *id, const char *text, const char *title = NULL, const char *subject = NULL, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
+		Dialogue(const char *id, const char *text, const char *title = nullptr, const char *subject = nullptr, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
 		~Dialogue();
 
 		void setText(const char *text);

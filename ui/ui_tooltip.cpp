@@ -48,7 +48,7 @@ namespace ui {
 
 	void Tooltip::setText(const char *text)
 	{
-		if (text == NULL)
+		if (text == nullptr)
 		{
 			text = "";
 		}
@@ -63,7 +63,7 @@ namespace ui {
 
 	void Tooltip::setDetailedText(const char *text)
 	{
-		if (text == NULL)
+		if (text == nullptr)
 		{
 			text = "";
 		}
@@ -105,7 +105,7 @@ namespace ui {
 	{
 		mTarget = target;
 
-		if (target != NULL)
+		if (target != nullptr)
 		{
 			float outX = 0.0f;
 			float outY = 0.0f;

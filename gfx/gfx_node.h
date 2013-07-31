@@ -22,7 +22,7 @@ namespace gfx {
 		typedef vector< Handle<NodeHitbox> > NodeHitboxList;
 		
 		Node();
-		Node(const char *nodeType, const char *text = NULL);
+		Node(const char *nodeType, const char *text = nullptr);
 		~Node();
 
 		virtual void deinit();

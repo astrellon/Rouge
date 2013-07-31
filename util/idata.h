@@ -51,7 +51,7 @@ namespace data {
 			if (!result)
 			{
 				logCheckErrorMessage<T>(data->typeName(), className);
-				return NULL;
+				return nullptr;
 			}
 			return result;
 		}

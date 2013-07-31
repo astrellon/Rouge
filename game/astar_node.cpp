@@ -9,7 +9,7 @@ namespace game {
 	{
 		reset();
 		useCounter = 0;
-		parent = NULL;
+		parent = nullptr;
 		group = -1;
 	}
 	AStarNode::~AStarNode(void)

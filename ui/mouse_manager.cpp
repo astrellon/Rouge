@@ -8,7 +8,7 @@
 namespace am {
 namespace ui {
 
-	MouseManager *MouseManager::sMainManager = NULL;
+	MouseManager *MouseManager::sMainManager = nullptr;
 	
 	MouseManager::MouseManager() :
 		mDragOffsetX(0),
@@ -30,9 +30,9 @@ namespace ui {
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
 		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_DOWN, mouseButton, x, y, x, y); 
-		if (hitTarget == NULL)
+		if (hitTarget == nullptr)
 		{
-			mUnderMouse = NULL;
+			mUnderMouse = nullptr;
 		}
 		if (!mFiredEvent)
 		{
@@ -46,13 +46,13 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_MOVE, mouseButton, x, y, x, y); 
-		if (hitTarget == NULL)
+		if (hitTarget == nullptr)
 		{
-			if (mUnderMouse != NULL)
+			if (mUnderMouse != nullptr)
 			{
 				fireMouseEvent(mUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 			}
-			mUnderMouse = NULL;
+			mUnderMouse = nullptr;
 		}
 		if (!mFiredEvent)
 		{
@@ -67,9 +67,9 @@ namespace ui {
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
 		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_UP, mouseButton, x, y, x, y);
-		if (hitTarget == NULL)
+		if (hitTarget == nullptr)
 		{
-			mUnderMouse = NULL;
+			mUnderMouse = nullptr;
 		}
 		if (!mFiredEvent)
 		{
@@ -99,9 +99,9 @@ namespace ui {
 
 	Renderable *MouseManager::checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
-		if (target == NULL || !target->isInteractive())
+		if (target == nullptr || !target->isInteractive())
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		// TODO: Replace with a multiple by inverse.
@@ -111,7 +111,7 @@ namespace ui {
 		localY -= static_cast<int>(target->getPositionY());
 
 		Layer *layer = dynamic_cast<Layer *>(target);
-		if (layer != NULL && layer->isVisible() && !layer->interacteWithLayer())
+		if (layer != nullptr && layer->isVisible() && !layer->interacteWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
 			// Loop backwards over children, as that is the order in which
@@ -138,7 +138,7 @@ namespace ui {
 				//bool doFire = target->hasEventListener(MouseEventTypeNames[mouseType]);
 				if (target != oldUnderMouse)
 				{
-					if (oldUnderMouse != NULL)
+					if (oldUnderMouse != nullptr)
 					{
 						fireMouseEvent(oldUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
@@ -155,7 +155,7 @@ namespace ui {
 				return target;
 			}		
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	Renderable *MouseManager::getUnderMouse() const
@@ -187,7 +187,7 @@ namespace ui {
 		mStopCurrentEvents = false;
 		mFiredEvent = true;
 		mCurrentEvent = new MouseEvent(mouseType, mouseButton, x, y, target, localX, localY);
-		while(!mStopCurrentEvents && target != NULL && mCurrentEvent->isPropagating())
+		while(!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
 			target = target->getParent();

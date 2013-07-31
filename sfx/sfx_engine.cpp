@@ -18,7 +18,7 @@
 namespace am {
 namespace sfx {
 
-	SfxEngine *SfxEngine::sEngine = NULL;
+	SfxEngine *SfxEngine::sEngine = nullptr;
 
 	_DeviceName::_DeviceName(const char *name, bool defaultDevice) :
 		deviceName(name),
@@ -27,17 +27,17 @@ namespace sfx {
 	}
 	_SourceId::_SourceId() :
 		id(-1),
-		source(NULL)
+		source(nullptr)
 	{
 	}
 	_SourceId::_SourceId(ALuint id) :
 		id(id),
-		source(NULL)
+		source(nullptr)
 	{
 	}
 	bool _SourceId::isStreaming() const
 	{
-		if (source == NULL)
+		if (source == nullptr)
 		{
 			return false;
 		}
@@ -45,7 +45,7 @@ namespace sfx {
 	}
 	float _SourceId::getGain() const
 	{
-		if (source == NULL)
+		if (source == nullptr)
 		{
 			return -1.0f;
 		}
@@ -56,16 +56,16 @@ namespace sfx {
 		mInited(false),
 		mSourcePoolPos(0),
 		// OGG
-		mOggHandle(NULL),
-		mOggClear(NULL),
-		mOggRead(NULL),
-		mOggPcmTotal(NULL),
-		mOggRawTotal(NULL),
-		mOggInfo(NULL),
-		mOggComment(NULL),
-		mOggOpenCallbacks(NULL),
-		mBackgroundMusic(NULL),
-		mBackgroundMusicSource(NULL)
+		mOggHandle(nullptr),
+		mOggClear(nullptr),
+		mOggRead(nullptr),
+		mOggPcmTotal(nullptr),
+		mOggRawTotal(nullptr),
+		mOggInfo(nullptr),
+		mOggComment(nullptr),
+		mOggOpenCallbacks(nullptr),
+		mBackgroundMusic(nullptr),
+		mBackgroundMusicSource(nullptr)
 	{
 		mListener.setEnabled(true);
 	}
@@ -108,7 +108,7 @@ namespace sfx {
 	{
 		bool result = false;
 
-		const char *deviceName = NULL;
+		const char *deviceName = nullptr;
 		if (deviceIndex < 0 || deviceIndex >= static_cast<int>(mDeviceList.size()))
 		{
 			deviceName = mDefaultDevice.c_str();
@@ -121,7 +121,7 @@ namespace sfx {
 		ALCdevice *device = alcOpenDevice(deviceName);
 		if (device)
 		{
-			ALCcontext *pContext = alcCreateContext(device, NULL);
+			ALCcontext *pContext = alcCreateContext(device, nullptr);
 			if (pContext)
 			{
 				// TODO AM_LOG
@@ -173,7 +173,7 @@ namespace sfx {
 		ALCcontext *context = alcGetCurrentContext();
 		ALCdevice *device = alcGetContextsDevice(context);
 	
-		alcMakeContextCurrent(NULL);
+		alcMakeContextCurrent(nullptr);
 		alcDestroyContext(context);
 		alcCloseDevice(device);
 
@@ -185,11 +185,11 @@ namespace sfx {
 
 		if (mBackgroundMusicSource)
 		{
-			mBackgroundMusicSource = NULL;
+			mBackgroundMusicSource = nullptr;
 		}
 		if (mBackgroundMusic)
 		{
-			mBackgroundMusic = NULL;
+			mBackgroundMusic = nullptr;
 		}
 
 		mInited = false;
@@ -218,7 +218,7 @@ namespace sfx {
 		string ext = getExtension(fileStr.c_str());
 		try
 		{
-			ISound *result = NULL;
+			ISound *result = nullptr;
 			if (ext.compare("wav") == 0)
 			{
 				result = new SoundWav(ss.str().c_str());
@@ -239,7 +239,7 @@ namespace sfx {
 			ss << "Error loading sound '" << filename << "': " << error;
 			am_log("SFXERR", ss);
 		}
-		return NULL;
+		return nullptr;
 	}
 	ISound *SfxEngine::loadStream(const char *filename, int numBuffers)
 	{
@@ -273,12 +273,12 @@ namespace sfx {
 			}
 			delete ogg;
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	bool SfxEngine::oggLoaded() const
 	{
-		return mOggHandle != NULL;
+		return mOggHandle != nullptr;
 	}
 
 	void SfxEngine::displayInUse()
@@ -398,7 +398,7 @@ namespace sfx {
 			return false;
 		}
 		int poolIndex = nextPoolIndex();
-		if (mSourcePool[poolIndex].source != NULL)
+		if (mSourcePool[poolIndex].source != nullptr)
 		{
 			mSourcePool[poolIndex].source->stopOutOfRange();
 		}
@@ -412,7 +412,7 @@ namespace sfx {
 		{
 			if (mSourcePool[i].id == source)
 			{
-				mSourcePool[i].source = NULL;
+				mSourcePool[i].source = nullptr;
 				break;
 			}
 		}
@@ -420,7 +420,7 @@ namespace sfx {
 
 	SfxEngine *SfxEngine::getEngine()
 	{
-		if (sEngine == NULL)
+		if (sEngine == nullptr)
 		{
 			sEngine = new SfxEngine();
 		}
@@ -432,7 +432,7 @@ namespace sfx {
 		{
 			sEngine->deinit();
 			delete sEngine;
-			sEngine = NULL;
+			sEngine = nullptr;
 		}
 	}
 
@@ -470,7 +470,7 @@ namespace sfx {
 		case AL_OUT_OF_MEMORY:
 			return "Out of memory";
 		default:
-			return NULL;
+			return nullptr;
 		}
 	}
 
@@ -478,7 +478,7 @@ namespace sfx {
 	{
 		int initialPos = mSourcePoolPos;
 		// Look for any unused sources
-		while (mSourcePool[mSourcePoolPos].source != NULL)
+		while (mSourcePool[mSourcePoolPos].source != nullptr)
 		{
 			mSourcePoolPos++;
 			if (mSourcePoolPos >= mSourcePool.size())
@@ -490,7 +490,7 @@ namespace sfx {
 				break;
 			}
 		}
-		if (mSourcePool[mSourcePoolPos].source == NULL)
+		if (mSourcePool[mSourcePoolPos].source == nullptr)
 		{
 			return mSourcePoolPos;
 		}
@@ -572,19 +572,19 @@ namespace sfx {
 		if (mOggHandle)
 		{
 			FreeLibrary(mOggHandle);
-			mOggHandle = NULL;
-			mOggClear = NULL;
-			mOggRead = NULL;
-			mOggPcmTotal = NULL;
-			mOggInfo = NULL;
-			mOggComment = NULL;
-			mOggOpenCallbacks = NULL;
+			mOggHandle = nullptr;
+			mOggClear = nullptr;
+			mOggRead = nullptr;
+			mOggPcmTotal = nullptr;
+			mOggInfo = nullptr;
+			mOggComment = nullptr;
+			mOggOpenCallbacks = nullptr;
 		}
 	}
 
 	string SfxEngine::getExtension(const char *filename)
 	{
-		if (filename == NULL)
+		if (filename == nullptr)
 		{
 			return "";
 		}

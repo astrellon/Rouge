@@ -25,8 +25,8 @@ namespace game {
 		mName(name),
 		mFullName("No full name"),
 		mDescription("Undescribable"),
-		mGraphic(NULL),
-		mTileSet(NULL)
+		mGraphic(nullptr),
+		mTileSet(nullptr)
 	{
 		//printf("Creating tile '%s'\n", name);
 	}
@@ -34,8 +34,8 @@ namespace game {
 		mName(name),
 		mFullName(fullName),
 		mDescription("Undescribable"),
-		mGraphic(NULL),
-		mTileSet(NULL)
+		mGraphic(nullptr),
+		mTileSet(nullptr)
 	{
 	}
 	Tile::~Tile()
@@ -163,7 +163,7 @@ namespace game {
 				{
 					string tileName = Utils::toLowerCase(lua_tostring(lua, -1));
 					Handle<TileType> type(Engine::getEngine()->getTileType(tileName.c_str()));
-					if (type == NULL)
+					if (type == nullptr)
 					{
 						stringstream errss;
 						errss << "Unable to find tile type '" << tileName << "' for tile '" << getName() << "'";
@@ -182,14 +182,14 @@ namespace game {
 
 	void Tile::addTileType(TileType *tileType)
 	{
-		if (tileType != NULL)
+		if (tileType != nullptr)
 		{
 			mTileTypes.push_back(tileType);
 		}
 	}
 	void Tile::removeTileType(TileType *tileType)
 	{
-		if (tileType == NULL)
+		if (tileType == nullptr)
 		{
 			return;
 		}
@@ -207,7 +207,7 @@ namespace game {
 	}
 	bool Tile::hasTileType(TileType *tileType) const
 	{
-		if (tileType == NULL)
+		if (tileType == nullptr)
 		{
 			return false;
 		}

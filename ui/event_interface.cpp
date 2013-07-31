@@ -4,7 +4,7 @@ namespace am {
 namespace ui {
 
 	EventInterface::EventInterface() :
-		mManager(NULL)
+		mManager(nullptr)
 	{
 
 	}
@@ -19,7 +19,7 @@ namespace ui {
 	}
 	bool EventInterface::addEventListener(const string &type, IEventListener *context)
 	{
-		if (mManager == NULL)
+		if (mManager == nullptr)
 		{
 			mManager = new EventManager();
 		}
@@ -113,7 +113,7 @@ namespace ui {
 
 	bool EventInterface::hasActiveManager() const
 	{
-		return mManager != NULL;
+		return mManager != nullptr;
 	}
 
 	void EventInterface::managerDeleted()
@@ -132,7 +132,7 @@ namespace ui {
 			}
 
 			EventManager *manager = mManager;
-			mManager = NULL;
+			mManager = nullptr;
 			delete manager;
 		}
 	}

@@ -253,7 +253,7 @@ namespace data {
 
 	void Table::comment(const char *comment)
 	{
-		if (comment == NULL)
+		if (comment == nullptr)
 		{
 			mComment.clear();
 		}

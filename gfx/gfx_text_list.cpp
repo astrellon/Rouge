@@ -21,7 +21,7 @@ namespace gfx {
 
 	void TextList::addEntry(const char *text, const char *type)
 	{
-		if (type == NULL)
+		if (type == nullptr)
 		{
 			type = "";
 		}
@@ -77,7 +77,7 @@ namespace gfx {
 
 	void TextList::render(float dt)
 	{
-		if (!mVisible || mFont == NULL || !mFont->isLoaded())
+		if (!mVisible || mFont == nullptr || !mFont->isLoaded())
 		{
 			return;
 		}

@@ -93,7 +93,7 @@ namespace game {
 		}
 		if (!gameObj)
 		{
-			am_log("LOADERR", "Attempting to set a gameId onto a NULL gameObj");
+			am_log("LOADERR", "Attempting to set a gameId onto a nullptr gameObj");
 			return;
 		}
 		mGameObjectInfoMap[string(gameId)].gameObj = gameObj;
@@ -102,14 +102,14 @@ namespace game {
 	{
 		if (!gameId || gameId[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		auto iter = mGameObjectInfoMap.find(string(gameId));
 		if (iter != mGameObjectInfoMap.end())
 		{
 			return iter->second.gameObj;
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	void LoadingState::setGameObjHasDestination(const char *gameId, bool hasDestination)
@@ -169,14 +169,14 @@ namespace game {
 	{
 		if (mCharacterStack.empty())
 		{
-			return NULL;
+			return nullptr;
 		}
 		return  mCharacterStack.back();
 	}
 
 	void LoadingState::addBodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto)
 	{
-		if (!character || !part || (item == NULL && (canHoldOnto == NULL || canHoldOnto[0] == '\0')))
+		if (!character || !part || (item == nullptr && (canHoldOnto == nullptr || canHoldOnto[0] == '\0')))
 		{
 			return;
 		}

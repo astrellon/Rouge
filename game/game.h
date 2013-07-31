@@ -46,7 +46,7 @@ namespace game {
 
 	class Game : public IEventListener, public EventInterface, public IAttributeData {
 	public:
-		Game(Engine *engine = NULL);
+		Game(Engine *engine = nullptr);
 		~Game();
 
 		void deinit();
@@ -193,7 +193,7 @@ namespace game {
 		template <class T>
 		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
 		{
-			if (def == NULL || name == NULL || name[0] == '\0')
+			if (def == nullptr || name == nullptr || name[0] == '\0')
 			{
 				return;
 			}
@@ -210,9 +210,9 @@ namespace game {
 		template <class T>
 		T *getDefinition(map< string, Handle<T> > &defMap, const char *name)
 		{
-			if (name == NULL || name[0] == '\0')
+			if (name == nullptr || name[0] == '\0')
 			{
-				return NULL;
+				return nullptr;
 			}
 			string str(name);
 			size_t index = str.find(':');
@@ -255,7 +255,7 @@ namespace game {
 			auto findFile = mFilesLoaded.find(filename);
 			if (findFile != mFilesLoaded.end() && findFile->second)
 			{
-				return NULL;
+				return nullptr;
 			}
 
 			mFilesLoaded[filename] = true;
@@ -266,7 +266,7 @@ namespace game {
 				ss << "Error loading file: '" << filename << "':\n";
 				mEngine->getLua().printStack(ss);
 				am_log("LUAERR", ss);
-				return NULL;
+				return nullptr;
 			}
 
 			if (!mLoadingFiles.empty())
@@ -279,7 +279,7 @@ namespace game {
 			{
 				return find->second;
 			}
-			return NULL;
+			return nullptr;
 		}
 
 		data::IData *saveGameData();

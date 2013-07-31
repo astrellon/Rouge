@@ -15,17 +15,17 @@ namespace util {
 
 	const char *TextTokeniser::currentToken() const 
 	{
-		if (ctok == NULL || ctok[0] == '\0') 
+		if (ctok == nullptr || ctok[0] == '\0') 
 		{
-			return NULL;
+			return nullptr;
 		}
 		return tokBuff;
 	}
 
 	const char *TextTokeniser::nextToken() {
-		if (ctok == NULL || ctok[0] == '\0') 
+		if (ctok == nullptr || ctok[0] == '\0') 
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		char ch = *ctok++;

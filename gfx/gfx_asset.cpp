@@ -15,7 +15,7 @@ namespace gfx {
 	// Asset methods
 	Asset::Asset(const char *name) :
 		IManaged(),
-		mTexture(NULL),
+		mTexture(nullptr),
 		mName(name),
 		mNumFramesX(1),
 		mNumFramesY(1),
@@ -35,7 +35,7 @@ namespace gfx {
 
 	void Asset::setTexture(const Texture *texture)
 	{
-		if (texture != NULL && texture->isLoaded())
+		if (texture != nullptr && texture->isLoaded())
 		{
 			mTexture = texture;
 			mWindow.setValues(static_cast<float>(mTexture->getWidth()), 
@@ -150,8 +150,8 @@ namespace gfx {
 		{
 			const char *texture = lua_tostring(lua, -1);
 			lua.pop(1);
-			const char *currentTexture = NULL;
-			if (mTexture != NULL)
+			const char *currentTexture = nullptr;
+			if (mTexture != nullptr)
 			{
 				currentTexture = mTexture->getFilename();
 			}
@@ -169,7 +169,7 @@ namespace gfx {
 			else
 			{
 				setTexture(GfxEngine::getEngine()->getTexture(texture));
-				if (mTexture == NULL)
+				if (mTexture == nullptr)
 				{
 					stringstream errss;
 					errss << "Unable to load texture ("<< texture << ") for asset '"
@@ -343,7 +343,7 @@ namespace gfx {
 
 	void Asset::processAnimation()
 	{
-		if (!mAnimationDirty || mTexture == NULL)
+		if (!mAnimationDirty || mTexture == nullptr)
 		{
 			return;
 		}

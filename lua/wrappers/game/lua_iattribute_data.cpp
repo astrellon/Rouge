@@ -45,7 +45,7 @@ namespace game {
 			}
 			if (lua_isnil(lua, 2))
 			{
-				attr->setAttributes(NULL);
+				attr->setAttributes(nullptr);
 				lua_first(lua);
 			}
 		}

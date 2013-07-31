@@ -9,7 +9,7 @@ namespace ui {
 
 	EventManager::EventManager() :
 		mFiring(false),
-		mDeleteResponse(NULL)
+		mDeleteResponse(nullptr)
 	{
 
 	}

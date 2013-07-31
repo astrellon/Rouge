@@ -19,7 +19,7 @@ namespace util {
 	{
 		if (mInput[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		int pos = 0;
@@ -64,10 +64,10 @@ namespace util {
 		mBuff[outPos] = '\0';
 		mInput += pos;
 		// If nothing was put into the buffer and we're at the end
-		// of the input, then return NULL.
+		// of the input, then return nullptr.
 		if (outPos == 0 && ch == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mBuff;
 	}

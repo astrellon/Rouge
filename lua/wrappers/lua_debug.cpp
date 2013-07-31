@@ -25,7 +25,7 @@ namespace debug {
 			{ "equals", Debug_equals },
 			{ "not_equals", Debug_not_equals },
 			{ "print_stack", Debug_print_stack },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		lua_pushstring(lua, "debug");

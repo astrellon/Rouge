@@ -33,7 +33,7 @@ namespace game {
 
 		typedef map<string, bool> SubjectMap;
 
-		DialogueComponent(GameObject *attachedTo = NULL);
+		DialogueComponent(GameObject *attachedTo = nullptr);
 		DialogueComponent(const DialogueComponent &copy);
 		~DialogueComponent();
 

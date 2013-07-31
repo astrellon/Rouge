@@ -79,7 +79,7 @@ namespace game {
 			{ "remove", StatModifiers_remove},
 			{ "mods", StatModifiers_mods },
 			{ "calculate_stat", StatModifiers_calculate_stat },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, StatModifiers::LUA_TABLENAME);

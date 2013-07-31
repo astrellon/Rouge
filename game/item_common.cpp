@@ -16,7 +16,7 @@ namespace game {
 
 	ItemCommon::ItemType ItemCommon::getItemType(const char *name)
 	{
-		if (name == NULL)
+		if (name == nullptr)
 		{
 			return ItemCommon::UNKNOWN;
 		}
@@ -44,7 +44,7 @@ namespace game {
 	{
 		if (type < 0 || type >= UNKNOWN)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return ItemTypeNameIds[type];
 	}

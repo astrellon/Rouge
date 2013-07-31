@@ -95,7 +95,7 @@ namespace game {
 	{
 		if (!partName || partName == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		for (auto iter = mPartList.begin(); iter != mPartList.end(); ++iter)
 		{
@@ -104,7 +104,7 @@ namespace game {
 				return iter->get();
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 	Item *BodyParts::getItemOnPart(const char *partName) const
 	{
@@ -113,7 +113,7 @@ namespace game {
 		{
 			return part->getEquippedItem();
 		}
-		return NULL;
+		return nullptr;
 	}
 	bool BodyParts::hasBodyPart(const char *partName) const
 	{
@@ -166,7 +166,7 @@ namespace game {
 			mAttackIndex = 0;
 		}
 
-		BodyPart *result = NULL;
+		BodyPart *result = nullptr;
 		while (mAttackIndex != startIndex)
 		{
 			BodyPart *part = mPartList[mAttackIndex];

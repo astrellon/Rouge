@@ -224,7 +224,7 @@ namespace game {
 			{ "max_level", Character_max_level },
 			// Attributes
 			{ "attrs", Character_attrs },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Character::LUA_TABLENAME);
@@ -612,7 +612,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			const char *partName = NULL;
+			const char *partName = nullptr;
 			if (lua_isstr(lua, 2))
 			{
 				partName = lua_tostring(lua, 2);
@@ -869,12 +869,12 @@ namespace game {
 			}
 			else if(lua_isnil(lua, 2))
 			{
-				obj->setRace(NULL);
+				obj->setRace(nullptr);
 				lua_first(lua);
 			}
 			else
 			{
-				Race *race = NULL;
+				Race *race = nullptr;
 				if (lua_type(lua, 2) == LUA_TSTRING)
 				{
 					race = Engine::getEngine()->getRace(lua_tostring(lua, 2));
@@ -996,7 +996,7 @@ namespace game {
 				}
 				else if (lua_isnil(lua, 2))
 				{
-					obj->setGraphic(NULL);
+					obj->setGraphic(nullptr);
 					valid = true;
 				}
 				else
@@ -1232,7 +1232,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				obj->setMap(NULL);
+				obj->setMap(nullptr);
 				lua_first(lua);
 			}
 			else
@@ -1284,7 +1284,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				obj->setOriginalMap(NULL);
+				obj->setOriginalMap(nullptr);
 				lua_first(lua);
 			}
 			else
@@ -1473,7 +1473,7 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				obj->setDialogueComp(NULL);
+				obj->setDialogueComp(nullptr);
 				lua_first(lua);
 			}
 			else

@@ -10,15 +10,15 @@ namespace sfx {
 
 	SoundOgg::SoundOgg() :
 		ISound(),
-		mOggFile(NULL),
-		mData(NULL)
+		mOggFile(nullptr),
+		mData(nullptr)
 	{
 		initCallbacks();
 	}
 	SoundOgg::SoundOgg(const char *filename, bool toStream) :
 		ISound(),
-		mOggFile(NULL),
-		mData(NULL)
+		mOggFile(nullptr),
+		mData(nullptr)
 	{
 		if (toStream && !loadStream(filename))
 		{
@@ -35,12 +35,12 @@ namespace sfx {
 		{
 			SfxEngine::getEngine()->getOggClear()(mOggFile);
 			delete mOggFile;
-			mOggFile = NULL;
+			mOggFile = nullptr;
 		}
 		if (mData)
 		{
 			delete mData;
-			mData = NULL;
+			mData = nullptr;
 		}
 	}
 
@@ -80,10 +80,10 @@ namespace sfx {
 			fillBuffer(mBuffers[0]);
 
 			delete mData;
-			mData = NULL;
+			mData = nullptr;
 
 			delete mOggFile;
-			mOggFile = NULL;
+			mOggFile = nullptr;
 
 			fclose(file);
 			mFilename = filename;
@@ -254,7 +254,7 @@ namespace sfx {
 	bool SoundOgg::parseHeaders(FILE *file, SfxEngine *engine)
 	{
 		vorbis_info	*psVorbisInfo;
-		if (engine->getOggOpenCallbacks()(file, mOggFile, NULL, 0, sOggCallbacks) == 0)
+		if (engine->getOggOpenCallbacks()(file, mOggFile, nullptr, 0, sOggCallbacks) == 0)
 		{
 			psVorbisInfo = engine->getOggInfo()(mOggFile, -1);
 			

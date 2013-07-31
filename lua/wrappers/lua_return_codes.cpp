@@ -39,7 +39,7 @@ namespace lua {
 		luaL_Reg regs[] = 
 		{
 			{ "message", ReturnCodes_message },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		lua_pushstring(lua, "code");

@@ -95,11 +95,11 @@ namespace game {
 			TileMap::iterator iter = mTiles.find(string(tileName));
 			if (iter == mTiles.end())
 			{
-				return NULL;
+				return nullptr;
 			}
 			return iter->second.get();
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	/*void TileSet::loadDef(JsonValue value)

@@ -13,7 +13,7 @@ namespace game {
 	const char *Stats::LUA_TABLENAME = "am_game_Stats";
 
 	Stats::Stats() :
-		mAttachedTo(NULL),
+		mAttachedTo(nullptr),
 		mModifiers(new StatModifiers())
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)
@@ -24,7 +24,7 @@ namespace game {
 		}
 	}
 	Stats::Stats(const Stats &copy) :
-		mAttachedTo(NULL),
+		mAttachedTo(nullptr),
 		mModifiers(new StatModifiers())
 	{
 		for (int i = 0; i < Stat::MAX_STAT_LENGTH; i++)

@@ -69,7 +69,7 @@ using namespace am::sfx;
 namespace am {
 namespace sys {
 
-	RougeSystem *RougeSystem::sRougeSystem = NULL;
+	RougeSystem *RougeSystem::sRougeSystem = nullptr;
 
 	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine)
 	{
@@ -83,7 +83,7 @@ namespace sys {
 
 	RougeSystem::RougeSystem(ISystem *linked, Engine *engine) :
 		GameSystem(linked, engine),
-		mPlayerHand(NULL),
+		mPlayerHand(nullptr),
 		mInDialogue(false)
 	{
 
@@ -197,7 +197,7 @@ namespace sys {
 
 	void RougeSystem::toggleInGameMenu()
 	{
-		setCurrentMenu(mIngameMenu->isVisible() ? NULL : mIngameMenu);
+		setCurrentMenu(mIngameMenu->isVisible() ? nullptr : mIngameMenu);
 		checkPaused();
 	}
 
@@ -236,7 +236,7 @@ namespace sys {
 
 	void RougeSystem::saveGame(const char *savename)
 	{
-		if (savename == NULL || savename[0] == '\0')
+		if (savename == nullptr || savename[0] == '\0')
 		{
 			return;
 		}
@@ -254,14 +254,14 @@ namespace sys {
 
 	void RougeSystem::loadGame(const char *savename)
 	{
-		if (savename == NULL || savename[0] == '\0')
+		if (savename == nullptr || savename[0] == '\0')
 		{
 			return;
 		}
 
 		MouseManager::getManager()->clearCurrentlyFiring();
 		Game *oldGame = mEngine->getCurrentGame();
-		if (oldGame != NULL)
+		if (oldGame != nullptr)
 		{
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
@@ -285,22 +285,22 @@ namespace sys {
 		// 27 is currently escape.
 		if (mInDialogue && key == 27)
 		{
-			//Handle<DialogueEvent> e(new DialogueEvent(mPlayer, NULL, NULL));
+			//Handle<DialogueEvent> e(new DialogueEvent(mPlayer, nullptr, nullptr));
 			//mPlayer->fireEvent<DialogueEvent>(e);
-			//mPlayer->talkTo(mPlayer->getTalkingTo(), NULL);
+			//mPlayer->talkTo(mPlayer->getTalkingTo(), nullptr);
 			if (mPlayer->getDialogueComp())
 			{
-				mPlayer->getDialogueComp()->talkTo(mPlayer->getDialogueComp()->getTalkingTo(), NULL);
+				mPlayer->getDialogueComp()->talkTo(mPlayer->getDialogueComp()->getTalkingTo(), nullptr);
 			}
 			return;
 		}
-		if (key == 27 && mEngine->getCurrentGame() != NULL)
+		if (key == 27 && mEngine->getCurrentGame() != nullptr)
 		{
 			toggleInGameMenu();
 			return;
 		}
 		// 19 is currently pause.
-		if (key == 19 && mEngine->getCurrentGame() != NULL)
+		if (key == 19 && mEngine->getCurrentGame() != nullptr)
 		{
 			togglePause();
 			return;
@@ -325,7 +325,7 @@ namespace sys {
 	}
 	void RougeSystem::onEvent(DialogueEvent *e)
 	{
-		mInDialogue = e->getDialogue() != NULL;
+		mInDialogue = e->getDialogue() != nullptr;
 	}
 
 	void RougeSystem::quitGame()
@@ -336,13 +336,13 @@ namespace sys {
 	void RougeSystem::toMainMenu()
 	{
 		MouseManager::getManager()->clearCurrentlyFiring();
-		// Set current game to NULL and show main menu.
+		// Set current game to nullptr and show main menu.
 		Game *oldGame = mEngine->getCurrentGame();
-		if (oldGame != NULL)
+		if (oldGame != nullptr)
 		{
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
-		mEngine->setCurrentGame(NULL);
+		mEngine->setCurrentGame(nullptr);
 		setCurrentMenu(mMainMenu);
 		mGameHud->setVisible(false);
 
@@ -375,7 +375,7 @@ namespace sys {
 	{
 		MouseManager::getManager()->clearCurrentlyFiring();
 		Game *oldGame = mEngine->getCurrentGame();
-		if (oldGame != NULL)
+		if (oldGame != nullptr)
 		{
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
@@ -442,7 +442,7 @@ namespace sys {
 			gameHud->getDialogueChoices()->setTalker(mPlayer);
 		}
 
-		setCurrentMenu(NULL);
+		setCurrentMenu(nullptr);
 		mGameHud->setVisible(true);
 
 		game->onGameTick();

@@ -58,7 +58,7 @@ namespace ui {
 			{ "addEventListener", EventManager_addEventListener },
 			{ "removeEventListener", EventManager_removeEventListener },
 			{ "hasEventListener", EventManager_hasEventListener },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, EventManager_tableName);
@@ -112,7 +112,7 @@ namespace ui {
 	bool addEventListener(lua_State *lua, am::ui::EventInterface *manager)
 	{
 		const char *eventType = lua_tostring(lua, 2);
-		if (eventType == NULL)
+		if (eventType == nullptr)
 		{
 			return false;
 		}
@@ -139,7 +139,7 @@ namespace ui {
 	bool removeEventListener(lua_State *lua, am::ui::EventInterface *manager)
 	{
 		const char *eventType = lua_tostring(lua, 2);
-		if (eventType == NULL)
+		if (eventType == nullptr)
 		{
 			return false;
 		}

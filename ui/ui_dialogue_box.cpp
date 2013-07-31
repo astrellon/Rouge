@@ -25,7 +25,7 @@ namespace ui {
 	DialogueBox::DialogueBox() :
 		UIComponent(),
 		mText(new TextField2()),
-		mDialogue(NULL)
+		mDialogue(nullptr)
 	{
 		addChild(mText);
 		mText->addEventListener(MOUSE_UP, this);
@@ -42,7 +42,7 @@ namespace ui {
 
 	void DialogueBox::onEvent(MouseEvent *e)
 	{
-		if (!e || mTalker == NULL || mTalker->getDialogueComp() == NULL)
+		if (!e || mTalker == nullptr || mTalker->getDialogueComp() == nullptr)
 		{
 			return;
 		}
@@ -53,11 +53,11 @@ namespace ui {
 			if (strcmp(node->getNodeType(), "?") == 0 || strcmp(node->getNodeType(), "choice") == 0)
 			{
 				const char *gotoDiag = node->getAttribute("@");
-				if (gotoDiag == NULL)
+				if (gotoDiag == nullptr)
 				{
 					gotoDiag = node->getAttribute("goto");
 				}
-				if (gotoDiag == NULL)
+				if (gotoDiag == nullptr)
 				{
 					return;
 				}
@@ -68,7 +68,7 @@ namespace ui {
 			}
 			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
 			{
-				mTalker->getDialogueComp()->talkTo(mTalkedTo, NULL);
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, nullptr);
 			}
 		}
 	}
@@ -80,12 +80,12 @@ namespace ui {
 
 	void DialogueBox::setTalker(GameObject *talker)
 	{
-		if (mTalker.get() != NULL)
+		if (mTalker.get() != nullptr)
 		{
 			mTalker->removeEventListener("dialogue", this);
 		}
 		mTalker = talker;
-		if (mTalker.get() != NULL)
+		if (mTalker.get() != nullptr)
 		{
 			mTalker->addEventListener("dialogue", this);
 		}
@@ -156,7 +156,7 @@ namespace ui {
 
 	void DialogueBox::updateText()
 	{
-		if (mDialogue != NULL)
+		if (mDialogue != nullptr)
 		{
 			stringstream ss;
 			ss << "<dialogue>" << StringPool::filterText(mDialogue->getText()) << "</dialogue>";

@@ -38,7 +38,7 @@ namespace sfx {
 			bool isStream = lua_tobool(lua, 2);
 			if (lua_isstr(lua, 1))
 			{
-				ISound *sound = NULL;
+				ISound *sound = nullptr;
 				if (isStream)
 				{
 					sound = SfxEngine::getEngine()->loadStream(lua_tostring(lua, 1));
@@ -97,7 +97,7 @@ namespace sfx {
 			{ "__eq", Sound_eq },
 			{ "filename", Sound_filename },
 			{ "streaming", Sound_streaming },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, ISound::LUA_TABLENAME);

@@ -106,13 +106,13 @@ namespace game {
 			{ "tile_instance", Map_tile_instance },
 			{ "tiles", Map_tiles },
 			{ "map_size", Map_map_size },
-			{ "get_objects", NULL },
+			{ "get_objects", nullptr },
 			{ "add_game_object", Map_add_game_object },
 			{ "remove_game_object", Map_remove_game_object },
 			{ "has_game_object", Map_has_game_object },
 			{ "is_valid_location", Map_is_valid_location },
 			{ "is_valid_grid_location", Map_is_valid_grid_location },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Map::LUA_TABLENAME);

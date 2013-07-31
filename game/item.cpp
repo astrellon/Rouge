@@ -152,7 +152,7 @@ namespace game {
 
 	void Item::setItemTypeName(const char *name)
 	{
-		if (name == NULL)
+		if (name == nullptr)
 		{
 			return;
 		}
@@ -253,11 +253,11 @@ namespace game {
 		Handle<Sprite> graphic = mGraphic;
 		Handle<Sprite> groundGraphic = mGroundGraphic;
 		Handle<Item> thisHandle(this);
-		if (groundGraphic.get() == NULL && graphic.get() != NULL)
+		if (groundGraphic.get() == nullptr && graphic.get() != nullptr)
 		{
 			groundGraphic = graphic;
 		}
-		else if (groundGraphic.get() != NULL && graphic.get() == NULL)
+		else if (groundGraphic.get() != nullptr && graphic.get() == nullptr)
 		{
 			graphic = groundGraphic;
 		}
@@ -278,7 +278,7 @@ namespace game {
 	void Item::setItemFullname( const char *name, const char *prefix, const char *postfix )
 	{
 		string nameStr(name);
-		if (prefix != NULL && prefix[0] != '\0')
+		if (prefix != nullptr && prefix[0] != '\0')
 		{
 			string prefixStr(prefix); 
 			mName = prefixStr + ' ' + nameStr;
@@ -289,7 +289,7 @@ namespace game {
 			mName = nameStr;
 			mPrefix = -1;
 		}
-		if (postfix != NULL && postfix[0] != '\0')
+		if (postfix != nullptr && postfix[0] != '\0')
 		{
 			string postfixStr(postfix);
 			mName += " " + postfixStr;
@@ -325,7 +325,7 @@ namespace game {
 
 	void Item::setPrefix( const char *prefix )
 	{
-		if (prefix == NULL)
+		if (prefix == nullptr)
 		{
 			prefix = "";
 		}
@@ -362,7 +362,7 @@ namespace game {
 
 	void Item::setPostfix( const char *postfix )
 	{
-		if (postfix == NULL)
+		if (postfix == nullptr)
 		{
 			postfix = "";
 		}
@@ -439,7 +439,7 @@ namespace game {
 	{
 		if (location < 0 || location >= Item::MAX_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sItemLocationNames[location];
 	}
@@ -506,7 +506,7 @@ namespace game {
 		if (!output)
 		{
 			am_log("ERROR", "Save game object from GameObject not a data::Map!");
-			return NULL;
+			return nullptr;
 		}
 
 		output->at("itemType", ItemCommon::getItemTypeName(mItemType));

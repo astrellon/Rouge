@@ -46,7 +46,7 @@ namespace tests {
 			lua.call(0, 1);
 			Handle<Item> item(castUData<Item>(lua, 1));
 
-			assert(item != NULL);
+			assert(item != nullptr);
 
 			am_equals(2, item->getReferenceCounter());
 

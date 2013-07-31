@@ -31,7 +31,7 @@ using namespace am::lua;
 namespace am {
 namespace gfx {
 
-	GfxEngine *GfxEngine::sMainGfxEngine = NULL;
+	GfxEngine *GfxEngine::sMainGfxEngine = nullptr;
 
 	GfxEngine::GfxEngine() :
 		mHideCursor(false),
@@ -47,7 +47,7 @@ namespace gfx {
 
 	GfxEngine *GfxEngine::getEngine()
 	{
-		if (sMainGfxEngine == NULL)
+		if (sMainGfxEngine == nullptr)
 		{
 			sMainGfxEngine = new GfxEngine();
 		}
@@ -55,11 +55,11 @@ namespace gfx {
 	}
 	void GfxEngine::deinitGfxEngine()
 	{
-		if (sMainGfxEngine != NULL)
+		if (sMainGfxEngine != nullptr)
 		{
 			sMainGfxEngine->deinit();
 			GfxEngine *engine = sMainGfxEngine;
-			sMainGfxEngine = NULL;
+			sMainGfxEngine = nullptr;
 			delete engine;
 		}
 	}
@@ -110,13 +110,13 @@ namespace gfx {
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
 		Asset *cursorAsset = getAssetLua("cursor");
-		if (cursorAsset == NULL)
+		if (cursorAsset == nullptr)
 		{
 			throw std::runtime_error("Unable to load cursor asset");
 		}
 
 		Asset *basicFont = getAssetLua("fontBasic");
-		if (basicFont == NULL)
+		if (basicFont == nullptr)
 		{
 			// Incase there is an issue loading the basic font.
 			throw std::runtime_error("Unable to load basic font asset");
@@ -127,22 +127,22 @@ namespace gfx {
 	void GfxEngine::deinit()
 	{
 		mDebugLayer->deinit();
-		//mDebugLayer = NULL;
+		//mDebugLayer = nullptr;
 		mTooltipLayer->deinit();
-		//mTooltipLayer = NULL;
+		//mTooltipLayer = nullptr;
 		mUILayer->deinit();
-		//mUILayer = NULL;
+		//mUILayer = nullptr;
 		mGameLayer->deinit();
-		//mGameLayer = NULL;
+		//mGameLayer = nullptr;
 		mRootLayer->deinit();
-		//mRootLayer = NULL;
+		//mRootLayer = nullptr;
 
 		{
 			FontMap fonts = mFontManager;
 			FontMap::iterator iter;
 			for (iter = fonts.begin(); iter != fonts.end(); ++iter)
 			{
-				iter->second = NULL;
+				iter->second = nullptr;
 			}
 			mFontManager.clear();
 		}
@@ -151,7 +151,7 @@ namespace gfx {
 			AssetMap::iterator iter;
 			for (iter = assets.begin(); iter != assets.end(); ++iter)
 			{
-				iter->second = NULL;
+				iter->second = nullptr;
 			}
 			mAssetManager.clear();
 		}
@@ -160,7 +160,7 @@ namespace gfx {
 			TextureMap::iterator iter;
 			for (iter = textures.begin(); iter != textures.end(); ++iter)
 			{
-				iter->second = NULL;
+				iter->second = nullptr;
 			}
 			mTextureManager.clear();
 		}
@@ -277,7 +277,7 @@ namespace gfx {
 			am_log("ASSET", errss);
 			lua.logStack("ASSETLUA");
 			lua.close();
-			return NULL;
+			return nullptr;
 		}
 
 		lua_getglobal(lua, "asset");
@@ -287,7 +287,7 @@ namespace gfx {
 			errss << "Loaded lua asset was: " << lua_typename(lua, -1) << " instead of table.";
 			am_log("ASSET", errss);
 			lua.close();
-			return NULL;
+			return nullptr;
 		}
 		Asset *asset = new Asset(assetName);
 		int loadAsset = asset->loadDef(lua);
@@ -298,7 +298,7 @@ namespace gfx {
 			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
 			am_log("ASSET", errss);
 			delete asset;
-			return NULL;
+			return nullptr;
 		}
 
 		mAssetManager[assetNameStr] = asset;
@@ -381,7 +381,7 @@ namespace gfx {
 		errss << "Unable to load texture '" << filename << "'";
 		am_log("GFX", errss);
 		
-		return NULL;
+		return nullptr;
 	}
 	int GfxEngine::reloadTexture(const char *filename)
 	{
@@ -428,7 +428,7 @@ namespace gfx {
 			errss << ss.str() << '\''; 
 			am_log("FONT", errss);
 			lua.close();
-			return NULL;
+			return nullptr;
 		}
 		lua_getglobal(lua, "font");
 		if (!lua_istable(lua, -1))
@@ -437,7 +437,7 @@ namespace gfx {
 			errss << "Loaded lua font was: " << lua_typename(lua, -1) << " instead of table.";
 			am_log("FONT", errss);
 			lua.close();
-			return NULL;
+			return nullptr;
 			lua.close();
 		}
 
@@ -450,7 +450,7 @@ namespace gfx {
 			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
 			am_log("FONT", errss);
 			delete font;
-			return NULL;
+			return nullptr;
 		}
 
 		mFontManager[fontNameStr] = font;

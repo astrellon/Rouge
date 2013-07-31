@@ -7,7 +7,7 @@ namespace ui {
 
 	Image::Image() :
 		UIComponent(),
-		mGraphic(NULL)
+		mGraphic(nullptr)
 	{
 	}
 	Image::Image(Asset *asset) :

@@ -82,7 +82,7 @@ namespace data {
 			auto iter = mMapValue.find(key);
 			if (iter == mMapValue.end())
 			{
-				return NULL;
+				return nullptr;
 			}
 			return dynamic_cast<T *>(mMapValue[key].get());
 		}
@@ -91,7 +91,7 @@ namespace data {
 		{
 			if (index < 0 || index >= static_cast<int>(mArrayValue.size()))
 			{
-				return NULL;
+				return nullptr;
 			}
 			return dynamic_cast<T *>(mArrayValue[index].get());
 		}

@@ -85,7 +85,7 @@ namespace game {
 		am_log("PLYER", ss);
 
 		mCharacter->moveGrid(dx, dy);
-		mCharacter = NULL;
+		mCharacter = nullptr;
 
 		mActive = false;
 
@@ -108,7 +108,7 @@ namespace game {
 			if (mCharacter)
 			{
 				mCharacter->release();
-				mCharacter = NULL;
+				mCharacter = nullptr;
 			}
 			KeyboardManager::getManager()->removeEventListener("key_down", this);
 			KeyboardManager::getManager()->removeEventListener("key_up", this);

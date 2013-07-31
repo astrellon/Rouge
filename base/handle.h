@@ -44,7 +44,7 @@ namespace base {
 		void force(T *obj)
 		{
 			mObject = obj;
-			if (mObject != NULL)
+			if (mObject != nullptr)
 			{
 				obj->retain();
 			}

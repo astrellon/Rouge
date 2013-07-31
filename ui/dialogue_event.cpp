@@ -37,7 +37,7 @@ namespace ui {
 		{
 			return talker->getDialogueComp()->getTalkingTo();
 		}
-		return NULL;
+		return nullptr;
 	}
 
 }

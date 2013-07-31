@@ -22,7 +22,7 @@ namespace game {
 
 	void DialogueChoice::setAttribute(const char *attribute, const char *value)
 	{
-		if (value != NULL)
+		if (value != nullptr)
 		{
 			mAttributes[attribute] = value;
 		}
@@ -36,7 +36,7 @@ namespace game {
 		Attributes::const_iterator iter = mAttributes.find(attribute);
 		if (iter == mAttributes.end())
 		{
-			return NULL;
+			return nullptr;
 		}
 		return iter->second.c_str();
 	}

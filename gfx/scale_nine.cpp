@@ -93,7 +93,7 @@ namespace gfx {
 	}
 	ScaleNineState ScaleNine::getState(const char *stateName)
 	{
-		if (stateName == NULL || stateName[0] == '\0' || strcmp(stateName, "none") == 0)
+		if (stateName == nullptr || stateName[0] == '\0' || strcmp(stateName, "none") == 0)
 		{
 			return SCALE_NINE_NONE;
 		}

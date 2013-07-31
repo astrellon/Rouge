@@ -9,7 +9,7 @@ namespace gfx {
 
 	Font::Font(const char *name) :
 		IManaged(),
-		mAsset(NULL),
+		mAsset(nullptr),
 		mName(name),
 		mKerning(1.0f),
 		mLeading(1.0f),
@@ -31,7 +31,7 @@ namespace gfx {
 	}
 	void Font::setAsset(Asset *asset)
 	{
-		if (asset != NULL)
+		if (asset != nullptr)
 		{
 			mAsset = asset;
 		}
@@ -39,7 +39,7 @@ namespace gfx {
 
 	bool Font::isLoaded() const
 	{
-		return mAsset != NULL && mAsset->getTexture() != NULL && !mTextureWindows.empty();
+		return mAsset != nullptr && mAsset->getTexture() != nullptr && !mTextureWindows.empty();
 	}
 
 	/*int Font::loadDef(JsonValue value)
@@ -187,7 +187,7 @@ namespace gfx {
 
 	int Font::measureText(const char *text, float containerWidth, float &width, float &height, char endChar) const
 	{
-		if (text == NULL || text[0] <= ' ')
+		if (text == nullptr || text[0] <= ' ')
 		{
 			return 0;
 		}
@@ -242,7 +242,7 @@ namespace gfx {
 	}
 	int Font::measureLine(const char *word, float containerWidth, float &width, float &height) const
 	{
-		if (word == NULL || word[0] <= ' ')
+		if (word == nullptr || word[0] <= ' ')
 		{
 			return 0;
 		}
@@ -320,7 +320,7 @@ namespace gfx {
 	}
 	int Font::measureWord(const char *word, float &width, float &height) const
 	{
-		if (word == NULL || word[0] <= ' ')
+		if (word == nullptr || word[0] <= ' ')
 		{
 			return 0;
 		}
@@ -358,7 +358,7 @@ namespace gfx {
 
 	void Font::postLoad()
 	{
-		if (mAsset == NULL || mAsset->getTexture() == NULL)
+		if (mAsset == nullptr || mAsset->getTexture() == nullptr)
 		{
 			return;
 		}

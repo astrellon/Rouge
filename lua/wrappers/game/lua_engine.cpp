@@ -60,7 +60,7 @@ namespace game {
 			{ "add_tile_type", Engine_add_tile_type },
 			{ "tile_type", Engine_tile_type },
 			{ "bgm", Engine_bgm },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Engine::LUA_TABLENAME);
@@ -98,7 +98,7 @@ namespace game {
 		}
 		else if (lua_isnil(lua, 1))
 		{
-			Engine::getEngine()->setCurrentGame(NULL);
+			Engine::getEngine()->setCurrentGame(nullptr);
 			return 0;
 		}
 		else
@@ -331,7 +331,7 @@ namespace game {
 	 */
 	int Engine_remove_race(lua_State *lua)
 	{
-		Race *race = NULL;
+		Race *race = nullptr;
 		if (lua_isstr(lua, 1))
 		{
 			race = Engine::getEngine()->getRace(lua_tostring(lua, 1));
@@ -483,7 +483,7 @@ namespace game {
 		}
 		else if (lua_isnil(lua, 1))
 		{
-			SfxEngine::getEngine()->setBackgroundMusic((ISound *)NULL);
+			SfxEngine::getEngine()->setBackgroundMusic((ISound *)nullptr);
 		}
 		return LuaState::expectedArgs(lua, "@bgm", 2, "string filename", "nil set_no_sound", "am.sound bgm");
 	}

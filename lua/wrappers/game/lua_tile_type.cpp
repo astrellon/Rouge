@@ -45,7 +45,7 @@ namespace game {
 	{
 		if (lua_isstr(lua, 1))
 		{
-			TileType *tile = NULL;
+			TileType *tile = nullptr;
 			if (lua_isstr(lua, 2))
 			{
 				tile = new TileType(lua_tostring(lua, 1), lua_tostring(lua, 2));
@@ -98,11 +98,11 @@ namespace game {
 			{ "__eq", TileType_eq },
 			{ "name", TileType_name },
 			{ "full_name", TileType_full_name },
-			{ "load_def", NULL },
+			{ "load_def", nullptr },
 			// Static TileType methods
 			{ "add_tile_type", TileType_add_tile_type },
 			{ "tile_type", TileType_tile_type },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, TileType::LUA_TABLENAME);

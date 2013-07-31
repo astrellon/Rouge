@@ -22,7 +22,7 @@ namespace gfx {
 
 	Sprite::Sprite() :
 		Renderable(),
-		mAsset(NULL),
+		mAsset(nullptr),
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
@@ -57,9 +57,9 @@ namespace gfx {
 		mCurrentFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
-		mAsset(NULL)
+		mAsset(nullptr)
 	{
-		Asset *asset = NULL;
+		Asset *asset = nullptr;
 		asset = GfxEngine::getEngine()->getAssetLua(assetName);
 		
 		if (asset)
@@ -232,7 +232,7 @@ namespace gfx {
 			return;
 		}
 
-		if (mAsset == NULL || mAsset->getTexture() == NULL || !mAsset->getTexture()->isLoaded())
+		if (mAsset == nullptr || mAsset->getTexture() == nullptr || !mAsset->getTexture()->isLoaded())
 		{
 			if (!mGfxComponent || (mGfxComponent && mGfxComponent->getColour().getAlpha() > 0.05f))
 			{

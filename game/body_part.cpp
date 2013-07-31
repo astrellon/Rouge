@@ -196,7 +196,7 @@ namespace game {
 			if (item->deserialise(state, tempData) != 1)
 			{
 				//setEquippedItem(item);
-				item = NULL;
+				item = nullptr;
 			}
 		}
 
@@ -217,7 +217,7 @@ namespace game {
 		if (!part->deserialise(state, data))
 		{
 			delete part;
-			part = NULL;
+			part = nullptr;
 		}
 		return part;
 	}

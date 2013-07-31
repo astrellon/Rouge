@@ -13,7 +13,7 @@ namespace game {
 	const char *TileInstance::LUA_TABLENAME = "am_game_TileInstance";
 
 	TileInstance::TileInstance() : 
-		mTile(NULL),
+		mTile(nullptr),
 		mTileFrame(0)
 	{
 	}
@@ -57,7 +57,7 @@ namespace game {
 			tileNameUse = tileName;
 		}
 		Tile *tile = Engine::getEngine()->getTile(tileNameUse.c_str());
-		if (tile == NULL)
+		if (tile == nullptr)
 		{
 			return false;
 		}

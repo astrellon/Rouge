@@ -6,7 +6,7 @@
 namespace am {
 namespace log {
 
-	Logger *Logger::sMainLogger = NULL;
+	Logger *Logger::sMainLogger = nullptr;
 
 	Logger::Logger()
 	{
@@ -153,7 +153,7 @@ namespace log {
 		if (sMainLogger)
 		{
 			Logger *logger = sMainLogger;
-			sMainLogger = NULL;
+			sMainLogger = nullptr;
 			logger->clearListeners();
 		}
 	}

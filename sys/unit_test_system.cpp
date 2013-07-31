@@ -40,7 +40,7 @@ using namespace am::tests;
 namespace am {
 namespace sys {
 
-	UnitTestSystem *UnitTestSystem::sUnitTestSystem = NULL;
+	UnitTestSystem *UnitTestSystem::sUnitTestSystem = nullptr;
 
 	UnitTestSystem *UnitTestSystem::createUnitTestSystem(ISystem *linked, Engine *engine)
 	{

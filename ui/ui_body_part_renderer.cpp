@@ -48,12 +48,12 @@ namespace ui {
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 
 			Handle<Item> prevEquipped = mCurrentItem;
-			if (mCharacter.get() != NULL && mCurrentItem.get() != NULL)
+			if (mCharacter.get() != nullptr && mCurrentItem.get() != nullptr)
 			{
 				mCharacter->unequipItem(mBodyPartName.c_str());
 			}
 
-			if (hand->getInhand() != NULL)
+			if (hand->getInhand() != nullptr)
 			{
 				mCharacter->equipItem(hand->getInhand(), mBodyPartName.c_str());
 			}
@@ -135,9 +135,9 @@ namespace ui {
 
 	void BodyPartRenderer::updateGraphic()
 	{
-		if (mCharacter == NULL || mBodyPartName.size() == 0)
+		if (mCharacter == nullptr || mBodyPartName.size() == 0)
 		{
-			if (mCurrentItem.get() != NULL)
+			if (mCurrentItem.get() != nullptr)
 			{
 				removeChild(mCurrentItem);
 			}
@@ -145,7 +145,7 @@ namespace ui {
 		}
 		
 		Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
-		if (equipped.get() != NULL && equipped.get() != mCurrentItem.get())
+		if (equipped.get() != nullptr && equipped.get() != mCurrentItem.get())
 		{
 			addChild(equipped);
 			float x = (getWidth() - equipped->getWidth()) * 0.5f;

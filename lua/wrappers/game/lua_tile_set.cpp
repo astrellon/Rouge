@@ -84,7 +84,7 @@ namespace game {
 			{ "has_tile", TileSet_has_tile },
 			{ "tile", TileSet_tile },
 			{ "load_def", TileSet_load_def },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, TileSet::LUA_TABLENAME);

@@ -41,7 +41,7 @@ namespace ui {
 
 	void DialogueChoices::onEvent(MouseEvent *e)
 	{
-		if (!e || mTalker == NULL || mTalker->getDialogueComp() == NULL)
+		if (!e || mTalker == nullptr || mTalker->getDialogueComp() == nullptr)
 		{
 			return;
 		}
@@ -52,11 +52,11 @@ namespace ui {
 			if (strcmp(node->getNodeType(), "?") == 0 || strcmp(node->getNodeType(), "choice") == 0)
 			{
 				const char *gotoDiag = node->getAttribute("@");
-				if (gotoDiag == NULL)
+				if (gotoDiag == nullptr)
 				{
 					gotoDiag = node->getAttribute("goto");
 				}
-				if (gotoDiag == NULL)
+				if (gotoDiag == nullptr)
 				{
 					return;
 				}
@@ -67,20 +67,20 @@ namespace ui {
 			}
 			else if (strcmp(node->getNodeType(), "x") == 0 || strcmp(node->getNodeType(), "close") == 0)
 			{
-				//mTalker->talkTo(mTalkedTo, NULL);
-				mTalker->getDialogueComp()->talkTo(mTalkedTo, NULL);
+				//mTalker->talkTo(mTalkedTo, nullptr);
+				mTalker->getDialogueComp()->talkTo(mTalkedTo, nullptr);
 			}
 		}
 	}
 
 	void DialogueChoices::onEvent(DialogueEvent *e)
 	{
-		if (e->getDialogue() == NULL)
+		if (e->getDialogue() == nullptr)
 		{
 			mChoices.clear();
 			updateText();
 		}
-		else if (e->getTalkedTo() != NULL)
+		else if (e->getTalkedTo() != nullptr)
 		{
 			vector<Dialogue *> newChoices;
 			
@@ -92,12 +92,12 @@ namespace ui {
 
 	void DialogueChoices::setTalker(GameObject *talker)
 	{
-		if (mTalker.get() != NULL)
+		if (mTalker.get() != nullptr)
 		{
 			mTalker->removeEventListener("dialogue", this);
 		}
 		mTalker = talker;
-		if (mTalker.get() != NULL)
+		if (mTalker.get() != nullptr)
 		{
 			mTalker->addEventListener("dialogue", this);
 		}

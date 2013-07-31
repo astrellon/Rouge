@@ -7,13 +7,13 @@ namespace ui {
 
 	Event::Event() :
 		mType(""),
-		mEventTarget(NULL),
+		mEventTarget(nullptr),
 		mPropagating(true)
 	{
 	}
 	Event::Event(const char *type) :
 		mType(type),
-		mEventTarget(NULL),
+		mEventTarget(nullptr),
 		mPropagating(true)
 	{
 

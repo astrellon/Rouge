@@ -194,7 +194,7 @@ namespace ui {
 
 	bool LuaEventListener::compareListeners(const LuaEventListener *rhs) const
 	{
-		if (rhs == NULL)
+		if (rhs == nullptr)
 		{
 			return false;
 		}

@@ -58,7 +58,7 @@ namespace game {
 	}
 	bool Inventory::hasSpaceFor(const Item *item, int x, int y) const
 	{
-		if (item == NULL || x < 0 || y < 0)
+		if (item == nullptr || x < 0 || y < 0)
 		{
 			return false;
 		}
@@ -74,7 +74,7 @@ namespace game {
 			int jOffset = j * mSpacesX;
 			for (int i = x; i < xEnd; i++)
 			{
-				if (mSpotMap[i + jOffset] != NULL)
+				if (mSpotMap[i + jOffset] != nullptr)
 				{
 					return false;
 				}
@@ -85,7 +85,7 @@ namespace game {
 	}
 	bool Inventory::addItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -106,7 +106,7 @@ namespace game {
 	}
 	bool Inventory::addItem(Item *item, int x, int y)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -129,7 +129,7 @@ namespace game {
 		int xEnd = x + item->getInventorySizeX();
 		int yEnd = y + item->getInventorySizeY();
 
-		item->setMap(NULL);
+		item->setMap(nullptr);
 
 		for (int j = y; j < yEnd; j++)
 		{
@@ -147,7 +147,7 @@ namespace game {
 	}
 	bool Inventory::removeItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -167,7 +167,7 @@ namespace game {
 			int jOffset = j * mSpacesX;
 			for (int i = spot.getX(); i < xEnd; i++)
 			{
-				mSpotMap[i + jOffset] = NULL;
+				mSpotMap[i + jOffset] = nullptr;
 			}
 		}
 		// Keep items alive while event fires.
@@ -199,7 +199,7 @@ namespace game {
 	{
 		if (x < 0 || y < 0 || x >= mSpacesX || y >= mSpacesY)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mSpotMap[y * mSpacesX + x];
 	}
@@ -228,7 +228,7 @@ namespace game {
 			int jOffset = j * mSpacesX;
 			for (int i = 0; i < mSpacesX; i++)
 			{
-				if (mSpotMap[i + jOffset] != NULL)
+				if (mSpotMap[i + jOffset] != nullptr)
 				{
 					continue;
 				}
@@ -376,7 +376,7 @@ namespace game {
 		mSpacesY = height;
 		for (int i = 0; i < size; i++)
 		{
-			mSpotMap[i] = NULL;
+			mSpotMap[i] = nullptr;
 		}
 	}
 

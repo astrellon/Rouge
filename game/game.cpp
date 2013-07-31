@@ -34,8 +34,8 @@ namespace game {
 
 	Game::Game(Engine *engine) :
 		mEngine(engine),
-		mCurrentMap(NULL),
-		mActiveObjects(NULL),
+		mCurrentMap(nullptr),
+		mActiveObjects(nullptr),
 		mGameLayer(new Layer()),
 		mBackground(new Layer()),
 		mItemLayer(new Layer()),
@@ -46,7 +46,7 @@ namespace game {
 		mCurrentTickDt(0.0f),
 		mGameTickPaused(true)
 	{
-		if (engine == NULL)
+		if (engine == nullptr)
 		{
 			mEngine = Engine::getEngine();
 		}
@@ -76,7 +76,7 @@ namespace game {
 
 	void Game::deinit()
 	{
-		mCamera.followObject(NULL);
+		mCamera.followObject(nullptr);
 		mGameLayer->deinit();
 		{
 			DialogueMap dialogue = mDialogueMap;
@@ -122,7 +122,7 @@ namespace game {
 			errss << ss.str() << '\''; 
 			am_log("MAP", errss);
 			lua.logStack("MAPLUA");
-			return NULL;
+			return nullptr;
 		}
 		try
 		{
@@ -141,7 +141,7 @@ namespace game {
 		{
 			am_log("MAP", err.what());
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	Map *Game::getCurrentMap()
@@ -168,12 +168,12 @@ namespace game {
 		if (e->getMouseButton() == LEFT_BUTTON)
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
-			if (hand && hand->getInhand() != NULL)
+			if (hand && hand->getInhand() != nullptr)
 			{
 				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY))
 				{
 					mItemLayer->addChild(hand->getInhand());
-					hand->setInhand(NULL);
+					hand->setInhand(nullptr);
 				}
 				return;
 			}
@@ -212,7 +212,7 @@ namespace game {
 					else
 					{
 						PlayerHand *hand = PlayerHand::getPlayerHand();
-						if (hand && hand->getInhand() == NULL)
+						if (hand && hand->getInhand() == nullptr)
 						{
 							hand->setInhand(item);
 							mItemLayer->removeChild(item);
@@ -222,7 +222,7 @@ namespace game {
 					return;
 				}
 				GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-				ReturnCode result = mMainCharacter->attack(obj, NULL);
+				ReturnCode result = mMainCharacter->attack(obj, nullptr);
 				am_log("ATTKRES", am::base::getErrorMessage(result));
 				if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
 				{
@@ -303,7 +303,7 @@ namespace game {
 
 	bool Game::hasMap(const char *mapName)
 	{
-		if (mapName == NULL || mapName[0] == '\0')
+		if (mapName == nullptr || mapName[0] == '\0')
 		{
 			return false;
 		}
@@ -333,7 +333,7 @@ namespace game {
 		mItemLayer->clear();
 		mCharacterLayer->clear();
 		mForeground->clear();
-		mCamera.followObject(NULL);
+		mCamera.followObject(nullptr);
 
 		if (mCurrentMap)
 		{
@@ -367,7 +367,7 @@ namespace game {
 			else
 			{
 				stringstream errss;
-				errss << "Map (" << map->getName() << ") return a NULL object list.";
+				errss << "Map (" << map->getName() << ") return a nullptr object list.";
 				am_log("MAP", errss);
 			}
 			if (addMap && map->getName().size() > 0)
@@ -387,7 +387,7 @@ namespace game {
 
 	bool Game::addGameObjectToMap(GameObject *object)
 	{
-		if (mCurrentMap.get() == NULL)
+		if (mCurrentMap.get() == nullptr)
 		{
 			am_log("MAP", "Unable to add game object to null current map");
 			return false;
@@ -408,7 +408,7 @@ namespace game {
 	}
 	bool Game::removeGameObjectFromMap(GameObject *object)
 	{
-		if (mCurrentMap.get() == NULL)
+		if (mCurrentMap.get() == nullptr)
 		{
 			am_log("MAP", "Unable to remove game object from null current map");
 			return false;
@@ -429,7 +429,7 @@ namespace game {
 	}
 	bool Game::hasGameObjectInMap(GameObject *object) const
 	{
-		if (mCurrentMap.get() == NULL)
+		if (mCurrentMap.get() == nullptr)
 		{
 			am_log("MAP", "Unable to search for game object with null current map");
 			return false;
@@ -576,7 +576,7 @@ namespace game {
 		}*/
 		//nextObjectTurn();
 		//mMainCharacter->onGameTick(0.0f);
-		if (mActiveObjects == NULL || mGameTickPaused)
+		if (mActiveObjects == nullptr || mGameTickPaused)
 		{
 			return;
 		}
@@ -612,7 +612,7 @@ namespace game {
 			}
 		}
 		*/
-		/*if (mActiveObjects == NULL || mGameTickPosition >= mActiveObjects->size())
+		/*if (mActiveObjects == nullptr || mGameTickPosition >= mActiveObjects->size())
 		{
 			onGameTick();
 			return;
@@ -644,25 +644,25 @@ namespace game {
 
 	GameObject *Game::getGameObject(const char *id) const
 	{
-		if (id == NULL || id[0] == '\0')
+		if (id == nullptr || id[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		GameObjectIdMap::const_iterator iter = mGameObjects.find(string(id));
 		if (iter != mGameObjects.end())
 		{
 			return iter->second;
 		}
-		return NULL;
+		return nullptr;
 	}
 	bool Game::registerGameObject(GameObject *obj)
 	{
-		if (obj == NULL)
+		if (obj == nullptr)
 		{
 			return false;
 		}
 		const char *id = obj->getGameId();
-		if (id == NULL || id[0] == '\0')
+		if (id == nullptr || id[0] == '\0')
 		{
 			return false;
 		}
@@ -683,7 +683,7 @@ namespace game {
 	}
 	void Game::deregisterGameObject(GameObject *obj)
 	{
-		if (obj == NULL)
+		if (obj == nullptr)
 		{
 			return;
 		}
@@ -710,7 +710,7 @@ namespace game {
 	}
 	bool Game::removeDialogue(const char *id)
 	{
-		if (id != NULL)
+		if (id != nullptr)
 		{
 			DialogueMap::const_iterator iter = mDialogueMap.find(string(id));
 			if (iter == mDialogueMap.end())
@@ -727,7 +727,7 @@ namespace game {
 	}
 	Dialogue *Game::getDialogue(const char *id)
 	{
-		if (id != NULL)
+		if (id != nullptr)
 		{
 			DialogueMap::iterator iter = mDialogueMap.find(string(id));
 			if (iter != mDialogueMap.end())
@@ -735,13 +735,13 @@ namespace game {
 				return iter->second;
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	void Game::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
 	{
-		if (talker == NULL || talkedTo == NULL || 
-			talker->getDialogueComp() == NULL || talkedTo->getDialogueComp() == NULL)
+		if (talker == nullptr || talkedTo == nullptr || 
+			talker->getDialogueComp() == nullptr || talkedTo->getDialogueComp() == nullptr)
 		{
 			return;
 		}
@@ -752,7 +752,7 @@ namespace game {
 		for (iter = available.begin(); iter != available.end(); ++iter)
 		{
 			Dialogue *dialogue = getDialogue(iter->first.c_str());
-			if (dialogue == NULL)
+			if (dialogue == nullptr)
 			{
 				continue;
 			}
@@ -774,7 +774,7 @@ namespace game {
 
 	bool Game::addQuest(Quest *quest)
 	{
-		if (quest == NULL)
+		if (quest == nullptr)
 		{
 			return false;
 		}
@@ -788,7 +788,7 @@ namespace game {
 	}
 	bool Game::removeQuest(const char *questId)
 	{
-		if (questId == NULL || questId[0] == '\0')
+		if (questId == nullptr || questId[0] == '\0')
 		{
 			return false;
 		}
@@ -802,16 +802,16 @@ namespace game {
 	}
 	Quest *Game::getQuest(const char *questId)
 	{
-		if (questId == NULL || questId[0] == '\0')
+		if (questId == nullptr || questId[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		QuestMap::const_iterator iter = mQuestMap.find(string(questId));
 		if (iter != mQuestMap.end())
 		{
 			return iter->second;
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	void Game::setGameTickPaused(bool paused)
@@ -847,7 +847,7 @@ namespace game {
 
 	void Game::saveGame(const char *saveName)
 	{
-		if (saveName == NULL || saveName[0] == '\0')
+		if (saveName == nullptr || saveName[0] == '\0')
 		{
 			return;
 		}
@@ -906,7 +906,7 @@ namespace game {
 	}
 	int Game::loadGame(const char *saveName)
 	{
-		if (saveName == NULL || saveName[0] == '\0')
+		if (saveName == nullptr || saveName[0] == '\0')
 		{
 			return 0;
 		}

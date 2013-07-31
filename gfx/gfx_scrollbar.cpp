@@ -35,14 +35,14 @@ namespace gfx {
 		Sprite *sprite = new Sprite("scrollBarUp");
 		addChild(sprite);
 		
-		if (backAsset != NULL && backAsset[0] != '\0')
+		if (backAsset != nullptr && backAsset[0] != '\0')
 		{
 			mBack = new Sprite(backAsset);
 			addChild(mBack);
 		}
 		else
 		{
-			mBack = NULL;
+			mBack = nullptr;
 		}
 		addChild(mBtnUp);
 		addChild(mBtnDown);
@@ -184,7 +184,7 @@ namespace gfx {
 
 	void Scrollbar::updateBar()
 	{
-		if (mBtnUp.get() == NULL || mBtnDown.get() == NULL || mBar.get() == NULL)
+		if (mBtnUp.get() == nullptr || mBtnDown.get() == nullptr || mBar.get() == nullptr)
 		{
 			return;
 		}
@@ -198,7 +198,7 @@ namespace gfx {
 		float percent = static_cast<float>(value) / range;
 		mBar->setPosition(0.0f, percent * scrollHeight + mBtnUp->getHeight());
 		mBtnDown->setPosition(0.0f, mHeight - mBtnDown->getHeight());
-		if (mBack.get() != NULL)
+		if (mBack.get() != nullptr)
 		{
 			mBack->setPosition(0.0f, mBtnUp->getHeight());
 			float backHeight = mHeight - mBtnUp->getHeight() - mBtnDown->getHeight();

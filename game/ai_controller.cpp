@@ -15,7 +15,7 @@ namespace game {
 
 	AiController::AiController() :
 		IController(),
-		mCharacter(NULL)
+		mCharacter(nullptr)
 	{
 		mAttached = true;
 		mRemoved = false;
@@ -54,7 +54,7 @@ namespace game {
 			if (mCharacter)
 			{
 				mCharacter->release();
-				mCharacter = NULL;
+				mCharacter = nullptr;
 			}
 		}
 	}

@@ -48,13 +48,13 @@ namespace gfx {
 
 	TextField2::~TextField2()
 	{
-		mCurrentNode = NULL;
-		//mRootNode = NULL;
+		mCurrentNode = nullptr;
+		//mRootNode = nullptr;
 		if (mRootNode.get())
 		{
 			mRootNode->deinit();
 		}
-		mRootNode = NULL;
+		mRootNode = nullptr;
 	}
 
 	float TextField2::getRenderedHeight() const
@@ -188,7 +188,7 @@ namespace gfx {
 
 	float TextField2::getDisplayHeight() const
 	{
-		if (mFont != NULL)
+		if (mFont != nullptr)
 		{
 			return mFont->getCharHeight() * mDisplayNumLines;
 		}
@@ -196,7 +196,7 @@ namespace gfx {
 	}
 	void TextField2::setDisplayHeight(float height)
 	{
-		if (mFont != NULL)
+		if (mFont != nullptr)
 		{
 			mDisplayNumLines = static_cast<int>(height / mFont->getCharHeight());
 		}
@@ -217,7 +217,7 @@ namespace gfx {
 
 	void TextField2::render(float dt)
 	{
-		if (!mVisible || mFont == NULL || !mFont->isLoaded())
+		if (!mVisible || mFont == nullptr || !mFont->isLoaded())
 		{
 			return;
 		}
@@ -226,7 +226,7 @@ namespace gfx {
 		preRender(dt);
 		mFont->getAsset()->getTexture()->bindTexture();
 		glBegin(GL_QUADS);
-		while (mCurrentNode.get() != NULL)
+		while (mCurrentNode.get() != nullptr)
 		{
 			if (mNewLineDirty)
 			{
@@ -308,7 +308,7 @@ namespace gfx {
 	void TextField2::postRender(float dt)
 	{
 		mRenderedHeight = mCurrYpos + mFont->getCharHeight();
-		if (mScrollbar.get() != NULL && mScrollbar->isVisible())
+		if (mScrollbar.get() != nullptr && mScrollbar->isVisible())
 		{
 			mScrollbar->render(dt);
 		}
@@ -494,7 +494,7 @@ namespace gfx {
 
 		string attrName = "";
 
-		while (token != NULL)
+		while (token != nullptr)
 		{
 			if (state == BASE && token[0] == '<')
 			{
@@ -560,7 +560,7 @@ namespace gfx {
 			}
 			else if (state == END_FORMAT)
 			{
-				while (token != NULL && token[0] != '>')
+				while (token != nullptr && token[0] != '>')
 				{
 					token = tokeniser.nextToken();
 				}
@@ -569,9 +569,9 @@ namespace gfx {
 			else if (state == POP_FORMAT)
 			{
 				string lower = Utils::toLowerCase(token);
-				if (currentNode->getParent() == NULL)
+				if (currentNode->getParent() == nullptr)
 				{
-					am_log("NODE", "Pop format to NULL parent");
+					am_log("NODE", "Pop format to nullptr parent");
 				}
 				else
 				{

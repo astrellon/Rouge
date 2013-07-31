@@ -63,7 +63,7 @@ namespace gfx {
 		mStartAlpha(1.0f),
 		mEndAlpha(0.0f)
 	{
-		srand( static_cast<unsigned int>(time(NULL)) );
+		srand( static_cast<unsigned int>(time(nullptr)) );
 	}
 	ParticleSystem::~ParticleSystem()
 	{

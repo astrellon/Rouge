@@ -38,7 +38,7 @@ namespace game {
 		 * Return codes:
 		 *  SUCCESS: Part was added successfully.
 		 *  BODY_PART_FOUND: The given part was already found in the collection.
-		 *  NULL_PARAMETER: part was NULL.
+		 *  NULL_PARAMETER: part was nullptr.
 		 */
 		ReturnCode addBodyPart(BodyPart *part);
 
@@ -47,7 +47,7 @@ namespace game {
 		 * Return codes:
 		 *  SUCCESS: Part was removed.
 		 *  BODY_PART_NOT_FOUND: The given part was not found.
-		 *  NULL_PARAMETER: part was NULL.
+		 *  NULL_PARAMETER: part was nullptr.
 		 */
 		ReturnCode removeBodyPart(const char *partName);
 		/**
@@ -55,7 +55,7 @@ namespace game {
 		 * Return codes:
 		 *  SUCCESS: Part was removed.
 		 *  BODY_PART_NOT_FOUND: The given part was not found.
-		 *  NULL_PARAMETER: part was NULL.
+		 *  NULL_PARAMETER: part was nullptr.
 		 */
 		ReturnCode removeBodyPart(BodyPart *part);
 
@@ -82,7 +82,7 @@ namespace game {
 
 		/**
 		 * Looks for the next part in the weapon list.
-		 * Returns NULL only where there are no weapon parts.
+		 * Returns nullptr only where there are no weapon parts.
 		 * Loop is set to true when the body parts index has wrapped around.
 		 */
 		BodyPart *getNextWeaponPart(bool &looped);
@@ -98,7 +98,7 @@ namespace game {
 		 * that have the given part as the part that it can hold onto.
 		 * Return codes:
 		 *  SUCCESS: All went well. The result list can be unaffect if there were no linked parts.
-		 *  NULL_PARAMETER: linkedToName was NULL or an empty string.
+		 *  NULL_PARAMETER: linkedToName was nullptr or an empty string.
 		 */
 		ReturnCode getLinkedParts(const char *linkedToName, PartList &result) const;
 		/**
@@ -107,7 +107,7 @@ namespace game {
 		 * that have the given part as the part that it can hold onto.
 		 * Return codes:
 		 *  SUCCESS: All went well. The result list can be unaffect if there were no linked parts.
-		 *  NULL_PARAMETER: linkedTo was NULL.
+		 *  NULL_PARAMETER: linkedTo was nullptr.
 		 */
 		ReturnCode getLinkedParts(BodyPart *linkedTo, PartList &result) const;
 

@@ -78,7 +78,7 @@ namespace sfx {
 		static void deinitSfxEngine();
 
 		static const char *getErrorCode(ALenum errorCode);
-		static void checkError(const char *message = NULL, const char *filename = NULL);
+		static void checkError(const char *message = nullptr, const char *filename = nullptr);
 
 		static string getExtension(const char *filename);
 

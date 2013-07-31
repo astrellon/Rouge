@@ -81,7 +81,7 @@ namespace tests {
 				{ "__gc", Base_dtor },
 				{ "set_name", Base_set_name },
 				{ "get_name", Base_get_name },
-				{ NULL, NULL }
+				{ nullptr, nullptr }
 			};
 
 			luaL_newmetatable(lua, Base::LUA_TABLENAME);
@@ -153,7 +153,7 @@ namespace tests {
 				{ "__gc", Child_dtor },
 				{ "set_age", Child_set_age },
 				{ "get_age", Child_get_age},
-				{ NULL, NULL }
+				{ nullptr, nullptr }
 			};
 
 			luaL_newmetatable(lua, Child::LUA_TABLENAME);
@@ -172,7 +172,7 @@ namespace tests {
 
 	bool TestLua::testSimple() {
 		LuaState lua;
-		assert(lua.getLua() != NULL);
+		assert(lua.getLua() != nullptr);
 
 		int ref = lua.newTable("table1");
 		lua.setTableValue("name", "Melli");
@@ -190,13 +190,13 @@ namespace tests {
 		assert(lua_istable(lua, -1));
 
 		const char *name = lua.getTableString("name");
-		assert(name != NULL);
+		assert(name != nullptr);
 		am_equalsStr("Melli", name);
 		int age = 0;
 		assert(lua.getTableInt("age", age));
 		am_equals(22, age);
 		name = lua.getTableString("name");
-		assert(name != NULL);
+		assert(name != nullptr);
 		am_equalsStr("Melli", name);
 
 		lua.pop(1);
@@ -411,14 +411,14 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getBase"));
 		lua_acall(lua, 0, 1);
 		test::Base *base = castUData<test::Base>(lua, -1);
-		assert(base != NULL);
+		assert(base != nullptr);
 
 		am_equalsStr("Melli", base->getName());
 
 		assert(lua.hasGlobalFunction("getChild"));
 		lua_acall(lua, 0, 1);
 		test::Child *child = castUData<test::Child>(lua, -1);
-		assert(child != NULL);
+		assert(child != nullptr);
 
 		am_equals(23, child->getAge());
 

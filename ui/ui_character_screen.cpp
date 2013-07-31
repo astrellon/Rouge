@@ -62,7 +62,7 @@ namespace ui {
 	{
 		if (character != mCharacter)
 		{
-			if (mCharacter.get() != NULL)
+			if (mCharacter.get() != nullptr)
 			{
 				mCharacter->removeEventListener("equip", this);
 				mCharacter->removeEventListener("unequip", this);
@@ -83,7 +83,7 @@ namespace ui {
 			}
 			else
 			{
-				mInventory->setInventory(NULL);
+				mInventory->setInventory(nullptr);
 			}
 		}
 	}
@@ -124,7 +124,7 @@ namespace ui {
 
 	void CharacterScreen::updateText()
 	{
-		if (mCharacter.get() == NULL)
+		if (mCharacter.get() == nullptr)
 		{
 			mInfo->setText("No character selected");
 			return;

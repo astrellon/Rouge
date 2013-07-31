@@ -38,7 +38,7 @@ namespace gfx {
 
 	int Texture::loadFromFile(const char *filename)
 	{
-		if (filename == NULL || filename[0] == '\0')
+		if (filename == nullptr || filename[0] == '\0')
 		{
 			return -1;
 		}

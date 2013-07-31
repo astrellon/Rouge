@@ -23,15 +23,15 @@ namespace sfx {
 
 	SoundWav::SoundWav() :
 		ISound(),
-		mFileStream(NULL),
-		mData(NULL)
+		mFileStream(nullptr),
+		mData(nullptr)
 	{
 		mBufferTime = 500;
 	}
 		SoundWav::SoundWav(const char *filename, bool toStream) :
 		ISound(),
-		mFileStream(NULL),
-		mData(NULL)
+		mFileStream(nullptr),
+		mData(nullptr)
 	{
 		mBufferTime = 500;
 		if (toStream && !loadStream(filename))
@@ -48,17 +48,17 @@ namespace sfx {
 		if (mBuffers)
 		{
 			alDeleteBuffers(mNumBuffers, mBuffers);
-			mBuffers = NULL;
+			mBuffers = nullptr;
 		}
 		if (mData)
 		{
 			delete mData;
-			mData = NULL;
+			mData = nullptr;
 		}
 		if (mFileStream)
 		{
 			fclose(mFileStream);
-			mFileStream = NULL;
+			mFileStream = nullptr;
 		}
 	}
 
@@ -109,7 +109,7 @@ namespace sfx {
 		
 		mStream = false;
 
-		mFileStream = NULL;
+		mFileStream = nullptr;
 		//Local Declarations
 		RIFFHeader riffHeader;
 		WAVEHeader waveHeader;
@@ -139,7 +139,7 @@ namespace sfx {
 			fillBuffer(mBuffers[0]);
 
 			delete mData;
-			mData = NULL;
+			mData = nullptr;
 			//errorCheck();
 			//clean up and return true if successful
 			fclose(mFileStream);
@@ -152,7 +152,7 @@ namespace sfx {
 			std::cerr << error << " : trying to load "
 			<< filename << std::endl;
 			//clean up memory if wave loading fails
-			if (mFileStream != NULL)
+			if (mFileStream != nullptr)
 			{
 				fclose(mFileStream);
 			}
@@ -172,7 +172,7 @@ namespace sfx {
 
 		mStream = true;
 
-		mFileStream = NULL;
+		mFileStream = nullptr;
 		//Local Declarations
 		RIFFHeader riffHeader;
 		WAVEHeader waveHeader;
@@ -217,7 +217,7 @@ namespace sfx {
 			std::cerr << error << " : trying to load "
 			<< filename << std::endl;
 			//clean up memory if wave loading fails
-			if (mFileStream != NULL)
+			if (mFileStream != nullptr)
 			{
 				fclose(mFileStream);
 			}

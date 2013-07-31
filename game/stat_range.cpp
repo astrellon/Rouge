@@ -39,7 +39,7 @@ namespace game {
 		StatTokeniser tokeniser(input, "+-dD");
 		const char *token = tokeniser.nextToken();
 		char ch = '\0';
-		while (token != NULL)
+		while (token != nullptr)
 		{
 			ch = token[0];
 			if (ch == '+')

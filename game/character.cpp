@@ -35,11 +35,11 @@ namespace game {
 	Character::Character() :
 		GameObject(),
 		Levelable(),
-		mGraphic(NULL),
+		mGraphic(nullptr),
 		mController(new AiController()),
 		mAge(1.0f),
 		mGender(Gender::MALE),
-		mRace(NULL),
+		mRace(nullptr),
 		mCoinPurse(new CoinPurse()),
 		mStats(new Stats()),
 		mArmedCounter(0)
@@ -291,7 +291,7 @@ namespace game {
 
 	bool Character::addBodyPart(BodyPart *part)
 	{
-		if (part == NULL)
+		if (part == nullptr)
 		{
 			return false;
 		}
@@ -299,7 +299,7 @@ namespace game {
 		if (!mBodyParts.hasBodyPart(name))
 		{
 			Item *equipped = part->getEquippedItem();
-			if (equipped != NULL)
+			if (equipped != nullptr)
 			{
 				_equipItem(equipped, part);
 			}
@@ -313,7 +313,7 @@ namespace game {
 	}
 	bool Character::removeBodyPart(BodyPart *part)
 	{
-		if (part == NULL)
+		if (part == nullptr)
 		{
 			return false;
 		}
@@ -321,15 +321,15 @@ namespace game {
 	}
 	bool Character::removeBodyPart(const char *partName)
 	{
-		if (partName == NULL)
+		if (partName == nullptr)
 		{
 			return false;
 		}
 		Handle<BodyPart> part = mBodyParts.getBodyPart(partName);
-		if (part != NULL)
+		if (part != nullptr)
 		{
 			Item *equipped = part->getEquippedItem();
-			if (equipped != NULL)
+			if (equipped != nullptr)
 			{
 				_unequipItem(equipped, part);
 			}
@@ -358,7 +358,7 @@ namespace game {
 			return false;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(partName);
-		if (part == NULL)
+		if (part == nullptr)
 		{
 			stringstream ss;
 			ss << "Cannot equip item '" << item->getFullItemName() << "' on to '";
@@ -396,21 +396,21 @@ namespace game {
 	}
 	bool Character::unequipItem(const char *bodyPart)
 	{
-		if (bodyPart == NULL || bodyPart[0] == '\0')
+		if (bodyPart == nullptr || bodyPart[0] == '\0')
 		{
 			return false;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
-		if (part == NULL)
+		if (part == nullptr)
 		{
 			return false;
 		}
 		Item *equipped = part->getEquippedItem();
-		if (equipped != NULL)
+		if (equipped != nullptr)
 		{
 			_unequipItem(equipped, part);
 		}
-		part->setEquippedItem(NULL);
+		part->setEquippedItem(nullptr);
 		return true;
 	}
 	ReturnCode Character::canEquipItem(Item *item, const char *partName) const
@@ -420,7 +420,7 @@ namespace game {
 			return NULL_PARAMETER;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(partName);
-		if (part == NULL)
+		if (part == nullptr)
 		{
 			stringstream ss;
 			ss << "Cannot check for can equip item '" << item->getFullItemName() << "' on to '";
@@ -508,14 +508,14 @@ namespace game {
 	}
 	Item *Character::getEquipped(const char *bodyPart) const
 	{
-		if (bodyPart == NULL || bodyPart[0] == '\0')
+		if (bodyPart == nullptr || bodyPart[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(bodyPart);
-		if (part == NULL)
+		if (part == nullptr)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return part->getEquippedItem();
 	}
@@ -527,7 +527,7 @@ namespace game {
 
 	int Character::pickupItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return 0;
 		}
@@ -546,7 +546,7 @@ namespace game {
 	}
 	bool Character::addItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -563,7 +563,7 @@ namespace game {
 	}
 	bool Character::removeItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -572,7 +572,7 @@ namespace game {
 	}
 	bool Character::hasItem(const Item *item) const
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return false;
 		}
@@ -585,7 +585,7 @@ namespace game {
 	}
 	int Character::dropItem(Item *item, float x, float y)
 	{
-		if (item == NULL || mMap == NULL ||
+		if (item == nullptr || mMap == nullptr ||
 			x < 0 || y < 0 ||
 			x >= mMap->getWidth() ||
 			y >= mMap->getHeight())
@@ -705,7 +705,7 @@ namespace game {
 	{
 		if (mActions.empty())
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mActions[0];
 	}
@@ -781,7 +781,7 @@ namespace game {
 		if (!output)
 		{
 			am_log("ERROR", "Save game object from GameObject not a data::Map!");
-			return NULL;
+			return nullptr;
 		}
 
 		output->at("pickupReach", mPickupReach);
@@ -975,11 +975,11 @@ namespace game {
 		for (size_t i = 0; i < len; i++)
 		{
 			BodyPart *part = mBodyParts.getNextWeaponPart(looped);
-			if (part == NULL)
+			if (part == nullptr)
 			{
 				break;
 			}
-			if (part->getEquippedItem() == NULL)
+			if (part->getEquippedItem() == nullptr)
 			{
 				if (mArmedCounter == 0)
 				{
@@ -991,7 +991,7 @@ namespace game {
 				return part;
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	size_t Character::findAction(IAction *action)

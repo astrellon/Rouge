@@ -37,7 +37,7 @@ namespace game {
 	 */
 	int DialogueComponent_ctor(lua_State *lua)
 	{
-		GameObject *obj = NULL;
+		GameObject *obj = nullptr;
 		if (lua_gettop(lua) == 1)
 		{
 			obj = getGameObject(lua, 1);
@@ -91,11 +91,11 @@ namespace game {
 			{ "talking_to", DialogueComponent_talking_to },
 			{ "start_dialogue", DialogueComponent_start_dialogue },
 			{ "locked", DialogueComponent_subject_lock },
-			{ "unlocked_subjects", NULL },
+			{ "unlocked_subjects", nullptr },
 			{ "available", DialogueComponent_dialogue_available },
-			{ "dialogues_available", NULL },
+			{ "dialogues_available", nullptr },
 			{ "attached_to", DialogueComponent_attached_to },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, DialogueComponent::LUA_TABLENAME);
@@ -196,13 +196,13 @@ namespace game {
 			}
 			else if (lua_isnil(lua, 2))
 			{
-				comp->setStartDialogue(NULL);
+				comp->setStartDialogue(nullptr);
 				lua_first(lua);
 			}
 			else
 			{
 				bool valid = true;
-				Dialogue *diag = NULL;
+				Dialogue *diag = nullptr;
 				if (lua_isstr(lua, 2))
 				{
 					diag = Engine::getGame()->getDialogue(lua_tostring(lua, 2));
@@ -319,7 +319,7 @@ namespace game {
 			}
 			if (lua_isnil(lua, 2))
 			{
-				comp->setAttachedTo(NULL);
+				comp->setAttachedTo(nullptr);
 				lua_first(lua);
 			}
 			GameObject *obj = getGameObject(lua, 2);

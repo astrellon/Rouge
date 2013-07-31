@@ -77,7 +77,7 @@ namespace game {
 			{ "add_coin", CoinPurse_add_coin },
 			{ "remove_coin", CoinPurse_remove_coin },
 			{ "max_coin", CoinPurse_max_coin },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, CoinPurse::LUA_TABLENAME);

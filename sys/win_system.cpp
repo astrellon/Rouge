@@ -11,15 +11,15 @@ namespace am {
 namespace sys {
 
 	WinSystem::WinSystem() :
-		mHWnd(NULL),
-		mHInstance(NULL),
+		mHWnd(nullptr),
+		mHInstance(nullptr),
 		mWidth(-1),
 		mHeight(-1),
 		mXpos(0),
 		mYpos(0),
 		mRunning(false),
 		mHideCursor(false),
-		mGameSystem(NULL),
+		mGameSystem(nullptr),
 		mFullscreen(false)
 	{
 	
@@ -63,7 +63,7 @@ namespace sys {
 	void WinSystem::setTitle(const char *title)
 	{
 		mTitle = title;
-		if (mHWnd != NULL)
+		if (mHWnd != nullptr)
 		{
 			SetWindowText(mHWnd, mTitle.c_str());
 		}
@@ -342,7 +342,7 @@ namespace sys {
 	}
 	bool WinSystem::createDirectory(const char *folderName)
 	{
-		if (folderName == NULL || folderName[0] == '\0')
+		if (folderName == nullptr || folderName[0] == '\0')
 		{
 			return false;
 		}
@@ -364,7 +364,7 @@ namespace sys {
 		
 		while (token)
 		{
-			bool result = CreateDirectory(path.c_str(), NULL);
+			bool result = CreateDirectory(path.c_str(), nullptr);
 			if (!result)
 			{
 				DWORD error = GetLastError();
@@ -407,12 +407,12 @@ namespace sys {
 
 	void WinSystem::updatePosSize()
 	{
-		if (mHWnd == NULL)
+		if (mHWnd == nullptr)
 		{
 			return;
 		}
 
-		SetWindowPos(mHWnd, NULL,
+		SetWindowPos(mHWnd, nullptr,
 			mXpos, mYpos,
 			mWidth, mHeight,
 			SWP_SHOWWINDOW);
@@ -593,7 +593,7 @@ namespace sys {
 
 		if (window->init.isFullScreen)										// Is Window In Fullscreen Mode
 		{
-			ChangeDisplaySettings (NULL,0);									// Switch Back To Desktop Resolution
+			ChangeDisplaySettings (nullptr,0);									// Switch Back To Desktop Resolution
 			ShowCursor (TRUE);												// Show The Cursor
 		}	
 		return TRUE;														// Return True
@@ -734,7 +734,7 @@ namespace sys {
 		windowClass.lpfnWndProc		= (WNDPROC)(WindowProc);				// WindowProc Handles Messages
 		windowClass.hInstance		= application->hInstance;				// Set The Instance
 		windowClass.hbrBackground	= (HBRUSH)(COLOR_APPWORKSPACE);			// Class Background Brush Color
-		windowClass.hCursor			= LoadCursor(NULL, IDC_ARROW);			// Load The Arrow Pointer
+		windowClass.hCursor			= LoadCursor(nullptr, IDC_ARROW);			// Load The Arrow Pointer
 		windowClass.lpszClassName	= application->className;				// Sets The Applications Classname
 		if (RegisterClassEx (&windowClass) == 0)							// Did Registering The Class Fail?
 		{

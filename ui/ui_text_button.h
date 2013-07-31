@@ -25,8 +25,8 @@ namespace ui {
 	class TextButton : public IEventListener, public UIComponent {
 	public:
 		TextButton();
-		TextButton(const char *assetName, Renderable *hitbox = NULL);
-		TextButton(const char *assetName, const char *label, Renderable *hitbox = NULL);
+		TextButton(const char *assetName, Renderable *hitbox = nullptr);
+		TextButton(const char *assetName, const char *label, Renderable *hitbox = nullptr);
 		~TextButton();
 
 		void setGraphic(Button *graphic);

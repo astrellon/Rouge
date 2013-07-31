@@ -13,7 +13,7 @@ using namespace am::gfx;
 namespace am {
 namespace sys {
 
-	MemoryTestSystem *MemoryTestSystem::sMemorySystem = NULL;
+	MemoryTestSystem *MemoryTestSystem::sMemorySystem = nullptr;
 
 	MemoryTestSystem *MemoryTestSystem::createMemoryTestSystem(ISystem *linked, Engine *engine)
 	{

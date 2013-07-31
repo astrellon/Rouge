@@ -15,7 +15,7 @@ namespace game {
 
 	class TileType : public IManaged {
 	public:
-		TileType(const char *name, const char *fullName = NULL);
+		TileType(const char *name, const char *fullName = nullptr);
 		~TileType();
 
 		const char *getName() const;

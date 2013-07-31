@@ -27,7 +27,7 @@ namespace ui {
 
 	float InventoryRenderer::getWidth()
 	{
-		if (mInventory != NULL)
+		if (mInventory != nullptr)
 		{
 			return mInventory->getSpacesX() * Inventory::getSpaceSizeX();
 		}
@@ -35,7 +35,7 @@ namespace ui {
 	}
 	float InventoryRenderer::getHeight()
 	{
-		if (mInventory != NULL)
+		if (mInventory != nullptr)
 		{
 			return mInventory->getSpacesY() * Inventory::getSpaceSizeY();
 		}
@@ -68,11 +68,11 @@ namespace ui {
 
 			Item *item = mInventory->getItemAt(gridX, gridY);
 
-			if (item != NULL && hand->getInhand() == NULL)
+			if (item != nullptr && hand->getInhand() == nullptr)
 			{
 				if (e->getMouseEventType() == MOUSE_UP)
 				{
-					if (hand->getInhand() == NULL)
+					if (hand->getInhand() == nullptr)
 					{
 						item->setInteractive(false);
 						hand->setInhand(item);
@@ -83,12 +83,12 @@ namespace ui {
 				}
 				e->stopPropagation();
 			}
-			else if (hand->getInhand() != NULL)
+			else if (hand->getInhand() != nullptr)
 			{
 				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY))
 				{
 					mInventory->addItem(hand->getInhand(), gridX, gridY);
-					hand->setInhand(NULL);
+					hand->setInhand(nullptr);
 				}
 				e->stopPropagation();
 			}
@@ -99,7 +99,7 @@ namespace ui {
 	{
 		UIComponent::preRender(dt);
 
-		if (mInventory == NULL)
+		if (mInventory == nullptr)
 		{
 			return;
 		}
@@ -155,7 +155,7 @@ namespace ui {
 
 	void InventoryRenderer::addItem(Item *item, int x, int y)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return;
 		}
@@ -166,7 +166,7 @@ namespace ui {
 
 	void InventoryRenderer::removeItem(Item *item)
 	{
-		if (item == NULL)
+		if (item == nullptr)
 		{
 			return;
 		}

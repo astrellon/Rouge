@@ -20,7 +20,7 @@ namespace util {
 	{
 		if (mInput[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 
 		int foundChars = 0;

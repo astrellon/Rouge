@@ -14,7 +14,7 @@ namespace ui {
 		mMouseY(y),
 		mLocalMouseX(x),
 		mLocalMouseY(y),
-		mTarget(NULL)
+		mTarget(nullptr)
 	{
 		setType(MouseEventTypeNames[mouseType]);
 	}

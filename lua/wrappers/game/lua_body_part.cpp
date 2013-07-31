@@ -90,7 +90,7 @@ namespace game {
 			{ "is_holding_onto", BodyPart_is_holding_onto },
 			{ "can_equip_item", BodyPart_can_equip_item },
 			{ "item", BodyPart_item },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, BodyPart::LUA_TABLENAME);
@@ -194,7 +194,7 @@ namespace game {
 			{
 				if (lua_isnil(lua, 2))
 				{
-					part->setCanHoldOnto(NULL);
+					part->setCanHoldOnto(nullptr);
 					lua_first(lua);
 				}
 				BodyPart *other = castUData<BodyPart>(lua, 2);
@@ -324,7 +324,7 @@ namespace game {
 			{
 				if (lua_isnil(lua, 2))
 				{
-					part->setEquippedItem(NULL);
+					part->setEquippedItem(nullptr);
 					lua_first(lua);
 				}
 				Item *item = castUData<Item>(lua, 2);

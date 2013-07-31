@@ -80,7 +80,7 @@ namespace game {
 			{ "add", Stats_add },
 			{ "remove", Stats_remove },
 			{ "mods", Stats_mods },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Stats::LUA_TABLENAME);

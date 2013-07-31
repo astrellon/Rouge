@@ -19,12 +19,12 @@ using namespace std;
 namespace am {
 namespace game {
 
-	Engine *Engine::sMainEngine = NULL;
+	Engine *Engine::sMainEngine = nullptr;
 	const int Engine::LUA_ID = 0x06;
 	const char *Engine::LUA_TABLENAME = "am_game_Engine";
 
 	Engine::Engine() :
-		mCurrentGame(NULL),
+		mCurrentGame(nullptr),
 		mGridSize(32.0f),
 		mGridSizeResp(1.0f / 32.0f),
 		mUsingTileSetDirty(true),
@@ -37,14 +37,14 @@ namespace game {
 		if (mUnknownRace)
 		{
 			delete mUnknownRace;
-			mUnknownRace = NULL;
+			mUnknownRace = nullptr;
 		}
 	}
 
 	void Engine::init()
 	{
 		TileSet *global = getTileSetLua("global");
-		if (global == NULL)
+		if (global == nullptr)
 		{
 			am_log("SET", "Global tile set not found!");
 			mTopLevelTileSet = new TileSet();
@@ -170,22 +170,22 @@ namespace game {
 			{
 				return tileSet->getTile(nameStr.c_str());
 			}
-			return NULL;
+			return nullptr;
 		}
 		else
 		{
 			checkUsingTileSet();
 			TileSetMap::iterator iter;
-			Tile *foundTile = NULL;
+			Tile *foundTile = nullptr;
 			for (iter = mUsingTileSet.begin(); iter != mUsingTileSet.end(); ++iter)
 			{
 				foundTile = iter->second->getTile(nameStr.c_str());
-				if (foundTile != NULL)
+				if (foundTile != nullptr)
 				{
 					break;
 				}
 			}
-			if (foundTile == NULL)
+			if (foundTile == nullptr)
 			{
 				foundTile = mTopLevelTileSet->getTile(nameStr.c_str());
 			}
@@ -219,7 +219,7 @@ namespace game {
 			am_log("SET", errss);
 			lua.logStack("SETLUA");
 			lua.close();
-			return NULL;
+			return nullptr;
 		}
 		lua_getglobal(lua, "set");
 		if (!lua_istable(lua, -1))
@@ -228,7 +228,7 @@ namespace game {
 			errss << "Did not find global 'set' table: 'set' = " << lua_typename(lua, -1);
 			am_log("SET", errss);
 			lua.close();
-			return NULL;
+			return nullptr;
 		}
 		tileSet->loadDef(lua);
 		mTileSets[tileSetStr] = tileSet;
@@ -390,7 +390,7 @@ namespace game {
 		{
 			return sMainEngine->getCurrentGame();
 		}
-		return NULL;
+		return nullptr;
 	}
 
 	GameObject *Engine::getGameObject(const char *id) const
@@ -399,7 +399,7 @@ namespace game {
 		{
 			return mCurrentGame->getGameObject(id);
 		}
-		return NULL;
+		return nullptr;
 	}
 	bool Engine::registerGameObject(GameObject *obj)
 	{
@@ -426,7 +426,7 @@ namespace game {
 
 	bool Engine::addRace(Race *race)
 	{
-		if (race == NULL)
+		if (race == nullptr)
 		{
 			return false;
 		}
@@ -440,7 +440,7 @@ namespace game {
 	}
 	bool Engine::removeRace(Race *race)
 	{
-		if (race == NULL)
+		if (race == nullptr)
 		{
 			return false;
 		}
@@ -454,14 +454,14 @@ namespace game {
 	}
 	Race *Engine::getRace(const char *raceName)
 	{
-		if (raceName == NULL || raceName[0] == '\0')
+		if (raceName == nullptr || raceName[0] == '\0')
 		{
-			return NULL;
+			return nullptr;
 		}
 		RaceMap::iterator iter = mRaces.find(string(raceName));
 		if (iter == mRaces.end())
 		{
-			return NULL;
+			return nullptr;
 		}
 		return iter->second;
 	}
@@ -472,7 +472,7 @@ namespace game {
 
 	void Engine::addTileType(TileType *type)
 	{
-		if (type == NULL)
+		if (type == nullptr)
 		{
 			return;
 		}
@@ -487,7 +487,7 @@ namespace game {
 		TileTypeMap::iterator iter = mTileTypes.find(name);
 		if (iter == mTileTypes.end())
 		{
-			return NULL;
+			return nullptr;
 		}
 		return iter->second;
 	}

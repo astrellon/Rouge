@@ -39,13 +39,13 @@ namespace tests {
 		am_equalsStr("Iron", item1->getPrefix());
 		am_equalsStr("and Shield", item1->getPostfix());
 
-		item1->setPrefix(NULL);
+		item1->setPrefix(nullptr);
 		am_equalsStr("Sword and Shield", item1->getFullItemName());
 		am_equalsStr("Sword", item1->getItemName());
 		am_equalsStr("", item1->getPrefix());
 		am_equalsStr("and Shield", item1->getPostfix());
 
-		item1->setPostfix(NULL);
+		item1->setPostfix(nullptr);
 		am_equalsStr("Sword", item1->getFullItemName());
 		am_equalsStr("Sword", item1->getItemName());
 		am_equalsStr("", item1->getPrefix());
@@ -63,7 +63,7 @@ namespace tests {
 		am_equalsStr("Plain", item1->getPrefix());
 		am_equalsStr("", item1->getPostfix());
 		
-		item1->setItemFullname("Wand", NULL, "of Gamelon");
+		item1->setItemFullname("Wand", nullptr, "of Gamelon");
 		am_equalsStr("Wand of Gamelon", item1->getFullItemName());
 		am_equalsStr("Wand", item1->getItemName());
 		am_equalsStr("", item1->getPrefix());

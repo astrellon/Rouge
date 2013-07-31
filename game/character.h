@@ -76,7 +76,7 @@ namespace game {
 		 * Return codes:
 		 *  ABLE_TO_EQUIP: Able to be equipped
 		 *  CAN_EQUIP: Can be equipped
-		 *  NULL_PARAMETER: The item is NULL or the partName is NULL or the partName is an empty string.
+		 *  NULL_PARAMETER: The item is nullptr or the partName is nullptr or the partName is an empty string.
 		 *  BODY_PART_NOT_FOUND: No part with the given partName was found.
 		 *  BODY_PART_TYPE_MISMATCH: The item cannot be equipped due to body part type mismatches.
 		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.
@@ -94,7 +94,7 @@ namespace game {
 		 * Return codes:
 		 *  ABLE_TO_EQUIP: Able to be equipped
 		 *  CAN_EQUIP: Can be equipped
-		 *  NULL_PARAMETER: The item is NULL or the partName is NULL or the partName is an empty string.
+		 *  NULL_PARAMETER: The item is nullptr or the partName is nullptr or the partName is an empty string.
 		 *  BODY_PART_NOT_FOUND: The given part was not found on the list of character body parts.
 		 *  BODY_PART_TYPE_MISMATCH: The item cannot be equipped due to body part type mismatches.
 		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.

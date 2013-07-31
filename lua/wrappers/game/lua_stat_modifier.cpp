@@ -123,7 +123,7 @@ namespace game {
 			{ "value", StatModifier_value },
 			{ "type", StatModifier_type },
 			{ "magical", StatModifier_magical },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, StatModifier::LUA_TABLENAME);

@@ -84,7 +84,7 @@ namespace data {
 			{ "pairs", DataTable_pairs },
 			{ "ipairs", DataTable_ipairs },
 			{ "remove", DataTable_remove },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, am::util::data::Table::LUA_TABLENAME);

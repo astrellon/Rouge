@@ -63,7 +63,7 @@ namespace lua {
 	 *
 	 * @param lua The lua_State to work on.
 	 * @param n The stack index to the value.
-	 * @return A non-NULL value if the id's match
+	 * @return A non-nullptr value if the id's match
 	 */
 	template <class T>
 	inline T *castUData(lua_State *lua, int n)
@@ -76,7 +76,7 @@ namespace lua {
 				return reinterpret_cast<T *>(udata->ptr);
 			}
 		}
-		return NULL;
+		return nullptr;
 	}
 	int getUDataType(lua_State *lua, int n);
 
@@ -165,7 +165,7 @@ namespace lua {
 		/// to a lua_State when it's needed.
 		operator lua_State *();
 
-		int newTable(const char *tableName = NULL);
+		int newTable(const char *tableName = nullptr);
 		bool getTable(int tableRef);
 		bool getTable(const char *tableName);
 		bool compareRefs(int ref1, int ref2) const;

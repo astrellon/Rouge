@@ -17,8 +17,8 @@ namespace gfx {
 
 	class Button : public Sprite, public IEventListener {
 	public:
-		Button(Renderable *hitbox = NULL);
-		Button(const char *assetName, Renderable *hitbox = NULL);
+		Button(Renderable *hitbox = nullptr);
+		Button(const char *assetName, Renderable *hitbox = nullptr);
 		~Button();
 
 		void setHitbox(Renderable *hitbox);

@@ -42,7 +42,7 @@ namespace util {
 		template <class T>
 		static bool fromString(T &t, const char *input, ios_base &(*f)(ios_base &) = dec)
 		{
-			if (input == NULL)
+			if (input == nullptr)
 			{
 				return false;
 			}

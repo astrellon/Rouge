@@ -41,12 +41,12 @@ namespace game {
 		if (lua_isstr(lua, 1) && lua_isstr(lua, 2))
 		{
 			int args = lua_gettop(lua);
-			const char *title = NULL;
+			const char *title = nullptr;
 			if (args >= 3 && lua_isstr(lua, 3))
 			{
 				title = lua_tostring(lua, 3);
 			}
-			const char *subject = NULL;
+			const char *subject = nullptr;
 			if (args >= 4 && lua_isstr(lua, 4))
 			{
 				subject = lua_tostring(lua, 4);
@@ -120,7 +120,7 @@ namespace game {
 			{ "remove_dialogue", Dialogue_remove_dialogue },
 			{ "remove_all_dialogue", Dialogue_remove_all_dialogue },
 			{ "dialogue", Dialogue_get_dialogue },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Dialogue::LUA_TABLENAME);

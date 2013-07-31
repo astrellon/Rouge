@@ -89,7 +89,7 @@ namespace game {
 			{ "__eq", TileInstance_eq },
 			{ "tile", TileInstance_tile },
 			{ "tile_frame", TileInstance_tile_frame },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, TileInstance::LUA_TABLENAME);

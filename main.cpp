@@ -16,7 +16,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//VLDSetOptions(VLD_OPT_AGGREGATE_DUPLICATES, 1000, 1000);
 #endif
 
-	am::util::Utils::setRandSeed(time(NULL));
+	am::util::Utils::setRandSeed(time(nullptr));
 
 	am::log::Logger mainLogger;
 	am::log::Logger::setMainLogger(&mainLogger);

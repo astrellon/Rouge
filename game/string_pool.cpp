@@ -14,32 +14,32 @@ namespace game {
 
 	string StringPool::replace(const char *str)
 	{
-		if (str == NULL || str[0] == '\0')
+		if (str == nullptr || str[0] == '\0')
 		{
 			return string("");
 		}
 		Tokeniser tokeniser(str);
 		const char *token = tokeniser.nextToken();
-		if (token == NULL)
+		if (token == nullptr)
 		{
 			return string("");
 		}
 		if (strcmp(token, "char") == 0)
 		{
 			token = tokeniser.nextToken();
-			if (token == NULL)
+			if (token == nullptr)
 			{
 				return string("{unfinished token 'player'}");
 			}
 			if (strcmp(token, "main") == 0)
 			{
 				Game *game = Engine::getEngine()->getCurrentGame();
-				if (game == NULL)
+				if (game == nullptr)
 				{
 					return string("{no current game for main player}");
 				}
 				Character *mainChar = game->getMainCharacter();
-				if (mainChar == NULL)
+				if (mainChar == nullptr)
 				{
 					return string("{no main character}");
 				}
@@ -54,7 +54,7 @@ namespace game {
 	string StringPool::replaceCharacter(Tokeniser &tokeniser, Character *character)
 	{
 		const char *token = tokeniser.nextToken();
-		if (token == NULL || strcmp(token, "name") == 0)
+		if (token == nullptr || strcmp(token, "name") == 0)
 		{
 			return string(character->getName());
 		}
@@ -65,7 +65,7 @@ namespace game {
 		if (strcmp(token, "race") == 0)
 		{
 			Race *race = character->getRace();
-			if (race == NULL)
+			if (race == nullptr)
 			{
 				race = Engine::getEngine()->getUnknownRace();
 			}
@@ -74,12 +74,12 @@ namespace game {
 		if (strcmp(token, "equip") == 0)
 		{
 			token = tokeniser.nextToken();
-			if (token == NULL)
+			if (token == nullptr)
 			{
 				return string("{need bodypart to get equipped}");
 			}
 			Item *equipped = character->getEquipped(token);
-			if (equipped == NULL)
+			if (equipped == nullptr)
 			{
 				return ("nothing");
 			}
@@ -91,7 +91,7 @@ namespace game {
 		if (strcmp(token, "stat") == 0)
 		{
 			token = tokeniser.nextToken();
-			if (token == NULL)
+			if (token == nullptr)
 			{
 				return string("{need stat name}");
 			}
@@ -100,7 +100,7 @@ namespace game {
 			{
 				getBase = true;
 				token = tokeniser.nextToken();
-				if (token == NULL)
+				if (token == nullptr)
 				{
 					return string("{need a stat name after flagging base stat}");
 				}

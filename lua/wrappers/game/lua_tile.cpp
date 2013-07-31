@@ -106,7 +106,7 @@ namespace game {
 			{ "has_tile_type", Tile_has_tile_type },
 			{ "tile_types", Tile_tile_types },
 			{ "load_def", Tile_load_def },
-			{ NULL, NULL }
+			{ nullptr, nullptr }
 		};
 
 		luaL_newmetatable(lua, Tile::LUA_TABLENAME);
@@ -467,7 +467,7 @@ namespace game {
 
 	TileType *getTileType(lua_State *lua, int n)
 	{
-		TileType *tileType = NULL;
+		TileType *tileType = nullptr;
 		if (lua_isstring(lua, n))
 		{
 			tileType = Engine::getEngine()->getTileType(lua_tostring(lua, n));

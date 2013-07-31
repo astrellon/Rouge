@@ -18,7 +18,7 @@ namespace game {
 	{
 		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sNiceStatNames[stat];
 	}
@@ -26,7 +26,7 @@ namespace game {
 	{
 		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sStatNames[stat];
 	}
@@ -34,7 +34,7 @@ namespace game {
 	{
 		if (stat < 0 || stat >= Stat::MAX_STAT_LENGTH)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return sStatNames[stat];
 	}

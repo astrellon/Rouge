@@ -12,7 +12,7 @@ namespace am {
 namespace game {
 
 	Camera::Camera() :
-		mFollowing(NULL),
+		mFollowing(nullptr),
 		mDestinationX(0.0f),
 		mDestinationY(0.0f),
 		mLocationX(0.0f),

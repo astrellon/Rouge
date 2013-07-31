@@ -117,7 +117,7 @@ namespace gfx {
 
 	void TextField::render(float dt)
 	{
-		if (!mVisible || mFont == NULL || !mFont->isLoaded())
+		if (!mVisible || mFont == nullptr || !mFont->isLoaded())
 		{
 			return;
 		}

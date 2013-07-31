@@ -37,11 +37,11 @@ namespace ui {
 		template <class T>
 		void fireEvent(T *e)
 		{
-			if (mManager == NULL)
+			if (mManager == nullptr)
 			{
 				return;
 			}
-			if (e->getEventTarget() == NULL)
+			if (e->getEventTarget() == nullptr)
 			{
 				e->setEventTarget(this);
 			}

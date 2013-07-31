@@ -28,9 +28,9 @@ namespace game {
 
 	Map::Map(const char *name) :
 		mName(name),
-		mTiles(NULL),
+		mTiles(nullptr),
 		mEnabledMapCulling(true),
-		mMapData(NULL)
+		mMapData(nullptr)
 	{
 		mBackground = new Layer();
 		mBackground->addChild(this);
@@ -41,9 +41,9 @@ namespace game {
 		}
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
-		mTiles(NULL),
+		mTiles(nullptr),
 		mEnabledMapCulling(true),
-		mMapData(NULL)
+		mMapData(nullptr)
 	{
 		setMapSize(width, height);
 		mBackground = new Layer();
@@ -65,13 +65,13 @@ namespace game {
 		{
 			mBackground->removeChild(this);
 			mBackground->deinit();
-			mBackground = NULL;
+			mBackground = nullptr;
 		}
 		if (mForeground.get())
 		{
 			mForeground->removeChild(this);
 			mForeground->deinit();
-			mForeground = NULL;
+			mForeground = nullptr;
 		}
 		mObjects.clear();
 	}
@@ -98,7 +98,7 @@ namespace game {
 	{
 		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return mTiles[y * mMapWidth + x].getTile();
 	}
@@ -106,7 +106,7 @@ namespace game {
 	{
 		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
 		{
-			return NULL;
+			return nullptr;
 		}
 		return &mTiles[y * mMapWidth + x];
 	}
@@ -162,7 +162,7 @@ namespace game {
 		if (mTiles)
 		{
 			delete [] mTiles;
-			mTiles = NULL;
+			mTiles = nullptr;
 		}
 
 		if (mMapData)
@@ -172,7 +172,7 @@ namespace game {
 				delete [] mMapData[x];
 			}
 			delete [] mMapData;
-			mMapData = NULL;
+			mMapData = nullptr;
 		}
 	}
 
@@ -182,7 +182,7 @@ namespace game {
 	}
 	bool Map::addGameObject(GameObject *object)
 	{
-		if (object == NULL)
+		if (object == nullptr)
 		{
 			return false;
 		}
@@ -206,7 +206,7 @@ namespace game {
 	}
 	bool Map::removeGameObject(GameObject *object)
 	{
-		if (object == NULL)
+		if (object == nullptr)
 		{
 			return false;
 		}
@@ -214,14 +214,14 @@ namespace game {
 		if (iter != mObjects.end())
 		{
 			mObjects.erase(iter);
-			object->setMap(NULL);
+			object->setMap(nullptr);
 			return true;
 		}
 		return false;
 	}
 	bool Map::hasGameObject(GameObject *object) const
 	{
-		if (object == NULL)
+		if (object == nullptr)
 		{
 			return false;
 		}
@@ -243,7 +243,7 @@ namespace game {
 
 	bool Map::isValidLocation(float x, float y, GameObject *forObject) const
 	{
-		if (x < 0 || y < 0 || x >= mWidth || y >= mHeight || forObject == NULL)
+		if (x < 0 || y < 0 || x >= mWidth || y >= mHeight || forObject == nullptr)
 		{
 			return false;
 		}
@@ -283,7 +283,7 @@ namespace game {
 
 	bool Map::isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const
 	{
-		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forObject == NULL)
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forObject == nullptr)
 		{
 			return false;
 		}
@@ -331,7 +331,7 @@ namespace game {
 	}
 	bool Map::isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const
 	{
-		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forTileType == NULL)
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight || forTileType == nullptr)
 		{
 			return false;
 		}
@@ -452,7 +452,7 @@ namespace game {
 								tileNameUse = tileNameStr;
 							}
 							Tile *tile = engine->getTile(tileNameUse.c_str());
-							if (tile == NULL)
+							if (tile == nullptr)
 							{
 								stringstream ss;
 								ss << "Unable to find tile '" << tileNameUse.c_str();

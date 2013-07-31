@@ -9,7 +9,7 @@ namespace gfx {
 
 	NodeHitbox::NodeHitbox() :
 		Renderable(),
-		mNodeTarget(NULL)
+		mNodeTarget(nullptr)
 	{
 		setInteractive(true);
 		addListeners(this);

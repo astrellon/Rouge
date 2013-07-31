@@ -34,8 +34,8 @@ namespace game {
 		mCameraOffsetY(0.0f),
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
-		mMap(NULL),
-		mOriginalMap(NULL)
+		mMap(nullptr),
+		mOriginalMap(nullptr)
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -51,8 +51,8 @@ namespace game {
 		mCameraOffsetX(copy.mCameraOffsetX),
 		mCameraOffsetY(copy.mCameraOffsetY),
 		mPassibleTypes(copy.mPassibleTypes),
-		mMap(NULL),
-		mOriginalMap(NULL)
+		mMap(nullptr),
+		mOriginalMap(nullptr)
 	{
 		if (copy.mMap)
 		{
@@ -77,13 +77,13 @@ namespace game {
 		if (mMap)
 		{
 			Map *map = mMap;
-			mMap = NULL;
+			mMap = nullptr;
 			map->release();
 		}
 		if (mOriginalMap)
 		{
 			Map *map = mOriginalMap;
-			mOriginalMap = NULL;
+			mOriginalMap = nullptr;
 			map->release();
 		}
 	}
@@ -321,7 +321,7 @@ namespace game {
 		}
 		mMap = map;
 		// First map we were added to is our original map.
-		if (mOriginalMap == NULL)
+		if (mOriginalMap == nullptr)
 		{
 			setOriginalMap(map);
 		}
@@ -371,7 +371,7 @@ namespace game {
 
 	void GameObject::addPassibleType(TileType *tileType)
 	{
-		if (tileType != NULL)
+		if (tileType != nullptr)
 		{
 			mPassibleTypes.push_back(tileType);
 		}
@@ -396,7 +396,7 @@ namespace game {
 	}
 	bool GameObject::hasPassibleType(TileType *tileType) const
 	{
-		if (tileType == NULL)
+		if (tileType == nullptr)
 		{
 			return false;
 		}
@@ -420,7 +420,7 @@ namespace game {
 
 	/*void GameObject::talkTo(GameObject *other)
 	{
-		if (mDialogueComp.get() != NULL)
+		if (mDialogueComp.get() != nullptr)
 		{
 			mDialogueComp->talkTo(other);
 		}
@@ -430,7 +430,7 @@ namespace game {
 	}
 	void GameObject::talkTo(GameObject *other, Dialogue *diag)
 	{
-		if (mDialogueComp.get() != NULL)
+		if (mDialogueComp.get() != nullptr)
 		{
 			mDialogueComp->talkTo(other, diag);
 		}
@@ -455,7 +455,7 @@ namespace game {
 		{
 			return true;
 		}
-		if (other != NULL)
+		if (other != nullptr)
 		{
 			return false;
 		}
@@ -545,7 +545,7 @@ namespace game {
 	{
 		if (!state || !data)
 		{
-			am_log("LOADERR", "Loading game object as loading state or data was NULL");
+			am_log("LOADERR", "Loading game object as loading state or data was nullptr");
 			return 0;
 		}
 		
@@ -638,7 +638,7 @@ namespace game {
 			const char *mapName = str->string();
 			if (!mapName)
 			{
-				am_log("LOADERR", "Unable to add game object to NULL or empty string map.");
+				am_log("LOADERR", "Unable to add game object to nullptr or empty string map.");
 			}
 			else
 			{

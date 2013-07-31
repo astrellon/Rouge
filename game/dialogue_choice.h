@@ -19,7 +19,7 @@ namespace game {
 		void setText(const char *text);
 		const char *getText() const;
 
-		void setAttribute(const char *attribute, const char *value = NULL);
+		void setAttribute(const char *attribute, const char *value = nullptr);
 		const char *getAttribute(const char *attribute) const;
 		bool hasAttribute(const char *attribute) const;
 		bool removeAttribute(const char *attribute);

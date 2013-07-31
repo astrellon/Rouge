@@ -17,7 +17,7 @@ namespace ui {
 	class Tooltip : public Layer {
 	public:
 		Tooltip();
-		Tooltip(const char *tooltip, const char *detailed = NULL, Renderable *target = NULL);
+		Tooltip(const char *tooltip, const char *detailed = nullptr, Renderable *target = nullptr);
 		~Tooltip();
 
 		enum TooltipState {
@@ -30,8 +30,8 @@ namespace ui {
 		virtual void setDetailedText(const char *text);
 		virtual const char *getDetailedText() const;
 
-		virtual void active(Renderable *target = NULL);
-		virtual void show(Renderable *target = NULL);
+		virtual void active(Renderable *target = nullptr);
+		virtual void show(Renderable *target = nullptr);
 		virtual void hide();
 
 		virtual void setTarget(Renderable *target);

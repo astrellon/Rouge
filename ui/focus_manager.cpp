@@ -3,7 +3,7 @@
 namespace am {
 namespace ui {
 
-	FocusManager *FocusManager::sManager = NULL;
+	FocusManager *FocusManager::sManager = nullptr;
 
 	FocusManager::FocusManager()
 	{
