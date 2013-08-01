@@ -35,6 +35,10 @@ namespace game {
 	class GameObject : public Layer, public IAttributeData {
 	public:
 
+		enum DamageType {
+			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
+		};
+
 		typedef vector< Handle<TileType> > PassibleTypeList;
 		typedef map<string, bool> SubjectMap;
 
@@ -90,6 +94,8 @@ namespace game {
 		virtual void setOriginalMap(Map *map);
 		virtual Map *getOriginalMap() const;
 
+		virtual void receiveDamage(float damage);
+
 		virtual void addPassibleType(TileType *tileType);
 		virtual void removePassibleType(TileType *tileType);
 		virtual void removeAllPassibleTypes();
@@ -111,6 +117,11 @@ namespace game {
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
+
+		static const char *getDamageTypeName(DamageType type);
+		static const char *getDamageTypeName(int type);
+		static DamageType getDamageType(const char *typeName);
+		static DamageType getDamageType(int type);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -142,6 +153,7 @@ namespace game {
 
 		virtual void postRender(float dt);
 
+		static const char *sDamageTypeNames[];
 	};
 
 	typedef vector<Handle<GameObject> > ObjectList;

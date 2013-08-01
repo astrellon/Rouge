@@ -120,6 +120,7 @@ namespace game {
 			{ "has_started", Game_has_started },
 			{ "load_game", Game_load_game },
 			{ "scenario_name", Game_scenario_name },
+			{ "generic_dead_graphic", Game_generic_dead_graphic },
 			{ "attrs", Game_attrs },
 
 			{ nullptr, nullptr }
@@ -983,6 +984,84 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "scenario_name", "am.game");
+	}
+
+	/**
+	 * Returns the generic dead graphic that is used when a specific dead graphic
+	 * is not set onto a character.
+	 *
+	 * @returns am.sprite The generic dead graphic to use.
+	 */
+	/**
+	 * Sets the generic dead graphic asset name to use when one has not been set onto the
+	 * character itself.
+	 *
+	 * @param string asset_name The graphic asset name.
+	 * @returns am.game This
+	 */
+	/**
+	 * Sets the generic dead graphic to use when one has not been set onto the
+	 * character itself.
+	 *
+	 * @param am.sprite sprite The graphic to set.
+	 * @returns am.game This
+	 */
+	/**
+	 * Sets the generic dead graphic asset name to nil.
+	 *
+	 * @param nil grapic Sets to nil.
+	 * @returns am.game This
+	 */
+	int Game_generic_dead_graphic(lua_State *lua)
+	{
+		Game *game = castUData<Game>(lua, 1);
+		if (game)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				Sprite *dead = game->getGenericDeadGraphic();
+				if (dead)
+				{
+					wrapRefObject<Sprite>(lua, dead);
+				}
+				else
+				{
+					lua_pushnil(lua);
+				}
+				return 1;
+			}
+			else
+			{
+				bool valid = false;
+				if (lua_isstr(lua, 2))
+				{
+					game->setGenericDeadGraphic(new Sprite(lua_tostring(lua, 2)));
+					valid = true;
+				}
+				else if (lua_isnil(lua, 2))
+				{
+					game->setGenericDeadGraphic(nullptr);
+					valid = true;
+				}
+				else
+				{
+					Sprite *sprite = castUData<Sprite>(lua, 2);
+					if (sprite)
+					{
+						game->setGenericDeadGraphic(sprite);
+						valid = true;
+					}
+				}
+				if (valid)
+				{
+					lua_first(lua);
+				}
+				return LuaState::expectedArgs(lua, "generic_dead_graphic", 3, "string asset_name", "Sprite sprite", "nil");
+			}
+			lua_pushstring(lua, game->getScenarioName());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "generic_dead_graphic", "am.game");
 	}
 
 	/**

@@ -25,6 +25,9 @@ namespace game {
 
 	const int GameObject::LUA_ID = 0x08;
 	const char *GameObject::LUA_TABLENAME = "am_game_GameObject";
+	const char *GameObject::sDamageTypeNames[] = {
+		"unknown", "arrow", "blunt", "piercing", "falling", "fire", "cold", "magical", "acid", "MAX_DAMAGE_LENGTH"
+	};
 
 	GameObject::GameObject() :
 		Layer(),
@@ -351,6 +354,12 @@ namespace game {
 	{
 		return mOriginalMap;
 	}
+
+	void GameObject::receiveDamage(float damage)
+	{
+		// TODO
+	}
+
 	void GameObject::setFixedToGrid(bool fixed)
 	{
 		mFixedToGrid = fixed;
@@ -714,6 +723,46 @@ namespace game {
 			}
 		}
 		Layer::postRender(dt);
+	}
+
+	const char *GameObject::getDamageTypeName(DamageType type)
+	{
+		if (type < 0 || type >= MAX_DAMAGE_TYPE)
+		{
+			return NULL;
+		}
+		return sDamageTypeNames[type];
+	}
+	const char *GameObject::getDamageTypeName(int type)
+	{
+		if (type < 0 || type >= MAX_DAMAGE_TYPE)
+		{
+			return NULL;
+		}
+		return sDamageTypeNames[type];
+	}
+	GameObject::DamageType GameObject::getDamageType(const char *typeName)
+	{
+		if (!typeName || typeName[0] == '\0')
+		{
+			return MAX_DAMAGE_TYPE;
+		}
+		for (int i = 0; i < MAX_DAMAGE_TYPE; i++)
+		{
+			if (strcmp(typeName, sDamageTypeNames[i]) == 0)
+			{
+				return static_cast<DamageType>(i);
+			}
+		}
+		return MAX_DAMAGE_TYPE;
+	}
+	GameObject::DamageType GameObject::getDamageType(int type)
+	{
+		if (type < 0 || type >= MAX_DAMAGE_TYPE)
+		{
+			return MAX_DAMAGE_TYPE;
+		}
+		return static_cast<DamageType>(type);
 	}
 }
 }

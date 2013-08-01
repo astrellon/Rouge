@@ -39,7 +39,8 @@ namespace game {
 		mQuestItemId(-1),
 		mBodyPartsRequired(1),
 		mStatModifiers(new StatModifiers()),
-		mStatModifiersSelf(new StatModifiers())
+		mStatModifiersSelf(new StatModifiers()),
+		mBaseDamageType(BLUNT)
 	{
 		setName("Item");
 		addPassibleType(Engine::getEngine()->getTileType("land"));
@@ -54,7 +55,8 @@ namespace game {
 		mPrefix(copy.mPrefix),
 		mPostfix(copy.mPostfix),
 		mQuestItemId(copy.mQuestItemId),
-		mBodyPartsRequired(copy.mBodyPartsRequired)
+		mBodyPartsRequired(copy.mBodyPartsRequired),
+		mBaseDamageType(copy.mBaseDamageType)
 	{
 		if (copy.mGraphic)
 		{

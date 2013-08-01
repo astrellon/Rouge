@@ -107,6 +107,9 @@ namespace game {
 		virtual void setBodyPartsRequired(unsigned int num);
 		virtual unsigned int getBodyPartsRequired() const;
 
+		//virtual void setBaseDamageType(DamageType type);
+		//virtual DamageType getBaseDamageType() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -132,6 +135,8 @@ namespace game {
 
 		unsigned int mItemValue;
 		unsigned int mBodyPartsRequired;
+
+		DamageType mBaseDamageType;
 
 		Handle<StatModifiers> mStatModifiers;
 		Handle<StatModifiers> mStatModifiersSelf;

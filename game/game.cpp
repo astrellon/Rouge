@@ -845,6 +845,16 @@ namespace game {
 		return mScenarioName.c_str();
 	}
 
+	void Game::setGenericDeadGraphic(Sprite *graphic)
+	{
+		// Should alert things that this has changed.
+		mGenericDeadGraphic = graphic;
+	}
+	Sprite *Game::getGenericDeadGraphic() const
+	{
+		return mGenericDeadGraphic;
+	}
+
 	void Game::saveGame(const char *saveName)
 	{
 		if (saveName == nullptr || saveName[0] == '\0')

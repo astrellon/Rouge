@@ -11,6 +11,8 @@ function am.new_game(scenario_name)
 	game = am.game.new()
 	am.engine.game(game)
 	
+	game:generic_dead_graphic("characters/dead")
+	
 	scenario, msg = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
 	if (scenario == nil) then
 		am_log("Unable to find main.lua for " .. scenario_name .. "\n" .. msg)

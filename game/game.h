@@ -128,6 +128,9 @@ namespace game {
 		void setScenarioName(const char *scenarioName);
 		const char *getScenarioName() const;
 
+		void setGenericDeadGraphic(Sprite *graphic);
+		Sprite *getGenericDeadGraphic() const;
+
 		// This is different to pausing the game.
 		// As it relates to the game tick itself waiting for
 		// something to happen like user input.
@@ -164,6 +167,8 @@ namespace game {
 		CharacterMap mCharDefinitions;
 
 		string mScenarioName;
+
+		Handle<Sprite> mGenericDeadGraphic;
 
 		Handle<Layer> mGameLayer;
 		Handle<Layer> mBackground;

@@ -105,9 +105,18 @@ namespace game {
 			}
 		}
 	}
-	Sprite *Character::getGraphic()
+	Sprite *Character::getGraphic() const
 	{
-		return mGraphic.get();
+		return mGraphic;
+	}
+
+	void Character::setDeadGraphic(Sprite *graphic)
+	{
+		mDeadGraphic = graphic;
+	}
+	Sprite *Character::getDeadGraphic() const
+	{
+		return mDeadGraphic;
 	}
 
 	void Character::update(float dt)
@@ -241,12 +250,47 @@ namespace game {
 		ss << "Attack damage: " << minDamage << " - " << maxDamage << " (" << attackDamage << ")";
 		am_log("ATTK", ss);
 
+		enemy->receiveDamage(attackDamage);
+
 		if (looped)
 		{
 			// We've attacked with all our weapons this 'round'.
 		}
 
 		return SUCCESS;
+	}
+	void Character::receiveDamage(float damage)
+	{
+		bool wasDead = isDead();
+		mStats->setBaseStat(Stat::HEALTH, mStats->getBaseStat(Stat::HEALTH) - damage);
+
+		if (!wasDead && isDead())
+		{
+			// Dead D:
+			setDead();
+		}
+	}
+	void Character::setDead()
+	{
+		if (mDeadGraphic)
+		{
+			addChild(mDeadGraphic);
+			removeChild(mGraphic);
+		}
+		Sprite *dead = Engine::getGame()->getGenericDeadGraphic();
+		if (dead)
+		{
+			mDeadGraphic = new Sprite(*dead);
+			addChild(mDeadGraphic);
+			removeChild(mGraphic);
+		}
+		else
+		{
+			stringstream ss;
+			ss << "Unable to set dead graphic as character '" << mGameId
+				<< "' does not have one and no generic one has been set.";
+			am_log("DEAD", ss);
+		}
 	}
 
 	void Character::setController(IController *controller)
@@ -772,6 +816,10 @@ namespace game {
 	float Character::getSpeed()
 	{
 		return mStats->getStat(Stat::SPEED);
+	}
+	bool Character::isDead() const
+	{
+		return mStats->getStat(Stat::HEALTH) <= 0.0f;
 	}
 
 	data::IData *Character::serialise()

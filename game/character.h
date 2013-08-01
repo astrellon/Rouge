@@ -39,7 +39,10 @@ namespace game {
 		~Character();
 
 		void setGraphic(Sprite *graphic, bool calcCameraOffset = true);
-		Sprite *getGraphic();
+		Sprite *getGraphic() const;
+
+		void setDeadGraphic(Sprite *graphic);
+		Sprite *getDeadGraphic() const;
 
 		virtual void update(float dt);
 		virtual bool onGameTick(float dt);
@@ -113,7 +116,8 @@ namespace game {
 		virtual int dropItem(Item *item, float x, float y);
 
 		virtual ReturnCode attack(GameObject *enemy, Item *withItem);
-
+		virtual void receiveDamage(float damage);
+		
 		virtual const char *getGameObjectTypeName() const;
 
 		virtual void setAge(float age);
@@ -146,6 +150,7 @@ namespace game {
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		virtual float getSpeed();
+		virtual bool isDead() const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -161,6 +166,7 @@ namespace game {
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
 		Handle<Sprite> mGraphic;
+		Handle<Sprite> mDeadGraphic;
 
 		Handle<Inventory> mInventory;
 		Handle<CoinPurse> mCoinPurse;
@@ -183,6 +189,8 @@ namespace game {
 		virtual void onExperienceChange();
 
 		virtual BodyPart *getNextWeaponPart(bool &looped);
+
+		virtual void setDead();
 
 		size_t findAction(IAction *action);
 		void _equipItem(Item *item, BodyPart *part);

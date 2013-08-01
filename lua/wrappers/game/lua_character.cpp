@@ -983,8 +983,12 @@ namespace game {
 				if (sprite)
 				{
 					wrapRefObject<Sprite>(lua, sprite);
-					return 1;
 				}
+				else
+				{
+					lua_pushnil(lua);
+				}
+				return 1;
 			}
 			else
 			{
