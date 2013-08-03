@@ -22,9 +22,13 @@ namespace gfx {
 
 	class Renderable : virtual public IManaged, public EventInterface {
 	public:
+
+		typedef vector<const Renderable *> RenderablePath;
 		Renderable();
 		Renderable(const Renderable &copy);
 		virtual ~Renderable();
+
+		virtual Renderable *clone() const;
 
 		virtual void deinit();
 
@@ -63,10 +67,14 @@ namespace gfx {
 		virtual void setRenderColour(bool render);
 		virtual bool getRenderColour() const;
 
+		virtual void getRenderPath(RenderablePath &path) const;
+
 		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
 		virtual void getLocalToScreen(const float &inX, const float &inY, float &outX, float &outY) const;
 
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
+
+		static void debugRenderPath(const RenderablePath &path, vector<string> &output);
 
 	protected:
 

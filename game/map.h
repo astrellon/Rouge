@@ -1,8 +1,9 @@
 #pragma once
 
-#include "gfx/gfx_renderable.h"
-#include "gfx/gfx_sprite.h"
-#include "gfx/gfx_text_field.h"
+#include <gfx/gfx_renderable.h>
+#include <gfx/gfx_sprite.h>
+#include <gfx/gfx_text_field.h>
+#include <gfx/tile_renderer.h>
 
 #include <base/handle.h>
 using namespace am::base;
@@ -28,7 +29,10 @@ namespace game {
 	public:
 		Map(const char *name);
 		Map(const char *name, int width, int height);
+		Map(const Map &rhs);
 		~Map();
+
+		virtual Renderable *clone() const;
 
 		virtual void deinit();
 	
@@ -41,9 +45,11 @@ namespace game {
 		Tile *getTile(int x, int y);
 		TileInstance *getTileInstance(int x, int y);
 		TileInstance *getTiles();
+		const TileInstance *getTiles() const;
 
-		Layer *getBackground();
-		Layer *getForeground();
+		Layer *getBackground() const;
+		Layer *getForeground() const;
+		TileRenderer *getTileRenderer() const;
 
 		void setMapSize(int width, int height);
 		int getMapWidth() const;
@@ -62,12 +68,12 @@ namespace game {
 
 		//void loadDef(LuaState &lua);
 
-		void updateAssetSprites();
+		//void updateAssetSprites();
 
 		void setFilename(const char *filename);
 		const char *getFilename() const;
 
-		virtual void render(float dt);
+		//virtual void render(float dt);
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
@@ -91,14 +97,15 @@ namespace game {
 
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;
+		Handle<TileRenderer> mTileRenderer;
 
-		bool mEnabledMapCulling;
+		//bool mEnabledMapCulling;
 
 		// To keep memory at a sane level for larger maps, there is currently
 		// only one sprite per asset. This should also keep tiles of the same animated
 		// graphic in sync, and as well as not doubling up on computing the current frame.
-		typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
-		AssetSpriteMap mAssetSprites;
+		//typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
+		//AssetSpriteMap mAssetSprites;
 
 		void clear();
 		ObjectList::const_iterator findGameObject(GameObject *object) const;

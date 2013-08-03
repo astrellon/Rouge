@@ -4,7 +4,6 @@
 
 #include <algorithm>
 
-#include <gl.h>
 #include <gfx/gfx_engine.h>
 
 #include <util/utils.h>
@@ -29,47 +28,84 @@ namespace game {
 	Map::Map(const char *name) :
 		mName(name),
 		mTiles(nullptr),
-		mEnabledMapCulling(true),
-		mMapData(nullptr)
+		//mEnabledMapCulling(true),
+		mMapData(nullptr),
+		mBackground(new Layer()),
+		mForeground(new Layer())
 	{
-		mBackground = new Layer();
-		mBackground->addChild(this);
-		mForeground = new Layer();
 
-		setInteractive(true);
+		mTileRenderer = new TileRenderer(this);
+		mTileRenderer->setInteractive(true);
+
+		mBackground->addChild(mTileRenderer);
+
+		//setInteractive(true);
 		mBackground->setInteractive(true);
 		}
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
 		mTiles(nullptr),
-		mEnabledMapCulling(true),
-		mMapData(nullptr)
+		//mEnabledMapCulling(true),
+		mMapData(nullptr),
+		mBackground(new Layer()),
+		mForeground(new Layer())
 	{
 		setMapSize(width, height);
-		mBackground = new Layer();
-		mBackground->addChild(this);
-		mForeground = new Layer();
+		// TODO Make use of TileRenderer
+		//mBackground->addChild(this);
+		mTileRenderer = new TileRenderer(this);
+		mTileRenderer->setInteractive(true);
 
-		setInteractive(true);
+		mBackground->addChild(mTileRenderer);
+
+		//setInteractive(true);
 		mBackground->setInteractive(true);
+	}
+	Map::Map(const Map &rhs) :
+		mName(rhs.mName),
+		mTiles(nullptr),
+		//mEnabledMapCulling(rhs.mEnabledMapCulling),
+		mMapData(nullptr),
+		mBackground(rhs.mBackground),
+		mForeground(rhs.mForeground)
+	{
+		for (int i = 0; i < mBackground->getNumChildren(); i++)
+		{
+			if (typeid(mBackground->getChildAt(i)) == typeid(TileRenderer))
+			{
+				mTileRenderer = dynamic_cast<TileRenderer *>(mBackground->getChildAt(i));
+				mTileRenderer->setMap(this);
+			}
+		}
+		if (!mTileRenderer)
+		{
+			mTileRenderer = new TileRenderer(this);
+		}
 	}
 	Map::~Map()
 	{
 		clear();
 	}
 
+	Renderable *Map::clone() const
+	{
+		return new Map(*this);
+	}
+
 	void Map::deinit()
 	{
 		clear();
-		if (mBackground.get())
+
+		mTileRenderer->setMap(nullptr);
+		if (mBackground)
 		{
-			mBackground->removeChild(this);
+			//mBackground->removeChild(this);
 			mBackground->deinit();
 			mBackground = nullptr;
 		}
-		if (mForeground.get())
+		if (mForeground)
 		{
-			mForeground->removeChild(this);
+			//mForeground->removeChild(this);
 			mForeground->deinit();
 			mForeground = nullptr;
 		}
@@ -111,6 +147,10 @@ namespace game {
 		return &mTiles[y * mMapWidth + x];
 	}
 	TileInstance *Map::getTiles()
+	{
+		return mTiles;
+	}
+	const TileInstance *Map::getTiles() const
 	{
 		return mTiles;
 	}
@@ -349,13 +389,17 @@ namespace game {
 		return false;
 	}
 
-	Layer *Map::getBackground()
+	Layer *Map::getBackground() const
 	{
-		return mBackground.get();
+		return mBackground;
 	}
-	Layer *Map::getForeground()
+	Layer *Map::getForeground() const
 	{
-		return mForeground.get();
+		return mForeground;
+	}
+	TileRenderer *Map::getTileRenderer() const
+	{
+		return mTileRenderer;
 	}
 
 	void Map::setFilename(const char *filename)
@@ -367,119 +411,6 @@ namespace game {
 		return mFilename.c_str();
 	}
 	/*
-	void Map::loadDef(LuaState &lua)
-	{
-		if (!lua_istable(lua, -1))
-		{
-			stringstream errss;
-			errss << "Unable to load map def as top element is: " << lua_typename(lua, -1);
-			am_log("MAP", errss);
-			return;
-		}
-		if (lua.isTableString("fullName"))
-		{
-			setFullName(lua_tostring(lua, -1));
-			lua.pop(1);
-		}
-		Engine *engine = Engine::getEngine();
-		engine->clearUsingTileSet();
-
-		if (lua.isTableTable("usingTileSets"))
-		{
-			lua_pushnil(lua);
-			while (lua_next(lua, -2) != 0)
-			{
-				if (lua_type(lua, -1) == LUA_TSTRING)
-				{
-					engine->usingTileSet(lua_tostring(lua, -1));
-				}
-				lua.pop(1);
-			}
-			lua.pop(1);
-		}
-		else if (lua.isTableString("usingTileSets"))
-		{
-			engine->usingTileSet(lua_tostring(lua, -1));
-			lua.pop(1);
-		}
-
-		if (lua.isTableTable("tiles"))
-		{
-			lua_len(lua, -1);
-			int height = lua_tointeger(lua, -1);
-			lua.pop(1);
-			int width = 0;
-			bool error = false;
-
-			int x = 0, y = 0;
-
-			lua_pushnil(lua);
-			while (lua_next(lua, -2) != 0)
-			{
-				if (lua_istable(lua, -1))
-				{
-					lua_len(lua, -1);
-					if (width == 0)
-					{
-						width = lua_tointeger(lua, -1);
-						setMapSize(width, height);
-					}
-					lua.pop(1);
-					lua_pushnil(lua);
-					x = 0;
-					while (lua_next(lua, -2) != 0)
-					{
-						if (lua_isstring(lua, -1))
-						{
-							string tileNameStr = lua_tostring(lua, -1);
-							//string tileNameStr(lua_tostring(lua, -1));
-							int framePos = static_cast<int>(tileNameStr.find_last_of(":"));
-							string tileNameUse;
-							int frameValue = 0;
-							if (framePos >= 0)
-							{
-								string name = tileNameStr.substr(0, framePos);
-								string frame = tileNameStr.substr(framePos + 1);
-								tileNameUse = name;
-								bool parseResult = Utils::fromString<int>(frameValue, frame);
-								if (!parseResult)
-								{
-									frameValue = 0;
-								}
-							}
-							else
-							{
-								tileNameUse = tileNameStr;
-							}
-							Tile *tile = engine->getTile(tileNameUse.c_str());
-							if (tile == nullptr)
-							{
-								stringstream ss;
-								ss << "Unable to find tile '" << tileNameUse.c_str();
-								ss << "' for map '" << mName << "' tile " << x << ", " << y;
-								am_log("MAP", ss);
-								error =	true;
-								break;
-							}
-							mTiles[y * width + x].setTile(tile);
-							mTiles[y * width + x].setTileFrame(frameValue);
-						}
-						x++;
-						lua.pop(1);
-					}
-				}
-				y++;
-				lua.pop(1);
-			}
-			if (!error)
-			{
-				updateAssetSprites();
-			}
-
-			lua.pop(1);
-		}
-	}*/
-
 	void Map::updateAssetSprites()
 	{
 		mAssetSprites.clear();
@@ -503,7 +434,7 @@ namespace game {
 			}
 		}
 	}
-
+	
 	void Map::render(float dt)
 	{
 		AssetSpriteMap::iterator iter;
@@ -566,7 +497,7 @@ namespace game {
 		}
 		glPopMatrix();
 	}
-
+	*/
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{
 		Pathfinder *pathfinder = Pathfinder::getPathfinder();

@@ -320,7 +320,7 @@ namespace game {
 					break;
 				}
 			}
-			map->updateAssetSprites();
+			map->getTileRenderer()->updateAssetSprites();
 			lua_first(lua);
 		}
 		return LuaState::expectedContext(lua, "tiles", "am.map");

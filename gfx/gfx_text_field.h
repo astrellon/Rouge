@@ -24,7 +24,10 @@ namespace gfx {
 		};
 
 		TextField();
+		TextField(const TextField &rhs);
 		~TextField();
+
+		virtual Renderable *clone() const;
 
 		float getRenderedHeight() const;
 

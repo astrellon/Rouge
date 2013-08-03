@@ -47,6 +47,7 @@ namespace gfx {
 	{
 #ifdef _DEBUG
 		mRenderColour = copy.mRenderColour;
+		mDebugName = copy.mDebugName;
 #endif
 	}
 	Renderable::~Renderable()
@@ -56,9 +57,15 @@ namespace gfx {
 #endif
 		if (mParent)
 		{
-			mParent->removeChild(this);
+			Handle<Layer> parent(mParent);
 			mParent = nullptr;
+			parent->removeChild(this);
 		}
+	}
+
+	Renderable *Renderable::clone() const
+	{
+		return new Renderable(*this);
 	}
 
 	void Renderable::deinit()
@@ -253,6 +260,24 @@ namespace gfx {
 #else
 		return false;
 #endif
+	}
+
+	void Renderable::getRenderPath(RenderablePath &path) const
+	{
+		path.push_back(this);
+		Renderable *parent = getParent();
+		while (parent != nullptr)
+		{
+			path.push_back(parent);
+			parent = parent->getParent();
+		}
+	}
+	void Renderable::debugRenderPath(const RenderablePath &path, vector<string> &output)
+	{
+		for (auto iter = path.begin(); iter != path.end(); ++iter)
+		{
+			output.push_back((*iter)->getName());
+		}
 	}
 
 	void Renderable::getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const

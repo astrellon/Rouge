@@ -30,6 +30,8 @@ namespace gfx {
 		Sprite(const char *assetName);
 		~Sprite();
 
+		virtual Renderable *clone() const;
+
 		Asset *getAsset();
 		void setAsset(Asset *asset);
 		void setAsset(const char *assetName);
@@ -54,6 +56,8 @@ namespace gfx {
 
 		void updateSprite(float dt);
 		void renderSprite();
+
+		virtual string getName() const;
 
 		data::IData *serialise();
 		void deserialise(am::game::LoadingState *state, data::IData *data);

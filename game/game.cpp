@@ -151,7 +151,7 @@ namespace game {
 
 	void Game::onEvent(MouseEvent *e)
 	{
-		if (!mCurrentMap.get() || e->getTarget() != mCurrentMap)
+		if (!mCurrentMap || !mCurrentMap->getTileRenderer() || e->getTarget() != mCurrentMap->getTileRenderer())
 		{
 			return;
 		}
@@ -349,7 +349,7 @@ namespace game {
 
 			setTickPositionMainChar();
 
-			mCurrentMap->addEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
 			
 			if (mActiveObjects)
 			{

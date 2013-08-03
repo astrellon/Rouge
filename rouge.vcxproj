@@ -272,6 +272,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="gfx\gfx_text_style.cpp" />
     <ClCompile Include="gfx\scale_nine.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
+    <ClCompile Include="gfx\tile_renderer.cpp" />
     <ClCompile Include="log\flie_log_listener.cpp" />
     <ClCompile Include="log\logger.cpp" />
     <ClCompile Include="log\log_entry.cpp" />
@@ -509,6 +510,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="gfx\gfx_text_style.h" />
     <ClInclude Include="gfx\scale_nine.h" />
     <ClInclude Include="gfx\texture_window.h" />
+    <ClInclude Include="gfx\tile_renderer.h" />
     <ClInclude Include="log\file_log_listener.h" />
     <ClInclude Include="log\ilog_listener.h" />
     <ClInclude Include="log\logger.h" />

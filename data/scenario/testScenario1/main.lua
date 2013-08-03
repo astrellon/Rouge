@@ -31,7 +31,6 @@ return {
 		player = game:main()
 		
 		local sword = am.item.find("sword1")
-		am_log("Sword1? ", sword)
-		am_log(sword:get_body_types())
+		am.debug.log("Sword1? ", sword)
 	end
 }

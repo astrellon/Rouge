@@ -18,6 +18,7 @@ namespace gfx {
 		Layer(const Layer &copy);
 		~Layer();
 
+		virtual Renderable *clone() const;
 		virtual void deinit();
 
 		void addChild(Renderable *child);
@@ -33,6 +34,8 @@ namespace gfx {
 		Renderable *getChildAt(int index) const;
 
 		virtual bool interacteWithLayer() const;
+
+		virtual string getName() const;
 
 		// Renderable methods
 		virtual void render(float dt);

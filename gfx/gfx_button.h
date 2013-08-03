@@ -19,7 +19,10 @@ namespace gfx {
 	public:
 		Button(Renderable *hitbox = nullptr);
 		Button(const char *assetName, Renderable *hitbox = nullptr);
+		Button(const Button &rhs);
 		~Button();
+
+		virtual Renderable *clone() const;
 
 		void setHitbox(Renderable *hitbox);
 		Renderable *getHitbox();

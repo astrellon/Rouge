@@ -23,6 +23,8 @@ namespace gfx {
 		mMeasuredWidth(0),
 		mMeasuredHeight(0),
 		mRenderedHeight(0),
+		mCurrXpos(0.0f),
+		mCurrYpos(0.0f),
 		mCursorXpos(-1.0f),
 		mCursorYpos(-1.0f),
 		mCursorInputPosition(-1),
@@ -33,9 +35,31 @@ namespace gfx {
 		mFont = GfxEngine::getEngine()->getFontLua("basic");
 	}
 
+	TextField::TextField(const TextField &rhs) :
+		Renderable(rhs),
+		mText(rhs.mText),
+		mMeasuredWidth(rhs.mMeasuredWidth),
+		mMeasuredHeight(rhs.mMeasuredHeight),
+		mRenderedHeight(rhs.mRenderedHeight),
+		mCurrXpos(0.0f),
+		mCurrYpos(0.0f),
+		mCursorXpos(-1.0f),
+		mCursorYpos(-1.0f),
+		mCursorInputPosition(-1),
+		mDirty(true),
+		mNewLineDirty(true),
+		mAlignment(rhs.mAlignment),
+		mFont(rhs.mFont)
+	{
+
+	}
 	TextField::~TextField()
 	{
 
+	}
+	Renderable *TextField::clone() const
+	{
+		return new TextField(*this);
 	}
 
 	float TextField::getRenderedHeight() const

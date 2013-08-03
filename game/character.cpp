@@ -42,13 +42,23 @@ namespace game {
 		mRace(nullptr),
 		mCoinPurse(new CoinPurse()),
 		mStats(new Stats()),
-		mArmedCounter(0)
+		mArmedCounter(0),
+		mBackground(new Layer()),
+		mForeground(new Layer()),
+		mCharacterLayer(new Layer())
 	{
+		mBackground->setName("Character->Background");
+		mForeground->setName("Character->Foreground");
+		mCharacterLayer->setName("Character->CharacterLayer");
 		mFixedToGrid = true;
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridSize() * 1.5f;
 		mMaxLevel = 50;
 		addEventListener(MOUSE_UP, this);
+
+		addChild(mBackground);
+		addChild(mCharacterLayer);
+		addChild(mForeground);
 
 		mInventory = new Inventory(10, 6);
 		mStats->setAttachedTo(this);
@@ -65,11 +75,35 @@ namespace game {
 		mInventory(new Inventory(*copy.mInventory)),
 		mArmedCounter(0)
 	{
-		// Copy BodyParts, Inventory, Stats
-		if (copy.mGraphic)
+		int numChildren = getNumChildren();
+		if (numChildren >= 1)
 		{
-			setGraphic(new Sprite(*copy.mGraphic), false);
+			mBackground = dynamic_cast<Layer *>(getChildAt(0));
 		}
+		else
+		{
+			mBackground = new Layer();
+			addChild(mBackground, 0);
+		}
+		if (numChildren >= 2)
+		{
+			mCharacterLayer = dynamic_cast<Layer *>(getChildAt(1));
+		}
+		else
+		{
+			mCharacterLayer = new Layer();
+			addChild(mCharacterLayer, 1);
+		}
+		if (numChildren >= 3)
+		{
+			mForeground = dynamic_cast<Layer *>(getChildAt(2));
+		}
+		else
+		{
+			mForeground = new Layer();
+			addChild(mForeground, 2);
+		}
+
 		mStats = new Stats(*copy.mStats);
 		mStats->setAttachedTo(this);
 
@@ -77,6 +111,12 @@ namespace game {
 		for (auto iter = partList.begin(); iter != partList.end(); ++iter)
 		{
 			addBodyPart(new BodyPart(*iter->get()));
+		}
+
+		// Copy BodyParts, Inventory, Stats
+		if (copy.mGraphic)
+		{
+			setGraphic(new Sprite(*copy.mGraphic), false);
 		}
 	}
 	Character::~Character()
@@ -89,21 +129,19 @@ namespace game {
 
 	void Character::setGraphic(Sprite *graphic, bool calcCameraOffset)
 	{
-		if (mGraphic.get())
+		Handle<Sprite> currentGraphic(mGraphic);
+		if (mGraphic)
 		{
-			removeChild(mGraphic.get());
+			mCharacterLayer->removeChild(mGraphic);
 		}
 		mGraphic = graphic;
-		if (graphic)
+		if (graphic && calcCameraOffset)
 		{
-			addChild(graphic);
 			// Aim for head-ish area.
-			if (calcCameraOffset)
-			{
-				mCameraOffsetX = graphic->getWidth() * 0.5f;
-				mCameraOffsetY = graphic->getHeight() * 0.3f;
-			}
+			mCameraOffsetX = graphic->getWidth() * 0.5f;
+			mCameraOffsetY = graphic->getHeight() * 0.3f;
 		}
+		updateGraphic();
 	}
 	Sprite *Character::getGraphic() const
 	{
@@ -125,6 +163,12 @@ namespace game {
 	}
 	bool Character::onGameTick(float dt)
 	{
+		if (isDead())
+		{
+			// Life doesn't wait for the dead *sunglasses*
+			// In that returning true means that this characters game tick turn is done.
+			return true;
+		}
 		if (mController)
 		{
 			mController->update(this, dt);
@@ -272,25 +316,7 @@ namespace game {
 	}
 	void Character::setDead()
 	{
-		if (mDeadGraphic)
-		{
-			addChild(mDeadGraphic);
-			removeChild(mGraphic);
-		}
-		Sprite *dead = Engine::getGame()->getGenericDeadGraphic();
-		if (dead)
-		{
-			mDeadGraphic = new Sprite(*dead);
-			addChild(mDeadGraphic);
-			removeChild(mGraphic);
-		}
-		else
-		{
-			stringstream ss;
-			ss << "Unable to set dead graphic as character '" << mGameId
-				<< "' does not have one and no generic one has been set.";
-			am_log("DEAD", ss);
-		}
+		updateGraphic();
 	}
 
 	void Character::setController(IController *controller)
@@ -1087,6 +1113,40 @@ namespace game {
 			glPopMatrix();
 		}
 		GameObject::postRender(dt);
+	}
+
+	void Character::updateGraphic()
+	{
+		mCharacterLayer->clear();
+		if (isDead())
+		{
+			if (mDeadGraphic)
+			{
+				mCharacterLayer->addChild(mDeadGraphic);
+				mCharacterLayer->removeChild(mGraphic);
+			}
+			else
+			{
+				Sprite *dead = Engine::getGame()->getGenericDeadGraphic();
+				if (dead)
+				{
+					mDeadGraphic = new Sprite(*dead);
+					mCharacterLayer->addChild(mDeadGraphic);
+					mCharacterLayer->removeChild(mGraphic);
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Unable to set dead graphic as character '" << mGameId
+						<< "' does not have one and no generic one has been set.";
+					am_log("DEAD", ss);
+				}
+			}
+		}
+		else
+		{
+			mCharacterLayer->addChild(mGraphic);
+		}
 	}
 }
 }

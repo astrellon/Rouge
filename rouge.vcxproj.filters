@@ -145,6 +145,12 @@
     <Filter Include="log">
       <UniqueIdentifier>{60ddc6fc-73ad-4155-bc31-deba8db52230}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\map">
+      <UniqueIdentifier>{55b32877-14c3-4b42-ab32-24d839a6e6f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gfx\rouge">
+      <UniqueIdentifier>{eb6b4d49-792a-44bd-93b2-f2feb0421269}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -235,18 +241,6 @@
     <ClCompile Include="game\game_object.cpp">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="game\map.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\tile.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\tile_instance.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\tile_set.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="base\imanaged.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -312,9 +306,6 @@
     </ClCompile>
     <ClCompile Include="gfx\gfx_colour_effect.cpp">
       <Filter>gfx\base</Filter>
-    </ClCompile>
-    <ClCompile Include="game\tile_type.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="ui\ui_character_screen.cpp">
       <Filter>ui\rouge</Filter>
@@ -844,6 +835,24 @@
     <ClCompile Include="lua\wrappers\lua_return_codes.cpp">
       <Filter>lua\wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="game\tile.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile_instance.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile_set.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
+    <ClCompile Include="game\tile_type.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
+    <ClCompile Include="game\map.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\tile_renderer.cpp">
+      <Filter>gfx\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -937,18 +946,6 @@
     <ClInclude Include="game\game_object.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="game\map.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\tile.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\tile_instance.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\tile_set.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="base\handle.h">
       <Filter>base</Filter>
     </ClInclude>
@@ -1032,9 +1029,6 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_colour_effect.h">
       <Filter>gfx\base</Filter>
-    </ClInclude>
-    <ClInclude Include="game\tile_type.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui_character_screen.h">
       <Filter>ui\rouge</Filter>
@@ -1542,6 +1536,24 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\lua_return_codes.h">
       <Filter>lua\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile_type.h">
+      <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile.h">
+      <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile_instance.h">
+      <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="game\tile_set.h">
+      <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="game\map.h">
+      <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\tile_renderer.h">
+      <Filter>gfx\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

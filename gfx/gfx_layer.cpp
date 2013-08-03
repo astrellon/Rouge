@@ -15,14 +15,19 @@ namespace gfx {
 	Layer::Layer(const Layer &copy) :
 		Renderable(copy)
 	{
-		/*for (auto iter = copy.mChildren.begin(); iter != copy.mChildren.end(); ++iter)
+		for (auto iter = copy.mChildren.begin(); iter != copy.mChildren.end(); ++iter)
 		{
-			addChild(*iter);
-		}*/
+			addChild((*iter)->clone());
+		}
 	}
 	Layer::~Layer()
 	{
 
+	}
+
+	Renderable *Layer::clone() const
+	{
+		return new Layer(*this);
 	}
 
 	void Layer::deinit()
@@ -176,6 +181,22 @@ namespace gfx {
 			}
 		}
 		return mChildren.end();
+	}
+
+	string Layer::getName() const
+	{
+		stringstream name;
+#ifdef _DEBUG
+		name << mDebugName;
+		if (mDebugName.size() == 0)
+		{
+			name << "Layer";
+		}
+#else
+		name << "Layer";
+#endif
+		name << " (" << getNumChildren() << ")";
+		return name.str();
 	}
 
 }

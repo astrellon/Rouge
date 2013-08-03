@@ -26,12 +26,25 @@ namespace gfx {
 		setHitbox(hitbox);
 		setInteractive(true);
 	}
+	Button::Button(const Button &rhs) :
+		Sprite(rhs),
+		mHitbox(rhs.mHitbox),
+		mEnabled(rhs.mEnabled)
+	{
+		setHitbox(mHitbox);
+		setInteractive(rhs.isInteractive());
+	}
 	Button::~Button()
 	{
 		if (mHitbox.get())
 		{
 			removeListeners(mHitbox);
 		}
+	}
+
+	Renderable *Button::clone() const
+	{
+		return new Button(*this);
 	}
 
 	void Button::setHitbox(Renderable *hitbox)

@@ -2,6 +2,7 @@
 
 #include "game_object.h"
 #include "loading_state.h"
+#include "character.h"
 
 #include <util/data_table.h>
 #include <util/data_number.h>
@@ -60,6 +61,10 @@ namespace game {
 		if (mModifiers->addStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
+			if (stat == Stat::HEALTH && typeid(mAttachedTo) == typeid(Character))
+			{
+				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
+			}
 			return true;
 		}
 		return false;
@@ -73,6 +78,10 @@ namespace game {
 		if (mModifiers->removeStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
+			if (stat == Stat::HEALTH && typeid(mAttachedTo) == typeid(Character))
+			{
+				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
+			}
 			return true;
 		}
 		return false;
@@ -96,6 +105,10 @@ namespace game {
 		{
 			mBaseStats[stat] = value;
 			setStatDirty(stat);
+			if (stat == Stat::HEALTH && typeid(mAttachedTo) == typeid(Character))
+			{
+				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
+			}
 		}
 	}
 
@@ -122,6 +135,10 @@ namespace game {
 		if (mAttachedTo)
 		{
 			mAttachedTo->retain();
+			if (typeid(mAttachedTo) == typeid(Character))
+			{
+				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
+			}
 		}
 	}
 	GameObject *Stats::getAttachedTo()
@@ -138,6 +155,10 @@ namespace game {
 		{
 			setStatDirty(iter->first);
 		}
+		if (typeid(mAttachedTo) == typeid(Character))
+		{
+			dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
+		}
 	}
 	void Stats::removeModifiers(const IStatModifiers &rhs)
 	{
@@ -147,6 +168,10 @@ namespace game {
 		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
 		{
 			mDirtyStats[iter->first] = true;
+		}
+		if (Stat::HEALTH && typeid(mAttachedTo) == typeid(Character))
+		{
+			dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
 		}
 	}
 	void Stats::addModifiers(const IStatModifiers *rhs)

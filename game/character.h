@@ -44,6 +44,10 @@ namespace game {
 		void setDeadGraphic(Sprite *graphic);
 		Sprite *getDeadGraphic() const;
 
+		Layer *getBackgroundLayer() const;
+		Layer *getForegroundLayer() const;
+		Layer *getCharacterLayer() const;
+
 		virtual void update(float dt);
 		virtual bool onGameTick(float dt);
 
@@ -152,6 +156,8 @@ namespace game {
 		virtual float getSpeed();
 		virtual bool isDead() const;
 
+		virtual void updateGraphic();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -167,6 +173,9 @@ namespace game {
 		// keeps track of multiple animations.
 		Handle<Sprite> mGraphic;
 		Handle<Sprite> mDeadGraphic;
+		Handle<Layer> mCharacterLayer;
+		Handle<Layer> mForeground;
+		Handle<Layer> mBackground;
 
 		Handle<Inventory> mInventory;
 		Handle<CoinPurse> mCoinPurse;

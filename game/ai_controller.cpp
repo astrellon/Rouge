@@ -32,6 +32,10 @@ namespace game {
 
 	void AiController::update(Character *character, float dt)
 	{
+		if (character->isDead())
+		{
+			return;
+		}
 		mActive = true;
 
 		if (!character->hasDestination())

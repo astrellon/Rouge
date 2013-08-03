@@ -72,6 +72,11 @@ namespace gfx {
 	{
 	}
 
+	Renderable *Sprite::clone() const
+	{
+		return new Sprite(*this);
+	}
+
 	Asset *Sprite::getAsset()
 	{
 		return mAsset;
@@ -232,6 +237,15 @@ namespace gfx {
 			return;
 		}
 
+		/*if (mAsset != nullptr && string(mAsset->getTexture()->getFilename()).find("dead") != string::npos)
+		{
+			RenderablePath path;
+			getRenderPath(path);
+			vector<string> names;
+			debugRenderPath(path, names);
+			printf("ASD");
+		}*/
+
 		if (mAsset == nullptr || mAsset->getTexture() == nullptr || !mAsset->getTexture()->isLoaded())
 		{
 			if (!mGfxComponent || (mGfxComponent && mGfxComponent->getColour().getAlpha() > 0.05f))
@@ -317,6 +331,30 @@ namespace gfx {
 
 		renderTexture(win, width, height);
 		//glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	string Sprite::getName() const
+	{
+#ifdef _DEBUG
+		string name = mDebugName;
+		if (name.size() == 0)
+		{
+			name = "Sprite";
+		}
+#else
+		string name = "Sprite";
+#endif
+		name += " (";
+		if (mAsset)
+		{
+			name += mAsset->getTexture()->getFilename();
+		}
+		else
+		{
+			name += "no asset";
+		}
+		name += ")";
+		return name;
 	}
 
 	void Sprite::renderTexture(const TextureWindow &win, const float &width, const float &height)
