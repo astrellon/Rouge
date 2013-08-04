@@ -18,6 +18,7 @@ namespace tests {
 			runCase(testSimple);
 			runCase(testEquipped);
 			runCase(testCopy);
+			runCase(testDead);
 			//runCase(testSelector);
 		}
 	
@@ -30,6 +31,7 @@ namespace tests {
 		bool testSimple();
 		bool testEquipped();
 		bool testCopy();
+		bool testDead();
 		//bool testSelector();
 	
 	};

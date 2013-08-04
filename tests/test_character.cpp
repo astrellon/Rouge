@@ -114,6 +114,7 @@ namespace tests {
 
 		Engine::setEngine(eng);
 		Handle<Game> game = new Game();
+		eng->setCurrentGame(game);
 		
 		Handle<Character> testChar(new Character());
 		testChar->setAge(24);
@@ -258,6 +259,43 @@ namespace tests {
 		am_equalsDelta(7.0f, copyChar->getStats()->getStat(Stat::ARMOUR), 0.0001f);
 
 		Engine::setEngine(prevEngine);
+		delete eng;
+		
+		return true;
+	}
+
+	bool TestCharacter::testDead()
+	{
+		Engine *prevEngine = Engine::getEngine();
+		Engine *eng = new Engine();
+		eng->addRace(new Race("human"));
+
+		Engine::setEngine(eng);
+		Handle<Game> game = new Game();
+		eng->setCurrentGame(game);
+
+		Handle<Sprite> deadGraphic(new Sprite());
+		Handle<Sprite> aliveGraphic(new Sprite());
+		game->setGenericDeadGraphic(deadGraphic);
+		
+		Handle<Character> testChar(new Character());
+		testChar->setGraphic(aliveGraphic);
+		assert(testChar->getCharacterLayer()->getChildAt(0) != aliveGraphic);
+
+		assert(testChar->isDead());
+		testChar->getStats()->setBaseStat(Stat::MAX_HEALTH, 10.0f);
+		testChar->getStats()->setBaseStat(Stat::HEALTH, 10.0f);
+		assert(!testChar->isDead());
+		testChar->updateGraphic();
+
+		assert(testChar->getCharacterLayer()->getChildAt(0) == aliveGraphic);
+
+		testChar->getStats()->setBaseStat(Stat::HEALTH, 0.0f);
+		testChar->updateGraphic();
+		assert(testChar->getCharacterLayer()->getChildAt(0) != aliveGraphic);
+
+		Engine::setEngine(prevEngine);
+		
 		delete eng;
 		
 		return true;

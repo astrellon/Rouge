@@ -157,6 +157,19 @@ namespace game {
 		return mDeadGraphic;
 	}
 
+	Layer *Character::getBackgroundLayer() const
+	{
+		return mBackground;
+	}
+	Layer *Character::getForegroundLayer() const
+	{
+		return mForeground;
+	}
+	Layer *Character::getCharacterLayer() const
+	{
+		return mCharacterLayer;
+	}
+		   
 	void Character::update(float dt)
 	{
 		
@@ -1123,16 +1136,23 @@ namespace game {
 			if (mDeadGraphic)
 			{
 				mCharacterLayer->addChild(mDeadGraphic);
-				mCharacterLayer->removeChild(mGraphic);
 			}
 			else
 			{
-				Sprite *dead = Engine::getGame()->getGenericDeadGraphic();
+				Handle<Game> game(Engine::getGame());
+				if (!game)
+				{
+					stringstream ss;
+					ss << "Unable to set dead graphic for character '" << mGameId
+						<< "' as there is no current game yet to grab the generic dead graphic from.";
+					am_log("DEAD", ss);
+					return;
+				}
+				Handle<Sprite> dead(game->getGenericDeadGraphic());
 				if (dead)
 				{
 					mDeadGraphic = new Sprite(*dead);
 					mCharacterLayer->addChild(mDeadGraphic);
-					mCharacterLayer->removeChild(mGraphic);
 				}
 				else
 				{

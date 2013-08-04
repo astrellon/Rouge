@@ -92,7 +92,7 @@ namespace game {
 	}
 	Game *Engine::getCurrentGame()
 	{
-		return mCurrentGame.get();
+		return mCurrentGame;
 	}
 
 	void Engine::usingTileSet(const char *tileSetName)
