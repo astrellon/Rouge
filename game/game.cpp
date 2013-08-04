@@ -337,7 +337,7 @@ namespace game {
 
 		if (mCurrentMap)
 		{
-			mCurrentMap->removeEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
 		}
 
 		mCurrentMap = map;

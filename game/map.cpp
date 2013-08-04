@@ -28,10 +28,13 @@ namespace game {
 	Map::Map(const char *name) :
 		mName(name),
 		mTiles(nullptr),
-		//mEnabledMapCulling(true),
 		mMapData(nullptr),
 		mBackground(new Layer()),
-		mForeground(new Layer())
+		mForeground(new Layer()),
+		mMapWidth(0),
+		mMapHeight(0),
+		mWidth(0.0f),
+		mHeight(0.0f)
 	{
 
 		mTileRenderer = new TileRenderer(this);
@@ -45,14 +48,15 @@ namespace game {
 	Map::Map(const char *name, int width, int height) : 
 		mName(name),
 		mTiles(nullptr),
-		//mEnabledMapCulling(true),
 		mMapData(nullptr),
 		mBackground(new Layer()),
-		mForeground(new Layer())
+		mForeground(new Layer()),
+		mMapWidth(0),
+		mMapHeight(0),
+		mWidth(0.0f),
+		mHeight(0.0f)
 	{
 		setMapSize(width, height);
-		// TODO Make use of TileRenderer
-		//mBackground->addChild(this);
 		mTileRenderer = new TileRenderer(this);
 		mTileRenderer->setInteractive(true);
 
@@ -64,10 +68,13 @@ namespace game {
 	Map::Map(const Map &rhs) :
 		mName(rhs.mName),
 		mTiles(nullptr),
-		//mEnabledMapCulling(rhs.mEnabledMapCulling),
 		mMapData(nullptr),
 		mBackground(rhs.mBackground),
-		mForeground(rhs.mForeground)
+		mForeground(rhs.mForeground),
+		mMapWidth(0),
+		mMapHeight(0),
+		mWidth(0.0f),
+		mHeight(0.0f)
 	{
 		for (int i = 0; i < mBackground->getNumChildren(); i++)
 		{
@@ -85,11 +92,6 @@ namespace game {
 	Map::~Map()
 	{
 		clear();
-	}
-
-	Renderable *Map::clone() const
-	{
-		return new Map(*this);
 	}
 
 	void Map::deinit()
@@ -195,6 +197,15 @@ namespace game {
 	int Map::getMapHeight() const
 	{
 		return mMapHeight;
+	}
+
+	float Map::getWidth() const
+	{
+		return mWidth;
+	}
+	float Map::getHeight() const
+	{
+		return mHeight;
 	}
 
 	void Map::clear()
@@ -410,94 +421,7 @@ namespace game {
 	{
 		return mFilename.c_str();
 	}
-	/*
-	void Map::updateAssetSprites()
-	{
-		mAssetSprites.clear();
-
-		int numTiles = mMapWidth * mMapHeight;
-		float grid = Engine::getEngine()->getGridSize();
-
-		for (int i = 0; i < numTiles; i++)
-		{
-			Asset *asset = mTiles[i].getTile()->getGraphicAsset();
-			if (asset)
-			{
-				AssetSpriteMap::iterator iter = mAssetSprites.find(asset);
-				if (iter == mAssetSprites.end())
-				{
-					Sprite *assetSprite = new Sprite(asset);
-					mAssetSprites[asset] = assetSprite;
-					assetSprite->setWidth(grid);
-					assetSprite->setHeight(grid);
-				}
-			}
-		}
-	}
 	
-	void Map::render(float dt)
-	{
-		AssetSpriteMap::iterator iter;
-		for (iter = mAssetSprites.begin(); iter != mAssetSprites.end(); ++iter)
-		{
-			iter->second->updateSprite(dt);
-		}
-
-		float grid = Engine::getEngine()->getGridSize();
-		float gridResp = Engine::getEngine()->getGridSizeResp();
-
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
-		float cameraX = gfxEngine->getCameraX();
-		float cameraY = gfxEngine->getCameraY();
-
-		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
-		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
-
-		int minX = 0;
-		int maxX = mMapWidth;
-		int minY = 0;
-		int maxY = mMapHeight;
-
-		if (mEnabledMapCulling)
-		{
-			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) * gridResp);
-			minX = max(0, camMinX);
-			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) * gridResp) + 1;
-			maxX = min(mMapWidth, camMaxX);
-
-			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) * gridResp);
-			minY = max(0, camMinY);
-			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) * gridResp) + 1;
-			maxY = min(mMapHeight, camMaxY);
-		}
-		glPushMatrix();
-		int t = minY * mMapWidth + minX;
-		int tStep = mMapWidth - (maxX - minX);
-
-		float resetX = -(maxX - minX) * grid;
-		glTranslatef(minX * grid, minY * grid, 0.0f);
-		for (int y = minY; y < maxY; y++)
-		{
-			t = y * mMapWidth + minX;
-			for (int x = minX; x < maxX; x++)
-			{
-				Asset *asset = mTiles[t].getTile()->getGraphicAsset();
-				Sprite *sprite = mAssetSprites[asset].get();
-				if (asset->getFrameRate() <= 0.0f)
-				{
-					sprite->setCurrentFrame(mTiles[t].getTileFrame());
-				}
-				sprite->renderSprite();
-				t++;
-
-				glTranslatef(grid, 0.0f, 0.0f);
-			}
-			//t += tStep;
-			glTranslatef(resetX, grid, 0.0f);
-		}
-		glPopMatrix();
-	}
-	*/
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{
 		Pathfinder *pathfinder = Pathfinder::getPathfinder();

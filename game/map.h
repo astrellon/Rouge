@@ -25,14 +25,14 @@ namespace game {
 	class TileInstance;
 	class Tile;
 
-	class Map : public Renderable {
+	class Map : public IManaged {
 	public:
 		Map(const char *name);
 		Map(const char *name, int width, int height);
 		Map(const Map &rhs);
 		~Map();
 
-		virtual Renderable *clone() const;
+		//virtual Renderable *clone() const;
 
 		virtual void deinit();
 	
@@ -54,6 +54,9 @@ namespace game {
 		void setMapSize(int width, int height);
 		int getMapWidth() const;
 		int getMapHeight() const;
+
+		float getWidth() const;
+		float getHeight() const;
 
 		ObjectList *getObjects();
 		bool addGameObject(GameObject *object);
@@ -90,6 +93,9 @@ namespace game {
 		int mMapHeight;
 		
 		ObjectList mObjects;
+
+		float mWidth;
+		float mHeight;
 
 		string mName;
 		string mFullName;
