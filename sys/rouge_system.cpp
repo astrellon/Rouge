@@ -427,10 +427,17 @@ namespace sys {
 		source->setLooping(true);
 		game->addGameObjectToMap(torch);*/
 
+		//game->getCurrentMap()->getTileInstance(2, 1)->setTileEdgeValue(3, Map::FLAG_L);
+		//game->getCurrentMap()->getTileInstance(1, 0)->setTileEdgeValue(6, Map::FLAG_B);
+		//game->getCurrentMap()->getTileInstance(2, 0)->setTileEdgeValue(5, Map::FLAG_BL);
+
+		TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
+		nature->getTile("test")->setPrecedence(10);
+
+		game->getCurrentMap()->calcAllTileEdgeValues();
+
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);
-
-		//mPlayer->setGridDestination(2, 2);
 
 		game->getCamera()->followObject(mPlayer.get());
 

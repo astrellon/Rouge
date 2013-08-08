@@ -37,3 +37,10 @@ tile.assetName = "tiles/swamp"
 tile.fullName = "Swamp"
 tile.description = "You can walk on it..."
 tile.tileTypes = {"Land", "Water", "Air"}
+
+tile = {}
+set.tiles.test = tile
+tile.assetName = "tiles/testTransition"
+tile.fullName = "Test transitional tile."
+tile.description = "TRANSITIONS!"
+tile.tileType = {"Land"}

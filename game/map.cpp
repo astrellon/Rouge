@@ -156,6 +156,340 @@ namespace game {
 	{
 		return mTiles;
 	}
+	void Map::calcAllTileEdgeValues() const
+	{
+		for (int y = 0; y < mMapHeight; y++)
+		{
+			for (int x = 0; x < mMapWidth; x++)
+			{
+				calcTileEdgeValues(x, y);
+			}
+		}
+	}
+	void Map::calcTileEdgeValues(int x, int y) const
+	{
+		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
+		{
+			return;
+		}
+
+		int offsets[8] = {-1 - mMapWidth, -mMapWidth, -mMapWidth + 1, -1, 1, -1 + mMapWidth, mMapWidth, 1 + mMapWidth};
+		//static const int flagss[8] = {FLAG_TL, FLAG_T, FLAG_TR, FLAG_L, FLAG_R, FLAG_BL, FLAG_B, FLAG_BR};
+		bool skip[8] = {false, false, false, false, false, false, false, false};
+		skip[0] |= skip[1] |= skip[2] |= y == 0;
+		skip[5] |= skip[6] |= skip[7] |= y == mMapHeight - 1;
+		skip[0] |= skip[3] |= skip[5] |= x == 0;
+		skip[2] |= skip[4] |= skip[7] |= x == mMapWidth - 1;
+
+		int index = y * mMapWidth + x;
+		int total = mMapWidth * mMapHeight;
+		TileInstance &instance = mTiles[index];
+		Tile *tile = instance.getTile();
+
+		Tile *tiles[8];
+		for (int i = 0; i < 8; i++)
+		{
+			tiles[i] = !skip[i] ? mTiles[index + offsets[i]].getTile() : nullptr;
+		}
+
+		// Check top
+		if (!skip[1] && canOverlap(tile, tiles[1]))
+		{
+			int flag = Map::FLAG_T;
+			if (!skip[3] && tiles[1] == tiles[3])
+			{
+				flag |= Map::FLAG_L;
+				skip[3] = true;
+			}
+			if (!skip[4] && tiles[1] == tiles[4])
+			{
+				flag |= Map::FLAG_R;
+				skip[4] = true;
+			}
+			if (!skip[6] && tiles[1] == tiles[6])
+			{
+				flag |= Map::FLAG_B;
+				skip[6] = true;
+			}
+			instance.setTileEdgeValue(1, flag);
+		}
+		// Check left
+		if (!skip[3] && canOverlap(tile, tiles[3]))
+		{
+			int flag = Map::FLAG_L;
+			if (!skip[4] && tiles[3] == tiles[4])
+			{
+				flag |= Map::FLAG_R;
+				skip[4] = true;
+			}
+			if (!skip[6] && tiles[3] == tiles[4])
+			{
+				flag |= Map::FLAG_B;
+				skip[6] = true;
+			}
+			instance.setTileEdgeValue(3, flag);
+		}
+		// Check right
+		if (!skip[4] && canOverlap(tile, tiles[4]))
+		{
+			int flag = Map::FLAG_R;
+			if (!skip[6] && tiles[4] == tiles[6])
+			{
+				flag |= Map::FLAG_B;
+			}
+			instance.setTileEdgeValue(4, flag);
+		}
+		// Check bottom
+		if (!skip[6] && canOverlap(tile, tiles[6]))
+		{
+			instance.setTileEdgeValue(6, Map::FLAG_B);
+		}
+
+		// Check top left
+		if (!skip[0] && canOverlap(tile, tiles[0]))
+		{
+			int flag = 0;
+			if (canOverlap(tiles[1], tiles[0]) && canOverlap(tiles[3], tiles[0]))
+			{
+				flag = Map::FLAG_TL;
+			}
+			if (!skip[2] && tiles[0] == tiles[2])
+			{
+				if (canOverlap(tiles[1], tiles[2]) && canOverlap(tiles[4], tiles[2]))
+				{
+					flag |= Map::FLAG_TR;
+					skip[2] = true;
+				}
+			}
+			if (!skip[5] && tiles[0] == tiles[5])
+			{
+				if (canOverlap(tiles[3], tiles[5]) && canOverlap(tiles[6], tiles[5]))
+				{
+					flag |= Map::FLAG_BL;
+					skip[5] = true;
+				}
+			}
+			if (!skip[7] && tiles[0] == tiles[7])
+			{
+				if (canOverlap(tiles[6], tiles[7]) && canOverlap(tiles[4], tiles[7]))
+				{
+					flag |= Map::FLAG_BR;
+					skip[7] = true;
+				}
+			}
+			instance.setTileEdgeValue(0, flag);
+		}
+		// Check top right
+		if (!skip[2] && canOverlap(tile, tiles[2]))
+		{
+			int flag = 0;
+			if (canOverlap(tiles[1], tiles[2]) && canOverlap(tiles[4], tiles[2]))
+			{
+				flag = Map::FLAG_TR;
+			}
+			if (!skip[5] && tiles[2] == tiles[5])
+			{
+				if (canOverlap(tiles[3], tiles[5]) && canOverlap(tiles[6], tiles[5]))
+				{
+					flag |= Map::FLAG_BL;
+					skip[5] = true;
+				}
+			}
+			if (!skip[7] && tiles[2] == tiles[7])
+			{
+				if (canOverlap(tiles[6], tiles[7]) && canOverlap(tiles[4], tiles[7]))
+				{
+					flag |= Map::FLAG_BR;
+					skip[7] = true;
+				}
+			}
+			instance.setTileEdgeValue(2, flag);
+		}
+		// Check bottom left
+		if (!skip[5] && canOverlap(tile, tiles[5]))
+		{
+			int flag = 0;
+			if (canOverlap(tiles[3], tiles[5]) && canOverlap(tiles[6], tiles[5]))
+			{
+				flag = Map::FLAG_BL;
+			}
+			if (!skip[7] && tiles[5] == tiles[7])
+			{
+				if (canOverlap(tiles[6], tiles[7]) && canOverlap(tiles[4], tiles[7]))
+				{
+					flag |= Map::FLAG_BR;
+					skip[7] = true;
+				}
+			}
+			instance.setTileEdgeValue(5, flag);
+		}
+		// Check bottom right
+		if (!skip[7] && canOverlap(tile, tiles[7]))
+		{
+			int flag = 0;
+			if (canOverlap(tiles[6], tiles[7]) && canOverlap(tiles[4], tiles[7]))
+			{
+				flag = Map::FLAG_BR;
+			}
+			instance.setTileEdgeValue(7, flag);
+		}
+		/*int flags = 0;
+		int index = y * mMapWidth + x;
+		int total = mMapWidth * mMapHeight;
+		TileInstance &instance = mTiles[index];
+		Tile *tile = instance.getTile();
+		Tile *prevOverlapTile = nullptr;
+
+		int startIndex = 0;
+		for (int i = 0; i < 8; i++)
+		{
+			if (skip[i])
+			{
+				instance.setTileEdgeValue(startIndex, flags);
+				flags = 0;
+				startIndex = i + 1;
+				prevOverlapTile = nullptr;
+				continue;
+			}
+			int newIndex = index + offsets[i];
+			if (newIndex < 0 || newIndex >= total)
+			{
+				instance.setTileEdgeValue(startIndex, flags);
+				flags = 0;
+				startIndex = i + 1;
+				prevOverlapTile = nullptr;
+				continue;
+			}
+
+			Tile *overlapTile = mTiles[newIndex].getTile();
+			if ((prevOverlapTile != nullptr && prevOverlapTile != overlapTile) || canOverlap(tile, overlapTile))
+			{
+				flags |= flagss[i];
+			}
+			else
+			{
+				if (i == 7 && !skip[0] && mTiles[index + offsets[0]].getTile() == overlapTile)
+				{
+					instance.setTileEdgeValue(0, flags | instance.getTileEdgeValue(0));
+				}
+				else
+				{
+					instance.setTileEdgeValue(startIndex, flags);
+				}
+				flags = 0;
+				startIndex = i + 1;
+				prevOverlapTile = nullptr;
+			}
+		}*/
+		/*bool notXMax = x < mMapWidth - 1;
+		bool notYMax = y < mMapHeight - 1;
+		// Determine edges
+		if (y > 0)
+		{
+			if (canOverlap(x, y - 1, tile))
+			{
+				flags |= FLAG_T;
+			}
+		}
+		if (x > 0 && canOverlap(x - 1, y, tile))
+		{
+			flags |= FLAG_L;
+		}
+		if (notXMax && canOverlap(x + 1, y, tile))
+		{
+			flags |= FLAG_R;
+		}
+		if (notYMax)
+		{
+			if (canOverlap(x, y + 1, tile))
+			{
+				flags |= FLAG_B;
+			}
+		}
+
+		// Determine corners
+		if (y > 0 && (flags & FLAG_T))
+		{
+			if (x > 0 && (flags & FLAG_L) && canOverlap(x - 1, y - 1, tile))
+			{
+				flags |= FLAG_TL;
+			}
+			if (notXMax && (flags & FLAG_R) && canOverlap(x + 1, y - 1, tile))
+			{
+				flags |= FLAG_TR;
+			}
+		}
+		if (notYMax && (flags & FLAG_B))
+		{
+			if (x > 0 && (flags & FLAG_L) && canOverlap(x - 1, y + 1, tile))
+			{
+				flags |= FLAG_BL;
+			}
+			if (notXMax && (flags & FLAG_R) && canOverlap(x + 1, y + 1, tile))
+			{
+				flags |= FLAG_BR;
+			}
+		}
+		return flags;*/
+	}
+	
+	bool Map::canOverlap(int x, int y, Tile *overlapTile) const
+	{
+		Tile *tile = mTiles[y * mMapWidth + x].getTile();
+		if (!overlapTile || !tile)
+		{
+			return false;
+		}
+		if (tile == overlapTile)
+		{
+			return false;
+		}
+
+		// The overlapTile tile should overlap onto other tiles.
+		// If it does not then return nullptr to indicate that it should
+		// not overlap this tile.
+		if (tile->getPrecedence() > overlapTile->getPrecedence())
+		{
+			return false;
+		}
+		// If the precedence is the same then we'll compare arbitarily
+		// by the lexigraphical comparison of their names. This should at least
+		// allow one to overlap the other and to do so consistenly.
+		if (tile->getPrecedence() == overlapTile->getPrecedence())
+		{
+			if (tile->getName().compare(overlapTile->getName()) > 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	bool Map::canOverlap(Tile *tile, Tile *overlapTile) const
+	{
+		if (!overlapTile || !tile || tile == overlapTile)
+		{
+			return false;
+		}
+
+		// The overlapTile tile should overlap onto other tiles.
+		// If it does not then return nullptr to indicate that it should
+		// not overlap this tile.
+		if (tile->getPrecedence() < overlapTile->getPrecedence())
+		{
+			return true;
+		}
+		// If the precedence is the same then we'll compare arbitarily
+		// by the lexigraphical comparison of their names. This should at least
+		// allow one to overlap the other and to do so consistenly.
+		if (tile->getPrecedence() == overlapTile->getPrecedence())
+		{
+			if (tile->getName().compare(overlapTile->getName()) > 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	void Map::setMapSize(int width, int height)
 	{

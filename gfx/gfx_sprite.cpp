@@ -540,8 +540,6 @@ namespace gfx {
 				glTexCoord2f(minU, maxV);
 				glVertex2f(0, height);
 			
-				
-
 			glEnd();
 		}
 	}

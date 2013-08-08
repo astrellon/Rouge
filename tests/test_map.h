@@ -18,6 +18,7 @@ namespace tests {
 			runCase(testSimple);
 			runCase(testValidTiles);
 			runCase(testValidTilesBig);
+			runCase(testEdgeValue);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -29,6 +30,7 @@ namespace tests {
 		bool testSimple();
 		bool testValidTiles();
 		bool testValidTilesBig();
+		bool testEdgeValue();
 
 	};
 

@@ -141,6 +141,8 @@ namespace gfx {
 		int mapWidth = mMap->getMapWidth();
 		int mapHeight = mMap->getMapHeight();
 
+		int offsets[8] = {-1 - mapWidth, -mapWidth, -mapWidth + 1, -1, 1, -1 + mapWidth, mapWidth, 1 + mapWidth};
+
 		int minX = 0;
 		int maxX = mapWidth;
 		int minY = 0;
@@ -171,13 +173,35 @@ namespace gfx {
 			t = y * mapWidth + minX;
 			for (int x = minX; x < maxX; x++)
 			{
-				Asset *asset = tiles[t].getTile()->getGraphicAsset();
-				Sprite *sprite = mAssetSprites[asset].get();
+				TileInstance &instance = tiles[t];
+				Asset *asset = instance.getTile()->getGraphicAsset();
+				Sprite *sprite = mAssetSprites[asset];
+				// Only 1 sprite per asset.
+				// So to get each variation for non-animated tiles then
+				// we need to set the frame from each tile instance onto the
+				// sprite just before we render that sprite.
 				if (asset->getFrameRate() <= 0.0f)
 				{
-					sprite->setCurrentFrame(tiles[t].getTileFrame());
+					sprite->setCurrentFrame(instance.getTileFrame());
 				}
 				sprite->renderSprite();
+				if (instance.hasEdgeValue())
+				{
+					for (int i = 0; i < 8; i++)
+					{
+						uint8_t value = instance.getTileEdgeValue(i);
+						if (value != 0)
+						{
+							asset = tiles[t + offsets[i]].getTile()->getGraphicAsset();
+							if (asset->getTotalFrames() == 32)
+							{
+								sprite = mAssetSprites[asset];
+								sprite->setCurrentFrame(value);
+								sprite->renderSprite();
+							}
+						}
+					}
+				}
 				t++;
 
 				glTranslatef(grid, 0.0f, 0.0f);

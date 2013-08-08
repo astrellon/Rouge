@@ -26,7 +26,8 @@ namespace game {
 		mFullName("No full name"),
 		mDescription("Undescribable"),
 		mGraphic(nullptr),
-		mTileSet(nullptr)
+		mTileSet(nullptr),
+		mPrecedence(0)
 	{
 		//printf("Creating tile '%s'\n", name);
 	}
@@ -35,7 +36,8 @@ namespace game {
 		mFullName(fullName),
 		mDescription("Undescribable"),
 		mGraphic(nullptr),
-		mTileSet(nullptr)
+		mTileSet(nullptr),
+		mPrecedence(0)
 	{
 	}
 	Tile::~Tile()
@@ -118,6 +120,15 @@ namespace game {
 	TileSet *Tile::getTileSet() const
 	{
 		return mTileSet;
+	}
+
+	void Tile::setPrecedence(int precedence)
+	{
+		mPrecedence = precedence;
+	}
+	int Tile::getPrecedence() const
+	{
+		return mPrecedence;
 	}
 
 	void Tile::loadDef(LuaState &lua)

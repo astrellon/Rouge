@@ -27,6 +27,18 @@ namespace game {
 
 	class Map : public IManaged {
 	public:
+
+		enum TileFlags {
+			FLAG_L  = 0x01,
+			FLAG_R  = 0x02,
+			FLAG_T  = 0x04,
+			FLAG_B  = 0x08,
+			FLAG_TL = 0x11,
+			FLAG_TR = 0x12,
+			FLAG_BL = 0x14,
+			FLAG_BR = 0x18
+		};
+
 		Map(const char *name);
 		Map(const char *name, int width, int height);
 		Map(const Map &rhs);
@@ -46,6 +58,8 @@ namespace game {
 		TileInstance *getTileInstance(int x, int y);
 		TileInstance *getTiles();
 		const TileInstance *getTiles() const;
+		void calcAllTileEdgeValues() const;
+		void calcTileEdgeValues(int x, int y) const;
 
 		Layer *getBackground() const;
 		Layer *getForeground() const;
@@ -62,7 +76,7 @@ namespace game {
 		bool addGameObject(GameObject *object);
 		bool removeGameObject(GameObject *object);
 		bool hasGameObject(GameObject *object) const;
-
+		
 		bool isValidLocation(float x, float y, GameObject *forObject) const;
 		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
@@ -104,6 +118,9 @@ namespace game {
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;
 		Handle<TileRenderer> mTileRenderer;
+
+		bool canOverlap(int x, int y, Tile *overlapTile) const;
+		bool canOverlap(Tile *tile, Tile *overlapTile) const;
 
 		//bool mEnabledMapCulling;
 

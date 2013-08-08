@@ -12,9 +12,9 @@ do
 	am.engine.game():add_map(map)
 
 	map:tiles({
-		"brick:0", "brick:2", "grass:0", "grass:2", "grass:3", "dirt:3","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0",
-		"grass:1", "brick:0", "grass:1", "dirt:0", "dirt:2", "grass:1", "grass:1","water","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1",
-		"dirt:0", "brick:2",  "grass:2", "dirt:3", "dirt:0", "grass:3", "grass:2","water","grass:2","water","water","water","grass:2","grass:2","grass:2","grass:2","grass:2","grass:2",
+		"brick:0", "brick:2", "test", "grass:2", "grass:3", "dirt:3","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0","grass:0",
+		"grass:1", "test", "grass:1", "test", "dirt:2", "grass:1", "grass:1","water","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1",
+		"dirt:0", "brick:2",  "test", "dirt:3", "dirt:0", "grass:3", "grass:2","water","grass:2","water","water","water","grass:2","grass:2","grass:2","grass:2","grass:2","grass:2",
 		"brick:2", "brick:1", "grass:3", "dirt:2", "dirt:1", "swamp",   "grass:3","water","grass:3","water","water","water","grass:3","grass:3","grass:3","grass:3","grass:3","grass:3",
 		"brick:1", "brick:0", "grass:1", "grass:0", "swamp", "water",   "grass:1","water","grass:1","water","water","water","grass:1","grass:1","grass:1","grass:1","grass:1","grass:1",
 		"brick:2", "brick:2", "grass:2", "grass:3", "water", "water",   "grass:2","water","grass:2","water","water","water","grass:2","grass:2","grass:2","grass:2","grass:2","grass:2",

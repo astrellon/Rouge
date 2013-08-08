@@ -47,6 +47,9 @@ namespace game {
 		void setTileSet(TileSet *tileSet);
 		TileSet *getTileSet() const;
 
+		void setPrecedence(int precedence);
+		int getPrecedence() const;
+
 		void addTileType(TileType *tileType);
 		void removeTileType(TileType *tileType);
 		void removeAllTileTypes();
@@ -67,6 +70,7 @@ namespace game {
 		TileSet *mTileSet;
 		Handle<Asset> mGraphic;
 		string mDescription;
+		int mPrecedence;
 
 		TileTypeList mTileTypes;
 

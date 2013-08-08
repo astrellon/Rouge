@@ -148,5 +148,52 @@ namespace tests {
 		return true;
 	}
 
+	bool TestMap::testEdgeValue() 
+	{
+		Handle<TileType> landType(new TileType("land"));
+		Handle<TileType> waterType(new TileType("water"));
+
+		Handle<Tile> land(new Tile("land"));
+		Handle<Tile> water(new Tile("water"));
+		Handle<Tile> swamp(new Tile("swamp"));
+		land->addTileType(landType);
+		land->setPrecedence(10);
+		water->addTileType(waterType);
+		water->setPrecedence(0);
+		swamp->addTileType(landType);
+		swamp->addTileType(waterType);
+		swamp->setPrecedence(5);
+
+		Handle<Map> testMap(new Map("testMap", 3, 3));
+		TileInstance *tiles = testMap->getTiles();
+		tiles[0].setTile(land);
+		tiles[1].setTile(land);
+		tiles[2].setTile(water);
+
+		tiles[3].setTile(land);
+		tiles[4].setTile(water);
+		tiles[5].setTile(water);
+
+		tiles[6].setTile(water);
+		tiles[7].setTile(water);
+		tiles[8].setTile(swamp);
+
+		testMap->calcAllTileEdgeValues();
+		am_equals(false, tiles[0].hasEdgeValue());
+		am_equals(false, tiles[1].hasEdgeValue());
+		am_equals(true, tiles[2].hasEdgeValue());
+		am_equals(Map::FLAG_L, tiles[2].getTileEdgeValue(3));
+
+		am_equals(false, tiles[3].hasEdgeValue());
+		am_equals(true, tiles[4].hasEdgeValue());
+		am_equals(Map::FLAG_L | Map::FLAG_T, tiles[4].getTileEdgeValue(1));
+		am_equals(Map::FLAG_BR, tiles[4].getTileEdgeValue(7));
+		am_equals(true, tiles[5].hasEdgeValue());
+		am_equals(Map::FLAG_TL, tiles[5].getTileEdgeValue(0));
+		am_equals(Map::FLAG_B, tiles[5].getTileEdgeValue(6));
+
+		return true;
+	}
+
 }
 }
