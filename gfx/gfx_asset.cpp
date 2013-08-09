@@ -5,6 +5,9 @@
 
 #include <log/logger.h>
 
+#include <util/utils.h>
+using namespace am::util;
+
 #include <string>
 
 using namespace std;
@@ -15,7 +18,6 @@ namespace gfx {
 	// Asset methods
 	Asset::Asset(const char *name) :
 		IManaged(),
-		mTexture(nullptr),
 		mName(name),
 		mNumFramesX(1),
 		mNumFramesY(1),
@@ -33,19 +35,63 @@ namespace gfx {
 
 	}
 
-	void Asset::setTexture(const Texture *texture)
+	void Asset::setTexture(const Texture *texture, unsigned int index)
 	{
 		if (texture != nullptr && texture->isLoaded())
 		{
-			mTexture = texture;
-			mWindow.setValues(static_cast<float>(mTexture->getWidth()), 
-				static_cast<float>(mTexture->getHeight()),
-				0.0f, 1.0f, 0.0f, 1.0f);
+			// If we're adding more textures then we need to make sure that they
+			// are all the same size.
+			if (mTextures.size() > 0u)
+			{
+				if (mTextures[0]->getWidth() != texture->getWidth() ||
+					mTextures[0]->getHeight() != texture->getHeight())
+				{
+					return;
+				}
+			}
+			if (index >= mTextures.size())
+			{
+				mTextures.resize(index + 1);
+			}
+			mTextures[index] = texture;
+
+			if (mTextures.size() == 1u)
+			{
+				mWindow.setValues(static_cast<float>(texture->getWidth()), 
+					static_cast<float>(texture->getHeight()),
+					0.0f, 1.0f, 0.0f, 1.0f);
+			}
 		}
 	}
-	const Texture *Asset::getTexture() const
+	const Texture *Asset::getTexture(unsigned int index) const
 	{
-		return mTexture;
+		if (index >= mTextures.size())
+		{
+			return nullptr;
+		}
+		return mTextures[index];
+	}
+
+	void Asset::addTexture(const Texture *texture)
+	{
+		setTexture(texture, mTextures.size());
+	}
+	void Asset::removeTexture(const Texture *texture)
+	{
+		int index = Utils::find(mTextures, texture);
+		if (index == -1)
+		{
+			return;
+		}
+		mTextures.erase(mTextures.begin() + index);
+	}
+	bool Asset::hasTexture(const Texture *texture) const
+	{
+		return Utils::find(mTextures, texture) != -1;
+	}
+	int Asset::getNumberOfTextures() const
+	{
+		return static_cast<int>(mTextures.size());
 	}
 
 	// IGfxAsset methods
@@ -134,7 +180,6 @@ namespace gfx {
 		mAnimationDirty = true;
 	}
 
-
 	const Asset::AnimationWindows &Asset::getAnimationWindows() const
 	{
 		return mAnimationWindows;
@@ -146,50 +191,89 @@ namespace gfx {
 		{
 			return -1;
 		}
-		if (lua.isTableString("texture"))
+		if (lua.isTableTable("textures"))
 		{
-			const char *texture = lua_tostring(lua, -1);
-			lua.pop(1);
-			const char *currentTexture = nullptr;
-			if (mTexture != nullptr)
+			lua_pushnil(lua);
+			while (lua_next(lua, -2) != 0) 
 			{
-				currentTexture = mTexture->getFilename();
+				/* uses 'key' (at index -2) and 'value' (at index -1) */
+				if (lua_isstr(lua, -1))
+				{
+					const char *textureName = lua_tostring(lua, -1);
+					Texture *texture = GfxEngine::getEngine()->getTexture(textureName);
+					if (!texture)
+					{
+						stringstream errss;
+						errss << "Unable to load texture ("<< textureName << ") for asset '"
+							<< mName.c_str() << '\'';
+						am_log("ASSET", errss);
+						lua_pop(lua, 1);
+						return -1;
+					}
+					addTexture(texture);
+					lua_pop(lua, 1);
+				}
 			}
-			if (reload && strcmp(texture, currentTexture) == 0)
+			lua_pop(lua, 1);
+		}
+		if (mTextures.size() == 0)
+		{
+			if (lua.isTableString("texture"))
 			{
-				if (!GfxEngine::getEngine()->reloadTexture(texture))
+				const char *textureName = lua_tostring(lua, -1);
+				lua.pop(1);
+				Texture *texture = GfxEngine::getEngine()->getTexture(textureName);
+				if (!texture)
 				{
 					stringstream errss;
-					errss << "Unable to reload texture ("<< texture << ") for asset '"
+					errss << "Unable to load texture ("<< textureName << ") for asset '"
 						<< mName.c_str() << '\'';
 					am_log("ASSET", errss);
 					return -1;
 				}
+				setTexture(texture);
+
+				/*const char *currentTexture = nullptr;
+				if (mTextures.size() != nullptr)
+				{
+					currentTexture = mTexture->getFilename();
+				}
+				if (reload && strcmp(texture, currentTexture) == 0)
+				{
+					if (!GfxEngine::getEngine()->reloadTexture(texture))
+					{
+						stringstream errss;
+						errss << "Unable to reload texture ("<< texture << ") for asset '"
+							<< mName.c_str() << '\'';
+						am_log("ASSET", errss);
+						return -1;
+					}
+				}
+				else
+				{
+					setTexture(GfxEngine::getEngine()->getTexture(texture));
+					if (mTexture == nullptr)
+					{
+						stringstream errss;
+						errss << "Unable to load texture ("<< texture << ") for asset '"
+							<< mName.c_str() << '\'';
+						am_log("ASSET", errss);
+						return -1;
+					}
+				}*/
 			}
 			else
 			{
-				setTexture(GfxEngine::getEngine()->getTexture(texture));
-				if (mTexture == nullptr)
-				{
-					stringstream errss;
-					errss << "Unable to load texture ("<< texture << ") for asset '"
-						<< mName.c_str() << '\'';
-					am_log("ASSET", errss);
-					return -1;
-				}
+				return -1;
 			}
-		}
-		else
-		{
-			return -1;
 		}
 		/*{
 			stringstream ss;
 			ss << "Loading asset '" << mName.c_str() << '\'';
 			am_log("ASSET", ss);
 		}*/
-		float textureWidth = static_cast<float>(mTexture->getWidth());
-		float textureHeight = static_cast<float>(mTexture->getHeight());
+		float textureWidth = static_cast<float>(mTextures[0]->getWidth());
+		float textureHeight = static_cast<float>(mTextures[0]->getHeight());
 		float width = textureWidth;
 		float height = textureHeight;
 		float leftX = 0.0f;
@@ -235,6 +319,7 @@ namespace gfx {
 		int framesY = 1;
 		int totalFrames = 0;
 		float frameRate = 1.0f;
+		//LuaState::logStack(lua, mName.c_str());
 		if (lua.isTableNumber("framesX"))
 		{
 			framesX = lua.toInteger();
@@ -289,20 +374,12 @@ namespace gfx {
 			if (left < 0.0f || right < 0.0f)
 			{
 				left = 0.0f;
-				right = 0.0f;
-				if (mTexture)
-				{
-					right = static_cast<float>(mTexture->getWidth());
-				}
+				right = static_cast<float>(mTextures[0]->getWidth());
 			}
 			if (top < 0.0f || bottom < 0.0f)
 			{
 				top = 0.0f;
-				bottom = 0.0f;
-				if (mTexture)
-				{
-					bottom = static_cast<float>(mTexture->getHeight());
-				}
+				bottom = static_cast<float>(mTextures[0]->getHeight());
 			}
 
 			if (vertical && horizontal)
@@ -343,13 +420,13 @@ namespace gfx {
 
 	void Asset::processAnimation()
 	{
-		if (!mAnimationDirty || mTexture == nullptr)
+		if (!mAnimationDirty || mTextures.size() == 0)
 		{
 			return;
 		}
 
-		float textureWidth = static_cast<float>(mTexture->getWidth());
-		float textureHeight = static_cast<float>(mTexture->getHeight());
+		float textureWidth = static_cast<float>(mTextures[0]->getWidth());
+		float textureHeight = static_cast<float>(mTextures[0]->getHeight());
 
 		mWidth = mWindow.getWidth() / static_cast<float>(mNumFramesX);
 		mHeight = mWindow.getHeight() / static_cast<float>(mNumFramesY);
@@ -389,7 +466,7 @@ namespace gfx {
 	void Asset::assign(const Asset &rhs)
 	{
 		mName = rhs.mName;
-		mTexture = rhs.mTexture;
+		mTextures = rhs.mTextures;
 		mWindow = rhs.mWindow;
 		mNumFramesX = rhs.mNumFramesX;
 		mNumFramesY = rhs.mNumFramesY;

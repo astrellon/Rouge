@@ -196,8 +196,9 @@ namespace gfx {
 							if (asset->getTotalFrames() == 32)
 							{
 								sprite = mAssetSprites[asset];
-								sprite->setCurrentFrame(value);
+								sprite->setTextureFrame(value);
 								sprite->renderSprite();
+								sprite->setTextureFrame(0);
 							}
 						}
 					}
@@ -206,7 +207,6 @@ namespace gfx {
 
 				glTranslatef(grid, 0.0f, 0.0f);
 			}
-			//t += tStep;
 			glTranslatef(resetX, grid, 0.0f);
 		}
 		glPopMatrix();

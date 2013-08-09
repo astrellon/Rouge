@@ -42,6 +42,9 @@ namespace gfx {
 		void setCurrentFrame(int frame);
 		int getCurrentFrame() const;
 
+		void setTextureFrame(int frame);
+		int getTextureFrame() const;
+
 		void setFrameTime(float time);
 		float getFrameTime() const;
 
@@ -55,7 +58,7 @@ namespace gfx {
 		virtual float getHeight();
 
 		void updateSprite(float dt);
-		void renderSprite();
+		virtual void renderSprite();
 
 		virtual string getName() const;
 
@@ -70,10 +73,13 @@ namespace gfx {
 		Asset *mAsset;
 
 		int mCurrentFrame;
+		int mTextureFrame;
 		float mFrameRate;
 		float mCurrentTime;
 
 		ScaleNineState mScaleNineState;
+
+		virtual int getTotalFrames() const;
 
 		virtual void renderTexture(const TextureWindow &win, const float &width, const float &height);
 	};

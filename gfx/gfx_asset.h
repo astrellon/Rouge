@@ -4,6 +4,7 @@
 using namespace am::util;
 
 #include <string>
+#include <vector>
 using namespace std;
 
 #include <base/handle.h>
@@ -32,8 +33,13 @@ namespace gfx {
 
 		const char *getName() const;
 
-		void setTexture(const Texture *texture);
-		const Texture *getTexture() const;
+		void setTexture(const Texture *texture, unsigned int index = 0);
+		const Texture *getTexture(unsigned int index = 0) const;
+
+		void addTexture(const Texture *texture);
+		void removeTexture(const Texture *texture);
+		bool hasTexture(const Texture *texture) const;
+		int getNumberOfTextures() const;
 
 		void setTextureWindow(const TextureWindow &window);
 		const TextureWindow &getTextureWindow() const;
@@ -78,7 +84,8 @@ namespace gfx {
 	protected:
 
 		string mName;
-		const Texture *mTexture;
+		//const Texture *mTexture;
+		vector<const Texture *> mTextures;
 		TextureWindow mWindow;
 
 		int mNumFramesX;

@@ -24,6 +24,7 @@ namespace gfx {
 		Renderable(),
 		mAsset(nullptr),
 		mCurrentFrame(0),
+		mTextureFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
 		mScaleNineState(SCALE_NINE_NONE)
@@ -34,6 +35,7 @@ namespace gfx {
 		Renderable(copy),
 		mAsset(copy.mAsset),
 		mCurrentFrame(copy.mCurrentFrame),
+		mTextureFrame(copy.mTextureFrame),
 		mFrameRate(copy.mFrameRate),
 		mCurrentTime(copy.mCurrentTime),
 		mScaleNineState(copy.mScaleNineState)
@@ -44,6 +46,7 @@ namespace gfx {
 		Renderable(),
 		mAsset(asset),
 		mCurrentFrame(0),
+		mTextureFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f)
 	{
@@ -55,6 +58,7 @@ namespace gfx {
 	Sprite::Sprite(const char *assetName) :
 		Renderable(),
 		mCurrentFrame(0),
+		mTextureFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
 		mAsset(nullptr)
@@ -96,9 +100,9 @@ namespace gfx {
 		{
 			return;
 		}
-		if (frame >= mAsset->getTotalFrames())
+		if (frame >= getTotalFrames())
 		{
-			frame = mAsset->getTotalFrames() - 1;
+			frame = getTotalFrames() - 1;
 		}
 		if (frame != mCurrentFrame) 
 		{
@@ -109,7 +113,7 @@ namespace gfx {
 			}
 			else
 			{
-				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mAsset->getTotalFrames()) / 
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(getTotalFrames()) / 
 					getFrameRate();
 			}
 		}
@@ -117,6 +121,14 @@ namespace gfx {
 	int Sprite::getCurrentFrame() const
 	{
 		return mCurrentFrame;
+	}
+	void Sprite::setTextureFrame(int frame)
+	{
+		mTextureFrame = frame;
+	}
+	int Sprite::getTextureFrame() const
+	{
+		return mTextureFrame;
 	}
 
 	void Sprite::setFrameRate(float rate)
@@ -130,7 +142,7 @@ namespace gfx {
 			}
 			else
 			{
-				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(mAsset->getTotalFrames()) / 
+				mCurrentTime = static_cast<float>(mCurrentFrame) / static_cast<float>(getTotalFrames()) / 
 					mFrameRate;
 			}
 		}
@@ -172,11 +184,12 @@ namespace gfx {
 		{
 			output->at("height", mHeight);
 		}
-		if (mAsset && mAsset->getTotalFrames() > 1)
+		if (mAsset && getTotalFrames() > 1)
 		{
 			output->at("currentFrame", mCurrentFrame);
 			output->at("frameRate", mFrameRate);
 			output->at("currentTime", mCurrentTime);
+			output->at("textureFrame", mTextureFrame);
 		}
 		output->at("scaleNineState", ScaleNine::getStateName(mScaleNineState));
 		return output;
@@ -221,6 +234,11 @@ namespace gfx {
 		if (num)
 		{
 			mCurrentTime = num->value<float>();
+		}
+		num = dataMap->at<data::Number>("textureFrame");
+		if (num)
+		{
+			mTextureFrame = num->value<float>();
 		}
 
 		str = dataMap->at<data::String>("scaleNineState");
@@ -282,7 +300,7 @@ namespace gfx {
 	{
 		mAsset->processAnimation();
 
-		if (mAsset->getTotalFrames() > 1)
+		if (getTotalFrames() > 1)
 		{
 			if (getFrameRate() < 0.0001f && getFrameRate() > -0.0001f)
 			{
@@ -291,7 +309,7 @@ namespace gfx {
 			else
 			{
 				mCurrentTime += dt * getFrameRate();
-				float totalTime = static_cast<float>(mAsset->getTotalFrames());
+				float totalTime = static_cast<float>(getTotalFrames());
 				while (mCurrentTime > totalTime)
 				{
 					mCurrentTime -= totalTime;
@@ -302,9 +320,9 @@ namespace gfx {
 				}
 
 				mCurrentFrame = static_cast<int>(mCurrentTime);
-				if (mCurrentFrame >= mAsset->getTotalFrames())
+				if (mCurrentFrame >= getTotalFrames())
 				{
-					mCurrentFrame = mAsset->getTotalFrames() - 1;
+					mCurrentFrame = getTotalFrames() - 1;
 				}
 				if (mCurrentFrame < 0)
 				{
@@ -321,16 +339,22 @@ namespace gfx {
 
 	void Sprite::renderSprite()
 	{
-		float width = getWidth();
-		float height = getHeight();
-		
-		//glBindTexture(GL_TEXTURE_2D, mAsset->getTexture()->getTextureId());
-		mAsset->getTexture()->bindTexture();
+		if (mAsset->getNumberOfTextures() == 1)
+		{
+			mAsset->getTexture()->bindTexture();
 
-		const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
+			const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
 
-		renderTexture(win, width, height);
-		//glBindTexture(GL_TEXTURE_2D, 0);
+			renderTexture(win, getWidth(), getHeight());
+		}
+		else
+		{
+			mAsset->getTexture(mCurrentFrame)->bindTexture();
+
+			const TextureWindow &win = mAsset->getAnimationWindows()[mTextureFrame];
+
+			renderTexture(win, getWidth(), getHeight());
+		}
 	}
 
 	string Sprite::getName() const
@@ -568,6 +592,20 @@ namespace gfx {
 	ScaleNineState Sprite::getScaleNineState() const
 	{
 		return mScaleNineState;
+	}
+
+	int Sprite::getTotalFrames() const
+	{
+		if (mAsset)
+		{
+			int numTextures = mAsset->getNumberOfTextures();
+			if (numTextures == 1)
+			{
+				return mAsset->getTotalFrames();
+			}
+			return numTextures;
+		}
+		return 1;
 	}
 
 }

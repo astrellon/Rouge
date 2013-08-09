@@ -145,6 +145,11 @@ namespace sys {
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
 
+		/*Sprite *test = new Sprite("tiles/testTransition");
+		test->setPosition(50, 50);
+		test->setTextureFrame(31);
+		gfxEngine->getRootLayer()->addChild(test);*/
+
 		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
 		scrollbar->setValue(50);
 		scrollbar->setHeight(100.0f);
@@ -433,6 +438,7 @@ namespace sys {
 
 		TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
 		nature->getTile("test")->setPrecedence(10);
+		//nature->getTile("test")->setG
 
 		game->getCurrentMap()->calcAllTileEdgeValues();
 
