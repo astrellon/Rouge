@@ -438,9 +438,12 @@ namespace sys {
 
 		TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
 		nature->getTile("test")->setPrecedence(10);
+		Tile *tile = nature->getTile("test");
+		tile->setTransitionalAsset(nature->getTile("grass"), GfxEngine::getEngine()->getAssetLua("tiles/testTransitionToWater"));
 		//nature->getTile("test")->setG
 
 		game->getCurrentMap()->calcAllTileEdgeValues();
+		game->getCurrentMap()->getTileRenderer()->updateAssetSprites();
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

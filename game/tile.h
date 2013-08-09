@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 using namespace std;
 
 #include <gfx/gfx_asset.h>
@@ -26,6 +27,7 @@ namespace game {
 	public:
 
 		typedef vector< Handle<TileType> > TileTypeList;
+		typedef map< Tile *, Handle<Asset> > TileAssetMap;
 
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);
@@ -57,6 +59,10 @@ namespace game {
 		TileTypeList &getTileTypes();
 		const TileTypeList &getTileTypes() const;
 
+		void setTransitionalAsset(Tile *overlapTile, Asset *asset);
+		Asset *getTransitionalAsset(Tile *overlapTile) const;
+		const TileAssetMap &getAllTransitionalAssets() const;
+
 		//void loadDef(JsonValue value);
 		void loadDef(LuaState &lua);
 
@@ -69,6 +75,7 @@ namespace game {
 		string mFullName;
 		TileSet *mTileSet;
 		Handle<Asset> mGraphic;
+		TileAssetMap mTransitionalGraphics;
 		string mDescription;
 		int mPrecedence;
 

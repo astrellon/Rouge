@@ -46,6 +46,8 @@ namespace gfx {
 		typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
 		AssetSpriteMap mAssetSprites;
 
+		void addAssetForUpdate(Asset *asset, float grid);
+
 	};
 
 }

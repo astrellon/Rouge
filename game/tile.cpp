@@ -131,6 +131,32 @@ namespace game {
 		return mPrecedence;
 	}
 
+	void Tile::setTransitionalAsset(Tile *overlapTile, Asset *asset)
+	{
+		if (!overlapTile)
+		{
+			return;
+		}
+		mTransitionalGraphics[overlapTile] = asset;
+	}
+	Asset *Tile::getTransitionalAsset(Tile *overlapTile) const
+	{
+		if (!overlapTile)
+		{
+			return nullptr;
+		}
+		auto find = mTransitionalGraphics.find(overlapTile);
+		if (find == mTransitionalGraphics.end())
+		{
+			return nullptr;
+		}
+		return find->second;
+	}
+	const Tile::TileAssetMap &Tile::getAllTransitionalAssets() const
+	{
+		return mTransitionalGraphics;
+	}
+
 	void Tile::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
@@ -159,12 +185,34 @@ namespace game {
 			mDescription = lua_tostring(lua, -1);
 			lua.pop(1);
 		}
+		if (lua.isTableNumber("precedence"))
+		{
+			mPrecedence = lua_tointeger(lua, -1);
+			lua.pop(1);
+		}
+		/*if (lua.isTableTable("transitional_graphics"))
+		{
+			lua_pushnil(lua);
+			while (lua_next(lua, -2) != 0)
+			{
+				if (lua_isstr(lua, -1))
+				{
+
+				}
+				else
+				{
+					// Sad times.
+				}
+				lua.pop(1);
+			}
+			lua.pop(1);
+		}*/
 		if (lua.isTableTable("tileTypes"))
 		{
 			lua_pushnil(lua);
 			while (lua_next(lua, -2) != 0)
 			{
-				if (lua_type(lua, -1) != LUA_TSTRING)
+				if (!lua_isstr(lua, -1))
 				{
 					stringstream errss;
 					errss << "Tile type must be a string and not a '" << lua_typename(lua, -1) << "'";

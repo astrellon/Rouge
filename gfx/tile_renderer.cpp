@@ -100,17 +100,17 @@ namespace gfx {
 
 		for (int i = 0; i < numTiles; i++)
 		{
-			Asset *asset = tiles[i].getTile()->getGraphicAsset();
-			if (asset)
+			Tile *tile = tiles[i].getTile();
+			if (!tile)
 			{
-				AssetSpriteMap::iterator iter = mAssetSprites.find(asset);
-				if (iter == mAssetSprites.end())
-				{
-					Sprite *assetSprite = new Sprite(asset);
-					mAssetSprites[asset] = assetSprite;
-					assetSprite->setWidth(grid);
-					assetSprite->setHeight(grid);
-				}
+				continue;
+			}
+			Asset *asset = tile->getGraphicAsset();
+			addAssetForUpdate(asset, grid);
+			auto transitionalTiles = tile->getAllTransitionalAssets();
+			for (auto iter = transitionalTiles.begin(); iter != transitionalTiles.end(); ++iter)
+			{
+				addAssetForUpdate(iter->second, grid);
 			}
 		}
 	}
@@ -192,7 +192,12 @@ namespace gfx {
 						uint8_t value = instance.getTileEdgeValue(i);
 						if (value != 0)
 						{
-							asset = tiles[t + offsets[i]].getTile()->getGraphicAsset();
+							Tile *overlapTile = tiles[t + offsets[i]].getTile();
+							asset = overlapTile->getTransitionalAsset(instance.getTile());
+							if (!asset)
+							{
+								asset = overlapTile->getGraphicAsset();
+							}
 							if (asset->getTotalFrames() == 32)
 							{
 								sprite = mAssetSprites[asset];
@@ -210,6 +215,21 @@ namespace gfx {
 			glTranslatef(resetX, grid, 0.0f);
 		}
 		glPopMatrix();
+	}
+
+	void TileRenderer::addAssetForUpdate(Asset *asset, float grid)
+	{
+		if (asset)
+		{
+			AssetSpriteMap::iterator iter = mAssetSprites.find(asset);
+			if (iter == mAssetSprites.end())
+			{
+				Sprite *assetSprite = new Sprite(asset);
+				mAssetSprites[asset] = assetSprite;
+				assetSprite->setWidth(grid);
+				assetSprite->setHeight(grid);
+			}
+		}
 	}
 
 }
