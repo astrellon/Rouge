@@ -70,7 +70,7 @@ namespace gfx {
 		
 	protected:
 
-		Asset *mAsset;
+		Handle<Asset> mAsset;
 
 		int mCurrentFrame;
 		int mTextureFrame;

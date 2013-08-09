@@ -42,44 +42,6 @@ namespace gfx {
 		return mAsset != nullptr && mAsset->getTexture() != nullptr && !mTextureWindows.empty();
 	}
 
-	/*int Font::loadDef(JsonValue value)
-	{
-		if (value.has("asset", JV_STR))
-		{
-			mAsset = GfxEngine::getEngine()->getAsset(value["asset"].getCStr());
-		}
-		if (value.has("fixedWidth", JV_BOOL))
-		{
-			mFixedWidth = value["fixedWidth"].getBool();
-		}
-		if (value.has("utf", JV_BOOL))
-		{
-			mUtfSupport = value["utf"].getBool();
-		}
-		if (value.has("kerning", JV_INT) || value.has("kerning", JV_FLOAT))
-		{
-			mKerning = value["kerning"].getFloat();
-		}
-		if (value.has("leading", JV_INT) || value.has("leading", JV_FLOAT))
-		{
-			mLeading = value["leading"].getFloat();
-		}
-		if (value.has("spaceWidth", JV_INT) || value.has("spaceWidth", JV_FLOAT))
-		{
-			mSpaceWidth = value["spaceWidth"].getFloat();
-		}
-		if (value.has("tabWidth", JV_INT) || value.has("tabWidth", JV_FLOAT))
-		{
-			mTabWidth = value["tabWidth"].getFloat();
-		}
-		if (value.has("charsAcross", JV_INT))
-		{
-			setCharsAcross(value["charsAcross"].getInt());
-		}
-		postLoad();
-
-		return 0;
-	}*/
 	int Font::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

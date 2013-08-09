@@ -15,11 +15,6 @@ using namespace am::lua;
 #include "astar_node.h"
 
 namespace am {
-namespace gfx {
-	class Asset;
-}
-using namespace am::gfx;
-
 namespace game {
 
 	class TileInstance;
@@ -43,8 +38,6 @@ namespace game {
 		Map(const char *name, int width, int height);
 		Map(const Map &rhs);
 		~Map();
-
-		//virtual Renderable *clone() const;
 
 		virtual void deinit();
 	
@@ -83,14 +76,8 @@ namespace game {
 		bool isValidGridLocation(int gridX, int gridY, const vector< Handle<TileType> > &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
-		//void loadDef(LuaState &lua);
-
-		//void updateAssetSprites();
-
 		void setFilename(const char *filename);
 		const char *getFilename() const;
-
-		//virtual void render(float dt);
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
@@ -121,14 +108,6 @@ namespace game {
 
 		bool canOverlap(int x, int y, Tile *overlapTile) const;
 		bool canOverlap(Tile *tile, Tile *overlapTile) const;
-
-		//bool mEnabledMapCulling;
-
-		// To keep memory at a sane level for larger maps, there is currently
-		// only one sprite per asset. This should also keep tiles of the same animated
-		// graphic in sync, and as well as not doubling up on computing the current frame.
-		//typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
-		//AssetSpriteMap mAssetSprites;
 
 		void clear();
 		ObjectList::const_iterator findGameObject(GameObject *object) const;

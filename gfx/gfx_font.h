@@ -4,13 +4,11 @@
 #include <vector>
 using namespace std;
 
-//#include <util/json_value.h>
-//using namespace am::util;
-
 #include <lua/lua_state.h>
 using namespace am::lua;
 
 #include <base/imanaged.h>
+#include <base/handle.h>
 using namespace am::base;
 
 #include "texture_window.h"
@@ -32,7 +30,6 @@ namespace gfx {
 
 		string getName() const;
 
-		//int loadDef(JsonValue value);
 		// The table to load the definition off needs to be on top of the stack.
 		int loadDef(LuaState &lua);
 
@@ -69,7 +66,7 @@ namespace gfx {
 
 	protected:
 
-		Asset *mAsset;
+		Handle<Asset> mAsset;
 		string mName;
 
 		bool mFixedWidth;
