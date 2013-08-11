@@ -201,7 +201,14 @@ namespace gfx {
 							if (asset->getTotalFrames() == 32)
 							{
 								sprite = mAssetSprites[asset];
-								sprite->setTextureFrame(value);
+								if (asset->getNumberOfTextures() == 1)
+								{
+									sprite->setCurrentFrame(value);
+								}
+								else
+								{
+									sprite->setTextureFrame(value);
+								}
 								sprite->renderSprite();
 								sprite->setTextureFrame(0);
 							}

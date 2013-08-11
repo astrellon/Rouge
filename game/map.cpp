@@ -176,10 +176,18 @@ namespace game {
 		int offsets[8] = {-1 - mMapWidth, -mMapWidth, -mMapWidth + 1, -1, 1, -1 + mMapWidth, mMapWidth, 1 + mMapWidth};
 		//static const int flagss[8] = {FLAG_TL, FLAG_T, FLAG_TR, FLAG_L, FLAG_R, FLAG_BL, FLAG_B, FLAG_BR};
 		bool skip[8] = {false, false, false, false, false, false, false, false};
-		skip[0] |= skip[1] |= skip[2] |= y == 0;
-		skip[5] |= skip[6] |= skip[7] |= y == mMapHeight - 1;
-		skip[0] |= skip[3] |= skip[5] |= x == 0;
-		skip[2] |= skip[4] |= skip[7] |= x == mMapWidth - 1;
+		skip[0] |= y == 0;
+		skip[1] |= y == 0;
+		skip[2] |= y == 0;
+		skip[5] |= y >= mMapHeight - 1;
+		skip[6] |= y >= mMapHeight - 1;
+		skip[7] |= y >= mMapHeight - 1;
+		skip[0] |= x == 0;
+		skip[3] |= x == 0;
+		skip[5] |= x == 0;
+		skip[2] |= x >= mMapWidth - 1;
+		skip[4] |= x >= mMapWidth - 1;
+		skip[7] |= x >= mMapWidth - 1;
 
 		int index = y * mMapWidth + x;
 		int total = mMapWidth * mMapHeight;
@@ -222,7 +230,7 @@ namespace game {
 				flag |= Map::FLAG_R;
 				skip[4] = true;
 			}
-			if (!skip[6] && tiles[3] == tiles[4])
+			if (!skip[6] && tiles[3] == tiles[6])
 			{
 				flag |= Map::FLAG_B;
 				skip[6] = true;
@@ -236,6 +244,7 @@ namespace game {
 			if (!skip[6] && tiles[4] == tiles[6])
 			{
 				flag |= Map::FLAG_B;
+				skip[6] = true;
 			}
 			instance.setTileEdgeValue(4, flag);
 		}
@@ -333,104 +342,6 @@ namespace game {
 			}
 			instance.setTileEdgeValue(7, flag);
 		}
-		/*int flags = 0;
-		int index = y * mMapWidth + x;
-		int total = mMapWidth * mMapHeight;
-		TileInstance &instance = mTiles[index];
-		Tile *tile = instance.getTile();
-		Tile *prevOverlapTile = nullptr;
-
-		int startIndex = 0;
-		for (int i = 0; i < 8; i++)
-		{
-			if (skip[i])
-			{
-				instance.setTileEdgeValue(startIndex, flags);
-				flags = 0;
-				startIndex = i + 1;
-				prevOverlapTile = nullptr;
-				continue;
-			}
-			int newIndex = index + offsets[i];
-			if (newIndex < 0 || newIndex >= total)
-			{
-				instance.setTileEdgeValue(startIndex, flags);
-				flags = 0;
-				startIndex = i + 1;
-				prevOverlapTile = nullptr;
-				continue;
-			}
-
-			Tile *overlapTile = mTiles[newIndex].getTile();
-			if ((prevOverlapTile != nullptr && prevOverlapTile != overlapTile) || canOverlap(tile, overlapTile))
-			{
-				flags |= flagss[i];
-			}
-			else
-			{
-				if (i == 7 && !skip[0] && mTiles[index + offsets[0]].getTile() == overlapTile)
-				{
-					instance.setTileEdgeValue(0, flags | instance.getTileEdgeValue(0));
-				}
-				else
-				{
-					instance.setTileEdgeValue(startIndex, flags);
-				}
-				flags = 0;
-				startIndex = i + 1;
-				prevOverlapTile = nullptr;
-			}
-		}*/
-		/*bool notXMax = x < mMapWidth - 1;
-		bool notYMax = y < mMapHeight - 1;
-		// Determine edges
-		if (y > 0)
-		{
-			if (canOverlap(x, y - 1, tile))
-			{
-				flags |= FLAG_T;
-			}
-		}
-		if (x > 0 && canOverlap(x - 1, y, tile))
-		{
-			flags |= FLAG_L;
-		}
-		if (notXMax && canOverlap(x + 1, y, tile))
-		{
-			flags |= FLAG_R;
-		}
-		if (notYMax)
-		{
-			if (canOverlap(x, y + 1, tile))
-			{
-				flags |= FLAG_B;
-			}
-		}
-
-		// Determine corners
-		if (y > 0 && (flags & FLAG_T))
-		{
-			if (x > 0 && (flags & FLAG_L) && canOverlap(x - 1, y - 1, tile))
-			{
-				flags |= FLAG_TL;
-			}
-			if (notXMax && (flags & FLAG_R) && canOverlap(x + 1, y - 1, tile))
-			{
-				flags |= FLAG_TR;
-			}
-		}
-		if (notYMax && (flags & FLAG_B))
-		{
-			if (x > 0 && (flags & FLAG_L) && canOverlap(x - 1, y + 1, tile))
-			{
-				flags |= FLAG_BL;
-			}
-			if (notXMax && (flags & FLAG_R) && canOverlap(x + 1, y + 1, tile))
-			{
-				flags |= FLAG_BR;
-			}
-		}
-		return flags;*/
 	}
 	
 	bool Map::canOverlap(int x, int y, Tile *overlapTile) const

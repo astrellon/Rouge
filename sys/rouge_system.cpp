@@ -437,9 +437,9 @@ namespace sys {
 		//game->getCurrentMap()->getTileInstance(2, 0)->setTileEdgeValue(5, Map::FLAG_BL);
 
 		TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
-		nature->getTile("test")->setPrecedence(10);
-		Tile *tile = nature->getTile("test");
-		tile->setTransitionalAsset(nature->getTile("grass"), GfxEngine::getEngine()->getAssetLua("tiles/testTransitionToWater"));
+		nature->getTile("grass")->setPrecedence(10);
+		//Tile *tile = nature->getTile("test");
+		//tile->setTransitionalAsset(nature->getTile("grass"), GfxEngine::getEngine()->getAssetLua("tiles/testTransitionToWater"));
 		//nature->getTile("test")->setG
 
 		game->getCurrentMap()->calcAllTileEdgeValues();

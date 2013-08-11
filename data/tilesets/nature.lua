@@ -7,6 +7,7 @@ local tile = {}
 set.tiles.grass = tile
 tile.assetName = "tiles/grass"
 tile.fullName = "Grass"
+tile.precedence = 10
 tile.description = "Tis grass"
 tile.tileTypes = {"Land", "Air"}
 
