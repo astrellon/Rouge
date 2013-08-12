@@ -110,7 +110,10 @@ namespace gfx {
 			auto transitionalTiles = tile->getAllTransitionalAssets();
 			for (auto iter = transitionalTiles.begin(); iter != transitionalTiles.end(); ++iter)
 			{
-				addAssetForUpdate(iter->second, grid);
+				for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
+				{
+					addAssetForUpdate(*iter2, grid);
+				}
 			}
 		}
 	}
@@ -176,13 +179,19 @@ namespace gfx {
 				TileInstance &instance = tiles[t];
 				Asset *asset = instance.getTile()->getGraphicAsset();
 				Sprite *sprite = mAssetSprites[asset];
+				sprite->setFrameRate(asset->getFrameRate());
 				// Only 1 sprite per asset.
 				// So to get each variation for non-animated tiles then
 				// we need to set the frame from each tile instance onto the
 				// sprite just before we render that sprite.
 				if (asset->getFrameRate() <= 0.0f)
 				{
-					sprite->setCurrentFrame(instance.getTileFrame());
+					sprite->setSubWindowFrame(instance.getBaseVariation());
+					//sprite->setSubWindowFrame(instance.getTileSubWindowFrame());
+				}
+				else if (asset->isSubWindowAnimation())
+				{
+					sprite->setTextureFrame(instance.getBaseVariation());
 				}
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
@@ -193,17 +202,33 @@ namespace gfx {
 						if (value != 0)
 						{
 							Tile *overlapTile = tiles[t + offsets[i]].getTile();
-							asset = overlapTile->getTransitionalAsset(instance.getTile());
-							if (!asset)
+							const Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
+							//asset = overlapTile->getTransitionalAsset(instance.getTile());
+							if (!assets)
 							{
-								asset = overlapTile->getGraphicAsset();
+								//asset = overlapTile->getGraphicAsset();
+								assets = overlapTile->getTransitionalAsset(nullptr);
+								if (!assets)
+								{
+									continue;
+								}
 							}
-							if (asset->getTotalFrames() == 32)
+							int variation = instance.getTransitionVariation();
+							if (variation >= assets->size())
+							{
+								variation = assets->size() - 1;
+							}
+							asset = assets->at(variation);
+							//if (asset->getTotalSubWindows() == 32)
 							{
 								sprite = mAssetSprites[asset];
-								if (asset->getNumberOfTextures() == 1)
+								if (!sprite)
 								{
-									sprite->setCurrentFrame(value);
+									continue;
+								}
+								if (!asset->isSubWindowAnimation() || asset->getTotalTextures() == 1)
+								{
+									sprite->setSubWindowFrame(value);
 								}
 								else
 								{

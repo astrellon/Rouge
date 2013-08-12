@@ -42,6 +42,9 @@ namespace gfx {
 		void setCurrentFrame(int frame);
 		int getCurrentFrame() const;
 
+		void setSubWindowFrame(int frame);
+		int getSubWindowFrame() const;
+
 		void setTextureFrame(int frame);
 		int getTextureFrame() const;
 
@@ -72,10 +75,11 @@ namespace gfx {
 
 		Handle<Asset> mAsset;
 
-		int mCurrentFrame;
+		int mSubWindowFrame;
 		int mTextureFrame;
 		float mFrameRate;
 		float mCurrentTime;
+		int mCurrentFrame;
 
 		ScaleNineState mScaleNineState;
 

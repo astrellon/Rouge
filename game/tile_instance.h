@@ -22,8 +22,11 @@ namespace game {
 		bool setTileName(const char *tileName);
 		bool setTileName(const string &tileName);
 
-		void setTileFrame(int frame);
-		int getTileFrame() const;
+		void setBaseVariation(int variation);
+		int getBaseVariation() const;
+
+		void setTransitionVariation(int variation);
+		int getTransitionVariation() const;
 
 		bool hasEdgeValue() const;
 
@@ -35,7 +38,10 @@ namespace game {
 
 	protected:
 		Tile *mTile;
-		int mTileFrame;
+		//uint16_t mTileSubWindowFrame;
+		//uint16_t mTileTextureFrame;
+		uint16_t mBaseVariation;
+		uint16_t mTransitionVariation;
 		uint8_t mTileEdgeValues[8];
 	};
 

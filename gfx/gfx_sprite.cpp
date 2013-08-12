@@ -25,6 +25,7 @@ namespace gfx {
 		mAsset(nullptr),
 		mCurrentFrame(0),
 		mTextureFrame(0),
+		mSubWindowFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
 		mScaleNineState(SCALE_NINE_NONE)
@@ -37,6 +38,7 @@ namespace gfx {
 		mCurrentFrame(copy.mCurrentFrame),
 		mTextureFrame(copy.mTextureFrame),
 		mFrameRate(copy.mFrameRate),
+		mSubWindowFrame(copy.mSubWindowFrame),
 		mCurrentTime(copy.mCurrentTime),
 		mScaleNineState(copy.mScaleNineState)
 	{
@@ -46,6 +48,7 @@ namespace gfx {
 		Renderable(),
 		mAsset(asset),
 		mCurrentFrame(0),
+		mSubWindowFrame(0),
 		mTextureFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f)
@@ -61,6 +64,7 @@ namespace gfx {
 		mTextureFrame(0),
 		mFrameRate(0.0f),
 		mCurrentTime(0.0f),
+		mSubWindowFrame(0),
 		mAsset(nullptr)
 	{
 		Asset *asset = nullptr;
@@ -122,6 +126,16 @@ namespace gfx {
 	{
 		return mCurrentFrame;
 	}
+
+	void Sprite::setSubWindowFrame(int frame)
+	{
+		mSubWindowFrame = frame;
+	}
+	int Sprite::getSubWindowFrame() const
+	{
+		return mSubWindowFrame;
+	}
+
 	void Sprite::setTextureFrame(int frame)
 	{
 		mTextureFrame = frame;
@@ -238,7 +252,7 @@ namespace gfx {
 		num = dataMap->at<data::Number>("textureFrame");
 		if (num)
 		{
-			mTextureFrame = num->value<float>();
+			mTextureFrame = num->valuei();
 		}
 
 		str = dataMap->at<data::String>("scaleNineState");
@@ -254,15 +268,6 @@ namespace gfx {
 		{
 			return;
 		}
-
-		/*if (mAsset != nullptr && string(mAsset->getTexture()->getFilename()).find("dead") != string::npos)
-		{
-			RenderablePath path;
-			getRenderPath(path);
-			vector<string> names;
-			debugRenderPath(path, names);
-			printf("ASD");
-		}*/
 
 		if (mAsset == nullptr || mAsset->getTexture() == nullptr || !mAsset->getTexture()->isLoaded())
 		{
@@ -339,20 +344,27 @@ namespace gfx {
 
 	void Sprite::renderSprite()
 	{
-		if (mAsset->getNumberOfTextures() == 1)
+		if (mFrameRate <= 0.0f)
 		{
-			mAsset->getTexture()->bindTexture();
-
+			mAsset->getTexture(mTextureFrame)->bindTexture();
+			int subWindow = mSubWindowFrame;
+			if (subWindow >= mAsset->getAnimationWindows().size())
+			{
+				subWindow = mAsset->getAnimationWindows().size() - 1;
+			}
+			const TextureWindow &win = mAsset->getAnimationWindows()[subWindow];
+			renderTexture(win, getWidth(), getHeight());
+		}
+		else if (mAsset->isSubWindowAnimation())
+		{
+			mAsset->getTexture(mTextureFrame)->bindTexture();
 			const TextureWindow &win = mAsset->getAnimationWindows()[mCurrentFrame];
-
 			renderTexture(win, getWidth(), getHeight());
 		}
 		else
 		{
 			mAsset->getTexture(mCurrentFrame)->bindTexture();
-
 			const TextureWindow &win = mAsset->getAnimationWindows()[mTextureFrame];
-
 			renderTexture(win, getWidth(), getHeight());
 		}
 	}
@@ -598,10 +610,10 @@ namespace gfx {
 	{
 		if (mAsset)
 		{
-			int numTextures = mAsset->getNumberOfTextures();
+			int numTextures = mAsset->getTotalTextures();
 			if (numTextures == 1)
 			{
-				return mAsset->getTotalFrames();
+				return mAsset->getTotalSubWindows();
 			}
 			return numTextures;
 		}

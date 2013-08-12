@@ -39,7 +39,7 @@ namespace gfx {
 		void addTexture(const Texture *texture);
 		void removeTexture(const Texture *texture);
 		bool hasTexture(const Texture *texture) const;
-		int getNumberOfTextures() const;
+		int getTotalTextures() const;
 
 		void setTextureWindow(const TextureWindow &window);
 		const TextureWindow &getTextureWindow() const;
@@ -50,13 +50,15 @@ namespace gfx {
 		void setNumFramesY(int num);
 		int getNumFramesY() const;
 
-		void setTotalFrames(int frames);
-		int getTotalFrames() const;
+		void setTotalSubWindows(int frames);
+		int getTotalSubWindows() const;
 
 		void setFrameRate(float rate);
 		float getFrameRate() const;
 
-		void setAnimation(int numX, int numY, int totalFrames, float frameRate);
+		void setSubWindowFrames(int numX, int numY, int totalFrames, float frameRate);
+		void setSubWindowAnimation(bool animateSubWindow);
+		bool isSubWindowAnimation() const;
 
 		const AnimationWindows &getAnimationWindows() const;
 		void processAnimation();
@@ -84,13 +86,14 @@ namespace gfx {
 	protected:
 
 		string mName;
-		//const Texture *mTexture;
 		vector<const Texture *> mTextures;
 		TextureWindow mWindow;
 
+		bool mAnimateSubWindows;
+
 		int mNumFramesX;
 		int mNumFramesY;
-		int mTotalFrames;
+		int mTotalSubWindows;
 		float mFrameRate;
 
 		float mWidth;

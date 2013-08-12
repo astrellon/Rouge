@@ -169,12 +169,12 @@ namespace game {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				lua_pushinteger(lua, inst->getTileFrame());
+				lua_pushinteger(lua, inst->getBaseVariation());
 				return 1;
 			}
 			else if (lua_isnum(lua, 2))
 			{
-				inst->setTileFrame(lua_tointeger(lua, 2));
+				inst->setBaseVariation(lua_tointeger(lua, 2));
 				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "tile_frame", "integer frame");

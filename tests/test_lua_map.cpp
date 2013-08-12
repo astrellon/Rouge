@@ -78,22 +78,22 @@ namespace tests {
 		Tile *tile = map->getTile(0, 0);
 		assert(tile);
 		am_equalsStr("brick", tile->getName().c_str());
-		am_equals(0, map->getTileInstance(0, 0)->getTileFrame());
+		am_equals(0, map->getTileInstance(0, 0)->getBaseVariation());
 
 		tile = map->getTile(3, 0);
 		assert(tile);
 		am_equalsStr("grass", tile->getName().c_str());
-		am_equals(2, map->getTileInstance(3, 0)->getTileFrame());
+		am_equals(2, map->getTileInstance(3, 0)->getBaseVariation());
 
 		tile = map->getTile(4, 4);
 		assert(tile);
 		am_equalsStr("swamp", tile->getName().c_str());
-		am_equals(0, map->getTileInstance(4, 4)->getTileFrame());
+		am_equals(0, map->getTileInstance(4, 4)->getBaseVariation());
 
 		tile = map->getTile(5, 6);
 		assert(tile);
 		am_equalsStr("water", tile->getName().c_str());
-		am_equals(0, map->getTileInstance(5, 6)->getTileFrame());
+		am_equals(0, map->getTileInstance(5, 6)->getBaseVariation());
 
 		return true;
 	}

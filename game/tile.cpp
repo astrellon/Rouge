@@ -131,26 +131,62 @@ namespace game {
 		return mPrecedence;
 	}
 
-	void Tile::setTransitionalAsset(Tile *overlapTile, Asset *asset)
+	void Tile::addTransitionalAsset(Tile *overlapTile, Asset *asset)
 	{
-		if (!overlapTile)
+		mTransitionalGraphics[overlapTile].push_back(asset);
+	}
+	void Tile::removeTransitionalAsset(Tile *overlapTile, Asset *asset)
+	{
+		if (!asset)
 		{
 			return;
 		}
-		mTransitionalGraphics[overlapTile] = asset;
-	}
-	Asset *Tile::getTransitionalAsset(Tile *overlapTile) const
-	{
-		if (!overlapTile)
+		auto find = mTransitionalGraphics.find(overlapTile);
+		if (find == mTransitionalGraphics.end())
 		{
-			return nullptr;
+			return;
 		}
+		for (auto iter = find->second.begin(); iter != find->second.end(); ++iter)
+		{
+			if (iter->get() == asset)
+			{
+				find->second.erase(iter);
+				break;
+			}
+		}
+	}
+	bool Tile::hasTransitionalAsset(Tile *overlapTile, Asset *asset) const
+	{
+		if (!asset)
+		{
+			return false;
+		}
+		auto find = mTransitionalGraphics.find(overlapTile);
+		if (find == mTransitionalGraphics.end())
+		{
+			return false;
+		}
+		for (auto iter = find->second.begin(); iter != find->second.end(); ++iter)
+		{
+			if (iter->get() == asset)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool Tile::hasTransitionalAssets(Tile *overlapTile) const
+	{
+		return mTransitionalGraphics.find(overlapTile) != mTransitionalGraphics.end();
+	}
+	const Tile::TileAssetList *Tile::getTransitionalAsset(Tile *overlapTile) const
+	{
 		auto find = mTransitionalGraphics.find(overlapTile);
 		if (find == mTransitionalGraphics.end())
 		{
 			return nullptr;
 		}
-		return find->second;
+		return &find->second;
 	}
 	const Tile::TileAssetMap &Tile::getAllTransitionalAssets() const
 	{

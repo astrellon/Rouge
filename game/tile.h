@@ -27,7 +27,8 @@ namespace game {
 	public:
 
 		typedef vector< Handle<TileType> > TileTypeList;
-		typedef map< Tile *, Handle<Asset> > TileAssetMap;
+		typedef vector< Handle<Asset> > TileAssetList;
+		typedef map< Tile *, TileAssetList > TileAssetMap;
 
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);
@@ -59,8 +60,11 @@ namespace game {
 		TileTypeList &getTileTypes();
 		const TileTypeList &getTileTypes() const;
 
-		void setTransitionalAsset(Tile *overlapTile, Asset *asset);
-		Asset *getTransitionalAsset(Tile *overlapTile) const;
+		void addTransitionalAsset(Tile *overlapTile, Asset *asset);
+		void removeTransitionalAsset(Tile *overlapTile, Asset *asset);
+		bool hasTransitionalAsset(Tile *overlapTile, Asset *asset) const;
+		bool hasTransitionalAssets(Tile *overlapTile) const;
+		const TileAssetList *getTransitionalAsset(Tile *overlapTile) const;
 		const TileAssetMap &getAllTransitionalAssets() const;
 
 		//void loadDef(JsonValue value);

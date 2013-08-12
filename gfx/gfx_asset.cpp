@@ -21,9 +21,10 @@ namespace gfx {
 		mName(name),
 		mNumFramesX(1),
 		mNumFramesY(1),
-		mTotalFrames(1),
+		mTotalSubWindows(1),
 		mFrameRate(0.0f),
 		mAnimationDirty(true),
+		mAnimateSubWindows(true),
 		mScaleNineState(SCALE_NINE_NONE),
 		mRepeatX(false),
 		mRepeatY(false)
@@ -89,7 +90,7 @@ namespace gfx {
 	{
 		return Utils::find(mTextures, texture) != -1;
 	}
-	int Asset::getNumberOfTextures() const
+	int Asset::getTotalTextures() const
 	{
 		return static_cast<int>(mTextures.size());
 	}
@@ -136,18 +137,18 @@ namespace gfx {
 		return mNumFramesY;
 	}
 
-	void Asset::setTotalFrames(int frames)
+	void Asset::setTotalSubWindows(int frames)
 	{
 		if (frames < 1)
 		{
 			frames = 1;
 		}
-		mTotalFrames = frames;
+		mTotalSubWindows = frames;
 		mAnimationDirty = true;
 	}
-	int Asset::getTotalFrames() const
+	int Asset::getTotalSubWindows() const
 	{
-		return mTotalFrames;
+		return mTotalSubWindows;
 	}
 
 	void Asset::setFrameRate(float rate)
@@ -159,7 +160,7 @@ namespace gfx {
 		return mFrameRate;
 	}
 
-	void Asset::setAnimation(int numX, int numY, int totalFrames, float frameRate)
+	void Asset::setSubWindowFrames(int numX, int numY, int totalFrames, float frameRate)
 	{
 		if (numX < 1)
 		{
@@ -175,9 +176,18 @@ namespace gfx {
 		{
 			totalFrames = 1;
 		}
-		mTotalFrames = totalFrames;
+		mTotalSubWindows = totalFrames;
 		mFrameRate = frameRate;
 		mAnimationDirty = true;
+	}
+
+	void Asset::setSubWindowAnimation(bool animateSubWindow)
+	{
+		mAnimateSubWindows = animateSubWindow;
+	}
+	bool Asset::isSubWindowAnimation() const
+	{
+		return mAnimateSubWindows;
 	}
 
 	const Asset::AnimationWindows &Asset::getAnimationWindows() const
@@ -341,7 +351,7 @@ namespace gfx {
 		{
 			frameRate = lua.toNumber();
 		}
-		setAnimation(framesX, framesY, totalFrames, frameRate);
+		setSubWindowFrames(framesX, framesY, totalFrames, frameRate);
 
 		if (lua.isTableTable("scaleNine"))
 		{
@@ -470,7 +480,7 @@ namespace gfx {
 		mWindow = rhs.mWindow;
 		mNumFramesX = rhs.mNumFramesX;
 		mNumFramesY = rhs.mNumFramesY;
-		mTotalFrames = rhs.mTotalFrames;
+		mTotalSubWindows = rhs.mTotalSubWindows;
 		mFrameRate = rhs.mFrameRate;
 		mWidth = rhs.mWidth;
 		mHeight = rhs.mHeight;

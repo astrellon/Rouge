@@ -1,6 +1,7 @@
 -- Brick Asset
 asset = {}
 asset.texture = "data/textures/tiles/bricks.png"
+asset.frameRate = 0
 asset.window = {}
 asset.window.left = 0
 asset.window.right = 31

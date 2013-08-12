@@ -14,7 +14,8 @@ namespace game {
 
 	TileInstance::TileInstance() : 
 		mTile(nullptr),
-		mTileFrame(0)
+		mBaseVariation(0),
+		mTransitionVariation(0)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -23,7 +24,8 @@ namespace game {
 	}
 	TileInstance::TileInstance(Tile *tile) : 
 		mTile(tile),
-		mTileFrame(0)
+		mBaseVariation(0),
+		mTransitionVariation(0)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -72,17 +74,26 @@ namespace game {
 			return false;
 		}
 		setTile(tile);
-		setTileFrame(frameValue);
+		setBaseVariation(frameValue);
 		return true;
 	}
 
-	void TileInstance::setTileFrame(int frame)
+	void TileInstance::setBaseVariation(int frame)
 	{
-		mTileFrame = frame;
+		mBaseVariation = frame;
 	}
-	int TileInstance::getTileFrame() const
+	int TileInstance::getBaseVariation() const
 	{
-		return mTileFrame;
+		return mBaseVariation;
+	}
+
+	void TileInstance::setTransitionVariation(int frame)
+	{
+		mTransitionVariation = frame;
+	}
+	int TileInstance::getTransitionVariation() const
+	{
+		return mTransitionVariation;
 	}
 
 	bool TileInstance::hasEdgeValue() const

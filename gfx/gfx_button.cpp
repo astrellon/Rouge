@@ -78,11 +78,11 @@ namespace gfx {
 		mEnabled = enabled;
 		if (enabled)
 		{
-			setCurrentFrame(0);
+			setSubWindowFrame(0);
 		}
 		else
 		{
-			setCurrentFrame(3);
+			setSubWindowFrame(3);
 		}
 	}
 	bool Button::isEnabled() const
@@ -97,7 +97,7 @@ namespace gfx {
 		{
 		default:
 		case am::ui::MOUSE_OUT:
-			setCurrentFrame(0);
+			setSubWindowFrame(0);
 			break;
 		case am::ui::MOUSE_MOVE:
 			{
@@ -106,17 +106,17 @@ namespace gfx {
 				{
 					frame = 2;
 				}
-				setCurrentFrame(frame);
+				setSubWindowFrame(frame);
 			}
 			break;
 		case am::ui::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
 		case am::ui::MOUSE_OVER:
-			setCurrentFrame(1);
+			setSubWindowFrame(1);
 			break;
 		case am::ui::MOUSE_DOWN:
-			setCurrentFrame(2);
+			setSubWindowFrame(2);
 			break;
 		}
 	}

@@ -174,20 +174,12 @@ namespace game {
 		}
 
 		int offsets[8] = {-1 - mMapWidth, -mMapWidth, -mMapWidth + 1, -1, 1, -1 + mMapWidth, mMapWidth, 1 + mMapWidth};
-		//static const int flagss[8] = {FLAG_TL, FLAG_T, FLAG_TR, FLAG_L, FLAG_R, FLAG_BL, FLAG_B, FLAG_BR};
-		bool skip[8] = {false, false, false, false, false, false, false, false};
-		skip[0] |= y == 0;
-		skip[1] |= y == 0;
-		skip[2] |= y == 0;
-		skip[5] |= y >= mMapHeight - 1;
-		skip[6] |= y >= mMapHeight - 1;
-		skip[7] |= y >= mMapHeight - 1;
-		skip[0] |= x == 0;
-		skip[3] |= x == 0;
-		skip[5] |= x == 0;
-		skip[2] |= x >= mMapWidth - 1;
-		skip[4] |= x >= mMapWidth - 1;
-		skip[7] |= x >= mMapWidth - 1;
+		bool yMax = y >= mMapHeight - 1;
+		bool xMax = x >= mMapWidth - 1;
+		bool skip[8] = {
+			y == 0 | x == 0, y == 0, y == 0 | xMax, 
+			x == 0, xMax, 
+			x == 0 | yMax, yMax, xMax | yMax};
 
 		int index = y * mMapWidth + x;
 		int total = mMapWidth * mMapHeight;
