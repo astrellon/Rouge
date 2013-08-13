@@ -17,8 +17,6 @@ namespace gfx {
 		Texture(const char *filename);
 		~Texture();
 
-		void destroy();
-
 		const char *getFilename() const;
 		bool isLoaded() const;
 
@@ -30,12 +28,12 @@ namespace gfx {
 		int getGlFormat() const;
 
 		GLuint getTextureId() const;
-	
-		Texture &operator=(const Texture &rhs);
-		Texture &operator=(const Texture *rhs);
 
 		void bindTexture() const;
 		static void bindTexture(GLuint id);
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 
@@ -51,7 +49,7 @@ namespace gfx {
 
 		string mFilename;
 
-		void assign(const Texture &rhs);
+		void destroy(GLuint textureId);
 
 		static GLuint sLastBind;
 

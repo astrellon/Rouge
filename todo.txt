@@ -1,11 +1,5 @@
 TODO:
 -	UnitTesting
 -	Character screen
--	Inventory
-- 	Picking up and dropping items
--	NPCs
--	NPC Dialouge
--	Dialouge Trees
 -	Combat
 -	Editor for assets and map
--	Sound engine!

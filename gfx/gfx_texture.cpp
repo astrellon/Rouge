@@ -7,6 +7,9 @@ namespace gfx {
 
 	GLuint Texture::sLastBind = -1;
 
+	const int Texture::LUA_ID = 0x22;
+	const char *Texture::LUA_TABLENAME = "am_gfx_Texture";
+
 	Texture::Texture(const char *filename, GLuint textureId) :
 		IManaged(),
 		mTextureId(textureId),
@@ -28,7 +31,7 @@ namespace gfx {
 	}
 	Texture::~Texture()
 	{
-		//destroy();
+		destroy(mTextureId);
 	}
 
 	bool Texture::isLoaded() const
@@ -43,9 +46,7 @@ namespace gfx {
 			return -1;
 		}
 
-		destroy();
-
-		mFilename = filename;
+		GLuint prevId = mTextureId;
 
 		ILuint imgLoad = ilGenImage();
 		ilBindImage(imgLoad);
@@ -54,6 +55,8 @@ namespace gfx {
 		{
 			return -2;
 		}
+
+		mFilename = filename;
 
 		glGenTextures(1, &mTextureId);
 		glBindTexture(GL_TEXTURE_2D, mTextureId);
@@ -77,6 +80,8 @@ namespace gfx {
 
 		mLoaded = true;
 
+		destroy(prevId);
+
 		return 0;
 	}
 	GLuint Texture::getTextureId() const
@@ -86,15 +91,7 @@ namespace gfx {
 
 	int Texture::reload()
 	{
-		Texture *temp = new Texture(mFilename.c_str());
-		if (temp->isLoaded())
-		{
-			assign(*temp);
-			delete temp;
-			return 1;
-		}
-		delete temp;
-		return 0;
+		return loadFromFile(mFilename.c_str());
 	}
 
 	int Texture::getWidth() const 
@@ -114,41 +111,19 @@ namespace gfx {
 		return mGlFormat;
 	}
 
-	Texture &Texture::operator=(const Texture &rhs)
-	{
-		assign(rhs);
-		return *this;
-	}
-	Texture &Texture::operator=(const Texture *rhs)
-	{
-		assign(*rhs);
-		return *this;
-	}
-
 	const char *Texture::getFilename() const
 	{
 		return mFilename.c_str();
 	}
 
-	void Texture::assign(const Texture &rhs)
+	void Texture::destroy(GLuint textureId) 
 	{
-		mTextureId = rhs.mTextureId;
-		mWidth = rhs.mWidth;
-		mHeight = rhs.mHeight;
-		mBytesPerPixel = rhs.mBytesPerPixel;
-		mFilename = rhs.mFilename;
-		mGlFormat = rhs.mGlFormat;
-	}
-
-	void Texture::destroy() 
-	{
-		if (mTextureId > 0) {
+		if (textureId == 0) {
 			return;
 		}
 
-		mFilename = "";
-		mTextureId = 0;
-		mLoaded = false;
+		GLuint textures[1] = {textureId};
+		glDeleteTextures(1, textures);
 	}
 
 	void Texture::bindTexture() const
