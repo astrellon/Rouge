@@ -853,6 +853,12 @@
     <ClCompile Include="gfx\tile_renderer.cpp">
       <Filter>gfx\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\gfx\lua_asset.cpp">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\gfx\lua_texture.cpp">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1554,6 +1560,12 @@
     </ClInclude>
     <ClInclude Include="gfx\tile_renderer.h">
       <Filter>gfx\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\gfx\lua_asset.h">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\gfx\lua_texture.h">
+      <Filter>lua\wrapper\gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

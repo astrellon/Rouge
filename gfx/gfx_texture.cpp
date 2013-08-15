@@ -2,6 +2,9 @@
 
 #include "IL/il.h"
 
+#include <util/utils.h>
+using namespace am::util;
+
 namespace am {
 namespace gfx {
 
@@ -10,14 +13,25 @@ namespace gfx {
 	const int Texture::LUA_ID = 0x22;
 	const char *Texture::LUA_TABLENAME = "am_gfx_Texture";
 
-	Texture::Texture(const char *filename, GLuint textureId) :
+	Texture::Texture() :
+		IManaged(),
+		mTextureId(0),
+		mWidth(-1),
+		mHeight(-1),
+		mBytesPerPixel(-1),
+		mGlFormat(GL_RGB),
+		mLoaded(false)
+	{
+	}
+
+	/*Texture::Texture(const char *filename, GLuint textureId) :
 		IManaged(),
 		mTextureId(textureId),
 		mFilename(filename),
 		mLoaded(false)
 	{
 		// TODO: Get GL width and height, etc
-	}
+	}*/
 	Texture::Texture(const char *filename) :
 		IManaged(),
 		mTextureId(0),
@@ -39,11 +53,16 @@ namespace gfx {
 		return mLoaded;
 	}
 
-	int Texture::loadFromFile(const char *filename)
+	ReturnCode Texture::loadFromFile(const char *filename)
 	{
 		if (filename == nullptr || filename[0] == '\0')
 		{
-			return -1;
+			return NULL_PARAMETER;
+		}
+
+		if (!Utils::fileExists(filename))
+		{
+			return FILE_NOT_FOUND;
 		}
 
 		GLuint prevId = mTextureId;
@@ -53,7 +72,7 @@ namespace gfx {
 
 		if (!ilLoadImage(filename))
 		{
-			return -2;
+			return TEXTURE_LOAD_FAILED;
 		}
 
 		mFilename = filename;
@@ -77,12 +96,10 @@ namespace gfx {
 		glTexImage2D(GL_TEXTURE_2D, 0, mGlFormat, mWidth, mHeight, 0, mGlFormat, GL_UNSIGNED_BYTE, ilGetData());
 
 		ilDeleteImage(imgLoad);
-
 		mLoaded = true;
-
 		destroy(prevId);
 
-		return 0;
+		return SUCCESS;
 	}
 	GLuint Texture::getTextureId() const
 	{
@@ -114,6 +131,10 @@ namespace gfx {
 	const char *Texture::getFilename() const
 	{
 		return mFilename.c_str();
+	}
+	ReturnCode Texture::setFilename(const char *filename)
+	{
+		return loadFromFile(filename);
 	}
 
 	void Texture::destroy(GLuint textureId) 

@@ -15,6 +15,9 @@ using namespace std;
 namespace am {
 namespace gfx {
 
+	const int Asset::LUA_ID = 0x21;
+	const char *Asset::LUA_TABLENAME = "am_gfx_Asset";
+
 	// Asset methods
 	Asset::Asset(const char *name) :
 		IManaged(),
@@ -36,7 +39,7 @@ namespace gfx {
 
 	}
 
-	void Asset::setTexture(const Texture *texture, unsigned int index)
+	void Asset::setTexture(Texture *texture, unsigned int index)
 	{
 		if (texture != nullptr && texture->isLoaded())
 		{
@@ -58,13 +61,24 @@ namespace gfx {
 
 			if (mTextures.size() == 1u)
 			{
-				mWindow.setValues(static_cast<float>(texture->getWidth()), 
-					static_cast<float>(texture->getHeight()),
-					0.0f, 1.0f, 0.0f, 1.0f);
+				if (mWindow.getWidth() < -0.1f)
+				{
+					// Just calc width and height
+					float width = abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<float>(texture->getWidth());
+					float height = abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<float>(texture->getHeight());
+					mWindow.mWidth = width;
+					mWindow.mHeight = height;
+				}
+				else
+				{
+					mWindow.setValues(static_cast<float>(texture->getWidth()), 
+						static_cast<float>(texture->getHeight()),
+						0.0f, 1.0f, 0.0f, 1.0f);
+				}
 			}
 		}
 	}
-	const Texture *Asset::getTexture(unsigned int index) const
+	Texture *Asset::getTexture(unsigned int index) const
 	{
 		if (index >= mTextures.size())
 		{
@@ -73,26 +87,77 @@ namespace gfx {
 		return mTextures[index];
 	}
 
-	void Asset::addTexture(const Texture *texture)
+	void Asset::addTexture(Texture *texture)
 	{
 		setTexture(texture, mTextures.size());
 	}
-	void Asset::removeTexture(const Texture *texture)
+	void Asset::removeTexture(const char *filename)
 	{
-		int index = Utils::find(mTextures, texture);
-		if (index == -1)
+		if (!filename || filename[0] == '\0')
 		{
 			return;
 		}
-		mTextures.erase(mTextures.begin() + index);
+		for (auto iter = mTextures.begin(); iter != mTextures.end(); ++iter)
+		{
+			if (strcmp(iter->get()->getFilename(), filename) == 0)
+			{
+				mTextures.erase(iter);
+				break;
+			}
+		}
+	}
+	void Asset::removeTexture(Texture *texture)
+	{
+		if (!texture)
+		{
+			return;
+		}
+		for (auto iter = mTextures.begin(); iter != mTextures.end(); ++iter)
+		{
+			if (iter->get() == texture)
+			{
+				mTextures.erase(iter);
+				break;
+			}
+		}
 	}
 	bool Asset::hasTexture(const Texture *texture) const
 	{
-		return Utils::find(mTextures, texture) != -1;
+		if (!texture)
+		{
+			return false;
+		}
+		for (auto iter = mTextures.begin(); iter != mTextures.end(); ++iter)
+		{
+			if (iter->get() == texture)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	bool Asset::hasTexture(const char *filename) const
+	{
+		if (!filename || filename[0] == '\0')
+		{
+			return false;
+		}
+		for (auto iter = mTextures.begin(); iter != mTextures.end(); ++iter)
+		{
+			if (strcmp(iter->get()->getFilename(), filename) == 0)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	int Asset::getTotalTextures() const
 	{
 		return static_cast<int>(mTextures.size());
+	}
+	const Asset::TextureList &Asset::getAllTextures() const
+	{
+		return mTextures;
 	}
 
 	// IGfxAsset methods
@@ -104,6 +169,14 @@ namespace gfx {
 	void Asset::setTextureWindow(const TextureWindow &window)
 	{
 		mWindow = window;
+		Texture *texture = getTexture();
+		if (mWindow.getWidth() < 0.1f && texture)
+		{
+			float width = abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<double>(texture->getWidth());
+			float height = abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<double>(texture->getHeight());
+			mWindow.mWidth = width;
+			mWindow.mHeight = height;
+		}
 	}
 	const TextureWindow &Asset::getTextureWindow() const
 	{
@@ -210,12 +283,13 @@ namespace gfx {
 				if (lua_isstr(lua, -1))
 				{
 					const char *textureName = lua_tostring(lua, -1);
-					Texture *texture = GfxEngine::getEngine()->getTexture(textureName);
-					if (!texture)
+					Texture *texture = nullptr;
+					ReturnCode result = GfxEngine::getEngine()->getTexture(textureName, texture);
+					if (result != SUCCESS)
 					{
 						stringstream errss;
 						errss << "Unable to load texture ("<< textureName << ") for asset '"
-							<< mName.c_str() << '\'';
+							<< mName.c_str() << "': " << getErrorMessage(result);
 						am_log("ASSET", errss);
 						lua_pop(lua, 1);
 						return -1;
@@ -232,12 +306,13 @@ namespace gfx {
 			{
 				const char *textureName = lua_tostring(lua, -1);
 				lua.pop(1);
-				Texture *texture = GfxEngine::getEngine()->getTexture(textureName);
-				if (!texture)
+				Texture *texture = nullptr;
+				ReturnCode result = GfxEngine::getEngine()->getTexture(textureName, texture);
+				if (result != SUCCESS)
 				{
 					stringstream errss;
 					errss << "Unable to load texture ("<< textureName << ") for asset '"
-						<< mName.c_str() << '\'';
+						<< mName.c_str() << "': " << getErrorMessage(result);
 					am_log("ASSET", errss);
 					return -1;
 				}

@@ -14,7 +14,7 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	const int BodyParts::LUA_ID = 0x31;
+	const int BodyParts::LUA_ID = 0x17;
 	const char *BodyParts::LUA_TABLENAME = "am_game_BodyParts";
 
 	BodyParts::BodyParts() :

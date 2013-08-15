@@ -1,5 +1,8 @@
 #include "utils.h"
 
+#include <fstream>
+using namespace std;
+
 namespace am {
 namespace util {
 
@@ -125,6 +128,12 @@ namespace util {
 	void Utils::setRandSeed(unsigned int seed)
 	{
 		srand(seed);
+	}
+
+	bool Utils::fileExists(const char *filename)
+	{
+		ifstream stream(filename);
+		return stream;
 	}
 
 }

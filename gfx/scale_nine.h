@@ -31,6 +31,7 @@ namespace gfx {
 
 	protected:
 
+		// Values are defined in pixels and are relative to the top left of the texture.
 		float mLeft;
 		float mRight;
 		float mTop;

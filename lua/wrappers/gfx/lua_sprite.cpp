@@ -23,9 +23,11 @@ namespace gfx {
 	 * the asset used by the sprite by name.
 	 */
 	/**
+	 * @static
 	 * Creates a new sprite with no asset.
 	 */
 	/**
+	 * @static
 	 * Creates a new sprite using the given asset name.
 	 *
 	 * @param string asset_name Name of the asset for this sprite to use.

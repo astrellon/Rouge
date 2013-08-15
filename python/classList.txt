@@ -20,15 +20,21 @@ tile_instance lua_tile_instance.cpp
 tile_set lua_tile_set.cpp
 tile_type lua_tile_type.cpp
 
+// am::gfx wrwappers
 __basePath ../lua/wrappers/gfx/
 sprite lua_sprite.cpp
+texture lua_texture.cpp
+asset lua_asset.cpp
 
+// am::util::data wrappers
 __basePath ../lua/wrappers/util/
 data_table lua_data_table.cpp
 
+// am::sfx wrappers
 __basePath ../lua/wrappers/sfx/
 sound lua_sound.cpp
 
+// general misc wrappers
 __basePath ../lua/wrappers/
 debug lua_debug.cpp
 return_codes lua_return_codes.cpp

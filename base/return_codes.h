@@ -8,6 +8,7 @@ namespace base {
 		SUCCESS =					0x0001,
 		NULL_PARAMETER =			0x0000,
 		INTERNAL_ERROR =			-0x0001,
+		FILE_NOT_FOUND =			-0x0002,
 
 		// Character related.
 		ABLE_TO_EQUIP =				0x0100,
@@ -20,7 +21,10 @@ namespace base {
 		// Body Parts related
 		BODY_PART_FOUND =			0x0200,
 		BODY_PART_NOT_FOUND =		-0x0200,
-		BODY_PART_TYPE_UNKNOWN =	-0x0201
+		BODY_PART_TYPE_UNKNOWN =	-0x0201,
+
+		// Texture related
+		TEXTURE_LOAD_FAILED =		-0x0300
 	};
 
 	const char *getErrorMessage(ReturnCode code);

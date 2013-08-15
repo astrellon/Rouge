@@ -81,6 +81,8 @@ namespace util {
 			return result;
 		}
 
+		static bool fileExists(const char *filename);
+
 	};
 
 }

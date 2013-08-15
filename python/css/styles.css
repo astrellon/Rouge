@@ -23,6 +23,12 @@ pre {
 .comment {
 	color: #152;
 }
+.function>.comment {
+	padding: 1em;
+}
+/*.function {
+	margin-bottom: 1em;
+}*/
 .name {
 	font-weight: bold;
 }
@@ -61,4 +67,12 @@ a div:hover {
 	margin: 1em 0 1em 0;
 	
 	
+}
+
+table.return_codes {
+	padding: 0.5em;
+}
+table.return_codes tr td:first-child {
+	font-weight: bold;
+	padding-right: 1em;
 }

@@ -360,28 +360,31 @@ namespace gfx {
 		return mAssetManager;
 	}
 
-	Texture *GfxEngine::getTexture(const char *filename)
+	ReturnCode GfxEngine::getTexture(const char *filename, Texture *texture)
 	{
 		string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter != mTextureManager.end())
 		{
-			return iter->second.get();
+			texture = iter->second.get();
+			return SUCCESS;
 		}
 
-		Texture *texture = new Texture(filename);
-		if (texture->isLoaded())
+		Texture *temp = new Texture();
+		ReturnCode result = temp->setFilename(filename);
+		if (result == SUCCESS)
 		{
-			mTextureManager[fileStr] = texture;
-			return texture;
+			mTextureManager[fileStr] = temp;
+			texture = temp;
+			return SUCCESS;
 		}
 
-		delete texture;
+		delete temp;
 		stringstream errss;
 		errss << "Unable to load texture '" << filename << "'";
 		am_log("GFX", errss);
 		
-		return nullptr;
+		return result;
 	}
 	int GfxEngine::reloadTexture(const char *filename)
 	{

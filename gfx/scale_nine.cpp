@@ -10,9 +10,9 @@ namespace gfx {
 
 	ScaleNine::ScaleNine() :
 		mLeft(0.0f),
-		mRight(1.0f),
+		mRight(0.0f),
 		mTop(0.0f),
-		mBottom(1.0f)
+		mBottom(0.0f)
 	{
 	}
 	ScaleNine::ScaleNine(float left, float right, float top, float bottom) :
@@ -71,8 +71,8 @@ namespace gfx {
 	{
 		return math::abs(mLeft) < 0.000001f &&
 			math::abs(mTop) < 0.000001f &&
-			math::abs(mRight) - 1.0f < 0.000001f &&
-			math::abs(mBottom) - 1.0f < 0.000001f;
+			math::abs(mRight) < 0.000001f &&
+			math::abs(mBottom) < 0.000001f;
 	}
 
 	const char *ScaleNine::getStateName(ScaleNineState state)

@@ -129,10 +129,10 @@ namespace game {
 	 * @param string type The type to set the body part to.
 	 * @returns am.body_part This
 	 * @returns am.code Return code. Can return either:
-	 *  <ul>
-	 *  <li><b>success</b><span>: The body part type was changed.</span></li>
-	 *  <li><b>body_part_type_unknown</b><span>: The type name was unknown.</span></li>
-	 *  </ul>
+	 * <table class='return_codes'>
+	 *  <tr><td>success</td><td>The body part type was changed.</td></tr>
+	 *  <tr><td>body_part_type_unknown</td><td>The type name was unknown.</td></tr>
+	 * </table>
 	 */
 	int BodyPart_type(lua_State *lua)
 	{

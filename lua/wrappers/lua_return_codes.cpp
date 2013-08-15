@@ -19,19 +19,31 @@ namespace lua {
 	 * @class
 	 * A helper class for debugging Lua code.
 	 * This class provides the follow return code constants.
+	 * <h4>General</h4>
 	 * <ul>
 	 * <li>success</li>
 	 * <li>nil_parameter</li>
 	 * <li>internal_error</li>
+	 * <li>file_not_found</li>
+	 * </ul>
+	 * <h4>Character</h4>
+	 * <ul>
 	 * <li>able_to_equip</li>
 	 * <li>can_equip</li>
 	 * <li>body_part_type_mismatch</li>
 	 * <li>not_enough_body_parts</li>
 	 * <li>out_of_range</li>
 	 * <li>no_weapon_part</li>
+	 * </ul>
+	 * <h4>Body Parts</h4>
+	 * <ul>
 	 * <li>body_part_found</li>
 	 * <li>body_part_not_found</li>
 	 * <li>body_part_type_unknown</li>
+	 * </ul>
+	 * <h4>Texture</h4>
+	 * <ul>
+	 * <li>texture_load_failed</li>
 	 * </ul>
 	 */
 	int ReturnCodes_register(lua_State *lua)
@@ -48,18 +60,24 @@ namespace lua {
 		luaL_setfuncs(lua, regs, 0);
 
 		LuaState L(lua);
+		// General
 		L.setTableValue("success", SUCCESS);
 		L.setTableValue("nil_parameter", NULL_PARAMETER);
 		L.setTableValue("internal_error", INTERNAL_ERROR);
+		L.setTableValue("file_not_found", FILE_NOT_FOUND);
+		// Character
 		L.setTableValue("able_to_equip", ABLE_TO_EQUIP);
 		L.setTableValue("can_equip", CAN_EQUIP);
 		L.setTableValue("body_part_type_mismatch", BODY_PART_TYPE_MISMATCH);
 		L.setTableValue("not_enough_body_parts", NOT_ENOUGH_BODY_PARTS);
 		L.setTableValue("out_of_range", OUT_OF_RANGE);
 		L.setTableValue("no_weapon_part", NO_WEAPON_PART);
+		// Body Parts
 		L.setTableValue("body_part_found", BODY_PART_FOUND);
 		L.setTableValue("body_part_not_found", BODY_PART_NOT_FOUND);
 		L.setTableValue("body_part_type_unknown", BODY_PART_TYPE_UNKNOWN);
+		// Texture
+		L.setTableValue("texture_load_failed", TEXTURE_LOAD_FAILED);
 
 		lua_settable(lua, -3);
 

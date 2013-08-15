@@ -6,6 +6,7 @@
 using namespace std;
 
 #include <base/handle.h>
+#include <base/return_codes.h>
 using namespace am::base;
 
 #include <util/colour.h>
@@ -36,7 +37,7 @@ namespace gfx {
 		int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
 
-		Texture *getTexture(const char *textureName);
+		ReturnCode getTexture(const char *textureName, Texture *texture);
 		int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 

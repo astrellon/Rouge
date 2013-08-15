@@ -3,7 +3,13 @@
 namespace am {
 namespace gfx {
 
-	TextureWindow::TextureWindow()
+	TextureWindow::TextureWindow() :
+		mWidth(0.0f),
+		mHeight(0.0f),
+		mLeftX(0.0f),
+		mRightX(1.0f),
+		mTopY(0.0f),
+		mBottomY(1.0f)
 	{
 	}
 	TextureWindow::~TextureWindow()
@@ -49,6 +55,16 @@ namespace gfx {
 
 		sub.mWidth *= uvWidth;
 		sub.mHeight *= uvHeight;
+	}
+
+	void TextureWindow::setValues(float topY, float bottomY, float leftX, float rightX)
+	{
+		mWidth = -1.0f;
+		mHeight = -1.0f;
+		mTopY = topY;
+		mBottomY = bottomY;
+		mLeftX = leftX;
+		mRightX = rightX;
 	}
 
 	void TextureWindow::setValues(float width, float height,

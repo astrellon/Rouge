@@ -26,6 +26,7 @@ namespace gfx {
 	public:
 
 		typedef vector<TextureWindow> AnimationWindows;
+		typedef vector< Handle<Texture> > TextureList;
 		
 		// GlAsset methods
 		Asset(const char *name);
@@ -33,13 +34,16 @@ namespace gfx {
 
 		const char *getName() const;
 
-		void setTexture(const Texture *texture, unsigned int index = 0);
-		const Texture *getTexture(unsigned int index = 0) const;
+		void setTexture(Texture *texture, unsigned int index = 0);
+		Texture *getTexture(unsigned int index = 0) const;
 
-		void addTexture(const Texture *texture);
-		void removeTexture(const Texture *texture);
+		void addTexture(Texture *texture);
+		void removeTexture(const char *filename);
+		void removeTexture(Texture *texture);
 		bool hasTexture(const Texture *texture) const;
+		bool hasTexture(const char *filename) const;
 		int getTotalTextures() const;
+		const TextureList &getAllTextures() const;
 
 		void setTextureWindow(const TextureWindow &window);
 		const TextureWindow &getTextureWindow() const;
@@ -83,10 +87,13 @@ namespace gfx {
 		void setScaleNineState(ScaleNineState state);
 		ScaleNineState getScaleNineState() const;
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		string mName;
-		vector<const Texture *> mTextures;
+		TextureList mTextures;
 		TextureWindow mWindow;
 
 		bool mAnimateSubWindows;
