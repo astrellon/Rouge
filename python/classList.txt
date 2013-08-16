@@ -25,6 +25,7 @@ __basePath ../lua/wrappers/gfx/
 sprite lua_sprite.cpp
 texture lua_texture.cpp
 asset lua_asset.cpp
+gfx_engine lua_gfx_engine.cpp
 
 // am::util::data wrappers
 __basePath ../lua/wrappers/util/
