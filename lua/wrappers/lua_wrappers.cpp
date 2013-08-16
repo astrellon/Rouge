@@ -42,6 +42,12 @@ using namespace am::lua::game;
 
 #include "gfx/lua_sprite.h"
 #include <gfx/gfx_sprite.h>
+#include "gfx/lua_asset.h"
+#include <gfx/gfx_asset.h>
+#include "gfx/lua_texture.h"
+#include <gfx/gfx_texture.h>
+#include "gfx/lua_gfx_engine.h"
+#include <gfx/gfx_engine.h>
 using namespace am::lua::gfx;
 
 #include "sfx/lua_sound.h"
@@ -71,7 +77,7 @@ namespace wrapper {
 	void AssignWrappers(lua_State *lua, int tableRef)
 	{
 		lua_rawgeti(lua, LUA_REGISTRYINDEX, tableRef);
-
+		// am.game
 		addWrapper(lua, "character", Character_register, Character::LUA_ID);
 		addWrapper(lua, "stats", Stats_register, Stats::LUA_ID);
 		addWrapper(lua, "body_part", BodyPart_register, BodyPart::LUA_ID);
@@ -91,8 +97,14 @@ namespace wrapper {
 		addWrapper(lua, "dialogue", Dialogue_register, Dialogue::LUA_ID);
 		addWrapper(lua, "race", Race_register, Race::LUA_ID);
 		addWrapper(lua, "dialogue_component", DialogueComponent_register, DialogueComponent::LUA_ID);
+		// am.gfx
 		addWrapper(lua, "sprite", Sprite_register, Sprite::LUA_ID);
+		addWrapper(lua, "asset", Asset_register, Asset::LUA_ID);
+		addWrapper(lua, "texture", Texture_register, Texture::LUA_ID);
+		addWrapper(lua, "gfx_engine", GfxEngine_register, GfxEngine::LUA_ID);
+		// am.util.data
 		addWrapper(lua, "data_table", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
+		//am.sfx
 		addWrapper(lua, "sound", Sound_register, am::sfx::ISound::LUA_ID);
 
 		ReturnCodes_register(lua);

@@ -64,8 +64,8 @@ namespace gfx {
 				if (mWindow.getWidth() < -0.1f)
 				{
 					// Just calc width and height
-					float width = abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<float>(texture->getWidth());
-					float height = abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<float>(texture->getHeight());
+					float width = math::abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<float>(texture->getWidth());
+					float height = math::abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<float>(texture->getHeight());
 					mWindow.mWidth = width;
 					mWindow.mHeight = height;
 				}
@@ -172,8 +172,8 @@ namespace gfx {
 		Texture *texture = getTexture();
 		if (mWindow.getWidth() < 0.1f && texture)
 		{
-			float width = abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<double>(texture->getWidth());
-			float height = abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<double>(texture->getHeight());
+			float width = math::abs(mWindow.getRightX() - mWindow.getLeftX()) * static_cast<double>(texture->getWidth());
+			float height = math::abs(mWindow.getBottomY() - mWindow.getTopY()) * static_cast<double>(texture->getHeight());
 			mWindow.mWidth = width;
 			mWindow.mHeight = height;
 		}

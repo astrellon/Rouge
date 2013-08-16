@@ -18,6 +18,7 @@ namespace gfx {
 	int Asset_eq(lua_State *lua);
 	int Asset_register(lua_State *lua);
 
+	int Asset_name(lua_State *lua);
 	int Asset_texture(lua_State *lua);
 	int Asset_add_texture(lua_State *lua);
 	int Asset_remove_texture(lua_State *lua);

@@ -81,6 +81,7 @@ namespace gfx {
 			{ "new", Asset_ctor },
 			{ "__gc", Asset_dtor },
 			{ "__eq", Asset_eq },
+			{ "name", Asset_name },
 			{ "texture", Asset_texture },
 			{ "add_texture", Asset_add_texture },
 			{ "remove_texture", Asset_remove_texture },
@@ -109,6 +110,21 @@ namespace gfx {
 		return 1;
 	}
 	
+	/** 
+	 * Returns the name of this asset that was defined when the asset was created.
+	 *
+	 * @returns string The name of this asset.
+	 */
+	int Asset_name(lua_State *lua)
+	{
+		Asset *asset = castUData<Asset>(lua, 1);
+		if (asset)
+		{
+			lua_pushstring(lua, asset->getName());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "name", "am.asset");
+	}
 	/**
 	 * Returns the texture at the given index. Defaults to getting the first texture.
 	 *
@@ -169,7 +185,7 @@ namespace gfx {
 					lua_pushnil(lua);
 					return 1;
 				}
-				Handle<Texture> texture;
+				Texture *texture = nullptr;
 				if (lua_isstr(lua, 2))
 				{
 					ReturnCode result = GfxEngine::getEngine()->getTexture(lua_tostring(lua, 2), texture);
@@ -271,7 +287,7 @@ namespace gfx {
 		{
 			if (lua_isstr(lua, 2))
 			{
-				asset->removeTexture(lua_tostring(lua, 2);
+				asset->removeTexture(lua_tostring(lua, 2));
 				lua_first(lua);
 			}
 			Texture *texture = castUData<Texture>(lua, 2);
@@ -304,7 +320,7 @@ namespace gfx {
 		{
 			if (lua_isstr(lua, 2))
 			{
-				lua_pushboolean(lua, asset->hasTexture(lua_tostring(lua, 2));
+				lua_pushboolean(lua, asset->hasTexture(lua_tostring(lua, 2)));
 				return 1;
 			}
 			Texture *texture = castUData<Texture>(lua, 2);
@@ -454,7 +470,7 @@ namespace gfx {
 			if (lua_gettop(lua) == 1)
 			{
 				const TextureWindow &win = asset->getTextureWindow();
-				Handle<const Texture> texture(asset->getTexture());
+				const Texture *texture = asset->getTexture();
 				if (!texture)
 				{
 					LuaState::warning(lua, "Unable to get pixel texture coordinates from an asset that has no texture defined.");
@@ -472,7 +488,7 @@ namespace gfx {
 			else if (lua_istable(lua, 2))
 			{
 				LuaState L(lua);
-				Handle<const Texture> texture(asset->getTexture());
+				const Texture *texture = asset->getTexture();
 				if (texture)
 				{
 					double width = static_cast<double>(texture->getWidth()), height = static_cast<double>(texture->getHeight());
@@ -513,6 +529,8 @@ namespace gfx {
 	 *
 	 * @param integer frame_x The number of x frames.
 	 * @param integer frame_y The number of y frames.
+	 * @param boolean [true] calc_total_frames When true the total texture windows will
+	 *  be calculated as frame_x * frame_y.
 	 * @returns am.asset This
 	 */
 	int Asset_num_frames(lua_State *lua)
@@ -533,6 +551,10 @@ namespace gfx {
 				if (args == 3)
 				{
 					asset->setNumFramesY(lua_tointeger(lua, 3));
+				}
+				if (args < 4 || (args >= 4 && lua_isbool(lua, 4)))
+				{
+					asset->setTotalSubWindows(asset->getNumFramesX() * asset->getNumFramesY());
 				}
 				lua_first(lua);
 			}
@@ -710,13 +732,15 @@ namespace gfx {
 			{
 				LuaState L(lua);
 				double leftX = -1.0, rightX = -1.0, topY = -1.0, bottomY = -1.0;
-					
+				lua_pushvalue(lua, 2);
 				L.getTableDouble("left_x", leftX);
 				L.getTableDouble("right_x", rightX);
 				L.getTableDouble("top_y", topY);
 				L.getTableDouble("bottom_y", bottomY);
+				L.pop(1);
 				ScaleNine scaleNine;
 				scaleNine.setInnerBounds(leftX, rightX, topY, bottomY);
+
 				if (lua_isbool(lua, 3) && lua_tobool(lua, 3))
 				{
 					bool verticle = topY >= 0.0 && bottomY > 0.0;
@@ -779,7 +803,7 @@ namespace gfx {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				lua_pushstring(lua, ScaleNine::getStateName(asset->getScaleNineState());
+				lua_pushstring(lua, ScaleNine::getStateName(asset->getScaleNineState()));
 				return 1;
 			}
 			else if (lua_isstr(lua, 2))

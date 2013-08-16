@@ -31,6 +31,9 @@ using namespace am::lua;
 namespace am {
 namespace gfx {
 
+	const int GfxEngine::LUA_ID = 0x23;
+	const char *GfxEngine::LUA_TABLENAME = "am_gfx_Engine";
+
 	GfxEngine *GfxEngine::sMainGfxEngine = nullptr;
 
 	GfxEngine::GfxEngine() :
@@ -109,13 +112,14 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
-		Asset *cursorAsset = getAssetLua("cursor");
+		//Asset *cursorAsset = getAssetLua("cursor");
+		Asset *cursorAsset = getAsset("general:cursor");
 		if (cursorAsset == nullptr)
 		{
 			throw std::runtime_error("Unable to load cursor asset");
 		}
 
-		Asset *basicFont = getAssetLua("fontBasic");
+		Asset *basicFont = getAsset("fonts:basic");
 		if (basicFont == nullptr)
 		{
 			// Incase there is an issue loading the basic font.
@@ -127,15 +131,10 @@ namespace gfx {
 	void GfxEngine::deinit()
 	{
 		mDebugLayer->deinit();
-		//mDebugLayer = nullptr;
 		mTooltipLayer->deinit();
-		//mTooltipLayer = nullptr;
 		mUILayer->deinit();
-		//mUILayer = nullptr;
 		mGameLayer->deinit();
-		//mGameLayer = nullptr;
 		mRootLayer->deinit();
-		//mRootLayer = nullptr;
 
 		{
 			FontMap fonts = mFontManager;
@@ -164,7 +163,6 @@ namespace gfx {
 			}
 			mTextureManager.clear();
 		}
-
 
 		ilShutDown();
 	}
@@ -359,8 +357,16 @@ namespace gfx {
 	{
 		return mAssetManager;
 	}
+	void GfxEngine::addAsset(Asset *asset)
+	{
+		addDefinition<Asset>(asset, mAssetManager, asset->getName());
+	}
+	Asset *GfxEngine::getAsset(const char *name)
+	{
+		return getDefinition<Asset>(mAssetManager, name);
+	}
 
-	ReturnCode GfxEngine::getTexture(const char *filename, Texture *texture)
+	ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
 		string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
@@ -551,6 +557,11 @@ namespace gfx {
 	void GfxEngine::onKeyUp(const bool *keys, int key)
 	{
 
+	}
+
+	const char *GfxEngine::getBaseDefinitionPath() const
+	{
+		return "data/assets/";
 	}
 
 }

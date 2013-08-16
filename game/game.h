@@ -15,6 +15,7 @@ using namespace am::base;
 using namespace am::ui;
 
 #include <util/idata.h>
+#include <util/idefinition_manager.h>
 using namespace am::util;
 
 #include "game_object.h"
@@ -44,7 +45,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IEventListener, public EventInterface, public IAttributeData {
+	class Game : public IDefinitionManager, public IEventListener, public EventInterface, public IAttributeData {
 	public:
 		Game(Engine *engine = nullptr);
 		~Game();
@@ -154,17 +155,13 @@ namespace game {
 		typedef map<string, Handle<Map> > MapMap;
 		MapMap mMaps;
 
-		typedef vector<string> LoadingFilesStack;
-		LoadingFilesStack mLoadingFiles;
-
-		typedef map<string, bool> FilesLoadedMap;
-		FilesLoadedMap mFilesLoaded;
-
 		typedef map<string, Handle<Item> >ItemMap;
 		ItemMap mItemDefinitions;
 
 		typedef map<string, Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
+
+		virtual const char *getBaseDefinitionPath() const;
 
 		string mScenarioName;
 
@@ -194,98 +191,6 @@ namespace game {
 		QuestMap mQuestMap;
 
 		void endGameTick();
-
-		template <class T>
-		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
-		{
-			if (def == nullptr || name == nullptr || name[0] == '\0')
-			{
-				return;
-			}
-			if (!mLoadingFiles.empty())
-			{
-				string path = mLoadingFiles.back();
-				path += ':';
-				path += name;
-				defMap[path] = def;
-				return;
-			}
-			defMap[string(name)] = def;
-		}
-		template <class T>
-		T *getDefinition(map< string, Handle<T> > &defMap, const char *name)
-		{
-			if (name == nullptr || name[0] == '\0')
-			{
-				return nullptr;
-			}
-			string str(name);
-			size_t index = str.find(':');
-			if (index == string::npos && !mLoadingFiles.empty())
-			{
-				string temp = mLoadingFiles.back();
-				temp += ':';
-				str = temp + str;
-			}
-			auto find = defMap.find(str);
-			if (find != defMap.end())
-			{
-				return find->second;
-			}
-			string filename;
-			string charname;
-			if (index > 0)
-			{
-				filename = "data/defs/";
-				mLoadingFiles.push_back(str.substr(0, index));
-				filename += mLoadingFiles.back();
-				filename += ".lua";
-				charname = str.substr(index + 1);
-			}
-			else if (!mLoadingFiles.empty())
-			{
-				filename = "data/defs/";
-				filename += mLoadingFiles.back();
-				filename += ".lua";
-				charname = str;
-			}
-			else
-			{
-				filename = "data/defs/default.lua";
-				charname = str;
-			}
-
-			// Check if the file has already been loaded and previously did
-			// not find the character.
-			auto findFile = mFilesLoaded.find(filename);
-			if (findFile != mFilesLoaded.end() && findFile->second)
-			{
-				return nullptr;
-			}
-
-			mFilesLoaded[filename] = true;
-
-			if (!mEngine->getLua().loadFile(filename.c_str()))
-			{
-				stringstream ss;
-				ss << "Error loading file: '" << filename << "':\n";
-				mEngine->getLua().printStack(ss);
-				am_log("LUAERR", ss);
-				return nullptr;
-			}
-
-			if (!mLoadingFiles.empty())
-			{
-				mLoadingFiles.pop_back();
-			}
-
-			find = defMap.find(str);
-			if (find != defMap.end())
-			{
-				return find->second;
-			}
-			return nullptr;
-		}
 
 		data::IData *saveGameData();
 		void loadGameData(data::Table *obj);

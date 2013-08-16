@@ -1073,5 +1073,10 @@ namespace game {
 		}
 	}
 
+	const char *Game::getBaseDefinitionPath() const
+	{
+		return "data/defs/";
+	}
+
 }
 }

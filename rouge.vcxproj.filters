@@ -151,6 +151,9 @@
     <Filter Include="gfx\rouge">
       <UniqueIdentifier>{eb6b4d49-792a-44bd-93b2-f2feb0421269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\gfx">
+      <UniqueIdentifier>{b83080c8-1d9b-49ef-8b1c-e8e62470d5b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -859,6 +862,12 @@
     <ClCompile Include="lua\wrappers\gfx\lua_texture.cpp">
       <Filter>lua\wrapper\gfx</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\gfx\lua_gfx_engine.cpp">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_asset.cpp">
+      <Filter>tests\gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1566,6 +1575,15 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\gfx\lua_texture.h">
       <Filter>lua\wrapper\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="util\idefinition_manager.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\gfx\lua_gfx_engine.h">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_asset.h">
+      <Filter>tests\gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ using namespace std;
 using namespace am::base;
 
 #include <util/colour.h>
+#include <util/idefinition_manager.h>
 using namespace am::util;
 
 #include <math/matrix.h>
@@ -29,15 +30,19 @@ namespace gfx {
 	typedef map<string, Handle<Texture> > TextureMap;
 	typedef map<string, Handle<Font> > FontMap;
 
-	class GfxEngine {
+	class GfxEngine : public IDefinitionManager {
 	public:
 		~GfxEngine();
 
 		Asset *getAssetLua(const char *assetName);
+		// TODO!
 		int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
 
-		ReturnCode getTexture(const char *textureName, Texture *texture);
+		void addAsset(Asset *asset);
+		Asset *getAsset(const char *name);
+
+		ReturnCode getTexture(const char *textureName, Texture *&texture);
 		int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
@@ -84,6 +89,9 @@ namespace gfx {
 		static GfxEngine *getEngine();
 		static void deinitGfxEngine();
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 		
 		int mScreenWidth;
@@ -111,6 +119,8 @@ namespace gfx {
 		static GfxEngine *sMainGfxEngine;
 
 		GfxEngine();
+
+		virtual const char *getBaseDefinitionPath() const;
 	};
 
 }

@@ -10,6 +10,8 @@ namespace game {
 
 	class GameObject;
 
+	// TODO!
+	// WHY ISN'T THIS MANAGED!?
 	class Dialogue {
 	public:
 

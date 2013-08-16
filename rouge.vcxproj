@@ -330,6 +330,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\game\lua_tile_set.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_tile_type.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_asset.cpp" />
+    <ClCompile Include="lua\wrappers\gfx\lua_gfx_engine.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_sprite.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_texture.cpp" />
     <ClCompile Include="lua\wrappers\lua_debug.cpp" />
@@ -367,6 +368,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_item.cpp" />
     <ClCompile Include="tests\test_levelable.cpp" />
     <ClCompile Include="tests\test_lua.cpp" />
+    <ClCompile Include="tests\test_lua_asset.cpp" />
     <ClCompile Include="tests\test_lua_character.cpp" />
     <ClCompile Include="tests\test_lua_data_table.cpp" />
     <ClCompile Include="tests\test_lua_dialogue.cpp" />
@@ -564,6 +566,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\game\lua_tile_set.h" />
     <ClInclude Include="lua\wrappers\game\lua_tile_type.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_asset.h" />
+    <ClInclude Include="lua\wrappers\gfx\lua_gfx_engine.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_sprite.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_texture.h" />
     <ClInclude Include="lua\wrappers\lua_debug.h" />
@@ -605,6 +608,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_item.h" />
     <ClInclude Include="tests\test_levelable.h" />
     <ClInclude Include="tests\test_lua.h" />
+    <ClInclude Include="tests\test_lua_asset.h" />
     <ClInclude Include="tests\test_lua_character.h" />
     <ClInclude Include="tests\test_lua_data_table.h" />
     <ClInclude Include="tests\test_lua_dialogue.h" />
@@ -673,6 +677,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="util\data_string.h" />
     <ClInclude Include="util\data_table.h" />
     <ClInclude Include="util\idata.h" />
+    <ClInclude Include="util\idefinition_manager.h" />
     <ClInclude Include="util\path_tokeniser.h" />
     <ClInclude Include="util\stat_tokeniser.h" />
     <ClInclude Include="util\text_tokeniser.h" />

@@ -40,6 +40,7 @@ namespace game {
 	int Engine_tile_type(lua_State *lua);
 
 	int Engine_bgm(lua_State *lua);
+
 }
 }
 }
