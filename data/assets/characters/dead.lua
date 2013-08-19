@@ -1,3 +1,5 @@
 -- Generic Dead Character Sprite
-asset = {}
-asset.texture = "data/textures/characters/dead.png"
+do
+	am.gfx_engine.asset(am.asset.new("dead")
+		:add_texture("data/textures/characters/dead.png"))
+end

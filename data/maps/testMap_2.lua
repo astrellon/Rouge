@@ -57,7 +57,6 @@ do
 	local npc1, new_char = am.character.new("map2_john", "npcs:male1")
 	if (new_char) then
 		npc1:grid_location(2, 0)
-			:graphic(am.sprite.new("characters/npc/front"))
 			:name("John")
 		map:add_game_object(npc1)
 		
@@ -75,7 +74,6 @@ do
 	if (new_char) then
 		npc2:grid_location(4, 1)
 			:name("Fred")
-			:graphic(am.sprite.new("characters/npc/front"))
 		map:add_game_object(npc2)
 		
 		comp = am.dialogue_component.new(npc2)

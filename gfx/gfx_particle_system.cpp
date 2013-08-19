@@ -72,7 +72,7 @@ namespace gfx {
 
 	void ParticleSystem::setParticleAsset(const char *assetName)
 	{
-		mParticleAsset = GfxEngine::getEngine()->getAssetLua(assetName);
+		mParticleAsset = GfxEngine::getEngine()->getAsset(assetName);
 	}
 	void ParticleSystem::setParticleAsset(Asset *asset)
 	{

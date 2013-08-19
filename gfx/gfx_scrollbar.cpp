@@ -32,7 +32,7 @@ namespace gfx {
 
 		mWidth = max(mBtnUp->getWidth(), max(mBtnDown->getWidth(), mBar->getWidth()));
 
-		Sprite *sprite = new Sprite("scrollBarUp");
+		Sprite *sprite = new Sprite("ui:scrollbar_up");
 		addChild(sprite);
 		
 		if (backAsset != nullptr && backAsset[0] != '\0')

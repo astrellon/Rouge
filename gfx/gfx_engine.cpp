@@ -113,7 +113,7 @@ namespace gfx {
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
 		
 		//Asset *cursorAsset = getAssetLua("cursor");
-		Asset *cursorAsset = getAsset("general:cursor");
+		Asset *cursorAsset = getAsset("ui:cursor");
 		if (cursorAsset == nullptr)
 		{
 			throw std::runtime_error("Unable to load cursor asset");
@@ -248,7 +248,7 @@ namespace gfx {
 		return mDefaultCursor;
 	}
 
-	Asset *GfxEngine::getAssetLua(const char *assetName)
+	/*Asset *GfxEngine::getAssetLua(const char *assetName)
 	{
 		string assetNameStr = assetName;
 		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
@@ -301,7 +301,7 @@ namespace gfx {
 
 		mAssetManager[assetNameStr] = asset;
 		return asset;
-	}
+	}*/
 	int GfxEngine::reloadAsset(const char *assetName)
 	{
 		string assetNameStr = assetName;

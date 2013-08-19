@@ -433,6 +433,7 @@ namespace gfx {
 				TextureWindow win;
 				win.setValues(topY, bottomY, leftX, rightX);
 				asset->setTextureWindow(win);
+				lua_first(lua);
 			}
 			return LuaState::expectedArgs(lua, "texture_window", "table values");
 		}

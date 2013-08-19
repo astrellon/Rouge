@@ -1,7 +1,7 @@
--- Test Shield Item
+	-- Test Shield Item
 item = {}
-item.graphic = "items/shield"
-item.groundGraphic = "items/shield"
+item.graphic = "items/shield:main"
+item.groundGraphic = "items/shield:main"
 item.itemType = "shield"
 item.name = "Shield"
 item.stats = {armour = "+ 4"}

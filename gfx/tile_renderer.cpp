@@ -37,6 +37,7 @@ namespace gfx {
 	}
 	TileRenderer::~TileRenderer()
 	{
+		//for (auto iter
 		if (mMap)
 		{
 			Map *temp = mMap;
@@ -178,6 +179,11 @@ namespace gfx {
 			{
 				TileInstance &instance = tiles[t];
 				Asset *asset = instance.getTile()->getGraphicAsset();
+				if (asset == nullptr)
+				{
+					// Render something else.
+					continue;
+				}
 				Sprite *sprite = mAssetSprites[asset];
 				sprite->setFrameRate(asset->getFrameRate());
 				// Only 1 sprite per asset.
@@ -258,6 +264,7 @@ namespace gfx {
 			{
 				Sprite *assetSprite = new Sprite(asset);
 				mAssetSprites[asset] = assetSprite;
+				//asset->retain();
 				assetSprite->setWidth(grid);
 				assetSprite->setHeight(grid);
 			}

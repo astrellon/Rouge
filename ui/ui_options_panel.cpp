@@ -15,10 +15,10 @@ namespace ui {
 	OptionsPanel::OptionsPanel(RougeSystem *system) :
 		UIComponent(),
 		mRougeSystem(system),
-		mFullscreen(new Checkbox("checkbox", "Fullscreen")),
-		mApply(new TextButton("bigButton", "Apply")),
-		mClose(new TextButton("bigButton", "Close")),
-		mBackground(new Image("bigButton"))
+		mFullscreen(new Checkbox("ui:checkbox", "Fullscreen")),
+		mApply(new TextButton("ui:big_button", "Apply")),
+		mClose(new TextButton("ui:big_button", "Close")),
+		mBackground(new Image("ui:big_button"))
 	{
 		addChild(mBackground);
 		mBackground->setGfxComponent(new GfxComponent());

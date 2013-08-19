@@ -1426,9 +1426,6 @@
     <ClInclude Include="tests\test_path_tokeniser.h">
       <Filter>tests\util</Filter>
     </ClInclude>
-    <ClInclude Include="save_ostream.h">
-      <Filter>util</Filter>
-    </ClInclude>
     <ClInclude Include="util\idata.h">
       <Filter>util\data</Filter>
     </ClInclude>

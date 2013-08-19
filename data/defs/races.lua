@@ -4,7 +4,7 @@ do
 	local human = am.character.new()
 	human:name("Human")
 		:age(21)
-		:graphic(am.sprite.new("characters/npc/front"))
+		:graphic(am.sprite.new("characters/human:male"))
 		:gender("male")
 		:race("human")
 		:add_passible_type("land")

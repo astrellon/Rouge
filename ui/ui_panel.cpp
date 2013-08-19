@@ -16,7 +16,7 @@ namespace ui {
 		mStartingHeight(100.0f),
 		mResizing(false)
 	{
-		mBack = new Sprite("uiPanel");
+		mBack = new Sprite("ui:panel");
 		mBack->setInteractive(true);
 		addChild(mBack);
 

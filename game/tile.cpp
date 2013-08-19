@@ -201,7 +201,7 @@ namespace game {
 		}
 		if (lua.isTableString("assetName"))
 		{
-			mGraphic = GfxEngine::getEngine()->getAssetLua(lua_tostring(lua, -1));
+			mGraphic = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
 			lua.pop(1);
 		}
 		else

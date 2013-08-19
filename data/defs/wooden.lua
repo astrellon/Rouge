@@ -5,8 +5,8 @@ do
 	local item = am.item.new()
 	item:item_fullname("Sword", "Wooden")
 		:item_type("sword")
-		:graphic(am.sprite.new("items/sword"))
-		:ground_graphic(am.sprite.new("items/swordGround"))
+		:graphic(am.sprite.new("items/sword:main"))
+		:ground_graphic(am.sprite.new("items/sword:ground"))
 		:inventory_size(1, 2)
 		
 	local stats = item:stat_modifiers_self()
@@ -18,7 +18,7 @@ do
 	item = am.item.new()
 	item:item_fullname("Shield", "Wooden")
 		:item_type("shield")
-		:graphic(am.sprite.new("items/shield"))
+		:graphic(am.sprite.new("items/shield:main"))
 		:inventory_size(2, 2)
 		
 	stats = item:stat_modifiers()

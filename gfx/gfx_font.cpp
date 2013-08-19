@@ -50,7 +50,7 @@ namespace gfx {
 		}
 		if (lua.isTableString("asset"))
 		{
-			mAsset = GfxEngine::getEngine()->getAssetLua(lua_tostring(lua, -1));
+			mAsset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
 			lua.pop(1);
 		}
 		if (lua.isTableBool("fixedWidth"))

@@ -11,11 +11,11 @@ namespace ui {
 	MainMenu::MainMenu(RougeSystem *system) : 
 		UIComponent(),
 		mRougeSystem(system),
-		mStartGame(new TextButton("bigButton", "Start Game")),
-		mLoadGame(new TextButton("bigButton", "Load Game")),
-		mEditor(new TextButton("bigButton", "Editor")),
-		mOptions(new TextButton("bigButton", "Options")),
-		mQuit(new TextButton("bigButton", "Quit :("))
+		mStartGame(new TextButton("ui:big_button", "Start Game")),
+		mLoadGame(new TextButton("ui:big_button", "Load Game")),
+		mEditor(new TextButton("ui:big_button", "Editor")),
+		mOptions(new TextButton("ui:big_button", "Options")),
+		mQuit(new TextButton("ui:big_button", "Quit :("))
 	{
 		setInteractive(true);
 

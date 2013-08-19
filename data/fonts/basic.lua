@@ -1,6 +1,6 @@
 -- Basic font definition
 font = {}
-font.asset = "fontBasic"
+font.asset = "fonts:basic"
 font.fixedWidth = false
 font.utf = false
 font.kerning = 1

@@ -120,7 +120,7 @@ namespace sys {
 		mGameHud->setSize(screenWidth, screenHeight);
 		mGameHud->setVisible(false);
 
-		mPausedImage = new Image("paused");
+		mPausedImage = new Image("ui:paused");
 		mPausedImage->setParentAnchor(X_CENTER, Y_CENTER);
 		mPausedImage->setAnchor(X_CENTER, Y_CENTER);
 
@@ -150,10 +150,6 @@ namespace sys {
 		test->setTextureFrame(31);
 		gfxEngine->getRootLayer()->addChild(test);*/
 
-		/*Handle<Scrollbar> scrollbar(new Scrollbar("scrollBarUp", "scrollBarDown", "scrolLBarBar", "scrollBarBack"));
-		scrollbar->setValue(50);
-		scrollbar->setHeight(100.0f);
-		gfxEngine->getUILayer()->addChild(scrollbar);*/
 		/*
 		Handle<TextInput> input(new TextInput());
 		input->setFocus(true);
@@ -436,11 +432,11 @@ namespace sys {
 		//game->getCurrentMap()->getTileInstance(1, 0)->setTileEdgeValue(6, Map::FLAG_B);
 		//game->getCurrentMap()->getTileInstance(2, 0)->setTileEdgeValue(5, Map::FLAG_BL);
 
-		TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
+		/*TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
 		Tile *grass = nature->getTile("grass");
 		grass->setPrecedence(10);
 		grass->getGraphicAsset()->setSubWindowAnimation(false);
-		grass->addTransitionalAsset(nullptr, GfxEngine::getEngine()->getAssetLua("tiles/grassTransition"));
+		grass->addTransitionalAsset(nullptr, GfxEngine::getEngine()->getAssetLua("tiles/grassTransition"));*/
 
 		//Tile *tile = nature->getTile("test");
 		//tile->setTransitionalAsset(nature->getTile("grass"), GfxEngine::getEngine()->getAssetLua("tiles/testTransitionToWater"));

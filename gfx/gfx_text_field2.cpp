@@ -39,7 +39,7 @@ namespace gfx {
 		mTextHitboxes->setInteractive(true);
 		addChild(mTextHitboxes);
 
-		mScrollbar = new Scrollbar("scrollBarUp", "scrollBarDown", "scrollBarBar", "scrollBarBack");
+		mScrollbar = new Scrollbar("ui:scrollbar_up", "ui:scrollbar_down", "ui:scrollbar_bar", "ui:scrollbar_back");
 		mScrollbar->setHeight(100.0f);
 		mScrollbar->setVisible(false);
 		addChild(mScrollbar);

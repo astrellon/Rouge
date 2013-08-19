@@ -1,6 +1,6 @@
 -- Basic font definition
 font = {}
-font.asset = "fontArial"
+font.asset = "fonts:arial"
 font.fixedWidth = false
 font.utf = false
 font.kerning = 0

@@ -11,12 +11,12 @@ namespace ui {
 	IngameMenu::IngameMenu(RougeSystem *system) : 
 		UIComponent(),
 		mRougeSystem(system),
-		mResumeGame(new TextButton("bigButton", "Resume Game")),
-		mSaveGame(new TextButton("bigButton", "Save Game")),
-		mLoadGame(new TextButton("bigButton", "Load Game")),
-		mOptions(new TextButton("bigButton", "Options")),
-		mToMainMenu(new TextButton("bigButton", "To Main Menu")),
-		mQuit(new TextButton("bigButton", "Quit :("))
+		mResumeGame(new TextButton("ui:big_button", "Resume Game")),
+		mSaveGame(new TextButton("ui:big_button", "Save Game")),
+		mLoadGame(new TextButton("ui:big_button", "Load Game")),
+		mOptions(new TextButton("ui:big_button", "Options")),
+		mToMainMenu(new TextButton("ui:big_button", "To Main Menu")),
+		mQuit(new TextButton("ui:big_button", "Quit :("))
 	{
 		setInteractive(true);
 
