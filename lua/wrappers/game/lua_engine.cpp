@@ -192,7 +192,7 @@ namespace game {
 	{
 		if (lua_isstr(lua, 1))
 		{
-			TileSet *set = Engine::getEngine()->getTileSetLua(lua_tostring(lua, 1));
+			TileSet *set = Engine::getEngine()->getTileSet(lua_tostring(lua, 1));
 			if (set)
 			{
 				wrapRefObject<TileSet>(lua, set);

@@ -248,60 +248,6 @@ namespace gfx {
 		return mDefaultCursor;
 	}
 
-	/*Asset *GfxEngine::getAssetLua(const char *assetName)
-	{
-		string assetNameStr = assetName;
-		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
-		if (iter != mAssetManager.end())
-		{
-			return iter->second.get();
-		}
-
-		stringstream ss;
-		if (assetNameStr[0] == '/')
-		{
-			ss << "data" << assetNameStr << ".lua";
-		}
-		else
-		{
-			ss << "data/assets/" << assetNameStr << ".lua";
-		}
-
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			stringstream errss;
-			errss << "Unable to load asset '" << assetNameStr << "', using the path '" << ss.str() << '\'';
-			am_log("ASSET", errss);
-			lua.logStack("ASSETLUA");
-			lua.close();
-			return nullptr;
-		}
-
-		lua_getglobal(lua, "asset");
-		if (!lua_istable(lua, -1))
-		{
-			stringstream errss;
-			errss << "Loaded lua asset was: " << lua_typename(lua, -1) << " instead of table.";
-			am_log("ASSET", errss);
-			lua.close();
-			return nullptr;
-		}
-		Asset *asset = new Asset(assetName);
-		int loadAsset = asset->loadDef(lua);
-		lua.close();
-		if (loadAsset != 0)
-		{
-			stringstream errss;
-			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASSET", errss);
-			delete asset;
-			return nullptr;
-		}
-
-		mAssetManager[assetNameStr] = asset;
-		return asset;
-	}*/
 	int GfxEngine::reloadAsset(const char *assetName)
 	{
 		string assetNameStr = assetName;

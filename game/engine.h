@@ -19,6 +19,9 @@ using namespace am::lua;
 #include <math/math.h>
 using namespace am::math;
 
+#include <util/idefinition_manager.h>
+using namespace am::util;
+
 #include "tile_set.h"
 #include "race.h"
 #include "tile_type.h"
@@ -39,7 +42,7 @@ namespace game {
 	typedef map<string, Handle<Race> > RaceMap;
 	typedef map<string, Handle<TileType> > TileTypeMap;
 
-	class Engine : public EventInterface {
+	class Engine : public EventInterface, public IDefinitionManager {
 	public:
 		Engine();
 		~Engine();
@@ -61,6 +64,7 @@ namespace game {
 		Tile *getTile(const char *name);
 
 		TileSet *getTileSetLua(const char *tileSetName);
+		TileSet *getTileSet(const char *tileSetName);
 		void addTileSet(TileSet *tileSet);
 		TileSetMap &getTileSets();
 		TileSet *getTopLevelTileSet();
@@ -131,6 +135,7 @@ namespace game {
 		LuaState mLua;
 
 		void checkUsingTileSet();
+		virtual const char *getBaseDefinitionPath() const;
 
 		static Engine *sMainEngine;
 	};

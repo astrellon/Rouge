@@ -11,8 +11,8 @@ using namespace am::gfx;
 #include <base/imanaged.h>
 using namespace am::base;
 
-//#include <util/json_value.h>
-//using namespace am::util;
+#include <util/idefinition.h>
+using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -23,7 +23,7 @@ namespace game {
 	class TileSet;
 	class TileType;
 	
-	class Tile : public IManaged {
+	class Tile : public IManaged, public IDefinition {
 	public:
 
 		typedef vector< Handle<TileType> > TileTypeList;
@@ -60,10 +60,12 @@ namespace game {
 		TileTypeList &getTileTypes();
 		const TileTypeList &getTileTypes() const;
 
-		void addTransitionalAsset(Tile *overlapTile, Asset *asset);
-		void removeTransitionalAsset(Tile *overlapTile, Asset *asset);
-		bool hasTransitionalAsset(Tile *overlapTile, Asset *asset) const;
-		bool hasTransitionalAssets(Tile *overlapTile) const;
+		void addTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
+		void removeTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
+		void removeTransitionalAsset(const char *assetName, Tile *overlapTile = nullptr);
+		bool hasTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr) const;
+		bool hasTransitionalAsset(const char *assetName, Tile *overlapTile = nullptr) const;
+		bool hasTransitionalAsset(Tile *overlapTile) const;
 		const TileAssetList *getTransitionalAsset(Tile *overlapTile) const;
 		const TileAssetMap &getAllTransitionalAssets() const;
 

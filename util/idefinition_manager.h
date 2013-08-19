@@ -5,11 +5,10 @@
 #include <vector>
 using namespace std;
 
-#include <game/engine.h>
-using namespace am::game;
-
 #include <lua/lua_state.h>
 using namespace am::lua;
+
+#include <log/logger.h>
 
 #include <base/handle.h>
 #include <base/imanaged.h>
@@ -29,6 +28,8 @@ namespace util {
 		FilesLoadedMap mFilesLoaded;
 
 		virtual const char *getBaseDefinitionPath() const = 0;
+
+		virtual LuaState &getLuaDefinition() const;
 		
 		template <class T>
 		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
@@ -42,11 +43,13 @@ namespace util {
 				string path = mLoadingFiles.back();
 				path += ':';
 				path += name;
+				def->setLoadedName(path.c_str());
 				defMap[path] = def;
 				return;
 			}
 			defMap[string(name)] = def;
 		}
+
 		template <class T>
 		T *getDefinition(map< string, Handle<T> > &defMap, const char *name)
 		{
@@ -101,7 +104,7 @@ namespace util {
 			}
 
 			mFilesLoaded[filename] = true;
-			LuaState &lua = Engine::getEngine()->getLua();
+			LuaState &lua = getLuaDefinition();
 
 			//if (!mEngine->getLua().loadFile(filename.c_str()))
 			if (!lua.loadFile(filename.c_str()))

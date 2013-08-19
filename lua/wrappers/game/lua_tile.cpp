@@ -7,6 +7,8 @@ extern "C"
 #	include <lua/src/lualib.h>
 }
 
+#include <sstream>
+
 #include <lua/lua_state.h>
 using namespace am::lua;
 
@@ -14,6 +16,10 @@ using namespace am::lua;
 #include <game/tile_type.h>
 #include <game/engine.h>
 using namespace am::game;
+
+#include <gfx/gfx_asset.h>
+#include <gfx/gfx_engine.h>
+using namespace am::gfx;
 
 #include <util/json_value.h>
 using namespace am::util;
@@ -105,6 +111,11 @@ namespace game {
 			{ "remove_all_tile_types", Tile_remove_all_tile_types },
 			{ "has_tile_type", Tile_has_tile_type },
 			{ "tile_types", Tile_tile_types },
+			{ "precedence", Tile_precedence },
+			{ "add_transitional", Tile_add_transitional },
+			{ "remove_transitional", Tile_remove_transitional },
+			//{ "has_transitional", Tile_has_transitional },
+			//{ "transitional", Tile_transitional },
 			{ "load_def", Tile_load_def },
 			{ nullptr, nullptr }
 		};
@@ -448,6 +459,164 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "tile_types", "am.tile");
+	}
+
+	/**
+	 * Returns the precedence of the tile.
+	 * Precedence determines which tiles overlaps which tile.
+	 * Tiles with a higher precedence will overlap tiles with lower precedence.
+	 * If two tiles have the same precedence then it is based on which tile has the lower lexigraphical value.
+	 *
+	 * @returns integer The precedence.
+	 */
+	/**
+	 * Sets the precedence of the tile.
+	 *
+	 * @param integer precedence The precedence to set to.
+	 * @returns am.tile This
+	 */
+	int Tile_precedence(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushinteger(lua, tile->getPrecedence());
+				return 1;
+			}
+			else if (lua_isnum(lua, 2))
+			{
+				tile->setPrecedence(lua_tointeger(lua, 2));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "precedence", "integer precedence");
+		}
+		return LuaState::expectedContext(lua, "precedence", "am.tile");
+	}
+
+	/**
+	 * Adds a transitional tile graphic.
+	 * This tile graphic should have 32 texture windows to represent the different
+	 * edges and corner types.
+	 * Only texture level animation is supported, so the asset must have multiple textures
+	 * in order to be animated.
+	 *
+	 * The optional overlap_tile defines if this transitional graphic should only be used
+	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
+	 *
+	 * @param am.asset asset The asset to use for transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
+	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @returns am.tile This
+	 */
+	/**
+	 * Adds a transitional tile graphic.
+	 * This tile graphic should have 32 texture windows to represent the different
+	 * edges and corner types.
+	 * Only texture level animation is supported, so the asset must have multiple textures
+	 * in order to be animated.
+	 *
+	 * The optional overlap_tile defines if this transitional graphic should only be used
+	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
+	 *
+	 * @param string asset_name The name of the asset to use for transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
+	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @returns am.tile This
+	 */
+	int Tile_add_transitional(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			Tile *overlapTile = castUData<Tile>(lua, 3);
+			if (lua_isstr(lua, 2))
+			{
+				Asset *asset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, 2));
+				if (!asset)
+				{
+					stringstream ss;
+					ss << "Unable to load asset '" << lua_tostring(lua, 2) << "'";
+					LuaState::warning(lua, ss.str().c_str());
+				}
+				else
+				{
+					tile->addTransitionalAsset(asset, overlapTile);
+				}
+				lua_first(lua);
+			}
+			Asset *asset = castUData<Asset>(lua, 2);
+			if (asset)
+			{
+				tile->addTransitionalAsset(asset, overlapTile);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "add_transitional", 2, "string asset_name, am.tile [nil] overlap_tile", "am.asset asset, am.tile [nil] overlap_tile");
+		}
+		return LuaState::expectedContext(lua, "add_transitional", "am.tile");
+	}
+
+	/**
+	 * Adds a transitional tile graphic.
+	 * This tile graphic should have 32 texture windows to represent the different
+	 * edges and corner types.
+	 * Only texture level animation is supported, so the asset must have multiple textures
+	 * in order to be animated.
+	 *
+	 * The optional overlap_tile defines if this transitional graphic should only be used
+	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
+	 *
+	 * @param am.asset asset The asset to use for transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
+	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @returns am.tile This
+	 */
+	/**
+	 * Adds a transitional tile graphic.
+	 * This tile graphic should have 32 texture windows to represent the different
+	 * edges and corner types.
+	 * Only texture level animation is supported, so the asset must have multiple textures
+	 * in order to be animated.
+	 *
+	 * The optional overlap_tile defines if this transitional graphic should only be used
+	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
+	 *
+	 * @param string asset_name The name of the asset to use for transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
+	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @returns am.tile This
+	 */
+	int Tile_remove_transitional(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			Tile *overlapTile = castUData<Tile>(lua, 3);
+			if (lua_isstr(lua, 2))
+			{
+				Asset *asset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, 2));
+				if (!asset)
+				{
+					stringstream ss;
+					ss << "Unable to load asset '" << lua_tostring(lua, 2) << "'";
+					LuaState::warning(lua, ss.str().c_str());
+				}
+				else
+				{
+					tile->removeTransitionalAsset(asset, overlapTile);
+				}
+				lua_first(lua);
+			}
+			Asset *asset = castUData<Asset>(lua, 2);
+			if (asset)
+			{
+				tile->addTransitionalAsset(asset, overlapTile);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "add_transitional", 2, "string asset_name, am.tile [nil] overlap_tile", "am.asset asset, am.tile [nil] overlap_tile");
+		}
+		return LuaState::expectedContext(lua, "add_transitional", "am.tile");
 	}
 
 	/**

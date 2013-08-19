@@ -437,6 +437,8 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="util\data_string.cpp" />
     <ClCompile Include="util\data_table.cpp" />
     <ClCompile Include="util\idata.cpp" />
+    <ClCompile Include="util\idefinition.cpp" />
+    <ClCompile Include="util\idefinition_manager.cpp" />
     <ClCompile Include="util\path_tokeniser.cpp" />
     <ClCompile Include="util\stat_tokeniser.cpp" />
     <ClCompile Include="util\text_tokeniser.cpp" />
@@ -676,6 +678,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="util\data_string.h" />
     <ClInclude Include="util\data_table.h" />
     <ClInclude Include="util\idata.h" />
+    <ClInclude Include="util\idefinition.h" />
     <ClInclude Include="util\idefinition_manager.h" />
     <ClInclude Include="util\path_tokeniser.h" />
     <ClInclude Include="util\stat_tokeniser.h" />

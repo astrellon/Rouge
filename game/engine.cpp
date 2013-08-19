@@ -235,12 +235,17 @@ namespace game {
 		lua.close();
 		return tileSet;
 	}
+	TileSet *Engine::getTileSet(const char *tileSetName)
+	{
+		return getDefinition<TileSet>(mTileSets, tileSetName);
+	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{
-		if (tileSet)
+		addDefinition<TileSet>(tileSet, mTileSets, tileSet->getName().c_str());
+		/*if (tileSet)
 		{
 			mTileSets[tileSet->getName()] = tileSet;
-		}
+		}*/
 	}
 	TileSetMap &Engine::getTileSets()
 	{
@@ -490,6 +495,11 @@ namespace game {
 			return nullptr;
 		}
 		return iter->second;
+	}
+
+	const char *Engine::getBaseDefinitionPath() const
+	{
+		return "data/";
 	}
 
 }

@@ -14,6 +14,9 @@ using namespace am::base;
 #include <lua/lua_state.h>
 using namespace am::lua;
 
+#include <util/idefinition.h>
+using namespace am::util;
+
 #include "scale_nine.h"
 #include "texture_window.h"
 
@@ -22,7 +25,7 @@ namespace gfx {
 
 	class Texture;
 
-	class Asset : public IManaged {
+	class Asset : public IManaged, public IDefinition {
 	public:
 
 		typedef vector<TextureWindow> AnimationWindows;
@@ -33,6 +36,9 @@ namespace gfx {
 		~Asset();
 
 		const char *getName() const;
+
+		void setLoadedName(const char *loadedName);
+		const char *getLoadedName() const;
 
 		void setTexture(Texture *texture, unsigned int index = 0);
 		Texture *getTexture(unsigned int index = 0) const;

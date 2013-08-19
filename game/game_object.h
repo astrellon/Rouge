@@ -15,6 +15,9 @@ using namespace std;
 #include <game/dialogue_component.h>
 #include <game/iattribute_data.h>
 
+#include <util/idefinition.h>
+using namespace am::util;
+
 #include <sfx/sfx_isource.h>
 using namespace am::sfx;
 
@@ -32,7 +35,7 @@ namespace game {
 	class Map;
 	class LoadingState;
 
-	class GameObject : public Layer, public IAttributeData {
+	class GameObject : public Layer, public IAttributeData, public IDefinition {
 	public:
 
 		enum DamageType {

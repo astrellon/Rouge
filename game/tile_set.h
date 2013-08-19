@@ -8,8 +8,8 @@ using namespace std;
 #include <base/imanaged.h>
 using namespace am::base;
 
-//#include <util/json_value.h>
-//using namespace am::util;
+#include <util/idefinition.h>
+using namespace am::util;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -19,7 +19,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileSet : public IManaged {
+	class TileSet : public IManaged, public IDefinition {
 	public:
 		TileSet();
 		TileSet(const char *name);

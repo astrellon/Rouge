@@ -868,6 +868,12 @@
     <ClCompile Include="tests\test_lua_asset.cpp">
       <Filter>tests\gfx</Filter>
     </ClCompile>
+    <ClCompile Include="util\idefinition.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\idefinition_manager.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1581,6 +1587,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_lua_asset.h">
       <Filter>tests\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="util\idefinition.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

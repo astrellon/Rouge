@@ -131,11 +131,11 @@ namespace game {
 		return mPrecedence;
 	}
 
-	void Tile::addTransitionalAsset(Tile *overlapTile, Asset *asset)
+	void Tile::addTransitionalAsset(Asset *asset, Tile *overlapTile)
 	{
 		mTransitionalGraphics[overlapTile].push_back(asset);
 	}
-	void Tile::removeTransitionalAsset(Tile *overlapTile, Asset *asset)
+	void Tile::removeTransitionalAsset(Asset *asset, Tile *overlapTile)
 	{
 		if (!asset)
 		{
@@ -155,7 +155,27 @@ namespace game {
 			}
 		}
 	}
-	bool Tile::hasTransitionalAsset(Tile *overlapTile, Asset *asset) const
+	void Tile::removeTransitionalAsset(const char *assetName, Tile *overlapTile)
+	{
+		if (!assetName || assetName[0] == '\0')
+		{
+			return;
+		}
+		auto find = mTransitionalGraphics.find(overlapTile);
+		if (find == mTransitionalGraphics.end())
+		{
+			return;
+		}
+		for (auto iter = find->second.begin(); iter != find->second.end(); ++iter)
+		{
+			if (strcmp(iter->get()->getName(), assetName) == 0)
+			{
+				find->second.erase(iter);
+				break;
+			}
+		}
+	}
+	bool Tile::hasTransitionalAsset(Asset *asset, Tile *overlapTile) const
 	{
 		if (!asset)
 		{
@@ -175,7 +195,7 @@ namespace game {
 		}
 		return false;
 	}
-	bool Tile::hasTransitionalAssets(Tile *overlapTile) const
+	bool Tile::hasTransitionalAsset(Tile *overlapTile) const
 	{
 		return mTransitionalGraphics.find(overlapTile) != mTransitionalGraphics.end();
 	}
