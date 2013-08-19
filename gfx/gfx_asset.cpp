@@ -8,6 +8,8 @@
 #include <util/utils.h>
 using namespace am::util;
 
+#include <math/math.h>
+
 #include <string>
 
 using namespace std;
@@ -164,6 +166,18 @@ namespace gfx {
 	const char *Asset::getName() const
 	{
 		return mName.c_str();
+	}
+
+	void Asset::setLoadedName(const char *name)
+	{
+		if (name && name[0] != '\0')
+		{
+			mLoadedName = name;
+		}
+	}
+	const char *Asset::getLoadedName() const
+	{
+		return mLoadedName.c_str();
 	}
 
 	void Asset::setTextureWindow(const TextureWindow &window)
