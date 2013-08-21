@@ -33,8 +33,9 @@ namespace game {
 	int Tile_precedence(lua_State *lua);
 	int Tile_add_transitional(lua_State *lua);
 	int Tile_remove_transitional(lua_State *lua);
-	//int Tile_has_transitional(lua_State *lua);
-	//int Tile_transitional(lua_State *lua);
+	int Tile_has_transitional(lua_State *lua);
+	int Tile_transitional(lua_State *lua);
+	int Tile_all_transitional(lua_State *lua);
 
 	int Tile_load_def(lua_State *lua);
 

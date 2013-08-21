@@ -195,6 +195,26 @@ namespace game {
 		}
 		return false;
 	}
+	bool Tile::hasTransitionalAsset(const char *assetName, Tile *overlapTile) const
+	{
+		if (!assetName || assetName[0] == '\0')
+		{
+			return false;
+		}
+		auto find = mTransitionalGraphics.find(overlapTile);
+		if (find == mTransitionalGraphics.end())
+		{
+			return false;
+		}
+		for (auto iter = find->second.begin(); iter != find->second.end(); ++iter)
+		{
+			if (strcmp(iter->get()->getLoadedName(), assetName) == 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	bool Tile::hasTransitionalAsset(Tile *overlapTile) const
 	{
 		return mTransitionalGraphics.find(overlapTile) != mTransitionalGraphics.end();

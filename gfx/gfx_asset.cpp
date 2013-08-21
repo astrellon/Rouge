@@ -177,6 +177,10 @@ namespace gfx {
 	}
 	const char *Asset::getLoadedName() const
 	{
+		if (mLoadedName.empty())
+		{
+			return mName.c_str();
+		}
 		return mLoadedName.c_str();
 	}
 

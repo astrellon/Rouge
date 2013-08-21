@@ -194,5 +194,93 @@ namespace tests {
 		return true;
 	}
 
+	bool TestLuaTile::testTransitional() {
+		LuaState lua;
+		
+		int loadResult = lua.loadString(
+			"tile = am.tile.new(\"testTransitional\")\n"
+			"overlap_tile = am.tile.new(\"testOverlap\")\n"
+			"am.debug.equals(true, am.debug.empty(tile:transitional()))\n"
+			"am.debug.equals(true, am.debug.empty(tile:transitional(nil)))\n"
+			"am.debug.equals(true, am.debug.empty(tile:transitional(overlap_tile)))\n"
+			"am.debug.equals(true, am.debug.empty(tile:all_transitional()))\n"
+			
+			"cursor = am.asset.new(\"cursor\")\n"
+			"am.debug.not_equals(nil, cursor)\n"
+			"am.debug.equals(false, tile:has_transitional(cursor))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\"))\n"
+			
+			"tile:add_transitional(cursor)\n"
+			"trans = tile:transitional()\n"
+			"am.debug.equals(false, am.debug.empty(trans))\n"
+			"am.debug.equals(1, #trans)\n"
+			"am.debug.equals(cursor, trans[1])\n"
+			"all_trans = tile:all_transitional()\n"
+			"am.debug.equals(false, am.debug.empty(all_trans))\n"
+			"am.debug.equals(1, #all_trans[\"_default_\"])\n"
+			"am.debug.equals(cursor, all_trans[\"_default_\"][1])\n"
+
+			"am.debug.equals(true, tile:has_transitional(cursor))\n"
+			"am.debug.equals(true, tile:has_transitional(\"cursor\"))\n"
+
+			"paused = am.asset.new(\"paused\")\n"
+			"am.debug.not_equals(nil, paused)\n"
+			"tile:add_transitional(paused, overlap_tile)\n"
+			"trans = tile:transitional()\n"
+			"am.debug.equals(false, am.debug.empty(trans))\n"
+			"am.debug.equals(1, #trans)\n"
+			"am.debug.equals(cursor, trans[1])\n"
+			"trans = tile:transitional(overlap_tile)\n"
+			"am.debug.equals(false, am.debug.empty(trans))\n"
+			"am.debug.equals(1, #trans)\n"
+			"am.debug.equals(paused, trans[1])\n"
+			"all_trans = tile:all_transitional()\n"
+			"am.debug.equals(false, am.debug.empty(all_trans))\n"
+			"am.debug.equals(1, #all_trans[\"_default_\"])\n"
+			"am.debug.equals(cursor, all_trans[\"_default_\"][1])\n"
+			"am.debug.equals(1, #all_trans[\"testOverlap\"])\n"
+			"am.debug.equals(paused, all_trans[\"testOverlap\"][1])\n"
+
+			"am.debug.equals(true, tile:has_transitional(cursor))\n"
+			"am.debug.equals(true, tile:has_transitional(\"cursor\"))\n"
+			"am.debug.equals(false, tile:has_transitional(cursor, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\", overlap_tile))\n"
+			"am.debug.equals(true, tile:has_transitional(paused, overlap_tile))\n"
+			"am.debug.equals(true, tile:has_transitional(\"paused\", overlap_tile))\n"
+			
+			"tile:remove_transitional(paused)\n"
+			"am.debug.equals(true, tile:has_transitional(cursor))\n"
+			"am.debug.equals(true, tile:has_transitional(\"cursor\"))\n"
+			"am.debug.equals(false, tile:has_transitional(cursor, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\", overlap_tile))\n"
+			"am.debug.equals(true, tile:has_transitional(paused, overlap_tile))\n"
+			"am.debug.equals(true, tile:has_transitional(\"paused\", overlap_tile))\n"
+
+			"tile:remove_transitional(paused, overlap_tile)\n"
+			"am.debug.equals(true, tile:has_transitional(cursor))\n"
+			"am.debug.equals(true, tile:has_transitional(\"cursor\"))\n"
+			"am.debug.equals(false, tile:has_transitional(cursor, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\", overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(paused, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"paused\", overlap_tile))\n"
+
+			"tile:remove_transitional(\"cursor\")\n"
+			"am.debug.equals(false, tile:has_transitional(cursor))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\"))\n"
+			"am.debug.equals(false, tile:has_transitional(cursor, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"cursor\", overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(paused, overlap_tile))\n"
+			"am.debug.equals(false, tile:has_transitional(\"paused\", overlap_tile))\n"
+			);
+
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		return true;
+	}
+
 }
 }

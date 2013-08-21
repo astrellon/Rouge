@@ -15,6 +15,7 @@ namespace debug {
 	int Debug_equals(lua_State *lua);
 	int Debug_not_equals(lua_State *lua);
 	int Debug_print_stack(lua_State *lua);
+	int Debug_empty(lua_State *lua);
 	
 }
 }

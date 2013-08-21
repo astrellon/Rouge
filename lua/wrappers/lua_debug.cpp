@@ -25,6 +25,7 @@ namespace debug {
 			{ "equals", Debug_equals },
 			{ "not_equals", Debug_not_equals },
 			{ "print_stack", Debug_print_stack },
+			{ "empty", Debug_empty },
 			{ nullptr, nullptr }
 		};
 
@@ -85,6 +86,40 @@ namespace debug {
 	inline int Debug_print_stack(lua_State *lua)
 	{
 		return LuaState::luaPrintStack(lua);
+	}
+
+	/**
+	 * @static
+	 * Returns true if the given table is empty.
+	 *
+	 * @param table input The table to check.
+	 * @returns boolean True if the table is empty.
+	 */
+	/**
+	 * @static
+	 * Returns true if the given string is empty.
+	 *
+	 * @param string input The string to check.
+	 * @returns boolean True if the string is empty.
+	 */
+	int Debug_empty(lua_State *lua)
+	{
+		int type = lua_type(lua, 1);
+		if (type == LUA_TTABLE)
+		{
+
+			lua_pushnil(lua);
+			lua_pushboolean(lua, lua_next(lua, -2) == 0);
+			return 1;
+		}
+		if (type == LUA_TSTRING)
+		{
+			const char *str = lua_tostring(lua, 1);
+			lua_pushboolean(lua, !str || str[0] == '\0');
+			return 1;
+		}
+		lua_pushboolean(lua, true);
+		return 1;
 	}
 
 }

@@ -114,8 +114,9 @@ namespace game {
 			{ "precedence", Tile_precedence },
 			{ "add_transitional", Tile_add_transitional },
 			{ "remove_transitional", Tile_remove_transitional },
-			//{ "has_transitional", Tile_has_transitional },
-			//{ "transitional", Tile_transitional },
+			{ "has_transitional", Tile_has_transitional },
+			{ "transitional", Tile_transitional },
+			{ "all_transitional", Tile_all_transitional },
 			{ "load_def", Tile_load_def },
 			{ nullptr, nullptr }
 		};
@@ -558,33 +559,25 @@ namespace game {
 	}
 
 	/**
-	 * Adds a transitional tile graphic.
-	 * This tile graphic should have 32 texture windows to represent the different
-	 * edges and corner types.
-	 * Only texture level animation is supported, so the asset must have multiple textures
-	 * in order to be animated.
+	 * Removes a transitional tile graphic.
 	 *
 	 * The optional overlap_tile defines if this transitional graphic should only be used
 	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
 	 *
-	 * @param am.asset asset The asset to use for transitional overlapping.
-	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
-	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @param am.asset asset The asset to remove form transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, defines the specific tile to remove the asset from.
+	 *  Otherwise it is removed from all overlappings.
 	 * @returns am.tile This
 	 */
 	/**
-	 * Adds a transitional tile graphic.
-	 * This tile graphic should have 32 texture windows to represent the different
-	 * edges and corner types.
-	 * Only texture level animation is supported, so the asset must have multiple textures
-	 * in order to be animated.
+	 * Removes a transitional tile graphic.
 	 *
 	 * The optional overlap_tile defines if this transitional graphic should only be used
 	 * when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.
 	 *
-	 * @param string asset_name The name of the asset to use for transitional overlapping.
-	 * @param am.tile [nil] overlap_tile When not nil, this specifies that the asset is only to be used
-	 *  when overlapping this tile. Otherwise it is used for all overlappings.
+	 * @param string asset_name The name of the asset to remove form transitional overlapping.
+	 * @param am.tile [nil] overlap_tile When not nil, defines the specific tile to remove the asset from.
+	 *  Otherwise it is removed from all overlappings.
 	 * @returns am.tile This
 	 */
 	int Tile_remove_transitional(lua_State *lua)
@@ -595,28 +588,159 @@ namespace game {
 			Tile *overlapTile = castUData<Tile>(lua, 3);
 			if (lua_isstr(lua, 2))
 			{
-				Asset *asset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, 2));
-				if (!asset)
-				{
-					stringstream ss;
-					ss << "Unable to load asset '" << lua_tostring(lua, 2) << "'";
-					LuaState::warning(lua, ss.str().c_str());
-				}
-				else
-				{
-					tile->removeTransitionalAsset(asset, overlapTile);
-				}
+				tile->removeTransitionalAsset(lua_tostring(lua, 2), overlapTile);
 				lua_first(lua);
 			}
 			Asset *asset = castUData<Asset>(lua, 2);
 			if (asset)
 			{
-				tile->addTransitionalAsset(asset, overlapTile);
+				tile->removeTransitionalAsset(asset, overlapTile);
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "add_transitional", 2, "string asset_name, am.tile [nil] overlap_tile", "am.asset asset, am.tile [nil] overlap_tile");
+			return LuaState::expectedArgs(lua, "remove_transitional", 2, "string asset_name, am.tile [nil] overlap_tile", "am.asset asset, am.tile [nil] overlap_tile");
 		}
-		return LuaState::expectedContext(lua, "add_transitional", "am.tile");
+		return LuaState::expectedContext(lua, "remove_transitional", "am.tile");
+	}
+
+	/**
+	 * Returns true if the given asset is being used to overlap the give overlap_tile.
+	 * If overlap_tile is nil then it is checked against the default list of overlapping assets.
+	 *
+	 * @param am.asset asset The asset to check for.
+	 * @param am.tile [nil] overlap_tile The overlap tile the asset might be used for.
+	 * @returns boolean True if found.
+	 */
+	/**
+	 * Returns true if the given asset name is being used to overlap the give overlap_tile.
+	 * If overlap_tile is nil then it is checked against the default list of overlapping assets.
+	 *
+	 * @param string asset_name The name of the asset to check for.
+	 * @param am.tile [nil] overlap_tile The overlap tile the asset might be used for.
+	 * @returns boolean True if found.
+	 */
+	/**
+	 * Returns true if any assets are in use for the overlapping the given tile.
+	 * If overlap_tile is nil then returns true if any assets are used to overlap tiles by default.
+	 *
+	 * @param am.tile [nil] overlap_tile The overlap tile to check.
+	 * @returns boolean True if found.
+	 */
+	int Tile_has_transitional(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			Tile *overlapTile = castUData<Tile>(lua, 3);
+			if (lua_isstr(lua, 2))
+			{
+				lua_pushboolean(lua, tile->hasTransitionalAsset(lua_tostring(lua, 2), overlapTile));
+				return 1;
+			}
+			
+			Asset *asset = castUData<Asset>(lua, 2);
+			if (asset)
+			{
+				lua_pushboolean(lua, tile->hasTransitionalAsset(asset, overlapTile));
+				return 1;
+			}
+			overlapTile = castUData<Tile>(lua, 2);
+			if (overlapTile)
+			{
+				lua_pushboolean(lua, tile->hasTransitionalAsset(overlapTile));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_transitional", 3, "string asset_name, am.tile [nil] overlap_tile", "am.asset asset, am.tile [nil] overlap_tile", "am.tile overlap_tile");
+		}
+		return LuaState::expectedContext(lua, "has_transitional", "am.tile");
+	}
+
+	/**
+	 * Returns a table array of all the assets that can be used for transitional overlap when overlapping the given tile.
+	 * If no tile to check against if given then the default list is returned.
+	 *
+	 * @param am.tile [nil] overlap_tile The tile to get the list of assets that will be used to overlap it.
+	 * @returns table An array of all the assets.
+	 */
+	int Tile_transitional(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			const Tile::TileAssetList *tiles = nullptr;
+			bool error = false;
+			if (lua_gettop(lua) == 1 || lua_isnil(lua, 2))
+			{
+				 tiles = tile->getTransitionalAsset(nullptr);
+			}
+			else
+			{
+				Tile *overlapTile = castUData<Tile>(lua, 2);
+				error = overlapTile == nullptr;
+				if (!error)
+				{
+					tiles = tile->getTransitionalAsset(overlapTile);
+				}
+			}
+			if (!error)
+			{
+				if (!tiles || tiles->size() == 0u)
+				{
+					lua_createtable(lua, 0, 0);
+					return 1;
+				}
+				lua_createtable(lua, tiles->size(), 0);
+				int i = 1;
+				for (auto iter = tiles->begin(); iter != tiles->end(); ++iter)
+				{
+					lua_pushinteger(lua, i++);
+					wrapRefObject<Asset>(lua, iter->get());
+					lua_settable(lua, -3);
+				}
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "transitional", 2, "am.tile [nil] overlap_tile", "");
+		}
+		return LuaState::expectedContext(lua, "transitional", "am.tile");
+	}
+
+	/**
+	 * Returns a table that contains all the transitional assets that will be used.
+	 * Each key value is the name of the tile and each value is a table array that contains all the assets.
+	 * The key for the default list is "_default_".
+	 *
+	 * @returns table A table that defines all the transitional assets.
+	 */
+	int Tile_all_transitional(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			const Tile::TileAssetMap &tiles = tile->getAllTransitionalAssets();
+			lua_createtable(lua, 0, tiles.size());
+			for (auto iter = tiles.begin(); iter != tiles.end(); ++iter)
+			{
+				if (iter->first == nullptr)
+				{
+					lua_pushstring(lua, "_default_");
+				}
+				else
+				{
+					lua_pushstring(lua, iter->first->getName().c_str());
+				}
+				const Tile::TileAssetList &list = iter->second;
+				lua_createtable(lua, list.size(), 0);
+				int i = 1;
+				for (auto iterList = list.begin(); iterList != list.end(); ++iterList)
+				{
+					lua_pushinteger(lua, i++);
+					wrapRefObject<Asset>(lua, iterList->get());
+					lua_settable(lua, -3);
+				}
+				lua_settable(lua, -3);
+			}
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "all_transitional", "am.tile");
 	}
 
 	/**
