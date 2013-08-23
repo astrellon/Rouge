@@ -9,7 +9,8 @@ do
 		:asset("tiles/nature:grass")
 		:precedence(10)
 		:description("Tis grass")
-		:add_tile_type("land", "air"))
+		:add_tile_type("land", "air")
+		:add_transitional("tiles/nature:grass_transition"))
 	
 	set:add_tile(am.tile.new("dirt")
 		:full_name("Dirt")

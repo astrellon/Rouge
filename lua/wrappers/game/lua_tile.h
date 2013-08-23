@@ -38,8 +38,6 @@ namespace game {
 	int Tile_transitional(lua_State *lua);
 	int Tile_all_transitional(lua_State *lua);
 
-	//int Tile_load_def(lua_State *lua);
-
 	am::game::TileType *getTileType(lua_State *lua, int n);
 	
 }
