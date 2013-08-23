@@ -188,7 +188,7 @@ namespace gfx {
 		data::Table *output = new data::Table();
 		if (mAsset)
 		{
-			output->at("asset", mAsset->getName());
+			output->at("asset", mAsset->getLoadedName());
 		}
 		if (mWidth != 0 || !mAsset)
 		{

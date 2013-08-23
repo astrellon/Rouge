@@ -282,7 +282,7 @@ namespace gfx {
 			return -1;
 		}
 		
-		Asset *temp = new Asset(assetName);
+		/*Asset *temp = new Asset(assetName);
 		int loadAsset = temp->loadDef(lua);
 		if (loadAsset != 0)
 		{
@@ -295,7 +295,7 @@ namespace gfx {
 			return -2;
 		}
 
-		iter->second->assign(*temp);
+		iter->second->assign(*temp);*/
 		
 		return 1;
 	}

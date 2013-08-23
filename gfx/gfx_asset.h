@@ -77,7 +77,7 @@ namespace gfx {
 		float getHeight();
 
 		// The table to load the definition off needs to be on top of the stack.
-		int loadDef(LuaState &lua, bool reload = false);
+		//int loadDef(LuaState &lua, bool reload = false);
 		void assign(const Asset &rhs);
 
 		void setRepeatX(bool repeat);
