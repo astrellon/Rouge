@@ -7,6 +7,9 @@
 namespace am {
 namespace gfx {
 
+	const int Font::LUA_ID = 0x24;
+	const char *Font::LUA_TABLENAME = "am_gfx_Font";
+
 	Font::Font(const char *name) :
 		IManaged(),
 		mAsset(nullptr),
@@ -16,7 +19,8 @@ namespace gfx {
 		mSpaceWidth(6.0f),
 		mTabWidth(24.0f),
 		mCharsAcross(16),
-		mCharsDown(16)
+		mCharsDown(16),
+		mUtfSupport(false)
 	{
 
 	}
@@ -77,7 +81,7 @@ namespace gfx {
 		{
 			setCharsAcross(lua.toInteger());
 		}
-		postLoad();
+		process();
 
 		return 0;
 	}
@@ -87,6 +91,10 @@ namespace gfx {
 		return mName;
 	}
 
+	void Font::setFixedWidth(bool fixed)
+	{
+		mFixedWidth = fixed;
+	}
 	bool Font::isFixedWidth() const
 	{
 		return mFixedWidth;
@@ -136,6 +144,16 @@ namespace gfx {
 	{
 		return mTabWidth;
 	}
+
+	void Font::setUtf(bool utf)
+	{
+		mUtfSupport = utf;
+	}
+	bool Font::isUtf() const
+	{
+		return mUtfSupport;
+	}
+
 	float Font::getVariableTabPosition(float xPos) const
 	{
 		int xMult = static_cast<int>(xPos) / static_cast<int>(getTabWidth());
@@ -318,7 +336,7 @@ namespace gfx {
 		render = mTextureWindows[ch];
 	}
 
-	void Font::postLoad()
+	void Font::process()
 	{
 		if (mAsset == nullptr || mAsset->getTexture() == nullptr)
 		{

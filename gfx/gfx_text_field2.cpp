@@ -32,7 +32,7 @@ namespace gfx {
 		mLineScroll(0),
 		mDisplayNumLines(0)
 	{
-		mFont = GfxEngine::getEngine()->getFontLua("basic");
+		mFont = GfxEngine::getEngine()->getFont("default:basic");
 		setInteractive(true);
 
 		mTextHitboxes = new Layer();
@@ -72,7 +72,7 @@ namespace gfx {
 	}
 	void TextField2::setBaseFont(const char *fontName)
 	{
-		mFont = GfxEngine::getEngine()->getFontLua(fontName);
+		mFont = GfxEngine::getEngine()->getFont(fontName);
 	}
 
 	float TextField2::getMeasuredWidth()

@@ -6,10 +6,6 @@ extern "C"
 }
 
 namespace am {
-namespace gfx {
-	class Sprite;
-}
-
 namespace lua {
 namespace gfx {
 

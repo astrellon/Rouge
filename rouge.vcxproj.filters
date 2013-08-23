@@ -874,6 +874,9 @@
     <ClCompile Include="util\idefinition_manager.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\gfx\lua_font.cpp">
+      <Filter>lua\wrapper\gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1590,6 +1593,9 @@
     </ClInclude>
     <ClInclude Include="util\idefinition.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\gfx\lua_font.h">
+      <Filter>lua\wrapper\gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

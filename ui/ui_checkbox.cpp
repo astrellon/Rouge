@@ -125,7 +125,7 @@ namespace ui {
 		mCheckGraphic->setNumTotalFrames(8);*/
 		
 		addChild(mLabel.get());
-		mLabel->setBaseFont("arial");
+		mLabel->setBaseFont("default:arial");
 		float labelTop = (getHeight() - mLabel->getMeasuredHeight()) * 0.5f;
 		mLabel->setPosition(mCheckGraphic->getWidth(), labelTop + 1);
 

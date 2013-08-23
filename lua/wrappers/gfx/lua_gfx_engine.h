@@ -12,6 +12,7 @@ namespace gfx {
 	int GfxEngine_register(lua_State *lua);
 
 	int GfxEngine_asset(lua_State *lua);
+	int GfxEngine_font(lua_State *lua);
 
 }
 }

@@ -1073,7 +1073,7 @@ namespace game {
 		}
 	}
 
-	const char *Game::getBaseDefinitionPath() const
+	const char *Game::getBaseDefinitionPath(int id) const
 	{
 		return "data/defs/";
 	}

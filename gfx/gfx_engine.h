@@ -46,6 +46,8 @@ namespace gfx {
 		TextureMap &getTextureMap();
 
 		Font *getFontLua(const char *fontName);
+		Font *getFont(const char *fontName);
+		void addFont(Font *font);
 		int reloadFont(const char *fontName);
 		FontMap &getFontMap();
 
@@ -119,7 +121,7 @@ namespace gfx {
 
 		GfxEngine();
 
-		virtual const char *getBaseDefinitionPath() const;
+		virtual const char *getBaseDefinitionPath(int id) const;
 	};
 
 }

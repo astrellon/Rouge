@@ -161,7 +161,7 @@ namespace game {
 		typedef map<string, Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
 
-		virtual const char *getBaseDefinitionPath() const;
+		virtual const char *getBaseDefinitionPath(int id) const;
 
 		string mScenarioName;
 

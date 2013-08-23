@@ -11,6 +11,9 @@ using namespace am::lua;
 #include <base/handle.h>
 using namespace am::base;
 
+#include <util/idefinition.h>
+using namespace am::util;
+
 #include "texture_window.h"
 
 namespace am {
@@ -19,7 +22,7 @@ namespace gfx {
 	class Texture;
 	class Asset;
 
-	class Font : public IManaged {
+	class Font : public IManaged, public IDefinition {
 	public:
 		// GlFont methods
 		Font(const char *name);
@@ -36,6 +39,8 @@ namespace gfx {
 		void getTextureWindow(unsigned char ch, TextureWindow &render);
 
 		bool isLoaded() const;
+
+		void setFixedWidth(bool fixed);
 		bool isFixedWidth() const;
 
 		float getCharHeight() const;
@@ -53,6 +58,9 @@ namespace gfx {
 		void setTabWidth(float width);
 		float getTabWidth() const;
 
+		void setUtf(bool utf);
+		bool isUtf() const;
+
 		int measureText(const char *text, float containerWidth, float &width, float &height, char endChar = '\0') const;
 		int measureLine(const char *text, float containerWidth, float &width, float &height) const;
 		int measureWord(const char *word, float &width, float &height) const;
@@ -63,6 +71,11 @@ namespace gfx {
 		int getCharsAcross() const;
 		int getCharsDown() const;
 		float getCharWidth(unsigned char ch) const;
+
+		void process();
+
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
 
 	protected:
 
@@ -86,8 +99,7 @@ namespace gfx {
 		vector<TextureWindow> mTextureWindows;
 
 		pair<float, float> processChar(int *data, int xPos, int yPos);
-		void postLoad();
-
+		
 	};
 
 }

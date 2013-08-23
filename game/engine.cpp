@@ -196,7 +196,7 @@ namespace game {
 
 	TileSet *Engine::getTileSet(const char *tileSetName)
 	{
-		return getDefinition<TileSet>(mTileSets, tileSetName);
+		return getDefinition<TileSet>(mTileSets, tileSetName, 1);
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{
@@ -452,8 +452,12 @@ namespace game {
 		return iter->second;
 	}
 
-	const char *Engine::getBaseDefinitionPath() const
+	const char *Engine::getBaseDefinitionPath(int id) const
 	{
+		if (id == 1)
+		{
+			return "data/tilesets/";
+		}
 		return "data/";
 	}
 

@@ -330,6 +330,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\game\lua_tile_set.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_tile_type.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_asset.cpp" />
+    <ClCompile Include="lua\wrappers\gfx\lua_font.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_gfx_engine.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_sprite.cpp" />
     <ClCompile Include="lua\wrappers\gfx\lua_texture.cpp" />
@@ -568,6 +569,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\game\lua_tile_set.h" />
     <ClInclude Include="lua\wrappers\game\lua_tile_type.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_asset.h" />
+    <ClInclude Include="lua\wrappers\gfx\lua_font.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_gfx_engine.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_sprite.h" />
     <ClInclude Include="lua\wrappers\gfx\lua_texture.h" />

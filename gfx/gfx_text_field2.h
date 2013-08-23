@@ -79,7 +79,7 @@ namespace gfx {
 
 		string mText;
 		string mRawText;
-		Font *mFont;
+		Handle<Font> mFont;
 
 		float mMeasuredWidth;
 		float mMeasuredHeight;

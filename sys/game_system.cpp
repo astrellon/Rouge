@@ -129,7 +129,7 @@ namespace sys {
 		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());
 
 		mDebugConsole->setWidth(600.0f);
-		mDebugConsole->setBaseFont("basic");
+		mDebugConsole->setBaseFont("default:basic");
 		mDebugConsole->setVisible(false);
 
 		mGfxListener = new GfxLogListener(mDebugConsole);

@@ -67,7 +67,7 @@ namespace gfx {
 	protected:
 
 		string mText;
-		Font *mFont;
+		Handle<Font> mFont;
 
 		float mMeasuredWidth;
 		float mMeasuredHeight;

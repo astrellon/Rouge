@@ -48,6 +48,8 @@ using namespace am::lua::game;
 #include <gfx/gfx_texture.h>
 #include "gfx/lua_gfx_engine.h"
 #include <gfx/gfx_engine.h>
+#include "gfx/lua_font.h"
+#include <gfx/gfx_font.h>
 using namespace am::lua::gfx;
 
 #include "sfx/lua_sound.h"
@@ -102,6 +104,7 @@ namespace wrapper {
 		addWrapper(lua, "asset", Asset_register, Asset::LUA_ID);
 		addWrapper(lua, "texture", Texture_register, Texture::LUA_ID);
 		addWrapper(lua, "gfx_engine", GfxEngine_register, GfxEngine::LUA_ID);
+		addWrapper(lua, "font", Font_register, Font::LUA_ID);
 		// am.util.data
 		addWrapper(lua, "data_table", am::lua::util::data::DataTable_register, data::Table::LUA_ID);
 		//am.sfx

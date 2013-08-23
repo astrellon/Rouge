@@ -134,7 +134,7 @@ namespace game {
 		LuaState mLua;
 
 		void checkUsingTileSet();
-		virtual const char *getBaseDefinitionPath() const;
+		virtual const char *getBaseDefinitionPath(int id) const;
 
 		static Engine *sMainEngine;
 	};

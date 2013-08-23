@@ -51,7 +51,7 @@ namespace ui {
 		mGraphic->addEventListener("click", this);
 
 		mLabel = new TextField();
-		mLabel->setBaseFont("arial");
+		mLabel->setBaseFont("default:arial");
 		mLabel->setGfxComponent(new GfxComponent());
 		mLabel->getGfxComponent()->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel);

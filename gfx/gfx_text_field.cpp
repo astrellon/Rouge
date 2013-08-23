@@ -32,7 +32,7 @@ namespace gfx {
 		mNewLineDirty(true),
 		mAlignment(ALIGN_LEFT)
 	{
-		mFont = GfxEngine::getEngine()->getFontLua("basic");
+		mFont = GfxEngine::getEngine()->getFont("default:basic");
 	}
 
 	TextField::TextField(const TextField &rhs) :
@@ -77,7 +77,7 @@ namespace gfx {
 	}
 	void TextField::setBaseFont(const char *fontName)
 	{
-		mFont = GfxEngine::getEngine()->getFontLua(fontName);
+		mFont = GfxEngine::getEngine()->getFont(fontName);
 	}
 
 	float TextField::getMeasuredWidth()

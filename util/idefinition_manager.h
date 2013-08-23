@@ -27,7 +27,7 @@ namespace util {
 		typedef map<string, bool> FilesLoadedMap;
 		FilesLoadedMap mFilesLoaded;
 
-		virtual const char *getBaseDefinitionPath() const = 0;
+		virtual const char *getBaseDefinitionPath(int id) const = 0;
 
 		virtual LuaState &getLuaDefinition() const;
 		
@@ -51,7 +51,7 @@ namespace util {
 		}
 
 		template <class T>
-		T *getDefinition(map< string, Handle<T> > &defMap, const char *name)
+		T *getDefinition(map< string, Handle<T> > &defMap, const char *name, int id = 0)
 		{
 			if (name == nullptr || name[0] == '\0')
 			{
@@ -72,7 +72,7 @@ namespace util {
 			}
 			string filename;
 			string charname;
-			const char *base = getBaseDefinitionPath();
+			const char *base = getBaseDefinitionPath(id);
 			if (index > 0)
 			{
 				filename = base;

@@ -412,6 +412,14 @@ namespace gfx {
 
 		return font;
 	}
+	Font *GfxEngine::getFont(const char *fontName)
+	{
+		return getDefinition<Font>(mFontManager, fontName, 1);
+	}
+	void GfxEngine::addFont(Font *font)
+	{
+		addDefinition<Font>(font, mFontManager, font->getName().c_str());
+	}
 	int GfxEngine::reloadFont(const char *fontName)
 	{
 		return 0;
@@ -505,8 +513,12 @@ namespace gfx {
 
 	}
 
-	const char *GfxEngine::getBaseDefinitionPath() const
+	const char *GfxEngine::getBaseDefinitionPath(int id) const
 	{
+		if (id == 1)
+		{
+			return "data/fonts/";
+		}
 		return "data/assets/";
 	}
 

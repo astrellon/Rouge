@@ -13,6 +13,7 @@ using namespace am::lua;
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_asset.h>
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_font.h>
 using namespace am::gfx;
 
 #include <math/math.h>
@@ -31,6 +32,7 @@ namespace gfx {
 		luaL_Reg regs[] = 
 		{
 			{ "asset", GfxEngine_asset },
+			{ "font", GfxEngine_font },
 			{ nullptr, nullptr }
 		};
 
@@ -94,6 +96,34 @@ namespace gfx {
 		}
 		
 		return LuaState::expectedArgs(lua, "asset", 3, "string asset_name", "am.asset asset");
+	}
+
+	int GfxEngine_font(lua_State *lua)
+	{
+		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		
+		if (lua_isstr(lua, 1))
+		{
+			Font *font = gfxEngine->getFont(lua_tostring(lua, 1));
+			if (font)
+			{
+				wrapRefObject<Font>(lua, font);
+				return 1;
+			}
+			lua_pushnil(lua);
+			return 1;
+		}
+		else
+		{
+			Font *font = castUData<Font>(lua, 1);
+			if (font)
+			{
+				gfxEngine->addFont(font);
+				lua_first(lua);
+			}
+		}
+		
+		return LuaState::expectedArgs(lua, "font", 3, "string font_name", "am.font font");
 	}
 
 }
