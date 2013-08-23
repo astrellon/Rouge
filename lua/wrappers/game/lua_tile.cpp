@@ -21,9 +21,6 @@ using namespace am::game;
 #include <gfx/gfx_engine.h>
 using namespace am::gfx;
 
-#include <util/json_value.h>
-using namespace am::util;
-
 #include "lua_tile_type.h"
 #include "lua_tile_set.h"
 

@@ -19,7 +19,6 @@ namespace tests {
 			runCase(testEquipped);
 			runCase(testCopy);
 			runCase(testDead);
-			//runCase(testSelector);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -32,7 +31,6 @@ namespace tests {
 		bool testEquipped();
 		bool testCopy();
 		bool testDead();
-		//bool testSelector();
 	
 	};
 

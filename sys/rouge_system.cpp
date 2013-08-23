@@ -45,7 +45,6 @@
 #include <game/map.h>
 #include <game/string_pool.h>
 
-#include <util/json_value.h>
 #include <util/text_tokeniser.h>
 #include <util/utils.h>
 #include <log/logger.h>

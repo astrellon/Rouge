@@ -13,9 +13,6 @@
 #include <game/gender.h>
 using namespace am::game;
 
-#include <util/selector.h>
-using namespace am::util;
-
 #include <tests/asserts.h>
 
 namespace am {
@@ -300,23 +297,6 @@ namespace tests {
 		
 		return true;
 	}
-
-	/*bool TestCharacter::testSelector()
-	{
-		Race testRace("human");
-		Handle<Character> testChar(new Character());
-		testChar->setAge(23.0f);
-		testChar->setGender(Gender::FEMALE);
-		testChar->setRace(&testRace);
-
-		Selector selector;
-		testChar->getSelector(selector);
-		am_equalsDelta(23.0f, selector.getAttribute("age").getFloat(), 0.001f);
-		am_equalsStr(Gender::getGenderName(Gender::FEMALE), selector.getAttribute("gender").getCStr());
-		am_equalsStr("human", selector.getAttribute("race").getCStr());
-
-		return true;
-	}*/
 
 }
 }

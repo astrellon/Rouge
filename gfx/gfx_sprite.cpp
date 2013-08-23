@@ -344,6 +344,10 @@ namespace gfx {
 
 	void Sprite::renderSprite()
 	{
+		if (mAsset->getTexture() == nullptr)
+		{
+			return;
+		}
 		if (mFrameRate <= 0.0f)
 		{
 			mAsset->getTexture(mTextureFrame)->bindTexture();

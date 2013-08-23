@@ -9,9 +9,6 @@ using namespace am::gfx;
 #include <tests/test_mouse_manager.h>
 #include <tests/test_map.h>
 #include <tests/test_character.h>
-//#include <tests/test_selector.h>
-//#include <tests/test_selector_value.h>
-//#include <tests/test_json_value.h>
 #include <tests/test_lua.h>
 #include <tests/test_lua_quest.h>
 #include <tests/test_lua_event_listener.h>
@@ -80,9 +77,6 @@ namespace sys {
 		runSuite(TestMouseManager);
 		runSuite(TestMap);
 		runSuite(TestCharacter);
-		//runSuite(TestSelector);
-		//runSuite(TestSelectorValue);
-		//runSuite(TestJsonValue);
 		runSuite(TestLua);
 		runSuite(TestLuaQuest);
 		runSuite(TestLuaEventListener);

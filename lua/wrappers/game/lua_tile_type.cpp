@@ -14,9 +14,6 @@ using namespace am::lua;
 #include <game/engine.h>
 using namespace am::game;
 
-#include <util/json_value.h>
-using namespace am::util;
-
 namespace am {
 namespace lua {
 namespace game {
