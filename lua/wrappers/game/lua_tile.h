@@ -23,6 +23,7 @@ namespace game {
 	int Tile_full_name(lua_State *lua);
 	int Tile_description(lua_State *lua);
 	int Tile_tile_set(lua_State *lua);
+	int Tile_asset(lua_State *lua);
 
 	int Tile_add_tile_type(lua_State *lua);
 	int Tile_remove_tile_type(lua_State *lua);
@@ -37,7 +38,7 @@ namespace game {
 	int Tile_transitional(lua_State *lua);
 	int Tile_all_transitional(lua_State *lua);
 
-	int Tile_load_def(lua_State *lua);
+	//int Tile_load_def(lua_State *lua);
 
 	am::game::TileType *getTileType(lua_State *lua, int n);
 	

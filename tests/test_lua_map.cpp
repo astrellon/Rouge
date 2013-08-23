@@ -42,7 +42,7 @@ namespace tests {
 			"map:full_name(\"The Region of Test\")\n"
 
 			"am.engine.clear_using_tile_set()\n"
-			"am.engine.using_tile_set(\"nature\")\n"
+			"am.engine.using_tile_set(\"tilesets/nature:nature\")\n"
 
 			"map:tiles({\n"
 			"	\"brick:0\", \"brick:2\", \"grass:0\", \"grass:2\", \"grass:3\", \"dirt:3\",\n"

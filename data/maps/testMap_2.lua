@@ -7,8 +7,7 @@ do
 	map:full_name("The Region of Test")
 
 	am.engine.clear_using_tile_set()
-	am.engine.using_tile_set("nature")
-	am.engine.game():add_map(map)
+	am.engine.using_tile_set("tileSets/nature:nature")
 	am.engine.game():add_map(map)
 
 	map:tiles({

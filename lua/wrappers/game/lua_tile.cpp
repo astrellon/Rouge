@@ -106,6 +106,7 @@ namespace game {
 			{ "full_name", Tile_full_name },
 			{ "description", Tile_description },
 			{ "tile_set", Tile_tile_set },
+			{ "asset", Tile_asset },
 			{ "add_tile_type", Tile_add_tile_type },
 			{ "remove_tile_type", Tile_remove_tile_type },
 			{ "remove_all_tile_types", Tile_remove_all_tile_types },
@@ -117,7 +118,6 @@ namespace game {
 			{ "has_transitional", Tile_has_transitional },
 			{ "transitional", Tile_transitional },
 			{ "all_transitional", Tile_all_transitional },
-			{ "load_def", Tile_load_def },
 			{ nullptr, nullptr }
 		};
 
@@ -321,23 +321,71 @@ namespace game {
 					return 1;
 				}
 			}
-			return LuaState::expectedArgs(lua, "tile_set", "TileSet tileSet, boolean [false] check_for_existing");
+			return LuaState::expectedArgs(lua, "tile_set", "am.tile_set tileSet, boolean [false] check_for_existing");
 		}
 		return LuaState::expectedContext(lua, "tile_set", "am.tile");
+	}
+	
+	/**
+	 * Returns the graphical asset used by this tile. Can be nil.
+	 *
+	 * @returns am.asset The asset.
+	 */
+	/**
+	 * Sets the graphical asset of this tile by asset name.
+	 *
+	 * @param string asset_name The name of the asset to use.
+	 * @returns am.tile This
+	 */
+	/**
+	 * Sets the graphical asset.
+	 * @param am.asset asset The asset to use.
+	 * @returns am.tile This
+	 */
+	int Tile_asset(lua_State *lua)
+	{
+		Tile *tile = castUData<Tile>(lua, 1);
+		if (tile)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				Asset *asset = tile->getGraphicAsset();
+				if (asset)
+				{
+					wrapRefObject<Asset>(lua, asset);
+					return 1;
+				}
+				lua_pushnil(lua);
+				return 1;
+			}
+			if (lua_isstr(lua, 2))
+			{
+				tile->setGraphicAsset(GfxEngine::getEngine()->getAsset(lua_tostring(lua, 2)));
+				lua_first(lua);
+			}
+			Asset *asset = castUData<Asset>(lua, 2);
+			if (asset)
+			{
+				tile->setGraphicAsset(asset);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "asset", 2, "string asset_name", "am.asset asset");
+		}
+		return LuaState::expectedContext(lua, "asset", "am.tile");
 	}
 
 	/**
 	 * Adds a tile type to the list of tile types.
 	 * If a type is already in the list, it will be ignored.
 	 *
-	 * @param am.tile_type tile_type The tile type to add to the list.
+	 * @param am.tile_type... tile_type The tile type to add to the list.
 	 * @returns am.tile This
 	 */
 	/**
 	 * Adds a tile type to the list of tile types.
 	 * If a type is already in the list, it will be ignored.
 	 * 
-	 * @param string tile_type_name The name of the tile type to add to the list.
+	 * @param string... tile_type_name The name of the tile type to add to the list.
 	 * @returns am.tile This
 	 */
 	int Tile_add_tile_type(lua_State *lua)
@@ -345,13 +393,32 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			Handle<TileType> tileType(getTileType(lua, 2));
-			if (tileType)
+			int args = lua_gettop(lua);
+			vector< Handle<TileType> > types;
+			types.reserve(args - 2);
+			bool error = false;
+			for (int i = 2; i <= args; i++)
 			{
-				tile->addTileType(tileType);
+				TileType *tileType(getTileType(lua, i));
+				if (tileType)
+				{
+					types.push_back(tileType);
+				}
+				else
+				{
+					error = true;
+					break;
+				}
+			}
+			if (!error)
+			{
+				for (size_t i = 0; i < types.size(); i++)
+				{
+					tile->addTileType(types[i]);
+				}
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "add_tile_type", 2, "am.tile_type tile_type", "string tile_type_name");
+			return LuaState::expectedArgs(lua, "add_tile_type", "am.tile_type/string... tile_type");
 		}
 		return LuaState::expectedContext(lua, "add_tile_type", "am.tile");
 	}
@@ -359,14 +426,14 @@ namespace game {
 	 * Removes a tile type from the list of tile types.
 	 * If a type is not in the list, it will be ignored.
 	 *
-	 * @param am.tile_type tile_type The tile type to remove from the list.
+	 * @param am.tile_type... tile_type The tile type to remove from the list.
 	 * @returns am.tile This
 	 */
 	/**
 	 * Removes a tile type from the list of tile types.
 	 * If a type is not in the list, it will be ignored.
 	 * 
-	 * @param string tile_type_name The name of the tile type to remove from the list.
+	 * @param string... tile_type_name The name of the tile type to remove from the list.
 	 * @returns am.tile This
 	 */
 	int Tile_remove_tile_type(lua_State *lua)
@@ -374,13 +441,17 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			Handle<TileType> tileType(getTileType(lua, 2));
-			if (tileType)
+			int args = lua_gettop(lua);
+			for (int i = 2; i <= args; i++)
 			{
-				tile->removeTileType(tileType);
+				Handle<TileType> tileType(getTileType(lua, 2));
+				if (tileType)
+				{
+					tile->removeTileType(tileType);
+				}
 				lua_first(lua);
 			}
-			return LuaState::expectedArgs(lua, "remove_tile_type", 2, "am.tile_type tile_type", "string tile_type_name");
+			return LuaState::expectedArgs(lua, "remove_tile_type", "am.tile_type/string... tile_type");
 		}
 		return LuaState::expectedContext(lua, "remove_tile_type", "am.tile");
 	}
@@ -741,21 +812,6 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "all_transitional", "am.tile");
-	}
-
-	/**
-	 * @private
-	 * TODO
-	 */
-	int Tile_load_def(lua_State *lua)
-	{
-		Tile *tile = castUData<Tile>(lua, 1);
-		if (tile && lua_istable(lua, -1))
-		{
-			LuaState wrap(lua);
-			tile->loadDef(wrap);
-		}
-		return 0;
 	}
 
 	TileType *getTileType(lua_State *lua, int n)

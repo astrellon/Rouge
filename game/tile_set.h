@@ -39,9 +39,6 @@ namespace game {
 		bool hasTile(const char *tileName);
 		Tile *getTile(const char *tileName);
 
-		//void loadDef(JsonValue value);
-		void loadDef(LuaState &lua);
-
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 

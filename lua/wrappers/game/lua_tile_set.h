@@ -27,7 +27,7 @@ namespace game {
 	int TileSet_has_tile(lua_State *lua);
 	int TileSet_tile(lua_State *lua);
 
-	int TileSet_load_def(lua_State *lua);
+	//int TileSet_load_def(lua_State *lua);
 
 }
 }

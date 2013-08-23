@@ -44,6 +44,8 @@ namespace game {
 		string getDescription() const;
 		void setDescription(const char *description);
 
+		string getNameWithSet() const;
+
 		Asset *getGraphicAsset();
 		void setGraphicAsset(Asset *asset);
 
@@ -69,9 +71,6 @@ namespace game {
 		const TileAssetList *getTransitionalAsset(Tile *overlapTile) const;
 		const TileAssetMap &getAllTransitionalAssets() const;
 
-		//void loadDef(JsonValue value);
-		void loadDef(LuaState &lua);
-
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 	
@@ -79,6 +78,7 @@ namespace game {
 	
 		string mName;
 		string mFullName;
+		
 		TileSet *mTileSet;
 		Handle<Asset> mGraphic;
 		TileAssetMap mTransitionalGraphics;

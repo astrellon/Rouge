@@ -83,7 +83,7 @@ namespace game {
 			{ "remove_tile", TileSet_remove_tile },
 			{ "has_tile", TileSet_has_tile },
 			{ "tile", TileSet_tile },
-			{ "load_def", TileSet_load_def },
+			//{ "load_def", TileSet_load_def },
 			{ nullptr, nullptr }
 		};
 
@@ -259,7 +259,7 @@ namespace game {
 	/**
 	 * @private
 	 */
-	int TileSet_load_def(lua_State *lua)
+	/*int TileSet_load_def(lua_State *lua)
 	{
 		TileSet *set = castUData<TileSet>(lua, 1);
 		if (set && lua_istable(lua, -1))
@@ -268,7 +268,7 @@ namespace game {
 			set->loadDef(wrap);
 		}
 		return 0;
-	}
+	}*/
 
 }
 }

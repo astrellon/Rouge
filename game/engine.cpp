@@ -43,7 +43,7 @@ namespace game {
 
 	void Engine::init()
 	{
-		TileSet *global = getTileSetLua("global");
+		TileSet *global = getTileSet("global");
 		if (global == nullptr)
 		{
 			am_log("SET", "Global tile set not found!");
@@ -128,7 +128,7 @@ namespace game {
 				}
 				else
 				{
-					mUsingTileSet[iter->first] = getTileSetLua(iter->first.c_str());
+					mUsingTileSet[iter->first] = getTileSet(iter->first.c_str());
 				}
 			}
 			mUsingTileSetNames.clear();
@@ -164,7 +164,7 @@ namespace game {
 			Handle<TileSet> tileSet = mTopLevelTileSet;
 			if (tileSetStr.size() > 0)
 			{
-				tileSet = getTileSetLua(tileSetStr.c_str());
+				tileSet = getTileSet(tileSetStr.c_str());
 			}
 			if (tileSet.get())
 			{
@@ -194,47 +194,6 @@ namespace game {
 
 	}
 
-	TileSet *Engine::getTileSetLua(const char *tileSetName)
-	{
-		if (!tileSetName || tileSetName[0] == '\0')
-		{
-			return mTopLevelTileSet.get();
-		}
-		string tileSetStr = tileSetName;
-		TileSetMap::iterator iter = mTileSets.find(tileSetStr);
-		if (iter != mTileSets.end())
-		{
-			return iter->second.get();
-		}
-		
-		Handle<TileSet> tileSet(new TileSet(tileSetName));
-		
-		stringstream ss;
-		ss << "data/tilesets/" << tileSetName << ".lua";
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			stringstream errss;
-			errss << "Error loading tile set '" << tileSetName << "' definition using path '" << ss.str() << '\'';
-			am_log("SET", errss);
-			lua.logStack("SETLUA");
-			lua.close();
-			return nullptr;
-		}
-		lua_getglobal(lua, "set");
-		if (!lua_istable(lua, -1))
-		{
-			stringstream errss;
-			errss << "Did not find global 'set' table: 'set' = " << lua_typename(lua, -1);
-			am_log("SET", errss);
-			lua.close();
-			return nullptr;
-		}
-		tileSet->loadDef(lua);
-		mTileSets[tileSetStr] = tileSet;
-		lua.close();
-		return tileSet;
-	}
 	TileSet *Engine::getTileSet(const char *tileSetName)
 	{
 		return getDefinition<TileSet>(mTileSets, tileSetName);
@@ -242,10 +201,6 @@ namespace game {
 	void Engine::addTileSet(TileSet *tileSet)
 	{
 		addDefinition<TileSet>(tileSet, mTileSets, tileSet->getName().c_str());
-		/*if (tileSet)
-		{
-			mTileSets[tileSet->getName()] = tileSet;
-		}*/
 	}
 	TileSetMap &Engine::getTileSets()
 	{

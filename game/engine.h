@@ -63,7 +63,6 @@ namespace game {
 
 		Tile *getTile(const char *name);
 
-		TileSet *getTileSetLua(const char *tileSetName);
 		TileSet *getTileSet(const char *tileSetName);
 		void addTileSet(TileSet *tileSet);
 		TileSetMap &getTileSets();

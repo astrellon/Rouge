@@ -96,6 +96,15 @@ namespace game {
 		mDescription = description;
 	}
 
+	string Tile::getNameWithSet() const
+	{
+		if (mTileSet)
+		{
+			return mTileSet->getName() + ":" + mName;
+		}
+		return mName;
+	}
+
 	Asset *Tile::getGraphicAsset()
 	{
 		return mGraphic.get();
@@ -231,88 +240,6 @@ namespace game {
 	const Tile::TileAssetMap &Tile::getAllTransitionalAssets() const
 	{
 		return mTransitionalGraphics;
-	}
-
-	void Tile::loadDef(LuaState &lua)
-	{
-		if (!lua_istable(lua, -1))
-		{
-			return;
-		}
-		if (lua.isTableString("assetName"))
-		{
-			mGraphic = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
-			lua.pop(1);
-		}
-		else
-		{
-			stringstream ss;
-			ss << "Tile '" << mName << "' did not have a graphic defined";
-			am_log("TILE", ss);
-		}
-
-		if (lua.isTableString("fullName"))
-		{
-			mFullName = lua_tostring(lua, -1);
-			lua.pop(1);
-		}
-		if (lua.isTableString("description"))
-		{
-			mDescription = lua_tostring(lua, -1);
-			lua.pop(1);
-		}
-		if (lua.isTableNumber("precedence"))
-		{
-			mPrecedence = lua_tointeger(lua, -1);
-			lua.pop(1);
-		}
-		/*if (lua.isTableTable("transitional_graphics"))
-		{
-			lua_pushnil(lua);
-			while (lua_next(lua, -2) != 0)
-			{
-				if (lua_isstr(lua, -1))
-				{
-
-				}
-				else
-				{
-					// Sad times.
-				}
-				lua.pop(1);
-			}
-			lua.pop(1);
-		}*/
-		if (lua.isTableTable("tileTypes"))
-		{
-			lua_pushnil(lua);
-			while (lua_next(lua, -2) != 0)
-			{
-				if (!lua_isstr(lua, -1))
-				{
-					stringstream errss;
-					errss << "Tile type must be a string and not a '" << lua_typename(lua, -1) << "'";
-					am_log("TILE", errss);
-				}
-				else
-				{
-					string tileName = Utils::toLowerCase(lua_tostring(lua, -1));
-					Handle<TileType> type(Engine::getEngine()->getTileType(tileName.c_str()));
-					if (type == nullptr)
-					{
-						stringstream errss;
-						errss << "Unable to find tile type '" << tileName << "' for tile '" << getName() << "'";
-						am_log("TILE", errss);
-					}
-					else
-					{
-						addTileType(type);
-					}
-				}
-				lua.pop(1);
-			}
-			lua.pop(1);
-		}
 	}
 
 	void Tile::addTileType(TileType *tileType)
