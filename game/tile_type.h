@@ -23,10 +23,6 @@ namespace game {
 		void setFullName(const char *name);
 		const char *getFullName() const;
 
-		bool loadFromDef(LuaState &lua);
-		
-		static bool loadStandardTileTypesLua(const char *filename);
-
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 		

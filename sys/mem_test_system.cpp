@@ -38,7 +38,6 @@ namespace sys {
 	{
 		GameSystem::init();
 		TextStyle::loadStylesLua("data/textStyles.lua");
-		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		mDebugConsole->setMaxEntries(100);

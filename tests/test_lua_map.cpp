@@ -30,7 +30,7 @@ namespace tests {
 		LuaState lua;
 		
 		int loadResult = lua.loadString(
-			"local result = loadfile(\"data\\\\tileTypes2.lua\")\n"
+			"local result = loadfile(\"data\\\\tileTypes.lua\")\n"
 			"if (result == nil) then\n"
 			"	am.debug.log(\"Error loading\")\n"
 			"else\n"

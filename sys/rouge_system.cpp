@@ -95,7 +95,6 @@ namespace sys {
 	void RougeSystem::init()
 	{
 		GameSystem::init();
-		TileType::loadStandardTileTypesLua("data/tileTypes.lua");
 		TextStyle::loadStylesLua("data/textStyles.lua");
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();

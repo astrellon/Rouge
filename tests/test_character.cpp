@@ -128,7 +128,7 @@ namespace tests {
 
 		testChar->setFixedToGrid(true);
 		testChar->setGender(Gender::FEMALE);
-		testChar->setGraphic(new Sprite("characters/mainChar/front"), false);
+		testChar->setGraphic(new Sprite("characters/human:kaswe"), false);
 		testChar->setGridLocation(5, 4);
 		testChar->setLevel(2);
 		testChar->setMaxLevel(10);
@@ -137,8 +137,8 @@ namespace tests {
 
 		Handle<Inventory> inv(testChar->getInventory());
 		Handle<Item> sword(new Item());
-		sword->setGraphic(new Sprite("items/sword"));
-		sword->setGroundGraphic(new Sprite("items/swordGround"));
+		sword->setGraphic(new Sprite("items/sword:main"));
+		sword->setGroundGraphic(new Sprite("items/sword:ground"));
 		sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
 		sword->getStatModifiers()->addStatModifier(Stat::MIN_DAMAGE, StatModifier(3.0f, MOD_ADD));
 		sword->setItemFullname("Sword", "Wooden", "of Death");

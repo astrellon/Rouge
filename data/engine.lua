@@ -5,6 +5,13 @@ local game = nil
 function am.on_engine_load()
 	local human = am.race.new("human")
 	am.engine.add_race(human)
+	
+	local load, msg = loadfile("data/tileTypes.lua")
+	if (load == nil) then
+		am.debug.log("Unable to load tile types " .. msg)
+	else
+		load()
+	end
 end
 
 function am.new_game(scenario_name)
@@ -13,9 +20,9 @@ function am.new_game(scenario_name)
 	
 	game:generic_dead_graphic("characters/dead")
 	
-	scenario, msg = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
+	local scenario, msg = loadfile("data/scenario/" .. scenario_name .. "/main.lua")
 	if (scenario == nil) then
-		am_log("Unable to find main.lua for " .. scenario_name .. "\n" .. msg)
+		am.debug.log("Unable to find main.lua for " .. scenario_name .. "\n" .. msg)
 		return 0
 	end
 	scenario().new_game(game)
