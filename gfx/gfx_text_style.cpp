@@ -2,7 +2,6 @@
 
 #include <log/logger.h>
 
-//#include <util/json_value.h>
 #include <util/utils.h>
 using namespace am::util;
 
@@ -11,6 +10,9 @@ using namespace am::util;
 
 namespace am {
 namespace gfx {
+
+	const int TextStyle::LUA_ID = 0x25;
+	const char *TextStyle::LUA_TABLENAME = "am_gfx_TextStyle";
 
 	TextStyle::NodeStyleList TextStyle::sNodeStyleList;
 	
@@ -42,15 +44,7 @@ namespace gfx {
 	{
 		return mColour.getRed() >= 0.0f;
 	}
-
-	/*bool TextStyle::loadDef(JsonValue value)
-	{
-		if (value.has("colour", JV_STR))
-		{
-			mColour.parseFromString(value["colour"].getCStr());
-		}
-		return true;
-	}*/
+	
 	bool TextStyle::loadDef(LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))

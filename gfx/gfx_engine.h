@@ -45,7 +45,6 @@ namespace gfx {
 		int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
-		Font *getFontLua(const char *fontName);
 		Font *getFont(const char *fontName);
 		void addFont(Font *font);
 		int reloadFont(const char *fontName);

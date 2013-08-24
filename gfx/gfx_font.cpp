@@ -46,46 +46,6 @@ namespace gfx {
 		return mAsset != nullptr && mAsset->getTexture() != nullptr && !mTextureWindows.empty();
 	}
 
-	int Font::loadDef(LuaState &lua)
-	{
-		if (!lua_istable(lua, -1))
-		{
-			return -1;
-		}
-		if (lua.isTableString("asset"))
-		{
-			mAsset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, -1));
-			lua.pop(1);
-		}
-		if (lua.isTableBool("fixedWidth"))
-		{
-			mFixedWidth = lua.toBool();
-		}
-		if (lua.isTableBool("utf"))
-		{
-			mUtfSupport = lua.toBool();
-		}
-		if (lua.isTableNumber("kerning"))
-		{
-			mKerning = lua.toNumber();
-		}
-		if (lua.isTableNumber("leading"))
-		{
-			mLeading = lua.toNumber();
-		}
-		if (lua.isTableNumber("tabWidth"))
-		{
-			mTabWidth = lua.toNumber();
-		}
-		if (lua.isTableNumber("charsAcross"))
-		{
-			setCharsAcross(lua.toInteger());
-		}
-		process();
-
-		return 0;
-	}
-
 	string Font::getName() const
 	{
 		return mName;

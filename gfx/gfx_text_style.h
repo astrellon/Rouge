@@ -38,6 +38,9 @@ namespace gfx {
 		//static void loadStyles(const char *filename);
 		static void loadStylesLua(const char *filename);
 
+		static const int LUA_ID;
+		static const char *LUA_TABLENAME;
+
 	protected:
 
 		Colour mColour;

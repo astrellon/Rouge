@@ -363,55 +363,6 @@ namespace gfx {
 		return mTextureManager;
 	}
 	
-	Font *GfxEngine::getFontLua(const char *fontName)
-	{
-		string fontNameStr = fontName;
-		FontMap::iterator iter = mFontManager.find(fontNameStr);
-		if (iter != mFontManager.end())
-		{
-			return iter->second.get();
-		}
-
-		stringstream ss;
-		ss << "data/fonts/" << fontNameStr << ".lua";
-
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			stringstream errss;
-			errss << "Unable to load font '" << fontNameStr << "', using the path '";
-			errss << ss.str() << '\''; 
-			am_log("FONT", errss);
-			lua.close();
-			return nullptr;
-		}
-		lua_getglobal(lua, "font");
-		if (!lua_istable(lua, -1))
-		{
-			stringstream errss;
-			errss << "Loaded lua font was: " << lua_typename(lua, -1) << " instead of table.";
-			am_log("FONT", errss);
-			lua.close();
-			return nullptr;
-			lua.close();
-		}
-
-		Font *font = new Font(fontName);
-		int loadFont = font->loadDef(lua);
-		lua.close();
-		if (loadFont != 0)
-		{
-			stringstream errss;
-			errss << "Error loading font definition '" << fontNameStr << "': " << loadFont;
-			am_log("FONT", errss);
-			delete font;
-			return nullptr;
-		}
-
-		mFontManager[fontNameStr] = font;
-
-		return font;
-	}
 	Font *GfxEngine::getFont(const char *fontName)
 	{
 		return getDefinition<Font>(mFontManager, fontName, 1);

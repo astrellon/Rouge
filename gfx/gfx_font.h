@@ -33,9 +33,6 @@ namespace gfx {
 
 		string getName() const;
 
-		// The table to load the definition off needs to be on top of the stack.
-		int loadDef(LuaState &lua);
-
 		void getTextureWindow(unsigned char ch, TextureWindow &render);
 
 		bool isLoaded() const;
