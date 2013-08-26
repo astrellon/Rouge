@@ -55,6 +55,7 @@ namespace sys {
 		void startGame();
 		void saveGame(const char *savename);
 		void loadGame(const char *savename);
+		void startEditor();
 		void togglePause();
 		void toggleInGameMenu();
 		bool isPaused();

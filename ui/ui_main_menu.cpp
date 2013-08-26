@@ -68,6 +68,7 @@ namespace ui {
 		if (e->getEventTarget() == mEditor.get())
 		{
 			am_log("BTN", "EDITOR BUTTON");
+			mRougeSystem->startEditor();
 			return;
 		}
 		if (e->getEventTarget() == mLoadGame.get())

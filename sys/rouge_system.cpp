@@ -286,9 +286,6 @@ namespace sys {
 		// 27 is currently escape.
 		if (mInDialogue && key == 27)
 		{
-			//Handle<DialogueEvent> e(new DialogueEvent(mPlayer, nullptr, nullptr));
-			//mPlayer->fireEvent<DialogueEvent>(e);
-			//mPlayer->talkTo(mPlayer->getTalkingTo(), nullptr);
 			if (mPlayer->getDialogueComp())
 			{
 				mPlayer->getDialogueComp()->talkTo(mPlayer->getDialogueComp()->getTalkingTo(), nullptr);
@@ -413,35 +410,6 @@ namespace sys {
 		}
 		
 		mPlayer->addEventListener("dialogue", this);
-		//mPlayer->setGridDestination(11, 4);
-
-		/*GameObject *torch = new GameObject();
-		torch->setGridLocationF(3.5, 0.5);
-		torch->addChild(new Sprite("smallTorch"));
-		SourceArea *source = new SourceArea();
-		torch->setSource(source);
-		source->setGain(1.0f);
-		//source->setReferenceDistance(50);
-		source->setWidth(5.0f * Engine::getEngine()->getGridXSize());
-		source->setHeight(1.0f * Engine::getEngine()->getGridYSize());
-		source->setSound(SfxEngine::getEngine()->loadSound("189212__vurca__burning-fire.ogg"));
-		source->setLooping(true);
-		game->addGameObjectToMap(torch);*/
-
-		//game->getCurrentMap()->getTileInstance(2, 1)->setTileEdgeValue(3, Map::FLAG_L);
-		//game->getCurrentMap()->getTileInstance(1, 0)->setTileEdgeValue(6, Map::FLAG_B);
-		//game->getCurrentMap()->getTileInstance(2, 0)->setTileEdgeValue(5, Map::FLAG_BL);
-
-		/*TileSet *nature = Engine::getEngine()->getTileSets().find("nature")->second;
-		Tile *grass = nature->getTile("grass");
-		grass->setPrecedence(10);
-		grass->getGraphicAsset()->setSubWindowAnimation(false);
-		grass->addTransitionalAsset(nullptr, GfxEngine::getEngine()->getAssetLua("tiles/grassTransition"));*/
-
-		//Tile *tile = nature->getTile("test");
-		//tile->setTransitionalAsset(nature->getTile("grass"), GfxEngine::getEngine()->getAssetLua("tiles/testTransitionToWater"));
-		//nature->getTile("test")->setG
-
 		game->getCurrentMap()->calcAllTileEdgeValues();
 		game->getCurrentMap()->getTileRenderer()->updateAssetSprites();
 
@@ -486,6 +454,11 @@ namespace sys {
 				mPlayerHand->setHandEnabled(true);
 			}
 		}
+	}
+
+	void RougeSystem::startEditor()
+	{
+
 	}
 
 }

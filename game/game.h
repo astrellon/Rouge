@@ -50,7 +50,7 @@ namespace game {
 		Game(Engine *engine = nullptr);
 		~Game();
 
-		void deinit();
+		virtual void deinit();
 
 		bool addMap(Map *map);
 		bool removeMap(Map *map);
@@ -138,6 +138,9 @@ namespace game {
 		void setGameTickPaused(bool paused);
 		bool isGameTickPaused() const;
 
+		void setEditorMode(bool editor);
+		bool isEditorMode() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -149,6 +152,7 @@ namespace game {
 
 		Camera mCamera;
 		bool mStarted;
+		bool mEditorMode;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 

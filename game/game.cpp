@@ -44,7 +44,8 @@ namespace game {
 		mStarted(false),
 		mGameTickPosition(0),
 		mCurrentTickDt(0.0f),
-		mGameTickPaused(true)
+		mGameTickPaused(true),
+		mEditorMode(false)
 	{
 		if (engine == nullptr)
 		{
@@ -563,20 +564,7 @@ namespace game {
 	}
 	void Game::onGameTick()
 	{
-		//mGameTickPosition = 0;
-		//mCurrentTickDt = 0.0f;
-
-		/*if (mActiveObjects)
-		{
-			mActiveObjects->at(mGameTickPosition)->onGameTick(dt);
-			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
-			{
-				iter->get()->onGameTick(dt);
-			}
-		}*/
-		//nextObjectTurn();
-		//mMainCharacter->onGameTick(0.0f);
-		if (mActiveObjects == nullptr || mGameTickPaused)
+		if (mActiveObjects == nullptr || mGameTickPaused || mEditorMode)
 		{
 			return;
 		}
@@ -595,44 +583,6 @@ namespace game {
 		mGameTickPosition++;
 		//->onGameTick(mCurrentTickDt);
 	}
-	/*void Game::nextObjectTurn()
-	{
-		for (; mGameTickPosition < mActiveObjects->size(); mGameTickPosition++)
-		{
-			GameObject *obj = mActiveObjects->at(mGameTickPosition);
-			if (obj == mMainCharacter)
-			{
-				continue;
-			}
-
-			if (!obj->onGameTick(mCurrentTickDt))
-			{
-				mGameTickPosition++;
-				break;
-			}
-		}
-		*/
-		/*if (mActiveObjects == nullptr || mGameTickPosition >= mActiveObjects->size())
-		{
-			onGameTick();
-			return;
-		}
-
-		GameObject *obj = mActiveObjects->at(mGameTickPosition);
-		if (obj == mMainCharacter)
-		{
-			mGameTickPosition++;
-			nextObjectTurn();
-			return;
-		}
-
-		bool gotoNextGameObj = obj->onGameTick(mCurrentTickDt);
-		mGameTickPosition++;
-		if (gotoNextGameObj)
-		{
-			nextObjectTurn();
-		}*/
-	//}
 	void Game::setCurrentGameTickLength(float dt)
 	{
 		mCurrentTickDt = dt;
@@ -821,6 +771,15 @@ namespace game {
 	bool Game::isGameTickPaused() const
 	{
 		return mGameTickPaused;
+	}
+
+	void Game::setEditorMode(bool editor)
+	{
+		mEditorMode = editor;
+	}
+	bool Game::isEditorMode() const
+	{
+		return mEditorMode;
 	}
 
 	void Game::startGame()

@@ -7,7 +7,7 @@ namespace ui {
 
 	EditorHud::EditorHud()
 	{
-		mSideSprite = new Sprite("editor/editorSide");
+		mSideSprite = new Sprite("editor:side_bar");
 		mSideSprite->setHeight(600.0f);
 		addChild(mSideSprite);
 	}

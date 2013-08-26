@@ -94,7 +94,7 @@ namespace gfx {
 			{ "frame_rate", Asset_frame_rate },
 			{ "width", Asset_width },
 			{ "height", Asset_height },
-			{ "repeat", Asset_repeat },
+			{ "repeat_xy", Asset_repeat },
 			{ "scale_nine", Asset_scale_nine },
 			{ "scale_nine_state", Asset_scale_nine_state },
 			{ "texture_window_animation", Asset_texture_window_animation },
