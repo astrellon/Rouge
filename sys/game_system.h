@@ -77,6 +77,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
+		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
 
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();

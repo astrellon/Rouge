@@ -24,7 +24,10 @@ namespace base {
 		BODY_PART_TYPE_UNKNOWN =	-0x0201,
 
 		// Texture related
-		TEXTURE_LOAD_FAILED =		-0x0300
+		TEXTURE_LOAD_FAILED =		-0x0300,
+
+		// System related
+		NO_LINKED_SYSTEM =			-0x400
 	};
 
 	const char *getErrorMessage(ReturnCode code);

@@ -25,6 +25,8 @@ namespace base {
 		case BODY_PART_TYPE_UNKNOWN:	return "the body part type name does not match a known type name.";
 			// Texture
 		case TEXTURE_LOAD_FAILED:	return "unable to load";
+			// System
+		case NO_LINKED_SYSTEM:	return "unable to make call because there is no linked OS system.";
 			// Default
 		default:
 			return "unknown return code.";

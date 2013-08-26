@@ -14,6 +14,8 @@ namespace gfx {
 	int TextStyle_eq(lua_State *lua);
 	int TextStyle_register(lua_State *lua);
 
+	int TextStyle_colour(lua_State *lua);
+
 }
 }
 }

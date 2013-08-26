@@ -1,13 +1,22 @@
 #pragma once
 
-#include "../ui/mouse_event.h"
-#include "../ui/mouse_manager.h"
+#include <base/return_codes.h>
+
+#include <ui/mouse_event.h>
+#include <ui/mouse_manager.h>
 
 namespace am {
 namespace sys {
 
 	class ISystem {
 	public:
+
+		typedef struct {
+			string name;
+			bool isDirectory;
+		} FolderEntry;
+
+		typedef vector<FolderEntry> FolderEntryList;
 		virtual void setSize(int width, int height) = 0;
 		virtual void setPosition(int x, int y) = 0;
 
@@ -49,6 +58,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName) = 0;
 		virtual bool isFile(const char *filename) = 0;
 		virtual bool createDirectory(const char *folderName) = 0;
+		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result) = 0;
 
 	};
 

@@ -80,6 +80,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
+		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();

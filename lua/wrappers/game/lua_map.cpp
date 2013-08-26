@@ -298,6 +298,7 @@ namespace game {
 			{
 				map->setMapSize(lua_tointeger(lua, 3), lua_tointeger(lua, 4));
 			}
+
 			int total = map->getMapWidth() * map->getMapHeight();
 			lua_pushnil(lua);
 			int i = 0;

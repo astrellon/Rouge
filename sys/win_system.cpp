@@ -387,6 +387,36 @@ namespace sys {
 		return true;
 	}
 
+	base::ReturnCode WinSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	{
+		if (!folderName || folderName[0] == '\0')
+		{
+			return NULL_PARAMETER;
+		}
+
+		WIN32_FIND_DATA files;
+		string folder(folderName);
+		if (folder.back() != '/' && folder.back() != '\\')
+		{
+			folder += '\\';
+		}
+		folder += '*';
+		HANDLE find = FindFirstFile(folder.c_str(), &files);
+		if (find == INVALID_HANDLE_VALUE)
+		{
+			return SUCCESS;
+		}
+		do
+		{
+			FolderEntry entry;
+			entry.name = files.cFileName;
+			entry.isDirectory = files.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY;
+			result.push_back(entry);
+		} while (FindNextFile(find, &files) != 0);
+
+		return SUCCESS;
+	}
+
 	void WinSystem::setCursorHidden(bool hide)
 	{
 		if (hide != mHideCursor)
@@ -744,7 +774,6 @@ namespace sys {
 		}
 		return TRUE;														// Return True (Success)
 	}
-
 
 }
 }

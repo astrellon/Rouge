@@ -143,6 +143,8 @@ namespace sys {
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
 
+		//ISystem::FolderEntryList result;
+		//listDirectory("C:\\git\\Rouge\\data", result);
 		/*Sprite *test = new Sprite("tiles/testTransition");
 		test->setPosition(50, 50);
 		test->setTextureFrame(31);
