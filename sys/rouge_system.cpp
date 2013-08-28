@@ -118,16 +118,18 @@ namespace sys {
 		mGameHud->setSize(screenWidth, screenHeight);
 		mGameHud->setVisible(false);
 
+		mEditorHud = new EditorHud();
+		gfxEngine->getUILayer()->addChild(mEditorHud);
+		mEditorHud->setSize(screenWidth, screenHeight);
+		mEditorHud->setVisible(false);
+
 		mPausedImage = new Image("ui:paused");
 		mPausedImage->setParentAnchor(X_CENTER, Y_CENTER);
 		mPausedImage->setAnchor(X_CENTER, Y_CENTER);
 
-		mEditorHud = new EditorHud();
-		mEditorHud->setSize(screenWidth, screenHeight);
-		mEditorHud->setVisible(false);
-		
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
+		engine->setEditorHud(mEditorHud);
 
 		setCurrentMenu(mMainMenu);
 
@@ -458,7 +460,14 @@ namespace sys {
 
 	void RougeSystem::startEditor()
 	{
+		Game *game = new Game(mEngine);
+		game->setEditorMode(true);
+		mEngine->setCurrentGame(game);
+		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
+		mEditorHud->setVisible(true);
+		mEditorHud->setInteractive(true);
 
+		setCurrentMenu(nullptr);
 	}
 
 }

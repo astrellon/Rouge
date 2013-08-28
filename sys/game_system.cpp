@@ -157,11 +157,6 @@ namespace sys {
 	}
 	void GameSystem::deinit()
 	{
-		if (mGfxListener)
-		{
-			delete mGfxListener;
-			mGfxListener = nullptr;
-		}
 		Pathfinder::releasePathfinder();
 	}
 

@@ -7,6 +7,7 @@ using namespace am::base;
 using namespace am::gfx;
 
 #include <ui/ui_component.h>
+#include <ui/ui_text_input.h>
 
 namespace am {
 namespace ui {
@@ -24,6 +25,8 @@ namespace ui {
 	protected:
 
 		Handle<Sprite> mSideSprite;
+		Handle<TextInput> mMapWidth;
+		Handle<TextInput> mMapHeight;
 
 	};
 

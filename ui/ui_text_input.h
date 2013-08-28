@@ -17,9 +17,17 @@ namespace ui {
 
 	class TextInput : public UIComponent, public IEventListener {
 	public:
+
+		enum Restriction {
+			NONE, FLOAT, INTEGER
+		};
 		TextInput();
+		TextInput(const TextInput &copy);
 		~TextInput();
 
+		virtual Renderable *clone() const;
+
+		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(KeyboardEvent *e);
 
 		void setText(const char *text);
@@ -34,10 +42,19 @@ namespace ui {
 		void moveInputPosition(int move);
 		void setInputPosition(int pos);
 
+		void setRestriction(Restriction restriction);
+		Restriction getRestriction() const;
+
 		TextField *getTextField();
 
 		void setFocus(bool focus);
 		bool hasFocus() const;
+
+		void setMaxCharacters(int maxCharacters, bool deleteExtra = false);
+		int getMaxCharacters() const;
+
+		virtual void setWidth(float width);
+		virtual void setHeight(float height);
 
 		virtual float getWidth();
 		virtual float getHeight();
@@ -47,8 +64,17 @@ namespace ui {
 		bool mFocus;
 		Handle<TextField> mText;
 		int mInputPosition;
+		int mMaxCharacters;
+		Restriction mRestriction;
 
 		void updateInputCursor(int diff);
+
+		virtual void preRender(float dt);
+
+		void fireChangeEvent();
+
+		bool validateChar(char input);
+		bool validateText(const char *input);
 	};
 
 }

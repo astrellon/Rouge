@@ -1,5 +1,8 @@
 #pragma once
 
+#include <base/handle.h>
+using namespace am::base;
+
 #include "isystem.h"
 #include "../ui/ievent_listener.h"
 #include "../ui/mouse_event.h"
@@ -91,7 +94,7 @@ namespace sys {
 		ISystem *mLinkedSystem;
 		Engine *mEngine;
 
-		GfxLogListener *mGfxListener;
+		Handle<GfxLogListener> mGfxListener;
 
 		static GameSystem *sGameSystem;
 

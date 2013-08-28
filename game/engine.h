@@ -9,6 +9,7 @@ using namespace std;
 using namespace am::base;
 
 #include <ui/ui_game_hud.h>
+#include <ui/ui_editor_hud.h>
 #include <ui/event_interface.h>
 using namespace am::ui;
 
@@ -69,7 +70,10 @@ namespace game {
 		TileSet *getTopLevelTileSet();
 
 		void setGameHud(GameHud *hud);
-		GameHud *getGameHud();
+		GameHud *getGameHud() const;
+
+		void setEditorHud(EditorHud *hud);
+		EditorHud *getEditorHud() const;
 
 		// GameObjects shortcuts.
 		GameObject *getGameObject(const char *id) const;
@@ -127,6 +131,7 @@ namespace game {
 		TileTypeMap mTileTypes;
 
 		Handle<GameHud> mGameHud;
+		Handle<EditorHud> mEditorHud;
 
 		RaceMap mRaces;
 		Race *mUnknownRace;

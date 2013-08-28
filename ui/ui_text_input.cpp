@@ -1,9 +1,16 @@
 #include "ui_text_input.h"
 
 #include <ui/keyboard_manager.h>
+#include <ui/mouse_manager.h>
+
 #include <log/logger.h>
+
 #include <util/utils.h>
 using namespace am::util;
+
+#include <gfx/gfx_texture.h>
+
+#include <gl.h>
 
 namespace am {
 namespace ui {
@@ -12,14 +19,46 @@ namespace ui {
 		UIComponent(),
 		mFocus(false),
 		mInputPosition(0),
-		mText(new TextField())
+		mText(new TextField()),
+		mMaxCharacters(0),
+		mRestriction(NONE)
 	{
-		addChild(mText.get());
+		addChild(mText);
 		mText->setCursorInputPosition(0);
+		mText->setInteractive(true);
+		mText->setBaseFont("default:arial");
+
+		addEventListener(MouseEventType::MOUSE_DOWN, this);
+		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
+	}
+	TextInput::TextInput(const TextInput &copy) :
+		UIComponent(copy),
+		mFocus(false),
+		mInputPosition(0),
+		mMaxCharacters(copy.mMaxCharacters),
+		mRestriction(copy.mRestriction)
+	{
+		mText = dynamic_cast<TextField *>(mChildren[0].get());
+		addEventListener(MouseEventType::MOUSE_DOWN, this);
+		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
 	}
 	TextInput::~TextInput()
 	{
 
+	}
+
+	Renderable *TextInput::clone() const
+	{
+		return new TextInput(*this);
+	}
+
+	void TextInput::onEvent(MouseEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+		setFocus(e->getTarget() == mText);
 	}
 
 	void TextInput::onEvent(KeyboardEvent *e)
@@ -48,6 +87,7 @@ namespace ui {
 					{
 						str.erase(mInputPosition + count, -count);
 						mText->setText(str);
+						fireChangeEvent();
 						updateInputCursor(count);
 					}
 				}
@@ -55,10 +95,12 @@ namespace ui {
 				{
 					str.erase(mInputPosition - 1, 1);
 					mText->setText(str);
+					fireChangeEvent();
 					updateInputCursor(-1);
 				}
 				return;
 			}
+			// Delete
 			if (key == 46)
 			{
 				string str = getText();
@@ -74,6 +116,7 @@ namespace ui {
 					{
 						str.erase(mInputPosition, count);
 						mText->setText(str);
+						fireChangeEvent();
 						//updateInputCursor(count);
 					}
 				}
@@ -81,6 +124,7 @@ namespace ui {
 				{
 					str.erase(mInputPosition, 1);
 					mText->setText(str);
+					fireChangeEvent();
 					//updateInputCursor(0);
 				}
 				return;
@@ -163,17 +207,29 @@ namespace ui {
 		else
 		{
 			appendText(e->getKey());
+			fireChangeEvent();
 		}
 	}
 
 	void TextInput::setText(const char *text)
 	{
 		setText(string(text));
+		fireChangeEvent();
 	}
 	void TextInput::setText(const string &text)
 	{
-		mText->setText(text);
-		mInputPosition = text.length();
+		if (mMaxCharacters > 0 && text.size() > mMaxCharacters)
+		{
+			string temp(text);
+			temp.resize(mMaxCharacters);
+			mText->setText(temp);
+			mInputPosition = temp.length();
+		}
+		else
+		{
+			mText->setText(text);
+			mInputPosition = text.length();
+		}
 	}
 	string TextInput::getText() const
 	{
@@ -182,6 +238,10 @@ namespace ui {
 
 	void TextInput::appendText(char text)
 	{
+		if (mMaxCharacters > 0 && mText->length() >= mMaxCharacters || !validateChar(text))
+		{
+			return;
+		}
 		if (text == 8 || text == 127)
 		{
 			return;
@@ -200,23 +260,39 @@ namespace ui {
 		string str = getText();
 		str.insert(mInputPosition, buff);
 		mText->setText(str);
-		//mInputPosition++;
+		fireChangeEvent();
 		updateInputCursor(1);
 	}
 	void TextInput::appendText(const char *text)
 	{
+		if (!validateText(text))
+		{
+			return;
+		}
 		string str = getText();
 		str.insert(mInputPosition, text);
+		if (mMaxCharacters > 0 && str.size() > mMaxCharacters)
+		{
+			str.resize(mMaxCharacters);
+		}
 		mText->setText(str);
-		//mInputPosition += ;
+		fireChangeEvent();
 		updateInputCursor(strlen(text));
 	}
 	void TextInput::appendText(const string &text)
 	{
+		if (!validateText(text.c_str()))
+		{
+			return;
+		}
 		string str = getText();
 		str.insert(mInputPosition, text);
+		if (mMaxCharacters > 0 && str.size() > mMaxCharacters)
+		{
+			str.resize(mMaxCharacters);
+		}
 		mText->setText(str);
-		//mInputPosition += text.size();
+		fireChangeEvent();
 		updateInputCursor(text.size());
 	}
 
@@ -237,6 +313,15 @@ namespace ui {
 		mText->setCursorInputPosition(pos);
 	}
 
+	void TextInput::setRestriction(TextInput::Restriction restriction)
+	{
+		mRestriction = restriction;
+	}
+	TextInput::Restriction TextInput::getRestriction() const
+	{
+		return mRestriction;
+	}
+
 	TextField *TextInput::getTextField()
 	{
 		return mText.get();
@@ -255,7 +340,36 @@ namespace ui {
 				KeyboardManager::getManager()->addEventListener(KEY_DOWN, this);
 			}
 			mFocus = focus;
+			mText->setBlinkedEnabled(mFocus);
 		}
+	}
+	bool TextInput::hasFocus() const
+	{
+		return mFocus;
+	}
+
+	void TextInput::setMaxCharacters(int maxCharacters, bool deleteExtra)
+	{
+		mMaxCharacters = maxCharacters;
+		if (deleteExtra && maxCharacters > mText->length())
+		{
+			string text(mText->getText());
+			text.resize(maxCharacters);
+			mText->setText(text);
+		}
+	}
+	int TextInput::getMaxCharacters() const
+	{
+		return mMaxCharacters;
+	}
+
+	void TextInput::setWidth(float width)
+	{
+		mText->setWidth(width);
+	}
+	void TextInput::setHeight(float height)
+	{
+		mText->setHeight(height);
 	}
 
 	float TextInput::getWidth()
@@ -280,5 +394,67 @@ namespace ui {
 		}
 		mText->setCursorInputPosition(mInputPosition);
 	}
+
+	void TextInput::preRender(float dt)
+	{
+		UIComponent::preRender(dt);
+		Texture::bindTexture(0);
+		glBegin(GL_QUADS);
+			glColor4d(0.2, 0.2, 0.2, mFocus ? 0.4 : 0.2);
+			glVertex2f(0.0f, 0.0f);
+			glVertex2f(getWidth(), 0.0f);
+			glVertex2f(getWidth(), getHeight());
+			glVertex2f(0.0f, getHeight());
+		glEnd();
+		glBegin(GL_LINE_LOOP);
+			glColor4d(0.7, 0.7, 0.7, mFocus ? 0.7 : 0.2);
+			glVertex2f(0.0f, 0.0f);
+			glVertex2f(getWidth(), 0.0f);
+			glVertex2f(getWidth(), getHeight());
+			glVertex2f(0.0f, getHeight());
+		glEnd();
+	}
+
+	void TextInput::fireChangeEvent()
+	{
+		Handle<Event> e(new Event("changed"));
+		fireEvent<Event>(e);
+	}
+
+	bool TextInput::validateChar(char input)
+	{
+		if (mRestriction == NONE)
+		{
+			return true;
+		}
+		if (mRestriction == INTEGER)
+		{
+			return (input >= '0' && input <= '9') || input == '-';
+		}
+		return (input >= '0' && input <= '9') || input == '.' || input == '-';
+	}
+	bool TextInput::validateText(const char *input)
+	{
+		if (!input)
+		{
+			return false;
+		}
+		if (mRestriction == NONE)
+		{
+			return true;
+		}
+		char c = input[0];
+		int i = 0;
+		while (c != '\0')
+		{
+			if (!validateChar(c))
+			{
+				return false;
+			}
+			c = input[++i];
+		}
+		return true;
+	}
+
 }
 }

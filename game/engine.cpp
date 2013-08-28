@@ -140,9 +140,18 @@ namespace game {
 	{
 		mGameHud = hud;
 	}
-	GameHud *Engine::getGameHud()
+	GameHud *Engine::getGameHud() const
 	{
 		return mGameHud;
+	}
+
+	void Engine::setEditorHud(EditorHud *hud)
+	{
+		mEditorHud = hud;
+	}
+	EditorHud *Engine::getEditorHud() const
+	{
+		return mEditorHud;
 	}
 
 	Tile *Engine::getTile(const char *name)

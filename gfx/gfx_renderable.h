@@ -29,6 +29,20 @@ namespace gfx {
 		virtual ~Renderable();
 
 		virtual Renderable *clone() const;
+		template <class T>
+		T *clone() const
+		{
+			Renderable *cloned = clone();
+			if (cloned)
+			{
+				T *result = dynamic_cast<T *>(cloned);
+				if (result)
+				{
+					return result;
+				}
+			}
+			return nullptr;
+		}
 
 		virtual void deinit();
 

@@ -23,8 +23,31 @@ namespace ui {
 	{
 		setInteractive(true);
 	}
+	UIComponent::UIComponent(const UIComponent &copy) :
+		Layer(copy),
+		mAnchorX(copy.mAnchorX),
+		mAnchorY(copy.mAnchorY),
+		mOffsetX(copy.mOffsetX),
+		mOffsetY(copy.mOffsetY),
+		mParentAnchorX(copy.mParentAnchorX),
+		mParentAnchorY(copy.mParentAnchorY),
+		mParentOffsetX(copy.mParentOffsetX),
+		mParentOffsetY(copy.mParentOffsetY),
+		mMinWidth(copy.mMinWidth),
+		mMinHeight(copy.mMinHeight),
+		mMaxWidth(copy.mMaxWidth),
+		mMaxHeight(copy.mMaxHeight),
+		mEnabled(copy.mEnabled)
+	{
+		setInteractive(copy.isInteractive());
+	}
 	UIComponent::~UIComponent()
 	{
+	}
+
+	Renderable *UIComponent::clone() const
+	{
+		return new UIComponent(*this);
 	}
 
 	void UIComponent::setAnchorX(AnchorX anchor)

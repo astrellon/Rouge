@@ -58,6 +58,9 @@ namespace gfx {
 		int getStartOfLine(int textPosition) const;
 		int getEndOfLine(int textPosition) const;
 
+		void setBlinkedEnabled(bool enable);
+		bool isBlinkerEnabled() const;
+
 		// Renderable methods
 		virtual void render(float dt);
 
@@ -79,6 +82,8 @@ namespace gfx {
 
 		float mCursorXpos;
 		float mCursorYpos;
+
+		float mCursorBlinker;
 
 		bool mInWord;
 		bool mDirty;

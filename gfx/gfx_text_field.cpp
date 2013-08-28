@@ -30,7 +30,8 @@ namespace gfx {
 		mCursorInputPosition(-1),
 		mDirty(true),
 		mNewLineDirty(true),
-		mAlignment(ALIGN_LEFT)
+		mAlignment(ALIGN_LEFT),
+		mCursorBlinker(-2.0f)
 	{
 		mFont = GfxEngine::getEngine()->getFont("default:basic");
 	}
@@ -49,7 +50,8 @@ namespace gfx {
 		mDirty(true),
 		mNewLineDirty(true),
 		mAlignment(rhs.mAlignment),
-		mFont(rhs.mFont)
+		mFont(rhs.mFont),
+		mCursorBlinker(-2.0f)
 	{
 
 	}
@@ -146,6 +148,15 @@ namespace gfx {
 			return;
 		}
 
+		if (isBlinkerEnabled())
+		{
+			mCursorBlinker += dt;
+			while (mCursorBlinker > 2.0f)
+			{
+				mCursorBlinker -= 2.0f;
+			}
+		}
+
 		if (mNewLineDirty)
 		{
 			mNewLinePositions.clear();
@@ -155,6 +166,7 @@ namespace gfx {
 		preRender(dt);
 		renderText(mText);
 		postRender(dt);
+
 
 		if (mCursorXpos >= 0.0f)
 		{
@@ -355,17 +367,20 @@ namespace gfx {
 
 	void TextField::drawCursorInput()
 	{
-		GfxEngine *engine = GfxEngine::getEngine();
-		engine->pushColourStack(Colour(1.0f, 0.0f, 0.0f));
-		engine->applyColourStack();
-		glBegin(GL_QUADS);
-			glVertex2f(mCursorXpos, mCursorYpos);
-			glVertex2f(mCursorXpos + 1, mCursorYpos);
-			glVertex2f(mCursorXpos + 1, mCursorYpos + mFont->getCharHeight());
-			glVertex2f(mCursorXpos, mCursorYpos + mFont->getCharHeight());
-		glEnd();
-		engine->popColourStack();
-		engine->applyColourStack();
+		if (mCursorBlinker > 0.8f)
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+			GfxEngine *engine = GfxEngine::getEngine();
+			engine->pushColourStack(Colour::WHITE);
+			engine->applyColourStack();
+			glLineWidth(2.0f);
+			glBegin(GL_LINES);
+				glVertex2f(mCursorXpos + 2, mCursorYpos);
+				glVertex2f(mCursorXpos + 2, mCursorYpos + mFont->getCharHeight());
+			glEnd();
+			glLineWidth(1.0f);
+			engine->popColourStack();
+		}
 	}
 
 	int TextField::getLineAbove(int textPosition) const
@@ -478,5 +493,20 @@ namespace gfx {
 		return curr - 1;
 	}
 
+	void TextField::setBlinkedEnabled(bool blinker)
+	{
+		if (blinker && mCursorBlinker < -0.5f)
+		{
+			mCursorBlinker = 0.0f;
+		}
+		else if (!blinker && mCursorBlinker >= 0.0f)
+		{
+			mCursorBlinker = -1.0f;
+		}
+	}
+	bool TextField::isBlinkerEnabled() const
+	{
+		return mCursorBlinker >= -0.5f;
+	}
 }
 }

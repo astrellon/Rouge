@@ -17,7 +17,10 @@ namespace ui {
 	class UIComponent : public Layer {
 	public:
 		UIComponent();
+		UIComponent(const UIComponent &clone);
 		~UIComponent();
+
+		virtual Renderable *clone() const;
 
 		virtual void setAnchorX(AnchorX anchor);
 		virtual void setAnchorY(AnchorY anchor);
