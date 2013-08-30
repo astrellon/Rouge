@@ -344,7 +344,7 @@ namespace gfx {
 
 	void Sprite::renderSprite()
 	{
-		if (mAsset->getTexture() == nullptr)
+		if (!mAsset || !mAsset->getTexture())
 		{
 			return;
 		}

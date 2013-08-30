@@ -38,7 +38,11 @@ namespace game {
 	
 	Tile *TileInstance::getTile() 
 	{
-		return mTile;
+		if (mTile)
+		{
+			return mTile;
+		}
+		return Tile::getDefaultTile();
 	}
 	void TileInstance::setTile(Tile *tile) 
 	{

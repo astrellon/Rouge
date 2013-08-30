@@ -18,13 +18,15 @@ using namespace std;
 namespace am {
 namespace game {
 
+	Handle<Tile> Tile::sDefaultTile;
+
 	const int Tile::LUA_ID = 0x0F;
 	const char *Tile::LUA_TABLENAME = "am_game_Tile";
 
 	Tile::Tile(const char *name) :
 		mName(name),
 		mFullName("No full name"),
-		mDescription("Undescribable"),
+		mDescription("describable"),
 		mGraphic(nullptr),
 		mTileSet(nullptr),
 		mPrecedence(0)
@@ -289,6 +291,15 @@ namespace game {
 	const Tile::TileTypeList &Tile::getTileTypes() const
 	{
 		return mTileTypes;
+	}
+
+	void Tile::setDefaultTile(Tile *tile)
+	{
+		sDefaultTile = tile;
+	}
+	Tile *Tile::getDefaultTile()
+	{
+		return sDefaultTile;
 	}
 
 }

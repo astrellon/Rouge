@@ -34,6 +34,19 @@ namespace util {
 			return !(iss >> f >> t).fail();
 		}
 
+		template <class T>
+		static T tryFromString(const string &input, T defaultValue, ios_base &(*f)(ios_base &) = dec)
+		{
+			T t;
+			istringstream iss(input);
+			bool result = !(iss >> f >> t).fail();
+			if (result)
+			{
+				return t;
+			}
+			return defaultValue;
+		}
+
 		/**
 		 * Parses a string input into a number type assuming base 10 values (which can be changed).
 		 * Returns true if the parse was successful.

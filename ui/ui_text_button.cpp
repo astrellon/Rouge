@@ -84,6 +84,11 @@ namespace ui {
 		return mLabel->getText();
 	}
 
+	TextField *TextButton::getLabelField() const
+	{
+		return mLabel;
+	}
+
 	void TextButton::setWidth(float width)
 	{
 		if (mGraphic.get())

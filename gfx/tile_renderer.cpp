@@ -209,10 +209,8 @@ namespace gfx {
 						{
 							Tile *overlapTile = tiles[t + offsets[i]].getTile();
 							const Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
-							//asset = overlapTile->getTransitionalAsset(instance.getTile());
 							if (!assets)
 							{
-								//asset = overlapTile->getGraphicAsset();
 								assets = overlapTile->getTransitionalAsset(nullptr);
 								if (!assets)
 								{
@@ -225,7 +223,6 @@ namespace gfx {
 								variation = assets->size() - 1;
 							}
 							asset = assets->at(variation);
-							//if (asset->getTotalSubWindows() == 32)
 							{
 								sprite = mAssetSprites[asset];
 								if (!sprite)

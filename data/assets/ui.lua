@@ -12,7 +12,16 @@ do
 			left_x = 36, right_x = 38, 
 			top_y = 26, bottom_y = 38
 		}, true))
-	
+		
+	-- Small button
+	am.gfx_engine.asset(am.asset.new("small_button")
+		:add_texture("data/textures/smallButton.png")
+		:num_frames(2, 2)
+		:scale_nine({
+			left_x = 3, right_x = 3, 
+			top_y = 3, bottom_y = 3
+		}, true))
+		
 	-- Checkbox asset
 	am.gfx_engine.asset(am.asset.new("checkbox")
 		:add_texture("data/textures/checkbox.png")

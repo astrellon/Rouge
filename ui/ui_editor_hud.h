@@ -8,11 +8,12 @@ using namespace am::gfx;
 
 #include <ui/ui_component.h>
 #include <ui/ui_text_input.h>
+#include <ui/ui_text_button.h>
 
 namespace am {
 namespace ui {
 
-	class EditorHud : public UIComponent {
+	class EditorHud : public UIComponent, public IEventListener {
 	public:
 		EditorHud();
 		~EditorHud();
@@ -22,11 +23,15 @@ namespace ui {
 
 		virtual void setHeight(float width);
 
+		virtual void onEvent(Event *e);
+
 	protected:
 
 		Handle<Sprite> mSideSprite;
+		Handle<TextInput> mMapName;
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
+		Handle<TextButton> mMakeMap;
 
 	};
 

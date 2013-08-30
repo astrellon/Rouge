@@ -89,6 +89,15 @@ namespace sys {
 	}
 	RougeSystem::~RougeSystem()
 	{
+		/*if (mPlayer)
+		{
+			mPlayer->removeEventListener("dialogue", this);
+		}
+		Game *game = Engine::getGame();
+		if (game)
+		{
+			game->removeEventListener("startGame", this);
+		}*/
 	}
 
 	void RougeSystem::init()
@@ -337,11 +346,19 @@ namespace sys {
 	{
 		MouseManager::getManager()->clearCurrentlyFiring();
 		// Set current game to nullptr and show main menu.
+		if (mPlayer)
+		{
+			mPlayer->removeEventListener("dialogue", this);
+			mPlayer = nullptr;
+		}
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
 			GfxEngine::getEngine()->getGameLayer()->clear();
+			oldGame->removeEventListener("startGame", this);
+			oldGame->deinit();
 		}
+		
 		mEngine->setCurrentGame(nullptr);
 		setCurrentMenu(mMainMenu);
 		mGameHud->setVisible(false);

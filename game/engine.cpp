@@ -43,17 +43,7 @@ namespace game {
 
 	void Engine::init()
 	{
-		TileSet *global = getTileSet("global");
-		if (global == nullptr)
-		{
-			am_log("SET", "Global tile set not found!");
-			mTopLevelTileSet = new TileSet();
-			addTileSet(mTopLevelTileSet.get());
-		}
-		else
-		{
-			mTopLevelTileSet = global;
-		}
+		
 	}
 	void Engine::deinit()
 	{
@@ -239,6 +229,20 @@ namespace game {
 			mLua.call(0, 0);
 			mLua.pop(1);
 		}
+		TileSet *global = getTileSet("default:default");
+		if (global == nullptr)
+		{
+			am_log("SET", "Default tile set not found!");
+			mTopLevelTileSet = new TileSet();
+			addTileSet(mTopLevelTileSet.get());
+		}
+		else
+		{
+			mTopLevelTileSet = global;
+		}
+		usingTileSet("default:default");
+		Tile::setDefaultTile(getTile("no_tile"));
+		clearUsingTileSet();
 		return true;
 	}
 

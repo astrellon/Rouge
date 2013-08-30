@@ -83,7 +83,7 @@ namespace ui {
 		Listeners mListeners;
 		Listeners mToRemove;
 		bool mFiring;
-		EventInterface *mDeleteResponse;
+		Handle<EventInterface> mDeleteResponse;
 
 		ListenerList::iterator findListener(const string &type, IEventListener *context);
 

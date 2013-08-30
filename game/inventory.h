@@ -22,7 +22,7 @@ namespace game {
 
 	class LoadingState;
 
-	class Inventory : public IManaged, public EventInterface {
+	class Inventory : public virtual IManaged, public EventInterface {
 	public:
 
 		typedef vector< InventorySpot > InventorySpots;

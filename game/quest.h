@@ -25,7 +25,7 @@ namespace game {
 	class Character;
 	class LoadingState;
 
-	class Quest : public EventInterface, public IAttributeData, public IManaged {
+	class Quest : public EventInterface, public IAttributeData, public virtual IManaged {
 	public:
 		
 		Quest(const char *questId);

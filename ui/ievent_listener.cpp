@@ -7,12 +7,12 @@ namespace ui {
 
 	IEventListener::~IEventListener()
 	{
-		ListeningList::iterator iter;
+		/*ListeningList::iterator iter;
 		ListeningList list = mListeningTo;
 		for (ListeningList::iterator iter = list.begin(); iter != list.end(); ++iter)
 		{
 			(*iter)->removeEventListener(this);
-		}
+		}*/
 		mListeningTo.clear();
 	}
 
@@ -30,7 +30,7 @@ namespace ui {
 			ListeningList::const_iterator iter;
 			for (iter = mListeningTo.begin(); iter != mListeningTo.end(); ++iter)
 			{
-				if (*iter == e)
+				if (iter->get() == e)
 				{
 					mListeningTo.erase(iter);
 					break;

@@ -164,7 +164,10 @@ namespace gfx {
 			{
 				mGfxComponent->getColour().applyColour();
 			}
-			(*iter)->render(dt);
+			if (iter->get())
+			{
+				(*iter)->render(dt);
+			}
 		}
 
 		postRender(dt);

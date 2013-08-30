@@ -101,13 +101,11 @@ namespace game {
 		mTileRenderer->setMap(nullptr);
 		if (mBackground)
 		{
-			//mBackground->removeChild(this);
 			mBackground->deinit();
 			mBackground = nullptr;
 		}
 		if (mForeground)
 		{
-			//mForeground->removeChild(this);
 			mForeground->deinit();
 			mForeground = nullptr;
 		}

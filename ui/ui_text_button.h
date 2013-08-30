@@ -39,7 +39,7 @@ namespace ui {
 		void setLabel(const string &label);
 		string getLabel() const;
 
-		TextField *getLabelField();
+		TextField *getLabelField() const;
 
 		virtual void setWidth(float width);
 		virtual float getWidth();

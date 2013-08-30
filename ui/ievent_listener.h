@@ -1,6 +1,7 @@
 #pragma once
 
 #include <base/imanaged.h>
+#include <base/handle.h>
 using am::base::IManaged;
 
 #include <vector>
@@ -23,7 +24,7 @@ namespace ui {
 	class IEventListener : virtual public IManaged {
 	public:
 
-		typedef vector<EventInterface *> ListeningList;
+		typedef vector< Handle<EventInterface> > ListeningList;
 
 		virtual ~IEventListener();
 

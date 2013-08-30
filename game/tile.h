@@ -73,6 +73,9 @@ namespace game {
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
+
+		static void setDefaultTile(Tile *tile);
+		static Tile *getDefaultTile();
 	
 	protected:
 	
@@ -86,6 +89,8 @@ namespace game {
 		int mPrecedence;
 
 		TileTypeList mTileTypes;
+
+		static Handle<Tile> sDefaultTile;
 
 	};
 

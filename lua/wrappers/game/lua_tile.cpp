@@ -401,10 +401,16 @@ namespace game {
 				{
 					types.push_back(tileType);
 				}
-				else
+				else if (!lua_isstr(lua, i))
 				{
 					error = true;
 					break;
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Unable to find tile type: " << lua_tostring(lua, i);
+					LuaState::warning(lua, ss.str().c_str());
 				}
 			}
 			if (!error)
