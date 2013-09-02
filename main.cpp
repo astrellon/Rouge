@@ -25,12 +25,15 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::log::Logger::getMainLogger()->addLogListener(&fileLogger);
 
 	am::game::Engine *engine = new am::game::Engine();
+	engine->retain();
 	am::game::Engine::setEngine(engine);
 
 	am::ui::MouseManager *mouseManager = new am::ui::MouseManager();
+	mouseManager->retain();
 	am::ui::MouseManager::setManager(mouseManager);
 	
 	am::ui::KeyboardManager *keyboardManager = new am::ui::KeyboardManager();
+	keyboardManager->retain();
 	am::ui::KeyboardManager::setManager(keyboardManager);
 
 	am::sys::WinSystem win;
@@ -76,12 +79,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	// Remove things which have event listeners before the
 	// managers get deleted.
 	engine->deinit();
+	am::gfx::GfxEngine::deinitGfxEngine();
+	am::sfx::SfxEngine::deinitSfxEngine();
 	delete engine;
 	delete gameSystem;
 	delete mouseManager;
 	delete keyboardManager;
-	am::gfx::GfxEngine::deinitGfxEngine();
-	am::sfx::SfxEngine::deinitSfxEngine();
 	am::util::Colour::removeAllColours();
 
 	am::log::Logger::clearMainLogger();

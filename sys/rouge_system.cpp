@@ -346,11 +346,11 @@ namespace sys {
 	{
 		MouseManager::getManager()->clearCurrentlyFiring();
 		// Set current game to nullptr and show main menu.
-		if (mPlayer)
+		/*if (mPlayer)
 		{
 			mPlayer->removeEventListener("dialogue", this);
 			mPlayer = nullptr;
-		}
+		}*/
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
@@ -358,6 +358,8 @@ namespace sys {
 			oldGame->removeEventListener("startGame", this);
 			oldGame->deinit();
 		}
+		//mPlayer = nullptr;
+		//mGame = nullptr;
 		
 		mEngine->setCurrentGame(nullptr);
 		setCurrentMenu(mMainMenu);
