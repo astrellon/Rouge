@@ -73,6 +73,13 @@ namespace game {
 
 	void Camera::update(float dt)
 	{
+		if (!mFollowing)
+		{
+			//mLocationX += (mDestinationX - mLocationX) * 0.1f;
+			//mLocationY += (mDestinationY - mLocationY) * 0.1f;
+			mLocationX = mDestinationX;
+			mLocationY = mDestinationY;
+		}
 		float locX = getLocationX();
 		float locY = getLocationY();
 		GfxEngine::getEngine()->setCameraLocation(locX, locY);

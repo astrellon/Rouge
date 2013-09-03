@@ -11,12 +11,17 @@ using namespace am::game;
 #include <util/utils.h>
 using namespace am::util;
 
+#include <ui/keyboard_manager.h>
+#include <ui/mouse_manager.h>
+
 #include <sstream>
 
 namespace am {
 namespace ui {
 
-	EditorHud::EditorHud()
+	EditorHud::EditorHud() :
+		UIComponent(),
+		IEventListener()
 	{
 		setName("EditorHud");
 		mSideSprite = new Sprite("editor:side_bar");
@@ -44,10 +49,29 @@ namespace ui {
 		mMakeMap->getLabelField()->getGfxComponent()->setColour(1, 1, 1, 1);
 		mMakeMap->addEventListener("click", this);
 		addChild(mMakeMap);
+
+		MouseManager *manager = MouseManager::getManager();
+		manager->addEventListener(MOUSE_DOWN, this);
+		manager->addEventListener(MOUSE_MOVE, this);
+		manager->addEventListener(MOUSE_UP, this);
+		KeyboardManager::getManager()->addEventListener(KEY_UP, this);
 	}
 	EditorHud::~EditorHud()
 	{
+		MouseManager *manager = MouseManager::getManager();
+		manager->removeEventListener(MOUSE_DOWN, this);
+		manager->removeEventListener(MOUSE_MOVE, this);
+		manager->removeEventListener(MOUSE_UP, this);
+	}
 
+	void EditorHud::onEvent(KeyboardEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+
+		//if (e->getKey() == 
 	}
 
 	void EditorHud::onEvent(Event *e)
@@ -71,6 +95,8 @@ namespace ui {
 				am_log("EDITOR", "No current game!");
 				return;
 			}
+			mGame = game;
+
 			Map *map = game->getCurrentMap();
 			if (!map)
 			{
@@ -82,6 +108,43 @@ namespace ui {
 				map->setName(mMapName->getText().c_str());
 			}
 			map->setMapSize(width, height);
+			map->getTileRenderer()->updateAssetSprites();
+		}
+	}
+
+	void EditorHud::onEvent(MouseEvent *e)
+	{
+		if (!e || !mGame)
+		{
+			return;
+		}
+
+		MouseManager *manager = MouseManager::getManager();
+		if (e->getMouseEventType() == MOUSE_DOWN)
+		{
+			manager->setDragOffset(e->getMouseX(), e->getMouseY());
+			return;
+		}
+
+		if (e->getMouseEventType() == MOUSE_MOVE)
+		{
+			float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
+			float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
+
+			Camera *camera = mGame->getCamera();
+			float posX = camera->getDestinationX() - dx;
+			float posY = camera->getDestinationY() - dy;
+
+			MouseManager *manager = MouseManager::getManager();
+			if (manager->getButtonDown(LEFT_BUTTON))
+			{
+				mGame->getCamera()->setDestination(posX, posY);
+			}
+			manager->setDragOffset(e->getMouseX(), e->getMouseY());
+		}
+		if (e->getMouseEventType() == MOUSE_UP)
+		{
+
 		}
 	}
 

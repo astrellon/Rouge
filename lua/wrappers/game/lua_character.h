@@ -84,6 +84,8 @@ namespace game {
 	int Character_add_level(lua_State *lua);
 	int Character_max_level(lua_State *lua);
 
+	int Character_debug(lua_State *lua);
+
 	int Character_attrs(lua_State *lua);
 
 }

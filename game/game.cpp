@@ -157,9 +157,16 @@ namespace game {
 			return;
 		}
 
+		fireEvent<MouseEvent>(e);
+
+		if (e->getMouseEventType() != MOUSE_UP || mEditorMode)
+		{
+			return;
+		}
+
 		float localX = static_cast<float>(e->getLocalMouseX());
 		float localY = static_cast<float>(e->getLocalMouseY());
-		
+
 		if (localX < 0 || localY < 0 ||
 			localX > mCurrentMap->getWidth() ||
 			localY > mCurrentMap->getHeight())
@@ -339,6 +346,8 @@ namespace game {
 		if (mCurrentMap)
 		{
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_MOVE, this);
 		}
 
 		mCurrentMap = map;
@@ -351,6 +360,8 @@ namespace game {
 			setTickPositionMainChar();
 
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_MOVE, this);
 			
 			if (mActiveObjects)
 			{
@@ -519,8 +530,26 @@ namespace game {
 		return mForeground.get();
 	}
 
+	void onRetain2(IManaged *obj)
+	{
+		stringstream ss;
+		ss << "Retained " << obj->getReferenceCounter();
+		am_log("CHAR", ss);
+	}
+	void onRelease2(IManaged *obj)
+	{
+		stringstream ss;
+		ss << "Released " << obj->getReferenceCounter();
+		am_log("CHAR", ss);
+	}
+
 	void Game::setMainCharacter(Character *character)
 	{
+		if (character)
+		{
+			//character->onRetain(&onRetain2);
+			//character->onRelease(&onRelease2);
+		}
 		mMainCharacter = character;
 	}
 	Character *Game::getMainCharacter()

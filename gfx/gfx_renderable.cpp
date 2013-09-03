@@ -23,6 +23,7 @@ namespace gfx {
 	
 	Renderable::Renderable() :
 		IManaged(),
+		EventInterface(),
 		mWidth(0),
 		mHeight(0),
 		mParent(nullptr),
@@ -37,6 +38,7 @@ namespace gfx {
 	}
 	Renderable::Renderable(const Renderable &copy) :
 		IManaged(),
+		EventInterface(copy),
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
 		mInteractive(copy.mInteractive),

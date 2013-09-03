@@ -10,6 +10,8 @@ using namespace am::gfx;
 #include <ui/ui_text_input.h>
 #include <ui/ui_text_button.h>
 
+#include <game/game.h>
+
 namespace am {
 namespace ui {
 
@@ -24,6 +26,8 @@ namespace ui {
 		virtual void setHeight(float width);
 
 		virtual void onEvent(Event *e);
+		virtual void onEvent(KeyboardEvent *e);
+		virtual void onEvent(MouseEvent *e);
 
 	protected:
 
@@ -32,7 +36,7 @@ namespace ui {
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
-
+		Handle<Game> mGame;
 	};
 
 }

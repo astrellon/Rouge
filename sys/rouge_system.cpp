@@ -358,12 +358,13 @@ namespace sys {
 			oldGame->removeEventListener("startGame", this);
 			oldGame->deinit();
 		}
-		//mPlayer = nullptr;
+		mPlayer = nullptr;
 		//mGame = nullptr;
 		
 		mEngine->setCurrentGame(nullptr);
 		setCurrentMenu(mMainMenu);
 		mGameHud->setVisible(false);
+		mEditorHud->setVisible(false);
 
 	}
 	void RougeSystem::showOptionsPanel()
