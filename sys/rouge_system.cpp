@@ -486,6 +486,7 @@ namespace sys {
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 		mEditorHud->setVisible(true);
 		mEditorHud->setInteractive(true);
+		mEditorHud->setGame(game);
 
 		setCurrentMenu(nullptr);
 	}

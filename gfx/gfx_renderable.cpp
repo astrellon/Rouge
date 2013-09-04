@@ -121,8 +121,6 @@ namespace gfx {
 #ifdef _DEBUG
 		if (getRenderColour())
 		{
-			
-			//mColour.applyColour();
 			Colour::WHITE.applyColour();
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glBegin(GL_QUADS);
