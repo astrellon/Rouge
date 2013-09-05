@@ -23,6 +23,7 @@ namespace gfx {
 	
 	Renderable::Renderable() :
 		IManaged(),
+		EventInterface(),
 		mWidth(0),
 		mHeight(0),
 		mParent(nullptr),
@@ -37,6 +38,7 @@ namespace gfx {
 	}
 	Renderable::Renderable(const Renderable &copy) :
 		IManaged(),
+		EventInterface(copy),
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
 		mInteractive(copy.mInteractive),
@@ -119,8 +121,6 @@ namespace gfx {
 #ifdef _DEBUG
 		if (getRenderColour())
 		{
-			
-			//mColour.applyColour();
 			Colour::WHITE.applyColour();
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glBegin(GL_QUADS);

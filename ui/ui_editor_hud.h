@@ -3,12 +3,20 @@
 #include <base/handle.h>
 using namespace am::base;
 
+#include <game/tile.h>
+using namespace am::game;
+
 #include <gfx/gfx_sprite.h>
+#include <gfx/gfx_layer.h>
 using namespace am::gfx;
 
 #include <ui/ui_component.h>
 #include <ui/ui_text_input.h>
 #include <ui/ui_text_button.h>
+#include <ui/ui_list.h>
+#include <ui/ui_label.h>
+
+#include <game/game.h>
 
 namespace am {
 namespace ui {
@@ -24,15 +32,41 @@ namespace ui {
 		virtual void setHeight(float width);
 
 		virtual void onEvent(Event *e);
+		virtual void onEvent(KeyboardEvent *e);
+		virtual void onEvent(MouseEvent *e);
+
+		virtual void setGame(Game *game);
+		virtual Game *getGame() const;
 
 	protected:
 
+		class TileListItem : public Layer, public IEventListener {
+		public:
+			TileListItem(Tile *tile);
+			~TileListItem();
+
+			virtual void onEvent(MouseEvent *e);
+
+			virtual void setWidth(float width);
+			virtual float getHeight();
+			
+		protected:
+			Handle<Tile> mTile;
+			Handle<Sprite> mGraphic;
+			Handle<Label> mText;
+			Handle<Renderable> mHitbox;
+			ui::MouseEventType mMouseType;
+
+			void preRender(float dt);
+		};
+
+		Handle<Game> mGame;
 		Handle<Sprite> mSideSprite;
 		Handle<TextInput> mMapName;
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
-
+		Handle<List> mTiles;
 	};
 
 }

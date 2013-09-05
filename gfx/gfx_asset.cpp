@@ -32,7 +32,9 @@ namespace gfx {
 		mAnimateSubWindows(true),
 		mScaleNineState(SCALE_NINE_NONE),
 		mRepeatX(false),
-		mRepeatY(false)
+		mRepeatY(false),
+		mWidth(0.0f),
+		mHeight(0.0f)
 	{
 
 	}

@@ -224,6 +224,7 @@ namespace game {
 			{ "max_level", Character_max_level },
 			// Attributes
 			{ "attrs", Character_attrs },
+			{ "debug", Character_debug },
 			{ nullptr, nullptr }
 		};
 
@@ -1778,6 +1779,31 @@ namespace game {
 			return IAttributeData_attrs(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "attrs", "am.character");
+	}
+
+	void charRelease(IManaged *obj)
+	{
+		stringstream ss;
+		ss << "Released " << obj->getReferenceCounter();
+		am_log("CHAR", ss);
+	}
+	void charRetain(IManaged *obj)
+	{
+		stringstream ss;
+		ss << "Retain " << obj->getReferenceCounter();
+		am_log("CHAR", ss);
+	}
+
+	int Character_debug(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			obj->onRelease(&charRelease);
+			obj->onRetain(&charRetain);
+			lua_first(lua);
+		}
+		return LuaState::expectedContext(lua, "debug", "am.character");
 	}
 }
 }

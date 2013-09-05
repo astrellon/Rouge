@@ -877,6 +877,9 @@
     <ClCompile Include="lua\wrappers\gfx\lua_font.cpp">
       <Filter>lua\wrapper\gfx</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_list.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1596,6 +1599,8 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_sprite.h">
       <Filter>gfx\base</Filter>
+    <ClInclude Include="ui\ui_list.h">
+      <Filter>ui\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
