@@ -13,8 +13,7 @@ namespace ui {
 		mMouseX(x),
 		mMouseY(y),
 		mLocalMouseX(x),
-		mLocalMouseY(y),
-		mTarget(nullptr)
+		mLocalMouseY(y)
 	{
 		setType(MouseEventTypeNames[mouseType]);
 	}
@@ -26,8 +25,7 @@ namespace ui {
 		mMouseX(x),
 		mMouseY(y),
 		mLocalMouseX(localX),
-		mLocalMouseY(localY),
-		mTarget(target)
+		mLocalMouseY(localY)
 	{
 		setType(MouseEventTypeNames[mouseType]);
 		mEventTarget = target;
@@ -64,7 +62,7 @@ namespace ui {
 
 	Renderable *MouseEvent::getTarget() const
 	{
-		return mTarget;
+		return reinterpret_cast<Renderable *>(mEventTarget.get());
 	}
 
 }

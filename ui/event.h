@@ -3,7 +3,8 @@
 #include <string>
 using namespace std;
 
-#include "../base/imanaged.h"
+#include <base/imanaged.h>
+#include <base/handle.h>
 using namespace am::base;
 
 namespace am {
@@ -33,7 +34,7 @@ namespace ui {
 
 		void setType(const char *type);
 
-		EventInterface *mEventTarget;
+		Handle<EventInterface> mEventTarget;
 	};
 
 }

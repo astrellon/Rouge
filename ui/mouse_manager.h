@@ -69,6 +69,8 @@ namespace ui {
 		int mMouseY;
 
 		static MouseManager *sMainManager;
+
+		static string getPath(Renderable *target);
 	};
 
 }

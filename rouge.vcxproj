@@ -404,6 +404,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\keyboard_common.cpp" />
     <ClCompile Include="ui\keyboard_event.cpp" />
     <ClCompile Include="ui\keyboard_manager.cpp" />
+    <ClCompile Include="ui\list_event.cpp" />
     <ClCompile Include="ui\lua_event_listener.cpp" />
     <ClCompile Include="ui\mouse_common.cpp" />
     <ClCompile Include="ui\mouse_event.cpp" />
@@ -411,6 +412,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\stat_event.cpp" />
     <ClCompile Include="ui\ui_asset_renderer.cpp" />
     <ClCompile Include="ui\ui_body_part_renderer.cpp" />
+    <ClCompile Include="ui\ui_debug_inspector.cpp" />
     <ClCompile Include="ui\ui_list.cpp" />
     <ClCompile Include="ui\ui_text_button.cpp" />
     <ClCompile Include="ui\ui_character_screen.cpp" />
@@ -647,6 +649,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\keyboard_common.h" />
     <ClInclude Include="ui\keyboard_event.h" />
     <ClInclude Include="ui\keyboard_manager.h" />
+    <ClInclude Include="ui\list_event.h" />
     <ClInclude Include="ui\lua_event_listener.h" />
     <ClInclude Include="ui\mouse_common.h" />
     <ClInclude Include="ui\mouse_event.h" />
@@ -654,6 +657,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\stat_event.h" />
     <ClInclude Include="ui\ui_asset_renderer.h" />
     <ClInclude Include="ui\ui_body_part_renderer.h" />
+    <ClInclude Include="ui\ui_debug_inspector.h" />
     <ClInclude Include="ui\ui_list.h" />
     <ClInclude Include="ui\ui_text_button.h" />
     <ClInclude Include="ui\ui_character_screen.h" />

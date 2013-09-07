@@ -20,6 +20,7 @@ using namespace am::sfx;
 
 #include <ui/mouse_manager.h>
 #include <ui/keyboard_manager.h>
+#include <ui/ui_debug_inspector.h>
 
 #include <math/transform.h>
 
@@ -126,11 +127,20 @@ namespace sys {
 		mDebugConsole = new TextList();
 		mDebugConsole->setName("DebugConsole");
 		mDebugConsole->setMaxEntries(30);
-		gfxEngine ->getDebugLayer()->addChild(mDebugConsole.get());
-
+		gfxEngine ->getDebugLayer()->addChild(mDebugConsole);
+		
 		mDebugConsole->setWidth(600.0f);
 		mDebugConsole->setBaseFont("default:basic");
 		mDebugConsole->setVisible(false);
+
+		mDebugInspector = new DebugInspector();
+		mDebugInspector->setParentAnchor(X_LEFT, Y_TOP);
+		mDebugInspector->setParentOffset(50.0f, 50.0f);
+		mDebugInspector->setSize(250.0f, 300.0f);
+		gfxEngine ->getDebugLayer()->addChild(mDebugInspector);
+		DebugInspector::setInspector(mDebugInspector);
+
+		DebugInspector::getInspector()->setValue("test", "value");
 
 		mGfxListener = new GfxLogListener(mDebugConsole);
 		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
@@ -158,6 +168,7 @@ namespace sys {
 	void GameSystem::deinit()
 	{
 		Pathfinder::releasePathfinder();
+		DebugInspector::setInspector(nullptr);
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
@@ -185,6 +196,7 @@ namespace sys {
 		if (key == 192)
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
+			mDebugInspector->setVisible(!mDebugInspector->isVisible());
 		}
 
 		KeyboardManager::getManager()->onKeyUp(key);

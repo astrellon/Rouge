@@ -40,7 +40,7 @@ namespace ui {
 
 		MouseEventType mMouseEventType;
 
-		Renderable *mTarget;
+		//Renderable *mTarget;
 	};
 
 }

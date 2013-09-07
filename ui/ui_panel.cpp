@@ -4,6 +4,7 @@
 
 #include <ui/mouse_event.h>
 #include <ui/mouse_manager.h>
+#include <ui/ui_debug_inspector.h>
 
 #include <sstream>
 
@@ -14,9 +15,12 @@ namespace ui {
 		UIComponent(),
 		mStartingWidth(100.0f),
 		mStartingHeight(100.0f),
-		mResizing(false)
+		mResizing(false),
+		mDragX(0.0f),
+		mDragY(0.0f)
 	{
 		mBack = new Sprite("ui:panel");
+		mBack->setName("Panel Back");
 		mBack->setInteractive(true);
 		addChild(mBack);
 
@@ -54,7 +58,8 @@ namespace ui {
 		{
 			if (e->getLocalMouseY() < 20)
 			{
-				manager->setDragOffset(e->getLocalMouseX(), e->getLocalMouseY());
+				mDragX = e->getLocalMouseX();
+				mDragY = e->getLocalMouseY();
 				manager->addEventListener(MOUSE_MOVE, this);
 				manager->addEventListener(MOUSE_UP, this);
 			}
@@ -64,7 +69,8 @@ namespace ui {
 					e->getLocalMouseY() > mHeight - 20)
 				{
 					mResizing = true;
-					manager->setDragOffset(e->getLocalMouseX(), e->getLocalMouseY());
+					mDragX = e->getLocalMouseX();
+					mDragY = e->getLocalMouseY();
 					manager->addEventListener(MOUSE_MOVE, this);
 					manager->addEventListener(MOUSE_UP, this);
 					mStartingWidth = mWidth;
@@ -78,8 +84,8 @@ namespace ui {
 			float localY = 0.0f;
 			getScreenToLocal(static_cast<float>(e->getMouseX()), static_cast<float>(e->getMouseY()), localX, localY);
 				
-			float dx = localX - manager->getDragOffsetX();
-			float dy = localY - manager->getDragOffsetY();
+			float dx = localX - mDragX;
+			float dy = localY - mDragY;
 			if (mResizing)
 			{
 				if (mAnchorX == X_RIGHT)

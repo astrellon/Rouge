@@ -9,15 +9,37 @@
 namespace am {
 namespace ui {
 
+	ListItem::ListItem() :
+		Layer(),
+		mIndex(-1)
+	{
+
+	}
+	ListItem::~ListItem()
+	{
+
+	}
+
+	void ListItem::setIndex(int index)
+	{
+		mIndex = index;
+	}
+	int ListItem::getIndex() const
+	{
+		return mIndex;
+	}
+
 	List::List() :
 		UIComponent(),
 		mItemDisplay(0),
 		mScroll(0),
-		mScrollbar(new Scrollbar("ui:scrollbar_up", "ui:scrollbar_down", "ui:scrollbar_bar", "ui:scrollbar_back"))
+		mScrollbar(new Scrollbar("ui:scrollbar_up", "ui:scrollbar_down", "ui:scrollbar_bar", "ui:scrollbar_back")),
+		mListRenderer(new Layer())
 	{
 		addChild(mScrollbar);
 		mScrollbar->addEventListener(Scrollbar::SCROLL_VALUE_CHANGE, this);
-		
+		addChild(mListRenderer);
+		mListRenderer->setInteractive(true);
 	}
 	List::~List()
 	{
@@ -30,6 +52,20 @@ namespace ui {
 		{
 			setScroll(mScrollbar->getValue());
 		}
+		else if (e->getType() == "click")
+		{
+			int index = 0;
+			for (size_t i = 0; i < mItems.size(); i++)
+			{
+				if (mItems[i].get() == e->getEventTarget())
+				{
+					index = static_cast<int>(i);
+					break;
+				}
+			}
+			Handle<ListEvent> e(new ListEvent("list_change", mItems[index], index));
+			fireEvent<ListEvent>(e);
+		}
 	}
 
 	void List::setWidth(float width)
@@ -41,7 +77,7 @@ namespace ui {
 			mScrollbar->setPosition(width - mScrollbar->getWidth(), 0.0f);
 			for (auto iter = mItems.begin(); iter != mItems.end(); ++iter)
 			{
-				iter->get()->setWidth(width - 8.0f);
+				iter->get()->setWidth(width - 8.0f - mScrollbar->getWidth());
 			}
 		}
 	}
@@ -55,7 +91,7 @@ namespace ui {
 		}
 	}
 
-	bool List::addItem(Renderable *item, int index)
+	bool List::addItem(ListItem *item, int index)
 	{
 		if (index < 0)
 		{
@@ -64,8 +100,7 @@ namespace ui {
 				return false;
 			}
 			mItems.push_back(item);
-			updateScrollbar();
-			item->setWidth(getWidth() - 8.0f);
+			_addItem(item);
 			return true;
 		}
 		Handle<Renderable> itemHandle(item);
@@ -75,17 +110,25 @@ namespace ui {
 			mItems.erase(mItems.begin() + i);
 		}
 		mItems.insert(mItems.begin() + index, item);
-		item->setWidth(getWidth() - 8.0f);
-		updateScrollbar();
+		_addItem(item);
 		return true;
 	}
-	bool List::removeItem(Renderable *item)
+	void List::_addItem(ListItem *item)
+	{
+		updateScrollbar();
+		item->setWidth(getWidth() - 8.0f - mScrollbar->getWidth());
+		item->addEventListener("click", this);
+		mListRenderer->addChild(item);
+		updateList();
+	}
+	bool List::removeItem(ListItem *item)
 	{
 		int index = findItem(item);
 		if (index < 0)
 		{
 			return false;
 		}
+		item->removeEventListener("click", this);
 		mItems.erase(mItems.begin() + index);
 		updateScrollbar();
 		return true;
@@ -96,15 +139,17 @@ namespace ui {
 		{
 			return false;
 		}
+		mItems[index]->removeEventListener("click", this);
 		mItems.erase(mItems.begin() + index);
+		mListRenderer->removeChild(mItems[index]);
 		updateScrollbar();
 		return true;
 	}
-	bool List::hasItem(Renderable *item) const
+	bool List::hasItem(ListItem *item) const
 	{
 		return findItem(item) >= 0;
 	}
-	Renderable *List::getItem(int index) const
+	ListItem *List::getItem(int index) const
 	{
 		if (index < 0 || index >= static_cast<int>(mItems.size()))
 		{
@@ -129,13 +174,18 @@ namespace ui {
 	void List::setScroll(int scroll)
 	{
 		mScroll = scroll;
+		for (size_t i = 0; i < mItems.size(); i++)
+		{
+			mItems[i]->setVisible(i >= scroll);
+		}
+		updateList();
 	}
 	int List::getScroll() const
 	{
 		return mScroll;
 	}
 
-	int List::findItem(Renderable *item) const
+	int List::findItem(ListItem *item) const
 	{
 		for (size_t i = 0; i < mItems.size(); ++i)
 		{
@@ -163,36 +213,43 @@ namespace ui {
 		GfxEngine::getEngine()->applyColourStack();
 	}
 
-	void List::postRender(float dt)
-	{
-		glPushMatrix();
-		glTranslatef(4.0f, 4.0f, 0.0f);
-		int display = 0;
-		for (int index = max(0, mScroll); index < mItems.size(); ++index)
-		{
-			if (mItemDisplay > 0 && display >= mItemDisplay)
-			{
-				break;
-			}
-			display++;
-			Renderable *item = mItems[index].get();
-			if (!item->isVisible())
-			{
-				continue;
-			}
-			item->render(dt);
-			glTranslatef(0.0f, item->getHeight() + 4.0f, 0.0f);
-		}
-		glPopMatrix();
-
-		UIComponent::postRender(dt);
-	}
-
 	void List::updateScrollbar()
 	{
 		int maximum = max(0, mItems.size() - mItemDisplay);
 		mScrollbar->setMaxValue(maximum);
 	}
+
+	void List::updateList()
+	{
+		float y = 4.0f;
+		int displayed = 0;
+		int scrollTo = mScroll;
+		int index = 0;
+		for (auto iter = mItems.begin(); iter != mItems.end(); ++iter, ++index)
+		{
+			ListItem *item = iter->get();
+			item->setIndex(index);
+			if (scrollTo < 0)
+			{
+				scrollTo++;
+				item->setVisible(false);
+				continue;
+			}
+			if (!item->isVisible())
+			{
+				continue;
+			}
+			item->setPosition(4.0f, y);
+			y += item->getHeight() + 4.0f;
+			displayed++;
+			if (mItemDisplay > 0 && displayed >= mItemDisplay)
+			{
+				break;
+			}
+		}
+	}
+
+
 
 }
 }

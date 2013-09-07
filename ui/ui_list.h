@@ -16,19 +16,31 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
+	class ListItem : public Layer, public IEventListener {
+	public:
+		ListItem();
+		~ListItem();
+
+		void setIndex(int index);
+		int getIndex() const;
+
+	protected:
+		int mIndex;
+	};
+
 	class List : public UIComponent, public IEventListener {
 	public:
 
-		typedef vector< Handle<Renderable> > ListItems;
+		typedef vector< Handle<ListItem> > ListItems;
 
 		List();
 		~List();
 
-		virtual bool addItem(Renderable *item, int index = -1);
-		virtual bool removeItem(Renderable *item);
+		virtual bool addItem(ListItem *item, int index = -1);
+		virtual bool removeItem(ListItem *item);
 		virtual bool removeItem(int index);
-		virtual bool hasItem(Renderable *item) const;
-		virtual Renderable *getItem(int index) const;
+		virtual bool hasItem(ListItem *item) const;
+		virtual ListItem *getItem(int index) const;
 		virtual const ListItems &getItems() const;
 
 		virtual void setItemDisplay(int display);
@@ -42,21 +54,21 @@ namespace ui {
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
 
-		//virtual float getMeasuredWidth();
-		//virtual float getMeasuredHeight();
-
 	protected:
 
 		ListItems mItems;
 		int mItemDisplay;
 		int mScroll;
 		Handle<Scrollbar> mScrollbar;
+		Handle<Layer> mListRenderer;
 
-		int findItem(Renderable *item) const;
+		int findItem(ListItem *item) const;
 
 		virtual void preRender(float dt);
-		virtual void postRender(float dt);
 		virtual void updateScrollbar();
+
+		virtual void _addItem(ListItem *item);
+		virtual void updateList();
 
 	};
 

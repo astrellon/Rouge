@@ -28,7 +28,7 @@ namespace ui {
 	}
 	GameObject *DialogueEvent::getTalker() const
 	{
-		return dynamic_cast<GameObject *>(mEventTarget);
+		return dynamic_cast<GameObject *>(mEventTarget.get());
 	}
 	GameObject *DialogueEvent::getTalkedTo() const
 	{

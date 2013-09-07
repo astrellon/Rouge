@@ -2,6 +2,9 @@
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_layer.h>
+#include <gfx/gfx_engine.h>
+
+#include <ui/ui_debug_inspector.h>
 
 #include <log/logger.h>
 
@@ -29,7 +32,12 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_DOWN, mouseButton, x, y, x, y); 
+		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, MOUSE_DOWN, mouseButton, x, y, x, y));
+		if (!hitTarget)
+		{
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), MOUSE_DOWN, mouseButton, x, y, x, y);
+		}
+		DebugInspector::getInspector()->setValue("mouse down", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
 			mUnderMouse = nullptr;
@@ -45,7 +53,12 @@ namespace ui {
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
-		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_MOVE, mouseButton, x, y, x, y); 
+		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, MOUSE_MOVE, mouseButton, x, y, x, y));
+		if (!hitTarget)
+		{
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), MOUSE_MOVE, mouseButton, x, y, x, y);
+		}
+		DebugInspector::getInspector()->setValue("mouse move", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
 			if (mUnderMouse != nullptr)
@@ -66,7 +79,12 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		Renderable *hitTarget = checkForMouseEvent(mRootLayer, MOUSE_UP, mouseButton, x, y, x, y);
+		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, MOUSE_UP, mouseButton, x, y, x, y));
+		if (!hitTarget)
+		{
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), MOUSE_UP, mouseButton, x, y, x, y);
+		}
+		DebugInspector::getInspector()->setValue("mouse up", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
 			mUnderMouse = nullptr;
@@ -110,7 +128,7 @@ namespace ui {
 		localX -= static_cast<int>(target->getPositionX());
 		localY -= static_cast<int>(target->getPositionY());
 
-		Layer *layer = dynamic_cast<Layer *>(target);
+		Handle<Layer> layer(dynamic_cast<Layer *>(target));
 		if (layer != nullptr && layer->isVisible() && !layer->interacteWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
@@ -118,11 +136,12 @@ namespace ui {
 			// they'll appear on screen.
 			for (int i = numChildren - 1; i >= 0; i--)
 			{
-				Renderable *child = layer->getChildAt(i);
-				Renderable *hitChild = checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY);
+				Handle<Renderable> child(layer->getChildAt(i));
+				Handle<Renderable> hitChild(checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY));
 				if (hitChild)
 				{
-					return child;
+					//return child;
+					return hitChild;
 				}
 			}
 		}
@@ -132,21 +151,20 @@ namespace ui {
 				localX >= 0 && localY >= 0 &&
 				localX <= target->getWidth() && localY <= target->getHeight())
 			{
-				Renderable *oldUnderMouse = mUnderMouse;
+				Handle<Renderable> oldUnderMouse(mUnderMouse);
 				mUnderMouse = target;
-				//bool doFire = target->hasEventListener(MouseEventTypeNames[mouseType]);
 				if (target != oldUnderMouse)
 				{
 					if (oldUnderMouse != nullptr)
 					{
 						fireMouseEvent(oldUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
-					//if (doFire)
+					
 					{
 						fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
 					}
 				}
-				//else// if (doFire)
+				
 				{
 					fireMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
 				}
@@ -186,7 +204,7 @@ namespace ui {
 		mStopCurrentEvents = false;
 		mFiredEvent = true;
 		mCurrentEvent = new MouseEvent(mouseType, mouseButton, x, y, target, localX, localY);
-		while(!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
+		while (!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
 			target = target->getParent();
@@ -215,5 +233,28 @@ namespace ui {
 		return mRootLayer;
 	}
 
+	string MouseManager::getPath(Renderable *target)
+	{
+		if (!target)
+		{
+			return "<no target>";
+		}
+		stringstream ss;
+		vector<string> names;
+		while (target)
+		{
+			names.push_back(target->getName());
+			target = target->getParent();
+		}
+		for (size_t i = names.size() - 1; i != -1; i--)
+		{
+			ss << names[i];
+			if (i > 0)
+			{
+				ss << ", ";
+			}
+		}
+		return ss.str();
+	}
 }
 }

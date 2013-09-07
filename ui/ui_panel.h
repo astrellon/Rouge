@@ -37,7 +37,8 @@ namespace ui {
 		bool mResizing;
 		Handle<TextField> mTitle;
 		Handle<Sprite> mBack;
-		//Handle<Sprite> mSizeHandle;
+		float mDragX;
+		float mDragY;
 
 	};
 
