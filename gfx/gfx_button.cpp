@@ -26,6 +26,8 @@ namespace gfx {
 		setHitbox(hitbox);
 		setInteractive(true);
 	}
+		// TODO Figure out why copy doesn't quite work.
+		// New button ends up being linked with the old button for events.
 	Button::Button(const Button &rhs) :
 		Sprite(rhs),
 		mHitbox(rhs.mHitbox),

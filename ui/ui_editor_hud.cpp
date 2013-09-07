@@ -36,18 +36,18 @@ namespace ui {
 		addChild(mSideSprite);
 
 		float y = 20.0f;
-		mLoadGame = new TextButton("ui:small_button", "Load");
-		mLoadGame->setSize(43.0f, 20.0f);
-		mLoadGame->setParentOffset(20.0f, y);
-		addChild(mLoadGame);
+		mLoadMap = new TextButton("ui:small_button", "Load");
+		mLoadMap->setSize(43.0f, 20.0f);
+		mLoadMap->setParentOffset(20.0f, y);
+		addChild(mLoadMap);
 
-		mSaveGame = new TextButton(*mLoadGame);
-		mSaveGame->setParentOffsetX(64.0f);
-		mSaveGame->setLabel("Save");
-		addChild(mSaveGame);
+		mSaveMap = new TextButton("ui:small_button", "Save");
+		mSaveMap->setSize(43.0f, 20.0f);
+		mSaveMap->setParentOffset(68.0f, y);
+		addChild(mSaveMap);
 
-		mLoadGame->addEventListener("click", this);
-		mSaveGame->addEventListener("click", this);
+		mLoadMap->addEventListener("click", this);
+		mSaveMap->addEventListener("click", this);
 
 		y += 22.0f;
 		mMapName = new TextInput();
@@ -82,10 +82,19 @@ namespace ui {
 		mTiles->addEventListener("list_change", this);
 		addChild(mTiles);
 
-		mFileDialog = new FileDialog("data/maps", "File Dialog!");
-		mFileDialog->setVisible(false);
-		mFileDialog->setSize(200.0f, 80.0f);
-		addChild(mFileDialog);
+		mLoadFileDialog = new FileDialog("data/maps", "Load Map");
+		mLoadFileDialog->setVisible(false);
+		mLoadFileDialog->setSize(200.0f, 80.0f);
+		mLoadFileDialog->setParentAnchor(X_CENTER, Y_CENTER);
+		mLoadFileDialog->addEventListener("dialog_ok", this);
+		addChild(mLoadFileDialog);
+
+		mSaveFileDialog = new FileDialog("data/maps", "Save Map");
+		mSaveFileDialog->setVisible(false);
+		mSaveFileDialog->setSize(200.0f, 80.0f);
+		mSaveFileDialog->setParentAnchor(X_CENTER, Y_CENTER);
+		mSaveFileDialog->addEventListener("dialog_ok", this);
+		addChild(mSaveFileDialog);
 
 		MouseManager *manager = MouseManager::getManager();
 		manager->addEventListener(MOUSE_DOWN, this);
@@ -101,6 +110,11 @@ namespace ui {
 		manager->removeEventListener(MOUSE_UP, this);
 
 		mTiles->removeEventListener("list_change", this);
+
+		mLoadMap->removeEventListener("click", this);
+		mSaveMap->removeEventListener("click", this);
+		mLoadFileDialog->removeEventListener("dialog_ok", this);
+		mSaveFileDialog->removeEventListener("dialog_ok", this);
 	}
 
 	void EditorHud::setGame(Game *game)
@@ -197,9 +211,13 @@ namespace ui {
 			map->setMapSize(width, height);
 			map->getTileRenderer()->updateAssetSprites();
 		}
-		else if (e->getEventTarget() == mLoadGame)
+		else if (e->getEventTarget() == mLoadMap)
 		{
-			mFileDialog->setVisible(true);
+			mLoadFileDialog->setVisible(true);
+		}
+		else if (e->getEventTarget() == mSaveMap)
+		{
+			mSaveFileDialog->setVisible(true);
 		}
 	}
 

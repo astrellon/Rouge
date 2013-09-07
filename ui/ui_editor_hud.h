@@ -70,11 +70,12 @@ namespace ui {
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
-		Handle<TextButton> mLoadGame;
-		Handle<TextButton> mSaveGame;
+		Handle<TextButton> mLoadMap;
+		Handle<TextButton> mSaveMap;
 		Handle<List> mTiles;
 
-		Handle<FileDialog> mFileDialog;
+		Handle<FileDialog> mLoadFileDialog;
+		Handle<FileDialog> mSaveFileDialog;
 
 		Handle<Tile> mCurrentTile;
 	};

@@ -10,9 +10,10 @@ namespace ui {
 
 	FileDialog::FileDialog(const char *folder, const char *title) :
 		Panel(),
-		mFilename(new TextInput())
+		mFilename(new TextInput()),
+		mFolder(folder)
 	{
-		setTitle(title);
+		setDialogTitle(title);
 
 		mFilename->setSize(80.0f, 16.0f);
 		mFilename->setParentOffset(15.0f, 25.0f);
@@ -26,9 +27,12 @@ namespace ui {
 		mOk->setParentOffset(-15.0f, -15.0f);
 		addChild(mOk);
 
-		mCancel = new TextButton(*mOk);
-		mCancel->setLabel("Cancel");
-		mCancel->setParentOffsetX(-80.0f);
+		mCancel = new TextButton("ui:small_button", "Cancel");
+		mCancel->setSize(60.0f, 20.0f);
+		mCancel->setParentAnchor(X_RIGHT, Y_BOTTOM);
+		mCancel->setAnchor(X_RIGHT, Y_BOTTOM);
+		mCancel->getLabelField()->getGfxComponent()->setColour(1, 1, 1, 1);
+		mCancel->setParentOffset(-80.0f, -15.0f);
 		addChild(mCancel);
 
 		mOk->addEventListener("click", this);
@@ -64,12 +68,14 @@ namespace ui {
 	{
 		if (e->getEventTarget() == mOk)
 		{
-			am_log("OK", mFilename->getText());
+			Handle<Event> e(new Event("dialog_ok", this));
+			fireEvent<Event>(e);
 			setVisible(false);
 		}
 		else if (e->getEventTarget() == mCancel)
 		{
-			am_log("CANCEL", ":(");
+			Handle<Event> e(new Event("dialog_cancel", this));
+			fireEvent<Event>(e);
 			setVisible(false);
 		}
 	}
