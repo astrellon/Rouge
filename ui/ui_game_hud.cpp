@@ -3,7 +3,8 @@
 namespace am {
 namespace ui {
 
-	GameHud::GameHud()
+	GameHud::GameHud() :
+		UIComponent()
 	{
 		mInspector = new Inspector();
 		addChild(mInspector);

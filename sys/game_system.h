@@ -3,12 +3,13 @@
 #include <base/handle.h>
 using namespace am::base;
 
+#include <ui/ievent_listener.h>
+#include <ui/mouse_event.h>
+#include <ui/mouse_manager.h>
+#include <ui/ui_debug_inspector.h>
+using namespace am::ui;
+
 #include "isystem.h"
-#include "../ui/ievent_listener.h"
-#include "../ui/mouse_event.h"
-#include "../ui/mouse_manager.h"
-#include "../base/handle.h"
-using namespace am::base;
 
 namespace am {
 namespace game {
@@ -27,7 +28,6 @@ using namespace am::gfx;
 namespace ui {
 	class MouseManager;
 }
-using namespace am::ui;
 
 namespace sys {
 
@@ -99,6 +99,7 @@ namespace sys {
 		static GameSystem *sGameSystem;
 
 		Handle<TextList> mDebugConsole;
+		Handle<DebugInspector> mDebugInspector;
 	};
 
 }

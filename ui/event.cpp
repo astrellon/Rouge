@@ -28,7 +28,7 @@ namespace ui {
 
 	Event::~Event()
 	{
-
+		
 	}
 
 	string Event::getType() const

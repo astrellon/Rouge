@@ -34,13 +34,14 @@ namespace ui {
 		virtual void onEvent(Event *e);
 		virtual void onEvent(KeyboardEvent *e);
 		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(ListEvent *e);
 
 		virtual void setGame(Game *game);
 		virtual Game *getGame() const;
 
 	protected:
 
-		class TileListItem : public Layer, public IEventListener {
+		class TileListItem : public ListItem {
 		public:
 			TileListItem(Tile *tile);
 			~TileListItem();
@@ -49,6 +50,8 @@ namespace ui {
 
 			virtual void setWidth(float width);
 			virtual float getHeight();
+
+			virtual Tile *getTile() const;
 			
 		protected:
 			Handle<Tile> mTile;

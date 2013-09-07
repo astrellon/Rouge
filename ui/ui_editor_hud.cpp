@@ -17,6 +17,7 @@ using namespace am::util;
 #include <ui/keyboard_manager.h>
 #include <ui/mouse_manager.h>
 #include <ui/ui_label.h>
+#include <ui/ui_debug_inspector.h>
 
 #include <sstream>
 
@@ -57,6 +58,7 @@ namespace ui {
 		mTiles = new List();
 		mTiles->setParentOffset(20.0f, 90.0f);
 		mTiles->setWidth(140.0f);
+		mTiles->addEventListener("list_change", this);
 		addChild(mTiles);
 
 		MouseManager *manager = MouseManager::getManager();
@@ -71,6 +73,8 @@ namespace ui {
 		manager->removeEventListener(MOUSE_DOWN, this);
 		manager->removeEventListener(MOUSE_MOVE, this);
 		manager->removeEventListener(MOUSE_UP, this);
+
+		mTiles->removeEventListener("list_change", this);
 	}
 
 	void EditorHud::setGame(Game *game)
@@ -87,6 +91,22 @@ namespace ui {
 	Game *EditorHud::getGame() const
 	{
 		return mGame;
+	}
+
+	void EditorHud::onEvent(ListEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+
+		TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
+		if (item)
+		{
+			stringstream ss;
+			ss << "Clicked on tile: " << item->getTile()->getName();
+			am_log("TILE", ss);
+		}
 	}
 
 	void EditorHud::onEvent(KeyboardEvent *e)
@@ -188,7 +208,7 @@ namespace ui {
 	}
 
 	EditorHud::TileListItem::TileListItem(Tile *tile) :
-		Layer(),
+		ListItem(),
 		mTile(tile),
 		mHitbox(new Renderable()),
 		mMouseType(ui::MOUSE_OUT)
@@ -227,11 +247,24 @@ namespace ui {
 
 	void EditorHud::TileListItem::preRender(float dt)
 	{
-		Layer::preRender(dt);
+		ListItem::preRender(dt);
+
+		bool mouseDown = MouseManager::getManager()->getButtonDown(LEFT_BUTTON);
 
 		bool renderBack = false;
 		switch (mMouseType)
 		{
+		case ui::MOUSE_MOVE:
+			if (mouseDown)
+			{
+				glColor4f(0.9f, 0.9f, 0.9f, 0.7f);
+			}
+			else
+			{
+				glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
+			}
+			renderBack = true;
+			break;
 		case ui::MOUSE_OVER:
 			glColor4f(0.9f, 0.9f, 0.9f, 0.7f);
 			renderBack = true;
@@ -260,19 +293,27 @@ namespace ui {
 		switch (e->getMouseEventType())
 		{
 		default:
-		case am::ui::MOUSE_OUT:
+		case ui::MOUSE_OUT:
 			mMouseType = ui::MOUSE_OUT;
 			break;
-		case am::ui::MOUSE_UP:
+		case ui::MOUSE_MOVE:
+			mMouseType = ui::MOUSE_MOVE;
+			break;
+		case ui::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
-		case am::ui::MOUSE_OVER:
+		case ui::MOUSE_OVER:
 			mMouseType = ui::MOUSE_OVER;
 			break;
-		case am::ui::MOUSE_DOWN:
+		case ui::MOUSE_DOWN:
 			mMouseType = ui::MOUSE_DOWN;
 			break;
 		}
+	}
+
+	Tile *EditorHud::TileListItem::getTile() const
+	{
+		return mTile;
 	}
 
 	void EditorHud::TileListItem::setWidth(float width)

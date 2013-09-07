@@ -880,6 +880,12 @@
     <ClCompile Include="ui\ui_list.cpp">
       <Filter>ui\gui</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_debug_inspector.cpp">
+      <Filter>ui\rouge</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\list_event.cpp">
+      <Filter>ui\events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1601,6 +1607,12 @@
       <Filter>gfx\base</Filter>
     <ClInclude Include="ui\ui_list.h">
       <Filter>ui\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_debug_inspector.h">
+      <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\list_event.h">
+      <Filter>ui\events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
