@@ -40,6 +40,14 @@ namespace ui {
 
 		setLabel(label);
 	}
+	TextButton::TextButton(const TextButton &copy) :
+		UIComponent(copy)
+	{
+		mGraphic = dynamic_cast<Button *>(mChildren[0].get());
+		mLabel = dynamic_cast<TextField *>(mChildren[1].get());
+
+		setLabel(copy.getLabel().c_str());
+	}
 	TextButton::~TextButton()
 	{
 		

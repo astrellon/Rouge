@@ -15,6 +15,7 @@ using namespace am::gfx;
 #include <ui/ui_text_button.h>
 #include <ui/ui_list.h>
 #include <ui/ui_label.h>
+#include <ui/ui_file_dialog.h>
 
 #include <game/game.h>
 
@@ -72,6 +73,8 @@ namespace ui {
 		Handle<TextButton> mLoadGame;
 		Handle<TextButton> mSaveGame;
 		Handle<List> mTiles;
+
+		Handle<FileDialog> mFileDialog;
 
 		Handle<Tile> mCurrentTile;
 	};

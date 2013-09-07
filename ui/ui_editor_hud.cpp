@@ -35,15 +35,31 @@ namespace ui {
 		mSideSprite = new Sprite("editor:side_bar");
 		addChild(mSideSprite);
 
+		float y = 20.0f;
+		mLoadGame = new TextButton("ui:small_button", "Load");
+		mLoadGame->setSize(43.0f, 20.0f);
+		mLoadGame->setParentOffset(20.0f, y);
+		addChild(mLoadGame);
+
+		mSaveGame = new TextButton(*mLoadGame);
+		mSaveGame->setParentOffsetX(64.0f);
+		mSaveGame->setLabel("Save");
+		addChild(mSaveGame);
+
+		mLoadGame->addEventListener("click", this);
+		mSaveGame->addEventListener("click", this);
+
+		y += 22.0f;
 		mMapName = new TextInput();
 		addChild(mMapName);
 		mMapName->setSize(90.0f, 16.0f);
-		mMapName->setParentOffset(20.0f, 20.0f);
+		mMapName->setParentOffset(20.0f, y);
 
+		y += 22.0f;
 		mMapWidth = new TextInput();
 		addChild(mMapWidth);
 		mMapWidth->setSize(40.0f, 16.0f);
-		mMapWidth->setParentOffset(20.0f, 42.0f);
+		mMapWidth->setParentOffset(20.0f, y);
 		mMapWidth->setMaxCharacters(4);
 		mMapWidth->setRestriction(TextInput::INTEGER);
 
@@ -51,18 +67,25 @@ namespace ui {
 		mMapHeight->setParentOffsetX(70.0f);
 		addChild(mMapHeight);
 
+		y += 22.0f;
 		mMakeMap = new TextButton("ui:small_button", "Set Size");
 		mMakeMap->setSize(90.0f, 20.0f);
-		mMakeMap->setParentOffset(20.0f, 64.0f);
+		mMakeMap->setParentOffset(20.0f, y);
 		mMakeMap->getLabelField()->getGfxComponent()->setColour(1, 1, 1, 1);
 		mMakeMap->addEventListener("click", this);
 		addChild(mMakeMap);
 
+		y += 24.0f;
 		mTiles = new List();
-		mTiles->setParentOffset(20.0f, 90.0f);
+		mTiles->setParentOffset(20.0f, y);
 		mTiles->setWidth(140.0f);
 		mTiles->addEventListener("list_change", this);
 		addChild(mTiles);
+
+		mFileDialog = new FileDialog("data/maps", "File Dialog!");
+		mFileDialog->setVisible(false);
+		mFileDialog->setSize(200.0f, 80.0f);
+		addChild(mFileDialog);
 
 		MouseManager *manager = MouseManager::getManager();
 		manager->addEventListener(MOUSE_DOWN, this);
@@ -173,6 +196,10 @@ namespace ui {
 			}
 			map->setMapSize(width, height);
 			map->getTileRenderer()->updateAssetSprites();
+		}
+		else if (e->getEventTarget() == mLoadGame)
+		{
+			mFileDialog->setVisible(true);
 		}
 	}
 

@@ -413,6 +413,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_asset_renderer.cpp" />
     <ClCompile Include="ui\ui_body_part_renderer.cpp" />
     <ClCompile Include="ui\ui_debug_inspector.cpp" />
+    <ClCompile Include="ui\ui_file_dialog.cpp" />
     <ClCompile Include="ui\ui_list.cpp" />
     <ClCompile Include="ui\ui_text_button.cpp" />
     <ClCompile Include="ui\ui_character_screen.cpp" />
@@ -658,6 +659,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_asset_renderer.h" />
     <ClInclude Include="ui\ui_body_part_renderer.h" />
     <ClInclude Include="ui\ui_debug_inspector.h" />
+    <ClInclude Include="ui\ui_file_dialog.h" />
     <ClInclude Include="ui\ui_list.h" />
     <ClInclude Include="ui\ui_text_button.h" />
     <ClInclude Include="ui\ui_character_screen.h" />

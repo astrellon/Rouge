@@ -886,6 +886,9 @@
     <ClCompile Include="ui\list_event.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_file_dialog.cpp">
+      <Filter>ui\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1614,6 +1617,9 @@
     </ClInclude>
     <ClInclude Include="ui\list_event.h">
       <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_file_dialog.h">
+      <Filter>ui\gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

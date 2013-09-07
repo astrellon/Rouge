@@ -9,9 +9,10 @@ using namespace am::base;
 #include "ievent_listener.h"
 #include "ui_component.h"
 
+#include <gfx/gfx_button.h>
+
 namespace am {
 namespace gfx {
-	class Button;
 	class Asset;
 	class TextField;
 	class Renderable;
@@ -27,6 +28,7 @@ namespace ui {
 		TextButton();
 		TextButton(const char *assetName, Renderable *hitbox = nullptr);
 		TextButton(const char *assetName, const char *label, Renderable *hitbox = nullptr);
+		TextButton(const TextButton &copy);
 		~TextButton();
 
 		void setGraphic(Button *graphic);
