@@ -164,6 +164,17 @@ namespace game {
 			}
 		}
 	}
+	void Map::calcTileEdgeValuesAround(int x, int y) const
+	{
+		for (int yy = y - 1; yy <= y + 1; yy++)
+		{
+			for (int xx = x - 1; xx <= x + 1; xx++)
+			{
+				calcTileEdgeValues(xx, yy);
+			}
+		}
+	}
+	
 	void Map::calcTileEdgeValues(int x, int y) const
 	{
 		if (x < 0 || y < 0 || x >= mMapWidth || y >= mMapHeight)
@@ -189,6 +200,8 @@ namespace game {
 		{
 			tiles[i] = !skip[i] ? mTiles[index + offsets[i]].getTile() : nullptr;
 		}
+
+		instance.clearTileEdges();
 
 		// Check top
 		if (!skip[1] && canOverlap(tile, tiles[1]))

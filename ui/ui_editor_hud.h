@@ -69,6 +69,8 @@ namespace ui {
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
+		Handle<TextButton> mLoadGame;
+		Handle<TextButton> mSaveGame;
 		Handle<List> mTiles;
 
 		Handle<Tile> mCurrentTile;

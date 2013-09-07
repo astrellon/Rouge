@@ -30,6 +30,7 @@ namespace game {
 
 		bool hasEdgeValue() const;
 
+		void clearTileEdges();
 		void setTileEdgeValue(uint32_t index, uint8_t value);
 		uint8_t getTileEdgeValue(uint32_t index) const;
 

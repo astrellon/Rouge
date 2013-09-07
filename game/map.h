@@ -52,6 +52,7 @@ namespace game {
 		TileInstance *getTiles();
 		const TileInstance *getTiles() const;
 		void calcAllTileEdgeValues() const;
+		void calcTileEdgeValuesAround(int x, int y) const;
 		void calcTileEdgeValues(int x, int y) const;
 
 		Layer *getBackground() const;

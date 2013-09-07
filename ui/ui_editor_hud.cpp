@@ -205,9 +205,9 @@ namespace ui {
 			}
 			else if (manager->getButtonDown(LEFT_BUTTON))
 			{
-				if (mCurrentTile)
+				Map *map = mGame->getCurrentMap();
+				if (mCurrentTile && map && map->getTileRenderer())
 				{
-					Map *map = mGame->getCurrentMap();
 					Vector2f pos(0.0f, 0.0f);
 					map->getTileRenderer()->getScreenToLocal(e->getMouseX(), e->getMouseY(), pos.x, pos.y);
 					Vector2i grid = Engine::getEngine()->worldToGrid(pos);
@@ -216,6 +216,7 @@ namespace ui {
 						TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
 						instance->setTile(mCurrentTile);
 						map->getTileRenderer()->updateAssetSprite(mCurrentTile);
+						map->calcTileEdgeValuesAround(grid.x, grid.y);
 					}
 				}
 			}

@@ -112,6 +112,14 @@ namespace game {
 		return false;
 	}
 
+	void TileInstance::clearTileEdges()
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			mTileEdgeValues[i] = 0u;
+		}
+	}
+
 	void TileInstance::setTileEdgeValue(uint32_t index, uint8_t edgeValue)
 	{
 		if (index < 8)
