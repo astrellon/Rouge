@@ -101,6 +101,10 @@ namespace game {
 		}
 		return nullptr;
 	}
+	const TileSet::TileMap &TileSet::getTiles() const
+	{
+		return mTiles;
+	}
 
 }
 }

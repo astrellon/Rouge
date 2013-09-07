@@ -137,6 +137,7 @@ namespace sys {
 		mDebugInspector->setParentAnchor(X_LEFT, Y_TOP);
 		mDebugInspector->setParentOffset(50.0f, 50.0f);
 		mDebugInspector->setSize(250.0f, 300.0f);
+		mDebugInspector->setVisible(false);
 		gfxEngine ->getDebugLayer()->addChild(mDebugInspector);
 		DebugInspector::setInspector(mDebugInspector);
 

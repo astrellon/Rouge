@@ -3,6 +3,7 @@
 #include <game/engine.h>
 #include <game/game.h>
 #include <game/map.h>
+#include <game/tile_instance.h>
 using namespace am::game;
 
 #include <gfx/gfx_text_field.h>
@@ -18,6 +19,8 @@ using namespace am::util;
 #include <ui/mouse_manager.h>
 #include <ui/ui_label.h>
 #include <ui/ui_debug_inspector.h>
+
+#include <sys/game_system.h>
 
 #include <sstream>
 
@@ -82,10 +85,30 @@ namespace ui {
 		mGame = game;
 
 		Engine *engine = Engine::getEngine();
-		engine->usingTileSet("nature:nature");
-		mTiles->addItem(new TileListItem(engine->getTile("grass")));
-		mTiles->addItem(new TileListItem(engine->getTile("dirt")));
-		mTiles->addItem(new TileListItem(engine->getTile("water")));
+		ISystem::FolderEntryList tileSetNames;
+		if (GameSystem::getGameSystem()->listDirectory("data/tilesets", tileSetNames) == SUCCESS)
+		{
+			for (auto iter = tileSetNames.begin(); iter != tileSetNames.end(); ++iter)
+			{
+				if (iter->isDirectory)
+				{
+					continue;
+				}
+				string filename("data/tilesets/");
+				filename += iter->name;
+				engine->loadDefintionFile(filename.c_str());
+			}
+		}
+		TileSetMap &tileSets = engine->getTileSets();
+		for (auto iter = tileSets.begin(); iter != tileSets.end(); ++iter)
+		{
+			const TileSet::TileMap &tiles = iter->second->getTiles();
+			for (auto tileIter = tiles.begin(); tileIter != tiles.end(); ++tileIter)
+			{
+				mTiles->addItem(new TileListItem(tileIter->second));
+			}
+
+		}
 		mTiles->setHeight(200.0f);
 	}
 	Game *EditorHud::getGame() const
@@ -103,9 +126,7 @@ namespace ui {
 		TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
 		if (item)
 		{
-			stringstream ss;
-			ss << "Clicked on tile: " << item->getTile()->getName();
-			am_log("TILE", ss);
+			mCurrentTile = item->getTile();
 		}
 	}
 
@@ -171,17 +192,32 @@ namespace ui {
 
 		if (e->getMouseEventType() == MOUSE_MOVE)
 		{
-			float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
-			float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
-
-			Camera *camera = mGame->getCamera();
-			float posX = camera->getDestinationX() - dx;
-			float posY = camera->getDestinationY() - dy;
-
 			MouseManager *manager = MouseManager::getManager();
 			if (manager->getButtonDown(MIDDLE_BUTTON))
 			{
+				float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
+				float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
+
+				Camera *camera = mGame->getCamera();
+				float posX = camera->getDestinationX() - dx;
+				float posY = camera->getDestinationY() - dy;
 				mGame->getCamera()->setDestination(posX, posY);
+			}
+			else if (manager->getButtonDown(LEFT_BUTTON))
+			{
+				if (mCurrentTile)
+				{
+					Map *map = mGame->getCurrentMap();
+					Vector2f pos(0.0f, 0.0f);
+					map->getTileRenderer()->getScreenToLocal(e->getMouseX(), e->getMouseY(), pos.x, pos.y);
+					Vector2i grid = Engine::getEngine()->worldToGrid(pos);
+					if (grid.x >= 0 && grid.y >= 0 && grid.x < map->getMapWidth() && grid.y < map->getMapHeight())
+					{
+						TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
+						instance->setTile(mCurrentTile);
+						map->getTileRenderer()->updateAssetSprite(mCurrentTile);
+					}
+				}
 			}
 			manager->setDragOffset(e->getMouseX(), e->getMouseY());
 		}

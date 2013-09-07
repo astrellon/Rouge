@@ -10,6 +10,34 @@ namespace util {
 	{
 		return Engine::getEngine()->getLua();
 	}
-		
+	
+	bool IDefinitionManager::loadDefintionFile(const char *filename)
+	{
+		// Check if the file has already been loaded and previously did
+		// not find the character.
+		auto findFile = mFilesLoaded.find(filename);
+		if (findFile != mFilesLoaded.end() && findFile->second)
+		{
+			return false;
+		}
+
+		mFilesLoaded[filename] = true;
+		LuaState &lua = getLuaDefinition();
+
+		if (!lua.loadFile(filename))
+		{
+			stringstream ss;
+			ss << "Error loading file: '" << filename << "':\n";
+			lua.printStack(ss);
+			am_log("LUAERR", ss);
+			return false;
+		}
+
+		if (!mLoadingFiles.empty())
+		{
+			mLoadingFiles.pop_back();
+		}
+		return true;
+	}
 }
 }

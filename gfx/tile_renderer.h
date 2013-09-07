@@ -12,6 +12,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 	class Map;
+	class Tile;
 }
 using namespace am::game;
 
@@ -33,6 +34,7 @@ namespace gfx {
 		virtual float getHeight();
 
 		void updateAssetSprites();
+		void updateAssetSprite(Tile *tile);
 		virtual void render(float dt);
 
 	protected:

@@ -27,8 +27,9 @@ namespace ui {
 		mText->setCursorInputPosition(0);
 		mText->setInteractive(true);
 		mText->setBaseFont("default:arial");
+		setName("Text Input");
 
-		addEventListener(MouseEventType::MOUSE_DOWN, this);
+		mText->addEventListener(MouseEventType::MOUSE_DOWN, this);
 		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
 	}
 	TextInput::TextInput(const TextInput &copy) :
@@ -39,12 +40,13 @@ namespace ui {
 		mRestriction(copy.mRestriction)
 	{
 		mText = dynamic_cast<TextField *>(mChildren[0].get());
-		addEventListener(MouseEventType::MOUSE_DOWN, this);
+		mText->addEventListener(MouseEventType::MOUSE_DOWN, this);
 		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
 	}
 	TextInput::~TextInput()
 	{
-
+		mText->removeEventListener(MouseEventType::MOUSE_DOWN, this);
+		MouseManager::getManager()->removeEventListener(MouseEventType::MOUSE_DOWN, this);
 	}
 
 	Renderable *TextInput::clone() const
@@ -58,7 +60,8 @@ namespace ui {
 		{
 			return;
 		}
-		setFocus(e->getTarget() == mText);
+		TextField *target = dynamic_cast<TextField *>(e->getEventTarget());
+		setFocus(target == mText);
 	}
 
 	void TextInput::onEvent(KeyboardEvent *e)

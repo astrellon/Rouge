@@ -901,6 +901,9 @@
     <ClInclude Include="gfx\gfx_log_listener.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\gfx_sprite.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
     <ClInclude Include="gfx\gfx_texture.h">
       <Filter>gfx\base</Filter>
     </ClInclude>
@@ -1603,8 +1606,6 @@
     <ClInclude Include="lua\wrappers\gfx\lua_font.h">
       <Filter>lua\wrapper\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\gfx_sprite.h">
-      <Filter>gfx\base</Filter>
     <ClInclude Include="ui\ui_list.h">
       <Filter>ui\gui</Filter>
     </ClInclude>

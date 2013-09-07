@@ -118,6 +118,29 @@ namespace gfx {
 			}
 		}
 	}
+	void TileRenderer::updateAssetSprite(Tile *tile)
+	{
+		if (!mMap || !tile || !tile->getGraphicAsset())
+		{
+			return;
+		}
+		Asset *asset = tile->getGraphicAsset();
+		if (mAssetSprites.find(asset) != mAssetSprites.end())
+		{
+			return;
+		}
+
+		float grid = Engine::getEngine()->getGridSize();
+		addAssetForUpdate(tile->getGraphicAsset(), grid);
+		auto transitionalTiles = tile->getAllTransitionalAssets();
+		for (auto iter = transitionalTiles.begin(); iter != transitionalTiles.end(); ++iter)
+		{
+			for (auto iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
+			{
+				addAssetForUpdate(*iter2, grid);
+			}
+		}
+	}
 	
 	void TileRenderer::render(float dt)
 	{

@@ -21,6 +21,9 @@ namespace game {
 
 	class TileSet : public IManaged, public IDefinition {
 	public:
+
+		typedef map<string, Handle<Tile> > TileMap;
+
 		TileSet();
 		TileSet(const char *name);
 		~TileSet();
@@ -38,13 +41,13 @@ namespace game {
 		bool hasTile(Tile *tile);
 		bool hasTile(const char *tileName);
 		Tile *getTile(const char *tileName);
+		const TileMap &getTiles() const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
 
-		typedef map<string, Handle<Tile> > TileMap;
 		TileMap mTiles;
 		
 		string mName;

@@ -201,9 +201,14 @@ namespace ui {
 
 	void MouseManager::fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY)
 	{
+		if (mouseType == MOUSE_DOWN)
+		{
+			mStopCurrentEvents = false;
+		}
 		mStopCurrentEvents = false;
 		mFiredEvent = true;
-		mCurrentEvent = new MouseEvent(mouseType, mouseButton, x, y, target, localX, localY);
+		Renderable *inputTarget = target;
+		mCurrentEvent = new MouseEvent(mouseType, mouseButton, x, y, inputTarget, localX, localY);
 		while (!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());

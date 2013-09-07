@@ -18,6 +18,8 @@ namespace am {
 namespace util {
 
 	class IDefinitionManager {
+	public:
+		bool loadDefintionFile(const char *filename);
 	
 	protected:
 
@@ -95,30 +97,9 @@ namespace util {
 				charname = str;
 			}
 
-			// Check if the file has already been loaded and previously did
-			// not find the character.
-			auto findFile = mFilesLoaded.find(filename);
-			if (findFile != mFilesLoaded.end() && findFile->second)
+			if (!loadDefintionFile(filename.c_str()))
 			{
 				return nullptr;
-			}
-
-			mFilesLoaded[filename] = true;
-			LuaState &lua = getLuaDefinition();
-
-			//if (!mEngine->getLua().loadFile(filename.c_str()))
-			if (!lua.loadFile(filename.c_str()))
-			{
-				stringstream ss;
-				ss << "Error loading file: '" << filename << "':\n";
-				lua.printStack(ss);
-				am_log("LUAERR", ss);
-				return nullptr;
-			}
-
-			if (!mLoadingFiles.empty())
-			{
-				mLoadingFiles.pop_back();
 			}
 
 			find = defMap.find(str);

@@ -70,6 +70,8 @@ namespace ui {
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
 		Handle<List> mTiles;
+
+		Handle<Tile> mCurrentTile;
 	};
 
 }
