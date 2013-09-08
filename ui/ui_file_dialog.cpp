@@ -73,6 +73,17 @@ namespace ui {
 		return mFilename->getText();
 	}
 
+	string FileDialog::getFullPath() const
+	{
+		string result = mFolder;
+		if (result.back() != '/' && result.back() != '\\')
+		{
+			result += '/';
+		}
+		result += mFilename->getText();
+		return result;
+	}
+
 	void FileDialog::onEvent(Event *e)
 	{
 		if (e->getEventTarget() == mOk)

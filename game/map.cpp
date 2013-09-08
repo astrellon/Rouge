@@ -10,6 +10,8 @@
 using namespace am::util;
 
 #include <sstream>
+#include <ostream>
+#include <fstream>
 using namespace std;
 
 #include "tile.h"
@@ -693,6 +695,52 @@ namespace game {
 	{
 		Pathfinder *pathfinder = Pathfinder::getPathfinder();
 		return pathfinder->search(start, end, path, this, forObj);
+	}
+
+	ReturnCode Map::saveMap(const char *filename) const
+	{
+		if (!filename || filename[0] == '\0')
+		{
+			return NULL_PARAMETER;
+		}
+
+		ofstream ss(filename);
+		if (!ss)
+		{
+			return FILE_NOT_FOUND;
+		}
+		ss << "-- Saved map file: " << mFullName << "\ndo"
+			<< "\tlocal map = am.map.new(\"" << mName << "\", " << mMapWidth << ", " << mMapHeight << ")\n"
+			<< "\t\tmap:full_name(\"" << mFullName << "\")\n"
+
+			<< "\tam.engine.clear_using_tile_set()\n"
+			<< "\tam.engine.using_tile_set(\"nature:nature\")\n"
+			<< "\n\tmap.tiles({\n";
+
+		int i = 0;
+		int total = mMapWidth * mMapHeight;
+		for (int y = 0; y < mMapHeight; y++)
+		{
+			ss << "\t\t";
+			for (int x = 0; x < mMapWidth; x++)
+			{
+				ss << '"' << mTiles[i].getTile()->getName() << ":" << mTiles[i].getBaseVariation() << '"';
+				i++;
+				if (i < total - 1)
+				{
+					ss << ", ";
+				}
+			}
+			if (y == mMapHeight - 1)
+			{
+				ss << "})";
+			}
+			ss << "\n";
+		}
+
+		ss << "\treturn map\nend\n";
+			
+		return SUCCESS;
 	}
 
 }

@@ -240,7 +240,13 @@ namespace ui {
 			}
 			if (e->getEventTarget() == mSaveFileDialog)
 			{
-				am_log("SAVE", mSaveFileDialog->getFilename());
+				Map *map = mGame->getCurrentMap();
+				if (map)
+				{
+					ReturnCode result = map->saveMap(mSaveFileDialog->getFullPath().c_str());
+					am_log("SAVE", getErrorMessage(result));
+				}
+				//am_log("SAVE", mSaveFileDialog->getFilename());
 			}
 		}
 	}

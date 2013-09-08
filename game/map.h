@@ -6,6 +6,7 @@
 #include <gfx/tile_renderer.h>
 
 #include <base/handle.h>
+#include <base/return_codes.h>
 using namespace am::base;
 
 #include <lua/lua_state.h>
@@ -81,6 +82,8 @@ namespace game {
 		const char *getFilename() const;
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
+
+		ReturnCode saveMap(const char *filename) const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

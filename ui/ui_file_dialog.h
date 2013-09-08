@@ -29,6 +29,8 @@ namespace ui {
 		void setFilename(const char *filename);
 		const char *getFilename() const;
 
+		string getFullPath() const;
+
 		virtual void setWidth(float width);
 		//virtual void setHeight(float height);
 

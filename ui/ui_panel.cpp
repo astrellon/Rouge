@@ -77,6 +77,7 @@ namespace ui {
 					mStartingHeight = mHeight;
 				}
 			}
+			e->stopPropagation();
 		}
 		else if (e->getMouseEventType() == MOUSE_MOVE)
 		{
