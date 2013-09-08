@@ -90,6 +90,29 @@ namespace game {
 	{
 		return mBaseVariation;
 	}
+	void TileInstance::randomiseVaritation()
+	{
+		Asset *asset = mTile ? mTile->getGraphicAsset() : nullptr;
+		if (!asset)
+		{
+			return;
+		}
+		if (asset->getFrameRate() <= 0.0f)
+		{
+			if (asset->isSubWindowAnimation())
+			{
+				setBaseVariation(Utils::rand(0, asset->getTotalSubWindows()));
+			}
+			else
+			{
+				setBaseVariation(Utils::rand(0, asset->getTotalTextures()));
+			}
+		}
+		else
+		{
+			setBaseVariation(0);
+		}
+	}
 
 	void TileInstance::setTransitionVariation(int frame)
 	{

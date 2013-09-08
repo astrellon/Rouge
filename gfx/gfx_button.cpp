@@ -119,6 +119,7 @@ namespace gfx {
 			break;
 		case am::ui::MOUSE_DOWN:
 			setSubWindowFrame(2);
+			e->stopPropagation();
 			break;
 		}
 	}

@@ -60,7 +60,7 @@ namespace game {
 		Layer *getForeground() const;
 		TileRenderer *getTileRenderer() const;
 
-		void setMapSize(int width, int height);
+		void setMapSize(int width, int height, Tile *defaultTile = nullptr);
 		int getMapWidth() const;
 		int getMapHeight() const;
 

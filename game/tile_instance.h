@@ -24,6 +24,7 @@ namespace game {
 
 		void setBaseVariation(int variation);
 		int getBaseVariation() const;
+		void randomiseVaritation();
 
 		void setTransitionVariation(int variation);
 		int getTransitionVariation() const;

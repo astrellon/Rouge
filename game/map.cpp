@@ -407,19 +407,22 @@ namespace game {
 		return false;
 	}
 	
-	void Map::setMapSize(int width, int height)
+	void Map::setMapSize(int width, int height, Tile *defaultTile)
 	{
 		if (width < 1 || height < 1)
 		{
 			printf("Map size cannot be %d, %d\n", width, height);
 			return;
 		}
-		//clear();
-		TileInstance *tiles = new TileInstance[width * height];
-		
-		//mMapWidth = width;
-		//mMapHeight = height;
 
+		int total = width * height;
+		TileInstance *tiles = new TileInstance[width * height];
+		for (int i = 0; i < total; i++)
+		{
+			tiles[i].setTile(defaultTile);
+			tiles[i].randomiseVaritation();
+		}
+		
 		float gridSize = Engine::getEngine()->getGridSize();
 
 		mWidth = static_cast<float>(width) * gridSize;
@@ -446,6 +449,7 @@ namespace game {
 			for (int x = 0; x < maxWidth; x++)
 			{
 				tiles[y * width + x].setTile(mTiles[y * mMapWidth + x].getTile());
+				tiles[y * width + x].setBaseVariation(mTiles[y * mMapWidth + x].getBaseVariation());
 			}
 		}
 
@@ -711,11 +715,11 @@ namespace game {
 		}
 		ss << "-- Saved map file: " << mFullName << "\ndo"
 			<< "\tlocal map = am.map.new(\"" << mName << "\", " << mMapWidth << ", " << mMapHeight << ")\n"
-			<< "\t\tmap:full_name(\"" << mFullName << "\")\n"
+			<< "\t\t:full_name(\"" << mFullName << "\")\n"
 
 			<< "\tam.engine.clear_using_tile_set()\n"
 			<< "\tam.engine.using_tile_set(\"nature:nature\")\n"
-			<< "\n\tmap.tiles({\n";
+			<< "\n\tmap:tiles({\n";
 
 		int i = 0;
 		int total = mMapWidth * mMapHeight;
@@ -726,7 +730,7 @@ namespace game {
 			{
 				ss << '"' << mTiles[i].getTile()->getName() << ":" << mTiles[i].getBaseVariation() << '"';
 				i++;
-				if (i < total - 1)
+				if (i < total)
 				{
 					ss << ", ";
 				}

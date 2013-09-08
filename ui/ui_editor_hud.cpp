@@ -222,7 +222,7 @@ namespace ui {
 				map->setName(mMapName->getText());
 				map->setFullName(mMapFullName->getText());
 			}
-			map->setMapSize(width, height);
+			map->setMapSize(width, height, mCurrentTile);
 			map->getTileRenderer()->updateAssetSprites();
 		}
 		else if (e->getEventTarget() == mLoadMap)
@@ -241,6 +241,7 @@ namespace ui {
 				Map *map = mGame->getCurrentMap();
 				if (map)
 				{
+					map->calcAllTileEdgeValues();
 					mMapWidth->setText(Utils::toString(map->getMapWidth()));
 					mMapHeight->setText(Utils::toString(map->getMapHeight()));
 					mMapName->setText(map->getName());
@@ -252,7 +253,12 @@ namespace ui {
 				Map *map = mGame->getCurrentMap();
 				if (map)
 				{
-					ReturnCode result = map->saveMap(mSaveFileDialog->getFullPath().c_str());
+					string path = mSaveFileDialog->getFullPath();
+					if (path.find_last_of(".lua") != path.size() - 1)
+					{
+						path += ".lua";
+					}
+					ReturnCode result = map->saveMap(path.c_str());
 					am_log("SAVE", getErrorMessage(result));
 				}
 				//am_log("SAVE", mSaveFileDialog->getFilename());
@@ -318,21 +324,7 @@ namespace ui {
 				TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
 				instance->setTile(tile);
 				Asset *asset = tile->getGraphicAsset();
-				if (asset->getFrameRate() <= 0.0f)
-				{
-					if (asset->isSubWindowAnimation())
-					{
-						instance->setBaseVariation(Utils::rand(0, asset->getTotalSubWindows()));
-					}
-					else
-					{
-						instance->setBaseVariation(Utils::rand(0, asset->getTotalTextures()));
-					}
-				}
-				else
-				{
-					instance->setBaseVariation(0);
-				}
+				instance->randomiseVaritation();
 				map->getTileRenderer()->updateAssetSprite(tile);
 				map->calcTileEdgeValuesAround(grid.x, grid.y);
 			}
