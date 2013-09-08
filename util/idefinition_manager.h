@@ -19,8 +19,9 @@ namespace util {
 
 	class IDefinitionManager {
 	public:
-		bool loadDefintionFile(const char *filename);
-	
+
+		bool loadDefinitionFile(const char *filename);
+		
 	protected:
 
 		typedef vector<string> LoadingFilesStack;
@@ -32,6 +33,8 @@ namespace util {
 		virtual const char *getBaseDefinitionPath(int id) const = 0;
 
 		virtual LuaState &getLuaDefinition() const;
+
+		bool _loadDefinitionFile(const char *filename);
 		
 		template <class T>
 		void addDefinition(T *def, map< string, Handle<T> > &defMap, const char *name)
@@ -97,7 +100,7 @@ namespace util {
 				charname = str;
 			}
 
-			if (!loadDefintionFile(filename.c_str()))
+			if (!_loadDefinitionFile(filename.c_str()))
 			{
 				return nullptr;
 			}

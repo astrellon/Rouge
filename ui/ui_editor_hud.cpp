@@ -133,7 +133,7 @@ namespace ui {
 				}
 				string filename("data/tilesets/");
 				filename += iter->name;
-				engine->loadDefintionFile(filename.c_str());
+				engine->loadDefinitionFile(filename.c_str());
 			}
 		}
 		TileSetMap &tileSets = engine->getTileSets();
@@ -160,10 +160,13 @@ namespace ui {
 			return;
 		}
 
-		TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
-		if (item)
+		if (e->getEventTarget() == mTiles)
 		{
-			mCurrentTile = item->getTile();
+			TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
+			if (item)
+			{
+				mCurrentTile = item->getTile();
+			}
 		}
 	}
 
@@ -201,12 +204,12 @@ namespace ui {
 			Map *map = mGame->getCurrentMap();
 			if (!map)
 			{
-				map = new Map(mMapName->getText().c_str());
+				map = new Map(mMapName->getText());
 				mGame->setCurrentMap(map);
 			}
 			else
 			{
-				map->setName(mMapName->getText().c_str());
+				map->setName(mMapName->getText());
 			}
 			map->setMapSize(width, height);
 			map->getTileRenderer()->updateAssetSprites();
@@ -218,6 +221,18 @@ namespace ui {
 		else if (e->getEventTarget() == mSaveMap)
 		{
 			mSaveFileDialog->setVisible(true);
+		}
+		else if (e->getType() == "dialog_ok")
+		{
+			if (e->getEventTarget() == mLoadFileDialog)
+			{
+				//am_log("LOAD", mLoadFileDialog->getFilename());
+				mGame->setCurrentMap(mLoadFileDialog->getFilename());
+			}
+			if (e->getEventTarget() == mSaveFileDialog)
+			{
+				am_log("SAVE", mSaveFileDialog->getFilename());
+			}
 		}
 	}
 

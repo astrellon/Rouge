@@ -26,6 +26,9 @@ namespace ui {
 		void setDialogTitle(const char *title);
 		const char *getDialogTitle() const;
 
+		void setFilename(const char *filename);
+		const char *getFilename() const;
+
 		virtual void setWidth(float width);
 		//virtual void setHeight(float height);
 

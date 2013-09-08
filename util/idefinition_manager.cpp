@@ -10,15 +10,22 @@ namespace util {
 	{
 		return Engine::getEngine()->getLua();
 	}
+
+	bool IDefinitionManager::loadDefinitionFile(const char *filename)
+	{
+
+		mLoadingFiles.push_back(string(filename));
+		return _loadDefinitionFile(filename);
+	}
 	
-	bool IDefinitionManager::loadDefintionFile(const char *filename)
+	bool IDefinitionManager::_loadDefinitionFile(const char *filename)
 	{
 		// Check if the file has already been loaded and previously did
 		// not find the character.
 		auto findFile = mFilesLoaded.find(filename);
 		if (findFile != mFilesLoaded.end() && findFile->second)
 		{
-			return false;
+			return true;
 		}
 
 		mFilesLoaded[filename] = true;

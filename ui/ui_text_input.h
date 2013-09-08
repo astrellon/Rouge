@@ -32,7 +32,8 @@ namespace ui {
 
 		void setText(const char *text);
 		void setText(const string &text);
-		string getText() const;
+		string getTextStr() const;
+		const char *getText() const;
 
 		void appendText(char text);
 		void appendText(const char *text);

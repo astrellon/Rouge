@@ -64,6 +64,15 @@ namespace ui {
 		return mFolder.c_str();
 	}
 
+	void FileDialog::setFilename(const char *filename)
+	{
+		mFilename->setText(filename);
+	}
+	const char *FileDialog::getFilename() const
+	{
+		return mFilename->getText();
+	}
+
 	void FileDialog::onEvent(Event *e)
 	{
 		if (e->getEventTarget() == mOk)

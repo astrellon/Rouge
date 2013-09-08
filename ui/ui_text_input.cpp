@@ -234,7 +234,11 @@ namespace ui {
 			mInputPosition = text.length();
 		}
 	}
-	string TextInput::getText() const
+	string TextInput::getTextStr() const
+	{
+		return mText->getText();
+	}
+	const char *TextInput::getText() const
 	{
 		return mText->getText();
 	}
@@ -310,7 +314,7 @@ namespace ui {
 	void TextInput::setInputPosition(int pos)
 	{
 		pos = pos < 0 ? 0 : pos;
-		int maxPos = static_cast<int>(getText().length());
+		int maxPos = static_cast<int>(getTextStr().length());
 		pos = pos > maxPos ? maxPos : pos;
 		mInputPosition = pos;
 		mText->setCursorInputPosition(pos);
