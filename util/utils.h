@@ -78,6 +78,7 @@ namespace util {
 
 		static float randf();
 		static float randf(float lower, float upper);
+		static int rand(int lower, int upper);
 		static void setRandSeed(unsigned int seed);
 
 		template <class T>

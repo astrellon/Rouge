@@ -3,6 +3,8 @@
 #include <fstream>
 using namespace std;
 
+#include <math/math.h>
+
 namespace am {
 namespace util {
 
@@ -117,13 +119,19 @@ namespace util {
 
 	float Utils::randf()
 	{
-		return static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		return static_cast<float>(::rand()) / static_cast<float>(RAND_MAX);
 	}
 	float Utils::randf(float lower, float upper)
 	{
 		float num = randf();
 		float diff = upper - lower;
 		return num * diff + lower;
+	}
+	int Utils::rand(int lower, int upper)
+	{
+		float num = randf();
+		float diff = static_cast<float>(upper - lower);
+		return math::round(num * diff) + lower;
 	}
 	void Utils::setRandSeed(unsigned int seed)
 	{

@@ -29,7 +29,8 @@ namespace ui {
 
 	EditorHud::EditorHud() :
 		UIComponent(),
-		IEventListener()
+		IEventListener(),
+		mMouseDown(false)
 	{
 		setName("EditorHud");
 		mSideSprite = new Sprite("editor:side_bar");
@@ -52,8 +53,14 @@ namespace ui {
 		y += 22.0f;
 		mMapName = new TextInput();
 		addChild(mMapName);
-		mMapName->setSize(140.0f, 40.0f);
+		mMapName->setSize(140.0f, 16.0f);
 		mMapName->setParentOffset(20.0f, y);
+
+		y += 22.0f;
+		mMapFullName = new TextInput();
+		addChild(mMapFullName);
+		mMapFullName->setSize(140.0f, 40.0f);
+		mMapFullName->setParentOffset(20.0f, y);
 
 		y += 46.0f;
 		mMapWidth = new TextInput();
@@ -213,6 +220,7 @@ namespace ui {
 			else
 			{
 				map->setName(mMapName->getText());
+				map->setFullName(mMapFullName->getText());
 			}
 			map->setMapSize(width, height);
 			map->getTileRenderer()->updateAssetSprites();
@@ -235,7 +243,8 @@ namespace ui {
 				{
 					mMapWidth->setText(Utils::toString(map->getMapWidth()));
 					mMapHeight->setText(Utils::toString(map->getMapHeight()));
-					mMapName->setText(map->getFullName());
+					mMapName->setText(map->getName());
+					mMapFullName->setText(map->getFullName());
 				}
 			}
 			if (e->getEventTarget() == mSaveFileDialog)
@@ -253,7 +262,7 @@ namespace ui {
 
 	void EditorHud::onEvent(MouseEvent *e)
 	{
-		if (!e || !mGame)
+		if (!e || !mGame || !e->isPropagating())
 		{
 			return;
 		}
@@ -267,10 +276,12 @@ namespace ui {
 			{
 				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
 			}
+
+			mMouseDown = true;
 			return;
 		}
 
-		if (e->getMouseEventType() == MOUSE_MOVE)
+		if (e->getMouseEventType() == MOUSE_MOVE && mMouseDown)
 		{
 			if (manager->getButtonDown(MIDDLE_BUTTON))
 			{
@@ -290,7 +301,7 @@ namespace ui {
 		}
 		if (e->getMouseEventType() == MOUSE_UP)
 		{
-
+			mMouseDown = false;
 		}
 	}
 
@@ -306,6 +317,22 @@ namespace ui {
 			{
 				TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
 				instance->setTile(tile);
+				Asset *asset = tile->getGraphicAsset();
+				if (asset->getFrameRate() <= 0.0f)
+				{
+					if (asset->isSubWindowAnimation())
+					{
+						instance->setBaseVariation(Utils::rand(0, asset->getTotalSubWindows()));
+					}
+					else
+					{
+						instance->setBaseVariation(Utils::rand(0, asset->getTotalTextures()));
+					}
+				}
+				else
+				{
+					instance->setBaseVariation(0);
+				}
 				map->getTileRenderer()->updateAssetSprite(tile);
 				map->calcTileEdgeValuesAround(grid.x, grid.y);
 			}

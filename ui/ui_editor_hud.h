@@ -64,9 +64,12 @@ namespace ui {
 			void preRender(float dt);
 		};
 
+		bool mMouseDown;
+
 		Handle<Game> mGame;
 		Handle<Sprite> mSideSprite;
 		Handle<TextInput> mMapName;
+		Handle<TextInput> mMapFullName;
 		Handle<TextInput> mMapWidth;
 		Handle<TextInput> mMapHeight;
 		Handle<TextButton> mMakeMap;
