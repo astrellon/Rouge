@@ -412,30 +412,49 @@ namespace game {
 			printf("Map size cannot be %d, %d\n", width, height);
 			return;
 		}
-		clear();
-		mTiles = new TileInstance[width * height];
+		//clear();
+		TileInstance *tiles = new TileInstance[width * height];
 		
-		mMapWidth = width;
-		mMapHeight = height;
+		//mMapWidth = width;
+		//mMapHeight = height;
 
 		float gridSize = Engine::getEngine()->getGridSize();
 
 		mWidth = static_cast<float>(width) * gridSize;
 		mHeight = static_cast<float>(height) * gridSize;
 
-		mMapData = new AStarNode*[width];
+		AStarNode **nodes = new AStarNode*[width];
 		for(int x = 0; x < width; x++)
 		{
-			mMapData[x] = new AStarNode[height];
+			nodes[x] = new AStarNode[height];
 			for(int y = 0; y < height; y++)
 			{
-				AStarNode &node = mMapData[x][y];
+				AStarNode &node = nodes[x][y];
 				node.position.x = static_cast<float>(x * gridSize);
 				node.position.y = static_cast<float>(y * gridSize);
 				node.gridPosition.x = x;
 				node.gridPosition.y = y;
 			}
 		}
+
+		int maxWidth = min(width, mMapWidth);
+		int maxHeight = min(height, mMapHeight);
+		for (int y = 0; y < maxHeight; y++)
+		{
+			for (int x = 0; x < maxWidth; x++)
+			{
+				tiles[y * width + x].setTile(mTiles[y * mMapWidth + x].getTile());
+			}
+		}
+
+		clear();
+		mTiles = tiles;
+		mMapData = nodes;
+
+		mMapWidth = width;
+		mMapHeight = height;
+
+		calcAllTileEdgeValues();
 	}
 
 	int Map::getMapWidth() const

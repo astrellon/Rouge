@@ -37,13 +37,13 @@ namespace ui {
 
 		float y = 20.0f;
 		mLoadMap = new TextButton("ui:small_button", "Load");
-		mLoadMap->setSize(43.0f, 20.0f);
+		mLoadMap->setSize(50.0f, 20.0f);
 		mLoadMap->setParentOffset(20.0f, y);
 		addChild(mLoadMap);
 
 		mSaveMap = new TextButton("ui:small_button", "Save");
-		mSaveMap->setSize(43.0f, 20.0f);
-		mSaveMap->setParentOffset(68.0f, y);
+		mSaveMap->setSize(50.0f, 20.0f);
+		mSaveMap->setParentOffset(80.0f, y);
 		addChild(mSaveMap);
 
 		mLoadMap->addEventListener("click", this);
@@ -52,10 +52,10 @@ namespace ui {
 		y += 22.0f;
 		mMapName = new TextInput();
 		addChild(mMapName);
-		mMapName->setSize(90.0f, 16.0f);
+		mMapName->setSize(140.0f, 40.0f);
 		mMapName->setParentOffset(20.0f, y);
 
-		y += 22.0f;
+		y += 46.0f;
 		mMapWidth = new TextInput();
 		addChild(mMapWidth);
 		mMapWidth->setSize(40.0f, 16.0f);
@@ -131,9 +131,15 @@ namespace ui {
 				{
 					continue;
 				}
-				string filename("data/tilesets/");
-				filename += iter->name;
-				engine->loadDefinitionFile(filename.c_str());
+				string path("data/tilesets/");
+				path += iter->name;
+				string filename = iter->name;
+				size_t index = filename.find_last_of('.');
+				if (index != string::npos)
+				{
+					filename = filename.substr(0, index);
+				}
+				engine->loadDefinitionFile(path.c_str(), filename.c_str());
 			}
 		}
 		TileSetMap &tileSets = engine->getTileSets();
@@ -160,13 +166,10 @@ namespace ui {
 			return;
 		}
 
-		if (e->getEventTarget() == mTiles)
+		TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
+		if (item)
 		{
-			TileListItem *item = dynamic_cast<TileListItem *>(e->getItem());
-			if (item)
-			{
-				mCurrentTile = item->getTile();
-			}
+			mCurrentTile = item->getTile();
 		}
 	}
 
@@ -226,8 +229,14 @@ namespace ui {
 		{
 			if (e->getEventTarget() == mLoadFileDialog)
 			{
-				//am_log("LOAD", mLoadFileDialog->getFilename());
 				mGame->setCurrentMap(mLoadFileDialog->getFilename());
+				Map *map = mGame->getCurrentMap();
+				if (map)
+				{
+					mMapWidth->setText(Utils::toString(map->getMapWidth()));
+					mMapHeight->setText(Utils::toString(map->getMapHeight()));
+					mMapName->setText(map->getFullName());
+				}
 			}
 			if (e->getEventTarget() == mSaveFileDialog)
 			{
@@ -247,12 +256,16 @@ namespace ui {
 		if (e->getMouseEventType() == MOUSE_DOWN)
 		{
 			manager->setDragOffset(e->getMouseX(), e->getMouseY());
+
+			if (manager->getButtonDown(LEFT_BUTTON))
+			{
+				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
+			}
 			return;
 		}
 
 		if (e->getMouseEventType() == MOUSE_MOVE)
 		{
-			MouseManager *manager = MouseManager::getManager();
 			if (manager->getButtonDown(MIDDLE_BUTTON))
 			{
 				float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
@@ -265,26 +278,31 @@ namespace ui {
 			}
 			else if (manager->getButtonDown(LEFT_BUTTON))
 			{
-				Map *map = mGame->getCurrentMap();
-				if (mCurrentTile && map && map->getTileRenderer())
-				{
-					Vector2f pos(0.0f, 0.0f);
-					map->getTileRenderer()->getScreenToLocal(e->getMouseX(), e->getMouseY(), pos.x, pos.y);
-					Vector2i grid = Engine::getEngine()->worldToGrid(pos);
-					if (grid.x >= 0 && grid.y >= 0 && grid.x < map->getMapWidth() && grid.y < map->getMapHeight())
-					{
-						TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
-						instance->setTile(mCurrentTile);
-						map->getTileRenderer()->updateAssetSprite(mCurrentTile);
-						map->calcTileEdgeValuesAround(grid.x, grid.y);
-					}
-				}
+				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
 			}
 			manager->setDragOffset(e->getMouseX(), e->getMouseY());
 		}
 		if (e->getMouseEventType() == MOUSE_UP)
 		{
 
+		}
+	}
+
+	void EditorHud::setTile(float mouseX, float mouseY, Tile *tile)
+	{
+		Map *map = mGame->getCurrentMap();
+		if (tile && map && map->getTileRenderer())
+		{
+			Vector2f pos(0.0f, 0.0f);
+			map->getTileRenderer()->getScreenToLocal(mouseX, mouseY, pos.x, pos.y);
+			Vector2i grid = Engine::getEngine()->worldToGrid(pos);
+			if (grid.x >= 0 && grid.y >= 0 && grid.x < map->getMapWidth() && grid.y < map->getMapHeight())
+			{
+				TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
+				instance->setTile(tile);
+				map->getTileRenderer()->updateAssetSprite(tile);
+				map->calcTileEdgeValuesAround(grid.x, grid.y);
+			}
 		}
 	}
 

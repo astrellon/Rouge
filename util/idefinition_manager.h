@@ -20,7 +20,7 @@ namespace util {
 	class IDefinitionManager {
 	public:
 
-		bool loadDefinitionFile(const char *filename);
+		bool loadDefinitionFile(const char *path, const char *filename);
 		
 	protected:
 

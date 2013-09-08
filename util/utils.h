@@ -47,6 +47,14 @@ namespace util {
 			return defaultValue;
 		}
 
+		template <class T>
+		static string toString(const T &input)
+		{
+			stringstream ss;
+			ss << input;
+			return ss.str();
+		}
+
 		/**
 		 * Parses a string input into a number type assuming base 10 values (which can be changed).
 		 * Returns true if the parse was successful.

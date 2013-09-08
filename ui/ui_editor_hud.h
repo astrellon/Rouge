@@ -78,6 +78,8 @@ namespace ui {
 		Handle<FileDialog> mSaveFileDialog;
 
 		Handle<Tile> mCurrentTile;
+
+		void setTile(float mouseX, float mouseY, Tile *tile);
 	};
 
 }

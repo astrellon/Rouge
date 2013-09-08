@@ -11,11 +11,10 @@ namespace util {
 		return Engine::getEngine()->getLua();
 	}
 
-	bool IDefinitionManager::loadDefinitionFile(const char *filename)
+	bool IDefinitionManager::loadDefinitionFile(const char *path, const char *filename)
 	{
-
 		mLoadingFiles.push_back(string(filename));
-		return _loadDefinitionFile(filename);
+		return _loadDefinitionFile(path);
 	}
 	
 	bool IDefinitionManager::_loadDefinitionFile(const char *filename)
