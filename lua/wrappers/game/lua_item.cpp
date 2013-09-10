@@ -17,6 +17,7 @@ using namespace am::game;
 
 #include "lua_stat_modifiers.h"
 #include "lua_iattribute_data.h"
+#include "../lua_event_manager.h"
 
 #include <log/logger.h>
 
@@ -33,16 +34,79 @@ namespace game {
 	 * item's or an item definition. Items can be cloned and have their values
 	 * set from another item however if a definition like system is required.
 	 */
+
 	/**
-	 * Creates a new item instance, it will have the name "Item" and will take up
+	 * @static
+	 * Creates or wraps an item instance, it will have the name "Item" and will take up
 	 * 1x1 inventory slots.
+	 *
+	 * For example, the first time an item is created (as in the case of a new game)
+	 * there should not be any existing item with the same game_id. In which case
+	 * a new item will be created.
+	 * If the item was not pre-existing then it will need all the specific values
+	 * set onto it. However if it was pre-existing then you are unlikely to want to set
+	 * it's current values back to what they were when the item was first created.
+	 * However event listeners are not maintained between saves, so they will have to be
+	 * added to an existing (loaded) item as well as a new one.
+	 *
+	 * @param string [""] game_id The game id to create the item with or the game id of an existing item.
+	 * @returns am.item The newly created item or returns an existing item with the same game_id.
+	 * @returns boolean True if the item was newly created or false if it already existed.
+	 */
+	/**
+	 * @static
+	 * Behaves the same as the base constructor however the new item will be created
+	 * from the given item definition if it has to be created.
+	 * 
+	 * @param string [""] game_id The game id to create the item with or the game id of an existing item.
+	 * @param string def_name The item definition name to look up when creating the item if it one did not exist.
+	 * @returns am.item The newly created item or returns an existing item with the same game_id.
+	 * @returns boolean True if the item was newly created or false if it already existed.
 	 */
 	int Item_ctor(lua_State *lua)
 	{
-		Item *item = new Item();
+		/*Item *item = new Item();
 		
 		wrapRefObject<Item>(lua, item);
-		return 1;
+		return 1;*/
+		int args = lua_gettop(lua);
+		if (args == 1 && !lua_isstr(lua, 1) || 
+			args > 1 && !lua_isstr(lua, 1) && !lua_isstr(lua, 2))
+		{
+			return LuaState::expectedArgs(lua, "@new", 3, "", "string id", "string id, string def_name");
+		}
+
+		if (args == 0)
+		{
+			Item *item = new Item();
+			wrapRefObject<Item>(lua, item);
+			lua_pushboolean(lua, true);
+			return 2;
+		}
+
+		bool newItem = false;
+		const char *id = lua_tostring(lua, 1);
+		Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject(id)));
+		if (!item)
+		{
+			newItem = true;
+			if (lua_isstr(lua, 2))
+			{
+				Handle<Item> def(Engine::getGame()->getItemDefinition(lua_tostring(lua, 2)));
+				if (def)
+				{
+					item = new Item(*def);
+				}
+			}
+			if (!item)
+			{
+				item = new Item();
+			}
+			item->setGameId(id);
+		}
+		wrapRefObject<Item>(lua, item);
+		lua_pushboolean(lua, newItem);
+		return 2;
 	}
 	/**
 	 * Releases the reference counter on this item.
@@ -122,6 +186,10 @@ namespace game {
 			{ "has_passible_type", nullptr },
 			{ "get_passible_types", nullptr },
 			{ "game_id", Item_game_id },
+			// EventListener methods
+			{ "on", Item_add_event_listener },
+			{ "off", Item_remove_event_listener },
+			{ "has_event_listener", Item_has_event_listener },
 			// Static GameObject methods
 			{ "find", Item_find },
 			{ "attrs", Item_attrs },
@@ -858,6 +926,85 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "game_id", "am.item");
 	}
+
+	/**
+	 * Adds an event listener for an event fired on this item.
+	 * eg: <pre>
+	 * character:on("talkTo", function(event)
+	 *     am_log("Character talked to")
+	 * end)
+	 * </pre>
+	 * @param string event_type The event type or name to trigger on
+	 * @param function listener The function to call when the event is fired.
+	 * @param table [nil] content An option context for the listener to be
+	 * called with.
+	 * @returns boolean True if the event was added successfully.
+	 */
+	int Item_add_event_listener(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+			{
+				lua_pushboolean(lua, am::lua::ui::addEventListener(lua, item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
+		}
+		return LuaState::expectedContext(lua, "on", "am.item");
+	}
+	/**
+	 * Removes an event listener from this item.
+	 * eg: 
+	 * <pre>
+	 * function talkToOnce(event)
+	 *     am_log("Character talked to once")
+	 *     character:off("talkTo", talkToOnce)
+	 * end
+	 * character:on("talkTo", talkToOnce)
+	 * </pre>
+	 * @param string event_type The event type the listener was listening for.
+	 * @param function listener The listener function to remove.
+	 * @param table [nil] context The context which the listener was going to 
+	 * be called with, this is only optional if the listener was added with no context.
+	 * @returns boolean True if the event listener was successfully removed.
+	 */
+	int Item_remove_event_listener(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+			{
+				lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, item));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
+		}
+		return LuaState::expectedContext(lua, "off", "am.item");
+	}
+	/**
+	 * Returns true when there is an event listener for the given event_type.
+	 * @param string event_type The event type to look up.
+	 * @returns boolean True if there is any event listener 
+	 * that will be trigged by this event type.
+	 */
+	int Item_has_event_listener(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_isstr(lua, 2))
+			{
+				lua_pushboolean(lua, item->hasEventListener(lua_tostring(lua, 2)));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
+		}
+		return LuaState::expectedContext(lua, "has_event_listener", "am.item");
+	}
+
 	/**
 	 * @static
 	 * Looks up an item in the current game engine with the given game id.

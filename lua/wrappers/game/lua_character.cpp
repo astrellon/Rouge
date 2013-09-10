@@ -71,9 +71,9 @@ namespace game {
 	 *
 	 * @param string [""] game_id The game id to create the character with or the game id
 	 *  of an existing character.
-	 * @returns Character The newly created character or returns an existing character
+	 * @returns am.character The newly created character or returns an existing character
 	 *  with the same game_id.
-	 * @returns Boolean True if the character was newly created or false if it 
+	 * @returns boolean True if the character was newly created or false if it 
 	 *  already existed.
 	 */
 	/**
@@ -85,9 +85,9 @@ namespace game {
 	 *  of an existing character.
 	 * @param string def_name The character definition name to look up when creating the
 	 *  character if it one did not exist.
-	 * @returns Character The newly created character or returns an existing character
+	 * @returns am.character The newly created character or returns an existing character
 	 *  with the same game_id.
-	 * @returns Boolean True if the character was newly created or false if it 
+	 * @returns boolean True if the character was newly created or false if it 
 	 *  already existed.
 	 */
 	int Character_ctor(lua_State *lua)
@@ -1558,7 +1558,7 @@ namespace game {
 				lua_pushboolean(lua, am::lua::ui::addEventListener(lua, obj));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "on", "string eventName, function listener");
+			return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
 		}
 		return LuaState::expectedContext(lua, "on", "am.character");
 	}
@@ -1588,7 +1588,7 @@ namespace game {
 				lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, obj));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "off", "string eventName, function listener");
+			return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
 		}
 		return LuaState::expectedContext(lua, "off", "am.character");
 	}
@@ -1608,10 +1608,11 @@ namespace game {
 				lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, 2)));
 				return 1;
 			}
-			return LuaState::expectedArgs(lua, "has_event_listener", "string eventName");
+			return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
 		}
 		return LuaState::expectedContext(lua, "has_event_listener", "am.character");
 	}
+
 	/**
 	 * Returns the amount of experience this character has.
 	 * @returns integer The amount of experience this character has.

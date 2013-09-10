@@ -62,7 +62,17 @@ do
 	-- End Character
 	
 	-- Items
-	
+	local item, new_item = am.item.new(map_name .. "_scroll_intro", "wooden:scroll")
+	if (new_item) then
+		item:grid_location(7, 16)
+		map:add_game_object(item)
+	end
+	item:on("item_pickedup", function(context, event)
+		am.debug.log("PICKED UP!")
+	end)
+	item:on("item_dropped", function(context, event)
+		am.debug.log("DROPPED!")
+	end)
 	-- End Items
 
 	-- Quests

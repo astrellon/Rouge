@@ -48,6 +48,10 @@ namespace game {
 
 	int Item_game_id(lua_State *lua);
 
+	int Item_add_event_listener(lua_State *lua);
+	int Item_remove_event_listener(lua_State *lua);
+	int Item_has_event_listener(lua_State *lua);
+
 	int Item_find(lua_State *lua);
 
 	int Item_attrs(lua_State *lua);

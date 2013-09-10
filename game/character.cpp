@@ -629,6 +629,7 @@ namespace game {
 		{
 			Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
 			fireEvent<ItemEvent>(e);
+			item->pickedUp(this);
 			return 1;
 		}
 		else
@@ -706,6 +707,7 @@ namespace game {
 		mInventory->removeItem(item);
 		Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
 		fireEvent<ItemEvent>(e);
+		item->dropped(this);
 		return 1;
 	}
 
