@@ -4,6 +4,28 @@ do
 		:full_name("Nature Tiles")
 	am.engine.add_tile_set(set)
 	
+	set:add_tile(am.tile.new("dirt")
+		:full_name("Dirt")
+		:asset("tiles/nature:dirt")
+		:precedence(5)
+		:description("It's dirt")
+		:add_tile_type("land", "air"))
+	
+	set:add_tile(am.tile.new("sand")
+		:full_name("Sand")
+		:asset("tiles/nature:sand")
+		:precedence(6)
+		:description("It's sand")
+		:add_tile_type("land", "air"))
+		
+	local brick = am.tile.new("brick")
+		:full_name("Brick")
+		:asset("tiles/nature:bricks")
+		:precedence(15)
+		:description("It's brick")
+		:add_tile_type("wall")
+	set:add_tile(brick)
+		
 	set:add_tile(am.tile.new("grass")
 		:full_name("Grass")
 		:asset("tiles/nature:grass")
@@ -11,20 +33,6 @@ do
 		:description("Tis grass")
 		:add_tile_type("land", "air")
 		:add_transitional("tiles/nature:grass_transition"))
-	
-	set:add_tile(am.tile.new("dirt")
-		:full_name("Dirt")
-		:asset("tiles/nature:dirt")
-		:precedence(5)
-		:description("It's dirt")
-		:add_tile_type("land", "air"))
-		
-	set:add_tile(am.tile.new("brick")
-		:full_name("Brick")
-		:asset("tiles/nature:bricks")
-		:precedence(5)
-		:description("It's brick")
-		:add_tile_type("wall"))
 		
 	set:add_tile(am.tile.new("water")
 		:full_name("Water")
@@ -39,4 +47,11 @@ do
 		:precedence(2)
 		:description("You can walk on it")
 		:add_tile_type("water", "land", "air"))
+		
+	set:add_tile(am.tile.new("wood")
+		:full_name("Wood")
+		:asset("tiles/nature:wood")
+		:precedence(12)
+		:description("Wood planks")
+		:add_tile_type("land", "air"))
 end

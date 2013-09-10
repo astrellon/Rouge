@@ -176,6 +176,51 @@ namespace ui {
 
 		lua_call(mLua, contexted ? 2 : 1, 0);
 	}
+	void LuaEventListener::onEvent(ItemEvent *e)
+	{
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+		// Item
+		mLua.push("item");
+		Item *item = dynamic_cast<Item *>(e->getItem());
+		if (item)
+		{
+			wrapRefObject<Item>(mLua, item);
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
+		lua_settable(mLua, -3);
+		// Extra
+		mLua.push("extra");
+		Character *isChar = dynamic_cast<Character *>(e->getExtra());
+		if (isChar)
+		{
+			wrapRefObject<Character>(mLua, isChar);
+		}
+		else 
+		{
+			item = dynamic_cast<Item *>(e->getExtra());
+			if (item)
+			{
+				wrapRefObject<Item>(mLua, item);
+			}
+			else
+			{
+				lua_pushnil(mLua);
+			}
+		}
+		lua_settable(mLua, -3);
+		
+		lua_call(mLua, contexted ? 2 : 1, 0);
+	}
 
 	bool LuaEventListener::operator==(const LuaEventListener *rhs) const
 	{

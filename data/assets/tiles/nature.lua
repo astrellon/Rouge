@@ -15,6 +15,12 @@ do
 		:add_texture("data/textures/tiles/grass_dirt_sand.png")
 		:texture_window_pixel({top_y = 64, right_x = 64})
 		:num_frames(2, 2))
+	
+	-- Sand
+	am.gfx_engine.asset(am.asset.new("sand")
+		:add_texture("data/textures/tiles/grass_dirt_sand.png")
+		:texture_window_pixel({top_y = 64, left_x = 64})
+		:num_frames(2, 2))
 		
 	-- Swamp
 	am.gfx_engine.asset(am.asset.new("swamp")
@@ -33,5 +39,9 @@ do
 		:add_texture("data/textures/tiles/bricks.png")
 		:texture_window_pixel({right_x = 31, bottom_y = 31}))
 	
+	-- Wood
+	am.gfx_engine.asset(am.asset.new("wood")
+		:add_texture("data/textures/tiles/wood.png")
+		:num_frames(4, 1))
 	
 end

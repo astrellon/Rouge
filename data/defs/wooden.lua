@@ -3,7 +3,7 @@ do
 	
 	-- Wooden Sword
 	local item = am.item.new()
-	item:item_fullname("Sword", "Wooden")
+		:item_fullname("Sword", "Wooden")
 		:item_type("sword")
 		:graphic(am.sprite.new("items/sword:main"))
 		:ground_graphic(am.sprite.new("items/sword:ground"))
@@ -16,7 +16,7 @@ do
 	
 	-- Wooden Shield
 	item = am.item.new()
-	item:item_fullname("Shield", "Wooden")
+		:item_fullname("Shield", "Wooden")
 		:item_type("shield")
 		:graphic(am.sprite.new("items/shield:main"))
 		:inventory_size(2, 2)
@@ -24,4 +24,12 @@ do
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")
 	game:item_def("shield", item)
+	
+	-- Paper message scroll
+	item = am.item.new()
+		:item_fullname("Scroll", "Paper")
+		:item_type("scroll")
+		:graphic(am.sprite.new("items/scroll:main"))
+		:inventory_size(2, 1)
+	game:item_def("scroll", item)
 end

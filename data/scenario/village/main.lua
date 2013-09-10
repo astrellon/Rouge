@@ -1,8 +1,8 @@
--- Test Scenario 1
+-- Village
 -- 
 return {
 	new_game = function(game)
-		map = game:map("testMap_2")
+		map = game:map("village1")
 		if (map ~= nil) then
 			game:current_map(map)
 		end

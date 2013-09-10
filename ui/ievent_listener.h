@@ -16,6 +16,7 @@ using std::vector;
 #include "dialogue_event.h"
 #include "stat_event.h"
 #include "list_event.h"
+#include "item_event.h"
 
 namespace am {
 namespace ui {
@@ -39,7 +40,7 @@ namespace ui {
 		virtual void onEvent(EquipEvent *e) {}
 		virtual void onEvent(DialogueEvent *e) {}
 		virtual void onEvent(StatEvent *e) {}
-		
+		virtual void onEvent(ItemEvent *e) {}
 
 		virtual bool compareListeners(const IEventListener *rhs) const { return this == rhs; }
 

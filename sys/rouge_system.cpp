@@ -400,7 +400,7 @@ namespace sys {
 			GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
-		if (mEngine->newGame("testScenario1"))
+		if (mEngine->newGame("village"))
 		{
 			Game *game = Engine::getGame();
 			if (game)
@@ -423,6 +423,11 @@ namespace sys {
 		mPausedGame = false;
 
 		Game *game = Engine::getGame();
+		if (!game->getCurrentMap())
+		{
+			am_log("START", "Unable to start game without a current map set onto the game!");
+			return;
+		}
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		mPlayer = game->getMainCharacter();

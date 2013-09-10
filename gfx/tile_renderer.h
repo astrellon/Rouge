@@ -37,6 +37,8 @@ namespace gfx {
 		void updateAssetSprite(Tile *tile);
 		virtual void render(float dt);
 
+		virtual string getName() const;
+
 	protected:
 
 		Map *mMap;

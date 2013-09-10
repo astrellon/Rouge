@@ -483,6 +483,17 @@ namespace game {
 		return mBodyPartsRequired;
 	}
 
+	void Item::pickedUp(Character *byCharacter)
+	{
+		Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
+		fireEvent<ItemEvent>(e);
+	}
+	void Item::dropped(Character *droppedByCharacter)
+	{
+		Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
+		fireEvent<ItemEvent>(e);
+	}
+
 	void Item::getPrePostfix(short &prefix, short &postfix) const
 	{
 		if (prefix < 0) {

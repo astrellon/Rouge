@@ -29,6 +29,7 @@ namespace ui {
 		virtual void onEvent(InventoryEvent *e);
 		virtual void onEvent(EquipEvent *e);
 		virtual void onEvent(DialogueEvent *e);
+		virtual void onEvent(ItemEvent *e);
 
 		bool operator==(const LuaEventListener *rhs) const;
 		bool operator==(const IEventListener *rhs) const;

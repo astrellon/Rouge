@@ -107,8 +107,8 @@ namespace game {
 		virtual void setBodyPartsRequired(unsigned int num);
 		virtual unsigned int getBodyPartsRequired() const;
 
-		//virtual void setBaseDamageType(DamageType type);
-		//virtual DamageType getBaseDamageType() const;
+		virtual void pickedUp(Character *byCharacter);
+		virtual void dropped(Character *droppedByCharacter);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

@@ -152,7 +152,8 @@ namespace game {
 
 	void Game::onEvent(MouseEvent *e)
 	{
-		if (!mCurrentMap || !mCurrentMap->getTileRenderer() || e->getTarget() != mCurrentMap->getTileRenderer())
+		TileRenderer *target = dynamic_cast<TileRenderer *>(e->getEventTarget());
+		if (!mCurrentMap || !target || target != mCurrentMap->getTileRenderer())
 		{
 			return;
 		}
@@ -230,8 +231,8 @@ namespace game {
 					return;
 				}
 				GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-				ReturnCode result = mMainCharacter->attack(obj, nullptr);
-				am_log("ATTKRES", am::base::getErrorMessage(result));
+				//ReturnCode result = mMainCharacter->attack(obj, nullptr);
+				//am_log("ATTKRES", am::base::getErrorMessage(result));
 				if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
 				{
 					mMainCharacter->getDialogueComp()->talkTo(obj);

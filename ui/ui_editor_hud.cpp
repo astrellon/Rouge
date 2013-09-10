@@ -34,6 +34,7 @@ namespace ui {
 	{
 		setName("EditorHud");
 		mSideSprite = new Sprite("editor:side_bar");
+		mSideSprite->addEventListener(MOUSE_DOWN, this);
 		addChild(mSideSprite);
 
 		float y = 20.0f;
@@ -81,6 +82,14 @@ namespace ui {
 		mMakeMap->getLabelField()->getGfxComponent()->setColour(1, 1, 1, 1);
 		mMakeMap->addEventListener("click", this);
 		addChild(mMakeMap);
+
+		y += 24.0f;
+		mStatus = new Label();
+		mStatus->getLabelField()->setBaseFont("default:arial");
+		mStatus->setParentOffset(20.0f, y);
+		mStatus->setGfxComponent(new GfxComponent());
+		mStatus->getGfxComponent()->setColour(1.0f, 0.9f, 0.8f, 1.0f);
+		addChild(mStatus);
 
 		y += 24.0f;
 		mTiles = new List();
@@ -177,6 +186,7 @@ namespace ui {
 		if (item)
 		{
 			mCurrentTile = item->getTile();
+			updateStatus();
 		}
 	}
 
@@ -273,6 +283,11 @@ namespace ui {
 			return;
 		}
 
+		if (e->getEventTarget() == mSideSprite && e->getMouseEventType() == MOUSE_DOWN)
+		{
+			return;
+		}
+
 		MouseManager *manager = MouseManager::getManager();
 		if (e->getMouseEventType() == MOUSE_DOWN)
 		{
@@ -287,23 +302,27 @@ namespace ui {
 			return;
 		}
 
-		if (e->getMouseEventType() == MOUSE_MOVE && mMouseDown)
+		if (e->getMouseEventType() == MOUSE_MOVE)
 		{
-			if (manager->getButtonDown(MIDDLE_BUTTON))
+			updateStatus();
+			if (mMouseDown)
 			{
-				float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
-				float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
+				if (manager->getButtonDown(MIDDLE_BUTTON))
+				{
+					float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
+					float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
 
-				Camera *camera = mGame->getCamera();
-				float posX = camera->getDestinationX() - dx;
-				float posY = camera->getDestinationY() - dy;
-				mGame->getCamera()->setDestination(posX, posY);
+					Camera *camera = mGame->getCamera();
+					float posX = camera->getDestinationX() - dx;
+					float posY = camera->getDestinationY() - dy;
+					mGame->getCamera()->setDestination(posX, posY);
+				}
+				else if (manager->getButtonDown(LEFT_BUTTON))
+				{
+					setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
+				}
+				manager->setDragOffset(e->getMouseX(), e->getMouseY());
 			}
-			else if (manager->getButtonDown(LEFT_BUTTON))
-			{
-				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
-			}
-			manager->setDragOffset(e->getMouseX(), e->getMouseY());
 		}
 		if (e->getMouseEventType() == MOUSE_UP)
 		{
@@ -462,6 +481,36 @@ namespace ui {
 		mHitbox->setWidth(width);
 	}
 
+	void EditorHud::updateStatus()
+	{
+		stringstream status;
+		if (mCurrentTile)
+		{
+			if (mCurrentTile->getTileSet())
+			{
+				status << mCurrentTile->getTileSet()->getName() << ": ";
+			}
+			status << mCurrentTile->getName() << ' ';
+		}
+		else
+		{
+			status << "<no tile>: ";
+		}
 
+		Map *map = mGame->getCurrentMap();
+		if (map)
+		{
+			MouseManager *manager = MouseManager::getManager();
+			Vector2f pos(0.0f, 0.0f);
+			map->getTileRenderer()->getScreenToLocal(manager->getMouseX(), manager->getMouseY(), pos.x, pos.y);
+			Vector2i grid = Engine::getEngine()->worldToGrid(pos);
+			status << grid.x << ", " << grid.y;
+		}
+		else
+		{
+			status << "<no map>";
+		}
+		mStatus->setLabel(status.str());
+	}
 }
 }

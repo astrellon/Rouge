@@ -625,7 +625,16 @@ namespace game {
 			}
 		}
 		// There may not be space so this can still return false.
-		return addItem(item) ? 1 : -2;
+		if (addItem(item))
+		{
+			Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
+			fireEvent<ItemEvent>(e);
+			return 1;
+		}
+		else
+		{
+			return -2;
+		}
 	}
 	bool Character::addItem(Item *item)
 	{
@@ -695,6 +704,8 @@ namespace game {
 		item->setItemLocation(Item::GROUND);
 
 		mInventory->removeItem(item);
+		Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
+		fireEvent<ItemEvent>(e);
 		return 1;
 	}
 

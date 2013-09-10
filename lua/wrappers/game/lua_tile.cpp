@@ -622,7 +622,7 @@ namespace game {
 				lua_first(lua);
 			}
 			Asset *asset = castUData<Asset>(lua, 2);
-			if (asset)
+			if (asset || lua_isnil(lua, 2))
 			{
 				tile->addTransitionalAsset(asset, overlapTile);
 				lua_first(lua);

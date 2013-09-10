@@ -291,5 +291,10 @@ namespace gfx {
 		}
 	}
 
+	string TileRenderer::getName() const
+	{
+		return "TileRenderer";
+	}
+
 }
 }

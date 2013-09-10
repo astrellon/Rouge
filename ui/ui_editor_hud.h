@@ -75,6 +75,7 @@ namespace ui {
 		Handle<TextButton> mMakeMap;
 		Handle<TextButton> mLoadMap;
 		Handle<TextButton> mSaveMap;
+		Handle<Label> mStatus;
 		Handle<List> mTiles;
 
 		Handle<FileDialog> mLoadFileDialog;
@@ -82,6 +83,7 @@ namespace ui {
 
 		Handle<Tile> mCurrentTile;
 
+		void updateStatus();
 		void setTile(float mouseX, float mouseY, Tile *tile);
 	};
 

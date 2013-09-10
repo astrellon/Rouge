@@ -45,7 +45,7 @@ namespace ui {
 		{
 			return;
 		}
-		NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getTarget());
+		NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getEventTarget());
 		if (nodeTarget)
 		{
 			Node *node = nodeTarget->getNodeTarget();
