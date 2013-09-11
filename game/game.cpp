@@ -211,7 +211,7 @@ namespace game {
 			if (clickedOn.size() > 0)
 			{
 				Item *item = dynamic_cast<Item *>(clickedOn[0].get());
-				if (!mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
+				if (item && !mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
 				{
 					return;
 				}
