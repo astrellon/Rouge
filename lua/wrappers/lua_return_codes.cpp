@@ -21,29 +21,39 @@ namespace lua {
 	 * This class provides the follow return code constants.
 	 * <h4>General</h4>
 	 * <ul>
-	 * <li>success</li>
-	 * <li>nil_parameter</li>
-	 * <li>internal_error</li>
-	 * <li>file_not_found</li>
+	 *  <li>success</li>
+	 *  <li>nil_parameter</li>
+	 *  <li>internal_error</li>
+	 *  <li>file_not_found</li>
 	 * </ul>
 	 * <h4>Character</h4>
 	 * <ul>
-	 * <li>able_to_equip</li>
-	 * <li>can_equip</li>
-	 * <li>body_part_type_mismatch</li>
-	 * <li>not_enough_body_parts</li>
-	 * <li>out_of_range</li>
-	 * <li>no_weapon_part</li>
+	 *  <li>able_to_equip</li>
+	 *  <li>can_equip</li>
+	 *  <li>body_part_type_mismatch</li>
+	 *  <li>not_enough_body_parts</li>
+	 *  <li>out_of_range</li>
+	 *  <li>no_weapon_part</li>
+	 *  <li>off_the_map</li>
+	 *  <li>invalid_location</li>
 	 * </ul>
 	 * <h4>Body Parts</h4>
 	 * <ul>
-	 * <li>body_part_found</li>
-	 * <li>body_part_not_found</li>
-	 * <li>body_part_type_unknown</li>
+	 *  <li>body_part_found</li>
+	 *  <li>body_part_not_found</li>
+	 *  <li>body_part_type_unknown</li>
 	 * </ul>
 	 * <h4>Texture</h4>
 	 * <ul>
-	 * <li>texture_load_failed</li>
+	 *  <li>texture_load_failed</li>
+	 * </ul>
+	 * <h4>System</h4>
+	 * <ul>
+	 *  <li>no_linked_System</li>
+	 * </ul>
+	 * <h4>Inventory</h4>
+	 * <ul>
+	 *  <li>not_enough_inventory_space</li>
 	 * </ul>
 	 */
 	int ReturnCodes_register(lua_State *lua)
@@ -72,12 +82,18 @@ namespace lua {
 		L.setTableValue("not_enough_body_parts", NOT_ENOUGH_BODY_PARTS);
 		L.setTableValue("out_of_range", OUT_OF_RANGE);
 		L.setTableValue("no_weapon_part", NO_WEAPON_PART);
+		L.setTableValue("off_the_map", OFF_THE_MAP);
+		L.setTableValue("invalid_location", INVALID_LOCATION);
 		// Body Parts
 		L.setTableValue("body_part_found", BODY_PART_FOUND);
 		L.setTableValue("body_part_not_found", BODY_PART_NOT_FOUND);
 		L.setTableValue("body_part_type_unknown", BODY_PART_TYPE_UNKNOWN);
 		// Texture
 		L.setTableValue("texture_load_failed", TEXTURE_LOAD_FAILED);
+		// System
+		L.setTableValue("no_linked_system", NO_LINKED_SYSTEM);
+		// Inventory
+		L.setTableValue("not_enough_inventory_space", NOT_ENOUGH_INVENTORY_SPACE);
 
 		lua_settable(lua, -3);
 

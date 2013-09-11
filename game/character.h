@@ -112,12 +112,13 @@ namespace game {
 		
 		virtual Inventory *getInventory();
 
-		virtual int pickupItem(Item *item);
+		virtual ReturnCode pickupItem(Item *item);
 		virtual bool addItem(Item *item);
 		virtual bool removeItem(Item *item);
 		virtual bool hasItem(const Item *item) const;
-		virtual int dropItem(Item *item);
-		virtual int dropItem(Item *item, float x, float y);
+		virtual ReturnCode dropItem(Item *item);
+		virtual ReturnCode dropItem(Item *item, float x, float y);
+		virtual bool canReachLocation(float x, float y) const;
 
 		virtual ReturnCode attack(GameObject *enemy, Item *withItem);
 		virtual void receiveDamage(float damage);

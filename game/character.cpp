@@ -608,20 +608,17 @@ namespace game {
 		return mInventory;
 	}
 
-	int Character::pickupItem(Item *item)
+	ReturnCode Character::pickupItem(Item *item)
 	{
 		if (item == nullptr)
 		{
-			return 0;
+			return NULL_PARAMETER;
 		}
 		if (item->getItemLocation() == Item::GROUND)
 		{
-			float dx = item->getLocationX() - getLocationX();
-			float dy = item->getLocationY() - getLocationY();
-			if (dx > mPickupReach || dx < -mPickupReach || dy > mPickupReach || dy < -mPickupReach)
+			if (!canReachLocation(getLocationX(), getLocationY()))
 			{
-				// Too far away.
-				return -1;
+				return OUT_OF_RANGE;
 			}
 		}
 		// There may not be space so this can still return false.
@@ -630,11 +627,11 @@ namespace game {
 			Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
 			fireEvent<ItemEvent>(e);
 			item->pickedUp(this);
-			return 1;
+			return SUCCESS;
 		}
 		else
 		{
-			return -2;
+			return NOT_ENOUGH_INVENTORY_SPACE;
 		}
 	}
 	bool Character::addItem(Item *item)
@@ -672,11 +669,11 @@ namespace game {
 
 		return mInventory->hasItem(item);
 	}
-	int Character::dropItem(Item *item)
+	ReturnCode Character::dropItem(Item *item)
 	{
 		return dropItem(item, getLocationX(), getLocationY());
 	}
-	int Character::dropItem(Item *item, float x, float y)
+	ReturnCode Character::dropItem(Item *item, float x, float y)
 	{
 		if (item == nullptr || mMap == nullptr ||
 			x < 0 || y < 0 ||
@@ -684,21 +681,18 @@ namespace game {
 			y >= mMap->getHeight())
 		{
 			am_log("CHAR", "Off map");
-			return 0;
+			return OFF_THE_MAP;
 		}
 
-		float dx = getLocationX() - x;
-		float dy = getLocationY() - y;
-		if (mPickupReach > 0.0f && (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach))
+		if (!canReachLocation(x, y))
 		{
-			am_log("CHAR", "Too far away");
-			return -1;
+			return OUT_OF_RANGE;
 		}
 
 		if (!mMap->isValidLocation(x, y, item))
 		{
 			am_log("CHAR", "Invalid location for item");
-			return -2;
+			return INVALID_LOCATION;
 		}
 		item->setLocation(x, y);
 		mMap->addGameObject(item);
@@ -708,7 +702,17 @@ namespace game {
 		Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
 		fireEvent<ItemEvent>(e);
 		item->dropped(this);
-		return 1;
+		return SUCCESS;
+	}
+	bool Character::canReachLocation(float x, float y) const
+	{
+		float dx = getLocationX() - x;
+		float dy = getLocationY() - y;
+		if (mPickupReach > 0.0f && (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach))
+		{
+			return false;
+		}
+		return true;
 	}
 
 	const char *Character::getGameObjectTypeName() const

@@ -179,7 +179,7 @@ namespace game {
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != nullptr)
 			{
-				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY))
+				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == SUCCESS)
 				{
 					mItemLayer->addChild(hand->getInhand());
 					hand->setInhand(nullptr);
@@ -211,6 +211,10 @@ namespace game {
 			if (clickedOn.size() > 0)
 			{
 				Item *item = dynamic_cast<Item *>(clickedOn[0].get());
+				if (!mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
+				{
+					return;
+				}
 				if (item)
 				{
 					// If holding shift, it goes straight into the inventory.
@@ -241,7 +245,6 @@ namespace game {
 			}
 			else
 			{
-			
 				GameHud *gameHud = Engine::getEngine()->getGameHud();
 				if (gameHud)
 				{

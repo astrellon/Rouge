@@ -17,7 +17,9 @@ namespace base {
 		NOT_ENOUGH_BODY_PARTS =		-0x0101,
 		OUT_OF_RANGE =				-0x0102,
 		NO_WEAPON_PART =			-0x0103,
-
+		OFF_THE_MAP =				-0x0104,
+		INVALID_LOCATION =			-0x0105,
+		
 		// Body Parts related
 		BODY_PART_FOUND =			0x0200,
 		BODY_PART_NOT_FOUND =		-0x0200,
@@ -27,7 +29,10 @@ namespace base {
 		TEXTURE_LOAD_FAILED =		-0x0300,
 
 		// System related
-		NO_LINKED_SYSTEM =			-0x400
+		NO_LINKED_SYSTEM =			-0x0400,
+
+		// Inventory related
+		NOT_ENOUGH_INVENTORY_SPACE = -0x0500
 	};
 
 	const char *getErrorMessage(ReturnCode code);

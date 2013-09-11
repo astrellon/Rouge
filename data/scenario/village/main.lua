@@ -10,7 +10,7 @@ return {
 		player = am.character.from_def("races:human", "melli")
 		player:name("Melanie")
 			:graphic(am.sprite.new("characters/human:kaswe"))
-			:grid_location(2, 4)
+			:grid_location(8, 18)
 			:gender("female")
 			:stats():base_stat("speed", 2)
 		local sword = am.item.from_def("wooden:sword")

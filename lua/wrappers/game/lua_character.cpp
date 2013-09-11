@@ -656,17 +656,15 @@ namespace game {
 	}
 	/**
 	 * Attempts to pickup an item.
-	 * Returns an integer return code:
-	 * <ul>
-	 * <li>1: Success.</li>
-	 * <li>0: Given item was nil.</li>
-	 * <li>-1: The item was too far away.</li>
-	 * <li>-2: There was not enough space in the characters inventory.</li>
-	 * <li>-3: Error.</li>
-	 * </ul>
 	 *
 	 * @param am.item item The item to attempt to pickup.
-	 * @returns integer Return code for the pickup.
+	 * @returns am.code Return code for the pickup:
+	 * <table class='return_codes'>
+	 *  <tr><td>success</td><td>The item was picked up.</td></tr>
+	 *  <tr><td>nil_parameter</td><td>The item was nil.</td></tr>
+	 *  <tr><td>out_of_range</td><td>The item was out of range of this characters pickup radius.</td></tr>
+	 *  <tr><td>not_enough_inventory_space</td><td>There's not enough space for the item to be picked up.</td></tr>
+	 * </table>
 	 */
 	int Character_pickup_item(lua_State *lua)
 	{
@@ -762,7 +760,14 @@ namespace game {
 	 * </ul>
 	 *
 	 * @param am.item item The item to drop
-	 * @returns integer Drop item return code.
+	 * @returns integer Drop item return code:
+	 * <table class='return_codes'>
+	 *  <tr><td>success</td><td>The item was dropped.</td></tr>
+	 *  <tr><td>nil_parameter</td><td>The item was nil.</td></tr>
+	 *  <tr><td>off_the_map</td><td>The drop location was off the map.</td></tr>
+	 *  <tr><td>out_of_range</td><td>The item was out of range of this characters pickup radius to drop (should not happen).</td></tr>
+	 *  <tr><td>invalid_location</td><td>The drop location was invalid for the item.</td></tr>
+	 * </table>
 	 */
 	/**
 	 * Drops an item at the given map coordinates.
