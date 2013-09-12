@@ -36,7 +36,8 @@ namespace game {
 		mMapWidth(0),
 		mMapHeight(0),
 		mWidth(0.0f),
-		mHeight(0.0f)
+		mHeight(0.0f),
+		mGamePartof(nullptr)
 	{
 
 		mTileRenderer = new TileRenderer(this);
@@ -56,7 +57,8 @@ namespace game {
 		mMapWidth(0),
 		mMapHeight(0),
 		mWidth(0.0f),
-		mHeight(0.0f)
+		mHeight(0.0f),
+		mGamePartof(nullptr)
 	{
 		setMapSize(width, height);
 		mTileRenderer = new TileRenderer(this);
@@ -76,7 +78,8 @@ namespace game {
 		mMapWidth(0),
 		mMapHeight(0),
 		mWidth(0.0f),
-		mHeight(0.0f)
+		mHeight(0.0f),
+		mGamePartof(nullptr)
 	{
 		for (int i = 0; i < mBackground->getNumChildren(); i++)
 		{
@@ -514,14 +517,9 @@ namespace game {
 		if (iter == mObjects.end())
 		{
 			mObjects.push_back(object);
-			Game *game = Engine::getGame();
-			if (game && game->getCurrentMap() == this)
+			if (mGamePartof && mGamePartof->getCurrentMap() == this)
 			{
-				ISource *source = object->getSource(false);
-				if (source)
-				{
-					source->play();
-				}
+				mGamePartof->addGameObject(object);
 			}
 			object->setMap(this);
 			return true;
@@ -693,6 +691,15 @@ namespace game {
 	const char *Map::getFilename() const
 	{
 		return mFilename.c_str();
+	}
+
+	void Map::setGamePartof(Game *game)
+	{
+		mGamePartof = game;
+	}
+	Game *Map::getGamePartof() const
+	{
+		return mGamePartof;
 	}
 	
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)

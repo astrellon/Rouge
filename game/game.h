@@ -65,6 +65,8 @@ namespace game {
 		void setCurrentMap(const char *mapName);
 		void setCurrentMap(const string &mapName);
 
+		void addGameObject(GameObject *obj);
+
 		Layer *getGameLayer();
 		Layer *getBackground();
 		Layer *getItemLayer();

@@ -20,6 +20,7 @@ namespace game {
 
 	class TileInstance;
 	class Tile;
+	class Game;
 
 	class Map : public IManaged {
 	public:
@@ -81,6 +82,9 @@ namespace game {
 		void setFilename(const char *filename);
 		const char *getFilename() const;
 
+		void setGamePartof(Game *game);
+		Game *getGamePartof() const;
+
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
 		ReturnCode saveMap(const char *filename) const;
@@ -109,6 +113,8 @@ namespace game {
 		Handle<Layer> mBackground;
 		Handle<Layer> mForeground;
 		Handle<TileRenderer> mTileRenderer;
+
+		Game *mGamePartof;
 
 		bool canOverlap(int x, int y, Tile *overlapTile) const;
 		bool canOverlap(Tile *tile, Tile *overlapTile) const;

@@ -23,6 +23,7 @@ using namespace std;
 #include <log/logger.h>
 
 #include <gl.h>
+#include <gfx/gfx_texture.h>
 
 #include "engine.h"
 
@@ -1122,8 +1123,9 @@ namespace game {
 	{
 		if (!mDestinationPath.empty())
 		{
-			glPushMatrix();
 			
+			glPushMatrix();
+			gfx::Texture::bindTexture(0);
 			Engine *engine = Engine::getEngine();
 			glTranslatef(-mLocationX + engine->getGridSize() * 0.5f, -mLocationY + engine->getGridSize() * 0.5f, 0.0f);
 			glBegin(GL_LINES);

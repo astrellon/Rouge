@@ -271,6 +271,7 @@ namespace game {
 		if (map && map->getName().size() > 0)
 		{
 			mMaps[map->getName()] = map;
+			map->setGamePartof(this);
 			return true;
 		}
 		return false;
@@ -284,6 +285,7 @@ namespace game {
 			{
 				if (iter->second.get() == map)
 				{
+					map->setGamePartof(nullptr);
 					mMaps.erase(iter);
 					return true;
 				}
@@ -372,20 +374,7 @@ namespace game {
 				ObjectList::iterator iter;
 				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 				{
-					GameObject *obj = iter->get();
-					if (obj->getGameObjectType() == GameObject::CHARACTER)
-					{
-						mCharacterLayer->addChild(obj);
-					}
-					else if (obj->getGameObjectType() == GameObject::ITEM)
-					{
-						mItemLayer->addChild(obj);
-					}
-					ISource *source = obj->getSource(false);
-					if (source)
-					{
-						source->play();
-					}
+					addGameObject(iter->get());
 				}
 			}
 			else
@@ -397,6 +386,7 @@ namespace game {
 			if (addMap && map->getName().size() > 0)
 			{
 				mMaps[map->getName()] = map;
+				map->setGamePartof(this);
 			}
 		}
 	}
@@ -409,6 +399,23 @@ namespace game {
 		setCurrentMap(getMapLua(mapName));
 	}
 
+	void Game::addGameObject(GameObject *obj)
+	{
+		if (obj->getGameObjectType() == GameObject::CHARACTER)
+		{
+			mCharacterLayer->addChild(obj);
+		}
+		else if (obj->getGameObjectType() == GameObject::ITEM)
+		{
+			mItemLayer->addChild(obj);
+		}
+		ISource *source = obj->getSource(false);
+		if (source)
+		{
+			source->play();
+		}
+	}
+
 	bool Game::addGameObjectToMap(GameObject *object)
 	{
 		if (mCurrentMap.get() == nullptr)
@@ -416,19 +423,7 @@ namespace game {
 			am_log("MAP", "Unable to add game object to null current map");
 			return false;
 		}
-		if (mCurrentMap->addGameObject(object))
-		{
-			if (strcmp(object->getGameObjectTypeName(), "character") == 0)
-			{
-				mCharacterLayer->addChild(object);
-			}
-			else
-			{
-				mItemLayer->addChild(object);
-			}
-			return true;
-		}
-		return false;
+		return mCurrentMap->addGameObject(object);
 	}
 	bool Game::removeGameObjectFromMap(GameObject *object)
 	{
