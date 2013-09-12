@@ -38,6 +38,10 @@ namespace game {
 	class GameObject : public Layer, public IAttributeData, public IDefinition {
 	public:
 
+		enum GameObjectType {
+			UNKNOWN_TYPE, GAME_OBJECT, CHARACTER, ITEM
+		};
+
 		enum DamageType {
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
@@ -107,6 +111,7 @@ namespace game {
 		virtual const PassibleTypeList &getPassibleTypes() const;
 
 		virtual const char *getGameObjectTypeName() const;
+		virtual GameObjectType getGameObjectType() const;
 
 		virtual bool setGameId(const char *id);
 		virtual const char *getGameId() const;

@@ -372,8 +372,16 @@ namespace game {
 				ObjectList::iterator iter;
 				for (iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 				{
-					mCharacterLayer->addChild(iter->get());
-					ISource *source = (*iter)->getSource(false);
+					GameObject *obj = iter->get();
+					if (obj->getGameObjectType() == GameObject::CHARACTER)
+					{
+						mCharacterLayer->addChild(obj);
+					}
+					else if (obj->getGameObjectType() == GameObject::ITEM)
+					{
+						mItemLayer->addChild(obj);
+					}
+					ISource *source = obj->getSource(false);
 					if (source)
 					{
 						source->play();

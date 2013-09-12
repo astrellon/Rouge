@@ -93,6 +93,7 @@ namespace game {
 
 		virtual string getName() const;
 		virtual const char *getGameObjectTypeName() const;
+		virtual GameObjectType getGameObjectType() const;
 
 		static ItemLocation getItemLocationType(const char *typeName);
 		static ItemLocation getItemLocationType(int typeValue);

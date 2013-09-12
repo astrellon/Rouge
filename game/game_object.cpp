@@ -690,6 +690,10 @@ namespace game {
 	{
 		return "gameobject";
 	}
+	GameObject::GameObjectType GameObject::getGameObjectType() const
+	{
+		return GAME_OBJECT;
+	}
 
 	void GameObject::postRender(float dt)
 	{

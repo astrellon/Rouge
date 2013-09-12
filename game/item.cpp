@@ -411,6 +411,10 @@ namespace game {
 	{
 		return "item";
 	}
+	GameObject::GameObjectType Item::getGameObjectType() const
+	{
+		return ITEM;
+	}
 
 	string Item::getName() const
 	{

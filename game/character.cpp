@@ -719,6 +719,10 @@ namespace game {
 	{
 		return "character";
 	}
+	GameObject::GameObjectType Character::getGameObjectType() const
+	{
+		return CHARACTER;
+	}
 
 	void Character::setAge(float age)
 	{

@@ -124,6 +124,7 @@ namespace game {
 		virtual void receiveDamage(float damage);
 		
 		virtual const char *getGameObjectTypeName() const;
+		virtual GameObjectType getGameObjectType() const;
 
 		virtual void setAge(float age);
 		virtual float getAge() const;
