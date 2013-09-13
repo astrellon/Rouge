@@ -62,7 +62,7 @@ namespace ui {
 
 	Renderable *MouseEvent::getTarget() const
 	{
-		return reinterpret_cast<Renderable *>(mEventTarget.get());
+		return dynamic_cast<Renderable *>(mEventTarget.get());
 	}
 
 }

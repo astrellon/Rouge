@@ -1,12 +1,14 @@
 #include "ui_tooltip.h"
 
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_texture.h>
+#include <gl.h>
 
 namespace am {
 namespace ui {
 
 	Tooltip::Tooltip() :
-		mGraphic(new Sprite("tooltip")),
+		mGraphic(new Sprite("ui:tooltip")),
 		mTextField(new TextField2()),
 		mDetailedTextField(new TextField2()),
 		mState(HIDDEN),
@@ -22,7 +24,7 @@ namespace ui {
 		mDetailedTextField->setPosition(8.0f, 8.0f);
 	}
 	Tooltip::Tooltip(const char *tooltip, const char *detailed, Renderable *target) :
-		mGraphic(new Sprite("tooltip")),
+		mGraphic(new Sprite("ui:tooltip")),
 		mTextField(new TextField2()),
 		mDetailedTextField(new TextField2()),
 		mState(HIDDEN),
@@ -214,6 +216,16 @@ namespace ui {
 		{
 			return;
 		}
+		/*glPushMatrix();
+		mTransform.apply();
+		
+		Texture::bindTexture(0);
+		glBegin(GL_LINES);
+		glColor3d(1, 0, 0);
+		glVertex2f(0, 0);
+		glVertex2f(50, 50);
+		glEnd();
+		glPopMatrix();*/
 		Layer::render(dt);
 	}
 

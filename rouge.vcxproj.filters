@@ -892,6 +892,9 @@
     <ClCompile Include="ui\item_event.cpp">
       <Filter>ui\events</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_tooltip_component.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1626,6 +1629,9 @@
     </ClInclude>
     <ClInclude Include="ui\item_event.h">
       <Filter>ui\events</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_tooltip_component.h">
+      <Filter>gfx\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

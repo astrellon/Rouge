@@ -398,6 +398,11 @@ namespace game {
 		return mName.substr(mName.size() - mPostfix);
 	}
 
+	const char *Item::getTooltip() const
+	{
+		return mName.c_str();
+	}
+
 	float Item::getWidth()
 	{
 		return mCurrentGraphic->getWidth();

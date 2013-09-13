@@ -145,6 +145,12 @@ namespace sys {
 
 		mGfxListener = new GfxLogListener(mDebugConsole);
 		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
+
+		MouseManager *manager = MouseManager::getManager();
+		manager->addEventListener(MOUSE_OVER, this);
+		manager->addEventListener(MOUSE_OUT, this);
+
+		mTooltip = new Tooltip();
 	}
 
 	void GameSystem::reshape(int width, int height)
@@ -170,6 +176,10 @@ namespace sys {
 	{
 		Pathfinder::releasePathfinder();
 		DebugInspector::setInspector(nullptr);
+
+		MouseManager *manager = MouseManager::getManager();
+		manager->removeEventListener(MOUSE_OVER, this);
+		manager->removeEventListener(MOUSE_OUT, this);
 	}
 
 	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
@@ -295,5 +305,30 @@ namespace sys {
 		}
 		return NO_LINKED_SYSTEM;
 	}
+
+	void GameSystem::onEvent(MouseEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+
+		if (e->getMouseEventType() == MOUSE_OVER && e->getTarget())
+		{
+			const char *tooltip = e->getTarget()->getTooltip();
+			if (tooltip && tooltip[0] != '\0')
+			{
+				mTooltip->setText(e->getTarget()->getTooltip());
+				mTooltip->setDetailedText(e->getTarget()->getDetailedTooltip());
+				mTooltip->setPosition(e->getMouseX(), e->getMouseY());
+				mTooltip->active();
+			}
+		}
+		else
+		{
+			mTooltip->hide();
+		}
+	}
+
 }
 }

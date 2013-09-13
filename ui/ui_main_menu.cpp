@@ -27,10 +27,13 @@ namespace ui {
 
 		float buttonHeight = mStartGame->getHeight();
 		mStartGame->setWidth(220.0f);
+		mStartGame->setTooltip("Start Game");
+		mStartGame->setDetailedTooltip("Really start the game");
 		mStartGame->setParentOffsetY(-buttonHeight * 2.0f);
 		mStartGame->addEventListener("click", this);
 
 		mLoadGame->setParentOffsetY(-buttonHeight * 1.0f);
+		mLoadGame->setTooltip("Load Game");
 		mLoadGame->setWidth(200.0f);
 		mLoadGame->addEventListener("click", this);
 

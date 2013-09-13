@@ -50,7 +50,6 @@ namespace ui {
 	}
 	TextButton::~TextButton()
 	{
-		
 	}
 
 	void TextButton::init()
@@ -151,6 +150,23 @@ namespace ui {
 	{
 		float fontHeight = mLabel->getMeasuredHeight();
 		mLabel->setPosition(0.0f, (mGraphic->getHeight() - fontHeight) * 0.5f);
+	}
+
+	void TextButton::setTooltip(const char *tooltip)
+	{
+		mGraphic->setTooltip(tooltip);
+	}
+	const char *TextButton::getTooltip() const
+	{
+		return mGraphic->getTooltip();
+	}
+	void TextButton::setDetailedTooltip(const char *tooltip)
+	{
+		mGraphic->setDetailedTooltip(tooltip);
+	}
+	const char *TextButton::getDetailedTooltip() const
+	{
+		return mGraphic->getDetailedTooltip();
 	}
 
 }

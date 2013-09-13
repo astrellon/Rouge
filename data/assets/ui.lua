@@ -69,5 +69,5 @@ do
 		:scale_nine({
 			left_x = 2, right_x = 14,
 			top_y = 2, bottom_y = 14
-		}))
+		}, true))
 end

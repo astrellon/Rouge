@@ -21,6 +21,7 @@ namespace gfx {
 		typedef vector< Handle<Effect> > EffectList;
 
 		GfxComponent();
+		GfxComponent(const GfxComponent &copy);
 		~GfxComponent();
 
 		virtual Colour &getColour();

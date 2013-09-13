@@ -1,0 +1,12 @@
+Release/
+Debug/
+Debug Tests/
+ext_assets/
+ipch/
+saves/
+python/classes/
+python/__pycache__/
+
+*.sdf
+*.suo
+*.vcxprof.user

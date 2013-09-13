@@ -28,9 +28,7 @@ namespace gfx {
 		mHeight(0),
 		mParent(nullptr),
 		mInteractive(false),
-		mVisible(true),
-		mGfxComponent(nullptr)
-		//mColour(1.0f, 1.0f, 1.0f, 1.0f)
+		mVisible(true)
 	{
 #ifdef _DEBUG
 		mRenderColour = false;
@@ -44,9 +42,16 @@ namespace gfx {
 		mInteractive(copy.mInteractive),
 		mParent(nullptr),
 		mVisible(copy.mVisible),
-		mGfxComponent(copy.mGfxComponent),
 		mTransform(copy.mTransform)
 	{
+		if (copy.mGfxComponent)
+		{
+			mGfxComponent = new GfxComponent(*copy.mGfxComponent.get());
+		}
+		if (copy.mTooltip)
+		{
+			mTooltip = new TooltipComponent(*copy.mTooltip.get());
+		}
 #ifdef _DEBUG
 		mRenderColour = copy.mRenderColour;
 		mDebugName = copy.mDebugName;
@@ -55,7 +60,7 @@ namespace gfx {
 	Renderable::~Renderable()
 	{
 #ifdef _DEBUG
-		am_log("DELETING", mDebugName);
+		//am_log("DELETING", mDebugName);
 #endif
 		if (mParent)
 		{
@@ -309,6 +314,39 @@ namespace gfx {
 
 		outX = inX + offsetX;
 		outY = inY + offsetY;
+	}
+
+	void Renderable::setTooltip(const char *tooltip)
+	{
+		if (!mTooltip && tooltip && tooltip[0] != '\0')
+		{
+			mTooltip = new TooltipComponent();
+		}
+		mTooltip->setTooltip(tooltip);
+	}
+	const char *Renderable::getTooltip() const
+	{
+		if (mTooltip)
+		{
+			return mTooltip->getTooltip();
+		}
+		return "";
+	}
+	void Renderable::setDetailedTooltip(const char *tooltip)
+	{
+		if (!mTooltip && tooltip && tooltip[0] != '\0')
+		{
+			mTooltip = new TooltipComponent();
+		}
+		mTooltip->setDetailedTooltip(tooltip);
+	}
+	const char *Renderable::getDetailedTooltip() const
+	{
+		if (mTooltip)
+		{
+			return mTooltip->getDetailedTooltip();
+		}
+		return "";
 	}
 
 }

@@ -9,6 +9,10 @@ namespace gfx {
 		mColour(1.0f, 1.0f, 1.0f, 1.0f)
 	{
 	}
+	GfxComponent::GfxComponent(const GfxComponent &copy) :
+		mColour(copy.mColour)
+	{
+	}
 	GfxComponent::~GfxComponent()
 	{
 	}

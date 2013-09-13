@@ -95,7 +95,7 @@ namespace ui {
 
 	void Inspector::onEvent(MouseEvent *e)
 	{
-		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getTarget());
+		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getEventTarget());
 		if (textHit != nullptr)
 		{
 			int index = -1;

@@ -52,6 +52,11 @@ namespace ui {
 		virtual void setEnabled(bool enabled);
 
 		virtual void onEvent(Event *e);
+		
+		virtual void setTooltip(const char *tooltip);
+		virtual const char *getTooltip() const;
+		virtual void setDetailedTooltip(const char *tooltip);
+		virtual const char *getDetailedTooltip() const;
 
 	protected:
 

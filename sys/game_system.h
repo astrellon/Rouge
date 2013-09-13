@@ -7,6 +7,8 @@ using namespace am::base;
 #include <ui/mouse_event.h>
 #include <ui/mouse_manager.h>
 #include <ui/ui_debug_inspector.h>
+#include <ui/ui_tooltip.h>
+
 using namespace am::ui;
 
 #include "isystem.h"
@@ -82,6 +84,8 @@ namespace sys {
 		virtual bool createDirectory(const char *folderName);
 		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
 
+		virtual void onEvent(MouseEvent *e);
+
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 
@@ -100,6 +104,7 @@ namespace sys {
 
 		Handle<TextList> mDebugConsole;
 		Handle<DebugInspector> mDebugInspector;
+		Handle<Tooltip> mTooltip;
 	};
 
 }

@@ -206,7 +206,7 @@ namespace game {
 			}
 		}
 
-		if (e->getMouseButton() == RIGHT_BUTTON)
+		if (e->getMouseButton() == LEFT_BUTTON)
 		{
 			if (clickedOn.size() > 0)
 			{
@@ -245,24 +245,24 @@ namespace game {
 			}
 			else
 			{
-				GameHud *gameHud = Engine::getEngine()->getGameHud();
-				if (gameHud)
-				{
-					int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
-					int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
-
-					Tile *tile = mCurrentMap->getTile(gridX, gridY);
-					Inspector *inspector = gameHud->getInspector();
-					inspector->setTile(tile);
-
-					inspector->clearGameObjects();
-					inspector->addGameObjects(clickedOn);
-				}
+				mMainCharacter->setDestination(localX, localY);
 			}
 		}
-		else if (e->getMouseButton() == LEFT_BUTTON)
+		else if (e->getMouseButton() == RIGHT_BUTTON)
 		{
-			mMainCharacter->setDestination(localX, localY);
+			GameHud *gameHud = Engine::getEngine()->getGameHud();
+			if (gameHud)
+			{
+				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
+				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
+
+				Tile *tile = mCurrentMap->getTile(gridX, gridY);
+				Inspector *inspector = gameHud->getInspector();
+				inspector->setTile(tile);
+
+				inspector->clearGameObjects();
+				inspector->addGameObjects(clickedOn);
+			}
 		}
 	}
 

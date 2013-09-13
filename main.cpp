@@ -36,8 +36,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	keyboardManager->retain();
 	am::ui::KeyboardManager::setManager(keyboardManager);
 
-	am::sys::WinSystem win;
-	win.setHInstance(hInstance);
+	am::sys::WinSystem *win = new am::sys::WinSystem();
+	win->setHInstance(hInstance);
 
 	int testing = 0;
 #ifdef TESTING
@@ -49,24 +49,24 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::sys::GameSystem *gameSystem;
 	if (testing == 1)
 	{
-		am::sys::UnitTestSystem *unitTestSystem = am::sys::UnitTestSystem::createUnitTestSystem(&win, engine);
+		am::sys::UnitTestSystem *unitTestSystem = am::sys::UnitTestSystem::createUnitTestSystem(win, engine);
 		gameSystem = unitTestSystem;
 		gameSystem->setTitle("Rouge Game - Unit Tests");
 	}
 	else if (testing == 2)
 	{
-		am::sys::MemoryTestSystem *memTestSystem = am::sys::MemoryTestSystem::createMemoryTestSystem(&win, engine);
+		am::sys::MemoryTestSystem *memTestSystem = am::sys::MemoryTestSystem::createMemoryTestSystem(win, engine);
 		gameSystem = memTestSystem;
 		gameSystem->setTitle("Rouge Game - Memory Leak Test");
 	}
 	else
 	{
-		am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(&win, engine);
+		am::sys::RougeSystem *rougeSystem = am::sys::RougeSystem::createRougeSystem(win, engine);
 		gameSystem = rougeSystem;
 		gameSystem->setTitle("Rouge Game");
 	}
-
-	win.setGameSystem(gameSystem);
+	gameSystem->retain();
+	win->setGameSystem(gameSystem);
 	
 	gameSystem->setSize(880, 700);
 	gameSystem->setPosition(50, 50);
@@ -75,16 +75,14 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	// The main game loop has finished, shut down phase.
 	gameSystem->deinit();
+	gameSystem->release();
 
 	// Remove things which have event listeners before the
 	// managers get deleted.
 	engine->deinit();
 	am::gfx::GfxEngine::deinitGfxEngine();
 	am::sfx::SfxEngine::deinitSfxEngine();
-	delete engine;
-	delete gameSystem;
-	delete mouseManager;
-	delete keyboardManager;
+	engine->release();
 	am::util::Colour::removeAllColours();
 
 	am::log::Logger::clearMainLogger();

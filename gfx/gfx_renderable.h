@@ -14,6 +14,7 @@ using namespace am::util;
 
 #include "gfx_effect.h"
 #include "gfx_component.h"
+#include "gfx_tooltip_component.h"
 
 namespace am {
 namespace gfx {
@@ -86,6 +87,11 @@ namespace gfx {
 		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
 		virtual void getLocalToScreen(const float &inX, const float &inY, float &outX, float &outY) const;
 
+		virtual void setTooltip(const char *tooltip);
+		virtual const char *getTooltip() const;
+		virtual void setDetailedTooltip(const char *tooltip);
+		virtual const char *getDetailedTooltip() const;
+
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 
 		static void debugRenderPath(const RenderablePath &path, vector<string> &output);
@@ -103,6 +109,7 @@ namespace gfx {
 		bool mInteractive;
 
 		Handle<GfxComponent> mGfxComponent;
+		Handle<TooltipComponent> mTooltip;
 		Layer *mParent;
 		am::math::TransformLite mTransform;
 
