@@ -28,6 +28,7 @@ namespace ui {
 		virtual int getLocalMouseY() const;
 
 		virtual Renderable *getTarget() const;
+		virtual Renderable *getOriginalTarget() const;
 
 	protected:
 
@@ -38,6 +39,7 @@ namespace ui {
 		int mLocalMouseX;
 		int mLocalMouseY;
 
+		Renderable *mOriginalTarget;
 		MouseEventType mMouseEventType;
 
 		//Renderable *mTarget;

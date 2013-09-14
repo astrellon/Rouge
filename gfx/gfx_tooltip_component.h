@@ -12,6 +12,8 @@ using namespace std;
 namespace am {
 namespace gfx {
 
+	class Renderable;
+
 	class TooltipComponent : public IManaged {
 	public:
 
@@ -25,10 +27,15 @@ namespace gfx {
 		void setDetailedTooltip(const char *tooltip);
 		const char *getDetailedTooltip() const;
 
+		void setParent(Renderable *parent);
+		Renderable *getParent() const;
+
 	protected:
 
 		string mTooltip;
 		string mDetailedTooltip;
+		Renderable *mParent;
+		bool mListeners;
 		
 	};
 

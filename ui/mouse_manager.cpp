@@ -213,6 +213,7 @@ namespace ui {
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
 			target = target->getParent();
+			mCurrentEvent->setEventTarget(target);
 		}
 		if (!mStopCurrentEvents)
 		{

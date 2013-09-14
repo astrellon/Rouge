@@ -1,14 +1,18 @@
 #include "gfx_tooltip_component.h"
 
+#include <gfx/gfx_renderable.h>
+
 namespace am {
 namespace gfx {
 
-	TooltipComponent::TooltipComponent()
+	TooltipComponent::TooltipComponent() :
+		mParent(nullptr)
 	{
 	}
 	TooltipComponent::TooltipComponent(const TooltipComponent &copy) :
 		mTooltip(copy.mTooltip),
-		mDetailedTooltip(copy.mDetailedTooltip)
+		mDetailedTooltip(copy.mDetailedTooltip),
+		mParent(nullptr)
 	{
 
 	}
@@ -42,6 +46,27 @@ namespace gfx {
 	const char *TooltipComponent::getDetailedTooltip() const
 	{
 		return mDetailedTooltip.c_str();
+	}
+
+	void TooltipComponent::setParent(Renderable *parent)
+	{
+		if (mParent == parent)
+		{
+			return;
+		}
+		if (mParent)
+		{
+			mParent->release();
+		}
+		mParent = parent;
+		if (mParent)
+		{
+			mParent->retain();
+		}
+	}
+	Renderable *TooltipComponent::getParent() const
+	{
+		return mParent;
 	}
 
 }
