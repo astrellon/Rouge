@@ -33,6 +33,7 @@ namespace game {
 	int Item_prefix(lua_State *lua);
 	int Item_postfix(lua_State *lua);
 	int Item_item_fullname(lua_State *lua);
+	int Item_description(lua_State *lua);
 
 	int Item_set_item_from(lua_State *lua);
 

@@ -175,6 +175,7 @@ namespace game {
 			{ "from_def", Character_from_def },
 
 			{ "name", Character_name },
+			{ "description", Character_description },
 			{ "pickup_reach", Character_pickup_reach },
 			{ "stats", Character_stats },
 			{ "add_body_part", Character_add_body_part },
@@ -333,6 +334,42 @@ namespace game {
 			return LuaState::expectedArgs(lua, "name", "string name");
 		}
 		return LuaState::expectedContext(lua, "name", "am.character");
+	}
+
+	/**
+	 * Returns the description of the character.
+	 * A nil return indicates that there was an error.
+	 *
+	 * @returns string The description of the character.
+	 */
+	/**
+	 * Sets the description of the character.
+	 *
+	 * @param string description The description to set the character.
+	 * @returns am.character This.
+	 */
+	int Character_description(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, obj->getDescription().c_str());
+				return 1;
+			}
+			else if (lua_isstr(lua, 2))
+			{
+				const char *description = lua_tostring(lua, 2);
+				if (description)
+				{
+					obj->setDescription(description);
+				}
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "description", "string description");
+		}
+		return LuaState::expectedContext(lua, "description", "am.character");
 	}
 
 	/**

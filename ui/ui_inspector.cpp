@@ -15,7 +15,8 @@ namespace ui {
 
 	Inspector::Inspector() :
 		Panel(),
-		mTextDirty(true)
+		mTextDirty(true),
+		mInspectObject(false)
 	{
 		mInfo = new TextField2();
 		//mInfo->setColour(0, 0, 0);
@@ -48,6 +49,7 @@ namespace ui {
 	{
 		mGameObjects.push_back(obj);
 		mTextDirty = true;
+		mInspectObject = false;
 	}
 	void Inspector::addGameObjects(const ObjectList &list)
 	{
@@ -61,11 +63,19 @@ namespace ui {
 			mGameObjects.push_back(iter->get());
 		}
 		mTextDirty = true;
+		mInspectObject = false;
 	}
 	void Inspector::clearGameObjects()
 	{
 		mGameObjects.clear();
 		mTextDirty = true;
+	}
+
+	void Inspector::setInspectObject(GameObject *obj)
+	{
+		mGameObjects.push_back(obj);
+		mTextDirty = true;
+		mInspectObject = true;
 	}
 	
 	void Inspector::setWidth(float width)
@@ -129,44 +139,55 @@ namespace ui {
 	{
 		stringstream ss;
 		ss << "<inspector>";
-		if (mTile.get())
+		if (mInspectObject)
 		{
-			ss << "<title>Tile:</title> " << mTile->getFullName() << 
-				  "\n<title>Desc:</title> " << mTile->getDescription() << 
-				  "\n<title>Types:</title> ";
-
-			Tile::TileTypeList &tileTypes = mTile->getTileTypes();
-			for (size_t i = 0; i < tileTypes.size(); i++)
+			if (mGameObjects.size() >= 1)
 			{
-				if (i > 0)
+				GameObject *obj = mGameObjects[0];
+				ss << "<title>Name:</title> " << obj->getName() << 
+					"\n<title>Description:</title>\n" << obj->getDescription();
+			}
+		}
+		else
+		{
+			if (mTile.get())
+			{
+				ss << "<title>Tile:</title> " << mTile->getFullName() << 
+					  "\n<title>Desc:</title> " << mTile->getDescription() << 
+					  "\n<title>Types:</title> ";
+
+				Tile::TileTypeList &tileTypes = mTile->getTileTypes();
+				for (size_t i = 0; i < tileTypes.size(); i++)
 				{
-					if (i == tileTypes.size() - 1)
+					if (i > 0)
 					{
-						ss << " and ";
+						if (i == tileTypes.size() - 1)
+						{
+							ss << " and ";
+						}
+						else
+						{
+							ss << ", ";
+						}
 					}
-					else
-					{
-						ss << ", ";
-					}
+
+					ss << "<tile>" << tileTypes[i]->getFullName() << "</tile>";
+					ss << "\n\n";
 				}
-
-				ss << "<tile>" << tileTypes[i]->getFullName() << "</tile>";
 			}
-		}
-		ss << "\n\n";
-		GameObjectList::iterator iter;
+			GameObjectList::iterator iter;
 
-		if (mGameObjects.size() > 0)
-		{
-			ss << "<gameobj>GameObj:</gameobj>\n";
-			int i = 0;
-			for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+			if (mGameObjects.size() > 0)
 			{
-				ss << "- <gameobj index=" << i << " class='" << (*iter)->getGameObjectTypeName() << "'>" << iter->get()->getName() << "</gameobj>\n";
-				i++;
+				ss << "<gameobj>GameObj:</gameobj>\n";
+				int i = 0;
+				for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
+				{
+					ss << "- <gameobj index=" << i << " class='" << (*iter)->getGameObjectTypeName() << "'>" << iter->get()->getName() << "</gameobj>\n";
+					i++;
+				}
 			}
 		}
-		
 		ss << "</inspector>";
 		mInfo->setText(ss.str());
 		mTextDirty = false;

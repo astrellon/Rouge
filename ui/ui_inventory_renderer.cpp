@@ -5,11 +5,14 @@
 #include <game/inventory.h>
 #include <game/inventory_spot.h>
 #include <game/player_hand.h>
+#include <game/engine.h>
 
 #include <log/logger.h>
 
 #include <ui/event.h>
 #include <ui/keyboard_manager.h>
+#include <ui/ui_game_hud.h>
+#include <ui/ui_inspector.h>
 
 #include <sstream>
 
@@ -72,13 +75,20 @@ namespace ui {
 			{
 				if (e->getMouseEventType() == MOUSE_UP)
 				{
-					if (hand->getInhand() == nullptr)
+					if (e->getMouseButton() == LEFT_BUTTON)
 					{
-						item->setInteractive(false);
-						hand->setInhand(item);
+						if (hand->getInhand() == nullptr)
+						{
+							item->setInteractive(false);
+							hand->setInhand(item);
 						
-						mInventory->removeItem(item);
-						item->setItemLocation(Item::HAND);
+							mInventory->removeItem(item);
+							item->setItemLocation(Item::HAND);
+						}
+					}
+					else if (e->getMouseButton() == RIGHT_BUTTON)
+					{
+						Engine::getEngine()->getGameHud()->getInspector()->setInspectObject(item);
 					}
 				}
 				e->stopPropagation();

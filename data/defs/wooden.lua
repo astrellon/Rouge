@@ -8,6 +8,7 @@ do
 		:graphic(am.sprite.new("items/sword:main"))
 		:ground_graphic(am.sprite.new("items/sword:ground"))
 		:inventory_size(1, 2)
+		:description("This sword be wooden!")
 		
 	local stats = item:stat_modifiers_self()
 	stats:add("minDamage", 2, "+")
@@ -20,6 +21,7 @@ do
 		:item_type("shield")
 		:graphic(am.sprite.new("items/shield:main"))
 		:inventory_size(2, 2)
+		:description("This shield be wooden!")
 		
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")
@@ -31,5 +33,6 @@ do
 		:item_type("scroll")
 		:graphic(am.sprite.new("items/scroll:main"))
 		:inventory_size(2, 1)
+		:description("This scroll should have some writing on it, but it doesn't :|")
 	game:item_def("scroll", item)
 end

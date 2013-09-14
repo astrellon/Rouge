@@ -23,12 +23,14 @@ namespace ui {
 		Inspector();
 		~Inspector();
 
-		void setTile(Tile *tile);
-		Tile *getTile() const;
+		virtual void setTile(Tile *tile);
+		virtual Tile *getTile() const;
 
-		void addGameObject(GameObject *obj);
-		void addGameObjects(const ObjectList &list);
-		void clearGameObjects();
+		virtual void addGameObject(GameObject *obj);
+		virtual void addGameObjects(const ObjectList &list);
+		virtual void clearGameObjects();
+
+		virtual void setInspectObject(GameObject *obj);
 
 		virtual TextField2 *getTextField();
 
@@ -48,6 +50,7 @@ namespace ui {
 
 		Handle<TextField2> mInfo;
 
+		bool mInspectObject;
 		bool mTextDirty;
 		void updateText();
 	};

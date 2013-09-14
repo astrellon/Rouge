@@ -57,6 +57,10 @@ namespace game {
 		virtual void setName(const string &name);
 		virtual string getName() const;
 
+		virtual void setDescription(const char *description);
+		virtual void setDescription(const string &description);
+		virtual string getDescription() const;
+
 		virtual void setLocation(float x, float y, bool setDraw = true);
 		virtual float getLocationX() const;
 		virtual float getLocationY() const;
@@ -150,6 +154,7 @@ namespace game {
 		PassibleTypeList mPassibleTypes;
 
 		string mName;
+		string mDescription;
 
 		Map *mMap;
 		Map *mOriginalMap;

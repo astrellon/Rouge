@@ -65,10 +65,6 @@ namespace game {
 	 */
 	int Item_ctor(lua_State *lua)
 	{
-		/*Item *item = new Item();
-		
-		wrapRefObject<Item>(lua, item);
-		return 1;*/
 		int args = lua_gettop(lua);
 		if (args == 1 && !lua_isstr(lua, 1) || 
 			args > 1 && !lua_isstr(lua, 1) && !lua_isstr(lua, 2))
@@ -157,6 +153,7 @@ namespace game {
 			{ "quest_item_id", Item_quest_item_id },
 			{ "is_quest_item", Item_is_quest_item },
 			{ "item_name", Item_item_name },
+			{ "description", Item_description },
 			{ "prefix", Item_prefix },
 			{ "postfix", Item_postfix },
 			{ "item_fullname", Item_item_fullname },
@@ -626,6 +623,43 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "item_name", "am.item");
 	}
+
+	/**
+	 * Returns the description of the item.
+	 * A nil return indicates that there was an error.
+	 *
+	 * @returns string The description of the item.
+	 */
+	/**
+	 * Sets the description of the item.
+	 *
+	 * @param string description The description to set the item.
+	 * @returns am.item This.
+	 */
+	int Item_description(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, item->getDescription().c_str());
+				return 1;
+			}
+			else if (lua_isstr(lua, 2))
+			{
+				const char *description = lua_tostring(lua, 2);
+				if (description)
+				{
+					item->setDescription(description);
+				}
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "description", "string description");
+		}
+		return LuaState::expectedContext(lua, "description", "am.item");
+	}
+
 	/**
 	 * Returns the item prefix, this goes before the item name, can be an empty string.
 	 *

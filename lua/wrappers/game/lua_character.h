@@ -22,6 +22,7 @@ namespace game {
 	int Character_create(lua_State *lua);
 	
 	int Character_name(lua_State *lua);
+	int Character_description(lua_State *lua);
 	int Character_pickup_reach(lua_State *lua);
 
 	int Character_stats(lua_State *lua);

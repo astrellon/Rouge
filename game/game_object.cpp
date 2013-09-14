@@ -55,7 +55,8 @@ namespace game {
 		mCameraOffsetY(copy.mCameraOffsetY),
 		mPassibleTypes(copy.mPassibleTypes),
 		mMap(nullptr),
-		mOriginalMap(nullptr)
+		mOriginalMap(nullptr),
+		mDescription(copy.mDescription)
 	{
 		if (copy.mMap)
 		{
@@ -103,7 +104,10 @@ namespace game {
 
 	void GameObject::setName(const char *name)
 	{
-		mName = name;
+		if (name)
+		{
+			mName = name;	
+		}
 	}
 	void GameObject::setName(const string &name)
 	{
@@ -112,6 +116,22 @@ namespace game {
 	string GameObject::getName() const
 	{
 		return mName;
+	}
+
+	void GameObject::setDescription(const char *description)
+	{
+		if (description)
+		{
+			mDescription = description;
+		}
+	}
+	void GameObject::setDescription(const string &description)
+	{
+		mDescription = description;
+	}
+	string GameObject::getDescription() const
+	{
+		return mDescription;
 	}
 
 	void GameObject::setLocation(float x, float y, bool setDraw)
