@@ -8,11 +8,11 @@ namespace game {
 
 	const char *ItemCommon::ItemTypeNames[] = { "Helm", "Body", "Sword", "Axe", 
 		"Bow", "Ring", "Amulet", "Leggings", "Boots", "Shield", "Potion",
-		"Gold", "Unknown" };
+		"Gold", "Message Scroll", "Spell Scroll", "Unknown" };
 
 	const char *ItemCommon::ItemTypeNameIds[] = { "helm", "body", "sword", "axe", 
 		"bow", "ring", "amulet", "leggings", "boots", "shield", "potion",
-		"gold", "unknown" };
+		"gold", "message_scroll", "spell_scroll", "unknown" };
 
 	ItemCommon::ItemType ItemCommon::getItemType(const char *name)
 	{

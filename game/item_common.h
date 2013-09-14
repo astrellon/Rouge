@@ -7,7 +7,7 @@ namespace game {
 	public:
 		enum ItemType {
 			HELM, BODY, SWORD, AXE, BOW, RING, AMULET, LEGGINGS, BOOTS,
-			SHIELD, POTION, GOLD, UNKNOWN
+			SHIELD, POTION, GOLD, MESSAGE_SCROLL, SPELL_SCROLL, UNKNOWN
 		};
 
 		static const char *ItemTypeNames[];

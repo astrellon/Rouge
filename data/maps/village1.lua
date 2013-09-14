@@ -67,12 +67,7 @@ do
 		item:grid_location(7, 16)
 		map:add_game_object(item)
 	end
-	item:on("item_pickedup", function(context, event)
-		am.debug.log("PICKED UP!")
-	end)
-	item:on("item_dropped", function(context, event)
-		am.debug.log("DROPPED!")
-	end)
+	item:description("Hello babbit :3\nI hope you found my message well.")
 	-- End Items
 
 	-- Quests

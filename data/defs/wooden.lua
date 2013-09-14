@@ -30,7 +30,7 @@ do
 	-- Paper message scroll
 	item = am.item.new()
 		:item_fullname("Scroll", "Paper")
-		:item_type("scroll")
+		:item_type("message_scroll")
 		:graphic(am.sprite.new("items/scroll:main"))
 		:inventory_size(2, 1)
 		:description("This scroll should have some writing on it, but it doesn't :|")
