@@ -86,6 +86,8 @@ namespace sys {
 
 		virtual void onEvent(MouseEvent *e);
 
+		virtual Tooltip *getDefaultTooltip() const;
+
 		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 

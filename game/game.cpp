@@ -354,6 +354,8 @@ namespace game {
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_MOVE, this);
+			mItemLayer->removeEventListener(MOUSE_DOWN, this);
+			mCharacterLayer->removeEventListener(MOUSE_DOWN, this);
 		}
 
 		mCurrentMap = map;
@@ -368,6 +370,8 @@ namespace game {
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_MOVE, this);
+			mItemLayer->addEventListener(MOUSE_DOWN, this);
+			mCharacterLayer->addEventListener(MOUSE_DOWN, this);
 			
 			if (mActiveObjects)
 			{

@@ -146,9 +146,9 @@ namespace sys {
 		mGfxListener = new GfxLogListener(mDebugConsole);
 		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
 
-		MouseManager *manager = MouseManager::getManager();
-		manager->addEventListener(MOUSE_OVER, this);
-		manager->addEventListener(MOUSE_OUT, this);
+		//MouseManager *manager = MouseManager::getManager();
+		//manager->addEventListener(MOUSE_OVER, this);
+		//manager->addEventListener(MOUSE_OUT, this);
 
 		mTooltip = new Tooltip();
 	}
@@ -328,6 +328,11 @@ namespace sys {
 		{
 			mTooltip->hide();
 		}
+	}
+
+	Tooltip *GameSystem::getDefaultTooltip() const
+	{
+		return mTooltip;
 	}
 
 }

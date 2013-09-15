@@ -9,26 +9,31 @@ using namespace am::base;
 #include <string>
 using namespace std;
 
+#include <ui/ievent_listener.h>
+using namespace am::ui;
+
 namespace am {
 namespace gfx {
 
 	class Renderable;
 
-	class TooltipComponent : public IManaged {
+	class TooltipComponent : public IEventListener {
 	public:
 
 		TooltipComponent();
 		TooltipComponent(const TooltipComponent &copy);
 		~TooltipComponent();
 
-		void setTooltip(const char *tooltip);
-		const char *getTooltip() const;
+		virtual void setTooltip(const char *tooltip);
+		virtual const char *getTooltip() const;
 
-		void setDetailedTooltip(const char *tooltip);
-		const char *getDetailedTooltip() const;
+		virtual void setDetailedTooltip(const char *tooltip);
+		virtual const char *getDetailedTooltip() const;
 
-		void setParent(Renderable *parent);
-		Renderable *getParent() const;
+		virtual void setParent(Renderable *parent);
+		virtual Renderable *getParent() const;
+
+		virtual void onEvent(MouseEvent *e);
 
 	protected:
 
@@ -36,6 +41,10 @@ namespace gfx {
 		string mDetailedTooltip;
 		Renderable *mParent;
 		bool mListeners;
+
+		void updateListeners();
+		void addListeners();
+		void removeListeners();
 		
 	};
 

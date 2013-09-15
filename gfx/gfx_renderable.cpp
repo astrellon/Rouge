@@ -321,6 +321,7 @@ namespace gfx {
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
 			mTooltip = new TooltipComponent();
+			mTooltip->setParent(this);
 		}
 		mTooltip->setTooltip(tooltip);
 	}
@@ -337,6 +338,7 @@ namespace gfx {
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
 			mTooltip = new TooltipComponent();
+			mTooltip->setParent(this);
 		}
 		mTooltip->setDetailedTooltip(tooltip);
 	}

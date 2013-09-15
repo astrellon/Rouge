@@ -35,7 +35,7 @@ namespace game {
 	class Map;
 	class LoadingState;
 
-	class GameObject : public Layer, public IAttributeData, public IDefinition {
+	class GameObject : public Layer, public IAttributeData, public IDefinition, public IEventListener {
 	public:
 
 		enum GameObjectType {
@@ -126,6 +126,8 @@ namespace game {
 
 		virtual float distanceTo(GameObject *obj) const;
 		virtual float distanceToGrid(GameObject *obj) const;
+
+		virtual void onEvent(MouseEvent *e);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

@@ -31,6 +31,18 @@ namespace ui {
 	{
 		setType(MouseEventTypeNames[mouseType]);
 	}
+	MouseEvent::MouseEvent(const MouseEvent &copy) :
+		Event(copy.mType.c_str()),
+		mMouseEventType(copy.mMouseEventType),
+		mMouseButton(copy.mMouseButton),
+		mMouseX(copy.mMouseX),
+		mMouseY(copy.mMouseY),
+		mLocalMouseX(copy.mLocalMouseX),
+		mLocalMouseY(copy.mLocalMouseY),
+		mOriginalTarget(copy.mOriginalTarget)
+	{
+
+	}
 	MouseEvent::~MouseEvent()
 	{
 	}

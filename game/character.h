@@ -30,7 +30,7 @@ using namespace am::ui;
 namespace am {
 namespace game {
 
-	class Character : public IEventListener, public GameObject, public Levelable {
+	class Character : public GameObject, public Levelable {
 	public:
 
 		typedef vector< Handle<IAction> > ActionQueue;

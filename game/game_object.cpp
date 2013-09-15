@@ -42,6 +42,13 @@ namespace game {
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
+		setInteractive(true);
+
+		addEventListener(MOUSE_DOWN, this);
+		addEventListener(MOUSE_MOVE, this);
+		addEventListener(MOUSE_UP, this);
+		addEventListener(MOUSE_OUT, this);
+		addEventListener(MOUSE_OVER, this);
 	}
 	GameObject::GameObject(const GameObject &copy) :
 		Layer(copy),
@@ -75,6 +82,12 @@ namespace game {
 			mDialogueComp = new DialogueComponent(*copy.mDialogueComp);
 			mDialogueComp->setAttachedTo(this);
 		}
+
+		addEventListener(MOUSE_DOWN, this);
+		addEventListener(MOUSE_MOVE, this);
+		addEventListener(MOUSE_UP, this);
+		addEventListener(MOUSE_OUT, this);
+		addEventListener(MOUSE_OVER, this);
 	}
 	GameObject::~GameObject()
 	{
@@ -90,6 +103,12 @@ namespace game {
 			mOriginalMap = nullptr;
 			map->release();
 		}
+
+		removeEventListener(MOUSE_DOWN, this);
+		removeEventListener(MOUSE_MOVE, this);
+		removeEventListener(MOUSE_UP, this);
+		removeEventListener(MOUSE_OUT, this);
+		removeEventListener(MOUSE_OVER, this);
 	}
 
 	void GameObject::update(float dt)
@@ -247,6 +266,17 @@ namespace game {
 		int dx = obj->getGridLocationX() - getGridLocationX();
 		int dy = obj->getGridLocationY() - getGridLocationY();
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
+	}
+
+	void GameObject::onEvent(MouseEvent *e)
+	{
+		if (e && mParent)
+		{
+			Handle<MouseEvent> e2(new MouseEvent(*e));
+			e->stopPropagation();
+			e2->setEventTarget(this);
+			mParent->fireEvent<MouseEvent>(e2);
+		}
 	}
 
 	bool GameObject::move(float x, float y)

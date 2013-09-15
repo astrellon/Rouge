@@ -17,6 +17,7 @@ namespace ui {
 	public:
 		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y);
 		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(const MouseEvent &copy);
 		~MouseEvent();
 
 		virtual MouseButton getMouseButton() const;

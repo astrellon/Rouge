@@ -84,6 +84,7 @@ namespace game {
 		}
 		retain();
 		updateGraphic();
+		setTooltip(mName.c_str());
 	}
 	Item::~Item()
 	{
@@ -301,6 +302,7 @@ namespace game {
 		{
 			mPostfix = -1;
 		}
+		setTooltip(mName.c_str());
 	}
 	string Item::getFullItemName() const
 	{

@@ -24,7 +24,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class Item : public GameObject, public IEventListener {
+	class Item : public GameObject {
 	public:
 
 		enum ItemLocation {
