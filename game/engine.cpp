@@ -43,7 +43,8 @@ namespace game {
 
 	void Engine::init()
 	{
-		
+		EventInterface *manager = new EventInterface();
+		GameObjectEvent::setManager(manager);
 	}
 	void Engine::deinit()
 	{
@@ -56,6 +57,8 @@ namespace game {
 		mTileTypes.clear();
 		
 		mLua.close();
+
+		GameObjectEvent::setManager(nullptr);
 	}
 	void Engine::update(float dt)
 	{

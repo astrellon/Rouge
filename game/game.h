@@ -89,6 +89,7 @@ namespace game {
 		int loadGame(const char *saveName);
 
 		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(GameObjectEvent *e);
 
 		void setMainCharacter(Character *character);
 		Character *getMainCharacter();

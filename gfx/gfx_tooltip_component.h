@@ -21,6 +21,7 @@ namespace gfx {
 	public:
 
 		TooltipComponent();
+		TooltipComponent(Renderable *parent);
 		TooltipComponent(const TooltipComponent &copy);
 		~TooltipComponent();
 

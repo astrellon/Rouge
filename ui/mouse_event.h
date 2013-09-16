@@ -29,6 +29,8 @@ namespace ui {
 		virtual int getLocalMouseY() const;
 
 		virtual Renderable *getTarget() const;
+
+		virtual void setOriginalTarget(Renderable *target);
 		virtual Renderable *getOriginalTarget() const;
 
 	protected:

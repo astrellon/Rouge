@@ -65,8 +65,6 @@ namespace game {
 		mTileRenderer->setInteractive(true);
 
 		mBackground->addChild(mTileRenderer);
-
-		//setInteractive(true);
 		mBackground->setInteractive(true);
 	}
 	Map::Map(const Map &rhs) :

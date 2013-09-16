@@ -399,6 +399,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\event_manager.cpp" />
     <ClCompile Include="ui\focus_event.cpp" />
     <ClCompile Include="ui\focus_manager.cpp" />
+    <ClCompile Include="ui\game_object_event.cpp" />
     <ClCompile Include="ui\ievent_listener.cpp" />
     <ClCompile Include="ui\inventory_event.cpp" />
     <ClCompile Include="ui\inventory_event_common.cpp" />
@@ -646,6 +647,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\event_manager.h" />
     <ClInclude Include="ui\focus_event.h" />
     <ClInclude Include="ui\focus_manager.h" />
+    <ClInclude Include="ui\game_object_event.h" />
     <ClInclude Include="ui\ievent_listener.h" />
     <ClInclude Include="ui\event_interface.h" />
     <ClInclude Include="ui\inventory_event.h" />

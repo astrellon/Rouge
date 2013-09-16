@@ -44,11 +44,7 @@ namespace game {
 		Engine::getEngine()->registerGameObject(this);
 		setInteractive(true);
 
-		addEventListener(MOUSE_DOWN, this);
-		addEventListener(MOUSE_MOVE, this);
 		addEventListener(MOUSE_UP, this);
-		addEventListener(MOUSE_OUT, this);
-		addEventListener(MOUSE_OVER, this);
 	}
 	GameObject::GameObject(const GameObject &copy) :
 		Layer(copy),
@@ -83,11 +79,9 @@ namespace game {
 			mDialogueComp->setAttachedTo(this);
 		}
 
-		addEventListener(MOUSE_DOWN, this);
-		addEventListener(MOUSE_MOVE, this);
+		setInteractive(copy.isInteractive());
+
 		addEventListener(MOUSE_UP, this);
-		addEventListener(MOUSE_OUT, this);
-		addEventListener(MOUSE_OVER, this);
 	}
 	GameObject::~GameObject()
 	{
@@ -104,11 +98,7 @@ namespace game {
 			map->release();
 		}
 
-		removeEventListener(MOUSE_DOWN, this);
-		removeEventListener(MOUSE_MOVE, this);
 		removeEventListener(MOUSE_UP, this);
-		removeEventListener(MOUSE_OUT, this);
-		removeEventListener(MOUSE_OVER, this);
 	}
 
 	void GameObject::update(float dt)
@@ -125,7 +115,8 @@ namespace game {
 	{
 		if (name)
 		{
-			mName = name;	
+			mName = name;
+			setTooltip(name);
 		}
 	}
 	void GameObject::setName(const string &name)
@@ -270,12 +261,14 @@ namespace game {
 
 	void GameObject::onEvent(MouseEvent *e)
 	{
-		if (e && mParent)
+		if (e)
 		{
-			Handle<MouseEvent> e2(new MouseEvent(*e));
-			e->stopPropagation();
-			e2->setEventTarget(this);
-			mParent->fireEvent<MouseEvent>(e2);
+			if (e->getMouseEventType() == MOUSE_UP)
+			{
+				//Handle<GameObjectEvent> goe(new GameObjectEvent("obj_click", this, e->getMouseButton()));
+				//GameObjectEvent::getManager()->fireEvent<GameObjectEvent>(goe);
+				e->setOriginalTarget(this);
+			}
 		}
 	}
 

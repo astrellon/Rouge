@@ -13,13 +13,21 @@ namespace am {
 namespace gfx {
 
 	TooltipComponent::TooltipComponent() :
-		mParent(nullptr)
+		mParent(nullptr),
+		mListeners(false)
 	{
+	}
+	TooltipComponent::TooltipComponent(Renderable *parent) :
+		mParent(parent),
+		mListeners(false)
+	{
+
 	}
 	TooltipComponent::TooltipComponent(const TooltipComponent &copy) :
 		mTooltip(copy.mTooltip),
 		mDetailedTooltip(copy.mDetailedTooltip),
-		mParent(nullptr)
+		mParent(nullptr),
+		mListeners(false)
 	{
 
 	}

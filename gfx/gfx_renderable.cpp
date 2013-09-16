@@ -36,7 +36,7 @@ namespace gfx {
 	}
 	Renderable::Renderable(const Renderable &copy) :
 		IManaged(),
-		EventInterface(copy),
+		EventInterface(),
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
 		mInteractive(copy.mInteractive),
@@ -51,6 +51,7 @@ namespace gfx {
 		if (copy.mTooltip)
 		{
 			mTooltip = new TooltipComponent(*copy.mTooltip.get());
+			mTooltip->setParent(this);
 		}
 #ifdef _DEBUG
 		mRenderColour = copy.mRenderColour;
@@ -320,8 +321,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = new TooltipComponent();
-			mTooltip->setParent(this);
+			mTooltip = new TooltipComponent(this);
 		}
 		mTooltip->setTooltip(tooltip);
 	}
@@ -337,8 +337,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = new TooltipComponent();
-			mTooltip->setParent(this);
+			mTooltip = new TooltipComponent(this);
 		}
 		mTooltip->setDetailedTooltip(tooltip);
 	}

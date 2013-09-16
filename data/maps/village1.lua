@@ -48,8 +48,8 @@ do
 	local elder, new_char = am.character.new(map_name .. "_elder", "npcs:male1")
 	if (new_char) then
 		elder:graphic(am.sprite.new("characters/human:male_elder"))
-		elder:grid_location(6, 16)
-			:name("John")
+			:grid_location(6, 16)
+			:name("Village Elder")
 		map:add_game_object(elder)
 		
 		local comp = am.dialogue_component.new(elder)

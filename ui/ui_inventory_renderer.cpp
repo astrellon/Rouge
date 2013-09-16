@@ -79,7 +79,7 @@ namespace ui {
 					{
 						if (hand->getInhand() == nullptr)
 						{
-							item->setInteractive(false);
+							//item->setInteractive(false);
 							hand->setInhand(item);
 						
 							mInventory->removeItem(item);

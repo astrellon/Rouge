@@ -51,6 +51,7 @@ namespace game {
 		mBackground->setName("Character->Background");
 		mForeground->setName("Character->Foreground");
 		mCharacterLayer->setName("Character->CharacterLayer");
+		mCharacterLayer->setInteractive(true);
 		mFixedToGrid = true;
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridSize() * 1.5f;
@@ -84,6 +85,7 @@ namespace game {
 		else
 		{
 			mBackground = new Layer();
+			mBackground->setName("Character->Background");
 			addChild(mBackground, 0);
 		}
 		if (numChildren >= 2)
@@ -93,6 +95,8 @@ namespace game {
 		else
 		{
 			mCharacterLayer = new Layer();
+			mCharacterLayer->setInteractive(true);
+			mCharacterLayer->setName("Character->CharacterLayer");
 			addChild(mCharacterLayer, 1);
 		}
 		if (numChildren >= 3)
@@ -102,6 +106,7 @@ namespace game {
 		else
 		{
 			mForeground = new Layer();
+			mForeground->setName("Character->Foreground");
 			addChild(mForeground, 2);
 		}
 
@@ -136,6 +141,10 @@ namespace game {
 			mCharacterLayer->removeChild(mGraphic);
 		}
 		mGraphic = graphic;
+		if (graphic)
+		{
+			graphic->setInteractive(true);
+		}
 		if (graphic && calcCameraOffset)
 		{
 			// Aim for head-ish area.

@@ -77,6 +77,11 @@ namespace ui {
 	{
 		return dynamic_cast<Renderable *>(mEventTarget.get());
 	}
+
+	void MouseEvent::setOriginalTarget(Renderable *target)
+	{
+		mOriginalTarget = target;
+	}
 	Renderable *MouseEvent::getOriginalTarget() const
 	{
 		return mOriginalTarget;

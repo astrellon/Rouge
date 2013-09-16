@@ -17,6 +17,7 @@ using std::vector;
 #include "stat_event.h"
 #include "list_event.h"
 #include "item_event.h"
+#include "game_object_event.h"
 
 namespace am {
 namespace ui {
@@ -41,6 +42,7 @@ namespace ui {
 		virtual void onEvent(DialogueEvent *e) {}
 		virtual void onEvent(StatEvent *e) {}
 		virtual void onEvent(ItemEvent *e) {}
+		virtual void onEvent(GameObjectEvent *e) {}
 
 		virtual bool compareListeners(const IEventListener *rhs) const { return this == rhs; }
 

@@ -69,6 +69,8 @@ namespace game {
 		mForeground->setName("Foreground");
 		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
+
+		GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}
 	Game::~Game()
 	{
@@ -153,7 +155,12 @@ namespace game {
 	void Game::onEvent(MouseEvent *e)
 	{
 		TileRenderer *target = dynamic_cast<TileRenderer *>(e->getEventTarget());
-		if (!mCurrentMap || !target || target != mCurrentMap->getTileRenderer())
+		GameObject *obj = dynamic_cast<GameObject *>(e->getOriginalTarget());
+		if (!mCurrentMap)// || ((!target || target != mCurrentMap->getTileRenderer() && !obj)))
+		{
+			return;
+		}
+		if (!target && !obj)
 		{
 			return;
 		}
@@ -165,8 +172,11 @@ namespace game {
 			return;
 		}
 
-		float localX = static_cast<float>(e->getLocalMouseX());
-		float localY = static_cast<float>(e->getLocalMouseY());
+		//float localX = static_cast<float>(e->getLocalMouseX());
+		//float localY = static_cast<float>(e->getLocalMouseY());
+		float localX = 0.0f;
+		float localY = 0.0f;
+		mItemLayer->getScreenToLocal(e->getMouseX(), e->getMouseY(), localX, localY);
 
 		if (localX < 0 || localY < 0 ||
 			localX > mCurrentMap->getWidth() ||
@@ -265,6 +275,30 @@ namespace game {
 			}
 		}
 	}
+	void Game::onEvent(GameObjectEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+
+		//stringstream ss;
+		//ss << "Clicked on: " << e->getGameObject()->getName();
+		//am_log("OBJ", ss);
+		/*GameObject *obj = e->getGameObject();
+		if (obj->getGameObjectType() == GameObject::ITEM)
+		{
+			Item *item = dynamic_cast<Item *>(obj);
+			if (!item)
+			{
+				return;
+			}
+			if (item->getItemLocation() != Item::GROUND)
+			{
+				return;
+			}
+		}*/
+	}
 
 	bool Game::addMap(Map *map)
 	{
@@ -354,8 +388,8 @@ namespace game {
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_MOVE, this);
-			mItemLayer->removeEventListener(MOUSE_DOWN, this);
-			mCharacterLayer->removeEventListener(MOUSE_DOWN, this);
+			mItemLayer->removeEventListener(MOUSE_UP, this);
+			mCharacterLayer->removeEventListener(MOUSE_UP, this);
 		}
 
 		mCurrentMap = map;
@@ -370,8 +404,8 @@ namespace game {
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_MOVE, this);
-			mItemLayer->addEventListener(MOUSE_DOWN, this);
-			mCharacterLayer->addEventListener(MOUSE_DOWN, this);
+			mItemLayer->addEventListener(MOUSE_UP, this);
+			mCharacterLayer->addEventListener(MOUSE_UP, this);
 			
 			if (mActiveObjects)
 			{
