@@ -14,6 +14,8 @@
 #include <ui/ui_game_hud.h>
 #include <ui/ui_inspector.h>
 
+#include <math/math.h>
+
 #include <sstream>
 
 namespace am {
@@ -69,8 +71,11 @@ namespace ui {
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 
-			int gridX = static_cast<int>(static_cast<float>(e->getLocalMouseX()) / Inventory::getSpaceSizeX());
-			int gridY = static_cast<int>(static_cast<float>(e->getLocalMouseY()) / Inventory::getSpaceSizeY());
+			float mouseX = 0.0f;
+			float mouseY = 0.0f;
+			mHitbox->getScreenToLocal(e->getMouseX(), e->getMouseY(), mouseX, mouseY);
+			int gridX = math::round(mouseX / mInventory->getSpaceSizeX());
+			int gridY = math::round(mouseY / mInventory->getSpaceSizeY());
 
 			Item *item = mInventory->getItemAt(gridX, gridY);
 
@@ -82,7 +87,6 @@ namespace ui {
 					{
 						if (hand->getInhand() == nullptr)
 						{
-							//item->setInteractive(false);
 							hand->setInhand(item);
 						
 							mInventory->removeItem(item);
@@ -161,11 +165,6 @@ namespace ui {
 				}
 			}
 		}
-	}
-
-	bool InventoryRenderer::interacteWithLayer() const
-	{
-		return false;
 	}
 
 	void InventoryRenderer::addItem(Item *item, int x, int y)

@@ -69,10 +69,12 @@ namespace ui {
 	{
 		mGameObjects.clear();
 		mTextDirty = true;
+		mInspectObject = false;
 	}
 
 	void Inspector::setInspectObject(GameObject *obj)
 	{
+		mGameObjects.clear();
 		mGameObjects.push_back(obj);
 		mTextDirty = true;
 		mInspectObject = true;
@@ -172,14 +174,13 @@ namespace ui {
 					}
 
 					ss << "<tile>" << tileTypes[i]->getFullName() << "</tile>";
-					ss << "\n\n";
 				}
 			}
 			GameObjectList::iterator iter;
 
 			if (mGameObjects.size() > 0)
 			{
-				ss << "<gameobj>GameObj:</gameobj>\n";
+				ss << "\n<gameobj>GameObj:</gameobj>\n";
 				int i = 0;
 				for (iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 				{

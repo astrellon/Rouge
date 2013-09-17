@@ -233,6 +233,7 @@ namespace game {
 		{
 			mItemLocation = location;
 			updateGraphic();
+			updateDetailedTooltip();
 		}
 	}
 	Item::ItemLocation Item::getItemLocation() const
@@ -655,6 +656,15 @@ namespace game {
 		return 1;
 	}
 
+	bool Item::isInteractive() const
+	{
+		if (mItemLocation == HAND)
+		{
+			return false;
+		}
+		return GameObject::isInteractive();
+	}
+
 	void Item::onLevelUp()
 	{
 		Handle<Event> e(new Event("level_change"));
@@ -670,7 +680,50 @@ namespace game {
 	{
 		stringstream ss;
 		ss << mName << '\n';
-		ss << "Type: " << ItemCommon::getItemTypeNameNice(mItemType);
+		if (mItemLocation == INVENTORY)
+		{
+			if (mItemType == ItemCommon::GOLD)
+			{
+				ss << "Gold: " << getItemValue() << '\n';
+			}
+			else if (mItemType == ItemCommon::POTION)
+			{
+				ss << "Value: " << getItemValue();
+			}
+			else if (mItemType == ItemCommon::SPELL_SCROLL)
+			{
+
+			}
+			else if (mItemType == ItemCommon::MESSAGE_SCROLL)
+			{
+				ss << "Right click to read the message.";
+			}
+			else
+			{
+				int i = 0;
+				while (true)
+				{
+					Stat::StatType stat = Stat::getStatType(i);
+					i++;
+					if (stat == Stat::MAX_STAT_LENGTH)
+					{
+						break;
+					}
+					float value = mStatModifiers->calculateStat(stat, 0.0f);
+					if (value <= 0.00001f)
+					{
+						continue;
+					}
+					ss << Stat::getNiceStatName(stat) << ": " << value << '\n';
+					
+				}
+				ss << "Value: " << getItemValue();
+			}
+		}
+		else
+		{
+			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItemType);
+		}
 		setDetailedTooltip(ss.str().c_str());
 	}
 }
