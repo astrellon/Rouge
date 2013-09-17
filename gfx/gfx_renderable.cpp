@@ -325,7 +325,7 @@ namespace gfx {
 		}
 		mTooltip->setTooltip(tooltip);
 	}
-	const char *Renderable::getTooltip() const
+	const char *Renderable::getTooltip()
 	{
 		if (mTooltip)
 		{
@@ -341,7 +341,7 @@ namespace gfx {
 		}
 		mTooltip->setDetailedTooltip(tooltip);
 	}
-	const char *Renderable::getDetailedTooltip() const
+	const char *Renderable::getDetailedTooltip()
 	{
 		if (mTooltip)
 		{

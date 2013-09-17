@@ -19,8 +19,11 @@
 namespace am {
 namespace ui {
 
-	InventoryRenderer::InventoryRenderer()
+	InventoryRenderer::InventoryRenderer() :
+		mHitbox(new Renderable())
 	{
+		addChild(mHitbox);
+		mHitbox->setInteractive(true);
 		addEventListener(MOUSE_UP, this);
 	}
 	InventoryRenderer::~InventoryRenderer()
@@ -142,10 +145,12 @@ namespace ui {
 				{
 					removeItem(iter->getItem());
 				}
+				mHitbox->setSize(0, 0);
 			}
 			mInventory = inventory;
 			if (mInventory)
 			{
+				mHitbox->setSize(getWidth(), getHeight());
 				mInventory->addEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
 				mInventory->addEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
 				const Inventory::InventorySpots &spots = mInventory->getInventory();
@@ -160,7 +165,7 @@ namespace ui {
 
 	bool InventoryRenderer::interacteWithLayer() const
 	{
-		return true;
+		return false;
 	}
 
 	void InventoryRenderer::addItem(Item *item, int x, int y)

@@ -127,7 +127,8 @@ namespace game {
 		virtual float distanceTo(GameObject *obj) const;
 		virtual float distanceToGrid(GameObject *obj) const;
 
-		virtual void onEvent(MouseEvent *e);
+		// Layer methods
+		virtual bool interacteWithLayer() const;
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

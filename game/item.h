@@ -114,7 +114,8 @@ namespace game {
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
-		virtual const char *getTooltip() const;
+		//virtual const char *getTooltip();
+		//virtual const char *getDetailedTooltip();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -140,6 +141,7 @@ namespace game {
 		unsigned int mBodyPartsRequired;
 
 		DamageType mBaseDamageType;
+		bool mDetailedTooltipDirty;
 
 		Handle<StatModifiers> mStatModifiers;
 		Handle<StatModifiers> mStatModifiersSelf;
@@ -151,6 +153,8 @@ namespace game {
 		virtual void onExperienceChange();
 
 		void getPrePostfix(short &prefix, short &postfix) const;
+
+		void updateDetailedTooltip();
 
 		static const char *sItemLocationNames[];
 	};

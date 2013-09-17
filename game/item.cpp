@@ -85,6 +85,7 @@ namespace game {
 		retain();
 		updateGraphic();
 		setTooltip(mName.c_str());
+		updateDetailedTooltip();
 	}
 	Item::~Item()
 	{
@@ -147,6 +148,7 @@ namespace game {
 	void Item::setItemType(ItemCommon::ItemType type)
 	{
 		mItemType = type;
+		updateDetailedTooltip();
 	}
 	ItemCommon::ItemType Item::getItemType() const
 	{
@@ -303,6 +305,7 @@ namespace game {
 			mPostfix = -1;
 		}
 		setTooltip(mName.c_str());
+		updateDetailedTooltip();
 	}
 	string Item::getFullItemName() const
 	{
@@ -400,10 +403,18 @@ namespace game {
 		return mName.substr(mName.size() - mPostfix);
 	}
 
-	const char *Item::getTooltip() const
+	/*const char *Item::getTooltip()
 	{
 		return mName.c_str();
 	}
+	const char *Item::getDetailedTooltip()
+	{
+		stringstream ss;
+		ss << mName << '\n';
+		ss << "Type: " << ItemCommon::getItemTypeName(mItemType) << '\n';
+		setDetailedTooltip(ss.str().c_str());
+		return Renderable::getDetailedTooltip();
+	}*/
 
 	float Item::getWidth()
 	{
@@ -655,5 +666,12 @@ namespace game {
 		fireEvent<Event>(e);
 	}
 
+	void Item::updateDetailedTooltip()
+	{
+		stringstream ss;
+		ss << mName << '\n';
+		ss << "Type: " << ItemCommon::getItemTypeNameNice(mItemType);
+		setDetailedTooltip(ss.str().c_str());
+	}
 }
 }

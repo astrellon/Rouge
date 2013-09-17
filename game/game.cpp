@@ -191,7 +191,9 @@ namespace game {
 			{
 				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == SUCCESS)
 				{
-					mItemLayer->addChild(hand->getInhand());
+					Item *inhand = hand->getInhand();
+					inhand->setInteractive(true);
+					mItemLayer->addChild(inhand);
 					hand->setInhand(nullptr);
 				}
 				return;
@@ -238,6 +240,7 @@ namespace game {
 						if (hand && hand->getInhand() == nullptr)
 						{
 							hand->setInhand(item);
+							item->setInteractive(false);
 							mItemLayer->removeChild(item);
 							item->setItemLocation(Item::HAND);
 						}

@@ -38,6 +38,7 @@ namespace ui {
 	protected:
 
 		Handle<Inventory> mInventory;
+		Handle<Renderable> mHitbox;
 
 		virtual void addItem(Item *item, int x, int y);
 		virtual void removeItem(Item *item);

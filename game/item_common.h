@@ -17,6 +17,7 @@ namespace game {
 		static ItemType getItemType(int typeValue);
 
 		static const char *getItemTypeName(ItemType type);
+		static const char *getItemTypeNameNice(ItemType type);
 	};
 
 }

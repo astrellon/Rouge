@@ -152,6 +152,7 @@ namespace gfx {
 			{
 				width = max(width, currWidth);
 				height += mCharHeight + mLeading;
+				currWidth = 0.0f;
 			}
 			else
 			{
@@ -164,6 +165,7 @@ namespace gfx {
 					{
 						height += wordHeight + mLeading;
 						width = max(width, currWidth);
+						currWidth = 0.0f;
 					}
 					else
 					{

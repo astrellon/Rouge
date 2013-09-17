@@ -43,8 +43,6 @@ namespace game {
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
 		setInteractive(true);
-
-		addEventListener(MOUSE_UP, this);
 	}
 	GameObject::GameObject(const GameObject &copy) :
 		Layer(copy),
@@ -80,8 +78,6 @@ namespace game {
 		}
 
 		setInteractive(copy.isInteractive());
-
-		addEventListener(MOUSE_UP, this);
 	}
 	GameObject::~GameObject()
 	{
@@ -97,8 +93,6 @@ namespace game {
 			mOriginalMap = nullptr;
 			map->release();
 		}
-
-		removeEventListener(MOUSE_UP, this);
 	}
 
 	void GameObject::update(float dt)
@@ -259,17 +253,9 @@ namespace game {
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
 	}
 
-	void GameObject::onEvent(MouseEvent *e)
+	bool GameObject::interacteWithLayer() const
 	{
-		if (e)
-		{
-			if (e->getMouseEventType() == MOUSE_UP)
-			{
-				//Handle<GameObjectEvent> goe(new GameObjectEvent("obj_click", this, e->getMouseButton()));
-				//GameObjectEvent::getManager()->fireEvent<GameObjectEvent>(goe);
-				e->setOriginalTarget(this);
-			}
-		}
+		return true;
 	}
 
 	bool GameObject::move(float x, float y)
