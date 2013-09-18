@@ -227,7 +227,13 @@ namespace game {
 	 */
 	int Engine_top_level_tile_set(lua_State *lua)
 	{
-		wrapRefObject<TileSet>(lua, Engine::getEngine()->getTopLevelTileSet());
+		TileSet *set = Engine::getEngine()->getTopLevelTileSet();
+		if (set)
+		{
+			wrapRefObject<TileSet>(lua, set);
+			return 1;
+		}
+		lua_pushnil(lua);
 		return 1;
 	}
 	/**

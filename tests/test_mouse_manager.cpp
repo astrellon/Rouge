@@ -49,7 +49,7 @@ namespace tests {
 		am_equals(2, targetListener.lastEvent->getLocalMouseY());
 
 		assert(nullptr != layerListener.lastEvent.get());
-		assert(layerListener.lastEvent->getEventTarget() == target1);
+		assert(layerListener.lastEvent->getOriginalTarget() == target1);
 		am_equals(1, layerListener.lastEvent->getLocalMouseX());
 		am_equals(2, layerListener.lastEvent->getLocalMouseY());
 

@@ -126,7 +126,8 @@ namespace sys {
 		
 		mDebugConsole = new TextList();
 		mDebugConsole->setName("DebugConsole");
-		mDebugConsole->setMaxEntries(30);
+		mDebugConsole->setMaxEntries(10000);
+		mDebugConsole->setLinesToDisplay(80);
 		gfxEngine ->getDebugLayer()->addChild(mDebugConsole);
 		
 		mDebugConsole->setWidth(600.0f);
@@ -199,17 +200,29 @@ namespace sys {
 	}
 	void GameSystem::onKeyDown(int key, bool systemKey)
 	{
+		if (systemKey)
+		{
+			// 192 Currently is `
+			if (key == 192)
+			{
+				mDebugConsole->setVisible(!mDebugConsole->isVisible());
+				mDebugInspector->setVisible(!mDebugInspector->isVisible());
+			}
+			// Page Up
+			else if (key == 33)
+			{
+				mDebugConsole->setScroll(mDebugConsole->getScroll() - 1);
+			}
+			// Page Down
+			else if (key == 34)
+			{
+				mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
+			}
+		}
 		KeyboardManager::getManager()->onKeyDown(key, systemKey);
 	}
 	void GameSystem::onKeyUp(int key)
 	{
-		// 192 Currently is `
-		if (key == 192)
-		{
-			mDebugConsole->setVisible(!mDebugConsole->isVisible());
-			mDebugInspector->setVisible(!mDebugInspector->isVisible());
-		}
-
 		KeyboardManager::getManager()->onKeyUp(key);
 	}
 	

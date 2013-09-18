@@ -46,6 +46,7 @@ namespace ui {
 			}
 			if (e->getEventTarget() == nullptr)
 			{
+				//e->setEventTarget(dynamic_cast<EventInterface *>(this));
 				e->setEventTarget(this);
 			}
 			mManager->fireEvent<T>(e);

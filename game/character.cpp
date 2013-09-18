@@ -46,7 +46,8 @@ namespace game {
 		mArmedCounter(0),
 		mBackground(new Layer()),
 		mForeground(new Layer()),
-		mCharacterLayer(new Layer())
+		mCharacterLayer(new Layer()),
+		mAIFuncRef(LUA_REFNIL)
 	{
 		mBackground->setName("Character->Background");
 		mForeground->setName("Character->Foreground");
@@ -75,7 +76,8 @@ namespace game {
 		mPickupReach(copy.mPickupReach),
 		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
 		mInventory(new Inventory(*copy.mInventory)),
-		mArmedCounter(0)
+		mArmedCounter(0),
+		mAIFuncRef(copy.mAIFuncRef)
 	{
 		int numChildren = getNumChildren();
 		if (numChildren >= 1)
@@ -130,6 +132,10 @@ namespace game {
 		if (mController)
 		{
 			mController->detach();
+		}
+		if (mAIFuncRef != LUA_REFNIL)
+		{
+			luaL_unref(Engine::getEngine()->getLua(), LUA_REGISTRYINDEX, mAIFuncRef);
 		}
 	}
 
@@ -881,6 +887,15 @@ namespace game {
 	bool Character::hasDestination() const
 	{
 		return !mDestinationPath.empty();
+	}
+
+	void Character::setAIFunc(int funcRef)
+	{
+		mAIFuncRef = funcRef;
+	}
+	int Character::getAIFunc() const
+	{
+		return mAIFuncRef;
 	}
 
 	float Character::getSpeed()

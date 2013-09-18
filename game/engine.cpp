@@ -45,6 +45,8 @@ namespace game {
 	{
 		EventInterface *manager = new EventInterface();
 		GameObjectEvent::setManager(manager);
+
+		mTopLevelTileSet = new TileSet();
 	}
 	void Engine::deinit()
 	{
@@ -210,7 +212,7 @@ namespace game {
 	}
 	TileSet *Engine::getTopLevelTileSet()
 	{
-		return mTopLevelTileSet.get();
+		return mTopLevelTileSet;
 	}
 
 	LuaState &Engine::getLua()
@@ -237,7 +239,7 @@ namespace game {
 		{
 			am_log("SET", "Default tile set not found!");
 			mTopLevelTileSet = new TileSet();
-			addTileSet(mTopLevelTileSet.get());
+			addTileSet(mTopLevelTileSet);
 		}
 		else
 		{

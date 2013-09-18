@@ -2,7 +2,7 @@
 
 #include "gfx_font.h"
 
-#include "../gl.h"
+#include <gl.h>
 
 namespace am {
 namespace gfx {
@@ -10,7 +10,9 @@ namespace gfx {
 	TextList::TextList() :
 		TextField(),
 		mMaxEntries(100),
-		mListUpwards(false)
+		mListUpwards(false),
+		mScroll(0),
+		mLinesToDisplay(10)
 	{
 
 	}
@@ -59,6 +61,32 @@ namespace gfx {
 		return mListUpwards;
 	}
 
+	void TextList::setScroll(int scroll)
+	{
+		if (scroll < 0) 
+		{
+			scroll = 0;
+		}
+		if (scroll >= mEntries.size())
+		{
+			scroll = mEntries.size() - 1;
+		}
+		mScroll = scroll;
+	}
+	int TextList::getScroll() const
+	{
+		return mScroll;
+	}
+
+	void TextList::setLinesToDisplay(int lines)
+	{
+		mLinesToDisplay = lines;
+	}
+	int TextList::getLinesToDisplay() const
+	{
+		return mLinesToDisplay;
+	}
+
 	void TextList::setFilter(const FilterList &filter)
 	{
 		mFilterList = filter;
@@ -86,7 +114,10 @@ namespace gfx {
 
 		string sep = ": ";
 
-		for (int i = mEntries.size() - 1; i >= 0; i--)
+		int start = max(0, min(mEntries.size() - 1, mEntries.size() - 1 - mScroll));
+		int end = max(0, start - mLinesToDisplay);
+
+		for (int i = start; i >= end; i--)
 		{
 			const Entry &entry = mEntries[i];
 			if (entry.second.size() > 0)

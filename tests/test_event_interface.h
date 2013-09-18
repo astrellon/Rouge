@@ -7,16 +7,19 @@ using namespace am::base;
 #include <tests/test_suite.h>
 
 #include <ui/ievent_listener.h>
+#include <ui/event_interface.h>
 #include <ui/event.h>
 using am::ui::IEventListener;
 using am::ui::Event;
+using am::ui::EventInterface;
 
 namespace am {
 namespace tests {
 
-	class TestEventInterface : public TestSuite, public IEventListener {
+	class TestEventInterface : public TestSuite, public EventInterface, public IEventListener {
 	public:
 		TestEventInterface() :
+			IEventListener(),
 			mEventCounter(0) {}
 		~TestEventInterface() {}
 	

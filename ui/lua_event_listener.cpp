@@ -52,7 +52,6 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		//lua_call(mLua, contexted ? 2 : 1, 0);
 		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(MouseEvent *e)
@@ -70,7 +69,7 @@ namespace ui {
 		mLua.setTableValue("mouse_button", static_cast<int>(e->getMouseButton()));
 		mLua.setTableValue("mouse_x", e->getMouseX());
 		mLua.setTableValue("mouse_y", e->getMouseY());
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(KeyboardEvent *e)
 	{
@@ -84,7 +83,7 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.setTableValue("key", e->getKey());
 		mLua.setTableValue("is_system_key", e->isSystemKey());
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(InventoryEvent *e)
 	{
@@ -104,7 +103,7 @@ namespace ui {
 		mLua.push("inventory");
 		wrapRefObject<Inventory>(mLua, e->getInventory());
 		lua_settable(mLua, -3);
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(EquipEvent *e)
 	{
@@ -125,7 +124,7 @@ namespace ui {
 		mLua.push("character");
 		wrapRefObject<Character>(mLua, e->getCharacter());
 		lua_settable(mLua, -3);
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(DialogueEvent *e)
 	{
@@ -174,7 +173,7 @@ namespace ui {
 		}
 		lua_settable(mLua, -3);
 
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(ItemEvent *e)
 	{
@@ -219,7 +218,7 @@ namespace ui {
 		}
 		lua_settable(mLua, -3);
 		
-		lua_call(mLua, contexted ? 2 : 1, 0);
+		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 
 	bool LuaEventListener::operator==(const LuaEventListener *rhs) const

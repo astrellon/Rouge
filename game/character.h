@@ -152,6 +152,9 @@ namespace game {
 		virtual bool hasDestination() const;
 		virtual void recalcDestination();
 
+		virtual void setAIFunc(int funcRef);
+		virtual int getAIFunc() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -195,6 +198,8 @@ namespace game {
 		int mDestinationPos;
 
 		int mArmedCounter;
+
+		int mAIFuncRef;
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();

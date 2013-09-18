@@ -61,7 +61,7 @@ namespace game {
 		if (mModifiers->addStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
-			if (stat == Stat::HEALTH && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
+			if (stat == Stat::HEALTH && mAttachedTo && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
 			{
 				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
 			}
@@ -78,7 +78,7 @@ namespace game {
 		if (mModifiers->removeStatModifier(stat, modifier))
 		{
 			setStatDirty(stat);
-			if (stat == Stat::HEALTH && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
+			if (stat == Stat::HEALTH && mAttachedTo && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
 			{
 				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
 			}
@@ -105,7 +105,7 @@ namespace game {
 		{
 			mBaseStats[stat] = value;
 			setStatDirty(stat);
-			if (stat == Stat::HEALTH && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
+			if (stat == Stat::HEALTH && mAttachedTo && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
 			{
 				dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
 			}
@@ -155,7 +155,7 @@ namespace game {
 		{
 			setStatDirty(iter->first);
 		}
-		if (mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
+		if (mAttachedTo && mAttachedTo->getGameObjectType() == GameObject::CHARACTER)
 		{
 			dynamic_cast<Character *>(mAttachedTo)->updateGraphic();
 		}

@@ -59,6 +59,11 @@ do
 			:start_dialogue("elder_intro")
 		elder:dialogue_component(comp)
 	end
+	-- AI Controller function
+	elder:ai_func(function(char, dt)
+		-- Do nothing
+		-- am.debug.log("Controller: " .. char:name() .. " (" .. dt .. ")")
+	end)
 	-- End Character
 	
 	-- Items

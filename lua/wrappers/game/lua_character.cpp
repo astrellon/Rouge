@@ -223,6 +223,7 @@ namespace game {
 			{ "level", Character_level },
 			{ "add_level", Character_add_level },
 			{ "max_level", Character_max_level },
+			{ "ai_func", Character_ai_func },
 			// Attributes
 			{ "attrs", Character_attrs },
 			{ "debug", Character_debug },
@@ -1822,6 +1823,23 @@ namespace game {
 			return IAttributeData_attrs(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "attrs", "am.character");
+	}
+
+	int Character_ai_func(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			if (lua_isfunction(lua, -1))
+			{
+				LuaState::logStack(lua, "AI");
+				int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+				obj->setAIFunc(funcRef);
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "ai_func", "function function");
+		}
+		return LuaState::expectedContext(lua, "ai_func", "am.character");
 	}
 
 	void charRelease(IManaged *obj)

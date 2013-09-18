@@ -16,8 +16,14 @@ namespace gfx {
 
 		void addEntry(const char *text, const char *type);
 
+		void setScroll(int scroll);
+		int getScroll() const;
+
 		void setMaxEntries(int entries);
 		int getMaxEntries() const;
+
+		void setLinesToDisplay(int lines);
+		int getLinesToDisplay() const;
 
 		void setListUpwards(bool upwards);
 		bool getListUpwards() const;
@@ -35,6 +41,8 @@ namespace gfx {
 		Entries mEntries;
 
 		int mMaxEntries;
+		int mScroll;
+		int mLinesToDisplay;
 		bool mListUpwards;
 
 		FilterList mFilterList;

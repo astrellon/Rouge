@@ -85,7 +85,7 @@ do
 		npc2:dialogue_component():available("fred_quest", true)
 	end)
 	fred_quest:on("finishQuest", function(event)
-		am_log("Finished Fred Quest")
+		am.debug.log("Finished Fred Quest")
 		game:main():add_experience(1000)
 	end)
 

@@ -25,7 +25,11 @@ namespace ui {
 		}
 		if (mManager->addEventListener(type, context))
 		{
-			context->addListeningTo(this);
+			EventInterface *asInterface = dynamic_cast<EventInterface *>(context);
+			if (asInterface)
+			{
+				context->addListeningTo(asInterface);
+			}
 			return true;
 		}
 		return false;
@@ -50,7 +54,12 @@ namespace ui {
 			bool result = mManager->removeEventListener(type, context);
 			if (result)
 			{
-				context->removeListeningTo(this);
+				EventInterface *asInterface = dynamic_cast<EventInterface *>(context);
+				if (asInterface)
+				{
+					context->removeListeningTo(asInterface);
+				}
+				//context->removeListeningTo(this);
 			}
 			if (mManager->isEmpty())
 			{

@@ -421,7 +421,7 @@ namespace gfx {
 			{
 				mCurrXpos += mFont->getKerning();
 			}
-			if (mNewLineDirty)
+			if (mNewLineDirty && mCurrentNode)
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
 				Handle<Renderable> hitbox = list[list.size() - 1];
