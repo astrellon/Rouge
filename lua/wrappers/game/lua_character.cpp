@@ -196,6 +196,10 @@ namespace game {
 			{ "gender", Character_gender },
 			{ "coin_purse", Character_coin_purse },
 			{ "graphic", Character_graphic },
+			{ "destination", Character_destination },
+			{ "grid_destination", Character_grid_destination },
+			{ "destination_length", Character_destination_length },
+			{ "has_destination", Character_has_destination },
 			// GameObject methods
 			{ "location", Character_location },
 			{ "grid_location", Character_grid_location },
@@ -1065,6 +1069,111 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "graphic", "am.character");
 	}
+
+	/**
+	 * Returns the characters current destination in world units.
+	 *
+	 * @returns number The x world unit.
+	 * @returns number The y world unit.
+	 */
+	/**
+	 * Sets the characters destination in world units (not by grid coordinates).
+	 *
+	 * @param number x The x world unit.
+	 * @param number y The y world unit.
+	 * @returns am.character This
+	 */
+	int Character_destination(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				math::Vector2f dest = obj->getDestination();
+				lua_pushnumber(lua, dest.x);
+				lua_pushnumber(lua, dest.y);
+				return 2;
+			}
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
+			{
+				obj->setDestination(lua_tonumber(lua, 2), lua_tonumber(lua, 3));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "destination", "number x, number y");
+		}
+		return LuaState::expectedContext(lua, "destination", "am.character");
+	}
+
+	/**
+	 * Returns the characters current destination in grid coordinates.
+	 *
+	 * @returns integer The x grid coordinate.
+	 * @returns integer The y grid coordinate.
+	 */
+	/**
+	 * Sets the characters destination in grid coordinates.
+	 *
+	 * @param integer x The x grid coordinate.
+	 * @param integer y The y grid coordinate.
+	 * @returns am.character This
+	 */
+	int Character_grid_destination(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				math::Vector2i dest = obj->getGridDestination();
+				lua_pushinteger(lua, dest.x);
+				lua_pushinteger(lua, dest.y);
+				return 2;
+			}
+			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
+			{
+				obj->setGridDestination(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "grid_destination", "integer x, integer y");
+		}
+		return LuaState::expectedContext(lua, "grid_destination", "am.character");
+	}
+
+	/**
+	 * If this character has a destination, this returns how long the path
+	 * is to the destination from the characters current location in world units.
+	 *
+	 * @returns number The length of the characters current path.
+	 */
+	int Character_destination_length(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			lua_pushnumber(lua, obj->getDestinationLength());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "destination_length", "am.character");
+	}
+
+	/**
+	 * Returns true if this character has a destination. This will be false if one
+	 * has not been set or if the character is at their destination.
+	 *
+	 * @returns boolean True if the character has somewhere it wants to go.
+	 */
+	int Character_has_destination(lua_State *lua)
+	{
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+			lua_pushboolean(lua, obj->hasDestination());
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "has_destination", "am.character");
+	}
+
 	/**
 	 * Returns the characters current map location.
 	 * @returns number The characters x map value

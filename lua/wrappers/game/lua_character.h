@@ -51,6 +51,11 @@ namespace game {
 	int Character_coin_purse(lua_State *lua);
 	int Character_graphic(lua_State *lua);
 
+	int Character_destination(lua_State *lua);
+	int Character_grid_destination(lua_State *lua);
+	int Character_destination_length(lua_State *lua);
+	int Character_has_destination(lua_State *lua);
+
 	// GameObject methods
 	int Character_location(lua_State *lua);
 	int Character_grid_location(lua_State *lua);

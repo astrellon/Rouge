@@ -45,17 +45,17 @@ namespace game {
 			lua_rawgeti(lua, LUA_REGISTRYINDEX, character->getAIFunc());
 			wrapRefObject<Character>(lua, character);
 			lua_pushnumber(lua, dt);
-			lua_pcall(lua, 2, 0, 0);
+			lua_acall(lua, 2, 0, 0);
 		}
 		else
 		{
-			if (!character->hasDestination())
+			/*if (!character->hasDestination())
 			{
 				Map *map = Engine::getGame()->getCurrentMap();
 				float destX = Utils::randf() * static_cast<float>(map->getMapWidth()) * Engine::gridSize();
 				float destY = Utils::randf() * static_cast<float>(map->getMapHeight()) * Engine::gridSize();
 				character->setDestination(destX, destY);
-			}
+			}*/
 		}
 		mActive = false;
 	}

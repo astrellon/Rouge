@@ -61,9 +61,29 @@ do
 	end
 	-- AI Controller function
 	elder:ai_func(function(char, dt)
-		-- Do nothing
-		-- am.debug.log("Controller: " .. char:name() .. " (" .. dt .. ")")
+		if (char:has_destination() == false) then
+			local width, height = map:map_size()
+			local x = math.modf(math.random(0, width - 1))
+			local y = math.modf(math.random(0, height - 1))
+			char:grid_destination(x, y)
+		end
 	end)
+	
+	local john, new_char = am.character.new(map_name .. "_john", "npcs:male1")
+	if (new_char) then
+		john:graphic(am.sprite.new("characters/human:male"))
+			:grid_location(5, 6)
+			:name("John McGee")
+		map:add_game_object(john)
+	end
+	
+	local fred, new_char = am.character.new(map_name .. "_fred", "npcs:male1")
+	if (new_char) then
+		fred:graphic(am.sprite.new("characters/human:male2"))
+			:grid_location(13, 6)
+			:name("Fred McGee")
+		map:add_game_object(fred)
+	end
 	-- End Character
 	
 	-- Items
