@@ -105,7 +105,7 @@
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(ProjectDir)IL\DevIL.dll" "$(OutputPath)"
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
 mkdir "$(OutputPath)data"
 xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
 copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
