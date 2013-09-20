@@ -10,7 +10,7 @@ do
 		:inventory_size(1, 2)
 		:description("This sword be wooden!")
 		
-	local stats = item:stat_modifiers_self()
+	local stats = item:stat_modifiers()
 	stats:add("minDamage", 2, "+")
 	stats:add("maxDamage", 4, "+")
 	game:item_def("sword", item)

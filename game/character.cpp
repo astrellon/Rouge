@@ -124,7 +124,15 @@ namespace game {
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
 		{
-			setGraphic(new Sprite(*copy.mGraphic), false);
+			// Find our new graphic in the character layer if there was one.
+			for (int i = 0; i < mCharacterLayer->getNumChildren(); i++)
+			{
+				Sprite *temp = dynamic_cast<Sprite *>(mCharacterLayer->getChildAt(i));
+				if (temp && temp->getAsset() == copy.mGraphic->getAsset())
+				{
+					mGraphic = temp;
+				}
+			}
 		}
 	}
 	Character::~Character()

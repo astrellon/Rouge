@@ -58,13 +58,20 @@ namespace game {
 		mBodyPartsRequired(copy.mBodyPartsRequired),
 		mBaseDamageType(copy.mBaseDamageType)
 	{
-		if (copy.mGraphic)
+		for (int i = 0; i < mChildren.size(); i++)
 		{
-			mGraphic = new Sprite(*copy.mGraphic);
-		}
-		if (copy.mGroundGraphic)
-		{
-			mGroundGraphic = new Sprite(*copy.mGroundGraphic);
+			Sprite *temp = dynamic_cast<Sprite *>(mChildren[i].get());
+			if (temp)
+			{
+				if (copy.mGraphic && temp->getAsset() == copy.mGraphic->getAsset())
+				{
+					mGraphic = temp;
+				}
+				else if (copy.mGroundGraphic && temp->getAsset() == copy.mGroundGraphic->getAsset())
+				{
+					mGroundGraphic = temp;
+				}
+			}
 		}
 		if (copy.mStatModifiers)
 		{
@@ -108,13 +115,16 @@ namespace game {
 			removeChild(mGraphic);
 		}
 		mGraphic = graphic;
-		graphic->setInteractive(true);
-
 		if (calcInvSize && graphic)
 		{
-			graphic->addEventListener(MOUSE_UP, this);
 			mInventorySizeX = static_cast<short>(ceil(graphic->getWidth() / Inventory::getSpaceSizeX()));
 			mInventorySizeY = static_cast<short>(ceil(graphic->getHeight() / Inventory::getSpaceSizeY()));
+		}
+		if (graphic)
+		{
+			graphic->setInteractive(true);
+			graphic->addEventListener(MOUSE_UP, this);
+			addChild(graphic);
 		}
 		updateGraphic();
 	}
@@ -131,9 +141,10 @@ namespace game {
 			removeChild(mGroundGraphic);
 		}
 		mGroundGraphic = graphic;
-		graphic->setInteractive(true);
 		if (graphic)
 		{
+			graphic->setInteractive(true);
+			addChild(graphic);
 			mCameraOffsetX = graphic->getWidth() * 0.5f;
 			mCameraOffsetY = graphic->getHeight() * 0.5f;
 			graphic->addEventListener(MOUSE_UP, this);
@@ -256,28 +267,25 @@ namespace game {
 
 	void Item::updateGraphic()
 	{
-		Handle<Sprite> graphic = mGraphic;
-		Handle<Sprite> groundGraphic = mGroundGraphic;
-		Handle<Item> thisHandle(this);
-		if (groundGraphic.get() == nullptr && graphic.get() != nullptr)
+		if (mGroundGraphic == nullptr && mGraphic != nullptr)
 		{
-			groundGraphic = graphic;
+			mGraphic->setVisible(true);
 		}
-		else if (groundGraphic.get() != nullptr && graphic.get() == nullptr)
+		else if (mGroundGraphic != nullptr && mGraphic == nullptr)
 		{
-			graphic = groundGraphic;
-		}
-		if (mItemLocation == GROUND)
-		{
-			removeChild(graphic);
-			addChild(groundGraphic);
-			mCurrentGraphic = groundGraphic;
+			mGroundGraphic->setVisible(true);
 		}
 		else
 		{
-			removeChild(groundGraphic);
-			addChild(graphic);
-			mCurrentGraphic = graphic;
+			bool groundVisible = mItemLocation == GROUND;
+			if (mGroundGraphic)
+			{
+				mGroundGraphic->setVisible(groundVisible);
+			}
+			if (mGraphic) 
+			{
+				mGraphic->setVisible(!groundVisible); 
+			}
 		}
 	}
 
@@ -419,11 +427,27 @@ namespace game {
 
 	float Item::getWidth()
 	{
-		return mCurrentGraphic->getWidth();
+		if (mGraphic && mGraphic->isVisible())
+		{
+			return mGraphic->getWidth();
+		}
+		else if (mGroundGraphic && mGroundGraphic->isVisible())
+		{
+			return mGroundGraphic->getWidth();
+		}
+		return 0.0f;
 	}
 	float Item::getHeight()
 	{
-		return mCurrentGraphic->getHeight();
+		if (mGraphic && mGraphic->isVisible())
+		{
+			return mGraphic->getHeight();
+		}
+		else if (mGroundGraphic && mGroundGraphic->isVisible())
+		{
+			return mGroundGraphic->getHeight();
+		}
+		return 0.0f;
 	}
 
 	const char *Item::getGameObjectTypeName() const

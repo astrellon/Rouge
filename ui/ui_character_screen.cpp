@@ -14,8 +14,6 @@ namespace ui {
 	{
 		setName("CharacterScreen");
 		mInfo = new TextField2();
-		mInfo->setGfxComponent(new GfxComponent());
-		mInfo->getGfxComponent()->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);
@@ -29,6 +27,16 @@ namespace ui {
 
 		setInteractive(true);
 		mInventory->setInteractive(true);
+
+		mLeftArm = new BodyPartRenderer(2, 3, "left_hand");
+		mLeftArm->setParentOffset(16, 150);
+		addChild(mLeftArm);
+
+		mRightArm = new BodyPartRenderer(2, 3, "right_hand");
+		mRightArm->setParentOffset(-16, 150);
+		mRightArm->setAnchorX(X_RIGHT);
+		mRightArm->setParentAnchorX(X_RIGHT);
+		addChild(mRightArm);
 
 		setTitle("Character Screen");
 	}
@@ -85,6 +93,8 @@ namespace ui {
 			{
 				mInventory->setInventory(nullptr);
 			}
+			mLeftArm->setCharacter(character);
+			mRightArm->setCharacter(character);
 		}
 	}
 	Character *CharacterScreen::getCharacter()

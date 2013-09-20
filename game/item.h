@@ -123,7 +123,6 @@ namespace game {
 		
 		Handle<Sprite> mGraphic;
 		Handle<Sprite> mGroundGraphic;
-		Handle<Sprite> mCurrentGraphic;
 
 		short mPrefix;
 		short mPostfix;

@@ -11,6 +11,7 @@ using namespace am::gfx;
 
 #include <ui/ui_panel.h>
 #include <ui/ui_inventory_renderer.h>
+#include <ui/ui_body_part_renderer.h>
 
 namespace am {
 namespace ui {
@@ -41,6 +42,8 @@ namespace ui {
 		Handle<TextField2> mInfo;
 		Handle<Character> mCharacter;
 		Handle<InventoryRenderer> mInventory;
+		Handle<BodyPartRenderer> mLeftArm;
+		Handle<BodyPartRenderer> mRightArm;
 
 		bool mTextDirty;
 		void updateText();

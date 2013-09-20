@@ -1941,7 +1941,6 @@ namespace game {
 		{
 			if (lua_isfunction(lua, -1))
 			{
-				LuaState::logStack(lua, "AI");
 				int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
 				obj->setAIFunc(funcRef);
 				lua_first(lua);

@@ -7,6 +7,8 @@
 #include <game/character.h>
 using namespace am::game;
 
+#include <gfx/gfx_texture.h>
+
 #include <log/logger.h>
 
 #include <ui/event.h>
@@ -55,10 +57,17 @@ namespace ui {
 
 			if (hand->getInhand() != nullptr)
 			{
-				mCharacter->equipItem(hand->getInhand(), mBodyPartName.c_str());
+				if (!mCharacter->equipItem(hand->getInhand(), mBodyPartName.c_str()))
+				{
+					return;
+				}
 			}
 
 			hand->setInhand(prevEquipped);
+			if (prevEquipped)
+			{
+				prevEquipped->setItemLocation(Item::HAND);
+			}
 
 			updateGraphic();
 
@@ -85,7 +94,7 @@ namespace ui {
 
 	void BodyPartRenderer::setCharacter(Character *character)
 	{
-		if (mCharacter.get())
+		if (mCharacter)
 		{
 			mCharacter->removeEventListener("equip", this);
 			mCharacter->removeEventListener("unequip", this);
@@ -119,6 +128,8 @@ namespace ui {
 
 		float width = getWidth();
 		float height = getHeight();
+
+		gfx::Texture::bindTexture(0);
 		glBegin(GL_QUADS);
 			glColor4f(0.7f, 0.3f, 0.1f, 0.35f);
 			glVertex2f(0, 0);
@@ -137,7 +148,7 @@ namespace ui {
 	{
 		if (mCharacter == nullptr || mBodyPartName.size() == 0)
 		{
-			if (mCurrentItem.get() != nullptr)
+			if (mCurrentItem != nullptr)
 			{
 				removeChild(mCurrentItem);
 			}
@@ -145,7 +156,7 @@ namespace ui {
 		}
 		
 		Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
-		if (equipped.get() != nullptr && equipped.get() != mCurrentItem.get())
+		if (equipped != nullptr && equipped != mCurrentItem)
 		{
 			addChild(equipped);
 			float x = (getWidth() - equipped->getWidth()) * 0.5f;
