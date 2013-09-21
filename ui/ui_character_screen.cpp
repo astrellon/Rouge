@@ -38,6 +38,18 @@ namespace ui {
 		mRightArm->setParentAnchorX(X_RIGHT);
 		addChild(mRightArm);
 
+		mHead = new BodyPartRenderer(2, 2, "head");
+		mHead->setParentOffset(60, 150);
+		addChild(mHead);
+
+		mTorso = new BodyPartRenderer(2, 2, "torso");
+		mTorso->setParentOffset(60, 190);
+		addChild(mTorso);
+
+		mLegs = new BodyPartRenderer(2, 2, "legs");
+		mLegs->setParentOffset(60, 230);
+		addChild(mLegs);
+
 		setTitle("Character Screen");
 	}
 	CharacterScreen::~CharacterScreen()
@@ -95,6 +107,9 @@ namespace ui {
 			}
 			mLeftArm->setCharacter(character);
 			mRightArm->setCharacter(character);
+			mTorso->setCharacter(character);
+			mHead->setCharacter(character);
+			mLegs->setCharacter(character);
 		}
 	}
 	Character *CharacterScreen::getCharacter()

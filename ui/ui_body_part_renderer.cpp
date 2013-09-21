@@ -30,6 +30,8 @@ namespace ui {
 		mHitbox->setInteractive(true);
 		addChild(mHitbox);
 
+		mHitbox->setTooltip(bodyPartName);
+
 		setMaxItemSize(width, height);
 
 		addEventListener(MOUSE_UP, this);
@@ -49,12 +51,20 @@ namespace ui {
 
 	void BodyPartRenderer::onEvent(MouseEvent *e)
 	{
-		if (e)
+		if (e && mCharacter)
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 
+			if (hand->getInhand() != nullptr)
+			{
+				ReturnCode result = mCharacter->canEquipItem(hand->getInhand(), mBodyPartName.c_str());
+				if (result != ABLE_TO_EQUIP)
+				{
+					return;
+				}
+			}
 			Handle<Item> prevEquipped = mCurrentItem;
-			if (mCharacter.get() != nullptr && mCurrentItem.get() != nullptr)
+			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
 				mCharacter->unequipItem(mBodyPartName.c_str());
 				removeChild(mCurrentItem);
@@ -64,6 +74,7 @@ namespace ui {
 			{
 				if (!mCharacter->equipItem(hand->getInhand(), mBodyPartName.c_str()))
 				{
+					// Shouldn't happen now
 					return;
 				}
 			}

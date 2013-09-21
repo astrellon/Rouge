@@ -70,6 +70,9 @@ namespace game {
 		virtual bool hasBodyPart(const char *partName) const;
 		virtual const BodyParts &getBodyParts() const;
 
+		/**
+		 * TODO Replace the return values of the equip/unequip item calls with ReturnCodes!.
+		 */
 		virtual bool equipItem(Item *item, const char *partName);
 		virtual bool equipItem(Item *item, BodyPart *part);
 		virtual bool unequipItem(const char *bodyPart);

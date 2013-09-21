@@ -56,7 +56,8 @@ namespace game {
 		mPostfix(copy.mPostfix),
 		mQuestItemId(copy.mQuestItemId),
 		mBodyPartsRequired(copy.mBodyPartsRequired),
-		mBaseDamageType(copy.mBaseDamageType)
+		mBaseDamageType(copy.mBaseDamageType),
+		mEquipableTo(copy.mEquipableTo)
 	{
 		for (int i = 0; i < mChildren.size(); i++)
 		{
@@ -89,7 +90,10 @@ namespace game {
 		{
 			mStatModifiersSelf = new StatModifiers();
 		}
-		retain();
+
+		// TODO This seems unrequired
+		//retain();
+
 		updateGraphic();
 		setTooltip(mName.c_str());
 		updateDetailedTooltip();

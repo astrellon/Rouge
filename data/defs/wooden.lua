@@ -9,6 +9,7 @@ do
 		:ground_graphic(am.sprite.new("items/sword:ground"))
 		:inventory_size(1, 2)
 		:description("This sword be wooden!")
+		:add_body_type("hand")
 		
 	local stats = item:stat_modifiers()
 	stats:add("minDamage", 2, "+")
@@ -22,6 +23,7 @@ do
 		:graphic(am.sprite.new("items/shield:main"), true)
 		:inventory_size(2, 2)
 		:description("This shield be wooden!")
+		:add_body_type("hand")
 		
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")

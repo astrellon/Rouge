@@ -44,6 +44,9 @@ namespace ui {
 		Handle<InventoryRenderer> mInventory;
 		Handle<BodyPartRenderer> mLeftArm;
 		Handle<BodyPartRenderer> mRightArm;
+		Handle<BodyPartRenderer> mTorso;
+		Handle<BodyPartRenderer> mHead;
+		Handle<BodyPartRenderer> mLegs;
 
 		bool mTextDirty;
 		void updateText();
