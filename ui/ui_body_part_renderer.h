@@ -34,7 +34,7 @@ namespace ui {
 		virtual const char *getBodyPartName() const;
 
 		// Layer methods
-		virtual bool interacteWithLayer() const;
+		//virtual bool interacteWithLayer() const;
 
 		// Renderable methods
 		virtual void preRender(float dt);
@@ -43,6 +43,7 @@ namespace ui {
 
 		Handle<Character> mCharacter;
 		Handle<Item> mCurrentItem;
+		Handle<Renderable> mHitbox;
 
 		string mBodyPartName;
 		short mMaxItemWidth;

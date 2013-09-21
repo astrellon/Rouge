@@ -26,6 +26,10 @@ namespace ui {
 		ss << "BodyPartRenderer -> " << bodyPartName;
 		setName(ss.str().c_str());
 
+		mHitbox = new Renderable();
+		mHitbox->setInteractive(true);
+		addChild(mHitbox);
+
 		setMaxItemSize(width, height);
 
 		addEventListener(MOUSE_UP, this);
@@ -53,6 +57,7 @@ namespace ui {
 			if (mCharacter.get() != nullptr && mCurrentItem.get() != nullptr)
 			{
 				mCharacter->unequipItem(mBodyPartName.c_str());
+				removeChild(mCurrentItem);
 			}
 
 			if (hand->getInhand() != nullptr)
@@ -80,8 +85,10 @@ namespace ui {
 		mMaxItemWidth = width;
 		mMaxItemHeight = height;
 
-		setSize(static_cast<float>(width) * Inventory::getSpaceSizeX(), 
-			static_cast<float>(height) * Inventory::getSpaceSizeY());
+		float renderWidth = static_cast<float>(width) * Inventory::getSpaceSizeX();
+		float renderHeight = static_cast<float>(height) * Inventory::getSpaceSizeY();
+		setSize(renderWidth, renderHeight);
+		mHitbox->setSize(renderWidth, renderHeight);
 	}
 	short BodyPartRenderer::getMaxItemWidth() const
 	{
@@ -139,11 +146,6 @@ namespace ui {
 		glEnd();
 	}
 
-	bool BodyPartRenderer::interacteWithLayer() const
-	{
-		return true;
-	}
-
 	void BodyPartRenderer::updateGraphic()
 	{
 		if (mCharacter == nullptr || mBodyPartName.size() == 0)
@@ -162,6 +164,10 @@ namespace ui {
 			float x = (getWidth() - equipped->getWidth()) * 0.5f;
 			float y = (getHeight() - equipped->getHeight()) * 0.5f;
 			equipped->setPosition(x, y);
+		}
+		else if (equipped == nullptr)
+		{
+			removeChild(mCurrentItem);
 		}
 		mCurrentItem = equipped;
 	}

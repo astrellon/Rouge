@@ -412,19 +412,6 @@ namespace game {
 		return mName.substr(mName.size() - mPostfix);
 	}
 
-	/*const char *Item::getTooltip()
-	{
-		return mName.c_str();
-	}
-	const char *Item::getDetailedTooltip()
-	{
-		stringstream ss;
-		ss << mName << '\n';
-		ss << "Type: " << ItemCommon::getItemTypeName(mItemType) << '\n';
-		setDetailedTooltip(ss.str().c_str());
-		return Renderable::getDetailedTooltip();
-	}*/
-
 	float Item::getWidth()
 	{
 		if (mGraphic && mGraphic->isVisible())

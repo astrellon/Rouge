@@ -28,11 +28,11 @@ namespace ui {
 		setInteractive(true);
 		mInventory->setInteractive(true);
 
-		mLeftArm = new BodyPartRenderer(2, 3, "left_hand");
+		mLeftArm = new BodyPartRenderer(2, 4, "left_hand");
 		mLeftArm->setParentOffset(16, 150);
 		addChild(mLeftArm);
 
-		mRightArm = new BodyPartRenderer(2, 3, "right_hand");
+		mRightArm = new BodyPartRenderer(2, 4, "right_hand");
 		mRightArm->setParentOffset(-16, 150);
 		mRightArm->setAnchorX(X_RIGHT);
 		mRightArm->setParentAnchorX(X_RIGHT);
