@@ -28,15 +28,15 @@ namespace ui {
 		setInteractive(true);
 		mInventory->setInteractive(true);
 
-		mLeftArm = new BodyPartRenderer(2, 4, "left_hand");
-		mLeftArm->setParentOffset(16, 150);
-		addChild(mLeftArm);
+		mLeftHand = new BodyPartRenderer(2, 4, "left_hand");
+		mLeftHand->setParentOffset(16, 150);
+		addChild(mLeftHand);
 
-		mRightArm = new BodyPartRenderer(2, 4, "right_hand");
-		mRightArm->setParentOffset(-16, 150);
-		mRightArm->setAnchorX(X_RIGHT);
-		mRightArm->setParentAnchorX(X_RIGHT);
-		addChild(mRightArm);
+		mRightHand = new BodyPartRenderer(2, 4, "right_hand");
+		mRightHand->setParentOffset(-16, 150);
+		mRightHand->setAnchorX(X_RIGHT);
+		mRightHand->setParentAnchorX(X_RIGHT);
+		addChild(mRightHand);
 
 		mHead = new BodyPartRenderer(2, 2, "head");
 		mHead->setParentOffset(60, 150);
@@ -54,6 +54,7 @@ namespace ui {
 	}
 	CharacterScreen::~CharacterScreen()
 	{
+		setCharacter(nullptr);
 	}
 
 	void CharacterScreen::onEvent(Event *e)
@@ -105,8 +106,8 @@ namespace ui {
 			{
 				mInventory->setInventory(nullptr);
 			}
-			mLeftArm->setCharacter(character);
-			mRightArm->setCharacter(character);
+			mLeftHand->setCharacter(character);
+			mRightHand->setCharacter(character);
 			mTorso->setCharacter(character);
 			mHead->setCharacter(character);
 			mLegs->setCharacter(character);

@@ -42,8 +42,8 @@ namespace ui {
 		Handle<TextField2> mInfo;
 		Handle<Character> mCharacter;
 		Handle<InventoryRenderer> mInventory;
-		Handle<BodyPartRenderer> mLeftArm;
-		Handle<BodyPartRenderer> mRightArm;
+		Handle<BodyPartRenderer> mLeftHand;
+		Handle<BodyPartRenderer> mRightHand;
 		Handle<BodyPartRenderer> mTorso;
 		Handle<BodyPartRenderer> mHead;
 		Handle<BodyPartRenderer> mLegs;

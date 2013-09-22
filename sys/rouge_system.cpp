@@ -437,7 +437,6 @@ namespace sys {
 		}
 		
 		mPlayer->addEventListener("dialogue", this);
-		mPlayer->setTooltip("ASDADSD");
 		game->getCurrentMap()->calcAllTileEdgeValues();
 		game->getCurrentMap()->getTileRenderer()->updateAssetSprites();
 

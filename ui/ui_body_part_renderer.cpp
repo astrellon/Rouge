@@ -39,6 +39,7 @@ namespace ui {
 	BodyPartRenderer::~BodyPartRenderer()
 	{
 		removeEventListener(MOUSE_UP, this);
+		setCharacter(nullptr);
 	}
 
 	void BodyPartRenderer::onEvent(EquipEvent *e)
