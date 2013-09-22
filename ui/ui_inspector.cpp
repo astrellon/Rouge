@@ -107,16 +107,16 @@ namespace ui {
 
 	void Inspector::onEvent(MouseEvent *e)
 	{
-		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getEventTarget());
+		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getOriginalTarget());
 		if (textHit != nullptr)
 		{
 			int index = -1;
 			if (Utils::fromString<int>(index, textHit->getNodeTarget()->getAttribute("index")))
 			{
 				GameObject *clickedOn = mGameObjects[index];
-				Item *item = dynamic_cast<Item *>(clickedOn);
-				if (item)
+				if (clickedOn->getGameObjectType() == GameObject::ITEM)
 				{
+					Item *item = dynamic_cast<Item *>(clickedOn);
 					Engine::getEngine()->getCurrentGame()->getMainCharacter()->pickupItem(item);
 					mGameObjects.erase(mGameObjects.begin() + index);
 					mTextDirty = true;

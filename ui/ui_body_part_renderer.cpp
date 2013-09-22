@@ -5,6 +5,7 @@
 #include <game/player_hand.h>
 #include <game/inventory.h>
 #include <game/character.h>
+#include <game/engine.h>
 using namespace am::game;
 
 #include <gfx/gfx_texture.h>
@@ -67,8 +68,16 @@ namespace ui {
 			Handle<Item> prevEquipped = mCurrentItem;
 			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
-				mCharacter->unequipItem(mBodyPartName.c_str());
-				removeChild(mCurrentItem);
+				if (e->getMouseButton() == LEFT_BUTTON)
+				{
+					mCharacter->unequipItem(mBodyPartName.c_str());
+					removeChild(mCurrentItem);
+				}
+				else if (e->getMouseButton() == RIGHT_BUTTON)
+				{
+					Engine::getEngine()->getGameHud()->getInspector()->setInspectObject(prevEquipped);
+					return;
+				}
 			}
 
 			if (hand->getInhand() != nullptr)
