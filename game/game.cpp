@@ -449,6 +449,10 @@ namespace game {
 		{
 			mItemLayer->addChild(obj);
 		}
+		else
+		{
+			mBackground->addChild(obj);
+		}
 		ISource *source = obj->getSource(false);
 		if (source)
 		{

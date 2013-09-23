@@ -39,7 +39,7 @@ namespace game {
 	public:
 
 		enum GameObjectType {
-			UNKNOWN_TYPE, GAME_OBJECT, CHARACTER, ITEM
+			UNKNOWN_TYPE, GAME_OBJECT, CHARACTER, ITEM, DOOR
 		};
 
 		enum DamageType {

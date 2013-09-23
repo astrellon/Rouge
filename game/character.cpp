@@ -57,7 +57,6 @@ namespace game {
 		setName("Character");
 		mPickupReach = Engine::getEngine()->getGridSize() * 1.5f;
 		mMaxLevel = 50;
-		addEventListener(MOUSE_UP, this);
 
 		addChild(mBackground);
 		addChild(mCharacterLayer);

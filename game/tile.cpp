@@ -246,7 +246,7 @@ namespace game {
 
 	void Tile::addTileType(TileType *tileType)
 	{
-		if (tileType != nullptr)
+		if (tileType != nullptr && !hasTileType(tileType))
 		{
 			mTileTypes.push_back(tileType);
 		}
@@ -284,11 +284,11 @@ namespace game {
 		}
 		return false;
 	}
-	Tile::TileTypeList &Tile::getTileTypes()
+	Tile::TileTypeSet &Tile::getTileTypes()
 	{
 		return mTileTypes;
 	}
-	const Tile::TileTypeList &Tile::getTileTypes() const
+	const Tile::TileTypeSet &Tile::getTileTypes() const
 	{
 		return mTileTypes;
 	}

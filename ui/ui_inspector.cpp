@@ -152,13 +152,13 @@ namespace ui {
 		}
 		else
 		{
-			if (mTile.get())
+			if (mTile)
 			{
 				ss << "<title>Tile:</title> " << mTile->getFullName() << 
 					  "\n<title>Desc:</title> " << mTile->getDescription() << 
 					  "\n<title>Types:</title> ";
 
-				Tile::TileTypeList &tileTypes = mTile->getTileTypes();
+				Tile::TileTypeSet &tileTypes = mTile->getTileTypes();
 				for (size_t i = 0; i < tileTypes.size(); i++)
 				{
 					if (i > 0)

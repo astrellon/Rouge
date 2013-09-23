@@ -44,6 +44,14 @@ namespace game {
 		}
 		return Tile::getDefaultTile();
 	}
+	const Tile *TileInstance::getTile() const
+	{
+		if (mTile)
+		{
+			return mTile;
+		}
+		return Tile::getDefaultTile();
+	}
 	void TileInstance::setTile(Tile *tile) 
 	{
 		mTile = tile;
@@ -157,6 +165,55 @@ namespace game {
 			return mTileEdgeValues[index];
 		}
 		return 0u;
+	}
+
+	void TileInstance::addTileType(TileType *tileType)
+	{
+		if (tileType != nullptr)
+		{
+			mTileTypes.push_back(tileType);
+		}
+	}
+	void TileInstance::removeTileType(TileType *tileType)
+	{
+		if (tileType == nullptr)
+		{
+			return;
+		}
+		for (size_t i = 0; i < mTileTypes.size(); i++)
+		{
+			if (mTileTypes[i].get() == tileType)
+			{
+				mTileTypes.erase(mTileTypes.begin() + i);
+			}
+		}
+	}
+	void TileInstance::removeAllTileTypes()
+	{
+		mTileTypes.clear();
+	}
+	bool TileInstance::hasTileType(TileType *tileType) const
+	{
+		if (tileType == nullptr)
+		{
+			return false;
+		}
+		for (size_t i = 0; i < mTileTypes.size(); i++)
+		{
+			if (mTileTypes[i].get() == tileType)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	TileInstance::TileTypeList &TileInstance::getTileTypes()
+	{
+		return mTileTypes;
+	}
+	const TileInstance::TileTypeList &TileInstance::getTileTypes() const
+	{
+		return mTileTypes;
 	}
 
 }

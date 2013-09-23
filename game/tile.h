@@ -26,7 +26,7 @@ namespace game {
 	class Tile : public IManaged, public IDefinition {
 	public:
 
-		typedef vector< Handle<TileType> > TileTypeList;
+		typedef vector< Handle<TileType> > TileTypeSet;
 		typedef vector< Handle<Asset> > TileAssetList;
 		typedef map< Tile *, TileAssetList > TileAssetMap;
 
@@ -59,8 +59,8 @@ namespace game {
 		void removeTileType(TileType *tileType);
 		void removeAllTileTypes();
 		bool hasTileType(TileType *tileType) const;
-		TileTypeList &getTileTypes();
-		const TileTypeList &getTileTypes() const;
+		TileTypeSet &getTileTypes();
+		const TileTypeSet &getTileTypes() const;
 
 		void addTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
 		void removeTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
@@ -88,7 +88,7 @@ namespace game {
 		string mDescription;
 		int mPrecedence;
 
-		TileTypeList mTileTypes;
+		TileTypeSet mTileTypes;
 
 		static Handle<Tile> sDefaultTile;
 

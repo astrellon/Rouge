@@ -218,6 +218,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\dialogue_choice.cpp" />
     <ClCompile Include="game\dialogue_component.cpp" />
     <ClCompile Include="game\dialogue_selector.cpp" />
+    <ClCompile Include="game\door.cpp" />
     <ClCompile Include="game\engine.cpp" />
     <ClCompile Include="game\game.cpp" />
     <ClCompile Include="game\game_object.cpp" />
@@ -469,6 +470,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\dialogue_choice.h" />
     <ClInclude Include="game\dialogue_component.h" />
     <ClInclude Include="game\dialogue_selector.h" />
+    <ClInclude Include="game\door.h" />
     <ClInclude Include="game\engine.h" />
     <ClInclude Include="game\game.h" />
     <ClInclude Include="game\game_object.h" />

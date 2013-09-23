@@ -42,15 +42,15 @@ namespace tests {
 		assert(testMap->getTile(1, 0) == water.get());
 		assert(testMap->getTile(2, 0) == swamp.get());
 
-		const Tile::TileTypeList &landTileTypes = land->getTileTypes();
+		const Tile::TileTypeSet &landTileTypes = land->getTileTypes();
 		am_equals(1u, landTileTypes.size());
 		assert(landTileTypes[0].get() == landType.get());
 
-		const Tile::TileTypeList &waterTileTypes = water->getTileTypes();
+		const Tile::TileTypeSet &waterTileTypes = water->getTileTypes();
 		am_equals(1u, waterTileTypes.size());
 		assert(waterTileTypes[0].get() == waterType.get());
 
-		const Tile::TileTypeList &swampTileTypes = swamp->getTileTypes();
+		const Tile::TileTypeSet &swampTileTypes = swamp->getTileTypes();
 		am_equals(2u, swampTileTypes.size());
 		assert(swampTileTypes[0].get() == landType.get());
 		assert(swampTileTypes[1].get() == waterType.get());

@@ -44,6 +44,7 @@
 #include <game/inventory.h>
 #include <game/map.h>
 #include <game/string_pool.h>
+#include <game/door.h>
 
 #include <util/text_tokeniser.h>
 #include <util/utils.h>
@@ -437,9 +438,14 @@ namespace sys {
 		}
 		
 		mPlayer->addEventListener("dialogue", this);
-		mPlayer->setTooltip("ASDADSD");
 		game->getCurrentMap()->calcAllTileEdgeValues();
 		game->getCurrentMap()->getTileRenderer()->updateAssetSprites();
+
+		Handle<Door> door(new Door());
+		door->setGraphic(new Sprite("wooden_door:main"));
+		door->setGridLocation(5, 8);
+		door->setOpened(true);
+		game->getCurrentMap()->addGameObject(door);
 
 		PlayerController *controller = new PlayerController();
 		mPlayer->setController(controller);

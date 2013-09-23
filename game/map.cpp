@@ -612,11 +612,27 @@ namespace game {
 	bool Map::_isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const
 	{
 		const GameObject::PassibleTypeList &objectsPassible = forObject->getPassibleTypes();
-		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+		const TileInstance &instance = mTiles[gridY * mMapWidth + gridX];
 
+		// Check the tile types set onto the tile itself.
+		const Tile::TileTypeSet &tileTypes = instance.getTile()->getTileTypes();
 		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
 			const TileType *tileType = tileTypes[t];
+			for (size_t o = 0; o < objectsPassible.size(); o++)
+			{
+				if (objectsPassible[o] == tileType)
+				{
+					return true;
+				}
+			}
+		}
+
+		// Check any tile types that are set on the specific tile instance.
+		const TileInstance::TileTypeList &instanceTypes = instance.getTileTypes();
+		for (size_t t = 0; t < instanceTypes.size(); t++)
+		{
+			const TileType *tileType = instanceTypes[t];
 			for (size_t o = 0; o < objectsPassible.size(); o++)
 			{
 				if (objectsPassible[o] == tileType)
@@ -634,11 +650,28 @@ namespace game {
 		{
 			return false;
 		}
-		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+		
+		const TileInstance &instance = mTiles[gridY * mMapWidth + gridX];
 
+		// Check the tile types set onto the tile itself.
+		const Tile::TileTypeSet &tileTypes = instance.getTile()->getTileTypes();
 		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
 			const TileType *tileType = tileTypes[t];
+			for (size_t o = 0; o < passibles.size(); o++)
+			{
+				if (passibles[o] == tileType)
+				{
+					return true;
+				}
+			}
+		}
+
+		// Check any tile types that are set on the specific tile instance.
+		const TileInstance::TileTypeList &instanceTypes = instance.getTileTypes();
+		for (size_t t = 0; t < instanceTypes.size(); t++)
+		{
+			const TileType *tileType = instanceTypes[t];
 			for (size_t o = 0; o < passibles.size(); o++)
 			{
 				if (passibles[o] == tileType)
@@ -656,16 +689,28 @@ namespace game {
 			return false;
 		}
 
-		const Tile::TileTypeList &tileTypes = mTiles[gridY * mMapWidth + gridX].getTile()->getTileTypes();
+		const TileInstance &instance = mTiles[gridY * mMapWidth + gridX];
 
+		// Check the tile types set onto the tile itself.
+		const Tile::TileTypeSet &tileTypes = instance.getTile()->getTileTypes();
 		for (size_t t = 0; t < tileTypes.size(); t++)
 		{
-			const TileType *tileType = tileTypes[t];
-			if (forTileType == tileType)
+			if (forTileType == tileTypes[t])
 			{
 				return true;
 			}
 		}
+
+		// Check any tile types that are set on the specific tile instance.
+		const TileInstance::TileTypeList &instanceTypes = instance.getTileTypes();
+		for (size_t t = 0; t < instanceTypes.size(); t++)
+		{
+			if (forTileType == instanceTypes[t])
+			{
+				return true;
+			}
+		}
+
 		return false;
 	}
 
