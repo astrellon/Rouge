@@ -19,8 +19,15 @@ using namespace am::ui;
 namespace am {
 namespace game {
 
+	class Character;
+
 	class Door : public GameObject {
 	public:
+
+		enum LockType 
+		{
+			NONE, UNLOCKED, LOCKED_ITEM, LOCKED_SPECIAL, MAX_LOCK_TYPE
+		};
 
 		Door();
 		Door(const Door &copy);
@@ -28,6 +35,9 @@ namespace game {
 
 		void setGraphic(Sprite *graphic, bool calcCameraOffset = true);
 		Sprite *getGraphic() const;
+
+		virtual void setDoorType(TileType *type);
+		virtual TileType *getDoorType() const;
 		
 		virtual void update(float dt);
 		virtual bool onGameTick(float dt);
@@ -37,8 +47,14 @@ namespace game {
 
 		virtual void receiveDamage(float damage);
 
+		virtual bool canOpenBy(Character *byCharacter);
 		virtual void setOpened(bool opened);
 		virtual bool isOpened() const;
+
+		virtual void setLock(LockType lock);
+		virtual LockType getLock() const;
+
+		virtual void setMap(Map *map);
 		
 		virtual const char *getGameObjectTypeName() const;
 		virtual GameObjectType getGameObjectType() const;
@@ -47,6 +63,11 @@ namespace game {
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
 		virtual void updateGraphic();
+
+		static const char *getLockTypeName(LockType type);
+		static const char *getLockTypeName(int type);
+		static LockType getLockType(const char *typeName);
+		static LockType getLockType(int type);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -58,6 +79,15 @@ namespace game {
 		Handle<Sprite> mGraphic;
 
 		bool mOpened;
+		LockType mLock;
+
+		Handle<TileType> mDoorType;
+
+		virtual void updateTileType();
+		virtual void removeFromMap(Map *map);
+		virtual void addToMap(Map *map);
+
+		static const char *sLockTypeNames[];
 	};
 
 }

@@ -18,10 +18,10 @@ namespace game {
 		TileType(const char *name, const char *fullName = nullptr);
 		~TileType();
 
-		const char *getName() const;
+		virtual const char *getName() const;
 
-		void setFullName(const char *name);
-		const char *getFullName() const;
+		virtual void setFullName(const char *name);
+		virtual const char *getFullName() const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

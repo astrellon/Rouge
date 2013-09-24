@@ -16,10 +16,10 @@ namespace ui {
 	Inspector::Inspector() :
 		Panel(),
 		mTextDirty(true),
-		mInspectObject(false)
+		mInspectObject(false),
+		mTileInstance(nullptr)
 	{
 		mInfo = new TextField2();
-		//mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);
@@ -32,17 +32,17 @@ namespace ui {
 	{
 	}
 
-	void Inspector::setTile(Tile *tile)
+	void Inspector::setTileInstance(TileInstance *instance)
 	{
-		if (tile != mTile)
+		if (instance != mTileInstance)
 		{
-			mTile = tile;
+			mTileInstance = instance;
 			mTextDirty = true;
 		}
 	}
-	Tile *Inspector::getTile() const
+	TileInstance *Inspector::getTileInstance() const
 	{
-		return mTile.get();
+		return mTileInstance;
 	}
 
 	void Inspector::addGameObject(GameObject *obj)
@@ -152,18 +152,25 @@ namespace ui {
 		}
 		else
 		{
-			if (mTile)
+			if (mTileInstance && mTileInstance->getTile())
 			{
-				ss << "<title>Tile:</title> " << mTile->getFullName() << 
-					  "\n<title>Desc:</title> " << mTile->getDescription() << 
+				Tile *tile = mTileInstance->getTile();
+				ss << "<title>Tile:</title> " << tile->getFullName() << 
+					  "\n<title>Desc:</title> " << tile->getDescription() << 
 					  "\n<title>Types:</title> ";
 
-				Tile::TileTypeSet &tileTypes = mTile->getTileTypes();
-				for (size_t i = 0; i < tileTypes.size(); i++)
+				Tile::TileTypeSet &tileTypes = tile->getTileTypes();
+				TileInstance::TileTypeList &instanceTypes = mTileInstance->getTileTypes();
+				vector< Handle<TileType> > *types = &tileTypes;
+				if (instanceTypes.size() > 0)
+				{
+					types = &instanceTypes;
+				}
+				for (size_t i = 0; i < types->size(); i++)
 				{
 					if (i > 0)
 					{
-						if (i == tileTypes.size() - 1)
+						if (i == types->size() - 1)
 						{
 							ss << " and ";
 						}
@@ -173,7 +180,7 @@ namespace ui {
 						}
 					}
 
-					ss << "<tile>" << tileTypes[i]->getFullName() << "</tile>";
+					ss << "<tile>" << types->at(i)->getFullName() << "</tile>";
 				}
 			}
 			GameObjectList::iterator iter;

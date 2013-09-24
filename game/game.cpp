@@ -25,6 +25,7 @@
 #include "map.h"
 #include "player_hand.h"
 #include "character.h"
+#include "door.h"
 
 namespace am {
 namespace game {
@@ -222,26 +223,46 @@ namespace game {
 		{
 			if (clickedOn.size() > 0)
 			{
-				Item *item = dynamic_cast<Item *>(clickedOn[0].get());
-				if (item && !mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
+				if (clickedOn[0]->getGameObjectType() == GameObject::ITEM)
 				{
-					return;
-				}
-				if (item)
-				{
-					// If holding shift, it goes straight into the inventory.
-					if (KeyboardManager::getManager()->isKeyDown(16))
+					Item *item = dynamic_cast<Item *>(clickedOn[0].get());
+					if (item && !mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
 					{
-						mMainCharacter->pickupItem(item);
+						return;
 					}
-					else
+					if (item)
 					{
-						PlayerHand *hand = PlayerHand::getPlayerHand();
-						if (hand && hand->getInhand() == nullptr)
+						// If holding shift, it goes straight into the inventory.
+						if (KeyboardManager::getManager()->isKeyDown(16))
 						{
-							hand->setInhand(item);
-							mItemLayer->removeChild(item);
-							item->setItemLocation(Item::HAND);
+							mMainCharacter->pickupItem(item);
+						}
+						else
+						{
+							PlayerHand *hand = PlayerHand::getPlayerHand();
+							if (hand && hand->getInhand() == nullptr)
+							{
+								hand->setInhand(item);
+								mItemLayer->removeChild(item);
+								item->setItemLocation(Item::HAND);
+							}
+						}
+						return;
+					}
+				}
+				else if (clickedOn[0]->getGameObjectType() == GameObject::DOOR)
+				{
+					Door *door = dynamic_cast<Door *>(clickedOn[0].get());
+					float dist = door->distanceTo(mMainCharacter);
+					if (dist <= mMainCharacter->getPickupReach())
+					{
+						if (door->isOpened())
+						{
+							door->setOpened(false);
+						}
+						else if (door->canOpenBy(mMainCharacter))
+						{
+							door->setOpened(true);
 						}
 					}
 					return;
@@ -268,9 +289,9 @@ namespace game {
 				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
 				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
 
-				Tile *tile = mCurrentMap->getTile(gridX, gridY);
+				TileInstance *instance = mCurrentMap->getTileInstance(gridX, gridY);
 				Inspector *inspector = gameHud->getInspector();
-				inspector->setTile(tile);
+				inspector->setTileInstance(instance);
 
 				inspector->clearGameObjects();
 				inspector->addGameObjects(clickedOn);
@@ -390,6 +411,7 @@ namespace game {
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_MOVE, this);
+			mBackground->removeEventListener(MOUSE_UP, this);
 			mItemLayer->removeEventListener(MOUSE_UP, this);
 			mCharacterLayer->removeEventListener(MOUSE_UP, this);
 		}
@@ -406,6 +428,7 @@ namespace game {
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_MOVE, this);
+			mBackground->addEventListener(MOUSE_UP, this);
 			mItemLayer->addEventListener(MOUSE_UP, this);
 			mCharacterLayer->addEventListener(MOUSE_UP, this);
 			

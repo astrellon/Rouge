@@ -1,6 +1,10 @@
 #include "door.h"
 
 #include "map.h"
+#include "tile_instance.h"
+#include "tile_type.h"
+#include "engine.h"
+#include "character.h"
 
 #include <util/data_table.h>
 #include <util/data_number.h>
@@ -24,19 +28,27 @@ namespace game {
 
 	const int Door::LUA_ID = 0x26;
 	const char *Door::LUA_TABLENAME = "am_game_Door";
+	const char *Door::sLockTypeNames[] = 
+	{
+		"none", "unlocked", "lock_item", "lock_special", "max_lock_type"
+	};
 
 	Door::Door() :
 		GameObject(),
 		mGraphic(nullptr),
-		mOpened(false)
+		mOpened(false),
+		mLock(NONE)
 	{
 		mFixedToGrid = true;
 		setName("Door");
 		addEventListener(MOUSE_UP, this);
+
+		mDoorType = Engine::getEngine()->getTileType("door");
 	}
 	Door::Door(const Door &copy) :
 		GameObject(copy),
-		mOpened(copy.mOpened)
+		mOpened(copy.mOpened),
+		mDoorType(copy.mDoorType)
 	{
 		if (copy.mGraphic)
 		{
@@ -80,6 +92,20 @@ namespace game {
 	{
 		return mGraphic;
 	}
+
+	void Door::setDoorType(TileType *type)
+	{
+		if (mDoorType.get() != type)
+		{
+			removeFromMap(mMap);
+			mDoorType = type;
+			addToMap(mMap);
+		}
+	}
+	TileType *Door::getDoorType() const
+	{
+		return mDoorType;
+	}
 	   
 	void Door::update(float dt)
 	{
@@ -95,17 +121,52 @@ namespace game {
 		
 	}
 
+	bool Door::canOpenBy(Character *byCharacter)
+	{
+		if (mLock == NONE || mLock == UNLOCKED)
+		{
+			return true;
+		}
+		else if (mLock == LOCKED_ITEM)
+		{
+			// Look for key on character.
+			return false;
+		}
+		else if (mLock == LOCKED_SPECIAL)
+		{
+			// Call Lua function, result should indicate if it can be opened.
+			return false;
+		}
+		return false;
+	}
 	void Door::setOpened(bool opened)
 	{
 		if (mOpened != opened)
 		{
 			mOpened = opened;
 			updateGraphic();
+			updateTileType();
 		}
 	}
 	bool Door::isOpened() const
 	{
 		return mOpened;
+	}
+
+	void Door::setLock(LockType lock)
+	{
+		mLock = lock;
+	}
+	Door::LockType Door::getLock() const
+	{
+		return mLock;
+	}
+
+	void Door::setMap(Map *map)
+	{
+		removeFromMap(mMap);
+		addToMap(map);
+		GameObject::setMap(map);
 	}
 	
 	float Door::getWidth()
@@ -132,7 +193,7 @@ namespace game {
 		data::Table *output = dynamic_cast<data::Table *>(obj_output);
 		if (!output)
 		{
-			am_log("ERROR", "Save door from GameObject not a data::Map!");
+			am_log("ERROR", "Save door from GameObject not a data::Table!");
 			return nullptr;
 		}
 
@@ -142,6 +203,7 @@ namespace game {
 		{
 			output->at("graphic", mGraphic->serialise());
 		}
+		output->at("lock", getLockTypeName(mLock));
 		
 		return output;
 	}
@@ -167,6 +229,12 @@ namespace game {
 			setGraphic(graphic, false);
 		}
 
+		Handle<data::String> str(dataMap->at<data::String>("lock"));
+		if (str)
+		{
+			setLock(getLockType(str->string()));
+		}
+
 		return 1;
 	}
 
@@ -186,5 +254,90 @@ namespace game {
 			mGraphic->setSubWindowFrame(0);
 		}
 	}
+
+	void Door::updateTileType()
+	{
+		if (!mMap)
+		{
+			return;
+		}
+		TileInstance *instance = mMap->getTileInstance(getGridLocationX(), getGridLocationY());
+		if (!instance)
+		{
+			return;
+		}
+		if (mOpened)
+		{
+			instance->removeTileType(mDoorType);
+		}
+		else
+		{
+			instance->addTileType(mDoorType);
+		}
+	}
+
+	void Door::removeFromMap(Map *map)
+	{
+		if (map && mDoorType)
+		{
+			TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
+			if (instance)
+			{
+				instance->removeTileType(mDoorType);
+			}
+		}
+	}
+	void Door::addToMap(Map *map)
+	{
+		if (map && mDoorType)
+		{
+			TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
+			if (instance)
+			{
+				instance->addTileType(mDoorType);
+			}
+		}
+	}
+
+	const char *Door::getLockTypeName(LockType type)
+	{
+		if (type < 0 || type >= MAX_LOCK_TYPE)
+		{
+			return nullptr;
+		}
+		return sDamageTypeNames[type];
+	}
+	const char *Door::getLockTypeName(int type)
+	{
+		if (type < 0 || type >= MAX_LOCK_TYPE)
+		{
+			return nullptr;
+		}
+		return sDamageTypeNames[type];
+	}
+	Door::LockType Door::getLockType(const char *typeName)
+	{
+		if (!typeName || typeName[0] == '\0')
+		{
+			return MAX_LOCK_TYPE;
+		}
+		for (int i = 0; i < MAX_LOCK_TYPE; i++)
+		{
+			if (strcmp(typeName, sDamageTypeNames[i]) == 0)
+			{
+				return static_cast<LockType>(i);
+			}
+		}
+		return MAX_LOCK_TYPE;
+	}
+	Door::LockType Door::getLockType(int type)
+	{
+		if (type < 0 || type >= MAX_LOCK_TYPE)
+		{
+			return MAX_LOCK_TYPE;
+		}
+		return static_cast<LockType>(type);
+	}
+
 }
 }

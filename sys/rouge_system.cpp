@@ -444,7 +444,7 @@ namespace sys {
 		Handle<Door> door(new Door());
 		door->setGraphic(new Sprite("wooden_door:main"));
 		door->setGridLocation(5, 8);
-		door->setOpened(true);
+		//door->setOpened(true);
 		game->getCurrentMap()->addGameObject(door);
 
 		PlayerController *controller = new PlayerController();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <game/tile.h>
+#include <game/tile_instance.h>
 #include <game/game_object.h>
 using namespace am::game;
 
@@ -23,8 +24,8 @@ namespace ui {
 		Inspector();
 		~Inspector();
 
-		virtual void setTile(Tile *tile);
-		virtual Tile *getTile() const;
+		virtual void setTileInstance(TileInstance *instance);
+		virtual TileInstance *getTileInstance() const;
 
 		virtual void addGameObject(GameObject *obj);
 		virtual void addGameObjects(const ObjectList &list);
@@ -43,7 +44,7 @@ namespace ui {
 
 	protected:
 
-		Handle<Tile> mTile;
+		TileInstance *mTileInstance;
 		
 		typedef vector< Handle<GameObject> > GameObjectList;
 		GameObjectList mGameObjects;

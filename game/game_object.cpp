@@ -25,7 +25,8 @@ namespace game {
 
 	const int GameObject::LUA_ID = 0x08;
 	const char *GameObject::LUA_TABLENAME = "am_game_GameObject";
-	const char *GameObject::sDamageTypeNames[] = {
+	const char *GameObject::sDamageTypeNames[] = 
+	{
 		"unknown", "arrow", "blunt", "piercing", "falling", "fire", "cold", "magical", "acid", "MAX_DAMAGE_LENGTH"
 	};
 
