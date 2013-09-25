@@ -14,6 +14,7 @@ using namespace std;
 #include <game/tile_type.h>
 #include <game/dialogue_component.h>
 #include <game/iattribute_data.h>
+#include <game/map_region.h>
 
 #include <util/idefinition.h>
 using namespace am::util;
@@ -130,6 +131,10 @@ namespace game {
 		// Layer methods
 		virtual bool interacteWithLayer() const;
 
+		virtual void addToMapRegion(MapRegion *region);
+		virtual void removeFromMapRegion(MapRegion *region);
+		virtual bool isInMapRegion(MapRegion *region) const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -164,6 +169,8 @@ namespace game {
 
 		Handle<DialogueComponent> mDialogueComp;
 		Handle<ISource> mSoundSource;
+
+		MapRegion::MapRegionList mMapRegions;
 
 		void applyToSource();
 

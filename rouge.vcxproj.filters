@@ -901,6 +901,9 @@
     <ClCompile Include="game\door.cpp">
       <Filter>game</Filter>
     </ClCompile>
+    <ClCompile Include="game\map_region.cpp">
+      <Filter>game\map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1644,6 +1647,9 @@
     </ClInclude>
     <ClInclude Include="game\door.h">
       <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\map_region.h">
+      <Filter>game\map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

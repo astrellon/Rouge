@@ -234,6 +234,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\levelable.cpp" />
     <ClCompile Include="game\loading_state.cpp" />
     <ClCompile Include="game\map.cpp" />
+    <ClCompile Include="game\map_region.cpp" />
     <ClCompile Include="game\move_action.cpp" />
     <ClCompile Include="game\pathfinder.cpp" />
     <ClCompile Include="game\player_controller.cpp" />
@@ -487,6 +488,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\levelable.h" />
     <ClInclude Include="game\loading_state.h" />
     <ClInclude Include="game\map.h" />
+    <ClInclude Include="game\map_region.h" />
     <ClInclude Include="game\move_action.h" />
     <ClInclude Include="game\pathfinder.h" />
     <ClInclude Include="game\player_controller.h" />

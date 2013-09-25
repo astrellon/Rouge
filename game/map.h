@@ -14,6 +14,7 @@ using namespace am::lua;
 
 #include "game_object.h"
 #include "astar_node.h"
+#include "map_region.h"
 
 namespace am {
 namespace game {
@@ -85,6 +86,13 @@ namespace game {
 		void setGamePartof(Game *game);
 		Game *getGamePartof() const;
 
+		void addMapRegion(MapRegion *region);
+		void removeMapRegion(MapRegion *region);
+		bool hasMapRegion(MapRegion *region);
+		const MapRegion::MapRegionList &getMapRegions() const;
+
+		void checkMapRegion(GameObject *obj);
+
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
 		ReturnCode saveMap(const char *filename) const;
@@ -115,6 +123,8 @@ namespace game {
 		Handle<TileRenderer> mTileRenderer;
 
 		Game *mGamePartof;
+
+		MapRegion::MapRegionList mMapRegions;
 
 		bool canOverlap(int x, int y, Tile *overlapTile) const;
 		bool canOverlap(Tile *tile, Tile *overlapTile) const;

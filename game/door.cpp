@@ -30,7 +30,7 @@ namespace game {
 	const char *Door::LUA_TABLENAME = "am_game_Door";
 	const char *Door::sLockTypeNames[] = 
 	{
-		"none", "unlocked", "lock_item", "lock_special", "max_lock_type"
+		"none", "unlocked", "locked", "locked_item", "locked_special", "max_lock_type"
 	};
 
 	Door::Door() :
@@ -137,6 +137,7 @@ namespace game {
 			// Call Lua function, result should indicate if it can be opened.
 			return false;
 		}
+		// Locked!
 		return false;
 	}
 	void Door::setOpened(bool opened)
@@ -156,6 +157,7 @@ namespace game {
 	void Door::setLock(LockType lock)
 	{
 		mLock = lock;
+		updateTileType();
 	}
 	Door::LockType Door::getLock() const
 	{
@@ -165,8 +167,8 @@ namespace game {
 	void Door::setMap(Map *map)
 	{
 		removeFromMap(mMap);
-		addToMap(map);
 		GameObject::setMap(map);
+		updateTileType();
 	}
 	
 	float Door::getWidth()
@@ -189,7 +191,7 @@ namespace game {
 
 	data::IData *Door::serialise()
 	{
-		data::IData *obj_output = Door::serialise();
+		data::IData *obj_output = GameObject::serialise();
 		data::Table *output = dynamic_cast<data::Table *>(obj_output);
 		if (!output)
 		{
@@ -266,7 +268,7 @@ namespace game {
 		{
 			return;
 		}
-		if (mOpened)
+		if (mOpened || mLock == NONE || mLock == UNLOCKED)
 		{
 			instance->removeTileType(mDoorType);
 		}

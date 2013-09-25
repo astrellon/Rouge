@@ -259,6 +259,45 @@ namespace game {
 		return true;
 	}
 
+	void GameObject::addToMapRegion(MapRegion *region)
+	{
+		if (!region || isInMapRegion(region))
+		{
+			return;
+		}
+		mMapRegions.push_back(region);
+	}
+	void GameObject::removeFromMapRegion(MapRegion *region)
+	{
+		if (!region)
+		{
+			return;
+		}
+		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
+		{
+			if (iter->get() == region)
+			{
+				mMapRegions.erase(iter);
+				break;
+			}
+		}
+	}
+	bool GameObject::isInMapRegion(MapRegion *region) const
+	{
+		if (!region)
+		{
+			return false;
+		}
+		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
+		{
+			if (iter->get() == region)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	bool GameObject::move(float x, float y)
 	{
 		const Engine *engine = Engine::getEngine();

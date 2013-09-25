@@ -754,6 +754,82 @@ namespace game {
 	{
 		return mGamePartof;
 	}
+
+	void Map::addMapRegion(MapRegion *region)
+	{
+		if (region == nullptr)
+		{
+			return;
+		}
+		if (!hasMapRegion(region))
+		{
+			mMapRegions.push_back(region);
+		}
+	}
+	void Map::removeMapRegion(MapRegion *region)
+	{
+		if (region == nullptr)
+		{
+			return;
+		}
+		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
+		{
+			if (iter->get() == region)
+			{
+				mMapRegions.erase(iter);
+				break;
+			}
+		}
+	}
+	bool Map::hasMapRegion(MapRegion *region)
+	{
+		if (region == nullptr)
+		{
+			return false;
+		}
+		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
+		{
+			if (iter->get() == region)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	const MapRegion::MapRegionList &Map::getMapRegions() const
+	{
+		return mMapRegions;
+	}
+
+	void Map::checkMapRegion(GameObject *obj)
+	{
+		if (!obj)
+		{
+			return;
+		}
+		int gridX = obj->getGridLocationX();
+		int gridY = obj->getGridLocationY();
+		if (gridX < 0 || gridX >= mMapWidth || gridY < 0 || gridY >= mMapHeight)
+		{
+			return;
+		}
+
+		int minX = obj->getGridLocationX();
+		int minY = obj->getGridLocationY();
+		int maxX = minX + (obj->getWidth() * round(Engine::getEngine()->getGridSizeResp()));
+		int maxY = minY + (obj->getHeight() * round(Engine::getEngine()->getGridSizeResp()));
+		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
+		{
+			MapRegion *region = iter->get();
+			Vector2i location = region->getLocation();
+			int left = region->getWidth() + location.x;
+			int bottom = region->getHeight() + location.y;
+			if (minX >= location.x && minY >= location.y && maxX < left && maxY < bottom)
+			{
+				// Check that the game object intersects with the region.
+			}
+		}
+	}
 	
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{
@@ -802,6 +878,7 @@ namespace game {
 			ss << "\n";
 		}
 
+		ss << '\n';
 		ss << "\treturn map\nend\n";
 			
 		return SUCCESS;
