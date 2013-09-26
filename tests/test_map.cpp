@@ -6,6 +6,7 @@
 #include <game/game_object.h>
 #include <game/tile_type.h>
 #include <game/tile_instance.h>
+#include <game/map_region.h>
 using namespace am::game;
 
 #include <tests/asserts.h>
@@ -191,6 +192,47 @@ namespace tests {
 		am_equals(true, tiles[5].hasEdgeValue());
 		am_equals(Map::FLAG_TL, tiles[5].getTileEdgeValue(0));
 		am_equals(Map::FLAG_B, tiles[5].getTileEdgeValue(6));
+
+		return true;
+	}
+
+	bool TestMap::testMapRegions() 
+	{
+		Handle<Map> testMap(new Map("testRegions"));
+		Handle<Tile> land(new Tile("land"));
+		Handle<TileType> landType(new TileType("land"));
+		land->addTileType(landType);
+		testMap->setMapSize(4, 4, land);
+
+		Handle<MapRegion> region(new MapRegion(2, 2));
+		region->setLocation(1, 1);
+		region->setData(0, 0, 1);
+		region->setData(1, 1, 1);
+		
+		am_equals(false, testMap->hasMapRegion(region));
+		testMap->addMapRegion(region);
+		am_equals(true, testMap->hasMapRegion(region));
+
+		Handle<Character> testChar(new Character());
+		Handle<Sprite> graphic(new Sprite());
+		graphic->setSize(Engine::getEngine()->getGridSize(), Engine::getEngine()->getGridSize());
+		testChar->setGraphic(graphic);
+		testChar->addPassibleType(landType);
+		am_equals(false, testChar->isInMapRegion(region));
+		testMap->addGameObject(testChar);
+		am_equals(false, testChar->isInMapRegion(region));
+
+		testChar->setGridLocation(1, 1);
+		testMap->checkMapRegion(testChar);
+		am_equals(true, testChar->isInMapRegion(region));
+
+		testChar->setGridLocation(2, 1);
+		testMap->checkMapRegion(testChar);
+		am_equals(false, testChar->isInMapRegion(region));
+
+		testChar->setGridLocation(2, 2);
+		testMap->checkMapRegion(testChar);
+		am_equals(true, testChar->isInMapRegion(region));
 
 		return true;
 	}

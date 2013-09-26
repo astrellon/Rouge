@@ -134,6 +134,7 @@ namespace game {
 		virtual void addToMapRegion(MapRegion *region);
 		virtual void removeFromMapRegion(MapRegion *region);
 		virtual bool isInMapRegion(MapRegion *region) const;
+		virtual const MapRegion::MapRegionList &getMapRegions() const;
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

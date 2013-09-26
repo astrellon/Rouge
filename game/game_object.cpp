@@ -297,6 +297,10 @@ namespace game {
 		}
 		return false;
 	}
+	const MapRegion::MapRegionList &GameObject::getMapRegions() const
+	{
+		return mMapRegions;
+	}
 
 	bool GameObject::move(float x, float y)
 	{

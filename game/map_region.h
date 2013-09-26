@@ -23,7 +23,7 @@ using namespace am::util;
 
 namespace game {
 
-	class LoadingState;
+	class GameObject;
 
 	class MapRegion : public EventInterface {
 	public:
@@ -44,6 +44,8 @@ namespace game {
 		virtual void setLocation(const Vector2i &location);
 		virtual void setLocation(int x, int y);
 		virtual Vector2i getLocation() const;
+
+		virtual bool interspectsWith(GameObject *obj);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

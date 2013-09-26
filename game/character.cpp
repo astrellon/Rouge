@@ -111,15 +111,6 @@ namespace game {
 			addChild(mForeground, 2);
 		}
 
-		mStats = new Stats(*copy.mStats);
-		mStats->setAttachedTo(this);
-
-		const BodyParts::PartList &partList = copy.getBodyParts().getAllParts();
-		for (auto iter = partList.begin(); iter != partList.end(); ++iter)
-		{
-			addBodyPart(new BodyPart(*iter->get()));
-		}
-
 		// Copy BodyParts, Inventory, Stats
 		if (copy.mGraphic)
 		{
@@ -132,6 +123,17 @@ namespace game {
 					mGraphic = temp;
 				}
 			}
+		}
+
+		mStats = new Stats(*copy.mStats);
+		// Calls updateGraphic internally, so it must be done after we've
+		// grabbed our graphic and various layers.
+		mStats->setAttachedTo(this);
+
+		const BodyParts::PartList &partList = copy.getBodyParts().getAllParts();
+		for (auto iter = partList.begin(); iter != partList.end(); ++iter)
+		{
+			addBodyPart(new BodyPart(*iter->get()));
 		}
 	}
 	Character::~Character()
@@ -379,11 +381,19 @@ namespace game {
 
 	float Character::getWidth()
 	{
-		return mGraphic->getWidth();
+		if (mGraphic)
+		{
+			return mGraphic->getWidth();
+		}
+		return 0.0f;
 	}
 	float Character::getHeight()
 	{
-		return mGraphic->getHeight();
+		if (mGraphic)
+		{
+			return mGraphic->getHeight();
+		}
+		return 0.0f;
 	}
 
 	Stats *Character::getStats()

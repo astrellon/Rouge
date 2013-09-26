@@ -6,7 +6,8 @@
 #include <util/data_string.h>
 using namespace am::util;
 
-#include "loading_state.h"
+#include <game/game_object.h>
+#include <game/engine.h>
 
 #include <math/math.h>
 
@@ -80,7 +81,7 @@ namespace game {
 
 	void MapRegion::setData(int x, int y, int value)
 	{
-		if (x < 0 || x >= mWidth || y < 0 || mHeight)
+		if (x < 0 || x >= mWidth || y < 0 || y > mHeight)
 		{
 			return;
 		}
@@ -103,6 +104,34 @@ namespace game {
 	Vector2i MapRegion::getLocation() const
 	{
 		return mLocation;
+	}
+
+	bool MapRegion::interspectsWith(GameObject *obj)
+	{
+		//Vector2i location = mLocation.sub(obj->getGridLocationX(), obj->getGridLocationY());
+		int minX = max(0, obj->getGridLocationX() - mLocation.x);
+		int minY = max(0, obj->getGridLocationY() - mLocation.y);
+		int maxX = min(mWidth, minX + round(obj->getWidth() * Engine::getEngine()->getGridSizeResp()));
+		int maxY = min(mHeight, minY + round(obj->getHeight() * Engine::getEngine()->getGridSizeResp()));
+
+		for (int y = minY; y < maxY; y++)
+		{
+			for (int x = minX; x < maxX; x++)
+			{
+				if (mData[y * mWidth + x] > 0)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+		/*int left = region->getWidth() + location.x;
+		int bottom = region->getHeight() + location.y;
+		if (minX >= location.x && minY >= location.y && maxX < left && maxY < bottom)
+		{
+			// Check that the game object intersects with the region.
+			obj->addToMapRegion(region);
+		}*/
 	}
 
 }
