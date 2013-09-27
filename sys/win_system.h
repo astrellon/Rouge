@@ -3,11 +3,11 @@
 #include <Windows.h>
 #include <gl/GL.h>
 
-#include "../ui/mouse_common.h"
+#include <ui/mouse_common.h>
 
 #include <string>
 
-#include "isystem.h"
+#include <sys/os_system.h>
 
 using namespace std;
 
@@ -34,7 +34,7 @@ namespace sys {
 
 	class GameSystem;
 
-	class WinSystem : public ISystem {
+	class WinSystem : public OsSystem {
 	public:
 		WinSystem();
 		~WinSystem();
@@ -88,9 +88,6 @@ namespace sys {
 		void setHWnd(HWND hWnd);
 		HWND getHWnd();
 
-		void setGameSystem(GameSystem *game);
-		GameSystem *getGameSystem();
-
 	protected:
 
 		string mTitle;
@@ -105,10 +102,7 @@ namespace sys {
 
 		HWND mHWnd;
 		HINSTANCE mHInstance;
-		GameSystem *mGameSystem;
-	
-		//bool *mKeysDown;
-
+		
 		void updatePosSize();
 	};
 

@@ -33,6 +33,8 @@ using namespace am::sfx;
 
 #include <util/colour.h>
 
+#include <sys/os_system.h>
+
 using namespace std;
 using namespace am::math;
 
@@ -41,7 +43,7 @@ namespace sys {
 
 	GameSystem *GameSystem::sGameSystem = nullptr;
 
-	GameSystem *GameSystem::createGameSystem(ISystem *linked, Engine *engine)
+	GameSystem *GameSystem::createGameSystem(OsSystem *linked, Engine *engine)
 	{
 		sGameSystem = new GameSystem(linked, engine);
 		return sGameSystem;
@@ -51,7 +53,7 @@ namespace sys {
 		return sGameSystem;
 	}
 
-	GameSystem::GameSystem(ISystem *linked, Engine *engine) :
+	GameSystem::GameSystem(OsSystem *linked, Engine *engine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
 		mDebugConsole(nullptr),
@@ -271,7 +273,7 @@ namespace sys {
 		return mLinkedSystem->getFullscreen();
 	}
 
-	ISystem *GameSystem::getLinkedSystem()
+	OsSystem *GameSystem::getLinkedSystem()
 	{
 		return mLinkedSystem;
 	}

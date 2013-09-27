@@ -27,6 +27,8 @@ using namespace am::ui;
 
 namespace sys {
 
+	class OsSystem;
+
 	class UnitTestSystem : public GameSystem {
 	public:
 
@@ -37,12 +39,12 @@ namespace sys {
 
 		virtual void onKeyUp(int key);
 
-		static UnitTestSystem *createUnitTestSystem(ISystem *linked, Engine *engine);
+		static UnitTestSystem *createUnitTestSystem(OsSystem *linked, Engine *engine);
 		static UnitTestSystem *getUnitTestSystem();
 
 	protected:
 		
-		UnitTestSystem(ISystem *linked, Engine *engine);
+		UnitTestSystem(OsSystem *linked, Engine *engine);
 		
 		static UnitTestSystem *sUnitTestSystem;
 	};

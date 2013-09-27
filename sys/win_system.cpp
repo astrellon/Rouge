@@ -11,6 +11,7 @@ namespace am {
 namespace sys {
 
 	WinSystem::WinSystem() :
+		OsSystem(),
 		mHWnd(nullptr),
 		mHInstance(nullptr),
 		mWidth(-1),
@@ -19,7 +20,6 @@ namespace sys {
 		mYpos(0),
 		mRunning(false),
 		mHideCursor(false),
-		mGameSystem(nullptr),
 		mFullscreen(false)
 	{
 	
@@ -175,15 +175,6 @@ namespace sys {
 	HINSTANCE WinSystem::getHInstance()
 	{
 		return mHInstance;
-	}
-
-	void WinSystem::setGameSystem(GameSystem *system)
-	{
-		mGameSystem = system;
-	}
-	GameSystem *WinSystem::getGameSystem()
-	{
-		return mGameSystem;
 	}
 
 	bool WinSystem::isRunning() const

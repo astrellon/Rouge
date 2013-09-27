@@ -15,7 +15,7 @@ namespace sys {
 
 	MemoryTestSystem *MemoryTestSystem::sMemorySystem = nullptr;
 
-	MemoryTestSystem *MemoryTestSystem::createMemoryTestSystem(ISystem *linked, Engine *engine)
+	MemoryTestSystem *MemoryTestSystem::createMemoryTestSystem(OsSystem *linked, Engine *engine)
 	{
 		sGameSystem = sMemorySystem = new MemoryTestSystem(linked, engine);
 		return sMemorySystem;
@@ -25,7 +25,7 @@ namespace sys {
 		return sMemorySystem;
 	}
 
-	MemoryTestSystem::MemoryTestSystem(ISystem *linked, Engine *engine) :
+	MemoryTestSystem::MemoryTestSystem(OsSystem *linked, Engine *engine) :
 		GameSystem(linked, engine)
 	{
 

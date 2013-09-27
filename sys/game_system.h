@@ -32,6 +32,8 @@ namespace ui {
 }
 
 namespace sys {
+	
+	class OsSystem;
 
 	class GameSystem : public ISystem, public am::ui::IEventListener {
 	public:
@@ -76,7 +78,7 @@ namespace sys {
 		virtual void setFullscreen(bool fullscreen);
 		virtual bool getFullscreen() const;
 
-		virtual ISystem *getLinkedSystem();
+		virtual OsSystem *getLinkedSystem();
 		virtual Engine *getEngine();
 
 		virtual bool isDirectory(const char *folderName);
@@ -88,16 +90,16 @@ namespace sys {
 
 		virtual Tooltip *getDefaultTooltip() const;
 
-		static GameSystem *createGameSystem(ISystem *linked, Engine *engine);
+		static GameSystem *createGameSystem(OsSystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 
 		TextList *getDebugConsole();
 
 	protected:
 
-		GameSystem(ISystem *linked, Engine *engine);
+		GameSystem(OsSystem *linked, Engine *engine);
 
-		ISystem *mLinkedSystem;
+		OsSystem *mLinkedSystem;
 		Engine *mEngine;
 
 		Handle<GfxLogListener> mGfxListener;

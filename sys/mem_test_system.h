@@ -34,12 +34,12 @@ namespace sys {
 
 		virtual void init();
 		
-		static MemoryTestSystem *createMemoryTestSystem(ISystem *linked, Engine *engine);
+		static MemoryTestSystem *createMemoryTestSystem(OsSystem *linked, Engine *engine);
 		static MemoryTestSystem *getMemoryTestSystem();
 
 	protected:
 		
-		MemoryTestSystem(ISystem *linked, Engine *engine);
+		MemoryTestSystem(OsSystem *linked, Engine *engine);
 		
 		static MemoryTestSystem *sMemorySystem;
 	};

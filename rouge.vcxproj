@@ -360,6 +360,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="sfx\sfx_source_point.cpp" />
     <ClCompile Include="sys\game_system.cpp" />
     <ClCompile Include="sys\mem_test_system.cpp" />
+    <ClCompile Include="sys\os_system.cpp" />
     <ClCompile Include="sys\rouge_system.cpp" />
     <ClCompile Include="sys\unit_test_system.cpp" />
     <ClCompile Include="sys\win_system.cpp" />
@@ -611,6 +612,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />
     <ClInclude Include="sys\mem_test_system.h" />
+    <ClInclude Include="sys\os_system.h" />
     <ClInclude Include="sys\rouge_system.h" />
     <ClInclude Include="sys\unit_test_system.h" />
     <ClInclude Include="sys\win_system.h" />

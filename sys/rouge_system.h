@@ -35,6 +35,8 @@ using namespace am::ui;
 
 namespace sys {
 
+	class OsSystem;
+
 	class RougeSystem : public GameSystem {
 	public:
 
@@ -48,7 +50,7 @@ namespace sys {
 		virtual void onEvent(Event *e);
 		virtual void onEvent(DialogueEvent *e);
 
-		static RougeSystem *createRougeSystem(ISystem *linked, Engine *engine);
+		static RougeSystem *createRougeSystem(OsSystem *linked, Engine *engine);
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
@@ -68,7 +70,7 @@ namespace sys {
 
 	protected:
 		
-		RougeSystem(ISystem *linked, Engine *engine);
+		RougeSystem(OsSystem *linked, Engine *engine);
 
 		Handle<MainMenu> mMainMenu;
 		Handle<OptionsPanel> mOptionsPanel;

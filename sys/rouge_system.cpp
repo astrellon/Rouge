@@ -71,7 +71,7 @@ namespace sys {
 
 	RougeSystem *RougeSystem::sRougeSystem = nullptr;
 
-	RougeSystem *RougeSystem::createRougeSystem(ISystem *linked, Engine *engine)
+	RougeSystem *RougeSystem::createRougeSystem(OsSystem *linked, Engine *engine)
 	{
 		sGameSystem = sRougeSystem = new RougeSystem(linked, engine);
 		return sRougeSystem;
@@ -81,7 +81,7 @@ namespace sys {
 		return sRougeSystem;
 	}
 
-	RougeSystem::RougeSystem(ISystem *linked, Engine *engine) :
+	RougeSystem::RougeSystem(OsSystem *linked, Engine *engine) :
 		GameSystem(linked, engine),
 		mPlayerHand(nullptr),
 		mInDialogue(false)

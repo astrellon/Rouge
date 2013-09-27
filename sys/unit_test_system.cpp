@@ -1,5 +1,7 @@
 #include "unit_test_system.h"
 
+#include <sys/os_system.h>
+
 #include <gfx/gfx_engine.h>
 #include <gfx/gfx_text_list.h>
 #include <gfx/gfx_asset.h>
@@ -40,7 +42,7 @@ namespace sys {
 
 	UnitTestSystem *UnitTestSystem::sUnitTestSystem = nullptr;
 
-	UnitTestSystem *UnitTestSystem::createUnitTestSystem(ISystem *linked, Engine *engine)
+	UnitTestSystem *UnitTestSystem::createUnitTestSystem(OsSystem *linked, Engine *engine)
 	{
 		sGameSystem = sUnitTestSystem = new UnitTestSystem(linked, engine);
 		return sUnitTestSystem;
@@ -50,7 +52,7 @@ namespace sys {
 		return sUnitTestSystem;
 	}
 
-	UnitTestSystem::UnitTestSystem(ISystem *linked, Engine *engine) :
+	UnitTestSystem::UnitTestSystem(OsSystem *linked, Engine *engine) :
 		GameSystem(linked, engine)
 	{
 

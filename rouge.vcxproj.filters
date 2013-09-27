@@ -904,6 +904,9 @@
     <ClCompile Include="game\map_region.cpp">
       <Filter>game\map</Filter>
     </ClCompile>
+    <ClCompile Include="sys\os_system.cpp">
+      <Filter>sys\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1650,6 +1653,9 @@
     </ClInclude>
     <ClInclude Include="game\map_region.h">
       <Filter>game\map</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\os_system.h">
+      <Filter>sys\base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

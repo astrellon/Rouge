@@ -18,7 +18,9 @@ using namespace std;
 
 //#include "shader.h"
 
-#include <sys/win_system.h>
+#ifdef WIN32
+#	include <sys/win_system.h>
+#endif
 #include <sys/game_system.h>
 #include <sys/rouge_system.h>
 #include <sys/unit_test_system.h>
