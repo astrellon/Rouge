@@ -47,6 +47,9 @@ namespace game {
 
 		virtual bool interspectsWith(GameObject *obj);
 
+		virtual void gameObjectEntered(GameObject *obj);
+		virtual void gameObjectExited(GameObject *obj);
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 

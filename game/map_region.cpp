@@ -106,9 +106,27 @@ namespace game {
 		return mLocation;
 	}
 
+	void MapRegion::gameObjectEntered(GameObject *obj)
+	{
+		Handle<MapRegionEvent> e(new MapRegionEvent("region_entered", this, obj));
+		fireEvent<MapRegionEvent>(e);
+		if (obj)
+		{
+			obj->fireEvent<MapRegionEvent>(e);
+		}
+	}
+	void MapRegion::gameObjectExited(GameObject *obj)
+	{
+		Handle<MapRegionEvent> e(new MapRegionEvent("region_exited", this, obj));
+		fireEvent<MapRegionEvent>(e);
+		if (obj)
+		{
+			obj->fireEvent<MapRegionEvent>(e);
+		}
+	}
+
 	bool MapRegion::interspectsWith(GameObject *obj)
 	{
-		//Vector2i location = mLocation.sub(obj->getGridLocationX(), obj->getGridLocationY());
 		int minX = max(0, obj->getGridLocationX() - mLocation.x);
 		int minY = max(0, obj->getGridLocationY() - mLocation.y);
 		int maxX = min(mWidth, minX + round(obj->getWidth() * Engine::getEngine()->getGridSizeResp()));
@@ -125,13 +143,6 @@ namespace game {
 			}
 		}
 		return false;
-		/*int left = region->getWidth() + location.x;
-		int bottom = region->getHeight() + location.y;
-		if (minX >= location.x && minY >= location.y && maxX < left && maxY < bottom)
-		{
-			// Check that the game object intersects with the region.
-			obj->addToMapRegion(region);
-		}*/
 	}
 
 }

@@ -412,6 +412,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\keyboard_manager.cpp" />
     <ClCompile Include="ui\list_event.cpp" />
     <ClCompile Include="ui\lua_event_listener.cpp" />
+    <ClCompile Include="ui\map_region_event.cpp" />
     <ClCompile Include="ui\mouse_common.cpp" />
     <ClCompile Include="ui\mouse_event.cpp" />
     <ClCompile Include="ui\mouse_manager.cpp" />
@@ -664,6 +665,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\keyboard_manager.h" />
     <ClInclude Include="ui\list_event.h" />
     <ClInclude Include="ui\lua_event_listener.h" />
+    <ClInclude Include="ui\map_region_event.h" />
     <ClInclude Include="ui\mouse_common.h" />
     <ClInclude Include="ui\mouse_event.h" />
     <ClInclude Include="ui\mouse_manager.h" />

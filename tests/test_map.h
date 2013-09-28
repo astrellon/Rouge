@@ -4,6 +4,9 @@
 #include <base/handle.h>
 using namespace am::base;
 
+#include <ui/ievent_listener.h>
+using namespace am::ui;
+
 #include <tests/test_suite.h>
 
 namespace am {
@@ -33,6 +36,17 @@ namespace tests {
 		bool testValidTilesBig();
 		bool testEdgeValue();
 		bool testMapRegions();
+
+		class TestMapListener : public IEventListener {
+		public:
+
+			TestMapListener();
+
+			virtual void onEvent(MapRegionEvent *e);
+			
+			int counter;
+		
+		};
 
 	};
 

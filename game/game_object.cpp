@@ -265,6 +265,7 @@ namespace game {
 		{
 			return;
 		}
+		region->gameObjectEntered(this);
 		mMapRegions.push_back(region);
 	}
 	void GameObject::removeFromMapRegion(MapRegion *region)
@@ -275,8 +276,10 @@ namespace game {
 		}
 		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
 		{
-			if (iter->get() == region)
+			MapRegion *iterRegion = iter->get();
+			if (iterRegion == region)
 			{
+				iterRegion->gameObjectExited(this);
 				mMapRegions.erase(iter);
 				break;
 			}

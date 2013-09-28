@@ -208,7 +208,11 @@ namespace tests {
 		region->setLocation(1, 1);
 		region->setData(0, 0, 1);
 		region->setData(1, 1, 1);
-		
+
+		Handle<TestMapListener> listener(new TestMapListener());
+		region->addEventListener("region_entered", listener);
+		region->addEventListener("region_exited", listener);
+
 		am_equals(false, testMap->hasMapRegion(region));
 		testMap->addMapRegion(region);
 		am_equals(true, testMap->hasMapRegion(region));
@@ -221,20 +225,41 @@ namespace tests {
 		am_equals(false, testChar->isInMapRegion(region));
 		testMap->addGameObject(testChar);
 		am_equals(false, testChar->isInMapRegion(region));
+		am_equals(0, listener->counter);
 
 		testChar->setGridLocation(1, 1);
 		testMap->checkMapRegion(testChar);
 		am_equals(true, testChar->isInMapRegion(region));
+		am_equals(1, listener->counter);
 
 		testChar->setGridLocation(2, 1);
 		testMap->checkMapRegion(testChar);
 		am_equals(false, testChar->isInMapRegion(region));
+		am_equals(0, listener->counter);
 
 		testChar->setGridLocation(2, 2);
 		testMap->checkMapRegion(testChar);
 		am_equals(true, testChar->isInMapRegion(region));
+		am_equals(1, listener->counter);
 
 		return true;
+	}
+
+	TestMap::TestMapListener::TestMapListener() :
+		counter(0)
+	{
+
+	}
+	void TestMap::TestMapListener::onEvent(MapRegionEvent *e)
+	{
+		if (e->getType().compare("region_entered") == 0)
+		{
+			counter++;
+		}
+		else
+		{
+			counter--;
+		}
 	}
 
 }

@@ -907,6 +907,9 @@
     <ClCompile Include="sys\os_system.cpp">
       <Filter>sys\base</Filter>
     </ClCompile>
+    <ClCompile Include="ui\map_region_event.cpp">
+      <Filter>ui\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1656,6 +1659,9 @@
     </ClInclude>
     <ClInclude Include="sys\os_system.h">
       <Filter>sys\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\map_region_event.h">
+      <Filter>ui\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

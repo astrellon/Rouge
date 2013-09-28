@@ -812,34 +812,10 @@ namespace game {
 		{
 			return;
 		}
-		/*int gridX = obj->getGridLocationX();
-		int gridY = obj->getGridLocationY();
-		if (gridX < 0 || gridX >= mMapWidth || gridY < 0 || gridY >= mMapHeight)
-		{
-			return;
-		}*/
-
-
-		/*int minX = obj->getGridLocationX();
-		int minY = obj->getGridLocationY();
-		int maxX = minX + (obj->getWidth() * round(Engine::getEngine()->getGridSizeResp()));
-		int maxY = minY + (obj->getHeight() * round(Engine::getEngine()->getGridSizeResp()));*/
-
 		const MapRegion::MapRegionList &objRegions = obj->getMapRegions();
-		//for (auto iter = objRegions.begin(); iter != objRegions.end(); ++iter)
 		for (int index = 0; index < objRegions.size(); index++)
 		{
 			// Check if no longer in region.
-			/*MapRegion *region = objRegions[index];
-			Vector2i location = region->getLocation().sub(minX, minY);
-			int left = region->getWidth() + location.x;
-			int bottom = region->getHeight() + location.y;
-			if (minX < location.x || minY < location.y || maxX >= left || maxY >= bottom)
-			{
-				// Check that the game object intersects with the region.
-				obj->removeFromMapRegion(region);
-				index--;
-			}*/
 			if (!objRegions[index]->interspectsWith(obj))
 			{
 				obj->removeFromMapRegion(objRegions[index]);
@@ -848,15 +824,6 @@ namespace game {
 		}
 		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
 		{
-			/*MapRegion *region = iter->get();
-			Vector2i location = region->getLocation();
-			int left = region->getWidth() + location.x;
-			int bottom = region->getHeight() + location.y;
-			if (minX >= location.x && minY >= location.y && maxX < left && maxY < bottom)
-			{
-				// Check that the game object intersects with the region.
-				obj->addToMapRegion(region);
-			}*/
 			if (iter->get()->interspectsWith(obj))
 			{
 				obj->addToMapRegion(iter->get());
