@@ -24,13 +24,25 @@ namespace game {
 		mHeight(0)
 	{
 	}
-	MapRegion::MapRegion(int width, int height) :
+	MapRegion::MapRegion(int width, int height, int fillValue) :
 		EventInterface(),
 		mData(nullptr),
 		mWidth(0),
 		mHeight(0)
 	{
-		setSize(width, height);
+		setSize(width, height, fillValue);
+	}
+	MapRegion::MapRegion(const MapRegion &copy) :
+		mData(nullptr),
+		mWidth(copy.mWidth),
+		mHeight(copy.mHeight)
+	{
+		int total = mWidth * mHeight;
+		mData = new int[total];
+		for (int i = 0; i < total; i++)
+		{
+			mData[i] = copy.mData[i];
+		}
 	}
 	MapRegion::~MapRegion()
 	{
@@ -41,7 +53,7 @@ namespace game {
 		}
 	}
 
-	void MapRegion::setSize(int width, int height)
+	void MapRegion::setSize(int width, int height, int fillValue)
 	{
 		if (width != mWidth || height != mHeight)
 		{
@@ -50,7 +62,7 @@ namespace game {
 
 			for (int i = 0; i < total; i++)
 			{
-				newData[i] = 0;
+				newData[i] = fillValue;
 			}
 
 			int maxWidth = min(width, mWidth);

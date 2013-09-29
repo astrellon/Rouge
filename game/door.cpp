@@ -43,12 +43,16 @@ namespace game {
 		setName("Door");
 		addEventListener(MOUSE_UP, this);
 
+		mDoorRegion = new MapRegion(3, 3, 1);
+		mDoorRegion->addEventListener("region_entered", this);
+		mDoorRegion->addEventListener("region_exited", this);
 		mDoorType = Engine::getEngine()->getTileType("door");
 	}
 	Door::Door(const Door &copy) :
 		GameObject(copy),
 		mOpened(copy.mOpened),
-		mDoorType(copy.mDoorType)
+		mDoorType(copy.mDoorType),
+		mDoorRegion(new MapRegion(*copy.mDoorRegion))
 	{
 		if (copy.mGraphic)
 		{
@@ -62,10 +66,33 @@ namespace game {
 				}
 			}
 		}
+		mDoorRegion->addEventListener("region_entered", this);
+		mDoorRegion->addEventListener("region_exited", this);
 	}
 	Door::~Door()
 	{
 		removeEventListener(MOUSE_UP, this);
+
+		mDoorRegion->removeEventListener("region_entered", this);
+		mDoorRegion->removeEventListener("region_exited", this);
+	}
+
+	void Door::onEvent(MapRegionEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+
+		// TODO Make this better
+		if (e->getType().compare("region_entered") == 0)
+		{
+			setOpened(true);
+		}
+		else
+		{
+			setOpened(false);
+		}
 	}
 
 	void Door::setGraphic(Sprite *graphic, bool calcCameraOffset)
@@ -105,6 +132,11 @@ namespace game {
 	TileType *Door::getDoorType() const
 	{
 		return mDoorType;
+	}
+
+	MapRegion *Door::getDoorRegion() const
+	{
+		return mDoorRegion;
 	}
 	   
 	void Door::update(float dt)
@@ -168,7 +200,8 @@ namespace game {
 	{
 		removeFromMap(mMap);
 		GameObject::setMap(map);
-		updateTileType();
+		addToMap(map);
+		//updateTileType();
 	}
 	
 	float Door::getWidth()
@@ -280,23 +313,38 @@ namespace game {
 
 	void Door::removeFromMap(Map *map)
 	{
-		if (map && mDoorType)
+		if (map)
 		{
-			TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
-			if (instance)
+			if (mDoorType)
 			{
-				instance->removeTileType(mDoorType);
+				TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
+				if (instance)
+				{
+					instance->removeTileType(mDoorType);
+				}
+			}
+			if (mDoorRegion)
+			{
+				map->removeMapRegion(mDoorRegion);
 			}
 		}
 	}
 	void Door::addToMap(Map *map)
 	{
-		if (map && mDoorType)
+		if (map)
 		{
-			TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
-			if (instance)
+			if (mDoorType)
 			{
-				instance->addTileType(mDoorType);
+				TileInstance *instance = map->getTileInstance(getGridLocationX(), getGridLocationY());
+				if (instance)
+				{
+					instance->addTileType(mDoorType);
+				}
+			}
+			if (mDoorRegion)
+			{
+				mDoorRegion->setLocation(getGridLocationX() - 1, getGridLocationY() - 1);
+				map->addMapRegion(mDoorRegion);
 			}
 		}
 	}

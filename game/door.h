@@ -59,6 +59,10 @@ namespace game {
 		virtual const char *getGameObjectTypeName() const;
 		virtual GameObjectType getGameObjectType() const;
 
+		virtual MapRegion *getDoorRegion() const;
+
+		virtual void onEvent(MapRegionEvent *e);
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -82,6 +86,8 @@ namespace game {
 		LockType mLock;
 
 		Handle<TileType> mDoorType;
+
+		Handle<MapRegion> mDoorRegion;
 
 		virtual void updateTileType();
 		virtual void removeFromMap(Map *map);

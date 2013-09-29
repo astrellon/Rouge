@@ -145,6 +145,10 @@ namespace game {
 		{
 			mLocationX = x;
 			mLocationY = y;
+			if (mMap)
+			{
+				mMap->checkMapRegion(this);
+			}
 		}
 		if (mSoundSource)
 		{
@@ -181,6 +185,10 @@ namespace game {
 		{
 			mLocationX = flocX;
 			mLocationY = flocY;
+			if (mMap)
+			{
+				mMap->checkMapRegion(this);
+			}
 			if (mSoundSource)
 			{
 				mSoundSource->setPosition(mLocationX, mLocationY);
@@ -407,6 +415,7 @@ namespace game {
 		if (mMap)
 		{
 			mMap->retain();
+			mMap->checkMapRegion(this);
 		}
 	}
 	Map *GameObject::getMap() const

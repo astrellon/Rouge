@@ -31,10 +31,11 @@ namespace game {
 		typedef vector< Handle< MapRegion > > MapRegionList;
 
 		MapRegion();
-		MapRegion(int width, int height);
+		MapRegion(int width, int height, int fillValue = 0);
+		MapRegion(const MapRegion &copy);
 		~MapRegion();
 
-		virtual void setSize(int width, int height);
+		virtual void setSize(int width, int height, int fillValue = 0);
 		virtual int getWidth() const;
 		virtual int getHeight() const;
 
