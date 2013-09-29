@@ -139,11 +139,12 @@ namespace game {
 
 	bool MapRegion::interspectsWith(GameObject *obj)
 	{
-		int minX = max(0, obj->getGridLocationX() - mLocation.x);
-		int minY = max(0, obj->getGridLocationY() - mLocation.y);
-		int maxX = min(mWidth, minX + round(obj->getWidth() * Engine::getEngine()->getGridSizeResp()));
-		int maxY = min(mHeight, minY + round(obj->getHeight() * Engine::getEngine()->getGridSizeResp()));
-
+		int minX = obj->getGridLocationX() - mLocation.x;
+		int minY = obj->getGridLocationY() - mLocation.y;
+		int maxX = max(0, min(mWidth, minX + round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
+		int maxY = max(0, min(mHeight, minY + round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
+		minX = max(0, min(mWidth, minX));
+		minY = max(0, min(mHeight, minY));
 		for (int y = minY; y < maxY; y++)
 		{
 			for (int x = minX; x < maxX; x++)
