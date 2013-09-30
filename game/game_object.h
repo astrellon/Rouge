@@ -128,6 +128,8 @@ namespace game {
 		virtual float distanceTo(GameObject *obj) const;
 		virtual float distanceToGrid(GameObject *obj) const;
 
+		virtual void interactWith(GameObject *interacter);
+
 		// Layer methods
 		virtual bool interacteWithLayer() const;
 

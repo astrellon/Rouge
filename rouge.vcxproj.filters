@@ -154,6 +154,9 @@
     <Filter Include="tests\gfx">
       <UniqueIdentifier>{b83080c8-1d9b-49ef-8b1c-e8e62470d5b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\game_object">
+      <UniqueIdentifier>{f28821e3-38e7-4df7-be60-16cf289421aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -232,16 +235,10 @@
     <ClCompile Include="game\camera.cpp">
       <Filter>game</Filter>
     </ClCompile>
-    <ClCompile Include="game\character.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="game\engine.cpp">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\game.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\game_object.cpp">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="base\imanaged.cpp">
@@ -267,9 +264,6 @@
     </ClCompile>
     <ClCompile Include="log\logger.cpp">
       <Filter>log</Filter>
-    </ClCompile>
-    <ClCompile Include="game\item.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\stat_modifier.cpp">
       <Filter>game\stats</Filter>
@@ -326,9 +320,6 @@
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\inventory_spot.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
-    <ClCompile Include="game\item_common.cpp">
       <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="gfx\gfx_text_style.cpp">
@@ -898,9 +889,6 @@
     <ClCompile Include="ui\game_object_event.cpp">
       <Filter>ui\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="game\door.cpp">
-      <Filter>game</Filter>
-    </ClCompile>
     <ClCompile Include="game\map_region.cpp">
       <Filter>game\map</Filter>
     </ClCompile>
@@ -909,6 +897,21 @@
     </ClCompile>
     <ClCompile Include="ui\map_region_event.cpp">
       <Filter>ui\rouge</Filter>
+    </ClCompile>
+    <ClCompile Include="game\door.cpp">
+      <Filter>game\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="game\game_object.cpp">
+      <Filter>game\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="game\character.cpp">
+      <Filter>game\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="game\item_common.cpp">
+      <Filter>game\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="game\item.cpp">
+      <Filter>game\game_object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -991,16 +994,10 @@
     <ClInclude Include="game\camera.h">
       <Filter>game</Filter>
     </ClInclude>
-    <ClInclude Include="game\character.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="game\engine.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\game.h">
-      <Filter>game</Filter>
-    </ClInclude>
-    <ClInclude Include="game\game_object.h">
       <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="base\handle.h">
@@ -1039,9 +1036,6 @@
     <ClInclude Include="log\logger.h">
       <Filter>log</Filter>
     </ClInclude>
-    <ClInclude Include="game\item.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="game\item_instance.h">
       <Filter>game</Filter>
     </ClInclude>
@@ -1059,9 +1053,6 @@
     </ClInclude>
     <ClInclude Include="game\stats.h">
       <Filter>game\stats</Filter>
-    </ClInclude>
-    <ClInclude Include="game\item_common.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui_inspector.h">
       <Filter>ui\rouge</Filter>
@@ -1651,9 +1642,6 @@
     <ClInclude Include="ui\game_object_event.h">
       <Filter>ui\rouge</Filter>
     </ClInclude>
-    <ClInclude Include="game\door.h">
-      <Filter>game</Filter>
-    </ClInclude>
     <ClInclude Include="game\map_region.h">
       <Filter>game\map</Filter>
     </ClInclude>
@@ -1662,6 +1650,21 @@
     </ClInclude>
     <ClInclude Include="ui\map_region_event.h">
       <Filter>ui\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="game\door.h">
+      <Filter>game\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game_object.h">
+      <Filter>game\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="game\character.h">
+      <Filter>game\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="game\item_common.h">
+      <Filter>game\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="game\item.h">
+      <Filter>game\game_object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

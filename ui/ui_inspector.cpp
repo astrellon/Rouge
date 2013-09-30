@@ -114,20 +114,10 @@ namespace ui {
 			if (Utils::fromString<int>(index, textHit->getNodeTarget()->getAttribute("index")))
 			{
 				GameObject *clickedOn = mGameObjects[index];
-				if (clickedOn->getGameObjectType() == GameObject::ITEM)
-				{
-					Item *item = dynamic_cast<Item *>(clickedOn);
-					Engine::getEngine()->getCurrentGame()->getMainCharacter()->pickupItem(item);
-					mGameObjects.erase(mGameObjects.begin() + index);
-					mTextDirty = true;
-					return;
-				}
-				Character *character = dynamic_cast<Character *>(clickedOn);
 				Character *mainChar = Engine::getGame()->getMainCharacter();
-				if (mainChar && mainChar->getDialogueComp() && character && character->getDialogueComp())
+				if (clickedOn && mainChar->canReachGameObject(clickedOn))
 				{
-					mainChar->getDialogueComp()->talkTo(character);
-					return;
+					clickedOn->interactWith(mainChar);
 				}
 			}
 		}

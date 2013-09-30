@@ -262,6 +262,11 @@ namespace game {
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
 	}
 
+	void GameObject::interactWith(GameObject *interacter)
+	{
+		// Do nothing
+	}
+
 	bool GameObject::interacteWithLayer() const
 	{
 		return true;

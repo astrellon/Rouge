@@ -61,6 +61,8 @@ namespace game {
 
 		virtual MapRegion *getDoorRegion() const;
 
+		virtual void interactWith(GameObject *interactee);
+
 		virtual void onEvent(MapRegionEvent *e);
 
 		virtual data::IData *serialise();

@@ -3,8 +3,10 @@
 #include "inventory.h"
 #include "engine.h"
 #include "tile_type.h"
+#include "player_hand.h"
 
 #include <ui/mouse_manager.h>
+#include <ui/keyboard_manager.h>
 
 #include <util/utils.h>
 #include <util/data_table.h>
@@ -530,6 +532,35 @@ namespace game {
 	{
 		Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
 		fireEvent<ItemEvent>(e);
+	}
+
+	void Item::interactWith(GameObject *interactee)
+	{
+		// Can only be interacted with by characters and only then when this item is on the ground.
+		if (interactee->getGameObjectType() != CHARACTER || mItemLocation != GROUND)
+		{
+			return;
+		}
+		
+		Character *obj = dynamic_cast<Character *>(interactee);
+		// If holding shift, it goes straight into the inventory.
+		if (KeyboardManager::getManager()->isKeyDown(16))
+		{
+			obj->pickupItem(this);
+		}
+		else
+		{
+			PlayerHand *hand = PlayerHand::getPlayerHand();
+			if (hand && hand->getInhand() == nullptr)
+			{
+				hand->setInhand(this);
+				if (mParent)
+				{
+					mParent->removeChild(this);
+				}
+				setItemLocation(Item::HAND);
+			}
+		}
 	}
 
 	void Item::getPrePostfix(short &prefix, short &postfix) const

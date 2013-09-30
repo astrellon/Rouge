@@ -737,6 +737,16 @@ namespace game {
 		item->dropped(this);
 		return SUCCESS;
 	}
+	bool Character::canReachGameObject(const GameObject *obj) const
+	{
+		float dx = getLocationX() - obj->getLocationX();
+		float dy = getLocationY() - obj->getLocationY();
+		if (mPickupReach > 0.0f && (dx < -mPickupReach || dx > mPickupReach || dy < -mPickupReach || dy > mPickupReach))
+		{
+			return false;
+		}
+		return true;
+	}
 	bool Character::canReachLocation(float x, float y) const
 	{
 		float dx = getLocationX() - x;
@@ -746,6 +756,19 @@ namespace game {
 			return false;
 		}
 		return true;
+	}
+
+	void Character::interactWith(GameObject *interactee)
+	{
+		if (interactee->getGameObjectType() != CHARACTER)
+		{
+			return;
+		}
+		Character *obj = dynamic_cast<Character *>(interactee);
+		if (obj->getDialogueComp() && getDialogueComp() && getDialogueComp()->getStartDialogue())
+		{
+			obj->getDialogueComp()->talkTo(this);
+		}
 	}
 
 	const char *Character::getGameObjectTypeName() const

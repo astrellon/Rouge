@@ -121,7 +121,10 @@ namespace game {
 		virtual bool hasItem(const Item *item) const;
 		virtual ReturnCode dropItem(Item *item);
 		virtual ReturnCode dropItem(Item *item, float x, float y);
+		virtual bool canReachGameObject(const GameObject *obj) const;
 		virtual bool canReachLocation(float x, float y) const;
+
+		virtual void interactWith(GameObject *interactee);
 
 		virtual ReturnCode attack(GameObject *enemy, Item *withItem);
 		virtual void receiveDamage(float damage);

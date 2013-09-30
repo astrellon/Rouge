@@ -221,60 +221,9 @@ namespace game {
 
 		if (e->getMouseButton() == LEFT_BUTTON)
 		{
-			if (clickedOn.size() > 0)
+			if (clickedOn.size() > 0 && mMainCharacter->canReachGameObject(clickedOn[0]))
 			{
-				if (clickedOn[0]->getGameObjectType() == GameObject::ITEM)
-				{
-					Item *item = dynamic_cast<Item *>(clickedOn[0].get());
-					if (item && !mMainCharacter->canReachLocation(item->getLocationX(), item->getLocationY()))
-					{
-						return;
-					}
-					if (item)
-					{
-						// If holding shift, it goes straight into the inventory.
-						if (KeyboardManager::getManager()->isKeyDown(16))
-						{
-							mMainCharacter->pickupItem(item);
-						}
-						else
-						{
-							PlayerHand *hand = PlayerHand::getPlayerHand();
-							if (hand && hand->getInhand() == nullptr)
-							{
-								hand->setInhand(item);
-								mItemLayer->removeChild(item);
-								item->setItemLocation(Item::HAND);
-							}
-						}
-						return;
-					}
-				}
-				else if (clickedOn[0]->getGameObjectType() == GameObject::DOOR)
-				{
-					Door *door = dynamic_cast<Door *>(clickedOn[0].get());
-					float dist = door->distanceTo(mMainCharacter);
-					if (dist <= mMainCharacter->getPickupReach())
-					{
-						if (door->isOpened())
-						{
-							door->setOpened(false);
-						}
-						else if (door->canOpenBy(mMainCharacter))
-						{
-							door->setOpened(true);
-						}
-					}
-					return;
-				}
-				GameObject *obj = dynamic_cast<GameObject *>(clickedOn[0].get());
-				//ReturnCode result = mMainCharacter->attack(obj, nullptr);
-				//am_log("ATTKRES", am::base::getErrorMessage(result));
-				if (mMainCharacter->getDialogueComp() && obj && obj->getDialogueComp() && obj->getDialogueComp()->getStartDialogue())
-				{
-					mMainCharacter->getDialogueComp()->talkTo(obj);
-					return;
-				}
+				clickedOn[0]->interactWith(mMainCharacter);
 			}
 			else
 			{
