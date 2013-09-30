@@ -34,7 +34,7 @@ namespace ui {
 		virtual const char *getBodyPartName() const;
 
 		// Layer methods
-		//virtual bool interacteWithLayer() const;
+		//virtual bool interactWithLayer() const;
 
 		// Renderable methods
 		virtual void preRender(float dt);

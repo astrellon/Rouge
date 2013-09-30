@@ -534,15 +534,15 @@ namespace game {
 		fireEvent<ItemEvent>(e);
 	}
 
-	void Item::interactWith(GameObject *interactee)
+	void Item::interactWith(GameObject *interacter)
 	{
 		// Can only be interacted with by characters and only then when this item is on the ground.
-		if (interactee->getGameObjectType() != CHARACTER || mItemLocation != GROUND)
+		if (interacter->getGameObjectType() != CHARACTER || mItemLocation != GROUND)
 		{
 			return;
 		}
 		
-		Character *obj = dynamic_cast<Character *>(interactee);
+		Character *obj = dynamic_cast<Character *>(interacter);
 		// If holding shift, it goes straight into the inventory.
 		if (KeyboardManager::getManager()->isKeyDown(16))
 		{

@@ -139,15 +139,15 @@ namespace game {
 		return mDoorRegion;
 	}
 	
-	void Door::interactWith(GameObject *interactee)
+	void Door::interactWith(GameObject *interacter)
 	{
 		if (isOpened())
 		{
 			setOpened(false);
 		}
-		else if (interactee->getGameObjectType() == CHARACTER)
+		else if (interacter->getGameObjectType() == CHARACTER)
 		{
-			if (canOpenBy(dynamic_cast<Character *>(interactee)))
+			if (canOpenBy(dynamic_cast<Character *>(interacter)))
 			{
 				setOpened(true);
 			}

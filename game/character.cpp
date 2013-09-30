@@ -758,13 +758,13 @@ namespace game {
 		return true;
 	}
 
-	void Character::interactWith(GameObject *interactee)
+	void Character::interactWith(GameObject *interacter)
 	{
-		if (interactee->getGameObjectType() != CHARACTER)
+		if (interacter->getGameObjectType() != CHARACTER)
 		{
 			return;
 		}
-		Character *obj = dynamic_cast<Character *>(interactee);
+		Character *obj = dynamic_cast<Character *>(interacter);
 		if (obj->getDialogueComp() && getDialogueComp() && getDialogueComp()->getStartDialogue())
 		{
 			obj->getDialogueComp()->talkTo(this);

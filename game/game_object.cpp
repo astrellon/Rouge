@@ -267,7 +267,7 @@ namespace game {
 		// Do nothing
 	}
 
-	bool GameObject::interacteWithLayer() const
+	bool GameObject::interactWithLayer() const
 	{
 		return true;
 	}

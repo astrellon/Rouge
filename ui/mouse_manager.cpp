@@ -129,7 +129,7 @@ namespace ui {
 		localY -= static_cast<int>(target->getPositionY());
 
 		Handle<Layer> layer(dynamic_cast<Layer *>(target));
-		if (layer != nullptr && layer->isVisible() && !layer->interacteWithLayer())
+		if (layer != nullptr && layer->isVisible() && !layer->interactWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
 			// Loop backwards over children, as that is the order in which

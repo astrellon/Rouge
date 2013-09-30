@@ -61,7 +61,7 @@ namespace game {
 
 		virtual MapRegion *getDoorRegion() const;
 
-		virtual void interactWith(GameObject *interactee);
+		virtual void interactWith(GameObject *interacter);
 
 		virtual void onEvent(MapRegionEvent *e);
 

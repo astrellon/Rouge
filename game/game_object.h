@@ -131,7 +131,7 @@ namespace game {
 		virtual void interactWith(GameObject *interacter);
 
 		// Layer methods
-		virtual bool interacteWithLayer() const;
+		virtual bool interactWithLayer() const;
 
 		virtual void addToMapRegion(MapRegion *region);
 		virtual void removeFromMapRegion(MapRegion *region);

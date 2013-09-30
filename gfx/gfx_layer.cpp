@@ -143,7 +143,7 @@ namespace gfx {
 		return static_cast<int>(mChildren.size());
 	}
 
-	bool Layer::interacteWithLayer() const
+	bool Layer::interactWithLayer() const
 	{
 		return false;
 	}

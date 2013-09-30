@@ -33,7 +33,7 @@ namespace gfx {
 		int getNumChildren() const;
 		Renderable *getChildAt(int index) const;
 
-		virtual bool interacteWithLayer() const;
+		virtual bool interactWithLayer() const;
 
 		virtual string getName() const;
 
