@@ -94,6 +94,16 @@ do
 	end
 	item:description("Hello babbit :3\nI hope you found my message well.")
 	-- End Items
+	
+	-- Doors
+	local john_door, new_door = am.door.new(john:name() .. "_door")
+	if (new_door) then
+		john_door:graphic(am.sprite.new("wooden_door:main"))
+			:grid_location(5, 8)
+			:name("Johns Wooden Door")
+		map:add_game_object(john_door)
+	end
+	-- End Doors
 
 	-- Quests
 

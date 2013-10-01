@@ -38,6 +38,8 @@
 #include <game/race.h>
 #include "game/lua_dialogue_component.h"
 #include <game/dialogue_component.h>
+#include "game/lua_door.h"
+#include <game/door.h>
 using namespace am::lua::game;
 
 #include "gfx/lua_sprite.h"
@@ -99,6 +101,7 @@ namespace wrapper {
 		addWrapper(lua, "dialogue", Dialogue_register, Dialogue::LUA_ID);
 		addWrapper(lua, "race", Race_register, Race::LUA_ID);
 		addWrapper(lua, "dialogue_component", DialogueComponent_register, DialogueComponent::LUA_ID);
+		addWrapper(lua, "door", Door_register, Door::LUA_ID);
 		// am.gfx
 		addWrapper(lua, "sprite", Sprite_register, Sprite::LUA_ID);
 		addWrapper(lua, "asset", Asset_register, Asset::LUA_ID);

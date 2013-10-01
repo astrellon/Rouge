@@ -5,6 +5,7 @@ character lua_character.cpp
 coin_purse lua_coin_purse.cpp
 dialogue lua_dialogue.cpp
 dialogue_component lua_dialogue_component.cpp
+door lua_door.cpp
 engine lua_engine.cpp
 game lua_game.cpp
 inventory lua_inventory.cpp
