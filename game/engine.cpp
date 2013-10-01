@@ -76,9 +76,17 @@ namespace game {
 	{
 		return Vector2f(static_cast<float>(grid.x) * mGridSize, static_cast<float>(grid.y) * mGridSize);
 	}
+	Vector2f Engine::gridToWorld(int x, int y) const
+	{
+		return Vector2f(static_cast<float>(x) * mGridSize, static_cast<float>(y) * mGridSize);
+	}
 	Vector2i Engine::worldToGrid(const Vector2f &world) const
 	{
 		return Vector2i(floor(world.x * mGridSizeResp), floor(world.y * mGridSizeResp));
+	}
+	Vector2i Engine::worldToGrid(float x, float y) const
+	{
+		return Vector2i(floor(x * mGridSizeResp), floor(y * mGridSizeResp));
 	}
 
 	void Engine::setCurrentGame(Game *game)

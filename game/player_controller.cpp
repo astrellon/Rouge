@@ -82,7 +82,7 @@ namespace game {
 
 		stringstream ss;
 		ss << "Wait time: " << waitTime << " (" << mCharacter->getSpeed() << ")";
-		am_log("PLYER", ss);
+		am_log("PLYR", ss);
 
 		mCharacter->moveGrid(dx, dy);
 		mCharacter = nullptr;

@@ -99,7 +99,9 @@ namespace game {
 		bool loadGame(const char *saveName);
 
 		Vector2f gridToWorld(const Vector2i &grid) const;
+		Vector2f gridToWorld(int x, int y) const;
 		Vector2i worldToGrid(const Vector2f &world) const;
+		Vector2i worldToGrid(float x, float y) const;
 
 		static Engine *getEngine();
 		static void setEngine(Engine *engine);

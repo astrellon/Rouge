@@ -92,6 +92,8 @@ namespace game {
 		const MapRegion::MapRegionList &getMapRegions() const;
 
 		void checkMapRegion(GameObject *obj);
+		bool getGameObjectsAt(float worldX, float worldY, ObjectList &result) const;
+		bool getGameObjectsAt(int gridX, int gridY, ObjectList &result) const;
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 

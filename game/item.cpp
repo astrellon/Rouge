@@ -534,12 +534,12 @@ namespace game {
 		fireEvent<ItemEvent>(e);
 	}
 
-	void Item::interactWith(GameObject *interacter)
+	bool Item::interactWith(GameObject *interacter, bool byMovement)
 	{
 		// Can only be interacted with by characters and only then when this item is on the ground.
-		if (interacter->getGameObjectType() != CHARACTER || mItemLocation != GROUND)
+		if (interacter->getGameObjectType() != CHARACTER || mItemLocation != GROUND || byMovement)
 		{
-			return;
+			return false;
 		}
 		
 		Character *obj = dynamic_cast<Character *>(interacter);
@@ -561,6 +561,7 @@ namespace game {
 				setItemLocation(Item::HAND);
 			}
 		}
+		return false;
 	}
 
 	void Item::getPrePostfix(short &prefix, short &postfix) const

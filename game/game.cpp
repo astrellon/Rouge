@@ -223,7 +223,7 @@ namespace game {
 		{
 			if (clickedOn.size() > 0 && mMainCharacter->canReachGameObject(clickedOn[0]))
 			{
-				clickedOn[0]->interactWith(mMainCharacter);
+				clickedOn[0]->interactWith(mMainCharacter, false);
 			}
 			else
 			{

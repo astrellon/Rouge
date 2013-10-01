@@ -830,6 +830,48 @@ namespace game {
 			}
 		}
 	}
+
+	bool Map::getGameObjectsAt(float worldX, float worldY, ObjectList &result) const
+	{
+		float size = Engine::getEngine()->getGridSize();
+		if (worldX < 0 || worldY < 0 || worldX >= (mMapWidth * size) || worldY >= (mMapHeight * size))
+		{
+			return false;
+		}
+
+		for (auto iter = mObjects.begin(); iter != mObjects.end(); ++iter)
+		{
+			GameObject *obj = iter->get();
+			int x = obj->getLocationX();
+			int y = obj->getLocationY();
+			float left = x + obj->getWidth();
+			float bottom = y + obj->getHeight();
+			if (worldX >= x && worldY >= y && worldX <= left && worldY <= bottom)
+			{
+				result.push_back(obj);
+			}
+		}
+
+		return true;
+	}
+	bool Map::getGameObjectsAt(int gridX, int gridY, ObjectList &result) const
+	{
+		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
+		{
+			return false;
+		}
+
+		for (auto iter = mObjects.begin(); iter != mObjects.end(); ++iter)
+		{
+			GameObject *obj = iter->get();
+			if (obj->getGridLocationX() == gridX && obj->getGridLocationY() == gridY)
+			{
+				result.push_back(obj);
+			}
+		}
+
+		return true;
+	}
 	
 	bool Map::search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj)
 	{

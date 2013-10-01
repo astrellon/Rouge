@@ -117,7 +117,7 @@ namespace ui {
 				Character *mainChar = Engine::getGame()->getMainCharacter();
 				if (clickedOn && mainChar->canReachGameObject(clickedOn))
 				{
-					clickedOn->interactWith(mainChar);
+					clickedOn->interactWith(mainChar, false);
 				}
 			}
 		}

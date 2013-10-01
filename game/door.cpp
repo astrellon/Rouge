@@ -44,8 +44,8 @@ namespace game {
 		addEventListener(MOUSE_UP, this);
 
 		mDoorRegion = new MapRegion(3, 3, 1);
-		mDoorRegion->addEventListener("region_entered", this);
-		mDoorRegion->addEventListener("region_exited", this);
+		//mDoorRegion->addEventListener("region_entered", this);
+		//mDoorRegion->addEventListener("region_exited", this);
 		mDoorType = Engine::getEngine()->getTileType("door");
 	}
 	Door::Door(const Door &copy) :
@@ -66,8 +66,8 @@ namespace game {
 				}
 			}
 		}
-		mDoorRegion->addEventListener("region_entered", this);
-		mDoorRegion->addEventListener("region_exited", this);
+		//mDoorRegion->addEventListener("region_entered", this);
+		//mDoorRegion->addEventListener("region_exited", this);
 	}
 	Door::~Door()
 	{
@@ -139,9 +139,9 @@ namespace game {
 		return mDoorRegion;
 	}
 	
-	void Door::interactWith(GameObject *interacter)
+	bool Door::interactWith(GameObject *interacter, bool byMovement)
 	{
-		if (isOpened())
+		if (isOpened() && !byMovement)
 		{
 			setOpened(false);
 		}
@@ -151,11 +151,16 @@ namespace game {
 			{
 				setOpened(true);
 			}
+			/*else
+			{
+				return true;
+			}*/
 		}
 		else
 		{
 			setOpened(true);
 		}
+		return false;
 	}
 
 	void Door::update(float dt)
@@ -363,7 +368,7 @@ namespace game {
 			if (mDoorRegion)
 			{
 				mDoorRegion->setLocation(getGridLocationX() - 1, getGridLocationY() - 1);
-				map->addMapRegion(mDoorRegion);
+				//map->addMapRegion(mDoorRegion);
 			}
 		}
 	}

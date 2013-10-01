@@ -262,9 +262,10 @@ namespace game {
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
 	}
 
-	void GameObject::interactWith(GameObject *interacter)
+	bool GameObject::interactWith(GameObject *interacter, bool byMovement)
 	{
 		// Do nothing
+		return false;
 	}
 
 	bool GameObject::interactWithLayer() const
@@ -348,6 +349,15 @@ namespace game {
 			{
 				return false;
 			}
+			Vector2i newGrid = Engine::getEngine()->worldToGrid(newPosX, newPosY);
+ 			ObjectList objs;
+			if (mMap->getGameObjectsAt(newGrid.x, newGrid.y, objs))
+			{
+				if (objs.size() > 0 && objs[0]->interactWith(this, true))
+				{
+					return false;
+				}
+			}
 			setLocation(mLocationX + dx, mLocationY + dy);
 		}
 		return valid > 0;
@@ -386,7 +396,17 @@ namespace game {
 		}
 		if (valid > 0)
 		{
-			setLocation(mLocationX + dx, mLocationY + dy);
+			float newWorldX = mLocationX + dx;
+			float newWorldY = mLocationY + dy;
+			ObjectList objs;
+			if (mMap->getGameObjectsAt(newWorldX, newWorldY, objs))
+			{
+				if (objs.size() > 0 && objs[0]->interactWith(this, true))
+				{
+					return false;
+				}
+			}
+			setLocation(newWorldX, newWorldY);
 		}
 		return valid > 0;
 	}
