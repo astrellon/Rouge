@@ -326,6 +326,14 @@ namespace game {
 		int gridY = static_cast<int>(mLocationY * engine->getGridSizeResp());
 		int newGridX = static_cast<int>((mLocationX + x) * engine->getGridSizeResp());
 		int newGridY = static_cast<int>((mLocationY + y) * engine->getGridSizeResp());
+ 		ObjectList objs;
+		if (mMap->getGameObjectsAt(newGridX, newGridY, objs))
+		{
+			if (objs.size() > 0 && objs[0]->interactWith(this, true))
+			{
+				return false;
+			}
+		}
 		float dx = 0.0f;
 		float dy = 0.0f;
 		int valid = 0;
@@ -344,19 +352,8 @@ namespace game {
 			float newPosX = mLocationX + x;
 			float newPosY = mLocationY + y;
 			if (!mMap->isValidLocation(newPosX, newPosY, this))
-			//if (!mMap->isValidGridLocation(newGridX, newGridY, this))
-
 			{
 				return false;
-			}
-			Vector2i newGrid = Engine::getEngine()->worldToGrid(newPosX, newPosY);
- 			ObjectList objs;
-			if (mMap->getGameObjectsAt(newGrid.x, newGrid.y, objs))
-			{
-				if (objs.size() > 0 && objs[0]->interactWith(this, true))
-				{
-					return false;
-				}
 			}
 			setLocation(mLocationX + dx, mLocationY + dy);
 		}
@@ -370,6 +367,14 @@ namespace game {
 		int gridY = static_cast<int>(mLocationY * engine->getGridSizeResp());
 		int newGridX = gridX + x;
 		int newGridY = gridY + y;
+		ObjectList objs;
+		if (mMap->getGameObjectsAt(newGridX, newGridY, objs))
+		{
+			if (objs.size() > 0 && objs[0]->interactWith(this, true))
+			{
+				return false;
+			}
+		}
 		float dx = 0.0f;
 		float dy = 0.0f;
 		int valid = 0;
@@ -396,17 +401,7 @@ namespace game {
 		}
 		if (valid > 0)
 		{
-			float newWorldX = mLocationX + dx;
-			float newWorldY = mLocationY + dy;
-			ObjectList objs;
-			if (mMap->getGameObjectsAt(newWorldX, newWorldY, objs))
-			{
-				if (objs.size() > 0 && objs[0]->interactWith(this, true))
-				{
-					return false;
-				}
-			}
-			setLocation(newWorldX, newWorldY);
+			setLocation(mLocationX + dx, mLocationY + dy);
 		}
 		return valid > 0;
 	}

@@ -846,7 +846,7 @@ namespace game {
 			int y = obj->getLocationY();
 			float left = x + obj->getWidth();
 			float bottom = y + obj->getHeight();
-			if (worldX >= x && worldY >= y && worldX <= left && worldY <= bottom)
+			if (worldX >= x && worldY >= y && worldX < left && worldY < bottom)
 			{
 				result.push_back(obj);
 			}
