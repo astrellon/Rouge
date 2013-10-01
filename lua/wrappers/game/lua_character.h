@@ -84,6 +84,7 @@ namespace game {
 	int Character_remove_event_listener(lua_State *lua);
 	int Character_has_event_listener(lua_State *lua);
 
+	// Levelable methods
 	int Character_experience(lua_State *lua);
 	int Character_add_experience(lua_State *lua);
 	int Character_level(lua_State *lua);

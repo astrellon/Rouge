@@ -319,6 +319,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\game\lua_dialogue_component.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_engine.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_game.cpp" />
+    <ClCompile Include="lua\wrappers\game\lua_game_object.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_iattribute_data.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_inventory.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_item.cpp" />
@@ -569,6 +570,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\game\lua_dialogue_component.h" />
     <ClInclude Include="lua\wrappers\game\lua_engine.h" />
     <ClInclude Include="lua\wrappers\game\lua_game.h" />
+    <ClInclude Include="lua\wrappers\game\lua_game_object.h" />
     <ClInclude Include="lua\wrappers\game\lua_iattribute_data.h" />
     <ClInclude Include="lua\wrappers\game\lua_inventory.h" />
     <ClInclude Include="lua\wrappers\game\lua_item.h" />

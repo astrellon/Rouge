@@ -17,6 +17,7 @@ using namespace am::lua;
 #include <game/item.h>
 #include <game/dialogue.h>
 #include <game/quest.h>
+#include <game/door.h>
 using namespace am::game;
 
 #include "lua_map.h"
@@ -1105,6 +1106,11 @@ namespace game {
 			if (item)
 			{
 				return item;
+			}
+			Door *door = castUData<Door>(lua, n);
+			if (door)
+			{
+				return door;
 			}
 		}
 		return nullptr;

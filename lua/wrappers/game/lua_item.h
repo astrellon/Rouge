@@ -44,9 +44,26 @@ namespace game {
 	int Item_height(lua_State *lua);
 	int Item_name(lua_State *lua);
 
+	// GameObject methods
 	int Item_location(lua_State *lua);
 	int Item_grid_location(lua_State *lua);
 
+	int Item_move(lua_State *lua);
+	int Item_move_grid(lua_State *lua);
+
+	int Item_talk_to(lua_State *lua);
+
+	int Item_fixed_to_grid(lua_State *lua);
+	int Item_map(lua_State *lua);
+	int Item_original_map(lua_State *lua);
+
+	int Item_add_passible_type(lua_State *lua);
+	int Item_remove_passible_type(lua_State *lua);
+	int Item_remove_all_passible_types(lua_State *lua);
+	int Item_has_passible_type(lua_State *lua);
+	int Item_get_passible_types(lua_State *lua);
+
+	int Item_dialogue_component(lua_State *lua);
 	int Item_game_id(lua_State *lua);
 
 	int Item_add_event_listener(lua_State *lua);

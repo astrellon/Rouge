@@ -16,8 +16,7 @@ using namespace am::lua;
 using namespace am::game;
 
 #include "lua_stat_modifiers.h"
-#include "lua_iattribute_data.h"
-#include "../lua_event_manager.h"
+#include "lua_game_object.h"
 
 #include <log/logger.h>
 
@@ -864,107 +863,303 @@ namespace game {
 		return LuaState::expectedContext(lua, "name", "am.item");
 	}
 	/**
-	 * Returns the item's location.
-	 *
-	 * @returns number The x location.
-	 * @returns number The y location.
+	 * Returns the items current map location.
+	 * @returns number The items x map value
+	 * @returns number The items y map value
 	 */
 	/**
-	 * Sets the item's location for the map it is currently on.
-	 *
-	 * @param number location_x The x location value.
-	 * @param number location_y The y location value.
+	 * Sets the items map location.
+	 * @param number x The x map value
+	 * @param number y The y map value
 	 * @returns am.item This
 	 */
 	int Item_location(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_gettop(lua) == 1)
-			{
-				lua_pushnumber(lua, item->getLocationX());
-				lua_pushnumber(lua, item->getLocationY());
-				return 2;
-			}
-			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
-			{
-				item->setLocation(lua_tofloat(lua, 3), lua_tofloat(lua, 3));
-				lua_first(lua);
-			}
-			return LuaState::expectedArgs(lua, "location", "number x, number y");
+			return GameObject_location(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "location", "am.item");
 	}
-
 	/**
-	 * Returns the item's grid location.
-	 *
-	 * @returns integer The x grid location.
-	 * @returns integer The y grid location.
+	 * Returns the items currnet map grid location.
+	 * @returns integer x The x grid value
+	 * @returns integer y The y grid value
 	 */
 	/**
-	 * Sets the item's grid location for the map it is currently on.
-	 *
-	 * @param integer grid_x The x grid location value.
-	 * @param integer grid_y The y grid location value.
+	 * Sets the items current map grid location.
+	 * @param integer x The x grid value
+	 * @param integer y The y grid value
 	 * @returns am.item This
 	 */
 	int Item_grid_location(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_gettop(lua) == 1)
-			{
-				lua_pushinteger(lua, item->getGridLocationX());
-				lua_pushinteger(lua, item->getGridLocationY());
-				return 2;
-			}
-			else if (lua_isnum(lua, 2) && lua_isnum(lua, 3))
-			{
-				item->setGridLocation(lua_tointeger(lua, 2), lua_tointeger(lua, 3));
-				lua_first(lua);
-			}
-			return LuaState::expectedArgs(lua, "grid_location", "integer x, integer y");
+			return GameObject_grid_location(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "grid_location", "am.item");
 	}
 	/**
-	 * Returns the item's unique game id.
-	 *
-	 * @returns string The item's game id.
+	 * Moves a item by {x, y} amount.
+	 * If the new location isn't valid, the item isn't moved.
+	 * @param number x The x amount to move by
+	 * @param number y The y amount to move by
+	 * @returns am.item This
+	 */
+	int Item_move(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_move(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "move", "am.item");
+	}
+	/**
+	 * Moves a item by {x, y} grid amounts.
+	 * If the new location isn't valid, the item isn't moved.
+	 * @param integer x The x grid amount to by move by
+	 * @param integer y The y grid amount to by move by
+	 * @returns am.item This
+	 */
+	int Item_move_grid(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_move_grid(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "move_grid", "am.item");
+	}
+	/**
+	 * Initiates a conversation between this item
+	 * and the game object id passed in.
+	 * Returns true if the conversation was initiated.
+	 * False can mean that the game object id was invalid or that
+	 * either this item or the game object did not have a
+	 * dialog component attached.
+	 * @see am.dialog_component
+	 * @param string id The game object id.
+	 * @returns boolean True if the conversation was initiated.
 	 */
 	/**
-	 * Set's a new game id for this item.
-	 *
-	 * @param string game_id The new game id.
-	 * @returns boolean True if the item's game id was successfully changed.
+	 * Initiates a conversation between this item
+	 * and the game object passed in.
+	 * Returns true if the conversation was initiated.
+	 * False can mean that the game object was nil or that
+	 * either this item or the game object did not have a
+	 * dialog component attached.
+	 * @see am.dialog_component
+	 * @param am.game_object talkee The game object to start a converstation with.
+	 * @returns boolean True if the conversation was initiated.
 	 */
-	int Item_game_id(lua_State *lua)
+	int Item_talk_to(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_gettop(lua) == 1)
-			{
-				lua_pushstring(lua, item->getGameId());
-				return 1;
-			}
-			else if (lua_isstr(lua, 2))
-			{
-				lua_pushboolean(lua, item->setGameId(lua_tostring(lua, 2)));
-				return 1;
-			}
-			return LuaState::expectedArgs(lua, "game_id", "string game_id");
+			return GameObject_talk_to(lua, obj);
 		}
-		return LuaState::expectedContext(lua, "game_id", "am.item");
+		return LuaState::expectedContext(lua, "talk_to", "am.item");
+	}
+	/**
+	 * Returns true if this item is fixed to the game grid
+	 * or false if the item is able to move freely about the map.
+	 * @returns boolean True if the item is fixed to the grid.
+	 */
+	/**
+	 * Sets if the item is fixed to the grid or not.
+	 * If a item is fixed to the grid, they cannot move to positions
+	 * other than the center of each grid space.
+	 * @param boolean fixed Sets the fixed to grid value.
+	 * @returns am.item This
+	 */
+	int Item_fixed_to_grid(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_fixed_to_grid(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "fixed_to_grid", "am.item");
 	}
 
 	/**
+	 * Returns the current map that this item is on, can be nil.
+	 *
+	 * @returns am.map The map the item is on.
+	 */
+	/**
+	 * Sets the map that the item is on, can be nil.
+	 *
+	 * @param am.map map The map to put the item on.
+	 * @returns am.item This
+	 */
+	int Item_map(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_map(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "map", "am.item");
+	}
+
+	/**
+	 * Returns the original map that this item was on, can be nil.
+	 *
+	 * @returns am.map The map the item was originally on.
+	 */
+	/**
+	 * Sets the map that the item was originally on, can be nil.
+	 * This is usually set automatically the first time a item is
+	 * added to a map. This is primarily used for reloading the item
+	 * and knowing where to find likely find any event handlers and additional
+	 * information relating to the item that is not stored directly on the
+	 * item.
+	 *
+	 * @param am.map map The map the item was originally was on.
+	 * @returns am.item This
+	 */
+	int Item_original_map(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_original_map(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "map", "am.item");
+	}
+	/**
+	 * Adds a tile type to the list of tile types that this item
+	 * can move freely on. TileTypes can be added multiple times.
+	 * 
+	 * @param am.tile_type tile_type The type to add to the list.
+	 * @returns am.item This
+	 */
+	/**
+	 * Adds a tile type to the list of tile types that this item
+	 * can move freely on. Tile types can be added multiple times.
+	 * 
+	 * @param string tile_type_name The name of the type to add to the list.
+	 * @returns am.item This
+	 */
+	int Item_add_passible_type(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_add_passible_type(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "add_passible_type", "am.item");
+	}
+	/**
+	 * Removes a tile type from the list of passible tiles.
+	 * @param am.tile_type tile_type The tile type to remove.
+	 * @returns am.item This
+	 */
+	int Item_remove_passible_type(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_remove_passible_type(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "remove_passible_type", "am.item");
+	}
+	/**
+	 * Removes all tile types from this items passible list.
+	 * @returns am.item This
+	 */
+	int Item_remove_all_passible_types(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_remove_all_passible_types(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "remove_all_passible_types", "am.item");
+	}
+	/**
+	 * Returns true if the given tile type is found on this items
+	 * passible list.
+	 * @param am.tile_type tile_type The tile type to search for
+	 * @returns boolean True if the tile type is found
+	 */
+	int Item_has_passible_type(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_has_passible_type(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "has_passible_type", "am.item");
+	}
+	/**
+	 * Returns a table of all the passible tile types for this item.
+	 * @returns table Table of all the tile types.
+	 */
+	int Item_get_passible_types(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_get_passible_types(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "get_passible_types", "am.item");
+	}
+	
+	/**
+	 * @see am.dialogue_component
+	 * Returns the dialogue component attached to this item, can be nil.
+	 * @returns am.dialogue_component The attached dialogue component
+	 */
+	/**
+	 * Sets a dialogue component onto this item, can be nil.
+	 * @param am.dialogue_component comp The dialogue component to attach to this item, can be nil.
+	 * @param boolean [true] set_attached When true it also sets that this item
+	 * is the game object attached to the dialogue component.
+	 */
+	int Item_dialogue_component(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_dialogue_component(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "dialogue_component", "am.item");
+	}
+
+	/**
+	 * Returns the game id for this item.
+	 * @returns string The items game id.
+	 */
+	/**
+	 * Sets the items game id, this is used to refer to this
+	 * item from the game engine. Should be unique.
+	 * @param string game_id The items unique game id.
+	 * @returns boolean True if the game id change was successful or if
+	 * game id was the same as the given game_id. False indicates that
+	 * either there is no current game engine or there is another
+	 * game object with the same game id.
+	 */
+	int Item_game_id(lua_State *lua)
+	{
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
+		{
+			return GameObject_game_id(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "id", "am.item");
+	}
+	
+	/**
 	 * Adds an event listener for an event fired on this item.
 	 * eg: <pre>
-	 * character:on("talkTo", function(event)
+	 * item:on("talkTo", function(event)
 	 *     am_log("Character talked to")
 	 * end)
 	 * </pre>
@@ -976,15 +1171,10 @@ namespace game {
 	 */
 	int Item_add_event_listener(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
-			{
-				lua_pushboolean(lua, am::lua::ui::addEventListener(lua, item));
-				return 1;
-			}
-			return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
+			return GameObject_add_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "on", "am.item");
 	}
@@ -994,9 +1184,9 @@ namespace game {
 	 * <pre>
 	 * function talkToOnce(event)
 	 *     am_log("Character talked to once")
-	 *     character:off("talkTo", talkToOnce)
+	 *     item:off("talkTo", talkToOnce)
 	 * end
-	 * character:on("talkTo", talkToOnce)
+	 * item:on("talkTo", talkToOnce)
 	 * </pre>
 	 * @param string event_type The event type the listener was listening for.
 	 * @param function listener The listener function to remove.
@@ -1006,15 +1196,10 @@ namespace game {
 	 */
 	int Item_remove_event_listener(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
-			{
-				lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, item));
-				return 1;
-			}
-			return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
+			return GameObject_remove_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "off", "am.item");
 	}
@@ -1026,15 +1211,10 @@ namespace game {
 	 */
 	int Item_has_event_listener(lua_State *lua)
 	{
-		Item *item = castUData<Item>(lua, 1);
-		if (item)
+		Item *obj = castUData<Item>(lua, 1);
+		if (obj)
 		{
-			if (lua_isstr(lua, 2))
-			{
-				lua_pushboolean(lua, item->hasEventListener(lua_tostring(lua, 2)));
-				return 1;
-			}
-			return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
+			return GameObject_has_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "has_event_listener", "am.item");
 	}
@@ -1081,7 +1261,7 @@ namespace game {
 		Item *item = castUData<Item>(lua, 1);
 		if (item)
 		{
-			return IAttributeData_attrs(lua, item);
+			return GameObject_attrs(lua, item);
 		}
 		return LuaState::expectedContext(lua, "attrs", "am.item");
 	}

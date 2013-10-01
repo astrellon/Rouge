@@ -43,7 +43,8 @@ namespace tests {
 		
 		{
 			assert(lua.hasGlobalFunction("getItem"));
-			lua.call(0, 1);
+			//lua.call(0, 1);
+			lua_acall(lua, 0, 1);
 			Handle<Item> item(castUData<Item>(lua, 1));
 
 			assert(item != nullptr);
@@ -51,7 +52,8 @@ namespace tests {
 			am_equals(2, item->getReferenceCounter());
 
 			assert(lua.hasGlobalFunction("setGameId"));
-			lua.call(0, 0);
+			//lua.call(0, 0);
+			lua_acall(lua, 0, 0);
 
 			am_equals(3, item->getReferenceCounter());
 			
@@ -99,34 +101,40 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasPart"));
 		lua_pushstring(lua, "arm");
-		lua.call(1, 1);
+		lua_acall(lua, 1, 1);
+		//lua.call(1, 1);
 		am_equals(false, lua_tobool(lua, -1));
 		lua_pop(lua, 1);
 
 		assert(lua.hasGlobalFunction("addPart"));
 		lua_pushstring(lua, "arm");
-		lua.call(1, 0);
+		//lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasPart"));
 		lua_pushstring(lua, "arm");
-		lua.call(1, 1);
+		//lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		am_equals(true, lua_tobool(lua, -1));
 		lua_pop(lua, 1);
 
 		assert(lua.hasGlobalFunction("addPart"));
 		lua_pushstring(lua, "hand");
-		lua.call(1, 0);
+		//lua.call(1, 0);
+		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasPart"));
 		lua_pushstring(lua, "hand");
-		lua.call(1, 1);
+		//lua.call(1, 1);
+		lua_acall(lua, 1, 1);
 		am_equals(true, lua_tobool(lua, -1));
 		lua_pop(lua, 1);
 
 		assert(lua.hasGlobalFunction("printParts"));
 		try 
 		{
-			lua.call(0, 0);
+			//lua.call(0, 0);
+			lua_acall(lua, 0, 0);
 		}
 		catch (...)
 		{
