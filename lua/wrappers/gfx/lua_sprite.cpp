@@ -148,6 +148,22 @@ namespace gfx {
 		return LuaState::expectedContext(lua, "asset", "am.sprite");
 	}
 
+	bool getSprite(lua_State *lua, int n, Sprite *&result)
+	{
+		if (lua_isstr(lua, n))
+		{
+			result = new Sprite(lua_tostring(lua, n));
+			return true;
+		}
+		else if (lua_isnil(lua, n))
+		{
+			result = nullptr;
+			return true;
+		}
+		Sprite *sprite = castUData<Sprite>(lua, n);
+		result = sprite;
+		return sprite != nullptr;
+	}
 }
 }
 }

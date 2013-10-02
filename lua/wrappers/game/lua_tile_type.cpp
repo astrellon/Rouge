@@ -195,6 +195,32 @@ namespace game {
 		return LuaState::expectedArgs(lua, "@tile_type", "string tile_type_name");
 	}
 
+	bool getTileType(lua_State *lua, int n, TileType *&result)
+	{
+		if (lua_isstr(lua, n))
+		{
+			TileType *type = Engine::getEngine()->getTileType(lua_tostring(lua, n));
+			if (type)
+			{
+				result = type;
+				return true;
+			}
+
+			stringstream ss;
+			ss << "Unknown tile type '";
+			LuaState::printTypeValue(lua, n, ss);
+			ss << "' unable to add";
+			LuaState::warning(lua, ss.str().c_str());
+			return false;
+		}
+		TileType *type = castUData<TileType>(lua, n);
+		if (type)
+		{
+			result = type;
+			return true;
+		}
+		return false;
+	}
 }
 }
 }

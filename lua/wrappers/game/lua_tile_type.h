@@ -24,6 +24,8 @@ namespace game {
 	int TileType_add_tile_type(lua_State *lua);
 	int TileType_tile_type(lua_State *lua);
 
+	bool getTileType(lua_State *lua, int n, am::game::TileType *& result);
+
 }
 }
 }

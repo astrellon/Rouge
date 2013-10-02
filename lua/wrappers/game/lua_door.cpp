@@ -24,6 +24,7 @@ using namespace am::util;
 #include "lua_tile_type.h"
 #include "lua_dialogue_component.h"
 #include "lua_game.h"
+#include "../gfx/lua_sprite.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
 using namespace am::lua::gfx;
@@ -123,12 +124,16 @@ namespace game {
 			{ "new", Door_ctor },
 			{ "__gc", Door_dtor },
 			{ "__eq", Door_eq },
-			// Character methods
+			// Door methods
+			{ "tile_type", Door_tile_type },
+			{ "can_open_by", Door_can_open_by },
+			{ "opened", Door_opened },
+			{ "lock", Door_lock },
 
-			{ "name", Door_name },
-			{ "description", Door_description },
 			{ "graphic", Door_graphic },
 			// GameObject methods
+			{ "name", Door_name },
+			{ "description", Door_description },
 			{ "location", Door_location },
 			{ "grid_location", Door_grid_location },
 			{ "move", Door_move },
@@ -160,6 +165,199 @@ namespace game {
 		lua_setfield(lua, -1, "__index");
 		
 		return 1;
+	}
+
+	/**
+	 * Returns the tile type that's appied to the tile
+	 * when this door is closed. When the door is opened
+	 * the door does not affect the tile type.
+	 *
+	 * @returns am.tile_type The door tile type.
+	 */
+	/**
+	 * Sets the door closed tile type.
+	 * When the is closed this tile type is applied to the 
+	 * tile the door is over. When the door is opened the tile
+	 * type is unaffected.
+	 *
+	 * @param am.tile_type tile_type The tile type to set.
+	 * @returns am.door This
+	 */
+	int Door_tile_type(lua_State *lua)
+	{
+		Door *door = castUData<Door>(lua, 1);
+		if (door)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				TileType *type = door->getDoorType();
+				if (type)
+				{
+					wrapRefObject<TileType>(lua, type);
+				}
+				else
+				{
+					lua_pushnil(lua);
+				}
+				return 1;
+			}
+			else
+			{
+				TileType *tileType = nullptr;
+				if (getTileType(lua, 2, tileType))
+				{
+					door->setDoorType(tileType);
+					lua_first(lua);
+				}
+				return LuaState::expectedArgs(lua, "tile_type", 3, "string tile_type_name", "am.tile_type tile_type", "nil");
+			}
+		}
+		return LuaState::expectedContext(lua, "tile_type", "am.door");
+	}
+
+	/**
+	 * Returns true if the given character can open this door.
+	 *
+	 * @param am.character character The character to check.
+	 * @returns boolean True if the given character can open
+	 *  this door.
+	 */
+	int Door_can_open_by(lua_State *lua)
+	{
+		Door *door = castUData<Door>(lua, 1);
+		if (door)
+		{
+			Character *obj = castUData<Character>(lua, 2);
+			if (obj)
+			{
+				lua_pushboolean(lua, door->canOpenBy(obj));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "can_open_by", "am.character character");
+		}
+		return LuaState::expectedContext(lua, "can_open_by", "am.door");
+	}
+
+	/**
+	 * Returns true if this door is opened.
+	 *
+	 * @returns boolean True if the door is open.
+	 */
+	/**
+	 * Sets is the door is opened.
+	 *
+	 * @param boolean opened If the door should be opened.
+	 * @returns am.door This
+	 */
+	int Door_opened(lua_State *lua)
+	{
+		Door *door = castUData<Door>(lua, 1);
+		if (door)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushboolean(lua, door->isOpened());
+				return 1;
+			}
+			else if (lua_isbool(lua, 2))
+			{
+				door->setOpened(lua_tobool(lua, 2));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "opened", "boolean opened");
+		}
+		return LuaState::expectedContext(lua, "opened", "am.door");
+	}
+
+	/**
+	 * Returns the lock type as a string.
+	 *
+	 * @returns string The lock type.
+	 */
+	/**
+	 * Sets the lock type by lock name.
+	 *
+	 * @param string lock_name The name of the lock type.
+	 * @returns am.door This
+	 */
+	int Door_lock(lua_State *lua)
+	{
+		Door *door = castUData<Door>(lua, 1);
+		if (door)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushstring(lua, Door::getLockTypeName(door->getLock()));
+				return 1;
+			}
+			else if (lua_isstr(lua, 2))
+			{
+				Door::LockType lock = Door::getLockType(lua_tostring(lua, 2));
+				if (lock != Door::MAX_LOCK_TYPE)
+				{
+					door->setLock(lock);
+				}
+				else
+				{
+					stringstream ss;
+					ss << "Unknown lock type '" << lua_tostring(lua, 2) << '\'';
+					LuaState::warning(lua, ss.str().c_str());
+				}
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "lock", "string lock_name");
+		}
+		return LuaState::expectedContext(lua, "lock", "am.door");
+	}
+
+	/**
+	 * Returns the graphic attached to this door, can be nil.
+	 *
+	 * @returns am.sprite The door sprite.
+	 */
+	/**
+	 * Sets the door graphic, can be nil.
+	 *
+	 * @param am.sprite sprite The graphic to set.
+	 * @returns am.door This
+	 */
+	/**
+	 * Sets the door asset graphic.
+	 * Sets the asset_name of the graphic for this door.
+	 *
+	 * @param string asset_name The asset name to the graphic.
+	 * @returns am.door This
+	 */
+	int Door_graphic(lua_State *lua)
+	{
+		Door *door = castUData<Door>(lua, 1);
+		if (door)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				Sprite *sprite = door->getGraphic();
+				if (sprite)
+				{
+					wrapRefObject<Sprite>(lua, sprite);
+				}
+				else
+				{
+					lua_pushnil(lua);
+				}
+				return 1;
+			}
+			else
+			{
+				Sprite *sprite = nullptr;
+				if (getSprite(lua, 2, sprite))
+				{
+					door->setGraphic(sprite);
+					lua_first(lua);
+				}
+				return LuaState::expectedArgs(lua, "graphic", 3, "am.sprite sprite", "string asset_name", "nil");
+			}
+		}
+		return LuaState::expectedContext(lua, "graphic", "am.door");
 	}
 
 	/**
@@ -205,75 +403,6 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "description", "am.door");
 	}
-
-	/**
-	 * Returns the graphic attached to this door, can be nil.
-	 *
-	 * @returns am.sprite The door sprite.
-	 */
-	/**
-	 * Sets the door asset graphic.
-	 * Sets the asset_name of the graphic for this door.
-	 *
-	 * @param string asset_name The asset name to the graphic.
-	 * @returns am.door This
-	 */
-	/**
-	 * Sets the door graphic, can be nil.
-	 *
-	 * @param am.sprite sprite The graphic to set.
-	 * @returns am.door This
-	 */
-	int Door_graphic(lua_State *lua)
-	{
-		Door *door = castUData<Door>(lua, 1);
-		if (door)
-		{
-			if (lua_gettop(lua) == 1)
-			{
-				Sprite *sprite = door->getGraphic();
-				if (sprite)
-				{
-					wrapRefObject<Sprite>(lua, sprite);
-				}
-				else
-				{
-					lua_pushnil(lua);
-				}
-				return 1;
-			}
-			else
-			{
-				bool valid = false;
-				if (lua_isstr(lua, 2))
-				{
-					door->setGraphic(new Sprite(lua_tostring(lua, 2)));
-					valid = true;
-				}
-				else if (lua_isnil(lua, 2))
-				{
-					door->setGraphic(nullptr);
-					valid = true;
-				}
-				else
-				{
-					Sprite *sprite = castUData<Sprite>(lua, 2);
-					if (sprite)
-					{
-						door->setGraphic(sprite);
-						valid = true;
-					}
-				}
-				if (valid)
-				{
-					lua_first(lua);
-				}
-				return LuaState::expectedArgs(lua, "graphic", 3, "string asset_name", "am.sprite sprite", "nil");
-			}
-		}
-		return LuaState::expectedContext(lua, "graphic", "am.door");
-	}
-
 	
 	/**
 	 * Returns the doors current map location.

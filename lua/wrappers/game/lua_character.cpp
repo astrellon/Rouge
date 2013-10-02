@@ -1011,28 +1011,10 @@ namespace game {
 			}
 			else
 			{
-				bool valid = false;
-				if (lua_isstr(lua, 2))
+				Sprite *sprite = nullptr;
+				if (getSprite(lua, 2, sprite))
 				{
-					obj->setGraphic(new Sprite(lua_tostring(lua, 2)));
-					valid = true;
-				}
-				else if (lua_isnil(lua, 2))
-				{
-					obj->setGraphic(nullptr);
-					valid = true;
-				}
-				else
-				{
-					Sprite *sprite = castUData<Sprite>(lua, 2);
-					if (sprite)
-					{
-						obj->setGraphic(sprite);
-						valid = true;
-					}
-				}
-				if (valid)
-				{
+					obj->setGraphic(sprite);
 					lua_first(lua);
 				}
 				return LuaState::expectedArgs(lua, "graphic", 3, "string asset_name", "am.sprite sprite", "nil");

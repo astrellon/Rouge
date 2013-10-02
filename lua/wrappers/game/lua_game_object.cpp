@@ -22,6 +22,7 @@ using namespace am::util;
 #include "lua_game.h"
 #include "lua_iattribute_data.h"
 #include "../lua_event_manager.h"
+#include "lua_tile_type.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
 using namespace am::lua::gfx;
@@ -410,7 +411,7 @@ namespace game {
 			return 0;
 		}
 
-		if (lua_isstr(lua, 2))
+		/*if (lua_isstr(lua, 2))
 		{
 			Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 2)));
 			if (type)
@@ -432,6 +433,12 @@ namespace game {
 		{
 			obj->addPassibleType(type);
 			lua_first(lua);
+		}*/
+		TileType *tileType = nullptr;
+		if (getTileType(lua, 2, tileType))
+		{
+			obj->addPassibleType(tileType);
+			lua_first(lua);
 		}
 		return LuaState::expectedArgs(lua, "add_passible_type", 2, "am.tile_type tile_type", "string tile_type_name");
 	}
@@ -447,10 +454,16 @@ namespace game {
 			return 0;
 		}
 
-		Handle<TileType> type(castUData<TileType>(lua, 2));
+		/*Handle<TileType> type(castUData<TileType>(lua, 2));
 		if (type)
 		{
 			obj->removePassibleType(type);
+			lua_first(lua);
+		}*/
+		TileType *tileType = nullptr;
+		if (getTileType(lua, 2, tileType))
+		{
+			obj->removePassibleType(tileType);
 			lua_first(lua);
 		}
 		return LuaState::expectedArgs(lua, "remove_passible_type", "am.tile_type tile_type");
@@ -486,10 +499,16 @@ namespace game {
 			return 0;
 		}
 
-		Handle<TileType> type(castUData<TileType>(lua, 2));
+		/*Handle<TileType> type(castUData<TileType>(lua, 2));
 		if (type)
 		{
 			lua_pushboolean(lua, obj->hasPassibleType(type));
+			return 1;
+		}*/
+		TileType *tileType = nullptr;
+		if (getTileType(lua, 2, tileType))
+		{
+			lua_pushboolean(lua, obj->hasPassibleType(tileType));
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "has_passible_type", "am.tile_type tile_type");

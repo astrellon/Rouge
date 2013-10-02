@@ -103,6 +103,14 @@ do
 			:name("Johns Wooden Door")
 		map:add_game_object(john_door)
 	end
+	
+	local fred_door, new_door = am.door.new(fred:name() .. "_door")
+	if (new_door) then
+		fred_door:graphic(am.sprite.new("wooden_door:main"))
+			:grid_location(14, 8)
+			:name("Freds Wooden Door")
+		map:add_game_object(fred_door)
+	end
 	-- End Doors
 
 	-- Quests

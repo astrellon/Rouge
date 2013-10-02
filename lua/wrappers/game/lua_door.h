@@ -18,12 +18,18 @@ namespace game {
 	int Door_eq(lua_State *lua);
 	int Door_register(lua_State *lua);
 	
-	int Door_name(lua_State *lua);
-	int Door_description(lua_State *lua);
+	// Door methods
+	int Door_tile_type(lua_State *lua);
+	int Door_can_open_by(lua_State *lua);
+	int Door_opened(lua_State *lua);
+	int Door_lock(lua_State *lua);
 
 	int Door_graphic(lua_State *lua);
 
 	// GameObject methods
+	int Door_name(lua_State *lua);
+	int Door_description(lua_State *lua);
+
 	int Door_location(lua_State *lua);
 	int Door_grid_location(lua_State *lua);
 

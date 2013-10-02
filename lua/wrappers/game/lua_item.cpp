@@ -17,6 +17,7 @@ using namespace am::game;
 
 #include "lua_stat_modifiers.h"
 #include "lua_game_object.h"
+#include "../gfx/lua_sprite.h"
 
 #include <log/logger.h>
 
@@ -298,6 +299,15 @@ namespace game {
 	 *  the size of the item compared to the size of each inventory slot size.
 	 * @returns am.item This
 	 */
+	/**
+	 * Sets the graphic by asset name for the item, can be set to nil.
+	 *
+	 * @param string asset_name The asset name for the new graphic for the item.
+	 * @param boolean [false] calc_size Calculates the inventory size
+	 *  of the item based off the graphic size. This is based off the
+	 *  the size of the item compared to the size of each inventory slot size.
+	 * @returns am.item This
+	 */
 	int Item_graphic(lua_State *lua)
 	{
 		Item *item = castUData<Item>(lua, 1);
@@ -320,22 +330,22 @@ namespace game {
 			}
 			else
 			{
-				Sprite *graphic = castUData<Sprite>(lua, 2);
+				Sprite *sprite = nullptr;
 				int args = lua_gettop(lua);
-				if (graphic && (args == 2 || (args == 3 && lua_isbool(lua, 3))))
+				if (lua::gfx::getSprite(lua, 2, sprite) && (args == 2 || (args == 3 && lua_isbool(lua, 3))))
 				{
 					if (args == 3)
 					{
-						item->setGraphic(graphic, lua_tobool(lua, 3));
+						item->setGraphic(sprite, lua_tobool(lua, 3));
 					}
 					else
 					{
-						item->setGraphic(graphic);
+						item->setGraphic(sprite);
 					}
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "graphic", 2, "am.sprite graphic, bool [true] calc_size", "nil graphic");
+			return LuaState::expectedArgs(lua, "graphic", 3, "am.sprite graphic, bool [true] calc_size", "string asset_name, bool [true] calc_size", "nil graphic");
 		}
 		return LuaState::expectedContext(lua, "graphic", "am.item");
 	}
@@ -351,6 +361,12 @@ namespace game {
 	 * Sets the ground graphic for the item, can be set to nil.
 	 *
 	 * @param am.sprite graphic The new ground graphic for the item.
+	 * @returns am.item This
+	 */
+	/**
+	 * Sets the ground graphic by asset name for the item, can be set to nil.
+	 *
+	 * @param string asset_name The asset name for the new ground graphic for the item.
 	 * @returns am.item This
 	 */
 	int Item_ground_graphic(lua_State *lua)
@@ -374,14 +390,14 @@ namespace game {
 			}
 			else
 			{
-				Sprite *graphic = castUData<Sprite>(lua, 2);
-				if (graphic)
+				Sprite *sprite = nullptr;
+				if (lua::gfx::getSprite(lua, 2, sprite))
 				{
-					item->setGroundGraphic(graphic);
+					item->setGroundGraphic(sprite);
 					lua_first(lua);
 				}
 			}
-			return LuaState::expectedArgs(lua, "ground_graphic", 2, "am.sprite graphic", "nil graphic");
+			return LuaState::expectedArgs(lua, "ground_graphic", 3, "am.sprite graphic", "string asset_name", "nil graphic");
 		}
 		return LuaState::expectedContext(lua, "ground_graphic", "am.item");
 	}

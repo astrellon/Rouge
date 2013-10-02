@@ -6,6 +6,11 @@ extern "C"
 }
 
 namespace am {
+namespace gfx {
+	class Sprite;
+}
+using namespace am::gfx;
+
 namespace lua {
 namespace gfx {
 
@@ -15,6 +20,8 @@ namespace gfx {
 	int Sprite_register(lua_State *lua);
 
 	int Sprite_asset(lua_State *lua);
+
+	bool getSprite(lua_State *lua, int n, Sprite *&result);
 
 }
 }
