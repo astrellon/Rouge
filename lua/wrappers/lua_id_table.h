@@ -1,5 +1,8 @@
 #pragma once
 
+// While it might be easier to organise things just into namespaces,
+// it's probably best to keep things in order of Lua IDs.
+
 // Game objects
 #define LUA_ID_STATS			0x01
 #define LUA_TABLE_STATS			"am_game_Stats"
@@ -45,10 +48,10 @@
 #define LUA_TABLE_STATMODIFIER	"am_game_StatModifier"
 #define LUA_ID_BODYPARTS		0x17
 #define LUA_TABLE_BODYPARTS		"am_game_BodyParts"
-
+// Utils
 #define LUA_ID_TABLE			0x19
 #define LUA_TABLE_TABLE			"am_util_data_Table"
-
+// Graphics
 #define LUA_ID_SPRITE			0x20
 #define LUA_TABLE_SPRITE		"am_gfx_Sprite"
 #define LUA_ID_ASSET			0x21
@@ -61,7 +64,7 @@
 #define LUA_TABLE_FONT			"am_gfx_Font"
 #define LUA_ID_TEXTSTYLE		0x25
 #define LUA_TABLE_TEXTSTYLE		"am_gfx_TextStyle"
-
+// More game
 #define LUA_ID_DOOR				0x26
 #define LUA_TABLE_DOOR			"am_game_Door"
 #define LUA_ID_MAPREGION		0x27
