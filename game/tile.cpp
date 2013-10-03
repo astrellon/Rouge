@@ -15,13 +15,15 @@ using namespace std;
 #include "tile_type.h"
 #include "engine.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
 	Handle<Tile> Tile::sDefaultTile;
 
-	const int Tile::LUA_ID = 0x0F;
-	const char *Tile::LUA_TABLENAME = "am_game_Tile";
+	const int Tile::LUA_ID = LUA_ID_TILE;
+	const char *Tile::LUA_TABLENAME = LUA_TABLE_TILE;
 
 	Tile::Tile(const char *name) :
 		mName(name),

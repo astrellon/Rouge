@@ -11,11 +11,13 @@ using namespace am::util;
 
 #include <math/math.h>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int MapRegion::LUA_ID = 0x27;
-	const char *MapRegion::LUA_TABLENAME = "am_game_MapRegion";
+	const int MapRegion::LUA_ID = LUA_ID_MAPREGION;
+	const char *MapRegion::LUA_TABLENAME = LUA_TABLE_MAPREGION;
 
 	MapRegion::MapRegion() :
 		EventInterface(),

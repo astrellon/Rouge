@@ -21,11 +21,13 @@ using namespace std;
 #include "game.h"
 #include "pathfinder.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Map::LUA_ID = 0x0C;
-	const char *Map::LUA_TABLENAME = "am_game_Map";
+	const int Map::LUA_ID = LUA_ID_MAP;
+	const char *Map::LUA_TABLENAME = LUA_TABLE_MAP;
 
 	Map::Map(const char *name) :
 		mName(name),

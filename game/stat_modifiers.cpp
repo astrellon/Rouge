@@ -10,11 +10,13 @@
 
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int StatModifiers::LUA_ID = 0x02;
-	const char *StatModifiers::LUA_TABLENAME = "am_game_StatModifiers";
+	const int StatModifiers::LUA_ID = LUA_ID_STATMODIFIERS;
+	const char *StatModifiers::LUA_TABLENAME = LUA_TABLE_STATMODIFIERS;
 
 	StatModifiers::StatModifiers()
 	{

@@ -8,11 +8,13 @@ using namespace am::base;
 
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Quest::LUA_ID = 0x0D;
-	const char *Quest::LUA_TABLENAME = "am_game_Quest";
+	const int Quest::LUA_ID = LUA_ID_QUEST;
+	const char *Quest::LUA_TABLENAME = LUA_TABLE_QUEST;
 
 	Quest::Quest(const char *questId) :
 		mQuestId(questId),

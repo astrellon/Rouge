@@ -14,11 +14,13 @@
 #include <util/data_boolean.h>
 #include <util/data_table.h>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
-	const int Sprite::LUA_ID = 0x20;
-	const char *Sprite::LUA_TABLENAME = "am_gfx_Sprite";
+	const int Sprite::LUA_ID = LUA_ID_SPRITE;
+	const char *Sprite::LUA_TABLENAME = LUA_TABLE_SPRITE;
 
 	Sprite::Sprite() :
 		Renderable(),

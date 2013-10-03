@@ -8,11 +8,13 @@
 
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int InventorySpot::LUA_ID = 0x0A;
-	const char *InventorySpot::LUA_TABLENAME = "am_game_InventorySpot";
+	const int InventorySpot::LUA_ID = LUA_ID_INVENTORYSPOT;
+	const char *InventorySpot::LUA_TABLENAME = LUA_TABLE_INVENTORYSPOT;
 
 	InventorySpot::InventorySpot() :
 		mX(0),

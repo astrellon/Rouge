@@ -5,11 +5,13 @@
 #include <util/data_table.h>
 #include <util/data_number.h>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int CoinPurse::LUA_ID = 0x05;
-	const char *CoinPurse::LUA_TABLENAME = "am_game_CoinPurse";
+	const int CoinPurse::LUA_ID = LUA_ID_COINPURSE;
+	const char *CoinPurse::LUA_TABLENAME = LUA_TABLE_COINPURSE;
 
 	CoinPurse::CoinPurse() :
 		mCoin(0),

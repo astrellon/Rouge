@@ -11,14 +11,16 @@ using namespace am::ui;
 
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
 	float Inventory::sSpaceSizeX = 16.0f;
 	float Inventory::sSpaceSizeY = 16.0f;
 
-	const int Inventory::LUA_ID = 0x09;
-	const char *Inventory::LUA_TABLENAME = "am_game_Inventory";
+	const int Inventory::LUA_ID = LUA_ID_INVENTORY;
+	const char *Inventory::LUA_TABLENAME = LUA_TABLE_INVENTORY;
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
 		EventInterface()

@@ -14,11 +14,13 @@ using namespace am::util;
 #include "stats.h"
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int StatModifier::LUA_ID = 0x16;
-	const char *StatModifier::LUA_TABLENAME = "am_game_StatModifier";
+	const int StatModifier::LUA_ID = LUA_ID_STATMODIFIER;
+	const char *StatModifier::LUA_TABLENAME = LUA_TABLE_STATMODIFIER;
 
 	const char *StatModifier::sStatModifierNames[] = {
 		"+", "*", "=", "MOD_MAX_LENGTH"

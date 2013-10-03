@@ -28,11 +28,13 @@ using namespace am::lua;
 #include "gfx_text_list.h"
 #include "gfx_layer.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
-	const int GfxEngine::LUA_ID = 0x23;
-	const char *GfxEngine::LUA_TABLENAME = "am_gfx_Engine";
+	const int GfxEngine::LUA_ID = LUA_ID_GFXENGINE;
+	const char *GfxEngine::LUA_TABLENAME = LUA_TABLE_GFXENGINE;
 
 	GfxEngine *GfxEngine::sMainGfxEngine = nullptr;
 

@@ -14,11 +14,13 @@ using namespace am::util;
 
 using namespace std;
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
-	const int Asset::LUA_ID = 0x21;
-	const char *Asset::LUA_TABLENAME = "am_gfx_Asset";
+	const int Asset::LUA_ID = LUA_ID_ASSET;
+	const char *Asset::LUA_TABLENAME = LUA_TABLE_ASSET;
 
 	// Asset methods
 	Asset::Asset(const char *name) :

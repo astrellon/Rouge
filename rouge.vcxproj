@@ -325,6 +325,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="lua\wrappers\game\lua_inventory.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_item.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_map.cpp" />
+    <ClCompile Include="lua\wrappers\game\lua_map_region.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_quest.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_race.cpp" />
     <ClCompile Include="lua\wrappers\game\lua_stats.cpp" />
@@ -577,6 +578,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\game\lua_inventory.h" />
     <ClInclude Include="lua\wrappers\game\lua_item.h" />
     <ClInclude Include="lua\wrappers\game\lua_map.h" />
+    <ClInclude Include="lua\wrappers\game\lua_map_region.h" />
     <ClInclude Include="lua\wrappers\game\lua_quest.h" />
     <ClInclude Include="lua\wrappers\game\lua_race.h" />
     <ClInclude Include="lua\wrappers\game\lua_stats.h" />
@@ -593,6 +595,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="lua\wrappers\gfx\lua_texture.h" />
     <ClInclude Include="lua\wrappers\lua_debug.h" />
     <ClInclude Include="lua\wrappers\lua_event_manager.h" />
+    <ClInclude Include="lua\wrappers\lua_id_table.h" />
     <ClInclude Include="lua\wrappers\lua_renderable.h" />
     <ClInclude Include="lua\wrappers\lua_return_codes.h" />
     <ClInclude Include="lua\wrappers\lua_wrappers.h" />

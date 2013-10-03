@@ -20,11 +20,13 @@
 #include <sfx/sfx_source_point.h>
 #include <sfx/sfx_source_area.h>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int GameObject::LUA_ID = 0x08;
-	const char *GameObject::LUA_TABLENAME = "am_game_GameObject";
+	const int GameObject::LUA_ID = LUA_ID_GAMEOBJECT;
+	const char *GameObject::LUA_TABLENAME = LUA_TABLE_GAMEOBJECT;
 	const char *GameObject::sDamageTypeNames[] = 
 	{
 		"unknown", "arrow", "blunt", "piercing", "falling", "fire", "cold", "magical", "acid", "MAX_DAMAGE_LENGTH"

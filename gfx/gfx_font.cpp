@@ -4,11 +4,13 @@
 #include "gfx_asset.h"
 #include "gfx_engine.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
-	const int Font::LUA_ID = 0x24;
-	const char *Font::LUA_TABLENAME = "am_gfx_Font";
+	const int Font::LUA_ID = LUA_ID_FONT;
+	const char *Font::LUA_TABLENAME = LUA_TABLE_FONT;
 
 	Font::Font(const char *name) :
 		IManaged(),

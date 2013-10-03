@@ -27,11 +27,13 @@ using namespace std;
 
 #include "engine.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Character::LUA_ID = 0x04;
-	const char *Character::LUA_TABLENAME = "am_game_Character";
+	const int Character::LUA_ID = LUA_ID_CHARACTER;
+	const char *Character::LUA_TABLENAME = LUA_TABLE_CHARACTER;
 
 	Character::Character() :
 		GameObject(),

@@ -3,11 +3,13 @@
 #include <log/logger.h>
 #include <sstream>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int TileSet::LUA_ID = 0x11;
-	const char *TileSet::LUA_TABLENAME = "am_game_TileSet";
+	const int TileSet::LUA_ID = LUA_ID_TILESET;
+	const char *TileSet::LUA_TABLENAME = LUA_TABLE_TILESET;
 
 	TileSet::TileSet()
 	{

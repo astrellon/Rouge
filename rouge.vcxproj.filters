@@ -919,6 +919,9 @@
     <ClCompile Include="lua\wrappers\game\lua_door.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="lua\wrappers\game\lua_map_region.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1677,6 +1680,12 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_door.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\game\lua_map_region.h">
+      <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\lua_id_table.h">
+      <Filter>lua\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

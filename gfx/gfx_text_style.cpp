@@ -8,11 +8,13 @@ using namespace am::util;
 #include <algorithm>
 #include <sstream>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
-	const int TextStyle::LUA_ID = 0x25;
-	const char *TextStyle::LUA_TABLENAME = "am_gfx_TextStyle";
+	const int TextStyle::LUA_ID = LUA_ID_TEXTSTYLE;
+	const char *TextStyle::LUA_TABLENAME = LUA_TABLE_TEXTSTYLE;
 
 	TextStyle::NodeStyleList TextStyle::sNodeStyleList;
 	

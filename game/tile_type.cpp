@@ -10,11 +10,13 @@ using namespace std;
 
 #include "engine.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int TileType::LUA_ID = 0x12;
-	const char *TileType::LUA_TABLENAME = "am_game_TileType";
+	const int TileType::LUA_ID = LUA_ID_TILETYPE;
+	const char *TileType::LUA_TABLENAME = LUA_TABLE_TILETYPE;
 
 	TileType::TileType(const char *name, const char *fullName) :
 		mName(name)

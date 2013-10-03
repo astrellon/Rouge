@@ -13,11 +13,13 @@ using am::ui::DialogueEvent;
 #include "game_object.h"
 #include "loading_state.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int DialogueComponent::LUA_ID = 0x15;
-	const char *DialogueComponent::LUA_TABLENAME = "am_game_DialogueComponent";
+	const int DialogueComponent::LUA_ID = LUA_ID_DIALOGUECOMP;
+	const char *DialogueComponent::LUA_TABLENAME = LUA_TABLE_DIALOGUECOMP;
 
 	DialogueComponent::DialogueComponent(GameObject *attached) :
 		mStartDialogue(nullptr),

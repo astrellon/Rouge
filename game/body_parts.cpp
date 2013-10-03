@@ -11,11 +11,13 @@ using namespace am::util;
 #include "body_part.h"
 #include "item.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int BodyParts::LUA_ID = 0x17;
-	const char *BodyParts::LUA_TABLENAME = "am_game_BodyParts";
+	const int BodyParts::LUA_ID = LUA_ID_BODYPARTS;
+	const char *BodyParts::LUA_TABLENAME = LUA_TABLE_BODYPARTS;
 
 	BodyParts::BodyParts() :
 		mAttackIndex(-1)

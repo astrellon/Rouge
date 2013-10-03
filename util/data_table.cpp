@@ -8,6 +8,8 @@
 #include "data_number.h"
 #include "data_string.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace util {
 namespace data {
@@ -17,8 +19,8 @@ namespace data {
 	const int Table::TYPE = 8;
 	const char *Table::TYPENAME = "Table";
 
-	const int Table::LUA_ID = 0x19;
-	const char *Table::LUA_TABLENAME = "am_util_data_Table";
+	const int Table::LUA_ID = LUA_ID_TABLE;
+	const char *Table::LUA_TABLENAME = LUA_TABLE_TABLE;
 
 	Table::Table()
 	{

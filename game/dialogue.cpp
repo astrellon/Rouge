@@ -2,11 +2,13 @@
 
 #include "character.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Dialogue::LUA_ID = 0x14;
-	const char *Dialogue::LUA_TABLENAME = "am_game_Dialogue";
+	const int Dialogue::LUA_ID = LUA_ID_DIALOGUE;
+	const char *Dialogue::LUA_TABLENAME = LUA_TABLE_DIALOGUE;
 
 	Dialogue::Dialogue(const char *id, const char *text, const char *title, 
 		const char *subject, UnlockFlag unlock, DialogueAction action) :

@@ -23,11 +23,13 @@ using namespace std;
 #include <gl.h>
 #include <gfx/gfx_texture.h>
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Door::LUA_ID = 0x26;
-	const char *Door::LUA_TABLENAME = "am_game_Door";
+	const int Door::LUA_ID = LUA_ID_DOOR;
+	const char *Door::LUA_TABLENAME = LUA_TABLE_DOOR;
 	const char *Door::sLockTypeNames[] = 
 	{
 		"none", "unlocked", "locked", "locked_item", "locked_special", "max_lock_type"

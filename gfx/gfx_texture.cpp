@@ -5,13 +5,15 @@
 #include <util/utils.h>
 using namespace am::util;
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace gfx {
 
 	GLuint Texture::sLastBind = -1;
 
-	const int Texture::LUA_ID = 0x22;
-	const char *Texture::LUA_TABLENAME = "am_gfx_Texture";
+	const int Texture::LUA_ID = LUA_ID_TEXTURE;
+	const char *Texture::LUA_TABLENAME = LUA_TABLE_TEXTURE;
 
 	Texture::Texture() :
 		IManaged(),

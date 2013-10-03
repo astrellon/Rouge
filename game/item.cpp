@@ -19,11 +19,13 @@ using namespace am::util;
 #include <sstream>
 using namespace std;
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int Item::LUA_ID = 0x0B;
-	const char *Item::LUA_TABLENAME = "am_game_Item";
+	const int Item::LUA_ID = LUA_ID_ITEM;
+	const char *Item::LUA_TABLENAME = LUA_TABLE_ITEM;
 
 	const char *Item::sItemLocationNames[] = {
 		"ground", "inventory", "hand", "MAX_LENGTH"

@@ -6,11 +6,13 @@ using am::util::Utils;
 #include "tile.h"
 #include "engine.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
-	const int TileInstance::LUA_ID = 0x10;
-	const char *TileInstance::LUA_TABLENAME = "am_game_TileInstance";
+	const int TileInstance::LUA_ID = LUA_ID_TILEINSTANCE;
+	const char *TileInstance::LUA_TABLENAME = LUA_TABLE_TILEINSTANCE;
 
 	TileInstance::TileInstance() : 
 		mTile(nullptr),

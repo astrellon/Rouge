@@ -16,12 +16,14 @@ using namespace std;
 #include "tile_type.h"
 #include "race.h"
 
+#include <lua/wrappers/lua_id_table.h>
+
 namespace am {
 namespace game {
 
 	Engine *Engine::sMainEngine = nullptr;
-	const int Engine::LUA_ID = 0x06;
-	const char *Engine::LUA_TABLENAME = "am_game_Engine";
+	const int Engine::LUA_ID = LUA_ID_ENGINE;
+	const char *Engine::LUA_TABLENAME = LUA_TABLE_ENGINE;
 
 	Engine::Engine() :
 		mCurrentGame(nullptr),
