@@ -15,6 +15,10 @@ namespace game {
 
 	int MapRegion_register(lua_State *lua);
 
+	int MapRegion_size(lua_State *lua);
+	int MapRegion_data(lua_State *lua);
+	int MapRegion_location(lua_State *lua);
+	int MapRegion_intersects_with(lua_State *lua);
 }
 }
 }

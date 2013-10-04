@@ -93,13 +93,23 @@ namespace game {
 		return mHeight;
 	}
 
-	void MapRegion::setData(int x, int y, int value)
+	bool MapRegion::setData(int x, int y, int value)
 	{
 		if (x < 0 || x >= mWidth || y < 0 || y > mHeight)
 		{
-			return;
+			return false;
 		}
 		mData[y * mWidth + x] = value;
+		return true;
+	}
+	bool MapRegion::getData(int x, int y, int &result) const
+	{
+		if (x < 0 || x >= mWidth || y < 0 || y > mHeight)
+		{
+			return false;
+		}
+		result = mData[y * mWidth + x];
+		return true;
 	}
 	int *MapRegion::getData() const
 	{
@@ -139,7 +149,7 @@ namespace game {
 		}
 	}
 
-	bool MapRegion::interspectsWith(GameObject *obj)
+	bool MapRegion::intersectsWith(GameObject *obj)
 	{
 		int minX = obj->getGridLocationX() - mLocation.x;
 		int minY = obj->getGridLocationY() - mLocation.y;

@@ -818,7 +818,7 @@ namespace game {
 		for (int index = 0; index < objRegions.size(); index++)
 		{
 			// Check if no longer in region.
-			if (!objRegions[index]->interspectsWith(obj))
+			if (!objRegions[index]->intersectsWith(obj))
 			{
 				obj->removeFromMapRegion(objRegions[index]);
 				index--;
@@ -826,7 +826,7 @@ namespace game {
 		}
 		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
 		{
-			if (iter->get()->interspectsWith(obj))
+			if (iter->get()->intersectsWith(obj))
 			{
 				obj->addToMapRegion(iter->get());
 			}

@@ -39,14 +39,15 @@ namespace game {
 		virtual int getWidth() const;
 		virtual int getHeight() const;
 
-		virtual void setData(int x, int y, int value);
+		virtual bool setData(int x, int y, int value);
+		virtual bool getData(int x, int y, int &result) const;
 		virtual int *getData() const;
 
 		virtual void setLocation(const Vector2i &location);
 		virtual void setLocation(int x, int y);
 		virtual Vector2i getLocation() const;
 
-		virtual bool interspectsWith(GameObject *obj);
+		virtual bool intersectsWith(GameObject *obj);
 
 		virtual void gameObjectEntered(GameObject *obj);
 		virtual void gameObjectExited(GameObject *obj);
