@@ -11,6 +11,7 @@ extern "C"
 using namespace am::lua;
 
 #include "lua_game.h"
+#include "../lua_event_manager.h"
 
 #include <game/map_region.h>
 using namespace am::game;
@@ -89,6 +90,9 @@ namespace game {
 			{ "data", MapRegion_data },
 			{ "location", MapRegion_location },
 			{ "intersects_with", MapRegion_intersects_with },
+			{ "on", MapRegion_add_event_listener },
+			{ "off", MapRegion_remove_event_listener },
+			{ "has_event_listener", MapRegion_has_event_listener },
 			{ nullptr, nullptr }
 		};
 
@@ -294,6 +298,80 @@ namespace game {
 			return LuaState::expectedArgs(lua, "intersects_with", "am.game_object object");
 		}
 		return LuaState::expectedContext(lua, "intersects_with", "am.map_region");
+	}
+
+	/**
+	 * Adds an event listener to this map region.
+	 * <pre>
+	 * local region = am.map_region.new(1, 1, 1)
+	 * region:on("region_entered", function(event)
+	 *     am.debug.log("entered: " .. event:game_object)
+	 * end)
+	 * region:on("region_exited", function(event)
+	 *     am.debug.log("exited: " .. event:game_object)
+	 * end)
+	 * </pre>
+	 *
+	 * @param string event_name The event type or name to trigger on
+	 * @param function listener The function to call when the event is fired.
+	 * @param table [nil] content An option context for the listener to be
+	 * called with.
+	 * @returns boolean True if the event was added successfully.
+	 */
+	int MapRegion_add_event_listener(lua_State *lua)
+	{
+		MapRegion *region = castUData<MapRegion>(lua, 1);
+		if (region)
+		{
+			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+			{
+				lua_pushboolean(lua, am::lua::ui::addEventListener(lua, region));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "on", "string event_name, function listener");
+		}
+		return LuaState::expectedContext(lua, "on", "am.map_region");
+	}
+	/**
+	 * Removes an event listener from the quest.
+	 * Currently the quest only has events which should only fire once, 
+	 * but if an event listener needs to changed before the event is fire it can be done.
+	 *
+	 * @param string event_name The event type the listener was listening for.
+	 * @param function listener The listener function to remove.
+	 * @param table [nil] context The context which the listener was going to 
+	 * be called with, this is only optional if the listener was added with no context.
+	 * @returns boolean True if the event listener was successfully removed.
+	 */
+	int MapRegion_remove_event_listener(lua_State *lua)
+	{
+		MapRegion *region = castUData<MapRegion>(lua, 1);
+		if (region)
+		{
+			if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+			{
+				lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, region));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "off", "string event_name, function listener");
+		}
+		return LuaState::expectedContext(lua, "off", "am.map_region");
+	}
+	/**
+	 * Returns true when there is an event listener for the given event name.
+	 * @param string event_name The event type to look up.
+	 * @returns boolean True if there is any event listener 
+	 * that will be trigged by this event type.
+	 */
+	int MapRegion_has_event_listener(lua_State *lua)
+	{
+		MapRegion *region = castUData<MapRegion>(lua, 1);
+		if (region && lua_isstr(lua, 2))
+		{
+			lua_pushboolean(lua, region->hasEventListener(lua_tostring(lua, 2)));
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "has_event_listener", "am.map_region");
 	}
 }
 }

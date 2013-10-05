@@ -1119,17 +1119,33 @@ namespace game {
 	{
 		if (obj)
 		{
-			Character *isChar = dynamic_cast<Character *>(obj);
-			if (isChar)
+			GameObject::GameObjectType type = obj->getGameObjectType();
+			if (type == GameObject::CHARACTER)
 			{
-				wrapRefObject<Character>(lua, isChar);
-				return;
+				Character *isChar = dynamic_cast<Character *>(obj);
+				if (isChar)
+				{
+					wrapRefObject<Character>(lua, isChar);
+					return;
+				}
 			}
-			Item *isItem = dynamic_cast<Item *>(obj);
-			if (isItem)
+			else if (type == GameObject::ITEM)
 			{
-				wrapRefObject<Item>(lua, isItem);
-				return;
+				Item *isItem = dynamic_cast<Item *>(obj);
+				if (isItem)
+				{
+					wrapRefObject<Item>(lua, isItem);
+					return;
+				}
+			}
+			else if (type == GameObject::DOOR)
+			{
+				Door *isDoor = dynamic_cast<Door *>(obj);
+				if (isDoor)
+				{
+					wrapRefObject<Door>(lua, isDoor);
+					return;
+				}
 			}
 		}
 		lua_pushnil(lua);

@@ -112,6 +112,10 @@ namespace game {
 			{ "has_game_object", Map_has_game_object },
 			{ "is_valid_location", Map_is_valid_location },
 			{ "is_valid_grid_location", Map_is_valid_grid_location },
+			{ "add_map_region", Map_add_map_region },
+			{ "remove_map_region", Map_remove_map_region },
+			{ "has_map_region", Map_has_map_region },
+			{ "map_regions", Map_map_regions },
 			{ nullptr, nullptr }
 		};
 
@@ -359,6 +363,7 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "map_size", "am.map");
 	}
+
 	/**
 	 * Adds a game object to this map.
 	 *
@@ -469,6 +474,92 @@ namespace game {
 			return LuaState::expectedArgs(lua, "is_valid_grid_location", "am.game_object game_object, integer x, integer y");
 		}
 		return LuaState::expectedContext(lua, "is_valid_grid_location", "am.map");
+	}
+
+	/**
+	 * Adds a map region to this map.
+	 *
+	 * @param am.map_region region The map region to add.
+	 * @returns boolean True if the map region was successfully added to this map.
+	 */
+	int Map_add_map_region(lua_State *lua)
+	{
+		Map *map = castUData<Map>(lua, 1);
+		if (map)
+		{
+			MapRegion *region = castUData<MapRegion>(lua, 2);
+			if (region)
+			{
+				lua_pushboolean(lua, map->addMapRegion(region));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "add_map_region", "am.map_region region");
+		}
+		return LuaState::expectedContext(lua, "add_map_region", "am.map");
+	}
+	/**
+	 * Removes a map region from this map.
+	 *
+	 * @param am.map_region region The map region to remove.
+	 * @returns boolean True if the map region was successfully removed from this map.
+	 */
+	int Map_remove_map_region(lua_State *lua)
+	{
+		Map *map = castUData<Map>(lua, 1);
+		if (map)
+		{
+			MapRegion *region = castUData<MapRegion>(lua, 2);
+			if (region)
+			{
+				lua_pushboolean(lua, map->removeMapRegion(region));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "remove_map_region", "am.map_region region");
+		}
+		return LuaState::expectedContext(lua, "remove_map_region", "am.map");
+	}
+	/**
+	 * Returns true if the given map region is on this map.
+	 *
+	 * @param am.map_region region The map region to check.
+	 * @returns boolean True if the map region was found on this map.
+	 */
+	int Map_has_map_region(lua_State *lua)
+	{
+		Map *map = castUData<Map>(lua, 1);
+		if (map)
+		{
+			MapRegion *region = castUData<MapRegion>(lua, 2);
+			if (region)
+			{
+				lua_pushboolean(lua, map->hasMapRegion(region));
+				return 1;
+			}
+			return LuaState::expectedArgs(lua, "has_map_region", "am.map_region region");
+		}
+		return LuaState::expectedContext(lua, "has_map_region", "am.map");
+	}
+	/**
+	 * Returns an array table of all the map regions in the map.
+	 *
+	 * @returns table An array of all the map regions.
+	 */
+	int Map_map_regions(lua_State *lua)
+	{
+		Map *map = castUData<Map>(lua, 1);
+		if (map)
+		{
+			auto maps = map->getMapRegions();
+			lua_createtable(lua, maps.size(), 0);
+			for (size_t index = 0; index < maps.size(); index++)
+			{
+				lua_pushinteger(lua, index + 1);
+				wrapRefObject<MapRegion>(lua, maps[index].get());
+				lua_settable(lua, -3);
+			}
+			return 1;
+		}
+		return LuaState::expectedContext(lua, "map_regions", "am.map");
 	}
 
 }

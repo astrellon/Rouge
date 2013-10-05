@@ -624,7 +624,7 @@ namespace game {
 	 * Adds an event listener for an event fired on this GameObject.
 	 * eg: <pre>
 	 * GameObject:on("talkTo", function(event)
-	 *     am_log("GameObject talked to")
+	 *     am.debug.log("GameObject talked to")
 	 * end)
 	 * </pre>
 	 * @param string event_type The event type or name to trigger on
@@ -652,7 +652,7 @@ namespace game {
 	 * eg: 
 	 * <pre>
 	 * function talkToOnce(event)
-	 *     am_log("GameObject talked to once")
+	 *     am.debug.log("GameObject talked to once")
 	 *     GameObject:off("talkTo", talkToOnce)
 	 * end
 	 * GameObject:on("talkTo", talkToOnce)

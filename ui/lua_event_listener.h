@@ -30,6 +30,7 @@ namespace ui {
 		virtual void onEvent(EquipEvent *e);
 		virtual void onEvent(DialogueEvent *e);
 		virtual void onEvent(ItemEvent *e);
+		virtual void onEvent(MapRegionEvent *e);
 
 		bool operator==(const LuaEventListener *rhs) const;
 		bool operator==(const IEventListener *rhs) const;

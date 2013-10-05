@@ -375,6 +375,7 @@ namespace game {
 			mActiveObjects = map->getObjects();
 
 			setTickPositionMainChar();
+			map->calcAllTileEdgeValues();
 
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
 			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);

@@ -60,11 +60,7 @@ namespace ui {
 		{
 			return;
 		}
-		TextField *target = dynamic_cast<TextField *>(e->getEventTarget());
-		if (target == mText && e->getMouseEventType() == MOUSE_DOWN)
-		{
-			e->stopPropagation();
-		}
+		TextField *target = dynamic_cast<TextField *>(e->getOriginalTarget());
 		setFocus(target == mText);
 	}
 

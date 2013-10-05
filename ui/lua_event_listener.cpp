@@ -4,6 +4,7 @@
 #include <lua/wrappers/game/lua_inventory.h>
 #include <lua/wrappers/game/lua_character.h>
 #include <lua/wrappers/game/lua_dialogue.h>
+#include <lua/wrappers/game/lua_game.h>
 using namespace am::lua::game;
 
 #include <sstream>
@@ -52,7 +53,7 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(MouseEvent *e)
 	{
@@ -69,7 +70,7 @@ namespace ui {
 		mLua.setTableValue("mouse_button", static_cast<int>(e->getMouseButton()));
 		mLua.setTableValue("mouse_x", e->getMouseX());
 		mLua.setTableValue("mouse_y", e->getMouseY());
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(KeyboardEvent *e)
 	{
@@ -83,7 +84,7 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.setTableValue("key", e->getKey());
 		mLua.setTableValue("is_system_key", e->isSystemKey());
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(InventoryEvent *e)
 	{
@@ -95,15 +96,15 @@ namespace ui {
 		}
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
-		mLua.setTableValue("spotX", e->getSpotX());
-		mLua.setTableValue("spotY", e->getSpotY());
+		mLua.setTableValue("spot_x", e->getSpotX());
+		mLua.setTableValue("spot_y", e->getSpotY());
 		mLua.push("item");
 		wrapRefObject<Item>(mLua, e->getItem());
 		lua_settable(mLua, -3);
 		mLua.push("inventory");
 		wrapRefObject<Inventory>(mLua, e->getInventory());
 		lua_settable(mLua, -3);
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(EquipEvent *e)
 	{
@@ -119,12 +120,26 @@ namespace ui {
 		wrapRefObject<BodyPart>(mLua, e->getBodyPart());
 		lua_settable(mLua, -3);
 		mLua.push("item");
-		wrapRefObject<Item>(mLua, e->getItem());
+		if (e->getItem())
+		{
+			wrapRefObject<Item>(mLua, e->getItem());
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
 		lua_settable(mLua, -3);
 		mLua.push("character");
-		wrapRefObject<Character>(mLua, e->getCharacter());
+		if (e->getCharacter())
+		{
+			wrapRefObject<Character>(mLua, e->getCharacter());
+		}
+		else
+		{
+			lua_pushnil(mLua);
+		}
 		lua_settable(mLua, -3);
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(DialogueEvent *e)
 	{
@@ -138,27 +153,11 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		// Talked To
 		mLua.push("talked_to");
-		Character *isChar = dynamic_cast<Character *>(e->getTalkedTo());
-		if (isChar)
-		{
-			wrapRefObject<Character>(mLua, isChar);
-		}
-		else
-		{
-			lua_pushnil(mLua);
-		}
+		wrapGameObject(mLua, e->getTalkedTo());
 		lua_settable(mLua, -3);
 		// Talker
 		mLua.push("talker");
-		isChar = dynamic_cast<Character *>(e->getTalker());
-		if (isChar)
-		{
-			wrapRefObject<Character>(mLua, isChar);
-		}
-		else
-		{
-			lua_pushnil(mLua);
-		}
+		wrapGameObject(mLua, e->getTalker());
 		lua_settable(mLua, -3);
 		// Dialogue
 		mLua.push("dialogue");
@@ -173,7 +172,7 @@ namespace ui {
 		}
 		lua_settable(mLua, -3);
 
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 	void LuaEventListener::onEvent(ItemEvent *e)
 	{
@@ -187,10 +186,9 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		// Item
 		mLua.push("item");
-		Item *item = dynamic_cast<Item *>(e->getItem());
-		if (item)
+		if (e->getItem())
 		{
-			wrapRefObject<Item>(mLua, item);
+			wrapRefObject<Item>(mLua, e->getItem());
 		}
 		else
 		{
@@ -199,26 +197,31 @@ namespace ui {
 		lua_settable(mLua, -3);
 		// Extra
 		mLua.push("extra");
-		Character *isChar = dynamic_cast<Character *>(e->getExtra());
-		if (isChar)
-		{
-			wrapRefObject<Character>(mLua, isChar);
-		}
-		else 
-		{
-			item = dynamic_cast<Item *>(e->getExtra());
-			if (item)
-			{
-				wrapRefObject<Item>(mLua, item);
-			}
-			else
-			{
-				lua_pushnil(mLua);
-			}
-		}
+		wrapGameObject(mLua, e->getExtra());
 		lua_settable(mLua, -3);
 		
-		lua_pcall(mLua, contexted ? 2 : 1, 0, 0);
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
+	}
+	void LuaEventListener::onEvent(MapRegionEvent *e)
+	{
+		lua_rawgeti(mLua, LUA_REGISTRYINDEX, mFuncRef);
+		bool contexted = mContextRef != LUA_REFNIL;
+		if (contexted)
+		{
+			lua_rawgeti(mLua, LUA_REGISTRYINDEX, mContextRef);
+		}
+		mLua.newTable();
+		mLua.setTableValue("type", e->getType().c_str());
+
+		mLua.push("game_object");
+		wrapGameObject(mLua, e->getGameObject());
+		lua_settable(mLua, -3);
+
+		mLua.push("map_region");
+		wrapRefObject<MapRegion>(mLua, e->getMapRegion());
+		lua_settable(mLua, -3);
+
+		lua_acall(mLua, contexted ? 2 : 1, 0, 0);
 	}
 
 	bool LuaEventListener::operator==(const LuaEventListener *rhs) const

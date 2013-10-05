@@ -279,11 +279,11 @@ namespace game {
 	 * <pre>
 	 * quest = am.quest.new("testQuest")
 	 * quest:on("startQuest", function(event)
-	 *     am_log("Quest started")
+	 *     am.debug.log("Quest started")
 	 *     quest:finish_quest()
 	 * end)
 	 * quest:on("finishQuest", function(event)
-	 *     am_log("Quest finished")
+	 *     am.debug.log("Quest finished")
 	 * end)
 	 * quest:start_quest()
 	 * </pre>

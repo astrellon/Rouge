@@ -86,8 +86,8 @@ namespace game {
 		void setGamePartof(Game *game);
 		Game *getGamePartof() const;
 
-		void addMapRegion(MapRegion *region);
-		void removeMapRegion(MapRegion *region);
+		bool addMapRegion(MapRegion *region);
+		bool removeMapRegion(MapRegion *region);
 		bool hasMapRegion(MapRegion *region);
 		const MapRegion::MapRegionList &getMapRegions() const;
 

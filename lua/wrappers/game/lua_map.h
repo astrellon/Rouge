@@ -34,6 +34,14 @@ namespace game {
 	int Map_is_valid_location(lua_State *lua);
 	int Map_is_valid_grid_location(lua_State *lua);
 
+	int Map_add_map_region(lua_State *lua);
+	int Map_remove_map_region(lua_State *lua);
+	int Map_has_map_region(lua_State *lua);
+	int Map_map_regions(lua_State *lua);
+
+	//int Map_game_objects_at(lua_State *lua);
+	//int Map_game_objects_at_grid(lua_State *lua);
+
 }
 }
 }

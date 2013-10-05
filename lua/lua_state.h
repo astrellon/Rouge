@@ -140,11 +140,8 @@ namespace lua {
 		typedef map<int, string> WrapperIdMap;
 
 		/// Creates a new lua_State.
-		/// If includeLibraries is true then the 'import' function is exposed.
-		/// The 'import' function allows scripts to obtain wrappers for the
-		/// game classes as they need them.
-		/// An 'am_log' function is always added which is a simple pass through to
-		/// the internal logger functionality.
+		/// includeLibraries includes all the Lua wrapped game objects.
+		/// The debug object is always added which includes logging functions.
 		LuaState(bool includeLibraries = true);
 		/// Wraps an existing lua_State.
 		/// Does not expose any new functions to the Lua registry.

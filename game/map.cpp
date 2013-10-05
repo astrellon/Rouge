@@ -762,31 +762,34 @@ namespace game {
 		return mGamePartof;
 	}
 
-	void Map::addMapRegion(MapRegion *region)
+	bool Map::addMapRegion(MapRegion *region)
 	{
 		if (region == nullptr)
 		{
-			return;
+			return false;
 		}
 		if (!hasMapRegion(region))
 		{
 			mMapRegions.push_back(region);
+			return true;
 		}
+		return false;
 	}
-	void Map::removeMapRegion(MapRegion *region)
+	bool Map::removeMapRegion(MapRegion *region)
 	{
 		if (region == nullptr)
 		{
-			return;
+			return false;
 		}
 		for (auto iter = mMapRegions.begin(); iter != mMapRegions.end(); ++iter)
 		{
 			if (iter->get() == region)
 			{
 				mMapRegions.erase(iter);
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	bool Map::hasMapRegion(MapRegion *region)
 	{
