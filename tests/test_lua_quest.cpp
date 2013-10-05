@@ -63,7 +63,7 @@ namespace tests {
 			"	main:off(\"talk\", finishQuest)\n"
 			"	main:add_experience(1000)\n"
 			"	main:coin_purse():add_coin(50)\n"
-			"	quest:set_complete(true)\n"
+			"	quest:complete(true)\n"
 			"end\n"
 			"main:on(\"talk\", startQuest)\n"
 			);
@@ -91,6 +91,7 @@ namespace tests {
 		am_equals(1000, main->getExperience());
 		am_equals(1, main->getLevel());
 		am_equals(50u, main->getCoinPurse()->getCoin());
+		am_equals(true, quest->isCompleted());
 
 		Engine::setEngine(prevEng);
 
