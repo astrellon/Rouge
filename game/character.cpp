@@ -767,7 +767,8 @@ namespace game {
 			return false;
 		}
 		Character *obj = dynamic_cast<Character *>(interacter);
-		if (obj == this)
+		// Currently don't interact with non main character characters.
+		if (obj == this || Engine::getGame()->getMainCharacter() != obj)
 		{
 			return false;
 		}
@@ -912,6 +913,13 @@ namespace game {
 				mDestinationPath.back() = mDestination;
 			}
 		}*/
+	}
+	void Character::clearDestination()
+	{
+		mDestinationPath.clear();
+		mDestinationPos = 0;
+		mDestination.x = mLocationX;
+		mDestination.y = mLocationY;
 	}
 	void Character::setGridDestination(int x, int y)
 	{

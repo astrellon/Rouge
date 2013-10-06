@@ -478,6 +478,8 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
+			stringstream output;
+			LuaState::printStack(lua, output);
 			if (moveGameObject(lua, game, true))
 			{
 				lua_first(lua);
@@ -1177,7 +1179,11 @@ namespace game {
 					if (map)
 					{
 						int args = lua_gettop(lua);
-						bool setCurrent = args == 5 || (args == 6 && lua_tobool(lua, 6));
+						bool setCurrent = args == 6 && lua_tobool(lua, 6);
+						if (args == 5)
+						{
+							setCurrent |= dynamic_cast<Character *>(obj) == game->getMainCharacter();
+						}
 						if (grid)
 						{
 							game->moveObjectToMapGrid(obj, map, lua_tointeger(lua, 4), lua_tointeger(lua, 5), setCurrent);

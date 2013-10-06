@@ -38,6 +38,7 @@ namespace game {
 		{
 			int x = keys[39] - keys[37];
 			int y = keys[40] - keys[38];
+			
 			if (x != 0 || y != 0)
 			{
 				// Player has moved.
@@ -60,11 +61,11 @@ namespace game {
 		Engine::getGame()->setGameTickPaused(true);
 		mActive = true;
 
-		const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
-		if (pressed[40])
+		//const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
+		/*if (pressed[40])
 		{
 			move(0, -1);
-		}
+		}*/
 		/*if (mMoveX != 0 && mMoveY != 0)
 		{
 			performAction();
@@ -82,7 +83,7 @@ namespace game {
 
 		stringstream ss;
 		ss << "Wait time: " << waitTime << " (" << mCharacter->getSpeed() << ")";
-		am_log("PLYR", ss);
+		//am_log("PLYR", ss);
 
 		mCharacter->moveGrid(dx, dy);
 		mCharacter = nullptr;

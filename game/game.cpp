@@ -136,6 +136,8 @@ namespace game {
 
 			Map *map = am::lua::castUData<Map>(lua, -1);
 
+			lua.pop(1);
+
 			if (map)
 			{
 				map->setFilename(mapName.c_str());
@@ -418,6 +420,7 @@ namespace game {
 	{
 		if (obj->getGameObjectType() == GameObject::CHARACTER)
 		{
+			dynamic_cast<Character *>(obj)->clearDestination();
 			mCharacterLayer->addChild(obj);
 		}
 		else if (obj->getGameObjectType() == GameObject::ITEM)
@@ -513,7 +516,8 @@ namespace game {
 		{
 			if (map->addGameObject(object) && map == mCurrentMap.get())
 			{
-				mCharacterLayer->addChild(object);
+				//mCharacterLayer->addChild(object);
+				addGameObject(object);
 			}
 		}
 	}

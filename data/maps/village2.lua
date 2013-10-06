@@ -33,8 +33,8 @@ do
 	map:add_map_region(region)
 	
 	region:on("region_entered", function(event)
-	    am.debug.log("entered: " .. event["game_object"]:name())
-		game:move_object_to_map_grid(game:main(), "village1", 2, 2)
+	    am.debug.log("entered: " .. event.game_object:name())
+		game:move_object_to_map_grid(event.game_object, "village1", 2, 2)
 	end)
 	-- End Map Regions
 
