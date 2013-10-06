@@ -20,6 +20,7 @@ using namespace std;
 #include "engine.h"
 #include "game.h"
 #include "pathfinder.h"
+#include "door.h"
 
 #include <lua/wrappers/lua_id_table.h>
 
@@ -628,6 +629,22 @@ namespace game {
 					if (objectsPassible[o] == tileType)
 					{
 						return true;
+					}
+				}
+			}
+			// Cannot move because of an instanced effect, possibly a door, lets find out.
+			ObjectList result;
+			if (forObject->getGameObjectType() == GameObject::CHARACTER && getGameObjectsAt(gridX, gridY, result))
+			{
+				for (auto iter = result.begin(); iter != result.end(); ++iter)
+				{
+					if (iter->get()->getGameObjectType() == GameObject::DOOR)
+					{
+						Door *door = dynamic_cast<Door *>(iter->get());
+						if (door && door->canOpenBy(forObject))
+						{
+							return true;
+						}
 					}
 				}
 			}

@@ -47,7 +47,7 @@ namespace game {
 
 		virtual void receiveDamage(float damage);
 
-		virtual bool canOpenBy(Character *byCharacter);
+		virtual bool canOpenBy(const GameObject *byObject);
 		virtual void setOpened(bool opened);
 		virtual bool isOpened() const;
 

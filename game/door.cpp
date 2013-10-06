@@ -179,7 +179,7 @@ namespace game {
 		
 	}
 
-	bool Door::canOpenBy(Character *byCharacter)
+	bool Door::canOpenBy(const GameObject *byObject)
 	{
 		if (mLock == NONE || mLock == UNLOCKED)
 		{
@@ -381,7 +381,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		return sDamageTypeNames[type];
+		return sLockTypeNames[type];
 	}
 	const char *Door::getLockTypeName(int type)
 	{
@@ -389,7 +389,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		return sDamageTypeNames[type];
+		return sLockTypeNames[type];
 	}
 	Door::LockType Door::getLockType(const char *typeName)
 	{
@@ -399,7 +399,7 @@ namespace game {
 		}
 		for (int i = 0; i < MAX_LOCK_TYPE; i++)
 		{
-			if (strcmp(typeName, sDamageTypeNames[i]) == 0)
+			if (strcmp(typeName, sLockTypeNames[i]) == 0)
 			{
 				return static_cast<LockType>(i);
 			}
