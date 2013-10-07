@@ -179,7 +179,7 @@ namespace game {
 		
 	}
 
-	bool Door::canOpenBy(Character *byCharacter)
+	bool Door::canOpenBy(const GameObject *byObject)
 	{
 		if (mLock == NONE || mLock == UNLOCKED)
 		{

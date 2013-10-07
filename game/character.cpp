@@ -49,7 +49,8 @@ namespace game {
 		mBackground(new Layer()),
 		mForeground(new Layer()),
 		mCharacterLayer(new Layer()),
-		mAIFuncRef(LUA_REFNIL)
+		mAIFuncRef(LUA_REFNIL),
+		mDestinationPos(-1)
 	{
 		mBackground->setName("Character->Background");
 		mForeground->setName("Character->Foreground");
@@ -78,7 +79,8 @@ namespace game {
 		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
 		mInventory(new Inventory(*copy.mInventory)),
 		mArmedCounter(0),
-		mAIFuncRef(copy.mAIFuncRef)
+		mAIFuncRef(copy.mAIFuncRef),
+		mDestinationPos(-1)
 	{
 		int numChildren = getNumChildren();
 		if (numChildren >= 1)
@@ -225,7 +227,7 @@ namespace game {
 		{
 			float timeTaken = 0.0f;
 			Vector2f pos(mLocationX, mLocationY);
-			while (timeTaken < dt)
+			while (timeTaken < dt && !mDestinationPath.empty())
 			{
 				const Vector2f &dest(mDestinationPath[mDestinationPos]);
 				Vector2f toDest(dest.sub(pos));
@@ -236,8 +238,7 @@ namespace game {
 					mDestinationPos++;
 					if (mDestinationPos >= static_cast<int>(mDestinationPath.size()))
 					{
-						mDestinationPath.clear();
-						mDestinationPos = 0;
+						clearDestination();
 						break;
 					}
 					continue;
@@ -767,7 +768,8 @@ namespace game {
 			return false;
 		}
 		Character *obj = dynamic_cast<Character *>(interacter);
-		if (obj == this)
+		// Don't interact with yourself and currently only interact with the main character.
+		if (obj == this || obj != Engine::getGame()->getMainCharacter())
 		{
 			return false;
 		}
@@ -912,6 +914,14 @@ namespace game {
 				mDestinationPath.back() = mDestination;
 			}
 		}*/
+	}
+	void Character::clearDestination()
+	{
+		mDestinationPath.clear();
+		mDestinationPos = -1;
+
+		mDestination.x = mLocationX;
+		mDestination.y = mLocationY;
 	}
 	void Character::setGridDestination(int x, int y)
 	{

@@ -60,11 +60,11 @@ namespace game {
 		Engine::getGame()->setGameTickPaused(true);
 		mActive = true;
 
-		const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
+		/*const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
 		if (pressed[40])
 		{
 			move(0, -1);
-		}
+		}*/
 		/*if (mMoveX != 0 && mMoveY != 0)
 		{
 			performAction();

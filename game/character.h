@@ -157,6 +157,7 @@ namespace game {
 		virtual float getDestinationLength() const;
 		virtual bool hasDestination() const;
 		virtual void recalcDestination();
+		virtual void clearDestination();
 
 		virtual void setAIFunc(int funcRef);
 		virtual int getAIFunc() const;
