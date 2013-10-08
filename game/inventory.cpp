@@ -100,9 +100,7 @@ namespace game {
 		int y = 0;
 		if (findSpotFor(item, x, y))
 		{
-			placeItem(item, x, y);
-
-			return true;
+			return placeItem(item, x, y);
 		}
 		return false;
 	}
@@ -118,15 +116,20 @@ namespace game {
 		}
 		if (hasSpaceFor(item, x, y))
 		{
-			placeItem(item, x, y);
-
-			return true;
+			return placeItem(item, x, y);
 		}
 		return false;
 	}
 
-	void Inventory::placeItem(Item *item, int x, int y)
+	bool Inventory::placeItem(Item *item, int x, int y)
 	{
+		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_ADD, this, item, x, y));
+		fireEvent<InventoryEvent>(e);
+		if (!e->isPropagating())
+		{
+			return false;
+		}
+
 		mSpots.push_back(InventorySpot(item, x, y));
 		int xEnd = x + item->getInventorySizeX();
 		int yEnd = y + item->getInventorySizeY();
@@ -142,10 +145,10 @@ namespace game {
 			}
 		}
 
-		//addChild(item);
 		item->setItemLocation(Item::INVENTORY);
-		//item->setPosition(x * Inventory::getSpaceSizeX(), y * Inventory::getSpaceSizeY());
 		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_ADD, this, item, x, y));
+
+		return true;
 	}
 	bool Inventory::removeItem(Item *item)
 	{
@@ -156,6 +159,13 @@ namespace game {
 		
 		int index = findItem(item);
 		if (index < 0)
+		{
+			return false;
+		}
+
+		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_REMOVE, this, item));
+		fireEvent<InventoryEvent>(e);
+		if (!e->isPropagating())
 		{
 			return false;
 		}

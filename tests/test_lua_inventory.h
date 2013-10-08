@@ -4,6 +4,9 @@
 #include <base/handle.h>
 using namespace am::base;
 
+#include <ui/ievent_listener.h>
+using namespace am::ui;
+
 #include <tests/test_suite.h>
 
 extern "C"
@@ -22,6 +25,7 @@ namespace tests {
 		virtual void runCases() {
 			runCase(testSimple);
 			runCase(testSpots);
+			runCase(testEvents);
 		}
 	
 		virtual const char *getSuiteName() const {
@@ -32,6 +36,17 @@ namespace tests {
 
 		bool testSimple();
 		bool testSpots();
+		bool testEvents();
+
+		class TestHandler : public IEventListener {
+		public:
+			TestHandler();
+
+			virtual void onEvent(InventoryEvent *e);
+
+			bool accept;
+			int counter;
+		};
 
 	};
 

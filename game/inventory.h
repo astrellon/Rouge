@@ -69,7 +69,7 @@ namespace game {
 
 		int findItem(const Item *item) const;
 		bool findSpotFor(const Item *, int &x, int &y) const;
-		void placeItem(Item *item, int x, int y);
+		bool placeItem(Item *item, int x, int y);
 
 		static float sSpaceSizeX;
 		static float sSpaceSizeY;

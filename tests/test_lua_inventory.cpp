@@ -9,6 +9,7 @@ using namespace am::base;
 using namespace am::lua;
 
 #include <game/item.h>
+#include <game/inventory.h>
 using namespace am::game;
 
 #include <lua/wrappers/game/lua_item.h>
@@ -140,5 +141,59 @@ namespace tests {
 
 		return true;
 	}
+
+	bool TestLuaInventory::testEvents() {
+		
+		Handle<Inventory> inventory(new Inventory(6, 4));
+		Handle<TestHandler> handler(new TestHandler());
+		Handle<Item> testItem(new Item());
+		testItem->setInventorySize(1, 1);
+		inventory->addEventListener("inventory_add", handler);
+		inventory->addEventListener("inventory_before_add", handler);
+		inventory->addEventListener("inventory_remove", handler);
+		inventory->addEventListener("inventory_before_remove", handler);
+
+		am_equals(false, inventory->hasItem(testItem));
+		am_equals(0, handler->counter);
+		am_equals(true, inventory->addItem(testItem));
+		am_equals(true, inventory->hasItem(testItem));
+		am_equals(2, handler->counter);
+
+		inventory->removeItem(testItem);
+		am_equals(false, inventory->hasItem(testItem));
+		am_equals(4, handler->counter);
+
+		handler->accept = false;
+		am_equals(false, inventory->addItem(testItem));
+		am_equals(false, inventory->hasItem(testItem));
+		am_equals(5, handler->counter);
+
+		handler->accept = true;
+		am_equals(true, inventory->addItem(testItem));
+		am_equals(true, inventory->hasItem(testItem));
+		am_equals(7, handler->counter);
+
+		handler->accept = false;
+		am_equals(false, inventory->removeItem(testItem));
+		am_equals(true, inventory->hasItem(testItem));
+		am_equals(8, handler->counter);
+
+		return true;
+	}
+
+	TestLuaInventory::TestHandler::TestHandler() :
+		accept(true),
+		counter(0)
+	{
+	}
+	void TestLuaInventory::TestHandler::onEvent(InventoryEvent *e)
+	{
+		counter++;
+		if (!accept)
+		{
+			e->stopPropagation();
+		}
+	}
+
 }
 }

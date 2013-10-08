@@ -85,11 +85,9 @@ namespace ui {
 				{
 					if (e->getMouseButton() == LEFT_BUTTON)
 					{
-						if (hand->getInhand() == nullptr)
+						if (hand->getInhand() == nullptr && mInventory->removeItem(item))
 						{
 							hand->setInhand(item);
-						
-							mInventory->removeItem(item);
 							item->setItemLocation(Item::HAND);
 						}
 					}
@@ -102,9 +100,8 @@ namespace ui {
 			}
 			else if (hand->getInhand() != nullptr)
 			{
-				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY))
+				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY) && mInventory->addItem(hand->getInhand(), gridX, gridY))
 				{
-					mInventory->addItem(hand->getInhand(), gridX, gridY);
 					hand->setInhand(nullptr);
 				}
 				e->stopPropagation();
