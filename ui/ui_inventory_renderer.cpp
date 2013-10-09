@@ -1,6 +1,7 @@
 #include "ui_inventory_renderer.h"
 
 #include <gl.h>
+#include <gfx/gfx_texture.h>
 
 #include <game/inventory.h>
 #include <game/inventory_spot.h>
@@ -117,6 +118,7 @@ namespace ui {
 		{
 			return;
 		}
+		Texture::bindTexture(0);
 		float width = mInventory->getSpacesX() * Inventory::getSpaceSizeX();
 		float height = mInventory->getSpacesY() * Inventory::getSpaceSizeY();
 		glBegin(GL_QUADS);

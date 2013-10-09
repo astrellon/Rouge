@@ -86,18 +86,7 @@ namespace game {
 		if (!item)
 		{
 			newItem = true;
-			if (lua_isstr(lua, 2))
-			{
-				Handle<Item> def(Engine::getGame()->getItemDefinition(lua_tostring(lua, 2)));
-				if (def)
-				{
-					item = new Item(*def);
-				}
-			}
-			if (!item)
-			{
-				item = new Item();
-			}
+			item = Engine::getGame()->create<Item>(lua_tostring(lua, 2), true);
 			item->setGameId(id);
 		}
 		wrapRefObject<Item>(lua, item);

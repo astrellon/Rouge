@@ -606,6 +606,35 @@ namespace game {
 	{
 		return getDefinition<Item>(mItemDefinitions, name);
 	}
+
+	template <>
+	Character *Game::create<Character>(const char *definitionName, bool force)
+	{
+		Character *def = getCharDefinition(definitionName);
+		if (def)
+		{
+			return new Character(*def);
+		}
+		if (force)
+		{
+			return new Character();
+		}
+		return nullptr;
+	}
+	template <>
+	Item *Game::create<Item>(const char *definitionName, bool force)
+	{
+		Item *def = getItemDefinition(definitionName);
+		if (def)
+		{
+			return new Item(*def);
+		}
+		if (force)
+		{
+			return new Item();
+		}
+		return nullptr;
+	}
 	
 	void Game::update(float dt)
 	{
