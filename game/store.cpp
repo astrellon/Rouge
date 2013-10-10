@@ -18,7 +18,8 @@ namespace game {
 	const char *Store::LUA_TABLENAME = LUA_TABLE_STORE;
 
 	Store::Store() :
-		EventInterface()
+		EventInterface(),
+		mDefaultInventorySize(20, 16)
 	{
 	}
 	Store::~Store()
@@ -80,18 +81,80 @@ namespace game {
 		{
 			return NOT_ENOUGH_COIN;
 		}
-		if (!buyer->getInventory()->hasSpaceFor(item))
-		{
-			return NOT_ENOUGH_INVENTORY_SPACE;
-		}
 
 		buyerPurse->removeCoin(value);
 		ownerPurse->addCoin(value);
-		buyer->getInventory()->addItem(item);
 		inventory->removeItem(item);
 		return SUCCESS;
 	}
 
+	ReturnCode Store::sellItem(Character *seller, Item *item, bool makeNewInventories, bool allowZeroStoreCoin)
+	{
+		Handle<Item> itemHandle(item);
+		if (!item || !seller)
+		{
+			return NULL_PARAMETER;
+		}
+		if (!mStoreOwner)
+		{
+			return NO_STORE_OWNER;
+		}
+
+		if (mStoreInventories.empty() && !makeNewInventories)
+		{
+			return NO_INVENTORIES;
+		}
+
+		CoinPurse *sellerPurse = seller->getCoinPurse();
+		CoinPurse *ownerPurse = mStoreOwner->getCoinPurse();
+		if (!sellerPurse || !ownerPurse)
+		{
+			return INTERNAL_ERROR;
+		}
+
+		int value = item->getItemValue();
+		if (!allowZeroStoreCoin && ownerPurse->canRemoveCoin(value) < 0)
+		{
+			return NOT_ENOUGH_COIN;
+		}
+		
+		Inventory *inventory = nullptr;
+		for (auto iter = mStoreInventories.begin(); iter != mStoreInventories.end(); ++iter)
+		{
+			if (iter->get()->hasSpaceFor(item))
+			{
+				inventory = iter->get();
+				break;
+			}
+		}
+		if (!inventory)
+		{
+			if (makeNewInventories)
+			{
+				inventory = createStoreInventory();
+			}
+			else
+			{
+				return NOT_ENOUGH_INVENTORY_SPACE;
+			}
+		}
+
+		sellerPurse->addCoin(value);
+		ownerPurse->removeCoin(value);
+		inventory->addItem(item);
+
+		return SUCCESS;
+	}
+
+	Inventory *Store::createStoreInventory()
+	{
+		Inventory *inv = new Inventory(mDefaultInventorySize.x, mDefaultInventorySize.y);
+		if (addStoreInventory(inv))
+		{
+			return inv;
+		}
+		return nullptr;
+	}
 	bool Store::addStoreInventory(Inventory *inventory)
 	{
 		if (!inventory || hasStoreInventory(inventory))
@@ -145,6 +208,24 @@ namespace game {
 	const Store::InventoryList &Store::getStoreInventories() const
 	{
 		return mStoreInventories;
+	}
+
+	void Store::setDefaultInventorySize(int width, int height)
+	{
+		mDefaultInventorySize.x = width;
+		mDefaultInventorySize.y = height;
+	}
+	unsigned short Store::getDefaultInventorySizeWidth() const
+	{
+		return mDefaultInventorySize.x;
+	}
+	unsigned short Store::getDefaultInventorySizeHeight() const
+	{
+		return mDefaultInventorySize.y;
+	}
+	Vector2<unsigned short> Store::getDefaultInventorySize() const
+	{
+		return mDefaultInventorySize;
 	}
 
 	void Store::addListeners(Inventory *inventory)
