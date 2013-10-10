@@ -82,7 +82,7 @@ namespace tests {
 		
 		am_equals(0, main->getExperience());
 		am_equals(0, main->getLevel());
-		am_equals(0u, main->getCoinPurse()->getCoin());
+		am_equals(0, main->getCoinPurse()->getCoin());
 
 		Handle<Event> startEvent(new Event("talk"));
 		main->fireEvent<Event>(startEvent);
@@ -90,7 +90,7 @@ namespace tests {
 
 		am_equals(1000, main->getExperience());
 		am_equals(1, main->getLevel());
-		am_equals(50u, main->getCoinPurse()->getCoin());
+		am_equals(50, main->getCoinPurse()->getCoin());
 		am_equals(true, quest->isCompleted());
 
 		Engine::setEngine(prevEng);

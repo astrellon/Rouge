@@ -237,11 +237,11 @@ namespace game {
 		return mInventorySizeY;
 	}
 	
-	void Item::setItemValue(unsigned int value)
+	void Item::setItemValue(int value)
 	{
 		mItemValue = value;
 	}
-	unsigned int Item::getItemValue() const
+	int Item::getItemValue() const
 	{
 		return mItemValue;
 	}
@@ -677,7 +677,7 @@ namespace game {
 		num = dataMap->at<data::Number>("itemValue");
 		if (num)
 		{
-			setItemValue(num->value<unsigned int>());
+			setItemValue(num->value<int>());
 		}
 
 		tempData = dataMap->at<data::IData>("statModifiers");

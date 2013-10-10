@@ -30,7 +30,7 @@ namespace game {
 
 	}
 	
-	void CoinPurse::setCoin(unsigned int coin)
+	void CoinPurse::setCoin(int coin)
 	{
 		if (mMaxCoin > 0 && coin > mMaxCoin)
 		{
@@ -38,12 +38,12 @@ namespace game {
 		}
 		mCoin = coin;
 	}
-	unsigned int CoinPurse::getCoin() const
+	int CoinPurse::getCoin() const
 	{
 		return mCoin;
 	}
 
-	unsigned int CoinPurse::canAddCoin(unsigned int coin)
+	int CoinPurse::canAddCoin(int coin)
 	{
 		int diff = static_cast<int>(coin + mCoin - mMaxCoin);
 		if (mMaxCoin > 0 && diff > 0)
@@ -52,16 +52,16 @@ namespace game {
 		}
 		return 0;
 	}
-	unsigned int CoinPurse::canRemoveCoin(unsigned int coin)
+	int CoinPurse::canRemoveCoin(int coin)
 	{
 		if (mCoin < coin) 
 		{
-			return coin - mCoin;
+			return mCoin - coin;
 		}
 		return 0;
 	}
 	
-	void CoinPurse::addCoin(unsigned int coin)
+	void CoinPurse::addCoin(int coin)
 	{
 		if (mMaxCoin > 0 && coin + mCoin > mMaxCoin)
 		{
@@ -72,7 +72,7 @@ namespace game {
 			mCoin += coin;
 		}
 	}
-	void CoinPurse::removeCoin(unsigned int coin)
+	void CoinPurse::removeCoin(int coin)
 	{
 		if (mCoin < coin)
 		{
@@ -84,7 +84,7 @@ namespace game {
 		}
 	}
 
-	void CoinPurse::setMaxCoin(unsigned int maxCoin)
+	void CoinPurse::setMaxCoin(int maxCoin)
 	{
 		mMaxCoin = maxCoin;
 		if (maxCoin > 0 && mCoin > maxCoin)
@@ -92,7 +92,7 @@ namespace game {
 			mCoin = maxCoin;
 		}
 	}
-	unsigned int CoinPurse::getMaxCoin() const
+	int CoinPurse::getMaxCoin() const
 	{
 		return mMaxCoin;
 	}
@@ -116,12 +116,12 @@ namespace game {
 		Handle<data::Number> num(dataMap->at<data::Number>("maxCoin"));
 		if (num)
 		{
-			setMaxCoin(num->value<unsigned int>());
+			setMaxCoin(num->value<int>());
 		}
 		num = dataMap->at<data::Number>("coin");
 		if (num)
 		{
-			setCoin(num->value<unsigned int>());
+			setCoin(num->value<int>());
 		}
 
 		return 1;

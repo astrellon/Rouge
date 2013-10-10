@@ -35,6 +35,7 @@ using namespace am::gfx;
 #include <tests/test_utils.h>
 #include <tests/test_body_parts.h>
 #include <tests/test_lua_asset.h>
+#include <tests/test_store.h>
 using namespace am::tests;
 
 namespace am {
@@ -103,6 +104,7 @@ namespace sys {
 		runSuite(TestUtils);
 		runSuite(TestBodyParts);
 		runSuite(TestLuaAsset);
+		runSuite(TestStore);
 
 		const vector<string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)

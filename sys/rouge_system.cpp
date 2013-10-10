@@ -437,7 +437,7 @@ namespace sys {
 		Inventory *inv = new Inventory(20, 16);
 		Item *test = game->create<Item>("wooden:shield");
 		inv->addItem(test);
-		store->addStoreInventory(inv);
+		//store->addStoreInventory(inv);
 		GfxEngine::getEngine()->getUILayer()->addChild(store);
 
 		mPlayer = game->getMainCharacter();

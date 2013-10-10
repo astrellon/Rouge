@@ -48,24 +48,25 @@
 #define LUA_TABLE_STATMODIFIER	"am_game_StatModifier"
 #define LUA_ID_BODYPARTS		0x17
 #define LUA_TABLE_BODYPARTS		"am_game_BodyParts"
+#define LUA_ID_DOOR				0x18
+#define LUA_TABLE_DOOR			"am_game_Door"
+#define LUA_ID_MAPREGION		0x19
+#define LUA_TABLE_MAPREGION		"am_game_MapRegion"
+#define LUA_ID_STORE			0x1A
+#define LUA_TABLE_STORE			"am_game_Store"
 // Utils
-#define LUA_ID_TABLE			0x19
+#define LUA_ID_TABLE			0x40
 #define LUA_TABLE_TABLE			"am_util_data_Table"
 // Graphics
-#define LUA_ID_SPRITE			0x20
+#define LUA_ID_SPRITE			0x50
 #define LUA_TABLE_SPRITE		"am_gfx_Sprite"
-#define LUA_ID_ASSET			0x21
+#define LUA_ID_ASSET			0x51
 #define LUA_TABLE_ASSET			"am_gfx_Asset"
-#define LUA_ID_TEXTURE			0x22
+#define LUA_ID_TEXTURE			0x52
 #define LUA_TABLE_TEXTURE		"am_gfx_Texture"
-#define LUA_ID_GFXENGINE		0x23
+#define LUA_ID_GFXENGINE		0x53
 #define LUA_TABLE_GFXENGINE		"am_gfx_Engine"
-#define LUA_ID_FONT				0x24
+#define LUA_ID_FONT				0x54
 #define LUA_TABLE_FONT			"am_gfx_Font"
-#define LUA_ID_TEXTSTYLE		0x25
+#define LUA_ID_TEXTSTYLE		0x55
 #define LUA_TABLE_TEXTSTYLE		"am_gfx_TextStyle"
-// More game
-#define LUA_ID_DOOR				0x26
-#define LUA_TABLE_DOOR			"am_game_Door"
-#define LUA_ID_MAPREGION		0x27
-#define LUA_TABLE_MAPREGION		"am_game_MapRegion"

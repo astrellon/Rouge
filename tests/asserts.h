@@ -8,6 +8,8 @@
 
 #include <log/logger.h>
 
+#include <base/return_codes.h>
+using am::base::ReturnCode;
 using namespace std;
 
 namespace am {
@@ -62,6 +64,7 @@ namespace tests {
 	if (e != a) { Asserts::dispError(e, a, f, l);	return false; }	return true; }
 
 		static bool _equals(const char *file, unsigned int line, const int &expected, const int &actual, bool notCompare);
+		static bool _equals(const char *file, unsigned int line, ReturnCode expected, ReturnCode actual, bool notCompare);
 		static bool _equals(const char *file, unsigned int line, const unsigned int &expected, const unsigned int &actual, bool notCompare);
 		static bool _equals(const char *file, unsigned int line, const double &expected, const double &actual, bool notCompare);
 		static bool _equals(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);

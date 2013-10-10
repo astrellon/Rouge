@@ -37,6 +37,27 @@ namespace tests {
 	bool Asserts::_equals(const char *file, unsigned int line, const int &expected, const int &actual, bool notCompare) {
 		_simple_compare(expected, actual, notCompare, file, line);
 	}
+	bool Asserts::_equals(const char *file, unsigned int line, ReturnCode expected, ReturnCode actual, bool notCompare) {
+		//_simple_compare(expected, actual, notCompare, file, line);
+		if (notCompare)
+		{
+			if (expected == actual)
+			{
+				dispNotError(am::base::getErrorName(expected), file, line);
+				return false;
+			}
+		}
+		else
+		{
+			if (expected != actual)
+			{
+				dispError(am::base::getErrorName(expected), am::base::getErrorName(actual), file, line);
+				return false;
+			}
+		}
+		return true;
+	}
+
 	bool Asserts::_equals(const char *file, unsigned int line, const unsigned int &expected, const unsigned int &actual, bool notCompare) {
 		_simple_compare(expected, actual, notCompare, file, line);
 	}
