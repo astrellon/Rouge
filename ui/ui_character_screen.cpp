@@ -88,6 +88,7 @@ namespace ui {
 				mCharacter->removeEventListener("stat_change", this);
 				mCharacter->removeEventListener("level_change", this);
 				mCharacter->removeEventListener("experience_change", this);
+				mCharacter->removeEventListener("coin_change", this);
 			}
 			mCharacter = character;
 			mTextDirty = true;
@@ -99,6 +100,7 @@ namespace ui {
 				mCharacter->addEventListener("stat_change", this);
 				mCharacter->addEventListener("level_change", this);
 				mCharacter->addEventListener("experience_change", this);
+				mCharacter->addEventListener("coin_change", this);
 			}
 			else
 			{
@@ -170,6 +172,7 @@ namespace ui {
 		ss << "<title class='arcane'>Arcane:</title> " << stats->getStat(Stat::ARCANE) << "\n";
 		ss << "<title class='speed'>Speed:</title> " << stats->getStat(Stat::SPEED) << "\n";
 		ss << "<title class='damage'>Damage:</title> " << stats->getStat(Stat::MIN_DAMAGE) << " - " << stats->getStat(Stat::MAX_DAMAGE) << "\n";
+		ss << "<title class='coin'>Coin:</title> " << mCharacter->getCoinPurse()->getCoin() << "\n";
 		
 		ss << "</char_screen>";
 		mInfo->setText(ss.str());

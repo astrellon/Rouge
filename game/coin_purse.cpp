@@ -36,7 +36,7 @@ namespace game {
 		{
 			coin = mMaxCoin;
 		}
-		mCoin = coin;
+		changeCoinValue(coin);
 	}
 	int CoinPurse::getCoin() const
 	{
@@ -65,22 +65,22 @@ namespace game {
 	{
 		if (mMaxCoin > 0 && coin + mCoin > mMaxCoin)
 		{
-			mCoin = mMaxCoin;
+			changeCoinValue(mMaxCoin);
 		}
 		else
 		{
-			mCoin += coin;
+			changeCoinValue(mCoin + coin);
 		}
 	}
 	void CoinPurse::removeCoin(int coin)
 	{
 		if (mCoin < coin)
 		{
-			mCoin = 0;
+			changeCoinValue(0);
 		}
 		else
 		{
-			mCoin -= coin;
+			changeCoinValue(mCoin - coin);
 		}
 	}
 
@@ -89,7 +89,7 @@ namespace game {
 		mMaxCoin = maxCoin;
 		if (maxCoin > 0 && mCoin > maxCoin)
 		{
-			mCoin = maxCoin;
+			changeCoinValue(maxCoin);
 		}
 	}
 	int CoinPurse::getMaxCoin() const
@@ -127,5 +127,14 @@ namespace game {
 		return 1;
 	}
 
+	void CoinPurse::changeCoinValue(int coin)
+	{
+		if (coin != mCoin)
+		{
+			mCoin = coin;
+			Handle<Event> e(new Event("coin_change"));
+			fireEvent<Event>(e);
+		}
+	}
 }
 }

@@ -44,6 +44,8 @@ namespace game {
 	int Item_height(lua_State *lua);
 	int Item_name(lua_State *lua);
 
+	int Item_item_value(lua_State *lua);
+
 	// GameObject methods
 	int Item_location(lua_State *lua);
 	int Item_grid_location(lua_State *lua);
@@ -78,7 +80,6 @@ namespace game {
 	int Item_remove_body_type(lua_State *lua);
 	int Item_has_body_type(lua_State *lua);
 	int Item_get_body_types(lua_State *lua);
-
 }
 }
 }

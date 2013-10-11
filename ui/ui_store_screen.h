@@ -43,6 +43,9 @@ namespace ui {
 		Handle<InventoryRenderer> mInventoryRenderer;
 
 		int mStoreInventoryIndex;
+
+		virtual void addListeners(Store *store);
+		virtual void removeListeners(Store *store);
 	};
 
 }

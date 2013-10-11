@@ -3,6 +3,9 @@
 #include <base/imanaged.h>
 using namespace am::base;
 
+#include <ui/event_interface.h>
+using namespace am::ui;
+
 namespace am {
 namespace util {
 namespace data {
@@ -15,7 +18,7 @@ namespace game {
 
 	class LoadingState;
 
-	class CoinPurse : public IManaged {
+	class CoinPurse : public EventInterface {
 	public:
 
 		CoinPurse();
@@ -44,6 +47,8 @@ namespace game {
 		
 		int mCoin;
 		int mMaxCoin;
+
+		void changeCoinValue(int coin);
 
 	};
 

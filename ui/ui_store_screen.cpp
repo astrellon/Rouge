@@ -32,7 +32,16 @@ namespace ui {
 
 	void StoreScreen::setStore(Store *store)
 	{
+		if (mStore)
+		{
+			removeListeners(mStore);
+		}
 		mStore = store;
+		if (mStore)
+		{
+			addListeners(mStore);
+		}
+		setStoreInventoryIndex(0);
 	}
 	Store *StoreScreen::getStore() const
 	{
@@ -66,6 +75,25 @@ namespace ui {
 				return;
 			}
 		}*/
+		// CHANGE THIS, 
+		if (e->getInventoryEventType() == INVENTORY_BEFORE_REMOVE)
+		{
+			ReturnCode result = mStore->buyItem(mBuyer, e->getItem());
+			am_log("BUY", getErrorName(result));
+			if (result != SUCCESS)
+			{
+				e->stopPropagation();
+			}
+		}
+		else if (e->getInventoryEventType() == INVENTORY_BEFORE_ADD)
+		{
+			ReturnCode result = mStore->sellItem(mBuyer, e->getItem(), true, true);
+			am_log("SELL", getErrorName(result));
+			if (result != SUCCESS)
+			{
+				e->stopPropagation();
+			}
+		}
 		am_log("STORE", e->getType());
 	}
 
@@ -85,12 +113,12 @@ namespace ui {
 
 	void StoreScreen::setStoreInventoryIndex(int index)
 	{
-		if (index < 0 || index >= getNumStoreInventories())
+		if (index < 0 || index >= getNumStoreInventories() || !mStore)
 		{
 			return;
 		}
 		mStoreInventoryIndex = index;
-		//mInventoryRenderer->setInventory(mStoreInventories[index].get());
+		mInventoryRenderer->setInventory(mStore->getStoreInventories()[index]);
 	}
 	int StoreScreen::getStoreInventoryIndex() const
 	{
@@ -98,8 +126,11 @@ namespace ui {
 	}
 	int StoreScreen::getNumStoreInventories() const
 	{
-		//return static_cast<int>(mStoreInventories.size());
-		return 1;
+		if (mStore)
+		{
+			return mStore->getNumStoreInventories();
+		}
+		return 0;
 	}
 
 	void StoreScreen::setWidth(float width)
@@ -111,6 +142,26 @@ namespace ui {
 		Panel::setHeight(height);
 	}
 
-	
+	void StoreScreen::addListeners(Store *store)
+	{
+		if (store)
+		{
+			store->addEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
+			store->addEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
+			store->addEventListener(InventoryEventTypeName[INVENTORY_BEFORE_ADD], this);
+			store->addEventListener(InventoryEventTypeName[INVENTORY_BEFORE_REMOVE], this);
+		}
+	}
+	void StoreScreen::removeListeners(Store *store)
+	{
+		if (store)
+		{
+			store->removeEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
+			store->removeEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
+			store->removeEventListener(InventoryEventTypeName[INVENTORY_BEFORE_ADD], this);
+			store->removeEventListener(InventoryEventTypeName[INVENTORY_BEFORE_REMOVE], this);
+		}
+	}
+
 }
 }

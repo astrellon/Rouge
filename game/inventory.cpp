@@ -23,14 +23,16 @@ namespace game {
 	const char *Inventory::LUA_TABLENAME = LUA_TABLE_INVENTORY;
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
-		EventInterface()
+		EventInterface(),
+		mItemMovementState(NOT_MOVING)
 	{
 		setSpaces(width, height);
 	}
 	Inventory::Inventory(const Inventory &copy) :
 		EventInterface(),
 		mSpacesX(copy.mSpacesX),
-		mSpacesY(copy.mSpacesY)
+		mSpacesY(copy.mSpacesY),
+		mItemMovementState(NOT_MOVING)
 	{
 		setSpaces(copy.mSpacesX, copy.mSpacesY);
 		for (auto iter = copy.mSpots.begin(); iter != copy.mSpots.end(); ++iter)
@@ -87,7 +89,7 @@ namespace game {
 	}
 	bool Inventory::addItem(Item *item)
 	{
-		if (item == nullptr)
+		if (item == nullptr || mItemMovementState != NOT_MOVING)
 		{
 			return false;
 		}
@@ -106,7 +108,7 @@ namespace game {
 	}
 	bool Inventory::addItem(Item *item, int x, int y)
 	{
-		if (item == nullptr)
+		if (item == nullptr || mItemMovementState != NOT_MOVING)
 		{
 			return false;
 		}
@@ -123,10 +125,12 @@ namespace game {
 
 	bool Inventory::placeItem(Item *item, int x, int y)
 	{
+		mItemMovementState = ADDING;
 		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_ADD, this, item, x, y));
 		fireEvent<InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
+			mItemMovementState = NOT_MOVING;
 			return false;
 		}
 
@@ -148,25 +152,28 @@ namespace game {
 		item->setItemLocation(Item::INVENTORY);
 		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_ADD, this, item, x, y));
 
+		mItemMovementState = NOT_MOVING;
 		return true;
 	}
 	bool Inventory::removeItem(Item *item)
 	{
-		if (item == nullptr)
+		if (item == nullptr || mItemMovementState != NOT_MOVING)
 		{
 			return false;
 		}
-		
+
 		int index = findItem(item);
 		if (index < 0)
 		{
 			return false;
 		}
 
+		mItemMovementState = REMOVING;
 		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_REMOVE, this, item));
 		fireEvent<InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
+			mItemMovementState = NOT_MOVING;
 			return false;
 		}
 
@@ -189,6 +196,7 @@ namespace game {
 		item->setItemLocation(Item::GROUND);
 		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_REMOVE, this, item, spot.getX(), spot.getY()));
 
+		mItemMovementState = NOT_MOVING;
 		return true;
 	}
 	bool Inventory::removeAll()
@@ -205,6 +213,11 @@ namespace game {
 	bool Inventory::hasItem(const Item *item) const
 	{
 		return findItem(item) >= 0;
+	}
+
+	Inventory::ItemMovementState Inventory::getItemMovementState() const
+	{
+		return mItemMovementState;
 	}
 
 	Item *Inventory::getItemAt(int x, int y) const

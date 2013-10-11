@@ -432,13 +432,17 @@ namespace sys {
 		}
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		StoreScreen *store = new StoreScreen();
-		store->setSize(360, 300);
-		Inventory *inv = new Inventory(20, 16);
+		StoreScreen *storeScreen = new StoreScreen();
+		storeScreen->setSize(360, 300);
 		Item *test = game->create<Item>("wooden:shield");
-		inv->addItem(test);
+		Store *store = new Store();
+		Character *owner = new Character();
+		store->setStoreOwner(owner);
+		store->createStoreInventory()->addItem(test);
+		storeScreen->setStore(store);
+		storeScreen->setBuyer(game->getMainCharacter());
 		//store->addStoreInventory(inv);
-		GfxEngine::getEngine()->getUILayer()->addChild(store);
+		GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);
 
 		mPlayer = game->getMainCharacter();
 		if (!mPlayer->getDialogueComp())

@@ -209,6 +209,10 @@ namespace game {
 	{
 		return mStoreInventories;
 	}
+	int Store::getNumStoreInventories() const
+	{
+		return static_cast<int>(mStoreInventories.size());
+	}
 
 	void Store::setDefaultInventorySize(int width, int height)
 	{
@@ -226,6 +230,15 @@ namespace game {
 	Vector2<unsigned short> Store::getDefaultInventorySize() const
 	{
 		return mDefaultInventorySize;
+	}
+
+	void Store::onEvent(InventoryEvent *e)
+	{
+		if (!e)
+		{
+			return;
+		}
+		fireEvent<InventoryEvent>(e);
 	}
 
 	void Store::addListeners(Inventory *inventory)

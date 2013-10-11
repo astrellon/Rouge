@@ -152,6 +152,7 @@ namespace game {
 			{ "width", Item_width },
 			{ "height", Item_height },
 			{ "name", Item_name },
+			{ "item_value", Item_item_value },
 			// GameObject methods
 			{ "location", Item_location },
 			{ "grid_location", Item_grid_location },
@@ -866,6 +867,37 @@ namespace game {
 			return 1;
 		}
 		return LuaState::expectedContext(lua, "name", "am.item");
+	}
+
+	/**
+	 * Returns the items coin value.
+	 *
+	 * @returns integer The items coin value.
+	 */
+	/**
+	 * Sets the items coin value.
+	 *
+	 * @param integer value The new coin value.
+	 * @returns am.item This
+	 */
+	int Item_item_value(lua_State *lua)
+	{
+		Item *item = castUData<Item>(lua, 1);
+		if (item)
+		{
+			if (lua_gettop(lua) == 1)
+			{
+				lua_pushnumber(lua, (lua, item->getItemValue()));
+				return 1;
+			}
+			else if (lua_isnum(lua, 2))
+			{
+				item->setItemValue(lua_tointeger(lua, 2));
+				lua_first(lua);
+			}
+			return LuaState::expectedArgs(lua, "item_value", "integer value");
+		}
+		return LuaState::expectedContext(lua, "item_value", "am.item");
 	}
 	/**
 	 * Returns the items current map location.

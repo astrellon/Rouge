@@ -65,6 +65,8 @@ namespace game {
 		addChild(mCharacterLayer);
 		addChild(mForeground);
 
+		mCoinPurse->addEventListener("coin_change", this);
+
 		mInventory = new Inventory(10, 6);
 		mStats->setAttachedTo(this);
 	}
@@ -139,6 +141,8 @@ namespace game {
 		{
 			addBodyPart(new BodyPart(*iter->get()));
 		}
+
+		mCoinPurse->addEventListener("coin_change", this);
 	}
 	Character::~Character()
 	{
@@ -1262,7 +1266,7 @@ namespace game {
 				{
 					stringstream ss;
 					ss << "Unable to set dead graphic as character '" << mGameId
-						<< "' does not have one and no generic one has been set.";
+						<< "' does not have one and no generic one has: been set.";
 					am_log("DEAD", ss);
 				}
 			}
@@ -1270,6 +1274,15 @@ namespace game {
 		else
 		{
 			mCharacterLayer->addChild(mGraphic);
+		}
+	}
+
+	void Character::onEvent(Event *e)
+	{
+		// Pass along coin event.
+		if (e->getType() == "coin_change")
+		{
+			fireEvent<Event>(e);
 		}
 	}
 }

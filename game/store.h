@@ -72,11 +72,14 @@ namespace game {
 		virtual bool hasStoreInventory(Inventory *inventory) const;
 		virtual void clearAllStoreInventories();
 		virtual const InventoryList &getStoreInventories() const;
+		virtual int getNumStoreInventories() const;
 
 		virtual void setDefaultInventorySize(int width, int height);
 		virtual unsigned short getDefaultInventorySizeWidth() const;
 		virtual unsigned short getDefaultInventorySizeHeight() const;
 		virtual Vector2<unsigned short> getDefaultInventorySize() const;
+
+		virtual void onEvent(InventoryEvent *e);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
