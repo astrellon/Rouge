@@ -28,6 +28,7 @@
 #include <ui/ui_body_part_renderer.h>
 #include <ui/ui_text_input.h>
 #include <ui/ui_dialogue_box.h>
+#include <ui/ui_store_screen.h>
 
 #include <game/character.h>
 #include <game/race.h>
@@ -430,6 +431,18 @@ namespace sys {
 			return;
 		}
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
+
+		StoreScreen *storeScreen = new StoreScreen();
+		storeScreen->setSize(360, 300);
+		Item *test = game->create<Item>("wooden:shield");
+		Store *store = new Store();
+		Character *owner = new Character();
+		store->setStoreOwner(owner);
+		store->createStoreInventory()->addItem(test);
+		storeScreen->setStore(store);
+		storeScreen->setBuyer(game->getMainCharacter());
+		//store->addStoreInventory(inv);
+		GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);
 
 		mPlayer = game->getMainCharacter();
 		if (!mPlayer->getDialogueComp())

@@ -10,6 +10,7 @@ do
 		:inventory_size(1, 2)
 		:description("This sword be wooden!")
 		:add_body_type("hand")
+		:item_value(20)
 		
 	local stats = item:stat_modifiers()
 	stats:add("minDamage", 2, "+")
@@ -24,6 +25,7 @@ do
 		:inventory_size(2, 2)
 		:description("This shield be wooden!")
 		:add_body_type("hand")
+		:item_value(15)
 		
 	stats = item:stat_modifiers()
 	stats:add("armour", 3, "+")

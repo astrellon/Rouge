@@ -13,6 +13,7 @@ return {
 			:grid_location(8, 18)
 			:gender("female")
 			:stats():base_stat("speed", 2)
+		player:coin_purse():add_coin(80)
 		local sword = am.item.from_def("wooden:sword")
 		sword:add_body_type("arm", "arm"):add_body_type("hand", "hand")	
 		player:equip_item(sword, "left_hand")

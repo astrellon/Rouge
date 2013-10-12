@@ -49,7 +49,8 @@ namespace game {
 		mBackground(new Layer()),
 		mForeground(new Layer()),
 		mCharacterLayer(new Layer()),
-		mAIFuncRef(LUA_REFNIL)
+		mAIFuncRef(LUA_REFNIL),
+		mDestinationPos(-1)
 	{
 		mBackground->setName("Character->Background");
 		mForeground->setName("Character->Foreground");
@@ -63,6 +64,8 @@ namespace game {
 		addChild(mBackground);
 		addChild(mCharacterLayer);
 		addChild(mForeground);
+
+		mCoinPurse->addEventListener("coin_change", this);
 
 		mInventory = new Inventory(10, 6);
 		mStats->setAttachedTo(this);
@@ -78,7 +81,8 @@ namespace game {
 		mCoinPurse(new CoinPurse(*copy.mCoinPurse)),
 		mInventory(new Inventory(*copy.mInventory)),
 		mArmedCounter(0),
-		mAIFuncRef(copy.mAIFuncRef)
+		mAIFuncRef(copy.mAIFuncRef),
+		mDestinationPos(-1)
 	{
 		int numChildren = getNumChildren();
 		if (numChildren >= 1)
@@ -137,6 +141,8 @@ namespace game {
 		{
 			addBodyPart(new BodyPart(*iter->get()));
 		}
+
+		mCoinPurse->addEventListener("coin_change", this);
 	}
 	Character::~Character()
 	{
@@ -225,7 +231,7 @@ namespace game {
 		{
 			float timeTaken = 0.0f;
 			Vector2f pos(mLocationX, mLocationY);
-			while (timeTaken < dt)
+			while (timeTaken < dt && !mDestinationPath.empty())
 			{
 				const Vector2f &dest(mDestinationPath[mDestinationPos]);
 				Vector2f toDest(dest.sub(pos));
@@ -236,8 +242,7 @@ namespace game {
 					mDestinationPos++;
 					if (mDestinationPos >= static_cast<int>(mDestinationPath.size()))
 					{
-						mDestinationPath.clear();
-						mDestinationPos = 0;
+						clearDestination();
 						break;
 					}
 					continue;
@@ -767,8 +772,8 @@ namespace game {
 			return false;
 		}
 		Character *obj = dynamic_cast<Character *>(interacter);
-		// Currently don't interact with non main character characters.
-		if (obj == this || Engine::getGame()->getMainCharacter() != obj)
+		// Don't interact with yourself and currently only interact with the main character.
+		if (obj == this || obj != Engine::getGame()->getMainCharacter())
 		{
 			return false;
 		}
@@ -917,7 +922,8 @@ namespace game {
 	void Character::clearDestination()
 	{
 		mDestinationPath.clear();
-		mDestinationPos = 0;
+		mDestinationPos = -1;
+
 		mDestination.x = mLocationX;
 		mDestination.y = mLocationY;
 	}
@@ -1260,7 +1266,7 @@ namespace game {
 				{
 					stringstream ss;
 					ss << "Unable to set dead graphic as character '" << mGameId
-						<< "' does not have one and no generic one has been set.";
+						<< "' does not have one and no generic one has: been set.";
 					am_log("DEAD", ss);
 				}
 			}
@@ -1268,6 +1274,15 @@ namespace game {
 		else
 		{
 			mCharacterLayer->addChild(mGraphic);
+		}
+	}
+
+	void Character::onEvent(Event *e)
+	{
+		// Pass along coin event.
+		if (e->getType() == "coin_change")
+		{
+			fireEvent<Event>(e);
 		}
 	}
 }

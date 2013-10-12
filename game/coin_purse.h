@@ -3,6 +3,9 @@
 #include <base/imanaged.h>
 using namespace am::base;
 
+#include <ui/event_interface.h>
+using namespace am::ui;
+
 namespace am {
 namespace util {
 namespace data {
@@ -15,24 +18,24 @@ namespace game {
 
 	class LoadingState;
 
-	class CoinPurse : public IManaged {
+	class CoinPurse : public EventInterface {
 	public:
 
 		CoinPurse();
 		CoinPurse(const CoinPurse &copy);
 		~CoinPurse();
 
-		virtual void setCoin(unsigned int coin);
-		virtual unsigned int getCoin() const;
+		virtual void setCoin(int coin);
+		virtual int getCoin() const;
 
-		virtual unsigned int canAddCoin(unsigned int coin);
-		virtual unsigned int canRemoveCoin(unsigned int coin);
+		virtual int canAddCoin(int coin);
+		virtual int canRemoveCoin(int coin);
 		
-		virtual void addCoin(unsigned int coin);
-		virtual void removeCoin(unsigned int coin);
+		virtual void addCoin(int coin);
+		virtual void removeCoin(int coin);
 
-		virtual void setMaxCoin(unsigned int maxCoin);
-		virtual unsigned int getMaxCoin() const;
+		virtual void setMaxCoin(int maxCoin);
+		virtual int getMaxCoin() const;
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -42,8 +45,10 @@ namespace game {
 
 	protected:
 		
-		unsigned int mCoin;
-		unsigned int mMaxCoin;
+		int mCoin;
+		int mMaxCoin;
+
+		void changeCoinValue(int coin);
 
 	};
 

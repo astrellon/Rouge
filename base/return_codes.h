@@ -32,9 +32,16 @@ namespace base {
 		NO_LINKED_SYSTEM =			-0x0400,
 
 		// Inventory related
-		NOT_ENOUGH_INVENTORY_SPACE = -0x0500
+		NOT_ENOUGH_INVENTORY_SPACE =	-0x0500,
+		ITEM_NOT_IN_INVENTORY =		-0x0501,
+
+		// Store related
+		NOT_ENOUGH_COIN	=			-0x0600,
+		NO_STORE_OWNER =			-0x0601,
+		NO_INVENTORIES =			-0x0602
 	};
 
+	const char *getErrorName(ReturnCode code);
 	const char *getErrorMessage(ReturnCode code);
 
 }

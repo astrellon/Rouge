@@ -632,6 +632,7 @@ namespace game {
 					}
 				}
 			}
+
 			// Cannot move because of an instanced effect, possibly a door, lets find out.
 			ObjectList result;
 			if (forObject->getGameObjectType() == GameObject::CHARACTER && getGameObjectsAt(gridX, gridY, result))

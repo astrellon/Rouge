@@ -53,8 +53,8 @@ namespace game {
 		virtual short getInventorySizeX() const;
 		virtual short getInventorySizeY() const;
 
-		virtual void setItemValue(unsigned int value);
-		virtual unsigned int getItemValue() const;
+		virtual void setItemValue(int value);
+		virtual int getItemValue() const;
 
 		virtual void setItemLocation(ItemLocation location);
 		virtual ItemLocation getItemLocation() const;
@@ -137,7 +137,7 @@ namespace game {
 
 		int mQuestItemId;
 
-		unsigned int mItemValue;
+		int mItemValue;
 		unsigned int mBodyPartsRequired;
 
 		DamageType mBaseDamageType;

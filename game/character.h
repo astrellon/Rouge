@@ -170,6 +170,8 @@ namespace game {
 
 		virtual void updateGraphic();
 
+		virtual void onEvent(Event *e);
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 

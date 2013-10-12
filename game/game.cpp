@@ -422,6 +422,7 @@ namespace game {
 		{
 			dynamic_cast<Character *>(obj)->clearDestination();
 			mCharacterLayer->addChild(obj);
+			dynamic_cast<Character *>(obj)->clearDestination();
 		}
 		else if (obj->getGameObjectType() == GameObject::ITEM)
 		{
@@ -516,8 +517,7 @@ namespace game {
 		{
 			if (map->addGameObject(object) && map == mCurrentMap.get())
 			{
-				//mCharacterLayer->addChild(object);
-				addGameObject(object);
+  				addGameObject(object);
 			}
 		}
 	}
@@ -609,6 +609,35 @@ namespace game {
 	{
 		return getDefinition<Item>(mItemDefinitions, name);
 	}
+
+	template <>
+	Character *Game::create<Character>(const char *definitionName, bool force)
+	{
+		Character *def = getCharDefinition(definitionName);
+		if (def)
+		{
+			return new Character(*def);
+		}
+		if (force)
+		{
+			return new Character();
+		}
+		return nullptr;
+	}
+	template <>
+	Item *Game::create<Item>(const char *definitionName, bool force)
+	{
+		Item *def = getItemDefinition(definitionName);
+		if (def)
+		{
+			return new Item(*def);
+		}
+		if (force)
+		{
+			return new Item();
+		}
+		return nullptr;
+	}
 	
 	void Game::update(float dt)
 	{
@@ -640,7 +669,6 @@ namespace game {
 		GameObject *obj = mActiveObjects->at(mGameTickPosition);
 		obj->onGameTick(mCurrentTickDt);
 		mGameTickPosition++;
-		//->onGameTick(mCurrentTickDt);
 	}
 	void Game::setCurrentGameTickLength(float dt)
 	{

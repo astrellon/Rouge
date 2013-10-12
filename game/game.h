@@ -101,6 +101,11 @@ namespace game {
 		void addItemDefinition(Item *item, const char *name);
 		Item *getItemDefinition(const char *name);
 
+		// Creates a new instance of the given game object
+		// from a definition name, will create the game object
+		template <class T>
+		T *create(const char *definitionName, bool force = false);
+
 		Camera *getCamera();
 
 		void update(float dt);

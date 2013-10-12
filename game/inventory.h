@@ -27,6 +27,10 @@ namespace game {
 
 		typedef vector< InventorySpot > InventorySpots;
 
+		enum ItemMovementState {
+			NOT_MOVING, ADDING, REMOVING
+		};
+
 		Inventory(unsigned short width, unsigned short height);
 		Inventory(const Inventory &copy);
 		~Inventory();
@@ -41,6 +45,8 @@ namespace game {
 		bool removeItem(Item *item);
 		bool removeAll();
 		bool hasItem(const Item *item) const;
+
+		ItemMovementState getItemMovementState() const;
 
 		Item *getItemAt(int x, int y) const;
 
@@ -69,7 +75,9 @@ namespace game {
 
 		int findItem(const Item *item) const;
 		bool findSpotFor(const Item *, int &x, int &y) const;
-		void placeItem(Item *item, int x, int y);
+		bool placeItem(Item *item, int x, int y);
+
+		ItemMovementState mItemMovementState;
 
 		static float sSpaceSizeX;
 		static float sSpaceSizeY;

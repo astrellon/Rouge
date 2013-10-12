@@ -147,10 +147,6 @@ namespace game {
 		{
 			mLocationX = x;
 			mLocationY = y;
-			if (mMap)
-			{
-				mMap->checkMapRegion(this);
-			}
 		}
 		if (mSoundSource)
 		{
@@ -166,7 +162,10 @@ namespace game {
 			}
 			mTransform.setXY(x, y);
 		}
-		
+		if (mMap)
+		{
+			mMap->checkMapRegion(this);
+		}
 	}
 	float GameObject::getLocationX() const
 	{

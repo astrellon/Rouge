@@ -1,6 +1,7 @@
 #include "ui_inventory_renderer.h"
 
 #include <gl.h>
+#include <gfx/gfx_texture.h>
 
 #include <game/inventory.h>
 #include <game/inventory_spot.h>
@@ -85,11 +86,9 @@ namespace ui {
 				{
 					if (e->getMouseButton() == LEFT_BUTTON)
 					{
-						if (hand->getInhand() == nullptr)
+						if (hand->getInhand() == nullptr && mInventory->removeItem(item))
 						{
 							hand->setInhand(item);
-						
-							mInventory->removeItem(item);
 							item->setItemLocation(Item::HAND);
 						}
 					}
@@ -102,9 +101,8 @@ namespace ui {
 			}
 			else if (hand->getInhand() != nullptr)
 			{
-				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY))
+				if (mInventory->hasSpaceFor(hand->getInhand(), gridX, gridY) && mInventory->addItem(hand->getInhand(), gridX, gridY))
 				{
-					mInventory->addItem(hand->getInhand(), gridX, gridY);
 					hand->setInhand(nullptr);
 				}
 				e->stopPropagation();
@@ -120,6 +118,7 @@ namespace ui {
 		{
 			return;
 		}
+		Texture::bindTexture(0);
 		float width = mInventory->getSpacesX() * Inventory::getSpaceSizeX();
 		float height = mInventory->getSpacesY() * Inventory::getSpaceSizeY();
 		glBegin(GL_QUADS);

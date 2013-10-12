@@ -246,6 +246,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="game\stat_modifier.cpp" />
     <ClCompile Include="game\stat_modifiers.cpp" />
     <ClCompile Include="game\stat_range.cpp" />
+    <ClCompile Include="game\store.cpp" />
     <ClCompile Include="game\string_pool.cpp" />
     <ClCompile Include="game\tile.cpp" />
     <ClCompile Include="game\tile_instance.cpp" />
@@ -395,6 +396,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="tests\test_map.cpp" />
     <ClCompile Include="tests\test_mouse_manager.cpp" />
     <ClCompile Include="tests\test_path_tokeniser.cpp" />
+    <ClCompile Include="tests\test_store.cpp" />
     <ClCompile Include="tests\test_suite.cpp" />
     <ClCompile Include="tests\test_utils.cpp" />
     <ClCompile Include="tests\test_util_data.cpp" />
@@ -425,6 +427,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_debug_inspector.cpp" />
     <ClCompile Include="ui\ui_file_dialog.cpp" />
     <ClCompile Include="ui\ui_list.cpp" />
+    <ClCompile Include="ui\ui_store_screen.cpp" />
     <ClCompile Include="ui\ui_text_button.cpp" />
     <ClCompile Include="ui\ui_character_screen.cpp" />
     <ClCompile Include="ui\ui_checkbox.cpp" />
@@ -505,6 +508,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="game\stat_modifier.h" />
     <ClInclude Include="game\stat_modifiers.h" />
     <ClInclude Include="game\stat_range.h" />
+    <ClInclude Include="game\store.h" />
     <ClInclude Include="game\string_pool.h" />
     <ClInclude Include="game\tile.h" />
     <ClInclude Include="game\tile_instance.h" />
@@ -652,6 +656,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="tests\test_map.h" />
     <ClInclude Include="tests\test_mouse_manager.h" />
     <ClInclude Include="tests\test_path_tokeniser.h" />
+    <ClInclude Include="tests\test_store.h" />
     <ClInclude Include="tests\test_suite.h" />
     <ClInclude Include="tests\test_utils.h" />
     <ClInclude Include="tests\test_util_data.h" />
@@ -682,6 +687,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_debug_inspector.h" />
     <ClInclude Include="ui\ui_file_dialog.h" />
     <ClInclude Include="ui\ui_list.h" />
+    <ClInclude Include="ui\ui_store_screen.h" />
     <ClInclude Include="ui\ui_text_button.h" />
     <ClInclude Include="ui\ui_character_screen.h" />
     <ClInclude Include="ui\ui_checkbox.h" />
