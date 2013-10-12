@@ -49,7 +49,7 @@ namespace game {
 		 *  NOT_ENOUGH_COIN: Buyer does not have enough coin to buy the item.
 		 *  SUCCESS: Item was bought successfully.
 		 */
-		virtual ReturnCode buyItem(Character *buyer, Item *item);
+		virtual ReturnCode buyItem(Character *buyer, Item *item, float valueFactor = 1.0f);
 		/**
 		 * Attempts to sell the item.
 		 * Sold item is added to the store inventory and is not removed
@@ -64,7 +64,7 @@ namespace game {
 		 *  NOT_ENOUGH_COIN: If allowZeroStoreCoin is false and the store owner does not have enough to pay for the item.
 		 *  SUCCESS: Item was sold successfully.
 		 */
-		virtual ReturnCode sellItem(Character *seller, Item *item, bool makeNewInventories = false, bool allowZeroStoreCoin = false);
+		virtual ReturnCode sellItem(Character *seller, Item *item, float valueFactor = 1.0f, bool makeNewInventories = false, bool allowZeroStoreCoin = false);
 
 		virtual Inventory *createStoreInventory();
 		virtual bool addStoreInventory(Inventory *inventory);

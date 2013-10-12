@@ -78,7 +78,7 @@ namespace ui {
 		// CHANGE THIS, 
 		if (e->getInventoryEventType() == INVENTORY_BEFORE_REMOVE)
 		{
-			ReturnCode result = mStore->buyItem(mBuyer, e->getItem());
+			ReturnCode result = mStore->buyItem(mBuyer, e->getItem(), 1.5f);
 			am_log("BUY", getErrorName(result));
 			if (result != SUCCESS)
 			{
@@ -87,7 +87,7 @@ namespace ui {
 		}
 		else if (e->getInventoryEventType() == INVENTORY_BEFORE_ADD)
 		{
-			ReturnCode result = mStore->sellItem(mBuyer, e->getItem(), true, true);
+			ReturnCode result = mStore->sellItem(mBuyer, e->getItem(), 0.75f, true, true);
 			am_log("SELL", getErrorName(result));
 			if (result != SUCCESS)
 			{

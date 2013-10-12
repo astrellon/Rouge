@@ -6,6 +6,8 @@ using namespace am::ui;
 #include <util/data_table.h>
 #include <util/data_number.h>
 
+#include <math/math.h>
+
 #include <sstream>
 #include <log/logger.h>
 
@@ -38,7 +40,7 @@ namespace game {
 		return mStoreOwner;
 	}
 
-	ReturnCode Store::buyItem(Character *buyer, Item *item)
+	ReturnCode Store::buyItem(Character *buyer, Item *item, float valueFactor)
 	{
 		Handle<Item> itemHandle(item);
 		if (!item || !buyer)
@@ -76,7 +78,7 @@ namespace game {
 			return ITEM_NOT_IN_INVENTORY;
 		}
 
-		unsigned int value = item->getItemValue();
+		int value = math::round(static_cast<float>(item->getItemValue()) * valueFactor);
 		if (buyerPurse->canRemoveCoin(value) < 0)
 		{
 			return NOT_ENOUGH_COIN;
@@ -88,7 +90,7 @@ namespace game {
 		return SUCCESS;
 	}
 
-	ReturnCode Store::sellItem(Character *seller, Item *item, bool makeNewInventories, bool allowZeroStoreCoin)
+	ReturnCode Store::sellItem(Character *seller, Item *item, float valueFactor, bool makeNewInventories, bool allowZeroStoreCoin)
 	{
 		Handle<Item> itemHandle(item);
 		if (!item || !seller)
@@ -112,7 +114,7 @@ namespace game {
 			return INTERNAL_ERROR;
 		}
 
-		int value = item->getItemValue();
+		int value = math::round(static_cast<float>(item->getItemValue()) * valueFactor);
 		if (!allowZeroStoreCoin && ownerPurse->canRemoveCoin(value) < 0)
 		{
 			return NOT_ENOUGH_COIN;
