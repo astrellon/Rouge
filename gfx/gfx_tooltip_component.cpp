@@ -14,12 +14,14 @@ namespace gfx {
 
 	TooltipComponent::TooltipComponent() :
 		mParent(nullptr),
-		mListeners(false)
+		mListeners(false),
+		mEnabled(true)
 	{
 	}
 	TooltipComponent::TooltipComponent(Renderable *parent) :
 		mParent(parent),
-		mListeners(false)
+		mListeners(false),
+		mEnabled(true)
 	{
 
 	}
@@ -27,7 +29,8 @@ namespace gfx {
 		mTooltip(copy.mTooltip),
 		mDetailedTooltip(copy.mDetailedTooltip),
 		mParent(nullptr),
-		mListeners(false)
+		mListeners(false),
+		mEnabled(copy.mEnabled)
 	{
 
 	}
@@ -90,6 +93,20 @@ namespace gfx {
 		return mParent;
 	}
 
+	void TooltipComponent::setEnabled(bool enabled)
+	{
+		mEnabled = enabled;
+		if (!enabled)
+		{
+			Tooltip *tooltip = getTooltipObject();
+			tooltip->hide();
+		}
+	}
+	bool TooltipComponent::isEnabled() const
+	{
+		return mEnabled;
+	}
+
 	void TooltipComponent::onEvent(MouseEvent *e)
 	{
 		if (!e)
@@ -97,8 +114,8 @@ namespace gfx {
 			return;
 		}
 
-		Tooltip *tooltip = GameSystem::getGameSystem()->getDefaultTooltip();
-		if (e->getMouseEventType() == MOUSE_OVER)
+		Tooltip *tooltip = getTooltipObject();
+		if (e->getMouseEventType() == MOUSE_OVER && mEnabled)
 		{
 			tooltip->setText(mTooltip.c_str());
 			tooltip->setDetailedText(mDetailedTooltip.c_str());
@@ -140,6 +157,11 @@ namespace gfx {
 		mListeners = false;
 		mParent->removeEventListener(MOUSE_OVER, this);
 		mParent->removeEventListener(MOUSE_OUT, this);
+	}
+
+	Tooltip *TooltipComponent::getTooltipObject() const
+	{
+		return GameSystem::getGameSystem()->getDefaultTooltip();
 	}
 
 }

@@ -13,6 +13,11 @@ using namespace std;
 using namespace am::ui;
 
 namespace am {
+namespace ui {
+	class Tooltip;
+}
+using am::ui::Tooltip;
+
 namespace gfx {
 
 	class Renderable;
@@ -25,14 +30,17 @@ namespace gfx {
 		TooltipComponent(const TooltipComponent &copy);
 		~TooltipComponent();
 
-		virtual void setTooltip(const char *tooltip);
-		virtual const char *getTooltip() const;
+		void setTooltip(const char *tooltip);
+		const char *getTooltip() const;
 
-		virtual void setDetailedTooltip(const char *tooltip);
-		virtual const char *getDetailedTooltip() const;
+		void setDetailedTooltip(const char *tooltip);
+		const char *getDetailedTooltip() const;
 
-		virtual void setParent(Renderable *parent);
-		virtual Renderable *getParent() const;
+		void setParent(Renderable *parent);
+		Renderable *getParent() const;
+
+		void setEnabled(bool enabled);
+		bool isEnabled() const;
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -42,10 +50,13 @@ namespace gfx {
 		string mDetailedTooltip;
 		Renderable *mParent;
 		bool mListeners;
+		bool mEnabled;
 
 		void updateListeners();
 		void addListeners();
 		void removeListeners();
+
+		virtual Tooltip *getTooltipObject() const;
 		
 	};
 

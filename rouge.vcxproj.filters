@@ -931,6 +931,9 @@
     <ClCompile Include="tests\test_store.cpp">
       <Filter>tests\game</Filter>
     </ClCompile>
+    <ClCompile Include="ui\ui_item_description.cpp">
+      <Filter>ui\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1704,6 +1707,9 @@
     </ClInclude>
     <ClInclude Include="tests\test_store.h">
       <Filter>tests\game</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui_item_description.h">
+      <Filter>ui\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -91,6 +91,8 @@ namespace gfx {
 		virtual const char *getTooltip();
 		virtual void setDetailedTooltip(const char *tooltip);
 		virtual const char *getDetailedTooltip();
+		virtual void setTooltipEnabled(bool enabled);
+		virtual bool isTooltipEnabled() const;
 
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 
@@ -115,6 +117,8 @@ namespace gfx {
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
+
+		virtual TooltipComponent *createTooltipComponent();
 	};
 
 }

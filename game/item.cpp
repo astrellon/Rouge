@@ -727,11 +727,9 @@ namespace game {
 
 	void Item::updateDetailedTooltip()
 	{
-		stringstream ss;
-		ss << mName << '\n';
 		if (mItemLocation == INVENTORY)
 		{
-			if (mItemType == ItemCommon::GOLD)
+			/*if (mItemType == ItemCommon::GOLD)
 			{
 				ss << "Gold: " << getItemValue() << '\n';
 			}
@@ -767,13 +765,17 @@ namespace game {
 					
 				}
 				ss << "Value: " << getItemValue();
-			}
+			}*/
+			setTooltipEnabled(false);
 		}
 		else
 		{
+			stringstream ss;
+			ss << mName << '\n';
 			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItemType);
+			setDetailedTooltip(ss.str().c_str());
+			setTooltipEnabled(true);
 		}
-		setDetailedTooltip(ss.str().c_str());
 	}
 }
 }

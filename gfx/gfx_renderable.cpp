@@ -321,7 +321,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = new TooltipComponent(this);
+			mTooltip = createTooltipComponent();
 		}
 		mTooltip->setTooltip(tooltip);
 	}
@@ -337,7 +337,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = new TooltipComponent(this);
+			mTooltip = createTooltipComponent();
 		}
 		mTooltip->setDetailedTooltip(tooltip);
 	}
@@ -348,6 +348,27 @@ namespace gfx {
 			return mTooltip->getDetailedTooltip();
 		}
 		return "";
+	}
+	void Renderable::setTooltipEnabled(bool enabled)
+	{
+		if (!mTooltip)
+		{
+			mTooltip = createTooltipComponent();
+		}
+		mTooltip->setEnabled(enabled);
+	}
+	bool Renderable::isTooltipEnabled() const
+	{
+		if (mTooltip)
+		{
+			return mTooltip->isEnabled();
+		}
+		return false;
+	}
+
+	TooltipComponent *Renderable::createTooltipComponent()
+	{
+		return new TooltipComponent(this);
 	}
 
 }
