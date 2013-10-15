@@ -328,7 +328,7 @@ namespace sys {
 			return;
 		}
 
-		if (e->getMouseEventType() == MOUSE_OVER && e->getTarget())
+		/*if (e->getMouseEventType() == MOUSE_OVER && e->getTarget())
 		{
 			const char *tooltip = e->getTarget()->getTooltip();
 			if (tooltip && tooltip[0] != '\0')
@@ -342,7 +342,7 @@ namespace sys {
 		else
 		{
 			mTooltip->hide();
-		}
+		}*/
 	}
 
 	Tooltip *GameSystem::getDefaultTooltip() const

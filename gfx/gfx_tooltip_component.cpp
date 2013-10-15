@@ -2,7 +2,7 @@
 
 #include <gfx/gfx_renderable.h>
 
-#include <ui/ui_tooltip.h>
+#include <gfx/gfx_tooltip.h>
 #include <ui/mouse_manager.h>
 using namespace am::ui;
 

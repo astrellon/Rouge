@@ -24,7 +24,6 @@
 #include <ui/ui_image.h>
 #include <ui/ui_editor_hud.h>
 #include <ui/ui_inventory_renderer.h>
-#include <ui/ui_tooltip.h>
 #include <ui/ui_body_part_renderer.h>
 #include <ui/ui_text_input.h>
 #include <ui/ui_dialogue_box.h>

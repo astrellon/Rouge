@@ -12,7 +12,7 @@ using namespace am::gfx;
 using namespace std;
 
 namespace am {
-namespace ui {
+namespace gfx {
 
 	class Tooltip : public Layer {
 	public:

@@ -777,5 +777,6 @@ namespace game {
 			setTooltipEnabled(true);
 		}
 	}
+
 }
 }

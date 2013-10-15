@@ -1,11 +1,11 @@
-#include "ui_tooltip.h"
+#include "gfx_tooltip.h"
 
 #include <gfx/gfx_engine.h>
 #include <gfx/gfx_texture.h>
 #include <gl.h>
 
 namespace am {
-namespace ui {
+namespace gfx {
 
 	Tooltip::Tooltip() :
 		mGraphic(new Sprite("ui:tooltip")),
@@ -197,7 +197,12 @@ namespace ui {
 			mTimeCounter += dt;
 			if (mState == ACTIVE)
 			{
-				if (mTimeCounter > mDisplayDelay)
+				if (mTimeCounter > mDetailedDisplayDelay && mDetailedTextField->rawLength() > 0)
+				{
+					setState(VISIBLE_DETAILED);
+					setDetailed(true);
+				}
+				else if (mTimeCounter > mDisplayDelay)
 				{
 					setState(VISIBLE);
 					show(mTarget);

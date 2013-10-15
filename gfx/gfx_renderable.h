@@ -112,13 +112,12 @@ namespace gfx {
 
 		Handle<GfxComponent> mGfxComponent;
 		Handle<TooltipComponent> mTooltip;
+		Handle<Renderable> mTooltipGraphic;
 		Layer *mParent;
 		am::math::TransformLite mTransform;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
-
-		virtual TooltipComponent *createTooltipComponent();
 	};
 
 }

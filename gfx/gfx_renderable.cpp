@@ -50,7 +50,7 @@ namespace gfx {
 		}
 		if (copy.mTooltip)
 		{
-			mTooltip = new TooltipComponent(*copy.mTooltip.get());
+			mTooltip = new TooltipComponent(*copy.mTooltip);
 			mTooltip->setParent(this);
 		}
 #ifdef _DEBUG
@@ -321,7 +321,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = createTooltipComponent();
+			mTooltip = new TooltipComponent(this);
 		}
 		mTooltip->setTooltip(tooltip);
 	}
@@ -337,7 +337,7 @@ namespace gfx {
 	{
 		if (!mTooltip && tooltip && tooltip[0] != '\0')
 		{
-			mTooltip = createTooltipComponent();
+			mTooltip = new TooltipComponent(this);
 		}
 		mTooltip->setDetailedTooltip(tooltip);
 	}
@@ -353,7 +353,7 @@ namespace gfx {
 	{
 		if (!mTooltip)
 		{
-			mTooltip = createTooltipComponent();
+			mTooltip = new TooltipComponent(this);
 		}
 		mTooltip->setEnabled(enabled);
 	}
@@ -364,11 +364,6 @@ namespace gfx {
 			return mTooltip->isEnabled();
 		}
 		return false;
-	}
-
-	TooltipComponent *Renderable::createTooltipComponent()
-	{
-		return new TooltipComponent(this);
 	}
 
 }

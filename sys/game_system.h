@@ -7,8 +7,9 @@ using namespace am::base;
 #include <ui/mouse_event.h>
 #include <ui/mouse_manager.h>
 #include <ui/ui_debug_inspector.h>
-#include <ui/ui_tooltip.h>
-
+//#include <ui/ui_tooltip.h>
+//#include <ui/ui_item_tooltip.h>
+#include <gfx/gfx_tooltip.h>
 using namespace am::ui;
 
 #include "isystem.h"

@@ -13,10 +13,10 @@ using namespace std;
 using namespace am::ui;
 
 namespace am {
-namespace ui {
+namespace gfx {
 	class Tooltip;
 }
-using am::ui::Tooltip;
+using am::gfx::Tooltip;
 
 namespace gfx {
 
@@ -48,6 +48,7 @@ namespace gfx {
 
 		string mTooltip;
 		string mDetailedTooltip;
+		//Handle<
 		Renderable *mParent;
 		bool mListeners;
 		bool mEnabled;

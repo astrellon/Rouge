@@ -273,6 +273,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="gfx\gfx_text_list.cpp" />
     <ClCompile Include="gfx\gfx_text_style_selector.cpp" />
     <ClCompile Include="gfx\gfx_text_style.cpp" />
+    <ClCompile Include="gfx\gfx_tooltip.cpp" />
     <ClCompile Include="gfx\gfx_tooltip_component.cpp" />
     <ClCompile Include="gfx\scale_nine.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
@@ -426,7 +427,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_body_part_renderer.cpp" />
     <ClCompile Include="ui\ui_debug_inspector.cpp" />
     <ClCompile Include="ui\ui_file_dialog.cpp" />
-    <ClCompile Include="ui\ui_item_description.cpp" />
     <ClCompile Include="ui\ui_list.cpp" />
     <ClCompile Include="ui\ui_store_screen.cpp" />
     <ClCompile Include="ui\ui_text_button.cpp" />
@@ -446,7 +446,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="ui\ui_options_panel.cpp" />
     <ClCompile Include="ui\ui_panel.cpp" />
     <ClCompile Include="ui\ui_text_input.cpp" />
-    <ClCompile Include="ui\ui_tooltip.cpp" />
     <ClCompile Include="ui\value_change_event.cpp" />
     <ClCompile Include="util\bounding_box.cpp" />
     <ClCompile Include="util\colour.cpp" />
@@ -536,6 +535,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="gfx\gfx_text_list.h" />
     <ClInclude Include="gfx\gfx_text_style_selector.h" />
     <ClInclude Include="gfx\gfx_text_style.h" />
+    <ClInclude Include="gfx\gfx_tooltip.h" />
     <ClInclude Include="gfx\gfx_tooltip_component.h" />
     <ClInclude Include="gfx\scale_nine.h" />
     <ClInclude Include="gfx\texture_window.h" />
@@ -687,7 +687,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_body_part_renderer.h" />
     <ClInclude Include="ui\ui_debug_inspector.h" />
     <ClInclude Include="ui\ui_file_dialog.h" />
-    <ClInclude Include="ui\ui_item_description.h" />
     <ClInclude Include="ui\ui_list.h" />
     <ClInclude Include="ui\ui_store_screen.h" />
     <ClInclude Include="ui\ui_text_button.h" />
@@ -707,7 +706,6 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="ui\ui_options_panel.h" />
     <ClInclude Include="ui\ui_panel.h" />
     <ClInclude Include="ui\ui_text_input.h" />
-    <ClInclude Include="ui\ui_tooltip.h" />
     <ClInclude Include="ui\value_change_event.h" />
     <ClInclude Include="util\bounding_box.h" />
     <ClInclude Include="util\colour.h" />
