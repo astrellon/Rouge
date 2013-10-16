@@ -9,6 +9,7 @@
 using namespace am::game;
 
 #include <gfx/gfx_texture.h>
+#include <gfx/gfx_tooltip_string.h>
 
 #include <log/logger.h>
 
@@ -31,7 +32,7 @@ namespace ui {
 		mHitbox->setInteractive(true);
 		addChild(mHitbox);
 
-		mHitbox->setTooltip(bodyPartName);
+		mHitbox->setTooltip(new TooltipString(bodyPartName, nullptr));
 
 		setMaxItemSize(width, height);
 

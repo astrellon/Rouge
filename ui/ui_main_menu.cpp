@@ -4,6 +4,7 @@
 #include <log/logger.h>
 
 #include "ui_text_button.h"
+#include <gfx/gfx_tooltip_string.h>
 
 namespace am {
 namespace ui {
@@ -27,13 +28,12 @@ namespace ui {
 
 		float buttonHeight = mStartGame->getHeight();
 		mStartGame->setWidth(220.0f);
-		mStartGame->setTooltip("Start Game");
-		mStartGame->setDetailedTooltip("Really start the game");
+		mStartGame->setTooltip(new TooltipString("Start Game", "Really start das game."));
 		mStartGame->setParentOffsetY(-buttonHeight * 2.0f);
 		mStartGame->addEventListener("click", this);
 
 		mLoadGame->setParentOffsetY(-buttonHeight * 1.0f);
-		mLoadGame->setTooltip("Load Game");
+		mLoadGame->setTooltip(new TooltipString("Load Game!"));
 		mLoadGame->setWidth(200.0f);
 		mLoadGame->addEventListener("click", this);
 

@@ -12,6 +12,8 @@
 
 #include <math/math.h>
 
+#include <gfx/gfx_tooltip_string.h>
+
 #include <util/data_table.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
@@ -113,7 +115,7 @@ namespace game {
 		if (name)
 		{
 			mName = name;
-			setTooltip(name);
+			setTooltip(new TooltipString(name, nullptr));
 		}
 	}
 	void GameObject::setName(const string &name)

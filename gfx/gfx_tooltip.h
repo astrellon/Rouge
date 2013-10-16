@@ -14,21 +14,18 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class Tooltip : public Layer {
+	class Tooltip : public Layer, public IEventListener {
 	public:
 		Tooltip();
-		Tooltip(const char *tooltip, const char *detailed = nullptr, Renderable *target = nullptr);
+		Tooltip(Renderable *target);
+		Tooltip(const Tooltip &copy);
 		~Tooltip();
+
+		virtual Renderable *clone() const;
 
 		enum TooltipState {
 			HIDDEN, ACTIVE, VISIBLE, VISIBLE_DETAILED
 		};
-
-		virtual void setText(const char *text);
-		virtual const char *getText() const;
-
-		virtual void setDetailedText(const char *text);
-		virtual const char *getDetailedText() const;
 
 		virtual void active(Renderable *target = nullptr);
 		virtual void show(Renderable *target = nullptr);
@@ -50,11 +47,15 @@ namespace gfx {
 
 		virtual float getTimeCounter() const;
 
-		virtual Sprite *getGraphic();
-		virtual TextField2 *getTextField();
-		virtual TextField2 *getDetailedTextField();
+		virtual Sprite *getGraphic() const;
+		virtual void setTooltipGraphic(Renderable *graphic);
+		virtual Renderable *getTooltipGraphic() const;
+		virtual void setTooltipDetailedGraphic(Renderable *graphic);
+		virtual Renderable *getTooltipDetailedGraphic() const;
 
 		virtual void render(float dt);
+
+		virtual void onEvent(MouseEvent *e);
 
 	protected:
 
@@ -64,16 +65,10 @@ namespace gfx {
 		float mDisplayDelay;
 		float mDetailedDisplayDelay;
 
-		float mTextWidth;
-		float mTextHeight;
-
-		float mDetailedTextWidth;
-		float mDetailedTextHeight;
-
 		Handle<Renderable> mTarget;
 		Handle<Sprite> mGraphic;
-		Handle<TextField2> mTextField;
-		Handle<TextField2> mDetailedTextField;
+		Handle<Renderable> mTooltipGraphic;
+		Handle<Renderable> mTooltipDetailedGraphic;
 
 		virtual void setDetailed(bool detailed);
 	};

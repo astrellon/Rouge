@@ -11,6 +11,7 @@ using namespace am::base;
 #include <gl.h>
 #include "gfx_engine.h"
 #include "gfx_layer.h"
+#include "gfx_tooltip.h"
 
 namespace am {
 namespace gfx {
@@ -28,7 +29,8 @@ namespace gfx {
 		mHeight(0),
 		mParent(nullptr),
 		mInteractive(false),
-		mVisible(true)
+		mVisible(true),
+		mTooltip(nullptr)
 	{
 #ifdef _DEBUG
 		mRenderColour = false;
@@ -42,7 +44,8 @@ namespace gfx {
 		mInteractive(copy.mInteractive),
 		mParent(nullptr),
 		mVisible(copy.mVisible),
-		mTransform(copy.mTransform)
+		mTransform(copy.mTransform),
+		mTooltip(nullptr)
 	{
 		if (copy.mGfxComponent)
 		{
@@ -50,8 +53,7 @@ namespace gfx {
 		}
 		if (copy.mTooltip)
 		{
-			mTooltip = new TooltipComponent(*copy.mTooltip);
-			mTooltip->setParent(this);
+			mTooltip = static_cast<Tooltip *>(copy.mTooltip->clone());
 		}
 #ifdef _DEBUG
 		mRenderColour = copy.mRenderColour;
@@ -63,6 +65,11 @@ namespace gfx {
 #ifdef _DEBUG
 		//am_log("DELETING", mDebugName);
 #endif
+		removeTooltipListeners(mTooltip);
+		if (mTooltip)
+		{
+			mTooltip->release();
+		}
 		if (mParent)
 		{
 			Handle<Layer> parent(mParent);
@@ -317,54 +324,45 @@ namespace gfx {
 		outY = inY + offsetY;
 	}
 
-	void Renderable::setTooltip(const char *tooltip)
-	{
-		if (!mTooltip && tooltip && tooltip[0] != '\0')
-		{
-			mTooltip = new TooltipComponent(this);
-		}
-		mTooltip->setTooltip(tooltip);
-	}
-	const char *Renderable::getTooltip()
+	void Renderable::setTooltip(Tooltip *tooltip)
 	{
 		if (mTooltip)
 		{
-			return mTooltip->getTooltip();
+			removeTooltipListeners(mTooltip);
+			mTooltip->release();
 		}
-		return "";
-	}
-	void Renderable::setDetailedTooltip(const char *tooltip)
-	{
-		if (!mTooltip && tooltip && tooltip[0] != '\0')
-		{
-			mTooltip = new TooltipComponent(this);
-		}
-		mTooltip->setDetailedTooltip(tooltip);
-	}
-	const char *Renderable::getDetailedTooltip()
-	{
+		mTooltip = tooltip;
 		if (mTooltip)
 		{
-			return mTooltip->getDetailedTooltip();
+			mTooltip->retain();
+			if (!mTooltip->getTarget())
+			{
+				mTooltip->setTarget(this);
+			}
+			addTooltipListeners(mTooltip);
 		}
-		return "";
 	}
-	void Renderable::setTooltipEnabled(bool enabled)
+	Tooltip *Renderable::getTooltip()
 	{
-		if (!mTooltip)
-		{
-			mTooltip = new TooltipComponent(this);
-		}
-		mTooltip->setEnabled(enabled);
-	}
-	bool Renderable::isTooltipEnabled() const
-	{
-		if (mTooltip)
-		{
-			return mTooltip->isEnabled();
-		}
-		return false;
+		return mTooltip;
 	}
 
+	void Renderable::addTooltipListeners(Tooltip *tooltip)
+	{
+		if (tooltip)
+		{
+			addEventListener(MOUSE_OVER, tooltip);
+			addEventListener(MOUSE_OUT, tooltip);
+		}
+	}
+	void Renderable::removeTooltipListeners(Tooltip *tooltip)
+	{
+		if (tooltip)
+		{
+			removeEventListener(MOUSE_OVER, tooltip);
+			removeEventListener(MOUSE_OUT, tooltip);
+		}
+	}
+	
 }
 }

@@ -4,29 +4,24 @@
 #include <gfx/gfx_texture.h>
 #include <gl.h>
 
+#include <ui/mouse_manager.h>
+
 namespace am {
 namespace gfx {
 
 	Tooltip::Tooltip() :
+		Layer(),
 		mGraphic(new Sprite("ui:tooltip")),
-		mTextField(new TextField2()),
-		mDetailedTextField(new TextField2()),
 		mState(HIDDEN),
 		mTimeCounter(0.0f),
 		mDisplayDelay(0.8f),
 		mDetailedDisplayDelay(1.5f)
 	{
 		addChild(mGraphic);
-		addChild(mTextField);
-		addChild(mDetailedTextField);
-
-		mTextField->setPosition(8.0f, 8.0f);
-		mDetailedTextField->setPosition(8.0f, 8.0f);
 	}
-	Tooltip::Tooltip(const char *tooltip, const char *detailed, Renderable *target) :
+	Tooltip::Tooltip(Renderable *target) :
+		Layer(),
 		mGraphic(new Sprite("ui:tooltip")),
-		mTextField(new TextField2()),
-		mDetailedTextField(new TextField2()),
 		mState(HIDDEN),
 		mTimeCounter(0.0f),
 		mDisplayDelay(0.8f),
@@ -34,48 +29,36 @@ namespace gfx {
 		mTarget(target)
 	{
 		addChild(mGraphic);
-		addChild(mTextField);
-		addChild(mDetailedTextField);
-
-		mTextField->setPosition(8.0f, 8.0f);
-		mDetailedTextField->setPosition(8.0f, 8.0f);
-
-		setText(tooltip);
-		setDetailedText(detailed);
+	}
+	Tooltip::Tooltip(const Tooltip &copy) :
+		Layer(copy),
+		mState(HIDDEN),
+		mTimeCounter(0.0f),
+		mDisplayDelay(copy.mDisplayDelay),
+		mDetailedDisplayDelay(copy.mDetailedDisplayDelay),
+		mTarget(nullptr)
+	{
+		if (copy.mGraphic)
+		{
+			for (auto iter = mChildren.begin(); iter != mChildren.end(); ++iter)
+			{
+				Sprite *sprite = dynamic_cast<Sprite *>(iter->get());
+				if (sprite && sprite->getAsset() == copy.mGraphic->getAsset())
+				{
+					mGraphic = sprite;
+					break;
+				}
+			}
+		}
 	}
 	Tooltip::~Tooltip()
 	{
 		
 	}
 
-	void Tooltip::setText(const char *text)
+	Renderable *Tooltip::clone() const
 	{
-		if (text == nullptr)
-		{
-			text = "";
-		}
-		mTextWidth = mTextHeight = 0.0f;
-		mTextField->setText(text);
-		mTextField->getBaseFont()->measureText(mTextField->getText(), 0.0f, mTextWidth, mTextHeight);
-	}
-	const char *Tooltip::getText() const
-	{
-		return mTextField->getText();
-	}
-
-	void Tooltip::setDetailedText(const char *text)
-	{
-		if (text == nullptr)
-		{
-			text = "";
-		}
-		mDetailedTextWidth = mDetailedTextHeight = 0.0f;
-		mDetailedTextField->setText(text);
-		mDetailedTextField->getBaseFont()->measureText(mDetailedTextField->getText(), 0.0f, mDetailedTextWidth, mDetailedTextHeight);
-	}
-	const char *Tooltip::getDetailedText() const
-	{
-		return mDetailedTextField->getText();
+		return new Tooltip(*this);
 	}
 
 	void Tooltip::active(Renderable *target)
@@ -159,34 +142,52 @@ namespace gfx {
 		return mTimeCounter;
 	}
 
-	Sprite *Tooltip::getGraphic()
+	Sprite *Tooltip::getGraphic() const
 	{
 		return mGraphic;
 	}
-	TextField2 *Tooltip::getTextField()
+	void Tooltip::setTooltipGraphic(Renderable *tooltip)
 	{
-		return mTextField;
+		mTooltipGraphic = tooltip;
 	}
-	TextField2 *Tooltip::getDetailedTextField()
+	Renderable *Tooltip::getTooltipGraphic() const
 	{
-		return mDetailedTextField;
+		return mTooltipGraphic;
+	}
+	void Tooltip::setTooltipDetailedGraphic(Renderable *tooltip)
+	{
+		mTooltipDetailedGraphic = tooltip;
+	}
+	Renderable *Tooltip::getTooltipDetailedGraphic() const
+	{
+		return mTooltipDetailedGraphic;
 	}
 
 	void Tooltip::setDetailed(bool detailed)
 	{
 		if (detailed)
 		{
-			mTextField->setVisible(false);
-			mDetailedTextField->setVisible(true);
-
-			mGraphic->setSize(mDetailedTextWidth + 16.0f, mDetailedTextHeight + 16.0f);
+			if (mTooltipGraphic)
+			{
+				mTooltipGraphic->setVisible(false);
+			}
+			if (mTooltipDetailedGraphic)
+			{
+				mTooltipDetailedGraphic->setVisible(true);
+				mGraphic->setSize(mTooltipDetailedGraphic->getWidth() + 16.0f, mTooltipDetailedGraphic->getHeight() + 16.0f);
+			}
 		}
 		else
 		{
-			mTextField->setVisible(true);
-			mDetailedTextField->setVisible(false);
-
-			mGraphic->setSize(mTextWidth + 16.0f, mTextHeight + 16.0f);
+			if (mTooltipGraphic)
+			{
+				mTooltipGraphic->setVisible(true);
+				mGraphic->setSize(mTooltipGraphic->getWidth() + 16.0f, mTooltipGraphic->getHeight() + 16.0f);
+			}
+			if (mTooltipDetailedGraphic)
+			{
+				mTooltipDetailedGraphic->setVisible(false);
+			}
 		}
 	}
 
@@ -197,7 +198,7 @@ namespace gfx {
 			mTimeCounter += dt;
 			if (mState == ACTIVE)
 			{
-				if (mTimeCounter > mDetailedDisplayDelay && mDetailedTextField->rawLength() > 0)
+				if (mTimeCounter > mDetailedDisplayDelay && mTooltipDetailedGraphic)
 				{
 					setState(VISIBLE_DETAILED);
 					setDetailed(true);
@@ -210,7 +211,7 @@ namespace gfx {
 			}
 			else if (mState == VISIBLE)
 			{
-				if (mTimeCounter > mDetailedDisplayDelay && mDetailedTextField->rawLength() > 0)
+				if (mTimeCounter > mDetailedDisplayDelay && mTooltipDetailedGraphic)
 				{
 					setState(VISIBLE_DETAILED);
 					setDetailed(true);
@@ -221,17 +222,27 @@ namespace gfx {
 		{
 			return;
 		}
-		/*glPushMatrix();
-		mTransform.apply();
-		
-		Texture::bindTexture(0);
-		glBegin(GL_LINES);
-		glColor3d(1, 0, 0);
-		glVertex2f(0, 0);
-		glVertex2f(50, 50);
-		glEnd();
-		glPopMatrix();*/
+
 		Layer::render(dt);
+	}
+
+	void Tooltip::onEvent(MouseEvent *e)
+	{
+		if (!e || !mTarget)
+		{
+			return;
+		}
+
+		if (e->getMouseEventType() == MOUSE_OVER)
+		{
+			MouseManager *manager = MouseManager::getManager();
+			setPosition(manager->getMouseX(), manager->getMouseY());
+			active();
+		}
+		else
+		{
+			hide();
+		}
 	}
 
 }

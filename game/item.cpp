@@ -99,7 +99,7 @@ namespace game {
 		//retain();
 
 		updateGraphic();
-		setTooltip(mName.c_str());
+		//setTooltip(mName.c_str());
 		updateDetailedTooltip();
 	}
 	Item::~Item()
@@ -321,7 +321,7 @@ namespace game {
 		{
 			mPostfix = -1;
 		}
-		setTooltip(mName.c_str());
+		//setTooltip(mName.c_str());
 		updateDetailedTooltip();
 	}
 	string Item::getFullItemName() const
@@ -766,15 +766,15 @@ namespace game {
 				}
 				ss << "Value: " << getItemValue();
 			}*/
-			setTooltipEnabled(false);
+			//setTooltipEnabled(false);
 		}
 		else
 		{
-			stringstream ss;
+			/*stringstream ss;
 			ss << mName << '\n';
 			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItemType);
 			setDetailedTooltip(ss.str().c_str());
-			setTooltipEnabled(true);
+			setTooltipEnabled(true);*/
 		}
 	}
 

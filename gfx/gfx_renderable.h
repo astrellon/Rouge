@@ -14,12 +14,12 @@ using namespace am::util;
 
 #include "gfx_effect.h"
 #include "gfx_component.h"
-#include "gfx_tooltip_component.h"
 
 namespace am {
 namespace gfx {
 
 	class Layer;
+	class Tooltip;
 
 	class Renderable : virtual public IManaged, public EventInterface {
 	public:
@@ -87,13 +87,9 @@ namespace gfx {
 		virtual void getScreenToLocal(const float &inX, const float &inY, float &outX, float &outY) const;
 		virtual void getLocalToScreen(const float &inX, const float &inY, float &outX, float &outY) const;
 
-		virtual void setTooltip(const char *tooltip);
-		virtual const char *getTooltip();
-		virtual void setDetailedTooltip(const char *tooltip);
-		virtual const char *getDetailedTooltip();
-		virtual void setTooltipEnabled(bool enabled);
-		virtual bool isTooltipEnabled() const;
-
+		virtual void setTooltip(Tooltip *tooltip);
+		virtual Tooltip *getTooltip();
+		
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 
 		static void debugRenderPath(const RenderablePath &path, vector<string> &output);
@@ -111,13 +107,15 @@ namespace gfx {
 		bool mInteractive;
 
 		Handle<GfxComponent> mGfxComponent;
-		Handle<TooltipComponent> mTooltip;
-		Handle<Renderable> mTooltipGraphic;
+		Tooltip *mTooltip;
 		Layer *mParent;
 		am::math::TransformLite mTransform;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
+
+		void addTooltipListeners(Tooltip *tooltip);
+		void removeTooltipListeners(Tooltip *tooltip);
 	};
 
 }
