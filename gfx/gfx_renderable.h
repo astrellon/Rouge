@@ -88,6 +88,7 @@ namespace gfx {
 		virtual void getLocalToScreen(const float &inX, const float &inY, float &outX, float &outY) const;
 
 		virtual void setTooltip(Tooltip *tooltip);
+		virtual bool hasTooltip() const;
 		virtual Tooltip *getTooltip();
 		
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);

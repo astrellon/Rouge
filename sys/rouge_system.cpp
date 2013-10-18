@@ -13,6 +13,7 @@
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_scrollbar.h>
 #include <gfx/gfx_button.h>
+#include <gfx/gfx_tooltip_item.h>
 
 #include <ui/ui_text_button.h>
 #include <ui/ui_checkbox.h>
@@ -154,6 +155,8 @@ namespace sys {
 		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
+
+		mItemTooltip = new TooltipItem();
 
 		//ISystem::FolderEntryList result;
 		//listDirectory("C:\\git\\Rouge\\data", result);
@@ -509,5 +512,9 @@ namespace sys {
 		setCurrentMenu(nullptr);
 	}
 
+	TooltipItem *RougeSystem::getItemTooltip() const
+	{
+		return mItemTooltip;
+	}
 }
 }

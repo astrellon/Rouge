@@ -5,6 +5,8 @@
 #include "tile_type.h"
 #include "player_hand.h"
 
+#include <gfx/gfx_tooltip_item.h>
+
 #include <ui/mouse_manager.h>
 #include <ui/keyboard_manager.h>
 
@@ -13,6 +15,9 @@
 #include <util/data_string.h>
 #include <util/data_number.h>
 using namespace am::util;
+
+#include <sys/rouge_system.h>
+using namespace am::sys;
 
 #include <log/logger.h>
 
@@ -99,12 +104,9 @@ namespace game {
 		//retain();
 
 		updateGraphic();
-		//setTooltip(mName.c_str());
-		updateDetailedTooltip();
 	}
 	Item::~Item()
 	{
-
 	}
 
 	Item *Item::clone() const
@@ -136,9 +138,9 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Item::getGraphic()
+	Sprite *Item::getGraphic() const
 	{
-		return mGraphic.get();
+		return mGraphic;
 	}
 
 	void Item::setGroundGraphic(Sprite *graphic)
@@ -159,15 +161,14 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Item::getGroundGraphic()
+	Sprite *Item::getGroundGraphic() const
 	{
-		return mGraphic.get();
+		return mGraphic;
 	}
 
 	void Item::setItemType(ItemCommon::ItemType type)
 	{
 		mItemType = type;
-		updateDetailedTooltip();
 	}
 	ItemCommon::ItemType Item::getItemType() const
 	{
@@ -214,11 +215,11 @@ namespace game {
 		updateGraphic();
 	}
 
-	StatModifiers *Item::getStatModifiers()
+	StatModifiers *Item::getStatModifiers() const
 	{
 		return mStatModifiers;
 	}
-	StatModifiers *Item::getStatModifiersSelf()
+	StatModifiers *Item::getStatModifiersSelf() const
 	{
 		return mStatModifiersSelf;
 	}
@@ -252,7 +253,6 @@ namespace game {
 		{
 			mItemLocation = location;
 			updateGraphic();
-			updateDetailedTooltip();
 		}
 	}
 	Item::ItemLocation Item::getItemLocation() const
@@ -321,8 +321,6 @@ namespace game {
 		{
 			mPostfix = -1;
 		}
-		//setTooltip(mName.c_str());
-		updateDetailedTooltip();
 	}
 	string Item::getFullItemName() const
 	{
@@ -714,6 +712,25 @@ namespace game {
 		return GameObject::isInteractive();
 	}
 
+	void Item::setTooltip(Tooltip *tooltip)
+	{
+		GameObject::setTooltip(tooltip);
+	}
+	bool Item::hasTooltip() const
+	{
+		return true;
+	}
+	Tooltip *Item::getTooltip()
+	{
+		if (mTooltip)
+		{
+			return mTooltip;
+		}
+		TooltipItem *tooltip = RougeSystem::getRougeSystem()->getItemTooltip();
+		tooltip->setItem(this);
+		return tooltip;
+	}
+
 	void Item::onLevelUp()
 	{
 		Handle<Event> e(new Event("level_change"));
@@ -725,58 +742,11 @@ namespace game {
 		fireEvent<Event>(e);
 	}
 
-	void Item::updateDetailedTooltip()
-	{
-		if (mItemLocation == INVENTORY)
-		{
-			/*if (mItemType == ItemCommon::GOLD)
-			{
-				ss << "Gold: " << getItemValue() << '\n';
-			}
-			else if (mItemType == ItemCommon::POTION)
-			{
-				ss << "Value: " << getItemValue();
-			}
-			else if (mItemType == ItemCommon::SPELL_SCROLL)
-			{
-
-			}
-			else if (mItemType == ItemCommon::MESSAGE_SCROLL)
-			{
-				ss << "Right click to read the message.";
-			}
-			else
-			{
-				int i = 0;
-				while (true)
-				{
-					Stat::StatType stat = Stat::getStatType(i);
-					i++;
-					if (stat == Stat::MAX_STAT_LENGTH)
-					{
-						break;
-					}
-					float value = mStatModifiers->calculateStat(stat, 0.0f);
-					if (value <= 0.00001f)
-					{
-						continue;
-					}
-					ss << Stat::getNiceStatName(stat) << ": " << value << '\n';
-					
-				}
-				ss << "Value: " << getItemValue();
-			}*/
-			//setTooltipEnabled(false);
-		}
-		else
-		{
 			/*stringstream ss;
 			ss << mName << '\n';
 			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItemType);
 			setDetailedTooltip(ss.str().c_str());
 			setTooltipEnabled(true);*/
-		}
-	}
-
+	
 }
 }

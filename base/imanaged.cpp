@@ -39,6 +39,11 @@ namespace base {
 		}
 	}
 
+	void IManaged::release() const
+	{
+		mRefCounter--;
+	}
+
 	void IManaged::retain()
 	{
 		mRefCounter++;
@@ -48,6 +53,11 @@ namespace base {
 			mRetainCallback(this);
 		}
 #endif
+	}
+
+	void IManaged::retain() const
+	{
+		mRefCounter++;
 	}
 
 	int IManaged::getReferenceCounter() const

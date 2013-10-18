@@ -3,6 +3,7 @@
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_layer.h>
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_tooltip.h>
 
 #include <ui/ui_debug_inspector.h>
 
@@ -160,9 +161,7 @@ namespace ui {
 						fireMouseEvent(oldUnderMouse, MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
 					
-					{
-						fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
-					}
+					fireMouseEvent(target, MOUSE_OVER, mouseButton, x, y, localX, localY);
 				}
 				
 				{
@@ -212,6 +211,14 @@ namespace ui {
 		while (!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
+			if (mouseType == MOUSE_OVER && target->hasTooltip())
+			{
+				target->getTooltip()->onMouseOver(x, y);
+			}
+			else if (mouseType == MOUSE_OUT && target->hasTooltip())
+			{
+				target->getTooltip()->onMouseOut(x, y);
+			}
 			target = target->getParent();
 			mCurrentEvent->setEventTarget(target);
 		}

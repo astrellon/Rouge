@@ -18,6 +18,7 @@ using namespace am::base;
 namespace gfx {
 	class GfxEngine;
 	class Layer;
+	class TooltipItem;
 }
 using namespace am::gfx;
 
@@ -68,6 +69,8 @@ namespace sys {
 		void showOptionsPanel();
 		void closeOptionsPanel();
 
+		TooltipItem *getItemTooltip() const;
+
 	protected:
 		
 		RougeSystem(OsSystem *linked, Engine *engine);
@@ -82,6 +85,7 @@ namespace sys {
 		Handle<Image> mPausedImage;
 
 		Handle<Character> mPlayer;
+		Handle<TooltipItem> mItemTooltip;
 
 		void checkPaused();
 		bool mPausedGame;

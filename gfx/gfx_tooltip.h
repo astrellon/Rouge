@@ -14,10 +14,10 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class Tooltip : public Layer, public IEventListener {
+	class Tooltip : public Layer {
 	public:
 		Tooltip();
-		Tooltip(Renderable *target);
+		Tooltip(const Renderable *target);
 		Tooltip(const Tooltip &copy);
 		~Tooltip();
 
@@ -27,12 +27,12 @@ namespace gfx {
 			HIDDEN, ACTIVE, VISIBLE, VISIBLE_DETAILED
 		};
 
-		virtual void active(Renderable *target = nullptr);
-		virtual void show(Renderable *target = nullptr);
+		virtual void active(const Renderable *target = nullptr);
+		virtual void show(const Renderable *target = nullptr);
 		virtual void hide();
 
-		virtual void setTarget(Renderable *target);
-		virtual Renderable *getTarget() const;
+		virtual void setTarget(const Renderable *target);
+		virtual const Renderable *getTarget() const;
 
 		virtual void setState(TooltipState state);
 		virtual TooltipState getState() const;
@@ -55,7 +55,9 @@ namespace gfx {
 
 		virtual void render(float dt);
 
-		virtual void onEvent(MouseEvent *e);
+		//virtual void onEvent(MouseEvent *e);
+		virtual void onMouseOver(int mouseX, int mouseY);
+		virtual void onMouseOut(int mouseX, int mouseY);
 
 	protected:
 
@@ -65,7 +67,7 @@ namespace gfx {
 		float mDisplayDelay;
 		float mDetailedDisplayDelay;
 
-		Handle<Renderable> mTarget;
+		Handle<const Renderable> mTarget;
 		Handle<Sprite> mGraphic;
 		Handle<Renderable> mTooltipGraphic;
 		Handle<Renderable> mTooltipDetailedGraphic;

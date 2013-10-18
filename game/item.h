@@ -38,10 +38,10 @@ namespace game {
 		Item *clone() const;
 
 		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
-		virtual Sprite *getGraphic();
+		virtual Sprite *getGraphic() const;
 
 		virtual void setGroundGraphic(Sprite *graphic);
-		virtual Sprite *getGroundGraphic();
+		virtual Sprite *getGroundGraphic() const;
 
 		virtual void setItemType(ItemCommon::ItemType type);
 		virtual ItemCommon::ItemType getItemType() const;
@@ -81,12 +81,12 @@ namespace game {
 		 * These are the stat modifiers that are applied
 		 * to the character as a whole that equips it.
 		 */
-		virtual StatModifiers *getStatModifiers();
+		virtual StatModifiers *getStatModifiers() const;
 		/**
 		 * These stat modifiers that are applied only when
 		 * this item is in use, such as when it's being used to attack.
 		 */
-		virtual StatModifiers *getStatModifiersSelf();
+		virtual StatModifiers *getStatModifiersSelf() const;
 
 		virtual float getWidth();
 		virtual float getHeight();
@@ -118,6 +118,10 @@ namespace game {
 
 		virtual bool isInteractive() const;
 
+		virtual void setTooltip(Tooltip *tooltip);
+		virtual bool hasTooltip() const;
+		virtual Tooltip *getTooltip();
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -141,7 +145,6 @@ namespace game {
 		unsigned int mBodyPartsRequired;
 
 		DamageType mBaseDamageType;
-		bool mDetailedTooltipDirty;
 
 		Handle<StatModifiers> mStatModifiers;
 		Handle<StatModifiers> mStatModifiersSelf;
@@ -153,8 +156,6 @@ namespace game {
 		virtual void onExperienceChange();
 
 		void getPrePostfix(short &prefix, short &postfix) const;
-
-		void updateDetailedTooltip();
 
 		static const char *sItemLocationNames[];
 	};

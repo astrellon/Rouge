@@ -13,6 +13,8 @@ namespace base {
 
 		virtual void release();
 		virtual void retain();
+		virtual void release() const;
+		virtual void retain() const;
 		
 		int getReferenceCounter() const;
 
@@ -21,7 +23,7 @@ namespace base {
 
 	private:
 
-		int mRefCounter;
+		mutable int mRefCounter;
 
 #ifdef _DEBUG
 		ManagedCallback mReleaseCallback;

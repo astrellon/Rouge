@@ -65,7 +65,7 @@ namespace gfx {
 #ifdef _DEBUG
 		//am_log("DELETING", mDebugName);
 #endif
-		removeTooltipListeners(mTooltip);
+		//removeTooltipListeners(mTooltip);
 		if (mTooltip)
 		{
 			mTooltip->release();
@@ -326,7 +326,7 @@ namespace gfx {
 
 	void Renderable::setTooltip(Tooltip *tooltip)
 	{
-		if (mTooltip)
+		/*if (mTooltip)
 		{
 			removeTooltipListeners(mTooltip);
 			mTooltip->release();
@@ -340,13 +340,26 @@ namespace gfx {
 				mTooltip->setTarget(this);
 			}
 			addTooltipListeners(mTooltip);
+		}*/
+		if (mTooltip)
+		{
+			mTooltip->release();
+		}
+		mTooltip = tooltip;
+		if (mTooltip)
+		{
+			mTooltip->retain();
 		}
 	}
 	Tooltip *Renderable::getTooltip()
 	{
 		return mTooltip;
 	}
-
+	bool Renderable::hasTooltip() const
+	{
+		return mTooltip != nullptr;
+	}
+	/*
 	void Renderable::addTooltipListeners(Tooltip *tooltip)
 	{
 		if (tooltip)
@@ -363,6 +376,6 @@ namespace gfx {
 			removeEventListener(MOUSE_OUT, tooltip);
 		}
 	}
-	
+	*/
 }
 }

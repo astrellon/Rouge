@@ -115,7 +115,7 @@ namespace game {
 		if (name)
 		{
 			mName = name;
-			setTooltip(new TooltipString(name, nullptr));
+			//setTooltip(new TooltipString(name, nullptr));
 		}
 	}
 	void GameObject::setName(const string &name)

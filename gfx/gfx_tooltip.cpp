@@ -19,7 +19,7 @@ namespace gfx {
 	{
 		addChild(mGraphic);
 	}
-	Tooltip::Tooltip(Renderable *target) :
+	Tooltip::Tooltip(const Renderable *target) :
 		Layer(),
 		mGraphic(new Sprite("ui:tooltip")),
 		mState(HIDDEN),
@@ -61,7 +61,7 @@ namespace gfx {
 		return new Tooltip(*this);
 	}
 
-	void Tooltip::active(Renderable *target)
+	void Tooltip::active(const Renderable *target)
 	{
 		setState(ACTIVE);
 		GfxEngine::getEngine()->getTooltipLayer()->addChild(this);
@@ -70,7 +70,7 @@ namespace gfx {
 			setTarget(target);
 		}
 	}
-	void Tooltip::show(Renderable *target)
+	void Tooltip::show(const Renderable *target)
 	{
 		setState(VISIBLE);
 		setDetailed(false);
@@ -86,7 +86,7 @@ namespace gfx {
 		setState(HIDDEN);
 	}
 
-	void Tooltip::setTarget(Renderable *target)
+	void Tooltip::setTarget(const Renderable *target)
 	{
 		mTarget = target;
 
@@ -98,7 +98,7 @@ namespace gfx {
 			setPosition(outX, outY);
 		}
 	}
-	Renderable *Tooltip::getTarget() const
+	const Renderable *Tooltip::getTarget() const
 	{
 		return mTarget;
 	}
@@ -226,7 +226,7 @@ namespace gfx {
 		Layer::render(dt);
 	}
 
-	void Tooltip::onEvent(MouseEvent *e)
+	/*void Tooltip::onEvent(MouseEvent *e)
 	{
 		if (!e || !mTarget)
 		{
@@ -243,6 +243,16 @@ namespace gfx {
 		{
 			hide();
 		}
+	}*/
+
+	void Tooltip::onMouseOver(int mouseX, int mouseY)
+	{
+		setPosition(mouseX, mouseY);
+		active();
+	}
+	void Tooltip::onMouseOut(int mouseX, int mouseY)
+	{
+		hide();
 	}
 
 }

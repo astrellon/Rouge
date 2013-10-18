@@ -274,6 +274,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="gfx\gfx_text_style_selector.cpp" />
     <ClCompile Include="gfx\gfx_text_style.cpp" />
     <ClCompile Include="gfx\gfx_tooltip.cpp" />
+    <ClCompile Include="gfx\gfx_tooltip_item.cpp" />
     <ClCompile Include="gfx\gfx_tooltip_string.cpp" />
     <ClCompile Include="gfx\scale_nine.cpp" />
     <ClCompile Include="gfx\texture_window.cpp" />
@@ -536,6 +537,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="gfx\gfx_text_style_selector.h" />
     <ClInclude Include="gfx\gfx_text_style.h" />
     <ClInclude Include="gfx\gfx_tooltip.h" />
+    <ClInclude Include="gfx\gfx_tooltip_item.h" />
     <ClInclude Include="gfx\gfx_tooltip_string.h" />
     <ClInclude Include="gfx\scale_nine.h" />
     <ClInclude Include="gfx\texture_window.h" />

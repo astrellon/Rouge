@@ -934,6 +934,9 @@
     <ClCompile Include="gfx\gfx_tooltip_string.cpp">
       <Filter>gfx\base\tooltips</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_tooltip_item.cpp">
+      <Filter>gfx\rouge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1707,6 +1710,9 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_tooltip_string.h">
       <Filter>gfx\base\tooltips</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_tooltip_item.h">
+      <Filter>gfx\rouge</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
