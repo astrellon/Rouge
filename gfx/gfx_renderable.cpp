@@ -326,21 +326,6 @@ namespace gfx {
 
 	void Renderable::setTooltip(Tooltip *tooltip)
 	{
-		/*if (mTooltip)
-		{
-			removeTooltipListeners(mTooltip);
-			mTooltip->release();
-		}
-		mTooltip = tooltip;
-		if (mTooltip)
-		{
-			mTooltip->retain();
-			if (!mTooltip->getTarget())
-			{
-				mTooltip->setTarget(this);
-			}
-			addTooltipListeners(mTooltip);
-		}*/
 		if (mTooltip)
 		{
 			mTooltip->release();
@@ -359,23 +344,6 @@ namespace gfx {
 	{
 		return mTooltip != nullptr;
 	}
-	/*
-	void Renderable::addTooltipListeners(Tooltip *tooltip)
-	{
-		if (tooltip)
-		{
-			addEventListener(MOUSE_OVER, tooltip);
-			addEventListener(MOUSE_OUT, tooltip);
-		}
-	}
-	void Renderable::removeTooltipListeners(Tooltip *tooltip)
-	{
-		if (tooltip)
-		{
-			removeEventListener(MOUSE_OVER, tooltip);
-			removeEventListener(MOUSE_OUT, tooltip);
-		}
-	}
-	*/
+
 }
 }

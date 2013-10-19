@@ -742,11 +742,5 @@ namespace game {
 		fireEvent<Event>(e);
 	}
 
-			/*stringstream ss;
-			ss << mName << '\n';
-			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItemType);
-			setDetailedTooltip(ss.str().c_str());
-			setTooltipEnabled(true);*/
-	
 }
 }

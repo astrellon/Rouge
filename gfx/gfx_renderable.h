@@ -114,9 +114,6 @@ namespace gfx {
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
-
-		void addTooltipListeners(Tooltip *tooltip);
-		void removeTooltipListeners(Tooltip *tooltip);
 	};
 
 }

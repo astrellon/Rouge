@@ -67,7 +67,7 @@ do
 	am.gfx_engine.asset(am.asset.new("tooltip")
 		:add_texture("data/textures/tooltip.png")
 		:scale_nine({
-			left_x = 2, right_x = 14,
-			top_y = 2, bottom_y = 14
+			left_x = 4, right_x = 12,
+			top_y = 4, bottom_y = 12
 		}, true))
 end
