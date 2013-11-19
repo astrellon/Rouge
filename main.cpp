@@ -8,7 +8,21 @@
 
 #include <util/utils.h>
 
+#ifdef _WIN_SYS
+HINSTANCE mainHInstance;
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+	mainHInstance = hInstance;
+	return amMain(__argc, __argv);
+}
+#elif defined(_FREEGLUT_SYS)
+int main(int argc, char **argv)
+{
+	return amMain(argc, argv);
+}
+#endif
+
+int amMain(int argc, char **argv)
 {
 #ifdef TESTING_MEM
 	VLDEnable();
@@ -37,10 +51,15 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	am::ui::KeyboardManager::setManager(keyboardManager);
 
 	am::sys::OsSystem *osSys = nullptr;
-#ifdef WIN32
-	am::sys::WinSystem *win = new am::sys::WinSystem();
-	win->setHInstance(hInstance);
-	osSys = win;
+#ifdef _WIN_SYS
+	
+	am::sys::win::WinSystem *winSys = new am::sys::win::WinSystem();
+	winSys->setHInstance(mainHInstance);
+	osSys = winSys;
+#elif defined _FREEGLUT_SYS
+	am::sys::freeglut::FreeGlutSystem *freeGlutSys = new am::sys::freeglut::FreeGlutSystem();
+	am::sys::freeglut::FreeGlutSystem::setFreeGlutSystem(freeGlutSys);
+	osSys = freeGlutSys;
 #endif
 
 	int testing = 0;
@@ -72,10 +91,10 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	gameSystem->retain();
 	osSys->setGameSystem(gameSystem);
 	
-	gameSystem->setSize(880, 700);
+	gameSystem->setSize(880, 600);
 	gameSystem->setPosition(50, 50);
 	
-	gameSystem->startLoop();
+	gameSystem->startLoop(argc, argv);
 
 	// The main game loop has finished, shut down phase.
 	gameSystem->deinit();
@@ -96,4 +115,5 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 #endif
 
 	// Shut down!
+	return 0;
 }

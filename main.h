@@ -5,11 +5,12 @@
 
 #define _VERBOSE_LOG 
 
-#include <Windows.h>
-
-#include "GLee\GLee.h"
-#include <gl\gl.h>
-#include <gl\glu.h>
+#ifdef _WIN_SYS
+#	include <Windows.h>
+#	include "GLee\GLee.h"
+#	include <gl\gl.h>
+#	include <gl\glu.h>
+#endif
 #include <stdlib.h>   
 
 #include <iostream>
@@ -18,9 +19,12 @@ using namespace std;
 
 //#include "shader.h"
 
-#ifdef WIN32
+#ifdef _WIN_SYS
 #	include <sys/win_system.h>
+#elif defined _FREEGLUT_SYS
+#	include <sys/freeglut_system.h>
 #endif
+
 #include <sys/game_system.h>
 #include <sys/rouge_system.h>
 #include <sys/unit_test_system.h>
@@ -38,3 +42,5 @@ using namespace std;
 #include <ui/event.h>
 #include <ui/event_manager.h>
 #include <ui/ievent_listener.h>
+
+int amMain(int argc, char ** argv);

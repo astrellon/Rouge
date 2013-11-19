@@ -237,13 +237,9 @@ namespace sys {
 		mLinkedSystem->setProgramRunning(running);
 	}
 
-	bool GameSystem::isRunning() const
+	int GameSystem::startLoop(int argc, char **argv)
 	{
-		return mLinkedSystem->isRunning();
-	}
-	int GameSystem::startLoop()
-	{
-		return mLinkedSystem->startLoop();
+		return mLinkedSystem->startLoop(argc, argv);
 	}
 	void GameSystem::stopLoop()
 	{

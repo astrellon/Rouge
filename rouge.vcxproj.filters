@@ -160,6 +160,9 @@
     <Filter Include="gfx\base\tooltips">
       <UniqueIdentifier>{4350fd90-57c1-4ec5-b3b6-ae552bb68344}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sys\freeglut">
+      <UniqueIdentifier>{02ec8a70-86b9-4fb0-ad89-958c2f4ea6f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -937,6 +940,9 @@
     <ClCompile Include="gfx\gfx_tooltip_item.cpp">
       <Filter>gfx\rouge</Filter>
     </ClCompile>
+    <ClCompile Include="sys\freeglut_system.cpp">
+      <Filter>sys\freeglut</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1713,6 +1719,9 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_tooltip_item.h">
       <Filter>gfx\rouge</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\freeglut_system.h">
+      <Filter>sys\freeglut</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

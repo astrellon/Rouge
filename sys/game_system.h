@@ -68,8 +68,7 @@ namespace sys {
 		virtual bool isProgramRunning() const;
 		virtual void setProgramRunning(bool running);
 
-		virtual bool isRunning() const;
-		virtual int startLoop();
+		virtual int startLoop(int argc, char **argv);
 		virtual void stopLoop();
 
 		virtual void setCursorHidden(bool hide);

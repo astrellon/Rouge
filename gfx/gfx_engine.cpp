@@ -30,6 +30,10 @@ using namespace am::lua;
 
 #include <lua/wrappers/lua_id_table.h>
 
+#ifdef _FREEGLUT_SYS
+#	include <GL/freeglut.h>
+#endif
+
 namespace am {
 namespace gfx {
 
@@ -213,6 +217,10 @@ namespace gfx {
 		{
 			mCursor->render(dt);
 		}
+		
+#ifdef _FREEGLUT_SYS
+		glutSwapBuffers();
+#endif
 	}
 
 	void GfxEngine::reshape(int width, int height)

@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug FreeGlut|Win32">
+      <Configuration>Debug FreeGlut</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug Mem|Win32">
       <Configuration>Debug Mem</Configuration>
       <Platform>Win32</Platform>
@@ -11,6 +15,10 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release FreeGlut|Win32">
+      <Configuration>Release FreeGlut</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release Mem|Win32">
@@ -32,6 +40,11 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -43,6 +56,12 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release FreeGlut|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -60,6 +79,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -69,25 +91,36 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release FreeGlut|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release Mem|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'">
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'">
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Tests|Win32'">
-    <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release FreeGlut|Win32'">
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Mem|Win32'">
     <LibraryPath>C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
@@ -97,11 +130,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WIN_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freeglut.lib;Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
@@ -111,6 +144,29 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
 copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
 copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
 copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
+mkdir "$(OutputPath)data"
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"
+copy "$(ProjectDir)freeglut\bin\freeglut.dll" "$(OutputPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'">
@@ -134,11 +190,11 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;TESTING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;TESTING;_WIN_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
@@ -160,6 +216,7 @@ copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <PreprocessorDefinitions>_WIN_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -175,6 +232,38 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
 copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
 copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
 copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release FreeGlut|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <PreprocessorDefinitions>_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
+mkdir "$(OutputPath)data"
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"
+copy "$(ProjectDir)freeglut\bin\freeglut.dll" "$(OutputPath)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Mem|Win32'">
@@ -364,6 +453,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClCompile Include="sfx\sfx_sound_wav.cpp" />
     <ClCompile Include="sfx\sfx_source_area.cpp" />
     <ClCompile Include="sfx\sfx_source_point.cpp" />
+    <ClCompile Include="sys\freeglut_system.cpp" />
     <ClCompile Include="sys\game_system.cpp" />
     <ClCompile Include="sys\mem_test_system.cpp" />
     <ClCompile Include="sys\os_system.cpp" />
@@ -624,6 +714,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="sfx\sfx_sound_wav.h" />
     <ClInclude Include="sfx\sfx_source_area.h" />
     <ClInclude Include="sfx\sfx_source_point.h" />
+    <ClInclude Include="sys\freeglut_system.h" />
     <ClInclude Include="sys\game_system.h" />
     <ClInclude Include="sys\isystem.h" />
     <ClInclude Include="sys\mem_test_system.h" />

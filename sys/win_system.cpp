@@ -9,6 +9,7 @@ using namespace am::util;
 
 namespace am {
 namespace sys {
+namespace win {
 
 	WinSystem::WinSystem() :
 		OsSystem(),
@@ -18,7 +19,7 @@ namespace sys {
 		mHeight(-1),
 		mXpos(0),
 		mYpos(0),
-		mRunning(false),
+		mProgramRunning(false),
 		mHideCursor(false),
 		mFullscreen(false)
 	{
@@ -26,7 +27,7 @@ namespace sys {
 	}
 	WinSystem::~WinSystem()
 	{
-
+		
 	}
 
 	void WinSystem::setSize(int width, int height)
@@ -129,8 +130,11 @@ namespace sys {
 	}
 	void WinSystem::setProgramRunning(bool running)
 	{
-		PostMessage (mHWnd, WM_QUIT, 0, 0);
 		mProgramRunning = running;
+		if (!running)
+		{
+			PostMessage (mHWnd, WM_QUIT, 0, 0);
+		}
 	}
 
 	void WinSystem::setFullscreen(bool fullscreen)
@@ -177,16 +181,14 @@ namespace sys {
 		return mHInstance;
 	}
 
-	bool WinSystem::isRunning() const
+	int WinSystem::startLoop(int argc, char **argv)
 	{
-		return mRunning;
-	}
-	int WinSystem::startLoop()
-	{
-		if (mRunning)
+		if (mProgramRunning)
 		{
 			return 1;
 		}
+
+		mProgramRunning = true;
 
 		Application			application;									// Application Structure
 		GL_Window			window;											// Window Structure
@@ -305,18 +307,19 @@ namespace sys {
 
 			UnregisterClass (application.className, application.hInstance);		// UnRegister Window Class
 		}
+
+		mProgramRunning = false;
 		return 0;
 	}
 
 	void WinSystem::stopLoop()
 	{
-		if (!mRunning)
+		if (!mProgramRunning)
 		{
 			return;
 		}
 
 		mProgramRunning = false;
-		mRunning = false;
 	}
 
 	bool WinSystem::isDirectory(const char *folderName)
@@ -766,5 +769,6 @@ namespace sys {
 		return TRUE;														// Return True (Success)
 	}
 
+}
 }
 }

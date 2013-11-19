@@ -1,8 +1,5 @@
 #pragma once
 
-#include <Windows.h>
-#include <gl/GL.h>
-
 #include <ui/mouse_common.h>
 
 #include <string>
@@ -15,28 +12,12 @@ namespace am {
 namespace sys {
 	class GameSystem;
 
-namespace win {
-
-	typedef struct {									// Contains Information Vital To Applications
-		HINSTANCE		hInstance;						// Application Instance
-		const char*		className;						// Application ClassName
-	} Application;										// Application
-
-	typedef struct {									// Window Creation Info
-		Application*		application;				// Application Structure
-		const char*				title;						// Window Title
-		int					width;						// Width
-		int					height;						// Height
-		int					bitsPerPixel;				// Bits Per Pixel
-		BOOL				isFullScreen;				// FullScreen?
-	} GL_WindowInit;									// GL_WindowInit
-
+namespace freeglut {
 	
-
-	class WinSystem : public am::sys::OsSystem {
+	class FreeGlutSystem : public am::sys::OsSystem {
 	public:
-		WinSystem();
-		~WinSystem();
+		FreeGlutSystem();
+		~FreeGlutSystem();
 
 		virtual void setSize(int width, int height);
 		virtual void setPosition(int x, int y);
@@ -80,11 +61,8 @@ namespace win {
 		virtual bool createDirectory(const char *folderName);
 		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
-		void setHInstance(HINSTANCE hInstance);
-		HINSTANCE getHInstance();
-
-		void setHWnd(HWND hWnd);
-		HWND getHWnd();
+		static FreeGlutSystem *getFreeGlutSystem();
+		static void setFreeGlutSystem(FreeGlutSystem *system);
 
 	protected:
 
@@ -97,30 +75,19 @@ namespace win {
 		bool mHideCursor;
 		bool mFullscreen;
 
-		HWND mHWnd;
-		HINSTANCE mHInstance;
-		
 		void updatePosSize();
+
+		static FreeGlutSystem * s_freeglut_system;
 	};
 
-	typedef struct {									// Contains Information Vital To A Window
-		//Keys*				keys;						// Key Structure
-		HWND				hWnd;						// Window Handle
-		HDC					hDC;						// Device Context
-		HGLRC				hRC;						// Rendering Context
-		GL_WindowInit		init;						// Window Init
-		BOOL				isVisible;					// Window Visible?
-		DWORD				lastTickCount;				// Tick Counter
-		WinSystem *			winSystem;
-	} GL_Window;										// GL_Window
-
-
-	BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel);
-	string CreateWindowGL (GL_Window* window);
-	BOOL DestroyWindowGL (GL_Window* window);
-	BOOL RegisterWindowClass (Application* application);
-	LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
+	void onGlutReshape(int width, int height);
+	void onGlutDisplay();
+	void onGlutKeyboard(int key, int x, int y);
+	void onGlutKeyboardUp(int key, int x, int y);
+	void onGlutMouse(int button, int state, int x, int y);
+	void onGlutMouseMove(int x, int y);
+	void onGlutIdle();
+	
 }
 }
 }

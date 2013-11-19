@@ -4,6 +4,14 @@
 #	include <gl/GL.h>
 #	include <gl/GLU.h>
 
+#elif defined _FREEGLUT_
+
+#	ifdef __APPLE__
+#		include <GLUT/freeglut.h>
+#	else
+#		include <GL/freeglut.h>
+#	endif
+
 #else
 /* Xlib.h is the default header that is included and has the core functionallity */
 #	include <X11/Xlib.h>                                                              
