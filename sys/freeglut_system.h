@@ -74,6 +74,8 @@ namespace freeglut {
 		bool mProgramRunning;
 		bool mHideCursor;
 		bool mFullscreen;
+		float mDeltaTime;
+		long mTickCount;
 
 		void updatePosSize();
 

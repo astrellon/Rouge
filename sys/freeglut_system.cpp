@@ -112,7 +112,12 @@ namespace freeglut {
 	}
 	void FreeGlutSystem::display(float dt)
 	{
+		if (dt < 0.0f)
+		{
+			dt = mDeltaTime;
+		}
 		mGameSystem->display(dt);
+		glutSwapBuffers();
 	}
 	void FreeGlutSystem::deinit()
 	{
@@ -147,10 +152,6 @@ namespace freeglut {
 	void FreeGlutSystem::setProgramRunning(bool running)
 	{
 		mProgramRunning = running;
-		if (!running)
-		{
-			glutExit();
-		}
 	}
 
 	void FreeGlutSystem::setFullscreen(bool fullscreen)
@@ -177,6 +178,8 @@ namespace freeglut {
 		{
 			return 1;
 		}
+
+		mProgramRunning = true;
 
 		if (mTitle.empty())
 		{
@@ -207,7 +210,30 @@ namespace freeglut {
 		glutSpecialUpFunc(onGlutKeyboardUp);
 		glutMouseFunc(onGlutMouse);
 		glutMotionFunc(onGlutMouseMove);
-		glutMainLoop();
+		glutPassiveMotionFunc(onGlutMouseMove);
+		//glutMainLoop();
+
+		mTickCount = GetTickCount();
+		
+		while (mProgramRunning)
+		{
+			DWORD tickCount = GetTickCount ();				// Get The Tick Count
+
+			mDeltaTime = (tickCount - mTickCount) / 1000.0f;
+			int diff = 25;
+			diff -= tickCount - mTickCount;
+			if(diff < 10)
+			{
+				diff = 10;
+			}
+
+			update(mDeltaTime);
+			glutPostRedisplay();
+
+			glutMainLoopEvent();
+			
+			Sleep(diff);
+		}
 		
 		deinit();
 
@@ -346,7 +372,7 @@ namespace freeglut {
 	}
 	void onGlutDisplay()
 	{
-		FreeGlutSystem::getFreeGlutSystem()->display(0.1f);
+		FreeGlutSystem::getFreeGlutSystem()->display(-1.0f);
 	}
 	void onGlutKeyboard(int key, int x, int y)
 	{
@@ -383,6 +409,7 @@ namespace freeglut {
 	void onGlutIdle()
 	{
 		FreeGlutSystem::getFreeGlutSystem()->update(0.1f);
+		
 	}
 
 
