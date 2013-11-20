@@ -24,7 +24,7 @@ namespace ui {
 
 	void KeyboardManager::onKeyDown(int key, bool systemKey)
 	{
-		if (systemKey)
+		//if (systemKey)
 		{
 			mKeys[key] = true;
 			mKeysPressed[key] = true;

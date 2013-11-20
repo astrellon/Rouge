@@ -206,8 +206,10 @@ namespace freeglut {
 
 		glutReshapeFunc(onGlutReshape);
 		glutDisplayFunc(onGlutDisplay);
-		glutSpecialFunc(onGlutKeyboard);
-		glutSpecialUpFunc(onGlutKeyboardUp);
+		glutKeyboardFunc(onGlutKeyboard);
+		glutKeyboardUpFunc(onGlutKeyboardUp);
+		glutSpecialFunc(onGlutSpecialKeyboard);
+		glutSpecialUpFunc(onGlutSpecialKeyboardUp);
 		glutMouseFunc(onGlutMouse);
 		glutMotionFunc(onGlutMouseMove);
 		glutPassiveMotionFunc(onGlutMouseMove);
@@ -226,6 +228,8 @@ namespace freeglut {
 			{
 				diff = 10;
 			}
+
+			mTickCount = tickCount;
 
 			update(mDeltaTime);
 			glutPostRedisplay();
@@ -374,11 +378,19 @@ namespace freeglut {
 	{
 		FreeGlutSystem::getFreeGlutSystem()->display(-1.0f);
 	}
-	void onGlutKeyboard(int key, int x, int y)
+	void onGlutKeyboard(unsigned char key, int x, int y)
 	{
 		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(key, false);
 	}
-	void onGlutKeyboardUp(int key, int x, int y)
+	void onGlutKeyboardUp(unsigned char key, int x, int y)
+	{
+		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
+	}
+	void onGlutSpecialKeyboard(int key, int x, int y)
+	{
+		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(key, true);
+	}
+	void onGlutSpecialKeyboardUp(int key, int x, int y)
 	{
 		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
 	}
@@ -406,12 +418,6 @@ namespace freeglut {
 	{
 		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(ui::LEFT_BUTTON, x, y);
 	}
-	void onGlutIdle()
-	{
-		FreeGlutSystem::getFreeGlutSystem()->update(0.1f);
-		
-	}
-
 
 }
 }

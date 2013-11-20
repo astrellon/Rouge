@@ -84,8 +84,10 @@ namespace freeglut {
 
 	void onGlutReshape(int width, int height);
 	void onGlutDisplay();
-	void onGlutKeyboard(int key, int x, int y);
-	void onGlutKeyboardUp(int key, int x, int y);
+	void onGlutKeyboard(unsigned char key, int x, int y);
+	void onGlutKeyboardUp(unsigned char key, int x, int y);
+	void onGlutSpecialKeyboard(int key, int x, int y);
+	void onGlutSpecialKeyboardUp(int key, int x, int y);
 	void onGlutMouse(int button, int state, int x, int y);
 	void onGlutMouseMove(int x, int y);
 	void onGlutIdle();
