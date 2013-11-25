@@ -7,6 +7,8 @@
 #include <util/path_tokeniser.h>
 using namespace am::util;
 
+using am::ui::Key;
+
 namespace am {
 namespace sys {
 namespace win {
@@ -722,6 +724,9 @@ namespace win {
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
+					stringstream ss;
+					ss << am::ui::KeyNames[processWmKey(wParam)];
+					am_log("DOWN", ss);
 					window->winSystem->onKeyDown(wParam, true);
 					return 0;												// Return
 				}
@@ -730,6 +735,9 @@ namespace win {
 			case WM_CHAR:
 				if (wParam >= 0 && wParam <= 255)
 				{
+					stringstream ss;
+					ss << wParam << ", " << lParam;
+					am_log("CHAR", ss);
 					window->winSystem->onKeyDown(wParam, false);
 					return 0;												// Return
 				}
@@ -738,6 +746,9 @@ namespace win {
 			case WM_KEYUP:													// Update Keyboard Buffers For Keys Released
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
+					stringstream ss;
+					ss << am::ui::KeyNames[processWmKey(wParam)];
+					am_log("UP", ss);
 					window->winSystem->onKeyUp(wParam);
 					return 0;												// Return
 				}
@@ -767,6 +778,90 @@ namespace win {
 			return FALSE;													// Return False (Failure)
 		}
 		return TRUE;														// Return True (Success)
+	}
+
+	am::ui::Key processWmKey(int key)
+	{
+		if (key < VK_HELP)
+		{
+			switch (key)
+			{
+			case VK_BACK:		return KEY_BACKSPACE;
+			case VK_TAB:		return KEY_TAB;
+			case VK_RETURN:		return KEY_ENTER;
+
+			case VK_SHIFT:		return KEY_SHIFT;
+			case VK_CONTROL:	return KEY_CTRL;
+			case VK_MENU:		return KEY_ALT;
+			case VK_PAUSE:		return KEY_PAUSE;
+			case VK_CAPITAL:	return KEY_CAPS_LOCK;
+			
+			case VK_ESCAPE:		return KEY_ESC;
+			
+			case VK_SPACE:		return KEY_SPACE;
+			case VK_PRIOR:		return KEY_PAGEUP;
+			case VK_NEXT:		return KEY_PAGEDOWN;
+			case VK_END:		return KEY_END;
+			case VK_HOME:		return KEY_HOME;
+			case VK_LEFT:		return KEY_LEFT_ARROW;
+			case VK_UP:			return KEY_UP_ARROW;
+			case VK_RIGHT:		return KEY_RIGHT_ARROW;
+			case VK_DOWN:		return KEY_DOWN_ARROW;
+			case VK_SNAPSHOT:	return KEY_PRINT_SCREEN;
+			case VK_INSERT:		return KEY_INSERT;
+			case VK_DELETE:		return KEY_DELETE;
+			default:			return KEY_NONE;
+			}
+		}
+		if (key < VK_SLEEP)
+		{
+			return getKey(key);
+		}
+		switch (key)
+		{
+		case VK_NUMPAD0:	return KEY_NUM_0;
+		case VK_NUMPAD1:	return KEY_NUM_1;
+		case VK_NUMPAD2:	return KEY_NUM_2;
+		case VK_NUMPAD3:	return KEY_NUM_3;
+		case VK_NUMPAD4:	return KEY_NUM_4;
+		case VK_NUMPAD5:	return KEY_NUM_5;
+		case VK_NUMPAD6:	return KEY_NUM_6;
+		case VK_NUMPAD7:	return KEY_NUM_7;
+		case VK_NUMPAD8:	return KEY_NUM_8;
+		case VK_NUMPAD9:	return KEY_NUM_9;
+		case VK_MULTIPLY:	return KEY_NUM_MULTIPLY;
+		case VK_ADD:		return KEY_NUM_PLUS;
+		case VK_SUBTRACT:	return KEY_NUM_MINUS;
+		case VK_DECIMAL:	return KEY_PERIOD;
+		case VK_DIVIDE:		return KEY_NUM_DIVIDE;
+		case VK_F1:			return KEY_F1;
+		case VK_F2:			return KEY_F2;
+		case VK_F3:			return KEY_F3;
+		case VK_F4:			return KEY_F4;
+		case VK_F5:			return KEY_F5;
+		case VK_F6:			return KEY_F6;
+		case VK_F7:			return KEY_F7;
+		case VK_F8:			return KEY_F8;
+		case VK_F9:			return KEY_F9;
+		case VK_F10:		return KEY_F10;
+		case VK_F11:		return KEY_F11;
+		case VK_F12:		return KEY_F12;
+		
+		case VK_SCROLL:		return KEY_SCROLL_LOCK;
+
+		case VK_OEM_1:		return KEY_SEMI_COLON;
+		case VK_OEM_PLUS:	return KEY_PLUS;
+		case VK_OEM_COMMA:	return KEY_COMMA;
+		case VK_OEM_MINUS:	return KEY_MINUS;
+		case VK_OEM_PERIOD:	return KEY_PERIOD;
+		case VK_OEM_2:		return KEY_FORWARD_SLASH;
+		case VK_OEM_3:		return KEY_BACKTICK;
+		case VK_OEM_4:		return KEY_OPEN_SQUARE_BRACKET;
+		case VK_OEM_5:		return KEY_PIPE;
+		case VK_OEM_6:		return KEY_CLOSE_SQUARE_BRACKET;
+		case VK_OEM_7:		return KEY_SINGLE_QUOTE;
+		}
+		return KEY_NONE;
 	}
 
 }

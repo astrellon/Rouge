@@ -120,6 +120,7 @@ namespace win {
 	BOOL DestroyWindowGL (GL_Window* window);
 	BOOL RegisterWindowClass (Application* application);
 	LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	am::ui::Key processWmKey(int key);
 
 }
 }
