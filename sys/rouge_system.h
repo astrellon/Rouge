@@ -46,7 +46,7 @@ namespace sys {
 		virtual void init();
 		virtual void reshape(int width, int height);
 
-		virtual void onKeyUp(int key);
+		virtual void onKeyUp(Key key);
 
 		virtual void onEvent(Event *e);
 		virtual void onEvent(DialogueEvent *e);

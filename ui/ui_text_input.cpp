@@ -340,11 +340,11 @@ namespace ui {
 		{
 			if (!focus)
 			{
-				KeyboardManager::getManager()->removeEventListener(KEY_DOWN, this);
+				KeyboardManager::getManager()->removeEventListener(KEY_PRESS, this);
 			}
 			else
 			{
-				KeyboardManager::getManager()->addEventListener(KEY_DOWN, this);
+				KeyboardManager::getManager()->addEventListener(KEY_PRESS, this);
 			}
 			mFocus = focus;
 			mText->setBlinkedEnabled(mFocus);

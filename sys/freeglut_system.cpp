@@ -136,13 +136,17 @@ namespace freeglut {
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onKeyDown(int key, bool systemKey)
+	void FreeGlutSystem::onKeyDown(Key key)
 	{
-		mGameSystem->onKeyDown(key, systemKey);
+		mGameSystem->onKeyDown(key);
 	}
-	void FreeGlutSystem::onKeyUp(int key)
+	void FreeGlutSystem::onKeyUp(Key key)
 	{
 		mGameSystem->onKeyUp(key);
+	}
+	void FreeGlutSystem::onKeyPress(char key)
+	{
+		mGameSystem->onKeyPress(key);
 	}
 
 	bool FreeGlutSystem::isProgramRunning() const
@@ -380,19 +384,19 @@ namespace freeglut {
 	}
 	void onGlutKeyboard(unsigned char key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(key, false);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyPress(key);
 	}
 	void onGlutKeyboardUp(unsigned char key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
+		//FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(key, true);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(KEY_NONE);
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(KEY_NONE);
 	}
 	void onGlutMouse(int button, int state, int x, int y)
 	{

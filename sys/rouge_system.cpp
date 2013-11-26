@@ -296,10 +296,10 @@ namespace sys {
 		}
 	}
 
-	void RougeSystem::onKeyUp(int key)
+	void RougeSystem::onKeyUp(Key key)
 	{
 		// 27 is currently escape.
-		if (mInDialogue && key == 27)
+		if (mInDialogue && key == KEY_ESC)
 		{
 			if (mPlayer->getDialogueComp())
 			{
@@ -307,29 +307,29 @@ namespace sys {
 			}
 			return;
 		}
-		if (key == 27 && mEngine->getCurrentGame() != nullptr)
+		if (key == KEY_ESC && mEngine->getCurrentGame() != nullptr)
 		{
 			toggleInGameMenu();
 			return;
 		}
 		// 19 is currently pause.
-		if (key == 19 && mEngine->getCurrentGame() != nullptr)
+		if (key == KEY_PAUSE && mEngine->getCurrentGame() != nullptr)
 		{
 			togglePause();
 			return;
 		}
-		if (key == 'Z')
+		if (key == KEY_Z)
 		{
 			GfxEngine::getEngine()->reloadAsset("bigButton");
 		}
 		Game *game = mEngine->getCurrentGame();
 		if (game)
 		{
-			if (key == 'A')
+			if (key == KEY_A)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap_2", 3, 1, true);
 			}
-			if (key == 'S')
+			if (key == KEY_S)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap", 1, 3, true);
 			}

@@ -117,13 +117,17 @@ namespace win {
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void WinSystem::onKeyDown(int key, bool systemKey)
+	void WinSystem::onKeyDown(Key key)
 	{
-		mGameSystem->onKeyDown(key, systemKey);
+		mGameSystem->onKeyDown(key);
 	}
-	void WinSystem::onKeyUp(int key)
+	void WinSystem::onKeyUp(Key key)
 	{
 		mGameSystem->onKeyUp(key);
+	}
+	void WinSystem::onKeyPress(char key)
+	{
+		mGameSystem->onKeyPress(key);
 	}
 
 	bool WinSystem::isProgramRunning() const
@@ -724,10 +728,7 @@ namespace win {
 			case WM_KEYDOWN:												// Update Keyboard Buffers For Keys Pressed
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
-					stringstream ss;
-					ss << am::ui::KeyNames[processWmKey(wParam)];
-					am_log("DOWN", ss);
-					window->winSystem->onKeyDown(wParam, true);
+					window->winSystem->onKeyDown(processWmKey(wParam));
 					return 0;												// Return
 				}
 			break;															// Break
@@ -735,10 +736,7 @@ namespace win {
 			case WM_CHAR:
 				if (wParam >= 0 && wParam <= 255)
 				{
-					stringstream ss;
-					ss << wParam << ", " << lParam;
-					am_log("CHAR", ss);
-					window->winSystem->onKeyDown(wParam, false);
+					window->winSystem->onKeyPress(static_cast<char>(wParam));
 					return 0;												// Return
 				}
 			break;
@@ -746,10 +744,7 @@ namespace win {
 			case WM_KEYUP:													// Update Keyboard Buffers For Keys Released
 				if ((wParam >= 0) && (wParam <= 255))						// Is Key (wParam) In A Valid Range?
 				{
-					stringstream ss;
-					ss << am::ui::KeyNames[processWmKey(wParam)];
-					am_log("UP", ss);
-					window->winSystem->onKeyUp(wParam);
+					window->winSystem->onKeyUp(processWmKey(wParam));
 					return 0;												// Return
 				}
 			break;															// Break

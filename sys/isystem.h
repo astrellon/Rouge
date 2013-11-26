@@ -4,6 +4,7 @@
 
 #include <ui/mouse_event.h>
 #include <ui/mouse_manager.h>
+#include <ui/keyboard_common.h>
 
 namespace am {
 namespace sys {
@@ -38,8 +39,9 @@ namespace sys {
 		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y) = 0;
 		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y) = 0;
 		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y) = 0;
-		virtual void onKeyDown(int key, bool systemKey) = 0;
-		virtual void onKeyUp(int key) = 0;
+		virtual void onKeyDown(am::ui::Key key) = 0;
+		virtual void onKeyUp(am::ui::Key key) = 0;
+		virtual void onKeyPress(char key) = 0;
 
 		virtual bool isProgramRunning() const = 0;
 		virtual void setProgramRunning(bool running) = 0;

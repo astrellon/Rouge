@@ -22,21 +22,23 @@ namespace ui {
 	{
 	}
 
-	void KeyboardManager::onKeyDown(int key, bool systemKey)
+	void KeyboardManager::onKeyDown(Key key)
 	{
-		//if (systemKey)
-		{
-			mKeys[key] = true;
-			mKeysPressed[key] = true;
-		}
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key, systemKey));
-		fireEvent<KeyboardEvent>(e.get());
+		mKeys[key] = true;
+		mKeysPressed[key] = true;
+		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key, true));
+		fireEvent<KeyboardEvent>(e);
 	}
-	void KeyboardManager::onKeyUp(int key)
+	void KeyboardManager::onKeyUp(Key key)
 	{
 		mKeys[key] = false;
 		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_UP, key, true));
-		fireEvent<KeyboardEvent>(e.get());
+		fireEvent<KeyboardEvent>(e);
+	}
+	void KeyboardManager::onKeyPress(char key)
+	{
+		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_PRESS, key, false));
+		fireEvent<KeyboardEvent>(e);
 	}
 
 	const bool *KeyboardManager::getKeysDown() const

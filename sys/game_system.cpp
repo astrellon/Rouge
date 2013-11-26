@@ -200,32 +200,33 @@ namespace sys {
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
-	void GameSystem::onKeyDown(int key, bool systemKey)
+	void GameSystem::onKeyDown(Key key)
 	{
-		if (systemKey)
+		// 192 Currently is `
+		if (key == am::ui::KEY_BACKTICK)
 		{
-			// 192 Currently is `
-			if (key == 192)
-			{
-				mDebugConsole->setVisible(!mDebugConsole->isVisible());
-				mDebugInspector->setVisible(!mDebugInspector->isVisible());
-			}
-			// Page Up
-			else if (key == 33)
-			{
-				mDebugConsole->setScroll(mDebugConsole->getScroll() - 1);
-			}
-			// Page Down
-			else if (key == 34)
-			{
-				mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
-			}
+			mDebugConsole->setVisible(!mDebugConsole->isVisible());
+			mDebugInspector->setVisible(!mDebugInspector->isVisible());
 		}
-		KeyboardManager::getManager()->onKeyDown(key, systemKey);
+		// Page Up
+		else if (key == KEY_PAGEUP)
+		{
+			mDebugConsole->setScroll(mDebugConsole->getScroll() - 1);
+		}
+		// Page Down
+		else if (key == KEY_PAGEDOWN)
+		{
+			mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
+		}
+		KeyboardManager::getManager()->onKeyDown(key);
 	}
-	void GameSystem::onKeyUp(int key)
+	void GameSystem::onKeyUp(Key key)
 	{
 		KeyboardManager::getManager()->onKeyUp(key);
+	}
+	void GameSystem::onKeyPress(char key)
+	{
+		KeyboardManager::getManager()->onKeyPress(key);
 	}
 	
 	bool GameSystem::isProgramRunning() const
