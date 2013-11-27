@@ -397,7 +397,7 @@ namespace game {
 	 */
 	int Engine_add_tile_type(lua_State *lua)
 	{
-		am::base::Handle<TileType> type(castUData<TileType>(lua, 1));
+		base::Handle<TileType> type(castUData<TileType>(lua, 1));
 		if (type)
 		{
 			Engine::getEngine()->addTileType(type);
@@ -415,7 +415,7 @@ namespace game {
 	{
 		if (lua_isstr(lua, 1))
 		{
-			am::base::Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 1)));
+			base::Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 1)));
 			if (type)
 			{
 				wrapObject<TileType>(lua, type);

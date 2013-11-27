@@ -9,7 +9,7 @@ namespace base {
 		typedef void (*ManagedCallback)(IManaged *obj);
 
 		IManaged();
-		IManaged(const am::base::IManaged &copy);
+		IManaged(const base::IManaged &copy);
 		virtual ~IManaged();
 
 		virtual void release();

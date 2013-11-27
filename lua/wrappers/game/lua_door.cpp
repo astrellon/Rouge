@@ -72,7 +72,7 @@ namespace game {
 
 		bool newDoor = false;
 		const char *id = lua_tostring(lua, 1);
-		am::base::Handle<Door> door(dynamic_cast<Door *>(Engine::getEngine()->getGameObject(id)));
+		base::Handle<Door> door(dynamic_cast<Door *>(Engine::getEngine()->getGameObject(id)));
 		if (!door)
 		{
 			newDoor = true;

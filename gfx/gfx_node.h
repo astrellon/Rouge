@@ -14,10 +14,10 @@
 namespace am {
 namespace gfx {
 
-	class Node : public am::base::IManaged, public TextStyleSelector {
+	class Node : public base::IManaged, public TextStyleSelector {
 	public:
-		typedef std::vector< am::base::Handle<Node> > NodeList;
-		typedef std::vector< am::base::Handle<NodeHitbox> > NodeHitboxList;
+		typedef std::vector< base::Handle<Node> > NodeList;
+		typedef std::vector< base::Handle<NodeHitbox> > NodeHitboxList;
 		
 		Node();
 		Node(const char *nodeType, const char *text = nullptr);
@@ -61,7 +61,7 @@ namespace gfx {
 	protected:
 
 		NodeList mChildren;
-		am::base::Handle<Node> mParent;
+		base::Handle<Node> mParent;
 		std::string mText;
 		TextStyle mStyle;
 		bool mStyleDirty;

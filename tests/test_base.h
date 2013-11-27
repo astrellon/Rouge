@@ -23,7 +23,7 @@ namespace tests {
 
 	protected:
 
-		class TestManaged : public am::base::IManaged {
+		class TestManaged : public base::IManaged {
 		public:
 			TestManaged() {}
 			~TestManaged() {}

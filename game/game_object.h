@@ -45,7 +45,7 @@ namespace game {
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
 
-		typedef std::vector< am::base::Handle<TileType> > PassibleTypeList;
+		typedef std::vector< base::Handle<TileType> > PassibleTypeList;
 		typedef std::map<std::string, bool> SubjectMap;
 
 		GameObject();
@@ -171,8 +171,8 @@ namespace game {
 		Map *mMap;
 		Map *mOriginalMap;
 
-		am::base::Handle<DialogueComponent> mDialogueComp;
-		am::base::Handle<ISource> mSoundSource;
+		base::Handle<DialogueComponent> mDialogueComp;
+		base::Handle<ISource> mSoundSource;
 
 		MapRegion::MapRegionList mMapRegions;
 
@@ -183,7 +183,7 @@ namespace game {
 		static const char *sDamageTypeNames[];
 	};
 
-	typedef std::vector<am::base::Handle<GameObject> > ObjectList;
+	typedef std::vector<base::Handle<GameObject> > ObjectList;
 
 }
 }

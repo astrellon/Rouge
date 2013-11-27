@@ -172,7 +172,7 @@ namespace game {
 
 		fireEvent<MouseEvent>(e);
 
-		if (e->getMouseEventType() != am::ui::Mouse::MOUSE_UP || mEditorMode)
+		if (e->getMouseEventType() != ui::Mouse::MOUSE_UP || mEditorMode)
 		{
 			return;
 		}
@@ -189,12 +189,12 @@ namespace game {
 		{
 			return;
 		}
-		if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
+		if (e->getMouseButton() == ui::Mouse::LEFT_BUTTON)
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != nullptr)
 			{
-				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == am::base::SUCCESS)
+				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == base::SUCCESS)
 				{
 					Item *inhand = hand->getInhand();
 					//inhand->setInteractive(true);
@@ -223,7 +223,7 @@ namespace game {
 			}
 		}
 
-		if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
+		if (e->getMouseButton() == ui::Mouse::LEFT_BUTTON)
 		{
 			if (clickedOn.size() > 0 && mMainCharacter->canReachGameObject(clickedOn[0]))
 			{
@@ -234,7 +234,7 @@ namespace game {
 				mMainCharacter->setDestination(localX, localY);
 			}
 		}
-		else if (e->getMouseButton() == am::ui::Mouse::RIGHT_BUTTON)
+		else if (e->getMouseButton() == ui::Mouse::RIGHT_BUTTON)
 		{
 			GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
@@ -361,12 +361,12 @@ namespace game {
 
 		if (mCurrentMap)
 		{
-			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
-			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
-			mBackground->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mItemLayer->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mCharacterLayer->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(ui::Mouse::MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(ui::Mouse::MOUSE_MOVE, this);
+			mBackground->removeEventListener(ui::Mouse::MOUSE_UP, this);
+			mItemLayer->removeEventListener(ui::Mouse::MOUSE_UP, this);
+			mCharacterLayer->removeEventListener(ui::Mouse::MOUSE_UP, this);
 		}
 
 		mCurrentMap = map;
@@ -379,12 +379,12 @@ namespace game {
 			setTickPositionMainChar();
 			map->calcAllTileEdgeValues();
 
-			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
-			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
-			mBackground->addEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mItemLayer->addEventListener(am::ui::Mouse::MOUSE_UP, this);
-			mCharacterLayer->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(ui::Mouse::MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->addEventListener(ui::Mouse::MOUSE_MOVE, this);
+			mBackground->addEventListener(ui::Mouse::MOUSE_UP, this);
+			mItemLayer->addEventListener(ui::Mouse::MOUSE_UP, this);
+			mCharacterLayer->addEventListener(ui::Mouse::MOUSE_UP, this);
 			
 			if (mActiveObjects)
 			{
@@ -560,13 +560,13 @@ namespace game {
 		return mForeground.get();
 	}
 
-	void onRetain2(am::base::IManaged *obj)
+	void onRetain2(base::IManaged *obj)
 	{
 		std::stringstream ss;
 		ss << "Retained " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
-	void onRelease2(am::base::IManaged *obj)
+	void onRelease2(base::IManaged *obj)
 	{
 		std::stringstream ss;
 		ss << "Released " << obj->getReferenceCounter();
@@ -874,7 +874,7 @@ namespace game {
 		mStarted = true;
 		setGameTickPaused(false);
 		setTickPositionMainChar();
-		am::base::Handle<Event> e(new Event("startGame"));
+		base::Handle<Event> e(new Event("startGame"));
 		fireEvent<Event>(e);
 	}
 	bool Game::hasStarted() const
@@ -914,7 +914,7 @@ namespace game {
 		string fileName = dir;
 		fileName += "main.lua";
 		
-		GameSystem::getGameSystem()->createDirectory(dir.c_str());
+		sys::GameSystem::getGameSystem()->createDirectory(dir.c_str());
 
 		ofstream output(fileName);
 		if (output)
@@ -925,7 +925,7 @@ namespace game {
 		output << "-- Rouge Saved Game\n";
 		
 		output << "-- This contains data about the current game.\n\n";
-		am::base::Handle<data::IData> gameData(saveGameData());
+		base::Handle<data::IData> gameData(saveGameData());
 		if (gameData)
 		{
 			output << "game = " << gameData->toLua();
@@ -933,7 +933,7 @@ namespace game {
 		
 		output << "\n-- List of characters based on gameid\n";
 		output << "characters = ";
-		am::base::Handle<data::Table> list(new data::Table());
+		base::Handle<data::Table> list(new data::Table());
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
 			gameData = iter->second->serialise();
@@ -973,7 +973,7 @@ namespace game {
 		string fileName = dir;
 		fileName += "main.lua";
 
-		if (!GameSystem::getGameSystem()->isFile(fileName.c_str()))
+		if (!sys::GameSystem::getGameSystem()->isFile(fileName.c_str()))
 		{
 			return 0;
 		}
@@ -989,8 +989,8 @@ namespace game {
 
 		if (lua.getGlobal("game"))
 		{
-			am::base::Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
-			am::base::Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
+			base::Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
+			base::Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
 			if (!gameData)
 			{
 				std::stringstream ss;
@@ -1005,8 +1005,8 @@ namespace game {
 		}
 		if (lua.getGlobal("characters"))
 		{
-			am::base::Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
-			am::base::Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
+			base::Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
+			base::Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
 			if (!charData)
 			{
 				std::stringstream ss;
@@ -1018,7 +1018,7 @@ namespace game {
 
 			for (auto iter = charData->beginArray(); iter != charData->endArray(); ++iter)
 			{
-				am::base::Handle<Character> newChar(new Character());
+				base::Handle<Character> newChar(new Character());
 				newChar->deserialise(mLoadingState, iter->get());
 				registerGameObject(newChar);
 			}
@@ -1026,8 +1026,8 @@ namespace game {
 		}
 		if (lua.getGlobal("quests"))
 		{
-			am::base::Handle<data::IData> questDataObj(data::IData::fromLua(lua, -1));
-			am::base::Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
+			base::Handle<data::IData> questDataObj(data::IData::fromLua(lua, -1));
+			base::Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
 			if (!questData)
 			{
 				std::stringstream ss;
@@ -1039,7 +1039,7 @@ namespace game {
 
 			for (auto iter = questData->beginMap(); iter != questData->endMap(); ++iter)
 			{
-				am::base::Handle<Quest> newQuest(new Quest(iter->first.c_str()));
+				base::Handle<Quest> newQuest(new Quest(iter->first.c_str()));
 				newQuest->deserialise(mLoadingState, iter->second.get());
 				addQuest(newQuest);
 			}
@@ -1080,9 +1080,9 @@ namespace game {
 		{
 			return;
 		}
-		am::base::Handle<data::Table> hobj(obj);
+		base::Handle<data::Table> hobj(obj);
 
-		am::base::Handle<data::String> str(obj->at<data::String>("mainChar"));
+		base::Handle<data::String> str(obj->at<data::String>("mainChar"));
 		if (str)
 		{
 			mLoadingState->setMainCharacter(str->string());

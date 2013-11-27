@@ -37,13 +37,13 @@ namespace tests {
 	bool Asserts::_equals(const char *file, unsigned int line, const int &expected, const int &actual, bool notCompare) {
 		_simple_compare(expected, actual, notCompare, file, line);
 	}
-	bool Asserts::_equals(const char *file, unsigned int line, am::base::ReturnCode expected, am::base::ReturnCode actual, bool notCompare) {
+	bool Asserts::_equals(const char *file, unsigned int line, base::ReturnCode expected, base::ReturnCode actual, bool notCompare) {
 		//_simple_compare(expected, actual, notCompare, file, line);
 		if (notCompare)
 		{
 			if (expected == actual)
 			{
-				dispNotError(am::base::getErrorName(expected), file, line);
+				dispNotError(base::getErrorName(expected), file, line);
 				return false;
 			}
 		}
@@ -51,7 +51,7 @@ namespace tests {
 		{
 			if (expected != actual)
 			{
-				dispError(am::base::getErrorName(expected), am::base::getErrorName(actual), file, line);
+				dispError(base::getErrorName(expected), base::getErrorName(actual), file, line);
 				return false;
 			}
 		}

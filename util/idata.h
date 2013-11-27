@@ -19,7 +19,7 @@ namespace data {
     class Table;
     class Boolean;
 
-	class IData : public am::base::IManaged {
+	class IData : public base::IManaged {
 	public:
 
 		virtual int type() const
@@ -42,12 +42,7 @@ namespace data {
 		template <class T>
 		T number() const
 		{
-            // TODO
-			//if (type() == Number::TYPE)
-			{
-				//return dynamic_cast<const Number *>(this)->value<T>();
-			}
-			return static_cast<T>(0);
+			return static_cast<T>(number());
 		}
 
 		template <class T>

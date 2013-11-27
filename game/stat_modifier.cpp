@@ -132,25 +132,25 @@ namespace game {
 	}
 	bool StatModifier::deserialise(LoadingState *state, data::IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifier"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifier"));
 		if (!dataMap)
 		{
 			return false;
 		}
 
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("value"));
+		base::Handle<data::Number> num(dataMap->at<data::Number>("value"));
 		if (num)
 		{
 			setValue(num->value<float>());
 		}
 		
-		am::base::Handle<data::String> str(dataMap->at<data::String>("type"));
+		base::Handle<data::String> str(dataMap->at<data::String>("type"));
 		if (str)
 		{
 			setType(getModifierType(str->string()));
 		}
 
-		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("magical"));
+		base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("magical"));
 		if (boo)
 		{
 			setMagical(boo->boolean());

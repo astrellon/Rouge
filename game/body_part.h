@@ -22,7 +22,7 @@ namespace game {
 
 	class LoadingState;
 
-	class BodyPart : public am::base::IManaged {
+	class BodyPart : public base::IManaged {
 	public:
 		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = nullptr);
 		BodyPart(const BodyPart &copy);
@@ -49,7 +49,7 @@ namespace game {
 		 *  BODY_PART_TYPE_MISMATCH: Unable to equip the item because the item does
 		 *		not support this body part type.
 		 */
-		virtual am::base::ReturnCode setEquippedItem(Item *item, bool forceEquip = true);
+		virtual base::ReturnCode setEquippedItem(Item *item, bool forceEquip = true);
 		virtual bool canEquipItem(Item *item) const;
 		virtual Item *getEquippedItem() const;
 
@@ -66,8 +66,8 @@ namespace game {
 		BodyPart();
 
 		string mName;
-		am::base::Handle<BodyPart> mCanHoldOnto;
-		am::base::Handle<Item> mEquippedItem;
+		base::Handle<BodyPart> mCanHoldOnto;
+		base::Handle<Item> mEquippedItem;
 		BodyPartType::PartType mType;
 		bool mIsHoldingOnto;
 		bool mWeaponPart;

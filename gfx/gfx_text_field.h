@@ -69,7 +69,7 @@ namespace gfx {
 	protected:
 
 		std::string mText;
-		am::base::Handle<Font> mFont;
+		base::Handle<Font> mFont;
 
 		float mMeasuredWidth;
 		float mMeasuredHeight;

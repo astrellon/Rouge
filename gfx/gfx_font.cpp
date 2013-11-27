@@ -13,7 +13,7 @@ namespace gfx {
 	const char *Font::LUA_TABLENAME = LUA_TABLE_FONT;
 
 	Font::Font(const char *name) :
-		am::base::IManaged(),
+		base::IManaged(),
 		mAsset(nullptr),
 		mName(name),
 		mKerning(1.0f),

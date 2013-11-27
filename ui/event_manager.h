@@ -22,7 +22,7 @@ namespace ui {
 
 		friend class EventInterface;
 
-		typedef std::vector< am::base::Handle<IEventListener> > ListenerList;
+		typedef std::vector< base::Handle<IEventListener> > ListenerList;
 		typedef std::map<std::string, ListenerList> Listeners;
 
 		EventManager();
@@ -81,7 +81,7 @@ namespace ui {
 		Listeners mListeners;
 		Listeners mToRemove;
 		bool mFiring;
-		am::base::Handle<EventInterface> mDeleteResponse;
+		base::Handle<EventInterface> mDeleteResponse;
 
 		ListenerList::iterator findListener(const std::string &type, IEventListener *context);
 

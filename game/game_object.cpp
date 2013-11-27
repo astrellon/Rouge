@@ -159,8 +159,8 @@ namespace game {
 			if (mFixedToGrid)
 			{
 				Engine *engine = Engine::getEngine();
-				x = am::math::round(x * engine->getGridSizeResp()) * engine->getGridSize();
-				y = am::math::round(y * engine->getGridSizeResp()) * engine->getGridSize();
+				x = math::round(x * engine->getGridSizeResp()) * engine->getGridSize();
+				y = math::round(y * engine->getGridSizeResp()) * engine->getGridSize();
 			}
 			mTransform.setXY(x, y);
 		}
@@ -206,11 +206,11 @@ namespace game {
 	}
 	int GameObject::getGridLocationX() const
 	{
-		return am::math::round(mLocationX * Engine::getEngine()->getGridSizeResp());
+		return math::round(mLocationX * Engine::getEngine()->getGridSizeResp());
 	}
 	int GameObject::getGridLocationY() const
 	{
-		return am::math::round(mLocationY * Engine::getEngine()->getGridSizeResp());
+		return math::round(mLocationY * Engine::getEngine()->getGridSizeResp());
 	}
 
 	bool GameObject::setGridLocationF(float x, float y, bool setDraw)
@@ -542,7 +542,7 @@ namespace game {
 			mDialogueComp->talkTo(other);
 		}
 		//mTalkingTo = other;
-		//am::base::Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
+		//base::Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
 		//fireEvent<DialogueEvent>(e);
 	}
 	void GameObject::talkTo(GameObject *other, Dialogue *diag)
@@ -552,7 +552,7 @@ namespace game {
 			mDialogueComp->talkTo(other, diag);
 		}
 		//mTalkingTo = other;
-		//am::base::Handle<DialogueEvent> e(new DialogueEvent(diag));
+		//base::Handle<DialogueEvent> e(new DialogueEvent(diag));
 		//fireEvent<DialogueEvent>(e);
 	}*/
 	/*GameObject *GameObject::getTalkingTo() const
@@ -634,7 +634,7 @@ namespace game {
 		output->at("cameraOffsetY", mCameraOffsetY);
 		output->at("name", mName);
 
-		am::base::Handle<data::Table> passibleTypes(new data::Table());
+		base::Handle<data::Table> passibleTypes(new data::Table());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
 			passibleTypes->push((*iter)->getName());
@@ -666,20 +666,20 @@ namespace game {
 			return 0;
 		}
 		
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "game object"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "game object"));
 		if (!dataMap)
 		{
 			return -1;
 		}
 
-		am::base::Handle<data::String> str(dataMap->at<data::String>("gameId"));
+		base::Handle<data::String> str(dataMap->at<data::String>("gameId"));
 		if (str)
 		{
 			state->setGameId(str->string(), this);
 			mGameId = str->string();
 		}
 		
-		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));
+		base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));
 		if (boo)
 		{
 			mFixedToGrid = boo->boolean();
@@ -693,7 +693,7 @@ namespace game {
 
 		float locationX = mLocationX;
 		float locationY = mLocationY;
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
+		base::Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
 		if (num)
 		{
 			locationX = num->number<float>();
@@ -722,7 +722,7 @@ namespace game {
 			setName(str->string());
 		}
 
-		am::base::Handle<data::Table> arr(dataMap->at<data::Table>("passibleTypes"));
+		base::Handle<data::Table> arr(dataMap->at<data::Table>("passibleTypes"));
 		if (arr)
 		{
 			Engine *engine = Engine::getEngine();
@@ -737,7 +737,7 @@ namespace game {
 					am_log("LOADERR", ss);
 					continue;
 				}
-				am::base::Handle<TileType> tileType(engine->getTileType(tileTypeName));
+				base::Handle<TileType> tileType(engine->getTileType(tileTypeName));
 				if (!tileType)
 				{
 					std::stringstream ss;
@@ -769,7 +769,7 @@ namespace game {
 			state->addMapToLoad(str->string());
 		}
 
-		am::base::Handle<data::IData> tempData(dataMap->at("dialogueComponent"));
+		base::Handle<data::IData> tempData(dataMap->at("dialogueComponent"));
 		if (tempData)
 		{
 			DialogueComponent *comp = new DialogueComponent();

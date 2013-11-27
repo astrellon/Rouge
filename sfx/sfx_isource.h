@@ -15,7 +15,7 @@ namespace sfx {
 
 	class ISound;
 
-	class ISource : public am::base::IManaged {
+	class ISource : public base::IManaged {
 	public:
 		
 		ISource();

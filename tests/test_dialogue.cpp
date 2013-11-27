@@ -29,12 +29,12 @@ namespace tests {
 		Dialogue *testDiag2 = new Dialogue("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
 		game->addDialogue(testDiag2);
 
-		am::base::Handle<Character> testNPC(new Character());
+		base::Handle<Character> testNPC(new Character());
 		testNPC->setDialogueComp(new DialogueComponent());
 		testNPC->getDialogueComp()->setDialogueAvailable("diag1");
 		testNPC->getDialogueComp()->setDialogueAvailable("diag2");
 
-		am::base::Handle<Character> testPlayer(new Character());
+		base::Handle<Character> testPlayer(new Character());
 		testPlayer->setDialogueComp(new DialogueComponent());
 
 		std::vector<Dialogue *> dialogues;

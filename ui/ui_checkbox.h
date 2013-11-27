@@ -41,9 +41,9 @@ namespace ui {
 		virtual void setEnabled(bool enabled);
 	protected:
 
-		am::base::Handle<Sprite> mCheckGraphic;
-		am::base::Handle<TextField> mLabel;
-		am::base::Handle<Sprite> mHitbox;
+		base::Handle<Sprite> mCheckGraphic;
+		base::Handle<TextField> mLabel;
+		base::Handle<Sprite> mHitbox;
 		bool mSelected;
 
 		void init();

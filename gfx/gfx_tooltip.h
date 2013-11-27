@@ -65,10 +65,10 @@ namespace gfx {
 		float mDisplayDelay;
 		float mDetailedDisplayDelay;
 
-		am::base::Handle<const Renderable> mTarget;
-		am::base::Handle<Sprite> mGraphic;
-		am::base::Handle<Renderable> mTooltipGraphic;
-		am::base::Handle<Renderable> mTooltipDetailedGraphic;
+		base::Handle<const Renderable> mTarget;
+		base::Handle<Sprite> mGraphic;
+		base::Handle<Renderable> mTooltipGraphic;
+		base::Handle<Renderable> mTooltipDetailedGraphic;
 
 		virtual void setDetailed(bool detailed);
 	};

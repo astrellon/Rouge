@@ -20,7 +20,7 @@ namespace gfx {
 	class Layer;
 	class Tooltip;
 
-	class Renderable : virtual public am::base::IManaged, public EventInterface {
+	class Renderable : virtual public base::IManaged, public EventInterface {
 	public:
 
 		typedef std::vector<const Renderable *> RenderablePath;
@@ -68,7 +68,7 @@ namespace gfx {
 		virtual void setGfxComponent(GfxComponent *comp);
 		virtual GfxComponent *getGfxComponent() const;
 
-		virtual am::math::TransformLite &getTransform();
+		virtual math::TransformLite &getTransform();
 		virtual void setPosition(float x, float y);
 		virtual void setPosition(int x, int y);
 		virtual float getPositionX() const;
@@ -106,10 +106,10 @@ namespace gfx {
 		bool mVisible;
 		bool mInteractive;
 
-		am::base::Handle<GfxComponent> mGfxComponent;
+		base::Handle<GfxComponent> mGfxComponent;
 		Tooltip *mTooltip;
 		Layer *mParent;
-		am::math::TransformLite mTransform;
+		math::TransformLite mTransform;
 
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);

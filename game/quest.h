@@ -23,7 +23,7 @@ namespace game {
 	class Character;
 	class LoadingState;
 
-	class Quest : public EventInterface, public IAttributeData, public virtual am::base::IManaged {
+	class Quest : public EventInterface, public IAttributeData, public virtual base::IManaged {
 	public:
 		
 		Quest(const char *questId);

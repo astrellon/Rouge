@@ -1,10 +1,6 @@
 #include "engine.h"
 
-//#include <util/json_value.h>
-//using namespace am::util;
-
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <sstream>
 
@@ -140,28 +136,28 @@ namespace game {
 		}
 	}
 
-	void Engine::setGameHud(GameHud *hud)
+	void Engine::setGameHud(ui::GameHud *hud)
 	{
 		mGameHud = hud;
 	}
-	GameHud *Engine::getGameHud() const
+	ui::GameHud *Engine::getGameHud() const
 	{
 		return mGameHud;
 	}
 
-	void Engine::setEditorHud(EditorHud *hud)
+	void Engine::setEditorHud(ui::EditorHud *hud)
 	{
 		mEditorHud = hud;
 	}
-	EditorHud *Engine::getEditorHud() const
+	ui::EditorHud *Engine::getEditorHud() const
 	{
 		return mEditorHud;
 	}
 
 	Tile *Engine::getTile(const char *name)
 	{
-		string nameStr = name;
-		string tileSetStr;
+		std::string nameStr = name;
+		std::string tileSetStr;
 		int tileSetIndex = nameStr.find("/");
 		bool useSpecificTileSet = false;
 		if (tileSetIndex >= 0)
@@ -174,7 +170,7 @@ namespace game {
 
 		if (useSpecificTileSet)
 		{
-			am::base::Handle<TileSet> tileSet = mTopLevelTileSet;
+			base::Handle<TileSet> tileSet = mTopLevelTileSet;
 			if (tileSetStr.size() > 0)
 			{
 				tileSet = getTileSet(tileSetStr.c_str());
@@ -188,9 +184,8 @@ namespace game {
 		else
 		{
 			checkUsingTileSet();
-			TileSetMap::iterator iter;
 			Tile *foundTile = nullptr;
-			for (iter = mUsingTileSet.begin(); iter != mUsingTileSet.end(); ++iter)
+			for (auto iter = mUsingTileSet.begin(); iter != mUsingTileSet.end(); ++iter)
 			{
 				foundTile = iter->second->getTile(nameStr.c_str());
 				if (foundTile != nullptr)
@@ -265,7 +260,7 @@ namespace game {
 		//if (mLua.hasGlobalFunction("new_game"))
 		if (mLua.hasAmType("new_game", LUA_TFUNCTION))
 		{
-			LuaHandle handle(mLua, 1);
+			am::lua::LuaHandle handle(mLua, 1);
 			try
 			{
 				mLua.push(scenarioName);
@@ -298,7 +293,7 @@ namespace game {
 	{
 		if (mLua.hasAmType("load_game", LUA_TFUNCTION))
 		{
-			LuaHandle handle(mLua, 1);
+			am::lua::LuaHandle handle(mLua, 1);
 			try
 			{
 				mLua.push(saveName);

@@ -16,7 +16,7 @@ namespace gfx {
 	const char *Texture::LUA_TABLENAME = LUA_TABLE_TEXTURE;
 
 	Texture::Texture() :
-		am::base::IManaged(),
+		base::IManaged(),
 		mTextureId(0),
 		mWidth(-1),
 		mHeight(-1),
@@ -27,7 +27,7 @@ namespace gfx {
 	}
 
 	/*Texture::Texture(const char *filename, GLuint textureId) :
-		am::base::IManaged(),
+		base::IManaged(),
 		mTextureId(textureId),
 		mFilename(filename),
 		mLoaded(false)
@@ -35,7 +35,7 @@ namespace gfx {
 		// TODO: Get GL width and height, etc
 	}*/
 	Texture::Texture(const char *filename) :
-		am::base::IManaged(),
+		base::IManaged(),
 		mTextureId(0),
 		mWidth(-1),
 		mHeight(-1),
@@ -55,16 +55,16 @@ namespace gfx {
 		return mLoaded;
 	}
 
-	am::base::ReturnCode Texture::loadFromFile(const char *filename)
+	base::ReturnCode Texture::loadFromFile(const char *filename)
 	{
 		if (filename == nullptr || filename[0] == '\0')
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 
 		if (!Utils::fileExists(filename))
 		{
-			return am::base::FILE_NOT_FOUND;
+			return base::FILE_NOT_FOUND;
 		}
 
 		GLuint prevId = mTextureId;
@@ -74,7 +74,7 @@ namespace gfx {
 
 		if (!ilLoadImage(filename))
 		{
-			return am::base::TEXTURE_LOAD_FAILED;
+			return base::TEXTURE_LOAD_FAILED;
 		}
 
 		mFilename = filename;
@@ -101,7 +101,7 @@ namespace gfx {
 		mLoaded = true;
 		destroy(prevId);
 
-		return am::base::SUCCESS;
+		return base::SUCCESS;
 	}
 	GLuint Texture::getTextureId() const
 	{
@@ -134,7 +134,7 @@ namespace gfx {
 	{
 		return mFilename.c_str();
 	}
-	am::base::ReturnCode Texture::setFilename(const char *filename)
+	base::ReturnCode Texture::setFilename(const char *filename)
 	{
 		return loadFromFile(filename);
 	}

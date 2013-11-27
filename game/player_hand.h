@@ -24,7 +24,7 @@ namespace game {
 	protected:
 
 		bool mEnabled;
-		am::base::Handle<Item> mInhand;
+		base::Handle<Item> mInhand;
 		
 		void updateGraphic();
 

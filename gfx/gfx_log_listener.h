@@ -25,7 +25,7 @@ namespace gfx {
 
 	protected:
 
-		am::base::Handle<TextList> mTextList;
+		base::Handle<TextList> mTextList;
 
 	};
 

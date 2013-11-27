@@ -35,7 +35,7 @@ namespace sys {
 	
 	class OsSystem;
 
-	class GameSystem : public ISystem, public am::ui::IEventListener {
+	class GameSystem : public ISystem, public ui::IEventListener {
 	public:
 		
 		~GameSystem();
@@ -58,11 +58,11 @@ namespace sys {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onKeyDown(am::ui::Keyboard::Key key);
-		virtual void onKeyUp(am::ui::Keyboard::Key key);
+		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onKeyDown(ui::Keyboard::Key key);
+		virtual void onKeyUp(ui::Keyboard::Key key);
 		virtual void onKeyPress(char key);
 
 		virtual bool isProgramRunning() const;
@@ -84,7 +84,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual am::base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
+		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -102,13 +102,13 @@ namespace sys {
 		OsSystem *mLinkedSystem;
 		Engine *mEngine;
 
-		am::base::Handle<GfxLogListener> mGfxListener;
+		base::Handle<GfxLogListener> mGfxListener;
 
 		static GameSystem *sGameSystem;
 
-		am::base::Handle<TextList> mDebugConsole;
-		am::base::Handle<DebugInspector> mDebugInspector;
-		am::base::Handle<Tooltip> mTooltip;
+		base::Handle<TextList> mDebugConsole;
+		base::Handle<DebugInspector> mDebugInspector;
+		base::Handle<Tooltip> mTooltip;
 	};
 
 }

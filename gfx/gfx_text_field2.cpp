@@ -232,11 +232,11 @@ namespace gfx {
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
 				list.clear();
-				am::base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+				base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
 				mTextHitboxes->addChild(hitbox.get());
 				hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 				hitbox->setHeight(mFont->getCharHeight());
-				hitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+				hitbox->addEventListener(ui::Mouse::MOUSE_UP, this);
 				list.push_back(hitbox);
 			}
 			TextStyle currentStyle = mCurrentNode->getTextStyle();
@@ -347,12 +347,12 @@ namespace gfx {
 		{
 			mNewLinePositions.push_back(mTextPosition);
 
-			am::base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+			base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
 			mTextHitboxes->addChild(hitbox);
 			hitbox->setWidth(0);
 			hitbox->setHeight(mFont->getCharHeight());
 			hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
-			hitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			hitbox->addEventListener(ui::Mouse::MOUSE_UP, this);
 			mCurrentNode->getHitboxes().push_back(hitbox);
 		}
 	}
@@ -424,7 +424,7 @@ namespace gfx {
 			if (mNewLineDirty && mCurrentNode)
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
-				am::base::Handle<Renderable> hitbox = list[list.size() - 1];
+				base::Handle<Renderable> hitbox = list[list.size() - 1];
 				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
 			}
 		}
@@ -487,7 +487,7 @@ namespace gfx {
 		};
 		ParseState state = BASE;
 		
-		am::base::Handle<Node> currentNode = mRootNode;
+		base::Handle<Node> currentNode = mRootNode;
 		mRootNode->clear();
 
 		mTextHitboxes->clear();

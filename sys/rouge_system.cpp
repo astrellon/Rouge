@@ -166,13 +166,13 @@ namespace sys {
 		gfxEngine->getRootLayer()->addChild(test);*/
 
 		/*
-		am::base::Handle<TextInput> input(new TextInput());
+		base::Handle<TextInput> input(new TextInput());
 		input->setFocus(true);
 		input->setParentOffset(200, 50);
 		gfxEngine->getUILayer()->addChild(input);*/
 
 		
-		/*am::base::Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
+		/*base::Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
 		tip->show();
 		tip->setPosition(400, 100);*/
 	}
@@ -296,10 +296,10 @@ namespace sys {
 		}
 	}
 
-	void RougeSystem::onKeyUp(am::ui::Keyboard::Key key)
+	void RougeSystem::onKeyUp(ui::Keyboard::Key key)
 	{
 		// 27 is currently escape.
-		if (mInDialogue && key == am::ui::Keyboard::KEY_ESC)
+		if (mInDialogue && key == ui::Keyboard::KEY_ESC)
 		{
 			if (mPlayer->getDialogueComp())
 			{
@@ -307,29 +307,29 @@ namespace sys {
 			}
 			return;
 		}
-		if (key == am::ui::Keyboard::KEY_ESC && mEngine->getCurrentGame() != nullptr)
+		if (key == ui::Keyboard::KEY_ESC && mEngine->getCurrentGame() != nullptr)
 		{
 			toggleInGameMenu();
 			return;
 		}
 		// 19 is currently pause.
-		if (key == am::ui::Keyboard::KEY_PAUSE && mEngine->getCurrentGame() != nullptr)
+		if (key == ui::Keyboard::KEY_PAUSE && mEngine->getCurrentGame() != nullptr)
 		{
 			togglePause();
 			return;
 		}
-		if (key == am::ui::Keyboard::KEY_Z)
+		if (key == ui::Keyboard::KEY_Z)
 		{
 			GfxEngine::getEngine()->reloadAsset("bigButton");
 		}
 		Game *game = mEngine->getCurrentGame();
 		if (game)
 		{
-			if (key == am::ui::Keyboard::KEY_A)
+			if (key == ui::Keyboard::KEY_A)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap_2", 3, 1, true);
 			}
-			if (key == am::ui::Keyboard::KEY_S)
+			if (key == ui::Keyboard::KEY_S)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap", 1, 3, true);
 			}

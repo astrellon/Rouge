@@ -79,18 +79,18 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getMap"));
 		lua_acall(lua, 0, 1);
 
-		am::base::Handle<util::data::Table> dataMap(castUData<util::data::Table>(lua, -1));
+		base::Handle<util::data::Table> dataMap(castUData<util::data::Table>(lua, -1));
 		assert(dataMap);
 
-		am::base::Handle<util::data::Number> num(dataMap->at<util::data::Number>("num"));
+		base::Handle<util::data::Number> num(dataMap->at<util::data::Number>("num"));
 		assert(num);
 		am_equalsDelta(5.0, num->number(), 0.00001);
 
-		am::base::Handle<util::data::String> str(dataMap->at<util::data::String>("str"));
+		base::Handle<util::data::String> str(dataMap->at<util::data::String>("str"));
 		assert(str);
 		am_equalsStr("test", str->string());
 
-		am::base::Handle<util::data::Table> pos(dataMap->at<util::data::Table>("pos"));
+		base::Handle<util::data::Table> pos(dataMap->at<util::data::Table>("pos"));
 		assert(pos);
 		am_equals(3u, pos->mapInner().size());
 
@@ -102,11 +102,11 @@ namespace tests {
 		assert(num);
 		am_equalsDelta(3.2, num->number(), 0.00001);
 
-		am::base::Handle<util::data::Boolean> boo(pos->at<util::data::Boolean>("origin"));
+		base::Handle<util::data::Boolean> boo(pos->at<util::data::Boolean>("origin"));
 		assert(boo);
 		assert(!boo->boolean());
 
-		am::base::Handle<util::data::Table> names(dataMap->at<util::data::Table>("names"));
+		base::Handle<util::data::Table> names(dataMap->at<util::data::Table>("names"));
 		assert(names);
 		am_equals(3u, names->arrayInner().size());
 

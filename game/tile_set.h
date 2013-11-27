@@ -17,10 +17,10 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileSet : public am::base::IManaged, public IDefinition {
+	class TileSet : public base::IManaged, public IDefinition {
 	public:
 
-		typedef std::map<std::string, am::base::Handle<Tile> > TileMap;
+		typedef std::map<std::string, base::Handle<Tile> > TileMap;
 
 		TileSet();
 		TileSet(const char *name);

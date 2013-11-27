@@ -29,7 +29,7 @@ namespace ui {
 	class List : public UIComponent, public IEventListener {
 	public:
 
-		typedef std::vector< am::base::Handle<ListItem> > ListItems;
+		typedef std::vector< base::Handle<ListItem> > ListItems;
 
 		List();
 		~List();
@@ -57,8 +57,8 @@ namespace ui {
 		ListItems mItems;
 		int mItemDisplay;
 		int mScroll;
-		am::base::Handle<Scrollbar> mScrollbar;
-		am::base::Handle<Layer> mListRenderer;
+		base::Handle<Scrollbar> mScrollbar;
+		base::Handle<Layer> mListRenderer;
 
 		int findItem(ListItem *item) const;
 

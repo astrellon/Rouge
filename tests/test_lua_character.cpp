@@ -51,7 +51,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		am::base::Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("char1"));
+		base::Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("char1"));
 		am_equalsStr("Melli", char1->getName().c_str());
 
 		assert(lua.hasGlobalFunction("getName"));
@@ -114,7 +114,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		am::base::Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charGender"));
+		base::Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charGender"));
 		am_equals(static_cast<int>(Gender::MALE), static_cast<int>(charGender->getGender()));
 
 		assert(lua.hasGlobalFunction("getGender"));
@@ -156,7 +156,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		am::base::Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
+		base::Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
 		am_equalsDelta(0.0f, charStats->getStats()->getBaseStat(Stat::ARCANE), 0.0001f);
 
 		charStats->getStats()->setBaseStat(Stat::ARCANE, 5.0f);
@@ -201,7 +201,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		am::base::Handle<Character> charBodyPart = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charBodyPart"));
+		base::Handle<Character> charBodyPart = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charBodyPart"));
 
 		assert(lua.hasGlobalFunction("hasBodyPart"));
 		lua.push("arm");
@@ -210,7 +210,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addBodyPart"));
-		am::base::Handle<BodyPart> part(new BodyPart("arm"));
+		base::Handle<BodyPart> part(new BodyPart("arm"));
 		wrapRefObject<BodyPart>(lua, part);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));

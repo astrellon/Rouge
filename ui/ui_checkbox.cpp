@@ -68,7 +68,7 @@ namespace ui {
 		if (selected != mSelected)
 		{
 			mSelected = selected;
-			am::base::Handle<ValueChangeEvent> e(new ValueChangeEvent(this, selected));
+			base::Handle<ValueChangeEvent> e(new ValueChangeEvent(this, selected));
 			fireEvent<ValueChangeEvent>(e);
 		}
 	}
@@ -91,10 +91,10 @@ namespace ui {
 		switch (e->getMouseEventType())
 		{
 		default:
-		case am::ui::Mouse::MOUSE_OUT:
+		case ui::Mouse::MOUSE_OUT:
 			mCheckGraphic->setCurrentFrame(offset);
 			break;
-		case am::ui::Mouse::MOUSE_MOVE:
+		case ui::Mouse::MOUSE_MOVE:
 			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
 				mCheckGraphic->setCurrentFrame(offset + 2);
@@ -104,13 +104,13 @@ namespace ui {
 				mCheckGraphic->setCurrentFrame(offset + 1);
 			}
 			break;
-		case am::ui::Mouse::MOUSE_UP:
+		case ui::Mouse::MOUSE_UP:
 			setSelected(!mSelected);
 			offset = mSelected ? 4 : 0;
-		case am::ui::Mouse::MOUSE_OVER:
+		case ui::Mouse::MOUSE_OVER:
 			mCheckGraphic->setCurrentFrame(offset + 1);
 			break;
-		case am::ui::Mouse::MOUSE_DOWN:
+		case ui::Mouse::MOUSE_DOWN:
 			mCheckGraphic->setCurrentFrame(offset + 2);
 			break;
 		}
@@ -134,11 +134,11 @@ namespace ui {
 		mHitbox->getGfxComponent()->getColour().setAlpha(0.0f);
 		addChild(mHitbox.get());
 
-		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OVER, this);
-		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OUT, this);
-		mHitbox->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
-		mHitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
-		mHitbox->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		mHitbox->addEventListener(ui::Mouse::MOUSE_OVER, this);
+		mHitbox->addEventListener(ui::Mouse::MOUSE_OUT, this);
+		mHitbox->addEventListener(ui::Mouse::MOUSE_DOWN, this);
+		mHitbox->addEventListener(ui::Mouse::MOUSE_UP, this);
+		mHitbox->addEventListener(ui::Mouse::MOUSE_MOVE, this);
 
 		mHitbox->setWidth(getWidth());
 		mHitbox->setHeight(getHeight());

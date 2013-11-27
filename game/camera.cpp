@@ -3,10 +3,8 @@
 #include <gfx/gfx_engine.h>
 
 #include <sfx/sfx_engine.h>
-using namespace am::sfx;
 
 #include <game/engine.h>
-using namespace am::game;
 
 namespace am {
 namespace game {
@@ -82,11 +80,8 @@ namespace game {
 		}
 		float locX = getLocationX();
 		float locY = getLocationY();
-		GfxEngine::getEngine()->setCameraLocation(locX, locY);
-		std::stringstream ss;
-		ss << "Setting sound loc to: " << locX << ", " << locY;
-		//am_log("SFX", ss);
-		SfxEngine::getEngine()->getListener().setPosition(locX, locY);
+		am::gfx::GfxEngine::getEngine()->setCameraLocation(locX, locY);
+		am::sfx::SfxEngine::getEngine()->getListener().setPosition(locX, locY);
 	}
 
 }

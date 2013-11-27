@@ -1,9 +1,6 @@
 #pragma once
 
-#include <base/imanaged.h>
-
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 namespace am {
 namespace util {
@@ -11,13 +8,15 @@ namespace data {
 	class IData;
 }
 }
-using namespace am::util;
 
 namespace game {
 
+	using am::util::data::IData;
+
 	class LoadingState;
 
-	class CoinPurse : public EventInterface {
+	class CoinPurse : public ui::EventInterface
+	{
 	public:
 
 		CoinPurse();
@@ -36,8 +35,8 @@ namespace game {
 		virtual void setMaxCoin(int maxCoin);
 		virtual int getMaxCoin() const;
 
-		virtual data::IData *serialise();
-		virtual int deserialise(LoadingState *state, data::IData *data);
+		virtual IData *serialise();
+		virtual int deserialise(LoadingState *state, IData *data);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

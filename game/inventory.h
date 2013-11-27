@@ -21,7 +21,7 @@ namespace game {
 
 	class LoadingState;
 
-	class Inventory : public virtual am::base::IManaged, public EventInterface {
+	class Inventory : public virtual base::IManaged, public EventInterface {
 	public:
 
 		typedef std::vector< InventorySpot > InventorySpots;

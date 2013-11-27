@@ -43,7 +43,7 @@ namespace sfx {
 
 		typedef std::vector<DeviceName> DeviceList;
 		typedef std::vector<SourceId> SourcePool;
-		typedef std::map< std::string, am::base::Handle<ISound> > SoundMap;
+		typedef std::map< std::string, base::Handle<ISound> > SoundMap;
 
 		void init();
 		bool hasInited() const;
@@ -92,14 +92,14 @@ namespace sfx {
 
 		int nextPoolIndex();
 
-		am::base::Handle<SourcePoint> mBackgroundMusicSource;
-		am::base::Handle<ISound> mBackgroundMusic;
+		base::Handle<SourcePoint> mBackgroundMusicSource;
+		base::Handle<ISound> mBackgroundMusic;
 
 		SoundMap mSoundMap;
 
 		Listener mListener;
 
-		typedef std::vector< am::base::Handle<ISource> > SourceList;
+		typedef std::vector< base::Handle<ISource> > SourceList;
 		SourceList mInactiveSources;
 
 		size_t findInactiveSource(ISource *source);

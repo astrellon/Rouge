@@ -20,7 +20,7 @@ namespace gfx {
 	class Texture;
 	class Asset;
 
-	class Font : public am::base::IManaged, public IDefinition {
+	class Font : public base::IManaged, public IDefinition {
 	public:
 		// GlFont methods
 		Font(const char *name);
@@ -74,7 +74,7 @@ namespace gfx {
 
 	protected:
 
-		am::base::Handle<Asset> mAsset;
+		base::Handle<Asset> mAsset;
 		std::string mName;
 
 		bool mFixedWidth;

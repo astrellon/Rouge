@@ -3,7 +3,6 @@
 #include <sstream>
 
 #include <ui/dialogue_event.h>
-using am::ui::DialogueEvent;
 
 #include <util/data_table.h>
 #include <util/data_string.h>
@@ -54,13 +53,13 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		am::base::Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue(), false));
-		mAttachedTo->fireEvent<DialogueEvent>(e);
-		other->fireEvent<DialogueEvent>(e);
+		base::Handle<ui::DialogueEvent> e(new ui::DialogueEvent(otherComp->getStartDialogue(), false));
+		mAttachedTo->fireEvent<ui::DialogueEvent>(e);
+		other->fireEvent<ui::DialogueEvent>(e);
 
-		e = new DialogueEvent(otherComp->getStartDialogue(), true);
-		mAttachedTo->fireEvent<DialogueEvent>(e);
-		other->fireEvent<DialogueEvent>(e);
+		e = new ui::DialogueEvent(otherComp->getStartDialogue(), true);
+		mAttachedTo->fireEvent<ui::DialogueEvent>(e);
+		other->fireEvent<ui::DialogueEvent>(e);
 	}
 	void DialogueComponent::talkTo(GameObject *other, Dialogue *diag)
 	{
@@ -69,13 +68,13 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		am::base::Handle<DialogueEvent> e(new DialogueEvent(diag, false));
-		mAttachedTo->fireEvent<DialogueEvent>(e);
-		other->fireEvent<DialogueEvent>(e);
+		base::Handle<ui::DialogueEvent> e(new ui::DialogueEvent(diag, false));
+		mAttachedTo->fireEvent<ui::DialogueEvent>(e);
+		other->fireEvent<ui::DialogueEvent>(e);
 
-		e = new DialogueEvent(diag, true);
-		mAttachedTo->fireEvent<DialogueEvent>(e);
-		other->fireEvent<DialogueEvent>(e);
+		e = new ui::DialogueEvent(diag, true);
+		mAttachedTo->fireEvent<ui::DialogueEvent>(e);
+		other->fireEvent<ui::DialogueEvent>(e);
 	}
 	GameObject *DialogueComponent::getTalkingTo() const
 	{
@@ -97,7 +96,7 @@ namespace game {
 		{
 			return;
 		}
-		string subjectStr(subject);
+		std::string subjectStr(subject);
 		mUnlockedSubjects[subjectStr] = locked;
 	}
 	bool DialogueComponent::isSubjectLocked(const char *subject) const
@@ -106,7 +105,7 @@ namespace game {
 		{
 			return true;
 		}
-		string subjectStr(subject);
+		std::string subjectStr(subject);
 		SubjectMap::const_iterator iter = mUnlockedSubjects.find(subjectStr);
 		if (iter == mUnlockedSubjects.end())
 		{
@@ -125,7 +124,7 @@ namespace game {
 		{
 			return;
 		}
-		string subjectStr(subject);
+		std::string subjectStr(subject);
 		mDialoguesAvailable[subjectStr] = available;
 	}
 	bool DialogueComponent::isDialogueAvailable(const char *subject) const
@@ -134,7 +133,7 @@ namespace game {
 		{
 			return false;
 		}
-		string subjectStr(subject);
+		std::string subjectStr(subject);
 		SubjectMap::const_iterator iter = mDialoguesAvailable.find(subjectStr);
 		if (iter == mDialoguesAvailable.end())
 		{
@@ -215,7 +214,7 @@ namespace game {
 		{
 			return;
 		}
-		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			std::stringstream ss;
@@ -224,7 +223,7 @@ namespace game {
 			am_log("LOADERR", ss);
 			return;
 		}
-		am::base::Handle<data::Table> unlocked(dataMap->at<data::Table>("unlockedSubjects"));
+		base::Handle<data::Table> unlocked(dataMap->at<data::Table>("unlockedSubjects"));
 		if (unlocked)
 		{
 			for (auto iter = unlocked->beginArray(); iter != unlocked->endArray(); ++iter)
@@ -243,7 +242,7 @@ namespace game {
 			}
 		}
 
-		am::base::Handle<data::Table> available(dataMap->at<data::Table>("dialoguesAvailable"));
+		base::Handle<data::Table> available(dataMap->at<data::Table>("dialoguesAvailable"));
 		if (available)
 		{
 			for (auto iter = available->beginArray(); iter != available->endArray(); ++iter)
@@ -262,7 +261,7 @@ namespace game {
 			}
 		}
 
-		am::base::Handle<data::String> start(dataMap->at<data::String>("startDialogue"));
+		base::Handle<data::String> start(dataMap->at<data::String>("startDialogue"));
 		if (start)
 		{
 			state->setStartDialogue(start->string(), this);

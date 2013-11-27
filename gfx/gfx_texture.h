@@ -10,7 +10,7 @@
 namespace am {
 namespace gfx {
 
-	class Texture : public am::base::IManaged {
+	class Texture : public base::IManaged {
 	public:
 		Texture();
 		//Texture(const char *filename, GLuint textureId);
@@ -18,7 +18,7 @@ namespace gfx {
 		~Texture();
 
 		const char *getFilename() const;
-		am::base::ReturnCode setFilename(const char *filename);
+		base::ReturnCode setFilename(const char *filename);
 		bool isLoaded() const;
 
 		int reload();
@@ -38,7 +38,7 @@ namespace gfx {
 
 	protected:
 
-		am::base::ReturnCode loadFromFile(const char *filename);
+		base::ReturnCode loadFromFile(const char *filename);
 
 		GLuint mTextureId;
 		bool mLoaded;

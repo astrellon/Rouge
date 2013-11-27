@@ -27,7 +27,7 @@ namespace gfx {
 		void clear();
 
 		bool hasChild(Renderable *child) const;
-		bool hasChild(am::base::Handle<Renderable> child) const;
+		bool hasChild(base::Handle<Renderable> child) const;
 		int getNumChildren() const;
 		Renderable *getChildAt(int index) const;
 
@@ -40,7 +40,7 @@ namespace gfx {
 
 	protected:
 
-		typedef std::vector<am::base::Handle<Renderable> > ChildList;
+		typedef std::vector<base::Handle<Renderable> > ChildList;
 		ChildList mChildren;
 
 		ChildList::const_iterator findChild(Renderable *child) const;

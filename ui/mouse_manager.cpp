@@ -27,16 +27,16 @@ namespace ui {
 
 	}
 
-	void MouseManager::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
+	void MouseManager::onMouseDown(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
+		base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y);
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse down", getPath(hitTarget));
 		if (hitTarget == nullptr)
@@ -45,45 +45,45 @@ namespace ui {
 		}
 		if (!mFiredEvent)
 		{
-			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y));
+			base::Handle<MouseEvent> e(new MouseEvent(ui::Mouse::MOUSE_DOWN, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
-	void MouseManager::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
+	void MouseManager::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
-		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
+		base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y);
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse move", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
 			if (mUnderMouse != nullptr)
 			{
-				fireMouseEvent(mUnderMouse, am::ui::Mouse::MOUSE_OUT, mouseButton, x, y, -1, -1);
+				fireMouseEvent(mUnderMouse, ui::Mouse::MOUSE_OUT, mouseButton, x, y, -1, -1);
 			}
 			mUnderMouse = nullptr;
 		}
 		if (!mFiredEvent)
 		{
-			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y));
+			base::Handle<MouseEvent> e(new MouseEvent(ui::Mouse::MOUSE_MOVE, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
-	void MouseManager::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
+	void MouseManager::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
+		base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y);
+			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse up", getPath(hitTarget));
 		if (hitTarget == nullptr)
@@ -92,12 +92,12 @@ namespace ui {
 		}
 		if (!mFiredEvent)
 		{
-			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_UP, mouseButton, x, y));
+			base::Handle<MouseEvent> e(new MouseEvent(ui::Mouse::MOUSE_UP, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
 
-	bool MouseManager::getButtonDown(am::ui::Mouse::Button button)
+	bool MouseManager::getButtonDown(ui::Mouse::Button button)
 	{
 		MouseButtonMap::iterator iter = mMouseButtonsDown.find(button);
 		if (iter == mMouseButtonsDown.end())
@@ -116,7 +116,7 @@ namespace ui {
 		return mMouseY;
 	}
 
-	Renderable *MouseManager::checkForMouseEvent(Renderable *target, am::ui::Mouse::EventType mouseType, am::ui::Mouse::Button mouseButton, int x, int y, int localX, int localY)
+	Renderable *MouseManager::checkForMouseEvent(Renderable *target, ui::Mouse::EventType mouseType, ui::Mouse::Button mouseButton, int x, int y, int localX, int localY)
 	{
 		if (target == nullptr || !target->isInteractive())
 		{
@@ -129,7 +129,7 @@ namespace ui {
 		localX -= static_cast<int>(target->getPositionX());
 		localY -= static_cast<int>(target->getPositionY());
 
-		am::base::Handle<Layer> layer(dynamic_cast<Layer *>(target));
+		base::Handle<Layer> layer(dynamic_cast<Layer *>(target));
 		if (layer != nullptr && layer->isVisible() && !layer->interactWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
@@ -137,8 +137,8 @@ namespace ui {
 			// they'll appear on screen.
 			for (int i = numChildren - 1; i >= 0; i--)
 			{
-				am::base::Handle<Renderable> child(layer->getChildAt(i));
-				am::base::Handle<Renderable> hitChild(checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY));
+				base::Handle<Renderable> child(layer->getChildAt(i));
+				base::Handle<Renderable> hitChild(checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY));
 				if (hitChild)
 				{
 					//return child;
@@ -152,16 +152,16 @@ namespace ui {
 				localX >= 0 && localY >= 0 &&
 				localX <= target->getWidth() && localY <= target->getHeight())
 			{
-				am::base::Handle<Renderable> oldUnderMouse(mUnderMouse);
+				base::Handle<Renderable> oldUnderMouse(mUnderMouse);
 				mUnderMouse = target;
 				if (target != oldUnderMouse)
 				{
 					if (oldUnderMouse != nullptr)
 					{
-						fireMouseEvent(oldUnderMouse, am::ui::Mouse::MOUSE_OUT, mouseButton, x, y, -1, -1);
+						fireMouseEvent(oldUnderMouse, ui::Mouse::MOUSE_OUT, mouseButton, x, y, -1, -1);
 					}
 					
-					fireMouseEvent(target, am::ui::Mouse::MOUSE_OVER, mouseButton, x, y, localX, localY);
+					fireMouseEvent(target, ui::Mouse::MOUSE_OVER, mouseButton, x, y, localX, localY);
 				}
 				
 				{
@@ -198,9 +198,9 @@ namespace ui {
 		mStopCurrentEvents = true;
 	}
 
-	void MouseManager::fireMouseEvent(Renderable *target, am::ui::Mouse::EventType mouseType, am::ui::Mouse::Button mouseButton, int x, int y, int localX, int localY)
+	void MouseManager::fireMouseEvent(Renderable *target, ui::Mouse::EventType mouseType, ui::Mouse::Button mouseButton, int x, int y, int localX, int localY)
 	{
-		if (mouseType == am::ui::Mouse::MOUSE_DOWN)
+		if (mouseType == ui::Mouse::MOUSE_DOWN)
 		{
 			mStopCurrentEvents = false;
 		}
@@ -211,11 +211,11 @@ namespace ui {
 		while (!mStopCurrentEvents && target != nullptr && mCurrentEvent->isPropagating())
 		{
 			target->fireEvent<MouseEvent>(mCurrentEvent.get());
-			if (mouseType == am::ui::Mouse::MOUSE_OVER && target->hasTooltip())
+			if (mouseType == ui::Mouse::MOUSE_OVER && target->hasTooltip())
 			{
 				target->getTooltip()->onMouseOver(x, y);
 			}
-			else if (mouseType == am::ui::Mouse::MOUSE_OUT && target->hasTooltip())
+			else if (mouseType == ui::Mouse::MOUSE_OUT && target->hasTooltip())
 			{
 				target->getTooltip()->onMouseOut(x, y);
 			}

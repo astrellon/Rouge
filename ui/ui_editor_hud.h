@@ -3,11 +3,9 @@
 #include <base/handle.h>
 
 #include <game/tile.h>
-using namespace am::game;
 
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_layer.h>
-using namespace am::gfx;
 
 #include <ui/ui_component.h>
 #include <ui/ui_text_input.h>
@@ -20,6 +18,12 @@ using namespace am::gfx;
 
 namespace am {
 namespace ui {
+
+	using base::Handle;
+	using am::gfx::Sprite;
+	using am::gfx::Renderable;
+	using am::game::Tile;
+	using am::game::Game;
 
 	class EditorHud : public UIComponent, public IEventListener {
 	public:
@@ -54,10 +58,10 @@ namespace ui {
 			virtual Tile *getTile() const;
 			
 		protected:
-			am::base::Handle<Tile> mTile;
-			am::base::Handle<Sprite> mGraphic;
-			am::base::Handle<Label> mText;
-			am::base::Handle<Renderable> mHitbox;
+			Handle<Tile> mTile;
+			Handle<Sprite> mGraphic;
+			Handle<Label> mText;
+			Handle<Renderable> mHitbox;
 			ui::Mouse::EventType mMouseType;
 
 			void preRender(float dt);
@@ -65,22 +69,22 @@ namespace ui {
 
 		bool mMouseDown;
 
-		am::base::Handle<Game> mGame;
-		am::base::Handle<Sprite> mSideSprite;
-		am::base::Handle<TextInput> mMapName;
-		am::base::Handle<TextInput> mMapFullName;
-		am::base::Handle<TextInput> mMapWidth;
-		am::base::Handle<TextInput> mMapHeight;
-		am::base::Handle<TextButton> mMakeMap;
-		am::base::Handle<TextButton> mLoadMap;
-		am::base::Handle<TextButton> mSaveMap;
-		am::base::Handle<Label> mStatus;
-		am::base::Handle<List> mTiles;
+		Handle<Game> mGame;
+		Handle<Sprite> mSideSprite;
+		Handle<TextInput> mMapName;
+		Handle<TextInput> mMapFullName;
+		Handle<TextInput> mMapWidth;
+		Handle<TextInput> mMapHeight;
+		Handle<TextButton> mMakeMap;
+		Handle<TextButton> mLoadMap;
+		Handle<TextButton> mSaveMap;
+		Handle<Label> mStatus;
+		Handle<List> mTiles;
 
-		am::base::Handle<FileDialog> mLoadFileDialog;
-		am::base::Handle<FileDialog> mSaveFileDialog;
+		Handle<FileDialog> mLoadFileDialog;
+		Handle<FileDialog> mSaveFileDialog;
 
-		am::base::Handle<Tile> mCurrentTile;
+		Handle<Tile> mCurrentTile;
 
 		void updateStatus();
 		void setTile(float mouseX, float mouseY, Tile *tile);

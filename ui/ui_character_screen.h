@@ -38,14 +38,14 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextField2> mInfo;
-		am::base::Handle<Character> mCharacter;
-		am::base::Handle<InventoryRenderer> mInventory;
-		am::base::Handle<BodyPartRenderer> mLeftHand;
-		am::base::Handle<BodyPartRenderer> mRightHand;
-		am::base::Handle<BodyPartRenderer> mTorso;
-		am::base::Handle<BodyPartRenderer> mHead;
-		am::base::Handle<BodyPartRenderer> mLegs;
+		base::Handle<TextField2> mInfo;
+		base::Handle<Character> mCharacter;
+		base::Handle<InventoryRenderer> mInventory;
+		base::Handle<BodyPartRenderer> mLeftHand;
+		base::Handle<BodyPartRenderer> mRightHand;
+		base::Handle<BodyPartRenderer> mTorso;
+		base::Handle<BodyPartRenderer> mHead;
+		base::Handle<BodyPartRenderer> mLegs;
 
 		bool mTextDirty;
 		void updateText();

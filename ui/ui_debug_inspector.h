@@ -37,12 +37,12 @@ namespace ui {
 	protected:
 
 		std::map<std::string, std::string> mValues;
-		am::base::Handle<TextField2> mInfo;
+		base::Handle<TextField2> mInfo;
 
 		bool mTextDirty;
 		void updateText();
 
-		static am::base::Handle<DebugInspector> sInspector;
+		static base::Handle<DebugInspector> sInspector;
 	};
 
 }

@@ -60,10 +60,10 @@ namespace gfx {
 
 	protected:
 
-		typedef std::vector< am::base::Handle<Particle> > ParticleList;
+		typedef std::vector< base::Handle<Particle> > ParticleList;
 		ParticleList mParticleList;
 		
-		am::base::Handle<Asset> mParticleAsset;
+		base::Handle<Asset> mParticleAsset;
 
 		float mMaxAge;
 		float mAccelerationX;

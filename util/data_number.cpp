@@ -54,7 +54,7 @@ namespace data {
 	}
 	int Number::valuei() const
 	{
-		return am::math::round(mValue);
+		return math::round(mValue);
 	}
 
 	std::string Number::toLua() const

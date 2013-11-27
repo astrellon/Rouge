@@ -5,15 +5,13 @@
 #include <vector>
 
 #include <ui/ievent_listener.h>
-using am::ui::IEventListener;
-
 #include "gfx_sprite.h"
 #include "gfx_renderable.h"
 
 namespace am {
 namespace gfx {
 
-	class Button : public Sprite, public IEventListener {
+	class Button : public Sprite, public ui::IEventListener {
 	public:
 		Button(Renderable *hitbox = nullptr);
 		Button(const char *assetName, Renderable *hitbox = nullptr);
@@ -32,7 +30,7 @@ namespace gfx {
 		
 	protected:
 
-		am::base::Handle<Renderable> mHitbox;
+		base::Handle<Renderable> mHitbox;
 		bool mEnabled;
 
 		void addListeners(Renderable *target);

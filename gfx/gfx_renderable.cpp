@@ -22,7 +22,7 @@ namespace gfx {
 	}
 	
 	Renderable::Renderable() :
-		am::base::IManaged(),
+		base::IManaged(),
 		EventInterface(),
 		mWidth(0),
 		mHeight(0),
@@ -36,7 +36,7 @@ namespace gfx {
 #endif
 	}
 	Renderable::Renderable(const Renderable &copy) :
-		am::base::IManaged(),
+		base::IManaged(),
 		EventInterface(),
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
@@ -71,7 +71,7 @@ namespace gfx {
 		}
 		if (mParent)
 		{
-			am::base::Handle<Layer> parent(mParent);
+			base::Handle<Layer> parent(mParent);
 			mParent = nullptr;
 			parent->removeChild(this);
 		}
@@ -85,7 +85,7 @@ namespace gfx {
 	void Renderable::deinit()
 	{
 		{
-			am::base::Handle<Event> e(new Event("deinit", this));
+			base::Handle<Event> e(new Event("deinit", this));
 			fireEvent<Event>(e);
 		}
 		if (mParent)
@@ -222,7 +222,7 @@ namespace gfx {
 		mGfxComponent = comp;
 	}
 
-	am::math::TransformLite &Renderable::getTransform()
+	math::TransformLite &Renderable::getTransform()
 	{
 		return mTransform;
 	}

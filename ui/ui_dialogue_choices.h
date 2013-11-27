@@ -49,10 +49,10 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextField2> mText;
+		base::Handle<TextField2> mText;
 		std::vector<Dialogue *> mChoices;
-		am::base::Handle<GameObject> mTalker;
-		am::base::Handle<GameObject> mTalkedTo;
+		base::Handle<GameObject> mTalker;
+		base::Handle<GameObject> mTalkedTo;
 
 		void updateText();
 	};

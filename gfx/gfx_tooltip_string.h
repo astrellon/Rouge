@@ -32,8 +32,8 @@ namespace gfx {
 
 	protected:
 
-		am::base::Handle<TextField2> mTextField;
-		am::base::Handle<TextField2> mDetailedTextField;
+		base::Handle<TextField2> mTextField;
+		base::Handle<TextField2> mDetailedTextField;
 	};
 
 }

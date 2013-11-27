@@ -28,11 +28,11 @@ namespace game {
 	// to only apply the information that is not stored with a game
 	// object such as event listeners.
 
-	class LoadingState : public am::base::IManaged {
+	class LoadingState : public base::IManaged {
 	public:
 
 		typedef struct _GameObjectInfo {
-			am::base::Handle<GameObject> gameObj;
+			base::Handle<GameObject> gameObj;
 			bool hasDestination;
 
 			_GameObjectInfo();
@@ -40,9 +40,9 @@ namespace game {
 		} GameObjectInfo;
 
 		typedef struct _BodyPartInfo {
-			am::base::Handle<Character> character;
-			am::base::Handle<BodyPart> bodyPart;
-			am::base::Handle<Item> item;
+			base::Handle<Character> character;
+			base::Handle<BodyPart> bodyPart;
+			base::Handle<Item> item;
 			std::string canHoldOnto;
 
 			_BodyPartInfo();
@@ -51,10 +51,10 @@ namespace game {
 
 		typedef std::map< std::string, bool > MapsToLoad;
 		typedef std::map< std::string, GameObjectInfo > GameObjectInfoMap;
-		typedef std::map< std::string, std::vector< am::base::Handle< GameObject> > > GameObjectsToMap;
-		typedef std::map< std::string, std::vector< am::base::Handle< DialogueComponent> > > StartDialogueMap;
+		typedef std::map< std::string, std::vector< base::Handle< GameObject> > > GameObjectsToMap;
+		typedef std::map< std::string, std::vector< base::Handle< DialogueComponent> > > StartDialogueMap;
 		typedef std::vector< BodyPartInfo > BodyPartInfoList;
-		typedef std::vector< am::base::Handle<Character > > CharacterStack;
+		typedef std::vector< base::Handle<Character > > CharacterStack;
 
 		LoadingState();
 		~LoadingState();

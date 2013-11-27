@@ -9,7 +9,7 @@ namespace ui {
 
 	EventInterface *GameObjectEvent::sManager = nullptr;
 
-	GameObjectEvent::GameObjectEvent(const char *type, GameObject *obj, am::ui::Mouse::Button button) :
+	GameObjectEvent::GameObjectEvent(const char *type, GameObject *obj, ui::Mouse::Button button) :
 		Event(type),
 		mGameObject(obj),
 		mMouseButton(button)
@@ -31,7 +31,7 @@ namespace ui {
 	{
 		return mGameObject;
 	}
-	am::ui::Mouse::Button GameObjectEvent::getMouseButton() const
+	ui::Mouse::Button GameObjectEvent::getMouseButton() const
 	{
 		return mMouseButton;
 	}

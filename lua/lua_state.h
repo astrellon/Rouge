@@ -100,11 +100,11 @@ namespace lua {
 		lua_setmetatable(lua, -2);
 	}
 	/**
-	 * Wraps an object instance that extends am::base::IManaged into Lua.
+	 * Wraps an object instance that extends base::IManaged into Lua.
 	 * This requires that this class have the static consts
 	 * - int LUA_ID
 	 * - const char *LUA_TABLENAME
-	 * - extends am::base::IManaged
+	 * - extends base::IManaged
 	 * The first two are both used to identify the class type at a later date
 	 * and for applying which metatable.
 	 *
@@ -131,7 +131,7 @@ namespace lua {
 	 * in. Created lua_State's can either be extended with extra functions
 	 * specific to the game engine, or can be left at only the default lua libraries.
 	 */
-	class LuaState : public am::base::IManaged {
+	class LuaState : public base::IManaged {
 	public:
 
 		typedef std::map<std::string, lua_CFunction> WrapperMap;

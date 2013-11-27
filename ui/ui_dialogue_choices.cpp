@@ -27,11 +27,11 @@ namespace ui {
 	{
 		addChild(mText);
 		mText->setDisplayHeight(90.0f);
-		mText->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mText->addEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 	DialogueChoices::~DialogueChoices()
 	{
-		mText->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mText->removeEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 
 	TextField2 *DialogueChoices::getTextField() const

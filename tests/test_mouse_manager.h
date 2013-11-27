@@ -21,7 +21,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::ui::MouseManager";
+			return "ui::MouseManager";
 		}
 
 	protected:
@@ -31,7 +31,7 @@ namespace tests {
 
 			virtual void onEvent(MouseEvent *e);
 
-			am::base::Handle<MouseEvent> lastEvent;
+			base::Handle<MouseEvent> lastEvent;
 		};
 
 		bool testSimple();

@@ -40,7 +40,7 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Sprite> mGraphic;
+		base::Handle<Sprite> mGraphic;
 
 	};
 

@@ -71,7 +71,7 @@ namespace gfx {
 		
 	protected:
 
-		am::base::Handle<Asset> mAsset;
+		base::Handle<Asset> mAsset;
 
 		int mSubWindowFrame;
 		int mTextureFrame;

@@ -11,7 +11,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileType : public am::base::IManaged {
+	class TileType : public base::IManaged {
 	public:
 		TileType(const char *name, const char *fullName = nullptr);
 		~TileType();

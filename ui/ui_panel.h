@@ -34,8 +34,8 @@ namespace ui {
 		float mStartingWidth;
 		float mStartingHeight;
 		bool mResizing;
-		am::base::Handle<TextField> mTitle;
-		am::base::Handle<Sprite> mBack;
+		base::Handle<TextField> mTitle;
+		base::Handle<Sprite> mBack;
 		float mDragX;
 		float mDragY;
 

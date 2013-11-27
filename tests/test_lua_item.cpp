@@ -44,7 +44,7 @@ namespace tests {
 			assert(lua.hasGlobalFunction("getItem"));
 			//lua.call(0, 1);
 			lua_acall(lua, 0, 1);
-			am::base::Handle<Item> item(castUData<Item>(lua, 1));
+			base::Handle<Item> item(castUData<Item>(lua, 1));
 
 			assert(item != nullptr);
 

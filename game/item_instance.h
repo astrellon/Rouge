@@ -10,7 +10,7 @@
 namespace am {
 namespace game {
 
-	class ItemInstance : public am::base::IManaged {
+	class ItemInstance : public base::IManaged {
 	public:
 		ItemInstance();
 		ItemInstance(Item *item);
@@ -27,7 +27,7 @@ namespace game {
 
 	protected:
 		
-		am::base::Handle<Item> mItem;
+		base::Handle<Item> mItem;
 		
 		short mInventoryPosX;
 		short mInventoryPosY;

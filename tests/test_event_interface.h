@@ -8,14 +8,11 @@
 #include <ui/ievent_listener.h>
 #include <ui/event_interface.h>
 #include <ui/event.h>
-using am::ui::IEventListener;
-using am::ui::Event;
-using am::ui::EventInterface;
 
 namespace am {
 namespace tests {
 
-	class TestEventInterface : public TestSuite, public EventInterface, public IEventListener {
+	class TestEventInterface : public TestSuite, public ui::EventInterface, public ui::IEventListener {
 	public:
 		TestEventInterface() :
 			IEventListener(),
@@ -27,10 +24,10 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::ui::EventInterface";
+			return "ui::EventInterface";
 		}
 
-		virtual void onEvent(Event *e);
+		virtual void onEvent(ui::Event *e);
 
 	protected:
 

@@ -10,7 +10,7 @@ namespace ui {
 
 	class EventInterface;
 
-	class Event : public am::base::IManaged {
+	class Event : public base::IManaged {
 	public:
 		Event(const char *type);
 		Event(const char *type, EventInterface *target);
@@ -32,7 +32,7 @@ namespace ui {
 
 		void setType(const char *type);
 
-		am::base::Handle<EventInterface> mEventTarget;
+		base::Handle<EventInterface> mEventTarget;
 	};
 
 }

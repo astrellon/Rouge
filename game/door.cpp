@@ -42,7 +42,7 @@ namespace game {
 	{
 		mFixedToGrid = true;
 		setName("Door");
-		addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		addEventListener(ui::Mouse::MOUSE_UP, this);
 
 		mDoorRegion = new MapRegion(3, 3, 1);
 		//mDoorRegion->addEventListener("region_entered", this);
@@ -72,7 +72,7 @@ namespace game {
 	}
 	Door::~Door()
 	{
-		removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		removeEventListener(ui::Mouse::MOUSE_UP, this);
 
 		mDoorRegion->removeEventListener("region_entered", this);
 		mDoorRegion->removeEventListener("region_exited", this);
@@ -98,7 +98,7 @@ namespace game {
 
 	void Door::setGraphic(Sprite *graphic, bool calcCameraOffset)
 	{
-		am::base::Handle<Sprite> currentGraphic(mGraphic);
+		base::Handle<Sprite> currentGraphic(mGraphic);
 		if (mGraphic)
 		{
 			removeChild(mGraphic);
@@ -275,13 +275,13 @@ namespace game {
 			return loadResult;
 		}
 
-		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{	// Shouldn't happen due to GameObject::deserialise
 			return -1;
 		}
 
-		am::base::Handle<data::IData> tempData(dataMap->at("graphic"));
+		base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
 			Sprite *graphic = new Sprite();
@@ -289,7 +289,7 @@ namespace game {
 			setGraphic(graphic, false);
 		}
 
-		am::base::Handle<data::String> str(dataMap->at<data::String>("lock"));
+		base::Handle<data::String> str(dataMap->at<data::String>("lock"));
 		if (str)
 		{
 			setLock(getLockType(str->string()));

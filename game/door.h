@@ -80,14 +80,14 @@ namespace game {
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
-		am::base::Handle<Sprite> mGraphic;
+		base::Handle<Sprite> mGraphic;
 
 		bool mOpened;
 		LockType mLock;
 
-		am::base::Handle<TileType> mDoorType;
+		base::Handle<TileType> mDoorType;
 
-		am::base::Handle<MapRegion> mDoorRegion;
+		base::Handle<MapRegion> mDoorRegion;
 
 		virtual void updateTileType();
 		virtual void removeFromMap(Map *map);

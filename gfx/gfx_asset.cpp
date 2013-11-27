@@ -23,7 +23,7 @@ namespace gfx {
 
 	// Asset methods
 	Asset::Asset(const char *name) :
-		am::base::IManaged(),
+		base::IManaged(),
 		mName(name),
 		mNumFramesX(1),
 		mNumFramesY(1),

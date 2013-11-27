@@ -24,7 +24,7 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Renderable> mCurrentFocus;
+		base::Handle<Renderable> mCurrentFocus;
 
 		static FocusManager *sManager;
 

@@ -5,7 +5,6 @@
 #include <gfx/gfx_engine.h>
 #include <gfx/gfx_text_list.h>
 #include <gfx/gfx_asset.h>
-using namespace am::gfx;
 
 #include <tests/test_base.h>
 #include <tests/test_mouse_manager.h>
@@ -143,7 +142,7 @@ namespace sys {
 		float fheight = static_cast<float>(height);
 	}
 
-	void UnitTestSystem::onKeyUp(am::ui::Keyboard::Key key)
+	void UnitTestSystem::onKeyUp(ui::Keyboard::Key key)
 	{
 		GameSystem::onKeyUp(key);
 	}

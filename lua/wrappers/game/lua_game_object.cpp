@@ -412,7 +412,7 @@ namespace game {
 
 		/*if (lua_isstr(lua, 2))
 		{
-			am::base::Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 2)));
+			base::Handle<TileType> type(Engine::getEngine()->getTileType(lua_tostring(lua, 2)));
 			if (type)
 			{
 				obj->addPassibleType(type);
@@ -427,7 +427,7 @@ namespace game {
 			}
 			lua_first(lua);
 		}
-		am::base::Handle<TileType> type(castUData<TileType>(lua, 2));
+		base::Handle<TileType> type(castUData<TileType>(lua, 2));
 		if (type)
 		{
 			obj->addPassibleType(type);
@@ -453,7 +453,7 @@ namespace game {
 			return 0;
 		}
 
-		/*am::base::Handle<TileType> type(castUData<TileType>(lua, 2));
+		/*base::Handle<TileType> type(castUData<TileType>(lua, 2));
 		if (type)
 		{
 			obj->removePassibleType(type);
@@ -498,7 +498,7 @@ namespace game {
 			return 0;
 		}
 
-		/*am::base::Handle<TileType> type(castUData<TileType>(lua, 2));
+		/*base::Handle<TileType> type(castUData<TileType>(lua, 2));
 		if (type)
 		{
 			lua_pushboolean(lua, obj->hasPassibleType(type));

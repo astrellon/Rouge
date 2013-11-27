@@ -29,7 +29,7 @@ namespace data {
 	{
 		if (type() == Number::TYPE)
 		{
-			return am::math::round(dynamic_cast<const Number *>(this)->value());
+			return math::round(dynamic_cast<const Number *>(this)->value());
 		}
 		return 0;
 	}

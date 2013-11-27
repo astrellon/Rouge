@@ -44,7 +44,7 @@ namespace sys {
 		virtual void init();
 		virtual void reshape(int width, int height);
 
-		virtual void onKeyUp(am::ui::Keyboard::Key key);
+		virtual void onKeyUp(ui::Keyboard::Key key);
 
 		virtual void onEvent(Event *e);
 		virtual void onEvent(DialogueEvent *e);
@@ -73,17 +73,17 @@ namespace sys {
 		
 		RougeSystem(OsSystem *linked, Engine *engine);
 
-		am::base::Handle<MainMenu> mMainMenu;
-		am::base::Handle<OptionsPanel> mOptionsPanel;
-		am::base::Handle<IngameMenu> mIngameMenu;
-		am::base::Handle<GameHud> mGameHud;
-		am::base::Handle<EditorHud> mEditorHud;
-		am::base::Handle<UIComponent> mCurrentMenu;
+		base::Handle<MainMenu> mMainMenu;
+		base::Handle<OptionsPanel> mOptionsPanel;
+		base::Handle<IngameMenu> mIngameMenu;
+		base::Handle<GameHud> mGameHud;
+		base::Handle<EditorHud> mEditorHud;
+		base::Handle<UIComponent> mCurrentMenu;
 
-		am::base::Handle<Image> mPausedImage;
+		base::Handle<Image> mPausedImage;
 
-		am::base::Handle<Character> mPlayer;
-		am::base::Handle<TooltipItem> mItemTooltip;
+		base::Handle<Character> mPlayer;
+		base::Handle<TooltipItem> mItemTooltip;
 
 		void checkPaused();
 		bool mPausedGame;

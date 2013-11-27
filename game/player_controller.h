@@ -29,8 +29,8 @@ namespace game {
 		bool mRunning;
 		bool mRemoved;
 		bool mAttached;
-		am::base::Handle<Character> mCharacter;
-		am::base::Handle<IAction> mAction;
+		base::Handle<Character> mCharacter;
+		base::Handle<IAction> mAction;
 
 		void move(int dx, int dy);
 		void wait(float dt);

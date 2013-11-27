@@ -26,7 +26,7 @@ namespace ui {
 
 		setTitle("Inspector");
 
-		mInfo->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mInfo->addEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 	Inspector::~Inspector()
 	{
@@ -151,7 +151,7 @@ namespace ui {
 
 				Tile::TileTypeSet &tileTypes = tile->getTileTypes();
 				TileInstance::TileTypeList &instanceTypes = mTileInstance->getTileTypes();
-				std::vector< am::base::Handle<TileType> > *types = &tileTypes;
+				std::vector< base::Handle<TileType> > *types = &tileTypes;
 				if (instanceTypes.size() > 0)
 				{
 					types = &instanceTypes;

@@ -20,11 +20,11 @@ namespace gfx {
 
 	class Texture;
 
-	class Asset : public am::base::IManaged, public IDefinition {
+	class Asset : public base::IManaged, public IDefinition {
 	public:
 
 		typedef std::vector<TextureWindow> AnimationWindows;
-		typedef std::vector< am::base::Handle<Texture> > TextureList;
+		typedef std::vector< base::Handle<Texture> > TextureList;
 		
 		// GlAsset methods
 		Asset(const char *name);

@@ -424,7 +424,7 @@ namespace ui {
 
 	void TextInput::fireChangeEvent()
 	{
-		am::base::Handle<Event> e(new Event("changed"));
+		base::Handle<Event> e(new Event("changed"));
 		fireEvent<Event>(e);
 	}
 

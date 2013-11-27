@@ -26,10 +26,10 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Inspector> mInspector;
-		am::base::Handle<CharacterScreen> mCharacterScreen;
-		am::base::Handle<DialogueBox> mDialogueBox;
-		am::base::Handle<DialogueChoices> mDialogueChoices;
+		base::Handle<Inspector> mInspector;
+		base::Handle<CharacterScreen> mCharacterScreen;
+		base::Handle<DialogueBox> mDialogueBox;
+		base::Handle<DialogueChoices> mDialogueChoices;
 		
 	};
 

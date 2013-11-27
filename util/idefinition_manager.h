@@ -35,7 +35,7 @@ namespace util {
 		bool _loadDefinitionFile(const char *filename);
 		
 		template <class T>
-		void addDefinition(T *def, std::map< std::string, am::base::Handle<T> > &defMap, const char *name)
+		void addDefinition(T *def, std::map< std::string, base::Handle<T> > &defMap, const char *name)
 		{
 			if (def == nullptr || name == nullptr || name[0] == '\0')
 			{
@@ -54,7 +54,7 @@ namespace util {
 		}
 
 		template <class T>
-		T *getDefinition(std::map< std::string, am::base::Handle<T> > &defMap, const char *name, int id = 0)
+		T *getDefinition(std::map< std::string, base::Handle<T> > &defMap, const char *name, int id = 0)
 		{
 			if (name == nullptr || name[0] == '\0')
 			{

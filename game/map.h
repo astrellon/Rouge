@@ -22,7 +22,7 @@ namespace game {
 	class Tile;
 	class Game;
 
-	class Map : public am::base::IManaged {
+	class Map : public base::IManaged {
 	public:
 
 		enum TileFlags {
@@ -76,7 +76,7 @@ namespace game {
 		bool isValidLocation(float x, float y, GameObject *forObject) const;
 		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
-		bool isValidGridLocation(int gridX, int gridY, const std::vector< am::base::Handle<TileType> > &passibles) const;
+		bool isValidGridLocation(int gridX, int gridY, const std::vector< base::Handle<TileType> > &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
 		void setFilename(const char *filename);
@@ -96,7 +96,7 @@ namespace game {
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
-		am::base::ReturnCode saveMap(const char *filename) const;
+		base::ReturnCode saveMap(const char *filename) const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -119,9 +119,9 @@ namespace game {
 		string mFullName;
 		string mFilename;
 
-		am::base::Handle<Layer> mBackground;
-		am::base::Handle<Layer> mForeground;
-		am::base::Handle<TileRenderer> mTileRenderer;
+		base::Handle<Layer> mBackground;
+		base::Handle<Layer> mForeground;
+		base::Handle<TileRenderer> mTileRenderer;
 
 		Game *mGamePartof;
 

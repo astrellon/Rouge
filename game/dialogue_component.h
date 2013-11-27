@@ -7,7 +7,6 @@
 #include <string>
 
 #include <ui/ievent_manager.h>
-using am::ui::IEventManager;
 
 #include <game/dialogue.h>
 
@@ -24,7 +23,7 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class DialogueComponent : public am::base::IManaged {
+	class DialogueComponent : public base::IManaged {
 	public:
 
 		typedef std::map<std::string, bool> SubjectMap;

@@ -35,28 +35,28 @@ namespace game {
 
 	}
 
-	am::base::ReturnCode BodyParts::addBodyPart(BodyPart *part)
+	base::ReturnCode BodyParts::addBodyPart(BodyPart *part)
 	{
 		if (!part || hasBodyPart(part))
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 		if (hasBodyPart(part))
 		{
-			return am::base::BODY_PART_FOUND;
+			return base::BODY_PART_FOUND;
 		}
 		mPartList.push_back(part);
 		if (mAttackIndex < 0 && (part->isWeaponPart()))
 		{
 			mAttackIndex = static_cast<int>(mPartList.size()) - 1;
 		}
-		return am::base::SUCCESS;
+		return base::SUCCESS;
 	}
-	am::base::ReturnCode BodyParts::removeBodyPart(const char *partName)
+	base::ReturnCode BodyParts::removeBodyPart(const char *partName)
 	{
 		if (!partName || partName[0] == '\0')
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 		for (size_t i = 0; i < mPartList.size(); i++)
 		{
@@ -67,16 +67,16 @@ namespace game {
 				{
 					mAttackIndex--;
 				}
-				return am::base::SUCCESS;
+				return base::SUCCESS;
 			}
 		}
-		return am::base::BODY_PART_NOT_FOUND;
+		return base::BODY_PART_NOT_FOUND;
 	}
-	am::base::ReturnCode BodyParts::removeBodyPart(BodyPart *part)
+	base::ReturnCode BodyParts::removeBodyPart(BodyPart *part)
 	{
 		if (!part)
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 		for (size_t i = 0; i < mPartList.size(); i++)
 		{
@@ -87,10 +87,10 @@ namespace game {
 				{
 					mAttackIndex--;
 				}
-				return am::base::SUCCESS;
+				return base::SUCCESS;
 			}
 		}
-		return am::base::BODY_PART_NOT_FOUND;
+		return base::BODY_PART_NOT_FOUND;
 	}
 
 	BodyPart *BodyParts::getBodyPart(const char *partName) const
@@ -192,28 +192,28 @@ namespace game {
 		return mAttackIndex;
 	}
 
-	am::base::ReturnCode BodyParts::getLinkedParts(const char *linkedToName, PartList &result) const
+	base::ReturnCode BodyParts::getLinkedParts(const char *linkedToName, PartList &result) const
 	{
 		if (!linkedToName || linkedToName[0] == '\0')
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 		BodyPart *part = getBodyPart(linkedToName);
 		if (!part)
 		{
-			return am::base::BODY_PART_NOT_FOUND;
+			return base::BODY_PART_NOT_FOUND;
 		}
 		return getLinkedParts(part, result);
 	}
-	am::base::ReturnCode BodyParts::getLinkedParts(BodyPart *linkedTo, PartList &result) const
+	base::ReturnCode BodyParts::getLinkedParts(BodyPart *linkedTo, PartList &result) const
 	{
 		if (!linkedTo)
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 		if (!hasBodyPart(linkedTo))
 		{
-			return am::base::BODY_PART_NOT_FOUND;
+			return base::BODY_PART_NOT_FOUND;
 		}
 
 		for (size_t i = 0; i < mPartList.size(); i++)
@@ -228,7 +228,7 @@ namespace game {
 				result.push_back(part);
 			}
 		}
-		return am::base::SUCCESS;
+		return base::SUCCESS;
 	}
 
 	int BodyParts::getNumWeaponParts() const
@@ -262,7 +262,7 @@ namespace game {
 
 	int BodyParts::deserialise(LoadingState *state, data::IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "body parts"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "body parts"));
 		if (!dataMap)
 		{
 			return 0;
@@ -278,7 +278,7 @@ namespace game {
 			mPartList.push_back(part);
 		}
 
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("attackIndex"));
+		base::Handle<data::Number> num(dataMap->at<data::Number>("attackIndex"));
 		if (num)
 		{
 			mAttackIndex = num->integer();

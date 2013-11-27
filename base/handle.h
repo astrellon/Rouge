@@ -19,7 +19,7 @@ namespace base {
 				mObject->retain();
 			}
 		}
-		Handle(const am::base::Handle<T> &handle)
+		Handle(const base::Handle<T> &handle)
 		{
 			mObject = handle.mObject;
 			if (mObject)

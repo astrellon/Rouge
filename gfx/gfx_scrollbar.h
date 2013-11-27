@@ -5,7 +5,6 @@
 #include <vector>
 
 #include <ui/ievent_listener.h>
-using am::ui::IEventListener;
 
 #include "gfx_layer.h"
 #include "gfx_sprite.h"
@@ -16,7 +15,7 @@ namespace gfx {
 
 	class Asset;
 
-	class Scrollbar : public Layer, public IEventListener {
+	class Scrollbar : public Layer, public ui::IEventListener {
 	public:
 		Scrollbar(const char *btnUpAsset, const char *btnDownAsset, const char *barAsset, const char *backAsset);
 		~Scrollbar();
@@ -42,10 +41,10 @@ namespace gfx {
 
 	protected:
 
-		am::base::Handle<Button> mBtnUp;
-		am::base::Handle<Button> mBtnDown;
-		am::base::Handle<Sprite> mBack;
-		am::base::Handle<Button> mBar;
+		base::Handle<Button> mBtnUp;
+		base::Handle<Button> mBtnDown;
+		base::Handle<Sprite> mBack;
+		base::Handle<Button> mBar;
 
 		int mMinValue;
 		int mMaxValue;

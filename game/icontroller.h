@@ -7,7 +7,7 @@ namespace game {
 
 	class Character;
 
-	class IController : public am::base::IManaged {
+	class IController : public base::IManaged {
 	public:
 
 		IController();

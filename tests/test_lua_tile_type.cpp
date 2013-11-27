@@ -79,7 +79,7 @@ namespace tests {
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
-		am::base::Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
+		base::Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, tileType);
 		lua_acall(lua, 1, 0);

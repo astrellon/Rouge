@@ -44,10 +44,10 @@ namespace ui {
 
 		TileInstance *mTileInstance;
 		
-		typedef std::vector< am::base::Handle<GameObject> > GameObjectList;
+		typedef std::vector< base::Handle<GameObject> > GameObjectList;
 		GameObjectList mGameObjects;
 
-		am::base::Handle<TextField2> mInfo;
+		base::Handle<TextField2> mInfo;
 
 		bool mInspectObject;
 		bool mTextDirty;

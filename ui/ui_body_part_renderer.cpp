@@ -36,11 +36,11 @@ namespace ui {
 
 		setMaxItemSize(width, height);
 
-		addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		addEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 	BodyPartRenderer::~BodyPartRenderer()
 	{
-		removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		removeEventListener(ui::Mouse::MOUSE_UP, this);
 		setCharacter(nullptr);
 	}
 
@@ -60,21 +60,21 @@ namespace ui {
 
 			if (hand->getInhand() != nullptr)
 			{
-				am::base::ReturnCode result = mCharacter->canEquipItem(hand->getInhand(), mBodyPartName.c_str());
-				if (result != am::base::ABLE_TO_EQUIP)
+				base::ReturnCode result = mCharacter->canEquipItem(hand->getInhand(), mBodyPartName.c_str());
+				if (result != base::ABLE_TO_EQUIP)
 				{
 					return;
 				}
 			}
-			am::base::Handle<Item> prevEquipped = mCurrentItem;
+			base::Handle<Item> prevEquipped = mCurrentItem;
 			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
-				if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
+				if (e->getMouseButton() == ui::Mouse::LEFT_BUTTON)
 				{
 					mCharacter->unequipItem(mBodyPartName.c_str());
 					removeChild(mCurrentItem);
 				}
-				else if (e->getMouseButton() == am::ui::Mouse::RIGHT_BUTTON)
+				else if (e->getMouseButton() == ui::Mouse::RIGHT_BUTTON)
 				{
 					Engine::getEngine()->getGameHud()->getInspector()->setInspectObject(prevEquipped);
 					return;
@@ -179,7 +179,7 @@ namespace ui {
 			return;
 		}
 		
-		am::base::Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
+		base::Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
 		if (equipped != nullptr && equipped != mCurrentItem)
 		{
 			addChild(equipped);

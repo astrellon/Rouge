@@ -9,17 +9,13 @@
 #include <ui/ui_game_hud.h>
 #include <ui/ui_editor_hud.h>
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <math/vector.h>
 #include <math/math.h>
-using namespace am::math;
 
 #include <util/idefinition_manager.h>
-using namespace am::util;
 
 #include "tile_set.h"
 #include "race.h"
@@ -29,7 +25,6 @@ namespace am {
 namespace sys {
 	class ISystem;
 }
-using namespace am::sys;
 
 namespace game {
 
@@ -37,11 +32,16 @@ namespace game {
 	class GameObject;
 	class Tile;
 
-	typedef std::map<std::string, am::base::Handle<TileSet> > TileSetMap;
-	typedef std::map<std::string, am::base::Handle<Race> > RaceMap;
-	typedef std::map<std::string, am::base::Handle<TileType> > TileTypeMap;
+	using base::Handle;
+	using math::Vector2f;
+	using math::Vector2i;
 
-	class Engine : public EventInterface, public IDefinitionManager {
+	typedef std::map<std::string, Handle<TileSet> > TileSetMap;
+	typedef std::map<std::string, Handle<Race> > RaceMap;
+	typedef std::map<std::string, Handle<TileType> > TileTypeMap;
+
+	class Engine : public ui::EventInterface, public am::util::IDefinitionManager
+	{
 	public:
 		Engine();
 		~Engine();
@@ -67,11 +67,11 @@ namespace game {
 		TileSetMap &getTileSets();
 		TileSet *getTopLevelTileSet();
 
-		void setGameHud(GameHud *hud);
-		GameHud *getGameHud() const;
+		void setGameHud(ui::GameHud *hud);
+		ui::GameHud *getGameHud() const;
 
-		void setEditorHud(EditorHud *hud);
-		EditorHud *getEditorHud() const;
+		void setEditorHud(ui::EditorHud *hud);
+		ui::EditorHud *getEditorHud() const;
 
 		// GameObjects shortcuts.
 		GameObject *getGameObject(const char *id) const;
@@ -88,9 +88,9 @@ namespace game {
 		// TileType
 		void addTileType(TileType *type);
 		TileType *getTileType(const char *name);
-		TileType *getTileType(const string &name);
+		TileType *getTileType(const std::string &name);
 
-		LuaState &getLua();
+		am::lua::LuaState &getLua();
 		bool loadLuaEngine(const char *scriptName);
 
 		bool newGame(const char *scenarioName);
@@ -114,29 +114,29 @@ namespace game {
 
 	protected:
 
-		am::base::Handle<Game> mCurrentGame;
+		Handle<Game> mCurrentGame;
 
 		float mGridSize;
 
 		float mGridSizeResp;
 
 		typedef std::map<std::string, int> UsingTileSet;
-		UsingTileSet mUsingTileSetNames;
+		Engine::UsingTileSet mUsingTileSetNames;
 
 		bool mUsingTileSetDirty;
 		TileSetMap mUsingTileSet;
 
 		TileSetMap mTileSets;
-		am::base::Handle<TileSet> mTopLevelTileSet;
+		Handle<TileSet> mTopLevelTileSet;
 		TileTypeMap mTileTypes;
 
-		am::base::Handle<GameHud> mGameHud;
-		am::base::Handle<EditorHud> mEditorHud;
+		Handle<ui::GameHud> mGameHud;
+		Handle<ui::EditorHud> mEditorHud;
 
 		RaceMap mRaces;
 		Race *mUnknownRace;
 
-		LuaState mLua;
+		am::lua::LuaState mLua;
 
 		void checkUsingTileSet();
 		virtual const char *getBaseDefinitionPath(int id) const;

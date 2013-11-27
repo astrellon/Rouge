@@ -16,18 +16,18 @@ namespace tests {
 
 	bool TestMap::testSimple()
 	{
-		am::base::Handle<TileType> landType(new TileType("land"));
-		am::base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<TileType> waterType(new TileType("water"));
 
-		am::base::Handle<Tile> land(new Tile("land"));
-		am::base::Handle<Tile> water(new Tile("water"));
-		am::base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<Tile> land(new Tile("land"));
+		base::Handle<Tile> water(new Tile("water"));
+		base::Handle<Tile> swamp(new Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		am::base::Handle<Map> testMap(new Map("testMap", 3, 1));
+		base::Handle<Map> testMap(new Map("testMap", 3, 1));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(water);
@@ -61,36 +61,36 @@ namespace tests {
 
 	bool TestMap::testValidTiles() 
 	{
-		am::base::Handle<TileType> landType(new TileType("land"));
-		am::base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<TileType> waterType(new TileType("water"));
 
-		am::base::Handle<Tile> land(new Tile("land"));
-		am::base::Handle<Tile> water(new Tile("water"));
-		am::base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<Tile> land(new Tile("land"));
+		base::Handle<Tile> water(new Tile("water"));
+		base::Handle<Tile> swamp(new Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		am::base::Handle<Map> testMap(new Map("testMap", 3, 1));
+		base::Handle<Map> testMap(new Map("testMap", 3, 1));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(swamp);
 		tiles[2].setTile(water);
 
-		am::base::Handle<GameObject> landObj(new GameObject());
+		base::Handle<GameObject> landObj(new GameObject());
 		landObj->addPassibleType(landType);
 		am_equals(true, testMap->isValidGridLocation(0, 0, landObj));
 		am_equals(true, testMap->isValidGridLocation(1, 0, landObj));
 		am_equals(false, testMap->isValidGridLocation(2, 0, landObj));
 
-		am::base::Handle<GameObject> waterObj(new GameObject());
+		base::Handle<GameObject> waterObj(new GameObject());
 		waterObj->addPassibleType(waterType);
 		am_equals(false, testMap->isValidGridLocation(0, 0, waterObj));
 		am_equals(true, testMap->isValidGridLocation(1, 0, waterObj));
 		am_equals(true, testMap->isValidGridLocation(2, 0, waterObj));
 
-		am::base::Handle<GameObject> swampObj(new GameObject());
+		base::Handle<GameObject> swampObj(new GameObject());
 		swampObj->addPassibleType(landType);
 		swampObj->addPassibleType(waterType);
 		am_equals(true, testMap->isValidGridLocation(0, 0, swampObj));
@@ -116,18 +116,18 @@ namespace tests {
 
 	bool TestMap::testValidTilesBig() 
 	{
-		am::base::Handle<TileType> landType(new TileType("land"));
-		am::base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<TileType> waterType(new TileType("water"));
 
-		am::base::Handle<Tile> land(new Tile("land"));
-		am::base::Handle<Tile> water(new Tile("water"));
-		am::base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<Tile> land(new Tile("land"));
+		base::Handle<Tile> water(new Tile("water"));
+		base::Handle<Tile> swamp(new Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		am::base::Handle<Map> testMap(new Map("testMap", 3, 2));
+		base::Handle<Map> testMap(new Map("testMap", 3, 2));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(swamp);
@@ -139,7 +139,7 @@ namespace tests {
 		float tileSizeX = Engine::getEngine()->getGridSize();
 		float tileSizeY = Engine::getEngine()->getGridSize();
 
-		am::base::Handle<GameObject> landObj(new GameObject());
+		base::Handle<GameObject> landObj(new GameObject());
 		landObj->addPassibleType(landType);
 		landObj->setSize(2.0f * tileSizeX, 2.0f * tileSizeY);
 
@@ -151,12 +151,12 @@ namespace tests {
 
 	bool TestMap::testEdgeValue() 
 	{
-		am::base::Handle<TileType> landType(new TileType("land"));
-		am::base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<TileType> waterType(new TileType("water"));
 
-		am::base::Handle<Tile> land(new Tile("land"));
-		am::base::Handle<Tile> water(new Tile("water"));
-		am::base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<Tile> land(new Tile("land"));
+		base::Handle<Tile> water(new Tile("water"));
+		base::Handle<Tile> swamp(new Tile("swamp"));
 		land->addTileType(landType);
 		land->setPrecedence(10);
 		water->addTileType(waterType);
@@ -165,7 +165,7 @@ namespace tests {
 		swamp->addTileType(waterType);
 		swamp->setPrecedence(5);
 
-		am::base::Handle<Map> testMap(new Map("testMap", 3, 3));
+		base::Handle<Map> testMap(new Map("testMap", 3, 3));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(land);
@@ -198,18 +198,18 @@ namespace tests {
 
 	bool TestMap::testMapRegions() 
 	{
-		am::base::Handle<Map> testMap(new Map("testRegions"));
-		am::base::Handle<Tile> land(new Tile("land"));
-		am::base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<Map> testMap(new Map("testRegions"));
+		base::Handle<Tile> land(new Tile("land"));
+		base::Handle<TileType> landType(new TileType("land"));
 		land->addTileType(landType);
 		testMap->setMapSize(4, 4, land);
 
-		am::base::Handle<MapRegion> region(new MapRegion(2, 2));
+		base::Handle<MapRegion> region(new MapRegion(2, 2));
 		region->setLocation(1, 1);
 		region->setData(0, 0, 1);
 		region->setData(1, 1, 1);
 
-		am::base::Handle<TestMapListener> listener(new TestMapListener());
+		base::Handle<TestMapListener> listener(new TestMapListener());
 		region->addEventListener("region_entered", listener);
 		region->addEventListener("region_exited", listener);
 
@@ -217,8 +217,8 @@ namespace tests {
 		testMap->addMapRegion(region);
 		am_equals(true, testMap->hasMapRegion(region));
 
-		am::base::Handle<Character> testChar(new Character());
-		am::base::Handle<Sprite> graphic(new Sprite());
+		base::Handle<Character> testChar(new Character());
+		base::Handle<Sprite> graphic(new Sprite());
 		graphic->setSize(Engine::getEngine()->getGridSize(), Engine::getEngine()->getGridSize());
 		testChar->setGraphic(graphic);
 		testChar->addPassibleType(landType);

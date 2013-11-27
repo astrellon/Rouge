@@ -10,7 +10,7 @@ namespace tests {
 	}
 
 	bool TestBase::testSimple() {
-		am::base::Handle<TestManaged> handled(new TestManaged());
+		base::Handle<TestManaged> handled(new TestManaged());
 		am_equals(1, handled->getCounter());
 
 		handled->retain();
@@ -19,7 +19,7 @@ namespace tests {
 		handled->release();
 		am_equals(1, handled->getCounter());
 
-		am::base::Handle<TestManaged> other(handled);
+		base::Handle<TestManaged> other(handled);
 		am_equals(2, handled->getCounter());
 		am_equals(2, other->getCounter());
 

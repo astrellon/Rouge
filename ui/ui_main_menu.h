@@ -26,11 +26,11 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextButton> mStartGame;
-		am::base::Handle<TextButton> mLoadGame;
-		am::base::Handle<TextButton> mEditor;
-		am::base::Handle<TextButton> mOptions;
-		am::base::Handle<TextButton> mQuit;
+		base::Handle<TextButton> mStartGame;
+		base::Handle<TextButton> mLoadGame;
+		base::Handle<TextButton> mEditor;
+		base::Handle<TextButton> mOptions;
+		base::Handle<TextButton> mQuit;
 
 		RougeSystem *mRougeSystem;
 

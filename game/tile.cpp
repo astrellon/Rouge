@@ -19,7 +19,7 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	am::base::Handle<Tile> Tile::sDefaultTile;
+	base::Handle<Tile> Tile::sDefaultTile;
 
 	const int Tile::LUA_ID = LUA_ID_TILE;
 	const char *Tile::LUA_TABLENAME = LUA_TABLE_TILE;

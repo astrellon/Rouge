@@ -70,29 +70,29 @@ namespace lua {
 
 		LuaState L(lua);
 		// General
-		L.setTableValue("success", am::base::SUCCESS);
-		L.setTableValue("nil_parameter", am::base::NULL_PARAMETER);
-		L.setTableValue("internal_error", am::base::INTERNAL_ERROR);
-		L.setTableValue("file_not_found", am::base::FILE_NOT_FOUND);
+		L.setTableValue("success", base::SUCCESS);
+		L.setTableValue("nil_parameter", base::NULL_PARAMETER);
+		L.setTableValue("internal_error", base::INTERNAL_ERROR);
+		L.setTableValue("file_not_found", base::FILE_NOT_FOUND);
 		// Character
-		L.setTableValue("able_to_equip", am::base::ABLE_TO_EQUIP);
-		L.setTableValue("can_equip", am::base::CAN_EQUIP);
-		L.setTableValue("body_part_type_mismatch", am::base::BODY_PART_TYPE_MISMATCH);
-		L.setTableValue("not_enough_body_parts", am::base::NOT_ENOUGH_BODY_PARTS);
-		L.setTableValue("out_of_range", am::base::OUT_OF_RANGE);
-		L.setTableValue("no_weapon_part", am::base::NO_WEAPON_PART);
-		L.setTableValue("off_the_map", am::base::OFF_THE_MAP);
-		L.setTableValue("invalid_location", am::base::INVALID_LOCATION);
+		L.setTableValue("able_to_equip", base::ABLE_TO_EQUIP);
+		L.setTableValue("can_equip", base::CAN_EQUIP);
+		L.setTableValue("body_part_type_mismatch", base::BODY_PART_TYPE_MISMATCH);
+		L.setTableValue("not_enough_body_parts", base::NOT_ENOUGH_BODY_PARTS);
+		L.setTableValue("out_of_range", base::OUT_OF_RANGE);
+		L.setTableValue("no_weapon_part", base::NO_WEAPON_PART);
+		L.setTableValue("off_the_map", base::OFF_THE_MAP);
+		L.setTableValue("invalid_location", base::INVALID_LOCATION);
 		// Body Parts
-		L.setTableValue("body_part_found", am::base::BODY_PART_FOUND);
-		L.setTableValue("body_part_not_found", am::base::BODY_PART_NOT_FOUND);
-		L.setTableValue("body_part_type_unknown", am::base::BODY_PART_TYPE_UNKNOWN);
+		L.setTableValue("body_part_found", base::BODY_PART_FOUND);
+		L.setTableValue("body_part_not_found", base::BODY_PART_NOT_FOUND);
+		L.setTableValue("body_part_type_unknown", base::BODY_PART_TYPE_UNKNOWN);
 		// Texture
-		L.setTableValue("texture_load_failed", am::base::TEXTURE_LOAD_FAILED);
+		L.setTableValue("texture_load_failed", base::TEXTURE_LOAD_FAILED);
 		// System
-		L.setTableValue("no_linked_system", am::base::NO_LINKED_SYSTEM);
+		L.setTableValue("no_linked_system", base::NO_LINKED_SYSTEM);
 		// Inventory
-		L.setTableValue("not_enough_inventory_space", am::base::NOT_ENOUGH_INVENTORY_SPACE);
+		L.setTableValue("not_enough_inventory_space", base::NOT_ENOUGH_INVENTORY_SPACE);
 
 		lua_settable(lua, -3);
 
@@ -113,7 +113,7 @@ namespace lua {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				lua_pushstring(lua, getErrorMessage(static_cast<am::base::ReturnCode>(lua_tointeger(lua, 1))));
+				lua_pushstring(lua, getErrorMessage(static_cast<base::ReturnCode>(lua_tointeger(lua, 1))));
 				return 1;
 			}
 			else if (lua_isstr(lua, 2))

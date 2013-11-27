@@ -39,7 +39,7 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextField> mLabel;
+		base::Handle<TextField> mLabel;
 	};
 
 }

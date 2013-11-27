@@ -28,7 +28,7 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class Stats : public IStatModifiers, public am::base::IManaged {
+	class Stats : public IStatModifiers, public base::IManaged {
 	public:
 		Stats();
 		Stats(const Stats &copy);
@@ -76,7 +76,7 @@ namespace game {
 		virtual void setStatDirty(int stat);
 		virtual void setStatDirty(Stat::StatType stat);
 		
-		am::base::Handle<StatModifiers> mModifiers;
+		base::Handle<StatModifiers> mModifiers;
 		//StatModifiers mModifiers;
 	};
 

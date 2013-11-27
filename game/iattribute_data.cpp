@@ -37,7 +37,7 @@ namespace game {
 	}
 	void IAttributeData::deserialise(LoadingState *state, data::Table *data)
 	{
-		am::base::Handle<data::Table> attrs(data->at<data::Table>("attributes"));
+		base::Handle<data::Table> attrs(data->at<data::Table>("attributes"));
 		if (attrs)
 		{
 			mAttributes = attrs;

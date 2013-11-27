@@ -106,7 +106,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 
-		am::base::Handle<TileType> type(new TileType("superType", "Super Type"));
+		base::Handle<TileType> type(new TileType("superType", "Super Type"));
 		Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));

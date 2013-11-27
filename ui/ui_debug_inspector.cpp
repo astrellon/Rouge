@@ -8,7 +8,7 @@
 namespace am {
 namespace ui {
 
-	am::base::Handle<DebugInspector> DebugInspector::sInspector;
+	base::Handle<DebugInspector> DebugInspector::sInspector;
 
 	DebugInspector::DebugInspector() :
 		Panel(),
@@ -22,11 +22,11 @@ namespace ui {
 
 		setTitle("Debug Inspector");
 
-		mInfo->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mInfo->addEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 	DebugInspector::~DebugInspector()
 	{
-		mInfo->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mInfo->removeEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 
 	void DebugInspector::setWidth(float width)

@@ -19,7 +19,7 @@ namespace am {
 namespace tests {
 
 	bool TestCharacter::testSimple() {
-		am::base::Handle<Character> testChar(new Character());
+		base::Handle<Character> testChar(new Character());
 		testChar->setName("TestChar");
 		am_equals("TestChar", testChar->getName().c_str());
 
@@ -31,7 +31,7 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		am::base::Handle<Item> sword(new Item());
+		base::Handle<Item> sword(new Item());
 		StatModifiers *modifiers = sword->getStatModifiers();
 		modifiers->addStatModifier(Stat::STRENGTH, StatModifier(5, MOD_ADD));
 
@@ -54,7 +54,7 @@ namespace tests {
 
 	bool TestCharacter::testEquipped()
 	{
-		am::base::Handle<Character> testChar(new Character());
+		base::Handle<Character> testChar(new Character());
 		testChar->setName("TestChar");
 		
 		Stats *stats = testChar->getStats();
@@ -63,10 +63,10 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		am::base::Handle<BodyPart> part(new BodyPart("arm", BodyPartType::ARM));
+		base::Handle<BodyPart> part(new BodyPart("arm", BodyPartType::ARM));
 		assert(testChar->addBodyPart(part));
 
-		am::base::Handle<Item> sword(new Item());
+		base::Handle<Item> sword(new Item());
 		sword->getStatModifiers()->addStatModifier(Stat::STRENGTH, StatModifier(5.0f, MOD_ADD));
 		assert(testChar->equipItem(sword, "arm"));
 
@@ -78,27 +78,27 @@ namespace tests {
 		am_equalsDelta(10.0f, stats->getBaseStat(Stat::STRENGTH), 0.0001f);
 		am_equalsDelta(10.0f, stats->getStat(Stat::STRENGTH), 0.0001f);
 
-		am::base::Handle<BodyPart> leftHand(new BodyPart("left_hand", BodyPartType::HAND));
+		base::Handle<BodyPart> leftHand(new BodyPart("left_hand", BodyPartType::HAND));
 		leftHand->setWeaponPart(true);
-		am::base::Handle<BodyPart> rightHand(new BodyPart("right_hand", BodyPartType::HAND));
+		base::Handle<BodyPart> rightHand(new BodyPart("right_hand", BodyPartType::HAND));
 		rightHand->setWeaponPart(true);
 		testChar->addBodyPart(leftHand);
 		testChar->addBodyPart(rightHand);
 
-		am::base::Handle<Item> twoHandSword(new Item());
+		base::Handle<Item> twoHandSword(new Item());
 		twoHandSword->setBodyPartsRequired(2);
 		twoHandSword->addBodyPartType(BodyPartType::HAND);
 
 		// Not enough body parts
-		am_equals(am::base::NOT_ENOUGH_BODY_PARTS, testChar->canEquipItem(twoHandSword, leftHand));
+		am_equals(base::NOT_ENOUGH_BODY_PARTS, testChar->canEquipItem(twoHandSword, leftHand));
 		rightHand->setCanHoldOnto(leftHand);
-		am_equals(am::base::ABLE_TO_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
+		am_equals(base::ABLE_TO_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
 
-		am::base::Handle<Item> dagger(new Item());
+		base::Handle<Item> dagger(new Item());
 		dagger->addBodyPartType(BodyPartType::HAND);
-		am_equals(am::base::SUCCESS, rightHand->setEquippedItem(dagger));
+		am_equals(base::SUCCESS, rightHand->setEquippedItem(dagger));
 
-		am_equals(am::base::CAN_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
+		am_equals(base::CAN_EQUIP, testChar->canEquipItem(twoHandSword, leftHand));
 		
 		return true;
 	}
@@ -110,10 +110,10 @@ namespace tests {
 		eng->addRace(new Race("human"));
 
 		Engine::setEngine(eng);
-		am::base::Handle<Game> game = new Game();
+		base::Handle<Game> game = new Game();
 		eng->setCurrentGame(game);
 		
-		am::base::Handle<Character> testChar(new Character());
+		base::Handle<Character> testChar(new Character());
 		testChar->setAge(24);
 		testChar->setName("Melli");
 		testChar->setCameraOffset(0.8f, 0.4f);
@@ -132,8 +132,8 @@ namespace tests {
 		testChar->setPickupReach(1.4f);
 		testChar->setRace(Engine::getEngine()->getRace("human"));
 
-		am::base::Handle<Inventory> inv(testChar->getInventory());
-		am::base::Handle<Item> sword(new Item());
+		base::Handle<Inventory> inv(testChar->getInventory());
+		base::Handle<Item> sword(new Item());
 		sword->setGraphic(new Sprite("items/sword:main"));
 		sword->setGroundGraphic(new Sprite("items/sword:ground"));
 		sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
@@ -143,7 +143,7 @@ namespace tests {
 		sword->setInventorySize(2, 3);
 		inv->addItem(sword, 0, 0);
 
-		am::base::Handle<Item> shield(new Item());
+		base::Handle<Item> shield(new Item());
 		shield->getStatModifiers()->addStatModifier(Stat::ARMOUR, StatModifier(4.0f, MOD_MULTIPLY));
 		shield->getStatModifiers()->addStatModifier(Stat::ARMOUR, StatModifier(2.0f, MOD_ADD));
 		shield->setItemFullname("Shield", "Padded", "of ASD");
@@ -157,7 +157,7 @@ namespace tests {
 		testChar->getStats()->setBaseStat(Stat::MIN_DAMAGE, 4.0f);
 		testChar->getStats()->setBaseStat(Stat::ARMOUR, 7.0f);
 		
-		am::base::Handle<Item> swordEquip(new Item(*sword));
+		base::Handle<Item> swordEquip(new Item(*sword));
 		swordEquip->setItemFullname("Sword", "Wooden", "of Hit");
 		testChar->addBodyPart(new BodyPart("arm", BodyPartType::ARM, swordEquip));
 		testChar->addBodyPart(new BodyPart("torso", BodyPartType::TORSO));
@@ -169,7 +169,7 @@ namespace tests {
 		am_equalsDelta(7.0f, testChar->getStats()->getStat(Stat::MIN_DAMAGE), 0.0001f);
 		am_equalsDelta(7.0f, testChar->getStats()->getStat(Stat::ARMOUR), 0.0001f);
 
-		am::base::Handle<Character> copyChar(new Character(*testChar));
+		base::Handle<Character> copyChar(new Character(*testChar));
 		am_equalsDelta(24.0f, copyChar->getAge(), 0.0001f);
 		am_equalsStr("Melli", copyChar->getName());
 		am_equalsDelta(0.8f, copyChar->getCameraOffsetX(), 0.0001f);
@@ -194,10 +194,10 @@ namespace tests {
 		am_equalsDelta(1.4f, copyChar->getPickupReach(), 0.0001f);
 		assert(copyChar->getRace() == Engine::getEngine()->getRace("human"));
 
-		am::base::Handle<Inventory> copyInv(copyChar->getInventory());
+		base::Handle<Inventory> copyInv(copyChar->getInventory());
 		assert(copyInv.get() && copyInv != inv);
 		
-		am::base::Handle<Item> copySword(copyInv->getItemAt(0, 0));
+		base::Handle<Item> copySword(copyInv->getItemAt(0, 0));
 		assert(copySword.get() && copySword != sword);
 		am_equals(1u, copySword->getStatModifiers()->getModifiers()[Stat::MAX_DAMAGE].size());
 		am_equalsDelta(5.0f, copySword->getStatModifiers()->getModifiers()[Stat::MAX_DAMAGE][0].getValue(), 0.0001f);
@@ -219,7 +219,7 @@ namespace tests {
 		assert(copySword->getGroundGraphic() != sword->getGroundGraphic());
 		assert(copySword->getGroundGraphic()->getAsset() == sword->getGroundGraphic()->getAsset());
 
-		am::base::Handle<Item> copyShield(copyInv->getItemAt(4, 2));
+		base::Handle<Item> copyShield(copyInv->getItemAt(4, 2));
 		assert(copyShield.get() && copyShield != shield);
 		am_equals(2u, copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR].size());
 		am_equalsDelta(4.0f, copyShield->getStatModifiers()->getModifiers()[Stat::ARMOUR][0].getValue(), 0.0001f);
@@ -245,7 +245,7 @@ namespace tests {
 		assert(parts.hasBodyPart("arm"));
 		assert(parts.hasBodyPart("torso"));
 		assert(parts.hasBodyPart("legs"));
-		am::base::Handle<Item> swordEquipCopy(parts.getBodyPart("arm")->getEquippedItem());
+		base::Handle<Item> swordEquipCopy(parts.getBodyPart("arm")->getEquippedItem());
 		assert(swordEquipCopy.get() && swordEquipCopy != swordEquip);
 		am_equalsStr("Wooden Sword of Hit", swordEquipCopy->getFullItemName());
 
@@ -268,14 +268,14 @@ namespace tests {
 		eng->addRace(new Race("human"));
 
 		Engine::setEngine(eng);
-		am::base::Handle<Game> game = new Game();
+		base::Handle<Game> game = new Game();
 		eng->setCurrentGame(game);
 
-		am::base::Handle<Sprite> deadGraphic(new Sprite());
-		am::base::Handle<Sprite> aliveGraphic(new Sprite());
+		base::Handle<Sprite> deadGraphic(new Sprite());
+		base::Handle<Sprite> aliveGraphic(new Sprite());
 		game->setGenericDeadGraphic(deadGraphic);
 		
-		am::base::Handle<Character> testChar(new Character());
+		base::Handle<Character> testChar(new Character());
 		testChar->setGraphic(aliveGraphic);
 		assert(testChar->getCharacterLayer()->getChildAt(0) != aliveGraphic);
 

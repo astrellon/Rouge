@@ -9,7 +9,7 @@ namespace game {
 
 	class Character;
 
-	class IAction : public am::base::IManaged {
+	class IAction : public base::IManaged {
 	public:
 		
 		IAction();

@@ -33,8 +33,8 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Inventory> mInventory;
-		am::base::Handle<Renderable> mHitbox;
+		base::Handle<Inventory> mInventory;
+		base::Handle<Renderable> mHitbox;
 
 		virtual void addItem(Item *item, int x, int y);
 		virtual void removeItem(Item *item);

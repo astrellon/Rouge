@@ -88,13 +88,13 @@ namespace ui {
 	{
 		if (e->getEventTarget() == mOk)
 		{
-			am::base::Handle<Event> e(new Event("dialog_ok", this));
+			base::Handle<Event> e(new Event("dialog_ok", this));
 			fireEvent<Event>(e);
 			setVisible(false);
 		}
 		else if (e->getEventTarget() == mCancel)
 		{
-			am::base::Handle<Event> e(new Event("dialog_cancel", this));
+			base::Handle<Event> e(new Event("dialog_cancel", this));
 			fireEvent<Event>(e);
 			setVisible(false);
 		}

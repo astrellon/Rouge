@@ -8,7 +8,7 @@ namespace gfx {
 
 	class Renderable;
 
-	class Effect: public am::base::IManaged {
+	class Effect: public base::IManaged {
 	public:
 		Effect();
 		Effect(float effectLength);

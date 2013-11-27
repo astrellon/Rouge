@@ -13,10 +13,10 @@ using am::util::Colour;
 namespace am {
 namespace gfx {
 
-	class GfxComponent : public am::base::IManaged {
+	class GfxComponent : public base::IManaged {
 	public:
 
-		typedef std::vector< am::base::Handle<Effect> > EffectList;
+		typedef std::vector< base::Handle<Effect> > EffectList;
 
 		GfxComponent();
 		GfxComponent(const GfxComponent &copy);

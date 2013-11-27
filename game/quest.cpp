@@ -46,7 +46,7 @@ namespace game {
 		{
 			return false;
 		}
-		am::base::Handle<Event> e(new Event("startQuest"));
+		base::Handle<Event> e(new Event("startQuest"));
 		fireEvent<Event>(e);
 		return true;
 	}
@@ -57,7 +57,7 @@ namespace game {
 			return false;
 		}
 		setCompleted(true);
-		am::base::Handle<Event> e(new Event("finishQuest"));
+		base::Handle<Event> e(new Event("finishQuest"));
 		fireEvent<Event>(e);
 		return true;
 	}
@@ -129,13 +129,13 @@ namespace game {
 	}
 	int Quest::deserialise(LoadingState *state, data::IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "quest"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "quest"));
 		if (!dataMap)
 		{
 			return 0;
 		}
 
-		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("completed"));
+		base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("completed"));
 		if (boo)
 		{
 			setCompleted(boo->boolean());

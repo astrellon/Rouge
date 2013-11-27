@@ -36,9 +36,9 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Character> mBuyer;
-		am::base::Handle<Store> mStore;
-		am::base::Handle<InventoryRenderer> mInventoryRenderer;
+		base::Handle<Character> mBuyer;
+		base::Handle<Store> mStore;
+		base::Handle<InventoryRenderer> mInventoryRenderer;
 
 		int mStoreInventoryIndex;
 

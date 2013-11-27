@@ -63,7 +63,7 @@ namespace ui {
 					break;
 				}
 			}
-			am::base::Handle<ListEvent> e(new ListEvent("list_change", mItems[index], index));
+			base::Handle<ListEvent> e(new ListEvent("list_change", mItems[index], index));
 			fireEvent<ListEvent>(e);
 		}
 	}
@@ -103,7 +103,7 @@ namespace ui {
 			_addItem(item);
 			return true;
 		}
-		am::base::Handle<Renderable> itemHandle(item);
+		base::Handle<Renderable> itemHandle(item);
 		int i = findItem(item);
 		if (i >= 0)
 		{

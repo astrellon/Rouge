@@ -39,10 +39,10 @@ namespace tests {
 		Engine *eng = new Engine();
 		Engine::setEngine(eng);
 
-		am::base::Handle<Game> game(new Game(eng));
+		base::Handle<Game> game(new Game(eng));
 		eng->setCurrentGame(game);
 
-		am::base::Handle<Character> main(new Character());
+		base::Handle<Character> main(new Character());
 		main->setGameId("testMainChar");
 		game->setMainCharacter(main);
 
@@ -83,7 +83,7 @@ namespace tests {
 		am_equals(0, main->getLevel());
 		am_equals(0, main->getCoinPurse()->getCoin());
 
-		am::base::Handle<Event> startEvent(new Event("talk"));
+		base::Handle<Event> startEvent(new Event("talk"));
 		main->fireEvent<Event>(startEvent);
 		main->fireEvent<Event>(startEvent);
 

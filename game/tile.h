@@ -21,11 +21,11 @@ namespace game {
 	class TileSet;
 	class TileType;
 	
-	class Tile : public am::base::IManaged, public IDefinition {
+	class Tile : public base::IManaged, public IDefinition {
 	public:
 
-		typedef std::vector< am::base::Handle<TileType> > TileTypeSet;
-		typedef std::vector< am::base::Handle<Asset> > TileAssetList;
+		typedef std::vector< base::Handle<TileType> > TileTypeSet;
+		typedef std::vector< base::Handle<Asset> > TileAssetList;
 		typedef std::map< Tile *, TileAssetList > TileAssetMap;
 
 		Tile(const char *name);
@@ -81,14 +81,14 @@ namespace game {
 		std::string mFullName;
 		
 		TileSet *mTileSet;
-		am::base::Handle<Asset> mGraphic;
+		base::Handle<Asset> mGraphic;
 		TileAssetMap mTransitionalGraphics;
 		std::string mDescription;
 		int mPrecedence;
 
 		TileTypeSet mTileTypes;
 
-		static am::base::Handle<Tile> sDefaultTile;
+		static base::Handle<Tile> sDefaultTile;
 
 	};
 

@@ -37,9 +37,9 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextInput> mFilename;
-		am::base::Handle<TextButton> mOk;
-		am::base::Handle<TextButton> mCancel;
+		base::Handle<TextInput> mFilename;
+		base::Handle<TextButton> mOk;
+		base::Handle<TextButton> mCancel;
 
 		std::string mFolder;
 		std::string mDialogTitle;

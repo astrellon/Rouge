@@ -51,12 +51,12 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Renderable> mUnderMouse;
-		am::base::Handle<Layer> mRootLayer;
+		base::Handle<Renderable> mUnderMouse;
+		base::Handle<Layer> mRootLayer;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
-		am::base::Handle<MouseEvent> mCurrentEvent;
+		base::Handle<MouseEvent> mCurrentEvent;
 		typedef std::map<Mouse::Button, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
 

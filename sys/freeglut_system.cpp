@@ -124,23 +124,23 @@ namespace freeglut {
 		mGameSystem->deinit();
 	}
 
-	void FreeGlutSystem::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseDown(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseMove(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onKeyDown(am::ui::Keyboard::Key key)
+	void FreeGlutSystem::onKeyDown(ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyDown(key);
 	}
-	void FreeGlutSystem::onKeyUp(am::ui::Keyboard::Key key)
+	void FreeGlutSystem::onKeyUp(ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyUp(key);
 	}
@@ -317,11 +317,11 @@ namespace freeglut {
 		return true;
 	}
 
-	am::base::ReturnCode FreeGlutSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	base::ReturnCode FreeGlutSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
 		if (!folderName || folderName[0] == '\0')
 		{
-			return am::base::NULL_PARAMETER;
+			return base::NULL_PARAMETER;
 		}
 
 		WIN32_FIND_DATA files;
@@ -334,7 +334,7 @@ namespace freeglut {
 		HANDLE find = FindFirstFile(folder.c_str(), &files);
 		if (find == INVALID_HANDLE_VALUE)
 		{
-			return am::base::SUCCESS;
+			return base::SUCCESS;
 		}
 		do
 		{
@@ -344,7 +344,7 @@ namespace freeglut {
 			result.push_back(entry);
 		} while (FindNextFile(find, &files) != 0);
 
-		return am::base::SUCCESS;
+		return base::SUCCESS;
 	}
 
 	void FreeGlutSystem::setCursorHidden(bool hide)
@@ -392,22 +392,22 @@ namespace freeglut {
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(am::ui::Keyboard::KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(ui::Keyboard::KEY_NONE);
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(am::ui::Keyboard::KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(ui::Keyboard::KEY_NONE);
 	}
 	void onGlutMouse(int button, int state, int x, int y)
 	{
-		am::ui::Mouse::Button amButton = am::ui::Mouse::LEFT_BUTTON;
+		ui::Mouse::Button amButton = ui::Mouse::LEFT_BUTTON;
 		if (button == GLUT_RIGHT_BUTTON)
 		{
-			amButton = am::ui::Mouse::RIGHT_BUTTON;
+			amButton = ui::Mouse::RIGHT_BUTTON;
 		}
 		else if (button == GLUT_MIDDLE_BUTTON)
 		{
-			amButton = am::ui::Mouse::MIDDLE_BUTTON;
+			amButton = ui::Mouse::MIDDLE_BUTTON;
 		}
 		if (state == GLUT_UP)
 		{
@@ -420,7 +420,7 @@ namespace freeglut {
 	}
 	void onGlutMouseMove(int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(am::ui::Mouse::LEFT_BUTTON, x, y);
+		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(ui::Mouse::LEFT_BUTTON, x, y);
 	}
 
 }

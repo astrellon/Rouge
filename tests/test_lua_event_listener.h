@@ -24,7 +24,7 @@ namespace tests {
 		}
 	
 		virtual const char *getSuiteName() const {
-			return "am::ui::LuaEventListener";
+			return "ui::LuaEventListener";
 		}
 
 	protected:

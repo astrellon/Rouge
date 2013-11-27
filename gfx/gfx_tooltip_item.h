@@ -30,10 +30,10 @@ namespace gfx {
 
 	protected:
 
-		am::base::Handle<const Item> mItem;
-		am::base::Handle<Layer> mLayer;
-		am::base::Handle<Sprite> mGraphic;
-		am::base::Handle<TextField2> mText;
+		base::Handle<const Item> mItem;
+		base::Handle<Layer> mLayer;
+		base::Handle<Sprite> mGraphic;
+		base::Handle<TextField2> mText;
 
 		void init();
 	};

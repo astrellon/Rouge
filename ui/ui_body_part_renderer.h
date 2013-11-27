@@ -40,9 +40,9 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Character> mCharacter;
-		am::base::Handle<Item> mCurrentItem;
-		am::base::Handle<Renderable> mHitbox;
+		base::Handle<Character> mCharacter;
+		base::Handle<Item> mCurrentItem;
+		base::Handle<Renderable> mHitbox;
 
 		std::string mBodyPartName;
 		short mMaxItemWidth;

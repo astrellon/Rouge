@@ -78,18 +78,18 @@ namespace ui {
 		// CHANGE THIS, 
 		if (e->getInventoryEventType() == INVENTORY_BEFORE_REMOVE)
 		{
-			am::base::ReturnCode result = mStore->buyItem(mBuyer, e->getItem(), 1.5f);
+			base::ReturnCode result = mStore->buyItem(mBuyer, e->getItem(), 1.5f);
 			am_log("BUY", getErrorName(result));
-			if (result != am::base::SUCCESS)
+			if (result != base::SUCCESS)
 			{
 				e->stopPropagation();
 			}
 		}
 		else if (e->getInventoryEventType() == INVENTORY_BEFORE_ADD)
 		{
-			am::base::ReturnCode result = mStore->sellItem(mBuyer, e->getItem(), 0.75f, true, true);
+			base::ReturnCode result = mStore->sellItem(mBuyer, e->getItem(), 0.75f, true, true);
 			am_log("SELL", getErrorName(result));
-			if (result != am::base::SUCCESS)
+			if (result != base::SUCCESS)
 			{
 				e->stopPropagation();
 			}

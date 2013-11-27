@@ -24,7 +24,7 @@ namespace game {
 
 	protected:
 
-		am::base::Handle<data::Table> mAttributes;
+		base::Handle<data::Table> mAttributes;
 
 	};
 

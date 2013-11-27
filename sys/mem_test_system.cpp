@@ -44,7 +44,7 @@ namespace sys {
 
 		mDebugConsole->setVisible(true);
 
-		am::base::Handle<TextField2> testText(new TextField2());
+		base::Handle<TextField2> testText(new TextField2());
 		testText->setText("Hello there <gameobj class='character'>Melli</gameobj>");
 		gfxEngine->getUILayer()->addChild(testText);
 		testText->setPosition(200.0f, 100.0f);
@@ -52,28 +52,28 @@ namespace sys {
 		{
 			Engine *eng = Engine::getEngine();
 
-			am::base::Handle<Game> game(new Game());
+			base::Handle<Game> game(new Game());
 			eng->setCurrentGame(game);
 			game->addDialogue(new Dialogue("diag1", "Test text"));
 			game->addDialogue(new Dialogue("diag2", "Test text 2"));
 
-			am::base::Handle<Map> map(game->getMapLua("testMap"));
+			base::Handle<Map> map(game->getMapLua("testMap"));
 			game->setCurrentMap(map);
-			//am::base::Handle<Map> map(new Map("testMap", 4, 4));
+			//base::Handle<Map> map(new Map("testMap", 4, 4));
 			//game->setCurrentMap(map);
 
-			am::base::Handle<Character> mainChar(new Character());
+			base::Handle<Character> mainChar(new Character());
 			mainChar->setName("Melli");
 			game->setMainCharacter(mainChar);
 			game->registerGameObject(mainChar);
 			game->addGameObjectToMap(mainChar);
 
-			am::base::Handle<Character> npc(new Character());
+			base::Handle<Character> npc(new Character());
 			npc->setName("Townsman");
 			game->registerGameObject(npc);
 			game->addGameObjectToMap(npc);
 
-			am::base::Handle<Item> sword(new Item());
+			base::Handle<Item> sword(new Item());
 			sword->setItemFullname("Sword", "Iron", "of stab");
 			sword->setItemType(ItemCommon::SWORD);
 			sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
@@ -81,7 +81,7 @@ namespace sys {
 			game->addGameObjectToMap(sword);
 		}
 		{
-			am::base::Handle<Game> game2(new Game());
+			base::Handle<Game> game2(new Game());
 			Engine::getEngine()->setCurrentGame(game2);
 		}
 

@@ -180,46 +180,46 @@ namespace sys {
 		DebugInspector::setInspector(nullptr);
 
 		MouseManager *manager = MouseManager::getManager();
-		manager->removeEventListener(am::ui::Mouse::MOUSE_OVER, this);
-		manager->removeEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		manager->removeEventListener(ui::Mouse::MOUSE_OVER, this);
+		manager->removeEventListener(ui::Mouse::MOUSE_OUT, this);
 	}
 
-	void GameSystem::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
+	void GameSystem::onMouseDown(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
-	void GameSystem::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
+	void GameSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseMove(mouseButton, x, y);
 	}
-	void GameSystem::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
+	void GameSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
-	void GameSystem::onKeyDown(am::ui::Keyboard::Key key)
+	void GameSystem::onKeyDown(ui::Keyboard::Key key)
 	{
 		// 192 Currently is `
-		if (key == am::ui::Keyboard::KEY_BACKTICK)
+		if (key == ui::Keyboard::KEY_BACKTICK)
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
 			mDebugInspector->setVisible(!mDebugInspector->isVisible());
 		}
 		// Page Up
-		else if (key == am::ui::Keyboard::KEY_PAGEUP)
+		else if (key == ui::Keyboard::KEY_PAGEUP)
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() - 1);
 		}
 		// Page Down
-		else if (key == am::ui::Keyboard::KEY_PAGEDOWN)
+		else if (key == ui::Keyboard::KEY_PAGEDOWN)
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
 		}
 		KeyboardManager::getManager()->onKeyDown(key);
 	}
-	void GameSystem::onKeyUp(am::ui::Keyboard::Key key)
+	void GameSystem::onKeyUp(ui::Keyboard::Key key)
 	{
 		KeyboardManager::getManager()->onKeyUp(key);
 	}
@@ -308,13 +308,13 @@ namespace sys {
 		return false;
 	}
 
-	am::base::ReturnCode GameSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	base::ReturnCode GameSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
 		if (mLinkedSystem)
 		{
 			return mLinkedSystem->listDirectory(folderName, result);
 		}
-		return am::base::NO_LINKED_SYSTEM;
+		return base::NO_LINKED_SYSTEM;
 	}
 
 	void GameSystem::onEvent(MouseEvent *e)

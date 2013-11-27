@@ -61,7 +61,7 @@ namespace ui {
 	protected:
 
 		bool mFocus;
-		am::base::Handle<TextField> mText;
+		base::Handle<TextField> mText;
 		int mInputPosition;
 		int mMaxCharacters;
 		Restriction mRestriction;

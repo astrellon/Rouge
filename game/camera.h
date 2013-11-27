@@ -7,7 +7,10 @@
 namespace am {
 namespace game {
 
-	class Camera {
+	using base::Handle;
+
+	class Camera 
+	{
 	public:
 		Camera();
 		~Camera();
@@ -26,7 +29,7 @@ namespace game {
 
 	protected:
 
-		am::base::Handle<GameObject> mFollowing;
+		Handle<GameObject> mFollowing;
 		float mDestinationX;
 		float mDestinationY;
 

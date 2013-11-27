@@ -10,6 +10,10 @@
 namespace am {
 namespace game {
 
+	using am::util::data::Table;
+	using am::util::data::Number;
+	using base::Handle;
+
 	const int CoinPurse::LUA_ID = LUA_ID_COINPURSE;
 	const char *CoinPurse::LUA_TABLENAME = LUA_TABLE_COINPURSE;
 
@@ -97,28 +101,28 @@ namespace game {
 		return mMaxCoin;
 	}
 
-	data::IData *CoinPurse::serialise()
+	IData *CoinPurse::serialise()
 	{
-		data::Table *output = new data::Table();
+		Table *output = new Table();
 		output->at("coin", mCoin);
 		output->at("maxCoin", mMaxCoin);
 
 		return output;
 	}
-	int CoinPurse::deserialise(LoadingState *state, data::IData *data)
+	int CoinPurse::deserialise(LoadingState *state, IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "coin purse"));
+		Handle<Table> dataMap(Table::checkDataType(data, "coin purse"));
 		if (!dataMap)
 		{
 			return 0;
 		}
 
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("maxCoin"));
+		Handle<Number> num(dataMap->at<Number>("maxCoin"));
 		if (num)
 		{
 			setMaxCoin(num->value<int>());
 		}
-		num = dataMap->at<data::Number>("coin");
+		num = dataMap->at<Number>("coin");
 		if (num)
 		{
 			setCoin(num->value<int>());
@@ -132,7 +136,7 @@ namespace game {
 		if (coin != mCoin)
 		{
 			mCoin = coin;
-			am::base::Handle<Event> e(new Event("coin_change"));
+			Handle<ui::Event> e(new ui::Event("coin_change"));
 			fireEvent<Event>(e);
 		}
 	}

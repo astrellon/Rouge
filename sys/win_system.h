@@ -56,11 +56,11 @@ namespace win {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onKeyDown(am::ui::Keyboard::Key key);
-		virtual void onKeyUp(am::ui::Keyboard::Key key);
+		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onKeyDown(ui::Keyboard::Key key);
+		virtual void onKeyUp(ui::Keyboard::Key key);
 		virtual void onKeyPress(char key);
 	
 		virtual bool isProgramRunning() const;
@@ -79,7 +79,7 @@ namespace win {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual am::base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
+		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();
@@ -106,7 +106,7 @@ namespace win {
 
 	typedef struct {									// Contains Information Vital To A Window
 		//Keys*				keys;						// Key Structure
-		HWND				hWnd;						// Window am::base::Handle
+		HWND				hWnd;						// Window base::Handle
 		HDC					hDC;						// Device Context
 		HGLRC				hRC;						// Rendering Context
 		GL_WindowInit		init;						// Window Init
@@ -121,7 +121,7 @@ namespace win {
 	BOOL DestroyWindowGL (GL_Window* window);
 	BOOL RegisterWindowClass (Application* application);
 	LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	am::ui::Keyboard::Key processWmKey(int key);
+	ui::Keyboard::Key processWmKey(int key);
 
 }
 }

@@ -37,11 +37,11 @@ namespace freeglut {
 		virtual void display(float dt);
 		virtual void deinit();
 
-		virtual void onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onKeyDown(am::ui::Keyboard::Key key);
-		virtual void onKeyUp(am::ui::Keyboard::Key key);
+		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onKeyDown(ui::Keyboard::Key key);
+		virtual void onKeyUp(ui::Keyboard::Key key);
 		virtual void onKeyPress(char key);
 	
 		virtual bool isProgramRunning() const;
@@ -60,7 +60,7 @@ namespace freeglut {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual am::base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
+		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
 		static FreeGlutSystem *getFreeGlutSystem();
 		static void setFreeGlutSystem(FreeGlutSystem *system);

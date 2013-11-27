@@ -42,8 +42,8 @@ namespace base {
 		NO_INVENTORIES =			-0x0602
 	};
 
-	const char *getErrorName(am::base::ReturnCode code);
-	const char *getErrorMessage(am::base::ReturnCode code);
+	const char *getErrorName(base::ReturnCode code);
+	const char *getErrorMessage(base::ReturnCode code);
 
 }
 }

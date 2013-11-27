@@ -58,8 +58,8 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Button> mGraphic;
-		am::base::Handle<TextField> mLabel;
+		base::Handle<Button> mGraphic;
+		base::Handle<TextField> mLabel;
 
 		void init();
 

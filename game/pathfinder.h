@@ -33,7 +33,7 @@ namespace game {
 		long mNodeUseCounter;
 		// Should not keep a long running reference on the map.
 		// Should only be kept for the time it takes to complete a path.
-		am::base::Handle<Map> mMap;
+		base::Handle<Map> mMap;
 
 		void getPath(AStarNode *node, NodePath &path);
 		void getNeighbors(const Vector2i &position, const GameObject *forObj);

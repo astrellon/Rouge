@@ -42,4 +42,6 @@
 #include <ui/event_manager.h>
 #include <ui/ievent_listener.h>
 
-int amMain(int argc, char ** argv);
+namespace am {
+	int amMain(int argc, char ** argv);
+}

@@ -12,7 +12,7 @@ namespace tests {
 	bool TestEventInterface::testSimple() {
 		retain();
 
-		am::base::Handle<EventInterface> inter(new EventInterface());
+		base::Handle<EventInterface> inter(new EventInterface());
 		mEventCounter = 0;
 
 		assert(!inter->hasActiveManager());
@@ -20,7 +20,7 @@ namespace tests {
 
 		try 
 		{
-			am::base::Handle<Event> e(new Event("test"));
+			base::Handle<Event> e(new Event("test"));
 			inter->fireEvent<Event>(e);
 			am_equals(0, mEventCounter);
 		}
@@ -34,7 +34,7 @@ namespace tests {
 
 		try 
 		{
-			am::base::Handle<Event> e(new Event("test"));
+			base::Handle<Event> e(new Event("test"));
 			inter->fireEvent<Event>(e);
 			am_equals(1, mEventCounter);
 		}
@@ -48,7 +48,7 @@ namespace tests {
 
 		try 
 		{
-			am::base::Handle<Event> e(new Event("test"));
+			base::Handle<Event> e(new Event("test"));
 			inter->fireEvent<Event>(e);
 			am_equals(1, mEventCounter);
 		}
@@ -60,7 +60,7 @@ namespace tests {
 		return true;
 	}
 
-	void TestEventInterface::onEvent(Event *e)
+	void TestEventInterface::onEvent(ui::Event *e)
 	{
 		mEventCounter++;
 	}

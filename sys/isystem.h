@@ -37,11 +37,11 @@ namespace sys {
 		virtual void display(float dt) = 0;
 		virtual void deinit() = 0;
 
-		virtual void onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
-		virtual void onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
-		virtual void onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
-		virtual void onKeyDown(am::ui::Keyboard::Key key) = 0;
-		virtual void onKeyUp(am::ui::Keyboard::Key key) = 0;
+		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onKeyDown(ui::Keyboard::Key key) = 0;
+		virtual void onKeyUp(ui::Keyboard::Key key) = 0;
 		virtual void onKeyPress(char key) = 0;
 
 		virtual bool isProgramRunning() const = 0;
@@ -60,7 +60,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName) = 0;
 		virtual bool isFile(const char *filename) = 0;
 		virtual bool createDirectory(const char *folderName) = 0;
-		virtual am::base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result) = 0;
+		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result) = 0;
 
 	};
 

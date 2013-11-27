@@ -152,7 +152,7 @@ namespace game {
 
 	protected:
 		
-		am::base::Handle<Map> mCurrentMap;
+		base::Handle<Map> mCurrentMap;
 
 		Engine *mEngine;
 
@@ -162,42 +162,42 @@ namespace game {
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 
-		typedef std::map<std::string, am::base::Handle<Map> > MapMap;
+		typedef std::map<std::string, base::Handle<Map> > MapMap;
 		MapMap mMaps;
 
-		typedef std::map<std::string, am::base::Handle<Item> >ItemMap;
+		typedef std::map<std::string, base::Handle<Item> >ItemMap;
 		ItemMap mItemDefinitions;
 
-		typedef std::map<std::string, am::base::Handle<Character> > CharacterMap;
+		typedef std::map<std::string, base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 
 		std::string mScenarioName;
 
-		am::base::Handle<Sprite> mGenericDeadGraphic;
+		base::Handle<Sprite> mGenericDeadGraphic;
 
-		am::base::Handle<Layer> mGameLayer;
-		am::base::Handle<Layer> mBackground;
-		am::base::Handle<Layer> mItemLayer;
-		am::base::Handle<Layer> mCharacterLayer;
-		am::base::Handle<Layer> mForeground;
+		base::Handle<Layer> mGameLayer;
+		base::Handle<Layer> mBackground;
+		base::Handle<Layer> mItemLayer;
+		base::Handle<Layer> mCharacterLayer;
+		base::Handle<Layer> mForeground;
 
-		am::base::Handle<Character> mMainCharacter;
+		base::Handle<Character> mMainCharacter;
 
-		am::base::Handle<LoadingState> mLoadingState;
+		base::Handle<LoadingState> mLoadingState;
 
 		int mGameTickPosition;
 		bool mGameTickPaused;
 		float mCurrentTickDt;
 
-		typedef std::map<std::string, am::base::Handle<GameObject> > GameObjectIdMap;
+		typedef std::map<std::string, base::Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
 		typedef std::map<std::string, Dialogue *> DialogueMap;
 		DialogueMap mDialogueMap;
 
-		typedef std::map<std::string, am::base::Handle<Quest> > QuestMap;
+		typedef std::map<std::string, base::Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
 
 		void endGameTick();

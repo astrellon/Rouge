@@ -22,7 +22,7 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Asset> mAsset;
+		base::Handle<Asset> mAsset;
 
 	};
 

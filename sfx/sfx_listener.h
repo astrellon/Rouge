@@ -13,7 +13,7 @@ using namespace am::math;
 namespace am {
 namespace sfx {
 
-	class Listener : public am::base::IManaged {
+	class Listener : public base::IManaged {
 	public:
 		
 		Listener();

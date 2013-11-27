@@ -46,7 +46,7 @@ namespace gfx {
 		mChildren.clear();
 		if (mParent)
 		{
-			am::base::Handle<Layer> temp(this);
+			base::Handle<Layer> temp(this);
 			mParent->removeChild(this);
 		}
 	}
@@ -93,7 +93,7 @@ namespace gfx {
 		// Since we are removing the child before adding it in again
 		// if it is found. We don't want it being deleted if it only has
 		// one reference to it.
-		am::base::Handle<Renderable> childHandle(child);
+		base::Handle<Renderable> childHandle(child);
 		ChildList::const_iterator iter = findChild(child);
 		if (child->getParent() != nullptr)
 		{

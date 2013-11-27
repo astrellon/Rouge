@@ -58,7 +58,7 @@ namespace tests {
 		am_equals(4, lua_tointeger(lua, -1));
 		lua.pop(2);
 
-		am::base::Handle<Item> item(new Item());
+		base::Handle<Item> item(new Item());
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
 		wrapRefObject<Item>(lua, item);
@@ -143,9 +143,9 @@ namespace tests {
 
 	bool TestLuaInventory::testEvents() {
 		
-		am::base::Handle<Inventory> inventory(new Inventory(6, 4));
-		am::base::Handle<TestHandler> handler(new TestHandler());
-		am::base::Handle<Item> testItem(new Item());
+		base::Handle<Inventory> inventory(new Inventory(6, 4));
+		base::Handle<TestHandler> handler(new TestHandler());
+		base::Handle<Item> testItem(new Item());
 		testItem->setInventorySize(1, 1);
 		inventory->addEventListener("inventory_add", handler);
 		inventory->addEventListener("inventory_before_add", handler);

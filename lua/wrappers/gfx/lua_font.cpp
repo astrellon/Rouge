@@ -118,7 +118,7 @@ namespace gfx {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				am::base::Handle<Asset> asset(font->getAsset());
+				base::Handle<Asset> asset(font->getAsset());
 				if (asset)
 				{
 					lua_pushstring(lua, asset->getName());

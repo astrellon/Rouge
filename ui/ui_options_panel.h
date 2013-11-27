@@ -32,10 +32,10 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<Image> mBackground;
-		am::base::Handle<Checkbox> mFullscreen;
-		am::base::Handle<TextButton> mClose;
-		am::base::Handle<TextButton> mApply;
+		base::Handle<Image> mBackground;
+		base::Handle<Checkbox> mFullscreen;
+		base::Handle<TextButton> mClose;
+		base::Handle<TextButton> mApply;
 
 		RougeSystem *mRougeSystem;
 	};

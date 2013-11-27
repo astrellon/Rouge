@@ -102,22 +102,22 @@ namespace game {
 		return mIsHoldingOnto;
 	}
 
-	am::base::ReturnCode BodyPart::setEquippedItem(Item *item, bool forceEquip)
+	base::ReturnCode BodyPart::setEquippedItem(Item *item, bool forceEquip)
 	{
 		// If we aren't forcing the equip or if the item is null
 		// then we want to chance and it's a valid set.
 		if (forceEquip || !item || mType == BodyPartType::UNKNOWN_PART || mType == BodyPartType::ANY)
 		{
 			mEquippedItem = item;
-			return am::base::SUCCESS;
+			return base::SUCCESS;
 		}
 		// Otherwise we want to make sure that the types match.
 		if (canEquipItem(item))
 		{
 			mEquippedItem = item;
-			return am::base::SUCCESS;
+			return base::SUCCESS;
 		}
-		return am::base::BODY_PART_TYPE_MISMATCH;
+		return base::BODY_PART_TYPE_MISMATCH;
 	}
 	bool BodyPart::canEquipItem(Item *item) const
 	{
@@ -156,13 +156,13 @@ namespace game {
 
 	bool BodyPart::deserialise(LoadingState *state, data::IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "body part"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "body part"));
 		if (!dataMap)
 		{
 			return false;
 		}
 
-		am::base::Handle<data::String> str(dataMap->at<data::String>("partName"));
+		base::Handle<data::String> str(dataMap->at<data::String>("partName"));
 		if (str)
 		{
 			mName = str->string();
@@ -178,7 +178,7 @@ namespace game {
 			setType(BodyPartType::getBodyPartType(str->string()));
 		}
 
-		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("isWeaponPart"));
+		base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("isWeaponPart"));
 		if (boo)
 		{
 			setWeaponPart(boo->boolean());
@@ -189,8 +189,8 @@ namespace game {
 			setOffWeapon(boo->boolean());
 		}*/
 
-		am::base::Handle<Item> item(new Item());
-		am::base::Handle<data::IData> tempData(dataMap->at("equippedItem"));
+		base::Handle<Item> item(new Item());
+		base::Handle<data::IData> tempData(dataMap->at("equippedItem"));
 		if (tempData)
 		{
 			if (item->deserialise(state, tempData) != 1)

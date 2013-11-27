@@ -110,7 +110,7 @@ namespace game {
 
 	Item *Item::clone() const
 	{
-		am::base::Handle<Item> newItem(new Item());
+		base::Handle<Item> newItem(new Item());
 		newItem->setItemFrom(*this);
 		newItem->retain();
 		return newItem;
@@ -120,7 +120,7 @@ namespace game {
 	{
 		if (mGraphic)
 		{
-			mGraphic->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mGraphic->removeEventListener(ui::Mouse::MOUSE_UP, this);
 			removeChild(mGraphic);
 		}
 		mGraphic = graphic;
@@ -132,7 +132,7 @@ namespace game {
 		if (graphic)
 		{
 			graphic->setInteractive(true);
-			graphic->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			graphic->addEventListener(ui::Mouse::MOUSE_UP, this);
 			addChild(graphic);
 		}
 		updateGraphic();
@@ -146,7 +146,7 @@ namespace game {
 	{
 		if (mGroundGraphic)
 		{
-			mGroundGraphic->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mGroundGraphic->removeEventListener(ui::Mouse::MOUSE_UP, this);
 			removeChild(mGroundGraphic);
 		}
 		mGroundGraphic = graphic;
@@ -156,7 +156,7 @@ namespace game {
 			addChild(graphic);
 			mCameraOffsetX = graphic->getWidth() * 0.5f;
 			mCameraOffsetY = graphic->getHeight() * 0.5f;
-			graphic->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			graphic->addEventListener(ui::Mouse::MOUSE_UP, this);
 		}
 		updateGraphic();
 	}
@@ -524,12 +524,12 @@ namespace game {
 
 	void Item::pickedUp(Character *byCharacter)
 	{
-		am::base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
+		base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
 		fireEvent<ItemEvent>(e);
 	}
 	void Item::dropped(Character *droppedByCharacter)
 	{
-		am::base::Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
+		base::Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
 		fireEvent<ItemEvent>(e);
 	}
 
@@ -623,13 +623,13 @@ namespace game {
 		{
 			return gameObjDeserialise;
 		}
-		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "item"));
+		base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "item"));
 		if (!dataMap)
 		{
 			return -1;
 		}
 
-		am::base::Handle<data::IData> tempData(dataMap->at("graphic"));
+		base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
 			mGraphic = new Sprite();
@@ -642,7 +642,7 @@ namespace game {
 			mGroundGraphic->deserialise(state, tempData);
 		}
 
-		am::base::Handle<data::String> str(dataMap->at<data::String>("itemType"));
+		base::Handle<data::String> str(dataMap->at<data::String>("itemType"));
 		if (str)
 		{
 			setItemType(ItemCommon::getItemType(str->string()));
@@ -654,7 +654,7 @@ namespace game {
 		}
 		updateGraphic();
 
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("inventorySizeX"));
+		base::Handle<data::Number> num(dataMap->at<data::Number>("inventorySizeX"));
 		if (num)
 		{
 			mInventorySizeX = num->value<short>();
@@ -732,12 +732,12 @@ namespace game {
 
 	void Item::onLevelUp()
 	{
-		am::base::Handle<Event> e(new Event("level_change"));
+		base::Handle<Event> e(new Event("level_change"));
 		fireEvent<Event>(e);
 	}
 	void Item::onExperienceChange()
 	{
-		am::base::Handle<Event> e(new Event("experience_change"));
+		base::Handle<Event> e(new Event("experience_change"));
 		fireEvent<Event>(e);
 	}
 

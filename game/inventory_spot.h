@@ -35,7 +35,7 @@ namespace game {
 		static const char *LUA_TABLENAME;
 
 	protected:
-		am::base::Handle<Item> mItem;
+		base::Handle<Item> mItem;
 		unsigned short mX, mY;
 
 	};

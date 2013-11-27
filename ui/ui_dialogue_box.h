@@ -48,10 +48,10 @@ namespace ui {
 
 	protected:
 
-		am::base::Handle<TextField2> mText;
+		base::Handle<TextField2> mText;
 		Dialogue *mDialogue;
-		am::base::Handle<GameObject> mTalker;
-		am::base::Handle<GameObject> mTalkedTo;
+		base::Handle<GameObject> mTalker;
+		base::Handle<GameObject> mTalkedTo;
 
 		void updateText();
 	};

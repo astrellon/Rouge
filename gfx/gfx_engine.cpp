@@ -314,23 +314,23 @@ namespace gfx {
 		return getDefinition<Asset>(mAssetManager, name);
 	}
 
-	am::base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
+	base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
 		std::string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter != mTextureManager.end())
 		{
 			texture = iter->second.get();
-			return am::base::SUCCESS;
+			return base::SUCCESS;
 		}
 
 		Texture *temp = new Texture();
-		am::base::ReturnCode result = temp->setFilename(filename);
-		if (result == am::base::SUCCESS)
+		base::ReturnCode result = temp->setFilename(filename);
+		if (result == base::SUCCESS)
 		{
 			mTextureManager[fileStr] = temp;
 			texture = temp;
-			return am::base::SUCCESS;
+			return base::SUCCESS;
 		}
 
 		delete temp;

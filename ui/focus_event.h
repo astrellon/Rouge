@@ -25,7 +25,7 @@ namespace ui {
 	protected:
 
 		FocusEventType mFocusEventType;
-		am::base::Handle<Renderable> mTarget;
+		base::Handle<Renderable> mTarget;
 	};
 
 }

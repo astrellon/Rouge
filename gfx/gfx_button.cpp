@@ -3,7 +3,6 @@
 #include "gfx_renderable.h"
 
 #include <ui/mouse_manager.h>
-using am::ui::MouseManager;
 
 #include <log/logger.h>
 
@@ -92,16 +91,16 @@ namespace gfx {
 		return mEnabled;
 	}
 
-	void Button::onEvent(MouseEvent *e)
+	void Button::onEvent(ui::MouseEvent *e)
 	{
-		am::base::Handle<Event> clickEvent;
+		base::Handle<ui::Event> clickEvent;
 		switch (e->getMouseEventType())
 		{
 		default:
-		case am::ui::Mouse::MOUSE_OUT:
+		case ui::Mouse::MOUSE_OUT:
 			setSubWindowFrame(0);
 			break;
-		case am::ui::Mouse::MOUSE_MOVE:
+		case ui::Mouse::MOUSE_MOVE:
 			{
 				int frame = 1;
 				if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
@@ -111,13 +110,13 @@ namespace gfx {
 				setSubWindowFrame(frame);
 			}
 			break;
-		case am::ui::Mouse::MOUSE_UP:
+		case ui::Mouse::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
-		case am::ui::Mouse::MOUSE_OVER:
+		case ui::Mouse::MOUSE_OVER:
 			setSubWindowFrame(1);
 			break;
-		case am::ui::Mouse::MOUSE_DOWN:
+		case ui::Mouse::MOUSE_DOWN:
 			setSubWindowFrame(2);
 			e->stopPropagation();
 			break;
@@ -126,19 +125,19 @@ namespace gfx {
 
 	void Button::addListeners(Renderable *target)
 	{
-		target->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
-		target->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
-		target->addEventListener(am::ui::Mouse::MOUSE_UP, this);
-		target->addEventListener(am::ui::Mouse::MOUSE_OUT, this);
-		target->addEventListener(am::ui::Mouse::MOUSE_OVER, this);
+		target->addEventListener(ui::Mouse::MOUSE_DOWN, this);
+		target->addEventListener(ui::Mouse::MOUSE_MOVE, this);
+		target->addEventListener(ui::Mouse::MOUSE_UP, this);
+		target->addEventListener(ui::Mouse::MOUSE_OUT, this);
+		target->addEventListener(ui::Mouse::MOUSE_OVER, this);
 	}
 	void Button::removeListeners(Renderable *target)
 	{
-		target->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
-		target->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
-		target->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
-		target->removeEventListener(am::ui::Mouse::MOUSE_OUT, this);
-		target->removeEventListener(am::ui::Mouse::MOUSE_OVER, this);
+		target->removeEventListener(ui::Mouse::MOUSE_DOWN, this);
+		target->removeEventListener(ui::Mouse::MOUSE_MOVE, this);
+		target->removeEventListener(ui::Mouse::MOUSE_UP, this);
+		target->removeEventListener(ui::Mouse::MOUSE_OUT, this);
+		target->removeEventListener(ui::Mouse::MOUSE_OVER, this);
 	}
 
 }

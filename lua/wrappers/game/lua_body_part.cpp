@@ -148,7 +148,7 @@ namespace game {
 			{
 				BodyPartType::PartType type = BodyPartType::getBodyPartType(lua_tostring(lua, 2));
 				lua_pushvalue(lua, 1);
-				lua_pushinteger(lua, type == BodyPartType::MAX_BODY_TYPE_LENGTH ? am::base::BODY_PART_TYPE_UNKNOWN : am::base::SUCCESS);
+				lua_pushinteger(lua, type == BodyPartType::MAX_BODY_TYPE_LENGTH ? base::BODY_PART_TYPE_UNKNOWN : base::SUCCESS);
 				return 2;
 			}
 			return LuaState::expectedArgs(lua, "type", "string type");
@@ -281,7 +281,7 @@ namespace game {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				am::base::Handle<Item> item(castUData<Item>(lua, 2));
+				base::Handle<Item> item(castUData<Item>(lua, 2));
 				if (item)
 				{
 					lua_pushboolean(lua, part->canEquipItem(item));

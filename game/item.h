@@ -125,8 +125,8 @@ namespace game {
 
 	protected:
 		
-		am::base::Handle<Sprite> mGraphic;
-		am::base::Handle<Sprite> mGroundGraphic;
+		base::Handle<Sprite> mGraphic;
+		base::Handle<Sprite> mGroundGraphic;
 
 		short mPrefix;
 		short mPostfix;
@@ -144,8 +144,8 @@ namespace game {
 
 		DamageType mBaseDamageType;
 
-		am::base::Handle<StatModifiers> mStatModifiers;
-		am::base::Handle<StatModifiers> mStatModifiersSelf;
+		base::Handle<StatModifiers> mStatModifiers;
+		base::Handle<StatModifiers> mStatModifiersSelf;
 		BodyPartType::TypeList mEquipableTo;
 
 		virtual void updateGraphic();

@@ -26,7 +26,7 @@ namespace game {
 	class MapRegion : public EventInterface {
 	public:
 
-		typedef std::vector< am::base::Handle< MapRegion > > MapRegionList;
+		typedef std::vector< base::Handle< MapRegion > > MapRegionList;
 
 		MapRegion();
 		MapRegion(int width, int height, int fillValue = 0);

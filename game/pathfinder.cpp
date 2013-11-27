@@ -212,7 +212,7 @@ namespace game {
 
 	inline double Pathfinder::manhattanDistance(const Vector2f &p1, const Vector2f &p2)
 	{
-		return am::math::abs(p1.x - p2.x) + am::math::abs(p1.y - p2.y);
+		return math::abs(p1.x - p2.x) + math::abs(p1.y - p2.y);
 	}
 	inline void Pathfinder::sortAStarList(AStarList &list)
 	{

@@ -60,7 +60,7 @@ namespace game {
 	}
 	void InventorySpot::deserialise(LoadingState *state, data::IData *data)
 	{
-		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			std::stringstream ss;
@@ -70,7 +70,7 @@ namespace game {
 			return;
 		}
 
-		am::base::Handle<data::Number> num(dataMap->at<data::Number>("x"));
+		base::Handle<data::Number> num(dataMap->at<data::Number>("x"));
 		if (num)
 		{
 			mX = num->value<unsigned short>();
@@ -81,7 +81,7 @@ namespace game {
 			mY = num->value<unsigned short>();
 		}
 
-		am::base::Handle<data::IData> tempData(dataMap->at("item"));
+		base::Handle<data::IData> tempData(dataMap->at("item"));
 		if (tempData)
 		{
 			mItem = new Item();
