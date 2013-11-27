@@ -7,7 +7,7 @@ namespace ui {
 		INVENTORY_ADD, INVENTORY_REMOVE, INVENTORY_BEFORE_ADD, INVENTORY_BEFORE_REMOVE
 	};
 
-	const char *InventoryEventTypeName[];
+	const char **InventoryEventTypeName;
 
 }
 }

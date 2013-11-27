@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-#include <al.h>
+#include <AL/al.h>
 
 #include <base/imanaged.h>
 using namespace am::base;

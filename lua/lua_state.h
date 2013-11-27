@@ -249,7 +249,6 @@ namespace lua {
 
 		static int sDepth;
 		static int sMaxDepth;
-		static jmp_buf sRecoverBuff;
 	};
 
 	class LuaHandle {

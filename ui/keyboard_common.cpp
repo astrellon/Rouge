@@ -3,7 +3,7 @@
 namespace am {
 namespace ui {
 
-	const char *KeyboardEventTypeNames[] = { "key_down", "key_up", "key_press" };
+	const char **KeyboardEventTypeNames = { "key_down", "key_up", "key_press" };
 
 	Key getKey(int key)
 	{
@@ -14,7 +14,7 @@ namespace ui {
 		return static_cast<Key>(key);
 	}
 
-	const char *KeyNames[] = { "None", "Pause", "Insert", "Page Up", "Page Down",
+	const char **KeyNames = { "None", "Pause", "Insert", "Page Up", "Page Down",
 		"End", "Home", "Delete", "Backspace", "Tab", "Enter", "Up Arrow", "Down Arrow",
 		"Left Arrow", "Right Arrow", "Print Screen", "Caps Lock", "Left Shift", 
 		"Right Shift", "Left Ctrl", "Right Ctrl", "Left Alt", "Right Alt", "Scroll Lock",

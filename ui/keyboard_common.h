@@ -164,8 +164,8 @@ namespace ui {
 		KEY_DOWN, KEY_UP, KEY_PRESS
 	};
 
-	const char *KeyboardEventTypeNames[];
-	const char *KeyNames[];
+	const char **KeyboardEventTypeNames;
+	const char **KeyNames;
 
 	Key getKey(int key);
 	const char *getKeyName(Key key);

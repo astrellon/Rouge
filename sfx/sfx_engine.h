@@ -7,9 +7,11 @@ using namespace std;
 #include <base/handle.h>
 using namespace am::base;
 
-#include <al.h>
+#include <AL/al.h>
 
-#include <Windows.h>
+#ifdef _WIN32
+#   include <Windows.h>
+#endif
 #include <sfx/ogg/Vorbis/vorbisfile.h>
 
 #include <sfx/sfx_listener.h>
@@ -135,7 +137,9 @@ namespace sfx {
 		OggComment mOggComment;
 		OggOpenCallbacks mOggOpenCallbacks;
 
+#ifdef _WIN32
 		HINSTANCE mOggHandle;
+#endif
 		
 		bool initOgg();
 		void deinitOgg();

@@ -14,6 +14,11 @@ namespace am {
 namespace util {
 namespace data {
 
+    class Number;
+    class String;
+    class Table;
+    class Boolean;
+
 	class IData : public am::base::IManaged {
 	public:
 
@@ -37,9 +42,10 @@ namespace data {
 		template <class T>
 		T number() const
 		{
-			if (type() == Number::TYPE)
+            // TODO
+			//if (type() == Number::TYPE)
 			{
-				return dynamic_cast<const Number *>(this)->value<T>();
+				//return dynamic_cast<const Number *>(this)->value<T>();
 			}
 			return static_cast<T>(0);
 		}

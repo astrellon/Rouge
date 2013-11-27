@@ -11,8 +11,6 @@
 namespace am {
 namespace lua {
 
-	jmp_buf LuaState::sRecoverBuff;
-
 	int getUDataType(lua_State *lua, int n)
 	{
 		if (!lua_isuserdata(lua, n))
