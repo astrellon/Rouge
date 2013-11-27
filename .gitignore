@@ -12,3 +12,5 @@ python/__pycache__/
 *.sdf
 *.suo
 *.vcxprof.user
+*.o
+*.swp

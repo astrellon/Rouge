@@ -8,21 +8,20 @@ namespace game {
 	class Inventory;
 	class Item;
 }
-using namespace am::game;
 
 namespace ui {
 
 	class InventoryEvent : public Event {
 	public:
-		InventoryEvent(InventoryEventType type, Inventory *target);
-		InventoryEvent(InventoryEventType type, Inventory *target, Item *item);
-		InventoryEvent(InventoryEventType type, Inventory *target, Item *item,
+		InventoryEvent(am::ui::Inventory::EventType type, game::Inventory *target);
+		InventoryEvent(am::ui::Inventory::EventType type, game::Inventory *target, game::Item *item);
+		InventoryEvent(am::ui::Inventory::EventType type, game::Inventory *target, game::Item *item,
 			unsigned short spotX, unsigned short spotY);
 		~InventoryEvent();
 
-		virtual InventoryEventType getInventoryEventType() const;
-		virtual Inventory *getInventory() const;
-		virtual Item *getItem() const;
+		virtual am::ui::Inventory::EventType getInventoryEventType() const;
+		virtual game::Inventory *getInventory() const;
+		virtual game::Item *getItem() const;
 		
 		virtual unsigned short getSpotX() const;
 		virtual unsigned short getSpotY() const;
@@ -31,9 +30,9 @@ namespace ui {
 
 	protected:
 
-		InventoryEventType mInventoryEventType;
-		Inventory *mInventory;
-		Item *mItem;
+        am::ui::Inventory::EventType mInventoryEventType;
+        game::Inventory *mInventory;
+        game::Item *mItem;
 
 		unsigned short mSpotX;
 		unsigned short mSpotY;

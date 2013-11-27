@@ -45,7 +45,7 @@ namespace game {
 			lua_rawgeti(lua, LUA_REGISTRYINDEX, character->getAIFunc());
 			wrapRefObject<Character>(lua, character);
 			lua_pushnumber(lua, dt);
-			lua_acall(lua, 2, 0, 0);
+			lua_acall(lua, 2, 0);
 		}
 		else
 		{

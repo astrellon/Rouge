@@ -3,14 +3,10 @@
 #include <string>
 #include <vector>
 
-#include <lua/lua_state.h>
-using namespace am::lua;
-
 #include <base/imanaged.h>
 #include <base/handle.h>
 
 #include <util/idefinition.h>
-using namespace am::util;
 
 #include "texture_window.h"
 
@@ -20,7 +16,7 @@ namespace gfx {
 	class Texture;
 	class Asset;
 
-	class Font : public base::IManaged, public IDefinition {
+	class Font : public base::IManaged, public util::IDefinition {
 	public:
 		// GlFont methods
 		Font(const char *name);

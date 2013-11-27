@@ -3,10 +3,12 @@
 namespace am {
 namespace ui {
 
-	const char *InventoryEventTypeName[] = 
+	const char *Inventory::EventTypeName[] = 
 	{
-		"inventory_add", "inventory_remove", "inventory_before_add", "inventory_before_remove"
+		"inventory_add", "inventory_remove", "inventory_before_add", 
+        "inventory_before_remove"
 	};
 
 }
 }
+
