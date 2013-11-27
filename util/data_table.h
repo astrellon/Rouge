@@ -5,7 +5,6 @@
 #include <vector>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "idata.h"
 
@@ -16,11 +15,11 @@ namespace data {
 	class Table : public IData {
 	public:
 
-		typedef std::map<std::string, Handle<IData> > Map_internal;
+		typedef std::map<std::string, am::base::Handle<IData> > Map_internal;
 		typedef Map_internal::iterator map_iterator;
 		typedef Map_internal::const_iterator map_const_iterator;
 
-		typedef std::vector< Handle<IData> > Array_internal;
+		typedef std::vector< am::base::Handle<IData> > Array_internal;
 		typedef Array_internal::iterator array_iterator;
 		typedef Array_internal::const_iterator array_const_iterator;
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <map>
 #include <string>
@@ -13,7 +12,7 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileType : public IManaged {
+	class TileType : public am::base::IManaged {
 	public:
 		TileType(const char *name, const char *fullName = nullptr);
 		~TileType();

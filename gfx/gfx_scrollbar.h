@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 using namespace std;
@@ -44,10 +43,10 @@ namespace gfx {
 
 	protected:
 
-		Handle<Button> mBtnUp;
-		Handle<Button> mBtnDown;
-		Handle<Sprite> mBack;
-		Handle<Button> mBar;
+		am::base::Handle<Button> mBtnUp;
+		am::base::Handle<Button> mBtnDown;
+		am::base::Handle<Sprite> mBack;
+		am::base::Handle<Button> mBar;
 
 		int mMinValue;
 		int mMaxValue;

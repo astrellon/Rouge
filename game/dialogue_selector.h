@@ -6,7 +6,6 @@
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <game/character.h>
 #include <game/dialogue_choice.h>

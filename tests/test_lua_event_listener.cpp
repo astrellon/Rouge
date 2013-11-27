@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -63,14 +62,14 @@ namespace tests {
 		wrapRefObject<Quest>(lua, &manager);
 
 		lua_acall(lua, 1, 0);
-		Handle<Event> testEvent(new Event("testEvent"));
+		am::base::Handle<Event> testEvent(new Event("testEvent"));
 		manager.fireEvent<Event>(testEvent);
 
 		eventCalled = lua.getGlobalString("eventCalled");
 		am_equalsStr("testEvent", eventCalled.c_str());
 		am_equals(1, lua.getGlobalInt("timesCalled"));
 
-		Handle<Event> testEvent2(new Event("testEvent"));
+		am::base::Handle<Event> testEvent2(new Event("testEvent"));
 		manager.fireEvent<Event>(testEvent2);
 
 		eventCalled = lua.getGlobalString("eventCalled");
@@ -111,7 +110,7 @@ namespace tests {
 		am_equals(-1, lua.getGlobalInt("localX"));
 		am_equals(-1, lua.getGlobalInt("localY"));
 
-		Handle<MouseEvent> e(new MouseEvent(MOUSE_MOVE, LEFT_BUTTON, 8, 10));
+		am::base::Handle<MouseEvent> e(new MouseEvent(MOUSE_MOVE, LEFT_BUTTON, 8, 10));
 		manager.fireEvent<MouseEvent>(e);
 
 		lua_getglobal(lua, "eventCalled");

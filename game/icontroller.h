@@ -1,14 +1,13 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 namespace am {
 namespace game {
 
 	class Character;
 
-	class IController : public IManaged {
+	class IController : public am::base::IManaged {
 	public:
 
 		IController();

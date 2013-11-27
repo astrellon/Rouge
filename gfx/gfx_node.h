@@ -2,7 +2,6 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 #include <string>
@@ -16,10 +15,10 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class Node : public IManaged, public TextStyleSelector {
+	class Node : public am::base::IManaged, public TextStyleSelector {
 	public:
-		typedef vector< Handle<Node> > NodeList;
-		typedef vector< Handle<NodeHitbox> > NodeHitboxList;
+		typedef vector< am::base::Handle<Node> > NodeList;
+		typedef vector< am::base::Handle<NodeHitbox> > NodeHitboxList;
 		
 		Node();
 		Node(const char *nodeType, const char *text = nullptr);
@@ -63,7 +62,7 @@ namespace gfx {
 	protected:
 
 		NodeList mChildren;
-		Handle<Node> mParent;
+		am::base::Handle<Node> mParent;
 		string mText;
 		TextStyle mStyle;
 		bool mStyleDirty;

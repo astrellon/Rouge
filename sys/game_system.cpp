@@ -309,13 +309,13 @@ namespace sys {
 		return false;
 	}
 
-	base::ReturnCode GameSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	am::base::ReturnCode GameSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
 		if (mLinkedSystem)
 		{
 			return mLinkedSystem->listDirectory(folderName, result);
 		}
-		return NO_LINKED_SYSTEM;
+		return am::base::NO_LINKED_SYSTEM;
 	}
 
 	void GameSystem::onEvent(MouseEvent *e)

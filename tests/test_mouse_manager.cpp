@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/mouse_manager.h>
 using namespace am::ui;
@@ -22,8 +21,8 @@ namespace tests {
 
 	bool TestMouseManager::testSimple() {
 		
-		Handle<Layer> rootLayer(new Layer());
-		Handle<Renderable> target1(new Renderable());
+		am::base::Handle<Layer> rootLayer(new Layer());
+		am::base::Handle<Renderable> target1(new Renderable());
 		rootLayer->addChild(target1);
 		rootLayer->setInteractive(true);
 		target1->setInteractive(true);

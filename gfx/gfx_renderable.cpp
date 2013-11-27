@@ -4,7 +4,6 @@
 using namespace am::math;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <log/logger.h>
 
@@ -23,7 +22,7 @@ namespace gfx {
 	}
 	
 	Renderable::Renderable() :
-		IManaged(),
+		am::base::IManaged(),
 		EventInterface(),
 		mWidth(0),
 		mHeight(0),
@@ -37,7 +36,7 @@ namespace gfx {
 #endif
 	}
 	Renderable::Renderable(const Renderable &copy) :
-		IManaged(),
+		am::base::IManaged(),
 		EventInterface(),
 		mWidth(copy.mWidth),
 		mHeight(copy.mHeight),
@@ -72,7 +71,7 @@ namespace gfx {
 		}
 		if (mParent)
 		{
-			Handle<Layer> parent(mParent);
+			am::base::Handle<Layer> parent(mParent);
 			mParent = nullptr;
 			parent->removeChild(this);
 		}
@@ -86,7 +85,7 @@ namespace gfx {
 	void Renderable::deinit()
 	{
 		{
-			Handle<Event> e(new Event("deinit", this));
+			am::base::Handle<Event> e(new Event("deinit", this));
 			fireEvent<Event>(e);
 		}
 		if (mParent)

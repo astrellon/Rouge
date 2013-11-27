@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "mouse_common.h"
 #include "keyboard_common.h"
@@ -24,7 +23,7 @@ namespace ui {
 
 		friend class EventInterface;
 
-		typedef vector< Handle<IEventListener> > ListenerList;
+		typedef vector< am::base::Handle<IEventListener> > ListenerList;
 		typedef map<string, ListenerList> Listeners;
 
 		EventManager();
@@ -83,7 +82,7 @@ namespace ui {
 		Listeners mListeners;
 		Listeners mToRemove;
 		bool mFiring;
-		Handle<EventInterface> mDeleteResponse;
+		am::base::Handle<EventInterface> mDeleteResponse;
 
 		ListenerList::iterator findListener(const string &type, IEventListener *context);
 

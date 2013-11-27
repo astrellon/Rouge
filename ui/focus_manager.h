@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_renderable.h>
 using namespace am::gfx;
@@ -25,7 +24,7 @@ namespace ui {
 
 	protected:
 
-		Handle<Renderable> mCurrentFocus;
+		am::base::Handle<Renderable> mCurrentFocus;
 
 		static FocusManager *sManager;
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
@@ -34,8 +33,8 @@ namespace ui {
 
 	protected:
 
-		Handle<Inventory> mInventory;
-		Handle<Renderable> mHitbox;
+		am::base::Handle<Inventory> mInventory;
+		am::base::Handle<Renderable> mHitbox;
 
 		virtual void addItem(Item *item, int x, int y);
 		virtual void removeItem(Item *item);

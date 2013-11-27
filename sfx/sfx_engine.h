@@ -5,7 +5,6 @@
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <AL/al.h>
 
@@ -45,7 +44,7 @@ namespace sfx {
 
 		typedef vector<DeviceName> DeviceList;
 		typedef vector<SourceId> SourcePool;
-		typedef map<string, Handle<ISound> > SoundMap;
+		typedef map<string, am::base::Handle<ISound> > SoundMap;
 
 		void init();
 		bool hasInited() const;
@@ -94,14 +93,14 @@ namespace sfx {
 
 		int nextPoolIndex();
 
-		Handle<SourcePoint> mBackgroundMusicSource;
-		Handle<ISound> mBackgroundMusic;
+		am::base::Handle<SourcePoint> mBackgroundMusicSource;
+		am::base::Handle<ISound> mBackgroundMusic;
 
 		SoundMap mSoundMap;
 
 		Listener mListener;
 
-		typedef vector< Handle<ISource> > SourceList;
+		typedef vector< am::base::Handle<ISource> > SourceList;
 		SourceList mInactiveSources;
 
 		size_t findInactiveSource(ISource *source);

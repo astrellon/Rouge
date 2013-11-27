@@ -8,7 +8,7 @@
 namespace am {
 namespace ui {
 
-	Handle<DebugInspector> DebugInspector::sInspector;
+	am::base::Handle<DebugInspector> DebugInspector::sInspector;
 
 	DebugInspector::DebugInspector() :
 		Panel(),

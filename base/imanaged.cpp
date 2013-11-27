@@ -23,7 +23,7 @@ namespace base {
 	{
 	}
 
-	void IManaged::release()
+	void am::base::IManaged::release()
 	{
 		mRefCounter--;
 
@@ -39,12 +39,12 @@ namespace base {
 		}
 	}
 
-	void IManaged::release() const
+	void am::base::IManaged::release() const
 	{
 		mRefCounter--;
 	}
 
-	void IManaged::retain()
+	void am::base::IManaged::retain()
 	{
 		mRefCounter++;
 #ifdef _DEBUG
@@ -55,23 +55,23 @@ namespace base {
 #endif
 	}
 
-	void IManaged::retain() const
+	void am::base::IManaged::retain() const
 	{
 		mRefCounter++;
 	}
 
-	int IManaged::getReferenceCounter() const
+	int am::base::IManaged::getReferenceCounter() const
 	{
 		return mRefCounter;
 	}
 
-	void IManaged::onRelease(IManaged::ManagedCallback callback)
+	void am::base::IManaged::onRelease(am::base::IManaged::ManagedCallback callback)
 	{
 #ifdef _DEBUG
 		mReleaseCallback = callback;
 #endif
 	}
-	void IManaged::onRetain(IManaged::ManagedCallback callback)
+	void am::base::IManaged::onRetain(am::base::IManaged::ManagedCallback callback)
 	{
 #ifdef _DEBUG
 		mRetainCallback = callback;

@@ -37,7 +37,7 @@ namespace gfx {
 
 	void NodeHitbox::retain()
 	{
-		IManaged::retain();
+		am::base::IManaged::retain();
 	}
 
 	void NodeHitbox::onEvent(MouseEvent *e)

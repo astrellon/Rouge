@@ -111,7 +111,7 @@ namespace game {
 
 	Item *Item::clone() const
 	{
-		Handle<Item> newItem(new Item());
+		am::base::Handle<Item> newItem(new Item());
 		newItem->setItemFrom(*this);
 		newItem->retain();
 		return newItem;
@@ -525,12 +525,12 @@ namespace game {
 
 	void Item::pickedUp(Character *byCharacter)
 	{
-		Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
+		am::base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
 		fireEvent<ItemEvent>(e);
 	}
 	void Item::dropped(Character *droppedByCharacter)
 	{
-		Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
+		am::base::Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
 		fireEvent<ItemEvent>(e);
 	}
 
@@ -624,13 +624,13 @@ namespace game {
 		{
 			return gameObjDeserialise;
 		}
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "item"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "item"));
 		if (!dataMap)
 		{
 			return -1;
 		}
 
-		Handle<data::IData> tempData(dataMap->at("graphic"));
+		am::base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
 			mGraphic = new Sprite();
@@ -643,7 +643,7 @@ namespace game {
 			mGroundGraphic->deserialise(state, tempData);
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("itemType"));
+		am::base::Handle<data::String> str(dataMap->at<data::String>("itemType"));
 		if (str)
 		{
 			setItemType(ItemCommon::getItemType(str->string()));
@@ -655,7 +655,7 @@ namespace game {
 		}
 		updateGraphic();
 
-		Handle<data::Number> num(dataMap->at<data::Number>("inventorySizeX"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("inventorySizeX"));
 		if (num)
 		{
 			mInventorySizeX = num->value<short>();
@@ -733,12 +733,12 @@ namespace game {
 
 	void Item::onLevelUp()
 	{
-		Handle<Event> e(new Event("level_change"));
+		am::base::Handle<Event> e(new Event("level_change"));
 		fireEvent<Event>(e);
 	}
 	void Item::onExperienceChange()
 	{
-		Handle<Event> e(new Event("experience_change"));
+		am::base::Handle<Event> e(new Event("experience_change"));
 		fireEvent<Event>(e);
 	}
 

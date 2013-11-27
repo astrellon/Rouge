@@ -2,7 +2,6 @@
 
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <string>
 #include <vector>
@@ -82,14 +81,14 @@ namespace game {
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
-		Handle<Sprite> mGraphic;
+		am::base::Handle<Sprite> mGraphic;
 
 		bool mOpened;
 		LockType mLock;
 
-		Handle<TileType> mDoorType;
+		am::base::Handle<TileType> mDoorType;
 
-		Handle<MapRegion> mDoorRegion;
+		am::base::Handle<MapRegion> mDoorRegion;
 
 		virtual void updateTileType();
 		virtual void removeFromMap(Map *map);

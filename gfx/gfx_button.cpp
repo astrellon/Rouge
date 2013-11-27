@@ -94,7 +94,7 @@ namespace gfx {
 
 	void Button::onEvent(MouseEvent *e)
 	{
-		Handle<Event> clickEvent;
+		am::base::Handle<Event> clickEvent;
 		switch (e->getMouseEventType())
 		{
 		default:

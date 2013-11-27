@@ -201,7 +201,7 @@ namespace game {
 	}
 	void StatModifiers::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifiers"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "stat modifiers"));
 		if (!dataMap)
 		{
 			return;
@@ -218,7 +218,7 @@ namespace game {
 				continue;
 			}
 
-			Handle<data::Table> arr(data::Table::checkDataType(iter->second.get(), "stat modifiers"));
+			am::base::Handle<data::Table> arr(data::Table::checkDataType(iter->second.get(), "stat modifiers"));
 			if (arr)
 			{
 				continue;

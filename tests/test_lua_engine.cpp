@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;

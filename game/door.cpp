@@ -99,7 +99,7 @@ namespace game {
 
 	void Door::setGraphic(Sprite *graphic, bool calcCameraOffset)
 	{
-		Handle<Sprite> currentGraphic(mGraphic);
+		am::base::Handle<Sprite> currentGraphic(mGraphic);
 		if (mGraphic)
 		{
 			removeChild(mGraphic);
@@ -276,13 +276,13 @@ namespace game {
 			return loadResult;
 		}
 
-		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{	// Shouldn't happen due to GameObject::deserialise
 			return -1;
 		}
 
-		Handle<data::IData> tempData(dataMap->at("graphic"));
+		am::base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
 			Sprite *graphic = new Sprite();
@@ -290,7 +290,7 @@ namespace game {
 			setGraphic(graphic, false);
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("lock"));
+		am::base::Handle<data::String> str(dataMap->at<data::String>("lock"));
 		if (str)
 		{
 			setLock(getLockType(str->string()));

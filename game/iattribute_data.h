@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <util/data_table.h>
 using namespace am::util;
@@ -25,7 +24,7 @@ namespace game {
 
 	protected:
 
-		Handle<data::Table> mAttributes;
+		am::base::Handle<data::Table> mAttributes;
 
 	};
 

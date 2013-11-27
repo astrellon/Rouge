@@ -3,7 +3,7 @@
 namespace am {
 namespace base {
 
-	const char *getErrorName(ReturnCode code)
+	const char *getErrorName(am::base::ReturnCode code)
 	{
 		switch (code)
 		{
@@ -41,7 +41,7 @@ namespace base {
 			return "unknown_return_code";
 		}
 	}
-	const char *getErrorMessage(ReturnCode code)
+	const char *getErrorMessage(am::base::ReturnCode code)
 	{
 		switch (code)
 		{

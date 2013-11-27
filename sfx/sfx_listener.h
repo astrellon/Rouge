@@ -7,7 +7,6 @@ using namespace std;
 #include <AL/al.h>
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <math/vector.h>
 using namespace am::math;
@@ -15,7 +14,7 @@ using namespace am::math;
 namespace am {
 namespace sfx {
 
-	class Listener : public IManaged {
+	class Listener : public am::base::IManaged {
 	public:
 		
 		Listener();

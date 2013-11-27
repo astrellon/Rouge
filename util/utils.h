@@ -15,7 +15,6 @@ using namespace std;
 #endif
 
 #include <base/handle.h>
-using namespace am::base;
 
 namespace am {
 namespace util {

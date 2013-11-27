@@ -7,7 +7,6 @@ using namespace std;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/event_interface.h>
 using namespace am::ui;
@@ -30,7 +29,7 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class Stats : public IStatModifiers, public IManaged {
+	class Stats : public IStatModifiers, public am::base::IManaged {
 	public:
 		Stats();
 		Stats(const Stats &copy);
@@ -78,7 +77,7 @@ namespace game {
 		virtual void setStatDirty(int stat);
 		virtual void setStatDirty(Stat::StatType stat);
 		
-		Handle<StatModifiers> mModifiers;
+		am::base::Handle<StatModifiers> mModifiers;
 		//StatModifiers mModifiers;
 	};
 

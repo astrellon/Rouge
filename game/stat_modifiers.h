@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <map>
 using namespace std;
@@ -22,7 +21,7 @@ namespace game {
 
 	class LoadingState;
 
-	class StatModifiers : public IStatModifiers, public IManaged {
+	class StatModifiers : public IStatModifiers, public am::base::IManaged {
 	public:
 
 		StatModifiers();

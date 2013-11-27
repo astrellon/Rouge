@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "event.h"
 #include "ievent_listener.h"
@@ -17,7 +16,7 @@ using namespace std;
 namespace am {
 namespace ui {
 
-	class EventInterface : public virtual IManaged {
+	class EventInterface : public virtual am::base::IManaged {
 	public:
 
 		EventInterface();

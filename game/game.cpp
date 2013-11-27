@@ -194,7 +194,7 @@ namespace game {
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != nullptr)
 			{
-				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == SUCCESS)
+				if (mMainCharacter->dropItem(hand->getInhand(), localX, localY) == am::base::SUCCESS)
 				{
 					Item *inhand = hand->getInhand();
 					//inhand->setInteractive(true);
@@ -560,13 +560,13 @@ namespace game {
 		return mForeground.get();
 	}
 
-	void onRetain2(IManaged *obj)
+	void onRetain2(am::base::IManaged *obj)
 	{
 		stringstream ss;
 		ss << "Retained " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
-	void onRelease2(IManaged *obj)
+	void onRelease2(am::base::IManaged *obj)
 	{
 		stringstream ss;
 		ss << "Released " << obj->getReferenceCounter();
@@ -874,7 +874,7 @@ namespace game {
 		mStarted = true;
 		setGameTickPaused(false);
 		setTickPositionMainChar();
-		Handle<Event> e(new Event("startGame"));
+		am::base::Handle<Event> e(new Event("startGame"));
 		fireEvent<Event>(e);
 	}
 	bool Game::hasStarted() const
@@ -925,7 +925,7 @@ namespace game {
 		output << "-- Rouge Saved Game\n";
 		
 		output << "-- This contains data about the current game.\n\n";
-		Handle<data::IData> gameData(saveGameData());
+		am::base::Handle<data::IData> gameData(saveGameData());
 		if (gameData)
 		{
 			output << "game = " << gameData->toLua();
@@ -933,7 +933,7 @@ namespace game {
 		
 		output << "\n-- List of characters based on gameid\n";
 		output << "characters = ";
-		Handle<data::Table> list(new data::Table());
+		am::base::Handle<data::Table> list(new data::Table());
 		for (auto iter = mGameObjects.begin(); iter != mGameObjects.end(); ++iter)
 		{
 			gameData = iter->second->serialise();
@@ -989,8 +989,8 @@ namespace game {
 
 		if (lua.getGlobal("game"))
 		{
-			Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
-			Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
+			am::base::Handle<data::IData> gameDataObj(data::IData::fromLua(lua, -1));
+			am::base::Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
 			if (!gameData)
 			{
 				stringstream ss;
@@ -1005,8 +1005,8 @@ namespace game {
 		}
 		if (lua.getGlobal("characters"))
 		{
-			Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
-			Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
+			am::base::Handle<data::IData> charDataObj(data::IData::fromLua(lua, -1));
+			am::base::Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
 			if (!charData)
 			{
 				stringstream ss;
@@ -1018,7 +1018,7 @@ namespace game {
 
 			for (auto iter = charData->beginArray(); iter != charData->endArray(); ++iter)
 			{
-				Handle<Character> newChar(new Character());
+				am::base::Handle<Character> newChar(new Character());
 				newChar->deserialise(mLoadingState, iter->get());
 				registerGameObject(newChar);
 			}
@@ -1026,8 +1026,8 @@ namespace game {
 		}
 		if (lua.getGlobal("quests"))
 		{
-			Handle<data::IData> questDataObj(data::IData::fromLua(lua, -1));
-			Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
+			am::base::Handle<data::IData> questDataObj(data::IData::fromLua(lua, -1));
+			am::base::Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
 			if (!questData)
 			{
 				stringstream ss;
@@ -1039,7 +1039,7 @@ namespace game {
 
 			for (auto iter = questData->beginMap(); iter != questData->endMap(); ++iter)
 			{
-				Handle<Quest> newQuest(new Quest(iter->first.c_str()));
+				am::base::Handle<Quest> newQuest(new Quest(iter->first.c_str()));
 				newQuest->deserialise(mLoadingState, iter->second.get());
 				addQuest(newQuest);
 			}
@@ -1080,9 +1080,9 @@ namespace game {
 		{
 			return;
 		}
-		Handle<data::Table> hobj(obj);
+		am::base::Handle<data::Table> hobj(obj);
 
-		Handle<data::String> str(obj->at<data::String>("mainChar"));
+		am::base::Handle<data::String> str(obj->at<data::String>("mainChar"));
 		if (str)
 		{
 			mLoadingState->setMainCharacter(str->string());

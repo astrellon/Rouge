@@ -7,7 +7,6 @@ using namespace am::math;
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "astar_node.h"
 #include "map.h"
@@ -35,7 +34,7 @@ namespace game {
 		long mNodeUseCounter;
 		// Should not keep a long running reference on the map.
 		// Should only be kept for the time it takes to complete a path.
-		Handle<Map> mMap;
+		am::base::Handle<Map> mMap;
 
 		void getPath(AStarNode *node, NodePath &path);
 		void getNeighbors(const Vector2i &position, const GameObject *forObj);

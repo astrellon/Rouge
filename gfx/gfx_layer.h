@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 using namespace std;
@@ -29,7 +28,7 @@ namespace gfx {
 		void clear();
 
 		bool hasChild(Renderable *child) const;
-		bool hasChild(Handle<Renderable> child) const;
+		bool hasChild(am::base::Handle<Renderable> child) const;
 		int getNumChildren() const;
 		Renderable *getChildAt(int index) const;
 
@@ -42,7 +41,7 @@ namespace gfx {
 
 	protected:
 
-		typedef vector<Handle<Renderable> > ChildList;
+		typedef vector<am::base::Handle<Renderable> > ChildList;
 		ChildList mChildren;
 
 		ChildList::const_iterator findChild(Renderable *child) const;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "item.h"
 
@@ -25,7 +24,7 @@ namespace game {
 	protected:
 
 		bool mEnabled;
-		Handle<Item> mInhand;
+		am::base::Handle<Item> mInhand;
 		
 		void updateGraphic();
 

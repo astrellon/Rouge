@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -42,9 +41,9 @@ namespace ui {
 		virtual void setEnabled(bool enabled);
 	protected:
 
-		Handle<Sprite> mCheckGraphic;
-		Handle<TextField> mLabel;
-		Handle<Sprite> mHitbox;
+		am::base::Handle<Sprite> mCheckGraphic;
+		am::base::Handle<TextField> mLabel;
+		am::base::Handle<Sprite> mHitbox;
 		bool mSelected;
 
 		void init();

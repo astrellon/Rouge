@@ -2,7 +2,6 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <tests/test_suite.h>
 
@@ -24,7 +23,7 @@ namespace tests {
 
 	protected:
 
-		class TestManaged : public IManaged {
+		class TestManaged : public am::base::IManaged {
 		public:
 			TestManaged() {}
 			~TestManaged() {}

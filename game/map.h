@@ -7,7 +7,6 @@
 
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -23,7 +22,7 @@ namespace game {
 	class Tile;
 	class Game;
 
-	class Map : public IManaged {
+	class Map : public am::base::IManaged {
 	public:
 
 		enum TileFlags {
@@ -77,7 +76,7 @@ namespace game {
 		bool isValidLocation(float x, float y, GameObject *forObject) const;
 		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
-		bool isValidGridLocation(int gridX, int gridY, const vector< Handle<TileType> > &passibles) const;
+		bool isValidGridLocation(int gridX, int gridY, const vector< am::base::Handle<TileType> > &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
 		void setFilename(const char *filename);
@@ -97,7 +96,7 @@ namespace game {
 
 		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
 
-		ReturnCode saveMap(const char *filename) const;
+		am::base::ReturnCode saveMap(const char *filename) const;
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -120,9 +119,9 @@ namespace game {
 		string mFullName;
 		string mFilename;
 
-		Handle<Layer> mBackground;
-		Handle<Layer> mForeground;
-		Handle<TileRenderer> mTileRenderer;
+		am::base::Handle<Layer> mBackground;
+		am::base::Handle<Layer> mForeground;
+		am::base::Handle<TileRenderer> mTileRenderer;
 
 		Game *mGamePartof;
 

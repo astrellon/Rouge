@@ -542,7 +542,7 @@ namespace game {
 			mDialogueComp->talkTo(other);
 		}
 		//mTalkingTo = other;
-		//Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
+		//am::base::Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
 		//fireEvent<DialogueEvent>(e);
 	}
 	void GameObject::talkTo(GameObject *other, Dialogue *diag)
@@ -552,7 +552,7 @@ namespace game {
 			mDialogueComp->talkTo(other, diag);
 		}
 		//mTalkingTo = other;
-		//Handle<DialogueEvent> e(new DialogueEvent(diag));
+		//am::base::Handle<DialogueEvent> e(new DialogueEvent(diag));
 		//fireEvent<DialogueEvent>(e);
 	}*/
 	/*GameObject *GameObject::getTalkingTo() const
@@ -634,7 +634,7 @@ namespace game {
 		output->at("cameraOffsetY", mCameraOffsetY);
 		output->at("name", mName);
 
-		Handle<data::Table> passibleTypes(new data::Table());
+		am::base::Handle<data::Table> passibleTypes(new data::Table());
 		for (auto iter = mPassibleTypes.begin(); iter != mPassibleTypes.end(); ++iter)
 		{
 			passibleTypes->push((*iter)->getName());
@@ -666,20 +666,20 @@ namespace game {
 			return 0;
 		}
 		
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "game object"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "game object"));
 		if (!dataMap)
 		{
 			return -1;
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("gameId"));
+		am::base::Handle<data::String> str(dataMap->at<data::String>("gameId"));
 		if (str)
 		{
 			state->setGameId(str->string(), this);
 			mGameId = str->string();
 		}
 		
-		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));
+		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("fixedToGrid"));
 		if (boo)
 		{
 			mFixedToGrid = boo->boolean();
@@ -693,7 +693,7 @@ namespace game {
 
 		float locationX = mLocationX;
 		float locationY = mLocationY;
-		Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("locationX"));
 		if (num)
 		{
 			locationX = num->number<float>();
@@ -722,7 +722,7 @@ namespace game {
 			setName(str->string());
 		}
 
-		Handle<data::Table> arr(dataMap->at<data::Table>("passibleTypes"));
+		am::base::Handle<data::Table> arr(dataMap->at<data::Table>("passibleTypes"));
 		if (arr)
 		{
 			Engine *engine = Engine::getEngine();
@@ -737,7 +737,7 @@ namespace game {
 					am_log("LOADERR", ss);
 					continue;
 				}
-				Handle<TileType> tileType(engine->getTileType(tileTypeName));
+				am::base::Handle<TileType> tileType(engine->getTileType(tileTypeName));
 				if (!tileType)
 				{
 					stringstream ss;
@@ -769,7 +769,7 @@ namespace game {
 			state->addMapToLoad(str->string());
 		}
 
-		Handle<data::IData> tempData(dataMap->at("dialogueComponent"));
+		am::base::Handle<data::IData> tempData(dataMap->at("dialogueComponent"));
 		if (tempData)
 		{
 			DialogueComponent *comp = new DialogueComponent();

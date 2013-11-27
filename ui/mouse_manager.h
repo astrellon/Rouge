@@ -4,7 +4,6 @@
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "mouse_common.h"
 #include "mouse_event.h"
@@ -53,12 +52,12 @@ namespace ui {
 
 	protected:
 
-		Handle<Renderable> mUnderMouse;
-		Handle<Layer> mRootLayer;
+		am::base::Handle<Renderable> mUnderMouse;
+		am::base::Handle<Layer> mRootLayer;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
-		Handle<MouseEvent> mCurrentEvent;
+		am::base::Handle<MouseEvent> mCurrentEvent;
 		typedef map<Mouse::Button, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
 

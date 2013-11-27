@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 using namespace std;
@@ -73,7 +72,7 @@ namespace gfx {
 		
 	protected:
 
-		Handle<Asset> mAsset;
+		am::base::Handle<Asset> mAsset;
 
 		int mSubWindowFrame;
 		int mTextureFrame;

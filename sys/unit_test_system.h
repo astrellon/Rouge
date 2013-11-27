@@ -3,14 +3,12 @@
 #include "game_system.h"
 
 #include <base/handle.h>
-using namespace am::base;
 
 namespace am {
 
 namespace game {
 	class Engine;
 }
-using namespace am::base;
 
 namespace gfx {
 	class GfxEngine;

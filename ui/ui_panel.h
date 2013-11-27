@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
@@ -35,8 +34,8 @@ namespace ui {
 		float mStartingWidth;
 		float mStartingHeight;
 		bool mResizing;
-		Handle<TextField> mTitle;
-		Handle<Sprite> mBack;
+		am::base::Handle<TextField> mTitle;
+		am::base::Handle<Sprite> mBack;
 		float mDragX;
 		float mDragY;
 

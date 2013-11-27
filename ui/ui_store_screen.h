@@ -5,7 +5,6 @@
 using namespace am::game;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/ui_panel.h>
 #include <ui/ui_inventory_renderer.h>
@@ -38,9 +37,9 @@ namespace ui {
 
 	protected:
 
-		Handle<Character> mBuyer;
-		Handle<Store> mStore;
-		Handle<InventoryRenderer> mInventoryRenderer;
+		am::base::Handle<Character> mBuyer;
+		am::base::Handle<Store> mStore;
+		am::base::Handle<InventoryRenderer> mInventoryRenderer;
 
 		int mStoreInventoryIndex;
 

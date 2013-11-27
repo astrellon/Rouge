@@ -37,7 +37,7 @@ namespace tests {
 	bool Asserts::_equals(const char *file, unsigned int line, const int &expected, const int &actual, bool notCompare) {
 		_simple_compare(expected, actual, notCompare, file, line);
 	}
-	bool Asserts::_equals(const char *file, unsigned int line, ReturnCode expected, ReturnCode actual, bool notCompare) {
+	bool Asserts::_equals(const char *file, unsigned int line, am::base::ReturnCode expected, am::base::ReturnCode actual, bool notCompare) {
 		//_simple_compare(expected, actual, notCompare, file, line);
 		if (notCompare)
 		{

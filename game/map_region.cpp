@@ -132,7 +132,7 @@ namespace game {
 
 	void MapRegion::gameObjectEntered(GameObject *obj)
 	{
-		Handle<MapRegionEvent> e(new MapRegionEvent("region_entered", this, obj));
+		am::base::Handle<MapRegionEvent> e(new MapRegionEvent("region_entered", this, obj));
 		fireEvent<MapRegionEvent>(e);
 		if (obj)
 		{
@@ -141,7 +141,7 @@ namespace game {
 	}
 	void MapRegion::gameObjectExited(GameObject *obj)
 	{
-		Handle<MapRegionEvent> e(new MapRegionEvent("region_exited", this, obj));
+		am::base::Handle<MapRegionEvent> e(new MapRegionEvent("region_exited", this, obj));
 		fireEvent<MapRegionEvent>(e);
 		if (obj)
 		{

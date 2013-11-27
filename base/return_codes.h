@@ -3,7 +3,8 @@
 namespace am {
 namespace base {
 
-	enum ReturnCode {
+	enum ReturnCode 
+	{
 		// General
 		SUCCESS =					0x0001,
 		NULL_PARAMETER =			0x0000,
@@ -41,8 +42,8 @@ namespace base {
 		NO_INVENTORIES =			-0x0602
 	};
 
-	const char *getErrorName(ReturnCode code);
-	const char *getErrorMessage(ReturnCode code);
+	const char *getErrorName(am::base::ReturnCode code);
+	const char *getErrorMessage(am::base::ReturnCode code);
 
 }
 }

@@ -4,7 +4,6 @@
 
 #include <base/return_codes.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -12,7 +11,7 @@ using namespace std;
 namespace am {
 namespace gfx {
 
-	class Texture : public IManaged {
+	class Texture : public am::base::IManaged {
 	public:
 		Texture();
 		//Texture(const char *filename, GLuint textureId);
@@ -20,7 +19,7 @@ namespace gfx {
 		~Texture();
 
 		const char *getFilename() const;
-		ReturnCode setFilename(const char *filename);
+		am::base::ReturnCode setFilename(const char *filename);
 		bool isLoaded() const;
 
 		int reload();
@@ -40,7 +39,7 @@ namespace gfx {
 
 	protected:
 
-		ReturnCode loadFromFile(const char *filename);
+		am::base::ReturnCode loadFromFile(const char *filename);
 
 		GLuint mTextureId;
 		bool mLoaded;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -33,10 +32,10 @@ namespace ui {
 
 	protected:
 
-		Handle<Image> mBackground;
-		Handle<Checkbox> mFullscreen;
-		Handle<TextButton> mClose;
-		Handle<TextButton> mApply;
+		am::base::Handle<Image> mBackground;
+		am::base::Handle<Checkbox> mFullscreen;
+		am::base::Handle<TextButton> mClose;
+		am::base::Handle<TextButton> mApply;
 
 		RougeSystem *mRougeSystem;
 	};

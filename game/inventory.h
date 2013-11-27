@@ -2,7 +2,6 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/event_interface.h>
 using namespace am::ui;
@@ -22,7 +21,7 @@ namespace game {
 
 	class LoadingState;
 
-	class Inventory : public virtual IManaged, public EventInterface {
+	class Inventory : public virtual am::base::IManaged, public EventInterface {
 	public:
 
 		typedef vector< InventorySpot > InventorySpots;

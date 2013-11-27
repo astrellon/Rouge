@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "ui_component.h"
 
@@ -41,7 +40,7 @@ namespace ui {
 
 	protected:
 
-		Handle<Sprite> mGraphic;
+		am::base::Handle<Sprite> mGraphic;
 
 	};
 

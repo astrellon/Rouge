@@ -385,11 +385,11 @@ namespace win {
 		return true;
 	}
 
-	base::ReturnCode WinSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	am::base::ReturnCode WinSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
 		if (!folderName || folderName[0] == '\0')
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 
 		WIN32_FIND_DATA files;
@@ -402,7 +402,7 @@ namespace win {
 		HANDLE find = FindFirstFile(folder.c_str(), &files);
 		if (find == INVALID_HANDLE_VALUE)
 		{
-			return SUCCESS;
+			return am::base::SUCCESS;
 		}
 		do
 		{
@@ -412,7 +412,7 @@ namespace win {
 			result.push_back(entry);
 		} while (FindNextFile(find, &files) != 0);
 
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 
 	void WinSystem::setCursorHidden(bool hide)
@@ -539,7 +539,7 @@ namespace win {
 		{
 			// Failed
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 			return "Unable to create device context for OpenGL Window";
 		}
 
@@ -550,7 +550,7 @@ namespace win {
 			ReleaseDC (window->hWnd, window->hDC);							// Release Our Device Context
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 			return "Unable to find compatible pixel format for OpenGL Window";
 		}
 
@@ -560,7 +560,7 @@ namespace win {
 			ReleaseDC (window->hWnd, window->hDC);							// Release Our Device Context
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 			return "Unable to set pixel format for OpenGL Window";
 		}
 
@@ -571,7 +571,7 @@ namespace win {
 			ReleaseDC (window->hWnd, window->hDC);							// Release Our Device Context
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 			return "Unable to get a render context for OpenGL Window\nYou may need to reset your computer or update your graphics drivers.";
 		}
 
@@ -584,7 +584,7 @@ namespace win {
 			ReleaseDC (window->hWnd, window->hDC);							// Release Our Device Context
 			window->hDC = 0;												// Zero The Device Context
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 			return "Unable to use OpenGL render context";
 		}
 
@@ -601,7 +601,7 @@ namespace win {
 
 	BOOL DestroyWindowGL (GL_Window* window)								// Destroy The OpenGL Window & Release Resources
 	{
-		if (window->hWnd != 0)												// Does The Window Have A Handle?
+		if (window->hWnd != 0)												// Does The Window Have A am::base::Handle?
 		{	
 			if (window->hDC != 0)											// Does The Window Have A Device Context?
 			{
@@ -616,7 +616,7 @@ namespace win {
 				window->hDC = 0;											// Zero The Device Context
 			}
 			DestroyWindow (window->hWnd);									// Destroy The Window
-			window->hWnd = 0;												// Zero The Window Handle
+			window->hWnd = 0;												// Zero The Window am::base::Handle
 		}
 
 		if (window->init.isFullScreen)										// Is Window In Fullscreen Mode

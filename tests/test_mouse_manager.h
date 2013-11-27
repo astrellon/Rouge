@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <tests/test_suite.h>
 
@@ -32,7 +31,7 @@ namespace tests {
 
 			virtual void onEvent(MouseEvent *e);
 
-			Handle<MouseEvent> lastEvent;
+			am::base::Handle<MouseEvent> lastEvent;
 		};
 
 		bool testSimple();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 #include <vector>
@@ -31,7 +30,7 @@ namespace ui {
 	class List : public UIComponent, public IEventListener {
 	public:
 
-		typedef vector< Handle<ListItem> > ListItems;
+		typedef vector< am::base::Handle<ListItem> > ListItems;
 
 		List();
 		~List();
@@ -59,8 +58,8 @@ namespace ui {
 		ListItems mItems;
 		int mItemDisplay;
 		int mScroll;
-		Handle<Scrollbar> mScrollbar;
-		Handle<Layer> mListRenderer;
+		am::base::Handle<Scrollbar> mScrollbar;
+		am::base::Handle<Layer> mListRenderer;
 
 		int findItem(ListItem *item) const;
 

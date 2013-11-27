@@ -60,13 +60,13 @@ namespace ui {
 
 			if (hand->getInhand() != nullptr)
 			{
-				ReturnCode result = mCharacter->canEquipItem(hand->getInhand(), mBodyPartName.c_str());
-				if (result != ABLE_TO_EQUIP)
+				am::base::ReturnCode result = mCharacter->canEquipItem(hand->getInhand(), mBodyPartName.c_str());
+				if (result != am::base::ABLE_TO_EQUIP)
 				{
 					return;
 				}
 			}
-			Handle<Item> prevEquipped = mCurrentItem;
+			am::base::Handle<Item> prevEquipped = mCurrentItem;
 			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
 				if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
@@ -179,7 +179,7 @@ namespace ui {
 			return;
 		}
 		
-		Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
+		am::base::Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
 		if (equipped != nullptr && equipped != mCurrentItem)
 		{
 			addChild(equipped);

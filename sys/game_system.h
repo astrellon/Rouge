@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/ievent_listener.h>
 #include <ui/mouse_event.h>
@@ -85,7 +84,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
+		virtual am::base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result);
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -103,13 +102,13 @@ namespace sys {
 		OsSystem *mLinkedSystem;
 		Engine *mEngine;
 
-		Handle<GfxLogListener> mGfxListener;
+		am::base::Handle<GfxLogListener> mGfxListener;
 
 		static GameSystem *sGameSystem;
 
-		Handle<TextList> mDebugConsole;
-		Handle<DebugInspector> mDebugInspector;
-		Handle<Tooltip> mTooltip;
+		am::base::Handle<TextList> mDebugConsole;
+		am::base::Handle<DebugInspector> mDebugInspector;
+		am::base::Handle<Tooltip> mTooltip;
 	};
 
 }

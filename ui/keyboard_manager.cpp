@@ -1,7 +1,6 @@
 #include "keyboard_manager.h"
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "keyboard_event.h"
 
@@ -26,18 +25,18 @@ namespace ui {
 	{
 		mKeys[key] = true;
 		mKeysPressed[key] = true;
-		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_DOWN, key, true));
+		am::base::Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_DOWN, key, true));
 		fireEvent<KeyboardEvent>(e);
 	}
 	void KeyboardManager::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		mKeys[key] = false;
-		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_UP, key, true));
+		am::base::Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_UP, key, true));
 		fireEvent<KeyboardEvent>(e);
 	}
 	void KeyboardManager::onKeyPress(char key)
 	{
-		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_PRESS, key, false));
+		am::base::Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_PRESS, key, false));
 		fireEvent<KeyboardEvent>(e);
 	}
 

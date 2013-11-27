@@ -54,7 +54,7 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue(), false));
+		am::base::Handle<DialogueEvent> e(new DialogueEvent(otherComp->getStartDialogue(), false));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
 		other->fireEvent<DialogueEvent>(e);
 
@@ -69,7 +69,7 @@ namespace game {
 			return;
 		}
 		setTalkingTo(other);
-		Handle<DialogueEvent> e(new DialogueEvent(diag, false));
+		am::base::Handle<DialogueEvent> e(new DialogueEvent(diag, false));
 		mAttachedTo->fireEvent<DialogueEvent>(e);
 		other->fireEvent<DialogueEvent>(e);
 
@@ -215,7 +215,7 @@ namespace game {
 		{
 			return;
 		}
-		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;
@@ -224,7 +224,7 @@ namespace game {
 			am_log("LOADERR", ss);
 			return;
 		}
-		Handle<data::Table> unlocked(dataMap->at<data::Table>("unlockedSubjects"));
+		am::base::Handle<data::Table> unlocked(dataMap->at<data::Table>("unlockedSubjects"));
 		if (unlocked)
 		{
 			for (auto iter = unlocked->beginArray(); iter != unlocked->endArray(); ++iter)
@@ -243,7 +243,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::Table> available(dataMap->at<data::Table>("dialoguesAvailable"));
+		am::base::Handle<data::Table> available(dataMap->at<data::Table>("dialoguesAvailable"));
 		if (available)
 		{
 			for (auto iter = available->beginArray(); iter != available->endArray(); ++iter)
@@ -262,7 +262,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::String> start(dataMap->at<data::String>("startDialogue"));
+		am::base::Handle<data::String> start(dataMap->at<data::String>("startDialogue"));
 		if (start)
 		{
 			state->setStartDialogue(start->string(), this);

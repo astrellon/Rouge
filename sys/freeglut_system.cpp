@@ -317,11 +317,11 @@ namespace freeglut {
 		return true;
 	}
 
-	base::ReturnCode FreeGlutSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
+	am::base::ReturnCode FreeGlutSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
 		if (!folderName || folderName[0] == '\0')
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 
 		WIN32_FIND_DATA files;
@@ -334,7 +334,7 @@ namespace freeglut {
 		HANDLE find = FindFirstFile(folder.c_str(), &files);
 		if (find == INVALID_HANDLE_VALUE)
 		{
-			return SUCCESS;
+			return am::base::SUCCESS;
 		}
 		do
 		{
@@ -344,7 +344,7 @@ namespace freeglut {
 			result.push_back(entry);
 		} while (FindNextFile(find, &files) != 0);
 
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 
 	void FreeGlutSystem::setCursorHidden(bool hide)

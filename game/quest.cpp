@@ -1,7 +1,6 @@
 #include "quest.h"
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <util/data_table.h>
 #include <util/data_boolean.h>
@@ -47,7 +46,7 @@ namespace game {
 		{
 			return false;
 		}
-		Handle<Event> e(new Event("startQuest"));
+		am::base::Handle<Event> e(new Event("startQuest"));
 		fireEvent<Event>(e);
 		return true;
 	}
@@ -58,7 +57,7 @@ namespace game {
 			return false;
 		}
 		setCompleted(true);
-		Handle<Event> e(new Event("finishQuest"));
+		am::base::Handle<Event> e(new Event("finishQuest"));
 		fireEvent<Event>(e);
 		return true;
 	}
@@ -130,13 +129,13 @@ namespace game {
 	}
 	int Quest::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "quest"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "quest"));
 		if (!dataMap)
 		{
 			return 0;
 		}
 
-		Handle<data::Boolean> boo(dataMap->at<data::Boolean>("completed"));
+		am::base::Handle<data::Boolean> boo(dataMap->at<data::Boolean>("completed"));
 		if (boo)
 		{
 			setCompleted(boo->boolean());

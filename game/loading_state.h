@@ -2,7 +2,6 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 #include <map>
@@ -30,11 +29,11 @@ namespace game {
 	// to only apply the information that is not stored with a game
 	// object such as event listeners.
 
-	class LoadingState : public IManaged {
+	class LoadingState : public am::base::IManaged {
 	public:
 
 		typedef struct _GameObjectInfo {
-			Handle<GameObject> gameObj;
+			am::base::Handle<GameObject> gameObj;
 			bool hasDestination;
 
 			_GameObjectInfo();
@@ -42,9 +41,9 @@ namespace game {
 		} GameObjectInfo;
 
 		typedef struct _BodyPartInfo {
-			Handle<Character> character;
-			Handle<BodyPart> bodyPart;
-			Handle<Item> item;
+			am::base::Handle<Character> character;
+			am::base::Handle<BodyPart> bodyPart;
+			am::base::Handle<Item> item;
 			string canHoldOnto;
 
 			_BodyPartInfo();
@@ -53,10 +52,10 @@ namespace game {
 
 		typedef map< string, bool > MapsToLoad;
 		typedef map< string, GameObjectInfo > GameObjectInfoMap;
-		typedef map< string, vector< Handle< GameObject> > > GameObjectsToMap;
-		typedef map< string, vector< Handle< DialogueComponent> > > StartDialogueMap;
+		typedef map< string, vector< am::base::Handle< GameObject> > > GameObjectsToMap;
+		typedef map< string, vector< am::base::Handle< DialogueComponent> > > StartDialogueMap;
 		typedef vector< BodyPartInfo > BodyPartInfoList;
-		typedef vector< Handle<Character > > CharacterStack;
+		typedef vector< am::base::Handle<Character > > CharacterStack;
 
 		LoadingState();
 		~LoadingState();

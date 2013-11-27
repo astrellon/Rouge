@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using am::base::Handle;
 
 #include <string>
 #include <vector>
@@ -20,7 +19,7 @@ namespace game {
 	class TileInstance {
 	public:
 
-		typedef vector< Handle<TileType> > TileTypeList;
+		typedef vector< am::base::Handle<TileType> > TileTypeList;
 
 		TileInstance();
 		TileInstance(Tile *tile);

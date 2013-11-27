@@ -129,7 +129,7 @@ namespace gfx {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				Handle<Asset> asset(sprite->getAsset());
+				am::base::Handle<Asset> asset(sprite->getAsset());
 				if (asset)
 				{
 					lua_pushstring(lua, asset->getName());

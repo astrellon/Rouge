@@ -82,7 +82,7 @@ namespace game {
 
 		bool newItem = false;
 		const char *id = lua_tostring(lua, 1);
-		Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject(id)));
+		am::base::Handle<Item> item(dynamic_cast<Item *>(Engine::getEngine()->getGameObject(id)));
 		if (!item)
 		{
 			newItem = true;

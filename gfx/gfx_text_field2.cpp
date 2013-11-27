@@ -232,7 +232,7 @@ namespace gfx {
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
 				list.clear();
-				Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+				am::base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
 				mTextHitboxes->addChild(hitbox.get());
 				hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 				hitbox->setHeight(mFont->getCharHeight());
@@ -347,7 +347,7 @@ namespace gfx {
 		{
 			mNewLinePositions.push_back(mTextPosition);
 
-			Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
+			am::base::Handle<NodeHitbox> hitbox(new NodeHitbox(mCurrentNode));
 			mTextHitboxes->addChild(hitbox);
 			hitbox->setWidth(0);
 			hitbox->setHeight(mFont->getCharHeight());
@@ -424,7 +424,7 @@ namespace gfx {
 			if (mNewLineDirty && mCurrentNode)
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
-				Handle<Renderable> hitbox = list[list.size() - 1];
+				am::base::Handle<Renderable> hitbox = list[list.size() - 1];
 				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
 			}
 		}
@@ -487,7 +487,7 @@ namespace gfx {
 		};
 		ParseState state = BASE;
 		
-		Handle<Node> currentNode = mRootNode;
+		am::base::Handle<Node> currentNode = mRootNode;
 		mRootNode->clear();
 
 		mTextHitboxes->clear();

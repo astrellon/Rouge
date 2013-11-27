@@ -94,13 +94,13 @@ namespace game {
 	}
 	int Levelable::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "levelable"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "levelable"));
 		if (!dataMap)
 		{
 			return 0;
 		}
 
-		Handle<data::Number> num(dataMap->at<data::Number>("maxLevel"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("maxLevel"));
 		if (num)
 		{
 			setMaxLevel(num->value<short>());

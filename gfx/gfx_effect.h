@@ -2,14 +2,13 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 namespace am {
 namespace gfx {
 
 	class Renderable;
 
-	class Effect: public IManaged {
+	class Effect: public am::base::IManaged {
 	public:
 		Effect();
 		Effect(float effectLength);

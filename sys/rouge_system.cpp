@@ -166,13 +166,13 @@ namespace sys {
 		gfxEngine->getRootLayer()->addChild(test);*/
 
 		/*
-		Handle<TextInput> input(new TextInput());
+		am::base::Handle<TextInput> input(new TextInput());
 		input->setFocus(true);
 		input->setParentOffset(200, 50);
 		gfxEngine->getUILayer()->addChild(input);*/
 
 		
-		/*Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
+		/*am::base::Handle<Tooltip> tip(new Tooltip("Tooooltip", "<title>Longer </title>otoltip"));
 		tip->show();
 		tip->setPosition(400, 100);*/
 	}

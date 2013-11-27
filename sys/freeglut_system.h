@@ -61,7 +61,7 @@ namespace freeglut {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
+		virtual am::base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
 		static FreeGlutSystem *getFreeGlutSystem();
 		static void setFreeGlutSystem(FreeGlutSystem *system);

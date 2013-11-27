@@ -14,7 +14,6 @@ extern "C"
 using namespace std;
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #define lua_tofloat(L,i)	static_cast<float>(lua_tonumber(L,i))
 #define lua_tobool(L,i)		(lua_toboolean(L,i) > 0)
@@ -102,7 +101,7 @@ namespace lua {
 		lua_setmetatable(lua, -2);
 	}
 	/**
-	 * Wraps an object instance that extends IManaged into Lua.
+	 * Wraps an object instance that extends am::base::IManaged into Lua.
 	 * This requires that this class have the static consts
 	 * - int LUA_ID
 	 * - const char *LUA_TABLENAME
@@ -133,7 +132,7 @@ namespace lua {
 	 * in. Created lua_State's can either be extended with extra functions
 	 * specific to the game engine, or can be left at only the default lua libraries.
 	 */
-	class LuaState : public IManaged {
+	class LuaState : public am::base::IManaged {
 	public:
 
 		typedef map<string, lua_CFunction> WrapperMap;

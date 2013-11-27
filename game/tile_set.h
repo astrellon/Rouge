@@ -6,7 +6,6 @@ using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <util/idefinition.h>
 using namespace am::util;
@@ -19,10 +18,10 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class TileSet : public IManaged, public IDefinition {
+	class TileSet : public am::base::IManaged, public IDefinition {
 	public:
 
-		typedef map<string, Handle<Tile> > TileMap;
+		typedef map<string, am::base::Handle<Tile> > TileMap;
 
 		TileSet();
 		TileSet(const char *name);

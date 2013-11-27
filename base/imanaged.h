@@ -3,12 +3,13 @@
 namespace am {
 namespace base {
 
-	class IManaged {
+	class IManaged 
+	{
 	public:
 		typedef void (*ManagedCallback)(IManaged *obj);
 
 		IManaged();
-		IManaged(const IManaged &copy);
+		IManaged(const am::base::IManaged &copy);
 		virtual ~IManaged();
 
 		virtual void release();

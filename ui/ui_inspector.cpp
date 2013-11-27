@@ -151,7 +151,7 @@ namespace ui {
 
 				Tile::TileTypeSet &tileTypes = tile->getTileTypes();
 				TileInstance::TileTypeList &instanceTypes = mTileInstance->getTileTypes();
-				vector< Handle<TileType> > *types = &tileTypes;
+				vector< am::base::Handle<TileType> > *types = &tileTypes;
 				if (instanceTypes.size() > 0)
 				{
 					types = &instanceTypes;

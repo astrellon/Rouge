@@ -673,7 +673,7 @@ namespace game {
 		return false;
 	}
 
-	bool Map::isValidGridLocation(int gridX, int gridY, const vector< Handle<TileType> > &passibles) const
+	bool Map::isValidGridLocation(int gridX, int gridY, const vector< am::base::Handle<TileType> > &passibles) const
 	{
 		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
 		{
@@ -902,17 +902,17 @@ namespace game {
 		return pathfinder->search(start, end, path, this, forObj);
 	}
 
-	ReturnCode Map::saveMap(const char *filename) const
+	am::base::ReturnCode Map::saveMap(const char *filename) const
 	{
 		if (!filename || filename[0] == '\0')
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 
 		ofstream ss(filename);
 		if (!ss)
 		{
-			return FILE_NOT_FOUND;
+			return am::base::FILE_NOT_FOUND;
 		}
 		ss << "-- Saved map file: " << mFullName << "\ndo"
 			<< "\tlocal map = am.map.new(\"" << mName << "\", " << mMapWidth << ", " << mMapHeight << ")\n"
@@ -946,7 +946,7 @@ namespace game {
 		ss << '\n';
 		ss << "\treturn map\nend\n";
 			
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 
 }

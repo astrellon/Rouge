@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
@@ -41,9 +40,9 @@ namespace ui {
 
 	protected:
 
-		Handle<Character> mCharacter;
-		Handle<Item> mCurrentItem;
-		Handle<Renderable> mHitbox;
+		am::base::Handle<Character> mCharacter;
+		am::base::Handle<Item> mCurrentItem;
+		am::base::Handle<Renderable> mHitbox;
 
 		string mBodyPartName;
 		short mMaxItemWidth;

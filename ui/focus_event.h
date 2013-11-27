@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_renderable.h>
 using namespace am::gfx;
@@ -26,7 +25,7 @@ namespace ui {
 	protected:
 
 		FocusEventType mFocusEventType;
-		Handle<Renderable> mTarget;
+		am::base::Handle<Renderable> mTarget;
 	};
 
 }

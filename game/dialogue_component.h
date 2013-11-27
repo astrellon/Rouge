@@ -2,8 +2,6 @@
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using am::base::Handle;
-using am::base::IManaged;
 
 #include <map>
 #include <string>
@@ -28,7 +26,7 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class DialogueComponent : public IManaged {
+	class DialogueComponent : public am::base::IManaged {
 	public:
 
 		typedef map<string, bool> SubjectMap;

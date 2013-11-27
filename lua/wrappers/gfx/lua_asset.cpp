@@ -162,7 +162,7 @@ namespace gfx {
 			// Returns the first texture
 			if (args == 1)
 			{
-				Handle<Texture> texture = asset->getTexture();
+				am::base::Handle<Texture> texture = asset->getTexture();
 				if (texture)
 				{
 					wrapRefObject<Texture>(lua, texture);
@@ -176,7 +176,7 @@ namespace gfx {
 				// Returns the texture at the index.
 				if (lua_isnum(lua, 2))
 				{
-					Handle<Texture> texture = asset->getTexture(lua_tointeger(lua, 2));
+					am::base::Handle<Texture> texture = asset->getTexture(lua_tointeger(lua, 2));
 					if (texture)
 					{
 						wrapRefObject<Texture>(lua, texture);
@@ -188,8 +188,8 @@ namespace gfx {
 				Texture *texture = nullptr;
 				if (lua_isstr(lua, 2))
 				{
-					ReturnCode result = GfxEngine::getEngine()->getTexture(lua_tostring(lua, 2), texture);
-					if (result != SUCCESS)
+					am::base::ReturnCode result = GfxEngine::getEngine()->getTexture(lua_tostring(lua, 2), texture);
+					if (result != am::base::SUCCESS)
 					{
 						lua_pushvalue(lua, 1);
 						lua_pushinteger(lua, result);
@@ -209,7 +209,7 @@ namespace gfx {
 					}
 					asset->setTexture(texture, index);
 					lua_pushvalue(lua, 1);
-					lua_pushinteger(lua, SUCCESS);
+					lua_pushinteger(lua, am::base::SUCCESS);
 					return 2;
 				}
 			}
@@ -245,8 +245,8 @@ namespace gfx {
 			if (lua_isstr(lua, 2))
 			{
 				Texture *texture = nullptr;
-				ReturnCode result = GfxEngine::getEngine()->getTexture(lua_tostring(lua, 2), texture);
-				if (result != SUCCESS)
+				am::base::ReturnCode result = GfxEngine::getEngine()->getTexture(lua_tostring(lua, 2), texture);
+				if (result != am::base::SUCCESS)
 				{
 					lua_pushvalue(lua, 1);
 					lua_pushinteger(lua, result);
@@ -260,7 +260,7 @@ namespace gfx {
 			{
 				asset->addTexture(texture);
 				lua_pushvalue(lua, 1);
-				lua_pushinteger(lua, SUCCESS);
+				lua_pushinteger(lua, am::base::SUCCESS);
 				return 2;
 			}
 			return LuaState::expectedArgs(lua, "add_texture", 2, "am.texture texture", "string filename");

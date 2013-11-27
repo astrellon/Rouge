@@ -9,7 +9,6 @@ using namespace am::lua;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <util/idefinition.h>
 using namespace am::util;
@@ -22,7 +21,7 @@ namespace gfx {
 	class Texture;
 	class Asset;
 
-	class Font : public IManaged, public IDefinition {
+	class Font : public am::base::IManaged, public IDefinition {
 	public:
 		// GlFont methods
 		Font(const char *name);
@@ -76,7 +75,7 @@ namespace gfx {
 
 	protected:
 
-		Handle<Asset> mAsset;
+		am::base::Handle<Asset> mAsset;
 		string mName;
 
 		bool mFixedWidth;

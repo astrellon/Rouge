@@ -107,13 +107,13 @@ namespace game {
 	}
 	int CoinPurse::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "coin purse"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "coin purse"));
 		if (!dataMap)
 		{
 			return 0;
 		}
 
-		Handle<data::Number> num(dataMap->at<data::Number>("maxCoin"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("maxCoin"));
 		if (num)
 		{
 			setMaxCoin(num->value<int>());
@@ -132,7 +132,7 @@ namespace game {
 		if (coin != mCoin)
 		{
 			mCoin = coin;
-			Handle<Event> e(new Event("coin_change"));
+			am::base::Handle<Event> e(new Event("coin_change"));
 			fireEvent<Event>(e);
 		}
 	}

@@ -6,7 +6,6 @@
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/ui_game_hud.h>
 #include <ui/ui_editor_hud.h>
@@ -39,9 +38,9 @@ namespace game {
 	class GameObject;
 	class Tile;
 
-	typedef map<string, Handle<TileSet> > TileSetMap;
-	typedef map<string, Handle<Race> > RaceMap;
-	typedef map<string, Handle<TileType> > TileTypeMap;
+	typedef map<string, am::base::Handle<TileSet> > TileSetMap;
+	typedef map<string, am::base::Handle<Race> > RaceMap;
+	typedef map<string, am::base::Handle<TileType> > TileTypeMap;
 
 	class Engine : public EventInterface, public IDefinitionManager {
 	public:
@@ -116,7 +115,7 @@ namespace game {
 
 	protected:
 
-		Handle<Game> mCurrentGame;
+		am::base::Handle<Game> mCurrentGame;
 
 		float mGridSize;
 
@@ -129,11 +128,11 @@ namespace game {
 		TileSetMap mUsingTileSet;
 
 		TileSetMap mTileSets;
-		Handle<TileSet> mTopLevelTileSet;
+		am::base::Handle<TileSet> mTopLevelTileSet;
 		TileTypeMap mTileTypes;
 
-		Handle<GameHud> mGameHud;
-		Handle<EditorHud> mEditorHud;
+		am::base::Handle<GameHud> mGameHud;
+		am::base::Handle<EditorHud> mEditorHud;
 
 		RaceMap mRaces;
 		Race *mUnknownRace;

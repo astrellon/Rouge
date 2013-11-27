@@ -4,7 +4,6 @@
 using namespace am::game;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field2.h>
 using namespace am::gfx;
@@ -39,14 +38,14 @@ namespace ui {
 
 	protected:
 
-		Handle<TextField2> mInfo;
-		Handle<Character> mCharacter;
-		Handle<InventoryRenderer> mInventory;
-		Handle<BodyPartRenderer> mLeftHand;
-		Handle<BodyPartRenderer> mRightHand;
-		Handle<BodyPartRenderer> mTorso;
-		Handle<BodyPartRenderer> mHead;
-		Handle<BodyPartRenderer> mLegs;
+		am::base::Handle<TextField2> mInfo;
+		am::base::Handle<Character> mCharacter;
+		am::base::Handle<InventoryRenderer> mInventory;
+		am::base::Handle<BodyPartRenderer> mLeftHand;
+		am::base::Handle<BodyPartRenderer> mRightHand;
+		am::base::Handle<BodyPartRenderer> mTorso;
+		am::base::Handle<BodyPartRenderer> mHead;
+		am::base::Handle<BodyPartRenderer> mLegs;
 
 		bool mTextDirty;
 		void updateText();

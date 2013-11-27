@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field2.h>
 using namespace am::gfx;
@@ -39,12 +38,12 @@ namespace ui {
 	protected:
 
 		map<string, string> mValues;
-		Handle<TextField2> mInfo;
+		am::base::Handle<TextField2> mInfo;
 
 		bool mTextDirty;
 		void updateText();
 
-		static Handle<DebugInspector> sInspector;
+		static am::base::Handle<DebugInspector> sInspector;
 	};
 
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -63,7 +62,7 @@ namespace ui {
 	protected:
 
 		bool mFocus;
-		Handle<TextField> mText;
+		am::base::Handle<TextField> mText;
 		int mInputPosition;
 		int mMaxCharacters;
 		Restriction mRestriction;

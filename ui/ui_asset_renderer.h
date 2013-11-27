@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_asset.h>
@@ -23,7 +22,7 @@ namespace ui {
 
 	protected:
 
-		Handle<Asset> mAsset;
+		am::base::Handle<Asset> mAsset;
 
 	};
 

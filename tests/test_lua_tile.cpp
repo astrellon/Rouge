@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -107,7 +106,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 
-		Handle<TileType> type(new TileType("superType", "Super Type"));
+		am::base::Handle<TileType> type(new TileType("superType", "Super Type"));
 		Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));

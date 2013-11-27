@@ -142,7 +142,7 @@ namespace ui {
 
 	void TextButton::onEvent(Event *e)
 	{
-		Handle<Event> refire(new Event(e->getType().c_str(), this));
+		am::base::Handle<Event> refire(new Event(e->getType().c_str(), this));
 		fireEvent<Event>(refire);
 	}
 

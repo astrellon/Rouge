@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -11,7 +10,7 @@ namespace game {
 
 	class Character;
 
-	class IAction : public IManaged {
+	class IAction : public am::base::IManaged {
 	public:
 		
 		IAction();

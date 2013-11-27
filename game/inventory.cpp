@@ -126,7 +126,7 @@ namespace game {
 	bool Inventory::placeItem(Item *item, int x, int y)
 	{
 		mItemMovementState = ADDING;
-		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_ADD, this, item, x, y));
+		am::base::Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_ADD, this, item, x, y));
 		fireEvent<InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
@@ -169,7 +169,7 @@ namespace game {
 		}
 
 		mItemMovementState = REMOVING;
-		Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_REMOVE, this, item));
+		am::base::Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_REMOVE, this, item));
 		fireEvent<InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
@@ -190,7 +190,7 @@ namespace game {
 			}
 		}
 		// Keep items alive while event fires.
-		Handle<Item> itemHandle(item);
+		am::base::Handle<Item> itemHandle(item);
 		mSpots.erase(mSpots.begin() + index);
 
 		item->setItemLocation(Item::GROUND);
@@ -315,7 +315,7 @@ namespace game {
 	}
 	void Inventory::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;
@@ -329,7 +329,7 @@ namespace game {
 
 		unsigned short width = mSpacesX;
 		unsigned short height = mSpacesY;
-		Handle<data::Number> num(dataMap->at<data::Number>("spacesX"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("spacesX"));
 		if (num)
 		{
 			width = num->value<unsigned short>();
@@ -356,7 +356,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::Table> arr(dataMap->at<data::Table>("spots"));
+		am::base::Handle<data::Table> arr(dataMap->at<data::Table>("spots"));
 		if (arr)
 		{
 			for (auto iter = arr->beginArray(); iter != arr->endArray(); ++iter)

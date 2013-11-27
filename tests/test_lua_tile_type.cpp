@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -80,7 +79,7 @@ namespace tests {
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
-		Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
+		am::base::Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
 		assert(lua.hasGlobalFunction("addTileType"));
 		wrapObject<TileType>(lua, tileType);
 		lua_acall(lua, 1, 0);

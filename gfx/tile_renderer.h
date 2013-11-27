@@ -4,7 +4,6 @@
 #include <gfx/gfx_sprite.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -47,7 +46,7 @@ namespace gfx {
 		// To keep memory at a sane level for larger maps, there is currently
 		// only one sprite per asset. This should also keep tiles of the same animated
 		// graphic in sync, and as well as not doubling up on computing the current frame.
-		typedef map<Asset *, Handle<Sprite> > AssetSpriteMap;
+		typedef map<Asset *, am::base::Handle<Sprite> > AssetSpriteMap;
 		AssetSpriteMap mAssetSprites;
 
 		void addAssetForUpdate(Asset *asset, float grid);

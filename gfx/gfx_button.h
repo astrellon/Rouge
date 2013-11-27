@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 using namespace std;
@@ -34,7 +33,7 @@ namespace gfx {
 		
 	protected:
 
-		Handle<Renderable> mHitbox;
+		am::base::Handle<Renderable> mHitbox;
 		bool mEnabled;
 
 		void addListeners(Renderable *target);

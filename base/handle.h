@@ -4,7 +4,8 @@ namespace am {
 namespace base {
 
 	template <class T>
-	class Handle {
+	class Handle 
+	{
 	public:
 		Handle() :
 		  mObject(0)
@@ -18,7 +19,7 @@ namespace base {
 				mObject->retain();
 			}
 		}
-		Handle(const Handle<T> &handle)
+		Handle(const am::base::Handle<T> &handle)
 		{
 			mObject = handle.mObject;
 			if (mObject)

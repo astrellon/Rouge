@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <log/ilog_listener.h>
 using namespace am::log;
@@ -26,7 +25,7 @@ namespace gfx {
 
 	protected:
 
-		Handle<TextList> mTextList;
+		am::base::Handle<TextList> mTextList;
 
 	};
 

@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -45,7 +44,7 @@ namespace tests {
 			assert(lua.hasGlobalFunction("getItem"));
 			//lua.call(0, 1);
 			lua_acall(lua, 0, 1);
-			Handle<Item> item(castUData<Item>(lua, 1));
+			am::base::Handle<Item> item(castUData<Item>(lua, 1));
 
 			assert(item != nullptr);
 

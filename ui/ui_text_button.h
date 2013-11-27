@@ -4,7 +4,6 @@
 using namespace std;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "ievent_listener.h"
 #include "ui_component.h"
@@ -60,8 +59,8 @@ namespace ui {
 
 	protected:
 
-		Handle<Button> mGraphic;
-		Handle<TextField> mLabel;
+		am::base::Handle<Button> mGraphic;
+		am::base::Handle<TextField> mLabel;
 
 		void init();
 

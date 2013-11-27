@@ -3,7 +3,6 @@
 #include <base/imanaged.h>
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <ui/event_interface.h>
 using namespace am::ui;
@@ -24,13 +23,13 @@ using namespace am::util;
 
 namespace game {
 
-	class Store : public virtual IManaged, public EventInterface, public IEventListener {
+	class Store : public virtual am::base::IManaged, public EventInterface, public IEventListener {
 	public:
 
 		Store();
 		~Store();
 
-		typedef vector< Handle<Inventory> > InventoryList;
+		typedef vector< am::base::Handle<Inventory> > InventoryList;
 
 		virtual void setStoreOwner(Character *character);
 		virtual Character *getStoreOwner() const;
@@ -49,7 +48,7 @@ namespace game {
 		 *  NOT_ENOUGH_COIN: Buyer does not have enough coin to buy the item.
 		 *  SUCCESS: Item was bought successfully.
 		 */
-		virtual ReturnCode buyItem(Character *buyer, Item *item, float valueFactor = 1.0f);
+		virtual am::base::ReturnCode buyItem(Character *buyer, Item *item, float valueFactor = 1.0f);
 		/**
 		 * Attempts to sell the item.
 		 * Sold item is added to the store inventory and is not removed
@@ -64,7 +63,7 @@ namespace game {
 		 *  NOT_ENOUGH_COIN: If allowZeroStoreCoin is false and the store owner does not have enough to pay for the item.
 		 *  SUCCESS: Item was sold successfully.
 		 */
-		virtual ReturnCode sellItem(Character *seller, Item *item, float valueFactor = 1.0f, bool makeNewInventories = false, bool allowZeroStoreCoin = false);
+		virtual am::base::ReturnCode sellItem(Character *seller, Item *item, float valueFactor = 1.0f, bool makeNewInventories = false, bool allowZeroStoreCoin = false);
 
 		virtual Inventory *createStoreInventory();
 		virtual bool addStoreInventory(Inventory *inventory);
@@ -86,7 +85,7 @@ namespace game {
 
 	protected:
 		
-		Handle<Character> mStoreOwner;
+		am::base::Handle<Character> mStoreOwner;
 		InventoryList mStoreInventories;
 
 		Vector2<unsigned short> mDefaultInventorySize;

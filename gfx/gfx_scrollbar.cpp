@@ -177,7 +177,7 @@ namespace gfx {
 		{
 			mValue = value;
 			updateBar();
-			Handle<Event> e(new Event(SCROLL_VALUE_CHANGE, this));
+			am::base::Handle<Event> e(new Event(SCROLL_VALUE_CHANGE, this));
 			fireEvent<Event>(e);
 		}
 	}

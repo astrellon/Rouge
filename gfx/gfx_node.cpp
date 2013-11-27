@@ -36,7 +36,7 @@ namespace gfx {
 
 		if (mParent)
 		{
-			Handle<Node> temp(this);
+			am::base::Handle<Node> temp(this);
 			mParent->removeChild(this);
 		}
 	}

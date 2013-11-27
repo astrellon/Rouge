@@ -2,7 +2,6 @@
 
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <string>
 #include <map>
@@ -27,7 +26,7 @@ namespace game {
 
 	class BodyParts {
 	public:
-		typedef vector< Handle<BodyPart> > PartList;
+		typedef vector< am::base::Handle<BodyPart> > PartList;
 
 		BodyParts();
 		BodyParts(const BodyParts &copy);
@@ -40,7 +39,7 @@ namespace game {
 		 *  BODY_PART_FOUND: The given part was already found in the collection.
 		 *  NULL_PARAMETER: part was nullptr.
 		 */
-		ReturnCode addBodyPart(BodyPart *part);
+		am::base::ReturnCode addBodyPart(BodyPart *part);
 
 		/**
 		 * Attempts to remove a body part based on its name.
@@ -49,7 +48,7 @@ namespace game {
 		 *  BODY_PART_NOT_FOUND: The given part was not found.
 		 *  NULL_PARAMETER: part was nullptr.
 		 */
-		ReturnCode removeBodyPart(const char *partName);
+		am::base::ReturnCode removeBodyPart(const char *partName);
 		/**
 		 * Attempts to remove a body part.
 		 * Return codes:
@@ -57,7 +56,7 @@ namespace game {
 		 *  BODY_PART_NOT_FOUND: The given part was not found.
 		 *  NULL_PARAMETER: part was nullptr.
 		 */
-		ReturnCode removeBodyPart(BodyPart *part);
+		am::base::ReturnCode removeBodyPart(BodyPart *part);
 
 		/**
 		 * Returns the equipped item on the part based on its name.
@@ -100,7 +99,7 @@ namespace game {
 		 *  SUCCESS: All went well. The result list can be unaffect if there were no linked parts.
 		 *  NULL_PARAMETER: linkedToName was nullptr or an empty string.
 		 */
-		ReturnCode getLinkedParts(const char *linkedToName, PartList &result) const;
+		am::base::ReturnCode getLinkedParts(const char *linkedToName, PartList &result) const;
 		/**
 		 * Returns all the parts that are linked to the given part.
 		 * This means finding all the other parts in this collection
@@ -109,7 +108,7 @@ namespace game {
 		 *  SUCCESS: All went well. The result list can be unaffect if there were no linked parts.
 		 *  NULL_PARAMETER: linkedTo was nullptr.
 		 */
-		ReturnCode getLinkedParts(BodyPart *linkedTo, PartList &result) const;
+		am::base::ReturnCode getLinkedParts(BodyPart *linkedTo, PartList &result) const;
 
 		data::IData *serialise();
 		int deserialise(LoadingState *state, data::IData *data);

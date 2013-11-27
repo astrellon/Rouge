@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <ui/event_interface.h>
 using namespace am::ui;

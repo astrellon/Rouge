@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 #include <vector>
@@ -127,8 +126,8 @@ namespace game {
 
 	protected:
 		
-		Handle<Sprite> mGraphic;
-		Handle<Sprite> mGroundGraphic;
+		am::base::Handle<Sprite> mGraphic;
+		am::base::Handle<Sprite> mGroundGraphic;
 
 		short mPrefix;
 		short mPostfix;
@@ -146,8 +145,8 @@ namespace game {
 
 		DamageType mBaseDamageType;
 
-		Handle<StatModifiers> mStatModifiers;
-		Handle<StatModifiers> mStatModifiersSelf;
+		am::base::Handle<StatModifiers> mStatModifiers;
+		am::base::Handle<StatModifiers> mStatModifiersSelf;
 		BodyPartType::TypeList mEquipableTo;
 
 		virtual void updateGraphic();

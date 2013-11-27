@@ -7,7 +7,6 @@ using namespace std;
 #include <AL/al.h>
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <math/vector.h>
 using namespace am::math;
@@ -17,7 +16,7 @@ namespace sfx {
 
 	class ISound;
 
-	class ISource : public IManaged {
+	class ISource : public am::base::IManaged {
 	public:
 		
 		ISource();

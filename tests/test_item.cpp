@@ -9,7 +9,7 @@ namespace am {
 namespace tests {
 
 	bool TestItem::testSimple() {
-		Handle<Item> item1(new Item());
+		am::base::Handle<Item> item1(new Item());
 		am_equalsStr("Item", item1->getFullItemName());
 		am_equalsStr("Item", item1->getItemName());
 		am_equalsStr("", item1->getPrefix());

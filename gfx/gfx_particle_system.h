@@ -2,7 +2,6 @@
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_sprite.h>
@@ -61,10 +60,10 @@ namespace gfx {
 
 	protected:
 
-		typedef vector< Handle<Particle> > ParticleList;
+		typedef vector< am::base::Handle<Particle> > ParticleList;
 		ParticleList mParticleList;
 		
-		Handle<Asset> mParticleAsset;
+		am::base::Handle<Asset> mParticleAsset;
 
 		float mMaxAge;
 		float mAccelerationX;

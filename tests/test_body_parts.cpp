@@ -29,7 +29,7 @@ namespace tests {
 		assert(parts.getBodyPart("legs"));
 
 		bool looped = false;
-		Handle<BodyPart> attackPart(parts.getNextWeaponPart(looped));
+		am::base::Handle<BodyPart> attackPart(parts.getNextWeaponPart(looped));
 		assert(attackPart.get());
 		am_equals(false, looped);
 		am_equalsStr("left_hand", attackPart->getName());

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 #include <map>
@@ -39,9 +38,9 @@ namespace ui {
 
 	protected:
 
-		Handle<TextInput> mFilename;
-		Handle<TextButton> mOk;
-		Handle<TextButton> mCancel;
+		am::base::Handle<TextInput> mFilename;
+		am::base::Handle<TextButton> mOk;
+		am::base::Handle<TextButton> mCancel;
 
 		string mFolder;
 		string mDialogTitle;

@@ -108,7 +108,7 @@ namespace game {
 
 		bool newChar = false;
 		const char *id = lua_tostring(lua, 1);
-		Handle<Character> obj(dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id)));
+		am::base::Handle<Character> obj(dynamic_cast<Character *>(Engine::getEngine()->getGameObject(id)));
 		if (!obj)
 		{
 			newChar = true;
@@ -630,7 +630,7 @@ namespace game {
 			}
 			if (partName)
 			{
-				Handle<Item> item(obj->getEquipped(lua_tostring(lua, 2)));
+				am::base::Handle<Item> item(obj->getEquipped(lua_tostring(lua, 2)));
 				if (item)
 				{
 					wrapRefObject<Item>(lua, item);
@@ -1679,13 +1679,13 @@ namespace game {
 		return LuaState::expectedContext(lua, "ai_func", "am.character");
 	}
 
-	void charRelease(IManaged *obj)
+	void charRelease(am::base::IManaged *obj)
 	{
 		stringstream ss;
 		ss << "Released " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
-	void charRetain(IManaged *obj)
+	void charRetain(am::base::IManaged *obj)
 	{
 		stringstream ss;
 		ss << "Retain " << obj->getReferenceCounter();

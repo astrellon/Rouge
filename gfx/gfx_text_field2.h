@@ -79,7 +79,7 @@ namespace gfx {
 
 		string mText;
 		string mRawText;
-		Handle<Font> mFont;
+		am::base::Handle<Font> mFont;
 
 		float mMeasuredWidth;
 		float mMeasuredHeight;
@@ -96,10 +96,10 @@ namespace gfx {
 
 		int mTextPosition;
 		
-		Handle<Node> mRootNode;
-		Handle<Node> mCurrentNode;
-		Handle<Scrollbar> mScrollbar;
-		Handle<Layer> mTextHitboxes;
+		am::base::Handle<Node> mRootNode;
+		am::base::Handle<Node> mCurrentNode;
+		am::base::Handle<Scrollbar> mScrollbar;
+		am::base::Handle<Layer> mTextHitboxes;
 
 		typedef vector<int> NewLineList;
 		NewLineList mNewLinePositions;

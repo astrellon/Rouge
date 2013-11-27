@@ -2,7 +2,6 @@
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using am::base::IManaged;
 
 #include <vector>
 using std::vector;
@@ -25,10 +24,10 @@ namespace ui {
 
 	class EventInterface;
 
-	class IEventListener : virtual public IManaged {
+	class IEventListener : virtual public am::base::IManaged {
 	public:
 
-		typedef vector< Handle<EventInterface> > ListeningList;
+		typedef vector< am::base::Handle<EventInterface> > ListeningList;
 
 		virtual ~IEventListener();
 

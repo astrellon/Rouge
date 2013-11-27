@@ -9,7 +9,6 @@ using namespace am::gfx;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <util/idefinition.h>
 using namespace am::util;
@@ -23,11 +22,11 @@ namespace game {
 	class TileSet;
 	class TileType;
 	
-	class Tile : public IManaged, public IDefinition {
+	class Tile : public am::base::IManaged, public IDefinition {
 	public:
 
-		typedef vector< Handle<TileType> > TileTypeSet;
-		typedef vector< Handle<Asset> > TileAssetList;
+		typedef vector< am::base::Handle<TileType> > TileTypeSet;
+		typedef vector< am::base::Handle<Asset> > TileAssetList;
 		typedef map< Tile *, TileAssetList > TileAssetMap;
 
 		Tile(const char *name);
@@ -83,14 +82,14 @@ namespace game {
 		string mFullName;
 		
 		TileSet *mTileSet;
-		Handle<Asset> mGraphic;
+		am::base::Handle<Asset> mGraphic;
 		TileAssetMap mTransitionalGraphics;
 		string mDescription;
 		int mPrecedence;
 
 		TileTypeSet mTileTypes;
 
-		static Handle<Tile> sDefaultTile;
+		static am::base::Handle<Tile> sDefaultTile;
 
 	};
 

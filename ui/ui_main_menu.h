@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -27,11 +26,11 @@ namespace ui {
 
 	protected:
 
-		Handle<TextButton> mStartGame;
-		Handle<TextButton> mLoadGame;
-		Handle<TextButton> mEditor;
-		Handle<TextButton> mOptions;
-		Handle<TextButton> mQuit;
+		am::base::Handle<TextButton> mStartGame;
+		am::base::Handle<TextButton> mLoadGame;
+		am::base::Handle<TextButton> mEditor;
+		am::base::Handle<TextButton> mOptions;
+		am::base::Handle<TextButton> mQuit;
 
 		RougeSystem *mRougeSystem;
 

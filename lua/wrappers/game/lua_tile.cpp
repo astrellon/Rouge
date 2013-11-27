@@ -391,7 +391,7 @@ namespace game {
 		if (tile)
 		{
 			int args = lua_gettop(lua);
-			vector< Handle<TileType> > types;
+			vector< am::base::Handle<TileType> > types;
 			types.reserve(args - 2);
 			bool error = false;
 			for (int i = 2; i <= args; i++)
@@ -447,7 +447,7 @@ namespace game {
 			int args = lua_gettop(lua);
 			for (int i = 2; i <= args; i++)
 			{
-				Handle<TileType> tileType(getTileType(lua, 2));
+				am::base::Handle<TileType> tileType(getTileType(lua, 2));
 				if (tileType)
 				{
 					tile->removeTileType(tileType);
@@ -490,7 +490,7 @@ namespace game {
 		Tile *tile = castUData<Tile>(lua, 1);
 		if (tile)
 		{
-			Handle<TileType> tileType(getTileType(lua, 2));
+			am::base::Handle<TileType> tileType(getTileType(lua, 2));
 			if (tileType)
 			{
 				lua_pushboolean(lua, tile->hasTileType(tileType));

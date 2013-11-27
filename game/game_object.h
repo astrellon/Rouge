@@ -4,7 +4,6 @@
 using namespace am::gfx;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <vector>
 #include <ostream>
@@ -47,7 +46,7 @@ namespace game {
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
 
-		typedef vector< Handle<TileType> > PassibleTypeList;
+		typedef vector< am::base::Handle<TileType> > PassibleTypeList;
 		typedef map<string, bool> SubjectMap;
 
 		GameObject();
@@ -173,8 +172,8 @@ namespace game {
 		Map *mMap;
 		Map *mOriginalMap;
 
-		Handle<DialogueComponent> mDialogueComp;
-		Handle<ISource> mSoundSource;
+		am::base::Handle<DialogueComponent> mDialogueComp;
+		am::base::Handle<ISource> mSoundSource;
 
 		MapRegion::MapRegionList mMapRegions;
 
@@ -185,7 +184,7 @@ namespace game {
 		static const char *sDamageTypeNames[];
 	};
 
-	typedef vector<Handle<GameObject> > ObjectList;
+	typedef vector<am::base::Handle<GameObject> > ObjectList;
 
 }
 }

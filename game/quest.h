@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <string>
 #include <map>
@@ -25,7 +24,7 @@ namespace game {
 	class Character;
 	class LoadingState;
 
-	class Quest : public EventInterface, public IAttributeData, public virtual IManaged {
+	class Quest : public EventInterface, public IAttributeData, public virtual am::base::IManaged {
 	public:
 		
 		Quest(const char *questId);

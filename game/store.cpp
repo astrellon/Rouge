@@ -40,28 +40,28 @@ namespace game {
 		return mStoreOwner;
 	}
 
-	ReturnCode Store::buyItem(Character *buyer, Item *item, float valueFactor)
+	am::base::ReturnCode Store::buyItem(Character *buyer, Item *item, float valueFactor)
 	{
-		Handle<Item> itemHandle(item);
+		am::base::Handle<Item> itemHandle(item);
 		if (!item || !buyer)
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 		if (!mStoreOwner)
 		{
-			return NO_STORE_OWNER;
+			return am::base::NO_STORE_OWNER;
 		}
 
 		if (mStoreInventories.empty())
 		{
-			return NO_INVENTORIES;
+			return am::base::NO_INVENTORIES;
 		}
 
 		CoinPurse *buyerPurse = buyer->getCoinPurse();
 		CoinPurse *ownerPurse = mStoreOwner->getCoinPurse();
 		if (!buyerPurse || !ownerPurse)
 		{
-			return INTERNAL_ERROR;
+			return am::base::INTERNAL_ERROR;
 		}
 		
 		Inventory *inventory = nullptr;
@@ -75,49 +75,49 @@ namespace game {
 		}
 		if (!inventory)
 		{
-			return ITEM_NOT_IN_INVENTORY;
+			return am::base::ITEM_NOT_IN_INVENTORY;
 		}
 
 		int value = math::round(static_cast<float>(item->getItemValue()) * valueFactor);
 		if (buyerPurse->canRemoveCoin(value) < 0)
 		{
-			return NOT_ENOUGH_COIN;
+			return am::base::NOT_ENOUGH_COIN;
 		}
 
 		buyerPurse->removeCoin(value);
 		ownerPurse->addCoin(value);
 		inventory->removeItem(item);
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 
-	ReturnCode Store::sellItem(Character *seller, Item *item, float valueFactor, bool makeNewInventories, bool allowZeroStoreCoin)
+	am::base::ReturnCode Store::sellItem(Character *seller, Item *item, float valueFactor, bool makeNewInventories, bool allowZeroStoreCoin)
 	{
-		Handle<Item> itemHandle(item);
+		am::base::Handle<Item> itemHandle(item);
 		if (!item || !seller)
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 		if (!mStoreOwner)
 		{
-			return NO_STORE_OWNER;
+			return am::base::NO_STORE_OWNER;
 		}
 
 		if (mStoreInventories.empty() && !makeNewInventories)
 		{
-			return NO_INVENTORIES;
+			return am::base::NO_INVENTORIES;
 		}
 
 		CoinPurse *sellerPurse = seller->getCoinPurse();
 		CoinPurse *ownerPurse = mStoreOwner->getCoinPurse();
 		if (!sellerPurse || !ownerPurse)
 		{
-			return INTERNAL_ERROR;
+			return am::base::INTERNAL_ERROR;
 		}
 
 		int value = math::round(static_cast<float>(item->getItemValue()) * valueFactor);
 		if (!allowZeroStoreCoin && ownerPurse->canRemoveCoin(value) < 0)
 		{
-			return NOT_ENOUGH_COIN;
+			return am::base::NOT_ENOUGH_COIN;
 		}
 		
 		Inventory *inventory = nullptr;
@@ -137,7 +137,7 @@ namespace game {
 			}
 			else
 			{
-				return NOT_ENOUGH_INVENTORY_SPACE;
+				return am::base::NOT_ENOUGH_INVENTORY_SPACE;
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace game {
 		ownerPurse->removeCoin(value);
 		inventory->addItem(item);
 
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 
 	Inventory *Store::createStoreInventory()

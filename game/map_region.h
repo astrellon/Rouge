@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 #include <vector>
@@ -28,7 +27,7 @@ namespace game {
 	class MapRegion : public EventInterface {
 	public:
 
-		typedef vector< Handle< MapRegion > > MapRegionList;
+		typedef vector< am::base::Handle< MapRegion > > MapRegionList;
 
 		MapRegion();
 		MapRegion(int width, int height, int fillValue = 0);

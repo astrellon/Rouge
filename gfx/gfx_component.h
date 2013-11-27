@@ -5,7 +5,6 @@ using std::vector;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 #include <util/colour.h>
 using am::util::Colour;
@@ -15,10 +14,10 @@ using am::util::Colour;
 namespace am {
 namespace gfx {
 
-	class GfxComponent : public IManaged {
+	class GfxComponent : public am::base::IManaged {
 	public:
 
-		typedef vector< Handle<Effect> > EffectList;
+		typedef vector< am::base::Handle<Effect> > EffectList;
 
 		GfxComponent();
 		GfxComponent(const GfxComponent &copy);

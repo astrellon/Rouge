@@ -332,7 +332,7 @@ namespace tests {
 		LuaState lua;
 
 		Engine::getEngine()->setCurrentGame(new Game());
-		Handle<Character> testCharacter(new Character());
+		am::base::Handle<Character> testCharacter(new Character());
 		testCharacter->setGameId("testId");
 		testCharacter->setName("Test Name");
 

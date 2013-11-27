@@ -158,7 +158,7 @@ namespace game {
 
 	void Character::setGraphic(Sprite *graphic, bool calcCameraOffset)
 	{
-		Handle<Sprite> currentGraphic(mGraphic);
+		am::base::Handle<Sprite> currentGraphic(mGraphic);
 		if (mGraphic)
 		{
 			mCharacterLayer->removeChild(mGraphic);
@@ -219,7 +219,7 @@ namespace game {
 		{
 			mController->update(this, dt);
 		}
-		Handle<IAction> currentAction(getCurrentAction());
+		am::base::Handle<IAction> currentAction(getCurrentAction());
 		if (currentAction)
 		{
 			if (!currentAction->update(this, dt))
@@ -296,11 +296,11 @@ namespace game {
 		return length;
 	}
 
-	ReturnCode Character::attack(GameObject *enemy, Item *withItem)
+	am::base::ReturnCode Character::attack(GameObject *enemy, Item *withItem)
 	{
 		if (!enemy)
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 
 		bool looped = false;
@@ -308,7 +308,7 @@ namespace game {
 		if (!weaponPart)
 		{
 			// Sad times, no way to attack.
-			return NO_WEAPON_PART;
+			return am::base::NO_WEAPON_PART;
 		}
 
 		// TODO Determine the max distance for a weapon based on the
@@ -316,11 +316,11 @@ namespace game {
 		float dist = distanceToGrid(enemy);
 		if (dist > 1.5f)
 		{
-			return OUT_OF_RANGE;
+			return am::base::OUT_OF_RANGE;
 		}
 
 		Stats temp = *mStats;
-		Handle<Item> attackItem(weaponPart->getEquippedItem());
+		am::base::Handle<Item> attackItem(weaponPart->getEquippedItem());
 		if (attackItem)
 		{
 			// Armed attack
@@ -346,7 +346,7 @@ namespace game {
 			// We've attacked with all our weapons this 'round'.
 		}
 
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 	void Character::receiveDamage(float damage)
 	{
@@ -448,7 +448,7 @@ namespace game {
 		{
 			return false;
 		}
-		Handle<BodyPart> part = mBodyParts.getBodyPart(partName);
+		am::base::Handle<BodyPart> part = mBodyParts.getBodyPart(partName);
 		if (part != nullptr)
 		{
 			Item *equipped = part->getEquippedItem();
@@ -536,11 +536,11 @@ namespace game {
 		part->setEquippedItem(nullptr);
 		return true;
 	}
-	ReturnCode Character::canEquipItem(Item *item, const char *partName) const
+	am::base::ReturnCode Character::canEquipItem(Item *item, const char *partName) const
 	{
 		if (!item || !partName || partName[0] == '\0')
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 		BodyPart *part = mBodyParts.getBodyPart(partName);
 		if (part == nullptr)
@@ -549,32 +549,32 @@ namespace game {
 			ss << "Cannot check for can equip item '" << item->getFullItemName() << "' on to '";
 			ss << getName() << "' because they do not have a '" << partName << "'";
 			am_log("CHAR", ss);
-			return BODY_PART_NOT_FOUND;
+			return am::base::BODY_PART_NOT_FOUND;
 		}
 		return canEquipItem(item, part);
 	}
-	ReturnCode Character::canEquipItem(Item *item, BodyPart *part) const
+	am::base::ReturnCode Character::canEquipItem(Item *item, BodyPart *part) const
 	{
 		// Can't deal with null for checks.
 		if (!item || !part)
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 
 		// Is this a body part that's on this character?
 		if (!mBodyParts.hasBodyPart(part))
 		{
-			return BODY_PART_NOT_FOUND;
+			return am::base::BODY_PART_NOT_FOUND;
 		}
 
 		// Can the body part be used to equip the given item?
 		if (!part->canEquipItem(item))
 		{
-			return BODY_PART_TYPE_MISMATCH;
+			return am::base::BODY_PART_TYPE_MISMATCH;
 		}
 
 		unsigned int bodyPartsRequired = item->getBodyPartsRequired();
-		ReturnCode result = ABLE_TO_EQUIP;
+		am::base::ReturnCode result = am::base::ABLE_TO_EQUIP;
 		// Item requires multiple body parts to be equipped.
 		if (bodyPartsRequired > 1u)
 		{
@@ -582,14 +582,14 @@ namespace game {
 			if (!mBodyParts.getLinkedParts(part, linked))
 			{
 				// There's been an error so it's unlikely that we should allow equipping at this point.
-				return INTERNAL_ERROR;
+				return am::base::INTERNAL_ERROR;
 			}
 
 			unsigned int bodyPartsAvailable = linked.size();
 			// There are not enough body parts that can be used to equip the item.
 			if (bodyPartsAvailable < bodyPartsRequired - 1)
 			{
-				return NOT_ENOUGH_BODY_PARTS;
+				return am::base::NOT_ENOUGH_BODY_PARTS;
 			}
 			// Loop through body parts that can be used to equip an
 			// item for the main given body part.
@@ -603,7 +603,7 @@ namespace game {
 					// linked body parts in total then the item cannot be equipped.
 					if (bodyPartsAvailable < bodyPartsRequired - 1)
 					{
-						return NOT_ENOUGH_BODY_PARTS;
+						return am::base::NOT_ENOUGH_BODY_PARTS;
 					}
 					// Seems that we still have enough body parts and perhaps
 					// they can be used to equip the item.
@@ -616,7 +616,7 @@ namespace game {
 				// has another item equipped or is holding another item.
 				if (linked[i]->getEquippedItem() || linked[i]->isHoldingOnto())
 				{
-					result = CAN_EQUIP;
+					result = am::base::CAN_EQUIP;
 				}
 			}
 		}
@@ -624,7 +624,7 @@ namespace game {
 		// part is capable of equipping the item. So check if it's already in use
 		else if (part->getEquippedItem() || part->isHoldingOnto())
 		{
-			result = CAN_EQUIP;
+			result = am::base::CAN_EQUIP;
 		}
 
 		return result;
@@ -648,30 +648,30 @@ namespace game {
 		return mInventory;
 	}
 
-	ReturnCode Character::pickupItem(Item *item)
+	am::base::ReturnCode Character::pickupItem(Item *item)
 	{
 		if (item == nullptr)
 		{
-			return NULL_PARAMETER;
+			return am::base::NULL_PARAMETER;
 		}
 		if (item->getItemLocation() == Item::GROUND)
 		{
 			if (!canReachLocation(getLocationX(), getLocationY()))
 			{
-				return OUT_OF_RANGE;
+				return am::base::OUT_OF_RANGE;
 			}
 		}
 		// There may not be space so this can still return false.
 		if (addItem(item))
 		{
-			Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
+			am::base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
 			fireEvent<ItemEvent>(e);
 			item->pickedUp(this);
-			return SUCCESS;
+			return am::base::SUCCESS;
 		}
 		else
 		{
-			return NOT_ENOUGH_INVENTORY_SPACE;
+			return am::base::NOT_ENOUGH_INVENTORY_SPACE;
 		}
 	}
 	bool Character::addItem(Item *item)
@@ -709,11 +709,11 @@ namespace game {
 
 		return mInventory->hasItem(item);
 	}
-	ReturnCode Character::dropItem(Item *item)
+	am::base::ReturnCode Character::dropItem(Item *item)
 	{
 		return dropItem(item, getLocationX(), getLocationY());
 	}
-	ReturnCode Character::dropItem(Item *item, float x, float y)
+	am::base::ReturnCode Character::dropItem(Item *item, float x, float y)
 	{
 		if (item == nullptr || mMap == nullptr ||
 			x < 0 || y < 0 ||
@@ -721,28 +721,28 @@ namespace game {
 			y >= mMap->getHeight())
 		{
 			am_log("CHAR", "Off map");
-			return OFF_THE_MAP;
+			return am::base::OFF_THE_MAP;
 		}
 
 		if (!canReachLocation(x, y))
 		{
-			return OUT_OF_RANGE;
+			return am::base::OUT_OF_RANGE;
 		}
 
 		if (!mMap->isValidLocation(x, y, item))
 		{
 			am_log("CHAR", "Invalid location for item");
-			return INVALID_LOCATION;
+			return am::base::INVALID_LOCATION;
 		}
 		item->setLocation(x, y);
 		mMap->addGameObject(item);
 		item->setItemLocation(Item::GROUND);
 
 		mInventory->removeItem(item);
-		Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
+		am::base::Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
 		fireEvent<ItemEvent>(e);
 		item->dropped(this);
-		return SUCCESS;
+		return am::base::SUCCESS;
 	}
 	bool Character::canReachGameObject(const GameObject *obj) const
 	{
@@ -868,7 +868,7 @@ namespace game {
 	}
 	void Character::stopCurrentAction()
 	{
-		Handle<IAction> current(getCurrentAction());
+		am::base::Handle<IAction> current(getCurrentAction());
 		if (current)
 		{
 			current->stop();
@@ -1021,14 +1021,14 @@ namespace game {
 			return loadResult;
 		}
 
-		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{	// Shouldn't happen due to GameObject::deserialise
 			return -1;
 		}
 
 		state->pushCurrentCharacter(this);
-		Handle<data::Number> num(dataMap->at<data::Number>("pickupReach"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("pickupReach"));
 		if (num)
 		{
 			setPickupReach(num->value<float>());
@@ -1041,7 +1041,7 @@ namespace game {
 		}
 
 		num = dataMap->at<data::Number>("destinationX");
-		Handle<data::Number> num2(dataMap->at<data::Number>("destinationY"));
+		am::base::Handle<data::Number> num2(dataMap->at<data::Number>("destinationY"));
 		if (num && num2)
 		{
 			// The destination path will be calculated in hte post-loading stage
@@ -1051,7 +1051,7 @@ namespace game {
 			state->setGameObjHasDestination(mGameId.c_str(), true);
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("race"));
+		am::base::Handle<data::String> str(dataMap->at<data::String>("race"));
 		if (str)
 		{
 			setRace(Engine::getEngine()->getRace(str->string()));
@@ -1073,7 +1073,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::Table> bodyParts(dataMap->at<data::Table>("bodyParts"));
+		am::base::Handle<data::Table> bodyParts(dataMap->at<data::Table>("bodyParts"));
 		if (bodyParts)
 		{
 			if (mBodyParts.deserialise(state, bodyParts))
@@ -1086,7 +1086,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::IData> tempData(dataMap->at("inventory"));
+		am::base::Handle<data::IData> tempData(dataMap->at("inventory"));
 		if (tempData)
 		{
 			mInventory->deserialise(state, tempData);
@@ -1153,12 +1153,12 @@ namespace game {
 
 	void Character::onLevelUp()
 	{
-		Handle<Event> e(new Event("level_change"));
+		am::base::Handle<Event> e(new Event("level_change"));
 		fireEvent<Event>(e);
 	}
 	void Character::onExperienceChange()
 	{
-		Handle<Event> e(new Event("experience_change"));
+		am::base::Handle<Event> e(new Event("experience_change"));
 		fireEvent<Event>(e);
 	}
 
@@ -1247,7 +1247,7 @@ namespace game {
 			}
 			else
 			{
-				Handle<Game> game(Engine::getGame());
+				am::base::Handle<Game> game(Engine::getGame());
 				if (!game)
 				{
 					stringstream ss;
@@ -1256,7 +1256,7 @@ namespace game {
 					am_log("DEAD", ss);
 					return;
 				}
-				Handle<Sprite> dead(game->getGenericDeadGraphic());
+				am::base::Handle<Sprite> dead(game->getGenericDeadGraphic());
 				if (dead)
 				{
 					mDeadGraphic = new Sprite(*dead);

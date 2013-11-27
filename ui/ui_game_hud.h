@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <ui/ui_inspector.h>
 #include <ui/ui_character_screen.h>
@@ -27,10 +26,10 @@ namespace ui {
 
 	protected:
 
-		Handle<Inspector> mInspector;
-		Handle<CharacterScreen> mCharacterScreen;
-		Handle<DialogueBox> mDialogueBox;
-		Handle<DialogueChoices> mDialogueChoices;
+		am::base::Handle<Inspector> mInspector;
+		am::base::Handle<CharacterScreen> mCharacterScreen;
+		am::base::Handle<DialogueBox> mDialogueBox;
+		am::base::Handle<DialogueChoices> mDialogueChoices;
 		
 	};
 

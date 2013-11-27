@@ -33,7 +33,7 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
+		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
 			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y);
@@ -45,7 +45,7 @@ namespace ui {
 		}
 		if (!mFiredEvent)
 		{
-			Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y));
+			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_DOWN, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
@@ -54,7 +54,7 @@ namespace ui {
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
-		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
+		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
 			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y);
@@ -70,7 +70,7 @@ namespace ui {
 		}
 		if (!mFiredEvent)
 		{
-			Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y));
+			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_MOVE, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
@@ -80,7 +80,7 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
+		am::base::Handle<Renderable> hitTarget(checkForMouseEvent(mRootLayer, am::ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
 			hitTarget = checkForMouseEvent(GfxEngine::getEngine()->getDebugLayer(), am::ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y);
@@ -92,7 +92,7 @@ namespace ui {
 		}
 		if (!mFiredEvent)
 		{
-			Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_UP, mouseButton, x, y));
+			am::base::Handle<MouseEvent> e(new MouseEvent(am::ui::Mouse::MOUSE_UP, mouseButton, x, y));
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
@@ -129,7 +129,7 @@ namespace ui {
 		localX -= static_cast<int>(target->getPositionX());
 		localY -= static_cast<int>(target->getPositionY());
 
-		Handle<Layer> layer(dynamic_cast<Layer *>(target));
+		am::base::Handle<Layer> layer(dynamic_cast<Layer *>(target));
 		if (layer != nullptr && layer->isVisible() && !layer->interactWithLayer())
 		{
 			int numChildren = layer->getNumChildren();
@@ -137,8 +137,8 @@ namespace ui {
 			// they'll appear on screen.
 			for (int i = numChildren - 1; i >= 0; i--)
 			{
-				Handle<Renderable> child(layer->getChildAt(i));
-				Handle<Renderable> hitChild(checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY));
+				am::base::Handle<Renderable> child(layer->getChildAt(i));
+				am::base::Handle<Renderable> hitChild(checkForMouseEvent(child, mouseType, mouseButton, x, y, localX, localY));
 				if (hitChild)
 				{
 					//return child;
@@ -152,7 +152,7 @@ namespace ui {
 				localX >= 0 && localY >= 0 &&
 				localX <= target->getWidth() && localY <= target->getHeight())
 			{
-				Handle<Renderable> oldUnderMouse(mUnderMouse);
+				am::base::Handle<Renderable> oldUnderMouse(mUnderMouse);
 				mUnderMouse = target;
 				if (target != oldUnderMouse)
 				{

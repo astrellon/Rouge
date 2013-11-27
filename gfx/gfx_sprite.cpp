@@ -212,20 +212,20 @@ namespace gfx {
 	}
 	void Sprite::deserialise(am::game::LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
+		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
 			stringstream ss;
 			ss << "Unable to load sprite from '" << data->typeName();
 		}
 
-		Handle<data::String> str(dataMap->at<data::String>("asset"));
+		am::base::Handle<data::String> str(dataMap->at<data::String>("asset"));
 		if (str)
 		{
 			setAsset(str->string());
 		}
 
-		Handle<data::Number> num(dataMap->at<data::Number>("width"));
+		am::base::Handle<data::Number> num(dataMap->at<data::Number>("width"));
 		if (num)
 		{
 			mWidth = num->value<float>();

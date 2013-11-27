@@ -21,7 +21,7 @@ namespace gfx {
 	class Layer;
 	class Tooltip;
 
-	class Renderable : virtual public IManaged, public EventInterface {
+	class Renderable : virtual public am::base::IManaged, public EventInterface {
 	public:
 
 		typedef vector<const Renderable *> RenderablePath;
@@ -107,7 +107,7 @@ namespace gfx {
 		bool mVisible;
 		bool mInteractive;
 
-		Handle<GfxComponent> mGfxComponent;
+		am::base::Handle<GfxComponent> mGfxComponent;
 		Tooltip *mTooltip;
 		Layer *mParent;
 		am::math::TransformLite mTransform;

@@ -5,14 +5,13 @@ using namespace std;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
-using namespace am::base;
 
 namespace am {
 namespace ui {
 
 	class EventInterface;
 
-	class Event : public IManaged {
+	class Event : public am::base::IManaged {
 	public:
 		Event(const char *type);
 		Event(const char *type, EventInterface *target);
@@ -34,7 +33,7 @@ namespace ui {
 
 		void setType(const char *type);
 
-		Handle<EventInterface> mEventTarget;
+		am::base::Handle<EventInterface> mEventTarget;
 	};
 
 }

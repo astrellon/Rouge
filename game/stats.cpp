@@ -214,7 +214,7 @@ namespace game {
 		mDirtyStats[stat] = true;
 		if (mAttachedTo)
 		{
-			Handle<StatEvent> e(new StatEvent(this, Stat::getStatType(stat)));
+			am::base::Handle<StatEvent> e(new StatEvent(this, Stat::getStatType(stat)));
 			mAttachedTo->fireEvent<StatEvent>(e);
 		}
 	}
@@ -223,7 +223,7 @@ namespace game {
 		mDirtyStats[stat] = true;
 		if (mAttachedTo)
 		{
-			Handle<StatEvent> e(new StatEvent(this, stat));
+			am::base::Handle<StatEvent> e(new StatEvent(this, stat));
 			mAttachedTo->fireEvent<StatEvent>(e);
 		}
 	}
@@ -243,13 +243,13 @@ namespace game {
 	}
 	void Stats::deserialise(LoadingState *state, data::IData *data)
 	{
-		Handle<data::Table> dataMap(data::Table::checkDataType(data, "stats"));
+		am::base::Handle<data::Table> dataMap(data::Table::checkDataType(data, "stats"));
 		if (!dataMap)
 		{
 			return;
 		}
 
-		Handle<data::Table> baseStats(dataMap->at<data::Table>("baseStats"));
+		am::base::Handle<data::Table> baseStats(dataMap->at<data::Table>("baseStats"));
 		if (baseStats)
 		{
 			for (auto iter = baseStats->beginMap(); iter != baseStats->endMap(); ++iter)
@@ -262,7 +262,7 @@ namespace game {
 					am_log("LOADERR", ss);
 					continue;
 				}
-				Handle<data::Number> num(dynamic_cast<data::Number *>(iter->second.get()));
+				am::base::Handle<data::Number> num(dynamic_cast<data::Number *>(iter->second.get()));
 				if (num)
 				{
 					setBaseStat(type, num->value<float>());
@@ -278,7 +278,7 @@ namespace game {
 			}
 		}
 
-		Handle<data::IData> tempData(dataMap->at("modifiers"));
+		am::base::Handle<data::IData> tempData(dataMap->at("modifiers"));
 		if (tempData)
 		{
 			mModifiers->deserialise(state, tempData);

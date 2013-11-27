@@ -7,7 +7,6 @@ using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <ui/ievent_listener.h>
 #include <ui/ui_inspector.h>
@@ -154,7 +153,7 @@ namespace game {
 
 	protected:
 		
-		Handle<Map> mCurrentMap;
+		am::base::Handle<Map> mCurrentMap;
 
 		Engine *mEngine;
 
@@ -164,42 +163,42 @@ namespace game {
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 
-		typedef map<string, Handle<Map> > MapMap;
+		typedef map<string, am::base::Handle<Map> > MapMap;
 		MapMap mMaps;
 
-		typedef map<string, Handle<Item> >ItemMap;
+		typedef map<string, am::base::Handle<Item> >ItemMap;
 		ItemMap mItemDefinitions;
 
-		typedef map<string, Handle<Character> > CharacterMap;
+		typedef map<string, am::base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 
 		string mScenarioName;
 
-		Handle<Sprite> mGenericDeadGraphic;
+		am::base::Handle<Sprite> mGenericDeadGraphic;
 
-		Handle<Layer> mGameLayer;
-		Handle<Layer> mBackground;
-		Handle<Layer> mItemLayer;
-		Handle<Layer> mCharacterLayer;
-		Handle<Layer> mForeground;
+		am::base::Handle<Layer> mGameLayer;
+		am::base::Handle<Layer> mBackground;
+		am::base::Handle<Layer> mItemLayer;
+		am::base::Handle<Layer> mCharacterLayer;
+		am::base::Handle<Layer> mForeground;
 
-		Handle<Character> mMainCharacter;
+		am::base::Handle<Character> mMainCharacter;
 
-		Handle<LoadingState> mLoadingState;
+		am::base::Handle<LoadingState> mLoadingState;
 
 		int mGameTickPosition;
 		bool mGameTickPaused;
 		float mCurrentTickDt;
 
-		typedef map<string, Handle<GameObject> > GameObjectIdMap;
+		typedef map<string, am::base::Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
 		typedef map<string, Dialogue *> DialogueMap;
 		DialogueMap mDialogueMap;
 
-		typedef map<string, Handle<Quest> > QuestMap;
+		typedef map<string, am::base::Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
 
 		void endGameTick();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_sprite.h>
@@ -34,8 +33,8 @@ namespace gfx {
 
 	protected:
 
-		Handle<TextField2> mTextField;
-		Handle<TextField2> mDetailedTextField;
+		am::base::Handle<TextField2> mTextField;
+		am::base::Handle<TextField2> mDetailedTextField;
 	};
 
 }

@@ -3,7 +3,6 @@
 #include "game_system.h"
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <game/character.h>
 
@@ -13,7 +12,6 @@ namespace game {
 	class Engine;
 	class PlayerHand;
 }
-using namespace am::base;
 
 namespace gfx {
 	class GfxEngine;
@@ -75,17 +73,17 @@ namespace sys {
 		
 		RougeSystem(OsSystem *linked, Engine *engine);
 
-		Handle<MainMenu> mMainMenu;
-		Handle<OptionsPanel> mOptionsPanel;
-		Handle<IngameMenu> mIngameMenu;
-		Handle<GameHud> mGameHud;
-		Handle<EditorHud> mEditorHud;
-		Handle<UIComponent> mCurrentMenu;
+		am::base::Handle<MainMenu> mMainMenu;
+		am::base::Handle<OptionsPanel> mOptionsPanel;
+		am::base::Handle<IngameMenu> mIngameMenu;
+		am::base::Handle<GameHud> mGameHud;
+		am::base::Handle<EditorHud> mEditorHud;
+		am::base::Handle<UIComponent> mCurrentMenu;
 
-		Handle<Image> mPausedImage;
+		am::base::Handle<Image> mPausedImage;
 
-		Handle<Character> mPlayer;
-		Handle<TooltipItem> mItemTooltip;
+		am::base::Handle<Character> mPlayer;
+		am::base::Handle<TooltipItem> mItemTooltip;
 
 		void checkPaused();
 		bool mPausedGame;

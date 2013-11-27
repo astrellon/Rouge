@@ -140,7 +140,7 @@ namespace ui {
 
 		Engine *engine = Engine::getEngine();
 		ISystem::FolderEntryList tileSetNames;
-		if (GameSystem::getGameSystem()->listDirectory("data/tilesets", tileSetNames) == SUCCESS)
+		if (GameSystem::getGameSystem()->listDirectory("data/tilesets", tileSetNames) == am::base::SUCCESS)
 		{
 			for (auto iter = tileSetNames.begin(); iter != tileSetNames.end(); ++iter)
 			{
@@ -269,7 +269,7 @@ namespace ui {
 					{
 						path += ".lua";
 					}
-					ReturnCode result = map->saveMap(path.c_str());
+					am::base::ReturnCode result = map->saveMap(path.c_str());
 					am_log("SAVE", getErrorMessage(result));
 				}
 				//am_log("SAVE", mSaveFileDialog->getFilename());
@@ -449,7 +449,7 @@ namespace ui {
 
 	void EditorHud::TileListItem::onEvent(MouseEvent *e)
 	{
-		Handle<Event> clickEvent;
+		am::base::Handle<Event> clickEvent;
 		switch (e->getMouseEventType())
 		{
 		default:

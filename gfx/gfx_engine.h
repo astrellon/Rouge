@@ -7,7 +7,6 @@ using namespace std;
 
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <util/colour.h>
 #include <util/idefinition_manager.h>
@@ -26,9 +25,9 @@ namespace gfx {
 	class Sprite;
 	class Layer;
 
-	typedef map<string, Handle<Asset> > AssetMap;
-	typedef map<string, Handle<Texture> > TextureMap;
-	typedef map<string, Handle<Font> > FontMap;
+	typedef map<string, am::base::Handle<Asset> > AssetMap;
+	typedef map<string, am::base::Handle<Texture> > TextureMap;
+	typedef map<string, am::base::Handle<Font> > FontMap;
 
 	class GfxEngine : public IDefinitionManager {
 	public:
@@ -41,7 +40,7 @@ namespace gfx {
 		void addAsset(Asset *asset);
 		Asset *getAsset(const char *name);
 
-		ReturnCode getTexture(const char *textureName, Texture *&texture);
+		am::base::ReturnCode getTexture(const char *textureName, Texture *&texture);
 		int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
@@ -100,19 +99,19 @@ namespace gfx {
 		float mCameraX;
 		float mCameraY;
 
-		Handle<Renderable> mCursor;
-		Handle<Renderable> mDefaultCursor;
+		am::base::Handle<Renderable> mCursor;
+		am::base::Handle<Renderable> mDefaultCursor;
 		bool mHideCursor;
 
 		AssetMap mAssetManager;
 		TextureMap mTextureManager;
 		FontMap mFontManager;
 
-		Handle<Layer> mRootLayer;
-		Handle<Layer> mGameLayer;
-		Handle<Layer> mUILayer;
-		Handle<Layer> mTooltipLayer;
-		Handle<Layer> mDebugLayer;
+		am::base::Handle<Layer> mRootLayer;
+		am::base::Handle<Layer> mGameLayer;
+		am::base::Handle<Layer> mUILayer;
+		am::base::Handle<Layer> mTooltipLayer;
+		am::base::Handle<Layer> mDebugLayer;
 
 		vector<Colour> mColourStack;
 

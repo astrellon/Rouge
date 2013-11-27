@@ -59,7 +59,7 @@ namespace sys {
 		virtual bool isDirectory(const char *folderName) = 0;
 		virtual bool isFile(const char *filename) = 0;
 		virtual bool createDirectory(const char *folderName) = 0;
-		virtual base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result) = 0;
+		virtual am::base::ReturnCode listDirectory(const char *folderName, FolderEntryList &result) = 0;
 
 	};
 

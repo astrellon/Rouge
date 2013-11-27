@@ -20,7 +20,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	Handle<Tile> Tile::sDefaultTile;
+	am::base::Handle<Tile> Tile::sDefaultTile;
 
 	const int Tile::LUA_ID = LUA_ID_TILE;
 	const char *Tile::LUA_TABLENAME = LUA_TABLE_TILE;

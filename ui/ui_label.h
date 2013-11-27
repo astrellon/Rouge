@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -41,7 +40,7 @@ namespace ui {
 
 	protected:
 
-		Handle<TextField> mLabel;
+		am::base::Handle<TextField> mLabel;
 	};
 
 }

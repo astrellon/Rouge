@@ -2,7 +2,6 @@
 
 #include <base/handle.h>
 #include <base/return_codes.h>
-using namespace am::base;
 
 #include <string>
 #include <vector>
@@ -33,7 +32,7 @@ namespace game {
 	class Character : public GameObject, public Levelable {
 	public:
 
-		typedef vector< Handle<IAction> > ActionQueue;
+		typedef vector< am::base::Handle<IAction> > ActionQueue;
 		Character();
 		Character(const Character &copy);
 		~Character();
@@ -92,7 +91,7 @@ namespace game {
 		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.
 		 *  NOT_ENOUGH_BODY_PARTS: For items that require multiple body parts to equip, there were not enough parts (available or not).
 		 */
-		virtual ReturnCode canEquipItem(Item *item, const char *partName) const;
+		virtual am::base::ReturnCode canEquipItem(Item *item, const char *partName) const;
 
 		/**
 		 * Returns if the item can be equipped onto the given body part.
@@ -110,23 +109,23 @@ namespace game {
 		 *  INTERNAL_ERROR: There was an error getting the list of linked body parts.
 		 *  NOT_ENOUGH_BODY_PARTS: For items that require multiple body parts to equip, there were not enough parts (available or not).
 		 */
-		virtual ReturnCode canEquipItem(Item *item, BodyPart *part) const;
+		virtual am::base::ReturnCode canEquipItem(Item *item, BodyPart *part) const;
 		virtual Item *getEquipped(const char *bodyPart) const;
 		
 		virtual Inventory *getInventory();
 
-		virtual ReturnCode pickupItem(Item *item);
+		virtual am::base::ReturnCode pickupItem(Item *item);
 		virtual bool addItem(Item *item);
 		virtual bool removeItem(Item *item);
 		virtual bool hasItem(const Item *item) const;
-		virtual ReturnCode dropItem(Item *item);
-		virtual ReturnCode dropItem(Item *item, float x, float y);
+		virtual am::base::ReturnCode dropItem(Item *item);
+		virtual am::base::ReturnCode dropItem(Item *item, float x, float y);
 		virtual bool canReachGameObject(const GameObject *obj) const;
 		virtual bool canReachLocation(float x, float y) const;
 
 		virtual bool interactWith(GameObject *interacter, bool byMovement);
 
-		virtual ReturnCode attack(GameObject *enemy, Item *withItem);
+		virtual am::base::ReturnCode attack(GameObject *enemy, Item *withItem);
 		virtual void receiveDamage(float damage);
 		
 		virtual const char *getGameObjectTypeName() const;
@@ -177,7 +176,7 @@ namespace game {
 
 	protected:
 
-		Handle<IController> mController;
+		am::base::Handle<IController> mController;
 
 		float mPickupReach;
 
@@ -185,21 +184,21 @@ namespace game {
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
-		Handle<Sprite> mGraphic;
-		Handle<Sprite> mDeadGraphic;
-		Handle<Layer> mCharacterLayer;
-		Handle<Layer> mForeground;
-		Handle<Layer> mBackground;
+		am::base::Handle<Sprite> mGraphic;
+		am::base::Handle<Sprite> mDeadGraphic;
+		am::base::Handle<Layer> mCharacterLayer;
+		am::base::Handle<Layer> mForeground;
+		am::base::Handle<Layer> mBackground;
 
-		Handle<Inventory> mInventory;
-		Handle<CoinPurse> mCoinPurse;
+		am::base::Handle<Inventory> mInventory;
+		am::base::Handle<CoinPurse> mCoinPurse;
 
 		ActionQueue mActions;
 
-		Handle<Stats> mStats;
+		am::base::Handle<Stats> mStats;
 
 		float mAge;
-		Handle<Race> mRace;
+		am::base::Handle<Race> mRace;
 		Gender::GenderType mGender;
 
 		NodePath mDestinationPath;

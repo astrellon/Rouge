@@ -4,7 +4,6 @@
 using namespace am::ui;
 
 #include <base/handle.h>
-using namespace am::base;
 
 
 #include "character.h"
@@ -30,8 +29,8 @@ namespace game {
 		bool mRunning;
 		bool mRemoved;
 		bool mAttached;
-		Handle<Character> mCharacter;
-		Handle<IAction> mAction;
+		am::base::Handle<Character> mCharacter;
+		am::base::Handle<IAction> mAction;
 
 		void move(int dx, int dy);
 		void wait(float dt);

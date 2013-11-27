@@ -70,7 +70,7 @@ namespace gfx {
 	protected:
 
 		string mText;
-		Handle<Font> mFont;
+		am::base::Handle<Font> mFont;
 
 		float mMeasuredWidth;
 		float mMeasuredHeight;

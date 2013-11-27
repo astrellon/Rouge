@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "game_object.h"
 
@@ -27,7 +26,7 @@ namespace game {
 
 	protected:
 
-		Handle<GameObject> mFollowing;
+		am::base::Handle<GameObject> mFollowing;
 		float mDestinationX;
 		float mDestinationY;
 

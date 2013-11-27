@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include "item.h"
 
@@ -36,7 +35,7 @@ namespace game {
 		static const char *LUA_TABLENAME;
 
 	protected:
-		Handle<Item> mItem;
+		am::base::Handle<Item> mItem;
 		unsigned short mX, mY;
 
 	};

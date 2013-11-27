@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -50,10 +49,10 @@ namespace ui {
 
 	protected:
 
-		Handle<TextField2> mText;
+		am::base::Handle<TextField2> mText;
 		Dialogue *mDialogue;
-		Handle<GameObject> mTalker;
-		Handle<GameObject> mTalkedTo;
+		am::base::Handle<GameObject> mTalker;
+		am::base::Handle<GameObject> mTalkedTo;
 
 		void updateText();
 	};

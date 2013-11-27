@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <game/tile.h>
 using namespace am::game;
@@ -55,10 +54,10 @@ namespace ui {
 			virtual Tile *getTile() const;
 			
 		protected:
-			Handle<Tile> mTile;
-			Handle<Sprite> mGraphic;
-			Handle<Label> mText;
-			Handle<Renderable> mHitbox;
+			am::base::Handle<Tile> mTile;
+			am::base::Handle<Sprite> mGraphic;
+			am::base::Handle<Label> mText;
+			am::base::Handle<Renderable> mHitbox;
 			ui::Mouse::EventType mMouseType;
 
 			void preRender(float dt);
@@ -66,22 +65,22 @@ namespace ui {
 
 		bool mMouseDown;
 
-		Handle<Game> mGame;
-		Handle<Sprite> mSideSprite;
-		Handle<TextInput> mMapName;
-		Handle<TextInput> mMapFullName;
-		Handle<TextInput> mMapWidth;
-		Handle<TextInput> mMapHeight;
-		Handle<TextButton> mMakeMap;
-		Handle<TextButton> mLoadMap;
-		Handle<TextButton> mSaveMap;
-		Handle<Label> mStatus;
-		Handle<List> mTiles;
+		am::base::Handle<Game> mGame;
+		am::base::Handle<Sprite> mSideSprite;
+		am::base::Handle<TextInput> mMapName;
+		am::base::Handle<TextInput> mMapFullName;
+		am::base::Handle<TextInput> mMapWidth;
+		am::base::Handle<TextInput> mMapHeight;
+		am::base::Handle<TextButton> mMakeMap;
+		am::base::Handle<TextButton> mLoadMap;
+		am::base::Handle<TextButton> mSaveMap;
+		am::base::Handle<Label> mStatus;
+		am::base::Handle<List> mTiles;
 
-		Handle<FileDialog> mLoadFileDialog;
-		Handle<FileDialog> mSaveFileDialog;
+		am::base::Handle<FileDialog> mLoadFileDialog;
+		am::base::Handle<FileDialog> mSaveFileDialog;
 
-		Handle<Tile> mCurrentTile;
+		am::base::Handle<Tile> mCurrentTile;
 
 		void updateStatus();
 		void setTile(float mouseX, float mouseY, Tile *tile);

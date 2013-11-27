@@ -53,7 +53,7 @@ namespace gfx {
 
 	void TileRenderer::setMap(Map *map)
 	{
-		Handle<Map> oldMap(mMap);
+		am::base::Handle<Map> oldMap(mMap);
 		if (mMap)
 		{
 			mMap->release();

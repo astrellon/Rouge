@@ -1,7 +1,6 @@
 #pragma once
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_sprite.h>
@@ -67,10 +66,10 @@ namespace gfx {
 		float mDisplayDelay;
 		float mDetailedDisplayDelay;
 
-		Handle<const Renderable> mTarget;
-		Handle<Sprite> mGraphic;
-		Handle<Renderable> mTooltipGraphic;
-		Handle<Renderable> mTooltipDetailedGraphic;
+		am::base::Handle<const Renderable> mTarget;
+		am::base::Handle<Sprite> mGraphic;
+		am::base::Handle<Renderable> mTooltipGraphic;
+		am::base::Handle<Renderable> mTooltipDetailedGraphic;
 
 		virtual void setDetailed(bool detailed);
 	};

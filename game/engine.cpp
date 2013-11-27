@@ -175,7 +175,7 @@ namespace game {
 
 		if (useSpecificTileSet)
 		{
-			Handle<TileSet> tileSet = mTopLevelTileSet;
+			am::base::Handle<TileSet> tileSet = mTopLevelTileSet;
 			if (tileSetStr.size() > 0)
 			{
 				tileSet = getTileSet(tileSetStr.c_str());

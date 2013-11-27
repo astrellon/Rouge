@@ -6,7 +6,6 @@
 using namespace am::game;
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <gfx/gfx_text_field2.h>
 using namespace am::gfx;
@@ -46,10 +45,10 @@ namespace ui {
 
 		TileInstance *mTileInstance;
 		
-		typedef vector< Handle<GameObject> > GameObjectList;
+		typedef vector< am::base::Handle<GameObject> > GameObjectList;
 		GameObjectList mGameObjects;
 
-		Handle<TextField2> mInfo;
+		am::base::Handle<TextField2> mInfo;
 
 		bool mInspectObject;
 		bool mTextDirty;

@@ -90,7 +90,7 @@ namespace game {
 	}
 	void BodyPartType::deserialiseTypeList(data::IData *data, BodyPartType::TypeList &result)
 	{
-		Handle<data::Table> typeList(data::Table::checkDataType(data, "body part type list"));
+		am::base::Handle<data::Table> typeList(data::Table::checkDataType(data, "body part type list"));
 		if (!typeList)
 		{
 			return;

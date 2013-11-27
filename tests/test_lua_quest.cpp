@@ -3,7 +3,6 @@
 #include <tests/asserts.h>
 
 #include <base/handle.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -40,10 +39,10 @@ namespace tests {
 		Engine *eng = new Engine();
 		Engine::setEngine(eng);
 
-		Handle<Game> game(new Game(eng));
+		am::base::Handle<Game> game(new Game(eng));
 		eng->setCurrentGame(game);
 
-		Handle<Character> main(new Character());
+		am::base::Handle<Character> main(new Character());
 		main->setGameId("testMainChar");
 		game->setMainCharacter(main);
 
@@ -84,7 +83,7 @@ namespace tests {
 		am_equals(0, main->getLevel());
 		am_equals(0, main->getCoinPurse()->getCoin());
 
-		Handle<Event> startEvent(new Event("talk"));
+		am::base::Handle<Event> startEvent(new Event("talk"));
 		main->fireEvent<Event>(startEvent);
 		main->fireEvent<Event>(startEvent);
 

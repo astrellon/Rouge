@@ -6,7 +6,6 @@ using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -22,11 +21,11 @@ namespace gfx {
 
 	class Texture;
 
-	class Asset : public IManaged, public IDefinition {
+	class Asset : public am::base::IManaged, public IDefinition {
 	public:
 
 		typedef vector<TextureWindow> AnimationWindows;
-		typedef vector< Handle<Texture> > TextureList;
+		typedef vector< am::base::Handle<Texture> > TextureList;
 		
 		// GlAsset methods
 		Asset(const char *name);

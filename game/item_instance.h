@@ -2,7 +2,6 @@
 
 #include <base/handle.h>
 #include <base/imanaged.h>
-using namespace am::base;
 
 #include <string>
 using namespace std;
@@ -12,7 +11,7 @@ using namespace std;
 namespace am {
 namespace game {
 
-	class ItemInstance : public IManaged {
+	class ItemInstance : public am::base::IManaged {
 	public:
 		ItemInstance();
 		ItemInstance(Item *item);
@@ -29,7 +28,7 @@ namespace game {
 
 	protected:
 		
-		Handle<Item> mItem;
+		am::base::Handle<Item> mItem;
 		
 		short mInventoryPosX;
 		short mInventoryPosY;

@@ -80,7 +80,7 @@ namespace win {
 		virtual bool isDirectory(const char *folderName);
 		virtual bool isFile(const char *filename);
 		virtual bool createDirectory(const char *folderName);
-		virtual base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
+		virtual am::base::ReturnCode listDirectory(const char *folderName, ISystem::FolderEntryList &result);
 
 		void setHInstance(HINSTANCE hInstance);
 		HINSTANCE getHInstance();
@@ -107,7 +107,7 @@ namespace win {
 
 	typedef struct {									// Contains Information Vital To A Window
 		//Keys*				keys;						// Key Structure
-		HWND				hWnd;						// Window Handle
+		HWND				hWnd;						// Window am::base::Handle
 		HDC					hDC;						// Device Context
 		HGLRC				hRC;						// Rendering Context
 		GL_WindowInit		init;						// Window Init

@@ -196,7 +196,7 @@ namespace game {
 
 		for (auto iter = mMapsToLoad.begin(); iter != mMapsToLoad.end(); ++iter)
 		{
-			Handle<Map> map(game->getMapLua(iter->first));
+			am::base::Handle<Map> map(game->getMapLua(iter->first));
 			if (!map)
 			{
 				stringstream ss;

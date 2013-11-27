@@ -68,7 +68,7 @@ namespace ui {
 		if (selected != mSelected)
 		{
 			mSelected = selected;
-			Handle<ValueChangeEvent> e(new ValueChangeEvent(this, selected));
+			am::base::Handle<ValueChangeEvent> e(new ValueChangeEvent(this, selected));
 			fireEvent<ValueChangeEvent>(e);
 		}
 	}
