@@ -29,8 +29,8 @@ namespace ui {
 		mText->setBaseFont("default:arial");
 		setName("Text Input");
 
-		mText->addEventListener(MouseEventType::MOUSE_DOWN, this);
-		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
+		mText->addEventListener(Mouse::MOUSE_DOWN, this);
+		MouseManager::getManager()->addEventListener(Mouse::MOUSE_DOWN, this);
 	}
 	TextInput::TextInput(const TextInput &copy) :
 		UIComponent(copy),
@@ -40,13 +40,13 @@ namespace ui {
 		mRestriction(copy.mRestriction)
 	{
 		mText = dynamic_cast<TextField *>(mChildren[0].get());
-		mText->addEventListener(MouseEventType::MOUSE_DOWN, this);
-		MouseManager::getManager()->addEventListener(MouseEventType::MOUSE_DOWN, this);
+		mText->addEventListener(Mouse::MOUSE_DOWN, this);
+		MouseManager::getManager()->addEventListener(Mouse::MOUSE_DOWN, this);
 	}
 	TextInput::~TextInput()
 	{
-		mText->removeEventListener(MouseEventType::MOUSE_DOWN, this);
-		MouseManager::getManager()->removeEventListener(MouseEventType::MOUSE_DOWN, this);
+		mText->removeEventListener(Mouse::MOUSE_DOWN, this);
+		MouseManager::getManager()->removeEventListener(Mouse::MOUSE_DOWN, this);
 	}
 
 	Renderable *TextInput::clone() const
@@ -340,11 +340,11 @@ namespace ui {
 		{
 			if (!focus)
 			{
-				KeyboardManager::getManager()->removeEventListener(KEY_PRESS, this);
+				KeyboardManager::getManager()->removeEventListener(Keyboard::KEY_PRESS, this);
 			}
 			else
 			{
-				KeyboardManager::getManager()->addEventListener(KEY_PRESS, this);
+				KeyboardManager::getManager()->addEventListener(Keyboard::KEY_PRESS, this);
 			}
 			mFocus = focus;
 			mText->setBlinkedEnabled(mFocus);

@@ -143,7 +143,7 @@ namespace sys {
 		float fheight = static_cast<float>(height);
 	}
 
-	void UnitTestSystem::onKeyUp(Key key)
+	void UnitTestSystem::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		GameSystem::onKeyUp(key);
 	}

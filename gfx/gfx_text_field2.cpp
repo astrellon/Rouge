@@ -236,7 +236,7 @@ namespace gfx {
 				mTextHitboxes->addChild(hitbox.get());
 				hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
 				hitbox->setHeight(mFont->getCharHeight());
-				hitbox->addEventListener(MOUSE_UP, this);
+				hitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 				list.push_back(hitbox);
 			}
 			TextStyle currentStyle = mCurrentNode->getTextStyle();
@@ -352,7 +352,7 @@ namespace gfx {
 			hitbox->setWidth(0);
 			hitbox->setHeight(mFont->getCharHeight());
 			hitbox->setPosition(mCurrXpos, mCurrYpos - mTextHitboxes->getPositionY());
-			hitbox->addEventListener(MOUSE_UP, this);
+			hitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 			mCurrentNode->getHitboxes().push_back(hitbox);
 		}
 	}

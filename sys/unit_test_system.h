@@ -37,7 +37,7 @@ namespace sys {
 		virtual void init();
 		virtual void reshape(int width, int height);
 
-		virtual void onKeyUp(Key key);
+		virtual void onKeyUp(am::ui::Keyboard::Key key);
 
 		static UnitTestSystem *createUnitTestSystem(OsSystem *linked, Engine *engine);
 		static UnitTestSystem *getUnitTestSystem();

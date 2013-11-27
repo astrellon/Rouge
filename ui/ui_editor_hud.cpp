@@ -34,7 +34,7 @@ namespace ui {
 	{
 		setName("EditorHud");
 		mSideSprite = new Sprite("editor:side_bar");
-		mSideSprite->addEventListener(MOUSE_DOWN, this);
+		mSideSprite->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
 		addChild(mSideSprite);
 
 		float y = 20.0f;
@@ -113,17 +113,18 @@ namespace ui {
 		addChild(mSaveFileDialog);
 
 		MouseManager *manager = MouseManager::getManager();
-		manager->addEventListener(MOUSE_DOWN, this);
-		manager->addEventListener(MOUSE_MOVE, this);
-		manager->addEventListener(MOUSE_UP, this);
-		KeyboardManager::getManager()->addEventListener(KEY_UP, this);
+		manager->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		manager->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		manager->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		KeyboardManager::getManager()->addEventListener(am::ui::Keyboard::KEY_UP, this);
 	}
 	EditorHud::~EditorHud()
 	{
 		MouseManager *manager = MouseManager::getManager();
-		manager->removeEventListener(MOUSE_DOWN, this);
-		manager->removeEventListener(MOUSE_MOVE, this);
-		manager->removeEventListener(MOUSE_UP, this);
+		manager->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		manager->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		manager->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		KeyboardManager::getManager()->removeEventListener(am::ui::Keyboard::KEY_UP, this);
 
 		mTiles->removeEventListener("list_change", this);
 
@@ -283,17 +284,17 @@ namespace ui {
 			return;
 		}
 
-		if (e->getEventTarget() == mSideSprite && e->getMouseEventType() == MOUSE_DOWN)
+		if (e->getEventTarget() == mSideSprite && e->getMouseEventType() == am::ui::Mouse::MOUSE_DOWN)
 		{
 			return;
 		}
 
 		MouseManager *manager = MouseManager::getManager();
-		if (e->getMouseEventType() == MOUSE_DOWN)
+		if (e->getMouseEventType() == am::ui::Mouse::MOUSE_DOWN)
 		{
 			manager->setDragOffset(e->getMouseX(), e->getMouseY());
 
-			if (manager->getButtonDown(LEFT_BUTTON))
+			if (manager->getButtonDown(am::ui::Mouse::LEFT_BUTTON))
 			{
 				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
 			}
@@ -302,12 +303,12 @@ namespace ui {
 			return;
 		}
 
-		if (e->getMouseEventType() == MOUSE_MOVE)
+		if (e->getMouseEventType() == am::ui::Mouse::MOUSE_MOVE)
 		{
 			updateStatus();
 			if (mMouseDown)
 			{
-				if (manager->getButtonDown(MIDDLE_BUTTON))
+				if (manager->getButtonDown(am::ui::Mouse::MIDDLE_BUTTON))
 				{
 					float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
 					float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
@@ -317,14 +318,14 @@ namespace ui {
 					float posY = camera->getDestinationY() - dy;
 					mGame->getCamera()->setDestination(posX, posY);
 				}
-				else if (manager->getButtonDown(LEFT_BUTTON))
+				else if (manager->getButtonDown(am::ui::Mouse::LEFT_BUTTON))
 				{
 					setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
 				}
 				manager->setDragOffset(e->getMouseX(), e->getMouseY());
 			}
 		}
-		if (e->getMouseEventType() == MOUSE_UP)
+		if (e->getMouseEventType() == am::ui::Mouse::MOUSE_UP)
 		{
 			mMouseDown = false;
 		}
@@ -370,7 +371,7 @@ namespace ui {
 		ListItem(),
 		mTile(tile),
 		mHitbox(new Renderable()),
-		mMouseType(ui::MOUSE_OUT)
+		mMouseType(am::ui::Mouse::MOUSE_OUT)
 	{
 		setInteractive(true);
 
@@ -384,19 +385,19 @@ namespace ui {
 		mHitbox->setInteractive(true);
 		addChild(mHitbox);
 
-		mHitbox->addEventListener(MOUSE_DOWN, this);
-		mHitbox->addEventListener(MOUSE_MOVE, this);
-		mHitbox->addEventListener(MOUSE_UP, this);
-		mHitbox->addEventListener(MOUSE_OUT, this);
-		mHitbox->addEventListener(MOUSE_OVER, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OVER, this);
 	}
 	EditorHud::TileListItem::~TileListItem()
 	{
-		mHitbox->removeEventListener(MOUSE_DOWN, this);
-		mHitbox->removeEventListener(MOUSE_MOVE, this);
-		mHitbox->removeEventListener(MOUSE_UP, this);
-		mHitbox->removeEventListener(MOUSE_OUT, this);
-		mHitbox->removeEventListener(MOUSE_OVER, this);
+		mHitbox->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		mHitbox->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		mHitbox->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mHitbox->removeEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		mHitbox->removeEventListener(am::ui::Mouse::MOUSE_OVER, this);
 	}
 
 	float EditorHud::TileListItem::getHeight()
@@ -408,12 +409,12 @@ namespace ui {
 	{
 		ListItem::preRender(dt);
 
-		bool mouseDown = MouseManager::getManager()->getButtonDown(LEFT_BUTTON);
+		bool mouseDown = MouseManager::getManager()->getButtonDown(am::ui::Mouse::LEFT_BUTTON);
 
 		bool renderBack = false;
 		switch (mMouseType)
 		{
-		case ui::MOUSE_MOVE:
+		case am::ui::Mouse::MOUSE_MOVE:
 			if (mouseDown)
 			{
 				glColor4f(0.9f, 0.9f, 0.9f, 0.7f);
@@ -424,11 +425,11 @@ namespace ui {
 			}
 			renderBack = true;
 			break;
-		case ui::MOUSE_OVER:
+		case am::ui::Mouse::MOUSE_OVER:
 			glColor4f(0.9f, 0.9f, 0.9f, 0.7f);
 			renderBack = true;
 			break;
-		case ui::MOUSE_DOWN:
+		case am::ui::Mouse::MOUSE_DOWN:
 			glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
 			renderBack = true;
 			break;
@@ -452,20 +453,20 @@ namespace ui {
 		switch (e->getMouseEventType())
 		{
 		default:
-		case ui::MOUSE_OUT:
-			mMouseType = ui::MOUSE_OUT;
+		case am::ui::Mouse::MOUSE_OUT:
+			mMouseType = am::ui::Mouse::MOUSE_OUT;
 			break;
-		case ui::MOUSE_MOVE:
-			mMouseType = ui::MOUSE_MOVE;
+		case am::ui::Mouse::MOUSE_MOVE:
+			mMouseType = am::ui::Mouse::MOUSE_MOVE;
 			break;
-		case ui::MOUSE_UP:
+		case am::ui::Mouse::MOUSE_UP:
 			clickEvent = new Event("click", this);
 			fireEvent(clickEvent.get());
-		case ui::MOUSE_OVER:
-			mMouseType = ui::MOUSE_OVER;
+		case am::ui::Mouse::MOUSE_OVER:
+			mMouseType = am::ui::Mouse::MOUSE_OVER;
 			break;
-		case ui::MOUSE_DOWN:
-			mMouseType = ui::MOUSE_DOWN;
+		case am::ui::Mouse::MOUSE_DOWN:
+			mMouseType = am::ui::Mouse::MOUSE_DOWN;
 			break;
 		}
 	}

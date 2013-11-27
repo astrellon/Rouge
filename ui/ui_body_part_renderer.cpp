@@ -36,11 +36,11 @@ namespace ui {
 
 		setMaxItemSize(width, height);
 
-		addEventListener(MOUSE_UP, this);
+		addEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 	BodyPartRenderer::~BodyPartRenderer()
 	{
-		removeEventListener(MOUSE_UP, this);
+		removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 		setCharacter(nullptr);
 	}
 
@@ -69,12 +69,12 @@ namespace ui {
 			Handle<Item> prevEquipped = mCurrentItem;
 			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
-				if (e->getMouseButton() == LEFT_BUTTON)
+				if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
 				{
 					mCharacter->unequipItem(mBodyPartName.c_str());
 					removeChild(mCurrentItem);
 				}
-				else if (e->getMouseButton() == RIGHT_BUTTON)
+				else if (e->getMouseButton() == am::ui::Mouse::RIGHT_BUTTON)
 				{
 					Engine::getEngine()->getGameHud()->getInspector()->setInspectObject(prevEquipped);
 					return;

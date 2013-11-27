@@ -33,13 +33,13 @@ namespace ui {
 		// IEventListener methods
 		bool addEventListener(const char *type, IEventListener *context);
 		bool addEventListener(const string &type, IEventListener *context);
-		bool addEventListener(MouseEventType type, IEventListener *context);
-		bool addEventListener(KeyboardEventType type, IEventListener *context);
+		bool addEventListener(Mouse::EventType type, IEventListener *context);
+		bool addEventListener(Keyboard::EventType type, IEventListener *context);
 		
 		bool removeEventListener(const char *type, IEventListener *context);
 		bool removeEventListener(const string &type, IEventListener *context);
-		bool removeEventListener(MouseEventType type, IEventListener *context);
-		bool removeEventListener(KeyboardEventType type, IEventListener *context);
+		bool removeEventListener(Mouse::EventType type, IEventListener *context);
+		bool removeEventListener(Keyboard::EventType type, IEventListener *context);
 		void removeEventListener(IEventListener *context);
 
 		bool hasEventListener(const char *type);

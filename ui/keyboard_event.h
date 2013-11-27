@@ -8,17 +8,17 @@ namespace ui {
 
 	class KeyboardEvent : public Event {
 	public:
-		KeyboardEvent(KeyboardEventType type, int key, bool systemKey);
+		KeyboardEvent(Keyboard::EventType type, int key, bool systemKey);
 		~KeyboardEvent();
 
 		int getKey() const;
 		bool isSystemKey() const;
 
-		KeyboardEventType getKeyboardEventType() const;
+		Keyboard::EventType getKeyboardEventType() const;
 
 	protected:
 
-		KeyboardEventType mKeyboardEventType;
+		Keyboard::EventType mKeyboardEventType;
 		int mKey;
 		bool mSystemKey;
 	};

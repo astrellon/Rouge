@@ -31,13 +31,13 @@ namespace ui {
 		}
 		return false;
 	}
-	bool EventManager::addEventListener(MouseEventType type, IEventListener *context)
+	bool EventManager::addEventListener(am::ui::Mouse::EventType type, IEventListener *context)
 	{
-		return addEventListener(MouseEventTypeNames[type], context);
+		return addEventListener(am::ui::Mouse::EventTypeNames[type], context);
 	}
-	bool EventManager::addEventListener(KeyboardEventType type, IEventListener *context)
+	bool EventManager::addEventListener(am::ui::Keyboard::EventType type, IEventListener *context)
 	{
-		return addEventListener(KeyboardEventTypeNames[type], context);
+		return addEventListener(am::ui::Keyboard::EventTypeNames[type], context);
 	}
 
 	bool EventManager::removeEventListener(const char *type, IEventListener *context)
@@ -58,13 +58,13 @@ namespace ui {
 		}
 		return false;
 	}
-	bool EventManager::removeEventListener(MouseEventType type, IEventListener *context)
+	bool EventManager::removeEventListener(am::ui::Mouse::EventType type, IEventListener *context)
 	{
-		return removeEventListener(MouseEventTypeNames[type], context);
+		return removeEventListener(am::ui::Mouse::EventTypeNames[type], context);
 	}
-	bool EventManager::removeEventListener(KeyboardEventType type, IEventListener *context)
+	bool EventManager::removeEventListener(am::ui::Keyboard::EventType type, IEventListener *context)
 	{
-		return removeEventListener(KeyboardEventTypeNames[type], context);
+		return removeEventListener(am::ui::Keyboard::EventTypeNames[type], context);
 	}
 	void EventManager::removeEventListener(IEventListener *context)
 	{

@@ -11,8 +11,8 @@ namespace ui {
 		KeyboardManager();
 		~KeyboardManager();
 
-		virtual void onKeyDown(Key key);
-		virtual void onKeyUp(Key key);
+		virtual void onKeyDown(Keyboard::Key key);
+		virtual void onKeyUp(Keyboard::Key key);
 		virtual void onKeyPress(char key);
 
 		virtual const bool *getKeysDown() const;

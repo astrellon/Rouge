@@ -27,11 +27,11 @@ namespace ui {
 	{
 		addChild(mHitbox);
 		mHitbox->setInteractive(true);
-		addEventListener(MOUSE_UP, this);
+		addEventListener(Mouse::MOUSE_UP, this);
 	}
 	InventoryRenderer::~InventoryRenderer()
 	{
-		removeEventListener(MOUSE_UP, this);
+		removeEventListener(Mouse::MOUSE_UP, this);
 	}
 
 	float InventoryRenderer::getWidth()
@@ -82,9 +82,9 @@ namespace ui {
 
 			if (item != nullptr && hand->getInhand() == nullptr)
 			{
-				if (e->getMouseEventType() == MOUSE_UP)
+				if (e->getMouseEventType() == Mouse::MOUSE_UP)
 				{
-					if (e->getMouseButton() == LEFT_BUTTON)
+					if (e->getMouseButton() == Mouse::LEFT_BUTTON)
 					{
 						if (hand->getInhand() == nullptr && mInventory->removeItem(item))
 						{
@@ -92,7 +92,7 @@ namespace ui {
 							item->setItemLocation(Item::HAND);
 						}
 					}
-					else if (e->getMouseButton() == RIGHT_BUTTON)
+					else if (e->getMouseButton() == Mouse::RIGHT_BUTTON)
 					{
 						Engine::getEngine()->getGameHud()->getInspector()->setInspectObject(item);
 					}

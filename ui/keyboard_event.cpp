@@ -5,13 +5,13 @@
 namespace am {
 namespace ui {
 
-	KeyboardEvent::KeyboardEvent(KeyboardEventType type, int key, bool systemKey) :
+	KeyboardEvent::KeyboardEvent(Keyboard::EventType type, int key, bool systemKey) :
 		Event(),
 		mKeyboardEventType(type),
 		mKey(key),
 		mSystemKey(systemKey)
 	{
-		setType(KeyboardEventTypeNames[type]);
+		setType(Keyboard::EventTypeNames[type]);
 	}
 	KeyboardEvent::~KeyboardEvent()
 	{
@@ -26,7 +26,7 @@ namespace ui {
 		return mSystemKey;
 	}
 
-	KeyboardEventType KeyboardEvent::getKeyboardEventType() const
+	Keyboard::EventType KeyboardEvent::getKeyboardEventType() const
 	{
 		return mKeyboardEventType;
 	}

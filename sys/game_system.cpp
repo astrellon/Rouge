@@ -181,46 +181,46 @@ namespace sys {
 		DebugInspector::setInspector(nullptr);
 
 		MouseManager *manager = MouseManager::getManager();
-		manager->removeEventListener(MOUSE_OVER, this);
-		manager->removeEventListener(MOUSE_OUT, this);
+		manager->removeEventListener(am::ui::Mouse::MOUSE_OVER, this);
+		manager->removeEventListener(am::ui::Mouse::MOUSE_OUT, this);
 	}
 
-	void GameSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
+	void GameSystem::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
-	void GameSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
+	void GameSystem::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseMove(mouseButton, x, y);
 	}
-	void GameSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
+	void GameSystem::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
-	void GameSystem::onKeyDown(Key key)
+	void GameSystem::onKeyDown(am::ui::Keyboard::Key key)
 	{
 		// 192 Currently is `
-		if (key == am::ui::KEY_BACKTICK)
+		if (key == am::ui::Keyboard::KEY_BACKTICK)
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
 			mDebugInspector->setVisible(!mDebugInspector->isVisible());
 		}
 		// Page Up
-		else if (key == KEY_PAGEUP)
+		else if (key == am::ui::Keyboard::KEY_PAGEUP)
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() - 1);
 		}
 		// Page Down
-		else if (key == KEY_PAGEDOWN)
+		else if (key == am::ui::Keyboard::KEY_PAGEDOWN)
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
 		}
 		KeyboardManager::getManager()->onKeyDown(key);
 	}
-	void GameSystem::onKeyUp(Key key)
+	void GameSystem::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		KeyboardManager::getManager()->onKeyUp(key);
 	}

@@ -22,22 +22,22 @@ namespace ui {
 	{
 	}
 
-	void KeyboardManager::onKeyDown(Key key)
+	void KeyboardManager::onKeyDown(am::ui::Keyboard::Key key)
 	{
 		mKeys[key] = true;
 		mKeysPressed[key] = true;
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_DOWN, key, true));
+		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_DOWN, key, true));
 		fireEvent<KeyboardEvent>(e);
 	}
-	void KeyboardManager::onKeyUp(Key key)
+	void KeyboardManager::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		mKeys[key] = false;
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_UP, key, true));
+		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_UP, key, true));
 		fireEvent<KeyboardEvent>(e);
 	}
 	void KeyboardManager::onKeyPress(char key)
 	{
-		Handle<KeyboardEvent> e(new KeyboardEvent(KEY_PRESS, key, false));
+		Handle<KeyboardEvent> e(new KeyboardEvent(am::ui::Keyboard::KEY_PRESS, key, false));
 		fireEvent<KeyboardEvent>(e);
 	}
 

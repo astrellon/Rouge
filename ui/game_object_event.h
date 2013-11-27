@@ -15,11 +15,11 @@ namespace ui {
 
 	class GameObjectEvent : public Event {
 	public:
-		GameObjectEvent(const char *type, GameObject *obj, MouseButton button);
+		GameObjectEvent(const char *type, GameObject *obj, Mouse::Button button);
 		~GameObjectEvent();
 
 		GameObject *getGameObject() const;
-		MouseButton getMouseButton() const;
+		Mouse::Button getMouseButton() const;
 
 		static void setManager(EventInterface *manager);
 		static EventInterface *getManager();
@@ -27,7 +27,7 @@ namespace ui {
 	protected:
 
 		GameObject *mGameObject;
-		MouseButton mMouseButton;
+		Mouse::Button mMouseButton;
 
 		static EventInterface *sManager;
 	};

@@ -121,7 +121,7 @@ namespace game {
 	{
 		if (mGraphic)
 		{
-			mGraphic->removeEventListener(MOUSE_UP, this);
+			mGraphic->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 			removeChild(mGraphic);
 		}
 		mGraphic = graphic;
@@ -133,7 +133,7 @@ namespace game {
 		if (graphic)
 		{
 			graphic->setInteractive(true);
-			graphic->addEventListener(MOUSE_UP, this);
+			graphic->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 			addChild(graphic);
 		}
 		updateGraphic();
@@ -147,7 +147,7 @@ namespace game {
 	{
 		if (mGroundGraphic)
 		{
-			mGroundGraphic->removeEventListener(MOUSE_UP, this);
+			mGroundGraphic->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 			removeChild(mGroundGraphic);
 		}
 		mGroundGraphic = graphic;
@@ -157,7 +157,7 @@ namespace game {
 			addChild(graphic);
 			mCameraOffsetX = graphic->getWidth() * 0.5f;
 			mCameraOffsetY = graphic->getHeight() * 0.5f;
-			graphic->addEventListener(MOUSE_UP, this);
+			graphic->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 		}
 		updateGraphic();
 	}

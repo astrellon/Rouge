@@ -36,11 +36,11 @@ namespace sys {
 		virtual void display(float dt) = 0;
 		virtual void deinit() = 0;
 
-		virtual void onMouseDown(am::ui::MouseButton mouseButton, int x, int y) = 0;
-		virtual void onMouseMove(am::ui::MouseButton mouseButton, int x, int y) = 0;
-		virtual void onMouseUp(am::ui::MouseButton mouseButton, int x, int y) = 0;
-		virtual void onKeyDown(am::ui::Key key) = 0;
-		virtual void onKeyUp(am::ui::Key key) = 0;
+		virtual void onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onKeyDown(am::ui::Keyboard::Key key) = 0;
+		virtual void onKeyUp(am::ui::Keyboard::Key key) = 0;
 		virtual void onKeyPress(char key) = 0;
 
 		virtual bool isProgramRunning() const = 0;

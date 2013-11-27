@@ -31,19 +31,19 @@ namespace tests {
 		target1->setPosition(50, 50);
 
 		TestListener targetListener;
-		target1->addEventListener(MOUSE_DOWN, &targetListener);
+		target1->addEventListener(am::ui::Mouse::MOUSE_DOWN, &targetListener);
 
 		TestListener layerListener;
-		rootLayer->addEventListener(MOUSE_DOWN, &layerListener);
+		rootLayer->addEventListener(am::ui::Mouse::MOUSE_DOWN, &layerListener);
 
 		MouseManager *manager = MouseManager::getManager();
 		manager->setRootLayer(rootLayer);
 
-		manager->onMouseDown(LEFT_BUTTON, 0, 0);
+		manager->onMouseDown(am::ui::Mouse::LEFT_BUTTON, 0, 0);
 		assert(nullptr == targetListener.lastEvent.get());
 		assert(nullptr == layerListener.lastEvent.get());
 
-		manager->onMouseDown(LEFT_BUTTON, 51, 52);
+		manager->onMouseDown(am::ui::Mouse::LEFT_BUTTON, 51, 52);
 		assert(nullptr != targetListener.lastEvent.get());
 		am_equals(1, targetListener.lastEvent->getLocalMouseX());
 		am_equals(2, targetListener.lastEvent->getLocalMouseY());

@@ -124,23 +124,23 @@ namespace freeglut {
 		mGameSystem->deinit();
 	}
 
-	void FreeGlutSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseMove(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onKeyDown(Key key)
+	void FreeGlutSystem::onKeyDown(am::ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyDown(key);
 	}
-	void FreeGlutSystem::onKeyUp(Key key)
+	void FreeGlutSystem::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyUp(key);
 	}
@@ -392,22 +392,22 @@ namespace freeglut {
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(am::ui::Keyboard::KEY_NONE);
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(am::ui::Keyboard::KEY_NONE);
 	}
 	void onGlutMouse(int button, int state, int x, int y)
 	{
-		ui::MouseButton amButton = ui::LEFT_BUTTON;
+		am::ui::Mouse::Button amButton = am::ui::Mouse::LEFT_BUTTON;
 		if (button == GLUT_RIGHT_BUTTON)
 		{
-			amButton = ui::RIGHT_BUTTON;
+			amButton = am::ui::Mouse::RIGHT_BUTTON;
 		}
 		else if (button == GLUT_MIDDLE_BUTTON)
 		{
-			amButton = ui::MIDDLE_BUTTON;
+			amButton = am::ui::Mouse::MIDDLE_BUTTON;
 		}
 		if (state == GLUT_UP)
 		{
@@ -420,7 +420,7 @@ namespace freeglut {
 	}
 	void onGlutMouseMove(int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(ui::LEFT_BUTTON, x, y);
+		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(am::ui::Mouse::LEFT_BUTTON, x, y);
 	}
 
 }

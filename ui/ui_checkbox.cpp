@@ -1,7 +1,7 @@
 #include "ui_checkbox.h"
 
-#include "gfx/gfx_sprite.h"
-#include "gfx/gfx_text_field.h"
+#include <gfx/gfx_sprite.h>
+#include <gfx/gfx_text_field.h>
 
 #include "mouse_manager.h"
 
@@ -91,10 +91,10 @@ namespace ui {
 		switch (e->getMouseEventType())
 		{
 		default:
-		case am::ui::MOUSE_OUT:
+		case am::ui::Mouse::MOUSE_OUT:
 			mCheckGraphic->setCurrentFrame(offset);
 			break;
-		case am::ui::MOUSE_MOVE:
+		case am::ui::Mouse::MOUSE_MOVE:
 			if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 			{
 				mCheckGraphic->setCurrentFrame(offset + 2);
@@ -104,13 +104,13 @@ namespace ui {
 				mCheckGraphic->setCurrentFrame(offset + 1);
 			}
 			break;
-		case am::ui::MOUSE_UP:
+		case am::ui::Mouse::MOUSE_UP:
 			setSelected(!mSelected);
 			offset = mSelected ? 4 : 0;
-		case am::ui::MOUSE_OVER:
+		case am::ui::Mouse::MOUSE_OVER:
 			mCheckGraphic->setCurrentFrame(offset + 1);
 			break;
-		case am::ui::MOUSE_DOWN:
+		case am::ui::Mouse::MOUSE_DOWN:
 			mCheckGraphic->setCurrentFrame(offset + 2);
 			break;
 		}
@@ -134,11 +134,11 @@ namespace ui {
 		mHitbox->getGfxComponent()->getColour().setAlpha(0.0f);
 		addChild(mHitbox.get());
 
-		mHitbox->addEventListener("mouse_over", this);
-		mHitbox->addEventListener("mouse_out", this);
-		mHitbox->addEventListener("mouse_down", this);
-		mHitbox->addEventListener("mouse_up", this);
-		mHitbox->addEventListener("mouse_move", this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OVER, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		mHitbox->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
 
 		mHitbox->setWidth(getWidth());
 		mHitbox->setHeight(getHeight());

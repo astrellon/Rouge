@@ -22,23 +22,23 @@ namespace ui {
 
 		virtual void addEventListener(const char *type, IEventListener *content) = 0;
 		virtual void addEventListener(const string &type, IEventListener *content) = 0;
-		void addEventListener(MouseEventType type, IEventListener *content)
+		void addEventListener(Mouse::EventType type, IEventListener *content)
 		{
-			addEventListener(MouseEventTypeNames[type], content);
+			addEventListener(Mouse::EventTypeNames[type], content);
 		}
-		void addEventListener(KeyboardEventType type, IEventListener *content)
+		void addEventListener(Keyboard::EventType type, IEventListener *content)
 		{
-			addEventListener(KeyboardEventTypeNames[type], content);
+			addEventListener(Keyboard::EventTypeNames[type], content);
 		}
 		virtual void removeEventListener(const char *type, IEventListener *content) = 0;
 		virtual void removeEventListener(const string &type, IEventListener *content) = 0;
-		void removeEventListener(MouseEventType type, IEventListener *content)
+		void removeEventListener(Mouse::EventType type, IEventListener *content)
 		{
-			removeEventListener(MouseEventTypeNames[type], content);
+			removeEventListener(Mouse::EventTypeNames[type], content);
 		}
-		void removeEventListener(KeyboardEventType type, IEventListener *content)
+		void removeEventListener(Keyboard::EventType type, IEventListener *content)
 		{
-			removeEventListener(KeyboardEventTypeNames[type], content);
+			removeEventListener(Keyboard::EventTypeNames[type], content);
 		}
 		virtual bool hasEventListener(const char *type) = 0;
 		virtual bool hasEventListener(const string &type) = 0;

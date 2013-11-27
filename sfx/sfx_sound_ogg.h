@@ -6,7 +6,7 @@ using namespace std;
 
 #include "sfx_isound.h"
 
-#include <al.h>
+#include <AL/al.h>
 #include <sfx/ogg/Vorbis/vorbisfile.h>
 
 namespace am {

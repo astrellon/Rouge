@@ -28,7 +28,7 @@ namespace ui {
 		addChild(mTitle);
 		mTitle->setPosition(9, 7);
 
-		mBack->addEventListener(MOUSE_DOWN, this);
+		mBack->addEventListener(Mouse::MOUSE_DOWN, this);
 
 		setMinWidth(100.0f);
 		setMinHeight(100.0f);
@@ -54,14 +54,14 @@ namespace ui {
 	void Panel::onEvent(MouseEvent *e)
 	{
 		MouseManager *manager = MouseManager::getManager();
-		if (e->getMouseEventType() == MOUSE_DOWN)
+		if (e->getMouseEventType() == Mouse::MOUSE_DOWN)
 		{
 			if (e->getLocalMouseY() < 20)
 			{
 				mDragX = e->getLocalMouseX();
 				mDragY = e->getLocalMouseY();
-				manager->addEventListener(MOUSE_MOVE, this);
-				manager->addEventListener(MOUSE_UP, this);
+				manager->addEventListener(Mouse::MOUSE_MOVE, this);
+				manager->addEventListener(Mouse::MOUSE_UP, this);
 			}
 			else
 			{
@@ -71,15 +71,15 @@ namespace ui {
 					mResizing = true;
 					mDragX = e->getLocalMouseX();
 					mDragY = e->getLocalMouseY();
-					manager->addEventListener(MOUSE_MOVE, this);
-					manager->addEventListener(MOUSE_UP, this);
+					manager->addEventListener(Mouse::MOUSE_MOVE, this);
+					manager->addEventListener(Mouse::MOUSE_UP, this);
 					mStartingWidth = mWidth;
 					mStartingHeight = mHeight;
 				}
 			}
 			e->stopPropagation();
 		}
-		else if (e->getMouseEventType() == MOUSE_MOVE)
+		else if (e->getMouseEventType() == Mouse::MOUSE_MOVE)
 		{
 			float localX = 0.0f;
 			float localY = 0.0f;
@@ -100,10 +100,10 @@ namespace ui {
 				setParentOffset(mParentOffsetX + dx, mParentOffsetY + dy);
 			}
 		}
-		else if (e->getMouseEventType() == MOUSE_UP)
+		else if (e->getMouseEventType() == Mouse::MOUSE_UP)
 		{
-			manager->removeEventListener(MOUSE_MOVE, this);
-			manager->removeEventListener(MOUSE_UP, this);
+			manager->removeEventListener(Mouse::MOUSE_MOVE, this);
+			manager->removeEventListener(Mouse::MOUSE_UP, this);
 			mResizing = false;
 		}
 	}

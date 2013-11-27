@@ -45,10 +45,10 @@ namespace gfx {
 		switch (e->getMouseEventType())
 		{
 		default:
-		case am::ui::MOUSE_OUT:
+		case am::ui::Mouse::MOUSE_OUT:
 			mNodeTarget->setFlag(TextStyleSelector::NONE);
 			break;
-		case am::ui::MOUSE_MOVE:
+		case am::ui::Mouse::MOUSE_MOVE:
 			{
 				TextStyleSelector::Flag flag = TextStyleSelector::HOVER;
 				if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
@@ -58,11 +58,11 @@ namespace gfx {
 				mNodeTarget->setFlag(flag);
 			}
 			break;
-		case am::ui::MOUSE_UP:
-		case am::ui::MOUSE_OVER:
+		case am::ui::Mouse::MOUSE_UP:
+		case am::ui::Mouse::MOUSE_OVER:
 			mNodeTarget->setFlag(TextStyleSelector::HOVER);
 			break;
-		case am::ui::MOUSE_DOWN:
+		case am::ui::Mouse::MOUSE_DOWN:
 			mNodeTarget->setFlag(TextStyleSelector::DOWN);
 			break;
 		}
@@ -87,19 +87,19 @@ namespace gfx {
 
 	void NodeHitbox::addListeners(Renderable *target)
 	{
-		target->addEventListener(MOUSE_DOWN, this);
-		target->addEventListener(MOUSE_MOVE, this);
-		target->addEventListener(MOUSE_UP, this);
-		target->addEventListener(MOUSE_OUT, this);
-		target->addEventListener(MOUSE_OVER, this);
+		target->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		target->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		target->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+		target->addEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		target->addEventListener(am::ui::Mouse::MOUSE_OVER, this);
 	}
 	void NodeHitbox::removeListeners(Renderable *target)
 	{
-		target->removeEventListener(MOUSE_DOWN, this);
-		target->removeEventListener(MOUSE_MOVE, this);
-		target->removeEventListener(MOUSE_UP, this);
-		target->removeEventListener(MOUSE_OUT, this);
-		target->removeEventListener(MOUSE_OVER, this);
+		target->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+		target->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+		target->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+		target->removeEventListener(am::ui::Mouse::MOUSE_OUT, this);
+		target->removeEventListener(am::ui::Mouse::MOUSE_OVER, this);
 	}
 
 }

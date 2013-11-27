@@ -59,7 +59,7 @@ namespace ui {
 			Handle<Sprite> mGraphic;
 			Handle<Label> mText;
 			Handle<Renderable> mHitbox;
-			ui::MouseEventType mMouseType;
+			ui::Mouse::EventType mMouseType;
 
 			void preRender(float dt);
 		};

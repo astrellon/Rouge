@@ -28,7 +28,7 @@ namespace gfx {
 		mBtnDown = new Button(btnDownAsset);
 		mBtnDown->addEventListener("click", this);
 		mBar = new Button(barAsset);
-		mBar->addEventListener(MOUSE_DOWN, this);
+		mBar->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
 
 		mWidth = max(mBtnUp->getWidth(), max(mBtnDown->getWidth(), mBar->getWidth()));
 
@@ -72,14 +72,14 @@ namespace gfx {
 	void Scrollbar::onEvent(MouseEvent *e)
 	{
 		MouseManager *manager = MouseManager::getManager();
-		if (e->getEventTarget() == mBar.get() && e->getMouseEventType() == MOUSE_DOWN)
+		if (e->getEventTarget() == mBar.get() && e->getMouseEventType() == am::ui::Mouse::MOUSE_DOWN)
 		{
 			MouseManager *manager = MouseManager::getManager();
 			manager->setDragOffset(0, e->getLocalMouseY());
-			manager->addEventListener(MOUSE_MOVE, this);
-			manager->addEventListener(MOUSE_UP, this);
+			manager->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+			manager->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 		}
-		if (e->getMouseEventType() == MOUSE_MOVE)
+		if (e->getMouseEventType() == am::ui::Mouse::MOUSE_MOVE)
 		{
 			// We don't care about the mouseX value.
 			float mouseX = 0.0f;
@@ -95,10 +95,10 @@ namespace gfx {
 			float percent = outMouseY / scrollHeight;
 			setValue(static_cast<int>(percent * range));
 		}
-		else if (e->getMouseEventType() == MOUSE_UP)
+		else if (e->getMouseEventType() == am::ui::Mouse::MOUSE_UP)
 		{
-			manager->removeEventListener(MOUSE_MOVE, this);
-			manager->removeEventListener(MOUSE_UP, this);
+			manager->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+			manager->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 		}
 	}
 

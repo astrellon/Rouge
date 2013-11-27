@@ -22,10 +22,11 @@ namespace ui {
 
 		setTitle("Debug Inspector");
 
-		mInfo->addEventListener(MOUSE_UP, this);
+		mInfo->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 	DebugInspector::~DebugInspector()
 	{
+		mInfo->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 
 	void DebugInspector::setWidth(float width)

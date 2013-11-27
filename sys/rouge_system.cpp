@@ -296,10 +296,10 @@ namespace sys {
 		}
 	}
 
-	void RougeSystem::onKeyUp(Key key)
+	void RougeSystem::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		// 27 is currently escape.
-		if (mInDialogue && key == KEY_ESC)
+		if (mInDialogue && key == am::ui::Keyboard::KEY_ESC)
 		{
 			if (mPlayer->getDialogueComp())
 			{
@@ -307,29 +307,29 @@ namespace sys {
 			}
 			return;
 		}
-		if (key == KEY_ESC && mEngine->getCurrentGame() != nullptr)
+		if (key == am::ui::Keyboard::KEY_ESC && mEngine->getCurrentGame() != nullptr)
 		{
 			toggleInGameMenu();
 			return;
 		}
 		// 19 is currently pause.
-		if (key == KEY_PAUSE && mEngine->getCurrentGame() != nullptr)
+		if (key == am::ui::Keyboard::KEY_PAUSE && mEngine->getCurrentGame() != nullptr)
 		{
 			togglePause();
 			return;
 		}
-		if (key == KEY_Z)
+		if (key == am::ui::Keyboard::KEY_Z)
 		{
 			GfxEngine::getEngine()->reloadAsset("bigButton");
 		}
 		Game *game = mEngine->getCurrentGame();
 		if (game)
 		{
-			if (key == KEY_A)
+			if (key == am::ui::Keyboard::KEY_A)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap_2", 3, 1, true);
 			}
-			if (key == KEY_S)
+			if (key == am::ui::Keyboard::KEY_S)
 			{
 				game->moveObjectToMapGrid(mPlayer.get(), "testMap", 1, 3, true);
 			}

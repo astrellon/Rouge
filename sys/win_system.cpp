@@ -1,13 +1,11 @@
 #include "win_system.h"
 
-#include "../log/logger.h"
+#include <log/logger.h>
 
 #include "game_system.h"
 
 #include <util/path_tokeniser.h>
 using namespace am::util;
-
-using am::ui::Key;
 
 namespace am {
 namespace sys {
@@ -105,23 +103,23 @@ namespace win {
 		mGameSystem->deinit();
 	}
 
-	void WinSystem::onMouseDown(am::ui::MouseButton mouseButton, int x, int y)
+	void WinSystem::onMouseDown(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void WinSystem::onMouseMove(am::ui::MouseButton mouseButton, int x, int y)
+	void WinSystem::onMouseMove(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseMove(mouseButton, x, y);
 	}
-	void WinSystem::onMouseUp(am::ui::MouseButton mouseButton, int x, int y)
+	void WinSystem::onMouseUp(am::ui::Mouse::Button mouseButton, int x, int y)
 	{
 		mGameSystem->onMouseUp(mouseButton, x, y);
 	}
-	void WinSystem::onKeyDown(Key key)
+	void WinSystem::onKeyDown(am::ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyDown(key);
 	}
-	void WinSystem::onKeyUp(Key key)
+	void WinSystem::onKeyUp(am::ui::Keyboard::Key key)
 	{
 		mGameSystem->onKeyUp(key);
 	}
@@ -683,42 +681,42 @@ namespace win {
 
 			case WM_MOUSEMOVE:
 
-				am::ui::MouseButton button;
+				am::ui::Mouse::Button button;
 				switch(LOWORD(wParam))
 				{
 				default:
 				case MK_LBUTTON:
-					button = am::ui::LEFT_BUTTON;
+					button = am::ui::Mouse::LEFT_BUTTON;
 					break;
 				case MK_RBUTTON:
-					button = am::ui::RIGHT_BUTTON;
+					button = am::ui::Mouse::RIGHT_BUTTON;
 					break;
 				case MK_MBUTTON:
-					button = am::ui::MIDDLE_BUTTON;
+					button = am::ui::Mouse::MIDDLE_BUTTON;
 					break;
 				}
 				window->winSystem->onMouseMove(button, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_LBUTTONDOWN:
-				window->winSystem->onMouseDown(am::ui::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::Mouse::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_LBUTTONUP:
-				window->winSystem->onMouseUp(am::ui::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::Mouse::LEFT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_RBUTTONDOWN:
-				window->winSystem->onMouseDown(am::ui::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::Mouse::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_RBUTTONUP:
-				window->winSystem->onMouseUp(am::ui::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::Mouse::RIGHT_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_MBUTTONDOWN:
-				window->winSystem->onMouseDown(am::ui::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseDown(am::ui::Mouse::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 			case WM_MBUTTONUP:
-				window->winSystem->onMouseUp(am::ui::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseUp(am::ui::Mouse::MIDDLE_BUTTON, LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_SETCURSOR:
@@ -775,88 +773,88 @@ namespace win {
 		return TRUE;														// Return True (Success)
 	}
 
-	am::ui::Key processWmKey(int key)
+	am::ui::Keyboard::Key processWmKey(int key)
 	{
 		if (key < VK_HELP)
 		{
 			switch (key)
 			{
-			case VK_BACK:		return KEY_BACKSPACE;
-			case VK_TAB:		return KEY_TAB;
-			case VK_RETURN:		return KEY_ENTER;
+			case VK_BACK:		return am::ui::Keyboard::KEY_BACKSPACE;
+			case VK_TAB:		return am::ui::Keyboard::KEY_TAB;
+			case VK_RETURN:		return am::ui::Keyboard::KEY_ENTER;
 
-			case VK_SHIFT:		return KEY_SHIFT;
-			case VK_CONTROL:	return KEY_CTRL;
-			case VK_MENU:		return KEY_ALT;
-			case VK_PAUSE:		return KEY_PAUSE;
-			case VK_CAPITAL:	return KEY_CAPS_LOCK;
+			case VK_SHIFT:		return am::ui::Keyboard::KEY_SHIFT;
+			case VK_CONTROL:	return am::ui::Keyboard::KEY_CTRL;
+			case VK_MENU:		return am::ui::Keyboard::KEY_ALT;
+			case VK_PAUSE:		return am::ui::Keyboard::KEY_PAUSE;
+			case VK_CAPITAL:	return am::ui::Keyboard::KEY_CAPS_LOCK;
 			
-			case VK_ESCAPE:		return KEY_ESC;
+			case VK_ESCAPE:		return am::ui::Keyboard::KEY_ESC;
 			
-			case VK_SPACE:		return KEY_SPACE;
-			case VK_PRIOR:		return KEY_PAGEUP;
-			case VK_NEXT:		return KEY_PAGEDOWN;
-			case VK_END:		return KEY_END;
-			case VK_HOME:		return KEY_HOME;
-			case VK_LEFT:		return KEY_LEFT_ARROW;
-			case VK_UP:			return KEY_UP_ARROW;
-			case VK_RIGHT:		return KEY_RIGHT_ARROW;
-			case VK_DOWN:		return KEY_DOWN_ARROW;
-			case VK_SNAPSHOT:	return KEY_PRINT_SCREEN;
-			case VK_INSERT:		return KEY_INSERT;
-			case VK_DELETE:		return KEY_DELETE;
-			default:			return KEY_NONE;
+			case VK_SPACE:		return am::ui::Keyboard::KEY_SPACE;
+			case VK_PRIOR:		return am::ui::Keyboard::KEY_PAGEUP;
+			case VK_NEXT:		return am::ui::Keyboard::KEY_PAGEDOWN;
+			case VK_END:		return am::ui::Keyboard::KEY_END;
+			case VK_HOME:		return am::ui::Keyboard::KEY_HOME;
+			case VK_LEFT:		return am::ui::Keyboard::KEY_LEFT_ARROW;
+			case VK_UP:			return am::ui::Keyboard::KEY_UP_ARROW;
+			case VK_RIGHT:		return am::ui::Keyboard::KEY_RIGHT_ARROW;
+			case VK_DOWN:		return am::ui::Keyboard::KEY_DOWN_ARROW;
+			case VK_SNAPSHOT:	return am::ui::Keyboard::KEY_PRINT_SCREEN;
+			case VK_INSERT:		return am::ui::Keyboard::KEY_INSERT;
+			case VK_DELETE:		return am::ui::Keyboard::KEY_DELETE;
+			default:			return am::ui::Keyboard::KEY_NONE;
 			}
 		}
 		if (key < VK_SLEEP)
 		{
-			return getKey(key);
+			return am::ui::Keyboard::getKey(key);
 		}
 		switch (key)
 		{
-		case VK_NUMPAD0:	return KEY_NUM_0;
-		case VK_NUMPAD1:	return KEY_NUM_1;
-		case VK_NUMPAD2:	return KEY_NUM_2;
-		case VK_NUMPAD3:	return KEY_NUM_3;
-		case VK_NUMPAD4:	return KEY_NUM_4;
-		case VK_NUMPAD5:	return KEY_NUM_5;
-		case VK_NUMPAD6:	return KEY_NUM_6;
-		case VK_NUMPAD7:	return KEY_NUM_7;
-		case VK_NUMPAD8:	return KEY_NUM_8;
-		case VK_NUMPAD9:	return KEY_NUM_9;
-		case VK_MULTIPLY:	return KEY_NUM_MULTIPLY;
-		case VK_ADD:		return KEY_NUM_PLUS;
-		case VK_SUBTRACT:	return KEY_NUM_MINUS;
-		case VK_DECIMAL:	return KEY_PERIOD;
-		case VK_DIVIDE:		return KEY_NUM_DIVIDE;
-		case VK_F1:			return KEY_F1;
-		case VK_F2:			return KEY_F2;
-		case VK_F3:			return KEY_F3;
-		case VK_F4:			return KEY_F4;
-		case VK_F5:			return KEY_F5;
-		case VK_F6:			return KEY_F6;
-		case VK_F7:			return KEY_F7;
-		case VK_F8:			return KEY_F8;
-		case VK_F9:			return KEY_F9;
-		case VK_F10:		return KEY_F10;
-		case VK_F11:		return KEY_F11;
-		case VK_F12:		return KEY_F12;
+		case VK_NUMPAD0:	return am::ui::Keyboard::KEY_NUM_0;
+		case VK_NUMPAD1:	return am::ui::Keyboard::KEY_NUM_1;
+		case VK_NUMPAD2:	return am::ui::Keyboard::KEY_NUM_2;
+		case VK_NUMPAD3:	return am::ui::Keyboard::KEY_NUM_3;
+		case VK_NUMPAD4:	return am::ui::Keyboard::KEY_NUM_4;
+		case VK_NUMPAD5:	return am::ui::Keyboard::KEY_NUM_5;
+		case VK_NUMPAD6:	return am::ui::Keyboard::KEY_NUM_6;
+		case VK_NUMPAD7:	return am::ui::Keyboard::KEY_NUM_7;
+		case VK_NUMPAD8:	return am::ui::Keyboard::KEY_NUM_8;
+		case VK_NUMPAD9:	return am::ui::Keyboard::KEY_NUM_9;
+		case VK_MULTIPLY:	return am::ui::Keyboard::KEY_NUM_MULTIPLY;
+		case VK_ADD:		return am::ui::Keyboard::KEY_NUM_PLUS;
+		case VK_SUBTRACT:	return am::ui::Keyboard::KEY_NUM_MINUS;
+		case VK_DECIMAL:	return am::ui::Keyboard::KEY_PERIOD;
+		case VK_DIVIDE:		return am::ui::Keyboard::KEY_NUM_DIVIDE;
+		case VK_F1:			return am::ui::Keyboard::KEY_F1;
+		case VK_F2:			return am::ui::Keyboard::KEY_F2;
+		case VK_F3:			return am::ui::Keyboard::KEY_F3;
+		case VK_F4:			return am::ui::Keyboard::KEY_F4;
+		case VK_F5:			return am::ui::Keyboard::KEY_F5;
+		case VK_F6:			return am::ui::Keyboard::KEY_F6;
+		case VK_F7:			return am::ui::Keyboard::KEY_F7;
+		case VK_F8:			return am::ui::Keyboard::KEY_F8;
+		case VK_F9:			return am::ui::Keyboard::KEY_F9;
+		case VK_F10:		return am::ui::Keyboard::KEY_F10;
+		case VK_F11:		return am::ui::Keyboard::KEY_F11;
+		case VK_F12:		return am::ui::Keyboard::KEY_F12;
 		
-		case VK_SCROLL:		return KEY_SCROLL_LOCK;
+		case VK_SCROLL:		return am::ui::Keyboard::KEY_SCROLL_LOCK;
 
-		case VK_OEM_1:		return KEY_SEMI_COLON;
-		case VK_OEM_PLUS:	return KEY_PLUS;
-		case VK_OEM_COMMA:	return KEY_COMMA;
-		case VK_OEM_MINUS:	return KEY_MINUS;
-		case VK_OEM_PERIOD:	return KEY_PERIOD;
-		case VK_OEM_2:		return KEY_FORWARD_SLASH;
-		case VK_OEM_3:		return KEY_BACKTICK;
-		case VK_OEM_4:		return KEY_OPEN_SQUARE_BRACKET;
-		case VK_OEM_5:		return KEY_PIPE;
-		case VK_OEM_6:		return KEY_CLOSE_SQUARE_BRACKET;
-		case VK_OEM_7:		return KEY_SINGLE_QUOTE;
+		case VK_OEM_1:		return am::ui::Keyboard::KEY_SEMI_COLON;
+		case VK_OEM_PLUS:	return am::ui::Keyboard::KEY_PLUS;
+		case VK_OEM_COMMA:	return am::ui::Keyboard::KEY_COMMA;
+		case VK_OEM_MINUS:	return am::ui::Keyboard::KEY_MINUS;
+		case VK_OEM_PERIOD:	return am::ui::Keyboard::KEY_PERIOD;
+		case VK_OEM_2:		return am::ui::Keyboard::KEY_FORWARD_SLASH;
+		case VK_OEM_3:		return am::ui::Keyboard::KEY_BACKTICK;
+		case VK_OEM_4:		return am::ui::Keyboard::KEY_OPEN_SQUARE_BRACKET;
+		case VK_OEM_5:		return am::ui::Keyboard::KEY_PIPE;
+		case VK_OEM_6:		return am::ui::Keyboard::KEY_CLOSE_SQUARE_BRACKET;
+		case VK_OEM_7:		return am::ui::Keyboard::KEY_SINGLE_QUOTE;
 		}
-		return KEY_NONE;
+		return am::ui::Keyboard::KEY_NONE;
 	}
 
 }

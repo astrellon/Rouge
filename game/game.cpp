@@ -172,7 +172,7 @@ namespace game {
 
 		fireEvent<MouseEvent>(e);
 
-		if (e->getMouseEventType() != MOUSE_UP || mEditorMode)
+		if (e->getMouseEventType() != am::ui::Mouse::MOUSE_UP || mEditorMode)
 		{
 			return;
 		}
@@ -189,7 +189,7 @@ namespace game {
 		{
 			return;
 		}
-		if (e->getMouseButton() == LEFT_BUTTON)
+		if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
 		{
 			PlayerHand *hand = PlayerHand::getPlayerHand();
 			if (hand && hand->getInhand() != nullptr)
@@ -223,7 +223,7 @@ namespace game {
 			}
 		}
 
-		if (e->getMouseButton() == LEFT_BUTTON)
+		if (e->getMouseButton() == am::ui::Mouse::LEFT_BUTTON)
 		{
 			if (clickedOn.size() > 0 && mMainCharacter->canReachGameObject(clickedOn[0]))
 			{
@@ -234,7 +234,7 @@ namespace game {
 				mMainCharacter->setDestination(localX, localY);
 			}
 		}
-		else if (e->getMouseButton() == RIGHT_BUTTON)
+		else if (e->getMouseButton() == am::ui::Mouse::RIGHT_BUTTON)
 		{
 			GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
@@ -361,12 +361,12 @@ namespace game {
 
 		if (mCurrentMap)
 		{
-			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_UP, this);
-			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_DOWN, this);
-			mCurrentMap->getTileRenderer()->removeEventListener(MOUSE_MOVE, this);
-			mBackground->removeEventListener(MOUSE_UP, this);
-			mItemLayer->removeEventListener(MOUSE_UP, this);
-			mCharacterLayer->removeEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->removeEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+			mBackground->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mItemLayer->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCharacterLayer->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 		}
 
 		mCurrentMap = map;
@@ -379,12 +379,12 @@ namespace game {
 			setTickPositionMainChar();
 			map->calcAllTileEdgeValues();
 
-			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_UP, this);
-			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_DOWN, this);
-			mCurrentMap->getTileRenderer()->addEventListener(MOUSE_MOVE, this);
-			mBackground->addEventListener(MOUSE_UP, this);
-			mItemLayer->addEventListener(MOUSE_UP, this);
-			mCharacterLayer->addEventListener(MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_DOWN, this);
+			mCurrentMap->getTileRenderer()->addEventListener(am::ui::Mouse::MOUSE_MOVE, this);
+			mBackground->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mItemLayer->addEventListener(am::ui::Mouse::MOUSE_UP, this);
+			mCharacterLayer->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 			
 			if (mActiveObjects)
 			{

@@ -24,7 +24,7 @@
 
 #include "aldlist.h"
 #include <windows.h>
-#include "alc.h"
+#include <AL/alc.h>
 
 
 /* 

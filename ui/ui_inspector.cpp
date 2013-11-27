@@ -26,7 +26,7 @@ namespace ui {
 
 		setTitle("Inspector");
 
-		mInfo->addEventListener(MOUSE_UP, this);
+		mInfo->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 	Inspector::~Inspector()
 	{

@@ -15,13 +15,13 @@ namespace ui {
 
 	class MouseEvent : public Event {
 	public:
-		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y);
-		MouseEvent(MouseEventType mouseType, MouseButton mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y);
+		MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, Renderable *target, int localX, int localY);
 		MouseEvent(const MouseEvent &copy);
 		~MouseEvent();
 
-		virtual MouseButton getMouseButton() const;
-		virtual MouseEventType getMouseEventType() const;
+		virtual Mouse::Button getMouseButton() const;
+		virtual Mouse::EventType getMouseEventType() const;
 		virtual int getMouseX() const;
 		virtual int getMouseY() const;
 
@@ -35,7 +35,7 @@ namespace ui {
 
 	protected:
 
-		MouseButton mMouseButton;
+		Mouse::Button mMouseButton;
 		int mMouseX;
 		int mMouseY;
 
@@ -43,9 +43,8 @@ namespace ui {
 		int mLocalMouseY;
 
 		Renderable *mOriginalTarget;
-		MouseEventType mMouseEventType;
+		Mouse::EventType mMouseEventType;
 
-		//Renderable *mTarget;
 	};
 
 }

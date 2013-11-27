@@ -26,13 +26,13 @@ namespace ui {
 		MouseManager();
 		~MouseManager();
 
-		Renderable *checkForMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+		Renderable *checkForMouseEvent(Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
 		Renderable *getUnderMouse() const;
-		bool getButtonDown(MouseButton button);
+		bool getButtonDown(Mouse::Button button);
 
-		void onMouseDown(MouseButton mouseButton, int x, int y);
-		void onMouseMove(MouseButton mouseButton, int x, int y);
-		void onMouseUp(MouseButton mouseButton, int x, int y);
+		void onMouseDown(Mouse::Button mouseButton, int x, int y);
+		void onMouseMove(Mouse::Button mouseButton, int x, int y);
+		void onMouseUp(Mouse::Button mouseButton, int x, int y);
 
 		void setDragOffset(int x, int y);
 		int getDragOffsetX() const;
@@ -40,7 +40,7 @@ namespace ui {
 
 		void clearCurrentlyFiring();
 
-		void fireMouseEvent(Renderable *target, MouseEventType mouseType, MouseButton mouseButton, int x, int y, int localX, int localY);
+		void fireMouseEvent(Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
 
 		void setRootLayer(Layer *layer);
 		Layer *getRootLayer() const;
@@ -59,7 +59,7 @@ namespace ui {
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
 		Handle<MouseEvent> mCurrentEvent;
-		typedef map<MouseButton, bool> MouseButtonMap;
+		typedef map<Mouse::Button, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
 
 		int mDragOffsetX;

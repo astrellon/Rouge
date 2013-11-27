@@ -28,11 +28,11 @@ namespace ui {
 		mDialogue(nullptr)
 	{
 		addChild(mText);
-		mText->addEventListener(MOUSE_UP, this);
+		mText->addEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 	DialogueBox::~DialogueBox()
 	{
-		mText->removeEventListener(MOUSE_UP, this);
+		mText->removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 	}
 
 	TextField2 *DialogueBox::getTextField() const

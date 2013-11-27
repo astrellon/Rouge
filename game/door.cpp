@@ -43,7 +43,7 @@ namespace game {
 	{
 		mFixedToGrid = true;
 		setName("Door");
-		addEventListener(MOUSE_UP, this);
+		addEventListener(am::ui::Mouse::MOUSE_UP, this);
 
 		mDoorRegion = new MapRegion(3, 3, 1);
 		//mDoorRegion->addEventListener("region_entered", this);
@@ -73,7 +73,7 @@ namespace game {
 	}
 	Door::~Door()
 	{
-		removeEventListener(MOUSE_UP, this);
+		removeEventListener(am::ui::Mouse::MOUSE_UP, this);
 
 		mDoorRegion->removeEventListener("region_entered", this);
 		mDoorRegion->removeEventListener("region_exited", this);
