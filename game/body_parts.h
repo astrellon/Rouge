@@ -5,7 +5,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 #include <game/item.h>
 #include <game/body_part_common.h>
@@ -26,7 +25,7 @@ namespace game {
 
 	class BodyParts {
 	public:
-		typedef vector< am::base::Handle<BodyPart> > PartList;
+		typedef std::vector< am::base::Handle<BodyPart> > PartList;
 
 		BodyParts();
 		BodyParts(const BodyParts &copy);

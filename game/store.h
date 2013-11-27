@@ -29,7 +29,7 @@ namespace game {
 		Store();
 		~Store();
 
-		typedef vector< am::base::Handle<Inventory> > InventoryList;
+		typedef std::vector< am::base::Handle<Inventory> > InventoryList;
 
 		virtual void setStoreOwner(Character *character);
 		virtual Character *getStoreOwner() const;

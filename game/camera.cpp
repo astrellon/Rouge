@@ -83,7 +83,7 @@ namespace game {
 		float locX = getLocationX();
 		float locY = getLocationY();
 		GfxEngine::getEngine()->setCameraLocation(locX, locY);
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Setting sound loc to: " << locX << ", " << locY;
 		//am_log("SFX", ss);
 		SfxEngine::getEngine()->getListener().setPosition(locX, locY);

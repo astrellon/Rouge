@@ -2,7 +2,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 namespace am {
 namespace gfx {
@@ -10,12 +9,13 @@ namespace gfx {
 	class TextStyleSelector {
 	public:
 
-		enum Flag {
+		enum Flag 
+		{
 			NONE, HOVER, DOWN
 		};
 
-		typedef map<string, string> AttributeMap;
-		typedef map<string, bool> ClassMap;
+		typedef std::map<std::string, std::string> AttributeMap;
+		typedef std::map<std::string, bool> ClassMap;
 
 		TextStyleSelector();
 		TextStyleSelector(const char *nodeType);
@@ -47,7 +47,7 @@ namespace gfx {
 
 		int mPosition;
 		bool mPopFlag;
-		string mNodeType;
+		std::string mNodeType;
 		Flag mFlag;
 		AttributeMap mAttributes;
 		ClassMap mClasses;

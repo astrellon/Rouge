@@ -24,7 +24,7 @@ namespace ui {
 	BodyPartRenderer::BodyPartRenderer(short width, short height, const char *bodyPartName) :
 		mBodyPartName(bodyPartName)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "BodyPartRenderer -> " << bodyPartName;
 		setName(ss.str().c_str());
 

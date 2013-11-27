@@ -12,7 +12,6 @@
 using namespace am::util;
 
 #include <sstream>
-using namespace std;
 
 namespace am {
 namespace gfx {

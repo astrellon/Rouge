@@ -10,7 +10,6 @@ using namespace am::game;
 #include <ui/ui_inventory_renderer.h>
 
 #include <vector>
-using namespace std;
 
 namespace am {
 namespace ui {

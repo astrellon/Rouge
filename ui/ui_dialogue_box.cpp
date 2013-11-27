@@ -158,7 +158,7 @@ namespace ui {
 	{
 		if (mDialogue != nullptr)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "<dialogue>" << StringPool::filterText(mDialogue->getText()) << "</dialogue>";
 			mText->setText(ss.str());
 		}

@@ -391,7 +391,7 @@ namespace game {
 		if (tile)
 		{
 			int args = lua_gettop(lua);
-			vector< am::base::Handle<TileType> > types;
+			std::vector< am::base::Handle<TileType> > types;
 			types.reserve(args - 2);
 			bool error = false;
 			for (int i = 2; i <= args; i++)
@@ -408,7 +408,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to find tile type: " << lua_tostring(lua, i);
 					LuaState::warning(lua, ss.str().c_str());
 				}
@@ -611,7 +611,7 @@ namespace game {
 				Asset *asset = GfxEngine::getEngine()->getAsset(lua_tostring(lua, 2));
 				if (!asset)
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to load asset '" << lua_tostring(lua, 2) << "'";
 					LuaState::warning(lua, ss.str().c_str());
 				}

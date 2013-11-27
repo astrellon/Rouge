@@ -10,7 +10,6 @@
 
 #include <sys/os_system.h>
 
-using namespace std;
 
 namespace am {
 namespace sys {
@@ -90,7 +89,7 @@ namespace win {
 
 	protected:
 
-		string mTitle;
+		std::string mTitle;
 		int mWidth;
 		int mHeight;
 		int mXpos;
@@ -118,7 +117,7 @@ namespace win {
 
 
 	BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel);
-	string CreateWindowGL (GL_Window* window);
+	std::string CreateWindowGL (GL_Window* window);
 	BOOL DestroyWindowGL (GL_Window* window);
 	BOOL RegisterWindowClass (Application* application);
 	LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

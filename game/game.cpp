@@ -116,14 +116,14 @@ namespace game {
 			return iter->second.get();
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "data/maps/" << mapName << ".lua";
 		//LuaState lua(false);
 		LuaState &lua = mEngine->getLua();
 		int loadError = luaL_loadfile(lua, ss.str().c_str());
 		if (loadError)
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Unable to load map '" << mapName << "', using the path '";
 			errss << ss.str() << '\''; 
 			am_log("MAP", errss);
@@ -258,7 +258,7 @@ namespace game {
 			return;
 		}
 
-		//stringstream ss;
+		//std::stringstream ss;
 		//ss << "Clicked on: " << e->getGameObject()->getName();
 		//am_log("OBJ", ss);
 		/*GameObject *obj = e->getGameObject();
@@ -396,7 +396,7 @@ namespace game {
 			}
 			else
 			{
-				stringstream errss;
+				std::stringstream errss;
 				errss << "Map (" << map->getName() << ") return a nullptr object list.";
 				am_log("MAP", errss);
 			}
@@ -562,13 +562,13 @@ namespace game {
 
 	void onRetain2(am::base::IManaged *obj)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Retained " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
 	void onRelease2(am::base::IManaged *obj)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Released " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
@@ -775,7 +775,7 @@ namespace game {
 		return nullptr;
 	}
 
-	void Game::getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
+	void Game::getAvailableDialogues(std::vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo)
 	{
 		if (talker == nullptr || talkedTo == nullptr || 
 			talker->getDialogueComp() == nullptr || talkedTo->getDialogueComp() == nullptr)
@@ -993,7 +993,7 @@ namespace game {
 			am::base::Handle<data::Table> gameData(dynamic_cast<data::Table *>(gameDataObj.get()));
 			if (!gameData)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Load file 'game' object was a '" << gameDataObj->typeName() << "' not an 'Map'";
 				am_log("LOADERR", ss);
 				lua.close();
@@ -1009,7 +1009,7 @@ namespace game {
 			am::base::Handle<data::Table> charData(dynamic_cast<data::Table *>(charDataObj.get()));
 			if (!charData)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Load file 'characters' object was a '" << charDataObj->typeName() << "' not a 'Table'";
 				am_log("LOADERR", ss);
 				lua.close();
@@ -1030,7 +1030,7 @@ namespace game {
 			am::base::Handle<data::Table> questData(dynamic_cast<data::Table *>(questDataObj.get()));
 			if (!questData)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Load file 'quests' object was a '" << questDataObj->typeName() << "' not a 'Table'";
 				am_log("LOADERR", ss);
 				lua.close();

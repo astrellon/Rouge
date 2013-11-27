@@ -4,7 +4,6 @@
 using namespace am::math;
 
 #include <vector>
-using namespace std;
 
 #include <base/handle.h>
 

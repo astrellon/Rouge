@@ -60,7 +60,7 @@ namespace gfx {
 
 	protected:
 
-		typedef vector< am::base::Handle<Particle> > ParticleList;
+		typedef std::vector< am::base::Handle<Particle> > ParticleList;
 		ParticleList mParticleList;
 		
 		am::base::Handle<Asset> mParticleAsset;

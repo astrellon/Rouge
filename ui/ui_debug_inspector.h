@@ -8,7 +8,6 @@ using namespace am::gfx;
 #include <vector>
 #include <map>
 #include <string>
-using namespace std;
 
 #include <ui/ui_panel.h>
 
@@ -27,8 +26,8 @@ namespace ui {
 
 		virtual void onEvent(MouseEvent *e);
 
-		virtual void setValue(string key, string value);
-		virtual string getValue(string key) const;
+		virtual void setValue(std::string key, std::string value);
+		virtual std::string getValue(std::string key) const;
 
 		virtual void render(float dt);
 
@@ -37,7 +36,7 @@ namespace ui {
 
 	protected:
 
-		map<string, string> mValues;
+		std::map<std::string, std::string> mValues;
 		am::base::Handle<TextField2> mInfo;
 
 		bool mTextDirty;

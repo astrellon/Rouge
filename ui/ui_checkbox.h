@@ -24,8 +24,8 @@ namespace ui {
 		~Checkbox();
 
 		void setLabel(const char *label);
-		void setLabel(const string &label);
-		string getLabel() const;
+		void setLabel(const std::string &label);
+		std::string getLabel() const;
 
 		TextField *getLabelField();
 		Sprite *getCheckGraphic();

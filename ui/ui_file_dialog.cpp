@@ -73,9 +73,9 @@ namespace ui {
 		return mFilename->getText();
 	}
 
-	string FileDialog::getFullPath() const
+	std::string FileDialog::getFullPath() const
 	{
-		string result = mFolder;
+		std::string result = mFolder;
 		if (result.back() != '/' && result.back() != '\\')
 		{
 			result += '/';

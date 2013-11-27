@@ -48,7 +48,7 @@ namespace gfx {
 		return mAsset != nullptr && mAsset->getTexture() != nullptr && !mTextureWindows.empty();
 	}
 
-	string Font::getName() const
+	std::string Font::getName() const
 	{
 		return mName;
 	}
@@ -347,7 +347,7 @@ namespace gfx {
 				{
 					for (int x = 0; x < mCharsAcross; x++)
 					{
-						pair<float, float> pos = processChar(tempData, x, y);
+						std::pair<float, float> pos = processChar(tempData, x, y);
 
 						render.mWidth = (pos.second - pos.first);
 						render.mHeight = mCharHeight;
@@ -367,7 +367,7 @@ namespace gfx {
 		}
 	}
 
-	pair<float, float> Font::processChar(int *data, int xPos, int yPos)
+	std::pair<float, float> Font::processChar(int *data, int xPos, int yPos)
 	{
 		float left = -1;
 		float right = -1;
@@ -418,7 +418,7 @@ namespace gfx {
 			right = static_cast<float>(xEnd) - 1;
 		}
 
-		return pair<float, float>(left, right);
+		return std::pair<float, float>(left, right);
 	}
 
 	float Font::getCharWidth(unsigned char ch) const

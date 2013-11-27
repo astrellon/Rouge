@@ -5,7 +5,6 @@
 
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
@@ -32,7 +31,7 @@ namespace game {
 	class Character : public GameObject, public Levelable {
 	public:
 
-		typedef vector< am::base::Handle<IAction> > ActionQueue;
+		typedef std::vector< am::base::Handle<IAction> > ActionQueue;
 		Character();
 		Character(const Character &copy);
 		~Character();

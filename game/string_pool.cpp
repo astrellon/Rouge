@@ -12,55 +12,55 @@
 namespace am {
 namespace game {
 
-	string StringPool::replace(const char *str)
+	std::string StringPool::replace(const char *str)
 	{
 		if (str == nullptr || str[0] == '\0')
 		{
-			return string("");
+			return std::string("");
 		}
 		Tokeniser tokeniser(str);
 		const char *token = tokeniser.nextToken();
 		if (token == nullptr)
 		{
-			return string("");
+			return std::string("");
 		}
 		if (strcmp(token, "char") == 0)
 		{
 			token = tokeniser.nextToken();
 			if (token == nullptr)
 			{
-				return string("{unfinished token 'player'}");
+				return std::string("{unfinished token 'player'}");
 			}
 			if (strcmp(token, "main") == 0)
 			{
 				Game *game = Engine::getEngine()->getCurrentGame();
 				if (game == nullptr)
 				{
-					return string("{no current game for main player}");
+					return std::string("{no current game for main player}");
 				}
 				Character *mainChar = game->getMainCharacter();
 				if (mainChar == nullptr)
 				{
-					return string("{no main character}");
+					return std::string("{no main character}");
 				}
 				return replaceCharacter(tokeniser, mainChar);
 			}
 		}
-		stringstream ss;
+		std::stringstream ss;
 		ss << "{unknown replace token '" << token << "'}";
 		return ss.str();
 	}
 
-	string StringPool::replaceCharacter(Tokeniser &tokeniser, Character *character)
+	std::string StringPool::replaceCharacter(Tokeniser &tokeniser, Character *character)
 	{
 		const char *token = tokeniser.nextToken();
 		if (token == nullptr || strcmp(token, "name") == 0)
 		{
-			return string(character->getName());
+			return std::string(character->getName());
 		}
 		if (strcmp(token, "gender") == 0)
 		{
-			return string(Gender::getGenderName(character->getGender()));
+			return std::string(Gender::getGenderName(character->getGender()));
 		}
 		if (strcmp(token, "race") == 0)
 		{
@@ -76,16 +76,16 @@ namespace game {
 			token = tokeniser.nextToken();
 			if (token == nullptr)
 			{
-				return string("{need bodypart to get equipped}");
+				return std::string("{need bodypart to get equipped}");
 			}
 			Item *equipped = character->getEquipped(token);
 			if (equipped == nullptr)
 			{
-				return ("nothing");
+				return std::string("nothing");
 			}
 			else
 			{
-				return string(equipped->getFullItemName());
+				return std::string(equipped->getFullItemName());
 			}
 		}
 		if (strcmp(token, "stat") == 0)
@@ -93,7 +93,7 @@ namespace game {
 			token = tokeniser.nextToken();
 			if (token == nullptr)
 			{
-				return string("{need stat name}");
+				return std::string("{need stat name}");
 			}
 			bool getBase = false;
 			if (strcmp(token, "base") == 0)
@@ -102,17 +102,17 @@ namespace game {
 				token = tokeniser.nextToken();
 				if (token == nullptr)
 				{
-					return string("{need a stat name after flagging base stat}");
+					return std::string("{need a stat name after flagging base stat}");
 				}
 			}
 			Stat::StatType stat = Stat::getStatType(token);
 			if (stat == Stat::MAX_STAT_LENGTH)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "{unknown stat '" << token << "'}";
 				return ss.str();
 			}
-			stringstream ss;
+			std::stringstream ss;
 			if (getBase)
 			{
 				ss << character->getStats()->getBaseStat(stat);
@@ -123,19 +123,19 @@ namespace game {
 			}
 			return ss.str();
 		}
-		stringstream ss;
+		std::stringstream ss;
 		ss << "{unknown character token '" << token << "'}";
 		return ss.str();
 	}
 
-	string StringPool::filterText(const string &str)
+	std::string StringPool::filterText(const std::string &str)
 	{
 		size_t index = str.find("${");
 		if (index == string::npos)
 		{
 			return str;
 		}
-		string result = str;
+		std::string result = str;
 		while (index != string::npos)
 		{
 			if (index == 0 || (index > 0 && str[index - 1] != '\\'))
@@ -144,8 +144,8 @@ namespace game {
 				size_t end = result.find("}", index);
 				if (end != string::npos)
 				{
-					string sub = result.substr(index, end - index);
-					string replaced = replace(sub.c_str());
+					std::string sub = result.substr(index, end - index);
+					std::string replaced = replace(sub.c_str());
 					result.replace(index - 2, end - index + 3, replaced.c_str());
 				}
 				index = result.find("${", index + 1);

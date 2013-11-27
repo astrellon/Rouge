@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-using namespace std;
 
 namespace am {
 namespace util {
@@ -14,7 +13,7 @@ namespace util {
 
 	protected:
 
-		string mLoadedName;
+		std::string mLoadedName;
 
 	};
 

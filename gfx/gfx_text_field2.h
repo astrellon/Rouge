@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-using namespace std;
 
 #include <ui/ievent_listener.h>
 #include <ui/mouse_event.h>
@@ -35,9 +34,9 @@ namespace gfx {
 		void setBaseFont(const char *fontName);
 		
 		void setText(const char *str);
-		void setText(const string &str);
+		void setText(const std::string &str);
 		void appendText(const char *str);
-		void appendText(const string &str);
+		void appendText(const std::string &str);
 		const char *getText();
 		const char *getRawText() const;
 		int length();
@@ -49,7 +48,7 @@ namespace gfx {
 		float getMeasuredWidth();
 		float getMeasuredHeight();
 
-		string getFirstLine() const;
+		std::string getFirstLine() const;
 		
 		int getTextPosition(int localX, int localY) const;
 
@@ -77,8 +76,8 @@ namespace gfx {
 
 	protected:
 
-		string mText;
-		string mRawText;
+		std::string mText;
+		std::string mRawText;
 		am::base::Handle<Font> mFont;
 
 		float mMeasuredWidth;
@@ -101,7 +100,7 @@ namespace gfx {
 		am::base::Handle<Scrollbar> mScrollbar;
 		am::base::Handle<Layer> mTextHitboxes;
 
-		typedef vector<int> NewLineList;
+		typedef std::vector<int> NewLineList;
 		NewLineList mNewLinePositions;
 
 		int mCurrentLine;
@@ -115,7 +114,7 @@ namespace gfx {
 		virtual void preRender(float dt);
 		virtual void postRender(float dt);
 		void newLine();
-		void renderText(const string &text);
+		void renderText(const std::string &text);
 		void checkAlignment(const char *line);
 
 		void checkScrollbar();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-using std::vector;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
@@ -17,7 +16,7 @@ namespace gfx {
 	class GfxComponent : public am::base::IManaged {
 	public:
 
-		typedef vector< am::base::Handle<Effect> > EffectList;
+		typedef std::vector< am::base::Handle<Effect> > EffectList;
 
 		GfxComponent();
 		GfxComponent(const GfxComponent &copy);

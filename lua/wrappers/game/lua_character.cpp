@@ -37,7 +37,6 @@ using namespace am::util;
 using namespace am::lua::gfx;
 
 #include <sstream>
-using namespace std;
 
 namespace am {
 namespace lua {
@@ -278,13 +277,13 @@ namespace game {
 					wrapRefObject<Character>(lua, newChar);
 					return 1;
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "No character with the definition '" << lua_tostring(lua, 1) << "' was found.";
 				LuaState::warning(lua, ss.str().c_str());
 				lua_pushnil(lua);
 				return 1;
 			}
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to get definition (" << lua_tostring(lua, 1) << " when a game is not running";
 			LuaState::warning(lua, ss.str().c_str());
 			lua_pushnil(lua);
@@ -1681,13 +1680,13 @@ namespace game {
 
 	void charRelease(am::base::IManaged *obj)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Released " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}
 	void charRetain(am::base::IManaged *obj)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Retain " << obj->getReferenceCounter();
 		am_log("CHAR", ss);
 	}

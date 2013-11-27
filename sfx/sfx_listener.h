@@ -2,7 +2,6 @@
 
 #include <map>
 #include <string>
-using namespace std;
 
 #include <AL/al.h>
 

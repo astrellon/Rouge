@@ -32,7 +32,7 @@ namespace util {
 
 		if (!lua.loadFile(filename))
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Error loading file: '" << filename << "':\n";
 			lua.printStack(ss);
 			am_log("LUAERR", ss);

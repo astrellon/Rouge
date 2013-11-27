@@ -148,11 +148,11 @@ namespace ui {
 				{
 					continue;
 				}
-				string path("data/tilesets/");
+				std::string path("data/tilesets/");
 				path += iter->name;
-				string filename = iter->name;
+				std::string filename = iter->name;
 				size_t index = filename.find_last_of('.');
-				if (index != string::npos)
+				if (index != std::string::npos)
 				{
 					filename = filename.substr(0, index);
 				}
@@ -264,7 +264,7 @@ namespace ui {
 				Map *map = mGame->getCurrentMap();
 				if (map)
 				{
-					string path = mSaveFileDialog->getFullPath();
+					std::string path = mSaveFileDialog->getFullPath();
 					if (path.find_last_of(".lua") != path.size() - 1)
 					{
 						path += ".lua";
@@ -484,7 +484,7 @@ namespace ui {
 
 	void EditorHud::updateStatus()
 	{
-		stringstream status;
+		std::stringstream status;
 		if (mCurrentTile)
 		{
 			if (mCurrentTile->getTileSet())

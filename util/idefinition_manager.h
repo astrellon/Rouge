@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -23,10 +22,10 @@ namespace util {
 		
 	protected:
 
-		typedef vector<string> LoadingFilesStack;
+		typedef std::vector<std::string> LoadingFilesStack;
 		LoadingFilesStack mLoadingFiles;
 
-		typedef map<string, bool> FilesLoadedMap;
+		typedef std::map<std::string, bool> FilesLoadedMap;
 		FilesLoadedMap mFilesLoaded;
 
 		virtual const char *getBaseDefinitionPath(int id) const = 0;
@@ -36,7 +35,7 @@ namespace util {
 		bool _loadDefinitionFile(const char *filename);
 		
 		template <class T>
-		void addDefinition(T *def, map< string, am::base::Handle<T> > &defMap, const char *name)
+		void addDefinition(T *def, std::map< std::string, am::base::Handle<T> > &defMap, const char *name)
 		{
 			if (def == nullptr || name == nullptr || name[0] == '\0')
 			{
@@ -44,28 +43,28 @@ namespace util {
 			}
 			if (!mLoadingFiles.empty())
 			{
-				string path = mLoadingFiles.back();
+				std::string path = mLoadingFiles.back();
 				path += ':';
 				path += name;
 				def->setLoadedName(path.c_str());
 				defMap[path] = def;
 				return;
 			}
-			defMap[string(name)] = def;
+			defMap[std::string(name)] = def;
 		}
 
 		template <class T>
-		T *getDefinition(map< string, am::base::Handle<T> > &defMap, const char *name, int id = 0)
+		T *getDefinition(std::map< std::string, am::base::Handle<T> > &defMap, const char *name, int id = 0)
 		{
 			if (name == nullptr || name[0] == '\0')
 			{
 				return nullptr;
 			}
-			string str(name);
+			std::string str(name);
 			size_t index = str.find(':');
-			if (index == string::npos && !mLoadingFiles.empty())
+			if (index == std::string::npos && !mLoadingFiles.empty())
 			{
-				string temp = mLoadingFiles.back();
+				std::string temp = mLoadingFiles.back();
 				temp += ':';
 				str = temp + str;
 			}
@@ -74,8 +73,8 @@ namespace util {
 			{
 				return find->second;
 			}
-			string filename;
-			string charname;
+			std::string filename;
+			std::string charname;
 			const char *base = getBaseDefinitionPath(id);
 			if (index > 0)
 			{

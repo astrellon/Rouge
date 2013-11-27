@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <vector>
-using namespace std;
 
 #include <ui/ievent_listener.h>
 using am::ui::IEventListener;

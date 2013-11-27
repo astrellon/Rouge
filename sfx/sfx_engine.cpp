@@ -199,7 +199,7 @@ namespace sfx {
 
 	ISound *SfxEngine::loadSound(const char *filename)
 	{
-		string fileStr(filename);
+		std::string fileStr(filename);
 
 		auto find = mSoundMap.find(fileStr);
 		if (find != mSoundMap.end())
@@ -207,7 +207,7 @@ namespace sfx {
 			return find->second;
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		if (fileStr[0] == '/')
 		{
 			ss << "data" << fileStr;
@@ -217,7 +217,7 @@ namespace sfx {
 			ss << "data/sounds/" << fileStr;
 		}
 		
-		string ext = getExtension(fileStr.c_str());
+		std::string ext = getExtension(fileStr.c_str());
 		try
 		{
 			ISound *result = nullptr;
@@ -237,7 +237,7 @@ namespace sfx {
 		}
 		catch (const char *error)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Error loading sound '" << filename << "': " << error;
 			am_log("SFXERR", ss);
 		}
@@ -245,8 +245,8 @@ namespace sfx {
 	}
 	ISound *SfxEngine::loadStream(const char *filename, int numBuffers)
 	{
-		string fileStr(filename);
-		stringstream ss;
+		std::string fileStr(filename);
+		std::stringstream ss;
 		if (fileStr[0] == '/')
 		{
 			ss << "data" << fileStr;
@@ -256,7 +256,7 @@ namespace sfx {
 			ss << "data/sounds/" << fileStr;
 		}
 
-		string ext = getExtension(filename);
+		std::string ext = getExtension(filename);
 		if (ext.compare("wav") == 0)
 		{
 			SoundWav *wav = new SoundWav();
@@ -443,7 +443,7 @@ namespace sfx {
 		const char *error = getErrorCode(alGetError());
 		if (error)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			if (filename)
 			{
 				ss << filename << ": ";
@@ -588,7 +588,7 @@ namespace sfx {
 #endif
 	}
 
-	string SfxEngine::getExtension(const char *filename)
+	std::string SfxEngine::getExtension(const char *filename)
 	{
 		if (filename == nullptr)
 		{

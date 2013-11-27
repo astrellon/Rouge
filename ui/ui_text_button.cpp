@@ -81,12 +81,12 @@ namespace ui {
 		mLabel->setText(label);
 		updateLabelPos();
 	}
-	void TextButton::setLabel(const string &label)
+	void TextButton::setLabel(const std::string &label)
 	{
 		mLabel->setText(label);
 		updateLabelPos();
 	}
-	string TextButton::getLabel() const
+	std::string TextButton::getLabel() const
 	{
 		return mLabel->getText();
 	}

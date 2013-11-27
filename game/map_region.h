@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <ui/event_interface.h>
 using namespace am::ui;
@@ -27,7 +26,7 @@ namespace game {
 	class MapRegion : public EventInterface {
 	public:
 
-		typedef vector< am::base::Handle< MapRegion > > MapRegionList;
+		typedef std::vector< am::base::Handle< MapRegion > > MapRegionList;
 
 		MapRegion();
 		MapRegion(int width, int height, int fillValue = 0);

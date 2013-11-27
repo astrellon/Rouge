@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-using namespace std;
 
 #include <base/handle.h>
 
@@ -21,7 +20,7 @@ namespace am {
 namespace sfx {
 
 	typedef struct _DeviceName {
-		string deviceName;
+		std::string deviceName;
 		bool defaultDevice;
 
 		_DeviceName(const char *name, bool defaultDevice = false);
@@ -42,9 +41,9 @@ namespace sfx {
 	public:
 		SfxEngine();
 
-		typedef vector<DeviceName> DeviceList;
-		typedef vector<SourceId> SourcePool;
-		typedef map<string, am::base::Handle<ISound> > SoundMap;
+		typedef std::vector<DeviceName> DeviceList;
+		typedef std::vector<SourceId> SourcePool;
+		typedef std::map< std::string, am::base::Handle<ISound> > SoundMap;
 
 		void init();
 		bool hasInited() const;
@@ -81,12 +80,12 @@ namespace sfx {
 		static const char *getErrorCode(ALenum errorCode);
 		static void checkError(const char *message = nullptr, const char *filename = nullptr);
 
-		static string getExtension(const char *filename);
+		static std::string getExtension(const char *filename);
 
 	protected:
 		bool mInited;
 		DeviceList mDeviceList;
-		string mDefaultDevice;
+		std::string mDefaultDevice;
 
 		int mSourcePoolPos;
 		SourcePool mSourcePool;
@@ -100,7 +99,7 @@ namespace sfx {
 
 		Listener mListener;
 
-		typedef vector< am::base::Handle<ISource> > SourceList;
+		typedef std::vector< am::base::Handle<ISource> > SourceList;
 		SourceList mInactiveSources;
 
 		size_t findInactiveSource(ISource *source);

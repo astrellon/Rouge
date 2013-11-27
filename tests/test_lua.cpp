@@ -358,7 +358,7 @@ namespace tests {
 			assert(loadResult);
 		}
 
-		string name = lua.getGlobalString("name");
+		std::string name = lua.getGlobalString("name");
 		am_equalsStr("none", name.c_str());
 
 		assert(lua.hasGlobalFunction("testFunc"));

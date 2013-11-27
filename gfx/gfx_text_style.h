@@ -44,8 +44,8 @@ namespace gfx {
 
 		Colour mColour;
 		
-		typedef pair<TextStyleSelector, TextStyle> NodeStylePair;
-		typedef vector< NodeStylePair > NodeStyleList;
+		typedef std::pair<TextStyleSelector, TextStyle> NodeStylePair;
+		typedef std::vector< NodeStylePair > NodeStyleList;
 		static NodeStyleList sNodeStyleList;
 
 		static int parseStyleTable(LuaState &lua);

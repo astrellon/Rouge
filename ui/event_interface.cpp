@@ -15,9 +15,9 @@ namespace ui {
 
 	bool EventInterface::addEventListener(const char *type, IEventListener *context)
 	{
-		return addEventListener(string(type), context);
+		return addEventListener(std::string(type), context);
 	}
-	bool EventInterface::addEventListener(const string &type, IEventListener *context)
+	bool EventInterface::addEventListener(const std::string &type, IEventListener *context)
 	{
 		if (mManager == nullptr)
 		{
@@ -45,9 +45,9 @@ namespace ui {
 
 	bool EventInterface::removeEventListener(const char *type, IEventListener *context)
 	{
-		return removeEventListener(string(type), context);
+		return removeEventListener(std::string(type), context);
 	}
-	bool EventInterface::removeEventListener(const string &type, IEventListener *context)
+	bool EventInterface::removeEventListener(const std::string &type, IEventListener *context)
 	{
 		if (mManager)
 		{
@@ -107,11 +107,11 @@ namespace ui {
 	{
 		if (mManager)
 		{
-			return mManager->hasEventListener(string(type));
+			return mManager->hasEventListener(std::string(type));
 		}
 		return false;
 	}
-	bool EventInterface::hasEventListener(const string &type)
+	bool EventInterface::hasEventListener(const std::string &type)
 	{
 		if (mManager)
 		{

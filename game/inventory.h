@@ -24,7 +24,7 @@ namespace game {
 	class Inventory : public virtual am::base::IManaged, public EventInterface {
 	public:
 
-		typedef vector< InventorySpot > InventorySpots;
+		typedef std::vector< InventorySpot > InventorySpots;
 
 		enum ItemMovementState {
 			NOT_MOVING, ADDING, REMOVING

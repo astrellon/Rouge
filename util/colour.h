@@ -3,7 +3,6 @@
 #include <map>
 #include <string>
 #include <ostream>
-using namespace std;
 
 #include <util/text_tokeniser.h>
 
@@ -42,11 +41,11 @@ namespace util {
 		Colour lerp(const Colour &rhs, float dt) const;
 
 		static bool getNamedColour(const char *name, Colour &result);
-		static bool getNamedColour(const string &name, Colour &result);
+		static bool getNamedColour(const std::string &name, Colour &result);
 		static void addNamedColour(const char *name, const Colour &colour);
-		static void addNamedColour(const string &name, const Colour &colour);
+		static void addNamedColour(const std::string &name, const Colour &colour);
 		static void removeNamedColour(const char *name);
-		static void removeNamedColour(const string &name);
+		static void removeNamedColour(const std::string &name);
 
 		static const Colour WHITE;
 
@@ -62,7 +61,7 @@ namespace util {
 		float mBlue;
 		float mAlpha;
 
-		typedef map<string, Colour> ColourMap;
+		typedef std::map<std::string, Colour> ColourMap;
 		static ColourMap sColourMap;
 	};
 

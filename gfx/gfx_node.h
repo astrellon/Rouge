@@ -5,7 +5,6 @@
 
 #include <vector>
 #include <string>
-using namespace std;
 
 #include <gfx/gfx_text_style_selector.h>
 #include <gfx/gfx_text_style.h>
@@ -17,8 +16,8 @@ namespace gfx {
 
 	class Node : public am::base::IManaged, public TextStyleSelector {
 	public:
-		typedef vector< am::base::Handle<Node> > NodeList;
-		typedef vector< am::base::Handle<NodeHitbox> > NodeHitboxList;
+		typedef std::vector< am::base::Handle<Node> > NodeList;
+		typedef std::vector< am::base::Handle<NodeHitbox> > NodeHitboxList;
 		
 		Node();
 		Node(const char *nodeType, const char *text = nullptr);
@@ -63,7 +62,7 @@ namespace gfx {
 
 		NodeList mChildren;
 		am::base::Handle<Node> mParent;
-		string mText;
+		std::string mText;
 		TextStyle mStyle;
 		bool mStyleDirty;
 

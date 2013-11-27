@@ -7,7 +7,6 @@ using namespace am::gfx;
 
 #include <vector>
 #include <ostream>
-using namespace std;
 
 #include <game/dialogue.h>
 #include <game/tile_type.h>
@@ -46,8 +45,8 @@ namespace game {
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
 
-		typedef vector< am::base::Handle<TileType> > PassibleTypeList;
-		typedef map<string, bool> SubjectMap;
+		typedef std::vector< am::base::Handle<TileType> > PassibleTypeList;
+		typedef std::map<std::string, bool> SubjectMap;
 
 		GameObject();
 		GameObject(const GameObject &rhs);
@@ -153,7 +152,7 @@ namespace game {
 
 	protected:
 
-		string mGameId;
+		std::string mGameId;
 
 		bool mFixedToGrid;
 		bool mOnlyOnPassable;
@@ -166,8 +165,8 @@ namespace game {
 
 		PassibleTypeList mPassibleTypes;
 
-		string mName;
-		string mDescription;
+		std::string mName;
+		std::string mDescription;
 
 		Map *mMap;
 		Map *mOriginalMap;
@@ -184,7 +183,7 @@ namespace game {
 		static const char *sDamageTypeNames[];
 	};
 
-	typedef vector<am::base::Handle<GameObject> > ObjectList;
+	typedef std::vector<am::base::Handle<GameObject> > ObjectList;
 
 }
 }

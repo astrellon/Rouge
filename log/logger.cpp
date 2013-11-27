@@ -34,12 +34,12 @@ namespace log {
 		LogEntry entry(type, message);
 		log(entry);
 	}
-	void Logger::log(const char *type, const string &message)
+	void Logger::log(const char *type, const std::string &message)
 	{
 		LogEntry entry(type, message.c_str());
 		log(entry);
 	}
-	void Logger::log(const char *type, const stringstream &message)
+	void Logger::log(const char *type, const std::stringstream &message)
 	{
 		LogEntry entry(type, message.str().c_str());
 		log(entry);
@@ -55,19 +55,19 @@ namespace log {
 		LogEntry entry(type, message);
 		log_verbose(entry, file, line);
 	}
-	void Logger::log_verbose(const char *type, const string &message, const char *file, int line)
+	void Logger::log_verbose(const char *type, const std::string &message, const char *file, int line)
 	{
 		LogEntry entry(type, message.c_str());
 		log_verbose(entry, file, line);
 	}
-	void Logger::log_verbose(const char *type, const stringstream &message, const char *file, int line)
+	void Logger::log_verbose(const char *type, const std::stringstream &message, const char *file, int line)
 	{
 		LogEntry entry(type, message.str().c_str());
 		log_verbose(entry, file, line);
 	}
 	void Logger::log_verbose(LogEntry &entry, const char *file, int line)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << " @" << file << '[' << line << ']';
 		entry.mMessage += ss.str();
 		mEntries.push_back(entry);
@@ -122,7 +122,7 @@ namespace log {
 	{
 		if (fromStart)
 		{
-			int maxIndex = max(static_cast<int>(mEntries.size()), offset + num);
+			int maxIndex = std::max(static_cast<int>(mEntries.size()), offset + num);
 			for (int i = offset; i < maxIndex; i++)
 			{
 				entries.push_back(mEntries[i]);
@@ -130,9 +130,9 @@ namespace log {
 		}
 		else
 		{
-			int startIndex = max(0, static_cast<int>(mEntries.size()) - offset - num);
+			int startIndex = std::max(0, static_cast<int>(mEntries.size()) - offset - num);
 			
-			int maxIndex = min(static_cast<int>(mEntries.size()), startIndex + num);
+			int maxIndex = std::min(static_cast<int>(mEntries.size()), startIndex + num);
 			for (int i = startIndex; i < maxIndex; i++)
 			{
 				entries.push_back(mEntries[i]);
@@ -162,11 +162,11 @@ namespace log {
 	{
 		Logger::getMainLogger()->log_verbose(type, message, file, line);
 	}
-	void _log_verbose(const char *type, const string &message, const char *file, int line)
+	void _log_verbose(const char *type, const std::string &message, const char *file, int line)
 	{
 		Logger::getMainLogger()->log_verbose(type, message, file, line);
 	}
-	void _log_verbose(const char *type, const stringstream &message, const char *file, int line)
+	void _log_verbose(const char *type, const std::stringstream &message, const char *file, int line)
 	{
 		Logger::getMainLogger()->log_verbose(type, message, file, line);
 	}
@@ -179,11 +179,11 @@ namespace log {
 	{
 		Logger::getMainLogger()->log(type, message);
 	}
-	void _log(const char *type, const string &message)
+	void _log(const char *type, const std::string &message)
 	{
 		Logger::getMainLogger()->log(type, message);
 	}
-	void _log(const char *type, const stringstream &message)
+	void _log(const char *type, const std::stringstream &message)
 	{
 		Logger::getMainLogger()->log(type, message);
 	}

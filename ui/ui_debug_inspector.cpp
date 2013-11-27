@@ -40,7 +40,7 @@ namespace ui {
 		mInfo->setHeight(mHeight - 28);
 	}
 
-	void DebugInspector::setValue(string key, string value)
+	void DebugInspector::setValue(std::string key, std::string value)
 	{
 		if (value.empty())
 		{
@@ -57,14 +57,14 @@ namespace ui {
 			mTextDirty = true;
 		}
 	}
-	string DebugInspector::getValue(string key) const
+	std::string DebugInspector::getValue(std::string key) const
 	{
 		auto find = mValues.find(key);
 		if (find != mValues.end())
 		{
 			return find->second;
 		}
-		return string("");
+		return std::string("");
 	}
 
 	TextField2 *DebugInspector::getTextField()
@@ -97,7 +97,7 @@ namespace ui {
 
 	void DebugInspector::updateText()
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "<inspector>";
 		
 		for (auto iter = mValues.begin(); iter != mValues.end(); ++iter)

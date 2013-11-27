@@ -6,7 +6,6 @@
 #include <fstream>
 #include <ostream>
 
-using namespace std;
 
 namespace am {
 namespace log {
@@ -21,7 +20,7 @@ namespace log {
 
 	protected:
 
-		ofstream mFile;
+		std::ofstream mFile;
 	};
 
 }

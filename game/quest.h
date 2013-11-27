@@ -4,7 +4,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 #include <ui/event_interface.h>
 using namespace am::ui;
@@ -62,14 +61,14 @@ namespace game {
 
 	protected:
 
-		string mQuestId;
+		std::string mQuestId;
 		bool mAcceptedReward;
 		bool mCompleted;
 		bool mEnabled;
 
-		string mTitle;
-		string mDescription;
-		string mActiveText;
+		std::string mTitle;
+		std::string mDescription;
+		std::string mActiveText;
 	};
 
 }

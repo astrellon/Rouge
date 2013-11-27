@@ -4,7 +4,6 @@
 
 #include <map>
 #include <string>
-using namespace std;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -27,8 +26,8 @@ namespace game {
 		
 	protected:
 
-		string mName;
-		string mFullName;
+		std::string mName;
+		std::string mFullName;
 
 	};
 

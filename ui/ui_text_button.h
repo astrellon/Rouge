@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-using namespace std;
 
 #include <base/handle.h>
 
@@ -37,8 +36,8 @@ namespace ui {
 		Renderable *getHitbox();
 
 		void setLabel(const char *label);
-		void setLabel(const string &label);
-		string getLabel() const;
+		void setLabel(const std::string &label);
+		std::string getLabel() const;
 
 		TextField *getLabelField() const;
 

@@ -12,12 +12,13 @@ namespace sys {
 	class ISystem {
 	public:
 
-		typedef struct {
-			string name;
+		typedef struct 
+		{
+			std::string name;
 			bool isDirectory;
 		} FolderEntry;
 
-		typedef vector<FolderEntry> FolderEntryList;
+		typedef std::vector<FolderEntry> FolderEntryList;
 		virtual void setSize(int width, int height) = 0;
 		virtual void setPosition(int x, int y) = 0;
 

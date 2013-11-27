@@ -156,7 +156,7 @@ namespace ui {
 			return;
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "<char_screen>";
 		ss << "<title class='name'>Name:</title> " << mCharacter->getName() << "\n";
 		ss << "-------\n";

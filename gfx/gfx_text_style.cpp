@@ -65,8 +65,8 @@ namespace gfx {
 	{
 		// Was pair<int, TextStyle &> but it seems that the sort
 		// algorithm actually changes things up a bit if you do that.
-		typedef pair<int, TextStyle> StylePair;
-		vector< StylePair > found;
+		typedef std::pair<int, TextStyle> StylePair;
+		std::vector< StylePair > found;
 		NodeStyleList::iterator iter;
 		for (iter = sNodeStyleList.begin(); iter != sNodeStyleList.end(); ++iter)
 		{
@@ -79,7 +79,7 @@ namespace gfx {
 
 		if (found.size() > 0)
 		{
-			sort(found.begin(), found.end(), 
+			std::sort(found.begin(), found.end(), 
 				[](const StylePair &a, const StylePair &b) -> bool
 			{
 				return a.first < b.first;
@@ -88,7 +88,7 @@ namespace gfx {
 			TextStyle result;
 			for (size_t i = 0; i < found.size(); i++)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				if (found[i].second.hasColour())
 				{
 					result = found[i].second;
@@ -150,7 +150,7 @@ namespace gfx {
 		LuaState lua(false);
 		if (!lua.loadFile(filename))
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Error loading styles file '" << filename << "'";
 			lua.logStack("STYLELUA");
 			am_log("STYLE", errss);
@@ -161,7 +161,7 @@ namespace gfx {
 		lua_getglobal(lua, "styles");
 		if (!lua_istable(lua, -1))
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Did not find a global 'styles' table in '" << filename << "'";
 			am_log("STYLE", errss);
 			lua.close();
@@ -174,23 +174,23 @@ namespace gfx {
 			int result = parseStyleTable(lua);
 			if (result == -1)
 			{
-				stringstream errss;
+				std::stringstream errss;
 				errss << "Non object at [" << lua_tonumber(lua, -2) << "] in '" << filename << "'";
 				am_log("STYLE", errss);
 			}
 			else if (result == -2)
 			{
-				stringstream errss;
+				std::stringstream errss;
 				errss << "Style selector does not have style at [" << lua_tonumber(lua, -2) << "] in '" << filename << "'";
 				am_log("STYLE", errss);
 			}
 			else if (result == -3)
 			{
-				stringstream errss;
+				std::stringstream errss;
 				errss << "Error load style definition at [" << lua_tonumber(lua, -2) << "] in '" << filename << "'";
 				am_log("STYLE", errss);
 			}
-			stringstream ss;
+			std::stringstream ss;
 			lua.printStack(ss);
 			lua_pop(lua, 1);
 		}
@@ -222,7 +222,7 @@ namespace gfx {
 		}
 		if (lua.isTableString("flag"))
 		{
-			string lowerFlag = Utils::toLowerCase(lua_tostring(lua, -1));
+			std::string lowerFlag = Utils::toLowerCase(lua_tostring(lua, -1));
 			lua.pop(1);
 			if (lowerFlag.size() == 0)
 			{
@@ -238,7 +238,7 @@ namespace gfx {
 			}
 			else
 			{
-				stringstream errss;
+				std::stringstream errss;
 				errss << "Unknown flag for selector: " << lowerFlag;
 				am_log("STYLE", errss);
 			}
@@ -255,7 +255,7 @@ namespace gfx {
 				}
 				else if (lua_isnumber(lua, -1))
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << lua_tonumber(lua, -1);
 					selector.setAttribute(key, ss.str().c_str());
 				}
@@ -265,7 +265,7 @@ namespace gfx {
 				}
 				else
 				{
-					stringstream errss;
+					std::stringstream errss;
 					errss << "Unable to use '" << key << "' as it is of type '";
 					errss << lua_typename(lua, -1) << "', for an attribute value.";
 					am_log("STYLE", errss);

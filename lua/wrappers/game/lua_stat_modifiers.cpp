@@ -17,7 +17,6 @@ using namespace am::game;
 #include <log/logger.h>
 
 #include <sstream>
-using namespace std;
 
 #include "lua_stats.h"
 

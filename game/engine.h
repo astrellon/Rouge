@@ -3,7 +3,6 @@
 #include <map>
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <base/handle.h>
 
@@ -38,9 +37,9 @@ namespace game {
 	class GameObject;
 	class Tile;
 
-	typedef map<string, am::base::Handle<TileSet> > TileSetMap;
-	typedef map<string, am::base::Handle<Race> > RaceMap;
-	typedef map<string, am::base::Handle<TileType> > TileTypeMap;
+	typedef std::map<std::string, am::base::Handle<TileSet> > TileSetMap;
+	typedef std::map<std::string, am::base::Handle<Race> > RaceMap;
+	typedef std::map<std::string, am::base::Handle<TileType> > TileTypeMap;
 
 	class Engine : public EventInterface, public IDefinitionManager {
 	public:
@@ -121,7 +120,7 @@ namespace game {
 
 		float mGridSizeResp;
 
-		typedef map<string, int> UsingTileSet;
+		typedef std::map<std::string, int> UsingTileSet;
 		UsingTileSet mUsingTileSetNames;
 
 		bool mUsingTileSetDirty;

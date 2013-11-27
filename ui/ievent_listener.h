@@ -4,7 +4,6 @@
 #include <base/handle.h>
 
 #include <vector>
-using std::vector;
 
 #include "event.h"
 #include "mouse_event.h"
@@ -27,7 +26,7 @@ namespace ui {
 	class IEventListener : virtual public am::base::IManaged {
 	public:
 
-		typedef vector< am::base::Handle<EventInterface> > ListeningList;
+		typedef std::vector< am::base::Handle<EventInterface> > ListeningList;
 
 		virtual ~IEventListener();
 

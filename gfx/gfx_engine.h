@@ -3,7 +3,6 @@
 #include <vector>
 #include <map>
 #include <string>
-using namespace std;
 
 #include <base/handle.h>
 #include <base/return_codes.h>
@@ -25,9 +24,9 @@ namespace gfx {
 	class Sprite;
 	class Layer;
 
-	typedef map<string, am::base::Handle<Asset> > AssetMap;
-	typedef map<string, am::base::Handle<Texture> > TextureMap;
-	typedef map<string, am::base::Handle<Font> > FontMap;
+	typedef std::map< std::string, am::base::Handle<Asset> > AssetMap;
+	typedef std::map< std::string, am::base::Handle<Texture> > TextureMap;
+	typedef std::map< std::string, am::base::Handle<Font> > FontMap;
 
 	class GfxEngine : public IDefinitionManager {
 	public:
@@ -113,7 +112,7 @@ namespace gfx {
 		am::base::Handle<Layer> mTooltipLayer;
 		am::base::Handle<Layer> mDebugLayer;
 
-		vector<Colour> mColourStack;
+		std::vector<Colour> mColourStack;
 
 		static GfxEngine *sMainGfxEngine;
 

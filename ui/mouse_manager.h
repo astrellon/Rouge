@@ -1,7 +1,6 @@
 #pragma once
 
 #include <map>
-using namespace std;
 
 #include <base/handle.h>
 
@@ -58,7 +57,7 @@ namespace ui {
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
 		am::base::Handle<MouseEvent> mCurrentEvent;
-		typedef map<Mouse::Button, bool> MouseButtonMap;
+		typedef std::map<Mouse::Button, bool> MouseButtonMap;
 		MouseButtonMap mMouseButtonsDown;
 
 		int mDragOffsetX;
@@ -69,7 +68,7 @@ namespace ui {
 
 		static MouseManager *sMainManager;
 
-		static string getPath(Renderable *target);
+		static std::string getPath(Renderable *target);
 	};
 
 }

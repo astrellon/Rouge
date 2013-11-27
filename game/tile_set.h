@@ -2,7 +2,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
@@ -21,17 +20,17 @@ namespace game {
 	class TileSet : public am::base::IManaged, public IDefinition {
 	public:
 
-		typedef map<string, am::base::Handle<Tile> > TileMap;
+		typedef std::map<std::string, am::base::Handle<Tile> > TileMap;
 
 		TileSet();
 		TileSet(const char *name);
 		~TileSet();
 
 		void setName(const char *name);
-		string getName() const;
+		std::string getName() const;
 
 		void setFullName(const char *fullName);
-		string getFullName() const;
+		std::string getFullName() const;
 
 		void addTile(Tile *tile);
 		bool addTileWithCheck(Tile *tile);
@@ -49,8 +48,8 @@ namespace game {
 
 		TileMap mTiles;
 		
-		string mName;
-		string mFullName;
+		std::string mName;
+		std::string mFullName;
 	};
 
 }

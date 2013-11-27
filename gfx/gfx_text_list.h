@@ -9,7 +9,7 @@ namespace gfx {
 
 	class TextList : public TextField {
 	public:
-		typedef vector<string> FilterList;
+		typedef std::vector<std::string> FilterList;
 
 		TextList();
 		virtual ~TextList();
@@ -36,8 +36,8 @@ namespace gfx {
 
 	protected:
 
-		typedef pair<string, string> Entry;
-		typedef vector<Entry> Entries;
+		typedef std::pair<std::string, std::string> Entry;
+		typedef std::vector<Entry> Entries;
 		Entries mEntries;
 
 		int mMaxEntries;
@@ -47,7 +47,7 @@ namespace gfx {
 
 		FilterList mFilterList;
 		
-		typedef map<string, bool> FilterMap;
+		typedef std::map<std::string, bool> FilterMap;
 		FilterMap mFilterMap;
 	};
 

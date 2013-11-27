@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <string>
-using namespace std;
 
 #include <game/dialogue.h>
 using namespace am::game;
@@ -33,8 +32,8 @@ namespace ui {
 		virtual void setTalkedTo(GameObject *talkedTo);
 		virtual GameObject *getTalkedTo() const;
 
-		virtual void setDialogueChoices(const vector<Dialogue *> &choices);
-		virtual const vector<Dialogue *> &getDialogueChoices() const;
+		virtual void setDialogueChoices(const std::vector<Dialogue *> &choices);
+		virtual const std::vector<Dialogue *> &getDialogueChoices() const;
 
 		virtual float getMeasuredWidth();
 		virtual float getMeasuredHeight();
@@ -51,7 +50,7 @@ namespace ui {
 	protected:
 
 		am::base::Handle<TextField2> mText;
-		vector<Dialogue *> mChoices;
+		std::vector<Dialogue *> mChoices;
 		am::base::Handle<GameObject> mTalker;
 		am::base::Handle<GameObject> mTalkedTo;
 

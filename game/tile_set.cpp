@@ -26,7 +26,7 @@ namespace game {
 	{
 		mName = name;
 	}
-	string TileSet::getName() const
+	std::string TileSet::getName() const
 	{
 		return mName;
 	}
@@ -35,7 +35,7 @@ namespace game {
 	{
 		mFullName = name;
 	}
-	string TileSet::getFullName() const
+	std::string TileSet::getFullName() const
 	{
 		return mFullName;
 	}
@@ -67,7 +67,7 @@ namespace game {
 	{
 		if (tileName)
 		{
-			TileMap::iterator iter = mTiles.find(string(tileName));
+			TileMap::iterator iter = mTiles.find(std::string(tileName));
 			if (iter != mTiles.end())
 			{
 				mTiles.erase(iter);
@@ -78,7 +78,7 @@ namespace game {
 	{
 		if (tile)
 		{
-			return mTiles.find(string(tile->getName())) != mTiles.end();
+			return mTiles.find(std::string(tile->getName())) != mTiles.end();
 		}
 		return false;
 	}
@@ -86,7 +86,7 @@ namespace game {
 	{
 		if (tileName)
 		{
-			return mTiles.find(string(tileName)) != mTiles.end();
+			return mTiles.find(std::string(tileName)) != mTiles.end();
 		}
 		return false;
 	}
@@ -94,7 +94,7 @@ namespace game {
 	{
 		if (tileName)
 		{
-			TileMap::iterator iter = mTiles.find(string(tileName));
+			TileMap::iterator iter = mTiles.find(std::string(tileName));
 			if (iter == mTiles.end())
 			{
 				return nullptr;

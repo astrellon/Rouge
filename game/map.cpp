@@ -12,7 +12,6 @@ using namespace am::util;
 #include <sstream>
 #include <ostream>
 #include <fstream>
-using namespace std;
 
 #include "tile.h"
 #include "tile_instance.h"
@@ -122,7 +121,7 @@ namespace game {
 	{
 		mName = name;
 	}
-	string Map::getName() const
+	std::string Map::getName() const
 	{
 		return mName;
 	}
@@ -131,7 +130,7 @@ namespace game {
 	{
 		mFullName = name;
 	}
-	string Map::getFullName() const
+	std::string Map::getFullName() const
 	{
 		return mFullName;
 	}
@@ -673,7 +672,7 @@ namespace game {
 		return false;
 	}
 
-	bool Map::isValidGridLocation(int gridX, int gridY, const vector< am::base::Handle<TileType> > &passibles) const
+	bool Map::isValidGridLocation(int gridX, int gridY, const std::vector< am::base::Handle<TileType> > &passibles) const
 	{
 		if (gridX < 0 || gridY < 0 || gridX >= mMapWidth || gridY >= mMapHeight)
 		{

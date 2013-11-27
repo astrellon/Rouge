@@ -11,7 +11,6 @@ using namespace am::ui;
 #include <log/logger.h>
 
 #include <sstream>
-using namespace std;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -253,17 +252,17 @@ namespace gfx {
 
 	int GfxEngine::reloadAsset(const char *assetName)
 	{
-		string assetNameStr = assetName;
+		std::string assetNameStr = assetName;
 		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
 		if (iter == mAssetManager.end())
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Unable to reload asset '" << assetNameStr << "' as it is not loaded.";
 			am_log("ASSET", errss);
 			return 0;
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		if (assetNameStr[0] == '/')
 		{
 			ss << "data" << assetNameStr << ".lua";
@@ -276,7 +275,7 @@ namespace gfx {
 		LuaState lua(false);
 		if (!lua.loadFile(ss.str().c_str()))
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Unable to reload asset '" << assetNameStr << "', using the path '";
 			errss << ss.str() << "\'\nLoaded: "; 
 			am_log("ASSET", errss);
@@ -289,7 +288,7 @@ namespace gfx {
 		int loadAsset = temp->loadDef(lua);
 		if (loadAsset != 0)
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
 			am_log("ASSET", errss);
 			lua.logStack("ASSETLUA");
@@ -317,7 +316,7 @@ namespace gfx {
 
 	am::base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
-		string fileStr = filename;
+		std::string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter != mTextureManager.end())
 		{
@@ -335,7 +334,7 @@ namespace gfx {
 		}
 
 		delete temp;
-		stringstream errss;
+		std::stringstream errss;
 		errss << "Unable to load texture '" << filename << "'";
 		am_log("GFX", errss);
 		
@@ -343,12 +342,12 @@ namespace gfx {
 	}
 	int GfxEngine::reloadTexture(const char *filename)
 	{
-		string fileStr = filename;
+		std::string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
 		if (iter == mTextureManager.end())
 		{
 			// Cannot reload if it was never loaded.
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Unable to reload texture '" << fileStr << "' as it was never loaded.";
 			am_log("GFX", errss);
 			return 0;

@@ -105,7 +105,7 @@ namespace gfx {
 		mDirty = true;
 		mNewLineDirty = true;
 	}
-	void TextField::setText(const string &str)
+	void TextField::setText(const std::string &str)
 	{
 		mText = str;
 		mDirty = true;
@@ -117,7 +117,7 @@ namespace gfx {
 		mDirty = true;
 		mNewLineDirty = true;
 	}
-	void TextField::appendText(const string &str)
+	void TextField::appendText(const std::string &str)
 	{
 		mText.append(str);
 		mDirty = true;
@@ -238,7 +238,7 @@ namespace gfx {
 			mNewLinePositions.push_back(mTextPosition + 1);
 		}
 	}
-	void TextField::renderText(const string &text)
+	void TextField::renderText(const std::string &text)
 	{
 		int len = static_cast<int>(text.size());
 		if (mTextPosition == mCursorInputPosition)

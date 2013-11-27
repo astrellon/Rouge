@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-using namespace std;
 
 #include <base/imanaged.h>
 #include <base/handle.h>
@@ -17,7 +16,7 @@ namespace ui {
 		Event(const char *type, EventInterface *target);
 		virtual ~Event();
 
-		string getType() const;
+		std::string getType() const;
 		EventInterface *getEventTarget() const;
 		void setEventTarget(EventInterface *manager);
 		
@@ -28,7 +27,7 @@ namespace ui {
 
 		Event();
 
-		string mType;
+		std::string mType;
 		bool mPropagating;
 
 		void setType(const char *type);

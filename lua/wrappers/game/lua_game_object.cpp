@@ -28,7 +28,6 @@ using namespace am::util;
 using namespace am::lua::gfx;
 
 #include <sstream>
-using namespace std;
 
 namespace am {
 namespace lua {
@@ -420,7 +419,7 @@ namespace game {
 			}
 			else
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unknown tile type '";
 				LuaState::printTypeValue(lua, 2, ss);
 				ss << "' unable to add";

@@ -7,7 +7,6 @@
 #include <log/logger.h>
 
 #include <sstream>
-using namespace std;
 
 #include <util/utils.h>
 #include <util/tokeniser.h>
@@ -242,7 +241,7 @@ namespace util {
 		}
 		else
 		{
-			string lower = Utils::toLowerCase(token);
+			std::string lower = Utils::toLowerCase(token);
 			getNamedColour(lower, *this);
 			return;
 		}
@@ -272,7 +271,7 @@ namespace util {
 
 	bool Colour::getNamedColour(const char *name, Colour &result)
 	{
-		ColourMap::iterator iter = sColourMap.find(string(name));
+		ColourMap::iterator iter = sColourMap.find(std::string(name));
 		if (iter != sColourMap.end())
 		{
 			result = iter->second;
@@ -280,7 +279,7 @@ namespace util {
 		}
 		return false;
 	}
-	bool Colour::getNamedColour(const string &name, Colour &result)
+	bool Colour::getNamedColour(const std::string &name, Colour &result)
 	{
 		ColourMap::iterator iter = sColourMap.find(name);
 		if (iter != sColourMap.end())
@@ -292,21 +291,21 @@ namespace util {
 	}
 	void Colour::addNamedColour(const char *name, const Colour &colour)
 	{
-		sColourMap[string(name)] = colour;
+		sColourMap[std::string(name)] = colour;
 	}
-	void Colour::addNamedColour(const string &name, const Colour &colour)
+	void Colour::addNamedColour(const std::string &name, const Colour &colour)
 	{
 		sColourMap[name] = colour;
 	}
 	void Colour::removeNamedColour(const char *name)
 	{
-		ColourMap::iterator iter = sColourMap.find(string(name));
+		ColourMap::iterator iter = sColourMap.find(std::string(name));
 		if (iter != sColourMap.end())
 		{
 			sColourMap.erase(iter);
 		}
 	}
-	void Colour::removeNamedColour(const string &name)
+	void Colour::removeNamedColour(const std::string &name)
 	{
 		ColourMap::iterator iter = sColourMap.find(name);
 		if (iter != sColourMap.end())
@@ -348,7 +347,7 @@ namespace util {
 							}
 							if (parsed)
 							{
-								string lowerName = Utils::toLowerCase(name);
+								std::string lowerName = Utils::toLowerCase(name);
 								addNamedColour(lowerName, c);
 							}
 						}

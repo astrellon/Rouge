@@ -1,7 +1,6 @@
 #pragma once
 
 #include <map>
-using namespace std;
 
 #include "stats_common.h"
 #include "stat_modifier.h"
@@ -12,8 +11,8 @@ namespace game {
 	class IStatModifiers {
 	public:
 
-		typedef vector<StatModifier> StatModifierVector;
-		typedef map<int, StatModifierVector> StatModifierMap;
+		typedef std::vector<StatModifier> StatModifierVector;
+		typedef std::map<int, StatModifierVector> StatModifierMap;
 
 		virtual bool addStatModifier(Stat::StatType stat, const StatModifier &modifier) = 0;
 		virtual bool removeStatModifier(Stat::StatType stat, const StatModifier &modifier) = 0;

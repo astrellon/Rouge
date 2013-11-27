@@ -112,7 +112,7 @@ namespace gfx {
 
 		preRender(dt);
 
-		string sep = ": ";
+		std::string sep = ": ";
 
 		int start = max(0, min(mEntries.size() - 1, mEntries.size() - 1 - mScroll));
 		int end = max(0, start - mLinesToDisplay);

@@ -17,7 +17,6 @@ using namespace am::ui;
 #include <base/handle.h>
 
 #include <sstream>
-using namespace std;
 
 namespace am {
 namespace lua {

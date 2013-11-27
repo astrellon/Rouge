@@ -6,7 +6,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 #include <game/item.h>
 #include <game/body_part_common.h>

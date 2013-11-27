@@ -13,11 +13,11 @@ namespace log {
 
 	}
 
-	const string &LogEntry::getType() const
+	const std::string &LogEntry::getType() const
 	{
 		return mType;
 	}
-	const string &LogEntry::getMessage() const
+	const std::string &LogEntry::getMessage() const
 	{
 		return mMessage;
 	}

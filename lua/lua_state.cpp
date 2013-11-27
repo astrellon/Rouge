@@ -85,7 +85,7 @@ namespace lua {
 	int LuaState::onError(lua_State *lua)
 	{
 		{
-			stringstream ss;
+			std::stringstream ss;
 			printStack(lua, ss);
 			am_log("LUAERR", ss);
 		}
@@ -114,7 +114,7 @@ namespace lua {
 		int result = lua_pcall(mLua, n, r, 0);
 		if (result != LUA_OK)
 		{
-			stringstream errss;
+			std::stringstream errss;
 			errss << "Error calling Lua: " << result << '\n';
 			printStack(mLua, errss);
 			throw std::runtime_error(errss.str().c_str());
@@ -387,11 +387,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return value;
 	}
-	string LuaState::getGlobalString(const char *name)
+	std::string LuaState::getGlobalString(const char *name)
 	{
 		lua_getglobal(mLua, name);
 		const char *value = lua_tostring(mLua, -1);
-		string valueStr;
+		std::string valueStr;
 		if (value != nullptr)
 		{
 			valueStr = value;
@@ -412,11 +412,11 @@ namespace lua {
 
 	void LuaState::logTable(const char *cat, int n)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		printTable(ss, n);
 		am_log(cat, ss);
 	}
-	void LuaState::printTable(ostream &output, int n, bool includeType)
+	void LuaState::printTable(std::ostream &output, int n, bool includeType)
 	{
 		if (!lua_istable(mLua, n))
 		{
@@ -462,30 +462,30 @@ namespace lua {
 
 	void LuaState::logStack(const char *cat)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		printStack(mLua, ss);
 		am_log(cat, ss);
 	}
 	void LuaState::logStack(lua_State *lua, const char *cat)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		printStack(lua, ss);
 		am_log(cat, ss);
 	}
 
 	int LuaState::luaPrintStack(lua_State *lua)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		printStack(lua, ss);
 		lua_pushstring(lua, ss.str().c_str());
 		return 1;
 	}
 
-	void LuaState::printStack(ostream &output)
+	void LuaState::printStack(std::ostream &output)
 	{
 		printStack(mLua, output);
 	}
-	void LuaState::printStack(lua_State *lua, ostream &output)
+	void LuaState::printStack(lua_State *lua, std::ostream &output)
 	{
 		bool done = false;
 		int size = lua_gettop(lua);
@@ -519,7 +519,7 @@ namespace lua {
 
 	void LuaState::registerWrapper(const char *name, int id)
 	{
-		sWrapperIdMap[id] = string(name);
+		sWrapperIdMap[id] = std::string(name);
 		if (id > sWrapperMaxId)
 		{
 			sWrapperMaxId = id;
@@ -536,7 +536,7 @@ namespace lua {
 		{
 			return 0;
 		}
-		stringstream ss;
+		std::stringstream ss;
 		int args = lua_gettop(lua);
 		int start = 2;
 		if (funcName[0] == '@')
@@ -568,7 +568,7 @@ namespace lua {
 			funcName = funcName + 1;
 		}
 
-		stringstream gotss;
+		std::stringstream gotss;
 		int args = lua_gettop(lua);
 		for (int i = start; i <= args; i++)
 		{
@@ -579,10 +579,10 @@ namespace lua {
 			printTypeValue(lua, i, gotss, true);
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		LuaState::printStack(lua, ss);
 
-		stringstream expss;
+		std::stringstream expss;
 		va_list list;
 		va_start(list, n);
 		for (int i = 0; i < n; i++)
@@ -608,7 +608,7 @@ namespace lua {
 		lua_getstack(lua, 1, &ar);
 		lua_getinfo(lua, "nSl", &ar);
 		int line = ar.currentline;
-		stringstream ss;
+		std::stringstream ss;
 		ss << message << " [" << line << ']';
 		am_log("LUA WARN", ss);
 	}
@@ -626,7 +626,7 @@ namespace lua {
 	{
 		if (lua_compare(lua, 1, 2, LUA_OPEQ) != 1)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "\n- Expected:\t";
 			printTypeValue(lua, 1, ss);
 			ss << "\n- Actual:\t\t";
@@ -639,7 +639,7 @@ namespace lua {
 	{
 		if (lua_compare(lua, 1, 2, LUA_OPEQ) == 1)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "\n- Did not expect:\t";
 			printTypeValue(lua, 1, ss);
 			ss << "\n- Actual:\t\t";
@@ -648,7 +648,7 @@ namespace lua {
 		}
 		return 0;
 	}
-	void LuaState::printTypeValue(lua_State *lua, int n, ostream &output, bool includeType)
+	void LuaState::printTypeValue(lua_State *lua, int n, std::ostream &output, bool includeType)
 	{
 		int type = lua_type(lua, n);
 		if (includeType)
@@ -710,7 +710,7 @@ namespace lua {
 		{
 			return 0;
 		}
-		stringstream ss;
+		std::stringstream ss;
 		LuaState L(lua);
 		for (int i = 1; i <= args; i++)
 		{
@@ -727,7 +727,7 @@ namespace lua {
 
 	void LuaState::displayLineError(lua_State *lua, const char *file, int line)
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Error calling Lua in " << file << " [" << line << "]\n";
 		printStack(lua, ss);
 		am_log("LUAERR", ss);

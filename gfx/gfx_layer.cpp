@@ -186,9 +186,9 @@ namespace gfx {
 		return mChildren.end();
 	}
 
-	string Layer::getName() const
+	std::string Layer::getName() const
 	{
-		stringstream name;
+		std::stringstream name;
 #ifdef _DEBUG
 		name << mDebugName;
 		if (mDebugName.size() == 0)

@@ -34,7 +34,7 @@ namespace game {
 	{
 		float temp = 0.0f;
 		
-		vector<StatRange> values;
+		std::vector<StatRange> values;
 
 		StatTokeniser tokeniser(input, "+-dD");
 		const char *token = tokeniser.nextToken();

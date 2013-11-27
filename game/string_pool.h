@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-using namespace std;
 
 #include <util/tokeniser.h>
 using namespace am::util;
@@ -13,12 +12,12 @@ namespace game {
 
 	class StringPool {
 	public:
-		static string replace(const char *str);
-		static string filterText(const string &str);
+		static std::string replace(const char *str);
+		static std::string filterText(const std::string &str);
 
 	protected:
 
-		static string replaceCharacter(Tokeniser &tokeniser, Character *character);
+		static std::string replaceCharacter(Tokeniser &tokeniser, Character *character);
 
 	};
 

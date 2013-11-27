@@ -206,7 +206,7 @@ namespace game {
 				return true;
 			}
 
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unknown tile type '";
 			LuaState::printTypeValue(lua, n, ss);
 			ss << "' unable to add";

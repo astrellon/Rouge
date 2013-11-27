@@ -37,7 +37,7 @@ namespace tests {
 		am::base::Handle<Character> testPlayer(new Character());
 		testPlayer->setDialogueComp(new DialogueComponent());
 
-		vector<Dialogue *> dialogues;
+		std::vector<Dialogue *> dialogues;
 		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 
 		am_equals(1u, dialogues.size());

@@ -10,7 +10,6 @@
 
 #include <base/return_codes.h>
 using am::base::ReturnCode;
-using namespace std;
 
 namespace am {
 namespace tests {
@@ -26,7 +25,7 @@ namespace tests {
 		static void dispError(const T &expected, const T &actual, const char *file, unsigned int line) 
 		{
 			dispErrorLine(file, line);
-			stringstream ss;
+			std::stringstream ss;
 			ss << "\n- Expected: >" << expected << "<\n- Actual: >" << actual << "<\n";
 			am_log("ERR", ss);
 		}
@@ -35,7 +34,7 @@ namespace tests {
 		static void dispNotError(const T &expected, const char *file, unsigned int line) 
 		{
 			dispErrorLine(file, line);
-			stringstream ss;
+			std::stringstream ss;
 			ss << "- Did not expect: " << expected << "\n";
 			am_log("ERR", ss);
 		}
@@ -44,7 +43,7 @@ namespace tests {
 		static void dispError(const T &expected, const T &actual, double delta, const char *file, unsigned int line) 
 		{
 			dispErrorLine(file, line);
-			stringstream ss;
+			std::stringstream ss;
 			ss << "- Expected: " << expected << "\n- Actual  : " << actual << "\n- Delta   : " << delta << "\n";
 			am_log("ERR", ss);
 		}
@@ -53,7 +52,7 @@ namespace tests {
 		static void dispNotError(const T &expected, const T &actual, double delta, const char *file, unsigned int line) 
 		{
 			dispErrorLine(file, line);
-			stringstream ss;
+			std::stringstream ss;
 			ss << "- Did not expect: " << expected << "\n- Actual: " << actual << "\n- Delta   : " << delta << "\n";
 		}
 
@@ -71,7 +70,7 @@ namespace tests {
 		static bool _equals(const char *file, unsigned int line, const double &expected, const double &actual, bool notCompare, double delta=0.00001);
 		
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
-		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const string &actual, bool notCompare);
+		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const std::string &actual, bool notCompare);
 
 	};
 }

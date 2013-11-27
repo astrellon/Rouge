@@ -7,7 +7,7 @@ namespace log {
 
 	FileLogListener::FileLogListener(const char *file)
 	{
-		mFile.open(file, ios_base::out);
+		mFile.open(file, std::ios_base::out);
 		if (!mFile.is_open())
 		{
 			// Cry
@@ -28,7 +28,7 @@ namespace log {
 	{
 		if (mFile.is_open())
 		{
-			mFile << entry.getType() << ":\t" << entry.getMessage() << endl;
+			mFile << entry.getType() << ":\t" << entry.getMessage() << std::endl;
 		}
 	}
 

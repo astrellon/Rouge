@@ -22,7 +22,6 @@ using namespace am::sys;
 #include <log/logger.h>
 
 #include <sstream>
-using namespace std;
 
 #include <lua/wrappers/lua_id_table.h>
 

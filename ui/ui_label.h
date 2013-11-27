@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <string>
-using namespace std;
 
 #include "ui_component.h"
 
@@ -20,12 +19,12 @@ namespace ui {
 	public:
 		Label();
 		Label(const char *label);
-		Label(const string &label);
+		Label(const std::string &label);
 		~Label();
 
 		void setLabel(const char *label);
-		void setLabel(const string &label);
-		string getLabel() const;
+		void setLabel(const std::string &label);
+		std::string getLabel() const;
 
 		TextField *getLabelField();
 

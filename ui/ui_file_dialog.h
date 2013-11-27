@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 #include <string>
-using namespace std;
 
 #include <ui/ui_panel.h>
 #include <ui/ui_text_input.h>
@@ -28,7 +27,7 @@ namespace ui {
 		void setFilename(const char *filename);
 		const char *getFilename() const;
 
-		string getFullPath() const;
+		std::string getFullPath() const;
 
 		virtual void setWidth(float width);
 		//virtual void setHeight(float height);
@@ -42,8 +41,8 @@ namespace ui {
 		am::base::Handle<TextButton> mOk;
 		am::base::Handle<TextButton> mCancel;
 
-		string mFolder;
-		string mDialogTitle;
+		std::string mFolder;
+		std::string mDialogTitle;
 
 	};
 

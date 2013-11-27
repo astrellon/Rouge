@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <map>
-using namespace std;
 
 #include <base/imanaged.h>
 #include <base/handle.h>

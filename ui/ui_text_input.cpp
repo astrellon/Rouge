@@ -77,7 +77,7 @@ namespace ui {
 			// Backspace
 			if (key == 8)
 			{
-				string str = getText();
+				std::string str = getText();
 				if (str.size() == 0 || mInputPosition == 0)
 				{
 					return;
@@ -106,7 +106,7 @@ namespace ui {
 			// Delete
 			if (key == 46)
 			{
-				string str = getText();
+				std::string str = getText();
 				if (str.size() == 0 || mInputPosition == 0)
 				{
 					return;
@@ -216,14 +216,14 @@ namespace ui {
 
 	void TextInput::setText(const char *text)
 	{
-		setText(string(text));
+		setText(std::string(text));
 		fireChangeEvent();
 	}
-	void TextInput::setText(const string &text)
+	void TextInput::setText(const std::string &text)
 	{
 		if (mMaxCharacters > 0 && text.size() > mMaxCharacters)
 		{
-			string temp(text);
+			std::string temp(text);
 			temp.resize(mMaxCharacters);
 			mText->setText(temp);
 			mInputPosition = temp.length();
@@ -234,7 +234,7 @@ namespace ui {
 			mInputPosition = text.length();
 		}
 	}
-	string TextInput::getTextStr() const
+	std::string TextInput::getTextStr() const
 	{
 		return mText->getText();
 	}
@@ -264,7 +264,7 @@ namespace ui {
 		static char buff[2];
 		buff[0] = text;
 		buff[1] = '\0';
-		string str = getText();
+		std::string str = getText();
 		str.insert(mInputPosition, buff);
 		mText->setText(str);
 		fireChangeEvent();
@@ -276,7 +276,7 @@ namespace ui {
 		{
 			return;
 		}
-		string str = getText();
+		std::string str = getText();
 		str.insert(mInputPosition, text);
 		if (mMaxCharacters > 0 && str.size() > mMaxCharacters)
 		{
@@ -286,13 +286,13 @@ namespace ui {
 		fireChangeEvent();
 		updateInputCursor(strlen(text));
 	}
-	void TextInput::appendText(const string &text)
+	void TextInput::appendText(const std::string &text)
 	{
 		if (!validateText(text.c_str()))
 		{
 			return;
 		}
-		string str = getText();
+		std::string str = getText();
 		str.insert(mInputPosition, text);
 		if (mMaxCharacters > 0 && str.size() > mMaxCharacters)
 		{
@@ -360,7 +360,7 @@ namespace ui {
 		mMaxCharacters = maxCharacters;
 		if (deleteExtra && maxCharacters > mText->length())
 		{
-			string text(mText->getText());
+			std::string text(mText->getText());
 			text.resize(maxCharacters);
 			mText->setText(text);
 		}

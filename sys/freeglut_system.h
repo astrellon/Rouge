@@ -7,7 +7,6 @@
 
 #include <sys/os_system.h>
 
-using namespace std;
 
 namespace am {
 namespace sys {
@@ -68,7 +67,7 @@ namespace freeglut {
 
 	protected:
 
-		string mTitle;
+		std::string mTitle;
 		int mWidth;
 		int mHeight;
 		int mXpos;
@@ -81,7 +80,7 @@ namespace freeglut {
 
 		void updatePosSize();
 
-		static FreeGlutSystem * s_freeglut_system;
+		static FreeGlutSystem * sFreeglutSystem;
 	};
 
 	void onGlutReshape(int width, int height);

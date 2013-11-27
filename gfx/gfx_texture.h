@@ -6,7 +6,6 @@
 #include <base/imanaged.h>
 
 #include <string>
-using namespace std;
 
 namespace am {
 namespace gfx {
@@ -49,7 +48,7 @@ namespace gfx {
 		int mBytesPerPixel;
 		int mGlFormat;
 
-		string mFilename;
+		std::string mFilename;
 
 		void destroy(GLuint textureId);
 

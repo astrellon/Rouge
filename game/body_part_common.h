@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-using namespace std;
 
 namespace am {
 namespace util {
@@ -20,7 +19,7 @@ namespace game {
 			UNKNOWN_PART, NONE, ANY, HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
 		};
 
-		typedef vector<BodyPartType::PartType> TypeList;
+		typedef std::vector<BodyPartType::PartType> TypeList;
 
 		static data::IData *serialiseTypeList(const TypeList &list);
 		static void deserialiseTypeList(data::IData *data, BodyPartType::TypeList &result);

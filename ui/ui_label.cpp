@@ -18,7 +18,7 @@ namespace ui {
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}
-	Label::Label(const string &label) :
+	Label::Label(const std::string &label) :
 		UIComponent(),
 		mLabel(new TextField())
 	{
@@ -33,11 +33,11 @@ namespace ui {
 	{
 		mLabel->setText(label);
 	}
-	void Label::setLabel(const string &label)
+	void Label::setLabel(const std::string &label)
 	{
 		mLabel->setText(label);
 	}
-	string Label::getLabel() const
+	std::string Label::getLabel() const
 	{
 		return mLabel->getText();
 	}

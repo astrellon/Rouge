@@ -2,7 +2,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 #include <gfx/gfx_asset.h>
 using namespace am::gfx;
@@ -25,25 +24,25 @@ namespace game {
 	class Tile : public am::base::IManaged, public IDefinition {
 	public:
 
-		typedef vector< am::base::Handle<TileType> > TileTypeSet;
-		typedef vector< am::base::Handle<Asset> > TileAssetList;
-		typedef map< Tile *, TileAssetList > TileAssetMap;
+		typedef std::vector< am::base::Handle<TileType> > TileTypeSet;
+		typedef std::vector< am::base::Handle<Asset> > TileAssetList;
+		typedef std::map< Tile *, TileAssetList > TileAssetMap;
 
 		Tile(const char *name);
 		Tile(const char *name, const char *fullName);
 		~Tile();
 
-		string getName() const;
+		std::string getName() const;
 		void setName(const char *name);
 		bool setNameWithCheck(const char *name);
 
-		string getFullName() const;
+		std::string getFullName() const;
 		void setFullName(const char *name);
 
-		string getDescription() const;
+		std::string getDescription() const;
 		void setDescription(const char *description);
 
-		string getNameWithSet() const;
+		std::string getNameWithSet() const;
 
 		Asset *getGraphicAsset();
 		void setGraphicAsset(Asset *asset);
@@ -78,13 +77,13 @@ namespace game {
 	
 	protected:
 	
-		string mName;
-		string mFullName;
+		std::string mName;
+		std::string mFullName;
 		
 		TileSet *mTileSet;
 		am::base::Handle<Asset> mGraphic;
 		TileAssetMap mTransitionalGraphics;
-		string mDescription;
+		std::string mDescription;
 		int mPrecedence;
 
 		TileTypeSet mTileTypes;

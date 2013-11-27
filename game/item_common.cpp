@@ -6,13 +6,19 @@ using namespace am::util;
 namespace am {
 namespace game {
 
-	const char *ItemCommon::ItemTypeNames[] = { "Helm", "Body", "Sword", "Axe", 
+	const char *ItemCommon::ItemTypeNames[] = 
+	{ 
+		"Helm", "Body", "Sword", "Axe", 
 		"Bow", "Ring", "Amulet", "Leggings", "Boots", "Shield", "Potion",
-		"Gold", "Message Scroll", "Spell Scroll", "Unknown" };
+		"Gold", "Message Scroll", "Spell Scroll", "Unknown" 
+	};
 
-	const char *ItemCommon::ItemTypeNameIds[] = { "helm", "body", "sword", "axe", 
+	const char *ItemCommon::ItemTypeNameIds[] = 
+	{ 
+		"helm", "body", "sword", "axe", 
 		"bow", "ring", "amulet", "leggings", "boots", "shield", "potion",
-		"gold", "message_scroll", "spell_scroll", "unknown" };
+		"gold", "message_scroll", "spell_scroll", "unknown" 
+	};
 
 	ItemCommon::ItemType ItemCommon::getItemType(const char *name)
 	{
@@ -20,7 +26,7 @@ namespace game {
 		{
 			return ItemCommon::UNKNOWN;
 		}
-		string lower = Utils::toLowerCase(name);
+		std::string lower = Utils::toLowerCase(name);
 		int i = 0;
 		for (i = 0; i < UNKNOWN; i++)
 		{

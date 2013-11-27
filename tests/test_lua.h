@@ -9,7 +9,6 @@
 using namespace am::lua;
 
 #include <string>
-using std::string;
 
 namespace am {
 namespace tests {
@@ -23,7 +22,7 @@ namespace tests {
 			void setName(const char *name);
 			const char *getName() const;
 
-			string name;
+			std::string name;
 
 			static const char *LUA_TABLENAME;
 			static int LUA_ID;

@@ -239,7 +239,7 @@ namespace win {
 			return -1;
 		}
 
-		string createWindowResult = CreateWindowGL(&window);
+		std::string createWindowResult = CreateWindowGL(&window);
 		if (createWindowResult.size() > 0)
 		{
 			// Failure
@@ -345,7 +345,7 @@ namespace win {
 			return false;
 		}
 
-		string path;
+		std::string path;
 		PathTokeniser tokeniser(folderName);
 		const char *token = tokeniser.nextToken();
 		if (!token)
@@ -369,7 +369,7 @@ namespace win {
 				// If the folder already exists then we don't care.
 				if (error != ERROR_ALREADY_EXISTS)
 				{
-					string err("Error creating folder path ");
+					std::string err("Error creating folder path ");
 					err += path;
 					am_log("PATH", err);
 					return false;
@@ -393,7 +393,7 @@ namespace win {
 		}
 
 		WIN32_FIND_DATA files;
-		string folder(folderName);
+		std::string folder(folderName);
 		if (folder.back() != '/' && folder.back() != '\\')
 		{
 			folder += '\\';
@@ -463,7 +463,7 @@ namespace win {
 		return TRUE;														// Display Change Was Successful, Return True
 	}
 
-	string CreateWindowGL (GL_Window* window)									// This Code Creates Our OpenGL Window
+	std::string CreateWindowGL (GL_Window* window)									// This Code Creates Our OpenGL Window
 	{
 		DWORD windowStyle = WS_OVERLAPPEDWINDOW;							// Define Our Window Style
 		DWORD windowExtendedStyle = WS_EX_APPWINDOW;						// Define The Window's Extended Style

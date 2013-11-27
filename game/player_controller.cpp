@@ -81,7 +81,7 @@ namespace game {
 			waitTime = dist / mCharacter->getSpeed();
 		}
 
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Wait time: " << waitTime << " (" << mCharacter->getSpeed() << ")";
 		//am_log("PLYR", ss);
 

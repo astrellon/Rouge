@@ -246,14 +246,14 @@ namespace ui {
 		return mRootLayer;
 	}
 
-	string MouseManager::getPath(Renderable *target)
+	std::string MouseManager::getPath(Renderable *target)
 	{
 		if (!target)
 		{
 			return "<no target>";
 		}
-		stringstream ss;
-		vector<string> names;
+		std::stringstream ss;
+		std::vector<std::string> names;
 		while (target)
 		{
 			names.push_back(target->getName());

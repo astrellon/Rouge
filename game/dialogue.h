@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 namespace am {
 namespace game {
@@ -15,16 +14,18 @@ namespace game {
 	class Dialogue {
 	public:
 
-		enum UnlockFlag {
+		enum UnlockFlag 
+		{
 			UNLOCK_NONE, UNLOCK_LOCKED, UNLOCK_UNKNOWN
 		};
 
-		enum DialogueAction {
+		enum DialogueAction 
+		{
 			ACTION_NONE, ACTION_SHOP, ACTION_CLOSE, ACTION_UNKNOWN
 		};
 
 		// Is a list of dialogue subjects
-		//typedef vector<string> DialogueChoices;
+		//typedef std::vector<string> DialogueChoices;
 
 		Dialogue(const char *id, const char *text, const char *title = nullptr, const char *subject = nullptr, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
 		~Dialogue();
@@ -60,10 +61,10 @@ namespace game {
 
 	protected:
 
-		string mText;
-		string mId;
-		string mTitle;
-		string mSubject;
+		std::string mText;
+		std::string mId;
+		std::string mTitle;
+		std::string mSubject;
 		DialogueAction mAction;
 		UnlockFlag mUnlockFlag;
 

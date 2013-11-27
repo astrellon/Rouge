@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <gfx/gfx_sprite.h>
 using namespace am::gfx;

@@ -4,7 +4,6 @@
 using namespace am::math;
 
 #include <algorithm>
-using namespace std;
 
 #include <util/utils.h>
 using namespace am::util;

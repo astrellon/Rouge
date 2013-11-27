@@ -4,8 +4,6 @@
 
 #include <string>
 #include <vector>
-using std::string;
-using std::vector;
 
 #include <game/tile_type.h>
 
@@ -19,7 +17,7 @@ namespace game {
 	class TileInstance {
 	public:
 
-		typedef vector< am::base::Handle<TileType> > TileTypeList;
+		typedef std::vector< am::base::Handle<TileType> > TileTypeList;
 
 		TileInstance();
 		TileInstance(Tile *tile);
@@ -29,7 +27,7 @@ namespace game {
 		const Tile *getTile() const;
 		void setTile(Tile *tile);
 		bool setTileName(const char *tileName);
-		bool setTileName(const string &tileName);
+		bool setTileName(const std::string &tileName);
 
 		void setBaseVariation(int variation);
 		int getBaseVariation() const;

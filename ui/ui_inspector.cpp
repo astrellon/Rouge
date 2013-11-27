@@ -129,7 +129,7 @@ namespace ui {
 
 	void Inspector::updateText()
 	{
-		stringstream ss;
+		std::stringstream ss;
 		ss << "<inspector>";
 		if (mInspectObject)
 		{
@@ -151,7 +151,7 @@ namespace ui {
 
 				Tile::TileTypeSet &tileTypes = tile->getTileTypes();
 				TileInstance::TileTypeList &instanceTypes = mTileInstance->getTileTypes();
-				vector< am::base::Handle<TileType> > *types = &tileTypes;
+				std::vector< am::base::Handle<TileType> > *types = &tileTypes;
 				if (instanceTypes.size() > 0)
 				{
 					types = &instanceTypes;

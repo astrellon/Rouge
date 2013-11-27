@@ -36,7 +36,7 @@ namespace gfx {
 		void updateAssetSprite(Tile *tile);
 		virtual void render(float dt);
 
-		virtual string getName() const;
+		virtual std::string getName() const;
 
 	protected:
 
@@ -46,7 +46,7 @@ namespace gfx {
 		// To keep memory at a sane level for larger maps, there is currently
 		// only one sprite per asset. This should also keep tiles of the same animated
 		// graphic in sync, and as well as not doubling up on computing the current frame.
-		typedef map<Asset *, am::base::Handle<Sprite> > AssetSpriteMap;
+		typedef std::map<Asset *, am::base::Handle<Sprite> > AssetSpriteMap;
 		AssetSpriteMap mAssetSprites;
 
 		void addAssetForUpdate(Asset *asset, float grid);

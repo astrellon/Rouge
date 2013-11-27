@@ -74,7 +74,7 @@ namespace gfx {
 
 	void  TooltipItem::updateTooltip()
 	{
-		stringstream ss;
+		std::stringstream ss;
 		if (mItem->getItemLocation() == Item::INVENTORY)
 		{
 			setDelays(0.0f, 0.0f);
@@ -131,7 +131,7 @@ namespace gfx {
 			setDelays(0.8f, 1.5f);
 			mGraphic->setVisible(false);
 			mText->setPosition(8.0f, 8.0f);
-			stringstream ss;
+			std::stringstream ss;
 			ss << mItem->getFullItemName() << '\n';
 			ss << "Looks to be a " << ItemCommon::getItemTypeNameNice(mItem->getItemType());
 			mText->setText(ss.str().c_str());

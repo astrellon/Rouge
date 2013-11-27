@@ -20,9 +20,9 @@ namespace ui {
 
 	bool EventManager::addEventListener(const char *type, IEventListener *context)
 	{
-		return addEventListener(string(type), context);
+		return addEventListener(std::string(type), context);
 	}
-	bool EventManager::addEventListener(const string &type, IEventListener *context)
+	bool EventManager::addEventListener(const std::string &type, IEventListener *context)
 	{
 		if (findListener(type, context) == mListeners[type].end())
 		{
@@ -42,9 +42,9 @@ namespace ui {
 
 	bool EventManager::removeEventListener(const char *type, IEventListener *context)
 	{
-		return removeEventListener(string(type), context);
+		return removeEventListener(std::string(type), context);
 	}
-	bool EventManager::removeEventListener(const string &type, IEventListener *context)
+	bool EventManager::removeEventListener(const std::string &type, IEventListener *context)
 	{
 		ListenerList::const_iterator iter = findListener(type, context);
 		if (iter != mListeners[type].end())
@@ -87,14 +87,14 @@ namespace ui {
 
 	bool EventManager::hasEventListener(const char *type)
 	{
-		return hasEventListener(string(type));
+		return hasEventListener(std::string(type));
 	}
-	bool EventManager::hasEventListener(const string &type)
+	bool EventManager::hasEventListener(const std::string &type)
 	{
 		return mListeners.find(type) != mListeners.end();
 	}
 
-	EventManager::ListenerList::iterator EventManager::findListener(const string &type, IEventListener *context)
+	EventManager::ListenerList::iterator EventManager::findListener(const std::string &type, IEventListener *context)
 	{
 		ListenerList::iterator iter;
 		ListenerList &listeners = mListeners[type];

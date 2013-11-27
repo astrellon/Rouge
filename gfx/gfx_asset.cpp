@@ -12,7 +12,6 @@ using namespace am::util;
 
 #include <string>
 
-using namespace std;
 
 #include <lua/wrappers/lua_id_table.h>
 

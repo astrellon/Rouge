@@ -6,7 +6,6 @@
 using namespace am::util;
 
 #include <sstream>
-using namespace std;
 
 #include "engine.h"
 

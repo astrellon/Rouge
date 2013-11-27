@@ -106,12 +106,12 @@ namespace sys {
 		runSuite(TestLuaAsset);
 		runSuite(TestStore);
 
-		const vector<string> &failed = TestSuite::getFailedTests();
+		const std::vector<std::string> &failed = TestSuite::getFailedTests();
 		if (failed.size() > 0)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "-------------------\nFailed tests: ";
-			vector<string>::const_iterator iter;
+			std::vector<std::string>::const_iterator iter;
 			bool first = true;
 			for (iter = failed.begin(); iter != failed.end(); ++iter)
 			{
@@ -127,7 +127,7 @@ namespace sys {
 		}
 		else
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "-------------------\nAll ";
 			ss << suiteCount << " tests passed!";
 			ss << "\n-------------------";

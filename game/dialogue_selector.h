@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 #include <base/handle.h>
 
@@ -21,9 +20,9 @@ namespace game {
 
 	protected:
 
-		string mGameObjId;
+		std::string mGameObjId;
 
-		typedef map<string, string> Attributes;
+		typedef std::map<std::string, std::string> Attributes;
 		Attributes mAttributes;
 
 	};

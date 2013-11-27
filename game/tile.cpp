@@ -9,7 +9,6 @@ using namespace am::gfx;
 using namespace am::util;
 
 #include <sstream>
-using namespace std;
 
 #include "tile_set.h"
 #include "tile_type.h"

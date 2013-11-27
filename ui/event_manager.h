@@ -11,7 +11,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 namespace am {
 namespace ui {
@@ -23,26 +22,26 @@ namespace ui {
 
 		friend class EventInterface;
 
-		typedef vector< am::base::Handle<IEventListener> > ListenerList;
-		typedef map<string, ListenerList> Listeners;
+		typedef std::vector< am::base::Handle<IEventListener> > ListenerList;
+		typedef std::map<std::string, ListenerList> Listeners;
 
 		EventManager();
 		~EventManager();
 
 		// IEventListener methods
 		bool addEventListener(const char *type, IEventListener *context);
-		bool addEventListener(const string &type, IEventListener *context);
+		bool addEventListener(const std::string &type, IEventListener *context);
 		bool addEventListener(Mouse::EventType type, IEventListener *context);
 		bool addEventListener(Keyboard::EventType type, IEventListener *context);
 		
 		bool removeEventListener(const char *type, IEventListener *context);
-		bool removeEventListener(const string &type, IEventListener *context);
+		bool removeEventListener(const std::string &type, IEventListener *context);
 		bool removeEventListener(Mouse::EventType type, IEventListener *context);
 		bool removeEventListener(Keyboard::EventType type, IEventListener *context);
 		void removeEventListener(IEventListener *context);
 
 		bool hasEventListener(const char *type);
-		bool hasEventListener(const string &type);
+		bool hasEventListener(const std::string &type);
 
 		bool isEmpty() const;
 		bool isFiring() const;
@@ -84,7 +83,7 @@ namespace ui {
 		bool mFiring;
 		am::base::Handle<EventInterface> mDeleteResponse;
 
-		ListenerList::iterator findListener(const string &type, IEventListener *context);
+		ListenerList::iterator findListener(const std::string &type, IEventListener *context);
 
 		bool removeToRemove();
 		void checkDeletion();

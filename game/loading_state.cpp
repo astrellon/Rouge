@@ -199,7 +199,7 @@ namespace game {
 			am::base::Handle<Map> map(game->getMapLua(iter->first));
 			if (!map)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Map failed to load '" << iter->first << '\'';
 				am_log("LOADERR", ss);
 				continue;
@@ -220,7 +220,7 @@ namespace game {
 			Dialogue *startDiag = game->getDialogue(iter->first.c_str());
 			if (!startDiag)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unable to find start dialogue '" << iter->first << '\'';
 				am_log("LOADERR", ss);
 				continue;

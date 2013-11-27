@@ -8,7 +8,6 @@
 using namespace am::lua::game;
 
 #include <sstream>
-using namespace std;
 
 #include <game/character.h>
 #include <game/inventory.h>

@@ -30,7 +30,6 @@ using namespace am::util;
 using namespace am::lua::gfx;
 
 #include <sstream>
-using namespace std;
 
 namespace am {
 namespace lua {
@@ -299,7 +298,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unknown lock type '" << lua_tostring(lua, 2) << '\'';
 					LuaState::warning(lua, ss.str().c_str());
 				}

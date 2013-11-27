@@ -76,7 +76,7 @@ namespace game {
 		bool isValidLocation(float x, float y, GameObject *forObject) const;
 		
 		bool isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
-		bool isValidGridLocation(int gridX, int gridY, const vector< am::base::Handle<TileType> > &passibles) const;
+		bool isValidGridLocation(int gridX, int gridY, const std::vector< am::base::Handle<TileType> > &passibles) const;
 		bool isValidGridLocation(int gridX, int gridY, const TileType *forTileType) const;
 
 		void setFilename(const char *filename);

@@ -215,7 +215,7 @@ namespace gfx {
 		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to load sprite from '" << data->typeName();
 		}
 

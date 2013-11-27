@@ -31,7 +31,7 @@ namespace ui {
 		
 	}
 
-	string Event::getType() const
+	std::string Event::getType() const
 	{
 		return mType;
 	}

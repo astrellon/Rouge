@@ -4,7 +4,6 @@
 #include <base/imanaged.h>
 
 #include <string>
-using namespace std;
 
 #include "item.h"
 

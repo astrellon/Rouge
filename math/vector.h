@@ -6,10 +6,6 @@
 #include <sstream>
 #include <ostream>
 
-using std::string;
-using std::stringstream;
-using std::ostream;
-
 #ifndef _WIN32
 inline int abs(int x)
 {
@@ -31,7 +27,7 @@ namespace math {
 		}
 		~Vector4() {}
 	
-		friend ostream& operator << (ostream &o, const Vector4<T> &v) {
+		friend std::ostream& operator << (std::ostream &o, const Vector4<T> &v) {
 			return o << '[' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ']';
 	}
 	
@@ -76,9 +72,9 @@ namespace math {
 			z -= rhs.z;
 			return *this;
 		}
-		operator string() const
+		operator std::string() const
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << x << ", " << y << ", " << z;
 			return ss.str();
 		}
@@ -260,7 +256,7 @@ namespace math {
 		}
 		~Vector2() {}
 	
-		friend ostream& operator << (ostream &o, const Vector2<T> &v) {
+		friend std::ostream& operator << (std::ostream &o, const Vector2<T> &v) {
 			return o << '[' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ']';
 		}
 	
@@ -299,9 +295,9 @@ namespace math {
 			y -= rhs.y;
 			return *this;
 		}
-		operator string() const
+		operator std::string() const
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << x << ", " << y;
 			return ss.str();
 		}

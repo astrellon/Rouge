@@ -3,7 +3,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
@@ -123,7 +122,7 @@ namespace game {
 		bool removeDialogue(const char *id);
 		void removeAllDialogue();
 		Dialogue *getDialogue(const char *id);
-		void getAvailableDialogues(vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo);
+		void getAvailableDialogues(std::vector<Dialogue *> &result, const GameObject *talker, const GameObject *talkedTo);
 
 		// Quest
 		bool addQuest(Quest *quest);
@@ -163,18 +162,18 @@ namespace game {
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 
-		typedef map<string, am::base::Handle<Map> > MapMap;
+		typedef std::map<std::string, am::base::Handle<Map> > MapMap;
 		MapMap mMaps;
 
-		typedef map<string, am::base::Handle<Item> >ItemMap;
+		typedef std::map<std::string, am::base::Handle<Item> >ItemMap;
 		ItemMap mItemDefinitions;
 
-		typedef map<string, am::base::Handle<Character> > CharacterMap;
+		typedef std::map<std::string, am::base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 
-		string mScenarioName;
+		std::string mScenarioName;
 
 		am::base::Handle<Sprite> mGenericDeadGraphic;
 
@@ -192,13 +191,13 @@ namespace game {
 		bool mGameTickPaused;
 		float mCurrentTickDt;
 
-		typedef map<string, am::base::Handle<GameObject> > GameObjectIdMap;
+		typedef std::map<std::string, am::base::Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
-		typedef map<string, Dialogue *> DialogueMap;
+		typedef std::map<std::string, Dialogue *> DialogueMap;
 		DialogueMap mDialogueMap;
 
-		typedef map<string, am::base::Handle<Quest> > QuestMap;
+		typedef std::map<std::string, am::base::Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
 
 		void endGameTick();

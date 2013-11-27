@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-using namespace std;
 
 #include <AL/al.h>
 
@@ -66,7 +65,7 @@ namespace sfx {
 	protected:
 		
 		bool mStream;
-		string mFilename;
+		std::string mFilename;
 		ALuint *mBuffers;
 		ALushort mNumBuffers;
 		ALushort mNumBuffersInUse;

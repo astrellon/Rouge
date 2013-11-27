@@ -3,7 +3,6 @@
 #include <base/imanaged.h>
 
 #include <string>
-using namespace std;
 
 namespace am {
 namespace game {

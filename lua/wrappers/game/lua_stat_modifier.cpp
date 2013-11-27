@@ -14,7 +14,6 @@ using namespace am::lua;
 using namespace am::game;
 
 #include <sstream>
-using namespace std;
 
 #include "lua_stats.h"
 
@@ -202,7 +201,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Invalid stat modifier type (";
 					LuaState::printTypeValue(lua, 2, ss);
 					ss << ')';

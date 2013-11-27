@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <map>
-using namespace std;
 
 namespace am {
 namespace game {
@@ -11,7 +10,7 @@ namespace game {
 	class DialogueChoice {
 	public:
 
-		typedef map<string, string> Attributes;
+		typedef std::map<std::string, std::string> Attributes;
 
 		DialogueChoice(const char *text);
 		~DialogueChoice();
@@ -29,7 +28,7 @@ namespace game {
 
 	protected:
 
-		string mText;
+		std::string mText;
 		Attributes mAttributes;
 
 	};

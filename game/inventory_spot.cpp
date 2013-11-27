@@ -63,7 +63,7 @@ namespace game {
 		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to load inventory spot from a '" << data->typeName();
 			ss << "', must be a Map.";
 			am_log("LOADERR", ss);

@@ -14,7 +14,6 @@ using namespace am::lua;
 using namespace am::game;
 
 #include <sstream>
-using namespace std;
 
 #include <log/logger.h>
 

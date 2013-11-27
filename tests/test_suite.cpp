@@ -3,7 +3,7 @@
 namespace am {
 namespace tests {
 
-	vector<string> TestSuite::sFailedTests;
+	std::vector<std::string> TestSuite::sFailedTests;
 
 }
 }

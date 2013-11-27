@@ -82,7 +82,7 @@ namespace ui {
 		}
 		else if (e->getTalkedTo() != nullptr)
 		{
-			vector<Dialogue *> newChoices;
+			std::vector<Dialogue *> newChoices;
 			
 			Engine::getGame()->getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
 			mTalkedTo = e->getTalkedTo();
@@ -116,7 +116,7 @@ namespace ui {
 		return mTalkedTo;
 	}
 
-	void DialogueChoices::setDialogueChoices(const vector<Dialogue *> &choices)
+	void DialogueChoices::setDialogueChoices(const std::vector<Dialogue *> &choices)
 	{
 		bool same = choices.size() == mChoices.size();
 		if (same)
@@ -136,7 +136,7 @@ namespace ui {
 			updateText();
 		}
 	}
-	const vector<Dialogue *> &DialogueChoices::getDialogueChoices() const
+	const std::vector<Dialogue *> &DialogueChoices::getDialogueChoices() const
 	{
 		return mChoices;
 	}
@@ -192,8 +192,8 @@ namespace ui {
 	{
 		if (mChoices.size() > 0)
 		{
-			stringstream ss;
-			vector<Dialogue *>::const_iterator iter;
+			std::stringstream ss;
+			std::vector<Dialogue *>::const_iterator iter;
 			int i = 1;
 			for (iter = mChoices.begin(); iter != mChoices.end(); ++iter)
 			{

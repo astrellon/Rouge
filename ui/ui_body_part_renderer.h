@@ -44,7 +44,7 @@ namespace ui {
 		am::base::Handle<Item> mCurrentItem;
 		am::base::Handle<Renderable> mHitbox;
 
-		string mBodyPartName;
+		std::string mBodyPartName;
 		short mMaxItemWidth;
 		short mMaxItemHeight;
 

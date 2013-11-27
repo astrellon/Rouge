@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-using namespace std;
 
 #include "sfx_isound.h"
 

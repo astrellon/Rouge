@@ -41,11 +41,11 @@ namespace ui {
 	{
 		mLabel->setText(label);
 	}
-	void Checkbox::setLabel(const string &label)
+	void Checkbox::setLabel(const std::string &label)
 	{
 		mLabel->setText(label);
 	}
-	string Checkbox::getLabel() const
+	std::string Checkbox::getLabel() const
 	{
 		return mLabel->getText();
 	}

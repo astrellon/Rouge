@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <string>
-using namespace std;
 
 #include <game/dialogue.h>
 using namespace am::game;

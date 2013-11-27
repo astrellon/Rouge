@@ -6,7 +6,6 @@
 #include <string>
 #include <map>
 #include <vector>
-using namespace std;
 
 #include "game_object.h"
 #include "dialogue_component.h"
@@ -44,18 +43,18 @@ namespace game {
 			am::base::Handle<Character> character;
 			am::base::Handle<BodyPart> bodyPart;
 			am::base::Handle<Item> item;
-			string canHoldOnto;
+			std::string canHoldOnto;
 
 			_BodyPartInfo();
 			_BodyPartInfo(Character *character, BodyPart *part, Item *item, const char *canHoldOnto);
 		} BodyPartInfo;
 
-		typedef map< string, bool > MapsToLoad;
-		typedef map< string, GameObjectInfo > GameObjectInfoMap;
-		typedef map< string, vector< am::base::Handle< GameObject> > > GameObjectsToMap;
-		typedef map< string, vector< am::base::Handle< DialogueComponent> > > StartDialogueMap;
-		typedef vector< BodyPartInfo > BodyPartInfoList;
-		typedef vector< am::base::Handle<Character > > CharacterStack;
+		typedef std::map< std::string, bool > MapsToLoad;
+		typedef std::map< std::string, GameObjectInfo > GameObjectInfoMap;
+		typedef std::map< std::string, std::vector< am::base::Handle< GameObject> > > GameObjectsToMap;
+		typedef std::map< std::string, std::vector< am::base::Handle< DialogueComponent> > > StartDialogueMap;
+		typedef std::vector< BodyPartInfo > BodyPartInfoList;
+		typedef std::vector< am::base::Handle<Character > > CharacterStack;
 
 		LoadingState();
 		~LoadingState();
@@ -105,8 +104,8 @@ namespace game {
 		BodyPartInfoList mBodyPartInfoList;
 		CharacterStack mCharacterStack;
 
-		string mCurrentMap;
-		string mMainCharacter;
+		std::string mCurrentMap;
+		std::string mMainCharacter;
 	};
 
 }

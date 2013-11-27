@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <tests/asserts.h>
 
@@ -14,7 +13,7 @@ namespace am {
 namespace tests {
 
 	bool TestUtils::testVectorFind() {
-		vector<int> testVector;
+		std::vector<int> testVector;
 		for (int i = 0; i < 4; i++)
 		{
 			testVector.push_back(i);

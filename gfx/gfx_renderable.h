@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ostream>
-using namespace std;
 
 #include <math/transform_lite.h>
 using namespace am::math;
@@ -24,7 +23,7 @@ namespace gfx {
 	class Renderable : virtual public am::base::IManaged, public EventInterface {
 	public:
 
-		typedef vector<const Renderable *> RenderablePath;
+		typedef std::vector<const Renderable *> RenderablePath;
 		Renderable();
 		Renderable(const Renderable &copy);
 		virtual ~Renderable();
@@ -77,7 +76,7 @@ namespace gfx {
 
 		// Mostly for debug
 		virtual void setName(const char *name);
-		virtual string getName() const;
+		virtual std::string getName() const;
 
 		virtual void setRenderColour(bool render);
 		virtual bool getRenderColour() const;
@@ -93,12 +92,12 @@ namespace gfx {
 		
 		friend std::ostream& operator<<(std::ostream&, const Renderable&);
 
-		static void debugRenderPath(const RenderablePath &path, vector<string> &output);
+		static void debugRenderPath(const RenderablePath &path, std::vector<std::string> &output);
 
 	protected:
 
 #ifdef _DEBUG
-		string mDebugName;
+		std::string mDebugName;
 		bool mRenderColour;
 #endif
 

@@ -218,7 +218,7 @@ namespace game {
 		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to load dialogue component from '" << data->typeName();
 			ss << "' expected a Map.";
 			am_log("LOADERR", ss);
@@ -235,7 +235,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unlocked subject array element must be a String not a '";
 					ss << (*iter)->typeName() << '\'';
 					am_log("LOADERR", ss);
@@ -254,7 +254,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Dialogue available array element must be a String not a '";
 					ss << (*iter)->typeName() << '\'';
 					am_log("LOADERR", ss);

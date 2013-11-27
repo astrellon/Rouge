@@ -11,7 +11,6 @@ using namespace am::game;
 using namespace am::gfx;
 
 #include <vector>
-using namespace std;
 
 #include <ui/ui_panel.h>
 
@@ -45,7 +44,7 @@ namespace ui {
 
 		TileInstance *mTileInstance;
 		
-		typedef vector< am::base::Handle<GameObject> > GameObjectList;
+		typedef std::vector< am::base::Handle<GameObject> > GameObjectList;
 		GameObjectList mGameObjects;
 
 		am::base::Handle<TextField2> mInfo;

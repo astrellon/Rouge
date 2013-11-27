@@ -98,7 +98,7 @@ namespace gfx {
 		setTextDirty(true);
 		mDirty = true;
 	}
-	void TextField2::setText(const string &str)
+	void TextField2::setText(const std::string &str)
 	{
 		mRawText = str;
 		mDirty = true;
@@ -110,7 +110,7 @@ namespace gfx {
 		mDirty = true;
 		setTextDirty(true);
 	}
-	void TextField2::appendText(const string &str)
+	void TextField2::appendText(const std::string &str)
 	{
 		mRawText.append(str);
 		mDirty = true;
@@ -356,7 +356,7 @@ namespace gfx {
 			mCurrentNode->getHitboxes().push_back(hitbox);
 		}
 	}
-	void TextField2::renderText(const string &text)
+	void TextField2::renderText(const std::string &text)
 	{
 		int len = static_cast<int>(text.size());
 		for (int i = 0; i < len; i++, mTextPosition++)
@@ -492,7 +492,7 @@ namespace gfx {
 
 		mTextHitboxes->clear();
 
-		string attrName = "";
+		std::string attrName = "";
 
 		while (token != nullptr)
 		{
@@ -512,7 +512,7 @@ namespace gfx {
 				}
 				else 
 				{
-					string lower = Utils::toLowerCase(token);
+					std::string lower = Utils::toLowerCase(token);
 					Node *newNode = new Node(lower.c_str());
 					currentNode->addChild(newNode);
 					currentNode = newNode;
@@ -548,7 +548,7 @@ namespace gfx {
 			{
 				if (token[0] == '>')
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Error parsing node '" << attrName << "', = operator had not value";
 					am_log("TEXT", ss);
 				}
@@ -568,7 +568,7 @@ namespace gfx {
 			}
 			else if (state == POP_FORMAT)
 			{
-				string lower = Utils::toLowerCase(token);
+				std::string lower = Utils::toLowerCase(token);
 				if (currentNode->getParent() == nullptr)
 				{
 					am_log("NODE", "Pop format to nullptr parent");

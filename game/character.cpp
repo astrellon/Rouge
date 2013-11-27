@@ -18,7 +18,6 @@ using namespace am::util;
 #include <math/math.h>
 
 #include <sstream>
-using namespace std;
 
 #include <log/logger.h>
 
@@ -335,7 +334,7 @@ namespace game {
 		float maxDamage = temp.getStat(Stat::MAX_DAMAGE);
 		
 		float attackDamage = Utils::randf(minDamage, maxDamage);
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Attack damage: " << minDamage << " - " << maxDamage << " (" << attackDamage << ")";
 		am_log("ATTK", ss);
 
@@ -429,7 +428,7 @@ namespace game {
 			mBodyParts.addBodyPart(part);
 			return true;
 		}
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Body part '" << name << "' already on character '" << getName() << "'";
 		am_log("CHAR", ss);
 		return false;
@@ -483,7 +482,7 @@ namespace game {
 		BodyPart *part = mBodyParts.getBodyPart(partName);
 		if (part == nullptr)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Cannot equip item '" << item->getFullItemName() << "' on to '";
 			ss << getName() << "' because they do not have a '" << partName << "'";
 			am_log("CHAR", ss);
@@ -545,7 +544,7 @@ namespace game {
 		BodyPart *part = mBodyParts.getBodyPart(partName);
 		if (part == nullptr)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Cannot check for can equip item '" << item->getFullItemName() << "' on to '";
 			ss << getName() << "' because they do not have a '" << partName << "'";
 			am_log("CHAR", ss);
@@ -1067,7 +1066,7 @@ namespace game {
 			}
 			else
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unknown gender '" << str->string() << '\'';
 				am_log("LOADERR", ss);
 			}
@@ -1250,7 +1249,7 @@ namespace game {
 				am::base::Handle<Game> game(Engine::getGame());
 				if (!game)
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to set dead graphic for character '" << mGameId
 						<< "' as there is no current game yet to grab the generic dead graphic from.";
 					am_log("DEAD", ss);
@@ -1264,7 +1263,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to set dead graphic as character '" << mGameId
 						<< "' does not have one and no generic one has: been set.";
 					am_log("DEAD", ss);

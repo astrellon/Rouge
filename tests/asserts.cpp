@@ -4,7 +4,7 @@ namespace am {
 namespace tests {
 
 	void Asserts::dispErrorLine(const char *file, int line) {
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Error in file " << file << '[' << line << "]";
 		am_log("ERR", ss);
 	}
@@ -109,7 +109,7 @@ namespace tests {
 		}
 		return true;
 	}
-	bool Asserts::_equalsStr(const char *file, unsigned int line, const char *expected, const string &actual, bool notCompare) {
+	bool Asserts::_equalsStr(const char *file, unsigned int line, const char *expected, const std::string &actual, bool notCompare) {
 		int cmp = strcmp(expected, actual.c_str());
 		if (notCompare && cmp == 0) {
 			dispNotError(expected, file, line);

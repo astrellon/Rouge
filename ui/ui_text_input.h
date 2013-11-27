@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <string>
-using namespace std;
 
 #include <gfx/gfx_text_field.h>
 using namespace am::gfx;
@@ -30,13 +29,13 @@ namespace ui {
 		virtual void onEvent(KeyboardEvent *e);
 
 		void setText(const char *text);
-		void setText(const string &text);
-		string getTextStr() const;
+		void setText(const std::string &text);
+		std::string getTextStr() const;
 		const char *getText() const;
 
 		void appendText(char text);
 		void appendText(const char *text);
-		void appendText(const string &text);
+		void appendText(const std::string &text);
 
 		int getInputPosition() const;
 		void moveInputPosition(int move);

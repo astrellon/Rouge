@@ -318,7 +318,7 @@ namespace game {
 		am::base::Handle<data::Table> dataMap(dynamic_cast<data::Table *>(data));
 		if (!dataMap)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to load inventory from a '" << data->typeName();
 			ss << "', must be a Map.";
 			am_log("LOADERR", ss);
@@ -349,7 +349,7 @@ namespace game {
 			}
 			else
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "An inventory with space " << width << " x " << height;
 				ss << " is invalid";
 				am_log("LOADERR", ss);
@@ -365,7 +365,7 @@ namespace game {
 				spot.deserialise(state, iter->get());
 				if (!addItem(spot.mItem, spot.mX, spot.mY))
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Error adding item to inventory at " << spot.mX;
 					ss << " x " << spot.mY;
 					am_log("LOADERR", ss);
@@ -383,7 +383,7 @@ namespace game {
 		}
 		for (size_t i = 0; i < mSpots.size(); i++)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			const InventorySpot &spot = mSpots[i];
 			ss << "Inv " << i << ": " << spot.getItem()->getFullItemName();
 			ss << " [" << spot.getItem()->getItemTypeName() << "]";

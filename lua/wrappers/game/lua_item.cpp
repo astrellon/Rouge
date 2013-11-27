@@ -22,7 +22,6 @@ using namespace am::game;
 #include <log/logger.h>
 
 #include <sstream>
-using std::stringstream;
 
 namespace am {
 namespace lua {
@@ -240,13 +239,13 @@ namespace game {
 					wrapRefObject<Item>(lua, newItem);
 					return 1;
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "No item with the definition '" << lua_tostring(lua, 1) << "' was found.";
 				LuaState::warning(lua, ss.str().c_str());
 				lua_pushnil(lua);
 				return 1;
 			}
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to get definition (" << lua_tostring(lua, 1) << " when a game is not running";
 			LuaState::warning(lua, ss.str().c_str());
 			lua_pushnil(lua);
@@ -446,7 +445,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unknown item type: ";
 					LuaState::printTypeValue(lua, 2, ss);
 					LuaState::warning(lua, ss.str().c_str());
@@ -540,7 +539,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unknown item location: ";
 					LuaState::printTypeValue(lua, 2, ss);
 					LuaState::warning(lua, ss.str().c_str());
@@ -1323,7 +1322,7 @@ namespace game {
 					item->addBodyPartType(type);
 					lua_first(lua);
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
 				LuaState::warning(lua, ss.str().c_str());
 				lua_first(lua);
@@ -1353,7 +1352,7 @@ namespace game {
 					item->removeBodyPartType(type);
 					lua_first(lua);
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
 				LuaState::warning(lua, ss.str().c_str());
 				lua_first(lua);
@@ -1382,7 +1381,7 @@ namespace game {
 					lua_pushboolean(lua, item->hasBodyPartType(type));
 					return 1;
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unknown body part type '" << lua_tostring(lua, 2) << '\'';
 				LuaState::warning(lua, ss.str().c_str());
 				lua_pushboolean(lua, false);

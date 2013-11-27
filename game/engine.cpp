@@ -7,7 +7,6 @@
 using namespace am::lua;
 
 #include <sstream>
-using namespace std;
 
 #include <log/logger.h>
 
@@ -233,7 +232,7 @@ namespace game {
 	{
 		if (!mLua.loadFile(scriptName)) 
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "ERROR: Unable to load engine script file '" << scriptName << '\'';
 			mLua.logStack(ss.str().c_str());
 			return false;

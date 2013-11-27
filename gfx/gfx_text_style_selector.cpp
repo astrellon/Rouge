@@ -25,7 +25,7 @@ namespace gfx {
 
 	bool TextStyleSelector::setNodeType(const char *type)
 	{
-		string typeStr;
+		std::string typeStr;
 		if (type == nullptr || type[0] == '\0')
 		{
 			typeStr = "text";
@@ -50,7 +50,7 @@ namespace gfx {
 	{
 		if (klass != nullptr && klass[0] != '\0')
 		{
-			string klassStr = klass;
+			std::string klassStr = klass;
 			ClassMap::iterator iter = mClasses.find(klassStr);
 			if (iter == mClasses.end())
 			{
@@ -66,7 +66,7 @@ namespace gfx {
 		{
 			return false;
 		}
-		ClassMap::iterator iter = mClasses.find(string(klass));
+		ClassMap::iterator iter = mClasses.find(std::string(klass));
 		if (iter != mClasses.end())
 		{
 			mClasses.erase(iter);
@@ -80,7 +80,7 @@ namespace gfx {
 		{
 			return false;
 		}
-		ClassMap::const_iterator iter = mClasses.find(string(klass));
+		ClassMap::const_iterator iter = mClasses.find(std::string(klass));
 		if (iter != mClasses.end())
 		{
 			return true;
@@ -109,10 +109,10 @@ namespace gfx {
 		}
 		else
 		{
-			string lower = Utils::toLowerCase(name);
+			std::string lower = Utils::toLowerCase(name);
 			if (lower.compare("class") == 0)
 			{
-				string valueStr = value;
+				std::string valueStr = value;
 				if (value[0] == '\'' || value[0] == '\"')
 				{
 					valueStr = valueStr.substr(1, valueStr.size() - 2);
@@ -130,7 +130,7 @@ namespace gfx {
 			}
 			else
 			{
-				string valueStr = string(value);
+				std::string valueStr = std::string(value);
 				AttributeMap::iterator iter = mAttributes.find(lower);
 				if (iter != mAttributes.end())
 				{
@@ -141,7 +141,7 @@ namespace gfx {
 					iter->second = valueStr;
 					return true;
 				}
-				mAttributes[lower] = string(value);
+				mAttributes[lower] = std::string(value);
 				return true;
 			}
 		}
@@ -152,7 +152,7 @@ namespace gfx {
 		{
 			return false;
 		}
-		AttributeMap::iterator iter = mAttributes.find(string(name));
+		AttributeMap::iterator iter = mAttributes.find(std::string(name));
 		if (iter != mAttributes.end())
 		{
 			mAttributes.erase(iter);
@@ -166,7 +166,7 @@ namespace gfx {
 		{
 			return nullptr;
 		}
-		AttributeMap::const_iterator iter = mAttributes.find(string(name));
+		AttributeMap::const_iterator iter = mAttributes.find(std::string(name));
 		if (iter != mAttributes.end())
 		{
 			return iter->second.c_str();

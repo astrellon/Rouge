@@ -4,7 +4,6 @@
 
 #include <string>
 #include <map>
-using namespace std;
 
 namespace am {
 namespace game {
@@ -22,7 +21,7 @@ namespace game {
 
 	protected:
 
-		string mRaceName;
+		std::string mRaceName;
 		
 	};
 

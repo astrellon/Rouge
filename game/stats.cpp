@@ -257,7 +257,7 @@ namespace game {
 				Stat::StatType type = Stat::getStatType(iter->first.c_str());
 				if (type == Stat::MAX_STAT_LENGTH)
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unknown stat '" << iter->first << '\'';
 					am_log("LOADERR", ss);
 					continue;
@@ -269,7 +269,7 @@ namespace game {
 				}
 				else
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Cannot load base stat '" << iter->first << "' from a '";
 					ss << iter->second->typeName() << "'";
 					am_log("LOADERR", ss);

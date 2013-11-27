@@ -131,7 +131,7 @@ namespace sfx {
 			mData = new unsigned char[mBufferByteSize];
 			if (!mData)
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unable to allocate sound buffer of size " << mBufferByteSize << " for " << filename;
 				throw (ss.str().c_str());
 			}

@@ -54,7 +54,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		string eventCalled = lua.getGlobalString("eventCalled");
+		std::string eventCalled = lua.getGlobalString("eventCalled");
 		am_equalsStr("none", eventCalled.c_str());
 		am_equals(0, lua.getGlobalInt("timesCalled"));
 

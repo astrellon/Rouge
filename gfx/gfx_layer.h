@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <vector>
-using namespace std;
 
 #include "gfx_renderable.h"
 
@@ -34,14 +33,14 @@ namespace gfx {
 
 		virtual bool interactWithLayer() const;
 
-		virtual string getName() const;
+		virtual std::string getName() const;
 
 		// Renderable methods
 		virtual void render(float dt);
 
 	protected:
 
-		typedef vector<am::base::Handle<Renderable> > ChildList;
+		typedef std::vector<am::base::Handle<Renderable> > ChildList;
 		ChildList mChildren;
 
 		ChildList::const_iterator findChild(Renderable *child) const;

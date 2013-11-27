@@ -5,8 +5,6 @@
 
 #include <map>
 #include <string>
-using std::map;
-using std::string;
 
 #include <ui/ievent_manager.h>
 using am::ui::IEventManager;
@@ -29,7 +27,7 @@ namespace game {
 	class DialogueComponent : public am::base::IManaged {
 	public:
 
-		typedef map<string, bool> SubjectMap;
+		typedef std::map<std::string, bool> SubjectMap;
 
 		DialogueComponent(GameObject *attachedTo = nullptr);
 		DialogueComponent(const DialogueComponent &copy);

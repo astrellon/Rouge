@@ -731,7 +731,7 @@ namespace game {
 				const char *tileTypeName = (*iter)->string();
 				if (!tileTypeName)
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to set tile type from type '" << (*iter)->typeName();
 					ss << "' must be a String.";
 					am_log("LOADERR", ss);
@@ -740,7 +740,7 @@ namespace game {
 				am::base::Handle<TileType> tileType(engine->getTileType(tileTypeName));
 				if (!tileType)
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to find tile type '" << tileTypeName << "'.";
 					am_log("LOADERR", ss);
 					continue;
@@ -788,7 +788,7 @@ namespace game {
 		{
 			return;
 		}
-		stringstream ss;
+		std::stringstream ss;
 		ss << "Setting sound source position: " << mLocationX << ", " << mLocationY;
 		am_log("SFX", ss);
 		mSoundSource->setPosition(mLocationX, mLocationY);

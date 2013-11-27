@@ -1,18 +1,17 @@
 #include "utils.h"
 
 #include <fstream>
-using namespace std;
 
 #include <math/math.h>
 
 namespace am {
 namespace util {
 
-	string Utils::toLowerCase(const char *input)
+	std::string Utils::toLowerCase(const char *input)
 	{
 		if (input == nullptr)
 		{
-			return string();
+			return std::string("");
 		}
 
 		size_t len = strlen(input);
@@ -27,16 +26,16 @@ namespace util {
 			}
 			buff[i] = ch;
 		}
-		string result = buff;
+		std::string result = buff;
 		delete buff;
 		return result;
 	}
 
-	string Utils::toUpperCase(const char *input)
+	std::string Utils::toUpperCase(const char *input)
 	{
 		if (input == nullptr)
 		{
-			return string();
+			return std::string("");
 		}
 
 		size_t len = strlen(input);
@@ -51,12 +50,12 @@ namespace util {
 			}
 			buff[i] = ch;
 		}
-		string result = buff;
+		std::string result = buff;
 		delete buff;
 		return result;
 	}
 
-	int Utils::countWordLetters( const string &str, int position, bool toRight )
+	int Utils::countWordLetters( const std::string &str, int position, bool toRight )
 	{
 		int len = static_cast<int>(str.size());
 		if (len == 0 || position < 0 || position > len)
@@ -140,7 +139,7 @@ namespace util {
 
 	bool Utils::fileExists(const char *filename)
 	{
-		ifstream stream(filename);
+		std::ifstream stream(filename);
 		return stream;
 	}
 

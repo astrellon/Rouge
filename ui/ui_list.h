@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_scrollbar.h>
@@ -30,7 +29,7 @@ namespace ui {
 	class List : public UIComponent, public IEventListener {
 	public:
 
-		typedef vector< am::base::Handle<ListItem> > ListItems;
+		typedef std::vector< am::base::Handle<ListItem> > ListItems;
 
 		List();
 		~List();

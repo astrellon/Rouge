@@ -3,7 +3,6 @@
 #include <base/imanaged.h>
 
 #include <map>
-using namespace std;
 
 #include "stats_common.h"
 #include "stat_modifier.h"

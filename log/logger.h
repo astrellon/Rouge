@@ -22,19 +22,19 @@ namespace log {
 	class Logger {
 	public:
 
-		typedef vector<LogEntry> LogEntries;
+		typedef std::vector<LogEntry> LogEntries;
 
 		Logger();
 		~Logger();
 
 		void log(const char *type, const char *message);
-		void log(const char *type, const string &message);
-		void log(const char *type, const stringstream &message);
+		void log(const char *type, const std::string &message);
+		void log(const char *type, const std::stringstream &message);
 		void log(const LogEntry &entry);
 
 		void log_verbose(const char *type, const char *message, const char *file, int line);
-		void log_verbose(const char *type, const string &message, const char *file, int line);
-		void log_verbose(const char *type, const stringstream &message, const char *file, int line);
+		void log_verbose(const char *type, const std::string &message, const char *file, int line);
+		void log_verbose(const char *type, const std::stringstream &message, const char *file, int line);
 		void log_verbose(LogEntry &entry, const char *file, int line);
 
 		void addLogListener(ILogListener *listener);
@@ -54,7 +54,7 @@ namespace log {
 		LogEntries mEntries;
 		int mMaxEntries;
 
-		typedef vector<ILogListener *> LogListeners;
+		typedef std::vector<ILogListener *> LogListeners;
 		LogListeners mListeners;
 
 		LogListeners::iterator findListener(ILogListener *listener);
@@ -64,13 +64,13 @@ namespace log {
 	};
 
 	void _log_verbose(const char *type, const char *message, const char *file, int line);
-	void _log_verbose(const char *type, const string &message, const char *file, int line);
-	void _log_verbose(const char *type, const stringstream &message, const char *file, int line);
+	void _log_verbose(const char *type, const std::string &message, const char *file, int line);
+	void _log_verbose(const char *type, const std::stringstream &message, const char *file, int line);
 	void _log_verbose(LogEntry &entry, const char *file, int line);
 
 	void _log(const char *type, const char *message);
-	void _log(const char *type, const string &message);
-	void _log(const char *type, const stringstream &message);
+	void _log(const char *type, const std::string &message);
+	void _log(const char *type, const std::stringstream &message);
 	void _log(const LogEntry &entry);
 
 }

@@ -16,7 +16,6 @@ using namespace am::util;
 #include <math/math.h>
 
 #include <sstream>
-using namespace std;
 
 #include <log/logger.h>
 

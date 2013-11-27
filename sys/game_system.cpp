@@ -35,7 +35,6 @@ using namespace am::sfx;
 
 #include <sys/os_system.h>
 
-using namespace std;
 using namespace am::math;
 
 namespace am {
@@ -116,7 +115,7 @@ namespace sys {
 		}
 		catch (const char *error)
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Unable to initialise sound engine: " << error;
 			am_log("SFXERR", ss);
 		}

@@ -16,15 +16,15 @@ namespace am {
 namespace sys {
 namespace freeglut {
 
-	FreeGlutSystem *FreeGlutSystem::s_freeglut_system = nullptr;
+	FreeGlutSystem *FreeGlutSystem::sFreeglutSystem = nullptr;
 
 	FreeGlutSystem *FreeGlutSystem::getFreeGlutSystem()
 	{
-		return s_freeglut_system;
+		return sFreeglutSystem;
 	}
 	void FreeGlutSystem::setFreeGlutSystem(FreeGlutSystem *system)
 	{
-		s_freeglut_system = system;
+		sFreeglutSystem = system;
 	}
 
 	FreeGlutSystem::FreeGlutSystem() :
@@ -277,7 +277,7 @@ namespace freeglut {
 			return false;
 		}
 
-		string path;
+		std::string path;
 		PathTokeniser tokeniser(folderName);
 		const char *token = tokeniser.nextToken();
 		if (!token)
@@ -301,7 +301,7 @@ namespace freeglut {
 				// If the folder already exists then we don't care.
 				if (error != ERROR_ALREADY_EXISTS)
 				{
-					string err("Error creating folder path ");
+					std::string err("Error creating folder path ");
 					err += path;
 					am_log("PATH", err);
 					return false;
@@ -325,7 +325,7 @@ namespace freeglut {
 		}
 
 		WIN32_FIND_DATA files;
-		string folder(folderName);
+		std::string folder(folderName);
 		if (folder.back() != '/' && folder.back() != '\\')
 		{
 			folder += '\\';

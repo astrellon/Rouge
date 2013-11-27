@@ -4,14 +4,13 @@
 using namespace am::math;
 
 #include <vector>
-using namespace std;
 
 namespace am {
 namespace game {
 
 	class Tile;
 
-	typedef vector<Vector2f> NodePath;
+	typedef std::vector<Vector2f> NodePath;
 
 	class AStarNode	{
 	public:
@@ -42,7 +41,7 @@ namespace game {
 		AStarNode *parent;
 	};
 
-	typedef vector<AStarNode *> AStarList;
+	typedef std::vector<AStarNode *> AStarList;
 
 }
 }

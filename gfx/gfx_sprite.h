@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <vector>
-using namespace std;
 
 #include <util/idata.h>
 using namespace am::util;
@@ -62,7 +61,7 @@ namespace gfx {
 		void updateSprite(float dt);
 		virtual void renderSprite();
 
-		virtual string getName() const;
+		virtual std::string getName() const;
 
 		data::IData *serialise();
 		void deserialise(am::game::LoadingState *state, data::IData *data);

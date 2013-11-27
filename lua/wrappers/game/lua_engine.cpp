@@ -28,7 +28,6 @@ using namespace am::sfx;
 #include "lua_tile_type.h"
 
 #include <sstream>
-using std::stringstream;
 
 namespace am {
 namespace lua {
@@ -270,7 +269,7 @@ namespace game {
 		{
 			if (!Engine::getEngine()->registerGameObject(obj))
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Unable to register game object: ";
 				LuaState::printTypeValue(lua, 2, ss, true);
 				ss << " (" << obj->getName() << " does not have a game id";

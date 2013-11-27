@@ -2,7 +2,6 @@
 
 #include <string>
 
-using namespace std;
 
 namespace am {
 namespace log {
@@ -14,14 +13,14 @@ namespace log {
 		LogEntry(const char *type, const char *message);
 		~LogEntry();
 
-		const string &getType() const;
-		const string &getMessage() const;
+		const std::string &getType() const;
+		const std::string &getMessage() const;
 
 		friend class Logger;
 
 	protected:
-		string mType;
-		string mMessage;
+		std::string mType;
+		std::string mMessage;
 
 	};
 }

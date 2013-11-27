@@ -3,9 +3,6 @@
 #include <string>
 #include <vector>
 #include <sstream>
-using std::string;
-using std::vector;
-using std::stringstream;
 
 #include <log/logger.h>
 
@@ -44,12 +41,12 @@ namespace tests {
 		virtual void beforeCase() {}
 		virtual void afterCase() {}
 
-		void onError() {
-			am_log("ASD", "ASJDLKAJDLSAD");
+		void onError() 
+		{
 		}
 	
 		virtual void run() {
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Starting tests for '" << getSuiteName() << "'";
 			am_log("SUITE", ss);
 			beforeSuite();
@@ -79,16 +76,16 @@ namespace tests {
 		}
 
 		static void addFailedTest(const char *testName) {
-			sFailedTests.push_back(string(testName));
+			sFailedTests.push_back(std::string(testName));
 		}
-		static const vector<string> &getFailedTests() {
+		static const std::vector<std::string> &getFailedTests() {
 			return sFailedTests;
 		}
 	protected:
 		int testsFailed;
 		int totalTests;
 
-		static vector<string> sFailedTests;
+		static std::vector<std::string> sFailedTests;
 	};
 
 }

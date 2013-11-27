@@ -250,7 +250,7 @@ namespace gfx {
 		mDebugName = name;
 #endif
 	}
-	string Renderable::getName() const
+	std::string Renderable::getName() const
 	{
 #ifdef _DEBUG
 		return mDebugName;
@@ -284,7 +284,7 @@ namespace gfx {
 			parent = parent->getParent();
 		}
 	}
-	void Renderable::debugRenderPath(const RenderablePath &path, vector<string> &output)
+	void Renderable::debugRenderPath(const RenderablePath &path, std::vector<std::string> &output)
 	{
 		for (auto iter = path.begin(); iter != path.end(); ++iter)
 		{

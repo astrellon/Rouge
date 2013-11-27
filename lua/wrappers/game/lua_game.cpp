@@ -28,7 +28,6 @@ using namespace am::game;
 #include "lua_iattribute_data.h"
 
 #include <sstream>
-using std::stringstream;
 
 namespace am {
 namespace lua {
@@ -478,7 +477,7 @@ namespace game {
 		Game *game = castUData<Game>(lua, 1);
 		if (game)
 		{
-			stringstream output;
+			std::stringstream output;
 			LuaState::printStack(lua, output);
 			if (moveGameObject(lua, game, true))
 			{
@@ -571,7 +570,7 @@ namespace game {
 			{
 				if (!game->registerGameObject(obj))
 				{
-					stringstream ss;
+					std::stringstream ss;
 					ss << "Unable to register game object: ";
 					LuaState::printTypeValue(lua, 2, ss, true);
 					ss << " (" << obj->getName() << " does not have a game id";

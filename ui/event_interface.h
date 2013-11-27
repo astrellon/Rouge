@@ -11,7 +11,6 @@
 
 #include <string>
 
-using namespace std;
 
 namespace am {
 namespace ui {
@@ -23,18 +22,18 @@ namespace ui {
 		virtual ~EventInterface();
 
 		bool addEventListener(const char *type, IEventListener *context);
-		bool addEventListener(const string &type, IEventListener *context);
+		bool addEventListener(const std::string &type, IEventListener *context);
 		bool addEventListener(Mouse::EventType type, IEventListener *context);
 		bool addEventListener(Keyboard::EventType type, IEventListener *context);
 		
 		bool removeEventListener(const char *type, IEventListener *context);
-		bool removeEventListener(const string &type, IEventListener *context);
+		bool removeEventListener(const std::string &type, IEventListener *context);
 		bool removeEventListener(Mouse::EventType type, IEventListener *context);
 		bool removeEventListener(Keyboard::EventType type, IEventListener *context);
 		void removeEventListener(IEventListener *context);
 		
 		bool hasEventListener(const char *type);
-		bool hasEventListener(const string &type);
+		bool hasEventListener(const std::string &type);
 
 		template <class T>
 		void fireEvent(T *e)

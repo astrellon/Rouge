@@ -11,7 +11,6 @@ extern "C"
 #include <string>
 #include <map>
 #include <ostream>
-using namespace std;
 
 #include <base/imanaged.h>
 
@@ -135,8 +134,8 @@ namespace lua {
 	class LuaState : public am::base::IManaged {
 	public:
 
-		typedef map<string, lua_CFunction> WrapperMap;
-		typedef map<int, string> WrapperIdMap;
+		typedef std::map<std::string, lua_CFunction> WrapperMap;
+		typedef std::map<int, std::string> WrapperIdMap;
 
 		/// Creates a new lua_State.
 		/// includeLibraries includes all the Lua wrapped game objects.
@@ -199,16 +198,16 @@ namespace lua {
 		int getGlobalInt(const char *name);
 		double getGlobalDouble(const char *name);
 		bool getGlobalBool(const char *name);
-		string getGlobalString(const char *name);
+		std::string getGlobalString(const char *name);
 		bool getGlobal(const char *name);
 
 		static int onError(lua_State *mLua);
 
 		void logStack(const char *cat);
-		void printStack(ostream &output);
+		void printStack(std::ostream &output);
 
 		void logTable(const char *cat, int n);
-		void printTable(ostream &output, int n, bool includeType = true);
+		void printTable(std::ostream &output, int n, bool includeType = true);
 
 		bool operator==(const lua_State *lua) const;
 		bool operator==(const LuaState &rhs) const;
@@ -222,9 +221,9 @@ namespace lua {
 		static int getMaxRegisteredId();
 
 		static void logStack(lua_State *lua, const char *cat);
-		static void printStack(lua_State *lua, ostream &output);
+		static void printStack(lua_State *lua, std::ostream &output);
 		static const char *getType(lua_State *lua, int n);
-		static void printTypeValue(lua_State *lua, int n, ostream &output, bool includeType = true);
+		static void printTypeValue(lua_State *lua, int n, std::ostream &output, bool includeType = true);
 
 		static int luaAmLog(lua_State *lua);
 

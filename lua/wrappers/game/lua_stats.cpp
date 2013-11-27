@@ -14,7 +14,6 @@ using namespace am::lua;
 using namespace am::game;
 
 #include <sstream>
-using namespace std;
 
 #include <log/logger.h>
 
@@ -107,7 +106,7 @@ namespace game {
 		}
 		else
 		{
-			stringstream ss;
+			std::stringstream ss;
 			ss << "Invalid stat name (";
 			LuaState::printTypeValue(lua, n, ss);
 			ss << ')';
@@ -167,7 +166,7 @@ namespace game {
 						lua_first(lua);
 					}
 				}
-				stringstream ss;
+				std::stringstream ss;
 				ss << "Invalid stat name (";
 				LuaState::printTypeValue(lua, 2, ss);
 				ss << ") for am.stats.base_value";

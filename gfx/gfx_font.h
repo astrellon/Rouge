@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-using namespace std;
 
 #include <lua/lua_state.h>
 using namespace am::lua;
@@ -30,7 +29,7 @@ namespace gfx {
 		Asset *getAsset();
 		void setAsset(Asset *asset);
 
-		string getName() const;
+		std::string getName() const;
 
 		void getTextureWindow(unsigned char ch, TextureWindow &render);
 
@@ -76,7 +75,7 @@ namespace gfx {
 	protected:
 
 		am::base::Handle<Asset> mAsset;
-		string mName;
+		std::string mName;
 
 		bool mFixedWidth;
 		bool mUtfSupport;
@@ -92,9 +91,9 @@ namespace gfx {
 		int mCharsAcross;
 		int mCharsDown;
 
-		vector<TextureWindow> mTextureWindows;
+		std::vector<TextureWindow> mTextureWindows;
 
-		pair<float, float> processChar(int *data, int xPos, int yPos);
+		std::pair<float, float> processChar(int *data, int xPos, int yPos);
 		
 	};
 

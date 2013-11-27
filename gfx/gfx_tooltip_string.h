@@ -8,7 +8,6 @@
 using namespace am::gfx;
 
 #include <string>
-using namespace std;
 
 namespace am {
 namespace gfx {
