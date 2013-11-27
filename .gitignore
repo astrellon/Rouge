@@ -1,5 +1,7 @@
 Release/
+Release FreeGlut/
 Debug/
+Debug FreeGlut/
 Debug Tests/
 ext_assets/
 ipch/
