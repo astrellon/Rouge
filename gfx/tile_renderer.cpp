@@ -290,7 +290,7 @@ namespace gfx {
 		}
 	}
 
-	string TileRenderer::getName() const
+	std::string TileRenderer::getName() const
 	{
 		return "TileRenderer";
 	}

@@ -56,11 +56,11 @@ namespace game {
 		bool hasMap(const char *mapName);
 
 		Map *getMapLua(const char *mapName);
-		Map *getMapLua(const string &mapName);
+		Map *getMapLua(const std::string &mapName);
 		Map *getCurrentMap();
 		void setCurrentMap(Map *map, bool addMap = true);
 		void setCurrentMap(const char *mapName);
-		void setCurrentMap(const string &mapName);
+		void setCurrentMap(const std::string &mapName);
 
 		void addGameObject(GameObject *obj);
 
@@ -91,7 +91,7 @@ namespace game {
 		void setMainCharacter(Character *character);
 		Character *getMainCharacter();
 
-		string getLoadingFile() const;
+		std::string getLoadingFile() const;
 
 		void addCharDefinition(Character *character, const char *name);
 		Character *getCharDefinition(const char *name);

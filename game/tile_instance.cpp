@@ -60,9 +60,9 @@ namespace game {
 	}
 	bool TileInstance::setTileName(const char *tileName)
 	{
-		return setTileName(string(tileName));
+		return setTileName(std::string(tileName));
 	}
-	bool TileInstance::setTileName(const string &tileName)
+	bool TileInstance::setTileName(const std::string &tileName)
 	{
 		int framePos = static_cast<int>(tileName.find_last_of(":"));
 		string tileNameUse;

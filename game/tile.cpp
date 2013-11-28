@@ -76,12 +76,12 @@ namespace game {
 		setName(name);
 		return true;
 	}
-	string Tile::getName() const
+	std::string Tile::getName() const
 	{
 		return mName;
 	}
 
-	string Tile::getFullName() const
+	std::string Tile::getFullName() const
 	{
 		return mFullName;
 	}
@@ -90,7 +90,7 @@ namespace game {
 		mFullName = name;
 	}
 
-	string Tile::getDescription() const
+	std::string Tile::getDescription() const
 	{
 		return mDescription;
 	}
@@ -99,7 +99,7 @@ namespace game {
 		mDescription = description;
 	}
 
-	string Tile::getNameWithSet() const
+	std::string Tile::getNameWithSet() const
 	{
 		if (mTileSet)
 		{

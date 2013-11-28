@@ -65,7 +65,7 @@ namespace game {
 
 		BodyPart();
 
-		string mName;
+		std::string mName;
 		base::Handle<BodyPart> mCanHoldOnto;
 		base::Handle<Item> mEquippedItem;
 		BodyPartType::PartType mType;

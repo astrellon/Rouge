@@ -104,7 +104,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		auto iter = mGameObjectInfoMap.find(string(gameId));
+		auto iter = mGameObjectInfoMap.find(std::string(gameId));
 		if (iter != mGameObjectInfoMap.end())
 		{
 			return iter->second.gameObj;
@@ -126,7 +126,7 @@ namespace game {
 		{
 			return false;
 		}
-		auto iter = mGameObjectInfoMap.find(string(gameId));
+		auto iter = mGameObjectInfoMap.find(std::string(gameId));
 		if (iter != mGameObjectInfoMap.end())
 		{
 			return iter->second.hasDestination;

@@ -4,7 +4,6 @@
 #include <util/data_number.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
-using namespace am::util;
 
 #include "loading_state.h"
 
@@ -201,7 +200,7 @@ namespace game {
 		}
 
 		// Can hold onto it deserialised by the loading state.
-		string canHoldOnto;
+		std::string canHoldOnto;
 		str = dataMap->at<data::String>("canHoldOnto");
 		if (str)
 		{

@@ -69,7 +69,7 @@ namespace game {
 			{
 				race = Engine::getEngine()->getUnknownRace();
 			}
-			return string(race->getRaceName());
+			return std::string(race->getRaceName());
 		}
 		if (strcmp(token, "equip") == 0)
 		{
@@ -131,18 +131,18 @@ namespace game {
 	std::string StringPool::filterText(const std::string &str)
 	{
 		size_t index = str.find("${");
-		if (index == string::npos)
+		if (index == std::string::npos)
 		{
 			return str;
 		}
 		std::string result = str;
-		while (index != string::npos)
+		while (index != std::string::npos)
 		{
 			if (index == 0 || (index > 0 && str[index - 1] != '\\'))
 			{
 				index += 2;
 				size_t end = result.find("}", index);
-				if (end != string::npos)
+				if (end != std::string::npos)
 				{
 					std::string sub = result.substr(index, end - index);
 					std::string replaced = replace(sub.c_str());

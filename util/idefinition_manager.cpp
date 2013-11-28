@@ -13,7 +13,7 @@ namespace util {
 
 	bool IDefinitionManager::loadDefinitionFile(const char *path, const char *filename)
 	{
-		mLoadingFiles.push_back(string(filename));
+		mLoadingFiles.push_back(std::string(filename));
 		return _loadDefinitionFile(path);
 	}
 	

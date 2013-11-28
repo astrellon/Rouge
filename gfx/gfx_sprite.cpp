@@ -375,16 +375,16 @@ namespace gfx {
 		}
 	}
 
-	string Sprite::getName() const
+	std::string Sprite::getName() const
 	{
 #ifdef _DEBUG
-		string name = mDebugName;
+		std::string name = mDebugName;
 		if (name.size() == 0)
 		{
 			name = "Sprite";
 		}
 #else
-		string name = "Sprite";
+		std::string name = "Sprite";
 #endif
 		name += " (";
 		if (mAsset)

@@ -305,7 +305,7 @@ namespace game {
 	{
 		if (mapName && mapName[0] != '\0')
 		{
-			string mapStr(mapName);
+		std::string mapStr(mapName);
 			MapMap::iterator iter;
 			for (iter = mMaps.begin(); iter != mMaps.end(); ++iter)
 			{
@@ -329,7 +329,7 @@ namespace game {
 		{
 			return false;
 		}
-		MapMap::iterator iter = mMaps.find(string(mapName));
+		MapMap::iterator iter = mMaps.find(std::string(mapName));
 		if (iter == mMaps.end())
 		{
 			return false;
@@ -585,7 +585,7 @@ namespace game {
 		return mMainCharacter;
 	}
 
-	string Game::getLoadingFile() const
+	std::string Game::getLoadingFile() const
 	{
 		return mLoadingFiles.back();
 	}
@@ -683,7 +683,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		GameObjectIdMap::const_iterator iter = mGameObjects.find(string(id));
+		GameObjectIdMap::const_iterator iter = mGameObjects.find(std::string(id));
 		if (iter != mGameObjects.end())
 		{
 			return iter->second;
@@ -708,7 +708,7 @@ namespace game {
 	{
 		if (id && id[0] != '\0')
 		{
-			string idStr(id);
+			std::string idStr(id);
 			GameObjectIdMap::iterator iter = mGameObjects.find(idStr);
 			if (iter != mGameObjects.end())
 			{
@@ -733,7 +733,7 @@ namespace game {
 	{
 		if (dialogue)
 		{
-			string id = dialogue->getId();
+			std::string id = dialogue->getId();
 			DialogueMap::const_iterator iter = mDialogueMap.find(id);
 			if (iter == mDialogueMap.end())
 			{
@@ -747,7 +747,7 @@ namespace game {
 	{
 		if (id != nullptr)
 		{
-			DialogueMap::const_iterator iter = mDialogueMap.find(string(id));
+			DialogueMap::const_iterator iter = mDialogueMap.find(std::string(id));
 			if (iter == mDialogueMap.end())
 			{
 				mDialogueMap.erase(iter);
@@ -764,7 +764,7 @@ namespace game {
 	{
 		if (id != nullptr)
 		{
-			DialogueMap::iterator iter = mDialogueMap.find(string(id));
+			DialogueMap::iterator iter = mDialogueMap.find(std::string(id));
 			if (iter != mDialogueMap.end())
 			{
 				return iter->second;
@@ -798,7 +798,7 @@ namespace game {
 			else if (dialogue->getUnlockFlag() == Dialogue::UNLOCK_LOCKED)
 			{
 				// If the subject of the dialogue is in the unlocked map and is true.
-				Character::SubjectMap::const_iterator iter = unlocked.find(string(dialogue->getSubject()));
+				Character::SubjectMap::const_iterator iter = unlocked.find(std::string(dialogue->getSubject()));
 				if (iter != unlocked.end() && !iter->second)
 				{
 					result.push_back(dialogue);

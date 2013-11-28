@@ -122,7 +122,7 @@ namespace game {
 	{
 		mName = name;
 	}
-	string GameObject::getName() const
+	std::string GameObject::getName() const
 	{
 		return mName;
 	}
@@ -138,7 +138,7 @@ namespace game {
 	{
 		mDescription = description;
 	}
-	string GameObject::getDescription() const
+	std::string GameObject::getDescription() const
 	{
 		return mDescription;
 	}

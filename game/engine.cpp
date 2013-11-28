@@ -99,7 +99,7 @@ namespace game {
 	{
 		if (tileSetName)
 		{
-			string tileSetNameStr = tileSetName;
+			std::string tileSetNameStr = tileSetName;
 			if (mUsingTileSetNames.find(tileSetNameStr) == mUsingTileSetNames.end())
 			{
 				mUsingTileSetNames[tileSetNameStr] = 1;
@@ -440,7 +440,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		RaceMap::iterator iter = mRaces.find(string(raceName));
+		RaceMap::iterator iter = mRaces.find(std::string(raceName));
 		if (iter == mRaces.end())
 		{
 			return nullptr;
@@ -462,9 +462,9 @@ namespace game {
 	}
 	TileType *Engine::getTileType(const char *name)
 	{
-		return getTileType(string(name));
+		return getTileType(std::string(name));
 	}
-	TileType *Engine::getTileType(const string &name)
+	TileType *Engine::getTileType(const std::string &name)
 	{
 		TileTypeMap::iterator iter = mTileTypes.find(name);
 		if (iter == mTileTypes.end())

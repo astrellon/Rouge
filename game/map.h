@@ -44,10 +44,10 @@ namespace game {
 		virtual void deinit();
 	
 		void setName(const char *name);
-		string getName() const;
+		std::string getName() const;
 
 		void setFullName(const char *name);
-		string getFullName() const;
+		std::string getFullName() const;
 
 		Tile *getTile(int x, int y);
 		TileInstance *getTileInstance(int x, int y);
@@ -115,9 +115,9 @@ namespace game {
 		float mWidth;
 		float mHeight;
 
-		string mName;
-		string mFullName;
-		string mFilename;
+		std::string mName;
+		std::string mFullName;
+		std::string mFilename;
 
 		base::Handle<Layer> mBackground;
 		base::Handle<Layer> mForeground;

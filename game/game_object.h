@@ -53,12 +53,12 @@ namespace game {
 		~GameObject();
 
 		virtual void setName(const char *name);
-		virtual void setName(const string &name);
-		virtual string getName() const;
+		virtual void setName(const std::string &name);
+		virtual std::string getName() const;
 
 		virtual void setDescription(const char *description);
-		virtual void setDescription(const string &description);
-		virtual string getDescription() const;
+		virtual void setDescription(const std::string &description);
+		virtual std::string getDescription() const;
 
 		virtual void setLocation(float x, float y, bool setDraw = true);
 		virtual float getLocationX() const;
