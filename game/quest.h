@@ -6,7 +6,6 @@
 #include <map>
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <game/iattribute_data.h>
 
@@ -23,7 +22,8 @@ namespace game {
 	class Character;
 	class LoadingState;
 
-	class Quest : public EventInterface, public IAttributeData, public virtual base::IManaged {
+	class Quest : public ui::EventInterface, public IAttributeData, public virtual base::IManaged 
+	{
 	public:
 		
 		Quest(const char *questId);

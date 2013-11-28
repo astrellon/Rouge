@@ -3,9 +3,11 @@
 namespace am {
 namespace game {
 
-	class Gender {
+	class Gender 
+	{
 	public:
-		enum GenderType {
+		enum GenderType 
+		{
 			MALE, FEMALE, MAX_GENDER_LENGTH
 		};
 

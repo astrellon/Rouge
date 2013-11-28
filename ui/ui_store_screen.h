@@ -2,7 +2,6 @@
 
 #include <game/character.h>
 #include <game/store.h>
-using namespace am::game;
 
 #include <base/handle.h>
 
@@ -19,11 +18,11 @@ namespace ui {
 		StoreScreen();
 		~StoreScreen();
 
-		virtual void setBuyer(Character *character);
-		virtual Character *getBuyer() const;
+		virtual void setBuyer(game::Character *character);
+		virtual game::Character *getBuyer() const;
 
-		virtual void setStore(Store *store);
-		virtual Store *getStore() const;
+		virtual void setStore(game::Store *store);
+		virtual game::Store *getStore() const;
 
 		virtual void setStoreInventoryIndex(int index);
 		virtual int getStoreInventoryIndex() const;
@@ -36,14 +35,14 @@ namespace ui {
 
 	protected:
 
-		base::Handle<Character> mBuyer;
-		base::Handle<Store> mStore;
+		base::Handle<game::Character> mBuyer;
+		base::Handle<game::Store> mStore;
 		base::Handle<InventoryRenderer> mInventoryRenderer;
 
 		int mStoreInventoryIndex;
 
-		virtual void addListeners(Store *store);
-		virtual void removeListeners(Store *store);
+		virtual void addListeners(game::Store *store);
+		virtual void removeListeners(game::Store *store);
 	};
 
 }

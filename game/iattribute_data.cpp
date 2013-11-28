@@ -3,6 +3,8 @@
 namespace am {
 namespace game {
 
+	using namespace am::util;
+
 	IAttributeData::IAttributeData()
 	{
 	}

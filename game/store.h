@@ -5,10 +5,8 @@
 #include <base/return_codes.h>
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <math/vector.h>
-using namespace am::math;
 
 #include "character.h"
 #include "inventory.h"
@@ -23,7 +21,8 @@ using namespace am::util;
 
 namespace game {
 
-	class Store : public virtual base::IManaged, public EventInterface, public IEventListener {
+	class Store : public virtual base::IManaged, public ui::EventInterface, public ui::IEventListener 
+	{
 	public:
 
 		Store();
@@ -88,7 +87,7 @@ namespace game {
 		base::Handle<Character> mStoreOwner;
 		InventoryList mStoreInventories;
 
-		Vector2<unsigned short> mDefaultInventorySize;
+		math::Vector2<unsigned short> mDefaultInventorySize;
 
 		virtual void addListeners(Inventory *inventory);
 		virtual void removeListeners(Inventory *inventory);

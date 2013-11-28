@@ -3,13 +3,10 @@
 #include <ostream>
 
 #include <math/transform_lite.h>
-using namespace am::math;
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <util/colour.h>
-using namespace am::util;
 
 #include "gfx_effect.h"
 #include "gfx_component.h"
@@ -20,7 +17,7 @@ namespace gfx {
 	class Layer;
 	class Tooltip;
 
-	class Renderable : virtual public base::IManaged, public EventInterface {
+	class Renderable : virtual public base::IManaged, public ui::EventInterface {
 	public:
 
 		typedef std::vector<const Renderable *> RenderablePath;

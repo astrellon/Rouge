@@ -4,10 +4,8 @@
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <game/character.h>
-using namespace am::game;
 
 #include <ui/ui_component.h>
 
@@ -26,8 +24,8 @@ namespace ui {
 		virtual short getMaxItemWidth() const;
 		virtual short getMaxItemHeight() const;
 
-		virtual void setCharacter(Character *character);
-		virtual Character *getCharacter() const;
+		virtual void setCharacter(game::Character *character);
+		virtual game::Character *getCharacter() const;
 
 		virtual void setBodyPartName(const char *partName);
 		virtual const char *getBodyPartName() const;
@@ -40,9 +38,9 @@ namespace ui {
 
 	protected:
 
-		base::Handle<Character> mCharacter;
-		base::Handle<Item> mCurrentItem;
-		base::Handle<Renderable> mHitbox;
+		base::Handle<game::Character> mCharacter;
+		base::Handle<game::Item> mCurrentItem;
+		base::Handle<gfx::Renderable> mHitbox;
 
 		std::string mBodyPartName;
 		short mMaxItemWidth;

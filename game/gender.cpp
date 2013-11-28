@@ -5,8 +5,14 @@
 namespace am {
 namespace game {
 
-	const char *Gender::sNiceGenderNames[] = {"Male", "Female", "MAX_GENDER_LENGTH"};
-	const char *Gender::sGenderNames[] = {"male", "female", "max_gender_length"};
+	const char *Gender::sNiceGenderNames[] = 
+	{
+		"Male", "Female", "MAX_GENDER_LENGTH"
+	};
+	const char *Gender::sGenderNames[] = 
+	{
+		"male", "female", "max_gender_length"
+	};
 
 	const char *Gender::getNiceGenderName(GenderType type)
 	{

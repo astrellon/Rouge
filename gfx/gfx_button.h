@@ -26,7 +26,7 @@ namespace gfx {
 		virtual void setEnabled(bool enabled);
 		virtual bool isEnabled() const;
 
-		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(ui::MouseEvent *e);
 		
 	protected:
 

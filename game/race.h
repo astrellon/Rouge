@@ -8,7 +8,8 @@
 namespace am {
 namespace game {
 
-	class Race : public base::IManaged {
+	class Race : public base::IManaged 
+	{
 	public:
 
 		Race(const char *raceName);

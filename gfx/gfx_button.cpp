@@ -103,7 +103,7 @@ namespace gfx {
 		case ui::Mouse::MOUSE_MOVE:
 			{
 				int frame = 1;
-				if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
+				if (ui::MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 				{
 					frame = 2;
 				}
@@ -111,7 +111,7 @@ namespace gfx {
 			}
 			break;
 		case ui::Mouse::MOUSE_UP:
-			clickEvent = new Event("click", this);
+			clickEvent = new ui::Event("click", this);
 			fireEvent(clickEvent.get());
 		case ui::Mouse::MOUSE_OVER:
 			setSubWindowFrame(1);

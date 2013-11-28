@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 namespace am {
 namespace util {
@@ -15,7 +14,8 @@ namespace game {
 
 	class LoadingState;
 
-	class Levelable {
+	class Levelable 
+	{
 	public:
 
 		Levelable();

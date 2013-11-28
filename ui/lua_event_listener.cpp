@@ -5,13 +5,11 @@
 #include <lua/wrappers/game/lua_character.h>
 #include <lua/wrappers/game/lua_dialogue.h>
 #include <lua/wrappers/game/lua_game.h>
-using namespace am::lua::game;
 
 #include <sstream>
 
 #include <game/character.h>
 #include <game/inventory.h>
-using namespace am::game;
 
 namespace am {
 namespace ui {
@@ -98,10 +96,10 @@ namespace ui {
 		mLua.setTableValue("spot_x", e->getSpotX());
 		mLua.setTableValue("spot_y", e->getSpotY());
 		mLua.push("item");
-		wrapRefObject<Item>(mLua, e->getItem());
+		lua::wrapRefObject<game::Item>(mLua, e->getItem());
 		lua_settable(mLua, -3);
 		mLua.push("inventory");
-		wrapRefObject<Inventory>(mLua, e->getInventory());
+		lua::wrapRefObject<game::Inventory>(mLua, e->getInventory());
 		lua_settable(mLua, -3);
 		lua_acall(mLua, contexted ? 2 : 1, 0);
 	}
@@ -116,12 +114,12 @@ namespace ui {
 		mLua.newTable();
 		mLua.setTableValue("type", e->getType().c_str());
 		mLua.push("body_part");
-		wrapRefObject<BodyPart>(mLua, e->getBodyPart());
+		lua::wrapRefObject<game::BodyPart>(mLua, e->getBodyPart());
 		lua_settable(mLua, -3);
 		mLua.push("item");
 		if (e->getItem())
 		{
-			wrapRefObject<Item>(mLua, e->getItem());
+			lua::wrapRefObject<Item>(mLua, e->getItem());
 		}
 		else
 		{
@@ -131,7 +129,7 @@ namespace ui {
 		mLua.push("character");
 		if (e->getCharacter())
 		{
-			wrapRefObject<Character>(mLua, e->getCharacter());
+			wrapRefObject<game::Character>(mLua, e->getCharacter());
 		}
 		else
 		{
@@ -152,18 +150,18 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 		// Talked To
 		mLua.push("talked_to");
-		wrapGameObject(mLua, e->getTalkedTo());
+		lua::game::wrapGameObject(mLua, e->getTalkedTo());
 		lua_settable(mLua, -3);
 		// Talker
 		mLua.push("talker");
-		wrapGameObject(mLua, e->getTalker());
+		lua::game::wrapGameObject(mLua, e->getTalker());
 		lua_settable(mLua, -3);
 		// Dialogue
 		mLua.push("dialogue");
 		Dialogue *diag = e->getDialogue();
 		if (diag)
 		{
-			wrapObject<Dialogue>(mLua, diag);
+			wrapObject<game::Dialogue>(mLua, diag);
 		}
 		else
 		{
@@ -187,7 +185,7 @@ namespace ui {
 		mLua.push("item");
 		if (e->getItem())
 		{
-			wrapRefObject<Item>(mLua, e->getItem());
+			wrapRefObject<game::Item>(mLua, e->getItem());
 		}
 		else
 		{
@@ -196,7 +194,7 @@ namespace ui {
 		lua_settable(mLua, -3);
 		// Extra
 		mLua.push("extra");
-		wrapGameObject(mLua, e->getExtra());
+		lua::game::wrapGameObject(mLua, e->getExtra());
 		lua_settable(mLua, -3);
 		
 		lua_acall(mLua, contexted ? 2 : 1, 0);
@@ -213,11 +211,11 @@ namespace ui {
 		mLua.setTableValue("type", e->getType().c_str());
 
 		mLua.push("game_object");
-		wrapGameObject(mLua, e->getGameObject());
+		lua::game::wrapGameObject(mLua, e->getGameObject());
 		lua_settable(mLua, -3);
 
 		mLua.push("map_region");
-		wrapRefObject<MapRegion>(mLua, e->getMapRegion());
+		lua::wrapRefObject<game::MapRegion>(mLua, e->getMapRegion());
 		lua_settable(mLua, -3);
 
 		lua_acall(mLua, contexted ? 2 : 1, 0);

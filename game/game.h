@@ -10,11 +10,9 @@
 #include <ui/ievent_listener.h>
 #include <ui/ui_inspector.h>
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <util/idata.h>
 #include <util/idefinition_manager.h>
-using namespace am::util;
 
 #include "game_object.h"
 #include "camera.h"
@@ -31,19 +29,20 @@ namespace am {
 namespace gfx {
 	class Layer;
 }
-using namespace am::gfx;
 
 namespace util {
 namespace data {
 	class Table;
 }
 }
+using namespace am::util;
 
 namespace game {
 
 	class Engine;
 
-	class Game : public IDefinitionManager, public IEventListener, public EventInterface, public IAttributeData {
+	class Game : public IDefinitionManager, public ui::IEventListener, public ui::EventInterface, public IAttributeData 
+	{
 	public:
 		Game(Engine *engine = nullptr);
 		~Game();
@@ -65,11 +64,11 @@ namespace game {
 
 		void addGameObject(GameObject *obj);
 
-		Layer *getGameLayer();
-		Layer *getBackground();
-		Layer *getItemLayer();
-		Layer *getCharacterLayer();
-		Layer *getForeground();
+		gfx::Layer *getGameLayer();
+		gfx::Layer *getBackground();
+		gfx::Layer *getItemLayer();
+		gfx::Layer *getCharacterLayer();
+		gfx::Layer *getForeground();
 
 		bool addGameObjectToMap(GameObject *object);
 		bool removeGameObjectFromMap(GameObject *object);
@@ -86,8 +85,8 @@ namespace game {
 		void saveGame(const char *saveName);
 		int loadGame(const char *saveName);
 
-		virtual void onEvent(MouseEvent *e);
-		virtual void onEvent(GameObjectEvent *e);
+		virtual void onEvent(ui::MouseEvent *e);
+		virtual void onEvent(ui::GameObjectEvent *e);
 
 		void setMainCharacter(Character *character);
 		Character *getMainCharacter();
@@ -135,8 +134,8 @@ namespace game {
 		void setScenarioName(const char *scenarioName);
 		const char *getScenarioName() const;
 
-		void setGenericDeadGraphic(Sprite *graphic);
-		Sprite *getGenericDeadGraphic() const;
+		void setGenericDeadGraphic(gfx::Sprite *graphic);
+		gfx::Sprite *getGenericDeadGraphic() const;
 
 		// This is different to pausing the game.
 		// As it relates to the game tick itself waiting for
@@ -175,13 +174,13 @@ namespace game {
 
 		std::string mScenarioName;
 
-		base::Handle<Sprite> mGenericDeadGraphic;
+		base::Handle<gfx::Sprite> mGenericDeadGraphic;
 
-		base::Handle<Layer> mGameLayer;
-		base::Handle<Layer> mBackground;
-		base::Handle<Layer> mItemLayer;
-		base::Handle<Layer> mCharacterLayer;
-		base::Handle<Layer> mForeground;
+		base::Handle<gfx::Layer> mGameLayer;
+		base::Handle<gfx::Layer> mBackground;
+		base::Handle<gfx::Layer> mItemLayer;
+		base::Handle<gfx::Layer> mCharacterLayer;
+		base::Handle<gfx::Layer> mForeground;
 
 		base::Handle<Character> mMainCharacter;
 

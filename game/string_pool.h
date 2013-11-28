@@ -3,7 +3,6 @@
 #include <string>
 
 #include <util/tokeniser.h>
-using namespace am::util;
 
 namespace am {
 namespace game {
@@ -17,7 +16,7 @@ namespace game {
 
 	protected:
 
-		static std::string replaceCharacter(Tokeniser &tokeniser, Character *character);
+		static std::string replaceCharacter(util::Tokeniser &tokeniser, Character *character);
 
 	};
 

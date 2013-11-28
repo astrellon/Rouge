@@ -6,7 +6,6 @@
 #include <game/inventory.h>
 #include <game/character.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_tooltip_string.h>
@@ -28,7 +27,7 @@ namespace ui {
 		ss << "BodyPartRenderer -> " << bodyPartName;
 		setName(ss.str().c_str());
 
-		mHitbox = new Renderable();
+		mHitbox = new gfx::Renderable();
 		mHitbox->setInteractive(true);
 		addChild(mHitbox);
 
@@ -56,7 +55,7 @@ namespace ui {
 	{
 		if (e && mCharacter)
 		{
-			PlayerHand *hand = PlayerHand::getPlayerHand();
+			game::PlayerHand *hand = game::PlayerHand::getPlayerHand();
 
 			if (hand->getInhand() != nullptr)
 			{
@@ -66,7 +65,7 @@ namespace ui {
 					return;
 				}
 			}
-			base::Handle<Item> prevEquipped = mCurrentItem;
+			base::Handle<game::Item> prevEquipped = mCurrentItem;
 			if (mCharacter != nullptr && mCurrentItem != nullptr)
 			{
 				if (e->getMouseButton() == ui::Mouse::LEFT_BUTTON)
@@ -107,8 +106,8 @@ namespace ui {
 		mMaxItemWidth = width;
 		mMaxItemHeight = height;
 
-		float renderWidth = static_cast<float>(width) * Inventory::getSpaceSizeX();
-		float renderHeight = static_cast<float>(height) * Inventory::getSpaceSizeY();
+		float renderWidth = static_cast<float>(width) * game::Inventory::getSpaceSizeX();
+		float renderHeight = static_cast<float>(height) * game::Inventory::getSpaceSizeY();
 		setSize(renderWidth, renderHeight);
 		mHitbox->setSize(renderWidth, renderHeight);
 	}
@@ -121,7 +120,7 @@ namespace ui {
 		return mMaxItemHeight;
 	}
 
-	void BodyPartRenderer::setCharacter(Character *character)
+	void BodyPartRenderer::setCharacter(game::Character *character)
 	{
 		if (mCharacter)
 		{
@@ -136,7 +135,7 @@ namespace ui {
 		}
 		updateGraphic();
 	}
-	Character *BodyPartRenderer::getCharacter() const
+	game::Character *BodyPartRenderer::getCharacter() const
 	{
 		return mCharacter;
 	}
@@ -179,7 +178,7 @@ namespace ui {
 			return;
 		}
 		
-		base::Handle<Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
+		base::Handle<game::Item> equipped = mCharacter->getEquipped(mBodyPartName.c_str());
 		if (equipped != nullptr && equipped != mCurrentItem)
 		{
 			addChild(equipped);

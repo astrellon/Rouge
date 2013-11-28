@@ -6,8 +6,8 @@
 namespace am {
 namespace ui {
 
-	InventoryEvent::InventoryEvent( InventoryEventType type, Inventory *target ) :
-		Event(InventoryEventTypeName[type]),
+	InventoryEvent::InventoryEvent( Inventory::EventType type, game::Inventory *target ) :
+		Event(Inventory::EventTypeName[type]),
 		mInventoryEventType(type),
 		mInventory(target),
 		mSpotX(0),
@@ -16,8 +16,8 @@ namespace ui {
 		init();
 	}
 
-	InventoryEvent::InventoryEvent( InventoryEventType type, Inventory *target, Item *item ) :
-		Event(InventoryEventTypeName[type]),
+	InventoryEvent::InventoryEvent( Inventory::EventType type, game::Inventory *target, game::Item *item ) :
+		Event(Inventory::EventTypeName[type]),
 		mInventoryEventType(type),
 		mInventory(target),
 		mItem(item),
@@ -27,8 +27,8 @@ namespace ui {
 		init();
 	}
 
-	InventoryEvent::InventoryEvent( InventoryEventType type, Inventory *target, Item *item, unsigned short spotX, unsigned short spotY ) :
-		Event(InventoryEventTypeName[type]),
+	InventoryEvent::InventoryEvent( Inventory::EventType type, game::Inventory *target, game::Item *item, unsigned short spotX, unsigned short spotY ) :
+		Event(Inventory::EventTypeName[type]),
 		mInventoryEventType(type),
 		mInventory(target),
 		mItem(item),
@@ -62,16 +62,16 @@ namespace ui {
 		}
 	}
 
-	InventoryEventType InventoryEvent::getInventoryEventType() const
+	Inventory::EventType InventoryEvent::getInventoryEventType() const
 	{
 		return mInventoryEventType;
 	}
-	Inventory *InventoryEvent::getInventory() const
+	game::Inventory *InventoryEvent::getInventory() const
 	{
 		return mInventory;
 	}
 
-	Item *InventoryEvent::getItem() const
+	game::Item *InventoryEvent::getItem() const
 	{
 		return mItem;
 	}

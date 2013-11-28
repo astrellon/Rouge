@@ -23,7 +23,7 @@ namespace am {
 namespace ui {
 
 	InventoryRenderer::InventoryRenderer() :
-		mHitbox(new Renderable())
+		mHitbox(new gfx::Renderable())
 	{
 		addChild(mHitbox);
 		mHitbox->setInteractive(true);
@@ -38,7 +38,7 @@ namespace ui {
 	{
 		if (mInventory != nullptr)
 		{
-			return mInventory->getSpacesX() * Inventory::getSpaceSizeX();
+			return mInventory->getSpacesX() * game::Inventory::getSpaceSizeX();
 		}
 		return 0.0f;
 	}
@@ -46,7 +46,7 @@ namespace ui {
 	{
 		if (mInventory != nullptr)
 		{
-			return mInventory->getSpacesY() * Inventory::getSpaceSizeY();
+			return mInventory->getSpacesY() * game::Inventory::getSpaceSizeY();
 		}
 		return 0.0f;
 	}
@@ -55,11 +55,11 @@ namespace ui {
 	{
 		if (e)
 		{
-			if (e->getInventoryEventType() == INVENTORY_ADD)
+			if (e->getInventoryEventType() == ui::Inventory::INVENTORY_ADD)
 			{
 				addItem(e->getItem(), e->getSpotX(), e->getSpotY());
 			}
-			else if (e->getInventoryEventType() == INVENTORY_REMOVE)
+			else if (e->getInventoryEventType() == ui::Inventory::INVENTORY_REMOVE)
 			{
 				removeChild(e->getItem());
 			}
@@ -70,7 +70,7 @@ namespace ui {
 	{
 		if (e)
 		{
-			PlayerHand *hand = PlayerHand::getPlayerHand();
+			game::PlayerHand *hand = game::PlayerHand::getPlayerHand();
 
 			float mouseX = 0.0f;
 			float mouseY = 0.0f;
@@ -78,7 +78,7 @@ namespace ui {
 			int gridX = math::round(mouseX / mInventory->getSpaceSizeX());
 			int gridY = math::round(mouseY / mInventory->getSpaceSizeY());
 
-			Item *item = mInventory->getItemAt(gridX, gridY);
+			game::Item *item = mInventory->getItemAt(gridX, gridY);
 
 			if (item != nullptr && hand->getInhand() == nullptr)
 			{
@@ -118,9 +118,9 @@ namespace ui {
 		{
 			return;
 		}
-		Texture::bindTexture(0);
-		float width = mInventory->getSpacesX() * Inventory::getSpaceSizeX();
-		float height = mInventory->getSpacesY() * Inventory::getSpaceSizeY();
+		gfx::Texture::bindTexture(0);
+		float width = mInventory->getSpacesX() * game::Inventory::getSpaceSizeX();
+		float height = mInventory->getSpacesY() * game::Inventory::getSpaceSizeY();
 		glBegin(GL_QUADS);
 			glColor4f(0.7f, 0.3f, 0.1f, 0.35f);
 			glVertex2f(0, 0);
@@ -130,20 +130,20 @@ namespace ui {
 		glEnd();
 	}
 
-	Inventory *InventoryRenderer::getInventory() const
+	game::Inventory *InventoryRenderer::getInventory() const
 	{
 		return mInventory;
 	}
-	void InventoryRenderer::setInventory( Inventory *inventory )
+	void InventoryRenderer::setInventory( game::Inventory *inventory )
 	{
 		if (inventory != mInventory)
 		{
 			if (mInventory)
 			{
-				mInventory->removeEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
-				mInventory->removeEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
-				const Inventory::InventorySpots &spots = mInventory->getInventory();
-				Inventory::InventorySpots::const_iterator iter;
+				mInventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_ADD], this);
+				mInventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_REMOVE], this);
+				const game::Inventory::InventorySpots &spots = mInventory->getInventory();
+				game::Inventory::InventorySpots::const_iterator iter;
 				for (iter = spots.begin(); iter != spots.end(); ++iter)
 				{
 					removeItem(iter->getItem());
@@ -154,10 +154,10 @@ namespace ui {
 			if (mInventory)
 			{
 				mHitbox->setSize(getWidth(), getHeight());
-				mInventory->addEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
-				mInventory->addEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
-				const Inventory::InventorySpots &spots = mInventory->getInventory();
-				Inventory::InventorySpots::const_iterator iter;
+				mInventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_ADD], this);
+				mInventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_REMOVE], this);
+				const game::Inventory::InventorySpots &spots = mInventory->getInventory();
+				game::Inventory::InventorySpots::const_iterator iter;
 				for (iter = spots.begin(); iter != spots.end(); ++iter)
 				{
 					addItem(iter->getItem(), iter->getX(), iter->getY());
@@ -173,7 +173,7 @@ namespace ui {
 			return;
 		}
 
-		item->setPosition(x * Inventory::getSpaceSizeX(), y * Inventory::getSpaceSizeY());
+		item->setPosition(x * game::Inventory::getSpaceSizeX(), y * game::Inventory::getSpaceSizeY());
 		addChild(item);
 	}
 

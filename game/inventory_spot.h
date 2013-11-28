@@ -16,7 +16,8 @@ namespace game {
 
 	class LoadingState;
 
-	class InventorySpot {
+	class InventorySpot 
+	{
 	public:
 		InventorySpot();
 		InventorySpot(Item *item, unsigned short x, unsigned short y);

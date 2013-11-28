@@ -16,6 +16,8 @@ namespace game {
 	const char *Quest::LUA_TABLENAME = LUA_TABLE_QUEST;
 
 	Quest::Quest(const char *questId) :
+		ui::EventInterface(),
+		IAttributeData(),
 		mQuestId(questId),
 		mEnabled(true),
 		mAcceptedReward(false),

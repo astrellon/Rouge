@@ -4,10 +4,8 @@
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <game/inventory.h>
-using namespace am::game;
 
 #include <ui/ui_component.h>
 
@@ -25,19 +23,19 @@ namespace ui {
 		virtual void onEvent(InventoryEvent *e);
 		virtual void onEvent(MouseEvent *e);
 
-		virtual Inventory *getInventory() const;
-		virtual void setInventory(Inventory *inventory);
+		virtual game::Inventory *getInventory() const;
+		virtual void setInventory(game::Inventory *inventory);
 
 		// Renderable methods
 		virtual void preRender(float dt);
 
 	protected:
 
-		base::Handle<Inventory> mInventory;
-		base::Handle<Renderable> mHitbox;
+		base::Handle<game::Inventory> mInventory;
+		base::Handle<gfx::Renderable> mHitbox;
 
-		virtual void addItem(Item *item, int x, int y);
-		virtual void removeItem(Item *item);
+		virtual void addItem(game::Item *item, int x, int y);
+		virtual void removeItem(game::Item *item);
 
 	};
 

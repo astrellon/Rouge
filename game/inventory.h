@@ -4,7 +4,6 @@
 #include <base/handle.h>
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include "item.h"
 #include "inventory_spot.h"
@@ -21,12 +20,14 @@ namespace game {
 
 	class LoadingState;
 
-	class Inventory : public virtual base::IManaged, public EventInterface {
+	class Inventory : public virtual base::IManaged, public ui::EventInterface 
+	{
 	public:
 
 		typedef std::vector< InventorySpot > InventorySpots;
 
-		enum ItemMovementState {
+		enum ItemMovementState 
+		{
 			NOT_MOVING, ADDING, REMOVING
 		};
 

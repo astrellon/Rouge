@@ -3,14 +3,16 @@
 #include <base/handle.h>
 
 #include <util/data_table.h>
-using namespace am::util;
 
 namespace am {
 namespace game {
 
+	using namespace am::util;
+
 	class LoadingState;
 
-	class IAttributeData {
+	class IAttributeData 
+	{
 	public:
 
 		IAttributeData();

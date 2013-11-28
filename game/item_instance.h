@@ -10,7 +10,8 @@
 namespace am {
 namespace game {
 
-	class ItemInstance : public base::IManaged {
+	class ItemInstance : public base::IManaged 
+	{
 	public:
 		ItemInstance();
 		ItemInstance(Item *item);

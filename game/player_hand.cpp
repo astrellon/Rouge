@@ -1,7 +1,6 @@
 #include "player_hand.h"
 
 #include <gfx/gfx_engine.h>
-using namespace am::gfx;
 
 namespace am {
 namespace game {
@@ -45,11 +44,11 @@ namespace game {
 	{
 		if (!mEnabled || mInhand.get() == nullptr)
 		{
-			GfxEngine::getEngine()->setCursor(GfxEngine::getEngine()->getDefaultCursor());
+			gfx::GfxEngine::getEngine()->setCursor(gfx::GfxEngine::getEngine()->getDefaultCursor());
 		}
 		else if (mInhand.get() != nullptr)
 		{
-			GfxEngine::getEngine()->setCursor(mInhand);
+			gfx::GfxEngine::getEngine()->setCursor(mInhand);
 		}
 	}
 

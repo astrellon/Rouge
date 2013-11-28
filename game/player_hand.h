@@ -7,7 +7,8 @@
 namespace am {
 namespace game {
 
-	class PlayerHand {
+	class PlayerHand 
+	{
 	public:
 		PlayerHand();
 		~PlayerHand();

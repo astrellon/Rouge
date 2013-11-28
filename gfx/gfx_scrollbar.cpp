@@ -54,7 +54,7 @@ namespace gfx {
 
 	}
 
-	void Scrollbar::onEvent(Event *e)
+	void Scrollbar::onEvent(ui::Event *e)
 	{
 		if (e->getType().compare("click") == 0)
 		{
@@ -68,12 +68,12 @@ namespace gfx {
 			}
 		}
 	}
-	void Scrollbar::onEvent(MouseEvent *e)
+	void Scrollbar::onEvent(ui::MouseEvent *e)
 	{
-		MouseManager *manager = MouseManager::getManager();
+		ui::MouseManager *manager = ui::MouseManager::getManager();
 		if (e->getEventTarget() == mBar.get() && e->getMouseEventType() == ui::Mouse::MOUSE_DOWN)
 		{
-			MouseManager *manager = MouseManager::getManager();
+			ui::MouseManager *manager = ui::MouseManager::getManager();
 			manager->setDragOffset(0, e->getLocalMouseY());
 			manager->addEventListener(ui::Mouse::MOUSE_MOVE, this);
 			manager->addEventListener(ui::Mouse::MOUSE_UP, this);
@@ -176,8 +176,8 @@ namespace gfx {
 		{
 			mValue = value;
 			updateBar();
-			base::Handle<Event> e(new Event(SCROLL_VALUE_CHANGE, this));
-			fireEvent<Event>(e);
+			base::Handle<ui::Event> e(new ui::Event(SCROLL_VALUE_CHANGE, this));
+			fireEvent<ui::Event>(e);
 		}
 	}
 

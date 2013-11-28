@@ -86,8 +86,7 @@ namespace game {
 		mGameLayer->deinit();
 		{
 			DialogueMap dialogue = mDialogueMap;
-			DialogueMap::iterator iter;
-			for (iter = dialogue.begin(); iter != dialogue.end(); ++iter)
+			for (auto iter = dialogue.begin(); iter != dialogue.end(); ++iter)
 			{
 				delete iter->second;
 			}
@@ -95,8 +94,7 @@ namespace game {
 		}
 		{
 			MapMap maps = mMaps;
-			MapMap::iterator iter;
-			for (iter = maps.begin(); iter != maps.end(); ++iter)
+			for (auto iter = maps.begin(); iter != maps.end(); ++iter)
 			{
 				iter->second->deinit();
 			}
@@ -106,9 +104,9 @@ namespace game {
 	
 	Map *Game::getMapLua(const char *mapName)
 	{
-		return getMapLua(string(mapName));
+		return getMapLua(std::string(mapName));
 	}
-	Map *Game::getMapLua(const string &mapName)
+	Map *Game::getMapLua(const std::string &mapName)
 	{
 		MapMap::iterator iter = mMaps.find(mapName);
 		if (iter != mMaps.end())
@@ -119,7 +117,7 @@ namespace game {
 		std::stringstream ss;
 		ss << "data/maps/" << mapName << ".lua";
 		//LuaState lua(false);
-		LuaState &lua = mEngine->getLua();
+		lua::LuaState &lua = mEngine->getLua();
 		int loadError = luaL_loadfile(lua, ss.str().c_str());
 		if (loadError)
 		{
@@ -134,7 +132,7 @@ namespace game {
 		{
 			lua.call(0, 1);
 
-			Map *map = am::lua::castUData<Map>(lua, -1);
+			Map *map = lua::castUData<Map>(lua, -1);
 
 			lua.pop(1);
 
@@ -157,9 +155,9 @@ namespace game {
 		return mCurrentMap.get();
 	}
 
-	void Game::onEvent(MouseEvent *e)
+	void Game::onEvent(ui::MouseEvent *e)
 	{
-		TileRenderer *target = dynamic_cast<TileRenderer *>(e->getEventTarget());
+		gfx::TileRenderer *target = dynamic_cast<gfx::TileRenderer *>(e->getEventTarget());
 		GameObject *obj = dynamic_cast<GameObject *>(e->getOriginalTarget());
 		if (!mCurrentMap)// || ((!target || target != mCurrentMap->getTileRenderer() && !obj)))
 		{
@@ -251,7 +249,7 @@ namespace game {
 			}
 		}
 	}
-	void Game::onEvent(GameObjectEvent *e)
+	void Game::onEvent(ui::GameObjectEvent *e)
 	{
 		if (!e)
 		{
@@ -411,7 +409,7 @@ namespace game {
 	{
 		setCurrentMap(getMapLua(mapName));
 	}
-	void Game::setCurrentMap(const string &mapName)
+	void Game::setCurrentMap(const std::string &mapName)
 	{
 		setCurrentMap(getMapLua(mapName));
 	}
@@ -539,23 +537,23 @@ namespace game {
 		return &mCamera;
 	}
 
-	Layer *Game::getGameLayer()
+	gfx::Layer *Game::getGameLayer()
 	{
 		return mGameLayer.get();
 	}
-	Layer *Game::getBackground()
+	gfx::Layer *Game::getBackground()
 	{
 		return mBackground.get();
 	}
-	Layer *Game::getItemLayer()
+	gfx::Layer *Game::getItemLayer()
 	{
 		return mItemLayer.get();
 	}
-	Layer *Game::getCharacterLayer()
+	gfx::Layer *Game::getCharacterLayer()
 	{
 		return mCharacterLayer.get();
 	}
-	Layer *Game::getForeground()
+	gfx::Layer *Game::getForeground()
 	{
 		return mForeground.get();
 	}
@@ -829,7 +827,7 @@ namespace game {
 		{
 			return false;
 		}
-		QuestMap::const_iterator iter = mQuestMap.find(string(questId));
+		QuestMap::const_iterator iter = mQuestMap.find(std::string(questId));
 		if (iter != mQuestMap.end())
 		{
 			mQuestMap.erase(iter);
@@ -843,7 +841,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		QuestMap::const_iterator iter = mQuestMap.find(string(questId));
+		QuestMap::const_iterator iter = mQuestMap.find(std::string(questId));
 		if (iter != mQuestMap.end())
 		{
 			return iter->second;
@@ -874,8 +872,8 @@ namespace game {
 		mStarted = true;
 		setGameTickPaused(false);
 		setTickPositionMainChar();
-		base::Handle<Event> e(new Event("startGame"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new Event("startGame"));
+		fireEvent<ui::Event>(e);
 	}
 	bool Game::hasStarted() const
 	{
@@ -891,12 +889,12 @@ namespace game {
 		return mScenarioName.c_str();
 	}
 
-	void Game::setGenericDeadGraphic(Sprite *graphic)
+	void Game::setGenericDeadGraphic(gfx::Sprite *graphic)
 	{
 		// Should alert things that this has changed.
 		mGenericDeadGraphic = graphic;
 	}
-	Sprite *Game::getGenericDeadGraphic() const
+	gfx::Sprite *Game::getGenericDeadGraphic() const
 	{
 		return mGenericDeadGraphic;
 	}
@@ -908,15 +906,15 @@ namespace game {
 			return;
 		}
 
-		string dir = "saves/";
+		std::string dir = "saves/";
 		dir += saveName;
 		dir += '/';
-		string fileName = dir;
+		std::string fileName = dir;
 		fileName += "main.lua";
 		
 		sys::GameSystem::getGameSystem()->createDirectory(dir.c_str());
 
-		ofstream output(fileName);
+		std::ofstream output(fileName);
 		if (output)
 		{
 			// Save file already exists, do something?
@@ -967,10 +965,10 @@ namespace game {
 			return 0;
 		}
 
-		string dir = "saves/";
+		std::string dir = "saves/";
 		dir += saveName;
 		dir += '/';
-		string fileName = dir;
+		std::string fileName = dir;
 		fileName += "main.lua";
 
 		if (!sys::GameSystem::getGameSystem()->isFile(fileName.c_str()))
@@ -980,7 +978,7 @@ namespace game {
 
 		mLoadingState = new LoadingState();
 
-		LuaState lua(false);
+		lua::LuaState lua(false);
 		if (!lua.loadFile(fileName.c_str()))
 		{
 			lua.logStack("LOADERR");

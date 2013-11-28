@@ -1,7 +1,6 @@
 #include "store.h"
 
 #include <ui/inventory_event.h>
-using namespace am::ui;
 
 #include <util/data_table.h>
 #include <util/data_number.h>
@@ -20,7 +19,7 @@ namespace game {
 	const char *Store::LUA_TABLENAME = LUA_TABLE_STORE;
 
 	Store::Store() :
-		EventInterface(),
+		ui::EventInterface(),
 		mDefaultInventorySize(20, 16)
 	{
 	}
@@ -240,27 +239,27 @@ namespace game {
 		{
 			return;
 		}
-		fireEvent<InventoryEvent>(e);
+		fireEvent<ui::InventoryEvent>(e);
 	}
 
 	void Store::addListeners(Inventory *inventory)
 	{
 		if (inventory)
 		{
-			inventory->addEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
-			inventory->addEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
-			inventory->addEventListener(InventoryEventTypeName[INVENTORY_BEFORE_ADD], this);
-			inventory->addEventListener(InventoryEventTypeName[INVENTORY_BEFORE_REMOVE], this);
+			inventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_ADD], this);
+			inventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_REMOVE], this);
+			inventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_BEFORE_ADD], this);
+			inventory->addEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_BEFORE_REMOVE], this);
 		}
 	}
 	void Store::removeListeners(Inventory *inventory)
 	{
 		if (inventory)
 		{
-			inventory->removeEventListener(InventoryEventTypeName[INVENTORY_ADD], this);
-			inventory->removeEventListener(InventoryEventTypeName[INVENTORY_REMOVE], this);
-			inventory->removeEventListener(InventoryEventTypeName[INVENTORY_BEFORE_ADD], this);
-			inventory->removeEventListener(InventoryEventTypeName[INVENTORY_BEFORE_REMOVE], this);
+			inventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_ADD], this);
+			inventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_REMOVE], this);
+			inventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_BEFORE_ADD], this);
+			inventory->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_BEFORE_REMOVE], this);
 		}
 	}
 }

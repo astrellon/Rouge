@@ -18,7 +18,7 @@ namespace game {
 		{
 			return std::string("");
 		}
-		Tokeniser tokeniser(str);
+		util::Tokeniser tokeniser(str);
 		const char *token = tokeniser.nextToken();
 		if (token == nullptr)
 		{
@@ -51,7 +51,7 @@ namespace game {
 		return ss.str();
 	}
 
-	std::string StringPool::replaceCharacter(Tokeniser &tokeniser, Character *character)
+	std::string StringPool::replaceCharacter(util::Tokeniser &tokeniser, Character *character)
 	{
 		const char *token = tokeniser.nextToken();
 		if (token == nullptr || strcmp(token, "name") == 0)

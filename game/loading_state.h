@@ -28,7 +28,8 @@ namespace game {
 	// to only apply the information that is not stored with a game
 	// object such as event listeners.
 
-	class LoadingState : public base::IManaged {
+	class LoadingState : public base::IManaged 
+	{
 	public:
 
 		typedef struct _GameObjectInfo {

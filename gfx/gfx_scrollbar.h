@@ -20,8 +20,8 @@ namespace gfx {
 		Scrollbar(const char *btnUpAsset, const char *btnDownAsset, const char *barAsset, const char *backAsset);
 		~Scrollbar();
 
-		virtual void onEvent(Event *e);
-		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(ui::Event *e);
+		virtual void onEvent(ui::MouseEvent *e);
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);

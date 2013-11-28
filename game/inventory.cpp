@@ -1,7 +1,6 @@
 #include "inventory.h"
 
 #include <ui/inventory_event.h>
-using namespace am::ui;
 
 #include <util/data_table.h>
 #include <util/data_number.h>
@@ -23,13 +22,13 @@ namespace game {
 	const char *Inventory::LUA_TABLENAME = LUA_TABLE_INVENTORY;
 
 	Inventory::Inventory(unsigned short width, unsigned short height) :
-		EventInterface(),
+		ui::EventInterface(),
 		mItemMovementState(NOT_MOVING)
 	{
 		setSpaces(width, height);
 	}
 	Inventory::Inventory(const Inventory &copy) :
-		EventInterface(),
+		ui::EventInterface(),
 		mSpacesX(copy.mSpacesX),
 		mSpacesY(copy.mSpacesY),
 		mItemMovementState(NOT_MOVING)
@@ -126,8 +125,8 @@ namespace game {
 	bool Inventory::placeItem(Item *item, int x, int y)
 	{
 		mItemMovementState = ADDING;
-		base::Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_ADD, this, item, x, y));
-		fireEvent<InventoryEvent>(e);
+		base::Handle<ui::InventoryEvent> e(new InventoryEvent(ui::Inventory::INVENTORY_BEFORE_ADD, this, item, x, y));
+		fireEvent<ui::InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
 			mItemMovementState = NOT_MOVING;
@@ -150,7 +149,7 @@ namespace game {
 		}
 
 		item->setItemLocation(Item::INVENTORY);
-		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_ADD, this, item, x, y));
+		fireEvent<ui::InventoryEvent>(new InventoryEvent(ui::Inventory::INVENTORY_ADD, this, item, x, y));
 
 		mItemMovementState = NOT_MOVING;
 		return true;
@@ -169,8 +168,8 @@ namespace game {
 		}
 
 		mItemMovementState = REMOVING;
-		base::Handle<InventoryEvent> e(new InventoryEvent(INVENTORY_BEFORE_REMOVE, this, item));
-		fireEvent<InventoryEvent>(e);
+		base::Handle<ui::InventoryEvent> e(new ui::InventoryEvent(ui::Inventory::INVENTORY_BEFORE_REMOVE, this, item));
+		fireEvent<ui::InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
 			mItemMovementState = NOT_MOVING;
@@ -194,7 +193,7 @@ namespace game {
 		mSpots.erase(mSpots.begin() + index);
 
 		item->setItemLocation(Item::GROUND);
-		fireEvent<InventoryEvent>(new InventoryEvent(INVENTORY_REMOVE, this, item, spot.getX(), spot.getY()));
+		fireEvent<ui::InventoryEvent>(new ui::InventoryEvent(ui::Inventory::INVENTORY_REMOVE, this, item, spot.getX(), spot.getY()));
 
 		mItemMovementState = NOT_MOVING;
 		return true;
