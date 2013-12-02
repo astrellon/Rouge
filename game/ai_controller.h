@@ -7,7 +7,8 @@ namespace game {
 
 	class Character;
 
-	class AiController : public IController {
+	class AiController : public IController 
+	{
 	public:
 		AiController();
 		~AiController();

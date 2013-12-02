@@ -14,7 +14,6 @@
 #include <util/data_table.h>
 #include <util/data_string.h>
 #include <util/data_number.h>
-using namespace am::util;
 
 #include <sys/rouge_system.h>
 using namespace am::sys;
@@ -27,6 +26,8 @@ using namespace am::sys;
 
 namespace am {
 namespace game {
+
+	using namespace am::util;
 
 	const int Item::LUA_ID = LUA_ID_ITEM;
 	const char *Item::LUA_TABLENAME = LUA_TABLE_ITEM;

@@ -9,7 +9,6 @@
 #include <base/return_codes.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include "game_object.h"
 #include "astar_node.h"
@@ -22,10 +21,12 @@ namespace game {
 	class Tile;
 	class Game;
 
-	class Map : public base::IManaged {
+	class Map : public base::IManaged 
+	{
 	public:
 
-		enum TileFlags {
+		enum TileFlags 
+		{
 			FLAG_L  = 0x01,
 			FLAG_R  = 0x02,
 			FLAG_T  = 0x04,
@@ -57,9 +58,9 @@ namespace game {
 		void calcTileEdgeValuesAround(int x, int y) const;
 		void calcTileEdgeValues(int x, int y) const;
 
-		Layer *getBackground() const;
-		Layer *getForeground() const;
-		TileRenderer *getTileRenderer() const;
+		gfx::Layer *getBackground() const;
+		gfx::Layer *getForeground() const;
+		gfx::TileRenderer *getTileRenderer() const;
 
 		void setMapSize(int width, int height, Tile *defaultTile = nullptr);
 		int getMapWidth() const;
@@ -94,7 +95,7 @@ namespace game {
 		bool getGameObjectsAt(float worldX, float worldY, ObjectList &result) const;
 		bool getGameObjectsAt(int gridX, int gridY, ObjectList &result) const;
 
-		bool search(const Vector2i &start, Vector2i end, NodePath &path, const GameObject *forObj);
+		bool search(const math::Vector2i &start, math::Vector2i end, NodePath &path, const GameObject *forObj);
 
 		base::ReturnCode saveMap(const char *filename) const;
 
@@ -119,9 +120,9 @@ namespace game {
 		std::string mFullName;
 		std::string mFilename;
 
-		base::Handle<Layer> mBackground;
-		base::Handle<Layer> mForeground;
-		base::Handle<TileRenderer> mTileRenderer;
+		base::Handle<gfx::Layer> mBackground;
+		base::Handle<gfx::Layer> mForeground;
+		base::Handle<gfx::TileRenderer> mTileRenderer;
 
 		Game *mGamePartof;
 

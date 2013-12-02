@@ -7,10 +7,8 @@
 #include <vector>
 
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include "game_object.h"
 
@@ -19,7 +17,8 @@ namespace game {
 
 	class Character;
 
-	class Door : public GameObject {
+	class Door : public GameObject 
+	{
 	public:
 
 		enum LockType 
@@ -31,8 +30,8 @@ namespace game {
 		Door(const Door &copy);
 		~Door();
 
-		void setGraphic(Sprite *graphic, bool calcCameraOffset = true);
-		Sprite *getGraphic() const;
+		void setGraphic(gfx::Sprite *graphic, bool calcCameraOffset = true);
+		gfx::Sprite *getGraphic() const;
 
 		virtual void setDoorType(TileType *type);
 		virtual TileType *getDoorType() const;
@@ -61,7 +60,7 @@ namespace game {
 
 		virtual bool interactWith(GameObject *interacter, bool byMovement);
 
-		virtual void onEvent(MapRegionEvent *e);
+		virtual void onEvent(ui::MapRegionEvent *e);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
@@ -80,7 +79,7 @@ namespace game {
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
-		base::Handle<Sprite> mGraphic;
+		base::Handle<gfx::Sprite> mGraphic;
 
 		bool mOpened;
 		LockType mLock;

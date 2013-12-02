@@ -1,7 +1,6 @@
 #pragma once
 
 #include <math/vector.h>
-using namespace am::math;
 
 #include <vector>
 
@@ -10,9 +9,10 @@ namespace game {
 
 	class Tile;
 
-	typedef std::vector<Vector2f> NodePath;
+	typedef std::vector<math::Vector2f> NodePath;
 
-	class AStarNode	{
+	class AStarNode	
+	{
 	public:
 		AStarNode();
 		~AStarNode(void);
@@ -35,8 +35,8 @@ namespace game {
 
 		// Should be float instead of int because as it's more
 		// flexible.
-		Vector2f position;
-		Vector2i gridPosition;
+		math::Vector2f position;
+		math::Vector2i gridPosition;
 
 		AStarNode *parent;
 	};

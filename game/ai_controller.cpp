@@ -3,7 +3,6 @@
 #include <log/logger.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include "character.h"
 #include "engine.h"
@@ -41,9 +40,9 @@ namespace game {
 		if (character->getAIFunc() != LUA_REFNIL)
 		{
 			// Call lua function.
-			LuaState &lua = Engine::getEngine()->getLua();
+			lua::LuaState &lua = Engine::getEngine()->getLua();
 			lua_rawgeti(lua, LUA_REGISTRYINDEX, character->getAIFunc());
-			wrapRefObject<Character>(lua, character);
+			lua::wrapRefObject<Character>(lua, character);
 			lua_pushnumber(lua, dt);
 			lua_acall(lua, 2, 0);
 		}

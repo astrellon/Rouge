@@ -6,10 +6,8 @@
 #include <vector>
 
 #include <ui/event_interface.h>
-using namespace am::ui;
 
 #include <math/vector.h>
-using namespace am::math;
 
 namespace am {
 namespace util {
@@ -23,7 +21,8 @@ namespace game {
 
 	class GameObject;
 
-	class MapRegion : public EventInterface {
+	class MapRegion : public ui::EventInterface 
+	{
 	public:
 
 		typedef std::vector< base::Handle< MapRegion > > MapRegionList;
@@ -41,9 +40,9 @@ namespace game {
 		virtual bool getData(int x, int y, int &result) const;
 		virtual int *getData() const;
 
-		virtual void setLocation(const Vector2i &location);
+		virtual void setLocation(const math::Vector2i &location);
 		virtual void setLocation(int x, int y);
-		virtual Vector2i getLocation() const;
+		virtual math::Vector2i getLocation() const;
 
 		virtual bool intersectsWith(GameObject *obj);
 
@@ -58,7 +57,7 @@ namespace game {
 		int *mData;
 		int mWidth;
 		int mHeight;
-		Vector2i mLocation;
+		math::Vector2i mLocation;
 
 	};
 

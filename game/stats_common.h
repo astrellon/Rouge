@@ -3,9 +3,11 @@
 namespace am {
 namespace game {
 
-	class Stat {
+	class Stat 
+	{
 	public:
-		enum StatType {
+		enum StatType 
+		{
 			HEALTH, 
 			MAX_HEALTH, 
 			STRENGTH, 

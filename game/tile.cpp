@@ -1,12 +1,10 @@
 #include "tile.h"
 
 #include <gfx/gfx_engine.h>
-using namespace am::gfx;
 
 #include <log/logger.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <sstream>
 
@@ -108,11 +106,11 @@ namespace game {
 		return mName;
 	}
 
-	Asset *Tile::getGraphicAsset()
+	gfx::Asset *Tile::getGraphicAsset()
 	{
 		return mGraphic.get();
 	}
-	void Tile::setGraphicAsset(Asset *asset)
+	void Tile::setGraphicAsset(gfx::Asset *asset)
 	{
 		mGraphic = asset;
 	}
@@ -143,11 +141,11 @@ namespace game {
 		return mPrecedence;
 	}
 
-	void Tile::addTransitionalAsset(Asset *asset, Tile *overlapTile)
+	void Tile::addTransitionalAsset(gfx::Asset *asset, Tile *overlapTile)
 	{
 		mTransitionalGraphics[overlapTile].push_back(asset);
 	}
-	void Tile::removeTransitionalAsset(Asset *asset, Tile *overlapTile)
+	void Tile::removeTransitionalAsset(gfx::Asset *asset, Tile *overlapTile)
 	{
 		if (!asset)
 		{
@@ -187,7 +185,7 @@ namespace game {
 			}
 		}
 	}
-	bool Tile::hasTransitionalAsset(Asset *asset, Tile *overlapTile) const
+	bool Tile::hasTransitionalAsset(gfx::Asset *asset, Tile *overlapTile) const
 	{
 		if (!asset)
 		{

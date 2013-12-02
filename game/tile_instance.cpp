@@ -1,7 +1,6 @@
 #include "tile_instance.h"
 
 #include <util/utils.h>
-using am::util::Utils;
 
 #include "tile.h"
 #include "engine.h"
@@ -65,14 +64,14 @@ namespace game {
 	bool TileInstance::setTileName(const std::string &tileName)
 	{
 		int framePos = static_cast<int>(tileName.find_last_of(":"));
-		string tileNameUse;
+		std::string tileNameUse;
 		int frameValue = 0;
 		if (framePos >= 0)
 		{
 			string name = tileName.substr(0, framePos);
 			string frame = tileName.substr(framePos + 1);
 			tileNameUse = name;
-			bool parseResult = Utils::fromString<int>(frameValue, frame);
+			bool parseResult = util::Utils::fromString<int>(frameValue, frame);
 			if (!parseResult)
 			{
 				frameValue = 0;
@@ -111,11 +110,11 @@ namespace game {
 		{
 			if (asset->isSubWindowAnimation())
 			{
-				setBaseVariation(Utils::rand(0, asset->getTotalSubWindows()));
+				setBaseVariation(util::Utils::rand(0, asset->getTotalSubWindows()));
 			}
 			else
 			{
-				setBaseVariation(Utils::rand(0, asset->getTotalTextures()));
+				setBaseVariation(util::Utils::rand(0, asset->getTotalTextures()));
 			}
 		}
 		else

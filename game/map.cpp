@@ -7,7 +7,6 @@
 #include <gfx/gfx_engine.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <sstream>
 #include <ostream>
@@ -33,8 +32,8 @@ namespace game {
 		mName(name),
 		mTiles(nullptr),
 		mMapData(nullptr),
-		mBackground(new Layer()),
-		mForeground(new Layer()),
+		mBackground(new gfx::Layer()),
+		mForeground(new gfx::Layer()),
 		mMapWidth(0),
 		mMapHeight(0),
 		mWidth(0.0f),
@@ -42,7 +41,7 @@ namespace game {
 		mGamePartof(nullptr)
 	{
 
-		mTileRenderer = new TileRenderer(this);
+		mTileRenderer = new gfx::TileRenderer(this);
 		mTileRenderer->setInteractive(true);
 
 		mBackground->addChild(mTileRenderer);
@@ -54,8 +53,8 @@ namespace game {
 		mName(name),
 		mTiles(nullptr),
 		mMapData(nullptr),
-		mBackground(new Layer()),
-		mForeground(new Layer()),
+		mBackground(new gfx::Layer()),
+		mForeground(new gfx::Layer()),
 		mMapWidth(0),
 		mMapHeight(0),
 		mWidth(0.0f),
@@ -63,7 +62,7 @@ namespace game {
 		mGamePartof(nullptr)
 	{
 		setMapSize(width, height);
-		mTileRenderer = new TileRenderer(this);
+		mTileRenderer = new gfx::TileRenderer(this);
 		mTileRenderer->setInteractive(true);
 
 		mBackground->addChild(mTileRenderer);
@@ -83,15 +82,15 @@ namespace game {
 	{
 		for (int i = 0; i < mBackground->getNumChildren(); i++)
 		{
-			if (typeid(mBackground->getChildAt(i)) == typeid(TileRenderer))
+			if (typeid(mBackground->getChildAt(i)) == typeid(gfx::TileRenderer))
 			{
-				mTileRenderer = dynamic_cast<TileRenderer *>(mBackground->getChildAt(i));
+				mTileRenderer = dynamic_cast<gfx::TileRenderer *>(mBackground->getChildAt(i));
 				mTileRenderer->setMap(this);
 			}
 		}
 		if (!mTileRenderer)
 		{
-			mTileRenderer = new TileRenderer(this);
+			mTileRenderer = new gfx::TileRenderer(this);
 		}
 	}
 	Map::~Map()
@@ -748,15 +747,15 @@ namespace game {
 		return false;
 	}
 
-	Layer *Map::getBackground() const
+	gfx::Layer *Map::getBackground() const
 	{
 		return mBackground;
 	}
-	Layer *Map::getForeground() const
+	gfx::Layer *Map::getForeground() const
 	{
 		return mForeground;
 	}
-	TileRenderer *Map::getTileRenderer() const
+	gfx::TileRenderer *Map::getTileRenderer() const
 	{
 		return mTileRenderer;
 	}

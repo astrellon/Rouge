@@ -3,9 +3,11 @@
 namespace am {
 namespace game {
 
-	class ItemCommon {
+	class ItemCommon 
+	{
 	public:
-		enum ItemType {
+		enum ItemType 
+		{
 			HELM, BODY, SWORD, AXE, BOW, RING, AMULET, LEGGINGS, BOOTS,
 			SHIELD, POTION, GOLD, MESSAGE_SCROLL, SPELL_SCROLL, UNKNOWN
 		};

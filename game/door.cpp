@@ -11,7 +11,6 @@
 #include <util/data_boolean.h>
 #include <util/data_string.h>
 #include <util/utils.h>
-using namespace am::util;
 
 #include <math/math.h>
 
@@ -26,6 +25,8 @@ using namespace am::util;
 
 namespace am {
 namespace game {
+
+	using namespace am::util;
 
 	const int Door::LUA_ID = LUA_ID_DOOR;
 	const char *Door::LUA_TABLENAME = LUA_TABLE_DOOR;
@@ -60,7 +61,7 @@ namespace game {
 			// Find our new graphic if there was one.
 			for (int i = 0; i < getNumChildren(); i++)
 			{
-				Sprite *temp = dynamic_cast<Sprite *>(getChildAt(i));
+				Sprite *temp = dynamic_cast<gfx::Sprite *>(getChildAt(i));
 				if (temp && temp->getAsset() == copy.mGraphic->getAsset())
 				{
 					mGraphic = temp;
@@ -78,7 +79,7 @@ namespace game {
 		mDoorRegion->removeEventListener("region_exited", this);
 	}
 
-	void Door::onEvent(MapRegionEvent *e)
+	void Door::onEvent(ui::MapRegionEvent *e)
 	{
 		if (!e)
 		{
@@ -96,9 +97,9 @@ namespace game {
 		}
 	}
 
-	void Door::setGraphic(Sprite *graphic, bool calcCameraOffset)
+	void Door::setGraphic(gfx::Sprite *graphic, bool calcCameraOffset)
 	{
-		base::Handle<Sprite> currentGraphic(mGraphic);
+		base::Handle<gfx::Sprite> currentGraphic(mGraphic);
 		if (mGraphic)
 		{
 			removeChild(mGraphic);
@@ -116,7 +117,7 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Door::getGraphic() const
+	gfx::Sprite *Door::getGraphic() const
 	{
 		return mGraphic;
 	}

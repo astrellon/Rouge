@@ -344,7 +344,7 @@ namespace game {
 		{
 			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
 			{
-				ISource *source = (*iter)->getSource(false);
+				sfx::ISource *source = (*iter)->getSource(false);
 				if (source)
 				{
 					source->stop();
@@ -430,7 +430,7 @@ namespace game {
 		{
 			mBackground->addChild(obj);
 		}
-		ISource *source = obj->getSource(false);
+		sfx::ISource *source = obj->getSource(false);
 		if (source)
 		{
 			source->play();

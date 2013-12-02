@@ -23,7 +23,8 @@ namespace game {
 	class LoadingState;
 	class Item;
 
-	class BodyParts {
+	class BodyParts 
+	{
 	public:
 		typedef std::vector< base::Handle<BodyPart> > PartList;
 

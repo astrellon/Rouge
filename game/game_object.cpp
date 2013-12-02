@@ -35,7 +35,7 @@ namespace game {
 	};
 
 	GameObject::GameObject() :
-		Layer(),
+		gfx::Layer(),
 		mLocationX(0.0f),
 		mLocationY(0.0f),
 		mCameraOffsetX(0.0f),
@@ -50,7 +50,7 @@ namespace game {
 		setInteractive(true);
 	}
 	GameObject::GameObject(const GameObject &copy) :
-		Layer(copy),
+		gfx::Layer(copy),
 		IAttributeData(copy),
 		mName(copy.mName),
 		mFixedToGrid(copy.mFixedToGrid),
@@ -608,15 +608,15 @@ namespace game {
 		return mDialogueComp;
 	}
 
-	ISource *GameObject::getSource(bool create)
+	sfx::ISource *GameObject::getSource(bool create)
 	{
 		if (create && !mSoundSource)
 		{
-			setSource(new SourcePoint());
+			setSource(new sfx::SourcePoint());
 		}
 		return mSoundSource;
 	}
-	void GameObject::setSource(ISource *source)
+	void GameObject::setSource(sfx::ISource *source)
 	{
 		mSoundSource = source;
 		applyToSource();
@@ -807,10 +807,10 @@ namespace game {
 	{
 		if (mSoundSource)
 		{
-			SourceArea *area = dynamic_cast<SourceArea *>(mSoundSource.get());
+			sfx::SourceArea *area = dynamic_cast<sfx::SourceArea *>(mSoundSource.get());
 			if (area)
 			{
-				Vector2f rel = area->getPosition().sub(mLocationX, mLocationY);
+				math::Vector2f rel = area->getPosition().sub(mLocationX, mLocationY);
 				glBegin(GL_LINES);
 				glColor3f(1.0f, 0.0f, 0.0f);
 				glPushMatrix();
@@ -822,7 +822,7 @@ namespace game {
 				glPopMatrix();
 				glEnd();
 
-				Vector2f relPos = area->getClosestPosition().sub(mLocationX, mLocationY);
+				math::Vector2f relPos = area->getClosestPosition().sub(mLocationX, mLocationY);
 				glBegin(GL_TRIANGLES);
 				//glPushMatrix();
 				//glTranslatef(relPos.x, relPos.y, 0.0f);

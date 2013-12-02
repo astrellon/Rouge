@@ -1,7 +1,6 @@
 #pragma once
 
 #include <math/vector.h>
-using namespace am::math;
 
 #include <vector>
 
@@ -15,12 +14,13 @@ namespace game {
 
 	class GameObject;
 
-	class Pathfinder {
+	class Pathfinder 
+	{
 	public:
 		Pathfinder();
 		~Pathfinder();
 
-		bool search(const Vector2i &start, Vector2i end, NodePath &path, Map *map, const GameObject *forObj);
+		bool search(const math::Vector2i &start, math::Vector2i end, NodePath &path, Map *map, const GameObject *forObj);
 
 		static Pathfinder *getPathfinder();
 		static void releasePathfinder();
@@ -36,11 +36,11 @@ namespace game {
 		base::Handle<Map> mMap;
 
 		void getPath(AStarNode *node, NodePath &path);
-		void getNeighbors(const Vector2i &position, const GameObject *forObj);
+		void getNeighbors(const math::Vector2i &position, const GameObject *forObj);
 		bool checkNeighbor(const int &x, const int &y, const GameObject *forObj);
 
 		static void sortAStarList(AStarList &list);
-		static double manhattanDistance(const Vector2f &p1, const Vector2f &p2);
+		static double manhattanDistance(const math::Vector2f &p1, const math::Vector2f &p2);
 		static bool compare(AStarNode *n1, AStarNode *n2);
 
 		static Pathfinder *sPathfinder;

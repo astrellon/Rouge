@@ -12,10 +12,12 @@ using namespace am::util;
 
 namespace game {
 
-	class BodyPartType {
+	class BodyPartType 
+	{
 	public:
 
-		enum PartType {
+		enum PartType 
+		{
 			UNKNOWN_PART, NONE, ANY, HAND, ARM, LEG, HEAD, TORSO, NECK, SHOULDERS, LEGS, FEET, MAX_BODY_TYPE_LENGTH
 		};
 

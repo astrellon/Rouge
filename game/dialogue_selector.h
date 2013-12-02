@@ -12,7 +12,8 @@
 namespace am {
 namespace game {
 
-	class DialogueSelector {
+	class DialogueSelector 
+	{
 	public:
 
 		DialogueSelector();

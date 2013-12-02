@@ -7,7 +7,8 @@
 namespace am {
 namespace game {
 
-	class DialogueChoice {
+	class DialogueChoice
+	{
 	public:
 
 		typedef std::map<std::string, std::string> Attributes;

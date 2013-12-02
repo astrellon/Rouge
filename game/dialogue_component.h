@@ -23,7 +23,8 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class DialogueComponent : public base::IManaged {
+	class DialogueComponent : public base::IManaged 
+	{
 	public:
 
 		typedef std::map<std::string, bool> SubjectMap;

@@ -7,9 +7,6 @@
 #include <base/imanaged.h>
 #include <base/handle.h>
 
-#include <ui/event_interface.h>
-using namespace am::ui;
-
 #include "stats_common.h"
 #include "stat_modifier.h"
 #include "stat_modifiers.h"
@@ -28,7 +25,8 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class Stats : public IStatModifiers, public base::IManaged {
+	class Stats : public IStatModifiers, public base::IManaged
+	{
 	public:
 		Stats();
 		Stats(const Stats &copy);

@@ -20,7 +20,8 @@ namespace game {
 
 	class LoadingState;
 
-	class StatModifiers : public IStatModifiers, public base::IManaged {
+	class StatModifiers : public IStatModifiers, public base::IManaged 
+	{
 	public:
 
 		StatModifiers();

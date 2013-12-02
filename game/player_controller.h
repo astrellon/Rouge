@@ -1,10 +1,8 @@
 #pragma once
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include <base/handle.h>
-
 
 #include "character.h"
 #include "iaction.h"
@@ -13,12 +11,13 @@ using namespace am::ui;
 namespace am {
 namespace game {
 
-	class PlayerController : public IController, public IEventListener {
+	class PlayerController : public IController, public ui::IEventListener 
+	{
 	public:
 		PlayerController();
 		~PlayerController();
 
-		virtual void onEvent(KeyboardEvent *e);
+		virtual void onEvent(ui::KeyboardEvent *e);
 		virtual void update(Character *character, float dt);
 		virtual void detach();
 

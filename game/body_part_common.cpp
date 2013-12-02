@@ -8,10 +8,12 @@
 namespace am {
 namespace game {
 
-	const char *BodyPartType::sNiceBodyPartTypeNames[] = {
+	const char *BodyPartType::sNiceBodyPartTypeNames[] = 
+	{
 		"Unknown Part", "None", "Any", "Hand", "Arm", "Leg", "Head", "Torso", "Neck", "Shoulders", "Legs", "Feet", "MAX_BODY_TYPE_LENGTH"
 	};
-	const char *BodyPartType::sBodyPartTypeNames[] = {
+	const char *BodyPartType::sBodyPartTypeNames[] = 
+	{
 		"unknown_part", "none", "any", "hand", "arm", "leg", "head", "torso", "neck", "shoulders", "legs", "feet", "MAX_BODY_TYPE_LENGTH"
 	};
 

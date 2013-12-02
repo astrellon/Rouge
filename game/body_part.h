@@ -22,7 +22,8 @@ namespace game {
 
 	class LoadingState;
 
-	class BodyPart : public base::IManaged {
+	class BodyPart : public base::IManaged 
+	{
 	public:
 		BodyPart(const char *name, BodyPartType::PartType type = BodyPartType::UNKNOWN_PART, Item *equipped = nullptr);
 		BodyPart(const BodyPart &copy);

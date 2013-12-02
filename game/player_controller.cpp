@@ -15,8 +15,8 @@ namespace game {
 		IController(),
 		mRunning(false)
 	{
-		KeyboardManager::getManager()->addEventListener("key_down", this);
-		KeyboardManager::getManager()->addEventListener("key_up", this);
+		KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_DOWN, this);
+		KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_UP, this);
 		mAttached = true;
 		mRemoved = false;
 	}
@@ -36,8 +36,8 @@ namespace game {
 
 		if (mActive)
 		{
-			int x = keys[39] - keys[37];
-			int y = keys[40] - keys[38];
+			int x = keys[ui::Keyboard::KEY_LEFT_ARROW] - keys[ui::Keyboard::KEY_RIGHT_ARROW];
+			int y = keys[ui::Keyboard::KEY_DOWN_ARROW] - keys[ui::Keyboard::KEY_UP_ARROW];
 			
 			if (x != 0 || y != 0)
 			{
@@ -45,7 +45,7 @@ namespace game {
 				move(x, y);
 				return;
 			}
-			if (keys[' '])
+			if (keys[ui::Keyboard::KEY_SPACE])
 			{
 				// Wait for 1 second.
 				am_log("PLYER", "Wait");
@@ -111,8 +111,8 @@ namespace game {
 				mCharacter->release();
 				mCharacter = nullptr;
 			}
-			KeyboardManager::getManager()->removeEventListener("key_down", this);
-			KeyboardManager::getManager()->removeEventListener("key_up", this);
+			KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_DOWN, this);
+			KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_UP, this);
 		}
 	}
 

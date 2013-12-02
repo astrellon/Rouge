@@ -21,7 +21,8 @@ namespace game {
 	class Stats;
 	class LoadingState;
 
-	class StatModifier {
+	class StatModifier 
+	{
 	public:
 
 		StatModifier();

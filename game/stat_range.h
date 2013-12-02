@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
 namespace am {
 namespace game {
 
-	class StatRange {
+	class StatRange 
+	{
 	public:
 
 		StatRange();

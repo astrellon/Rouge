@@ -14,7 +14,8 @@ namespace game {
 
 	class Tile;
 
-	class TileInstance {
+	class TileInstance 
+	{
 	public:
 
 		typedef std::vector< base::Handle<TileType> > TileTypeList;

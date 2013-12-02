@@ -1,12 +1,10 @@
 #include "pathfinder.h"
 
 #include <math/math.h>
-using namespace am::math;
 
 #include <algorithm>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include "game_object.h"
 #include "engine.h"
@@ -41,7 +39,7 @@ namespace game {
 	{
 	}
 
-	bool Pathfinder::search(const Vector2i &start, Vector2i end, NodePath &path, Map *map, const GameObject *forObj)
+	bool Pathfinder::search(const math::Vector2i &start, math::Vector2i end, NodePath &path, Map *map, const GameObject *forObj)
 	{
 		if (!map || 
 			start.x < 0 || start.x >= map->getMapWidth() ||
@@ -66,9 +64,9 @@ namespace game {
 		{
 			// Move back towards the start position until we do find a passable location.
 			Engine *engine = Engine::getEngine();
-			Vector2f fstart(start);
-			Vector2f fend(end);
-			Vector2f toStart(fend.sub(fstart));
+			math::Vector2f fstart(start);
+			math::Vector2f fend(end);
+			math::Vector2f toStart(fend.sub(fstart));
 			int numSteps = static_cast<int>(toStart.length() * 2.0f);
 			toStart.normalise();
 			toStart.scale(0.5f);
@@ -76,7 +74,7 @@ namespace game {
 			for (int step = 0; step < numSteps; step++)
 			{
 				fend = fend.sub(toStart);
-				Vector2i grid(fend);
+				math::Vector2i grid(fend);
 				if (map->isValidGridLocation(grid.x, grid.y, forObj))
 				{
 					break;
@@ -131,8 +129,8 @@ namespace game {
 				for(auto iter = mNeighbors.begin(); iter != mNeighbors.end(); ++iter)
 				{
 					AStarNode *n = *iter;
-					if (!Utils::listContains(mOpenList, n) &&
-						!Utils::listContains(mClosedList, n))
+					if (!util::Utils::listContains(mOpenList, n) &&
+						!util::Utils::listContains(mClosedList, n))
 					{
 						if (n->useCounter < mNodeUseCounter)
 						{
@@ -210,7 +208,7 @@ namespace game {
 		}
 	}
 
-	inline double Pathfinder::manhattanDistance(const Vector2f &p1, const Vector2f &p2)
+	inline double Pathfinder::manhattanDistance(const math::Vector2f &p1, const math::Vector2f &p2)
 	{
 		return math::abs(p1.x - p2.x) + math::abs(p1.y - p2.y);
 	}

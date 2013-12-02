@@ -4,7 +4,6 @@
 #include <util/data_number.h>
 #include <util/data_boolean.h>
 #include <util/data_string.h>
-using namespace am::util;
 
 #include <game/game_object.h>
 #include <game/engine.h>
@@ -20,14 +19,14 @@ namespace game {
 	const char *MapRegion::LUA_TABLENAME = LUA_TABLE_MAPREGION;
 
 	MapRegion::MapRegion() :
-		EventInterface(),
+		ui::EventInterface(),
 		mData(nullptr),
 		mWidth(0),
 		mHeight(0)
 	{
 	}
 	MapRegion::MapRegion(int width, int height, int fillValue) :
-		EventInterface(),
+		ui::EventInterface(),
 		mData(nullptr),
 		mWidth(0),
 		mHeight(0)
@@ -116,7 +115,7 @@ namespace game {
 		return mData;
 	}
 
-	void MapRegion::setLocation(const Vector2i &location)
+	void MapRegion::setLocation(const math::Vector2i &location)
 	{
 		mLocation = location;
 	}
@@ -125,7 +124,7 @@ namespace game {
 		mLocation.x = x;
 		mLocation.y = y;
 	}
-	Vector2i MapRegion::getLocation() const
+	math::Vector2i MapRegion::getLocation() const
 	{
 		return mLocation;
 	}
@@ -141,7 +140,7 @@ namespace game {
 	}
 	void MapRegion::gameObjectExited(GameObject *obj)
 	{
-		base::Handle<MapRegionEvent> e(new MapRegionEvent("region_exited", this, obj));
+		base::Handle<MapRegionEvent> e(new ui::MapRegionEvent("region_exited", this, obj));
 		fireEvent<MapRegionEvent>(e);
 		if (obj)
 		{

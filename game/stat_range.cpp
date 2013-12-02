@@ -2,7 +2,6 @@
 
 #include <util/stat_tokeniser.h>
 #include <util/utils.h>
-using namespace am::util;
 
 #include <string>
 #include <cstring>
@@ -36,7 +35,7 @@ namespace game {
 		
 		std::vector<StatRange> values;
 
-		StatTokeniser tokeniser(input, "+-dD");
+		util::StatTokeniser tokeniser(input, "+-dD");
 		const char *token = tokeniser.nextToken();
 		char ch = '\0';
 		while (token != nullptr)
@@ -71,7 +70,7 @@ namespace game {
 			}
 			else
 			{
-				bool result = Utils::fromString<float>(temp, token);
+				bool result = util::Utils::fromString<float>(temp, token);
 				if (result)
 				{
 					StatRange v(temp);

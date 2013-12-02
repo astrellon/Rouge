@@ -4,16 +4,13 @@
 #include <map>
 
 #include <gfx/gfx_asset.h>
-using namespace am::gfx;
 
 #include <base/handle.h>
 #include <base/imanaged.h>
 
 #include <util/idefinition.h>
-using namespace am::util;
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 namespace am {
 namespace game {
@@ -21,11 +18,12 @@ namespace game {
 	class TileSet;
 	class TileType;
 	
-	class Tile : public base::IManaged, public IDefinition {
+	class Tile : public base::IManaged, public util::IDefinition 
+	{
 	public:
 
 		typedef std::vector< base::Handle<TileType> > TileTypeSet;
-		typedef std::vector< base::Handle<Asset> > TileAssetList;
+		typedef std::vector< base::Handle<gfx::Asset> > TileAssetList;
 		typedef std::map< Tile *, TileAssetList > TileAssetMap;
 
 		Tile(const char *name);
@@ -44,8 +42,8 @@ namespace game {
 
 		std::string getNameWithSet() const;
 
-		Asset *getGraphicAsset();
-		void setGraphicAsset(Asset *asset);
+		gfx::Asset *getGraphicAsset();
+		void setGraphicAsset(gfx::Asset *asset);
 
 		void setTileSet(TileSet *tileSet);
 		TileSet *getTileSet() const;
@@ -60,10 +58,10 @@ namespace game {
 		TileTypeSet &getTileTypes();
 		const TileTypeSet &getTileTypes() const;
 
-		void addTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
-		void removeTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr);
+		void addTransitionalAsset(gfx::Asset *asset, Tile *overlapTile = nullptr);
+		void removeTransitionalAsset(gfx::Asset *asset, Tile *overlapTile = nullptr);
 		void removeTransitionalAsset(const char *assetName, Tile *overlapTile = nullptr);
-		bool hasTransitionalAsset(Asset *asset, Tile *overlapTile = nullptr) const;
+		bool hasTransitionalAsset(gfx::Asset *asset, Tile *overlapTile = nullptr) const;
 		bool hasTransitionalAsset(const char *assetName, Tile *overlapTile = nullptr) const;
 		bool hasTransitionalAsset(Tile *overlapTile) const;
 		const TileAssetList *getTransitionalAsset(Tile *overlapTile) const;
@@ -81,7 +79,7 @@ namespace game {
 		std::string mFullName;
 		
 		TileSet *mTileSet;
-		base::Handle<Asset> mGraphic;
+		base::Handle<gfx::Asset> mGraphic;
 		TileAssetMap mTransitionalGraphics;
 		std::string mDescription;
 		int mPrecedence;

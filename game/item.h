@@ -6,13 +6,10 @@
 #include <vector>
 
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include "game_object.h"
 #include "item_common.h"
@@ -22,10 +19,12 @@ using namespace am::lua;
 namespace am {
 namespace game {
 
-	class Item : public GameObject {
+	class Item : public GameObject
+	{
 	public:
 
-		enum ItemLocation {
+		enum ItemLocation 
+		{
 			GROUND, INVENTORY, HAND, MAX_LENGTH
 		};
 
@@ -35,11 +34,11 @@ namespace game {
 
 		Item *clone() const;
 
-		virtual void setGraphic(Sprite *graphic, bool calcInvSize = false);
-		virtual Sprite *getGraphic() const;
+		virtual void setGraphic(gfx::Sprite *graphic, bool calcInvSize = false);
+		virtual gfx::Sprite *getGraphic() const;
 
-		virtual void setGroundGraphic(Sprite *graphic);
-		virtual Sprite *getGroundGraphic() const;
+		virtual void setGroundGraphic(gfx::Sprite *graphic);
+		virtual gfx::Sprite *getGroundGraphic() const;
 
 		virtual void setItemType(ItemCommon::ItemType type);
 		virtual ItemCommon::ItemType getItemType() const;
@@ -89,7 +88,7 @@ namespace game {
 		virtual float getWidth();
 		virtual float getHeight();
 
-		virtual string getName() const;
+		virtual std::string getName() const;
 		virtual const char *getGameObjectTypeName() const;
 		virtual GameObjectType getGameObjectType() const;
 
@@ -116,17 +115,17 @@ namespace game {
 
 		virtual bool isInteractive() const;
 
-		virtual void setTooltip(Tooltip *tooltip);
+		virtual void setTooltip(gfx::Tooltip *tooltip);
 		virtual bool hasTooltip() const;
-		virtual Tooltip *getTooltip();
+		virtual gfx::Tooltip *getTooltip();
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
 	protected:
 		
-		base::Handle<Sprite> mGraphic;
-		base::Handle<Sprite> mGroundGraphic;
+		base::Handle<gfx::Sprite> mGraphic;
+		base::Handle<gfx::Sprite> mGroundGraphic;
 
 		short mPrefix;
 		short mPostfix;

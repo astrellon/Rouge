@@ -5,7 +5,6 @@
 #include <string>
 
 #include <math/vector.h>
-using namespace am::math;
 
 #include "iaction.h"
 
@@ -14,15 +13,16 @@ namespace game {
 
 	class Character;
 
-	class MoveAction : public IAction {
+	class MoveAction : public IAction 
+	{
 	public:
 		
 		MoveAction(float destX, float destY);
-		MoveAction(Vector2f dest);
+		MoveAction(math::Vector2f dest);
 
 		void setDestination(float destX, float destY);
-		void setDestination(const Vector2f &dest);
-		Vector2f getDestination() const;
+		void setDestination(const math::Vector2f &dest);
+		math::Vector2f getDestination() const;
 
 		const char *getName() const;
 
@@ -30,7 +30,7 @@ namespace game {
 
 	protected:
 
-		Vector2f mDestination;
+		math::Vector2f mDestination;
 
 	};
 

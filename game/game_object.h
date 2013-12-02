@@ -1,7 +1,6 @@
 #pragma once
 
 #include <gfx/gfx_layer.h>
-using namespace am::gfx;
 
 #include <base/handle.h>
 
@@ -15,10 +14,8 @@ using namespace am::gfx;
 #include <game/map_region.h>
 
 #include <util/idefinition.h>
-using namespace am::util;
 
 #include <sfx/sfx_isource.h>
-using namespace am::sfx;
 
 namespace am {
 namespace util {
@@ -34,14 +31,18 @@ namespace game {
 	class Map;
 	class LoadingState;
 
-	class GameObject : public Layer, public IAttributeData, public IDefinition, public IEventListener {
+	class GameObject : public gfx::Layer, public IAttributeData, 
+		public IDefinition, public ui::IEventListener 
+	{
 	public:
 
-		enum GameObjectType {
+		enum GameObjectType 
+		{
 			UNKNOWN_TYPE, GAME_OBJECT, CHARACTER, ITEM, DOOR
 		};
 
-		enum DamageType {
+		enum DamageType 
+		{
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
 
@@ -120,8 +121,8 @@ namespace game {
 		virtual const char *getGameId() const;
 		virtual void registerSelf(const char *id);
 
-		virtual ISource *getSource(bool create = true);
-		virtual void setSource(ISource *source);
+		virtual sfx::ISource *getSource(bool create = true);
+		virtual void setSource(sfx::ISource *source);
 
 		virtual float distanceTo(GameObject *obj) const;
 		virtual float distanceToGrid(GameObject *obj) const;
@@ -172,7 +173,7 @@ namespace game {
 		Map *mOriginalMap;
 
 		base::Handle<DialogueComponent> mDialogueComp;
-		base::Handle<ISource> mSoundSource;
+		base::Handle<sfx::ISource> mSoundSource;
 
 		MapRegion::MapRegionList mMapRegions;
 

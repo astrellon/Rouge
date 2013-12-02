@@ -13,7 +13,6 @@
 #include <util/data_boolean.h>
 #include <util/data_string.h>
 #include <util/utils.h>
-using namespace am::util;
 
 #include <math/math.h>
 
@@ -31,6 +30,8 @@ using namespace am::util;
 namespace am {
 namespace game {
 
+	using namespace am::util;
+
 	const int Character::LUA_ID = LUA_ID_CHARACTER;
 	const char *Character::LUA_TABLENAME = LUA_TABLE_CHARACTER;
 
@@ -45,9 +46,9 @@ namespace game {
 		mCoinPurse(new CoinPurse()),
 		mStats(new Stats()),
 		mArmedCounter(0),
-		mBackground(new Layer()),
-		mForeground(new Layer()),
-		mCharacterLayer(new Layer()),
+		mBackground(new gfx::Layer()),
+		mForeground(new gfx::Layer()),
+		mCharacterLayer(new gfx::Layer()),
 		mAIFuncRef(LUA_REFNIL),
 		mDestinationPos(-1)
 	{
@@ -86,32 +87,32 @@ namespace game {
 		int numChildren = getNumChildren();
 		if (numChildren >= 1)
 		{
-			mBackground = dynamic_cast<Layer *>(getChildAt(0));
+			mBackground = dynamic_cast<gfx::Layer *>(getChildAt(0));
 		}
 		else
 		{
-			mBackground = new Layer();
+			mBackground = new gfx::Layer();
 			mBackground->setName("Character->Background");
 			addChild(mBackground, 0);
 		}
 		if (numChildren >= 2)
 		{
-			mCharacterLayer = dynamic_cast<Layer *>(getChildAt(1));
+			mCharacterLayer = dynamic_cast<gfx::Layer *>(getChildAt(1));
 		}
 		else
 		{
-			mCharacterLayer = new Layer();
+			mCharacterLayer = new gfx::Layer();
 			mCharacterLayer->setInteractive(true);
 			mCharacterLayer->setName("Character->CharacterLayer");
 			addChild(mCharacterLayer, 1);
 		}
 		if (numChildren >= 3)
 		{
-			mForeground = dynamic_cast<Layer *>(getChildAt(2));
+			mForeground = dynamic_cast<gfx::Layer *>(getChildAt(2));
 		}
 		else
 		{
-			mForeground = new Layer();
+			mForeground = new gfx::Layer();
 			mForeground->setName("Character->Foreground");
 			addChild(mForeground, 2);
 		}
@@ -122,7 +123,7 @@ namespace game {
 			// Find our new graphic in the character layer if there was one.
 			for (int i = 0; i < mCharacterLayer->getNumChildren(); i++)
 			{
-				Sprite *temp = dynamic_cast<Sprite *>(mCharacterLayer->getChildAt(i));
+				Sprite *temp = dynamic_cast<gfx::Sprite *>(mCharacterLayer->getChildAt(i));
 				if (temp && temp->getAsset() == copy.mGraphic->getAsset())
 				{
 					mGraphic = temp;
@@ -155,9 +156,9 @@ namespace game {
 		}
 	}
 
-	void Character::setGraphic(Sprite *graphic, bool calcCameraOffset)
+	void Character::setGraphic(gfx::Sprite *graphic, bool calcCameraOffset)
 	{
-		base::Handle<Sprite> currentGraphic(mGraphic);
+		base::Handle<gfx::Sprite> currentGraphic(mGraphic);
 		if (mGraphic)
 		{
 			mCharacterLayer->removeChild(mGraphic);
@@ -175,29 +176,29 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Character::getGraphic() const
+	gfx::Sprite *Character::getGraphic() const
 	{
 		return mGraphic;
 	}
 
-	void Character::setDeadGraphic(Sprite *graphic)
+	void Character::setDeadGraphic(gfx::Sprite *graphic)
 	{
 		mDeadGraphic = graphic;
 	}
-	Sprite *Character::getDeadGraphic() const
+	gfx::Sprite *Character::getDeadGraphic() const
 	{
 		return mDeadGraphic;
 	}
 
-	Layer *Character::getBackgroundLayer() const
+	gfx::Layer *Character::getBackgroundLayer() const
 	{
 		return mBackground;
 	}
-	Layer *Character::getForegroundLayer() const
+	gfx::Layer *Character::getForegroundLayer() const
 	{
 		return mForeground;
 	}
-	Layer *Character::getCharacterLayer() const
+	gfx::Layer *Character::getCharacterLayer() const
 	{
 		return mCharacterLayer;
 	}
@@ -229,11 +230,11 @@ namespace game {
 		if (!mDestinationPath.empty() && mDestinationPos >= 0 && mDestinationPos < static_cast<int>(mDestinationPath.size()))
 		{
 			float timeTaken = 0.0f;
-			Vector2f pos(mLocationX, mLocationY);
+			math::Vector2f pos(mLocationX, mLocationY);
 			while (timeTaken < dt && !mDestinationPath.empty())
 			{
-				const Vector2f &dest(mDestinationPath[mDestinationPos]);
-				Vector2f toDest(dest.sub(pos));
+				const math::Vector2f &dest(mDestinationPath[mDestinationPos]);
+				math::Vector2f toDest(dest.sub(pos));
 				float length = toDest.length<float>();
 				if (length < 1.0f)
 				{
@@ -246,7 +247,7 @@ namespace game {
 					}
 					continue;
 				}
-				Vector2f toDestSpeed(toDest);
+				math::Vector2f toDestSpeed(toDest);
 				float speed = getSpeed() * Engine::gridSize();
 				float distTime = length / speed;
 				if (distTime > dt - timeTaken)
@@ -270,11 +271,11 @@ namespace game {
 		}
 		return false;
 	}
-	Vector2f Character::getDestination() const
+	math::Vector2f Character::getDestination() const
 	{
 		return mDestination;
 	}
-	Vector2i Character::getGridDestination() const
+	math::Vector2i Character::getGridDestination() const
 	{
 		return Engine::getEngine()->worldToGrid(mDestination);
 	}
@@ -284,12 +285,12 @@ namespace game {
 		{
 			return 0.0f;
 		}
-		const Vector2f &destPos(mDestinationPath[mDestinationPos]);
-		Vector2f toDest(destPos.sub(Vector2f(mLocationX, mLocationY)));
+		const math::Vector2f &destPos(mDestinationPath[mDestinationPos]);
+		math::Vector2f toDest(destPos.sub(Vector2f(mLocationX, mLocationY)));
 		float length = static_cast<float>(toDest.length());
 		for (size_t index = mDestinationPos + 1; index < mDestinationPath.size(); index++)
 		{
-			Vector2f diff = mDestinationPath[index].sub(mDestinationPath[index + 1]);
+			math::Vector2f diff = mDestinationPath[index].sub(mDestinationPath[index + 1]);
 			length += diff.length();
 		}
 		return length;
@@ -894,16 +895,16 @@ namespace game {
 			return;
 		}
 
-		mDestination = Vector2f(x, y);
+		mDestination = math::Vector2f(x, y);
 		recalcDestination();
 	}
 	void Character::recalcDestination()
 	{
-		Vector2i gridDest = Engine::getEngine()->worldToGrid(mDestination);
+		math::Vector2i gridDest = Engine::getEngine()->worldToGrid(mDestination);
 
 		mDestinationPath.clear();
 		mDestinationPos = 0;
-		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
+		mMap->search(math::Vector2i(getGridLocationX(), getGridLocationY()), 
 			gridDest, mDestinationPath, this);
 
 		// Not as useful as first thought, might be useful for characters that aren't fixed to the grid.
@@ -939,10 +940,10 @@ namespace game {
 		}
 
 		mDestinationPath.clear();
-		mDestination = Engine::getEngine()->gridToWorld(Vector2i(x, y));
+		mDestination = Engine::getEngine()->gridToWorld(math::Vector2i(x, y));
 		mDestinationPos = 0;
-		mMap->search(Vector2i(getGridLocationX(), getGridLocationY()), 
-			Vector2i(x, y), mDestinationPath, this);
+		mMap->search(math::Vector2i(getGridLocationX(), getGridLocationY()), 
+			math::Vector2i(x, y), mDestinationPath, this);
 	}
 	bool Character::hasDestination() const
 	{
@@ -1255,10 +1256,10 @@ namespace game {
 					am_log("DEAD", ss);
 					return;
 				}
-				base::Handle<Sprite> dead(game->getGenericDeadGraphic());
+				base::Handle<gfx::Sprite> dead(game->getGenericDeadGraphic());
 				if (dead)
 				{
-					mDeadGraphic = new Sprite(*dead);
+					mDeadGraphic = new gfx::Sprite(*dead);
 					mCharacterLayer->addChild(mDeadGraphic);
 				}
 				else
@@ -1276,12 +1277,12 @@ namespace game {
 		}
 	}
 
-	void Character::onEvent(Event *e)
+	void Character::onEvent(ui::Event *e)
 	{
 		// Pass along coin event.
 		if (e->getType() == "coin_change")
 		{
-			fireEvent<Event>(e);
+			fireEvent<ui::Event>(e);
 		}
 	}
 }

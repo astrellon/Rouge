@@ -5,7 +5,6 @@
 #include <util/data_boolean.h>
 #include <util/data_number.h>
 #include <util/data_table.h>
-using namespace am::util;
 
 #include <string>
 #include <cstring>
@@ -22,7 +21,8 @@ namespace game {
 	const int StatModifier::LUA_ID = LUA_ID_STATMODIFIER;
 	const char *StatModifier::LUA_TABLENAME = LUA_TABLE_STATMODIFIER;
 
-	const char *StatModifier::sStatModifierNames[] = {
+	const char *StatModifier::sStatModifierNames[] = 
+	{
 		"+", "*", "=", "MOD_MAX_LENGTH"
 	};
 

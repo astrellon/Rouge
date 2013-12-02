@@ -8,7 +8,8 @@
 namespace am {
 namespace game {
 
-	class IStatModifiers {
+	class IStatModifiers 
+	{
 	public:
 
 		typedef std::vector<StatModifier> StatModifierVector;

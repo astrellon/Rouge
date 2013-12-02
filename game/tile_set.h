@@ -7,17 +7,16 @@
 #include <base/imanaged.h>
 
 #include <util/idefinition.h>
-using namespace am::util;
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include "tile.h"
 
 namespace am {
 namespace game {
 
-	class TileSet : public base::IManaged, public IDefinition {
+	class TileSet : public base::IManaged, public util::IDefinition 
+	{
 	public:
 
 		typedef std::map<std::string, base::Handle<Tile> > TileMap;

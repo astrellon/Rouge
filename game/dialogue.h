@@ -11,7 +11,8 @@ namespace game {
 
 	// TODO!
 	// WHY ISN'T THIS MANAGED!?
-	class Dialogue {
+	class Dialogue 
+	{
 	public:
 
 		enum UnlockFlag 

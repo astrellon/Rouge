@@ -8,10 +8,8 @@
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include "icontroller.h"
 #include "game_object.h"
@@ -28,7 +26,8 @@ using namespace am::ui;
 namespace am {
 namespace game {
 
-	class Character : public GameObject, public Levelable {
+	class Character : public GameObject, public Levelable 
+	{
 	public:
 
 		typedef std::vector< base::Handle<IAction> > ActionQueue;
@@ -36,15 +35,15 @@ namespace game {
 		Character(const Character &copy);
 		~Character();
 
-		void setGraphic(Sprite *graphic, bool calcCameraOffset = true);
-		Sprite *getGraphic() const;
+		void setGraphic(gfx::Sprite *graphic, bool calcCameraOffset = true);
+		gfx::Sprite *getGraphic() const;
 
-		void setDeadGraphic(Sprite *graphic);
-		Sprite *getDeadGraphic() const;
+		void setDeadGraphic(gfx::Sprite *graphic);
+		gfx::Sprite *getDeadGraphic() const;
 
-		Layer *getBackgroundLayer() const;
-		Layer *getForegroundLayer() const;
-		Layer *getCharacterLayer() const;
+		gfx::Layer *getBackgroundLayer() const;
+		gfx::Layer *getForegroundLayer() const;
+		gfx::Layer *getCharacterLayer() const;
 
 		virtual void update(float dt);
 		virtual bool onGameTick(float dt);
@@ -150,8 +149,8 @@ namespace game {
 
 		virtual void setDestination(float x, float y);
 		virtual void setGridDestination(int x, int y);
-		virtual Vector2f getDestination() const;
-		virtual Vector2i getGridDestination() const;
+		virtual math::Vector2f getDestination() const;
+		virtual math::Vector2i getGridDestination() const;
 		virtual float getDestinationLength() const;
 		virtual bool hasDestination() const;
 		virtual void recalcDestination();
@@ -168,7 +167,7 @@ namespace game {
 
 		virtual void updateGraphic();
 
-		virtual void onEvent(Event *e);
+		virtual void onEvent(ui::Event *e);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
@@ -183,11 +182,11 @@ namespace game {
 
 		// TODO: Probably need to be a vector, or even a different class that
 		// keeps track of multiple animations.
-		base::Handle<Sprite> mGraphic;
-		base::Handle<Sprite> mDeadGraphic;
-		base::Handle<Layer> mCharacterLayer;
-		base::Handle<Layer> mForeground;
-		base::Handle<Layer> mBackground;
+		base::Handle<gfx::Sprite> mGraphic;
+		base::Handle<gfx::Sprite> mDeadGraphic;
+		base::Handle<gfx::Layer> mCharacterLayer;
+		base::Handle<gfx::Layer> mForeground;
+		base::Handle<gfx::Layer> mBackground;
 
 		base::Handle<Inventory> mInventory;
 		base::Handle<CoinPurse> mCoinPurse;
@@ -201,7 +200,7 @@ namespace game {
 		Gender::GenderType mGender;
 
 		NodePath mDestinationPath;
-		Vector2f mDestination;
+		math::Vector2f mDestination;
 		int mDestinationPos;
 
 		int mArmedCounter;
