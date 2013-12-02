@@ -17,56 +17,71 @@ namespace am {
 namespace math {
 
 	template <class T>
-	class Vector4 {
+	class Vector4 
+	{
 	public:
-		Vector4() : x(0), y(0), z(0), w(1) {
+		Vector4() : x(0), y(0), z(0), w(1) 
+		{
 		}
-		Vector4(T x, T y, T z) :x(x), y(y), z(z), w(1) {
+		Vector4(T x, T y, T z) :x(x), y(y), z(z), w(1) 
+		{
 		}
-		Vector4(T x, T y, T z, T w) :x(x), y(y), z(z), w(w) {
+		Vector4(T x, T y, T z, T w) :x(x), y(y), z(z), w(w) 
+		{
 		}
-		~Vector4() {}
+		~Vector4()
+		{
+		}
 	
-		friend std::ostream& operator << (std::ostream &o, const Vector4<T> &v) {
+		friend std::ostream& operator << (std::ostream &o, const Vector4<T> &v)
+		{
 			return o << '[' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ']';
-	}
+		}
 	
 		T x;
 		T y;
 		T z;
 		T w;
 	
-		inline Vector4<T> add(const Vector4<T> &rhs) const {
+		inline Vector4<T> add(const Vector4<T> &rhs) const 
+		{
 			return Vector4<T>(x + rhs.x, y + rhs.y, z + rhs.z, 1);
 		}
-		inline Vector4<T> add(T ix, T iy, T iz) const {
+		inline Vector4<T> add(T ix, T iy, T iz) const 
+		{
 			return Vector4<T>(x + ix, y + iy, z + iz, 1);
 		}
-		inline Vector4<T> &addTo(const T &ix, const T &iy, const T &iz) {
+		inline Vector4<T> &addTo(const T &ix, const T &iy, const T &iz) 
+		{
 			x += ix;
 			y += iy;
 			z += iz;
 			return *this;
 		}
-		inline Vector4<T> &addTo(const Vector4<T> &rhs) {
+		inline Vector4<T> &addTo(const Vector4<T> &rhs)
+		{
 			x += rhs.x;
 			y += rhs.y;
 			z += rhs.z;
 			return *this;
 		}
-		inline Vector4<T> sub(const Vector4<T> &rhs) const {
+		inline Vector4<T> sub(const Vector4<T> &rhs) const 
+		{
 			return Vector4<T>(x - rhs.x, y - rhs.y, z - rhs.z, 1);
 		}
-		inline Vector4<T> sub(T ix, T iy, T iz) const {
+		inline Vector4<T> sub(T ix, T iy, T iz) const
+		{
 			return Vector4<T>(x - ix, y - iy, z - iz, 1);
 		}
-		inline Vector4<T> &subFrom(const T &ix, const T &iy, const T &iz) {
+		inline Vector4<T> &subFrom(const T &ix, const T &iy, const T &iz)
+		{
 			x -= ix;
 			y -= iy;
 			z -= iz;
 			return *this;
 		}
-		inline Vector4<T> &subFrom(const Vector4<T> &rhs) {
+		inline Vector4<T> &subFrom(const Vector4<T> &rhs) 
+		{
 			x -= rhs.x;
 			y -= rhs.y;
 			z -= rhs.z;
@@ -164,34 +179,42 @@ namespace math {
 			}
 		}
 
-		inline double length() const { 
+		inline double length() const
+		{ 
 			return sqrt(static_cast<double>(x * x + y * y + z * z)); 
 		}
-		inline double lengthSqrd() const { 
+		inline double lengthSqrd() const 
+		{ 
 			return static_cast<double>(x * x + y * y + z * z); 
 		}
-		inline double dot(const Vector4<T> &rhs) const { 
+		inline double dot(const Vector4<T> &rhs) const
+		{ 
 			return static_cast<double>(x * rhs.x + y * rhs.y + z * rhs.z); 
 		}
-		inline Vector4<T> cross(const Vector4<T> &rhs) const {
+		inline Vector4<T> cross(const Vector4<T> &rhs) const 
+		{
 			return Vector4<T>(y * rhs.z - z * rhs.y, 
 				z * rhs.x - x * rhs.z,
 				x * rhs.y - y * rhs.x);
 		}
-		inline double distance(const Vector4<T> &rhs) const {
+		inline double distance(const Vector4<T> &rhs) const 
+		{
 			double dx = x - rhs.x;
 			double dy = y - rhs.y;
 			double dz = z - rhs.z;
 			return sqrt(dx * dx + dy * dy + dz * dz);
 		}
 
-		inline bool operator == (const Vector4<T> &rhs) {
+		inline bool operator == (const Vector4<T> &rhs) 
+		{
 			return equals(rhs);
 		}
-		inline bool operator != (const Vector4<T> &rhs) {
+		inline bool operator != (const Vector4<T> &rhs)
+		{
 			return !equals(rhs);
 		}
-		inline Vector4<T> &operator =(const Vector4<T> &rhs) {
+		inline Vector4<T> &operator =(const Vector4<T> &rhs) 
+		{
 			x = rhs.x;
 			y = rhs.y;
 			z = rhs.z;
@@ -199,7 +222,8 @@ namespace math {
 			return *this;
 		}
 
-		inline Vector4<T> &operator =(const float &rhs) {
+		inline Vector4<T> &operator =(const float &rhs) 
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			z = (T)rhs;
@@ -207,7 +231,8 @@ namespace math {
 			return *this;
 		}
 
-		inline Vector4<T> &operator =(const double &rhs) {
+		inline Vector4<T> &operator =(const double &rhs)
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			z = (T)rhs;
@@ -215,7 +240,8 @@ namespace math {
 			return *this;
 		}
 
-		inline Vector4<T> &operator =(const long double &rhs) const {
+		inline Vector4<T> &operator =(const long double &rhs) const
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			z = (T)rhs;
@@ -256,41 +282,50 @@ namespace math {
 		}
 		~Vector2() {}
 	
-		friend std::ostream& operator << (std::ostream &o, const Vector2<T> &v) {
+		friend std::ostream& operator << (std::ostream &o, const Vector2<T> &v)
+		{
 			return o << '[' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ']';
 		}
 	
 		T x;
 		T y;
 
-		inline Vector2<T> add(const Vector2<T> &rhs) const {
+		inline Vector2<T> add(const Vector2<T> &rhs) const
+		{
 			return Vector2<T>(x + rhs.x, y + rhs.y);
 		}
-		inline Vector2<T> add(T ix, T iy) const {
+		inline Vector2<T> add(T ix, T iy) const 
+		{
 			return Vector2<T>(x + ix, y + iy);
 		}
-		inline Vector2<T> &addTo(const T &ix, const T &iy) {
+		inline Vector2<T> &addTo(const T &ix, const T &iy)
+		{
 			x += ix;
 			y += iy;
 			return *this;
 		}
-		inline Vector2<T> &addTo(const Vector2<T> &rhs) {
+		inline Vector2<T> &addTo(const Vector2<T> &rhs)
+		{
 			x += rhs.x;
 			y += rhs.y;
 			return *this;
 		}
-		inline Vector2<T> sub(const Vector2<T> &rhs) const {
+		inline Vector2<T> sub(const Vector2<T> &rhs) const
+		{
 			return Vector2<T>(x - rhs.x, y - rhs.y);
 		}
-		inline Vector2<T> sub(T ix, T iy) const {
+		inline Vector2<T> sub(T ix, T iy) const
+		{
 			return Vector2<T>(x - ix, y - iy);
 		}
-		inline Vector2<T> &subFrom(const T &ix, const T &iy) {
+		inline Vector2<T> &subFrom(const T &ix, const T &iy)
+		{
 			x -= ix;
 			y -= iy;
 			return *this;
 		}
-		inline Vector2<T> &subFrom(const Vector2<T> &rhs) {
+		inline Vector2<T> &subFrom(const Vector2<T> &rhs)
+		{
 			x -= rhs.x;
 			y -= rhs.y;
 			return *this;
@@ -371,54 +406,65 @@ namespace math {
 			}
 		}
 
-		inline double length() const { 
+		inline double length() const
+		{ 
 			return sqrt(static_cast<double>(x * x + y * y)); 
 		}
 		template <class F>
 		F length() const {
 			return static_cast<F>(length());
 		}
-		inline double lengthSqrd() const { 
+		inline double lengthSqrd() const
+		{ 
 			return static_cast<double>(x * x + y * y);
 		}
 		template <class F>
-		F lengthSqrd() const {
+		F lengthSqrd() const
+		{
 			return static_cast<F>(lengthSqrd());
 		}
-		inline double dot(const Vector2<T> &rhs) const { 
+		inline double dot(const Vector2<T> &rhs) const
+		{ 
 			return static_cast<double>(x * rhs.x + y * rhs.y); 
 		}
-		inline double distance(const Vector2<T> &rhs) const {
+		inline double distance(const Vector2<T> &rhs) const
+		{
 			double dx = x - rhs.x;
 			double dy = y - rhs.y;
 			return sqrt(dx * dx + dy * dy);
 		}
 
-		inline bool operator == (const Vector2<T> &rhs) {
+		inline bool operator == (const Vector2<T> &rhs)
+		{
 			return equals(rhs);
 		}
-		inline bool operator != (const Vector2<T> &rhs) {
+		inline bool operator != (const Vector2<T> &rhs)
+		{
 			return !equals(rhs);
 		}
-		inline Vector2<T> &operator =(const Vector2<T> &rhs) {
+		inline Vector2<T> &operator =(const Vector2<T> &rhs)
+		{
 			x = rhs.x;
 			y = rhs.y;
 			return *this;
 		}
 
-		inline Vector2<T> &operator =(const float &rhs) {
+		inline Vector2<T> &operator =(const float &rhs)
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			return *this;
 		}
 
-		inline Vector2<T> &operator =(const double &rhs) {
+		inline Vector2<T> &operator =(const double &rhs)
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			return *this;
 		}
 
-		inline Vector2<T> &operator =(const long double &rhs) const {
+		inline Vector2<T> &operator =(const long double &rhs) const
+		{
 			x = (T)rhs;
 			y = (T)rhs;
 			return *this;

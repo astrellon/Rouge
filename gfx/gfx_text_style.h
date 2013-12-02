@@ -3,13 +3,11 @@
 #include <base/handle.h>
 
 #include <util/colour.h>
-using namespace am::util;
 
 #include <gfx/gfx_font.h>
 #include <gfx/gfx_text_style_selector.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 namespace am {
 namespace gfx {
@@ -18,23 +16,21 @@ namespace gfx {
 	public:
 
 		TextStyle();
-		TextStyle(const Colour &colour);
+		TextStyle(const util::Colour &colour);
 		~TextStyle();
 
-		void setColour(const Colour &colour);
-		Colour getColour() const;
+		void setColour(const util::Colour &colour);
+		util::Colour getColour() const;
 		void removeColour();
 		bool hasColour() const;
 
-		//bool loadDef(JsonValue value);
-		bool loadDef(LuaState &lua);
+		bool loadDef(lua::LuaState &lua);
 		
 		static TextStyle getCalcStyle(const TextStyleSelector &node);
 		static TextStyle *getStyle(const TextStyleSelector &node);
 		static void addStyle(const TextStyleSelector &node, const TextStyle &style);
 		static bool removeStyle(const TextStyleSelector &node);
 
-		//static void loadStyles(const char *filename);
 		static void loadStylesLua(const char *filename);
 
 		static const int LUA_ID;
@@ -42,13 +38,13 @@ namespace gfx {
 
 	protected:
 
-		Colour mColour;
+		util::Colour mColour;
 		
 		typedef std::pair<TextStyleSelector, TextStyle> NodeStylePair;
 		typedef std::vector< NodeStylePair > NodeStyleList;
 		static NodeStyleList sNodeStyleList;
 
-		static int parseStyleTable(LuaState &lua);
+		static int parseStyleTable(lua::LuaState &lua);
 
 	};
 

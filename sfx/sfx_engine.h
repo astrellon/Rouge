@@ -19,14 +19,16 @@
 namespace am {
 namespace sfx {
 
-	typedef struct _DeviceName {
+	typedef struct _DeviceName
+	{
 		std::string deviceName;
 		bool defaultDevice;
 
 		_DeviceName(const char *name, bool defaultDevice = false);
 	} DeviceName;
 
-	typedef struct _SourceId {
+	typedef struct _SourceId 
+	{
 		ALuint id;
 		ISource *source;
 
@@ -37,7 +39,8 @@ namespace sfx {
 		float getGain() const;
 	} SourceId;
 
-	class SfxEngine {
+	class SfxEngine 
+	{
 	public:
 		SfxEngine();
 

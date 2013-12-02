@@ -35,7 +35,6 @@
 #include <tests/test_body_parts.h>
 #include <tests/test_lua_asset.h>
 #include <tests/test_store.h>
-using namespace am::tests;
 
 namespace am {
 namespace sys {
@@ -75,37 +74,37 @@ namespace sys {
 
 		int suiteCount = 0;
 
-		runSuite(TestBase);
-		runSuite(TestMouseManager);
-		runSuite(TestMap);
-		runSuite(TestCharacter);
-		runSuite(TestLua);
-		runSuite(TestLuaQuest);
-		runSuite(TestLuaEventListener);
-		runSuite(TestLuaCharacter);
-		runSuite(TestLuaStats);
-		runSuite(TestLuaStatModifiers);
-		runSuite(TestLuaItem);
-		runSuite(TestLuaInventory);
-		runSuite(TestLuaTileType);
-		runSuite(TestLuaTile);
-		runSuite(TestLuaTileSet);
-		runSuite(TestLuaEngine);
-		runSuite(TestLevelable);
-		runSuite(TestDialogue);
-		runSuite(TestLuaDialogue);
-		runSuite(TestEventInterface);
-		runSuite(TestLuaMap);
-		runSuite(TestItem);
-		runSuite(TestPathTokeniser);
-		runSuite(TestUtilData);
-		runSuite(TestLuaDataTable);
-		runSuite(TestUtils);
-		runSuite(TestBodyParts);
-		runSuite(TestLuaAsset);
-		runSuite(TestStore);
+		runSuite(tests::TestBase);
+		runSuite(tests::TestMouseManager);
+		runSuite(tests::TestMap);
+		runSuite(tests::TestCharacter);
+		runSuite(tests::TestLua);
+		runSuite(tests::TestLuaQuest);
+		runSuite(tests::TestLuaEventListener);
+		runSuite(tests::TestLuaCharacter);
+		runSuite(tests::TestLuaStats);
+		runSuite(tests::TestLuaStatModifiers);
+		runSuite(tests::TestLuaItem);
+		runSuite(tests::TestLuaInventory);
+		runSuite(tests::TestLuaTileType);
+		runSuite(tests::TestLuaTile);
+		runSuite(tests::TestLuaTileSet);
+		runSuite(tests::TestLuaEngine);
+		runSuite(tests::TestLevelable);
+		runSuite(tests::TestDialogue);
+		runSuite(tests::TestLuaDialogue);
+		runSuite(tests::TestEventInterface);
+		runSuite(tests::TestLuaMap);
+		runSuite(tests::TestItem);
+		runSuite(tests::TestPathTokeniser);
+		runSuite(tests::TestUtilData);
+		runSuite(tests::TestLuaDataTable);
+		runSuite(tests::TestUtils);
+		runSuite(tests::TestBodyParts);
+		runSuite(tests::TestLuaAsset);
+		runSuite(tests::TestStore);
 
-		const std::vector<std::string> &failed = TestSuite::getFailedTests();
+		const std::vector<std::string> &failed = tests::TestSuite::getFailedTests();
 		if (failed.size() > 0)
 		{
 			std::stringstream ss;

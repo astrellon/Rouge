@@ -125,7 +125,7 @@ namespace game {
 	bool Inventory::placeItem(Item *item, int x, int y)
 	{
 		mItemMovementState = ADDING;
-		base::Handle<ui::InventoryEvent> e(new InventoryEvent(ui::Inventory::INVENTORY_BEFORE_ADD, this, item, x, y));
+		base::Handle<ui::InventoryEvent> e(new ui::InventoryEvent(ui::Inventory::INVENTORY_BEFORE_ADD, this, item, x, y));
 		fireEvent<ui::InventoryEvent>(e);
 		if (!e->isPropagating())
 		{
@@ -149,7 +149,7 @@ namespace game {
 		}
 
 		item->setItemLocation(Item::INVENTORY);
-		fireEvent<ui::InventoryEvent>(new InventoryEvent(ui::Inventory::INVENTORY_ADD, this, item, x, y));
+		fireEvent<ui::InventoryEvent>(new ui::InventoryEvent(ui::Inventory::INVENTORY_ADD, this, item, x, y));
 
 		mItemMovementState = NOT_MOVING;
 		return true;

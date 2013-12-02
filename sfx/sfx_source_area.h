@@ -3,14 +3,14 @@
 #include <sfx/sfx_isource.h>
 
 #include <math/vector.h>
-using namespace am::math;
 
 namespace am {
 namespace sfx {
 
 	class ISound;
 
-	class SourceArea: public ISource {
+	class SourceArea: public ISource 
+	{
 	public:
 		
 		SourceArea();
@@ -37,11 +37,11 @@ namespace sfx {
 
 		virtual void setSize(float width, float height, float depth);
 
-		virtual Vector4f getClosestPosition() const;
+		virtual math::Vector4f getClosestPosition() const;
 #else
 		virtual void setSize(float width, float height);
 
-		virtual Vector2f getClosestPosition() const;
+		virtual math::Vector2f getClosestPosition() const;
 #endif
 
 	protected:
@@ -50,11 +50,11 @@ namespace sfx {
 		float mHeight;
 #ifdef SOUND_3D
 		float mDepth;
-		Vector4f mClosestPosition;
-		Vector4f mListener;
+		math::Vector4f mClosestPosition;
+		math::Vector4f mListener;
 #else
-		Vector2f mClosestPosition;
-		Vector2f mListener;
+		math::Vector2f mClosestPosition;
+		math::Vector2f mListener;
 #endif
 
 	};

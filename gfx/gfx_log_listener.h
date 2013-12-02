@@ -3,24 +3,23 @@
 #include <base/handle.h>
 
 #include <log/ilog_listener.h>
-using namespace am::log;
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 namespace am {
 namespace gfx {
 
 	class TextList;
 
-	class GfxLogListener : public ILogListener, public IEventListener {
+	class GfxLogListener : public log::ILogListener, public ui::IEventListener
+	{
 	public:
 		GfxLogListener(TextList *output);
 		~GfxLogListener();
 
-		virtual void onEvent(Event *e);
+		virtual void onEvent(ui::Event *e);
 
-		virtual void onNewEntry(const LogEntry &entry);
+		virtual void onNewEntry(const log::LogEntry &entry);
 		virtual void onLoggerDelete();
 
 	protected:

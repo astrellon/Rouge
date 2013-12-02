@@ -14,14 +14,12 @@ namespace gfx {
 	class GfxEngine;
 	class Layer;
 }
-using namespace am::gfx;
 
 namespace ui {
 	class MouseManager;
 	class Image;
 	class UIComponent;
 }
-using namespace am::ui;
 
 namespace sys {
 
@@ -32,7 +30,7 @@ namespace sys {
 
 		virtual void init();
 		
-		static MemoryTestSystem *createMemoryTestSystem(OsSystem *linked, Engine *engine);
+		static MemoryTestSystem *createMemoryTestSystem(OsSystem *linked, game::Engine *engine);
 		static MemoryTestSystem *getMemoryTestSystem();
 
 	protected:

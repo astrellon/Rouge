@@ -9,7 +9,8 @@
 namespace am {
 namespace gfx {
 
-	class Layer : public Renderable {
+	class Layer : public Renderable 
+	{
 	public:
 		// GlLayer methods
 		Layer();

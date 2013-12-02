@@ -15,8 +15,8 @@ namespace game {
 		IController(),
 		mRunning(false)
 	{
-		KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_DOWN, this);
-		KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_UP, this);
+		ui::KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_DOWN, this);
+		ui::KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_UP, this);
 		mAttached = true;
 		mRemoved = false;
 	}
@@ -30,9 +30,9 @@ namespace game {
 		detach();
 	}
 
-	void PlayerController::onEvent(KeyboardEvent *e)
+	void PlayerController::onEvent(ui::KeyboardEvent *e)
 	{
-		const bool *keys = KeyboardManager::getManager()->getKeysDown();
+		const bool *keys = ui::KeyboardManager::getManager()->getKeysDown();
 
 		if (mActive)
 		{
@@ -111,8 +111,8 @@ namespace game {
 				mCharacter->release();
 				mCharacter = nullptr;
 			}
-			KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_DOWN, this);
-			KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_UP, this);
+			ui::KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_DOWN, this);
+			ui::KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_UP, this);
 		}
 	}
 

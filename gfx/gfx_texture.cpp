@@ -3,7 +3,6 @@
 #include "IL/il.h"
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <lua/wrappers/lua_id_table.h>
 
@@ -62,7 +61,7 @@ namespace gfx {
 			return base::NULL_PARAMETER;
 		}
 
-		if (!Utils::fileExists(filename))
+		if (!util::Utils::fileExists(filename))
 		{
 			return base::FILE_NOT_FOUND;
 		}

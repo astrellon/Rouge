@@ -17,11 +17,11 @@ namespace gfx {
 	{
 	}
 
-	Colour &GfxComponent::getColour()
+	util::Colour &GfxComponent::getColour()
 	{
 		return mColour;
 	}
-	void GfxComponent::setColour(const Colour &colour)
+	void GfxComponent::setColour(const util::Colour &colour)
 	{
 		mColour = colour;
 	}

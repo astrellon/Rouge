@@ -5,7 +5,6 @@
 #include "game_system.h"
 
 #include <util/path_tokeniser.h>
-using namespace am::util;
 
 namespace am {
 namespace sys {

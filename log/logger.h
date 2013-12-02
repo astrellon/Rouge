@@ -19,7 +19,8 @@ namespace log {
 
 	class ILogListener;
 
-	class Logger {
+	class Logger 
+	{
 	public:
 
 		typedef std::vector<LogEntry> LogEntries;

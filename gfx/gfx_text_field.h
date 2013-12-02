@@ -2,10 +2,6 @@
 
 #include <vector>
 
-#include <ui/ievent_listener.h>
-#include <ui/mouse_event.h>
-using namespace am::ui;
-
 #include "gfx_renderable.h"
 #include "texture_window.h"
 #include "gfx_text_style.h"
@@ -15,10 +11,12 @@ namespace gfx {
 
 	class Font;
 
-	class TextField : public Renderable {
+	class TextField : public Renderable 
+	{
 	public:
 		// GlTextField methods
-		enum TextAlignment {
+		enum TextAlignment 
+		{
 			ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER
 		};
 

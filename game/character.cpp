@@ -664,8 +664,8 @@ namespace game {
 		// There may not be space so this can still return false.
 		if (addItem(item))
 		{
-			base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", item, this));
-			fireEvent<ItemEvent>(e);
+			base::Handle<ui::ItemEvent> e(new ui::ItemEvent("item_pickedup", item, this));
+			fireEvent<ui::ItemEvent>(e);
 			item->pickedUp(this);
 			return base::SUCCESS;
 		}
@@ -739,8 +739,8 @@ namespace game {
 		item->setItemLocation(Item::GROUND);
 
 		mInventory->removeItem(item);
-		base::Handle<ItemEvent> e(new ItemEvent("item_dropped", item, this));
-		fireEvent<ItemEvent>(e);
+		base::Handle<ui::ItemEvent> e(new ui::ItemEvent("item_dropped", item, this));
+		fireEvent<ui::ItemEvent>(e);
 		item->dropped(this);
 		return base::SUCCESS;
 	}
@@ -1135,7 +1135,7 @@ namespace game {
 		}
 		item->setItemLocation(Item::INVENTORY);
 		mStats->addModifiers(item->getStatModifiers());
-		fireEvent<EquipEvent>(new EquipEvent("equip", this, part, item));
+		fireEvent<ui::EquipEvent>(new ui::EquipEvent("equip", this, part, item));
 	}
 	void Character::_unequipItem(Item *item, BodyPart *part)
 	{
@@ -1148,18 +1148,18 @@ namespace game {
 			mArmedCounter--;
 		}
 		mStats->removeModifiers(item->getStatModifiers());
-		fireEvent<EquipEvent>(new EquipEvent("unequip", this, part, item));
+		fireEvent<ui::EquipEvent>(new ui::EquipEvent("unequip", this, part, item));
 	}
 
 	void Character::onLevelUp()
 	{
-		base::Handle<Event> e(new Event("level_change"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("level_change"));
+		fireEvent<ui::Event>(e);
 	}
 	void Character::onExperienceChange()
 	{
-		base::Handle<Event> e(new Event("experience_change"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("experience_change"));
+		fireEvent<ui::Event>(e);
 	}
 
 	BodyPart *Character::getNextWeaponPart(bool &looped)

@@ -7,7 +7,8 @@ namespace sys {
 
 	class GameSystem;
 
-	class OsSystem : public ISystem {
+	class OsSystem : public ISystem
+	{
 	public:
 		
 		~OsSystem();

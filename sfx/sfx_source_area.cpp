@@ -142,7 +142,7 @@ namespace sfx {
 		}
 	}
 
-	Vector4f SourceArea::getClosestPosition() const
+	math::Vector4f SourceArea::getClosestPosition() const
 	{
 		return mClosestPosition;
 	}
@@ -156,7 +156,7 @@ namespace sfx {
 		}
 	}
 
-	Vector2f SourceArea::getClosestPosition() const
+	math::Vector2f SourceArea::getClosestPosition() const
 	{
 		return mClosestPosition;
 	}

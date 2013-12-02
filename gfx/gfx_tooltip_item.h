@@ -5,7 +5,6 @@
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_tooltip.h>
-using namespace am::gfx;
 
 #include <string>
 
@@ -14,7 +13,8 @@ using namespace am::gfx;
 namespace am {
 namespace gfx {
 
-	class TooltipItem : public Tooltip {
+	class TooltipItem : public Tooltip 
+	{
 	public:
 		TooltipItem();
 		TooltipItem(const Item *item);

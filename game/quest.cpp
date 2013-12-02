@@ -48,8 +48,8 @@ namespace game {
 		{
 			return false;
 		}
-		base::Handle<Event> e(new Event("startQuest"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("startQuest"));
+		fireEvent<ui::Event>(e);
 		return true;
 	}
 	bool Quest::finishQuest()
@@ -59,8 +59,8 @@ namespace game {
 			return false;
 		}
 		setCompleted(true);
-		base::Handle<Event> e(new Event("finishQuest"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("finishQuest"));
+		fireEvent<ui::Event>(e);
 		return true;
 	}
 

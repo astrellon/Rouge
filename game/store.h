@@ -75,9 +75,9 @@ namespace game {
 		virtual void setDefaultInventorySize(int width, int height);
 		virtual unsigned short getDefaultInventorySizeWidth() const;
 		virtual unsigned short getDefaultInventorySizeHeight() const;
-		virtual Vector2<unsigned short> getDefaultInventorySize() const;
+		virtual math::Vector2<unsigned short> getDefaultInventorySize() const;
 
-		virtual void onEvent(InventoryEvent *e);
+		virtual void onEvent(ui::InventoryEvent *e);
 
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;

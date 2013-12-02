@@ -2,7 +2,6 @@
 
 #include <util/text_tokeniser.h>
 #include <util/utils.h>
-using namespace am::util;
 
 #include <log/logger.h>
 
@@ -371,7 +370,7 @@ namespace gfx {
 		{
 			glBindTexture(GL_TEXTURE_2D, 0);
 			GfxEngine *engine = GfxEngine::getEngine();
-			engine->pushColourStack(Colour::WHITE);
+			engine->pushColourStack(util::Colour::WHITE);
 			engine->applyColourStack();
 			glLineWidth(2.0f);
 			glBegin(GL_LINES);

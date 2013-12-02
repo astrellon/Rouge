@@ -5,7 +5,6 @@
 #include <vector>
 
 #include <util/idata.h>
-using namespace am::util;
 
 #include "gfx_renderable.h"
 #include "texture_window.h"
@@ -16,11 +15,14 @@ namespace game {
 	class LoadingState;
 }
 
+using namespace am::util;
+
 namespace gfx {
 
 	class Asset;
 
-	class Sprite : public Renderable {
+	class Sprite : public Renderable 
+	{
 	public:
 		Sprite();
 		Sprite(const Sprite &copy);

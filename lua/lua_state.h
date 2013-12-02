@@ -33,7 +33,8 @@ namespace lua {
 	 * Contains an id which identifies the class and a pointer to
 	 * the current instance.
 	 */
-	typedef struct {
+	typedef struct 
+	{
 		int id;
 		void *ptr;
 	} LuaUData;
@@ -131,7 +132,8 @@ namespace lua {
 	 * in. Created lua_State's can either be extended with extra functions
 	 * specific to the game engine, or can be left at only the default lua libraries.
 	 */
-	class LuaState : public base::IManaged {
+	class LuaState : public base::IManaged 
+	{
 	public:
 
 		typedef std::map<std::string, lua_CFunction> WrapperMap;

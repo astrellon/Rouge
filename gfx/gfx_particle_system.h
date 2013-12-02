@@ -12,7 +12,8 @@ namespace gfx {
 
 	class Particle;
 
-	class ParticleSystem : public Renderable {
+	class ParticleSystem : public Renderable 
+	{
 	public:
 		ParticleSystem();
 		~ParticleSystem();
@@ -85,7 +86,8 @@ namespace gfx {
 
 	};
 
-	class Particle : public Sprite {
+	class Particle : public Sprite 
+	{
 	public:
 		Particle();
 		Particle(Asset *asset, float veloX, float veloY);

@@ -9,10 +9,8 @@
 
 #include <util/colour.h>
 #include <util/idefinition_manager.h>
-using namespace am::util;
 
 #include <math/matrix.h>
-using namespace am::math;
 
 namespace am {
 namespace gfx {
@@ -28,7 +26,8 @@ namespace gfx {
 	typedef std::map< std::string, base::Handle<Texture> > TextureMap;
 	typedef std::map< std::string, base::Handle<Font> > FontMap;
 
-	class GfxEngine : public IDefinitionManager {
+	class GfxEngine : public util::IDefinitionManager 
+	{
 	public:
 		~GfxEngine();
 
@@ -81,7 +80,7 @@ namespace gfx {
 		void onKeyUp(const bool *keys, int key);
 
 		void applyColourStack();
-		void pushColourStack(const Colour &colour);
+		void pushColourStack(const util::Colour &colour);
 		void popColourStack();
 
 		static GfxEngine *getEngine();
@@ -112,7 +111,7 @@ namespace gfx {
 		base::Handle<Layer> mTooltipLayer;
 		base::Handle<Layer> mDebugLayer;
 
-		std::vector<Colour> mColourStack;
+		std::vector<util::Colour> mColourStack;
 
 		static GfxEngine *sMainGfxEngine;
 

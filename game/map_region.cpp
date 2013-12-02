@@ -131,20 +131,20 @@ namespace game {
 
 	void MapRegion::gameObjectEntered(GameObject *obj)
 	{
-		base::Handle<MapRegionEvent> e(new MapRegionEvent("region_entered", this, obj));
-		fireEvent<MapRegionEvent>(e);
+		base::Handle<ui::MapRegionEvent> e(new ui::MapRegionEvent("region_entered", this, obj));
+		fireEvent<ui::MapRegionEvent>(e);
 		if (obj)
 		{
-			obj->fireEvent<MapRegionEvent>(e);
+			obj->fireEvent<ui::MapRegionEvent>(e);
 		}
 	}
 	void MapRegion::gameObjectExited(GameObject *obj)
 	{
-		base::Handle<MapRegionEvent> e(new ui::MapRegionEvent("region_exited", this, obj));
-		fireEvent<MapRegionEvent>(e);
+		base::Handle<ui::MapRegionEvent> e(new ui::MapRegionEvent("region_exited", this, obj));
+		fireEvent<ui::MapRegionEvent>(e);
 		if (obj)
 		{
-			obj->fireEvent<MapRegionEvent>(e);
+			obj->fireEvent<ui::MapRegionEvent>(e);
 		}
 	}
 
@@ -152,8 +152,9 @@ namespace game {
 	{
 		int minX = obj->getGridLocationX() - mLocation.x;
 		int minY = obj->getGridLocationY() - mLocation.y;
-		int maxX = max(0, min(mWidth, minX + round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
-		int maxY = max(0, min(mHeight, minY + round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
+		
+		int maxX = max(0, min(mWidth, minX + math::round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
+		int maxY = max(0, min(mHeight, minY + math::round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
 		minX = max(0, min(mWidth, minX));
 		minY = max(0, min(mHeight, minY));
 		for (int y = minY; y < maxY; y++)

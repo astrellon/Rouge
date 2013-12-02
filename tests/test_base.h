@@ -8,22 +8,26 @@
 namespace am {
 namespace tests {
 
-	class TestBase : public TestSuite {
+	class TestBase : public TestSuite 
+	{
 	public:
 		TestBase() {}
 		~TestBase() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::base";
 		}
 
 	protected:
 
-		class TestManaged : public base::IManaged {
+		class TestManaged : public base::IManaged 
+		{
 		public:
 			TestManaged() {}
 			~TestManaged() {}

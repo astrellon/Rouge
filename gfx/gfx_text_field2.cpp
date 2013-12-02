@@ -2,7 +2,6 @@
 
 #include <util/text_tokeniser.h>
 #include <util/utils.h>
-using namespace am::util;
 
 #include <log/logger.h>
 
@@ -207,7 +206,7 @@ namespace gfx {
 		checkScrollbar();
 	}
 
-	void TextField2::onEvent(Event *e)
+	void TextField2::onEvent(ui::Event *e)
 	{
 		if (e->getEventTarget() == mScrollbar.get())
 		{

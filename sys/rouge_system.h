@@ -18,7 +18,6 @@ namespace gfx {
 	class Layer;
 	class TooltipItem;
 }
-using namespace am::gfx;
 
 namespace ui {
 	class MouseManager;
@@ -30,13 +29,13 @@ namespace ui {
 	class EditorHud;
 	class UIComponent;
 }
-using namespace am::ui;
 
 namespace sys {
 
 	class OsSystem;
 
-	class RougeSystem : public GameSystem {
+	class RougeSystem : public GameSystem 
+	{
 	public:
 
 		~RougeSystem();
@@ -46,10 +45,10 @@ namespace sys {
 
 		virtual void onKeyUp(ui::Keyboard::Key key);
 
-		virtual void onEvent(Event *e);
-		virtual void onEvent(DialogueEvent *e);
+		virtual void onEvent(ui::Event *e);
+		virtual void onEvent(ui::DialogueEvent *e);
 
-		static RougeSystem *createRougeSystem(OsSystem *linked, Engine *engine);
+		static RougeSystem *createRougeSystem(OsSystem *linked, game::Engine *engine);
 		static RougeSystem *getRougeSystem();
 
 		void newGame();
@@ -67,31 +66,31 @@ namespace sys {
 		void showOptionsPanel();
 		void closeOptionsPanel();
 
-		TooltipItem *getItemTooltip() const;
+		gfx::TooltipItem *getItemTooltip() const;
 
 	protected:
 		
-		RougeSystem(OsSystem *linked, Engine *engine);
+		RougeSystem(OsSystem *linked, game::Engine *engine);
 
-		base::Handle<MainMenu> mMainMenu;
-		base::Handle<OptionsPanel> mOptionsPanel;
-		base::Handle<IngameMenu> mIngameMenu;
-		base::Handle<GameHud> mGameHud;
-		base::Handle<EditorHud> mEditorHud;
-		base::Handle<UIComponent> mCurrentMenu;
+		base::Handle<ui::MainMenu> mMainMenu;
+		base::Handle<ui::OptionsPanel> mOptionsPanel;
+		base::Handle<ui::IngameMenu> mIngameMenu;
+		base::Handle<ui::GameHud> mGameHud;
+		base::Handle<ui::EditorHud> mEditorHud;
+		base::Handle<ui::UIComponent> mCurrentMenu;
 
-		base::Handle<Image> mPausedImage;
+		base::Handle<ui::Image> mPausedImage;
 
-		base::Handle<Character> mPlayer;
-		base::Handle<TooltipItem> mItemTooltip;
+		base::Handle<game::Character> mPlayer;
+		base::Handle<gfx::TooltipItem> mItemTooltip;
 
 		void checkPaused();
 		bool mPausedGame;
 		bool mInDialogue;
 
-		PlayerHand *mPlayerHand;
+		game::PlayerHand *mPlayerHand;
 		
-		void setCurrentMenu(UIComponent *menu);
+		void setCurrentMenu(ui::UIComponent *menu);
 
 		static RougeSystem *sRougeSystem;
 	};

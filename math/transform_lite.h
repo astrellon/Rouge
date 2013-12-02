@@ -3,7 +3,8 @@
 namespace am {
 namespace math {
 
-	class TransformLite {
+	class TransformLite
+	{
 	public:
 		TransformLite();
 		~TransformLite();

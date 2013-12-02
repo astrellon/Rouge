@@ -3,11 +3,13 @@
 namespace am {
 namespace gfx {
 
-	enum ScaleNineState {
+	enum ScaleNineState
+	{
 		SCALE_NINE_NONE, SCALE_NINE_VERTICAL, SCALE_NINE_HORIZONTAL, SCALE_NINE_BOTH
 	};
 
-	class ScaleNine {
+	class ScaleNine 
+	{
 	public:
 		ScaleNine();
 		ScaleNine(float left, float right, float top, float bottom);

@@ -11,7 +11,8 @@
 namespace am {
 namespace gfx {
 
-	class Button : public Sprite, public ui::IEventListener {
+	class Button : public Sprite, public ui::IEventListener 
+	{
 	public:
 		Button(Renderable *hitbox = nullptr);
 		Button(const char *assetName, Renderable *hitbox = nullptr);

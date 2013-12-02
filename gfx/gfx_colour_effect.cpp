@@ -9,7 +9,7 @@ namespace gfx {
 		Effect()
 	{
 	}
-	ColourEffect::ColourEffect(float effectLength, const Colour &startColour, const Colour &endColour) :
+	ColourEffect::ColourEffect(float effectLength, const util::Colour &startColour, const util::Colour &endColour) :
 		Effect(effectLength),
 		mStartColour(startColour),
 		mEndColour(endColour)
@@ -19,25 +19,25 @@ namespace gfx {
 	{
 	}
 
-	void ColourEffect::setStartColour(const Colour &start)
+	void ColourEffect::setStartColour(const util::Colour &start)
 	{
 		mStartColour = start;
 	}
-	Colour ColourEffect::getStartColour() const
+	util::Colour ColourEffect::getStartColour() const
 	{
 		return mStartColour;
 	}
 
-	void ColourEffect::setEndColour(const Colour &end)
+	void ColourEffect::setEndColour(const util::Colour &end)
 	{
 		mEndColour = end;
 	}
-	Colour ColourEffect::getEndColour() const
+	util::Colour ColourEffect::getEndColour() const
 	{
 		return mEndColour;
 	}
 
-	Colour ColourEffect::getLerpedColour() const
+	util::Colour ColourEffect::getLerpedColour() const
 	{
 		return mLerped;
 	}

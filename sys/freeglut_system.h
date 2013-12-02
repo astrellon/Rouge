@@ -14,7 +14,8 @@ namespace sys {
 
 namespace freeglut {
 	
-	class FreeGlutSystem : public am::sys::OsSystem {
+	class FreeGlutSystem : public am::sys::OsSystem
+	{
 	public:
 		FreeGlutSystem();
 		~FreeGlutSystem();

@@ -73,7 +73,7 @@ namespace game {
 		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
 
-		GameObjectEvent::getManager()->addEventListener("obj_click", this);
+		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}
 	Game::~Game()
 	{
@@ -168,7 +168,7 @@ namespace game {
 			return;
 		}
 
-		fireEvent<MouseEvent>(e);
+		fireEvent<ui::MouseEvent>(e);
 
 		if (e->getMouseEventType() != ui::Mouse::MOUSE_UP || mEditorMode)
 		{
@@ -234,14 +234,14 @@ namespace game {
 		}
 		else if (e->getMouseButton() == ui::Mouse::RIGHT_BUTTON)
 		{
-			GameHud *gameHud = Engine::getEngine()->getGameHud();
+			ui::GameHud *gameHud = Engine::getEngine()->getGameHud();
 			if (gameHud)
 			{
 				int gridX = static_cast<int>(localX * Engine::getEngine()->getGridSizeResp());
 				int gridY = static_cast<int>(localY * Engine::getEngine()->getGridSizeResp());
 
 				TileInstance *instance = mCurrentMap->getTileInstance(gridX, gridY);
-				Inspector *inspector = gameHud->getInspector();
+				ui::Inspector *inspector = gameHud->getInspector();
 				inspector->setTileInstance(instance);
 
 				inspector->clearGameObjects();
@@ -872,7 +872,7 @@ namespace game {
 		mStarted = true;
 		setGameTickPaused(false);
 		setTickPositionMainChar();
-		base::Handle<ui::Event> e(new Event("startGame"));
+		base::Handle<ui::Event> e(new ui::Event("startGame"));
 		fireEvent<ui::Event>(e);
 	}
 	bool Game::hasStarted() const

@@ -17,7 +17,8 @@ namespace gfx {
 	class Layer;
 	class Tooltip;
 
-	class Renderable : virtual public base::IManaged, public ui::EventInterface {
+	class Renderable : virtual public base::IManaged, public ui::EventInterface
+	{
 	public:
 
 		typedef std::vector<const Renderable *> RenderablePath;

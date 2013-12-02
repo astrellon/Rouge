@@ -17,14 +17,16 @@ namespace sys {
 
 namespace win {
 
-	typedef struct {									// Contains Information Vital To Applications
+	typedef struct 
+	{													// Contains Information Vital To Applications
 		HINSTANCE		hInstance;						// Application Instance
 		const char*		className;						// Application ClassName
 	} Application;										// Application
 
-	typedef struct {									// Window Creation Info
+	typedef struct
+	{													// Window Creation Info
 		Application*		application;				// Application Structure
-		const char*				title;						// Window Title
+		const char*			title;						// Window Title
 		int					width;						// Width
 		int					height;						// Height
 		int					bitsPerPixel;				// Bits Per Pixel
@@ -33,7 +35,8 @@ namespace win {
 
 	
 
-	class WinSystem : public am::sys::OsSystem {
+	class WinSystem : public am::sys::OsSystem
+	{
 	public:
 		WinSystem();
 		~WinSystem();
@@ -104,8 +107,8 @@ namespace win {
 		void updatePosSize();
 	};
 
-	typedef struct {									// Contains Information Vital To A Window
-		//Keys*				keys;						// Key Structure
+	typedef struct
+	{													// Contains Information Vital To A Window
 		HWND				hWnd;						// Window base::Handle
 		HDC					hDC;						// Device Context
 		HGLRC				hRC;						// Rendering Context

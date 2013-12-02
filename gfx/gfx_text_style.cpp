@@ -47,7 +47,7 @@ namespace gfx {
 		return mColour.getRed() >= 0.0f;
 	}
 	
-	bool TextStyle::loadDef(LuaState &lua)
+	bool TextStyle::loadDef(lua::LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
 		{
@@ -147,7 +147,7 @@ namespace gfx {
 
 	void TextStyle::loadStylesLua(const char *filename)
 	{
-		LuaState lua(false);
+		lua::LuaState lua(false);
 		if (!lua.loadFile(filename))
 		{
 			std::stringstream errss;
@@ -197,7 +197,7 @@ namespace gfx {
 		lua.close();
 		return;
 	}
-	int TextStyle::parseStyleTable(LuaState &lua)
+	int TextStyle::parseStyleTable(lua::LuaState &lua)
 	{
 		if (!lua_istable(lua, -1))
 		{

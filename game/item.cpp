@@ -525,13 +525,13 @@ namespace game {
 
 	void Item::pickedUp(Character *byCharacter)
 	{
-		base::Handle<ItemEvent> e(new ItemEvent("item_pickedup", this, byCharacter));
-		fireEvent<ItemEvent>(e);
+		base::Handle<ui::ItemEvent> e(new ui::ItemEvent("item_pickedup", this, byCharacter));
+		fireEvent<ui::ItemEvent>(e);
 	}
 	void Item::dropped(Character *droppedByCharacter)
 	{
-		base::Handle<ItemEvent> e(new ItemEvent("item_dropped", this, droppedByCharacter));
-		fireEvent<ItemEvent>(e);
+		base::Handle<ui::ItemEvent> e(new ui::ItemEvent("item_dropped", this, droppedByCharacter));
+		fireEvent<ui::ItemEvent>(e);
 	}
 
 	bool Item::interactWith(GameObject *interacter, bool byMovement)
@@ -544,7 +544,7 @@ namespace game {
 		
 		Character *obj = dynamic_cast<Character *>(interacter);
 		// If holding shift, it goes straight into the inventory.
-		if (KeyboardManager::getManager()->isKeyDown(16))
+		if (ui::KeyboardManager::getManager()->isKeyDown(16))
 		{
 			obj->pickupItem(this);
 		}
@@ -733,13 +733,13 @@ namespace game {
 
 	void Item::onLevelUp()
 	{
-		base::Handle<Event> e(new Event("level_change"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("level_change"));
+		fireEvent<ui::Event>(e);
 	}
 	void Item::onExperienceChange()
 	{
-		base::Handle<Event> e(new Event("experience_change"));
-		fireEvent<Event>(e);
+		base::Handle<ui::Event> e(new ui::Event("experience_change"));
+		fireEvent<ui::Event>(e);
 	}
 
 }

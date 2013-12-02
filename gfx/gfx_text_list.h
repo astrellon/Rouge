@@ -7,7 +7,8 @@
 namespace am {
 namespace gfx {
 
-	class TextList : public TextField {
+	class TextList : public TextField
+	{
 	public:
 		typedef std::vector<std::string> FilterList;
 

@@ -4,7 +4,6 @@
 
 #include <ui/ievent_listener.h>
 #include <ui/mouse_event.h>
-using namespace am::ui;
 
 #include "gfx_layer.h"
 #include "texture_window.h"
@@ -17,10 +16,12 @@ namespace gfx {
 
 	class Font;
 
-	class TextField2 : public IEventListener, public Layer {
+	class TextField2 : public ui::IEventListener, public Layer
+	{
 	public:
 		// GlTextField methods
-		enum TextAlignment {
+		enum TextAlignment 
+		{
 			ALIGN_LEFT, ALIGN_RIGHT, ALIGN_CENTER
 		};
 
@@ -63,7 +64,7 @@ namespace gfx {
 		float getDisplayHeight() const;
 		void setDisplayHeight(float height);
 
-		virtual void onEvent(Event *e);
+		virtual void onEvent(ui::Event *e);
 
 		// Renderable methods
 		virtual void render(float dt);

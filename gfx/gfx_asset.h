@@ -7,10 +7,8 @@
 #include <base/imanaged.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <util/idefinition.h>
-using namespace am::util;
 
 #include "scale_nine.h"
 #include "texture_window.h"
@@ -20,7 +18,8 @@ namespace gfx {
 
 	class Texture;
 
-	class Asset : public base::IManaged, public IDefinition {
+	class Asset : public base::IManaged, public util::IDefinition 
+	{
 	public:
 
 		typedef std::vector<TextureWindow> AnimationWindows;

@@ -261,7 +261,7 @@ namespace game {
 			int args = lua_gettop(lua);
 			if (args == 1)
 			{
-				Vector2i location = region->getLocation();
+				math::Vector2i location = region->getLocation();
 				lua_pushinteger(lua, location.x);
 				lua_pushinteger(lua, location.y);
 				return 2;

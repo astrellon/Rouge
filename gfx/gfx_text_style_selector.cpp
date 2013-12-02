@@ -2,7 +2,6 @@
 
 #include <util/utils.h>
 #include <util/tokeniser.h>
-using namespace am::util;
 
 #include <log/logger.h>
 
@@ -32,7 +31,7 @@ namespace gfx {
 		}
 		else
 		{
-			typeStr = Utils::toLowerCase(type);
+			typeStr = util::Utils::toLowerCase(type);
 		}
 		if (typeStr.compare(mNodeType) != 0)
 		{
@@ -109,7 +108,7 @@ namespace gfx {
 		}
 		else
 		{
-			std::string lower = Utils::toLowerCase(name);
+			std::string lower = util::Utils::toLowerCase(name);
 			if (lower.compare("class") == 0)
 			{
 				std::string valueStr = value;
@@ -117,7 +116,7 @@ namespace gfx {
 				{
 					valueStr = valueStr.substr(1, valueStr.size() - 2);
 				}
-				Tokeniser tokeniser(valueStr.c_str());
+				util::Tokeniser tokeniser(valueStr.c_str());
 				mClasses.clear();
 				const char *token = tokeniser.nextToken();
 				bool changed = false;

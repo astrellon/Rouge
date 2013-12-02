@@ -5,11 +5,13 @@
 namespace am {
 namespace tests {
 
-	int TestBase::TestManaged::getCounter() const {
+	int TestBase::TestManaged::getCounter() const
+	{
 		return getReferenceCounter();
 	}
 
-	bool TestBase::testSimple() {
+	bool TestBase::testSimple()
+	{
 		base::Handle<TestManaged> handled(new TestManaged());
 		am_equals(1, handled->getCounter());
 

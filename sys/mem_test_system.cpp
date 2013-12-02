@@ -4,7 +4,6 @@
 #include <gfx/gfx_text_list.h>
 #include <gfx/gfx_asset.h>
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include <game/game.h>
 #include <game/engine.h>
@@ -15,7 +14,7 @@ namespace sys {
 
 	MemoryTestSystem *MemoryTestSystem::sMemorySystem = nullptr;
 
-	MemoryTestSystem *MemoryTestSystem::createMemoryTestSystem(OsSystem *linked, Engine *engine)
+	MemoryTestSystem *MemoryTestSystem::createMemoryTestSystem(OsSystem *linked, game::Engine *engine)
 	{
 		sGameSystem = sMemorySystem = new MemoryTestSystem(linked, engine);
 		return sMemorySystem;
@@ -25,7 +24,7 @@ namespace sys {
 		return sMemorySystem;
 	}
 
-	MemoryTestSystem::MemoryTestSystem(OsSystem *linked, Engine *engine) :
+	MemoryTestSystem::MemoryTestSystem(OsSystem *linked, game::Engine *engine) :
 		GameSystem(linked, engine)
 	{
 
@@ -37,43 +36,43 @@ namespace sys {
 	void MemoryTestSystem::init()
 	{
 		GameSystem::init();
-		TextStyle::loadStylesLua("data/textStyles.lua");
+		gfx::TextStyle::loadStylesLua("data/textStyles.lua");
 		
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		gfx::GfxEngine *gfxEngine = gfx::GfxEngine::getEngine();
 		mDebugConsole->setMaxEntries(100);
 
 		mDebugConsole->setVisible(true);
 
-		base::Handle<TextField2> testText(new TextField2());
+		base::Handle<gfx::TextField2> testText(new gfx::TextField2());
 		testText->setText("Hello there <gameobj class='character'>Melli</gameobj>");
 		gfxEngine->getUILayer()->addChild(testText);
 		testText->setPosition(200.0f, 100.0f);
 
 		{
-			Engine *eng = Engine::getEngine();
+			game::Engine *eng = game::Engine::getEngine();
 
-			base::Handle<Game> game(new Game());
+			base::Handle<game::Game> game(new game::Game());
 			eng->setCurrentGame(game);
-			game->addDialogue(new Dialogue("diag1", "Test text"));
-			game->addDialogue(new Dialogue("diag2", "Test text 2"));
+			game->addDialogue(new game::Dialogue("diag1", "Test text"));
+			game->addDialogue(new game::Dialogue("diag2", "Test text 2"));
 
-			base::Handle<Map> map(game->getMapLua("testMap"));
+			base::Handle<game::Map> map(game->getMapLua("testMap"));
 			game->setCurrentMap(map);
 			//base::Handle<Map> map(new Map("testMap", 4, 4));
 			//game->setCurrentMap(map);
 
-			base::Handle<Character> mainChar(new Character());
+			base::Handle<game::Character> mainChar(new game::Character());
 			mainChar->setName("Melli");
 			game->setMainCharacter(mainChar);
 			game->registerGameObject(mainChar);
 			game->addGameObjectToMap(mainChar);
 
-			base::Handle<Character> npc(new Character());
+			base::Handle<game::Character> npc(new game::Character());
 			npc->setName("Townsman");
 			game->registerGameObject(npc);
 			game->addGameObjectToMap(npc);
 
-			base::Handle<Item> sword(new Item());
+			base::Handle<game::Item> sword(new game::Item());
 			sword->setItemFullname("Sword", "Iron", "of stab");
 			sword->setItemType(ItemCommon::SWORD);
 			sword->getStatModifiers()->addStatModifier(Stat::MAX_DAMAGE, StatModifier(5.0f, MOD_ADD));
@@ -81,7 +80,7 @@ namespace sys {
 			game->addGameObjectToMap(sword);
 		}
 		{
-			base::Handle<Game> game2(new Game());
+			base::Handle<game::Game> game2(new game::Game());
 			Engine::getEngine()->setCurrentGame(game2);
 		}
 

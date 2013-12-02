@@ -10,7 +10,8 @@
 namespace am {
 namespace gfx {
 
-	class Texture : public base::IManaged {
+	class Texture : public base::IManaged 
+	{
 	public:
 		Texture();
 		//Texture(const char *filename, GLuint textureId);

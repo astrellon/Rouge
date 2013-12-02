@@ -1,7 +1,6 @@
 #include "gfx_renderable.h"
 
 #include <math/vector.h>
-using namespace am::math;
 
 #include <base/handle.h>
 
@@ -85,8 +84,8 @@ namespace gfx {
 	void Renderable::deinit()
 	{
 		{
-			base::Handle<Event> e(new Event("deinit", this));
-			fireEvent<Event>(e);
+			base::Handle<ui::Event> e(new ui::Event("deinit", this));
+			fireEvent<ui::Event>(e);
 		}
 		if (mParent)
 		{

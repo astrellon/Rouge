@@ -6,41 +6,40 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 namespace am {
 namespace game {
 	class Map;
 	class Tile;
 }
-using namespace am::game;
 
 namespace gfx {
 	class Asset;
 
-	class TileRenderer : public Renderable {
+	class TileRenderer : public Renderable 
+	{
 	public:
-		TileRenderer(Map *map);
+		TileRenderer(game::Map *map);
 		TileRenderer(const TileRenderer &rhs);
 		~TileRenderer();
 
 		virtual Renderable *clone() const;
 
-		virtual void setMap(Map *map);
-		virtual Map *getMap() const;
+		virtual void setMap(game::Map *map);
+		virtual game::Map *getMap() const;
 
 		virtual float getWidth();
 		virtual float getHeight();
 
 		void updateAssetSprites();
-		void updateAssetSprite(Tile *tile);
+		void updateAssetSprite(game::Tile *tile);
 		virtual void render(float dt);
 
 		virtual std::string getName() const;
 
 	protected:
 
-		Map *mMap;
+		game::Map *mMap;
 		bool mEnabledMapCulling;
 
 		// To keep memory at a sane level for larger maps, there is currently

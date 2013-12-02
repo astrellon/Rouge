@@ -14,7 +14,6 @@
 #include <gfx/gfx_engine.h>
 
 #include <sfx/sfx_engine.h>
-using namespace am::sfx;
 
 #include <log/logger.h>
 
@@ -35,14 +34,12 @@ using namespace am::sfx;
 
 #include <sys/os_system.h>
 
-using namespace am::math;
-
 namespace am {
 namespace sys {
 
 	GameSystem *GameSystem::sGameSystem = nullptr;
 
-	GameSystem *GameSystem::createGameSystem(OsSystem *linked, Engine *engine)
+	GameSystem *GameSystem::createGameSystem(OsSystem *linked, game::Engine *engine)
 	{
 		sGameSystem = new GameSystem(linked, engine);
 		return sGameSystem;
@@ -52,7 +49,7 @@ namespace sys {
 		return sGameSystem;
 	}
 
-	GameSystem::GameSystem(OsSystem *linked, Engine *engine) :
+	GameSystem::GameSystem(OsSystem *linked, game::Engine *engine) :
 		mLinkedSystem(linked),
 		mEngine(engine),
 		mDebugConsole(nullptr),
@@ -103,12 +100,12 @@ namespace sys {
 
 	void GameSystem::init()
 	{
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		gfx::GfxEngine *gfxEngine = GfxEngine::getEngine();
 		gfxEngine ->init();
 		
 		mEngine->init();
 
-		am::sfx::SfxEngine *sfxEngine = am::sfx::SfxEngine::getEngine();
+		sfx::SfxEngine *sfxEngine = am::sfx::SfxEngine::getEngine();
 		try
 		{
 			sfxEngine->init();
@@ -135,15 +132,15 @@ namespace sys {
 		mDebugConsole->setBaseFont("default:basic");
 		mDebugConsole->setVisible(false);
 
-		mDebugInspector = new DebugInspector();
-		mDebugInspector->setParentAnchor(X_LEFT, Y_TOP);
+		mDebugInspector = new ui::DebugInspector();
+		mDebugInspector->setParentAnchor(ui::X_LEFT, ui::Y_TOP);
 		mDebugInspector->setParentOffset(50.0f, 50.0f);
 		mDebugInspector->setSize(250.0f, 300.0f);
 		mDebugInspector->setVisible(false);
 		gfxEngine ->getDebugLayer()->addChild(mDebugInspector);
-		DebugInspector::setInspector(mDebugInspector);
+		ui::DebugInspector::setInspector(mDebugInspector);
 
-		DebugInspector::getInspector()->setValue("test", "value");
+		ui::DebugInspector::getInspector()->setValue("test", "value");
 
 		mGfxListener = new GfxLogListener(mDebugConsole);
 		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
@@ -163,12 +160,12 @@ namespace sys {
 	{
 		mEngine->update(dt);
 
-		SfxEngine *engine = SfxEngine::getEngine();
+		sfx::SfxEngine *engine = sfx::SfxEngine::getEngine();
 		if (engine)
 		{
 			engine->update();
 		}
-		KeyboardManager::getManager()->onNewGameTick();
+		ui::KeyboardManager::getManager()->onNewGameTick();
 	}
 	void GameSystem::display(float dt)
 	{
@@ -176,28 +173,28 @@ namespace sys {
 	}
 	void GameSystem::deinit()
 	{
-		Pathfinder::releasePathfinder();
-		DebugInspector::setInspector(nullptr);
+		game::Pathfinder::releasePathfinder();
+		ui::DebugInspector::setInspector(nullptr);
 
-		MouseManager *manager = MouseManager::getManager();
+		ui::MouseManager *manager = ui::MouseManager::getManager();
 		manager->removeEventListener(ui::Mouse::MOUSE_OVER, this);
 		manager->removeEventListener(ui::Mouse::MOUSE_OUT, this);
 	}
 
 	void GameSystem::onMouseDown(ui::Mouse::Button mouseButton, int x, int y)
 	{
-		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
-		MouseManager::getManager()->onMouseDown(mouseButton, x, y);
+		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
+		ui::MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
 	void GameSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
 	{
-		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
-		MouseManager::getManager()->onMouseMove(mouseButton, x, y);
+		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
+		ui::MouseManager::getManager()->onMouseMove(mouseButton, x, y);
 	}
 	void GameSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
-		GfxEngine::getEngine()->getCursor()->setPosition(x, y);
-		MouseManager::getManager()->onMouseUp(mouseButton, x, y);
+		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
+		ui::MouseManager::getManager()->onMouseUp(mouseButton, x, y);
 	}
 	void GameSystem::onKeyDown(ui::Keyboard::Key key)
 	{
@@ -217,15 +214,15 @@ namespace sys {
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
 		}
-		KeyboardManager::getManager()->onKeyDown(key);
+		ui::KeyboardManager::getManager()->onKeyDown(key);
 	}
 	void GameSystem::onKeyUp(ui::Keyboard::Key key)
 	{
-		KeyboardManager::getManager()->onKeyUp(key);
+		ui::KeyboardManager::getManager()->onKeyUp(key);
 	}
 	void GameSystem::onKeyPress(char key)
 	{
-		KeyboardManager::getManager()->onKeyPress(key);
+		ui::KeyboardManager::getManager()->onKeyPress(key);
 	}
 	
 	bool GameSystem::isProgramRunning() const
@@ -273,12 +270,12 @@ namespace sys {
 	{
 		return mLinkedSystem;
 	}
-	Engine *GameSystem::getEngine()
+	game::Engine *GameSystem::getEngine()
 	{
 		return mEngine;
 	}
 
-	TextList *GameSystem::getDebugConsole()
+	gfx::TextList *GameSystem::getDebugConsole()
 	{
 		return mDebugConsole.get();
 	}
@@ -317,31 +314,15 @@ namespace sys {
 		return base::NO_LINKED_SYSTEM;
 	}
 
-	void GameSystem::onEvent(MouseEvent *e)
+	void GameSystem::onEvent(ui::MouseEvent *e)
 	{
 		if (!e)
 		{
 			return;
 		}
-
-		/*if (e->getMouseEventType() == MOUSE_OVER && e->getTarget())
-		{
-			const char *tooltip = e->getTarget()->getTooltip();
-			if (tooltip && tooltip[0] != '\0')
-			{
-				mTooltip->setText(e->getTarget()->getTooltip());
-				mTooltip->setDetailedText(e->getTarget()->getDetailedTooltip());
-				mTooltip->setPosition(e->getMouseX(), e->getMouseY());
-				mTooltip->active();
-			}
-		}
-		else
-		{
-			mTooltip->hide();
-		}*/
 	}
 
-	Tooltip *GameSystem::getDefaultTooltip() const
+	gfx::Tooltip *GameSystem::getDefaultTooltip() const
 	{
 		return mTooltip;
 	}

@@ -31,7 +31,7 @@ namespace gfx {
 		}
 	}
 
-	void GfxLogListener::onEvent(Event *e)
+	void GfxLogListener::onEvent(ui::Event *e)
 	{
 		if (e->getEventTarget() == mTextList.get())
 		{
@@ -39,7 +39,7 @@ namespace gfx {
 		}
 	}
 
-	void GfxLogListener::onNewEntry(const LogEntry &entry)
+	void GfxLogListener::onNewEntry(const log::LogEntry &entry)
 	{
 		if (mTextList.get())
 		{

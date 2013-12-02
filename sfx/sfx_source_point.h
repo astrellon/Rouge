@@ -7,7 +7,8 @@ namespace sfx {
 
 	class ISound;
 
-	class SourcePoint : public ISource {
+	class SourcePoint : public ISource 
+	{
 	public:
 		
 		SourcePoint();

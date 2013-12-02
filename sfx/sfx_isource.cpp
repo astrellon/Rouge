@@ -176,11 +176,11 @@ namespace sfx {
 			alSource3f(mSource, AL_VELOCITY, x, y, z);
 		}
 	}
-	Vector4f ISource::getPosition() const
+	math::Vector4f ISource::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector4f ISource::getVelocity() const
+	math::Vector4f ISource::getVelocity() const
 	{
 		return mVelocity;
 	}
@@ -203,11 +203,11 @@ namespace sfx {
 			alSource3f(mSource, AL_VELOCITY, x, y, 0.0f);
 		}
 	}
-	Vector2f ISource::getPosition() const
+	math::Vector2f ISource::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector2f ISource::getVelocity() const
+	math::Vector2f ISource::getVelocity() const
 	{
 		return mVelocity;
 	}

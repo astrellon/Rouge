@@ -228,12 +228,12 @@ namespace game {
 	{
 		return mDefaultInventorySize.y;
 	}
-	Vector2<unsigned short> Store::getDefaultInventorySize() const
+	math::Vector2<unsigned short> Store::getDefaultInventorySize() const
 	{
 		return mDefaultInventorySize;
 	}
 
-	void Store::onEvent(InventoryEvent *e)
+	void Store::onEvent(ui::InventoryEvent *e)
 	{
 		if (!e)
 		{

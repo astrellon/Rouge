@@ -40,7 +40,7 @@ namespace gfx {
 		base::IManaged::retain();
 	}
 
-	void NodeHitbox::onEvent(MouseEvent *e)
+	void NodeHitbox::onEvent(ui::MouseEvent *e)
 	{
 		switch (e->getMouseEventType())
 		{
@@ -51,7 +51,7 @@ namespace gfx {
 		case ui::Mouse::MOUSE_MOVE:
 			{
 				TextStyleSelector::Flag flag = TextStyleSelector::HOVER;
-				if (MouseManager::getManager()->getButtonDown(e->getMouseButton()))
+				if (ui::MouseManager::getManager()->getButtonDown(e->getMouseButton()))
 				{
 					flag = TextStyleSelector::DOWN;
 				}

@@ -65,14 +65,13 @@
 #include <sfx/sfx_engine.h>
 #include <sfx/sfx_source_point.h>
 #include <sfx/sfx_source_area.h>
-using namespace am::sfx;
 
 namespace am {
 namespace sys {
 
 	RougeSystem *RougeSystem::sRougeSystem = nullptr;
 
-	RougeSystem *RougeSystem::createRougeSystem(OsSystem *linked, Engine *engine)
+	RougeSystem *RougeSystem::createRougeSystem(OsSystem *linked, game::Engine *engine)
 	{
 		sGameSystem = sRougeSystem = new RougeSystem(linked, engine);
 		return sRougeSystem;
@@ -82,7 +81,7 @@ namespace sys {
 		return sRougeSystem;
 	}
 
-	RougeSystem::RougeSystem(OsSystem *linked, Engine *engine) :
+	RougeSystem::RougeSystem(OsSystem *linked, game::Engine *engine) :
 		GameSystem(linked, engine),
 		mPlayerHand(nullptr),
 		mInDialogue(false)
@@ -105,38 +104,38 @@ namespace sys {
 	void RougeSystem::init()
 	{
 		GameSystem::init();
-		TextStyle::loadStylesLua("data/textStyles.lua");
+		gfx::TextStyle::loadStylesLua("data/textStyles.lua");
 
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		gfx::GfxEngine *gfxEngine = gfx::GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
-		mMainMenu = new MainMenu(this);
+		mMainMenu = new ui::MainMenu(this);
 		gfxEngine->getUILayer()->addChild(mMainMenu.get());
 		mMainMenu->setSize(screenWidth, screenHeight);
 		
-		mOptionsPanel = new OptionsPanel(this);
+		mOptionsPanel = new ui::OptionsPanel(this);
 		gfxEngine->getUILayer()->addChild(mOptionsPanel.get());
 		mOptionsPanel->setSize(screenWidth, screenHeight);
 		mOptionsPanel->setVisible(false);
 
-		mIngameMenu = new IngameMenu(this);
+		mIngameMenu = new ui::IngameMenu(this);
 		gfxEngine->getUILayer()->addChild(mIngameMenu.get());
 		mIngameMenu->setSize(screenWidth, screenHeight);
 		mIngameMenu->setVisible(false);
 
-		mGameHud = new GameHud();
+		mGameHud = new ui::GameHud();
 		gfxEngine->getUILayer()->addChild(mGameHud.get());
 		mGameHud->setSize(screenWidth, screenHeight);
 		mGameHud->setVisible(false);
 
-		mEditorHud = new EditorHud();
+		mEditorHud = new ui::EditorHud();
 		gfxEngine->getUILayer()->addChild(mEditorHud);
 		mEditorHud->setSize(screenWidth, screenHeight);
 		mEditorHud->setVisible(false);
 
-		mPausedImage = new Image("ui:paused");
-		mPausedImage->setParentAnchor(X_CENTER, Y_CENTER);
-		mPausedImage->setAnchor(X_CENTER, Y_CENTER);
+		mPausedImage = new ui::Image("ui:paused");
+		mPausedImage->setParentAnchor(ui::X_CENTER, ui::Y_CENTER);
+		mPausedImage->setAnchor(ui::X_CENTER, ui::Y_CENTER);
 
 		Engine *engine = Engine::getEngine();
 		engine->setGameHud(mGameHud);
@@ -149,9 +148,9 @@ namespace sys {
 
 		mEngine->loadLuaEngine("data/engine.lua");
 
-		SfxEngine *sfxEngine = SfxEngine::getEngine();
-		ISound *bgm = sfxEngine->loadStream("18765__reinsamba__evening-in-the-forest.ogg");
-		SourcePoint *bgmSource = new SourcePoint(bgm);
+		sfx::SfxEngine *sfxEngine = sfx::SfxEngine::getEngine();
+		sfx::ISound *bgm = sfxEngine->loadStream("18765__reinsamba__evening-in-the-forest.ogg");
+		sfx::SourcePoint *bgmSource = new sfx::SourcePoint(bgm);
 		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
@@ -222,13 +221,13 @@ namespace sys {
 		if (isPaused())
 		{
 			mGameHud->setInteractive(false);
-			GfxEngine::getEngine()->getUILayer()->addChild(mPausedImage.get());
+			gfx::GfxEngine::getEngine()->getUILayer()->addChild(mPausedImage.get());
 			mPausedImage->setVisible(!mIngameMenu->isVisible());
 		}
 		else
 		{
 			mGameHud->setInteractive(true);
-			GfxEngine::getEngine()->getUILayer()->removeChild(mPausedImage.get());
+			gfx::GfxEngine::getEngine()->getUILayer()->removeChild(mPausedImage.get());
 		}
 	}
 
@@ -257,7 +256,7 @@ namespace sys {
 			return;
 		}
 
-		Game *game = Engine::getGame();
+		game::Game *game = game::Engine::getGame();
 		if (game)
 		{
 			game->saveGame(savename);
@@ -275,16 +274,16 @@ namespace sys {
 			return;
 		}
 
-		MouseManager::getManager()->clearCurrentlyFiring();
-		Game *oldGame = mEngine->getCurrentGame();
+		ui::MouseManager::getManager()->clearCurrentlyFiring();
+		game::Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
-			GfxEngine::getEngine()->getGameLayer()->clear();
+			gfx::GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
 		if (mEngine->loadGame(savename))
 		{
-			Game *game = Engine::getGame();
+			game::Game *game = game::Engine::getGame();
 			if (game)
 			{
 				if (game->hasStarted())
@@ -320,9 +319,9 @@ namespace sys {
 		}
 		if (key == ui::Keyboard::KEY_Z)
 		{
-			GfxEngine::getEngine()->reloadAsset("bigButton");
+			gfx::GfxEngine::getEngine()->reloadAsset("bigButton");
 		}
-		Game *game = mEngine->getCurrentGame();
+		game::Game *game = mEngine->getCurrentGame();
 		if (game)
 		{
 			if (key == ui::Keyboard::KEY_A)
@@ -336,7 +335,7 @@ namespace sys {
 		}
 		GameSystem::onKeyUp(key);
 	}
-	void RougeSystem::onEvent(DialogueEvent *e)
+	void RougeSystem::onEvent(ui::DialogueEvent *e)
 	{
 		mInDialogue = e->getDialogue() != nullptr;
 	}
@@ -348,17 +347,17 @@ namespace sys {
 
 	void RougeSystem::toMainMenu()
 	{
-		MouseManager::getManager()->clearCurrentlyFiring();
+		ui::MouseManager::getManager()->clearCurrentlyFiring();
 		// Set current game to nullptr and show main menu.
 		/*if (mPlayer)
 		{
 			mPlayer->removeEventListener("dialogue", this);
 			mPlayer = nullptr;
 		}*/
-		Game *oldGame = mEngine->getCurrentGame();
+		game::Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
-			GfxEngine::getEngine()->getGameLayer()->clear();
+			gfx::GfxEngine::getEngine()->getGameLayer()->clear();
 			oldGame->removeEventListener("startGame", this);
 			oldGame->deinit();
 		}
@@ -387,7 +386,7 @@ namespace sys {
 		}
 	}
 
-	void RougeSystem::onEvent(Event *e)
+	void RougeSystem::onEvent(ui::Event *e)
 	{
 		if (e->getType().compare("startGame") == 0)
 		{
@@ -397,7 +396,7 @@ namespace sys {
 
 	void RougeSystem::newGame()
 	{
-		MouseManager::getManager()->clearCurrentlyFiring();
+		ui::MouseManager::getManager()->clearCurrentlyFiring();
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
@@ -434,34 +433,34 @@ namespace sys {
 		}
 		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		StoreScreen *storeScreen = new StoreScreen();
+		ui::StoreScreen *storeScreen = new ui::StoreScreen();
 		storeScreen->setSize(360, 300);
-		Item *test = game->create<Item>("wooden:shield");
-		Store *store = new Store();
-		Character *owner = new Character();
+		game::Item *test = game->create<game::Item>("wooden:shield");
+		game::Store *store = new game::Store();
+		game::Character *owner = new game::Character();
 		store->setStoreOwner(owner);
 		store->createStoreInventory()->addItem(test);
 		storeScreen->setStore(store);
 		storeScreen->setBuyer(game->getMainCharacter());
 		//store->addStoreInventory(inv);
-		GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);
+		gfx::GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);
 
 		mPlayer = game->getMainCharacter();
 		if (!mPlayer->getDialogueComp())
 		{
-			mPlayer->setDialogueComp(new DialogueComponent());
+			mPlayer->setDialogueComp(new game::DialogueComponent());
 		}
 		
 		mPlayer->addEventListener("dialogue", this);
 		game->getCurrentMap()->calcAllTileEdgeValues();
 		game->getCurrentMap()->getTileRenderer()->updateAssetSprites();
 
-		PlayerController *controller = new PlayerController();
+		game::PlayerController *controller = new game::PlayerController();
 		mPlayer->setController(controller);
 
 		game->getCamera()->followObject(mPlayer.get());
 
-		GameHud *gameHud = Engine::getEngine()->getGameHud();
+		ui::GameHud *gameHud = game::Engine::getEngine()->getGameHud();
 		if (gameHud)
 		{
 			gameHud->getCharacterScreen()->setCharacter(mPlayer);
@@ -474,7 +473,7 @@ namespace sys {
 
 		game->onGameTick();
 	}
-	void RougeSystem::setCurrentMenu(UIComponent *menu)
+	void RougeSystem::setCurrentMenu(ui::UIComponent *menu)
 	{
 		if (mCurrentMenu.get())
 		{
@@ -501,10 +500,10 @@ namespace sys {
 
 	void RougeSystem::startEditor()
 	{
-		Game *game = new Game(mEngine);
+		game::Game *game = new game::Game(mEngine);
 		game->setEditorMode(true);
 		mEngine->setCurrentGame(game);
-		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
+		gfx::GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 		mEditorHud->setVisible(true);
 		mEditorHud->setInteractive(true);
 		mEditorHud->setGame(game);
@@ -512,7 +511,7 @@ namespace sys {
 		setCurrentMenu(nullptr);
 	}
 
-	TooltipItem *RougeSystem::getItemTooltip() const
+	gfx::TooltipItem *RougeSystem::getItemTooltip() const
 	{
 		return mItemTooltip;
 	}

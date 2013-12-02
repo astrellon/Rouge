@@ -2,13 +2,13 @@
 
 #include <string>
 
-
 namespace am {
 namespace log {
 
 	class Logger;
 
-	class LogEntry {
+	class LogEntry 
+	{
 	public:
 		LogEntry(const char *type, const char *message);
 		~LogEntry();

@@ -3,7 +3,8 @@
 namespace am {
 namespace gfx {
 
-	class TextureWindow {
+	class TextureWindow 
+	{
 	public:
 		TextureWindow();
 		~TextureWindow();

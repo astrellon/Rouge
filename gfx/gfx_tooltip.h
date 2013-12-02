@@ -5,14 +5,14 @@
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_layer.h>
-using namespace am::gfx;
 
 #include <string>
 
 namespace am {
 namespace gfx {
 
-	class Tooltip : public Layer {
+	class Tooltip : public Layer 
+	{
 	public:
 		Tooltip();
 		Tooltip(const Renderable *target);
@@ -21,7 +21,8 @@ namespace gfx {
 
 		virtual Renderable *clone() const;
 
-		enum TooltipState {
+		enum TooltipState 
+		{
 			HIDDEN, ACTIVE, VISIBLE, VISIBLE_DETAILED
 		};
 

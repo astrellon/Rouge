@@ -12,7 +12,8 @@ namespace sfx {
 
 	class Source;
 
-	class ISound : public base::IManaged {
+	class ISound : public base::IManaged 
+	{
 	public:
 
 		enum SpeakerInfo

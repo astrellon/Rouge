@@ -9,7 +9,8 @@
 namespace am {
 namespace sys {
 
-	class ISystem {
+	class ISystem
+	{
 	public:
 
 		typedef struct 

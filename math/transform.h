@@ -6,7 +6,8 @@
 namespace am {
 namespace math {
 
-	class Transform {
+	class Transform 
+	{
 	public:
 		Transform();
 		~Transform();

@@ -41,7 +41,7 @@ namespace game {
 	void Engine::init()
 	{
 		EventInterface *manager = new EventInterface();
-		GameObjectEvent::setManager(manager);
+		ui::GameObjectEvent::setManager(manager);
 
 		mTopLevelTileSet = new TileSet();
 	}
@@ -57,7 +57,7 @@ namespace game {
 		
 		mLua.close();
 
-		GameObjectEvent::setManager(nullptr);
+		ui::GameObjectEvent::setManager(nullptr);
 	}
 	void Engine::update(float dt)
 	{
@@ -69,21 +69,21 @@ namespace game {
 		}
 	}
 
-	Vector2f Engine::gridToWorld(const Vector2i &grid) const
+	math::Vector2f Engine::gridToWorld(const math::Vector2i &grid) const
 	{
-		return Vector2f(static_cast<float>(grid.x) * mGridSize, static_cast<float>(grid.y) * mGridSize);
+		return math::Vector2f(static_cast<float>(grid.x) * mGridSize, static_cast<float>(grid.y) * mGridSize);
 	}
-	Vector2f Engine::gridToWorld(int x, int y) const
+	math::Vector2f Engine::gridToWorld(int x, int y) const
 	{
-		return Vector2f(static_cast<float>(x) * mGridSize, static_cast<float>(y) * mGridSize);
+		return math::Vector2f(static_cast<float>(x) * mGridSize, static_cast<float>(y) * mGridSize);
 	}
-	Vector2i Engine::worldToGrid(const Vector2f &world) const
+	math::Vector2i Engine::worldToGrid(const Vector2f &world) const
 	{
-		return Vector2i(floor(world.x * mGridSizeResp), floor(world.y * mGridSizeResp));
+		return math::Vector2i(floor(world.x * mGridSizeResp), floor(world.y * mGridSizeResp));
 	}
-	Vector2i Engine::worldToGrid(float x, float y) const
+	math::Vector2i Engine::worldToGrid(float x, float y) const
 	{
-		return Vector2i(floor(x * mGridSizeResp), floor(y * mGridSizeResp));
+		return math::Vector2i(floor(x * mGridSizeResp), floor(y * mGridSizeResp));
 	}
 
 	void Engine::setCurrentGame(Game *game)

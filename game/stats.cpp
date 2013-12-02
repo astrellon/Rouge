@@ -214,8 +214,8 @@ namespace game {
 		mDirtyStats[stat] = true;
 		if (mAttachedTo)
 		{
-			base::Handle<StatEvent> e(new StatEvent(this, Stat::getStatType(stat)));
-			mAttachedTo->fireEvent<StatEvent>(e);
+			base::Handle<ui::StatEvent> e(new ui::StatEvent(this, Stat::getStatType(stat)));
+			mAttachedTo->fireEvent<ui::StatEvent>(e);
 		}
 	}
 	void Stats::setStatDirty(Stat::StatType stat)
@@ -223,8 +223,8 @@ namespace game {
 		mDirtyStats[stat] = true;
 		if (mAttachedTo)
 		{
-			base::Handle<StatEvent> e(new StatEvent(this, stat));
-			mAttachedTo->fireEvent<StatEvent>(e);
+			base::Handle<ui::StatEvent> e(new ui::StatEvent(this, stat));
+			mAttachedTo->fireEvent<ui::StatEvent>(e);
 		}
 	}
 

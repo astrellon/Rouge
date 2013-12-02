@@ -9,14 +9,13 @@
 #include <game/tile_instance.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <sstream>
 
 namespace am {
 namespace gfx {
 
-	TileRenderer::TileRenderer(Map *map) :
+	TileRenderer::TileRenderer(game::Map *map) :
 		mMap(map),
 		mEnabledMapCulling(true)
 	{
@@ -36,10 +35,9 @@ namespace gfx {
 	}
 	TileRenderer::~TileRenderer()
 	{
-		//for (auto iter
 		if (mMap)
 		{
-			Map *temp = mMap;
+			game::Map *temp = mMap;
 			mMap = NULL;
 			temp->release();
 		}
@@ -50,9 +48,9 @@ namespace gfx {
 		return new TileRenderer(*this);
 	}
 
-	void TileRenderer::setMap(Map *map)
+	void TileRenderer::setMap(game::Map *map)
 	{
-		base::Handle<Map> oldMap(mMap);
+		base::Handle<game::Map> oldMap(mMap);
 		if (mMap)
 		{
 			mMap->release();
@@ -63,7 +61,7 @@ namespace gfx {
 			map->retain();
 		}
 	}
-	Map *TileRenderer::getMap() const
+	game::Map *TileRenderer::getMap() const
 	{
 		return mMap;
 	}
@@ -96,7 +94,7 @@ namespace gfx {
 		int numTiles = mMap->getMapWidth() * mMap->getMapHeight();
 		float grid = Engine::getEngine()->getGridSize();
 
-		TileInstance *tiles = mMap->getTiles();
+		game::TileInstance *tiles = mMap->getTiles();
 
 		for (int i = 0; i < numTiles; i++)
 		{
@@ -117,7 +115,7 @@ namespace gfx {
 			}
 		}
 	}
-	void TileRenderer::updateAssetSprite(Tile *tile)
+	void TileRenderer::updateAssetSprite(game::Tile *tile)
 	{
 		if (!mMap || !tile || !tile->getGraphicAsset())
 		{
@@ -199,7 +197,7 @@ namespace gfx {
 			t = y * mapWidth + minX;
 			for (int x = minX; x < maxX; x++)
 			{
-				TileInstance &instance = tiles[t];
+				game::TileInstance &instance = tiles[t];
 				Asset *asset = instance.getTile()->getGraphicAsset();
 				if (asset == nullptr)
 				{
@@ -229,7 +227,7 @@ namespace gfx {
 						uint8_t value = instance.getTileEdgeValue(i);
 						if (value != 0)
 						{
-							Tile *overlapTile = tiles[t + offsets[i]].getTile();
+							game::Tile *overlapTile = tiles[t + offsets[i]].getTile();
 							const Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
 							if (!assets)
 							{

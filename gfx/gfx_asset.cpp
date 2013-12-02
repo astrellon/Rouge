@@ -6,7 +6,6 @@
 #include <log/logger.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <math/math.h>
 

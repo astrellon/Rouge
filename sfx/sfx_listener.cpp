@@ -69,15 +69,15 @@ namespace sfx {
 			alListener3f(AL_ORIENTATION, x, y, z);
 		}
 	}
-	Vector4f Listener::getPosition() const
+	math::Vector4f Listener::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector4f Listener::getVelocity() const
+	math::Vector4f Listener::getVelocity() const
 	{
 		return mVelocity;
 	}
-	Vector4f Listener::getOrientation() const
+	math::Vector4f Listener::getOrientation() const
 	{
 		return mOrientation;
 	}
@@ -109,15 +109,15 @@ namespace sfx {
 			alListener3f(AL_ORIENTATION, x, y, 0.0f);
 		}
 	}
-	Vector2f Listener::getPosition() const
+	math::Vector2f Listener::getPosition() const
 	{
 		return mPosition;
 	}
-	Vector2f Listener::getVelocity() const
+	math::Vector2f Listener::getVelocity() const
 	{
 		return mVelocity;
 	}
-	Vector2f Listener::getOrientation() const
+	math::Vector2f Listener::getOrientation() const
 	{
 		return mOrientation;
 	}

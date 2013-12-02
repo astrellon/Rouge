@@ -10,7 +10,8 @@
 namespace am {
 namespace log {
 
-	class FileLogListener : public ILogListener {
+	class FileLogListener : public ILogListener 
+	{
 	public:
 		FileLogListener(const char *file);
 		~FileLogListener();

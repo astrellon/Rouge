@@ -83,9 +83,9 @@ namespace tests {
 		am_equals(0, main->getLevel());
 		am_equals(0, main->getCoinPurse()->getCoin());
 
-		base::Handle<Event> startEvent(new Event("talk"));
-		main->fireEvent<Event>(startEvent);
-		main->fireEvent<Event>(startEvent);
+		base::Handle<ui::Event> startEvent(new ui::Event("talk"));
+		main->fireEvent<ui::Event>(startEvent);
+		main->fireEvent<ui::Event>(startEvent);
 
 		am_equals(1000, main->getExperience());
 		am_equals(1, main->getLevel());

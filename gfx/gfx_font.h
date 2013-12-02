@@ -16,7 +16,8 @@ namespace gfx {
 	class Texture;
 	class Asset;
 
-	class Font : public base::IManaged, public util::IDefinition {
+	class Font : public base::IManaged, public util::IDefinition 
+	{
 	public:
 		// GlFont methods
 		Font(const char *name);

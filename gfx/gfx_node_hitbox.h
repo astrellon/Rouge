@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include <gfx/gfx_renderable.h>
 
@@ -12,7 +11,8 @@ namespace gfx {
 
 	class Node;
 
-	class NodeHitbox : public IEventListener, public Renderable {
+	class NodeHitbox : public ui::IEventListener, public Renderable 
+	{
 	public:
 		NodeHitbox();
 		NodeHitbox(Node *node);
@@ -20,7 +20,7 @@ namespace gfx {
 		virtual void retain();
 		virtual ~NodeHitbox();
 
-		virtual void onEvent(MouseEvent *e);
+		virtual void onEvent(ui::MouseEvent *e);
 
 		virtual void setNodeTarget(Node *target);
 		virtual Node *getNodeTarget() const;

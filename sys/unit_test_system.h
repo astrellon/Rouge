@@ -14,20 +14,19 @@ namespace gfx {
 	class GfxEngine;
 	class Layer;
 }
-using namespace am::gfx;
 
 namespace ui {
 	class MouseManager;
 	class Image;
 	class UIComponent;
 }
-using namespace am::ui;
 
 namespace sys {
 
 	class OsSystem;
 
-	class UnitTestSystem : public GameSystem {
+	class UnitTestSystem : public GameSystem 
+	{
 	public:
 
 		~UnitTestSystem();
@@ -37,12 +36,12 @@ namespace sys {
 
 		virtual void onKeyUp(ui::Keyboard::Key key);
 
-		static UnitTestSystem *createUnitTestSystem(OsSystem *linked, Engine *engine);
+		static UnitTestSystem *createUnitTestSystem(OsSystem *linked, game::Engine *engine);
 		static UnitTestSystem *getUnitTestSystem();
 
 	protected:
 		
-		UnitTestSystem(OsSystem *linked, Engine *engine);
+		UnitTestSystem(OsSystem *linked, game::Engine *engine);
 		
 		static UnitTestSystem *sUnitTestSystem;
 	};

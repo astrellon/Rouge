@@ -15,7 +15,8 @@ namespace gfx {
 
 	class Asset;
 
-	class Scrollbar : public Layer, public ui::IEventListener {
+	class Scrollbar : public Layer, public ui::IEventListener 
+	{
 	public:
 		Scrollbar(const char *btnUpAsset, const char *btnDownAsset, const char *barAsset, const char *backAsset);
 		~Scrollbar();

@@ -8,7 +8,8 @@
 namespace am {
 namespace sfx {
 
-	class SoundWav : public ISound {
+	class SoundWav : public ISound 
+	{
 	public:
 
 		SoundWav();

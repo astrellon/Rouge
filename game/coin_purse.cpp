@@ -137,7 +137,7 @@ namespace game {
 		{
 			mCoin = coin;
 			Handle<ui::Event> e(new ui::Event("coin_change"));
-			fireEvent<Event>(e);
+			fireEvent<ui::Event>(e);
 		}
 	}
 }

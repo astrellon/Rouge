@@ -6,14 +6,14 @@
 #include <base/handle.h>
 
 #include <util/colour.h>
-using am::util::Colour;
 
 #include <gfx/gfx_effect.h>
 
 namespace am {
 namespace gfx {
 
-	class GfxComponent : public base::IManaged {
+	class GfxComponent : public base::IManaged 
+	{
 	public:
 
 		typedef std::vector< base::Handle<Effect> > EffectList;
@@ -22,8 +22,8 @@ namespace gfx {
 		GfxComponent(const GfxComponent &copy);
 		~GfxComponent();
 
-		virtual Colour &getColour();
-		virtual void setColour(const Colour &colour);
+		virtual util::Colour &getColour();
+		virtual void setColour(const util::Colour &colour);
 		virtual void setColour(float red, float green, float blue);
 		virtual void setColour(float red, float green, float blue, float alpha);
 		virtual void setAlpha(float alpha);
@@ -36,7 +36,7 @@ namespace gfx {
 
 	protected:
 
-		Colour mColour;
+		util::Colour mColour;
 		EffectList mEffects;
 		
 	};

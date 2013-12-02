@@ -14,7 +14,8 @@ namespace sfx {
 	class Source;
 	class SfxEngine;
 
-	class SoundOgg : public ISound {
+	class SoundOgg : public ISound
+	{
 	public:
 		
 		SoundOgg();

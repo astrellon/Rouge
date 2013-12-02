@@ -14,7 +14,8 @@
 namespace am {
 namespace gfx {
 
-	class Node : public base::IManaged, public TextStyleSelector {
+	class Node : public base::IManaged, public TextStyleSelector 
+	{
 	public:
 		typedef std::vector< base::Handle<Node> > NodeList;
 		typedef std::vector< base::Handle<NodeHitbox> > NodeHitboxList;

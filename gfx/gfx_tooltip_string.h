@@ -5,14 +5,14 @@
 #include <gfx/gfx_text_field2.h>
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_tooltip.h>
-using namespace am::gfx;
 
 #include <string>
 
 namespace am {
 namespace gfx {
 
-	class TooltipString : public Tooltip {
+	class TooltipString : public Tooltip
+	{
 	public:
 		TooltipString();
 		TooltipString(const char *tooltip, const char *detailed = nullptr, Renderable *target = nullptr);
