@@ -11,8 +11,8 @@ namespace tests {
 	bool TestItem::testSimple() 
 	{
 		base::Handle<game::Item> item1(new game::Item());
-		am_equalsStr("game::Item", item1->getFullItemName());
-		am_equalsStr("game::Item", item1->getItemName());
+		am_equalsStr("Item", item1->getFullItemName());
+		am_equalsStr("Item", item1->getItemName());
 		am_equalsStr("", item1->getPrefix());
 		am_equalsStr("", item1->getPostfix());
 

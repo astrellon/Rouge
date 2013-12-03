@@ -62,9 +62,9 @@ namespace tests {
 
 		store->setStoreOwner(owner);
 		am_equals(base::NO_INVENTORIES, store->sellItem(seller, testItem));
-		am_equals(base::NOT_ENOUGH_COIN, store->sellItem(seller, testItem, true));
+		am_equals(base::NOT_ENOUGH_COIN, store->sellItem(seller, testItem, 1.0f, true));
 		am_equals(0u, store->getStoreInventories().size());
-		am_equals(base::SUCCESS, store->sellItem(seller, testItem, true, true));
+		am_equals(base::SUCCESS, store->sellItem(seller, testItem, 1.0f, true, true));
 		am_equals(1u, store->getStoreInventories().size());
 		am_equals(true, store->getStoreInventories()[0]->hasItem(testItem));
 		
@@ -90,7 +90,7 @@ namespace tests {
 		am_equals(1u, store->getStoreInventories().size());
 		am_equals(base::NOT_ENOUGH_INVENTORY_SPACE, store->sellItem(seller, testItem2));
 		am_equals(1u, store->getStoreInventories().size());
-		am_equals(base::SUCCESS, store->sellItem(seller, testItem2, true));
+		am_equals(base::SUCCESS, store->sellItem(seller, testItem2, 1.0f, true));
 		am_equals(2u, store->getStoreInventories().size());
 		am_equals(30, owner->getCoinPurse()->getCoin());
 		am_equals(50, seller->getCoinPurse()->getCoin());
