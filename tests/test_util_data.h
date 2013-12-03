@@ -7,17 +7,20 @@
 namespace am {
 namespace tests {
 
-	class TestUtilData: public TestSuite {
+	class TestUtilData: public TestSuite
+	{
 	public:
 		TestUtilData() {}
 		~TestUtilData() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 			runCase(testFromLua);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::util::data::IData";
 		}
 

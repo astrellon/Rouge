@@ -7,16 +7,19 @@
 namespace am {
 namespace tests {
 
-	class TestPathTokeniser : public TestSuite {
+	class TestPathTokeniser : public TestSuite
+	{
 	public:
 		TestPathTokeniser() {}
 		~TestPathTokeniser() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::util::PathTokeniser";
 		}
 

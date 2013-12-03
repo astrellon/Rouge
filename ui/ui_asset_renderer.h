@@ -4,25 +4,25 @@
 
 #include <gfx/gfx_sprite.h>
 #include <gfx/gfx_asset.h>
-using namespace am::gfx;
 
 #include <ui/ui_component.h>
 
 namespace am {
 namespace ui {
 
-	class AssetRenderer : public UIComponent {
+	class AssetRenderer : public UIComponent 
+	{
 	public:
 		AssetRenderer();
-		AssetRenderer(Asset *asset);
+		AssetRenderer(gfx::Asset *asset);
 		~AssetRenderer();
 
-		void setAsset(Asset *asset);
-		Asset *getAsset();
+		void setAsset(gfx::Asset *asset);
+		gfx::Asset *getAsset();
 
 	protected:
 
-		base::Handle<Asset> mAsset;
+		base::Handle<gfx::Asset> mAsset;
 
 	};
 

@@ -5,13 +5,10 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/stat_modifiers.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_stat_modifiers.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -23,9 +20,10 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaStatModifiers::testSimple() {
-		LuaState lua;
-		StatModifiers mods;
+	bool TestLuaStatModifiers::testSimple()
+	{
+		lua::LuaState lua;
+		game::StatModifiers mods;
 		
 		int loadResult = lua.loadString(
 			"stats = am.stat_modifiers.new()\n"
@@ -102,9 +100,10 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaStatModifiers::testSimple2() {
-		LuaState lua;
-		StatModifiers mods;
+	bool TestLuaStatModifiers::testSimple2()
+	{
+		lua::LuaState lua;
+		game::StatModifiers mods;
 		
 		int loadResult = lua.loadString(
 			"mods = am.stat_modifiers.new()\n"
@@ -131,10 +130,10 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaStatModifiers::testMods() {
-
-		LuaState lua;
-		StatModifiers mods;
+	bool TestLuaStatModifiers::testMods()
+	{
+		lua::LuaState lua;
+		game::StatModifiers mods;
 		
 		int loadResult = lua.loadString(
 			"stats = am.stat_modifiers.new()\n"

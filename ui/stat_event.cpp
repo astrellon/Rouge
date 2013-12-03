@@ -1,12 +1,11 @@
 #include "stat_event.h"
 
 #include <game/stats.h>
-using namespace am::game;
 
 namespace am {
 namespace ui {
 
-	StatEvent::StatEvent(Stats *stats, Stat::StatType stat) :
+	StatEvent::StatEvent(game::Stats *stats, game::Stat::StatType stat) :
 		Event("stat_change"),
 		mStats(stats),
 		mStat(stat)
@@ -17,11 +16,11 @@ namespace ui {
 	{
 	}
 
-	Stats *StatEvent::getStats() const
+	game::Stats *StatEvent::getStats() const
 	{
 		return mStats;
 	}
-	Stat::StatType StatEvent::getStat() const
+	game::Stat::StatType StatEvent::getStat() const
 	{
 		return mStat;
 	}

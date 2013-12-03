@@ -5,7 +5,6 @@
 #include <vector>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <log/logger.h>
 
@@ -15,7 +14,8 @@ using namespace am::lua;
 namespace am {
 namespace util {
 
-	class IDefinitionManager {
+	class IDefinitionManager 
+	{
 	public:
 
 		bool loadDefinitionFile(const char *path, const char *filename);
@@ -30,7 +30,7 @@ namespace util {
 
 		virtual const char *getBaseDefinitionPath(int id) const = 0;
 
-		virtual LuaState &getLuaDefinition() const;
+		virtual lua::LuaState &getLuaDefinition() const;
 
 		bool _loadDefinitionFile(const char *filename);
 		

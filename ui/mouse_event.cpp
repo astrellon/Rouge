@@ -1,7 +1,6 @@
 #include "mouse_event.h"
 
 #include <gfx/gfx_renderable.h>
-using namespace am::gfx;
 
 namespace am {
 namespace ui {
@@ -19,7 +18,7 @@ namespace ui {
 		setType(Mouse::EventTypeNames[mouseType]);
 	}
 	MouseEvent::MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y,
-		Renderable *target, int localX, int localY) :
+			gfx::Renderable *target, int localX, int localY) :
 		Event(),
 		mMouseEventType(mouseType),
 		mMouseButton(mouseButton),
@@ -73,16 +72,16 @@ namespace ui {
 		return mLocalMouseY;
 	}
 
-	Renderable *MouseEvent::getTarget() const
+	gfx::Renderable *MouseEvent::getTarget() const
 	{
-		return dynamic_cast<Renderable *>(mEventTarget.get());
+		return dynamic_cast<gfx::Renderable *>(mEventTarget.get());
 	}
 
-	void MouseEvent::setOriginalTarget(Renderable *target)
+	void MouseEvent::setOriginalTarget(gfx::Renderable *target)
 	{
 		mOriginalTarget = target;
 	}
-	Renderable *MouseEvent::getOriginalTarget() const
+	gfx::Renderable *MouseEvent::getOriginalTarget() const
 	{
 		return mOriginalTarget;
 	}

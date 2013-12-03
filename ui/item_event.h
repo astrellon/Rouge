@@ -9,22 +9,22 @@ namespace game {
 	class Item;
 	class GameObject;
 }
-using namespace am::game;
 
 namespace ui {
 
-	class ItemEvent : public Event {
+	class ItemEvent : public Event
+	{
 	public:
-		ItemEvent(const char *type, Item *item, GameObject *extra = nullptr);
+		ItemEvent(const char *type, game::Item *item, game::GameObject *extra = nullptr);
 		~ItemEvent();
 
-		Item *getItem() const;
-		GameObject *getExtra() const;
+		game::Item *getItem() const;
+		game::GameObject *getExtra() const;
 
 	protected:
 
-		Item *mItem;
-		GameObject *mExtra;
+		game::Item *mItem;
+		game::GameObject *mExtra;
 	};
 
 }

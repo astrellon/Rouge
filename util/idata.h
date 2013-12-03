@@ -8,7 +8,6 @@
 #include <log/logger.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 namespace am {
 namespace util {
@@ -19,7 +18,8 @@ namespace data {
     class Table;
     class Boolean;
 
-	class IData : public base::IManaged {
+	class IData : public base::IManaged 
+	{
 	public:
 
 		virtual int type() const
@@ -59,7 +59,7 @@ namespace data {
 
 		virtual std::string toLua() const = 0;
 
-		static IData *fromLua(LuaState &lua, int n);
+		static IData *fromLua(lua::LuaState &lua, int n);
 
 		static IData *NIL;
 

@@ -7,14 +7,14 @@
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_scrollbar.h>
-using namespace am::gfx;
 
 #include "ui_component.h"
 
 namespace am {
 namespace ui {
 
-	class ListItem : public Layer, public IEventListener {
+	class ListItem : public gfx::Layer, public IEventListener
+	{
 	public:
 		ListItem();
 		~ListItem();
@@ -26,7 +26,8 @@ namespace ui {
 		int mIndex;
 	};
 
-	class List : public UIComponent, public IEventListener {
+	class List : public UIComponent, public IEventListener 
+	{
 	public:
 
 		typedef std::vector< base::Handle<ListItem> > ListItems;
@@ -57,8 +58,8 @@ namespace ui {
 		ListItems mItems;
 		int mItemDisplay;
 		int mScroll;
-		base::Handle<Scrollbar> mScrollbar;
-		base::Handle<Layer> mListRenderer;
+		base::Handle<gfx::Scrollbar> mScrollbar;
+		base::Handle<gfx::Layer> mListRenderer;
 
 		int findItem(ListItem *item) const;
 

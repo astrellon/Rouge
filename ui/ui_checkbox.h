@@ -12,14 +12,12 @@ namespace gfx {
 	class TextField;
 }
 
-using namespace am::gfx;
-
 namespace ui {
 
 	class Checkbox : public IEventListener, public UIComponent {
 	public:
 		Checkbox();
-		Checkbox(Asset *asset, const char *label);
+		Checkbox(gfx::Asset *asset, const char *label);
 		Checkbox(const char *assetName, const char *label);
 		~Checkbox();
 
@@ -27,8 +25,8 @@ namespace ui {
 		void setLabel(const std::string &label);
 		std::string getLabel() const;
 
-		TextField *getLabelField();
-		Sprite *getCheckGraphic();
+		gfx::TextField *getLabelField();
+		gfx::Sprite *getCheckGraphic();
 
 		virtual void onEvent(MouseEvent *e);
 
@@ -41,9 +39,9 @@ namespace ui {
 		virtual void setEnabled(bool enabled);
 	protected:
 
-		base::Handle<Sprite> mCheckGraphic;
-		base::Handle<TextField> mLabel;
-		base::Handle<Sprite> mHitbox;
+		base::Handle<gfx::Sprite> mCheckGraphic;
+		base::Handle<gfx::TextField> mLabel;
+		base::Handle<gfx::Sprite> mHitbox;
 		bool mSelected;
 
 		void init();

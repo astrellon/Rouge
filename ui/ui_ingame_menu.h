@@ -10,14 +10,14 @@ namespace am {
 namespace sys {
 	class RougeSystem;
 }
-using namespace am::sys;
 
 namespace ui {
 	class TextButton;
 
-	class IngameMenu : public UIComponent, public IEventListener {
+	class IngameMenu : public UIComponent, public IEventListener 
+	{
 	public:
-		IngameMenu(RougeSystem *system);
+		IngameMenu(sys::RougeSystem *system);
 		~IngameMenu();
 
 		virtual void onEvent(Event *e);
@@ -31,7 +31,7 @@ namespace ui {
 		base::Handle<TextButton> mToMainMenu;
 		base::Handle<TextButton> mQuit;
 
-		RougeSystem *mRougeSystem;
+		sys::RougeSystem *mRougeSystem;
 
 		void initButton(TextButton *btn);
 	};

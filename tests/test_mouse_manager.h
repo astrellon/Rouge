@@ -6,32 +6,35 @@
 
 #include <ui/ievent_listener.h>
 #include <ui/mouse_event.h>
-using namespace am::ui;
 
 namespace am {
 namespace tests {
 
-	class TestMouseManager : public TestSuite {
+	class TestMouseManager : public TestSuite
+	{
 	public:
 		TestMouseManager() {}
 		~TestMouseManager() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "ui::MouseManager";
 		}
 
 	protected:
 
-		class TestListener : public IEventListener {
+		class TestListener : public ui::IEventListener 
+		{
 		public:
 
-			virtual void onEvent(MouseEvent *e);
+			virtual void onEvent(ui::MouseEvent *e);
 
-			base::Handle<MouseEvent> lastEvent;
+			base::Handle<ui::MouseEvent> lastEvent;
 		};
 
 		bool testSimple();

@@ -14,11 +14,11 @@ namespace ui {
 
 	}
 
-	void FocusManager::setFocus(Renderable *renderable)
+	void FocusManager::setFocus(gfx::Renderable *renderable)
 	{
 		mCurrentFocus = renderable;
 	}
-	Renderable *FocusManager::getFocus() const
+	gfx::Renderable *FocusManager::getFocus() const
 	{
 		return mCurrentFocus;
 	}

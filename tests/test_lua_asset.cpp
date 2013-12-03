@@ -5,7 +5,6 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 extern "C" 
 { 
@@ -17,8 +16,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaAsset::testSimple() {
-		LuaState lua;
+	bool TestLuaAsset::testSimple()
+	{
+		lua::LuaState lua;
 		
 		bool loadResult = lua.loadString(
 			"asset = am.asset.new(\"cursor\")\n"

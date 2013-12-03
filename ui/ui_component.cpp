@@ -1,12 +1,12 @@
 #include "ui_component.h"
 
-#include "gfx/gfx_engine.h"
+#include <gfx/gfx_engine.h>
 
 namespace am {
 namespace ui {
 
 	UIComponent::UIComponent() :
-		Layer(),
+		gfx::Layer(),
 		mAnchorX(X_LEFT),
 		mAnchorY(Y_TOP),
 		mOffsetX(0.0f),
@@ -24,7 +24,7 @@ namespace ui {
 		setInteractive(true);
 	}
 	UIComponent::UIComponent(const UIComponent &copy) :
-		Layer(copy),
+		gfx::Layer(copy),
 		mAnchorX(copy.mAnchorX),
 		mAnchorY(copy.mAnchorY),
 		mOffsetX(copy.mOffsetX),
@@ -45,7 +45,7 @@ namespace ui {
 	{
 	}
 
-	Renderable *UIComponent::clone() const
+	gfx::Renderable *UIComponent::clone() const
 	{
 		return new UIComponent(*this);
 	}
@@ -148,7 +148,7 @@ namespace ui {
 		{
 			return mParent->getWidth();
 		}
-		return static_cast<float>(GfxEngine::getEngine()->getScreenWidth());
+		return static_cast<float>(gfx::GfxEngine::getEngine()->getScreenWidth());
 	}
 	float UIComponent::getParentHeight()
 	{
@@ -156,7 +156,7 @@ namespace ui {
 		{
 			return mParent->getHeight();
 		}
-		return static_cast<float>(GfxEngine::getEngine()->getScreenHeight());
+		return static_cast<float>(gfx::GfxEngine::getEngine()->getScreenHeight());
 	}
 
 	void UIComponent::preRender(float dt)
@@ -206,7 +206,7 @@ namespace ui {
 		top += mOffsetY;
 		setPosition(parentLeft - left, parentTop - top);
 
-		Layer::preRender(dt);
+		gfx::Layer::preRender(dt);
 	}
 
 	bool UIComponent::isInteractive() const

@@ -5,15 +5,12 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/tile.h>
 #include <game/tile_type.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_tile_type.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -25,8 +22,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaTile::testSimple() {
-		LuaState lua;
+	bool TestLuaTile::testSimple()
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString(
 			"tile = am.tile.new(\"testTile\")\n"
@@ -85,8 +83,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaTile::testTileTypes() {
-		LuaState lua;
+	bool TestLuaTile::testTileTypes()
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString(
 			"tile = am.tile.new(\"testTile2\")\n"
@@ -106,11 +105,11 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("hasTileType"));
 
-		base::Handle<TileType> type(new TileType("superType", "Super Type"));
-		Engine::getEngine()->addTileType(type);
+		base::Handle<game::TileType> type(new game::TileType("superType", "Super Type"));
+		game::Engine::getEngine()->addTileType(type);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
-		wrapObject<TileType>(lua, type);
+		lua::wrapObject<game::TileType>(lua, type);
 		lua_acall(lua, 1, 1);
 		assert(!lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -122,11 +121,11 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
-		wrapObject<TileType>(lua, type);
+		lua::wrapObject<game::TileType>(lua, type);
 		lua_acall(lua, 1, 0);
 		
 		assert(lua.hasGlobalFunction("hasTileType"));
-		wrapObject<TileType>(lua, type);
+		lua::wrapObject<game::TileType>(lua, type);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -148,7 +147,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTileType"));
-		wrapObject<TileType>(lua, type);
+		lua::wrapObject<game::TileType>(lua, type);
 		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("hasTileType"));
@@ -169,8 +168,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaTile::testTileTypes2() {
-		LuaState lua;
+	bool TestLuaTile::testTileTypes2()
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"tile = am.tile.new(\"testTileTypes2\")\n"
@@ -193,8 +193,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaTile::testTransitional() {
-		LuaState lua;
+	bool TestLuaTile::testTransitional()
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"tile = am.tile.new(\"testTransitional\")\n"

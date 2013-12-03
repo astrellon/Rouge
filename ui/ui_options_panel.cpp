@@ -12,7 +12,7 @@
 namespace am {
 namespace ui {
 
-	OptionsPanel::OptionsPanel(RougeSystem *system) :
+	OptionsPanel::OptionsPanel(sys::RougeSystem *system) :
 		UIComponent(),
 		mRougeSystem(system),
 		mFullscreen(new Checkbox("ui:checkbox", "Fullscreen")),
@@ -21,7 +21,7 @@ namespace ui {
 		mBackground(new Image("ui:big_button"))
 	{
 		addChild(mBackground);
-		mBackground->setGfxComponent(new GfxComponent());
+		mBackground->setGfxComponent(new gfx::GfxComponent());
 		mBackground->getGfxComponent()->setAlpha(0.5f);
 		addChild(mFullscreen.get());
 		addChild(mApply.get());

@@ -1021,10 +1021,10 @@ namespace game {
 		{
 			if (lua_gettop(lua) == 1)
 			{
-				Sprite *dead = game->getGenericDeadGraphic();
+				gfx::Sprite *dead = game->getGenericDeadGraphic();
 				if (dead)
 				{
-					wrapRefObject<Sprite>(lua, dead);
+					lua::wrapRefObject<gfx::Sprite>(lua, dead);
 				}
 				else
 				{
@@ -1037,7 +1037,7 @@ namespace game {
 				bool valid = false;
 				if (lua_isstr(lua, 2))
 				{
-					game->setGenericDeadGraphic(new Sprite(lua_tostring(lua, 2)));
+					game->setGenericDeadGraphic(new gfx::Sprite(lua_tostring(lua, 2)));
 					valid = true;
 				}
 				else if (lua_isnil(lua, 2))
@@ -1047,7 +1047,7 @@ namespace game {
 				}
 				else
 				{
-					Sprite *sprite = castUData<Sprite>(lua, 2);
+					gfx::Sprite *sprite = lua::castUData<gfx::Sprite>(lua, 2);
 					if (sprite)
 					{
 						game->setGenericDeadGraphic(sprite);
@@ -1098,7 +1098,7 @@ namespace game {
 		}
 		else if (lua_isuserdata(lua, n))
 		{
-			Character *obj = castUData<Character>(lua, n);
+			Character *obj = lua::castUData<Character>(lua, n);
 			if (obj)
 			{
 				return obj;

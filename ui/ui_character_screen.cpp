@@ -13,7 +13,7 @@ namespace ui {
 		mTextDirty(true)
 	{
 		setName("CharacterScreen");
-		mInfo = new TextField2();
+		mInfo = new gfx::TextField2();
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);
@@ -77,7 +77,7 @@ namespace ui {
 		}
 	}
 
-	void CharacterScreen::setCharacter(Character *character)
+	void CharacterScreen::setCharacter(game::Character *character)
 	{
 		if (character != mCharacter)
 		{
@@ -113,7 +113,7 @@ namespace ui {
 			mLegs->setCharacter(character);
 		}
 	}
-	Character *CharacterScreen::getCharacter()
+	game::Character *CharacterScreen::getCharacter()
 	{
 		return mCharacter;
 	}
@@ -129,7 +129,7 @@ namespace ui {
 		mInfo->setHeight(mHeight - 28);
 	}
 
-	TextField2 *CharacterScreen::getTextField()
+	gfx::TextField2 *CharacterScreen::getTextField()
 	{
 		return mInfo;
 	}

@@ -64,7 +64,7 @@ namespace sys {
 	{
 		GameSystem::init();
 		
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		gfx::GfxEngine *gfxEngine = gfx::GfxEngine::getEngine();
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
 

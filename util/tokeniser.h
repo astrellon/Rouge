@@ -8,17 +8,18 @@ namespace util {
 	// A tokeniser for JSON, worked for most things except Unicode
 	// and is currently unused since the move to Lua.
 
-class Tokeniser {
-public:
-	Tokeniser(const char *str);
-	~Tokeniser();
+	class Tokeniser
+	{
+	public:
+		Tokeniser(const char *str);
+		~Tokeniser();
 
-	const char *nextToken();
+		const char *nextToken();
 	
-private:
-	const char *ctok;
-	char tokBuff[512];
-};
+	private:
+		const char *ctok;
+		char tokBuff[512];
+	};
 
 }
 }

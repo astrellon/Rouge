@@ -3,7 +3,7 @@
 namespace am {
 namespace ui {
 
-	FocusEvent::FocusEvent(FocusEventType type, Renderable *target) :
+	FocusEvent::FocusEvent(FocusEventType type, gfx::Renderable *target) :
 		Event(type == FOCUS ? "focus" : "blur"),
 		mFocusEventType(type),
 		mTarget(target)
@@ -19,7 +19,7 @@ namespace ui {
 	{
 		return mFocusEventType;
 	}
-	Renderable *FocusEvent::getTarget() const
+	gfx::Renderable *FocusEvent::getTarget() const
 	{
 		return mTarget;
 	}

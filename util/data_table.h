@@ -12,7 +12,8 @@ namespace am {
 namespace util {
 namespace data {
 
-	class Table : public IData {
+	class Table : public IData 
+	{
 	public:
 
 		typedef std::map<std::string, base::Handle<IData> > Map_internal;

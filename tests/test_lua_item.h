@@ -13,17 +13,20 @@ extern "C"
 namespace am {
 namespace tests {
 
-	class TestLuaItem : public TestSuite {
+	class TestLuaItem : public TestSuite
+	{
 	public:
 		TestLuaItem() {}
 		~TestLuaItem() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 			runCase(testBodyPartTypes);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::lua::game::Item";
 		}
 

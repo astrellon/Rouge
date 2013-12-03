@@ -5,16 +5,19 @@
 namespace am {
 namespace tests {
 
-	class TestUtils: public TestSuite {
+	class TestUtils: public TestSuite 
+	{
 	public:
 		TestUtils() {}
 		~TestUtils() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testVectorFind);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::util::Utils";
 		}
 

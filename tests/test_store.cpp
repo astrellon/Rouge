@@ -12,16 +12,16 @@ namespace tests {
 
 	bool TestStore::testBuy()
 	{
-		base::Handle<Store> store(new Store());
-		base::Handle<Inventory> storeInv(new Inventory(10, 10));
-		base::Handle<Item> testItem(new Item());
+		base::Handle<game::Store> store(new game::Store());
+		base::Handle<game::Inventory> storeInv(new game::Inventory(10, 10));
+		base::Handle<game::Item> testItem(new game::Item());
 		testItem->setInventorySize(2, 2);
 		testItem->setItemValue(50);
 		storeInv->addItem(testItem);
 		am_equals(true, storeInv->hasItem(testItem));
 
-		base::Handle<Character> owner(new Character());
-		base::Handle<Character> buyer(new Character());
+		base::Handle<game::Character> owner(new game::Character());
+		base::Handle<game::Character> buyer(new game::Character());
 		am_equals(base::NULL_PARAMETER, store->buyItem(nullptr, nullptr));
 		am_equals(base::NULL_PARAMETER, store->buyItem(nullptr, testItem));
 		am_equals(base::NULL_PARAMETER, store->buyItem(buyer, nullptr));
@@ -48,13 +48,13 @@ namespace tests {
 
 	bool TestStore::testSell()
 	{
-		base::Handle<Store> store(new Store());
-		base::Handle<Item> testItem(new Item());
+		base::Handle<game::Store> store(new game::Store());
+		base::Handle<game::Item> testItem(new game::Item());
 		testItem->setInventorySize(2, 2);
 		testItem->setItemValue(50);
 		
-		base::Handle<Character> owner(new Character());
-		base::Handle<Character> seller(new Character());
+		base::Handle<game::Character> owner(new game::Character());
+		base::Handle<game::Character> seller(new game::Character());
 		am_equals(base::NULL_PARAMETER, store->sellItem(nullptr, nullptr));
 		am_equals(base::NULL_PARAMETER, store->sellItem(nullptr, testItem));
 		am_equals(base::NULL_PARAMETER, store->sellItem(seller, nullptr));
@@ -73,20 +73,20 @@ namespace tests {
 
 	bool TestStore::testSell2()
 	{
-		base::Handle<Store> store(new Store());
+		base::Handle<game::Store> store(new game::Store());
 		store->setDefaultInventorySize(3, 2);
-		base::Handle<Inventory> storeInv(store->createStoreInventory());
-		base::Handle<Item> testItem(new Item());
+		base::Handle<game::Inventory> storeInv(store->createStoreInventory());
+		base::Handle<game::Item> testItem(new game::Item());
 		testItem->setInventorySize(2, 2);
 		testItem->setItemValue(50);
 		storeInv->addItem(testItem);
 
-		base::Handle<Character> owner(new Character());
-		base::Handle<Character> seller(new Character());
+		base::Handle<game::Character> owner(new game::Character());
+		base::Handle<game::Character> seller(new game::Character());
 		store->setStoreOwner(owner);
 		owner->getCoinPurse()->setCoin(80);
 		
-		base::Handle<Item> testItem2(new Item(*testItem));
+		base::Handle<game::Item> testItem2(new game::Item(*testItem));
 		am_equals(1u, store->getStoreInventories().size());
 		am_equals(base::NOT_ENOUGH_INVENTORY_SPACE, store->sellItem(seller, testItem2));
 		am_equals(1u, store->getStoreInventories().size());

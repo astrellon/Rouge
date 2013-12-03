@@ -1,12 +1,11 @@
 #include "dialogue_event.h"
 
 #include <game/game_object.h>
-using namespace am::game;
 
 namespace am {
 namespace ui {
 
-	DialogueEvent::DialogueEvent(Dialogue *dialogue, bool addIdToEvent) :
+	DialogueEvent::DialogueEvent(game::Dialogue *dialogue, bool addIdToEvent) :
 		Event(),
 		mDialogue(dialogue)
 	{
@@ -22,17 +21,17 @@ namespace ui {
 	{
 	}
 
-	Dialogue *DialogueEvent::getDialogue() const
+	game::Dialogue *DialogueEvent::getDialogue() const
 	{
 		return mDialogue;
 	}
-	GameObject *DialogueEvent::getTalker() const
+	game::GameObject *DialogueEvent::getTalker() const
 	{
-		return dynamic_cast<GameObject *>(mEventTarget.get());
+		return dynamic_cast<game::GameObject *>(mEventTarget.get());
 	}
-	GameObject *DialogueEvent::getTalkedTo() const
+	game::GameObject *DialogueEvent::getTalkedTo() const
 	{
-		GameObject *talker = getTalker();
+		game::GameObject *talker = getTalker();
 		if (talker && talker->getDialogueComp())
 		{
 			return talker->getDialogueComp()->getTalkingTo();

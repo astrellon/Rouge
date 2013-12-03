@@ -35,14 +35,14 @@ namespace tests {
 	bool TestLuaQuest::testSimple() {
 		LuaState lua;
 
-		Engine *prevEng = Engine::getEngine();
-		Engine *eng = new Engine();
-		Engine::setEngine(eng);
+		game::Engine *prevEng = game::Engine::getEngine();
+		game::Engine *eng = new game::Engine();
+		game::Engine::setEngine(eng);
 
-		base::Handle<Game> game(new Game(eng));
+		base::Handle<game::Game> game(new game::Game(eng));
 		eng->setCurrentGame(game);
 
-		base::Handle<Character> main(new Character());
+		base::Handle<game::Character> main(new game::Character());
 		main->setGameId("testMainChar");
 		game->setMainCharacter(main);
 
@@ -76,7 +76,7 @@ namespace tests {
 		lua_Debug ar;
 		lua_getstack(lua, 1, &ar);
 
-		Quest *quest = Engine::getGame()->getQuest("testQuest");
+		game::Quest *quest = game::Engine::getGame()->getQuest("testQuest");
 		assert(!quest->isCompleted());
 		
 		am_equals(0, main->getExperience());
@@ -92,7 +92,7 @@ namespace tests {
 		am_equals(50, main->getCoinPurse()->getCoin());
 		am_equals(true, quest->isCompleted());
 
-		Engine::setEngine(prevEng);
+		game::Engine::setEngine(prevEng);
 
 		delete eng;
 

@@ -11,7 +11,8 @@ namespace game {
 
 namespace ui {
 
-	class InventoryEvent : public Event {
+	class InventoryEvent : public Event
+	{
 	public:
 		InventoryEvent(Inventory::EventType type, game::Inventory *target);
 		InventoryEvent(Inventory::EventType type, game::Inventory *target, game::Item *item);

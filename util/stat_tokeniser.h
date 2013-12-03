@@ -5,7 +5,8 @@
 namespace am {
 namespace util {
 
-	class StatTokeniser {
+	class StatTokeniser
+	{
 	public:
 		StatTokeniser(const char *input, const char *delims);
 		~StatTokeniser();

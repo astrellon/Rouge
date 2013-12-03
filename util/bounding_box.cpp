@@ -17,7 +17,7 @@ namespace util {
 
 	}
 
-	bool BoundingBox::isWithin(const Vector4f &point) const
+	bool BoundingBox::isWithin(const math::Vector4f &point) const
 	{
 		return point.x >= mMin.x && point.y >= mMin.y &&
 			point.x <= mMax.x && point.y <= mMax.y;
@@ -41,16 +41,16 @@ namespace util {
 		return mMax.y - mMin.y;
 	}
 
-	Vector4f BoundingBox::getMin() const
+	math::Vector4f BoundingBox::getMin() const
 	{
 		return mMin;
 	}
-	Vector4f BoundingBox::getMax() const
+	math::Vector4f BoundingBox::getMax() const
 	{
 		return mMax;
 	}
 
-	void BoundingBox::expandToInclude(const Vector4f &point)
+	void BoundingBox::expandToInclude(const math::Vector4f &point)
 	{
 		mMin.x = _min(mMin.x, point.x);
 		mMin.y = _min(mMin.y, point.y);

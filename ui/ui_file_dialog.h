@@ -13,7 +13,8 @@
 namespace am {
 namespace ui {
 
-	class FileDialog : public Panel {
+	class FileDialog : public Panel
+	{
 	public:
 		FileDialog(const char *folder, const char *title);
 		~FileDialog();

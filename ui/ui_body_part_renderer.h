@@ -12,7 +12,8 @@
 namespace am {
 namespace ui {
 
-	class BodyPartRenderer : public IEventListener, public UIComponent {
+	class BodyPartRenderer : public IEventListener, public UIComponent 
+	{
 	public:
 		BodyPartRenderer(short width, short height, const char *bodyPartName);
 		~BodyPartRenderer();
@@ -29,9 +30,6 @@ namespace ui {
 
 		virtual void setBodyPartName(const char *partName);
 		virtual const char *getBodyPartName() const;
-
-		// Layer methods
-		//virtual bool interactWithLayer() const;
 
 		// Renderable methods
 		virtual void preRender(float dt);

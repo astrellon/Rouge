@@ -6,7 +6,8 @@ namespace am {
 namespace util {
 namespace data {
 
-	class Boolean : public IData {
+	class Boolean : public IData
+	{
 	public:
 
 		Boolean();

@@ -10,7 +10,8 @@ namespace util {
 	// For parsing strings like
 	// "Hello there <name character='main'>Player Name</name>, how are you?"
 
-	class TextTokeniser {
+	class TextTokeniser
+	{
 	public:
 		TextTokeniser(const char *str);
 		~TextTokeniser();

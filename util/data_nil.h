@@ -6,7 +6,8 @@ namespace am {
 namespace util {
 namespace data {
 
-	class Nil : public IData {
+	class Nil : public IData 
+	{
 	public:
 
 		Nil();

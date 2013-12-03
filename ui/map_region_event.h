@@ -13,18 +13,19 @@ using namespace am::game;
 
 namespace ui {
 
-	class MapRegionEvent : public Event {
+	class MapRegionEvent : public Event
+	{
 	public:
-		MapRegionEvent(const char *type, MapRegion *region, GameObject *obj);
+		MapRegionEvent(const char *type, game::MapRegion *region, game::GameObject *obj);
 		~MapRegionEvent();
 
-		MapRegion *getMapRegion() const;
-		GameObject *getGameObject() const;
+		game::MapRegion *getMapRegion() const;
+		game::GameObject *getGameObject() const;
 
 	protected:
 
-		MapRegion *mMapRegion;
-		GameObject *mGameObject;
+		game::MapRegion *mMapRegion;
+		game::GameObject *mGameObject;
 
 	};
 

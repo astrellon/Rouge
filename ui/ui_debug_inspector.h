@@ -3,7 +3,6 @@
 #include <base/handle.h>
 
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include <vector>
 #include <map>
@@ -14,12 +13,13 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class DebugInspector : public Panel {
+	class DebugInspector : public Panel 
+	{
 	public:
 		DebugInspector();
 		~DebugInspector();
 
-		virtual TextField2 *getTextField();
+		virtual gfx::TextField2 *getTextField();
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
@@ -37,7 +37,7 @@ namespace ui {
 	protected:
 
 		std::map<std::string, std::string> mValues;
-		base::Handle<TextField2> mInfo;
+		base::Handle<gfx::TextField2> mInfo;
 
 		bool mTextDirty;
 		void updateText();

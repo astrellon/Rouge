@@ -5,17 +5,20 @@
 namespace am {
 namespace tests {
 
-	class TestLevelable : public TestSuite {
+	class TestLevelable : public TestSuite 
+	{
 	public:
 		TestLevelable() {}
 		~TestLevelable() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 			runCase(testMaxLevel);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::game::Levelable";
 		}
 

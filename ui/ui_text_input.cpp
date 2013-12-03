@@ -6,7 +6,6 @@
 #include <log/logger.h>
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <gfx/gfx_texture.h>
 
@@ -19,7 +18,7 @@ namespace ui {
 		UIComponent(),
 		mFocus(false),
 		mInputPosition(0),
-		mText(new TextField()),
+		mText(new gfx::TextField()),
 		mMaxCharacters(0),
 		mRestriction(NONE)
 	{
@@ -39,7 +38,7 @@ namespace ui {
 		mMaxCharacters(copy.mMaxCharacters),
 		mRestriction(copy.mRestriction)
 	{
-		mText = dynamic_cast<TextField *>(mChildren[0].get());
+		mText = dynamic_cast<gfx::TextField *>(mChildren[0].get());
 		mText->addEventListener(Mouse::MOUSE_DOWN, this);
 		MouseManager::getManager()->addEventListener(Mouse::MOUSE_DOWN, this);
 	}
@@ -49,7 +48,7 @@ namespace ui {
 		MouseManager::getManager()->removeEventListener(Mouse::MOUSE_DOWN, this);
 	}
 
-	Renderable *TextInput::clone() const
+	gfx::Renderable *TextInput::clone() const
 	{
 		return new TextInput(*this);
 	}
@@ -60,7 +59,7 @@ namespace ui {
 		{
 			return;
 		}
-		TextField *target = dynamic_cast<TextField *>(e->getOriginalTarget());
+		gfx::TextField *target = dynamic_cast<gfx::TextField *>(e->getOriginalTarget());
 		setFocus(target == mText);
 	}
 
@@ -85,7 +84,7 @@ namespace ui {
 
 				if (ctrlDown)
 				{
-					int count = Utils::countWordLetters(getText(), mInputPosition, false);
+					int count = util::Utils::countWordLetters(getText(), mInputPosition, false);
 					if (count != 0)
 					{
 						str.erase(mInputPosition + count, -count);
@@ -114,7 +113,7 @@ namespace ui {
 
 				if (ctrlDown)
 				{
-					int count = Utils::countWordLetters(getText(), mInputPosition, true);
+					int count = util::Utils::countWordLetters(getText(), mInputPosition, true);
 					if (count != 0)
 					{
 						str.erase(mInputPosition, count);
@@ -165,7 +164,7 @@ namespace ui {
 			{
 				if (ctrlDown)
 				{
-					int count = Utils::countWordLetters(getText(), mInputPosition, false);
+					int count = util::Utils::countWordLetters(getText(), mInputPosition, false);
 					if (count != 0)
 					{
 						updateInputCursor(count);
@@ -179,7 +178,7 @@ namespace ui {
 			{
 				if (ctrlDown)
 				{
-					int count = Utils::countWordLetters(getText(), mInputPosition, true);
+					int count = util::Utils::countWordLetters(getText(), mInputPosition, true);
 					if (count != 0)
 					{
 						updateInputCursor(count);
@@ -329,7 +328,7 @@ namespace ui {
 		return mRestriction;
 	}
 
-	TextField *TextInput::getTextField()
+	gfx::TextField *TextInput::getTextField()
 	{
 		return mText.get();
 	}
@@ -405,7 +404,7 @@ namespace ui {
 	void TextInput::preRender(float dt)
 	{
 		UIComponent::preRender(dt);
-		Texture::bindTexture(0);
+		gfx::Texture::bindTexture(0);
 		glBegin(GL_QUADS);
 			glColor4d(0.2, 0.2, 0.2, mFocus ? 0.4 : 0.2);
 			glVertex2f(0.0f, 0.0f);

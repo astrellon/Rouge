@@ -12,7 +12,8 @@
 namespace am {
 namespace ui {
 
-	class InventoryRenderer : public IEventListener, public UIComponent {
+	class InventoryRenderer : public IEventListener, public UIComponent 
+	{
 	public:
 		InventoryRenderer();
 		~InventoryRenderer();

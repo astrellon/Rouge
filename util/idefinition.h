@@ -5,7 +5,8 @@
 namespace am {
 namespace util {
 
-	class IDefinition {
+	class IDefinition 
+	{
 	public :
 
 		void setLoadedName(const char *name);

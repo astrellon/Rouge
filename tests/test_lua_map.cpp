@@ -5,15 +5,12 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/tile.h>
 #include <game/map.h>
 #include <game/tile_instance.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_map.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -25,8 +22,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaMap::testSimple() {
-		LuaState lua;
+	bool TestLuaMap::testSimple() 
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"local result = loadfile(\"data\\\\tileTypes.lua\")\n"
@@ -66,7 +64,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("getMap"));
 		lua_acall(lua, 0, 1);
-		Map *map = castUData<Map>(lua, -1);
+		game::Map *map = lua::castUData<game::Map>(lua, -1);
 		assert(map != nullptr);
 
 		am_equals(6, map->getMapWidth());

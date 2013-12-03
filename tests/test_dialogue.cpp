@@ -13,31 +13,31 @@ namespace tests {
 
 	bool TestDialogue::testSimple() 
 	{
-		Game *game = new Game();
-		Engine::getEngine()->setCurrentGame(game);
+		game::Game *game = new game::Game();
+		game::Engine::getEngine()->setCurrentGame(game);
 
-		Dialogue *testDiag = new Dialogue("diag1", "Hello there, my name is", "Greetings", "greeting", Dialogue::UNLOCK_NONE);
+		game::Dialogue *testDiag = new game::Dialogue("diag1", "Hello there, my name is", "Greetings", "greeting", game::Dialogue::UNLOCK_NONE);
 		am_equalsStr("diag1", testDiag->getId());
 		am_equalsStr("Hello there, my name is", testDiag->getText());
 		am_equalsStr("Greetings", testDiag->getTitle());
 		am_equalsStr("greeting", testDiag->getSubject());
-		assert(Dialogue::UNLOCK_NONE == testDiag->getUnlockFlag());
+		assert(game::Dialogue::UNLOCK_NONE == testDiag->getUnlockFlag());
 
 		game->removeAllDialogue();
 		game->addDialogue(testDiag);
 
-		Dialogue *testDiag2 = new Dialogue("diag2", "My name is Melli", "Name", "name", Dialogue::UNLOCK_LOCKED);
+		game::Dialogue *testDiag2 = new game::Dialogue("diag2", "My name is Melli", "Name", "name", game::Dialogue::UNLOCK_LOCKED);
 		game->addDialogue(testDiag2);
 
-		base::Handle<Character> testNPC(new Character());
+		base::Handle<game::Character> testNPC(new game::Character());
 		testNPC->setDialogueComp(new DialogueComponent());
 		testNPC->getDialogueComp()->setDialogueAvailable("diag1");
 		testNPC->getDialogueComp()->setDialogueAvailable("diag2");
 
-		base::Handle<Character> testPlayer(new Character());
+		base::Handle<game::Character> testPlayer(new game::Character());
 		testPlayer->setDialogueComp(new DialogueComponent());
 
-		std::vector<Dialogue *> dialogues;
+		std::vector<game::Dialogue *> dialogues;
 		game->getAvailableDialogues(dialogues, testPlayer, testNPC);
 
 		am_equals(1u, dialogues.size());

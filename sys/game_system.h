@@ -88,7 +88,7 @@ namespace sys {
 		static GameSystem *createGameSystem(OsSystem *linked, Engine *engine);
 		static GameSystem *getGameSystem();
 
-		TextList *getDebugConsole();
+		gfx::TextList *getDebugConsole();
 
 	protected:
 

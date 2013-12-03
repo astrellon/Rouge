@@ -1,12 +1,10 @@
 #pragma once
 
 #include <game/character.h>
-using namespace am::game;
 
 #include <base/handle.h>
 
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include <ui/ui_panel.h>
 #include <ui/ui_inventory_renderer.h>
@@ -15,15 +13,16 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class CharacterScreen : public Panel {
+	class CharacterScreen : public Panel 
+	{
 	public:
 		CharacterScreen();
 		~CharacterScreen();
 
-		virtual TextField2 *getTextField();
+		virtual gfx::TextField2 *getTextField();
 
-		virtual void setCharacter(Character *character);
-		virtual Character *getCharacter();
+		virtual void setCharacter(game::Character *character);
+		virtual game::Character *getCharacter();
 
 		virtual void setTextDirty();
 
@@ -38,8 +37,8 @@ namespace ui {
 
 	protected:
 
-		base::Handle<TextField2> mInfo;
-		base::Handle<Character> mCharacter;
+		base::Handle<gfx::TextField2> mInfo;
+		base::Handle<game::Character> mCharacter;
 		base::Handle<InventoryRenderer> mInventory;
 		base::Handle<BodyPartRenderer> mLeftHand;
 		base::Handle<BodyPartRenderer> mRightHand;

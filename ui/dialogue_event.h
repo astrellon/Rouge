@@ -9,22 +9,22 @@ namespace game {
 	class Dialogue;
 	class GameObject;
 }
-using namespace am::game;
 
 namespace ui {
 
-	class DialogueEvent : public Event {
+	class DialogueEvent : public Event
+	{
 	public:
-		DialogueEvent(Dialogue *dialogue, bool addIdToEvent);
+		DialogueEvent(game::Dialogue *dialogue, bool addIdToEvent);
 		~DialogueEvent();
 
-		Dialogue *getDialogue() const;
-		GameObject *getTalker() const;
-		GameObject *getTalkedTo() const;
+		game::Dialogue *getDialogue() const;
+		game::GameObject *getTalker() const;
+		game::GameObject *getTalkedTo() const;
 
 	protected:
 
-		Dialogue *mDialogue;
+		game::Dialogue *mDialogue;
 
 	};
 

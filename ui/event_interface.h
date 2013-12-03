@@ -15,7 +15,8 @@
 namespace am {
 namespace ui {
 
-	class EventInterface : public virtual base::IManaged {
+	class EventInterface : public virtual base::IManaged
+	{
 	public:
 
 		EventInterface();

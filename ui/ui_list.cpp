@@ -33,11 +33,11 @@ namespace ui {
 		UIComponent(),
 		mItemDisplay(0),
 		mScroll(0),
-		mScrollbar(new Scrollbar("ui:scrollbar_up", "ui:scrollbar_down", "ui:scrollbar_bar", "ui:scrollbar_back")),
-		mListRenderer(new Layer())
+		mScrollbar(new gfx::Scrollbar("ui:scrollbar_up", "ui:scrollbar_down", "ui:scrollbar_bar", "ui:scrollbar_back")),
+		mListRenderer(new gfx::Layer())
 	{
 		addChild(mScrollbar);
-		mScrollbar->addEventListener(Scrollbar::SCROLL_VALUE_CHANGE, this);
+		mScrollbar->addEventListener(gfx::Scrollbar::SCROLL_VALUE_CHANGE, this);
 		addChild(mListRenderer);
 		mListRenderer->setInteractive(true);
 	}
@@ -203,14 +203,14 @@ namespace ui {
 
 		glColor4f(0.1f, 0.1f, 0.1f, 0.4f);
 		//glColor3d(1, 1, 1);
-		Texture::bindTexture(0);
+		gfx::Texture::bindTexture(0);
 		glBegin(GL_QUADS);
 		glVertex2f(0.0f, 0.0f);
 		glVertex2f(getWidth(), 0.0f);
 		glVertex2f(getWidth(), getHeight());
 		glVertex2f(0.0f, getHeight());
 		glEnd();
-		GfxEngine::getEngine()->applyColourStack();
+		gfx::GfxEngine::getEngine()->applyColourStack();
 	}
 
 	void List::updateScrollbar()

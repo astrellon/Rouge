@@ -1,26 +1,27 @@
 #pragma once
 
-#include "gfx/gfx_layer.h"
-
-using namespace am::gfx;
+#include <gfx/gfx_layer.h>
 
 namespace am {
 namespace ui {
 
-	enum AnchorX {
+	enum AnchorX 
+	{
 		X_LEFT, X_CENTER, X_RIGHT
 	};
-	enum AnchorY {
+	enum AnchorY 
+	{
 		Y_TOP, Y_CENTER, Y_BOTTOM
 	};
 
-	class UIComponent : public Layer {
+	class UIComponent : public gfx::Layer 
+	{
 	public:
 		UIComponent();
 		UIComponent(const UIComponent &clone);
 		~UIComponent();
 
-		virtual Renderable *clone() const;
+		virtual gfx::Renderable *clone() const;
 
 		virtual void setAnchorX(AnchorX anchor);
 		virtual void setAnchorY(AnchorY anchor);

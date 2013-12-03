@@ -6,7 +6,7 @@
 namespace am {
 namespace ui {
 
-	ItemEvent::ItemEvent(const char *type, Item *item, GameObject *extra) :
+	ItemEvent::ItemEvent(const char *type, game::Item *item, game::GameObject *extra) :
 		Event(type),
 		mItem(item),
 		mExtra(extra)
@@ -32,11 +32,11 @@ namespace ui {
 		}
 	}
 	
-	Item *ItemEvent::getItem() const
+	game::Item *ItemEvent::getItem() const
 	{
 		return mItem;
 	}
-	GameObject *ItemEvent::getExtra() const
+	game::GameObject *ItemEvent::getExtra() const
 	{
 		return mExtra;
 	}

@@ -12,18 +12,21 @@
 namespace am {
 namespace tests {
 
-	class TestEventInterface : public TestSuite, public ui::EventInterface, public ui::IEventListener {
+	class TestEventInterface : public TestSuite, public ui::EventInterface, public ui::IEventListener 
+	{
 	public:
 		TestEventInterface() :
 			IEventListener(),
 			mEventCounter(0) {}
 		~TestEventInterface() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "ui::EventInterface";
 		}
 

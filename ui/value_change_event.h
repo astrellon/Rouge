@@ -7,7 +7,8 @@ namespace ui {
 
 	class UIComponent;
 
-	class ValueChangeEvent : public Event {
+	class ValueChangeEvent : public Event
+	{
 	public:
 		ValueChangeEvent(UIComponent *target, int value);
 		~ValueChangeEvent();

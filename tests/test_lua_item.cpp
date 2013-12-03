@@ -5,11 +5,9 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/item.h>
 #include <game/engine.h>
-using namespace am::game;
 
 extern "C" 
 { 
@@ -21,8 +19,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaItem::testSimple() {
-		LuaState lua;
+	bool TestLuaItem::testSimple()
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"item = am.item.new()\n"
@@ -44,7 +43,7 @@ namespace tests {
 			assert(lua.hasGlobalFunction("getItem"));
 			//lua.call(0, 1);
 			lua_acall(lua, 0, 1);
-			base::Handle<Item> item(castUData<Item>(lua, 1));
+			base::Handle<game::Item> item(lua::castUData<game::Item>(lua, 1));
 
 			assert(item != nullptr);
 
@@ -65,8 +64,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaItem::testBodyPartTypes() {
-		LuaState lua;
+	bool TestLuaItem::testBodyPartTypes() 
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"item = am.item.new()\n"

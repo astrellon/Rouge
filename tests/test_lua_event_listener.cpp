@@ -5,19 +5,14 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
-//#include <lua/wrappers/lua_event_manager.h>
 #include <lua/wrappers/game/lua_quest.h>
-using namespace am::lua::game;
 
 #include <game/quest.h>
-using namespace am::game;
 
 #include <ui/lua_event_listener.h>
 #include <ui/event.h>
 #include <ui/mouse_event.h>
-using namespace am::ui;
 
 extern "C" 
 { 
@@ -29,9 +24,10 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaEventListener::testSimple() {
-		Quest manager("testQuest");
-		LuaState lua;
+	bool TestLuaEventListener::testSimple() 
+	{
+		game::Quest manager("testQuest");
+		lua::LuaState lua;
 
 		int loadResult = lua.loadString(
 			"eventCalled = \"none\"\n"
@@ -59,18 +55,18 @@ namespace tests {
 		am_equals(0, lua.getGlobalInt("timesCalled"));
 
 		assert(lua.hasGlobalFunction("setManager"));
-		wrapRefObject<Quest>(lua, &manager);
+		lua::wrapRefObject<game::Quest>(lua, &manager);
 
 		lua_acall(lua, 1, 0);
-		base::Handle<Event> testEvent(new Event("testEvent"));
-		manager.fireEvent<Event>(testEvent);
+		base::Handle<ui::Event> testEvent(new ui::Event("testEvent"));
+		manager.fireEvent<ui::Event>(testEvent);
 
 		eventCalled = lua.getGlobalString("eventCalled");
 		am_equalsStr("testEvent", eventCalled.c_str());
 		am_equals(1, lua.getGlobalInt("timesCalled"));
 
-		base::Handle<Event> testEvent2(new Event("testEvent"));
-		manager.fireEvent<Event>(testEvent2);
+		base::Handle<ui::Event> testEvent2(new ui::Event("testEvent"));
+		manager.fireEvent<ui::Event>(testEvent2);
 
 		eventCalled = lua.getGlobalString("eventCalled");
 		am_equalsStr("testEvent", eventCalled.c_str());
@@ -82,7 +78,7 @@ namespace tests {
 	bool TestLuaEventListener::testMouse()
 	{
 		/*EventManager manager;
-		LuaState lua;
+		lua::LuaState lua;
 		LuaEventListener listener(lua);
 		manager.addEventListener(MOUSE_MOVE, &listener);
 

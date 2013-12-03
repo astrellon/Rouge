@@ -6,7 +6,8 @@
 namespace am {
 namespace ui {
 
-	class KeyboardManager : public EventInterface {
+	class KeyboardManager : public EventInterface
+	{
 	public:
 		KeyboardManager();
 		~KeyboardManager();

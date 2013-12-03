@@ -155,7 +155,7 @@ namespace sys {
 		bgmSource->setGain(0.2f);
 		bgmSource->play();
 
-		mItemTooltip = new TooltipItem();
+		mItemTooltip = new gfx::TooltipItem();
 
 		//ISystem::FolderEntryList result;
 		//listDirectory("C:\\git\\Rouge\\data", result);
@@ -400,12 +400,12 @@ namespace sys {
 		Game *oldGame = mEngine->getCurrentGame();
 		if (oldGame != nullptr)
 		{
-			GfxEngine::getEngine()->getGameLayer()->clear();
+			gfx::GfxEngine::getEngine()->getGameLayer()->clear();
 		}
 
 		if (mEngine->newGame("village"))
 		{
-			Game *game = Engine::getGame();
+			game::Game *game = game::Engine::getGame();
 			if (game)
 			{
 				if (game->hasStarted())
@@ -425,13 +425,13 @@ namespace sys {
 
 		mPausedGame = false;
 
-		Game *game = Engine::getGame();
+		game::Game *game = game::Engine::getGame();
 		if (!game->getCurrentMap())
 		{
 			am_log("START", "Unable to start game without a current map set onto the game!");
 			return;
 		}
-		GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
+		gfx::GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		ui::StoreScreen *storeScreen = new ui::StoreScreen();
 		storeScreen->setSize(360, 300);

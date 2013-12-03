@@ -4,7 +4,6 @@
 
 #include <gfx/gfx_text_field.h>
 #include <gfx/gfx_sprite.h>
-using namespace am::gfx;
 
 #include <ui/ui_component.h>
 
@@ -13,7 +12,8 @@ namespace ui {
 
 	class MouseEvent;
 
-	class Panel : public IEventListener, public UIComponent {
+	class Panel : public IEventListener, public UIComponent 
+	{
 	public:
 		Panel();
 		~Panel();
@@ -23,19 +23,19 @@ namespace ui {
 
 		virtual void onEvent(MouseEvent *e);
 
-		TextField *getTitleField();
+		gfx::TextField *getTitleField();
 		void setTitle(const char *title);
 		const char *getTitle() const;
 
-		Sprite *getBackSprite();
+		gfx::Sprite *getBackSprite();
 
 	protected:
 
 		float mStartingWidth;
 		float mStartingHeight;
 		bool mResizing;
-		base::Handle<TextField> mTitle;
-		base::Handle<Sprite> mBack;
+		base::Handle<gfx::TextField> mTitle;
+		base::Handle<gfx::Sprite> mBack;
 		float mDragX;
 		float mDragY;
 

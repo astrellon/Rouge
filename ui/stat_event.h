@@ -10,22 +10,22 @@ namespace am {
 namespace game {
 	class Stats;
 }
-using namespace am::game;
 
 namespace ui {
 
-	class StatEvent : public Event {
+	class StatEvent : public Event
+	{
 	public:
-		StatEvent(Stats *stats, Stat::StatType stat);
+		StatEvent(game::Stats *stats, game::Stat::StatType stat);
 		~StatEvent();
 
-		Stats *getStats() const;
-		Stat::StatType getStat() const;
+		game::Stats *getStats() const;
+		game::Stat::StatType getStat() const;
 
 	protected:
 
-		Stats *mStats;
-		Stat::StatType mStat;
+		game::Stats *mStats;
+		game::Stat::StatType mStat;
 
 	};
 

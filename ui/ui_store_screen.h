@@ -13,7 +13,8 @@
 namespace am {
 namespace ui {
 
-	class StoreScreen : public Panel {
+	class StoreScreen : public Panel 
+	{
 	public:
 		StoreScreen();
 		~StoreScreen();

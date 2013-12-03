@@ -10,24 +10,24 @@ namespace game {
 	class Character;
 	class Item;
 }
-using namespace am::game;
 
 namespace ui {
 
-	class EquipEvent : public Event {
+	class EquipEvent : public Event 
+	{
 	public:
-		EquipEvent(const char *type, Character *character, BodyPart *part, Item *item);
+		EquipEvent(const char *type, game::Character *character, game::BodyPart *part, game::Item *item);
 		~EquipEvent();
 
-		Character *getCharacter() const;
-		Item *getItem() const;
-		BodyPart *getBodyPart() const;
+		game::Character *getCharacter() const;
+		game::Item *getItem() const;
+		game::BodyPart *getBodyPart() const;
 
 	protected:
 
-		BodyPart *mPart;
-		Character *mCharacter;
-		Item *mItem;
+		game::BodyPart *mPart;
+		game::Character *mCharacter;
+		game::Item *mItem;
 	};
 
 }

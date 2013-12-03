@@ -5,13 +5,10 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/stats.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_stats.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -23,8 +20,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaStats::testSimple() {
-		LuaState lua;
+	bool TestLuaStats::testSimple()
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString(
 			"stats = am.stats.new()\n"

@@ -19,7 +19,7 @@ namespace ui {
 		mInspectObject(false),
 		mTileInstance(nullptr)
 	{
-		mInfo = new TextField2();
+		mInfo = new gfx::TextField2();
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
 		addChild(mInfo);
@@ -91,7 +91,7 @@ namespace ui {
 		mInfo->setHeight(mHeight - 28);
 	}
 
-	TextField2 *Inspector::getTextField()
+	gfx::TextField2 *Inspector::getTextField()
 	{
 		return mInfo;
 	}
@@ -107,7 +107,7 @@ namespace ui {
 
 	void Inspector::onEvent(MouseEvent *e)
 	{
-		NodeHitbox *textHit = dynamic_cast<NodeHitbox *>(e->getOriginalTarget());
+		gfx::NodeHitbox *textHit = dynamic_cast<gfx::NodeHitbox *>(e->getOriginalTarget());
 		if (textHit != nullptr)
 		{
 			int index = -1;

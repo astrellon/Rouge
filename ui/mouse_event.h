@@ -9,14 +9,13 @@ namespace gfx {
 	class Renderable;
 }
 
-using namespace am::gfx;
-
 namespace ui {
 
-	class MouseEvent : public Event {
+	class MouseEvent : public Event 
+	{
 	public:
 		MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y);
-		MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, Renderable *target, int localX, int localY);
+		MouseEvent(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, gfx::Renderable *target, int localX, int localY);
 		MouseEvent(const MouseEvent &copy);
 		~MouseEvent();
 
@@ -28,10 +27,10 @@ namespace ui {
 		virtual int getLocalMouseX() const;
 		virtual int getLocalMouseY() const;
 
-		virtual Renderable *getTarget() const;
+		virtual gfx::Renderable *getTarget() const;
 
-		virtual void setOriginalTarget(Renderable *target);
-		virtual Renderable *getOriginalTarget() const;
+		virtual void setOriginalTarget(gfx::Renderable *target);
+		virtual gfx::Renderable *getOriginalTarget() const;
 
 	protected:
 
@@ -42,7 +41,7 @@ namespace ui {
 		int mLocalMouseX;
 		int mLocalMouseY;
 
-		Renderable *mOriginalTarget;
+		gfx::Renderable *mOriginalTarget;
 		Mouse::EventType mMouseEventType;
 
 	};

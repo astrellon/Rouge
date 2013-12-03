@@ -6,7 +6,8 @@
 namespace am {
 namespace ui {
 
-	class KeyboardEvent : public Event {
+	class KeyboardEvent : public Event
+	{
 	public:
 		KeyboardEvent(Keyboard::EventType type, int key, bool systemKey);
 		~KeyboardEvent();

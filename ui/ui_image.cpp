@@ -1,6 +1,6 @@
 #include "ui_image.h"
 
-#include "gfx/gfx_sprite.h"
+#include <gfx/gfx_sprite.h>
 
 namespace am {
 namespace ui {
@@ -10,10 +10,10 @@ namespace ui {
 		mGraphic(nullptr)
 	{
 	}
-	Image::Image(Asset *asset) :
+	Image::Image(gfx::Asset *asset) :
 		UIComponent()
 	{
-		mGraphic = new Sprite(asset);
+		mGraphic = new gfx::Sprite(asset);
 		mWidth = mGraphic->getWidth();
 		mHeight = mGraphic->getHeight();
 		addChild(mGraphic.get());
@@ -21,7 +21,7 @@ namespace ui {
 	Image::Image(const char *assetName) :
 		UIComponent()
 	{
-		mGraphic = new Sprite(assetName);
+		mGraphic = new gfx::Sprite(assetName);
 		mWidth = mGraphic->getWidth();
 		mHeight = mGraphic->getHeight();
 		addChild(mGraphic.get());
@@ -30,42 +30,16 @@ namespace ui {
 	{
 	}
 
-	/*Colour &Image::getColour()
-	{
-		return mGraphic->getColour();
-	}
-	void Image::setColour(const Colour &colour)
-	{
-		mGraphic->setColour(colour);
-	}
-	void Image::setColour(float red, float green, float blue)
-	{
-		mGraphic->setColour(red, green, blue);
-	}
-	void Image::setColour(float red, float green, float blue, float alpha)
-	{
-		mGraphic->setColour(red, green, blue, alpha);
-	}
-
-	void Image::setAlpha(float alpha)
-	{
-		mGraphic->setAlpha(alpha);
-	}
-	float Image::getAlpha() const
-	{
-		return mGraphic->getAlpha();
-	}*/
-
-	void Image::setGfxComponent(GfxComponent *comp)
+	void Image::setGfxComponent(gfx::GfxComponent *comp)
 	{
 		mGraphic->setGfxComponent(comp);
 	}
-	GfxComponent *Image::getGfxComponent() const
+	gfx::GfxComponent *Image::getGfxComponent() const
 	{
 		return mGraphic->getGfxComponent();
 	}
 
-	void Image::setAsset(Asset *asset)
+	void Image::setAsset(gfx::Asset *asset)
 	{
 		mGraphic->setAsset(asset);
 		mWidth = mGraphic->getWidth();
@@ -77,7 +51,7 @@ namespace ui {
 		mWidth = mGraphic->getWidth();
 		mHeight = mGraphic->getHeight();
 	}
-	Sprite *Image::getGraphic()
+	gfx::Sprite *Image::getGraphic()
 	{
 		return mGraphic.get();
 	}

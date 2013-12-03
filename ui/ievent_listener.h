@@ -23,7 +23,8 @@ namespace ui {
 
 	class EventInterface;
 
-	class IEventListener : virtual public base::IManaged {
+	class IEventListener : virtual public base::IManaged 
+	{
 	public:
 
 		typedef std::vector< base::Handle<EventInterface> > ListeningList;

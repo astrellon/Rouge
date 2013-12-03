@@ -5,24 +5,23 @@
 #include <base/handle.h>
 
 #include <ui/mouse_manager.h>
-using namespace am::ui;
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_layer.h>
-using namespace am::gfx;
 
 namespace am {
 namespace tests {
 
-	void TestMouseManager::TestListener::onEvent(MouseEvent *e)
+	void TestMouseManager::TestListener::onEvent(ui::MouseEvent *e)
 	{
 		lastEvent = e;
 	}
 
-	bool TestMouseManager::testSimple() {
+	bool TestMouseManager::testSimple()
+	{
 		
-		base::Handle<Layer> rootLayer(new Layer());
-		base::Handle<Renderable> target1(new Renderable());
+		base::Handle<gfx::Layer> rootLayer(new gfx::Layer());
+		base::Handle<gfx::Renderable> target1(new gfx::Renderable());
 		rootLayer->addChild(target1);
 		rootLayer->setInteractive(true);
 		target1->setInteractive(true);
@@ -35,7 +34,7 @@ namespace tests {
 		TestListener layerListener;
 		rootLayer->addEventListener(ui::Mouse::MOUSE_DOWN, &layerListener);
 
-		MouseManager *manager = MouseManager::getManager();
+		ui::MouseManager *manager = ui::MouseManager::getManager();
 		manager->setRootLayer(rootLayer);
 
 		manager->onMouseDown(ui::Mouse::LEFT_BUTTON, 0, 0);

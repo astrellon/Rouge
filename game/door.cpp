@@ -61,7 +61,7 @@ namespace game {
 			// Find our new graphic if there was one.
 			for (int i = 0; i < getNumChildren(); i++)
 			{
-				Sprite *temp = dynamic_cast<gfx::Sprite *>(getChildAt(i));
+				gfx::Sprite *temp = dynamic_cast<gfx::Sprite *>(getChildAt(i));
 				if (temp && temp->getAsset() == copy.mGraphic->getAsset())
 				{
 					mGraphic = temp;
@@ -285,7 +285,7 @@ namespace game {
 		base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
-			Sprite *graphic = new Sprite();
+			gfx::Sprite *graphic = new gfx::Sprite();
 			graphic->deserialise(state, tempData);
 			setGraphic(graphic, false);
 		}

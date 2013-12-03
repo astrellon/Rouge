@@ -10,7 +10,8 @@ namespace ui {
 
 	class EventInterface;
 
-	class Event : public base::IManaged {
+	class Event : public base::IManaged
+	{
 	public:
 		Event(const char *type);
 		Event(const char *type, EventInterface *target);

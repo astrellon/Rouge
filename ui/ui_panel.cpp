@@ -19,12 +19,12 @@ namespace ui {
 		mDragX(0.0f),
 		mDragY(0.0f)
 	{
-		mBack = new Sprite("ui:panel");
+		mBack = new gfx::Sprite("ui:panel");
 		mBack->setName("Panel Back");
 		mBack->setInteractive(true);
 		addChild(mBack);
 
-		mTitle = new TextField();
+		mTitle = new gfx::TextField();
 		addChild(mTitle);
 		mTitle->setPosition(9, 7);
 
@@ -108,7 +108,7 @@ namespace ui {
 		}
 	}
 
-	TextField *Panel::getTitleField()
+	gfx::TextField *Panel::getTitleField()
 	{
 		return mTitle;
 	}
@@ -121,7 +121,7 @@ namespace ui {
 		return mTitle->getText();
 	}
 
-	Sprite *Panel::getBackSprite()
+	gfx::Sprite *Panel::getBackSprite()
 	{
 		return mBack;
 	}

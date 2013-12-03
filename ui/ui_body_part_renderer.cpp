@@ -31,7 +31,7 @@ namespace ui {
 		mHitbox->setInteractive(true);
 		addChild(mHitbox);
 
-		mHitbox->setTooltip(new TooltipString(bodyPartName, nullptr));
+		mHitbox->setTooltip(new gfx::TooltipString(bodyPartName, nullptr));
 
 		setMaxItemSize(width, height);
 

@@ -26,9 +26,9 @@ namespace ui {
 
 	}
 
-	lua_State *LuaEventListener::getLua()
+	lua::LuaState &LuaEventListener::getLua()
 	{
-		return mLua.getLua();
+		return mLua;
 	}
 
 	int LuaEventListener::getFuncRef() const
@@ -129,7 +129,7 @@ namespace ui {
 		mLua.push("character");
 		if (e->getCharacter())
 		{
-			wrapRefObject<game::Character>(mLua, e->getCharacter());
+			lua::wrapRefObject<game::Character>(mLua, e->getCharacter());
 		}
 		else
 		{
@@ -161,7 +161,7 @@ namespace ui {
 		Dialogue *diag = e->getDialogue();
 		if (diag)
 		{
-			wrapObject<game::Dialogue>(mLua, diag);
+			lua::wrapObject<game::Dialogue>(mLua, diag);
 		}
 		else
 		{
@@ -185,7 +185,7 @@ namespace ui {
 		mLua.push("item");
 		if (e->getItem())
 		{
-			wrapRefObject<game::Item>(mLua, e->getItem());
+			lua::wrapRefObject<game::Item>(mLua, e->getItem());
 		}
 		else
 		{

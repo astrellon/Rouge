@@ -70,7 +70,7 @@ namespace game {
 	{
 		for (int i = 0; i < mChildren.size(); i++)
 		{
-			Sprite *temp = dynamic_cast<Sprite *>(mChildren[i].get());
+			gfx::Sprite *temp = dynamic_cast<gfx::Sprite *>(mChildren[i].get());
 			if (temp)
 			{
 				if (copy.mGraphic && temp->getAsset() == copy.mGraphic->getAsset())
@@ -117,7 +117,7 @@ namespace game {
 		return newItem;
 	}
 
-	void Item::setGraphic(Sprite *graphic, bool calcInvSize)
+	void Item::setGraphic(gfx::Sprite *graphic, bool calcInvSize)
 	{
 		if (mGraphic)
 		{
@@ -138,12 +138,12 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Item::getGraphic() const
+	gfx::Sprite *Item::getGraphic() const
 	{
 		return mGraphic;
 	}
 
-	void Item::setGroundGraphic(Sprite *graphic)
+	void Item::setGroundGraphic(gfx::Sprite *graphic)
 	{
 		if (mGroundGraphic)
 		{
@@ -161,7 +161,7 @@ namespace game {
 		}
 		updateGraphic();
 	}
-	Sprite *Item::getGroundGraphic() const
+	gfx::Sprite *Item::getGroundGraphic() const
 	{
 		return mGraphic;
 	}
@@ -193,11 +193,11 @@ namespace game {
 		mItemType = item.mItemType;
 		if (item.mGraphic.get())
 		{
-			setGraphic(new Sprite(item.mGraphic->getAsset()));
+			setGraphic(new gfx::Sprite(item.mGraphic->getAsset()));
 		}
 		if (item.mGroundGraphic.get())
 		{
-			setGroundGraphic(new Sprite(item.mGroundGraphic->getAsset()));
+			setGroundGraphic(new gfx::Sprite(item.mGroundGraphic->getAsset()));
 		}
 		mName = item.mName;
 		mInventorySizeX = item.mInventorySizeX;
@@ -633,13 +633,13 @@ namespace game {
 		base::Handle<data::IData> tempData(dataMap->at("graphic"));
 		if (tempData)
 		{
-			mGraphic = new Sprite();
+			mGraphic = new gfx::Sprite();
 			mGraphic->deserialise(state, tempData);
 		}
 		tempData = dataMap->at("groundGraphic");
 		if (tempData)
 		{
-			mGroundGraphic = new Sprite();
+			mGroundGraphic = new gfx::Sprite();
 			mGroundGraphic->deserialise(state, tempData);
 		}
 
@@ -712,7 +712,7 @@ namespace game {
 		return GameObject::isInteractive();
 	}
 
-	void Item::setTooltip(Tooltip *tooltip)
+	void Item::setTooltip(gfx::Tooltip *tooltip)
 	{
 		GameObject::setTooltip(tooltip);
 	}
@@ -720,13 +720,13 @@ namespace game {
 	{
 		return true;
 	}
-	Tooltip *Item::getTooltip()
+	gfx::Tooltip *Item::getTooltip()
 	{
 		if (mTooltip)
 		{
 			return mTooltip;
 		}
-		TooltipItem *tooltip = RougeSystem::getRougeSystem()->getItemTooltip();
+		gfx::TooltipItem *tooltip = RougeSystem::getRougeSystem()->getItemTooltip();
 		tooltip->setItem(this);
 		return tooltip;
 	}

@@ -5,15 +5,12 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/engine.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_engine.h>
 #include <lua/wrappers/game/lua_tile.h>
 #include <lua/wrappers/game/lua_tile_set.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -25,12 +22,13 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaEngine::testSimple() {
-		LuaState lua;
+	bool TestLuaEngine::testSimple()
+	{
+		lua::LuaState lua;
 
-		Engine *prevEng = Engine::getEngine();
-		Engine *eng = new Engine();
-		Engine::setEngine(eng);
+		game::Engine *prevEng = game::Engine::getEngine();
+		game::Engine *eng = new game::Engine();
+		game::Engine::setEngine(eng);
 		
 		int loadResult = lua.loadString(
 			"function setGridSize(size)\n"
@@ -56,19 +54,20 @@ namespace tests {
 		am_equals(8, lua_tointeger(lua, -1));
 		lua.pop(2);
 
-		Engine::setEngine(prevEng);
+		game::Engine::setEngine(prevEng);
 		delete eng;
 
 		return true;
 	}
 
-	bool TestLuaEngine::testTiles() {
-		LuaState lua;
+	bool TestLuaEngine::testTiles()
+	{
+		lua::LuaState lua;
 
-		Engine *prevEng = Engine::getEngine();
-		Engine *eng = new Engine();
+		game::Engine *prevEng = game::Engine::getEngine();
+		game::Engine *eng = new game::Engine();
 		eng->init();
-		Engine::setEngine(eng);
+		game::Engine::setEngine(eng);
 		
 		int loadResult = lua.loadString(
 			"topSet = am.engine.top_level_tile_set()\n"
@@ -90,7 +89,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Tile *tile = new Tile("basicTile");
+		game::Tile *tile = new game::Tile("basicTile");
 		TileSet *topLevel = eng->getTopLevelTileSet();
 		assert(!topLevel->hasTile(tile));
 		assert(eng->getTile("basicTile") == nullptr);
@@ -102,7 +101,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addTile"));
-		wrapRefObject<Tile>(lua, tile);
+		lua::wrapRefObject<game::Tile>(lua, tile);
 		lua_acall(lua, 1, 0);
 
 		assert(topLevel->hasTile(tile));
@@ -111,11 +110,11 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getTile"));
 		lua.push("basicTile");
 		lua_acall(lua, 1, 1);
-		Tile *user = castUData<Tile>(lua, 1);
+		game::Tile *user = lua::castUData<game::Tile>(lua, 1);
 		assert(user == tile);
 		lua.pop(1);
 
-		Engine::setEngine(prevEng);
+		game::Engine::setEngine(prevEng);
 		delete eng;
 
 		return true;

@@ -219,7 +219,7 @@ namespace game {
 		return mTopLevelTileSet;
 	}
 
-	LuaState &Engine::getLua()
+	lua::LuaState &Engine::getLua()
 	{
 		return mLua;
 	}

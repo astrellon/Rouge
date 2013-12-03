@@ -5,15 +5,12 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <lua/wrappers/game/lua_dialogue.h>
-using namespace am::lua::game;
 
 #include <game/dialogue.h>
 #include <game/engine.h>
 #include <game/game.h>
-using namespace am::game;
 
 extern "C" 
 { 
@@ -25,10 +22,11 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaDialogue::testSimple() {
-		LuaState lua;
+	bool TestLuaDialogue::testSimple()
+	{
+		lua::LuaState lua;
 
-		Game *game = new Game();
+		game::Game *game = new game::Game();
 		Engine::getEngine()->setCurrentGame(game);
 
 		int loadResult = lua.loadString(
@@ -81,7 +79,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		Dialogue *diag1 = game->getDialogue("diag1");
+		game::Dialogue *diag1 = game->getDialogue("diag1");
 		assert(diag1 != nullptr);
 
 		assert(lua.hasGlobalFunction("getId"));

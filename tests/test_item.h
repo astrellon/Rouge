@@ -8,16 +8,19 @@
 namespace am {
 namespace tests {
 
-	class TestItem : public TestSuite {
+	class TestItem : public TestSuite 
+	{
 	public:
 		TestItem() {}
 		~TestItem() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::game::Item";
 		}
 

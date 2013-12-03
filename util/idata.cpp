@@ -54,7 +54,7 @@ namespace data {
 		return false;
 	}
 
-	IData *IData::fromLua(LuaState &lua, int n)
+	IData *IData::fromLua(lua::LuaState &lua, int n)
 	{
 		if (lua_istable(lua, n))
 		{

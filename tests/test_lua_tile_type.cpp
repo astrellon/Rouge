@@ -5,13 +5,10 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/tile_type.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_tile_type.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -23,8 +20,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaTileType::testSimple() {
-		LuaState lua;
+	bool TestLuaTileType::testSimple() 
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString(
 			"type = am.tile_type.new(\"testType\", \"Test Type\")\n"
@@ -61,8 +59,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaTileType::testStatics() {
-		LuaState lua;
+	bool TestLuaTileType::testStatics()
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString(
 			"function addTileType(tile)\n"
@@ -79,9 +78,9 @@ namespace tests {
 		assert(lua_isnil(lua, -1));
 		lua.pop(1);
 
-		base::Handle<TileType> tileType(new TileType("testTileType", "Test Tile Type"));
+		base::Handle<game::TileType> tileType(new game::TileType("testTileType", "Test Tile Type"));
 		assert(lua.hasGlobalFunction("addTileType"));
-		wrapObject<TileType>(lua, tileType);
+		lua::wrapObject<game::TileType>(lua, tileType);
 		lua_acall(lua, 1, 0);
 
 		assert(lua.hasGlobalFunction("getTileType"));

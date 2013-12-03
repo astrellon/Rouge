@@ -11,7 +11,8 @@
 namespace am {
 namespace ui {
 
-	class GameHud : public UIComponent {
+	class GameHud : public UIComponent 
+	{
 	public:
 		GameHud();
 		~GameHud();

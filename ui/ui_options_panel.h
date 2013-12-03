@@ -10,7 +10,6 @@ namespace am {
 namespace sys {
 	class RougeSystem;
 }
-using namespace am::sys;
 
 namespace ui {
 
@@ -18,9 +17,10 @@ namespace ui {
 	class Checkbox;
 	class Image;
 
-	class OptionsPanel : public UIComponent, public IEventListener {
+	class OptionsPanel : public UIComponent, public IEventListener 
+	{
 	public:
-		OptionsPanel(RougeSystem *system);
+		OptionsPanel(sys::RougeSystem *system);
 		~OptionsPanel();
 
 		virtual void setWidth(float width);
@@ -37,7 +37,7 @@ namespace ui {
 		base::Handle<TextButton> mClose;
 		base::Handle<TextButton> mApply;
 
-		RougeSystem *mRougeSystem;
+		sys::RougeSystem *mRougeSystem;
 	};
 
 }

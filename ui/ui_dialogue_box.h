@@ -5,10 +5,8 @@
 #include <string>
 
 #include <game/dialogue.h>
-using namespace am::game;
 
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -16,24 +14,25 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class DialogueBox : public UIComponent, public IEventListener {
+	class DialogueBox : public UIComponent, public IEventListener
+	{
 	public:
 		DialogueBox();
 		~DialogueBox();
 
-		TextField2 *getTextField() const;
+		gfx::TextField2 *getTextField() const;
 
 		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(DialogueEvent *e);
 
-		virtual void setTalker(GameObject *talker);
-		virtual GameObject *getTalker() const;
+		virtual void setTalker(game::GameObject *talker);
+		virtual game::GameObject *getTalker() const;
 
-		virtual void setTalkedTo(GameObject *talkedTo);
-		virtual GameObject *getTalkedTo() const;
+		virtual void setTalkedTo(game::GameObject *talkedTo);
+		virtual game::GameObject *getTalkedTo() const;
 
-		virtual void setDialogue(Dialogue *dialogue);
-		virtual Dialogue *getDialogue() const;
+		virtual void setDialogue(game::Dialogue *dialogue);
+		virtual game::Dialogue *getDialogue() const;
 
 		virtual float getMeasuredWidth();
 		virtual float getMeasuredHeight();
@@ -48,10 +47,10 @@ namespace ui {
 
 	protected:
 
-		base::Handle<TextField2> mText;
-		Dialogue *mDialogue;
-		base::Handle<GameObject> mTalker;
-		base::Handle<GameObject> mTalkedTo;
+		base::Handle<gfx::TextField2> mText;
+		game::Dialogue *mDialogue;
+		base::Handle<game::GameObject> mTalker;
+		base::Handle<game::GameObject> mTalkedTo;
 
 		void updateText();
 	};

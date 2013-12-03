@@ -5,10 +5,8 @@
 #include <game/character.h>
 #include <game/game.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_character.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -39,12 +37,12 @@ namespace tests {
 		int Base_ctor(lua_State *lua)
 		{
 			Base *base = new Base();
-			wrapObject<Base>(lua, base);
+			lua::wrapObject<Base>(lua, base);
 			return 1;
 		}
 		int Base_dtor(lua_State *lua)
 		{
-			Base *base = castUData<Base>(lua, 1);
+			Base *base = lua::castUData<test::Base>(lua, 1);
 			if (base)
 			{
 				delete base;
@@ -54,7 +52,7 @@ namespace tests {
 
 		int Base_set_name(lua_State *lua)
 		{
-			Base *base = castUData<Base>(lua, 1);
+			Base *base = lua::castUData<test::Base>(lua, 1);
 			if (base && lua_isstring(lua, 2))
 			{
 				base->setName(lua_tostring(lua, 2));
@@ -63,7 +61,7 @@ namespace tests {
 		}
 		int Base_get_name(lua_State *lua)
 		{
-			Base *base = castUData<Base>(lua, 1);
+			Base *base = lua::castUData<test::Base>(lua, 1);
 			if (base)
 			{
 				lua_pushstring(lua, base->getName());
@@ -110,13 +108,13 @@ namespace tests {
 
 		int Child_ctor(lua_State *lua)
 		{
-			Child *child = new Child();
-			wrapObject<Child>(lua, child);
+			test::Child *child = new test::Child();
+			lua::wrapObject<test::Child>(lua, child);
 			return 1;
 		}
 		int Child_dtor(lua_State *lua)
 		{
-			Child *child = castUData<Child>(lua, 1);
+			Child *child = lua::castUData<test::Child>(lua, 1);
 			if (child)
 			{
 				delete child;
@@ -126,7 +124,7 @@ namespace tests {
 
 		int Child_set_age(lua_State *lua)
 		{
-			Child *child = castUData<Child>(lua, 1);
+			Child *child = lua::castUData<test::Child>(lua, 1);
 			if (child && lua_isnumber(lua, 2))
 			{
 				child->setAge(lua_tointeger(lua, 2));
@@ -135,7 +133,7 @@ namespace tests {
 		}
 		int Child_get_age(lua_State *lua)
 		{
-			Child *child = castUData<Child>(lua, 1);
+			Child *child = lua::castUData<Child>(lua, 1);
 			if (child)
 			{
 				lua_pushinteger(lua, child->getAge());
@@ -171,7 +169,7 @@ namespace tests {
 	}
 
 	bool TestLua::testSimple() {
-		LuaState lua;
+		lua::LuaState lua;
 		assert(lua.getLua() != nullptr);
 
 		int ref = lua.newTable("table1");
@@ -210,7 +208,7 @@ namespace tests {
 
 	bool TestLua::testScripts()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 		lua.loadString("function testFunc(x, y)\n"
 			"	return x * y\n"
 			"end");
@@ -273,7 +271,7 @@ namespace tests {
 
 	bool TestLua::testLoadScripts()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 		bool loaded = lua.loadString("name = \"Melli\"\n"
 			"local age = 23\n"
 			"function getName()\n"
@@ -329,7 +327,7 @@ namespace tests {
 
 	bool TestLua::testWrapper()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 
 		Engine::getEngine()->setCurrentGame(new Game());
 		base::Handle<Character> testCharacter(new Character());
@@ -383,7 +381,7 @@ namespace tests {
 
 	bool TestLua::testInheritance()
 	{
-		/*LuaState lua;
+		/*lua::LuaState lua;
 
 		lua.registerWrapper("Base", test::Base::LUA_ID);
 		lua.registerWrapper("Child", test::Child::LUA_ID);
@@ -429,7 +427,7 @@ namespace tests {
 
 	bool TestLua::testReturnCodes()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 		if (!lua.loadString(
 			"am.debug.equals(1, am.code.success)\n"
 			"am.debug.equals(\"success\", am.code.message(am.code.success))\n"

@@ -5,18 +5,21 @@
 namespace am {
 namespace tests {
 
-	class TestStore : public TestSuite {
+	class TestStore : public TestSuite
+	{
 	public:
 		TestStore() {}
 		~TestStore() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testBuy);
 			runCase(testSell);
 			runCase(testSell2);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::game::Store";
 		}
 

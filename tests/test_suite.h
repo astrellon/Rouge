@@ -28,9 +28,11 @@
 namespace am {
 namespace tests {
 
-	class TestSuite {
+	class TestSuite
+	{
 	public:
-		TestSuite() {
+		TestSuite() 
+		{
 			testsFailed = 0;
 			totalTests = 0;
 		}
@@ -45,7 +47,8 @@ namespace tests {
 		{
 		}
 	
-		virtual void run() {
+		virtual void run() 
+		{
 			std::stringstream ss;
 			ss << "Starting tests for '" << getSuiteName() << "'";
 			am_log("SUITE", ss);
@@ -71,14 +74,17 @@ namespace tests {
 		}
 		virtual void runCases() = 0;
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "Unnamed";
 		}
 
-		static void addFailedTest(const char *testName) {
+		static void addFailedTest(const char *testName)
+		{
 			sFailedTests.push_back(std::string(testName));
 		}
-		static const std::vector<std::string> &getFailedTests() {
+		static const std::vector<std::string> &getFailedTests()
+		{
 			return sFailedTests;
 		}
 	protected:

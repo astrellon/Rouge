@@ -5,7 +5,6 @@
 #include <string>
 
 #include <gfx/gfx_text_field.h>
-using namespace am::gfx;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -13,17 +12,19 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class TextInput : public UIComponent, public IEventListener {
+	class TextInput : public UIComponent, public IEventListener
+	{
 	public:
 
-		enum Restriction {
+		enum Restriction 
+		{
 			NONE, FLOAT, INTEGER
 		};
 		TextInput();
 		TextInput(const TextInput &copy);
 		~TextInput();
 
-		virtual Renderable *clone() const;
+		virtual gfx::Renderable *clone() const;
 
 		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(KeyboardEvent *e);
@@ -44,7 +45,7 @@ namespace ui {
 		void setRestriction(Restriction restriction);
 		Restriction getRestriction() const;
 
-		TextField *getTextField();
+		gfx::TextField *getTextField();
 
 		void setFocus(bool focus);
 		bool hasFocus() const;
@@ -61,7 +62,7 @@ namespace ui {
 	protected:
 
 		bool mFocus;
-		base::Handle<TextField> mText;
+		base::Handle<gfx::TextField> mText;
 		int mInputPosition;
 		int mMaxCharacters;
 		Restriction mRestriction;

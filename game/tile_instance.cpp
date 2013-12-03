@@ -101,7 +101,7 @@ namespace game {
 	}
 	void TileInstance::randomiseVaritation()
 	{
-		Asset *asset = mTile ? mTile->getGraphicAsset() : nullptr;
+		gfx::Asset *asset = mTile ? mTile->getGraphicAsset() : nullptr;
 		if (!asset)
 		{
 			return;

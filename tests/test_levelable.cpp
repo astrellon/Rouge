@@ -10,7 +10,7 @@ namespace tests {
 
 	bool TestLevelable::testSimple()
 	{
-		Levelable level;
+		game::Levelable level;
 		am_equals(0, level.getLevel());
 		am_equals(0, level.getMaxLevel());
 		am_equals(0, level.getExperience());
@@ -48,7 +48,7 @@ namespace tests {
 
 	bool TestLevelable::testMaxLevel()
 	{
-		Levelable level;
+		game::Levelable level;
 		level.setMaxLevel(4);
 		am_equals(0, level.getLevel());
 		am_equals(4, level.getMaxLevel());

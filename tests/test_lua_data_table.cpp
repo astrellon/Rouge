@@ -5,16 +5,13 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <util/data_table.h>
 #include <util/data_number.h>
 #include <util/data_string.h>
 #include <util/data_boolean.h>
-using namespace am::util;
 
 #include <lua/wrappers/util/lua_data_table.h>
-using namespace am::lua::util;
 
 extern "C" 
 { 
@@ -26,8 +23,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaDataTable::testSimple() {
-		LuaState lua;
+	bool TestLuaDataTable::testSimple() 
+	{
+		lua::LuaState lua;
 		
 		bool loadResult = lua.loadString(
 			"map = am.data_table.new()\n"
@@ -79,46 +77,46 @@ namespace tests {
 		assert(lua.hasGlobalFunction("getMap"));
 		lua_acall(lua, 0, 1);
 
-		base::Handle<util::data::Table> dataMap(castUData<util::data::Table>(lua, -1));
+		base::Handle<am::util::data::Table> dataMap(lua::castUData<am::util::data::Table>(lua, -1));
 		assert(dataMap);
 
-		base::Handle<util::data::Number> num(dataMap->at<util::data::Number>("num"));
+		base::Handle<am::util::data::Number> num(dataMap->at<am::util::data::Number>("num"));
 		assert(num);
 		am_equalsDelta(5.0, num->number(), 0.00001);
 
-		base::Handle<util::data::String> str(dataMap->at<util::data::String>("str"));
+		base::Handle<am::util::data::String> str(dataMap->at<am::util::data::String>("str"));
 		assert(str);
 		am_equalsStr("test", str->string());
 
-		base::Handle<util::data::Table> pos(dataMap->at<util::data::Table>("pos"));
+		base::Handle<am::util::data::Table> pos(dataMap->at<am::util::data::Table>("pos"));
 		assert(pos);
 		am_equals(3u, pos->mapInner().size());
 
-		num = pos->at<util::data::Number>("x");
+		num = pos->at<am::util::data::Number>("x");
 		assert(num);
 		am_equalsDelta(5.4, num->number(), 0.00001);
 
-		num = pos->at<util::data::Number>("y");
+		num = pos->at<am::util::data::Number>("y");
 		assert(num);
 		am_equalsDelta(3.2, num->number(), 0.00001);
 
-		base::Handle<util::data::Boolean> boo(pos->at<util::data::Boolean>("origin"));
+		base::Handle<am::util::data::Boolean> boo(pos->at<am::util::data::Boolean>("origin"));
 		assert(boo);
 		assert(!boo->boolean());
 
-		base::Handle<util::data::Table> names(dataMap->at<util::data::Table>("names"));
+		base::Handle<am::util::data::Table> names(dataMap->at<am::util::data::Table>("names"));
 		assert(names);
 		am_equals(3u, names->arrayInner().size());
 
-		str = names->at<util::data::String>(0);
+		str = names->at<am::util::data::String>(0);
 		assert(str);
 		am_equalsStr("jeb", str->string());
 
-		str = names->at<util::data::String>(1);
+		str = names->at<am::util::data::String>(1);
 		assert(str);
 		am_equalsStr("bob", str->string());
 
-		str = names->at<util::data::String>(2);
+		str = names->at<am::util::data::String>(2);
 		assert(str);
 		am_equalsStr("bill", str->string());
 

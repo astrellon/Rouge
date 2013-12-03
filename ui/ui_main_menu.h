@@ -5,21 +5,19 @@
 #include "ui_component.h"
 #include "ievent_listener.h"
 
-using namespace am::util;
-
 namespace am {
 
 namespace sys {
 	class RougeSystem;
 }
-using namespace am::sys;
 
 namespace ui {
 	class TextButton;
 
-	class MainMenu : public UIComponent, public IEventListener {
+	class MainMenu : public UIComponent, public IEventListener 
+	{
 	public:
-		MainMenu(RougeSystem *system);
+		MainMenu(sys::RougeSystem *system);
 		~MainMenu();
 
 		virtual void onEvent(Event *e);
@@ -32,7 +30,7 @@ namespace ui {
 		base::Handle<TextButton> mOptions;
 		base::Handle<TextButton> mQuit;
 
-		RougeSystem *mRougeSystem;
+		sys::RougeSystem *mRougeSystem;
 
 		void initButton(TextButton *btn);
 	};

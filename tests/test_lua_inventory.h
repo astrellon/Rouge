@@ -4,7 +4,6 @@
 #include <base/handle.h>
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include <tests/test_suite.h>
 
@@ -16,18 +15,21 @@ extern "C"
 namespace am {
 namespace tests {
 
-	class TestLuaInventory : public TestSuite {
+	class TestLuaInventory : public TestSuite
+	{
 	public:
 		TestLuaInventory() {}
 		~TestLuaInventory() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 			runCase(testSpots);
 			runCase(testEvents);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::lua::game::Inventory";
 		}
 
@@ -37,11 +39,12 @@ namespace tests {
 		bool testSpots();
 		bool testEvents();
 
-		class TestHandler : public IEventListener {
+		class TestHandler : public ui::IEventListener 
+		{
 		public:
 			TestHandler();
 
-			virtual void onEvent(InventoryEvent *e);
+			virtual void onEvent(ui::InventoryEvent *e);
 
 			bool accept;
 			int counter;

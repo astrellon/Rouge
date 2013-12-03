@@ -1,26 +1,26 @@
 #include "ui_label.h"
 
-#include "gfx/gfx_text_field.h"
+#include <gfx/gfx_text_field.h>
 
 namespace am {
 namespace ui {
 
 	Label::Label() :
 		UIComponent(),
-		mLabel(new TextField())
+		mLabel(new gfx::TextField())
 	{
 		addChild(mLabel.get());
 	}
 	Label::Label(const char *label) :
 		UIComponent(),
-		mLabel(new TextField())
+		mLabel(new gfx::TextField())
 	{
 		mLabel->setText(label);
 		addChild(mLabel.get());
 	}
 	Label::Label(const std::string &label) :
 		UIComponent(),
-		mLabel(new TextField())
+		mLabel(new gfx::TextField())
 	{
 		mLabel->setText(label);
 		addChild(mLabel.get());
@@ -42,7 +42,7 @@ namespace ui {
 		return mLabel->getText();
 	}
 
-	TextField *Label::getLabelField()
+	gfx::TextField *Label::getLabelField()
 	{
 		return mLabel.get();
 	}

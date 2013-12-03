@@ -14,7 +14,7 @@ namespace ui {
 		Panel(),
 		mTextDirty(true)
 	{
-		mInfo = new TextField2();
+		mInfo = new gfx::TextField2();
 		//mInfo->setColour(0, 0, 0);
 		mInfo->setPosition(10, 22);
 		mInfo->setInteractive(true);
@@ -67,7 +67,7 @@ namespace ui {
 		return std::string("");
 	}
 
-	TextField2 *DebugInspector::getTextField()
+	gfx::TextField2 *DebugInspector::getTextField()
 	{
 		return mInfo;
 	}

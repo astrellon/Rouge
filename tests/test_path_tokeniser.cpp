@@ -3,13 +3,13 @@
 #include <tests/asserts.h>
 
 #include <util/path_tokeniser.h>
-using namespace am::util;
 
 namespace am {
 namespace tests {
 
-	bool TestPathTokeniser::testSimple() {
-		PathTokeniser tokeniser("C:\\path\\\\to/folder//");
+	bool TestPathTokeniser::testSimple()
+	{
+		util::PathTokeniser tokeniser("C:\\path\\\\to/folder//");
 		am_equalsStr("C:", tokeniser.nextToken());
 		am_equalsStr("path", tokeniser.nextToken());
 		am_equalsStr("to", tokeniser.nextToken());
@@ -17,7 +17,7 @@ namespace tests {
 		const char *token = tokeniser.nextToken();
 		assert(nullptr == token);
 
-		PathTokeniser tokeniser2("/home/user//games//");
+		util::PathTokeniser tokeniser2("/home/user//games//");
 		am_equalsStr("/", tokeniser2.nextToken());
 		am_equalsStr("home", tokeniser2.nextToken());
 		am_equalsStr("user", tokeniser2.nextToken());
@@ -25,7 +25,7 @@ namespace tests {
 		token = tokeniser2.nextToken();
 		assert(nullptr == token);
 
-		PathTokeniser tokeniser3("\\\\server\\folder//games//");
+		util::PathTokeniser tokeniser3("\\\\server\\folder//games//");
 		am_equalsStr("\\\\", tokeniser3.nextToken());
 		am_equalsStr("server", tokeniser3.nextToken());
 		am_equalsStr("folder", tokeniser3.nextToken());
@@ -33,14 +33,14 @@ namespace tests {
 		token = tokeniser3.nextToken();
 		assert(nullptr == token);
 
-		PathTokeniser tokeniser4("saves/game1/main.lua");
+		util::PathTokeniser tokeniser4("saves/game1/main.lua");
 		am_equalsStr("saves", tokeniser4.nextToken());
 		am_equalsStr("game1", tokeniser4.nextToken());
 		am_equalsStr("main.lua", tokeniser4.nextToken());
 		token = tokeniser4.nextToken();
 		assert(nullptr == token);
 
-		PathTokeniser tokeniser5("folder");
+		util::PathTokeniser tokeniser5("folder");
 		am_equalsStr("folder", tokeniser5.nextToken());
 		token = tokeniser5.nextToken();
 		assert(nullptr == token);

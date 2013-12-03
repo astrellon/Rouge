@@ -9,7 +9,7 @@
 namespace am {
 namespace ui {
 
-	MainMenu::MainMenu(RougeSystem *system) : 
+	MainMenu::MainMenu(sys::RougeSystem *system) : 
 		UIComponent(),
 		mRougeSystem(system),
 		mStartGame(new TextButton("ui:big_button", "Start Game")),
@@ -28,12 +28,12 @@ namespace ui {
 
 		float buttonHeight = mStartGame->getHeight();
 		mStartGame->setWidth(220.0f);
-		mStartGame->setTooltip(new TooltipString("Start Game", "Really start das game."));
+		mStartGame->setTooltip(new gfx::TooltipString("Start Game", "Really start das game."));
 		mStartGame->setParentOffsetY(-buttonHeight * 2.0f);
 		mStartGame->addEventListener("click", this);
 
 		mLoadGame->setParentOffsetY(-buttonHeight * 1.0f);
-		mLoadGame->setTooltip(new TooltipString("Load Game!"));
+		mLoadGame->setTooltip(new gfx::TooltipString("Load Game!"));
 		mLoadGame->setWidth(200.0f);
 		mLoadGame->addEventListener("click", this);
 

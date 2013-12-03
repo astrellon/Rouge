@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug FreeGlut Tests|Win32">
+      <Configuration>Debug FreeGlut Tests</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug FreeGlut|Win32">
       <Configuration>Debug FreeGlut</Configuration>
       <Platform>Win32</Platform>
@@ -45,6 +49,11 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut Tests|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -82,6 +91,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut Tests|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Mem|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -103,6 +115,10 @@
     <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut|Win32'">
+    <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut Tests|Win32'">
     <LibraryPath>C:\git\Rouge\freeglut\lib;C:\Program Files (x86)\OpenAL 1.1 SDK\libs\Win32;C:\Program Files (x86)\Visual Leak Detector\lib\Win32;gfx\IL\;GLee\;$(LibraryPath)</LibraryPath>
     <IncludePath>C:\git\Rouge\freeglut\include;$(ProjectDir)sfx\ogg;C:\Program Files %28x86%29\OpenAL 1.1 SDK\include;$(ProjectDir);C:\Program Files (x86)\Visual Leak Detector\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
@@ -151,6 +167,29 @@ copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;Opengl32.lib;glu32.lib;DevIL.lib;GLee.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(ProjectDir)gfx\IL\DevIL.dll" "$(OutputPath)"
+mkdir "$(OutputPath)data"
+xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"
+copy "$(ProjectDir)sfx\ogg.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbis.dll" "$(OutputPath)"
+copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"
+copy "$(ProjectDir)freeglut\bin\freeglut.dll" "$(OutputPath)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug FreeGlut Tests|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;TESTING;_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

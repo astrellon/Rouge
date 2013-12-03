@@ -10,7 +10,6 @@
 #include <gfx/gfx_colour_effect.h>
 
 #include <base/handle.h>
-using namespace am::util;
 
 #include "mouse_manager.h"
 
@@ -20,21 +19,21 @@ namespace ui {
 	TextButton::TextButton() :
 		UIComponent()
 	{
-		mGraphic = new Button();
+		mGraphic = new gfx::Button();
 
 		init();
 	}
-	TextButton::TextButton(const char *assetName, Renderable *hitbox) :
+	TextButton::TextButton(const char *assetName, gfx::Renderable *hitbox) :
 		UIComponent()
 	{
-		mGraphic = new Button(assetName, hitbox);
+		mGraphic = new gfx::Button(assetName, hitbox);
 
 		init();
 	}
-	TextButton::TextButton(const char *assetName, const char *label, Renderable *hitbox) :
+	TextButton::TextButton(const char *assetName, const char *label, gfx::Renderable *hitbox) :
 		UIComponent()
 	{
-		mGraphic = new Button(assetName, hitbox);
+		mGraphic = new gfx::Button(assetName, hitbox);
 
 		init();
 
@@ -43,8 +42,8 @@ namespace ui {
 	TextButton::TextButton(const TextButton &copy) :
 		UIComponent(copy)
 	{
-		mGraphic = dynamic_cast<Button *>(mChildren[0].get());
-		mLabel = dynamic_cast<TextField *>(mChildren[1].get());
+		mGraphic = dynamic_cast<gfx::Button *>(mChildren[0].get());
+		mLabel = dynamic_cast<gfx::TextField *>(mChildren[1].get());
 
 		setLabel(copy.getLabel().c_str());
 	}
@@ -57,21 +56,21 @@ namespace ui {
 		addChild(mGraphic);
 		mGraphic->addEventListener("click", this);
 
-		mLabel = new TextField();
+		mLabel = new gfx::TextField();
 		mLabel->setBaseFont("default:arial");
-		mLabel->setGfxComponent(new GfxComponent());
+		mLabel->setGfxComponent(new gfx::GfxComponent());
 		mLabel->getGfxComponent()->setColour(0.6f, 0.8f, 1.0f);
 		addChild(mLabel);
 
 		mLabel->setWidth(mGraphic->getWidth());
-		mLabel->setAlignment(TextField::ALIGN_CENTER);
+		mLabel->setAlignment(gfx::TextField::ALIGN_CENTER);
 	}
 
-	void TextButton::setHitbox(Renderable *hitbox)
+	void TextButton::setHitbox(gfx::Renderable *hitbox)
 	{
 		mGraphic->setHitbox(hitbox);
 	}
-	Renderable *TextButton::getHitbox()
+	gfx::Renderable *TextButton::getHitbox()
 	{
 		return mGraphic->getHitbox();
 	}
@@ -91,7 +90,7 @@ namespace ui {
 		return mLabel->getText();
 	}
 
-	TextField *TextButton::getLabelField() const
+	gfx::TextField *TextButton::getLabelField() const
 	{
 		return mLabel;
 	}
@@ -151,23 +150,6 @@ namespace ui {
 		float fontHeight = mLabel->getMeasuredHeight();
 		mLabel->setPosition(0.0f, (mGraphic->getHeight() - fontHeight) * 0.5f);
 	}
-	/*
-	void TextButton::setTooltip(const char *tooltip)
-	{
-		mGraphic->setTooltip(tooltip);
-	}
-	const char *TextButton::getTooltip() const
-	{
-		return mGraphic->getTooltip();
-	}
-	void TextButton::setDetailedTooltip(const char *tooltip)
-	{
-		mGraphic->setDetailedTooltip(tooltip);
-	}
-	const char *TextButton::getDetailedTooltip() const
-	{
-		return mGraphic->getDetailedTooltip();
-	}*/
 
 }
 }

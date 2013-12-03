@@ -14,18 +14,17 @@ namespace gfx {
 	class Layer;
 }
 
-using namespace am::gfx;
-
 namespace ui {
 
-	class MouseManager : public EventInterface {
+	class MouseManager : public EventInterface
+	{
 	public:
 
 		MouseManager();
 		~MouseManager();
 
-		Renderable *checkForMouseEvent(Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
-		Renderable *getUnderMouse() const;
+		gfx::Renderable *checkForMouseEvent(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
+		gfx::Renderable *getUnderMouse() const;
 		bool getButtonDown(Mouse::Button button);
 
 		void onMouseDown(Mouse::Button mouseButton, int x, int y);
@@ -38,10 +37,10 @@ namespace ui {
 
 		void clearCurrentlyFiring();
 
-		void fireMouseEvent(Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
+		void fireMouseEvent(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
 
-		void setRootLayer(Layer *layer);
-		Layer *getRootLayer() const;
+		void setRootLayer(gfx::Layer *layer);
+		gfx::Layer *getRootLayer() const;
 
 		int getMouseX() const;
 		int getMouseY() const;
@@ -51,8 +50,8 @@ namespace ui {
 
 	protected:
 
-		base::Handle<Renderable> mUnderMouse;
-		base::Handle<Layer> mRootLayer;
+		base::Handle<gfx::Renderable> mUnderMouse;
+		base::Handle<gfx::Layer> mRootLayer;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
@@ -68,7 +67,7 @@ namespace ui {
 
 		static MouseManager *sMainManager;
 
-		static std::string getPath(Renderable *target);
+		static std::string getPath(gfx::Renderable *target);
 	};
 
 }

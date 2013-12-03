@@ -8,13 +8,10 @@
 #include <game/character.h>
 #include <game/game.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include <gfx/gfx_texture.h>
-using namespace am::gfx;
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <gl.h>
 
@@ -23,7 +20,7 @@ namespace ui {
 
 	DialogueChoices::DialogueChoices() :
 		UIComponent(),
-		mText(new TextField2())
+		mText(new gfx::TextField2())
 	{
 		addChild(mText);
 		mText->setDisplayHeight(90.0f);
@@ -34,7 +31,7 @@ namespace ui {
 		mText->removeEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 
-	TextField2 *DialogueChoices::getTextField() const
+	gfx::TextField2 *DialogueChoices::getTextField() const
 	{
 		return mText;
 	}
@@ -45,10 +42,10 @@ namespace ui {
 		{
 			return;
 		}
-		NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getOriginalTarget());
+		gfx::NodeHitbox *nodeTarget = dynamic_cast<gfx::NodeHitbox *>(e->getOriginalTarget());
 		if (nodeTarget)
 		{
-			Node *node = nodeTarget->getNodeTarget();
+			gfx::Node *node = nodeTarget->getNodeTarget();
 			if (strcmp(node->getNodeType(), "?") == 0 || strcmp(node->getNodeType(), "choice") == 0)
 			{
 				const char *gotoDiag = node->getAttribute("@");
@@ -61,7 +58,7 @@ namespace ui {
 					return;
 				}
 
-				Dialogue *newDiag = Engine::getGame()->getDialogue(gotoDiag);
+				game::Dialogue *newDiag = game::Engine::getGame()->getDialogue(gotoDiag);
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
 				//mTalker->talkTo(mTalkedTo, newDiag);
 			}
@@ -84,13 +81,13 @@ namespace ui {
 		{
 			std::vector<Dialogue *> newChoices;
 			
-			Engine::getGame()->getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
+			game::Engine::getGame()->getAvailableDialogues(newChoices, mTalker, e->getTalkedTo());
 			mTalkedTo = e->getTalkedTo();
 			setDialogueChoices(newChoices);
 		}
 	}
 
-	void DialogueChoices::setTalker(GameObject *talker)
+	void DialogueChoices::setTalker(game::GameObject *talker)
 	{
 		if (mTalker.get() != nullptr)
 		{
@@ -102,21 +99,21 @@ namespace ui {
 			mTalker->addEventListener("dialogue", this);
 		}
 	}
-	GameObject *DialogueChoices::getTalker() const
+	game::GameObject *DialogueChoices::getTalker() const
 	{
 		return mTalker;
 	}
 
-	void DialogueChoices::setTalkedTo(GameObject *talkedTo)
+	void DialogueChoices::setTalkedTo(game::GameObject *talkedTo)
 	{
 		mTalkedTo = talkedTo;
 	}
-	GameObject *DialogueChoices::getTalkedTo() const
+	game::GameObject *DialogueChoices::getTalkedTo() const
 	{
 		return mTalkedTo;
 	}
 
-	void DialogueChoices::setDialogueChoices(const std::vector<Dialogue *> &choices)
+	void DialogueChoices::setDialogueChoices(const std::vector<game::Dialogue *> &choices)
 	{
 		bool same = choices.size() == mChoices.size();
 		if (same)
@@ -136,7 +133,7 @@ namespace ui {
 			updateText();
 		}
 	}
-	const std::vector<Dialogue *> &DialogueChoices::getDialogueChoices() const
+	const std::vector<game::Dialogue *> &DialogueChoices::getDialogueChoices() const
 	{
 		return mChoices;
 	}
@@ -172,7 +169,7 @@ namespace ui {
 	{
 		UIComponent::preRender(dt);
 
-		Texture::bindTexture(0);
+		gfx::Texture::bindTexture(0);
 
 		glColor4f(0.3f, 0.1f, 0.7f, 0.35f);
 		glRectf(0.0f, 0.0f, getWidth(), getHeight());
@@ -193,11 +190,11 @@ namespace ui {
 		if (mChoices.size() > 0)
 		{
 			std::stringstream ss;
-			std::vector<Dialogue *>::const_iterator iter;
+			std::vector<game::Dialogue *>::const_iterator iter;
 			int i = 1;
 			for (iter = mChoices.begin(); iter != mChoices.end(); ++iter)
 			{
-				Dialogue *diag = *iter;
+				game::Dialogue *diag = *iter;
 				ss << i++ << ": <? class='" << diag->getId() << ' ' << diag->getSubject();
 				ss << "' @='" << diag->getId() << "'>" << diag->getTitle() << "</?>\n";
 			}

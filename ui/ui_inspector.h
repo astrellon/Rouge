@@ -3,12 +3,10 @@
 #include <game/tile.h>
 #include <game/tile_instance.h>
 #include <game/game_object.h>
-using namespace am::game;
 
 #include <base/handle.h>
 
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include <vector>
 
@@ -17,21 +15,22 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class Inspector : public Panel {
+	class Inspector : public Panel
+	{
 	public:
 		Inspector();
 		~Inspector();
 
-		virtual void setTileInstance(TileInstance *instance);
-		virtual TileInstance *getTileInstance() const;
+		virtual void setTileInstance(game::TileInstance *instance);
+		virtual game::TileInstance *getTileInstance() const;
 
-		virtual void addGameObject(GameObject *obj);
-		virtual void addGameObjects(const ObjectList &list);
+		virtual void addGameObject(game::GameObject *obj);
+		virtual void addGameObjects(const game::ObjectList &list);
 		virtual void clearGameObjects();
 
-		virtual void setInspectObject(GameObject *obj);
+		virtual void setInspectObject(game::GameObject *obj);
 
-		virtual TextField2 *getTextField();
+		virtual gfx::TextField2 *getTextField();
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
@@ -44,10 +43,10 @@ namespace ui {
 
 		TileInstance *mTileInstance;
 		
-		typedef std::vector< base::Handle<GameObject> > GameObjectList;
+		typedef std::vector< base::Handle<game::GameObject> > GameObjectList;
 		GameObjectList mGameObjects;
 
-		base::Handle<TextField2> mInfo;
+		base::Handle<gfx::TextField2> mInfo;
 
 		bool mInspectObject;
 		bool mTextDirty;

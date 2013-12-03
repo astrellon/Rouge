@@ -85,7 +85,7 @@ namespace ui {
 		mStatus = new Label();
 		mStatus->getLabelField()->setBaseFont("default:arial");
 		mStatus->setParentOffset(20.0f, y);
-		mStatus->setGfxComponent(new GfxComponent());
+		mStatus->setGfxComponent(new gfx::GfxComponent());
 		mStatus->getGfxComponent()->setColour(1.0f, 0.9f, 0.8f, 1.0f);
 		addChild(mStatus);
 
@@ -334,14 +334,14 @@ namespace ui {
 		Map *map = mGame->getCurrentMap();
 		if (tile && map && map->getTileRenderer())
 		{
-			Vector2f pos(0.0f, 0.0f);
+			math::Vector2f pos(0.0f, 0.0f);
 			map->getTileRenderer()->getScreenToLocal(mouseX, mouseY, pos.x, pos.y);
-			Vector2i grid = Engine::getEngine()->worldToGrid(pos);
+			math::Vector2i grid = Engine::getEngine()->worldToGrid(pos);
 			if (grid.x >= 0 && grid.y >= 0 && grid.x < map->getMapWidth() && grid.y < map->getMapHeight())
 			{
-				TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
+				game::TileInstance *instance = mGame->getCurrentMap()->getTileInstance(grid.x, grid.y);
 				instance->setTile(tile);
-				Asset *asset = tile->getGraphicAsset();
+				gfx::Asset *asset = tile->getGraphicAsset();
 				instance->randomiseVaritation();
 				map->getTileRenderer()->updateAssetSprite(tile);
 				map->calcTileEdgeValuesAround(grid.x, grid.y);
@@ -434,14 +434,14 @@ namespace ui {
 		}
 		if (renderBack)
 		{
-			Texture::bindTexture(0);
+			gfx::Texture::bindTexture(0);
 			glBegin(GL_QUADS);
 			glVertex2f(0.0f, 0.0f);
 			glVertex2f(getWidth(), 0.0f);
 			glVertex2f(getWidth(), getHeight());
 			glVertex2f(0.0f, getHeight());
 			glEnd();
-			GfxEngine::getEngine()->applyColourStack();
+			gfx::GfxEngine::getEngine()->applyColourStack();
 		}
 	}
 

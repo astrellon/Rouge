@@ -9,13 +9,10 @@
 #include <game/string_pool.h>
 #include <game/game.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include <gfx/gfx_texture.h>
-using namespace am::gfx;
 
 #include <util/utils.h>
-using namespace am::util;
 
 #include <gl.h>
 
@@ -24,7 +21,7 @@ namespace ui {
 
 	DialogueBox::DialogueBox() :
 		UIComponent(),
-		mText(new TextField2()),
+		mText(new gfx::TextField2()),
 		mDialogue(nullptr)
 	{
 		addChild(mText);
@@ -35,7 +32,7 @@ namespace ui {
 		mText->removeEventListener(ui::Mouse::MOUSE_UP, this);
 	}
 
-	TextField2 *DialogueBox::getTextField() const
+	gfx::TextField2 *DialogueBox::getTextField() const
 	{
 		return mText;
 	}
@@ -46,10 +43,10 @@ namespace ui {
 		{
 			return;
 		}
-		NodeHitbox *nodeTarget = dynamic_cast<NodeHitbox *>(e->getOriginalTarget());
+		gfx::NodeHitbox *nodeTarget = dynamic_cast<gfx::NodeHitbox *>(e->getOriginalTarget());
 		if (nodeTarget)
 		{
-			Node *node = nodeTarget->getNodeTarget();
+			gfx::Node *node = nodeTarget->getNodeTarget();
 			if (strcmp(node->getNodeType(), "?") == 0 || strcmp(node->getNodeType(), "choice") == 0)
 			{
 				const char *gotoDiag = node->getAttribute("@");
@@ -62,7 +59,7 @@ namespace ui {
 					return;
 				}
 
-				Dialogue *newDiag = Engine::getGame()->getDialogue(gotoDiag);
+				game::Dialogue *newDiag = game::Engine::getGame()->getDialogue(gotoDiag);
 				mTalker->getDialogueComp()->setSubjectLock(newDiag->getSubject());
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, newDiag);
 			}
@@ -78,7 +75,7 @@ namespace ui {
 		setDialogue(e->getDialogue()); 
 	}
 
-	void DialogueBox::setTalker(GameObject *talker)
+	void DialogueBox::setTalker(game::GameObject *talker)
 	{
 		if (mTalker.get() != nullptr)
 		{
@@ -90,21 +87,21 @@ namespace ui {
 			mTalker->addEventListener("dialogue", this);
 		}
 	}
-	GameObject *DialogueBox::getTalker() const
+	game::GameObject *DialogueBox::getTalker() const
 	{
 		return mTalker;
 	}
 
-	void DialogueBox::setTalkedTo(GameObject *talkedTo)
+	void DialogueBox::setTalkedTo(game::GameObject *talkedTo)
 	{
 		mTalkedTo = talkedTo;
 	}
-	GameObject *DialogueBox::getTalkedTo() const
+	game::GameObject *DialogueBox::getTalkedTo() const
 	{
 		return mTalkedTo;
 	}
 
-	void DialogueBox::setDialogue(Dialogue *dialogue)
+	void DialogueBox::setDialogue(game::Dialogue *dialogue)
 	{
 		if (mDialogue != dialogue)
 		{
@@ -112,7 +109,7 @@ namespace ui {
 			updateText();
 		}
 	}
-	Dialogue *DialogueBox::getDialogue() const
+	game::Dialogue *DialogueBox::getDialogue() const
 	{
 		return mDialogue;
 	}
@@ -148,7 +145,7 @@ namespace ui {
 	{
 		UIComponent::preRender(dt);
 
-		Texture::bindTexture(0);
+		gfx::Texture::bindTexture(0);
 
 		glColor4f(0.3f, 0.7f, 0.1f, 0.35f);
 		glRectf(0.0f, 0.0f, getWidth(), getHeight());

@@ -6,7 +6,6 @@
 #include <tests/test_suite.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <string>
 
@@ -14,7 +13,8 @@ namespace am {
 namespace tests {
 
 	namespace test {
-		class Base {
+		class Base 
+		{
 		public:
 			Base();
 			~Base();
@@ -36,7 +36,8 @@ namespace tests {
 
 		int Base_register(lua_State *lua);
 
-		class Child : public Base {
+		class Child : public Base
+		{
 		public:
 			Child();
 			~Child();
@@ -59,21 +60,23 @@ namespace tests {
 		int Child_register(lua_State *lua);
 	}
 
-	class TestLua : public TestSuite {
+	class TestLua : public TestSuite
+	{
 	public:
 		TestLua() {}
 		~TestLua() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 			runCase(testScripts);
 			runCase(testLoadScripts);
 			runCase(testWrapper);
 			runCase(testReturnCodes);
-			//runCase(testInheritance);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::lua::LuaState";
 		}
 

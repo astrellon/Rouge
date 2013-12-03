@@ -4,19 +4,20 @@
 #include <base/handle.h>
 
 #include <ui/ievent_listener.h>
-using namespace am::ui;
 
 #include <tests/test_suite.h>
 
 namespace am {
 namespace tests {
 
-	class TestMap : public TestSuite {
+	class TestMap : public TestSuite
+	{
 	public:
 		TestMap() {}
 		~TestMap() {}
 	
-		virtual void runCases() {
+		virtual void runCases() 
+		{
 			runCase(testSimple);
 			runCase(testValidTiles);
 			runCase(testValidTilesBig);
@@ -24,7 +25,8 @@ namespace tests {
 			runCase(testMapRegions);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const
+		{
 			return "am::game::Map";
 		}
 
@@ -36,12 +38,13 @@ namespace tests {
 		bool testEdgeValue();
 		bool testMapRegions();
 
-		class TestMapListener : public IEventListener {
+		class TestMapListener : public ui::IEventListener 
+		{
 		public:
 
 			TestMapListener();
 
-			virtual void onEvent(MapRegionEvent *e);
+			virtual void onEvent(ui::MapRegionEvent *e);
 			
 			int counter;
 		

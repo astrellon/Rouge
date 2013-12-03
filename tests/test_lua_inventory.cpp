@@ -5,14 +5,11 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/item.h>
 #include <game/inventory.h>
-using namespace am::game;
 
 #include <lua/wrappers/game/lua_item.h>
-using namespace am::lua::game;
 
 extern "C" 
 { 
@@ -24,8 +21,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaInventory::testSimple() {
-		LuaState lua;
+	bool TestLuaInventory::testSimple()
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"inv = am.inventory.new(6, 4)\n"
@@ -58,10 +56,10 @@ namespace tests {
 		am_equals(4, lua_tointeger(lua, -1));
 		lua.pop(2);
 
-		base::Handle<Item> item(new Item());
+		base::Handle<game::Item> item(new game::Item());
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
 		lua_acall(lua, 3, 1);
@@ -69,7 +67,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua.push(5);
 		lua.push(0);
 		lua_acall(lua, 3, 1);
@@ -78,7 +76,7 @@ namespace tests {
 
 		item->setInventorySize(7, 2);
 		assert(lua.hasGlobalFunction("hasSpaceFor"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua.push(0);
 		lua.push(0);
 		lua_acall(lua, 3, 1);
@@ -87,25 +85,25 @@ namespace tests {
 
 		item->setInventorySize(2, 2);
 		assert(lua.hasGlobalFunction("addItem"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("addItem"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("removeItem"));
-		wrapRefObject<Item>(lua, item);
+		lua::wrapRefObject<game::Item>(lua, item);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -113,8 +111,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaInventory::testSpots() {
-		LuaState lua;
+	bool TestLuaInventory::testSpots()
+	{
+		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
 			"inv = am.inventory.new(3, 3)\n"
@@ -141,11 +140,11 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaInventory::testEvents() {
-		
-		base::Handle<Inventory> inventory(new Inventory(6, 4));
+	bool TestLuaInventory::testEvents() 
+	{
+		base::Handle<game::Inventory> inventory(new game::Inventory(6, 4));
 		base::Handle<TestHandler> handler(new TestHandler());
-		base::Handle<Item> testItem(new Item());
+		base::Handle<game::Item> testItem(new game::Item());
 		testItem->setInventorySize(1, 1);
 		inventory->addEventListener("inventory_add", handler);
 		inventory->addEventListener("inventory_before_add", handler);
@@ -185,7 +184,7 @@ namespace tests {
 		counter(0)
 	{
 	}
-	void TestLuaInventory::TestHandler::onEvent(InventoryEvent *e)
+	void TestLuaInventory::TestHandler::onEvent(ui::InventoryEvent *e)
 	{
 		counter++;
 		if (!accept)

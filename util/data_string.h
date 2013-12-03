@@ -8,7 +8,8 @@ namespace am {
 namespace util {
 namespace data {
 
-	class String : public IData {
+	class String : public IData 
+	{
 	public:
 
 		String();

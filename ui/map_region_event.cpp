@@ -2,12 +2,11 @@
 
 #include <game/game_object.h>
 #include <game/map_region.h>
-using namespace am::game;
 
 namespace am {
 namespace ui {
 
-	MapRegionEvent::MapRegionEvent(const char *type, MapRegion *region, GameObject *obj) :
+	MapRegionEvent::MapRegionEvent(const char *type, game::MapRegion *region, game::GameObject *obj) :
 		Event(type),
 		mMapRegion(region),
 		mGameObject(obj)
@@ -33,11 +32,11 @@ namespace ui {
 		}
 	}
 
-	MapRegion *MapRegionEvent::getMapRegion() const
+	game::MapRegion *MapRegionEvent::getMapRegion() const
 	{
 		return mMapRegion;
 	}
-	GameObject *MapRegionEvent::getGameObject() const
+	game::GameObject *MapRegionEvent::getGameObject() const
 	{
 		return mGameObject;
 	}

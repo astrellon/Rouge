@@ -7,7 +7,7 @@
 namespace am {
 namespace ui {
 
-	EquipEvent::EquipEvent(const char *type, Character *character, BodyPart *part, Item *item) :
+	EquipEvent::EquipEvent(const char *type, game::Character *character, game::BodyPart *part, game::Item *item) :
 		Event(type),
 		mCharacter(character),
 		mPart(part),
@@ -42,15 +42,15 @@ namespace ui {
 		}
 	}
 
-	Character *EquipEvent::getCharacter() const
+	game::Character *EquipEvent::getCharacter() const
 	{
 		return mCharacter;
 	}
-	Item *EquipEvent::getItem() const
+	game::Item *EquipEvent::getItem() const
 	{
 		return mItem;
 	}
-	BodyPart *EquipEvent::getBodyPart() const
+	game::BodyPart *EquipEvent::getBodyPart() const
 	{
 		return mPart;
 	}

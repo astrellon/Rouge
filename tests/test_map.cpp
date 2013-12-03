@@ -7,7 +7,6 @@
 #include <game/tile_type.h>
 #include <game/tile_instance.h>
 #include <game/map_region.h>
-using namespace am::game;
 
 #include <tests/asserts.h>
 
@@ -16,18 +15,18 @@ namespace tests {
 
 	bool TestMap::testSimple()
 	{
-		base::Handle<TileType> landType(new TileType("land"));
-		base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<game::TileType> landType(new game::TileType("land"));
+		base::Handle<game::TileType> waterType(new game::TileType("water"));
 
-		base::Handle<Tile> land(new Tile("land"));
-		base::Handle<Tile> water(new Tile("water"));
-		base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<game::Tile> land(new game::Tile("land"));
+		base::Handle<game::Tile> water(new game::Tile("water"));
+		base::Handle<game::Tile> swamp(new game::Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		base::Handle<Map> testMap(new Map("testMap", 3, 1));
+		base::Handle<game::Map> testMap(new game::Map("testMap", 3, 1));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(water);
@@ -43,15 +42,15 @@ namespace tests {
 		assert(testMap->getTile(1, 0) == water.get());
 		assert(testMap->getTile(2, 0) == swamp.get());
 
-		const Tile::TileTypeSet &landTileTypes = land->getTileTypes();
+		const game::Tile::TileTypeSet &landTileTypes = land->getTileTypes();
 		am_equals(1u, landTileTypes.size());
 		assert(landTileTypes[0].get() == landType.get());
 
-		const Tile::TileTypeSet &waterTileTypes = water->getTileTypes();
+		const game::Tile::TileTypeSet &waterTileTypes = water->getTileTypes();
 		am_equals(1u, waterTileTypes.size());
 		assert(waterTileTypes[0].get() == waterType.get());
 
-		const Tile::TileTypeSet &swampTileTypes = swamp->getTileTypes();
+		const game::Tile::TileTypeSet &swampTileTypes = swamp->getTileTypes();
 		am_equals(2u, swampTileTypes.size());
 		assert(swampTileTypes[0].get() == landType.get());
 		assert(swampTileTypes[1].get() == waterType.get());
@@ -61,18 +60,18 @@ namespace tests {
 
 	bool TestMap::testValidTiles() 
 	{
-		base::Handle<TileType> landType(new TileType("land"));
-		base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<game::TileType> landType(new game::TileType("land"));
+		base::Handle<game::TileType> waterType(new game::TileType("water"));
 
-		base::Handle<Tile> land(new Tile("land"));
-		base::Handle<Tile> water(new Tile("water"));
-		base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<game::Tile> land(new game::Tile("land"));
+		base::Handle<game::Tile> water(new game::Tile("water"));
+		base::Handle<game::Tile> swamp(new game::Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		base::Handle<Map> testMap(new Map("testMap", 3, 1));
+		base::Handle<game::Map> testMap(new game::Map("testMap", 3, 1));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(swamp);
@@ -116,18 +115,18 @@ namespace tests {
 
 	bool TestMap::testValidTilesBig() 
 	{
-		base::Handle<TileType> landType(new TileType("land"));
-		base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<game::TileType> landType(new game::TileType("land"));
+		base::Handle<game::TileType> waterType(new game::TileType("water"));
 
-		base::Handle<Tile> land(new Tile("land"));
-		base::Handle<Tile> water(new Tile("water"));
-		base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<game::Tile> land(new game::Tile("land"));
+		base::Handle<game::Tile> water(new game::Tile("water"));
+		base::Handle<game::Tile> swamp(new game::Tile("swamp"));
 		land->addTileType(landType);
 		water->addTileType(waterType);
 		swamp->addTileType(landType);
 		swamp->addTileType(waterType);
 
-		base::Handle<Map> testMap(new Map("testMap", 3, 2));
+		base::Handle<game::Map> testMap(new game::Map("testMap", 3, 2));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(swamp);
@@ -151,12 +150,12 @@ namespace tests {
 
 	bool TestMap::testEdgeValue() 
 	{
-		base::Handle<TileType> landType(new TileType("land"));
-		base::Handle<TileType> waterType(new TileType("water"));
+		base::Handle<game::TileType> landType(new game::TileType("land"));
+		base::Handle<game::TileType> waterType(new game::TileType("water"));
 
-		base::Handle<Tile> land(new Tile("land"));
-		base::Handle<Tile> water(new Tile("water"));
-		base::Handle<Tile> swamp(new Tile("swamp"));
+		base::Handle<game::Tile> land(new game::Tile("land"));
+		base::Handle<game::Tile> water(new game::Tile("water"));
+		base::Handle<game::Tile> swamp(new game::Tile("swamp"));
 		land->addTileType(landType);
 		land->setPrecedence(10);
 		water->addTileType(waterType);
@@ -165,7 +164,7 @@ namespace tests {
 		swamp->addTileType(waterType);
 		swamp->setPrecedence(5);
 
-		base::Handle<Map> testMap(new Map("testMap", 3, 3));
+		base::Handle<game::Map> testMap(new game::Map("testMap", 3, 3));
 		TileInstance *tiles = testMap->getTiles();
 		tiles[0].setTile(land);
 		tiles[1].setTile(land);
@@ -183,24 +182,24 @@ namespace tests {
 		am_equals(false, tiles[0].hasEdgeValue());
 		am_equals(false, tiles[1].hasEdgeValue());
 		am_equals(true, tiles[2].hasEdgeValue());
-		am_equals(Map::FLAG_L, tiles[2].getTileEdgeValue(3));
+		am_equals(game::Map::FLAG_L, tiles[2].getTileEdgeValue(3));
 
 		am_equals(false, tiles[3].hasEdgeValue());
 		am_equals(true, tiles[4].hasEdgeValue());
-		am_equals(Map::FLAG_L | Map::FLAG_T, tiles[4].getTileEdgeValue(1));
-		am_equals(Map::FLAG_BR, tiles[4].getTileEdgeValue(7));
+		am_equals(game::Map::FLAG_L | game::Map::FLAG_T, tiles[4].getTileEdgeValue(1));
+		am_equals(game::Map::FLAG_BR, tiles[4].getTileEdgeValue(7));
 		am_equals(true, tiles[5].hasEdgeValue());
-		am_equals(Map::FLAG_TL, tiles[5].getTileEdgeValue(0));
-		am_equals(Map::FLAG_B, tiles[5].getTileEdgeValue(6));
+		am_equals(game::Map::FLAG_TL, tiles[5].getTileEdgeValue(0));
+		am_equals(game::Map::FLAG_B, tiles[5].getTileEdgeValue(6));
 
 		return true;
 	}
 
 	bool TestMap::testMapRegions() 
 	{
-		base::Handle<Map> testMap(new Map("testRegions"));
-		base::Handle<Tile> land(new Tile("land"));
-		base::Handle<TileType> landType(new TileType("land"));
+		base::Handle<game::Map> testMap(new game::Map("testRegions"));
+		base::Handle<game::Tile> land(new game::Tile("land"));
+		base::Handle<game::TileType> landType(new game::TileType("land"));
 		land->addTileType(landType);
 		testMap->setMapSize(4, 4, land);
 
@@ -217,8 +216,8 @@ namespace tests {
 		testMap->addMapRegion(region);
 		am_equals(true, testMap->hasMapRegion(region));
 
-		base::Handle<Character> testChar(new Character());
-		base::Handle<Sprite> graphic(new Sprite());
+		base::Handle<game::Character> testChar(new game::Character());
+		base::Handle<gfx::Sprite> graphic(new gfx::Sprite());
 		graphic->setSize(Engine::getEngine()->getGridSize(), Engine::getEngine()->getGridSize());
 		testChar->setGraphic(graphic);
 		testChar->addPassibleType(landType);
@@ -250,7 +249,7 @@ namespace tests {
 	{
 
 	}
-	void TestMap::TestMapListener::onEvent(MapRegionEvent *e)
+	void TestMap::TestMapListener::onEvent(ui::MapRegionEvent *e)
 	{
 		if (e->getType().compare("region_entered") == 0)
 		{

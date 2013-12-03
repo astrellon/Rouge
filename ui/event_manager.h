@@ -17,7 +17,8 @@ namespace ui {
 
 	class EventInterface;
 
-	class EventManager  {
+	class EventManager 
+	{
 	public:
 
 		friend class EventInterface;

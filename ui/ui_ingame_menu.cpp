@@ -8,7 +8,7 @@
 namespace am {
 namespace ui {
 
-	IngameMenu::IngameMenu(RougeSystem *system) : 
+	IngameMenu::IngameMenu(sys::RougeSystem *system) : 
 		UIComponent(),
 		mRougeSystem(system),
 		mResumeGame(new TextButton("ui:big_button", "Resume Game")),

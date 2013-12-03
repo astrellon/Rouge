@@ -18,7 +18,8 @@
 namespace am {
 namespace util {
 
-	class Utils {
+	class Utils 
+	{
 	public:
 		/**
 		 * Parses a string input into a number type assuming base 10 values (which can be changed).

@@ -6,7 +6,8 @@ namespace am {
 namespace util {
 namespace data {
 
-	class Number : public IData {
+	class Number : public IData
+	{
 	public:
 
 		Number();

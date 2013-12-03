@@ -5,10 +5,8 @@
 #include <string>
 
 #include <game/dialogue.h>
-using namespace am::game;
 
 #include <gfx/gfx_text_field2.h>
-using namespace am::gfx;
 
 #include "ui_component.h"
 #include "ievent_listener.h"
@@ -16,24 +14,25 @@ using namespace am::gfx;
 namespace am {
 namespace ui {
 
-	class DialogueChoices : public UIComponent, public IEventListener {
+	class DialogueChoices : public UIComponent, public IEventListener 
+	{
 	public:
 		DialogueChoices();
 		~DialogueChoices();
 
-		TextField2 *getTextField() const;
+		gfx::TextField2 *getTextField() const;
 
 		virtual void onEvent(MouseEvent *e);
 		virtual void onEvent(DialogueEvent *e);
 
-		virtual void setTalker(GameObject *talker);
-		virtual GameObject *getTalker() const;
+		virtual void setTalker(game::GameObject *talker);
+		virtual game::GameObject *getTalker() const;
 
-		virtual void setTalkedTo(GameObject *talkedTo);
-		virtual GameObject *getTalkedTo() const;
+		virtual void setTalkedTo(game::GameObject *talkedTo);
+		virtual game::GameObject *getTalkedTo() const;
 
-		virtual void setDialogueChoices(const std::vector<Dialogue *> &choices);
-		virtual const std::vector<Dialogue *> &getDialogueChoices() const;
+		virtual void setDialogueChoices(const std::vector<game::Dialogue *> &choices);
+		virtual const std::vector<game::Dialogue *> &getDialogueChoices() const;
 
 		virtual float getMeasuredWidth();
 		virtual float getMeasuredHeight();
@@ -49,10 +48,10 @@ namespace ui {
 
 	protected:
 
-		base::Handle<TextField2> mText;
-		std::vector<Dialogue *> mChoices;
-		base::Handle<GameObject> mTalker;
-		base::Handle<GameObject> mTalkedTo;
+		base::Handle<gfx::TextField2> mText;
+		std::vector<game::Dialogue *> mChoices;
+		base::Handle<game::GameObject> mTalker;
+		base::Handle<game::GameObject> mTalkedTo;
 
 		void updateText();
 	};

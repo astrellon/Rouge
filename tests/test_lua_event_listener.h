@@ -13,17 +13,20 @@ extern "C"
 namespace am {
 namespace tests {
 
-	class TestLuaEventListener : public TestSuite {
+	class TestLuaEventListener : public TestSuite
+	{
 	public:
 		TestLuaEventListener() {}
 		~TestLuaEventListener() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 			runCase(testMouse);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "ui::LuaEventListener";
 		}
 

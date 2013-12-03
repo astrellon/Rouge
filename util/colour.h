@@ -9,7 +9,8 @@
 namespace am {
 namespace util {
 
-	class Colour {
+	class Colour
+	{
 	public:
 		Colour();
 		Colour(const char *name);

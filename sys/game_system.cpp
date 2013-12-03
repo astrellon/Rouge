@@ -100,7 +100,7 @@ namespace sys {
 
 	void GameSystem::init()
 	{
-		gfx::GfxEngine *gfxEngine = GfxEngine::getEngine();
+		gfx::GfxEngine *gfxEngine = gfx::GfxEngine::getEngine();
 		gfxEngine ->init();
 		
 		mEngine->init();
@@ -122,7 +122,7 @@ namespace sys {
 			// TODO Figure out what should happen here.
 		}
 		
-		mDebugConsole = new TextList();
+		mDebugConsole = new gfx::TextList();
 		mDebugConsole->setName("DebugConsole");
 		mDebugConsole->setMaxEntries(10000);
 		mDebugConsole->setLinesToDisplay(80);
@@ -142,19 +142,19 @@ namespace sys {
 
 		ui::DebugInspector::getInspector()->setValue("test", "value");
 
-		mGfxListener = new GfxLogListener(mDebugConsole);
+		mGfxListener = new gfx::GfxLogListener(mDebugConsole);
 		am::log::Logger::getMainLogger()->addLogListener(mGfxListener);
 
 		//MouseManager *manager = MouseManager::getManager();
 		//manager->addEventListener(MOUSE_OVER, this);
 		//manager->addEventListener(MOUSE_OUT, this);
 
-		mTooltip = new Tooltip();
+		mTooltip = new gfx::Tooltip();
 	}
 
 	void GameSystem::reshape(int width, int height)
 	{
-		GfxEngine::getEngine()->reshape(width, height);
+		gfx::GfxEngine::getEngine()->reshape(width, height);
 	}
 	void GameSystem::update(float dt)
 	{
@@ -169,7 +169,7 @@ namespace sys {
 	}
 	void GameSystem::display(float dt)
 	{
-		GfxEngine::getEngine()->display(dt);
+		gfx::GfxEngine::getEngine()->display(dt);
 	}
 	void GameSystem::deinit()
 	{
@@ -250,7 +250,7 @@ namespace sys {
 	void GameSystem::onCursorHiddenChange(bool hidden)
 	{
 		// If the OS cursor is hidden, we want to show our in game cursor.
-		GfxEngine::getEngine()->setCursorHidden(!hidden);
+		gfx::GfxEngine::getEngine()->setCursorHidden(!hidden);
 	}
 	bool GameSystem::isCursorHidden() const
 	{

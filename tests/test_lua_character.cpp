@@ -5,17 +5,14 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <lua/wrappers/game/lua_character.h>
 #include <lua/wrappers/game/lua_body_part.h>
-using namespace am::lua::game;
 
 #include <game/character.h>
 #include <game/body_part.h>
 #include <game/engine.h>
 #include <game/game.h>
-using namespace am::game;
 
 extern "C" 
 { 
@@ -27,10 +24,11 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaCharacter::testSimple() {
-		LuaState lua;
+	bool TestLuaCharacter::testSimple()
+	{
+		lua::LuaState lua;
 
-		Engine::getEngine()->setCurrentGame(new Game());
+		game::Engine::getEngine()->setCurrentGame(new game::Game());
 
 		int loadResult = lua.loadString(
 			"char = am.character.new(\"char1\")\n"
@@ -51,7 +49,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		base::Handle<Character> char1 = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("char1"));
+		base::Handle<game::Character> char1 = dynamic_cast<game::Character *>(game::Engine::getEngine()->getGameObject("char1"));
 		am_equalsStr("Melli", char1->getName().c_str());
 
 		assert(lua.hasGlobalFunction("getName"));
@@ -95,8 +93,9 @@ namespace tests {
 		return true;
 	}
 
-	bool TestLuaCharacter::testGender() {
-		LuaState lua;
+	bool TestLuaCharacter::testGender() 
+	{
+		lua::LuaState lua;
 
 		int loadResult = lua.loadString(
 			"char = am.character.new(\"charGender\")\n"
@@ -114,7 +113,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		base::Handle<Character> charGender = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charGender"));
+		base::Handle<game::Character> charGender = dynamic_cast<game::Character *>(game::Engine::getEngine()->getGameObject("charGender"));
 		am_equals(static_cast<int>(Gender::MALE), static_cast<int>(charGender->getGender()));
 
 		assert(lua.hasGlobalFunction("getGender"));
@@ -139,7 +138,7 @@ namespace tests {
 
 	bool TestLuaCharacter::testStats()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 
 		int loadResult = lua.loadString(
 			"char = am.character.new(\"charStats\")\n"
@@ -156,7 +155,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		base::Handle<Character> charStats = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charStats"));
+		base::Handle<game::Character> charStats = dynamic_cast<game::Character *>(game::Engine::getEngine()->getGameObject("charStats"));
 		am_equalsDelta(0.0f, charStats->getStats()->getBaseStat(Stat::ARCANE), 0.0001f);
 
 		charStats->getStats()->setBaseStat(Stat::ARCANE, 5.0f);
@@ -180,7 +179,7 @@ namespace tests {
 
 	bool TestLuaCharacter::testBodyParts()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 
 		int loadResult = lua.loadString(
 			"char = am.character.new(\"charBodyPart\")\n"
@@ -201,7 +200,7 @@ namespace tests {
 		}
 		assert(loadResult);
 
-		base::Handle<Character> charBodyPart = dynamic_cast<Character *>(Engine::getEngine()->getGameObject("charBodyPart"));
+		base::Handle<game::Character> charBodyPart = dynamic_cast<game::Character *>(game::Engine::getEngine()->getGameObject("charBodyPart"));
 
 		assert(lua.hasGlobalFunction("hasBodyPart"));
 		lua.push("arm");
@@ -211,7 +210,7 @@ namespace tests {
 
 		assert(lua.hasGlobalFunction("addBodyPart"));
 		base::Handle<BodyPart> part(new BodyPart("arm"));
-		wrapRefObject<BodyPart>(lua, part);
+		lua::wrapRefObject<game::BodyPart>(lua, part);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -227,7 +226,7 @@ namespace tests {
 		lua.pop(1);
 
 		assert(lua.hasGlobalFunction("hasBodyPart"));
-		wrapRefObject<BodyPart>(lua, part);
+		lua::wrapRefObject<game::BodyPart>(lua, part);
 		lua_acall(lua, 1, 1);
 		assert(lua_toboolean(lua, -1));
 		lua.pop(1);
@@ -237,7 +236,7 @@ namespace tests {
 
 	bool TestLuaCharacter::testAttrs()
 	{
-		LuaState lua;
+		lua::LuaState lua;
 
 		int loadResult = lua.loadString(
 			"char = am.character.new()\n"

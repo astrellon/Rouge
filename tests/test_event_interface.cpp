@@ -2,8 +2,6 @@
 
 #include <ui/event_interface.h>
 #include <ui/event_manager.h>
-using namespace am::ui;
-
 #include <tests/asserts.h>
 
 namespace am {
@@ -20,8 +18,8 @@ namespace tests {
 
 		try 
 		{
-			base::Handle<Event> e(new Event("test"));
-			inter->fireEvent<Event>(e);
+			base::Handle<ui::Event> e(new ui::Event("test"));
+			inter->fireEvent<ui::Event>(e);
 			am_equals(0, mEventCounter);
 		}
 		catch (...) 
@@ -34,8 +32,8 @@ namespace tests {
 
 		try 
 		{
-			base::Handle<Event> e(new Event("test"));
-			inter->fireEvent<Event>(e);
+			base::Handle<ui::Event> e(new ui::Event("test"));
+			inter->fireEvent<ui::Event>(e);
 			am_equals(1, mEventCounter);
 		}
 		catch (...) 
@@ -48,8 +46,8 @@ namespace tests {
 
 		try 
 		{
-			base::Handle<Event> e(new Event("test"));
-			inter->fireEvent<Event>(e);
+			base::Handle<ui::Event> e(new ui::Event("test"));
+			inter->fireEvent<ui::Event>(e);
 			am_equals(1, mEventCounter);
 		}
 		catch (...) 

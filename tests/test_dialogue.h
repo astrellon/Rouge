@@ -8,16 +8,19 @@
 namespace am {
 namespace tests {
 
-	class TestDialogue : public TestSuite {
+	class TestDialogue : public TestSuite 
+	{
 	public:
 		TestDialogue() {}
 		~TestDialogue() {}
 	
-		virtual void runCases() {
+		virtual void runCases()
+		{
 			runCase(testSimple);
 		}
 	
-		virtual const char *getSuiteName() const {
+		virtual const char *getSuiteName() const 
+		{
 			return "am::game::Dialogue";
 		}
 

@@ -23,7 +23,8 @@ namespace util {
 	// Currently this should suffice, however there may be unforeseen
 	// issuse with this tokeniser.
 
-	class PathTokeniser {
+	class PathTokeniser
+	{
 	public:
 		PathTokeniser(const char *input);
 		~PathTokeniser();

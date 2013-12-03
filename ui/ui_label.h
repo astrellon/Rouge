@@ -11,11 +11,10 @@ namespace gfx {
 	class TextField;
 }
 
-using namespace am::gfx;
-
 namespace ui {
 
-	class Label : public UIComponent {
+	class Label : public UIComponent
+	{
 	public:
 		Label();
 		Label(const char *label);
@@ -26,7 +25,7 @@ namespace ui {
 		void setLabel(const std::string &label);
 		std::string getLabel() const;
 
-		TextField *getLabelField();
+		gfx::TextField *getLabelField();
 
 		virtual float getMeasuredWidth();
 		virtual float getMeasuredHeight();
@@ -39,7 +38,7 @@ namespace ui {
 
 	protected:
 
-		base::Handle<TextField> mLabel;
+		base::Handle<gfx::TextField> mLabel;
 	};
 
 }

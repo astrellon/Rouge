@@ -5,14 +5,11 @@
 #include <base/handle.h>
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <sfx/sfx_isound.h>
 #include <sfx/sfx_engine.h>
-using namespace am::sfx;
 
 #include <lua/wrappers/sfx/lua_sound.h>
-using namespace am::lua::sfx;
 
 extern "C" 
 { 
@@ -24,8 +21,9 @@ extern "C"
 namespace am {
 namespace tests {
 
-	bool TestLuaSound::testSimple() {
-		LuaState lua;
+	bool TestLuaSound::testSimple()
+	{
+		lua::LuaState lua;
 		
 		assert(lua.loadString("Sound = import(\"Sound\")\n"
 			//"testSound = Sound.new(\"data/

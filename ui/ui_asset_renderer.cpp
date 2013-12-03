@@ -1,7 +1,5 @@
 #include "ui_asset_renderer.h"
 
-//#include <gfx/gfx_engine.h>
-
 namespace am {
 namespace ui {
 
@@ -9,7 +7,7 @@ namespace ui {
 	{
 		
 	}
-	AssetRenderer::AssetRenderer(Asset *asset)
+	AssetRenderer::AssetRenderer(gfx::Asset *asset)
 	{
 		setAsset(asset);
 	}
@@ -18,11 +16,11 @@ namespace ui {
 
 	}
 
-	void AssetRenderer::setAsset(Asset *asset)
+	void AssetRenderer::setAsset(gfx::Asset *asset)
 	{
 		mAsset = asset;
 	}
-	Asset *AssetRenderer::getAsset()
+	gfx::Asset *AssetRenderer::getAsset()
 	{
 		return mAsset;
 	}

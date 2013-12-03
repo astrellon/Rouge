@@ -5,31 +5,29 @@
 
 #include "mouse_manager.h"
 
-using namespace am::gfx;
-
 namespace am {
 namespace ui {
 
 	Checkbox::Checkbox() :
 		UIComponent()
 	{
-		mCheckGraphic = new Sprite();
-		mLabel = new TextField();
+		mCheckGraphic = new gfx::Sprite();
+		mLabel = new gfx::TextField();
 		init();
 	}
-	Checkbox::Checkbox(Asset *asset, const char *label) :
+	Checkbox::Checkbox(gfx::Asset *asset, const char *label) :
 		UIComponent()
 	{
-		mCheckGraphic = new Sprite(asset);
-		mLabel = new TextField();
+		mCheckGraphic = new gfx::Sprite(asset);
+		mLabel = new gfx::TextField();
 		mLabel->setText(label);
 		init();
 	}
 	Checkbox::Checkbox(const char *assetName, const char *label) :
 		UIComponent()
 	{
-		mCheckGraphic = new Sprite(assetName);
-		mLabel = new TextField();
+		mCheckGraphic = new gfx::Sprite(assetName);
+		mLabel = new gfx::TextField();
 		mLabel->setText(label);
 		init();
 	}
@@ -50,11 +48,11 @@ namespace ui {
 		return mLabel->getText();
 	}
 
-	TextField *Checkbox::getLabelField()
+	gfx::TextField *Checkbox::getLabelField()
 	{
 		return mLabel.get();
 	}
-	Sprite *Checkbox::getCheckGraphic()
+	gfx::Sprite *Checkbox::getCheckGraphic()
 	{
 		return mCheckGraphic.get();
 	}
@@ -129,8 +127,8 @@ namespace ui {
 		float labelTop = (getHeight() - mLabel->getMeasuredHeight()) * 0.5f;
 		mLabel->setPosition(mCheckGraphic->getWidth(), labelTop + 1);
 
-		mHitbox = new Sprite();
-		mHitbox->setGfxComponent(new GfxComponent());
+		mHitbox = new gfx::Sprite();
+		mHitbox->setGfxComponent(new gfx::GfxComponent());
 		mHitbox->getGfxComponent()->getColour().setAlpha(0.0f);
 		addChild(mHitbox.get());
 
