@@ -93,6 +93,7 @@ namespace freeglut {
 	void onGlutMouse(int button, int state, int x, int y);
 	void onGlutMouseMove(int x, int y);
 	void onGlutIdle();
+	ui::Keyboard::Key processGlutKey(int key);
 	
 }
 }

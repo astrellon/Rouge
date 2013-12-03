@@ -391,11 +391,11 @@ namespace freeglut {
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(ui::Keyboard::KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(processGlutKey(key));
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(ui::Keyboard::KEY_NONE);
+		FreeGlutSystem::getFreeGlutSystem()->onKeyUp(processGlutKey(key));
 	}
 	void onGlutMouse(int button, int state, int x, int y)
 	{
@@ -420,6 +420,35 @@ namespace freeglut {
 	void onGlutMouseMove(int x, int y)
 	{
 		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(ui::Mouse::LEFT_BUTTON, x, y);
+	}
+
+	ui::Keyboard::Key processGlutKey(int key)
+	{
+		switch (key)
+		{
+		case GLUT_KEY_PAGE_DOWN:		return ui::Keyboard::KEY_PAGEDOWN;
+		case GLUT_KEY_PAGE_UP:			return ui::Keyboard::KEY_PAGEUP;
+		case GLUT_KEY_HOME:				return ui::Keyboard::KEY_HOME;
+		case GLUT_KEY_END:				return ui::Keyboard::KEY_END;
+		case GLUT_KEY_LEFT:				return ui::Keyboard::KEY_LEFT_ARROW;
+		case GLUT_KEY_RIGHT:			return ui::Keyboard::KEY_RIGHT_ARROW;
+		case GLUT_KEY_UP:				return ui::Keyboard::KEY_UP_ARROW;
+		case GLUT_KEY_DOWN:				return ui::Keyboard::KEY_DOWN_ARROW;
+		case GLUT_KEY_INSERT:			return ui::Keyboard::KEY_INSERT;
+		case GLUT_KEY_F1:				return ui::Keyboard::KEY_F1;
+		case GLUT_KEY_F2:				return ui::Keyboard::KEY_F2;
+		case GLUT_KEY_F3:				return ui::Keyboard::KEY_F3;
+		case GLUT_KEY_F4:				return ui::Keyboard::KEY_F4;
+		case GLUT_KEY_F5:				return ui::Keyboard::KEY_F5;
+		case GLUT_KEY_F6:				return ui::Keyboard::KEY_F6;
+		case GLUT_KEY_F7:				return ui::Keyboard::KEY_F7;
+		case GLUT_KEY_F8:				return ui::Keyboard::KEY_F8;
+		case GLUT_KEY_F9:				return ui::Keyboard::KEY_F9;
+		case GLUT_KEY_F10:				return ui::Keyboard::KEY_F10;
+		case GLUT_KEY_F11:				return ui::Keyboard::KEY_F11;
+		case GLUT_KEY_F12:				return ui::Keyboard::KEY_F12;
+		default:						return ui::Keyboard::KEY_NONE;
+		}
 	}
 
 }
