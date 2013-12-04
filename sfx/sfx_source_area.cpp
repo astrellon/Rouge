@@ -86,7 +86,7 @@ namespace sfx {
 
 	float SourceArea::calcGain() const
 	{
-		float distance = SfxEngine::getEngine()->getListener().getPosition().distance(mClosestPosition);
+		float distance = static_cast<float>(SfxEngine::getEngine()->getListener().getPosition().distance(mClosestPosition));
 		return calcGain(distance);
 	}
 	float SourceArea::calcGain(float distance) const

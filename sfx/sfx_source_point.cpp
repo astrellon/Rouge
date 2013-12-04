@@ -50,7 +50,7 @@ namespace sfx {
 		}
 		else
 		{
-			distance = SfxEngine::getEngine()->getListener().getPosition().distance(mPosition);
+			distance = static_cast<float>(SfxEngine::getEngine()->getListener().getPosition().distance(mPosition));
 		}
 		distance = max(distance, mReferenceDistance);
 		float gain = mReferenceDistance / (mReferenceDistance + mRolloffFactor * (distance - mReferenceDistance));

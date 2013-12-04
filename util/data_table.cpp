@@ -294,7 +294,7 @@ namespace data {
 
 	void Table::fillArray(int index)
 	{
-		while (index >= mArrayValue.size())
+		while (static_cast<size_t>(index) >= mArrayValue.size())
 		{
 			mArrayValue.push_back(NIL);
 		}

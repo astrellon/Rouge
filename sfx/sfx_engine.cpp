@@ -56,9 +56,7 @@ namespace sfx {
 		mInited(false),
 		mSourcePoolPos(0),
 		// OGG
-#ifdef _WIN32
 		mOggHandle(nullptr),
-#endif
 		mOggClear(nullptr),
 		mOggRead(nullptr),
 		mOggPcmTotal(nullptr),
@@ -549,7 +547,8 @@ namespace sfx {
 
 	bool SfxEngine::initOgg()
 	{
-#ifdef _WIN32
+#ifdef _ENABLE_OGG
+#	ifdef _WIN32
 		// Try and load Vorbis DLLs (VorbisFile.dll will load ogg.dll and vorbis.dll)
 		mOggHandle = LoadLibrary("vorbisfile.dll");
 		if (mOggHandle)
@@ -568,12 +567,14 @@ namespace sfx {
 				return true;
 			}
 		}
+#	endif
 #endif
 		return false;
 	}
 	void SfxEngine::deinitOgg()
 	{
-#ifdef _WIN32
+#ifdef _ENABLE_OGG
+#	ifdef _WIN32
 		if (mOggHandle)
 		{
 			FreeLibrary(mOggHandle);
@@ -585,6 +586,7 @@ namespace sfx {
 			mOggComment = nullptr;
 			mOggOpenCallbacks = nullptr;
 		}
+#	endif
 #endif
 	}
 
