@@ -4,6 +4,8 @@
 
 #include <gl.h>
 
+#include <algorithm>
+
 namespace am {
 namespace gfx {
 
@@ -114,8 +116,8 @@ namespace gfx {
 
 		std::string sep = ": ";
 
-		int start = max(0, min(mEntries.size() - 1, mEntries.size() - 1 - mScroll));
-		int end = max(0, start - mLinesToDisplay);
+		int start = std::max(0, static_cast<int>(std::min(mEntries.size() - 1, mEntries.size() - 1 - mScroll)));
+		int end = std::max(0, start - mLinesToDisplay);
 
 		for (int i = start; i >= end; i--)
 		{

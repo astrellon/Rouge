@@ -50,7 +50,7 @@ namespace game {
 
 		StatModifierMap mModifiers;
 
-		StatModifierVector::const_iterator findStatModifier(
+		size_t findStatModifier(
 			const StatModifierVector &modifiers, const StatModifier &modifier);
 	};
 

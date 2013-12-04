@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 namespace am {
 namespace sfx {

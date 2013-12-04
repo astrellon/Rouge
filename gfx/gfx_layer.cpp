@@ -67,8 +67,8 @@ namespace gfx {
 		{
 			return;
 		}
-		ChildList::const_iterator iter = findChild(child);
-		if (iter == mChildren.end())
+		size_t i = findChild(child);
+		if (i == -1u)
 		{
 			if (child->getParent() != nullptr)
 			{
@@ -94,15 +94,15 @@ namespace gfx {
 		// if it is found. We don't want it being deleted if it only has
 		// one reference to it.
 		base::Handle<Renderable> childHandle(child);
-		ChildList::const_iterator iter = findChild(child);
+		size_t i = findChild(child);
 		if (child->getParent() != nullptr)
 		{
 			child->getParent()->removeChild(child);
 		}
 
-		if (iter != mChildren.end())
+		if (i != -1u)
 		{
-			mChildren.erase(iter);
+			mChildren.erase(mChildren.begin() + i);
 		}
 		mChildren.insert(mChildren.begin() + index, child);
 		child->setParent(this);
@@ -113,11 +113,11 @@ namespace gfx {
 		{
 			return;
 		}
-		ChildList::const_iterator iter = findChild(child);
-		if (iter != mChildren.end())
+		size_t i = findChild(child);
+		if (i != -1u)
 		{
 			child->setParent(nullptr);
-			mChildren.erase(iter);
+			mChildren.erase(mChildren.begin() + i);
 		}
 	}
 	bool Layer::hasChild(Renderable *child) const
@@ -126,7 +126,7 @@ namespace gfx {
 		{
 			return false;
 		}
-		return findChild(child) != mChildren.end();
+		return findChild(child) != -1u;
 	}
 	Renderable *Layer::getChildAt(int index) const
 	{
@@ -173,17 +173,16 @@ namespace gfx {
 		postRender(dt);
 	}
 	
-	Layer::ChildList::const_iterator Layer::findChild(Renderable *child) const
+	size_t Layer::findChild(Renderable *child) const
 	{
-		ChildList::const_iterator iter;
-		for (iter = mChildren.begin(); iter != mChildren.end(); ++iter)
+        for (size_t i = 0; i < mChildren.size(); i++)
 		{
-			if (iter->get() == child)
+			if (mChildren[i].get() == child)
 			{
-				return iter;
+				return i;
 			}
 		}
-		return mChildren.end();
+		return -1u;
 	}
 
 	std::string Layer::getName() const

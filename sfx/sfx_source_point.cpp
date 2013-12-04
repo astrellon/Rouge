@@ -3,6 +3,8 @@
 #include "sfx_engine.h"
 #include "sfx_isound.h"
 
+#include <algorithm>
+
 namespace am {
 namespace sfx {
 
@@ -52,7 +54,7 @@ namespace sfx {
 		{
 			distance = static_cast<float>(SfxEngine::getEngine()->getListener().getPosition().distance(mPosition));
 		}
-		distance = max(distance, mReferenceDistance);
+		distance = std::max(distance, mReferenceDistance);
 		float gain = mReferenceDistance / (mReferenceDistance + mRolloffFactor * (distance - mReferenceDistance));
 		return gain * mGain;
 	}

@@ -38,8 +38,8 @@ namespace game {
 			mModifiers[stat] = StatModifierVector();
 		}
 		StatModifierVector &modifiers = mModifiers[stat];
-		StatModifierVector::const_iterator iter = findStatModifier(modifiers, modifier);
-		if (iter == modifiers.end())
+		auto i = findStatModifier(modifiers, modifier);
+		if (i == -1u)
 		{
 			modifiers.push_back(modifier);
 			return true;
@@ -58,27 +58,26 @@ namespace game {
 			return false;
 		}
 		StatModifierVector &modifiers = findModifiers->second;
-		StatModifierVector::const_iterator iter = findStatModifier(modifiers, modifier);
-		if (iter != modifiers.end())
+		auto i = findStatModifier(modifiers, modifier);
+		if (i != -1u)
 		{
-			modifiers.erase(iter);
+			modifiers.erase(modifiers.begin() + i);
 			return true;
 		}
 		return false;
 	}
 
-	StatModifiers::StatModifierVector::const_iterator StatModifiers::findStatModifier(
+	size_t StatModifiers::findStatModifier(
 		const StatModifierVector &modifiers, const StatModifier &modifier)
 	{
-		StatModifiers::StatModifierVector::const_iterator iter;
-		for (iter = modifiers.begin(); iter != modifiers.end(); ++iter)
+        for (size_t i = 0; i < modifiers.size(); i++)
 		{
-			if (*iter == modifier)
+			if (modifiers[i] == modifier)
 			{
-				break;
+				return i;
 			}
 		}
-		return iter;
+		return -1u;
 	}
 
 	void StatModifiers::addModifiers(const IStatModifiers &rhs)

@@ -9,6 +9,7 @@
 #include <game/engine.h>
 
 #include <math/math.h>
+#include <algorithm>
 
 #include <lua/wrappers/lua_id_table.h>
 
@@ -66,8 +67,8 @@ namespace game {
 				newData[i] = fillValue;
 			}
 
-			int maxWidth = min(width, mWidth);
-			int maxHeight = min(height, mHeight);
+			int maxWidth = std::min(width, mWidth);
+			int maxHeight = std::min(height, mHeight);
 
 			for (int y = 0; y < maxHeight; y++)
 			{
@@ -153,10 +154,10 @@ namespace game {
 		int minX = obj->getGridLocationX() - mLocation.x;
 		int minY = obj->getGridLocationY() - mLocation.y;
 		
-		int maxX = max(0, min(mWidth, minX + math::round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
-		int maxY = max(0, min(mHeight, minY + math::round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
-		minX = max(0, min(mWidth, minX));
-		minY = max(0, min(mHeight, minY));
+		int maxX = std::max(0, std::min(mWidth, minX + math::round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
+		int maxY = std::max(0, std::min(mHeight, minY + math::round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
+		minX = std::max(0, std::min(mWidth, minX));
+		minY = max(0, std::min(mHeight, minY));
 		for (int y = minY; y < maxY; y++)
 		{
 			for (int x = minX; x < maxX; x++)

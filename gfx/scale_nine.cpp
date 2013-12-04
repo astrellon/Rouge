@@ -1,6 +1,7 @@
 #include "scale_nine.h"
 
 #include <string>
+#include <cstring>
 
 #include <math/math.h>
 using namespace am;

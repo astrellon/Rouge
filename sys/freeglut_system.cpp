@@ -6,6 +6,8 @@
 #ifdef _WIN32
 // For windows specific functionality (creating directories, etc)
 #	include <Windows.h>
+#else
+#   include <unistd.h>
 #endif
 #include <GL/freeglut.h>
 
@@ -216,13 +218,20 @@ namespace freeglut {
 		glutMouseFunc(onGlutMouse);
 		glutMotionFunc(onGlutMouseMove);
 		glutPassiveMotionFunc(onGlutMouseMove);
-		//glutMainLoop();
 
+#ifdef _WIN32
 		mTickCount = GetTickCount();
+#else
+        mTickCount = 0;
+#endif
 		
 		while (mProgramRunning)
 		{
+#ifdef _WIN32
 			DWORD tickCount = GetTickCount ();				// Get The Tick Count
+#else
+            long tickCount = mTickCount + 20;
+#endif
 
 			mDeltaTime = (tickCount - mTickCount) / 1000.0f;
 			int diff = 25;
@@ -239,7 +248,11 @@ namespace freeglut {
 
 			glutMainLoopEvent();
 			
+#ifdef _WIN32
 			Sleep(diff);
+#else
+            usleep(diff * 1000);
+#endif
 		}
 		
 		deinit();
@@ -259,18 +272,27 @@ namespace freeglut {
 
 	bool FreeGlutSystem::isDirectory(const char *folderName)
 	{
+#ifdef _WIN32
 		DWORD result = GetFileAttributes(folderName);
 		// If it has the directory attribute and isn't an invalid file (doesn't exist or error)
 		return result & FILE_ATTRIBUTE_DIRECTORY && result != INVALID_FILE_ATTRIBUTES;
+#else
+        return false;
+#endif
 	}
 	bool FreeGlutSystem::isFile(const char *filename)
 	{
+#ifdef _WIN32
 		DWORD result = GetFileAttributes(filename);
 		// If it doesn't have the directory attribute and isn't an invalid file (doesn't exist or error)
 		return !(result & FILE_ATTRIBUTE_DIRECTORY) && result != INVALID_FILE_ATTRIBUTES;
+#else
+        return false;
+#endif
 	}
 	bool FreeGlutSystem::createDirectory(const char *folderName)
 	{
+#ifdef _WIN32
 		if (folderName == nullptr || folderName[0] == '\0')
 		{
 			return false;
@@ -314,10 +336,14 @@ namespace freeglut {
 			}
 		}
 		return true;
+#else
+        return false;
+#endif
 	}
 
 	base::ReturnCode FreeGlutSystem::listDirectory(const char *folderName, ISystem::FolderEntryList &result)
 	{
+#ifdef _WIN32
 		if (!folderName || folderName[0] == '\0')
 		{
 			return base::NULL_PARAMETER;
@@ -344,16 +370,21 @@ namespace freeglut {
 		} while (FindNextFile(find, &files) != 0);
 
 		return base::SUCCESS;
+#else
+        return base::SUCCESS;
+#endif
 	}
 
 	void FreeGlutSystem::setCursorHidden(bool hide)
 	{
+#ifdef _WIN32
 		if (hide != mHideCursor)
 		{
 			mHideCursor = hide;
 			ShowCursor(!hide);
 			onCursorHiddenChange(hide);
 		}
+#endif
 	}
 	void FreeGlutSystem::onCursorHiddenChange(bool hide)
 	{

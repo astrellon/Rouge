@@ -1,6 +1,7 @@
 #include "gfx_particle_system.h"
 
 #include <time.h>
+#include <math/math.h>
 
 #include "gfx_engine.h"
 
@@ -239,7 +240,7 @@ namespace gfx {
 	void ParticleSystem::newParticle()
 	{
 		float randValue = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) - 0.5f;
-		float angle = mDirection + M_PIF2 * randValue * mDirectionVariation;
+		float angle = mDirection + math::PI * randValue * mDirectionVariation;
 
 		randValue = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) - 0.5f;
 		float power = mPower + randValue * mPowerVariation;

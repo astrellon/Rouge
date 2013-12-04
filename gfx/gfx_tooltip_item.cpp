@@ -4,6 +4,8 @@
 #include <gfx/gfx_texture.h>
 #include <gl.h>
 
+#include <algorithm>
+
 namespace am {
 namespace gfx {
 
@@ -124,7 +126,7 @@ namespace gfx {
 			float width = mText->getMeasuredWidth();
 			float height = mText->getMeasuredHeight();
 			mLayer->setWidth(mText->getPositionX() + width);
-			mLayer->setHeight(max(height, mGraphic->getHeight()));
+			mLayer->setHeight(std::max(height, mGraphic->getHeight()));
 		}
 		else
 		{

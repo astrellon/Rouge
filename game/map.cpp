@@ -444,8 +444,8 @@ namespace game {
 			}
 		}
 
-		int maxWidth = min(width, mMapWidth);
-		int maxHeight = min(height, mMapHeight);
+		int maxWidth = std::min(width, mMapWidth);
+		int maxHeight = std::min(height, mMapHeight);
 		for (int y = 0; y < maxHeight; y++)
 		{
 			for (int x = 0; x < maxWidth; x++)
@@ -512,8 +512,8 @@ namespace game {
 		{
 			return false;
 		}
-		ObjectList::const_iterator iter = findGameObject(object);
-		if (iter == mObjects.end())
+		auto i = findGameObject(object);
+		if (i == -1u)
 		{
 			mObjects.push_back(object);
 			if (mGamePartof && mGamePartof->getCurrentMap() == this)
@@ -531,10 +531,10 @@ namespace game {
 		{
 			return false;
 		}
-		ObjectList::const_iterator iter = findGameObject(object);
-		if (iter != mObjects.end())
+		auto i = findGameObject(object);
+		if (i != -1u)
 		{
-			mObjects.erase(iter);
+			mObjects.erase(mObjects.begin() + i);
 			object->setMap(nullptr);
 			return true;
 		}
@@ -546,20 +546,20 @@ namespace game {
 		{
 			return false;
 		}
-		ObjectList::const_iterator iter = findGameObject(object);
-		return iter != mObjects.end();
+		auto i = findGameObject(object);
+		return i != -1u;
 	}
-	ObjectList::const_iterator Map::findGameObject(GameObject *object) const
+	size_t Map::findGameObject(GameObject *object) const
 	{
-		ObjectList::const_iterator iter;
-		for (iter = mObjects.begin(); iter != mObjects.end(); ++iter)
+		//for (iter = mObjects.begin(); iter != mObjects.end(); ++iter)
+        for (size_t i = 0; i < mObjects.size(); i++)
 		{
-			if (iter->get() == object)
+			if (mObjects[i].get() == object)
 			{
-				break;
+				return i;
 			}
 		}
-		return iter;
+		return -1u;
 	}
 
 	bool Map::isValidLocation(float x, float y, GameObject *forObject) const

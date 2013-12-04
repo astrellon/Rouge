@@ -44,7 +44,7 @@ namespace gfx {
 		typedef std::vector<base::Handle<Renderable> > ChildList;
 		ChildList mChildren;
 
-		ChildList::const_iterator findChild(Renderable *child) const;
+		size_t findChild(Renderable *child) const;
 	};
 
 }

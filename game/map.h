@@ -132,7 +132,7 @@ namespace game {
 		bool canOverlap(Tile *tile, Tile *overlapTile) const;
 
 		void clear();
-		ObjectList::const_iterator findGameObject(GameObject *object) const;
+		size_t findGameObject(GameObject *object) const;
 
 		bool _isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
 	};

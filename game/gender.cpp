@@ -1,6 +1,6 @@
 #include "gender.h"
 
-#include <string>
+#include <string.h>
 
 namespace am {
 namespace game {

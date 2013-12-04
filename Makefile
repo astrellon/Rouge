@@ -57,7 +57,7 @@
 ##==========================================================================
 
 # The pre-processor and compiler options.
-MY_CFLAGS = 
+MY_CFLAGS = -D_FREEGLUT_SYS=1
 
 # The linker options.
 MY_LIBS   = -lGL -lGLU -lglut

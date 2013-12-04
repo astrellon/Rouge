@@ -6,6 +6,8 @@
 
 #include <lua/wrappers/lua_id_table.h>
 
+#include <algorithm>
+
 namespace am {
 namespace gfx {
 
@@ -152,7 +154,7 @@ namespace gfx {
 			}
 			else if (ch == '\n')
 			{
-				width = max(width, currWidth);
+				width = std::max(width, currWidth);
 				height += mCharHeight + mLeading;
 				currWidth = 0.0f;
 			}
@@ -166,7 +168,7 @@ namespace gfx {
 					if (currWidth + wordWidth > containerWidth)
 					{
 						height += wordHeight + mLeading;
-						width = max(width, currWidth);
+						width = std::max(width, currWidth);
 						currWidth = 0.0f;
 					}
 					else
@@ -181,7 +183,7 @@ namespace gfx {
 			}
 			ch = text[++index];
 		}
-		width = max(width, currWidth);
+		width = std::max(width, currWidth);
 		return index;
 	}
 	int Font::measureLine(const char *word, float containerWidth, float &width, float &height) const

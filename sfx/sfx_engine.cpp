@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sstream>
+#include <cstring>
 
 #include "sfx_isource.h"
 #include "sfx_source_point.h"
@@ -288,7 +289,7 @@ namespace sfx {
 		{
 			if (mSourcePool[i].source)
 			{
-				printf("%d ", i);
+				printf("%u ", i);
 			}
 		}
 		printf("\n");

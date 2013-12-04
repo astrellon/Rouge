@@ -1,7 +1,6 @@
 #include "bounding_box.h"
 
-#define _min(x, y)	(x < y ? x : y)
-#define _max(x, y)	(x > y ? x : y)
+#include <algorithm>
 
 namespace am {
 namespace util {
@@ -52,19 +51,19 @@ namespace util {
 
 	void BoundingBox::expandToInclude(const math::Vector4f &point)
 	{
-		mMin.x = _min(mMin.x, point.x);
-		mMin.y = _min(mMin.y, point.y);
+		mMin.x = std::min(mMin.x, point.x);
+		mMin.y = std::min(mMin.y, point.y);
 
-		mMax.x = _max(mMax.x, point.x);
-		mMax.y = _max(mMax.y, point.y);
+		mMax.x = std::max(mMax.x, point.x);
+		mMax.y = std::max(mMax.y, point.y);
 	}
 	void BoundingBox::expandToInclude(const int x, const int y)
 	{
-		mMin.x = _min(mMin.x, x);
-		mMin.y = _min(mMin.y, y);
+		mMin.x = std::min(mMin.x, x);
+		mMin.y = std::min(mMin.y, y);
 
-		mMax.x = _max(mMax.x, x);
-		mMax.y = _max(mMax.y, y);
+		mMax.x = std::max(mMax.x, x);
+		mMax.y = std::max(mMax.y, y);
 	}
 	void BoundingBox::expandToInclude(const BoundingBox &box)
 	{

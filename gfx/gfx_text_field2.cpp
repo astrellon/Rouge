@@ -423,7 +423,7 @@ namespace gfx {
 			if (mNewLineDirty && mCurrentNode)
 			{
 				Node::NodeHitboxList &list = mCurrentNode->getHitboxes();
-				base::Handle<Renderable> hitbox = list[list.size() - 1];
+				base::Handle<Renderable> hitbox = list[list.size() - 1u].get();
 				hitbox->setWidth(mCurrXpos - hitbox->getPositionX());
 			}
 		}

@@ -1,7 +1,7 @@
 #include "item_common.h"
 
 #include <util/utils.h>
-using namespace am::util;
+#include <string.h>
 
 namespace am {
 namespace game {
@@ -26,7 +26,7 @@ namespace game {
 		{
 			return ItemCommon::UNKNOWN;
 		}
-		std::string lower = Utils::toLowerCase(name);
+		std::string lower = util::Utils::toLowerCase(name);
 		int i = 0;
 		for (i = 0; i < UNKNOWN; i++)
 		{

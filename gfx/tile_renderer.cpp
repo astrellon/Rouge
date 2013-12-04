@@ -11,6 +11,7 @@
 #include <util/utils.h>
 
 #include <sstream>
+#include <algorithm>
 
 namespace am {
 namespace gfx {
@@ -177,14 +178,14 @@ namespace gfx {
 		if (mEnabledMapCulling)
 		{
 			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) * gridResp);
-			minX = max(0, camMinX);
+			minX = std::max(0, camMinX);
 			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) * gridResp) + 1;
-			maxX = min(mapWidth, camMaxX);
+			maxX = std::min(mapWidth, camMaxX);
 
 			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) * gridResp);
-			minY = max(0, camMinY);
+			minY = std::max(0, camMinY);
 			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) * gridResp) + 1;
-			maxY = min(mapHeight, camMaxY);
+			maxY = std::min(mapHeight, camMaxY);
 		}
 		glPushMatrix();
 		int t = minY * mapWidth + minX;

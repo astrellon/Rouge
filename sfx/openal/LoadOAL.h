@@ -18,7 +18,7 @@
 #endif
 
 // Complete list of functions available in AL 1.0 implementations
-
+#ifdef _WIN32
 typedef void           (ALAPIENTRY *LPALENABLE)( ALenum capability );
 typedef void           (ALAPIENTRY *LPALDISABLE)( ALenum capability ); 
 typedef ALboolean      (ALAPIENTRY *LPALISENABLED)( ALenum capability ); 
@@ -90,6 +90,7 @@ typedef ALCenum        (ALCAPIENTRY *LPALCGETENUMVALUE)(ALCdevice *device, const
 typedef const ALCchar* (ALCAPIENTRY *LPALCGETSTRING)( ALCdevice *device, ALCenum param );
 typedef void           (ALCAPIENTRY *LPALCGETINTEGERV)( ALCdevice *device, ALCenum param, ALCsizei size, ALCint *dest );
 
+#endif
 typedef struct
 {
 	LPALENABLE					alEnable;
@@ -159,6 +160,5 @@ typedef struct
 	LPALCGETENUMVALUE			alcGetEnumValue;
 } OPENALFNTABLE, *LPOPENALFNTABLE;
 #endif
-
 ALboolean LoadOAL10Library(char *szOALFullPathName, LPOPENALFNTABLE lpOALFnTable);
 ALvoid UnloadOAL10Library();

@@ -4,13 +4,6 @@
 #include <math.h>
 #include "vector.h"
 
-#ifndef M_PI
-#	define M_PI 3.1415926535897932384626433832795
-#	define M_PIF 3.1415926535897932384626433832795f
-#	define M_PI2	M_PI * 2.0
-#	define M_PIF2	M_PIF * 2.0f
-#endif
-
 namespace am {
 namespace math {
 
