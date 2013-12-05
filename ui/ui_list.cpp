@@ -217,7 +217,7 @@ namespace ui {
 
 	void List::updateScrollbar()
 	{
-		int maximum = std::max(0, mItems.size() - mItemDisplay);
+		int maximum = std::max(0, static_cast<int>(mItems.size() - mItemDisplay));
 		mScrollbar->setMaxValue(maximum);
 	}
 

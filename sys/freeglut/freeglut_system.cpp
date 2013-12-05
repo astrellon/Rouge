@@ -1,8 +1,8 @@
 #include "freeglut_system.h"
 
-#include "../log/logger.h"
+#include <log/logger.h>
 
-#include "game_system.h"
+#include <sys/game_system.h>
 #ifdef _WIN32
 // For windows specific functionality (creating directories, etc)
 #	include <Windows.h>

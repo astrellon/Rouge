@@ -8,16 +8,13 @@ extern "C"
 }
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <gfx/gfx_texture.h>
 #include <gfx/gfx_asset.h>
 #include <gfx/gfx_engine.h>
 #include <gfx/gfx_font.h>
-using namespace am::gfx;
 
 #include <math/math.h>
-using namespace am;
 
 namespace am {
 namespace lua {
@@ -36,7 +33,7 @@ namespace gfx {
 			{ nullptr, nullptr }
 		};
 
-		luaL_newmetatable(lua, GfxEngine::LUA_TABLENAME);
+		luaL_newmetatable(lua, am::gfx::GfxEngine::LUA_TABLENAME);
 		luaL_setfuncs(lua, regs, 0);
 
 		lua_pushvalue(lua, -1);
@@ -72,14 +69,14 @@ namespace gfx {
 	 */
 	int GfxEngine_asset(lua_State *lua)
 	{
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+        am::gfx::GfxEngine *gfxEngine = am::gfx::GfxEngine::getEngine();
 		
 		if (lua_isstr(lua, 1))
 		{
-			Asset *asset = gfxEngine->getAsset(lua_tostring(lua, 1));
+			am::gfx::Asset *asset = gfxEngine->getAsset(lua_tostring(lua, 1));
 			if (asset)
 			{
-				wrapRefObject<Asset>(lua, asset);
+				wrapRefObject<am::gfx::Asset>(lua, asset);
 				return 1;
 			}
 			lua_pushnil(lua);
@@ -87,7 +84,7 @@ namespace gfx {
 		}
 		else
 		{
-			Asset *asset = castUData<Asset>(lua, 1);
+			am::gfx::Asset *asset = castUData<am::gfx::Asset>(lua, 1);
 			if (asset)
 			{
 				gfxEngine->addAsset(asset);
@@ -100,14 +97,14 @@ namespace gfx {
 
 	int GfxEngine_font(lua_State *lua)
 	{
-		GfxEngine *gfxEngine = GfxEngine::getEngine();
+		am::gfx::GfxEngine *gfxEngine = am::gfx::GfxEngine::getEngine();
 		
 		if (lua_isstr(lua, 1))
 		{
-			Font *font = gfxEngine->getFont(lua_tostring(lua, 1));
+			am::gfx::Font *font = gfxEngine->getFont(lua_tostring(lua, 1));
 			if (font)
 			{
-				wrapRefObject<Font>(lua, font);
+				wrapRefObject<am::gfx::Font>(lua, font);
 				return 1;
 			}
 			lua_pushnil(lua);
@@ -115,7 +112,7 @@ namespace gfx {
 		}
 		else
 		{
-			Font *font = castUData<Font>(lua, 1);
+			am::gfx::Font *font = castUData<am::gfx::Font>(lua, 1);
 			if (font)
 			{
 				gfxEngine->addFont(font);

@@ -60,7 +60,7 @@
 MY_CFLAGS = -D_FREEGLUT_SYS=1
 
 # The linker options.
-MY_LIBS   = -lGL -lGLU -lglut
+MY_LIBS   = -lGL -lGLU -lglut -lopenal -lalut -lIL -lILU -lILUT
 
 # The pre-processor options used by the cpp (man cpp for more).
 CPPFLAGS  = -I./ -std=c++11
@@ -70,7 +70,7 @@ LDFLAGS   =
 
 # The directories in which source files reside.
 # If not specified, only the current directory will be serached.
-SRCDIRS   = base game gfx GLee log lua math sfx sys tests ui util
+SRCDIRS   = base game gfx GLee log lua lua/src lua/wrappers lua/wrappers/game lua/wrappers/gfx lua/wrappers/sfx lua/wrappers/util math sfx sys tests ui util sys/freeglut
 
 # The executable file name.
 # If not specified, current directory name or `a.out' will be used.
@@ -98,7 +98,7 @@ CXXFLAGS= -g -O2
 #CXX    = g++
 
 # Un-comment the following line to compile C programs as C++ ones.
-#CC     = $(CXX)
+CC     = $(CXX)
 
 # The command used to delete file.
 #RM     = rm -f

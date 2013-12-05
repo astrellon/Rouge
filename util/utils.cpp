@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <fstream>
+#include <cstring>
 
 #include <math/math.h>
 

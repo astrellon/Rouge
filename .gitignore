@@ -14,3 +14,4 @@ python/__pycache__/
 *.vcxprof.user
 *.o
 *.swp
+*.d

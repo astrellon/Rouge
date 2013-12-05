@@ -84,7 +84,7 @@ namespace ui {
 		bool mFiring;
 		base::Handle<EventInterface> mDeleteResponse;
 
-		ListenerList::iterator findListener(const std::string &type, IEventListener *context);
+        ListenerList::iterator findListener(const std::string &type, IEventListener *context);
 
 		bool removeToRemove();
 		void checkDeletion();

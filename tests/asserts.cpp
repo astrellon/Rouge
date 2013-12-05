@@ -1,5 +1,7 @@
 #include "asserts.h"
 
+#include <cstring>
+
 namespace am {
 namespace tests {
 

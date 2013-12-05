@@ -27,7 +27,7 @@ namespace ui {
 	{
 		if (e != nullptr)
 		{
-			ListeningList::const_iterator iter;
+			ListeningList::iterator iter;
 			for (iter = mListeningTo.begin(); iter != mListeningTo.end(); ++iter)
 			{
 				if (iter->get() == e)

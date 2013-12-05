@@ -46,7 +46,7 @@ namespace ui {
 	}
 	bool EventManager::removeEventListener(const std::string &type, IEventListener *context)
 	{
-		ListenerList::const_iterator iter = findListener(type, context);
+	    auto iter = findListener(type, context);
 		if (iter != mListeners[type].end())
 		{
 			mListeners[type].erase(iter);
@@ -94,18 +94,17 @@ namespace ui {
 		return mListeners.find(type) != mListeners.end();
 	}
 
-	EventManager::ListenerList::iterator EventManager::findListener(const std::string &type, IEventListener *context)
+    EventManager::ListenerList::iterator EventManager::findListener(const std::string &type, IEventListener *context)
 	{
-		ListenerList::iterator iter;
 		ListenerList &listeners = mListeners[type];
-		for (iter = listeners.begin(); iter != listeners.end(); ++iter)
+		for (auto iter = listeners.begin(); iter != listeners.end(); ++iter)
 		{
 			if (context->compareListeners(*iter))
 			{
-				break;
+				return iter;
 			}
 		}
-		return iter;
+		return listeners.end();
 	}
 
 	bool EventManager::isEmpty() const

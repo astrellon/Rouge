@@ -59,11 +59,11 @@ namespace util {
 	}
 	void BoundingBox::expandToInclude(const int x, const int y)
 	{
-		mMin.x = std::min(mMin.x, x);
-		mMin.y = std::min(mMin.y, y);
+		mMin.x = std::min(mMin.x, static_cast<float>(x));
+		mMin.y = std::min(mMin.y, static_cast<float>(y));
 
-		mMax.x = std::max(mMax.x, x);
-		mMax.y = std::max(mMax.y, y);
+		mMax.x = std::max(mMax.x, static_cast<float>(x));
+		mMax.y = std::max(mMax.y, static_cast<float>(y));
 	}
 	void BoundingBox::expandToInclude(const BoundingBox &box)
 	{
