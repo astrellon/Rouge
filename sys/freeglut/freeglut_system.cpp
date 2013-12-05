@@ -461,8 +461,8 @@ namespace freeglut {
 		case GLUT_KEY_PAGE_UP:			return ui::Keyboard::KEY_PAGEUP;
 		case GLUT_KEY_HOME:				return ui::Keyboard::KEY_HOME;
 		case GLUT_KEY_END:				return ui::Keyboard::KEY_END;
-		case GLUT_KEY_LEFT:				return ui::Keyboard::KEY_LEFT_ARROW;
-		case GLUT_KEY_RIGHT:			return ui::Keyboard::KEY_RIGHT_ARROW;
+		case GLUT_KEY_LEFT:				return ui::Keyboard::KEY_RIGHT_ARROW;
+		case GLUT_KEY_RIGHT:			return ui::Keyboard::KEY_LEFT_ARROW;
 		case GLUT_KEY_UP:				return ui::Keyboard::KEY_UP_ARROW;
 		case GLUT_KEY_DOWN:				return ui::Keyboard::KEY_DOWN_ARROW;
 		case GLUT_KEY_INSERT:			return ui::Keyboard::KEY_INSERT;
