@@ -1,6 +1,6 @@
 #include "sfx_source_area.h"
 
-#include <algorithm>
+#include <math/math.h>
 
 #include "sfx_engine.h"
 #include "sfx_isound.h"
@@ -90,7 +90,7 @@ namespace sfx {
 	}
 	float SourceArea::calcGain(float distance) const
 	{
-		distance = std::max(distance, mReferenceDistance);
+		distance = math::maxv(distance, mReferenceDistance);
 		float gain = mReferenceDistance / (mReferenceDistance + mRolloffFactor * (distance - mReferenceDistance));
 		return gain * mGain;
 	}

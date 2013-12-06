@@ -178,14 +178,14 @@ namespace gfx {
 		if (mEnabledMapCulling)
 		{
 			int camMinX = static_cast<int>((cameraX - screenWidth * 0.5f) * gridResp);
-			minX = std::max(0, camMinX);
+			minX = math::maxv(0, camMinX);
 			int camMaxX = static_cast<int>((cameraX + screenWidth * 0.5f) * gridResp) + 1;
-			maxX = std::min(mapWidth, camMaxX);
+			maxX = math::minv(mapWidth, camMaxX);
 
 			int camMinY = static_cast<int>((cameraY - screenHeight * 0.5f) * gridResp);
-			minY = std::max(0, camMinY);
+			minY = math::maxv(0, camMinY);
 			int camMaxY = static_cast<int>((cameraY + screenHeight * 0.5f) * gridResp) + 1;
-			maxY = std::min(mapHeight, camMaxY);
+			maxY = math::minv(mapHeight, camMaxY);
 		}
 		glPushMatrix();
 		int t = minY * mapWidth + minX;

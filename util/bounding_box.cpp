@@ -1,6 +1,6 @@
 #include "bounding_box.h"
 
-#include <algorithm>
+#include <math/math.h>
 
 namespace am {
 namespace util {
@@ -51,19 +51,19 @@ namespace util {
 
 	void BoundingBox::expandToInclude(const math::Vector4f &point)
 	{
-		mMin.x = std::min(mMin.x, point.x);
-		mMin.y = std::min(mMin.y, point.y);
+		mMin.x = math::minv(mMin.x, point.x);
+		mMin.y = math::minv(mMin.y, point.y);
 
-		mMax.x = std::max(mMax.x, point.x);
-		mMax.y = std::max(mMax.y, point.y);
+		mMax.x = math::maxv(mMax.x, point.x);
+		mMax.y = math::maxv(mMax.y, point.y);
 	}
 	void BoundingBox::expandToInclude(const int x, const int y)
 	{
-		mMin.x = std::min(mMin.x, static_cast<float>(x));
-		mMin.y = std::min(mMin.y, static_cast<float>(y));
+		mMin.x = math::minv(mMin.x, static_cast<float>(x));
+		mMin.y = math::minv(mMin.y, static_cast<float>(y));
 
-		mMax.x = std::max(mMax.x, static_cast<float>(x));
-		mMax.y = std::max(mMax.y, static_cast<float>(y));
+		mMax.x = math::maxv(mMax.x, static_cast<float>(x));
+		mMax.y = math::maxv(mMax.y, static_cast<float>(y));
 	}
 	void BoundingBox::expandToInclude(const BoundingBox &box)
 	{

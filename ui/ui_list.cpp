@@ -6,7 +6,7 @@
 
 #include <gl.h>
 
-#include <algorithm>
+#include <math/math.h>
 
 namespace am {
 namespace ui {
@@ -217,7 +217,7 @@ namespace ui {
 
 	void List::updateScrollbar()
 	{
-		int maximum = std::max(0, static_cast<int>(mItems.size() - mItemDisplay));
+		int maximum = math::maxv(0, static_cast<int>(mItems.size() - mItemDisplay));
 		mScrollbar->setMaxValue(maximum);
 	}
 

@@ -9,7 +9,7 @@
 
 #include <log/logger.h>
 
-#include <algorithm>
+#include <math/math.h>
 
 namespace am {
 namespace gfx {
@@ -31,7 +31,7 @@ namespace gfx {
 		mBar = new Button(barAsset);
 		mBar->addEventListener(ui::Mouse::MOUSE_DOWN, this);
 
-		mWidth = std::max(mBtnUp->getWidth(), std::max(mBtnDown->getWidth(), mBar->getWidth()));
+		mWidth = math::maxv(mBtnUp->getWidth(), math::maxv(mBtnDown->getWidth(), mBar->getWidth()));
 
 		Sprite *sprite = new Sprite("ui:scrollbar_up");
 		addChild(sprite);
