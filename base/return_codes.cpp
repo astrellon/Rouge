@@ -33,6 +33,7 @@ namespace base {
 		case NOT_ENOUGH_INVENTORY_SPACE:	return "not_enough_inventory_space";
 		case ITEM_NOT_IN_INVENTORY:	return "item_not_in_inventory";
 			// Store
+        case STORE_ALREADY_OWNED:   return "store_already_owned";
 		case NOT_ENOUGH_COIN:		return "not_enough_coin";
 		case NO_STORE_OWNER:		return "no_store_owner";
 		case NO_INVENTORIES:		return "no_inventories";
@@ -71,6 +72,7 @@ namespace base {
 		case NOT_ENOUGH_INVENTORY_SPACE:	return "not enough space for the given item.";
 		case ITEM_NOT_IN_INVENTORY:	return "given item was not found in expected inventory.";
 			// Store
+        case STORE_ALREADY_OWNED:   return "character already owns this store.";
 		case NOT_ENOUGH_COIN:		return "buyer does not have enough coin to do purchase.";
 		case NO_STORE_OWNER:		return "this store does not have an owser.";
 		case NO_INVENTORIES:		return "store does not have any inventories.";

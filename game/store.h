@@ -8,7 +8,8 @@
 
 #include <math/vector.h>
 
-#include "character.h"
+#include <vector>
+
 #include "inventory.h"
 
 namespace am {
@@ -20,6 +21,8 @@ namespace data {
 using namespace am::util;
 
 namespace game {
+
+    class Character;
 
 	class Store : public virtual base::IManaged, public ui::EventInterface, public ui::IEventListener 
 	{
@@ -84,7 +87,7 @@ namespace game {
 
 	protected:
 		
-		base::Handle<Character> mStoreOwner;
+		Character *mStoreOwner;
 		InventoryList mStoreInventories;
 
 		math::Vector2<unsigned short> mDefaultInventorySize;

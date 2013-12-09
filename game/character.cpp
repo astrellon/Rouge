@@ -968,6 +968,47 @@ namespace game {
 		return mStats->getStat(Stat::HEALTH) <= 0.0f;
 	}
 
+    base::ReturnCode Character::addStore(Store *store)
+    {
+        if (store == nullptr)
+        {
+            return base::NULL_PARAMETER;
+        }
+        if (hasStore(store))
+        {
+            return base::STORE_ALREADY_OWNED;
+        }
+        mOwnedStores.push_back(store);
+        return base::SUCCESS;
+    }
+    Store *Character::getStore(int index) const
+    {
+        if (index < 0 || index >= static_cast<int>(mOwnedStores.size()))
+        {
+            return nullptr;
+        }
+        return mOwnedStores[index];
+    }
+    bool Character::hasStore(Store *store) const
+    {
+        if (store == nullptr)
+        {
+            return false;
+        }
+        for (auto iter = mOwnedStores.begin(); iter != mOwnedStores.end(); ++iter)
+        {
+            if (iter->get() == store)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    const Character::StoreList &Character::getStores() const
+    {
+        return mOwnedStores;
+    }
+
 	data::IData *Character::serialise()
 	{
 		data::IData *obj_output = GameObject::serialise();

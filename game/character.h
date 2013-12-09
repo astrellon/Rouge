@@ -22,6 +22,7 @@
 #include "astar_node.h"
 #include "race.h"
 #include "body_parts.h"
+#include "store.h"
 
 namespace am {
 namespace game {
@@ -31,6 +32,7 @@ namespace game {
 	public:
 
 		typedef std::vector< base::Handle<IAction> > ActionQueue;
+        typedef std::vector< base::Handle<Store> > StoreList;
 		Character();
 		Character(const Character &copy);
 		~Character();
@@ -165,6 +167,11 @@ namespace game {
 		virtual float getSpeed();
 		virtual bool isDead() const;
 
+        virtual base::ReturnCode addStore(Store *store);
+        virtual Store *getStore(int index = 0) const;
+        virtual bool hasStore(Store *store) const;
+        virtual const StoreList &getStores() const;
+
 		virtual void updateGraphic();
 
 		virtual void onEvent(ui::Event *e);
@@ -206,6 +213,8 @@ namespace game {
 		int mArmedCounter;
 
 		int mAIFuncRef;
+
+        StoreList mOwnedStores;
 
 		virtual void onLevelUp();
 		virtual void onExperienceChange();

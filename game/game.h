@@ -153,6 +153,7 @@ namespace game {
 		
 		base::Handle<Map> mCurrentMap;
 
+        // Engine should own the game.
 		Engine *mEngine;
 
 		Camera mCamera;

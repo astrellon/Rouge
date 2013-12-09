@@ -23,9 +23,16 @@
  */
 
 #include "aldlist.h"
-#include <windows.h>
+#ifdef _WIN32
+#   include <windows.h>
+#   define STRCASECMP   _stricmp
+#else
+#   include <string.h>
+#   include <AL/al.h>
+#   define STRCASECMP  strcasecmp
+#endif
 #include <AL/alc.h>
-
+#include <cstring>
 
 /* 
  * Init call
@@ -43,15 +50,14 @@ ALDeviceList::ALDeviceList()
 	vDeviceInfo.reserve(10);
 
 	defaultDeviceIndex = 0;
-
 	// grab function pointers for 1.0-API functions, and if successful proceed to enumerate all devices
-	if (LoadOAL10Library(nullptr, &ALFunction) == TRUE) {
+	//if (LoadOAL10Library(nullptr, &ALFunction) == true) {
 		if (ALFunction.alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT")) {
 			devices = (char *)ALFunction.alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
 			defaultDeviceName = (char *)ALFunction.alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
 			index = 0;
 			// go through device list (each device terminated with a single NULL, list terminated with double NULL)
-			while (*devices != NULL) {
+			while (*devices != '\0') {
 				if (strcmp(defaultDeviceName, devices) == 0) {
 					defaultDeviceIndex = index;
 				}
@@ -118,7 +124,7 @@ ALDeviceList::ALDeviceList()
 				index += 1;
 			}
 		}
-	}
+	//}
 
 	ResetFilters();
 }
@@ -137,7 +143,7 @@ ALDeviceList::~ALDeviceList()
 
 	vDeviceInfo.empty();
 
-	UnloadOAL10Library();
+	//UnloadOAL10Library();
 }
 
 /*
@@ -193,7 +199,7 @@ bool ALDeviceList::IsExtensionSupported(int index, char *szExtName)
 
 	if (index < GetNumDevices()) {
 		for (unsigned int i = 0; i < vDeviceInfo[index].pvstrExtensions->size(); i++) {
-			if (!_stricmp(vDeviceInfo[index].pvstrExtensions->at(i).c_str(), szExtName)) {
+			if (!STRCASECMP(vDeviceInfo[index].pvstrExtensions->at(i).c_str(), szExtName)) {
 				bReturn = true;
 				break;
 			}				
@@ -249,7 +255,7 @@ void ALDeviceList::FilterDevicesExtension(char *szExtName)
 	for (unsigned int i = 0; i < vDeviceInfo.size(); i++) {
 		bFound = false;
 		for (unsigned int j = 0; j < vDeviceInfo[i].pvstrExtensions->size(); j++) {
-			if (!_stricmp(vDeviceInfo[i].pvstrExtensions->at(j).c_str(), szExtName)) {
+			if (!STRCASECMP(vDeviceInfo[i].pvstrExtensions->at(j).c_str(), szExtName)) {
 				bFound = true;
 				break;
 			}

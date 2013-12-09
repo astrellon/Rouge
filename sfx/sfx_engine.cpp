@@ -10,7 +10,7 @@
 #include "sfx_sound_wav.h"
 #include "sfx_sound_ogg.h"
 
-#include "openal/aldlist.h"
+#include <sfx/openal/aldlist.h>
 
 #include <log/logger.h>
 
@@ -57,6 +57,7 @@ namespace sfx {
 		mInited(false),
 		mSourcePoolPos(0),
 		// OGG
+        mOggLoaded(false),
 		mOggHandle(nullptr),
 		mOggClear(nullptr),
 		mOggRead(nullptr),
@@ -83,7 +84,7 @@ namespace sfx {
 			throw("Unable to initialise OGG system");
 			return;
 		}
-		ALDeviceList *pDeviceList = new ALDeviceList();
+		::ALDeviceList *pDeviceList = new ::ALDeviceList();
 		if (pDeviceList && pDeviceList->GetNumDevices())
 		{
 			for (int i = 0; i < pDeviceList->GetNumDevices(); i++)
@@ -279,7 +280,7 @@ namespace sfx {
 
 	bool SfxEngine::oggLoaded() const
 	{
-		return mOggHandle != nullptr;
+		return mOggLoaded;
 	}
 
 	void SfxEngine::displayInUse()
@@ -565,10 +566,22 @@ namespace sfx {
 			if (mOggClear && mOggRead && mOggPcmTotal && mOggInfo &&
 				mOggRawTotal && mOggComment && mOggOpenCallbacks)
 			{
+                mOggLoaded = true;
 				return true;
 			}
 		}
-#	endif
+#	else
+        mOggClear = ov_clear;
+        mOggRead = ov_read;
+        mOggPcmTotal = ov_pcm_total;
+        mOggRawTotal = ov_raw_total;
+        mOggInfo = ov_info;
+        mOggComment = ov_comment;
+        mOggOpenCallbacks = ov_open_callbacks;
+        printf("Ogg clear? %d\n", mOggClear == nullptr);
+        mOggLoaded = true;
+        return true;
+#   endif
 #endif
 		return false;
 	}
@@ -588,6 +601,7 @@ namespace sfx {
 			mOggOpenCallbacks = nullptr;
 		}
 #	endif
+        mOggLoaded = false;
 #endif
 	}
 

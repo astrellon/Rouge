@@ -12,6 +12,8 @@
 
 #include <lua/wrappers/lua_id_table.h>
 
+#include "character.h"
+
 namespace am {
 namespace game {
 

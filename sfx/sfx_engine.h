@@ -137,7 +137,7 @@ namespace sfx {
 		OggInfo	mOggInfo;
 		OggComment mOggComment;
 		OggOpenCallbacks mOggOpenCallbacks;
-
+        bool mOggLoaded;
 #ifdef _ENABLE_OGG
 #	ifdef _WIN32
 		HINSTANCE mOggHandle;

@@ -414,6 +414,9 @@ namespace freeglut {
 	}
 	void onGlutKeyboard(unsigned char key, int x, int y)
 	{
+        std::stringstream ss;
+        ss << "Key: " << key;
+        am_log("KEY", ss);
 		FreeGlutSystem::getFreeGlutSystem()->onKeyPress(key);
 	}
 	void onGlutKeyboardUp(unsigned char key, int x, int y)
@@ -422,6 +425,9 @@ namespace freeglut {
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
+        std::stringstream ss;
+        ss << "SKey: " << key;
+        am_log("SKEY", ss);
 		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(processGlutKey(key));
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)

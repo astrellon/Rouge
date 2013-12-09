@@ -37,6 +37,7 @@ namespace base {
 		ITEM_NOT_IN_INVENTORY =		-0x0501,
 
 		// Store related
+        STORE_ALREADY_OWNED =       0x0600, 
 		NOT_ENOUGH_COIN	=			-0x0600,
 		NO_STORE_OWNER =			-0x0601,
 		NO_INVENTORIES =			-0x0602
