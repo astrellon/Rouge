@@ -67,8 +67,8 @@ namespace game {
 				newData[i] = fillValue;
 			}
 
-			int maxWidth = std::min(width, mWidth);
-			int maxHeight = std::min(height, mHeight);
+			int maxWidth = math::minv(width, mWidth);
+			int maxHeight = math::minv(height, mHeight);
 
 			for (int y = 0; y < maxHeight; y++)
 			{
@@ -154,10 +154,10 @@ namespace game {
 		int minX = obj->getGridLocationX() - mLocation.x;
 		int minY = obj->getGridLocationY() - mLocation.y;
 		
-		int maxX = std::max(0, std::min(mWidth, minX + math::round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
-		int maxY = std::max(0, std::min(mHeight, minY + math::round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
-		minX = std::max(0, std::min(mWidth, minX));
-		minY = max(0, std::min(mHeight, minY));
+		int maxX = math::maxv(0, math::minv(mWidth, minX + math::round(obj->getWidth() * Engine::getEngine()->getGridSizeResp())));
+		int maxY = math::maxv(0, math::minv(mHeight, minY + math::round(obj->getHeight() * Engine::getEngine()->getGridSizeResp())));
+		minX = math::maxv(0, math::minv(mWidth, minX));
+		minY = max(0, math::minv(mHeight, minY));
 		for (int y = minY; y < maxY; y++)
 		{
 			for (int x = minX; x < maxX; x++)

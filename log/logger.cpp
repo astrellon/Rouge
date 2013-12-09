@@ -3,6 +3,8 @@
 #include <sstream>
 #include "ilog_listener.h"
 
+#include <math/math.h>
+
 namespace am {
 namespace log {
 
@@ -122,7 +124,7 @@ namespace log {
 	{
 		if (fromStart)
 		{
-			int maxIndex = std::max(static_cast<int>(mEntries.size()), offset + num);
+			int maxIndex = math::maxv(static_cast<int>(mEntries.size()), offset + num);
 			for (int i = offset; i < maxIndex; i++)
 			{
 				entries.push_back(mEntries[i]);
@@ -130,9 +132,9 @@ namespace log {
 		}
 		else
 		{
-			int startIndex = std::max(0, static_cast<int>(mEntries.size()) - offset - num);
+			int startIndex = math::maxv(0, static_cast<int>(mEntries.size()) - offset - num);
 			
-			int maxIndex = std::min(static_cast<int>(mEntries.size()), startIndex + num);
+			int maxIndex = math::minv(static_cast<int>(mEntries.size()), startIndex + num);
 			for (int i = startIndex; i < maxIndex; i++)
 			{
 				entries.push_back(mEntries[i]);

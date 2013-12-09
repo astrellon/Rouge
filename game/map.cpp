@@ -444,8 +444,8 @@ namespace game {
 			}
 		}
 
-		int maxWidth = std::min(width, mMapWidth);
-		int maxHeight = std::min(height, mMapHeight);
+		int maxWidth = math::minv(width, mMapWidth);
+		int maxHeight = math::minv(height, mMapHeight);
 		for (int y = 0; y < maxHeight; y++)
 		{
 			for (int x = 0; x < maxWidth; x++)

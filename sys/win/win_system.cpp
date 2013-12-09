@@ -2,7 +2,7 @@
 
 #include <log/logger.h>
 
-#include "game_system.h"
+#include <sys/game_system.h>
 
 #include <util/path_tokeniser.h>
 
