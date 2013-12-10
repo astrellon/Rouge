@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <stdexcept>
 
 #include <AL/al.h>
 
@@ -11,6 +12,16 @@ namespace am {
 namespace sfx {
 
 	class Source;
+
+    class sound_error : public std::runtime_error
+    {
+    public:
+        explicit sound_error(const char *message) :
+            std::runtime_error(message) 
+        {
+        }
+
+    };
 
 	class ISound : public base::IManaged 
 	{

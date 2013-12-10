@@ -235,12 +235,15 @@ namespace sfx {
 			}
 			return result;
 		}
-		catch (const char *error)
+		catch (sound_error error)
 		{
 			std::stringstream ss;
-			ss << "Error loading sound '" << filename << "': " << error;
+			ss << "Error loading sound '" << filename << "': " << error.what();
 			am_log("SFXERR", ss);
 		}
+        catch (...) {
+            
+        }
 		return nullptr;
 	}
 	ISound *SfxEngine::loadStream(const char *filename, int numBuffers)
@@ -259,11 +262,16 @@ namespace sfx {
 		std::string ext = getExtension(filename);
 		if (ext.compare("wav") == 0)
 		{
+            std::stringstream ss;
+            ss << "Attempting to load wav: " << filename;
+            am_log("SFX", ss);
 			SoundWav *wav = new SoundWav();
 			if (wav->loadStream(ss.str().c_str(), numBuffers))
 			{
+                am_log("SFX", "Success");
 				return wav;
 			}
+            am_log("SFX", "Error");
 			delete wav;
 		}
 		else if (ext.compare("ogg") == 0)

@@ -150,6 +150,7 @@ namespace sys {
 
 		sfx::SfxEngine *sfxEngine = sfx::SfxEngine::getEngine();
 		sfx::ISound *bgm = sfxEngine->loadStream("18765__reinsamba__evening-in-the-forest.ogg");
+		//sfx::ISound *bgm = sfxEngine->loadStream("210074__erokia__drums-piano-loop-3.wav");
 		sfx::SourcePoint *bgmSource = new sfx::SourcePoint(bgm);
 		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
