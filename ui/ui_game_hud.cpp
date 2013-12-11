@@ -7,12 +7,14 @@ namespace ui {
 		UIComponent()
 	{
 		mInspector = new Inspector();
+        mInspector->show();
 		addChild(mInspector);
 		mInspector->setParentAnchor(X_RIGHT, Y_TOP);
 		mInspector->setAnchor(X_RIGHT, Y_TOP);
 		mInspector->setSize(140.0f, 200.0f);
 
 		mCharacterScreen = new CharacterScreen();
+        mCharacterScreen->show();
 		addChild(mCharacterScreen);
 		mCharacterScreen->setSize(200.0f, 300.0f);
 

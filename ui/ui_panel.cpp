@@ -19,6 +19,8 @@ namespace ui {
 		mDragX(0.0f),
 		mDragY(0.0f)
 	{
+        setVisible(false);
+
 		mBack = new gfx::Sprite("ui:panel");
 		mBack->setName("Panel Back");
 		mBack->setInteractive(true);
@@ -126,5 +128,15 @@ namespace ui {
 		return mBack;
 	}
 
+    void Panel::show()
+    {
+        setVisible(true);
+    }
+    void Panel::hide()
+    {
+        setVisible(false);
+    }
+
 }
 }
+

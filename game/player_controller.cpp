@@ -32,6 +32,11 @@ namespace game {
 
 	void PlayerController::onEvent(ui::KeyboardEvent *e)
 	{
+        Game *game = Engine::getGame();
+        if (game->getUIKeyboardFocus())
+        {
+            return;
+        }
 		const bool *keys = ui::KeyboardManager::getManager()->getKeysDown();
 
 		if (mActive)

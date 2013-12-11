@@ -435,6 +435,7 @@ namespace sys {
 		gfx::GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		ui::StoreScreen *storeScreen = new ui::StoreScreen();
+        storeScreen->show();
 		storeScreen->setSize(360, 300);
 		game::Item *test = game->create<game::Item>("wooden:shield");
 		game::Store *store = new game::Store();

@@ -23,11 +23,14 @@ namespace ui {
 
 		virtual void onEvent(MouseEvent *e);
 
-		gfx::TextField *getTitleField();
-		void setTitle(const char *title);
-		const char *getTitle() const;
+		virtual gfx::TextField *getTitleField();
+		virtual void setTitle(const char *title);
+		virtual const char *getTitle() const;
 
-		gfx::Sprite *getBackSprite();
+		virtual gfx::Sprite *getBackSprite();
+
+        virtual void show();
+        virtual void hide();
 
 	protected:
 
