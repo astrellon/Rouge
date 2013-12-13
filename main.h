@@ -15,9 +15,6 @@
 
 #include <iostream>
 
-
-//#include "shader.h"
-
 #ifdef _WIN_SYS
 #	include <sys/win/win_system.h>
 #elif defined _FREEGLUT_SYS
