@@ -213,7 +213,7 @@ namespace ui {
         {
             if (mStore->getNumStoreInventories() > 1)
             {
-                ss << getStoreInventoryIndex() << " / " << mStore->getNumStoreInventories();
+                ss << (getStoreInventoryIndex() + 1) << "/" << mStore->getNumStoreInventories();
             }
         }
         setTitle(ss.str().c_str());

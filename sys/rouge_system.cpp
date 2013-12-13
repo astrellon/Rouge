@@ -441,7 +441,13 @@ namespace sys {
 		game::Store *store = new game::Store();
 		game::Character *owner = new game::Character();
 		store->setStoreOwner(owner);
-		store->createStoreInventory()->addItem(test);
+		Inventory *inv = store->createStoreInventory();
+        inv->addItem(test);
+
+        test = game->create<game::Item>("wooden:sword");
+        inv = store->createStoreInventory();
+        inv->addItem(test);
+
 		storeScreen->setStore(store);
 		storeScreen->setBuyer(game->getMainCharacter());
 		//store->addStoreInventory(inv);

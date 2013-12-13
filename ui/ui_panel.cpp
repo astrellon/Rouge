@@ -5,6 +5,7 @@
 #include <ui/mouse_event.h>
 #include <ui/mouse_manager.h>
 #include <ui/ui_debug_inspector.h>
+#include <ui/ui_text_button.h>
 
 #include <sstream>
 
@@ -36,6 +37,14 @@ namespace ui {
 		setMinHeight(100.0f);
 		setMaxWidth(600.0f);
 		setMaxHeight(400.0f);
+
+        mCloseButton = new TextButton("ui:small_button", "X");
+        mCloseButton->setParentAnchorX(X_RIGHT);
+        mCloseButton->setAnchorX(X_RIGHT);
+        mCloseButton->setSize(13, 15);
+        mCloseButton->setParentOffset(-8, 4);
+        mCloseButton->addEventListener("click", this);
+        addChild(mCloseButton);
 	}
 	Panel::~Panel()
 	{
@@ -53,6 +62,14 @@ namespace ui {
 		mBack->setHeight(mHeight);
 	}
 
+    void Panel::onEvent(Event *e)
+    {
+        am_log("CLOSE", "CLICK");
+        if (e->getEventTarget() == mCloseButton)
+        {
+            hide();
+        }
+    }
 	void Panel::onEvent(MouseEvent *e)
 	{
 		MouseManager *manager = MouseManager::getManager();
@@ -110,7 +127,7 @@ namespace ui {
 		}
 	}
 
-	gfx::TextField *Panel::getTitleField()
+	gfx::TextField *Panel::getTitleField() const
 	{
 		return mTitle;
 	}
@@ -123,11 +140,14 @@ namespace ui {
 		return mTitle->getText();
 	}
 
-	gfx::Sprite *Panel::getBackSprite()
+	gfx::Sprite *Panel::getBackSprite() const
 	{
 		return mBack;
 	}
-
+    TextButton *Panel::getCloseButton() const
+    {
+        return mCloseButton;
+    }
     void Panel::show()
     {
         setVisible(true);

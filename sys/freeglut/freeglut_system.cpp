@@ -206,6 +206,7 @@ namespace freeglut {
 		glutInitWindowPosition(mXpos, mYpos);
 		glutInitWindowSize(mWidth, mHeight);
 		glutCreateWindow(mTitle.c_str());
+        setCursorHidden(true);
 
 		init();
 
@@ -254,6 +255,7 @@ namespace freeglut {
             usleep(diff * 1000);
 #endif
 		}
+        setCursorHidden(false);
 		
 		deinit();
 
@@ -377,14 +379,25 @@ namespace freeglut {
 
 	void FreeGlutSystem::setCursorHidden(bool hide)
 	{
-#ifdef _WIN32
 		if (hide != mHideCursor)
 		{
 			mHideCursor = hide;
+#ifdef _WIN32
 			ShowCursor(!hide);
+#else
+            if (hide)
+            {
+                am_log("CURSOR", "HIDE");
+                glutSetCursor(GLUT_CURSOR_NONE);
+            }
+            else
+            {
+                am_log("CURSOR", "INHERIT");
+                glutSetCursor(GLUT_CURSOR_INHERIT);
+            }
+#endif
 			onCursorHiddenChange(hide);
 		}
-#endif
 	}
 	void FreeGlutSystem::onCursorHiddenChange(bool hide)
 	{
