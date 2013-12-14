@@ -44,6 +44,7 @@ namespace ui {
         mCloseButton->setSize(13, 15);
         mCloseButton->setParentOffset(-8, 4);
         mCloseButton->addEventListener("click", this);
+        mCloseButton->setVisible(false);
         addChild(mCloseButton);
 	}
 	Panel::~Panel()
@@ -64,7 +65,6 @@ namespace ui {
 
     void Panel::onEvent(Event *e)
     {
-        am_log("CLOSE", "CLICK");
         if (e->getEventTarget() == mCloseButton)
         {
             hide();

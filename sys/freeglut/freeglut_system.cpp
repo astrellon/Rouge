@@ -428,10 +428,12 @@ namespace freeglut {
 	void onGlutKeyboard(unsigned char key, int x, int y)
 	{
 		FreeGlutSystem::getFreeGlutSystem()->onKeyPress(key);
+        FreeGlutSystem::getFreeGlutSystem()->onKeyDown(static_cast<ui::Keyboard::Key>(key));
 	}
 	void onGlutKeyboardUp(unsigned char key, int x, int y)
 	{
 		//FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
+        FreeGlutSystem::getFreeGlutSystem()->onKeyUp(static_cast<ui::Keyboard::Key>(key));
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{

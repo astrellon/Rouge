@@ -28,6 +28,8 @@ namespace ui {
 		mInventoryRenderer->setInteractive(true);
 
         updateStoreTitle();
+
+        getCloseButton()->setVisible(true);
 	}
 	StoreScreen::~StoreScreen()
 	{

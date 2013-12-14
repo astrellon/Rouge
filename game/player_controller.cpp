@@ -41,7 +41,7 @@ namespace game {
 
 		if (mActive)
 		{
-			int x = keys[ui::Keyboard::KEY_LEFT_ARROW] - keys[ui::Keyboard::KEY_RIGHT_ARROW];
+			int x = keys[ui::Keyboard::KEY_RIGHT_ARROW] - keys[ui::Keyboard::KEY_LEFT_ARROW];
 			int y = keys[ui::Keyboard::KEY_DOWN_ARROW] - keys[ui::Keyboard::KEY_UP_ARROW];
 			
 			if (x != 0 || y != 0)
