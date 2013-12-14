@@ -160,8 +160,8 @@
     <Filter Include="gfx\base\tooltips">
       <UniqueIdentifier>{4350fd90-57c1-4ec5-b3b6-ae552bb68344}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sys\freeglut">
-      <UniqueIdentifier>{02ec8a70-86b9-4fb0-ad89-958c2f4ea6f9}</UniqueIdentifier>
+    <Filter Include="sfx\openal\win">
+      <UniqueIdentifier>{69854413-e8b0-45e1-858c-1845d402158b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -363,9 +363,6 @@
     </ClCompile>
     <ClCompile Include="util\utils.cpp">
       <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="sys\unit_test_system.cpp">
-      <Filter>sys\tests</Filter>
     </ClCompile>
     <ClCompile Include="tests\test_base.cpp">
       <Filter>tests\base</Filter>
@@ -763,9 +760,6 @@
     <ClCompile Include="sfx\openal\aldlist.cpp">
       <Filter>sfx\openal</Filter>
     </ClCompile>
-    <ClCompile Include="sfx\openal\LoadOAL.cpp">
-      <Filter>sfx\openal</Filter>
-    </ClCompile>
     <ClCompile Include="sfx\sfx_listener.cpp">
       <Filter>sfx</Filter>
     </ClCompile>
@@ -937,11 +931,11 @@
     <ClCompile Include="gfx\gfx_tooltip_item.cpp">
       <Filter>gfx\rouge</Filter>
     </ClCompile>
-    <ClCompile Include="sys\freeglut\freeglut_system.cpp">
-      <Filter>sys\freeglut</Filter>
-    </ClCompile>
     <ClCompile Include="sys\win\win_system.cpp">
       <Filter>sys\win</Filter>
+    </ClCompile>
+    <ClCompile Include="sfx\openal\win\LoadOAL.cpp">
+      <Filter>sfx\openal\win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1158,9 +1152,6 @@
     </ClInclude>
     <ClInclude Include="math\matrix.h">
       <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="sys\unit_test_system.h">
-      <Filter>sys\tests</Filter>
     </ClInclude>
     <ClInclude Include="tests\test_base.h">
       <Filter>tests\base</Filter>
@@ -1716,9 +1707,6 @@
     </ClInclude>
     <ClInclude Include="gfx\gfx_tooltip_item.h">
       <Filter>gfx\rouge</Filter>
-    </ClInclude>
-    <ClInclude Include="sys\freeglut\freeglut_system.h">
-      <Filter>sys\freeglut</Filter>
     </ClInclude>
     <ClInclude Include="sys\win\win_system.h">
       <Filter>sys\win</Filter>

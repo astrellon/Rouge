@@ -22,10 +22,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _WIN32
 #include "windows.h"
-#endif
-#include "LoadOAL.h"
+#include <sfx/openal/LoadOAL.h>
 
 HINSTANCE g_hOpenALDLL = nullptr;
 
