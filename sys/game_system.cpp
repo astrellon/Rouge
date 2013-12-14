@@ -198,7 +198,14 @@ namespace sys {
 	}
 	void GameSystem::onKeyDown(ui::Keyboard::Key key)
 	{
-		// 192 Currently is `
+		ui::KeyboardManager::getManager()->onKeyDown(key);
+	}
+	void GameSystem::onKeyUp(ui::Keyboard::Key key)
+	{
+		ui::KeyboardManager::getManager()->onKeyUp(key);
+	}
+	void GameSystem::onKeyPress(char key)
+	{
 		if (key == ui::Keyboard::KEY_BACKTICK)
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());
@@ -214,14 +221,6 @@ namespace sys {
 		{
 			mDebugConsole->setScroll(mDebugConsole->getScroll() + 1);
 		}
-		ui::KeyboardManager::getManager()->onKeyDown(key);
-	}
-	void GameSystem::onKeyUp(ui::Keyboard::Key key)
-	{
-		ui::KeyboardManager::getManager()->onKeyUp(key);
-	}
-	void GameSystem::onKeyPress(char key)
-	{
 		ui::KeyboardManager::getManager()->onKeyPress(key);
 	}
 	

@@ -150,6 +150,7 @@ namespace sys {
 
 		sfx::SfxEngine *sfxEngine = sfx::SfxEngine::getEngine();
 		sfx::ISound *bgm = sfxEngine->loadStream("18765__reinsamba__evening-in-the-forest.ogg");
+		//sfx::ISound *bgm = sfxEngine->loadStream("210074__erokia__drums-piano-loop-3.wav");
 		sfx::SourcePoint *bgmSource = new sfx::SourcePoint(bgm);
 		bgmSource->setSourceRelative(true);
 		bgmSource->setGain(0.2f);
@@ -434,12 +435,19 @@ namespace sys {
 		gfx::GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
 		ui::StoreScreen *storeScreen = new ui::StoreScreen();
+        storeScreen->show();
 		storeScreen->setSize(360, 300);
 		game::Item *test = game->create<game::Item>("wooden:shield");
 		game::Store *store = new game::Store();
 		game::Character *owner = new game::Character();
 		store->setStoreOwner(owner);
-		store->createStoreInventory()->addItem(test);
+		Inventory *inv = store->createStoreInventory();
+        inv->addItem(test);
+
+        test = game->create<game::Item>("wooden:sword");
+        inv = store->createStoreInventory();
+        inv->addItem(test);
+
 		storeScreen->setStore(store);
 		storeScreen->setBuyer(game->getMainCharacter());
 		//store->addStoreInventory(inv);

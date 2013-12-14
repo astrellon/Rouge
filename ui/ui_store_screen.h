@@ -33,6 +33,10 @@ namespace ui {
 		virtual void setHeight(float height);
 
 		virtual void onEvent(InventoryEvent *e);
+        virtual void onEvent(KeyboardEvent *e);
+
+        virtual void show();
+        virtual void hide();
 
 	protected:
 
@@ -44,6 +48,8 @@ namespace ui {
 
 		virtual void addListeners(game::Store *store);
 		virtual void removeListeners(game::Store *store);
+
+        virtual void updateStoreTitle();
 	};
 
 }

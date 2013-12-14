@@ -146,6 +146,11 @@ namespace game {
 		void setEditorMode(bool editor);
 		bool isEditorMode() const;
 
+        void addUIKeyboardFocus();
+        void removeUIKeyboardFocus();
+        bool hasUIKeyboardFocus() const;
+        int getUIKeyboardFocus() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -199,6 +204,8 @@ namespace game {
 
 		typedef std::map<std::string, base::Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
+
+        int mUIKeyboardFocus;
 
 		void endGameTick();
 

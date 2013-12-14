@@ -37,11 +37,11 @@ namespace sfx {
 		mBufferTime = 500;
 		if (toStream && !loadStream(filename))
 		{
-			throw ("Error loading stream");
+			throw sound_error("Error loading stream");
 		}
 		else if (!toStream && !loadSound(filename))
 		{
-			throw ("Error loading sound");
+			throw sound_error("Error loading sound");
 		}
 	}
 	SoundWav::~SoundWav()
@@ -120,7 +120,7 @@ namespace sfx {
 			mFileStream = fopen(filename, "rb");
 			if (!mFileStream)
 			{
-				throw (filename);
+				throw sound_error(filename);
 			}
 
 			ALuint dataSize = 0;
@@ -134,7 +134,7 @@ namespace sfx {
 			{
 				std::stringstream ss;
 				ss << "Unable to allocate sound buffer of size " << mBufferByteSize << " for " << filename;
-				throw (ss.str().c_str());
+				throw sound_error(ss.str().c_str());
 			}
  
 			fillBuffer(mBuffers[0]);
@@ -183,7 +183,7 @@ namespace sfx {
 			mFileStream = fopen(filename, "rb");
 			if (!mFileStream)
 			{
-				throw (filename);
+				throw sound_error(filename);
 			}
 
 			ALuint dataSize = 0;
@@ -295,7 +295,7 @@ namespace sfx {
 		if (strncmp(riffHeader.chunkID, "RIFF", 4) != 0 ||
 			strncmp(riffHeader.format, "WAVE", 4) != 0)
 		{
-			throw ("Invalid RIFF or WAVE Header");
+			throw sound_error("Invalid RIFF or WAVE Header");
 		}
 
 		bool parsedFmtChunk = false;
@@ -311,7 +311,7 @@ namespace sfx {
 				fread(&waveHeader, dataChunk.size, 1, mFileStream);
 				if(!getALFormat(waveHeader.numChannels, waveHeader.bitsPerSample, waveHeader.channelMask, mALFormat))
 				{
-					throw ("Unable to get WAVE format");
+					throw sound_error("Unable to get WAVE format");
 				}
 				continue;
 			}
@@ -325,13 +325,13 @@ namespace sfx {
 
 		if (!parsedFmtChunk)
 		{
-			throw ("No WAVE format chunk found");
+			throw sound_error("No WAVE format chunk found");
 		}
 
 		// data RIFF Chunk contains the size of the PCM data.
 		if (strncmp(dataChunk.name, "data", 4) != 0)
 		{
-			throw ("Invalid data chunk");
+			throw sound_error("Invalid data chunk");
 		}
 
 		mFrequency = waveHeader.sampleRate;

@@ -2,6 +2,12 @@
 
 #include <sstream>
 
+#include <game/game.h>
+#include <game/engine.h>
+
+#include <ui/keyboard_common.h>
+#include <ui/keyboard_manager.h>
+
 namespace am {
 namespace ui {
 
@@ -21,7 +27,9 @@ namespace ui {
 		setInteractive(true);
 		mInventoryRenderer->setInteractive(true);
 
-		setTitle("Store Screen");
+        updateStoreTitle();
+
+        getCloseButton()->setVisible(true);
 	}
 	StoreScreen::~StoreScreen()
 	{
@@ -96,6 +104,17 @@ namespace ui {
 		}
 		am_log("STORE", e->getType());
 	}
+    void StoreScreen::onEvent(KeyboardEvent *e)
+    {
+        if (e->getKey() == Keyboard::KEY_LEFT_ARROW)
+        {
+            setStoreInventoryIndex(getStoreInventoryIndex() - 1);
+        }
+        if (e->getKey() == Keyboard::KEY_RIGHT_ARROW)
+        {
+            setStoreInventoryIndex(getStoreInventoryIndex() + 1);
+        }
+    }
 
 	void StoreScreen::setBuyer(game::Character *character)
 	{
@@ -117,6 +136,7 @@ namespace ui {
 		}
 		mStoreInventoryIndex = index;
 		mInventoryRenderer->setInventory(mStore->getStoreInventories()[index]);
+        updateStoreTitle();
 	}
 	int StoreScreen::getStoreInventoryIndex() const
 	{
@@ -140,6 +160,28 @@ namespace ui {
 		Panel::setHeight(height);
 	}
 
+    void StoreScreen::show()
+    {
+        if (!isVisible())
+        {
+            game::Engine::getGame()->addUIKeyboardFocus();
+            updateStoreTitle();
+            KeyboardManager::getManager()->addEventListener(Keyboard::KEY_DOWN, this);
+        }
+        Panel::show();
+
+    }
+    void StoreScreen::hide()
+    {
+        if (isVisible())
+        {
+            game::Engine::getGame()->removeUIKeyboardFocus();
+
+            KeyboardManager::getManager()->removeEventListener(Keyboard::KEY_DOWN, this);
+        }
+        Panel::hide();
+    }
+
 	void StoreScreen::addListeners(Store *store)
 	{
 		if (store)
@@ -160,6 +202,24 @@ namespace ui {
 			store->removeEventListener(ui::Inventory::EventTypeName[ui::Inventory::INVENTORY_BEFORE_REMOVE], this);
 		}
 	}
+
+    void StoreScreen::updateStoreTitle()
+    {
+        std::stringstream ss;
+        if (mStore)
+        {
+            ss << mStore->getStoreOwner()->getName() << "'s ";
+        }
+        ss << "Store ";
+        if (mStore)
+        {
+            if (mStore->getNumStoreInventories() > 1)
+            {
+                ss << (getStoreInventoryIndex() + 1) << "/" << mStore->getNumStoreInventories();
+            }
+        }
+        setTitle(ss.str().c_str());
+    }
 
 }
 }

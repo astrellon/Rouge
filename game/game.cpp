@@ -48,7 +48,8 @@ namespace game {
 		mGameTickPosition(0),
 		mCurrentTickDt(0.0f),
 		mGameTickPaused(true),
-		mEditorMode(false)
+		mEditorMode(false),
+        mUIKeyboardFocus(0)
 	{
 		if (engine == nullptr)
 		{
@@ -866,6 +867,23 @@ namespace game {
 	{
 		return mEditorMode;
 	}
+
+    void Game::addUIKeyboardFocus()
+    {
+        mUIKeyboardFocus++;
+    }
+    void Game::removeUIKeyboardFocus()
+    {
+        mUIKeyboardFocus--;
+    }
+    bool Game::hasUIKeyboardFocus() const
+    {
+        return mUIKeyboardFocus > 0;
+    }
+    int Game::getUIKeyboardFocus() const
+    {
+        return mUIKeyboardFocus;
+    }
 
 	void Game::startGame()
 	{

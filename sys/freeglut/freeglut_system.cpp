@@ -206,6 +206,7 @@ namespace freeglut {
 		glutInitWindowPosition(mXpos, mYpos);
 		glutInitWindowSize(mWidth, mHeight);
 		glutCreateWindow(mTitle.c_str());
+        setCursorHidden(true);
 
 		init();
 
@@ -254,6 +255,7 @@ namespace freeglut {
             usleep(diff * 1000);
 #endif
 		}
+        setCursorHidden(false);
 		
 		deinit();
 
@@ -377,14 +379,25 @@ namespace freeglut {
 
 	void FreeGlutSystem::setCursorHidden(bool hide)
 	{
-#ifdef _WIN32
 		if (hide != mHideCursor)
 		{
 			mHideCursor = hide;
+#ifdef _WIN32
 			ShowCursor(!hide);
+#else
+            if (hide)
+            {
+                am_log("CURSOR", "HIDE");
+                glutSetCursor(GLUT_CURSOR_NONE);
+            }
+            else
+            {
+                am_log("CURSOR", "INHERIT");
+                glutSetCursor(GLUT_CURSOR_INHERIT);
+            }
+#endif
 			onCursorHiddenChange(hide);
 		}
-#endif
 	}
 	void FreeGlutSystem::onCursorHiddenChange(bool hide)
 	{
@@ -414,20 +427,16 @@ namespace freeglut {
 	}
 	void onGlutKeyboard(unsigned char key, int x, int y)
 	{
-        std::stringstream ss;
-        ss << "Key: " << key;
-        am_log("KEY", ss);
 		FreeGlutSystem::getFreeGlutSystem()->onKeyPress(key);
+        FreeGlutSystem::getFreeGlutSystem()->onKeyDown(static_cast<ui::Keyboard::Key>(key));
 	}
 	void onGlutKeyboardUp(unsigned char key, int x, int y)
 	{
 		//FreeGlutSystem::getFreeGlutSystem()->onKeyUp(key);
+        FreeGlutSystem::getFreeGlutSystem()->onKeyUp(static_cast<ui::Keyboard::Key>(key));
 	}
 	void onGlutSpecialKeyboard(int key, int x, int y)
 	{
-        std::stringstream ss;
-        ss << "SKey: " << key;
-        am_log("SKEY", ss);
 		FreeGlutSystem::getFreeGlutSystem()->onKeyDown(processGlutKey(key));
 	}
 	void onGlutSpecialKeyboardUp(int key, int x, int y)
@@ -467,8 +476,8 @@ namespace freeglut {
 		case GLUT_KEY_PAGE_UP:			return ui::Keyboard::KEY_PAGEUP;
 		case GLUT_KEY_HOME:				return ui::Keyboard::KEY_HOME;
 		case GLUT_KEY_END:				return ui::Keyboard::KEY_END;
-		case GLUT_KEY_LEFT:				return ui::Keyboard::KEY_RIGHT_ARROW;
-		case GLUT_KEY_RIGHT:			return ui::Keyboard::KEY_LEFT_ARROW;
+		case GLUT_KEY_LEFT:				return ui::Keyboard::KEY_LEFT_ARROW;
+		case GLUT_KEY_RIGHT:			return ui::Keyboard::KEY_RIGHT_ARROW;
 		case GLUT_KEY_UP:				return ui::Keyboard::KEY_UP_ARROW;
 		case GLUT_KEY_DOWN:				return ui::Keyboard::KEY_DOWN_ARROW;
 		case GLUT_KEY_INSERT:			return ui::Keyboard::KEY_INSERT;
