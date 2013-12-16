@@ -684,7 +684,7 @@ namespace game {
 		{
 			return nullptr;
 		}
-		GameObjectIdMap::const_iterator iter = mGameObjects.find(std::string(id));
+		auto iter = mGameObjects.find(std::string(id));
 		if (iter != mGameObjects.end())
 		{
 			return iter->second;
@@ -710,7 +710,7 @@ namespace game {
 		if (id && id[0] != '\0')
 		{
 			std::string idStr(id);
-			GameObjectIdMap::iterator iter = mGameObjects.find(idStr);
+			auto iter = mGameObjects.find(idStr);
 			if (iter != mGameObjects.end())
 			{
 				mGameObjects.erase(iter);
@@ -723,7 +723,7 @@ namespace game {
 		{
 			return;
 		}
-		GameObjectIdMap::iterator iter = mGameObjects.find(obj->getGameId());
+		auto iter = mGameObjects.find(obj->getGameId());
 		if (iter != mGameObjects.end())
 		{
 			mGameObjects.erase(iter);
@@ -735,7 +735,7 @@ namespace game {
 		if (dialogue)
 		{
 			std::string id = dialogue->getId();
-			DialogueMap::const_iterator iter = mDialogueMap.find(id);
+			auto iter = mDialogueMap.find(id);
 			if (iter == mDialogueMap.end())
 			{
 				mDialogueMap[id] = dialogue;
@@ -748,7 +748,7 @@ namespace game {
 	{
 		if (id != nullptr)
 		{
-			DialogueMap::const_iterator iter = mDialogueMap.find(std::string(id));
+			auto iter = mDialogueMap.find(std::string(id));
 			if (iter == mDialogueMap.end())
 			{
 				mDialogueMap.erase(iter);
@@ -814,7 +814,7 @@ namespace game {
 		{
 			return false;
 		}
-		QuestMap::const_iterator iter = mQuestMap.find(quest->getQuestId());
+		auto iter = mQuestMap.find(quest->getQuestId());
 		if (iter == mQuestMap.end())
 		{
 			mQuestMap[quest->getQuestId()] = quest;
@@ -828,7 +828,7 @@ namespace game {
 		{
 			return false;
 		}
-		QuestMap::const_iterator iter = mQuestMap.find(std::string(questId));
+		auto iter = mQuestMap.find(std::string(questId));
 		if (iter != mQuestMap.end())
 		{
 			mQuestMap.erase(iter);
@@ -842,12 +842,64 @@ namespace game {
 		{
 			return nullptr;
 		}
-		QuestMap::const_iterator iter = mQuestMap.find(std::string(questId));
+		auto iter = mQuestMap.find(std::string(questId));
 		if (iter != mQuestMap.end())
 		{
 			return iter->second;
 		}
 		return nullptr;
+	}
+
+    Store *Game::getStore(const char *id) const
+    {
+        if (id == nullptr || id[0] == '\0')
+        {
+            return nullptr;
+        }
+        auto find = mStoreMap.find(std::string(id));
+        if (find != mStoreMap.end())
+        {
+            return find->second;
+        }
+        return nullptr;
+    }
+    bool Game::registerStore(Store *store)
+    {
+		if (store == nullptr)
+		{
+			return false;
+		}
+		const char *id = store->getStoreId();
+		if (id == nullptr || id[0] == '\0')
+		{
+			return false;
+		}
+		mStoreMap[string(id)] = store;
+		return true;
+    }
+	void Game::deregisterStore(const char *id)
+	{
+		if (id && id[0] != '\0')
+		{
+			std::string idStr(id);
+			auto iter = mStoreMap.find(idStr);
+			if (iter != mStoreMap.end())
+			{
+				mStoreMap.erase(iter);
+			}
+		}
+	}
+	void Game::deregisterStore(Store *store)
+	{
+		if (store == nullptr)
+		{
+			return;
+		}
+		auto iter = mStoreMap.find(std::string(store->getStoreId()));
+		if (iter != mStoreMap.end())
+		{
+			mStoreMap.erase(iter);
+		}
 	}
 
 	void Game::setGameTickPaused(bool paused)

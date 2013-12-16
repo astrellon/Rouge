@@ -244,6 +244,18 @@ namespace game {
 		fireEvent<ui::InventoryEvent>(e);
 	}
 
+    void Store::setStoreId(const char *id)
+    {
+        if (id != nullptr)
+        {
+            mStoreId = id;
+        }
+    }
+    const char *Store::getStoreId() const
+    {
+        return mStoreId.c_str();
+    }
+
 	void Store::addListeners(Inventory *inventory)
 	{
 		if (inventory)

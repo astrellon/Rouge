@@ -21,6 +21,7 @@
 #include "character.h"
 #include "loading_state.h"
 #include "iattribute_data.h"
+#include "store.h"
 
 #include <log/logger.h>
 
@@ -38,6 +39,7 @@ namespace data {
 using namespace am::util;
 
 namespace game {
+
 
 	class Engine;
 
@@ -128,6 +130,13 @@ namespace game {
 		bool removeQuest(const char *questId);
 		Quest *getQuest(const char *questId);
 
+        // Store
+        Store *getStore(const char *id) const;
+		bool registerStore(Store *store);
+		void deregisterStore(const char *id);
+		void deregisterStore(Store *store);
+
+
 		// LoadingState
 		LoadingState *getLoadingState();
 
@@ -175,6 +184,9 @@ namespace game {
 
 		typedef std::map<std::string, base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
+
+        typedef std::map< std::string, base::Handle<Store> > StoreMap;
+        StoreMap mStoreMap;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 
