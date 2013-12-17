@@ -668,6 +668,7 @@ namespace game {
 		GameObject *obj = mActiveObjects->at(mGameTickPosition);
 		obj->onGameTick(mCurrentTickDt);
 		mGameTickPosition++;
+		mCamera.update(0.05f);
 	}
 	void Game::setCurrentGameTickLength(float dt)
 	{

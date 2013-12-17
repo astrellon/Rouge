@@ -169,6 +169,11 @@ namespace sys {
 	}
 	void GameSystem::display(float dt)
 	{
+		game::Game *game = game::Engine::getGame();
+		if (game)
+		{
+			game->getCamera()->update(0.0f);
+		}
 		gfx::GfxEngine::getEngine()->display(dt);
 	}
 	void GameSystem::deinit()
