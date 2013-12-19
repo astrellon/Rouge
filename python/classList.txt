@@ -21,6 +21,7 @@ tile_instance lua_tile_instance.cpp
 tile_set lua_tile_set.cpp
 tile_type lua_tile_type.cpp
 map_region lua_map_region.cpp
+store lua_store.cpp
 
 // am::gfx wrwappers
 __basePath ../lua/wrappers/gfx/

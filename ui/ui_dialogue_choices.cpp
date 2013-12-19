@@ -15,6 +15,8 @@
 
 #include <gl.h>
 
+#include <ui/ui_store_screen.h>
+
 namespace am {
 namespace ui {
 
@@ -66,6 +68,23 @@ namespace ui {
 			{
 				//mTalker->talkTo(mTalkedTo, nullptr);
 				mTalker->getDialogueComp()->talkTo(mTalkedTo, nullptr);
+			}
+			else if (strcmp(node->getNodeType(), "s") == 0 || strcmp(node->getNodeType(), "store") == 0)
+			{
+				game::Engine *engine = Engine::getEngine();
+				GameHud *hud = engine->getGameHud();
+				StoreScreen *storeScreen = hud->getStoreScreen();
+				game::Character *character = dynamic_cast<game::Character *>(mTalkedTo.get());
+				if (character)
+				{
+					game::Store *store = character->getStore(0);
+					if (store)
+					{
+						storeScreen->setStore(store);
+						storeScreen->show();
+					}
+				}
+				//store->setStore()
 			}
 		}
 	}

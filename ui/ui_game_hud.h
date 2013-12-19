@@ -7,6 +7,7 @@
 #include <ui/ui_component.h>
 #include <ui/ui_dialogue_box.h>
 #include <ui/ui_dialogue_choices.h>
+#include <ui/ui_store_screen.h>
 
 namespace am {
 namespace ui {
@@ -17,10 +18,11 @@ namespace ui {
 		GameHud();
 		~GameHud();
 
-		virtual Inspector *getInspector();
-		virtual CharacterScreen *getCharacterScreen();
-		virtual DialogueBox *getDialogueBox();
-		virtual DialogueChoices *getDialogueChoices();
+		virtual Inspector *getInspector() const;
+		virtual CharacterScreen *getCharacterScreen() const;
+		virtual DialogueBox *getDialogueBox() const;
+		virtual DialogueChoices *getDialogueChoices() const;
+		virtual StoreScreen *getStoreScreen() const;
 
 		virtual void setWidth(float width);
 		virtual void setHeight(float height);
@@ -31,6 +33,7 @@ namespace ui {
 		base::Handle<CharacterScreen> mCharacterScreen;
 		base::Handle<DialogueBox> mDialogueBox;
 		base::Handle<DialogueChoices> mDialogueChoices;
+		base::Handle<StoreScreen> mStoreScreen;
 		
 	};
 

@@ -82,7 +82,7 @@ namespace game {
 
 		virtual void onEvent(ui::InventoryEvent *e);
 
-        virtual void setStoreId(const char *id);
+        virtual bool setStoreId(const char *id);
         virtual const char *getStoreId() const;
 
 		static const int LUA_ID;
@@ -99,6 +99,8 @@ namespace game {
 
 		virtual void addListeners(Inventory *inventory);
 		virtual void removeListeners(Inventory *inventory);
+
+		virtual void registerSelf(const char *id);
 
 	};
 
