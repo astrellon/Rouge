@@ -27,9 +27,9 @@ namespace tests {
 		lua::LuaState lua;
 		
 		int loadResult = lua.loadString(
-			"local result = loadfile(\"data\\\\tileTypes.lua\")\n"
+			"local result, msg = loadfile(\"data/tileTypes.lua\")\n"
 			"if (result == nil) then\n"
-			"	am.debug.log(\"Error loading\")\n"
+			"	am.debug.log(\"Error loading: \" .. msg)\n"
 			"else\n"
 			"	am.debug.log(\"No error\")\n"
 			"end\n"
