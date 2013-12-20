@@ -24,7 +24,8 @@ namespace game {
 
 	Store::Store() :
 		ui::EventInterface(),
-		mDefaultInventorySize(20, 16)
+		mDefaultInventorySize(20, 16),
+		mStoreOwner(nullptr)
 	{
 	}
 	Store::~Store()
