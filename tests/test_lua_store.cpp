@@ -25,8 +25,14 @@ namespace tests {
 	{
 		lua::LuaState lua;
 		
+		game::Game *game = new game::Game();
+		game::Engine::getEngine()->setCurrentGame(game);
+
 		int loadResult = lua.loadString(
 			"store = am.store.new(\"store_1\")\n"
+			"owner = am.character.new(\"store_owner\")\n"
+			"store:owner(owner)\n"
+			"store:create_inventory()\n"
 			);
 		
 		if (!loadResult)
@@ -35,6 +41,15 @@ namespace tests {
 		}
 		assert(loadResult);
 		
+		game::Store *store = game->getStore("store_1");
+		assert(store != nullptr);
+
+		game::Character *owner = dynamic_cast<Character *>(game->getGameObject("store_owner"));
+		assert(owner);
+		assert(owner == store->getStoreOwner());
+
+		am_equals(1, store->getNumStoreInventories());
+
 		return true;
 	}
 
