@@ -35,6 +35,7 @@
 #include <tests/test_body_parts.h>
 #include <tests/test_lua_asset.h>
 #include <tests/test_store.h>
+#include <tests/test_lua_store.h>
 
 namespace am {
 namespace sys {
@@ -103,6 +104,7 @@ namespace sys {
 		runSuite(tests::TestBodyParts);
 		runSuite(tests::TestLuaAsset);
 		runSuite(tests::TestStore);
+		runSuite(tests::TestLuaStore);
 
 		const std::vector<std::string> &failed = tests::TestSuite::getFailedTests();
 		if (failed.size() > 0)
