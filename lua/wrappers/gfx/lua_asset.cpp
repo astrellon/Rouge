@@ -92,6 +92,7 @@ namespace gfx {
 			{ "add_texture", Asset_add_texture },
 			{ "remove_texture", Asset_remove_texture },
 			{ "has_texture", Asset_has_texture },
+			{ "remove_all_textures", Asset_remove_all_textures },
 			{ "total_textures", Asset_total_textures },
 			{ "total_texture_windows", Asset_total_texture_windows },
 			{ "texture_window", Asset_texture_window },

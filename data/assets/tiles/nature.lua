@@ -7,7 +7,7 @@ do
 		
 	-- Grass Transition
 	am.gfx_engine.asset(am.asset.new("grass_transition")
-		:texture("data/textures/tiles/grass_transition.png")
+		:texture("data/textures/tiles/cartoonGrassTransition.png")
 		:num_frames(16, 2))
 		
 	-- Dirt
