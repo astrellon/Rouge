@@ -334,7 +334,7 @@ namespace gfx {
 	base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
 		std::string fileStr = filename;
-		//if (!mForceReloadMode)
+		if (!mForceReloadMode)
 		{
 			TextureMap::iterator iter = mTextureManager.find(fileStr);
 			if (iter != mTextureManager.end())

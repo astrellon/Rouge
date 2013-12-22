@@ -341,6 +341,22 @@ namespace gfx {
 	}
 
 	/**
+	 * Removes all the textures from the asset.
+	 *
+	 * @returns am.asset This
+	 */
+	int Asset_remove_all_textures(lua_State *lua)
+	{
+		Asset *asset = castUData<Asset>(lua, 1);
+		if (asset)
+		{
+			asset->removeAllTextures();
+			lua_first(lua);
+		}
+		return LuaState::expectedContext(lua, "remove_all_textures", "am.asset");
+	}
+
+	/**
 	 * Returns the number of textures associated with this asset.
 	 *
 	 * @returns integer The number of textures.
