@@ -202,9 +202,9 @@ namespace game {
 
 	}
 
-	TileSet *Engine::getTileSet(const char *tileSetName)
+	TileSet *Engine::getTileSet(const char *tileSetName, bool reload)
 	{
-		return getDefinition<TileSet>(mTileSets, tileSetName, 1);
+		return getDefinition<TileSet>(mTileSets, tileSetName, reload, 1);
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{
@@ -426,7 +426,7 @@ namespace game {
 		{
 			return false;
 		}
-		RaceMap::const_iterator iter = mRaces.find(race->getRaceName());
+		RaceMap::iterator iter = mRaces.find(race->getRaceName());
 		if (iter != mRaces.end())
 		{
 			mRaces.erase(iter);

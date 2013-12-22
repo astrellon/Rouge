@@ -318,9 +318,9 @@ namespace sys {
 			togglePause();
 			return;
 		}
-		if (key == ui::Keyboard::KEY_Z)
+		if (key == ui::Keyboard::KEY_z)
 		{
-			gfx::GfxEngine::getEngine()->reloadAsset("bigButton");
+			gfx::GfxEngine::getEngine()->getAsset("tiles/nature:grass", true);
 		}
 		game::Game *game = mEngine->getCurrentGame();
 		if (game)

@@ -18,9 +18,14 @@ namespace util {
 	{
 	public:
 
+		IDefinitionManager();
+
 		bool loadDefinitionFile(const char *path, const char *filename);
 		
 	protected:
+
+		void setReloadDefinitionFiles(bool reload);
+		bool getReloadDefinitionFiles() const;
 
 		typedef std::vector<std::string> LoadingFilesStack;
 		LoadingFilesStack mLoadingFiles;
@@ -54,7 +59,7 @@ namespace util {
 		}
 
 		template <class T>
-		T *getDefinition(std::map< std::string, base::Handle<T> > &defMap, const char *name, int id = 0)
+		T *findDefinition(std::map< std::string, base::Handle<T> > &defMap, const char *name)
 		{
 			if (name == nullptr || name[0] == '\0')
 			{
@@ -68,10 +73,41 @@ namespace util {
 				temp += ':';
 				str = temp + str;
 			}
+
 			auto find = defMap.find(str);
 			if (find != defMap.end())
 			{
 				return find->second;
+			}
+			return nullptr;
+		}
+
+		/**
+		 *
+		 */
+		template <class T>
+		T *getDefinition(std::map< std::string, base::Handle<T> > &defMap, const char *name, bool reload, int id)
+		{
+			if (name == nullptr || name[0] == '\0')
+			{
+				return nullptr;
+			}
+			std::string str(name);
+			size_t index = str.find(':');
+			if (index == std::string::npos && !mLoadingFiles.empty())
+			{
+				std::string temp = mLoadingFiles.back();
+				temp += ':';
+				str = temp + str;
+			}
+
+			if (!reload)
+			{
+				auto find = defMap.find(str);
+				if (find != defMap.end())
+				{
+					return find->second;
+				}
 			}
 			std::string filename;
 			std::string charname;
@@ -98,18 +134,32 @@ namespace util {
 				charname = str;
 			}
 
+			if (reload)
+			{
+				setReloadDefinitionFiles(true);
+			}
+
 			if (!_loadDefinitionFile(filename.c_str()))
 			{
 				return nullptr;
 			}
 
-			find = defMap.find(str);
+			if (reload)
+			{
+				setReloadDefinitionFiles(false);
+			}
+
+			auto find = defMap.find(str);
 			if (find != defMap.end())
 			{
 				return find->second;
 			}
 			return nullptr;
 		}
+
+	private:
+
+		bool mReloadDefinitionFiles;
 
 	};
 

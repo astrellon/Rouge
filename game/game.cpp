@@ -595,18 +595,18 @@ namespace game {
 	{
 		addDefinition<Character>(character, mCharDefinitions, name);
 	}
-	Character *Game::getCharDefinition(const char *name)
+	Character *Game::getCharDefinition(const char *name, bool reload)
 	{
-		return getDefinition<Character>(mCharDefinitions, name);
+		return getDefinition<Character>(mCharDefinitions, name, reload, 0);
 	}
 
 	void Game::addItemDefinition(Item *item, const char *name)
 	{
 		addDefinition<Item>(item, mItemDefinitions, name);
 	}
-	Item *Game::getItemDefinition(const char *name)
+	Item *Game::getItemDefinition(const char *name, bool reload)
 	{
-		return getDefinition<Item>(mItemDefinitions, name);
+		return getDefinition<Item>(mItemDefinitions, name, reload, 0);
 	}
 
 	template <>

@@ -37,7 +37,13 @@ namespace gfx {
 		{
 			if (lua_isstr(lua, 1))
 			{
-				Asset *asset = new Asset(lua_tostring(lua, 1));
+				const char *name = lua_tostring(lua, 1);
+				Asset *asset = am::gfx::GfxEngine::getEngine()->findAsset(name);
+				if (!asset)
+				{
+					asset = new Asset(name);
+				}
+				//Asset *asset = new Asset(lua_tostring(lua, 1));
 				wrapRefObject<Asset>(lua, asset);
 				return 1;
 			}

@@ -96,9 +96,9 @@ namespace game {
 		std::string getLoadingFile() const;
 
 		void addCharDefinition(Character *character, const char *name);
-		Character *getCharDefinition(const char *name);
+		Character *getCharDefinition(const char *name, bool reload=false);
 		void addItemDefinition(Item *item, const char *name);
-		Item *getItemDefinition(const char *name);
+		Item *getItemDefinition(const char *name, bool reload=false);
 
 		// Creates a new instance of the given game object
 		// from a definition name, will create the game object

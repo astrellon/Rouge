@@ -40,7 +40,10 @@ namespace gfx {
 	GfxEngine::GfxEngine() :
 		mHideCursor(false),
 		mCameraX(0),
-		mCameraY(0)
+		mCameraY(0),
+		//mScreenWidth(-1),
+		//mScreenHeight(-1),
+		mForceReloadMode(false)
 	{
 		
 	}
@@ -250,8 +253,9 @@ namespace gfx {
 		return mDefaultCursor;
 	}
 
-	int GfxEngine::reloadAsset(const char *assetName)
+	/*int GfxEngine::reloadAsset(const char *assetName)
 	{
+
 		std::string assetNameStr = assetName;
 		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
 		if (iter == mAssetManager.end())
@@ -282,7 +286,7 @@ namespace gfx {
 			lua.logStack("ASSETLUA");
 			lua.close();
 			return -1;
-		}
+		}*/
 		
 		/*Asset *temp = new Asset(assetName);
 		int loadAsset = temp->loadDef(lua);
@@ -297,10 +301,10 @@ namespace gfx {
 			return -2;
 		}
 
-		iter->second->assign(*temp);*/
+		iter->second->assign(*temp);
 		
 		return 1;
-	}
+	}*/
 	AssetMap &GfxEngine::getAssetMap()
 	{
 		return mAssetManager;
@@ -309,19 +313,35 @@ namespace gfx {
 	{
 		addDefinition<Asset>(asset, mAssetManager, asset->getName());
 	}
-	Asset *GfxEngine::getAsset(const char *name)
+	Asset *GfxEngine::findAsset(const char *name)
 	{
-		return getDefinition<Asset>(mAssetManager, name);
+		return findDefinition<Asset>(mAssetManager, name);
+	}
+	Asset *GfxEngine::getAsset(const char *name, bool reload)
+	{
+		if (reload)
+		{
+			setForceReloadMode(true);
+		}
+		Asset *result = getDefinition<Asset>(mAssetManager, name, reload, 0);
+		if (reload)
+		{
+			setForceReloadMode(false);
+		}
+		return result;
 	}
 
 	base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
 		std::string fileStr = filename;
-		TextureMap::iterator iter = mTextureManager.find(fileStr);
-		if (iter != mTextureManager.end())
+		//if (!mForceReloadMode)
 		{
-			texture = iter->second.get();
-			return base::SUCCESS;
+			TextureMap::iterator iter = mTextureManager.find(fileStr);
+			if (iter != mTextureManager.end())
+			{
+				texture = iter->second.get();
+				return base::SUCCESS;
+			}
 		}
 
 		Texture *temp = new Texture();
@@ -340,7 +360,7 @@ namespace gfx {
 		
 		return result;
 	}
-	int GfxEngine::reloadTexture(const char *filename)
+	/*int GfxEngine::reloadTexture(const char *filename)
 	{
 		std::string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
@@ -359,7 +379,7 @@ namespace gfx {
 			return -1;
 		}
 		return 1;
-	}
+	}*/
 	TextureMap &GfxEngine::getTextureMap()
 	{
 		return mTextureManager;
@@ -367,7 +387,7 @@ namespace gfx {
 	
 	Font *GfxEngine::getFont(const char *fontName)
 	{
-		return getDefinition<Font>(mFontManager, fontName, 1);
+		return getDefinition<Font>(mFontManager, fontName, false, 1);
 	}
 	void GfxEngine::addFont(Font *font)
 	{
@@ -446,6 +466,15 @@ namespace gfx {
 	void GfxEngine::popColourStack()
 	{
 		mColourStack.pop_back();
+	}
+
+	void GfxEngine::setForceReloadMode(bool reload)
+	{
+		mForceReloadMode = reload;
+	}
+	bool GfxEngine::isForeReloadMode() const
+	{
+		return mForceReloadMode;
 	}
 
 	int GfxEngine::getScreenWidth() const

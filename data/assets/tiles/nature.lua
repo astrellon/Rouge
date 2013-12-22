@@ -1,8 +1,8 @@
 do
 	-- Grass
 	am.gfx_engine.asset(am.asset.new("grass")
-		:add_texture("data/textures/tiles/grass_dirt_sand.png")
-		:texture_window_pixel({bottom_y = 64})
+		:add_texture("data/textures/tiles/cartoonGrass.png")
+		--:texture_window_pixel({bottom_y = 64})
 		:num_frames(4, 2))
 		
 	-- Grass Transition
