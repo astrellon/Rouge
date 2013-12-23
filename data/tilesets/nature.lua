@@ -16,7 +16,8 @@ do
 		:asset("tiles/nature:sand")
 		:precedence(6)
 		:description("It's sand")
-		:add_tile_type("land", "air"))
+		:add_tile_type("land", "air")
+        :add_transitional("tiles/nature:sand_transition"))
 		
 	local brick = am.tile.new("brick")
 		:full_name("Brick")

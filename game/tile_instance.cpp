@@ -68,8 +68,8 @@ namespace game {
 		int frameValue = 0;
 		if (framePos >= 0)
 		{
-			string name = tileName.substr(0, framePos);
-			string frame = tileName.substr(framePos + 1);
+			std::string name = tileName.substr(0, framePos);
+			std::string frame = tileName.substr(framePos + 1);
 			tileNameUse = name;
 			bool parseResult = util::Utils::fromString<int>(frameValue, frame);
 			if (!parseResult)

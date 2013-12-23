@@ -21,6 +21,11 @@ do
 		:texture("data/textures/tiles/cartoonSand.png")
 		--:texture_window_pixel({top_y = 64, left_x = 64})
 		:num_frames(2, 2))
+
+    -- Sand Transition
+    am.gfx_engine.asset(am.asset.new("sand_transition")
+        :texture("data/textures/tiles/cartoonSandTransition.png")
+        :num_frames(16,2))
 		
 	-- Swamp
 	am.gfx_engine.asset(am.asset.new("swamp")
