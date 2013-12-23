@@ -18,8 +18,8 @@ do
 	
 	-- Sand
 	am.gfx_engine.asset(am.asset.new("sand")
-		:texture("data/textures/tiles/grass_dirt_sand.png")
-		:texture_window_pixel({top_y = 64, left_x = 64})
+		:texture("data/textures/tiles/cartoonSand.png")
+		--:texture_window_pixel({top_y = 64, left_x = 64})
 		:num_frames(2, 2))
 		
 	-- Swamp
