@@ -93,13 +93,13 @@ namespace gfx {
 		}
 
 		int numTiles = mMap->getMapWidth() * mMap->getMapHeight();
-		float grid = Engine::getEngine()->getGridSize();
+		float grid = game::Engine::getEngine()->getGridSize();
 
 		game::TileInstance *tiles = mMap->getTiles();
 
 		for (int i = 0; i < numTiles; i++)
 		{
-			Tile *tile = tiles[i].getTile();
+			game::Tile *tile = tiles[i].getTile();
 			if (!tile)
 			{
 				continue;
@@ -128,7 +128,7 @@ namespace gfx {
 			return;
 		}
 
-		float grid = Engine::getEngine()->getGridSize();
+		float grid = game::Engine::getEngine()->getGridSize();
 		addAssetForUpdate(tile->getGraphicAsset(), grid);
 		auto transitionalTiles = tile->getAllTransitionalAssets();
 		for (auto iter = transitionalTiles.begin(); iter != transitionalTiles.end(); ++iter)
@@ -153,8 +153,8 @@ namespace gfx {
 			iter->second->updateSprite(dt);
 		}
 
-		float grid = Engine::getEngine()->getGridSize();
-		float gridResp = Engine::getEngine()->getGridSizeResp();
+		float grid = game::Engine::getEngine()->getGridSize();
+		float gridResp = game::Engine::getEngine()->getGridSizeResp();
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float cameraX = gfxEngine->getCameraX();
@@ -173,7 +173,7 @@ namespace gfx {
 		int minY = 0;
 		int maxY = mapHeight;
 
-		TileInstance *tiles = mMap->getTiles();
+		game::TileInstance *tiles = mMap->getTiles();
 
 		if (mEnabledMapCulling)
 		{
@@ -229,7 +229,7 @@ namespace gfx {
 						if (value != 0)
 						{
 							game::Tile *overlapTile = tiles[t + offsets[i]].getTile();
-							const Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
+							const game::Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
 							if (!assets)
 							{
 								assets = overlapTile->getTransitionalAsset(nullptr);

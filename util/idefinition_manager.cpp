@@ -28,7 +28,7 @@ namespace util {
 
 	lua::LuaState &IDefinitionManager::getLuaDefinition() const
 	{
-		return Engine::getEngine()->getLua();
+		return game::Engine::getEngine()->getLua();
 	}
 
 	bool IDefinitionManager::_loadDefinitionFile(const char *filename)
