@@ -35,9 +35,9 @@ do
 	
 	-- Water
 	am.gfx_engine.asset(am.asset.new("water")
-		:texture("data/textures/tiles/water.png")
-		:frame_rate(1)
-		:num_frames(2, 2))
+		:texture("data/textures/tiles/cartoonWater.png")
+		:frame_rate(4)
+		:num_frames(4, 2))
 	
 	-- Bricks
 	am.gfx_engine.asset(am.asset.new("bricks")
