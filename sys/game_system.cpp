@@ -191,10 +191,10 @@ namespace sys {
 		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		ui::MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
-	void GameSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
+	void GameSystem::onMouseMove(int x, int y)
 	{
 		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
-		ui::MouseManager::getManager()->onMouseMove(mouseButton, x, y);
+		ui::MouseManager::getManager()->onMouseMove(x, y);
 	}
 	void GameSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{

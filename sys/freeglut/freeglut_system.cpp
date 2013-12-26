@@ -8,6 +8,7 @@
 #	include <Windows.h>
 #else
 #   include <unistd.h>
+#   include <dirent.h>
 #endif
 #include <GL/freeglut.h>
 
@@ -129,9 +130,9 @@ namespace freeglut {
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void FreeGlutSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
+	void FreeGlutSystem::onMouseMove(int x, int y)
 	{
-		mGameSystem->onMouseMove(mouseButton, x, y);
+		mGameSystem->onMouseMove(x, y);
 	}
 	void FreeGlutSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
@@ -373,6 +374,31 @@ namespace freeglut {
 
 		return base::SUCCESS;
 #else
+    DIR *dir;
+    struct dirent *ent;
+
+    std::string directory = std::string(folderName);
+    dir = opendir(folderName);
+    while ((ent = readdir(dir)) != NULL) {
+        const std::string file_name = ent->d_name;
+        const std::string full_file_name = directory + "/" + file_name;
+
+        if (file_name[0] == '.')
+            continue;
+
+        DIR *testDir = opendir(file_name.c_str());
+
+        FolderEntry entry;
+        entry.name = file_name;
+        entry.isDirectory = testDir != nullptr;
+        if (testDir)
+        {
+            closedir(testDir);
+        }
+
+        result.push_back(entry);
+    }
+    closedir(dir);
         return base::SUCCESS;
 #endif
 	}
@@ -465,7 +491,7 @@ namespace freeglut {
 	}
 	void onGlutMouseMove(int x, int y)
 	{
-		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(ui::Mouse::LEFT_BUTTON, x, y);
+		FreeGlutSystem::getFreeGlutSystem()->onMouseMove(x, y);
 	}
 
 	ui::Keyboard::Key processGlutKey(int key)

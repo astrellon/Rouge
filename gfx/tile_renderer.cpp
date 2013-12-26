@@ -193,13 +193,16 @@ namespace gfx {
 
 		float resetX = -(maxX - minX) * grid;
 		glTranslatef(minX * grid, minY * grid, 0.0f);
+
+        glEnable(GL_DEPTH_TEST);
 		for (int y = minY; y < maxY; y++)
 		{
 			t = y * mapWidth + minX;
 			for (int x = minX; x < maxX; x++)
 			{
 				game::TileInstance &instance = tiles[t];
-				Asset *asset = instance.getTile()->getGraphicAsset();
+                game::Tile *tile = instance.getTile();
+				Asset *asset = tile->getGraphicAsset();
 				if (asset == nullptr)
 				{
 					// Render something else.
@@ -223,6 +226,8 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
+                    int precedence = tile->getPrecedence();
+                    glTranslatef(0.0f, 0.0f, precedence);
 					for (int i = 0; i < 8; i++)
 					{
 						uint8_t value = instance.getTileEdgeValue(i);
@@ -258,11 +263,13 @@ namespace gfx {
 								{
 									sprite->setTextureFrame(value);
 								}
+
 								sprite->renderSprite();
 								sprite->setTextureFrame(0);
 							}
 						}
 					}
+                    glTranslatef(0.0f, 0.0f, -precedence);
 				}
 				t++;
 
@@ -270,6 +277,7 @@ namespace gfx {
 			}
 			glTranslatef(resetX, grid, 0.0f);
 		}
+        glDisable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 

@@ -176,7 +176,8 @@ namespace gfx {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		glOrtho(0, mScreenWidth, mScreenHeight, 0, 0, 1);
+		glOrtho(0, mScreenWidth, mScreenHeight, 0, 0, 255);
+        glTranslatef(0, 0, -127.0f);
 	
 		glMatrixMode(GL_MODELVIEW);
 	}

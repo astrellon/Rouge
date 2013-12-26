@@ -28,7 +28,7 @@ namespace ui {
 		bool getButtonDown(Mouse::Button button);
 
 		void onMouseDown(Mouse::Button mouseButton, int x, int y);
-		void onMouseMove(Mouse::Button mouseButton, int x, int y);
+		void onMouseMove(int x, int y);
 		void onMouseUp(Mouse::Button mouseButton, int x, int y);
 
 		void setDragOffset(int x, int y);
