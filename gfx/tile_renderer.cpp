@@ -194,7 +194,7 @@ namespace gfx {
 		float resetX = -(maxX - minX) * grid;
 		glTranslatef(minX * grid, minY * grid, 0.0f);
 
-        glEnable(GL_DEPTH_TEST);
+        //glEnable(GL_DEPTH_TEST);
 		for (int y = minY; y < maxY; y++)
 		{
 			t = y * mapWidth + minX;
@@ -227,7 +227,7 @@ namespace gfx {
 				if (instance.hasEdgeValue())
 				{
                     int precedence = tile->getPrecedence();
-                    glTranslatef(0.0f, 0.0f, precedence);
+                    glTranslatef(0.0f, 0.0f, -precedence);
 					for (int i = 0; i < 8; i++)
 					{
 						uint8_t value = instance.getTileEdgeValue(i);
@@ -269,7 +269,7 @@ namespace gfx {
 							}
 						}
 					}
-                    glTranslatef(0.0f, 0.0f, -precedence);
+                    glTranslatef(0.0f, 0.0f, precedence);
 				}
 				t++;
 
@@ -277,7 +277,7 @@ namespace gfx {
 			}
 			glTranslatef(resetX, grid, 0.0f);
 		}
-        glDisable(GL_DEPTH_TEST);
+        //glDisable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 

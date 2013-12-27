@@ -203,7 +203,7 @@ namespace freeglut {
 		}
 
 		glutInit(&argc, argv);
-		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+		glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 		glutInitWindowPosition(mXpos, mYpos);
 		glutInitWindowSize(mWidth, mHeight);
 		glutCreateWindow(mTitle.c_str());

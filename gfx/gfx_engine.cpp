@@ -177,8 +177,6 @@ namespace gfx {
 		glLoadIdentity();
 
 		glOrtho(0, mScreenWidth, mScreenHeight, 0, 0, 255);
-        glTranslatef(0, 0, -127.0f);
-	
 		glMatrixMode(GL_MODELVIEW);
 	}
 	void GfxEngine::setPerspective()
@@ -186,12 +184,14 @@ namespace gfx {
 		glMatrixMode (GL_PROJECTION);
 		glLoadIdentity();
 
-		GLfloat zNear = 0.1f;
-		GLfloat zFar = 1000.0f;
+		GLfloat zNear = 1.0f;
+		GLfloat zFar = 10000.0f;
 		GLfloat aspect = float(mScreenWidth)/float(mScreenHeight);
 		GLfloat fH = tan( float(65.0f / 360.0f * 3.14159f) ) * zNear;
 		GLfloat fW = fH * aspect;
 		glFrustum( -fW, fW, -fH, fH, zNear, zFar );
+
+        glEnable(GL_MULTISAMPLE);
 
 		glMatrixMode(GL_MODELVIEW);
 	}
@@ -201,9 +201,14 @@ namespace gfx {
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
-		setOrthographic();
+		//setOrthographic();
+        setPerspective();
 
-		mGameLayer->setPosition(-mCameraX + static_cast<float>(mScreenWidth / 2), -mCameraY + static_cast<float>(mScreenHeight / 2));
+        float halfWidth = static_cast<float>(mScreenWidth / 2);
+        float halfHeight = static_cast<float>(mScreenHeight / 2); 
+        gluLookAt(200, 0, -500, halfWidth, halfHeight, 0, 0, -1, 0);
+
+		mGameLayer->setPosition(-mCameraX + halfWidth, -mCameraY + halfHeight);
 
 		mRootLayer->render(dt);
 
