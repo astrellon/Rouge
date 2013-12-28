@@ -210,6 +210,11 @@ namespace math {
 			return *this;
 		}
 
+        inline T *data()
+        {
+            return &xx;
+        }
+
 		T xx;
 		T xy;
 		T xz;

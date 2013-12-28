@@ -26,6 +26,7 @@ using namespace am::lua;
 #include "gfx_text_field.h"
 #include "gfx_text_list.h"
 #include "gfx_layer.h"
+#include "gfx_camera.h"
 
 #include <lua/wrappers/lua_id_table.h>
 
@@ -39,8 +40,8 @@ namespace gfx {
 
 	GfxEngine::GfxEngine() :
 		mHideCursor(false),
-		mCameraX(0),
-		mCameraY(0),
+		//mCameraX(0),
+		//mCameraY(0),
 		//mScreenWidth(-1),
 		//mScreenHeight(-1),
 		mForceReloadMode(false)
@@ -85,6 +86,11 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
+        if (!mCamera)
+        {
+            mCamera = new Camera();
+        }
+
 		mRootLayer = new Layer();
 		mRootLayer->setName("RootLayer");
 		mRootLayer->setInteractive(true);
@@ -108,13 +114,14 @@ namespace gfx {
 		mTooltipLayer->setInteractive(false);
 		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
 		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));
-		mRootLayer->addChild(mTooltipLayer);
+		mUILayer->addChild(mTooltipLayer);
 
 		mDebugLayer = new Layer();
 		mDebugLayer->setName("DebugLayer");
 		mDebugLayer->setInteractive(true);
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
+        mUILayer->addChild(mDebugLayer);
 		
 		//Asset *cursorAsset = getAssetLua("cursor");
 		Asset *cursorAsset = getAsset("ui:cursor");
@@ -202,20 +209,27 @@ namespace gfx {
 		glLoadIdentity();
 
 		//setOrthographic();
-        setPerspective();
 
-        float halfWidth = static_cast<float>(mScreenWidth / 2);
-        float halfHeight = static_cast<float>(mScreenHeight / 2); 
-        gluLookAt(200, 0, -500, halfWidth, halfHeight, 0, 0, -1, 0);
+        //float halfWidth = static_cast<float>(mScreenWidth / 2);
+        //float halfHeight = static_cast<float>(mScreenHeight / 2); 
 
-		mGameLayer->setPosition(-mCameraX + halfWidth, -mCameraY + halfHeight);
 
-		mRootLayer->render(dt);
+        //setPerspective();
+       
+        mCamera->apply(mScreenWidth, mScreenHeight);
+        mGameLayer->render(dt);
 
-		if (mDebugLayer->isVisible())
+        setOrthographic();
+        mUILayer->render(dt);
+
+		//mGameLayer->setPosition(-mCameraX + halfWidth, -mCameraY + halfHeight);
+
+		//mRootLayer->render(dt);
+
+		/*if (mDebugLayer->isVisible())
 		{
 			mDebugLayer->render(dt);
-		}
+		}*/
 		
 		if (mCursor.get() && !mHideCursor && mCursor->isVisible())
 		{
@@ -233,11 +247,11 @@ namespace gfx {
 			mUILayer->setWidth(static_cast<float>(width));
 			mUILayer->setHeight(static_cast<float>(height));
 		}
-		if (mDebugLayer.get())
+		/*if (mDebugLayer.get())
 		{
 			mDebugLayer->setWidth(static_cast<float>(width));
 			mDebugLayer->setHeight(static_cast<float>(height));
-		}
+		}*/
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
@@ -258,60 +272,8 @@ namespace gfx {
 	{
 		return mDefaultCursor;
 	}
-
-	/*int GfxEngine::reloadAsset(const char *assetName)
-	{
-
-		std::string assetNameStr = assetName;
-		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
-		if (iter == mAssetManager.end())
-		{
-			std::stringstream errss;
-			errss << "Unable to reload asset '" << assetNameStr << "' as it is not loaded.";
-			am_log("ASSET", errss);
-			return 0;
-		}
-
-		std::stringstream ss;
-		if (assetNameStr[0] == '/')
-		{
-			ss << "data" << assetNameStr << ".lua";
-		}
-		else
-		{
-			ss << "data/assets/" << assetNameStr << ".lua";
-		}
-
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			std::stringstream errss;
-			errss << "Unable to reload asset '" << assetNameStr << "', using the path '";
-			errss << ss.str() << "\'\nLoaded: "; 
-			am_log("ASSET", errss);
-			lua.logStack("ASSETLUA");
-			lua.close();
-			return -1;
-		}*/
-		
-		/*Asset *temp = new Asset(assetName);
-		int loadAsset = temp->loadDef(lua);
-		if (loadAsset != 0)
-		{
-			std::stringstream errss;
-			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASSET", errss);
-			lua.logStack("ASSETLUA");
-			lua.close();
-			delete temp;
-			return -2;
-		}
-
-		iter->second->assign(*temp);
-		
-		return 1;
-	}*/
-	AssetMap &GfxEngine::getAssetMap()
+	
+    AssetMap &GfxEngine::getAssetMap()
 	{
 		return mAssetManager;
 	}
@@ -451,6 +413,21 @@ namespace gfx {
 	{
 		return mCameraY;
 	}
+
+    void GfxEngine::setCamera(Camera *camera)
+    {
+        if (!camera)
+        {
+            // Cannot have a null camera.
+            return;
+        }
+        mCamera = camera;
+    }
+    Camera *GfxEngine::getCamera() const
+    {
+        return mCamera;
+    }
+
 
 	void GfxEngine::applyColourStack()
 	{

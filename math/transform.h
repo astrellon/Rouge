@@ -27,14 +27,14 @@ namespace math {
 		void setPosition(const Vector4f &val);
 		void setPosition(const float &x, const float &y, const float &z = 0.0f);
 	
-		//Vector4f getTarget() const;
-		//void setTarget(const Vector4f &val);
+		Vector4f getTarget() const;
+		void setTarget(const Vector4f &val);
 
 		Vector4f getUpDirection() const;
 		void setUpDirection(const Vector4f &val);
 	
-		//void lookAtTarget();
-		//void updateTarget();
+		void lookAtTarget();
+		void updateTarget();
 	
 		Matrix4f getWorldToObj() const;
 		Matrix4f &getWorldToObj();
@@ -48,27 +48,27 @@ namespace math {
 		void translateWorld(const float x, const float y, const float z = 0.0f);
 
 		void rotate(float dx, float dy);
-		//void orbit(float dx, float dy);
-		//void setRotation(float dr);
-		//float getRotation() const;
+		void orbit(float dx, float dy);
+		void setRotation(float dr);
+		float getRotation() const;
 	
-		//void setForCamera(bool forCam);
-		//bool isForCamera() const;
+		void setForCamera(bool forCam);
+		bool isForCamera() const;
 	
 		static const Vector4f REF_UP;
 		static const Vector4f REF_RIGHT;
 		static const Vector4f REF_FORWARD;
 	
 	private:
-		//bool mForCamera;
-		//bool mDirty;
-		//float mRotation;
-		//Vector4f mUpVector;
+		bool mForCamera;
+		bool mDirty;
+		float mRotation;
+		Vector4f mUpVector;
 		Vector4f mUp;
 		Vector4f mRight;
 		Vector4f mForward;
 		Vector4f mPosition;
-		//Vector4f mTarget;
+		Vector4f mTarget;
 		Matrix4f mWorldToObj;
 	};
 

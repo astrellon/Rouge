@@ -21,6 +21,7 @@ namespace gfx {
 	class Font;
 	class Sprite;
 	class Layer;
+    class Camera;
 
 	typedef std::map< std::string, base::Handle<Asset> > AssetMap;
 	typedef std::map< std::string, base::Handle<Texture> > TextureMap;
@@ -77,6 +78,8 @@ namespace gfx {
 		void setCameraLocation(float x, float y);
 		float getCameraX() const;
 		float getCameraY() const;
+        void setCamera(Camera *camera);
+        Camera *getCamera() const;
 
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
@@ -101,6 +104,7 @@ namespace gfx {
 
 		float mCameraX;
 		float mCameraY;
+        base::Handle<Camera> mCamera;
 
 		base::Handle<Renderable> mCursor;
 		base::Handle<Renderable> mDefaultCursor;
@@ -116,6 +120,7 @@ namespace gfx {
 		base::Handle<Layer> mUILayer;
 		base::Handle<Layer> mTooltipLayer;
 		base::Handle<Layer> mDebugLayer;
+
 
 		std::vector<util::Colour> mColourStack;
 
