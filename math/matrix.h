@@ -6,6 +6,7 @@
 
 #include <log/logger.h>
 #include <sstream>
+#include <ostream>
 
 namespace am {
 namespace math {
@@ -16,6 +17,16 @@ namespace math {
 	public:
 		Matrix(void) { identity(); }
 		~Matrix(void) {}
+		
+        friend std::ostream& operator << (std::ostream &o, const Matrix<T> &m)
+		{
+			return o << '[' << m.xx << ", " << m.xy << ", " << m.xz << ", " << m.xw << ",  "
+                << m.yx << ", " << m.yy << ", " << m.yz << ", " << m.yw << ",  "
+                << m.zx << ", " << m.zy << ", " << m.zz << ", " << m.ww << ",  "
+                << m.wx << ", " << m.wy << ", " << m.wz << ", " << m.zw << ']';
+		}
+	
+
 
 		void rotate(const Vector4<T> &axis, double angle)
 		{

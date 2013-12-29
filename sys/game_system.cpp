@@ -12,6 +12,7 @@
 #include <gfx/gfx_text_list.h>
 #include <gfx/gfx_log_listener.h>
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_camera.h>
 
 #include <sfx/sfx_engine.h>
 

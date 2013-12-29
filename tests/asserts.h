@@ -10,6 +10,9 @@
 
 #include <base/return_codes.h>
 
+#include <math/vector.h>
+#include <math/matrix.h>
+
 namespace am {
 namespace tests {
 
@@ -71,6 +74,36 @@ namespace tests {
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const std::string &actual, bool notCompare);
 
+        template <class T>
+        static bool _equalsVec(const char *file, unsigned int line, const math::Vector2<T> &expected, const math::Vector2<T> &actual, bool notCompare, double delta=0.00001)
+        {
+            bool equal = expected.equals(actual, delta);
+            if (notCompare && equal) {
+                dispNotError(expected, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispError(expected, actual, file, line);
+                return false;
+            }
+            return true;
+        }
+        template <class T>
+        static bool _equalsVec(const char *file, unsigned int line, const math::Vector4<T> &expected, const math::Vector4<T> &actual, bool notCompare, double delta=0.00001)
+        {
+            bool equal = expected.equals(actual, delta);
+            if (notCompare && equal) {
+                dispNotError(expected, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispError(expected, actual, file, line);
+                return false;
+            }
+            return true;
+
+        }
+
 	};
 }
 }
@@ -93,6 +126,11 @@ namespace tests {
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define notEqualsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, true)) { return false; }
+
+#   define am_equalsVec(expected, actual)   \
+    if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, false)) { return false; }
+#   define notEqualsVec(expected, actual)   \
+    if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, true)) { return false; }
 #else
 #	define assert(a) _assert(a, __FILE__, __LINE__)
 
