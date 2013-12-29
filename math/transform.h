@@ -29,9 +29,11 @@ namespace math {
 	
 		Vector4f getTarget() const;
 		void setTarget(const Vector4f &val);
+        void setTarget(const float &x, const float &y, const float &z = 0.0f);
 
 		Vector4f getUpDirection() const;
 		void setUpDirection(const Vector4f &val);
+        void setUpDirection(const float &x, const float &y, const float &z);
 	
 		void lookAtTarget();
 		void updateTarget();

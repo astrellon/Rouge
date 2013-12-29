@@ -190,9 +190,9 @@ namespace game {
 		bool yMax = y >= mMapHeight - 1;
 		bool xMax = x >= mMapWidth - 1;
 		bool skip[8] = {
-			y == 0 | x == 0, y == 0, y == 0 | xMax, 
+			y == 0 || x == 0, y == 0, y == 0 || xMax, 
 			x == 0, xMax, 
-			x == 0 | yMax, yMax, xMax | yMax};
+			x == 0 || yMax, yMax, xMax || yMax};
 
 		int index = y * mMapWidth + x;
 		int total = mMapWidth * mMapHeight;

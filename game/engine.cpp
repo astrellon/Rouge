@@ -6,6 +6,9 @@
 
 #include <log/logger.h>
 
+#include <gfx/gfx_engine.h>
+#include <gfx/gfx_camera.h>
+
 #include "game.h"
 #include "tile.h"
 #include "tile_type.h"
@@ -89,6 +92,10 @@ namespace game {
 	void Engine::setCurrentGame(Game *game)
 	{
 		mCurrentGame = game;
+        if (game)
+        {
+            gfx::GfxEngine::getEngine()->setCamera(game->getCamera());
+        }
 	}
 	Game *Engine::getCurrentGame()
 	{

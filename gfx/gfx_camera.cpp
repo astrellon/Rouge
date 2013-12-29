@@ -23,6 +23,7 @@ namespace gfx {
         mZoom(1.0f),
         mPerspective(false)
     {
+        mTransform.setForCamera(true);
 	}
 	Camera::~Camera()
 	{
@@ -166,7 +167,17 @@ namespace gfx {
 
         }
         //glTranslatef(resolutionWidth / 2, resolutionHeight / 2, 0.0f);
-        //glMultMatrixf(mTransform.data());
+        if (mFollowing)
+        {
+            float x = mFollowing->getPositionX();
+            float y = mFollowing->getPositionY();
+            x = 0.0f;
+            y = 0.0f;
+            mTransform.setPosition(x, y, 1);
+            mTransform.setTarget(x, y, 0);
+            mTransform.getWorldToObj().displayMatrix();
+        }
+        glMultMatrixf(mTransform.data());
     }
 
 }

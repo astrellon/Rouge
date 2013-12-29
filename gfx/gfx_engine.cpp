@@ -219,6 +219,7 @@ namespace gfx {
         mCamera->apply(mScreenWidth, mScreenHeight);
         mGameLayer->render(dt);
 
+        glLoadIdentity();
         setOrthographic();
         mUILayer->render(dt);
 

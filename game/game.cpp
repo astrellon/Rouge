@@ -7,6 +7,7 @@
 
 #include <gfx/gfx_layer.h>
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_camera.h>
 
 #include <ui/mouse_manager.h>
 #include <ui/ui_game_hud.h>
@@ -74,6 +75,8 @@ namespace game {
 		mForeground->setInteractive(false);
 		mGameLayer->addChild(mForeground.get());
 
+        mCamera = new gfx::Camera();
+
 		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}
 	Game::~Game()
@@ -83,7 +86,7 @@ namespace game {
 
 	void Game::deinit()
 	{
-		mCamera.followObject(nullptr);
+		mCamera->followObject(nullptr);
 		mGameLayer->deinit();
 		{
 			DialogueMap dialogue = mDialogueMap;
@@ -356,7 +359,7 @@ namespace game {
 		mItemLayer->clear();
 		mCharacterLayer->clear();
 		mForeground->clear();
-		mCamera.followObject(nullptr);
+		mCamera->followObject(nullptr);
 
 		if (mCurrentMap)
 		{
@@ -503,14 +506,14 @@ namespace game {
 		bool following = false;
 		if (setAsCurrent)
 		{
-			following = mCamera.getFollowing() == object;
+			following = mCamera->getFollowing() == object;
 			setCurrentMap(map);
 		}
 		object->setMap(map);
 		object->setLocation(x, y);
 		if (following)
 		{
-			mCamera.followObject(object);
+			mCamera->followObject(object);
 		}
 		if (map)
 		{
@@ -533,9 +536,9 @@ namespace game {
 		moveObjectToMap(object, map, gx, gy, setAsCurrent);
 	}
 
-	Camera *Game::getCamera()
+    gfx::Camera *Game::getCamera() const
 	{
-		return &mCamera;
+		return mCamera;
 	}
 
 	gfx::Layer *Game::getGameLayer()
@@ -647,7 +650,7 @@ namespace game {
 				iter->get()->update(dt);
 			}
 		}
-		mCamera.update(dt);
+		mCamera->update(dt);
 	}
 	void Game::onGameTick()
 	{
@@ -668,7 +671,7 @@ namespace game {
 		GameObject *obj = mActiveObjects->at(mGameTickPosition);
 		obj->onGameTick(mCurrentTickDt);
 		mGameTickPosition++;
-		mCamera.update(0.05f);
+		mCamera->update(mCurrentTickDt);
 	}
 	void Game::setCurrentGameTickLength(float dt)
 	{

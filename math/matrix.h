@@ -4,6 +4,9 @@
 #include <math.h>
 #include "vector.h"
 
+#include <log/logger.h>
+#include <sstream>
+
 namespace am {
 namespace math {
 
@@ -155,10 +158,20 @@ namespace math {
 
 		void displayMatrix() const
 		{
+            std::stringstream ss;
+            ss  << "["
+                << xx << ", " << xy << ", " << xz << ", " << xw << "\n"
+                << yx << ", " << yy << ", " << yz << ", " << yw << "\n"
+                << zx << ", " << zy << ", " << zz << ", " << zw << "\n"
+                << wx << ", " << wy << ", " << wz << ", " << ww 
+                << "]";
+            am_log("MATRIX", ss);
+                /*
 			printf("%f, %f, %f, %f\n", xx, xy, xz, xw);
 			printf("%f, %f, %f, %f\n", yx, yy, yz, yw);
 			printf("%f, %f, %f, %f\n", zx, zy, zz, zw);
 			printf("%f, %f, %f, %f\n", wx, wy, wz, ww);
+            */
 		}
 
 		inline void translate(T dx, T dy, T dz)
@@ -235,6 +248,27 @@ namespace math {
 		T wz;
 		T ww;
 
+/*        
+        T xx;
+        T yx;
+        T zx;
+        T wx;
+
+        T xy;
+        T yy;
+        T zy;
+        T wy;
+
+        T xz;
+        T yz;
+        T zz;
+        T wz;
+
+        T xw;
+        T yw;
+        T zw;
+        T ww;
+*/
 	};
 
 	typedef Matrix<float> Matrix4f;

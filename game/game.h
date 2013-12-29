@@ -14,6 +14,8 @@
 #include <util/idata.h>
 #include <util/idefinition_manager.h>
 
+#include <gfx/gfx_camera.h>
+
 #include "game_object.h"
 //#include "camera.h"
 #include "map.h"
@@ -105,7 +107,7 @@ namespace game {
 		template <class T>
 		T *create(const char *definitionName, bool force = false);
 
-		//Camera *getCamera();
+        gfx::Camera *getCamera() const;
 
 		void update(float dt);
 		void onGameTick();
@@ -170,7 +172,7 @@ namespace game {
         // Engine should own the game.
 		Engine *mEngine;
 
-		//Camera mCamera;
+        base::Handle<gfx::Camera> mCamera;
 		bool mStarted;
 		bool mEditorMode;
 		// Comes from the current screen.

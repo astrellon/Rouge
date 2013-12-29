@@ -109,22 +109,35 @@ namespace math {
 	}
 	void Transform::setPosition(const Vector4f &val) 
     {
-		mPosition = val;
+        setPosition(val.x, val.y, val.z);
+		/*mPosition = val;
+
 		mWorldToObj.wx = mPosition.x;
 		mWorldToObj.wy = mPosition.y;
 		mWorldToObj.wz = mPosition.z;
 
 		lookAtTarget();
-		mDirty = true;
+		mDirty = true;*/
 	}
 	void Transform::setPosition(const float &x, const float &y, const float &z)
 	{
 		mPosition.x = x;
 		mPosition.y = y;
 		mPosition.z = z;
-		mWorldToObj.wx = x;
-		mWorldToObj.wy = y;
-		mWorldToObj.wz = z;
+        if (mForCamera)
+        {
+            mWorldToObj.wx = x;
+            mWorldToObj.wy = y;
+            mWorldToObj.wz = z;
+        }
+        else
+        {
+		    mWorldToObj.wx = x;
+	    	mWorldToObj.wy = y;
+    		mWorldToObj.wz = z;
+        }
+
+        lookAtTarget();
 		mDirty = true;
 	}
 	
@@ -134,10 +147,17 @@ namespace math {
 	}
 	void Transform::setTarget(const Vector4f &val) 
     {
-		mTarget = val;
-		lookAtTarget();
-		mDirty = true;
+        setTarget(val.x, val.y, val.z);
 	}
+    void Transform::setTarget(const float &x, const float &y, const float &z)
+    {
+		mTarget.x = x;
+		mTarget.y = y;
+		mTarget.z = z;
+		
+        lookAtTarget();
+		mDirty = true;
+    }
 	
 	Vector4f Transform::getUpDirection() const
 	{
@@ -147,10 +167,20 @@ namespace math {
 	{
 		mUpVector = val;
 	}
-	
+    void Transform::setUpDirection(const float &x, const float &y, const float &z)
+    {
+        mUpVector.x = x;
+        mUpVector.y = y;
+        mUpVector.z = z;
+    }
+
 	void Transform::lookAtTarget() 
     {
 		Vector4f toTarget = mTarget.sub(mPosition);
+        if (mForCamera)
+        {
+            toTarget.scale(-1.0f);
+        }
 		setForward(toTarget);
 	}
 	void Transform::updateTarget() 
