@@ -31,26 +31,34 @@ namespace ui {
 		mDialogueChoices->setAnchor(X_RIGHT, Y_BOTTOM);
 		mDialogueChoices->setSize(200.0f, 100.0f);
 		mDialogueChoices->setParentOffset(-20.0f, -20.0f);
+
+		mStoreScreen = new StoreScreen();
+		addChild(mStoreScreen);
+
 	}
 	GameHud::~GameHud()
 	{
 	}
 
-	Inspector *GameHud::getInspector()
+	Inspector *GameHud::getInspector() const
 	{
 		return mInspector;
 	}
-	CharacterScreen *GameHud::getCharacterScreen()
+	CharacterScreen *GameHud::getCharacterScreen() const
 	{
 		return mCharacterScreen;
 	}
-	DialogueBox *GameHud::getDialogueBox()
+	DialogueBox *GameHud::getDialogueBox() const
 	{
 		return mDialogueBox;
 	}
-	DialogueChoices *GameHud::getDialogueChoices()
+	DialogueChoices *GameHud::getDialogueChoices() const
 	{
 		return mDialogueChoices;
+	}
+	StoreScreen *GameHud::getStoreScreen() const
+	{
+		return mStoreScreen;
 	}
 
 	void GameHud::setWidth(float width)

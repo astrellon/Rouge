@@ -21,6 +21,7 @@ namespace gfx {
 	class Font;
 	class Sprite;
 	class Layer;
+    class Camera;
 
 	typedef std::map< std::string, base::Handle<Asset> > AssetMap;
 	typedef std::map< std::string, base::Handle<Texture> > TextureMap;
@@ -29,17 +30,19 @@ namespace gfx {
 	class GfxEngine : public util::IDefinitionManager 
 	{
 	public:
-		~GfxEngine();
+		virtual ~GfxEngine();
 
 		// TODO!
-		int reloadAsset(const char *assetName);
+		//int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
 
 		void addAsset(Asset *asset);
-		Asset *getAsset(const char *name);
+		// Looks for the asset with the given name, will not automatically load the asset from file if it is not found.
+		Asset *findAsset(const char *name);
+		Asset *getAsset(const char *name, bool reload=false);
 
 		base::ReturnCode getTexture(const char *textureName, Texture *&texture);
-		int reloadTexture(const char *textureName);
+		//int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
 		Font *getFont(const char *fontName);
@@ -75,6 +78,8 @@ namespace gfx {
 		void setCameraLocation(float x, float y);
 		float getCameraX() const;
 		float getCameraY() const;
+        void setCamera(Camera *camera);
+        Camera *getCamera() const;
 
 		void onKeyDown(const bool *keys, int key);
 		void onKeyUp(const bool *keys, int key);
@@ -82,6 +87,9 @@ namespace gfx {
 		void applyColourStack();
 		void pushColourStack(const util::Colour &colour);
 		void popColourStack();
+
+		void setForceReloadMode(bool reload);
+		bool isForeReloadMode() const;
 
 		static GfxEngine *getEngine();
 		static void deinitGfxEngine();
@@ -96,10 +104,12 @@ namespace gfx {
 
 		float mCameraX;
 		float mCameraY;
+        base::Handle<Camera> mCamera;
 
 		base::Handle<Renderable> mCursor;
 		base::Handle<Renderable> mDefaultCursor;
 		bool mHideCursor;
+		bool mForceReloadMode;
 
 		AssetMap mAssetManager;
 		TextureMap mTextureManager;
@@ -110,6 +120,7 @@ namespace gfx {
 		base::Handle<Layer> mUILayer;
 		base::Handle<Layer> mTooltipLayer;
 		base::Handle<Layer> mDebugLayer;
+
 
 		std::vector<util::Colour> mColourStack;
 

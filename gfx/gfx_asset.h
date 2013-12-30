@@ -40,6 +40,7 @@ namespace gfx {
 		void addTexture(Texture *texture);
 		void removeTexture(const char *filename);
 		void removeTexture(Texture *texture);
+		void removeAllTextures();
 		bool hasTexture(const Texture *texture) const;
 		bool hasTexture(const char *filename) const;
 		int getTotalTextures() const;

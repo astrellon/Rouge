@@ -13,6 +13,8 @@
 #include <lua/wrappers/lua_id_table.h>
 
 #include "character.h"
+#include "engine.h"
+#include "game.h"
 
 namespace am {
 namespace game {
@@ -22,7 +24,8 @@ namespace game {
 
 	Store::Store() :
 		ui::EventInterface(),
-		mDefaultInventorySize(20, 16)
+		mDefaultInventorySize(20, 16),
+		mStoreOwner(nullptr)
 	{
 	}
 	Store::~Store()
@@ -242,6 +245,42 @@ namespace game {
 			return;
 		}
 		fireEvent<ui::InventoryEvent>(e);
+	}
+
+    bool Store::setStoreId(const char *id)
+    {
+    	Game *game = Engine::getEngine()->getCurrentGame();
+		if (!game)
+		{
+			return false;
+		}
+		Store *other = game->getStore(id);
+		if (other == this)
+		{
+			return true;
+		}
+		if (other != nullptr)
+		{
+			return false;
+		}
+		registerSelf(id);
+		return true;
+    }
+    const char *Store::getStoreId() const
+    {
+        return mStoreId.c_str();
+    }
+
+	void Store::registerSelf(const char *id)
+	{
+		Game *game = Engine::getEngine()->getCurrentGame();
+		if (!game)
+		{
+			return;
+		}
+		game->deregisterStore(this);
+		mStoreId = id;
+		game->registerStore(this);
 	}
 
 	void Store::addListeners(Inventory *inventory)

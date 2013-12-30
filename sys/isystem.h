@@ -39,7 +39,7 @@ namespace sys {
 		virtual void deinit() = 0;
 
 		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y) = 0;
-		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y) = 0;
+		virtual void onMouseMove(int x, int y) = 0;
 		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y) = 0;
 		virtual void onKeyDown(ui::Keyboard::Key key) = 0;
 		virtual void onKeyUp(ui::Keyboard::Key key) = 0;

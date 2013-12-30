@@ -93,13 +93,13 @@ namespace gfx {
 		}
 
 		int numTiles = mMap->getMapWidth() * mMap->getMapHeight();
-		float grid = Engine::getEngine()->getGridSize();
+		float grid = game::Engine::getEngine()->getGridSize();
 
 		game::TileInstance *tiles = mMap->getTiles();
 
 		for (int i = 0; i < numTiles; i++)
 		{
-			Tile *tile = tiles[i].getTile();
+			game::Tile *tile = tiles[i].getTile();
 			if (!tile)
 			{
 				continue;
@@ -128,7 +128,7 @@ namespace gfx {
 			return;
 		}
 
-		float grid = Engine::getEngine()->getGridSize();
+		float grid = game::Engine::getEngine()->getGridSize();
 		addAssetForUpdate(tile->getGraphicAsset(), grid);
 		auto transitionalTiles = tile->getAllTransitionalAssets();
 		for (auto iter = transitionalTiles.begin(); iter != transitionalTiles.end(); ++iter)
@@ -153,8 +153,8 @@ namespace gfx {
 			iter->second->updateSprite(dt);
 		}
 
-		float grid = Engine::getEngine()->getGridSize();
-		float gridResp = Engine::getEngine()->getGridSizeResp();
+		float grid = game::Engine::getEngine()->getGridSize();
+		float gridResp = game::Engine::getEngine()->getGridSizeResp();
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
 		float cameraX = gfxEngine->getCameraX();
@@ -173,7 +173,7 @@ namespace gfx {
 		int minY = 0;
 		int maxY = mapHeight;
 
-		TileInstance *tiles = mMap->getTiles();
+		game::TileInstance *tiles = mMap->getTiles();
 
 		if (mEnabledMapCulling)
 		{
@@ -193,13 +193,16 @@ namespace gfx {
 
 		float resetX = -(maxX - minX) * grid;
 		glTranslatef(minX * grid, minY * grid, 0.0f);
+
+        //glEnable(GL_DEPTH_TEST);
 		for (int y = minY; y < maxY; y++)
 		{
 			t = y * mapWidth + minX;
 			for (int x = minX; x < maxX; x++)
 			{
 				game::TileInstance &instance = tiles[t];
-				Asset *asset = instance.getTile()->getGraphicAsset();
+                game::Tile *tile = instance.getTile();
+				Asset *asset = tile->getGraphicAsset();
 				if (asset == nullptr)
 				{
 					// Render something else.
@@ -223,13 +226,15 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
+                    int precedence = tile->getPrecedence() * 3;
+                    glTranslatef(0.0f, 0.0f, -precedence);
 					for (int i = 0; i < 8; i++)
 					{
 						uint8_t value = instance.getTileEdgeValue(i);
 						if (value != 0)
 						{
 							game::Tile *overlapTile = tiles[t + offsets[i]].getTile();
-							const Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
+							const game::Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
 							if (!assets)
 							{
 								assets = overlapTile->getTransitionalAsset(nullptr);
@@ -258,11 +263,13 @@ namespace gfx {
 								{
 									sprite->setTextureFrame(value);
 								}
+
 								sprite->renderSprite();
 								sprite->setTextureFrame(0);
 							}
 						}
 					}
+                    glTranslatef(0.0f, 0.0f, precedence);
 				}
 				t++;
 
@@ -270,6 +277,7 @@ namespace gfx {
 			}
 			glTranslatef(resetX, grid, 0.0f);
 		}
+        //glDisable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 

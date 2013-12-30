@@ -306,12 +306,12 @@ namespace ui {
 			updateStatus();
 			if (mMouseDown)
 			{
-				if (manager->getButtonDown(ui::Mouse::MIDDLE_BUTTON))
+				if (manager->getButtonDown(ui::Mouse::RIGHT_BUTTON))
 				{
 					float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
 					float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
 
-					Camera *camera = mGame->getCamera();
+                    gfx::Camera *camera = mGame->getCamera();
 					float posX = camera->getDestinationX() - dx;
 					float posY = camera->getDestinationY() - dy;
 					mGame->getCamera()->setDestination(posX, posY);

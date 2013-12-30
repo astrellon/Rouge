@@ -190,9 +190,9 @@ namespace game {
 		bool yMax = y >= mMapHeight - 1;
 		bool xMax = x >= mMapWidth - 1;
 		bool skip[8] = {
-			y == 0 | x == 0, y == 0, y == 0 | xMax, 
+			y == 0 || x == 0, y == 0, y == 0 || xMax, 
 			x == 0, xMax, 
-			x == 0 | yMax, yMax, xMax | yMax};
+			x == 0 || yMax, yMax, xMax || yMax};
 
 		int index = y * mMapWidth + x;
 		int total = mMapWidth * mMapHeight;
@@ -370,9 +370,9 @@ namespace game {
 		{
 			return false;
 		}
-		// If the precedence is the same then we'll compare arbitarily
+		// If the precedence is the same then we'll compare arbitrarily
 		// by the lexigraphical comparison of their names. This should at least
-		// allow one to overlap the other and to do so consistenly.
+		// allow one to overlap the other and to do so consistently.
 		if (tile->getPrecedence() == overlapTile->getPrecedence())
 		{
 			if (tile->getName().compare(overlapTile->getName()) > 0)

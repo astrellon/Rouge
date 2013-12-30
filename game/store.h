@@ -82,6 +82,9 @@ namespace game {
 
 		virtual void onEvent(ui::InventoryEvent *e);
 
+        virtual bool setStoreId(const char *id);
+        virtual const char *getStoreId() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -92,8 +95,12 @@ namespace game {
 
 		math::Vector2<unsigned short> mDefaultInventorySize;
 
+        std::string mStoreId;
+
 		virtual void addListeners(Inventory *inventory);
 		virtual void removeListeners(Inventory *inventory);
+
+		virtual void registerSelf(const char *id);
 
 	};
 

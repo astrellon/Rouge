@@ -87,7 +87,7 @@ namespace tests {
 		bool equal = diff >= -delta && diff <= delta;
 		if (notCompare) {
 			if (equal) {
-				dispNotError(expected, actual, delta, file, line);
+				dispNotError(expected, delta, file, line);
 				return false;
 			}
 			return true;
@@ -123,6 +123,35 @@ namespace tests {
 		}
 		return true;
 	}
-
+/*
+    template <>
+    bool Asserts::_equalsVec(const char *file, unsigned int line, const math::Vector2<T> &actual, const math::Vector2<T> &expected, bool notCompare, double delta)
+    {
+        bool equal = expected.equals(actual, delta);
+        if (notCompare && equal) {
+            dispNotError(expected, file, line);
+            return false;
+        }
+        else if (!notCompare && !equal) {
+            dispError(expected, actual, file, line);
+            return false;
+        }
+        return true;
+    }
+    template <>
+    bool Asserts::_equalsVec(const char *file, unsigned int line, const math::Vector4<T> &actual, const math::Vector4<T> &expected, bool notCompare, double delta)
+    {
+        bool equal = expected.equals(actual, delta);
+        if (notCompare && equal) {
+            dispNotError(expected, file, line);
+            return false;
+        }
+        else if (!notCompare && !equal) {
+            dispError(expected, actual, file, line);
+            return false;
+        }
+        return true;
+    }
+    */
 }
 }

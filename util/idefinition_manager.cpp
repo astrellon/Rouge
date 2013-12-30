@@ -5,9 +5,10 @@
 namespace am {
 namespace util {
 
-	lua::LuaState &IDefinitionManager::getLuaDefinition() const
+	IDefinitionManager::IDefinitionManager() :
+		mReloadDefinitionFiles(false)
 	{
-		return Engine::getEngine()->getLua();
+
 	}
 
 	bool IDefinitionManager::loadDefinitionFile(const char *path, const char *filename)
@@ -16,14 +17,31 @@ namespace util {
 		return _loadDefinitionFile(path);
 	}
 	
+	void IDefinitionManager::setReloadDefinitionFiles(bool reload)
+	{
+		mReloadDefinitionFiles = reload;
+	}
+	bool IDefinitionManager::getReloadDefinitionFiles() const
+	{
+		return mReloadDefinitionFiles;
+	}
+
+	lua::LuaState &IDefinitionManager::getLuaDefinition() const
+	{
+		return game::Engine::getEngine()->getLua();
+	}
+
 	bool IDefinitionManager::_loadDefinitionFile(const char *filename)
 	{
 		// Check if the file has already been loaded and previously did
 		// not find the character.
-		auto findFile = mFilesLoaded.find(filename);
-		if (findFile != mFilesLoaded.end() && findFile->second)
+		if (!mReloadDefinitionFiles)
 		{
-			return true;
+			auto findFile = mFilesLoaded.find(filename);
+			if (findFile != mFilesLoaded.end() && findFile->second)
+			{
+				return true;
+			}
 		}
 
 		mFilesLoaded[filename] = true;

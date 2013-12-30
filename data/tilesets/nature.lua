@@ -14,9 +14,11 @@ do
 	set:add_tile(am.tile.new("sand")
 		:full_name("Sand")
 		:asset("tiles/nature:sand")
-		:precedence(6)
+		:precedence(7)
 		:description("It's sand")
-		:add_tile_type("land", "air"))
+		:add_tile_type("land", "air")
+        :add_transitional("tiles/nature:sand_transition")
+        )
 		
 	local brick = am.tile.new("brick")
 		:full_name("Brick")
@@ -37,7 +39,7 @@ do
 	set:add_tile(am.tile.new("water")
 		:full_name("Water")
 		:asset("tiles/nature:water")
-		:precedence(5)
+		:precedence(4)
 		:description("It's wet")
 		:add_tile_type("water", "air"))
 		

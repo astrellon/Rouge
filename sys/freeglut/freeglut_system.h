@@ -39,7 +39,7 @@ namespace freeglut {
 		virtual void deinit();
 
 		virtual void onMouseDown(ui::Mouse::Button mouseButton, int x, int y);
-		virtual void onMouseMove(ui::Mouse::Button mouseButton, int x, int y);
+		virtual void onMouseMove(int x, int y);
 		virtual void onMouseUp(ui::Mouse::Button mouseButton, int x, int y);
 		virtual void onKeyDown(ui::Keyboard::Key key);
 		virtual void onKeyUp(ui::Keyboard::Key key);
@@ -78,6 +78,7 @@ namespace freeglut {
 		bool mFullscreen;
 		float mDeltaTime;
 		long mTickCount;
+        am::ui::Mouse::Button mButtonDown;
 
 		void updatePosSize();
 

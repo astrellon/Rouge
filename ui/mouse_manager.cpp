@@ -49,11 +49,13 @@ namespace ui {
 			fireEvent<MouseEvent>(e.get());
 		}
 	}
-	void MouseManager::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
+	void MouseManager::onMouseMove(int x, int y)
 	{
+        ui::Mouse::Button mouseButton = ui::Mouse::NO_BUTTON;
 		mMouseX = x;
 		mMouseY = y;
 		mFiredEvent = false;
+
 		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mRootLayer, ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{

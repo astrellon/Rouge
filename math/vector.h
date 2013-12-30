@@ -284,7 +284,7 @@ namespace math {
 	
 		friend std::ostream& operator << (std::ostream &o, const Vector2<T> &v)
 		{
-			return o << '[' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ']';
+			return o << '[' << v.x << ", " << v.y << ']';
 		}
 	
 		T x;

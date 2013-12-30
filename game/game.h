@@ -14,13 +14,16 @@
 #include <util/idata.h>
 #include <util/idefinition_manager.h>
 
+#include <gfx/gfx_camera.h>
+
 #include "game_object.h"
-#include "camera.h"
+//#include "camera.h"
 #include "map.h"
 #include "quest.h"
 #include "character.h"
 #include "loading_state.h"
 #include "iattribute_data.h"
+#include "store.h"
 
 #include <log/logger.h>
 
@@ -38,6 +41,7 @@ namespace data {
 using namespace am::util;
 
 namespace game {
+
 
 	class Engine;
 
@@ -94,16 +98,16 @@ namespace game {
 		std::string getLoadingFile() const;
 
 		void addCharDefinition(Character *character, const char *name);
-		Character *getCharDefinition(const char *name);
+		Character *getCharDefinition(const char *name, bool reload=false);
 		void addItemDefinition(Item *item, const char *name);
-		Item *getItemDefinition(const char *name);
+		Item *getItemDefinition(const char *name, bool reload=false);
 
 		// Creates a new instance of the given game object
 		// from a definition name, will create the game object
 		template <class T>
 		T *create(const char *definitionName, bool force = false);
 
-		Camera *getCamera();
+        gfx::Camera *getCamera() const;
 
 		void update(float dt);
 		void onGameTick();
@@ -127,6 +131,13 @@ namespace game {
 		bool addQuest(Quest *quest);
 		bool removeQuest(const char *questId);
 		Quest *getQuest(const char *questId);
+
+        // Store
+        Store *getStore(const char *id) const;
+		bool registerStore(Store *store);
+		void deregisterStore(const char *id);
+		void deregisterStore(Store *store);
+
 
 		// LoadingState
 		LoadingState *getLoadingState();
@@ -161,7 +172,7 @@ namespace game {
         // Engine should own the game.
 		Engine *mEngine;
 
-		Camera mCamera;
+        base::Handle<gfx::Camera> mCamera;
 		bool mStarted;
 		bool mEditorMode;
 		// Comes from the current screen.
@@ -175,6 +186,9 @@ namespace game {
 
 		typedef std::map<std::string, base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
+
+        typedef std::map< std::string, base::Handle<Store> > StoreMap;
+        StoreMap mStoreMap;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 

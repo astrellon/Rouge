@@ -125,6 +125,10 @@ namespace gfx {
 			}
 		}
 	}
+	void Asset::removeAllTextures()
+	{
+		mTextures.clear();
+	}
 	bool Asset::hasTexture(const Texture *texture) const
 	{
 		if (!texture)

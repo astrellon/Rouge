@@ -10,6 +10,9 @@
 
 #include <base/return_codes.h>
 
+#include <math/vector.h>
+#include <math/matrix.h>
+
 namespace am {
 namespace tests {
 
@@ -48,12 +51,51 @@ namespace tests {
 		}
 
 		template <class T>
-		static void dispNotError(const T &expected, const T &actual, double delta, const char *file, unsigned int line) 
+		static void dispNotError(const T &expected, double delta, const char *file, unsigned int line) 
 		{
 			dispErrorLine(file, line);
 			std::stringstream ss;
-			ss << "- Did not expect: " << expected << "\n- Actual: " << actual << "\n- Delta   : " << delta << "\n";
+			ss << "- Did not expect: " << expected << "\n- Delta   : " << delta << "\n";
+            am_log("ERR", ss);
 		}
+
+        template <class T>
+        static void concatArray(const T *array, int n, std::stringstream &ss)
+        {
+            ss << '[';
+            for (int i = 0; i < n; i++) {
+                if (i > 0) {
+                    ss << ", ";
+                }
+                ss << array[i];
+            }
+            ss << ']';
+        }
+
+        template <class T>
+        static void dispArrayError(const T *expected, const T *actual, int n, int errn, double delta, const char *file, unsigned int line)
+        {
+            dispErrorLine(file, line);
+            std::stringstream ss;
+            ss <<   "- Expected: ";
+            concatArray(expected, n, ss);
+            ss << "\n- Actual  : ";
+            concatArray(actual, n, ss);
+            ss << "\n- Delta   : " << delta
+               << "\n- Index   : " << errn;
+            am_log("ERR", ss);
+        }
+        template <class T>
+        static void dispArrayNotError(const T *expected, int n, int errn, double delta, const char *file, unsigned int line)
+        {
+            dispErrorLine(file, line);
+            std::stringstream ss;
+            ss << "- Did not expect: ";
+            concatArray(expected, n, ss);
+            ss << "\n- Delta: " << delta
+               << "\n- Index: " << errn;
+            am_log("ERR", ss);
+        }
 
 #define _simple_compare(e, a, r, f, l)	\
 	if (r) {	\
@@ -71,6 +113,56 @@ namespace tests {
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const char *actual, bool notCompare);
 		static bool _equalsStr(const char *file, unsigned int line, const char *expected, const std::string &actual, bool notCompare);
 
+        template <class T>
+        static bool _equalsVec(const char *file, unsigned int line, const math::Vector2<T> &expected, const math::Vector2<T> &actual, bool notCompare, double delta=0.00001)
+        {
+            bool equal = expected.equals(actual, delta);
+            if (notCompare && equal) {
+                dispNotError(expected, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispError(expected, actual, file, line);
+                return false;
+            }
+            return true;
+        }
+        template <class T>
+        static bool _equalsVec(const char *file, unsigned int line, const math::Vector4<T> &expected, const math::Vector4<T> &actual, bool notCompare, double delta=0.00001)
+        {
+            bool equal = expected.equals(actual, delta);
+            if (notCompare && equal) {
+                dispNotError(expected, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispError(expected, actual, file, line);
+                return false;
+            }
+            return true;
+        }
+        template <class T>
+        static bool _equalsArray(const char *file, unsigned int line, const T *expected, const T *actual, bool notCompare, double delta=0.00001, int n=16)
+        {
+            bool equal = true;
+            int i = 0;
+            for (; i < n; i++) {
+                double diff = expected[i] - actual[i];
+                if (diff < -delta || diff > delta) {
+                    equal = false;
+                    break;
+                }
+            }
+            if (notCompare && equal) {
+                dispArrayNotError(expected, n, i, delta, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispArrayError(expected, actual, n, i, delta, file, line);
+                return false;
+            }
+            return true;
+        }
 	};
 }
 }
@@ -79,6 +171,7 @@ namespace tests {
 #	define assert(a) \
 	if (!Asserts::_assert(a, __FILE__, __LINE__)) { return false; }
 
+//  General equals
 #	define am_equals(expected, actual) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define am_equalsDelta(expected, actual, delta) \
@@ -89,10 +182,24 @@ namespace tests {
 #	define am_notEqualsDelta(expected, actual, delta) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true, delta)) { return false; }
 
+//  String equals
 #	define am_equalsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define notEqualsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, true)) { return false; }
+
+//  Vector equals
+#   define am_equalsVec(expected, actual)   \
+    if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, false)) { return false; }
+#   define notEqualsVec(expected, actual)   \
+    if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, true)) { return false; }
+
+//  Array equals
+#   define am_equalsArray(expected, actual, n)  \
+    if (!Asserts::_equalsArray(__FILE__, __LINE__, expected, actual, false, 0.00001, n)) { return false; }
+#   define am_notEqualsArray(expected, actual, n)  \
+    if (!Asserts::_equalsArray(__FILE__, __LINE__, expected, actual, true, 0.00001, n)) { return false; }
+
 #else
 #	define assert(a) _assert(a, __FILE__, __LINE__)
 

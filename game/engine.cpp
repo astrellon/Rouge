@@ -6,6 +6,9 @@
 
 #include <log/logger.h>
 
+#include <gfx/gfx_engine.h>
+#include <gfx/gfx_camera.h>
+
 #include "game.h"
 #include "tile.h"
 #include "tile_type.h"
@@ -89,6 +92,10 @@ namespace game {
 	void Engine::setCurrentGame(Game *game)
 	{
 		mCurrentGame = game;
+        if (game)
+        {
+            gfx::GfxEngine::getEngine()->setCamera(game->getCamera());
+        }
 	}
 	Game *Engine::getCurrentGame()
 	{
@@ -202,9 +209,9 @@ namespace game {
 
 	}
 
-	TileSet *Engine::getTileSet(const char *tileSetName)
+	TileSet *Engine::getTileSet(const char *tileSetName, bool reload)
 	{
-		return getDefinition<TileSet>(mTileSets, tileSetName, 1);
+		return getDefinition<TileSet>(mTileSets, tileSetName, reload, 1);
 	}
 	void Engine::addTileSet(TileSet *tileSet)
 	{
@@ -426,7 +433,7 @@ namespace game {
 		{
 			return false;
 		}
-		RaceMap::const_iterator iter = mRaces.find(race->getRaceName());
+		RaceMap::iterator iter = mRaces.find(race->getRaceName());
 		if (iter != mRaces.end())
 		{
 			mRaces.erase(iter);

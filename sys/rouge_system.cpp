@@ -318,9 +318,9 @@ namespace sys {
 			togglePause();
 			return;
 		}
-		if (key == ui::Keyboard::KEY_Z)
+		if (key == ui::Keyboard::KEY_z)
 		{
-			gfx::GfxEngine::getEngine()->reloadAsset("bigButton");
+			gfx::GfxEngine::getEngine()->getAsset("tiles/nature:grass", true);
 		}
 		game::Game *game = mEngine->getCurrentGame();
 		if (game)
@@ -434,7 +434,7 @@ namespace sys {
 		}
 		gfx::GfxEngine::getEngine()->getGameLayer()->addChild(game->getGameLayer());
 
-		ui::StoreScreen *storeScreen = new ui::StoreScreen();
+/*		ui::StoreScreen *storeScreen = new ui::StoreScreen();
         storeScreen->show();
 		storeScreen->setSize(360, 300);
 		game::Item *test = game->create<game::Item>("wooden:shield");
@@ -442,16 +442,16 @@ namespace sys {
 		game::Character *owner = new game::Character();
 		store->setStoreOwner(owner);
 		Inventory *inv = store->createStoreInventory();
-        inv->addItem(test);
+        inv->addItem(test);*/
 
-        test = game->create<game::Item>("wooden:sword");
+        /*test = game->create<game::Item>("wooden:sword");
         inv = store->createStoreInventory();
         inv->addItem(test);
 
 		storeScreen->setStore(store);
 		storeScreen->setBuyer(game->getMainCharacter());
 		//store->addStoreInventory(inv);
-		gfx::GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);
+		gfx::GfxEngine::getEngine()->getUILayer()->addChild(storeScreen);*/
 
 		mPlayer = game->getMainCharacter();
 		if (!mPlayer->getDialogueComp())

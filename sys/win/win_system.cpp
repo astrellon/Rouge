@@ -106,9 +106,9 @@ namespace win {
 	{
 		mGameSystem->onMouseDown(mouseButton, x, y);
 	}
-	void WinSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
+	void WinSystem::onMouseMove(int x, int y)
 	{
-		mGameSystem->onMouseMove(mouseButton, x, y);
+		mGameSystem->onMouseMove(x, y);
 	}
 	void WinSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{
@@ -694,7 +694,7 @@ namespace win {
 					button = ui::Mouse::MIDDLE_BUTTON;
 					break;
 				}
-				window->winSystem->onMouseMove(button, LOWORD(lParam), HIWORD(lParam));
+				window->winSystem->onMouseMove(LOWORD(lParam), HIWORD(lParam));
 			break;
 
 			case WM_LBUTTONDOWN:

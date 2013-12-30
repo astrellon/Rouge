@@ -42,6 +42,8 @@
 #include <game/door.h>
 #include "game/lua_map_region.h"
 #include <game/map_region.h>
+#include "game/lua_store.h"
+#include <game/store.h>
 using namespace am::lua::game;
 
 #include "gfx/lua_sprite.h"
@@ -105,6 +107,7 @@ namespace wrapper {
 		addWrapper(lua, "dialogue_component", DialogueComponent_register, DialogueComponent::LUA_ID);
 		addWrapper(lua, "door", Door_register, Door::LUA_ID);
 		addWrapper(lua, "map_region", MapRegion_register, MapRegion::LUA_ID);
+		addWrapper(lua, "store", Store_register, Store::LUA_ID);
 		// am.gfx
 		addWrapper(lua, "sprite", Sprite_register, Sprite::LUA_ID);
 		addWrapper(lua, "asset", Asset_register, Asset::LUA_ID);

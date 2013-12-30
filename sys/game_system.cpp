@@ -12,6 +12,7 @@
 #include <gfx/gfx_text_list.h>
 #include <gfx/gfx_log_listener.h>
 #include <gfx/gfx_engine.h>
+#include <gfx/gfx_camera.h>
 
 #include <sfx/sfx_engine.h>
 
@@ -169,6 +170,11 @@ namespace sys {
 	}
 	void GameSystem::display(float dt)
 	{
+		game::Game *game = game::Engine::getGame();
+		if (game)
+		{
+			game->getCamera()->update(0.0f);
+		}
 		gfx::GfxEngine::getEngine()->display(dt);
 	}
 	void GameSystem::deinit()
@@ -186,10 +192,10 @@ namespace sys {
 		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
 		ui::MouseManager::getManager()->onMouseDown(mouseButton, x, y);
 	}
-	void GameSystem::onMouseMove(ui::Mouse::Button mouseButton, int x, int y)
+	void GameSystem::onMouseMove(int x, int y)
 	{
 		gfx::GfxEngine::getEngine()->getCursor()->setPosition(x, y);
-		ui::MouseManager::getManager()->onMouseMove(mouseButton, x, y);
+		ui::MouseManager::getManager()->onMouseMove(x, y);
 	}
 	void GameSystem::onMouseUp(ui::Mouse::Button mouseButton, int x, int y)
 	{

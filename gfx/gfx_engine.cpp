@@ -26,6 +26,7 @@ using namespace am::lua;
 #include "gfx_text_field.h"
 #include "gfx_text_list.h"
 #include "gfx_layer.h"
+#include "gfx_camera.h"
 
 #include <lua/wrappers/lua_id_table.h>
 
@@ -39,8 +40,11 @@ namespace gfx {
 
 	GfxEngine::GfxEngine() :
 		mHideCursor(false),
-		mCameraX(0),
-		mCameraY(0)
+		//mCameraX(0),
+		//mCameraY(0),
+		//mScreenWidth(-1),
+		//mScreenHeight(-1),
+		mForceReloadMode(false)
 	{
 		
 	}
@@ -82,6 +86,11 @@ namespace gfx {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);*/
 
+        if (!mCamera)
+        {
+            mCamera = new Camera();
+        }
+
 		mRootLayer = new Layer();
 		mRootLayer->setName("RootLayer");
 		mRootLayer->setInteractive(true);
@@ -105,13 +114,14 @@ namespace gfx {
 		mTooltipLayer->setInteractive(false);
 		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
 		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));
-		mRootLayer->addChild(mTooltipLayer);
+		mUILayer->addChild(mTooltipLayer);
 
 		mDebugLayer = new Layer();
 		mDebugLayer->setName("DebugLayer");
 		mDebugLayer->setInteractive(true);
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
+        mUILayer->addChild(mDebugLayer);
 		
 		//Asset *cursorAsset = getAssetLua("cursor");
 		Asset *cursorAsset = getAsset("ui:cursor");
@@ -173,8 +183,7 @@ namespace gfx {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		glOrtho(0, mScreenWidth, mScreenHeight, 0, 0, 1);
-	
+		glOrtho(0, mScreenWidth, mScreenHeight, 0, 0, 255);
 		glMatrixMode(GL_MODELVIEW);
 	}
 	void GfxEngine::setPerspective()
@@ -182,12 +191,14 @@ namespace gfx {
 		glMatrixMode (GL_PROJECTION);
 		glLoadIdentity();
 
-		GLfloat zNear = 0.1f;
-		GLfloat zFar = 1000.0f;
+		GLfloat zNear = 1.0f;
+		GLfloat zFar = 10000.0f;
 		GLfloat aspect = float(mScreenWidth)/float(mScreenHeight);
 		GLfloat fH = tan( float(65.0f / 360.0f * 3.14159f) ) * zNear;
 		GLfloat fW = fH * aspect;
 		glFrustum( -fW, fW, -fH, fH, zNear, zFar );
+
+        glEnable(GL_MULTISAMPLE);
 
 		glMatrixMode(GL_MODELVIEW);
 	}
@@ -197,16 +208,29 @@ namespace gfx {
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
-		setOrthographic();
+		//setOrthographic();
 
-		mGameLayer->setPosition(-mCameraX + static_cast<float>(mScreenWidth / 2), -mCameraY + static_cast<float>(mScreenHeight / 2));
+        //float halfWidth = static_cast<float>(mScreenWidth / 2);
+        //float halfHeight = static_cast<float>(mScreenHeight / 2); 
 
-		mRootLayer->render(dt);
 
-		if (mDebugLayer->isVisible())
+        //setPerspective();
+       
+        mCamera->apply(mScreenWidth, mScreenHeight);
+        mGameLayer->render(dt);
+
+        glLoadIdentity();
+        setOrthographic();
+        mUILayer->render(dt);
+
+		//mGameLayer->setPosition(-mCameraX + halfWidth, -mCameraY + halfHeight);
+
+		//mRootLayer->render(dt);
+
+		/*if (mDebugLayer->isVisible())
 		{
 			mDebugLayer->render(dt);
-		}
+		}*/
 		
 		if (mCursor.get() && !mHideCursor && mCursor->isVisible())
 		{
@@ -224,11 +248,11 @@ namespace gfx {
 			mUILayer->setWidth(static_cast<float>(width));
 			mUILayer->setHeight(static_cast<float>(height));
 		}
-		if (mDebugLayer.get())
+		/*if (mDebugLayer.get())
 		{
 			mDebugLayer->setWidth(static_cast<float>(width));
 			mDebugLayer->setHeight(static_cast<float>(height));
-		}
+		}*/
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
@@ -249,59 +273,8 @@ namespace gfx {
 	{
 		return mDefaultCursor;
 	}
-
-	int GfxEngine::reloadAsset(const char *assetName)
-	{
-		std::string assetNameStr = assetName;
-		AssetMap::iterator iter = mAssetManager.find(assetNameStr);
-		if (iter == mAssetManager.end())
-		{
-			std::stringstream errss;
-			errss << "Unable to reload asset '" << assetNameStr << "' as it is not loaded.";
-			am_log("ASSET", errss);
-			return 0;
-		}
-
-		std::stringstream ss;
-		if (assetNameStr[0] == '/')
-		{
-			ss << "data" << assetNameStr << ".lua";
-		}
-		else
-		{
-			ss << "data/assets/" << assetNameStr << ".lua";
-		}
-
-		LuaState lua(false);
-		if (!lua.loadFile(ss.str().c_str()))
-		{
-			std::stringstream errss;
-			errss << "Unable to reload asset '" << assetNameStr << "', using the path '";
-			errss << ss.str() << "\'\nLoaded: "; 
-			am_log("ASSET", errss);
-			lua.logStack("ASSETLUA");
-			lua.close();
-			return -1;
-		}
-		
-		/*Asset *temp = new Asset(assetName);
-		int loadAsset = temp->loadDef(lua);
-		if (loadAsset != 0)
-		{
-			std::stringstream errss;
-			errss << "Error loading asset definition '" << assetNameStr << "': " << loadAsset;
-			am_log("ASSET", errss);
-			lua.logStack("ASSETLUA");
-			lua.close();
-			delete temp;
-			return -2;
-		}
-
-		iter->second->assign(*temp);*/
-		
-		return 1;
-	}
-	AssetMap &GfxEngine::getAssetMap()
+	
+    AssetMap &GfxEngine::getAssetMap()
 	{
 		return mAssetManager;
 	}
@@ -309,19 +282,35 @@ namespace gfx {
 	{
 		addDefinition<Asset>(asset, mAssetManager, asset->getName());
 	}
-	Asset *GfxEngine::getAsset(const char *name)
+	Asset *GfxEngine::findAsset(const char *name)
 	{
-		return getDefinition<Asset>(mAssetManager, name);
+		return findDefinition<Asset>(mAssetManager, name);
+	}
+	Asset *GfxEngine::getAsset(const char *name, bool reload)
+	{
+		if (reload)
+		{
+			setForceReloadMode(true);
+		}
+		Asset *result = getDefinition<Asset>(mAssetManager, name, reload, 0);
+		if (reload)
+		{
+			setForceReloadMode(false);
+		}
+		return result;
 	}
 
 	base::ReturnCode GfxEngine::getTexture(const char *filename, Texture *&texture)
 	{
 		std::string fileStr = filename;
-		TextureMap::iterator iter = mTextureManager.find(fileStr);
-		if (iter != mTextureManager.end())
+		if (!mForceReloadMode)
 		{
-			texture = iter->second.get();
-			return base::SUCCESS;
+			TextureMap::iterator iter = mTextureManager.find(fileStr);
+			if (iter != mTextureManager.end())
+			{
+				texture = iter->second.get();
+				return base::SUCCESS;
+			}
 		}
 
 		Texture *temp = new Texture();
@@ -340,7 +329,7 @@ namespace gfx {
 		
 		return result;
 	}
-	int GfxEngine::reloadTexture(const char *filename)
+	/*int GfxEngine::reloadTexture(const char *filename)
 	{
 		std::string fileStr = filename;
 		TextureMap::iterator iter = mTextureManager.find(fileStr);
@@ -359,7 +348,7 @@ namespace gfx {
 			return -1;
 		}
 		return 1;
-	}
+	}*/
 	TextureMap &GfxEngine::getTextureMap()
 	{
 		return mTextureManager;
@@ -367,7 +356,7 @@ namespace gfx {
 	
 	Font *GfxEngine::getFont(const char *fontName)
 	{
-		return getDefinition<Font>(mFontManager, fontName, 1);
+		return getDefinition<Font>(mFontManager, fontName, false, 1);
 	}
 	void GfxEngine::addFont(Font *font)
 	{
@@ -426,6 +415,21 @@ namespace gfx {
 		return mCameraY;
 	}
 
+    void GfxEngine::setCamera(Camera *camera)
+    {
+        if (!camera)
+        {
+            // Cannot have a null camera.
+            return;
+        }
+        mCamera = camera;
+    }
+    Camera *GfxEngine::getCamera() const
+    {
+        return mCamera;
+    }
+
+
 	void GfxEngine::applyColourStack()
 	{
 		if (mColourStack.size() > 0)
@@ -446,6 +450,15 @@ namespace gfx {
 	void GfxEngine::popColourStack()
 	{
 		mColourStack.pop_back();
+	}
+
+	void GfxEngine::setForceReloadMode(bool reload)
+	{
+		mForceReloadMode = reload;
+	}
+	bool GfxEngine::isForeReloadMode() const
+	{
+		return mForceReloadMode;
 	}
 
 	int GfxEngine::getScreenWidth() const

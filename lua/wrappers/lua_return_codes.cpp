@@ -53,6 +53,14 @@ namespace lua {
 	 * <h4>Inventory</h4>
 	 * <ul>
 	 *  <li>not_enough_inventory_space</li>
+	 *  <li>item_not_in_inventory</li>
+	 * </ul>
+	 * <h4>Store</h4>
+	 * <ul>
+	 *  <li>store_already_owned</li>
+	 *  <li>not_enough_coin</li>
+	 *  <li>no_store_owner</li>
+	 *  <li>no_inventories</li>
 	 * </ul>
 	 */
 	int ReturnCodes_register(lua_State *lua)
@@ -93,6 +101,12 @@ namespace lua {
 		L.setTableValue("no_linked_system", base::NO_LINKED_SYSTEM);
 		// Inventory
 		L.setTableValue("not_enough_inventory_space", base::NOT_ENOUGH_INVENTORY_SPACE);
+		L.setTableValue("item_not_in_inventory", base::ITEM_NOT_IN_INVENTORY);
+		// Store
+		L.setTableValue("store_already_owned", base::STORE_ALREADY_OWNED);
+		L.setTableValue("not_enough_coin", base::NOT_ENOUGH_COIN);
+		L.setTableValue("no_store_owner", base::NO_STORE_OWNER);
+		L.setTableValue("no_inventories", base::NO_INVENTORIES);
 
 		lua_settable(lua, -3);
 

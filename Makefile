@@ -59,6 +59,13 @@
 # The pre-processor and compiler options.
 MY_CFLAGS = -D_FREEGLUT_SYS=1
 
+ifdef TESTING
+    MY_CFLAGS += -DTESTING=1
+	#echo 'Testing mode ' S(MY_CFLAGS)
+endif
+
+
+
 # The linker options.
 MY_LIBS   = -lGL -lGLU -lglut -lopenal -lalut -lIL -lILU -lILUT
 

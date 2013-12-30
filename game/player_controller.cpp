@@ -91,6 +91,7 @@ namespace game {
 		//am_log("PLYR", ss);
 
 		mCharacter->moveGrid(dx, dy);
+		Game *game = Engine::getGame();
 		mCharacter = nullptr;
 
 		mActive = false;

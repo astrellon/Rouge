@@ -37,7 +37,13 @@ namespace gfx {
 		{
 			if (lua_isstr(lua, 1))
 			{
-				Asset *asset = new Asset(lua_tostring(lua, 1));
+				const char *name = lua_tostring(lua, 1);
+				Asset *asset = am::gfx::GfxEngine::getEngine()->findAsset(name);
+				if (!asset)
+				{
+					asset = new Asset(name);
+				}
+				//Asset *asset = new Asset(lua_tostring(lua, 1));
 				wrapRefObject<Asset>(lua, asset);
 				return 1;
 			}
@@ -86,6 +92,7 @@ namespace gfx {
 			{ "add_texture", Asset_add_texture },
 			{ "remove_texture", Asset_remove_texture },
 			{ "has_texture", Asset_has_texture },
+			{ "remove_all_textures", Asset_remove_all_textures },
 			{ "total_textures", Asset_total_textures },
 			{ "total_texture_windows", Asset_total_texture_windows },
 			{ "texture_window", Asset_texture_window },
@@ -332,6 +339,22 @@ namespace gfx {
 			return LuaState::expectedArgs(lua, "has_texture", 2, "am.texture texture", "string filename");
 		}
 		return LuaState::expectedContext(lua, "has_texture", "am.asset");
+	}
+
+	/**
+	 * Removes all the textures from the asset.
+	 *
+	 * @returns am.asset This
+	 */
+	int Asset_remove_all_textures(lua_State *lua)
+	{
+		Asset *asset = castUData<Asset>(lua, 1);
+		if (asset)
+		{
+			asset->removeAllTextures();
+			lua_first(lua);
+		}
+		return LuaState::expectedContext(lua, "remove_all_textures", "am.asset");
 	}
 
 	/**

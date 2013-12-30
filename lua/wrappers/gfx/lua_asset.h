@@ -23,6 +23,7 @@ namespace gfx {
 	int Asset_add_texture(lua_State *lua);
 	int Asset_remove_texture(lua_State *lua);
 	int Asset_has_texture(lua_State *lua);
+	int Asset_remove_all_textures(lua_State *lua);
 	int Asset_total_textures(lua_State *lua);
 	int Asset_total_texture_windows(lua_State *lua);
 	int Asset_texture_window(lua_State *lua);
