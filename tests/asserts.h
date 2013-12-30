@@ -145,14 +145,23 @@ namespace tests {
         static bool _equalsArray(const char *file, unsigned int line, const T *expected, const T *actual, bool notCompare, double delta=0.00001, int n=16)
         {
             bool equal = true;
-            for (int i = 0; i < n; i++) {
+            int i = 0;
+            for (; i < n; i++) {
                 double diff = expected[i] - actual[i];
-                if (diiff < -delta || diff > delta) {
+                if (diff < -delta || diff > delta) {
                     equal = false;
                     break;
                 }
             }
-            
+            if (notCompare && equal) {
+                dispArrayNotError(expected, n, i, delta, file, line);
+                return false;
+            }
+            else if (!notCompare && !equal) {
+                dispArrayError(expected, actual, n, i, delta, file, line);
+                return false;
+            }
+            return true;
         }
 	};
 }
@@ -162,6 +171,7 @@ namespace tests {
 #	define assert(a) \
 	if (!Asserts::_assert(a, __FILE__, __LINE__)) { return false; }
 
+//  General equals
 #	define am_equals(expected, actual) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define am_equalsDelta(expected, actual, delta) \
@@ -172,15 +182,24 @@ namespace tests {
 #	define am_notEqualsDelta(expected, actual, delta) \
 	if (!Asserts::_equals(__FILE__, __LINE__, expected, actual, true, delta)) { return false; }
 
+//  String equals
 #	define am_equalsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #	define notEqualsStr(expected, actual)	\
 	if (!Asserts::_equalsStr(__FILE__, __LINE__, expected, actual, true)) { return false; }
 
+//  Vector equals
 #   define am_equalsVec(expected, actual)   \
     if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, false)) { return false; }
 #   define notEqualsVec(expected, actual)   \
     if (!Asserts::_equalsVec(__FILE__, __LINE__, expected, actual, true)) { return false; }
+
+//  Array equals
+#   define am_equalsArray(expected, actual, n)  \
+    if (!Asserts::_equalsArray(__FILE__, __LINE__, expected, actual, false, 0.00001, n)) { return false; }
+#   define am_notEqualsArray(expected, actual, n)  \
+    if (!Asserts::_equalsArray(__FILE__, __LINE__, expected, actual, true, 0.00001, n)) { return false; }
+
 #else
 #	define assert(a) _assert(a, __FILE__, __LINE__)
 

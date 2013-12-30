@@ -87,7 +87,7 @@ namespace tests {
 		bool equal = diff >= -delta && diff <= delta;
 		if (notCompare) {
 			if (equal) {
-				dispNotError(expected, actual, delta, file, line);
+				dispNotError(expected, delta, file, line);
 				return false;
 			}
 			return true;
