@@ -11,8 +11,6 @@ namespace tests {
 
 	bool TestTransform::testSimple()
 	{
-        math::Vector2f vec(1.0f, 2.0f);
-        am_equalsVec(vec, math::Vector2f(1.0f, 2.0f));
         return true;
     }
 
