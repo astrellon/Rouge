@@ -198,7 +198,7 @@ namespace gfx {
 		GLfloat fW = fH * aspect;
 		glFrustum( -fW, fW, -fH, fH, zNear, zFar );
 
-        glEnable(GL_MULTISAMPLE);
+        //glEnable(GL_MULTISAMPLE);
 
 		glMatrixMode(GL_MODELVIEW);
 	}

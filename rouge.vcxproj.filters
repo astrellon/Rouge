@@ -163,6 +163,9 @@
     <Filter Include="sfx\openal\win">
       <UniqueIdentifier>{69854413-e8b0-45e1-858c-1845d402158b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\math">
+      <UniqueIdentifier>{abf0338e-b864-45ce-8a88-0999f7b6a04a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -237,9 +240,6 @@
     </ClCompile>
     <ClCompile Include="ui\ui_options_panel.cpp">
       <Filter>ui\rouge</Filter>
-    </ClCompile>
-    <ClCompile Include="game\camera.cpp">
-      <Filter>game</Filter>
     </ClCompile>
     <ClCompile Include="game\engine.cpp">
       <Filter>game</Filter>
@@ -937,6 +937,15 @@
     <ClCompile Include="sfx\openal\win\LoadOAL.cpp">
       <Filter>sfx\openal\win</Filter>
     </ClCompile>
+    <ClCompile Include="gfx\gfx_camera.cpp">
+      <Filter>gfx\base</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_transform.cpp">
+      <Filter>tests\math</Filter>
+    </ClCompile>
+    <ClCompile Include="lua\wrappers\game\lua_store.cpp">
+      <Filter>lua\wrapper\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1011,9 +1020,6 @@
     </ClInclude>
     <ClInclude Include="ui\ui_options_panel.h">
       <Filter>ui\rouge</Filter>
-    </ClInclude>
-    <ClInclude Include="game\camera.h">
-      <Filter>game</Filter>
     </ClInclude>
     <ClInclude Include="game\engine.h">
       <Filter>game</Filter>
@@ -1710,6 +1716,15 @@
     </ClInclude>
     <ClInclude Include="sys\win\win_system.h">
       <Filter>sys\win</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\gfx_camera.h">
+      <Filter>gfx\base</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_transform.h">
+      <Filter>tests\math</Filter>
+    </ClInclude>
+    <ClInclude Include="lua\wrappers\game\lua_store.h">
+      <Filter>lua\wrapper\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

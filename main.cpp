@@ -64,32 +64,27 @@ namespace am {
 		osSys = freeGlutSys;
 	#endif
 
-		int testing = 0;
-	#ifdef TESTING
-		testing = 1;
-	#elif TESTING_MEM
-		testing = 2;
-	#endif
 
 		sys::GameSystem *gameSystem;
-		if (testing == 1)
+#ifdef TESTING
 		{
 			sys::UnitTestSystem *unitTestSystem = sys::UnitTestSystem::createUnitTestSystem(osSys, engine);
 			gameSystem = unitTestSystem;
 			gameSystem->setTitle("Rouge Game - Unit Tests");
 		}
-		else if (testing == 2)
+	#elif TESTING_MEM
 		{
 			sys::MemoryTestSystem *memTestSystem = sys::MemoryTestSystem::createMemoryTestSystem(osSys, engine);
 			gameSystem = memTestSystem;
 			gameSystem->setTitle("Rouge Game - Memory Leak Test");
 		}
-		else
+#else
 		{
 			sys::RougeSystem *rougeSystem = sys::RougeSystem::createRougeSystem(osSys, engine);
 			gameSystem = rougeSystem;
 			gameSystem->setTitle("Rouge Game");
 		}
+		#endif
 		gameSystem->retain();
 		osSys->setGameSystem(gameSystem);
 	

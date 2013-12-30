@@ -88,18 +88,18 @@ namespace gfx {
         return mPerspective;
     }
 
-    void Camera::setNear(float near)
+    void Camera::setNear(float value)
     {
-        mNear = near;
+        mNear = value;
     }
     float Camera::getNear() const
     {
         return mNear;
     }
 
-    void Camera::setFar(float far)
+    void Camera::setFar(float value)
     {
-        mFar = far;
+        mFar = value;
     }
     float Camera::getFar() const
     {
