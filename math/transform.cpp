@@ -32,10 +32,6 @@ namespace math {
 		mWorldToObj.yy = mUp.y;
 		mWorldToObj.zy = mUp.z;
 
-		mWorldToObj.xy = 0.0f;
-		mWorldToObj.yy = 1.0f;
-		mWorldToObj.zy = 0.0f;
-		
 		if (mForCamera) 
         {
 			mWorldToObj.xz = -mForward.x;
@@ -53,10 +49,11 @@ namespace math {
 		mWorldToObj.wx = mPosition.x;
 		mWorldToObj.wy = mPosition.y;
 		mWorldToObj.wz = mPosition.z;
-		Vector4f pos = mWorldToObj.translateVectorConst(mPosition);
+
+		/*Vector4f pos = mWorldToObj.translateVectorConst(mPosition);
 		mWorldToObj.wx = pos.x;
 		mWorldToObj.wy = pos.y;
-		mWorldToObj.wz = pos.z;
+		mWorldToObj.wz = pos.z;*/
 		mWorldToObj.ww = 1.0f;
 
 		mDirty = false;
@@ -83,8 +80,8 @@ namespace math {
     {
 		mRight = val;
 		mRight.normalise();
-		mForward = mUp.cross(mRight);
-		mUp = mRight.cross(mForward);
+		mForward = mUp.cross(mRight).normalise();
+		mUp = mRight.cross(mForward).normalise();
 		mDirty = true;
 		calcMatrix();
 	}
@@ -97,8 +94,8 @@ namespace math {
     {
 		mForward = val;
 		mForward.normalise();
-		mRight = mForward.cross(mUp);
-		mUp = mRight.cross(mForward);
+		mRight = mForward.cross(mUp).normalise();
+		mUp = mRight.cross(mForward).normalise();
 		mDirty = true;
 		calcMatrix();
 	}
@@ -110,14 +107,6 @@ namespace math {
 	void Transform::setPosition(const Vector4f &val) 
     {
         setPosition(val.x, val.y, val.z);
-		/*mPosition = val;
-
-		mWorldToObj.wx = mPosition.x;
-		mWorldToObj.wy = mPosition.y;
-		mWorldToObj.wz = mPosition.z;
-
-		lookAtTarget();
-		mDirty = true;*/
 	}
 	void Transform::setPosition(const float &x, const float &y, const float &z)
 	{
@@ -204,7 +193,6 @@ namespace math {
 	float *Transform::data()
 	{
 		preproc();
-		//return reinterpret_cast<float *>(&mWorldToObj);
         return mWorldToObj.data();
 	}
 	void Transform::preproc() {
@@ -287,10 +275,12 @@ namespace math {
 		m.rotate(mRight, dy);
 		m.transformVectorConst(toPosition);
 		
-		if (mForCamera) {
+		if (mForCamera)
+		{
 			m.rotate(mUpVector, dx);
 		}
-		else {
+		else 
+		{
 			m.rotate(mUp, dx);
 		}
 		m.transformVectorConst(toPosition);

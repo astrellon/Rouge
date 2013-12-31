@@ -173,8 +173,8 @@ namespace gfx {
             float y = mFollowing->getPositionY();
             x = 0.0f;
             y = 0.0f;
-            mTransform.setPosition(x, y, 1);
-            mTransform.setTarget(x, y, 0);
+            mTransform.setPosition(x, y, -5);
+            mTransform.setTarget(x, y, 1);
             mTransform.getWorldToObj().displayMatrix();
         }
         glMultMatrixf(mTransform.data());

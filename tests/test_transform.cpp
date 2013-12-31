@@ -18,6 +18,10 @@ namespace tests {
         math::Transform trans;
         am_equalsArray(test, trans.data(), 16);
 
+		trans.setPosition(0, 5, 0);
+		trans.setTarget(0, 5, 5);
+		float *data = trans.data();
+
         return true;
     }
 

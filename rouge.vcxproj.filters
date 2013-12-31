@@ -946,6 +946,12 @@
     <ClCompile Include="lua\wrappers\game\lua_store.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="sys\unit_test_system.cpp">
+      <Filter>sys\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_lua_store.cpp">
+      <Filter>tests\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -1725,6 +1731,12 @@
     </ClInclude>
     <ClInclude Include="lua\wrappers\game\lua_store.h">
       <Filter>lua\wrapper\game</Filter>
+    </ClInclude>
+    <ClInclude Include="sys\unit_test_system.h">
+      <Filter>sys\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_lua_store.h">
+      <Filter>tests\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
