@@ -166,16 +166,17 @@ namespace gfx {
             glMatrixMode(GL_MODELVIEW);
 
         }
+
         //glTranslatef(resolutionWidth / 2, resolutionHeight / 2, 0.0f);
         if (mFollowing)
         {
             float x = mFollowing->getPositionX();
             float y = mFollowing->getPositionY();
-            x = 0.0f;
-            y = 0.0f;
-            mTransform.setPosition(x, y, -5);
-            mTransform.setTarget(x, y, 1);
-            mTransform.getWorldToObj().displayMatrix();
+            float halfWidth = static_cast<float>(resolutionWidth / 2);
+            float halfHeight = static_cast<float>(resolutionHeight / 2);
+            //mTransform.setPosition(x, y, -5);
+            //mTransform.setTarget(x, y, 1);
+            mTransform.setTarget(x + halfWidth, y + halfWidth, 0, true);
         }
         glMultMatrixf(mTransform.data());
     }

@@ -226,8 +226,8 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
-                    int precedence = tile->getPrecedence() * 3;
-                    glTranslatef(0.0f, 0.0f, -precedence);
+                    int precedence = tile->getPrecedence() * 1;
+                    glTranslatef(0.0f, 0.0f, precedence);
 					for (int i = 0; i < 8; i++)
 					{
 						uint8_t value = instance.getTileEdgeValue(i);
@@ -269,7 +269,7 @@ namespace gfx {
 							}
 						}
 					}
-                    glTranslatef(0.0f, 0.0f, precedence);
+                    glTranslatef(0.0f, 0.0f, -precedence);
 				}
 				t++;
 

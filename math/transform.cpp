@@ -104,12 +104,22 @@ namespace math {
     {
 		return mPosition;
 	}
-	void Transform::setPosition(const Vector4f &val) 
+	void Transform::setPosition(const Vector4f &val, bool keepDirection)
     {
-        setPosition(val.x, val.y, val.z);
+        setPosition(val.x, val.y, val.z, keepDirection);
 	}
-	void Transform::setPosition(const float &x, const float &y, const float &z)
+	void Transform::setPosition(const float &x, const float &y, const float &z, bool keepDirection)
 	{
+		if (keepDirection)
+		{
+			double toTarget = mTarget.sub(mPosition).length();
+    		if (toTarget < 0.001)
+    		{
+    			toTarget = 1.0;
+    		}
+			mTarget = mPosition.add(mForward.scale(toTarget));
+		}
+
 		mPosition.x = x;
 		mPosition.y = y;
 		mPosition.z = z;
@@ -126,7 +136,10 @@ namespace math {
     		mWorldToObj.wz = z;
         }
 
-        lookAtTarget();
+        if (!keepDirection)
+        {
+        	lookAtTarget();
+        }
 		mDirty = true;
 	}
 	
@@ -134,17 +147,30 @@ namespace math {
     {
 		return mTarget;
 	}
-	void Transform::setTarget(const Vector4f &val) 
+	void Transform::setTarget(const Vector4f &val, bool keepDirection)
     {
-        setTarget(val.x, val.y, val.z);
+        setTarget(val.x, val.y, val.z, keepDirection);
 	}
-    void Transform::setTarget(const float &x, const float &y, const float &z)
+    void Transform::setTarget(const float &x, const float &y, const float &z, bool keepDirection)
     {
+    	if (keepDirection)
+    	{
+    		double toTarget = mTarget.sub(mPosition).length();
+    		if (toTarget < 0.001)
+    		{
+    			toTarget = 1.0;
+    		}
+    		mPosition = mTarget.sub(mForward.scale(toTarget));
+    	}
+
 		mTarget.x = x;
 		mTarget.y = y;
 		mTarget.z = z;
 		
-        lookAtTarget();
+		if (!keepDirection)
+		{
+			lookAtTarget();
+		}
 		mDirty = true;
     }
 	

@@ -76,6 +76,8 @@ namespace game {
 		mGameLayer->addChild(mForeground.get());
 
         mCamera = new gfx::Camera();
+        mCamera->setPerspective(true);
+        mCamera->getTransform().setPosition(0, 0, 255);
 
 		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}

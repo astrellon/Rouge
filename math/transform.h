@@ -24,12 +24,12 @@ namespace math {
 		void setForward(const Vector4f &val);
 		
 		Vector4f getPosition() const;
-		void setPosition(const Vector4f &val);
-		void setPosition(const float &x, const float &y, const float &z = 0.0f);
+		void setPosition(const Vector4f &val, bool keepDirection = false);
+		void setPosition(const float &x, const float &y, const float &z = 0.0f, bool keepDirection = false);
 	
 		Vector4f getTarget() const;
-		void setTarget(const Vector4f &val);
-        void setTarget(const float &x, const float &y, const float &z = 0.0f);
+		void setTarget(const Vector4f &val, bool keepDirection = false);
+        void setTarget(const float &x, const float &y, const float &z = 0.0f, bool keepDirection = false);
 
 		Vector4f getUpDirection() const;
 		void setUpDirection(const Vector4f &val);

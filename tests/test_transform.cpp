@@ -21,6 +21,10 @@ namespace tests {
 		trans.setPosition(0, 5, 0);
 		trans.setTarget(0, 5, 5);
 		float *data = trans.data();
+        test[0] = -1.0f;
+        test[13] = 5.0f;
+
+        am_equalsArray(test, trans.data(), 16);
 
         return true;
     }
