@@ -226,7 +226,7 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
-                    int precedence = tile->getPrecedence() * 1;
+                    int precedence = -tile->getPrecedence() * 10;
                     glTranslatef(0.0f, 0.0f, precedence);
 					for (int i = 0; i < 8; i++)
 					{

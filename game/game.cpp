@@ -77,7 +77,12 @@ namespace game {
 
         mCamera = new gfx::Camera();
         mCamera->setPerspective(true);
-        mCamera->getTransform().setPosition(0, 0, 255);
+		mCamera->setNear(0.001f);
+		mCamera->setFar(100000.0f);
+		mCamera->setFieldOfView(45.0f);
+		mCamera->getTransform().setUp(math::Vector4f(0, -1, 0));
+        mCamera->getTransform().setPosition(0, 0, -255);
+		mCamera->getTransform().orbit(0.6f, 0.0f);
 
 		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}

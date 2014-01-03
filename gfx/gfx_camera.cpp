@@ -174,9 +174,15 @@ namespace gfx {
             float y = mFollowing->getPositionY();
             float halfWidth = static_cast<float>(resolutionWidth / 2);
             float halfHeight = static_cast<float>(resolutionHeight / 2);
-            //mTransform.setPosition(x, y, -5);
-            //mTransform.setTarget(x, y, 1);
-            mTransform.setTarget(x + halfWidth, y + halfWidth, 0, true);
+            
+			if (mPerspective)
+			{
+				mTransform.setTarget(-x , y , 0, true);
+			}
+			else
+			{
+				mTransform.setTarget(-x + halfWidth, -y + halfHeight);
+			}
         }
         glMultMatrixf(mTransform.data());
     }
