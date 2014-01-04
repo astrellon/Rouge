@@ -11,17 +11,15 @@
 namespace am {
 namespace game {
 
-	class PlayerController : public IController, public ui::IEventListener 
+	class PlayerController : public IController
 	{
 	public:
 		PlayerController();
 		~PlayerController();
 
-		virtual void onEvent(ui::KeyboardEvent *e);
 		virtual void update(Character *character, float dt);
+		virtual void onGameTick(Character *character, float dt);
 		virtual void detach();
-
-		//void performAction();
 
 	protected:
 

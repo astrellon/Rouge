@@ -14,6 +14,7 @@ namespace game {
 		~AiController();
 
 		virtual void update(Character *character, float dt);
+		virtual void onGameTick(Character *character, float dt);
 		virtual void detach();
 
 		//void performAction();

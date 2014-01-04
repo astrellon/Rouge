@@ -15,8 +15,6 @@ namespace game {
 		IController(),
 		mRunning(false)
 	{
-		ui::KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_DOWN, this);
-		ui::KeyboardManager::getManager()->addEventListener(ui::Keyboard::KEY_UP, this);
 		mAttached = true;
 		mRemoved = false;
 	}
@@ -30,9 +28,14 @@ namespace game {
 		detach();
 	}
 
-	void PlayerController::onEvent(ui::KeyboardEvent *e)
+	void PlayerController::update(Character *character, float dt)
 	{
-        Game *game = Engine::getGame();
+		if (!mActive)
+		{
+			return;
+		}
+
+		Game *game = Engine::getGame();
         if (game->getUIKeyboardFocus())
         {
             return;
@@ -55,12 +58,12 @@ namespace game {
 				// Wait for 1 second.
 				am_log("PLYER", "Wait");
 				setGameTick(1.0f);
+				mActive = false;
 				return;
 			}
 		}
 	}
-
-	void PlayerController::update(Character *character, float dt)
+	void PlayerController::onGameTick(Character *character, float dt)
 	{
 		mCharacter = character;
 		Engine::getGame()->setGameTickPaused(true);

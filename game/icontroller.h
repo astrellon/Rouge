@@ -13,7 +13,11 @@ namespace game {
 
 		IController();
 
+		// Happens on every game update.
 		virtual void update(Character *character, float dt) = 0;
+		// Happens on every game tick.
+		virtual void onGameTick(Character *character, float dt) = 0;
+
 		virtual void detach() = 0;
 
 		virtual void setActive(bool active);

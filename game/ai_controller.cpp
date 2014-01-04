@@ -31,6 +31,10 @@ namespace game {
 
 	void AiController::update(Character *character, float dt)
 	{
+		
+	}
+	void AiController::onGameTick(Character *character, float dt)
+	{
 		if (character->isDead())
 		{
 			return;

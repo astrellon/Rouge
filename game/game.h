@@ -162,6 +162,12 @@ namespace game {
         bool hasUIKeyboardFocus() const;
         int getUIKeyboardFocus() const;
 
+		void setFollowingObject(gfx::Renderable *object);
+		gfx::Renderable *getFollowingObject() const;
+
+		void setFreeCamera(bool freeCamera);
+		bool isFreeCamera() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -173,8 +179,10 @@ namespace game {
 		Engine *mEngine;
 
         base::Handle<gfx::Camera> mCamera;
+		base::Handle<gfx::Renderable> mCameraFollowing;
 		bool mStarted;
 		bool mEditorMode;
+		bool mFreeCamera;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 

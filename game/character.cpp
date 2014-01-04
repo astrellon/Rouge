@@ -205,7 +205,10 @@ namespace game {
 		   
 	void Character::update(float dt)
 	{
-		
+		if (mController)
+		{
+			mController->update(this, dt);
+		}
 	}
 	bool Character::onGameTick(float dt)
 	{
@@ -215,10 +218,12 @@ namespace game {
 			// In that returning true means that this characters game tick turn is done.
 			return true;
 		}
+		
 		if (mController)
 		{
-			mController->update(this, dt);
+			mController->onGameTick(this, dt);
 		}
+
 		base::Handle<IAction> currentAction(getCurrentAction());
 		if (currentAction)
 		{

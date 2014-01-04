@@ -50,6 +50,7 @@ namespace game {
 		mCurrentTickDt(0.0f),
 		mGameTickPaused(true),
 		mEditorMode(false),
+		mFreeCamera(false),
         mUIKeyboardFocus(0)
 	{
 		if (engine == nullptr)
@@ -93,7 +94,7 @@ namespace game {
 
 	void Game::deinit()
 	{
-		mCamera->followObject(nullptr);
+		setFollowingObject(nullptr);
 		mGameLayer->deinit();
 		{
 			DialogueMap dialogue = mDialogueMap;
@@ -366,7 +367,7 @@ namespace game {
 		mItemLayer->clear();
 		mCharacterLayer->clear();
 		mForeground->clear();
-		mCamera->followObject(nullptr);
+		setFollowingObject(nullptr);
 
 		if (mCurrentMap)
 		{
@@ -520,7 +521,7 @@ namespace game {
 		object->setLocation(x, y);
 		if (following)
 		{
-			mCamera->followObject(object);
+			setFollowingObject(object);
 		}
 		if (map)
 		{
@@ -947,6 +948,25 @@ namespace game {
     {
         return mUIKeyboardFocus;
     }
+
+	void Game::setFollowingObject(gfx::Renderable *object)
+	{
+		mCamera->followObject(object);
+		mCameraFollowing = object;
+	}
+	gfx::Renderable *Game::getFollowingObject() const
+	{
+		return mCameraFollowing;
+	}
+
+	void Game::setFreeCamera(bool freeCamera)
+	{
+		mFreeCamera = freeCamera;
+	}
+	bool Game::isFreeCamera() const
+	{
+		return mFreeCamera;
+	}
 
 	void Game::startGame()
 	{
