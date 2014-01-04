@@ -4,7 +4,8 @@ namespace am {
 namespace game {
 
 	IController::IController() :
-		mActive(false)
+		mActive(false),
+		mEnabled(true)
 	{
 	}
 
@@ -15,6 +16,15 @@ namespace game {
 	bool IController::isActive() const
 	{
 		return mActive;
+	}
+
+	void IController::setEnabled(bool enabled)
+	{
+		mEnabled = enabled;
+	}
+	bool IController::isEnabled() const
+	{
+		return mEnabled;
 	}
 
 }

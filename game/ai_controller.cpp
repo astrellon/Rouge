@@ -35,7 +35,7 @@ namespace game {
 	}
 	void AiController::onGameTick(Character *character, float dt)
 	{
-		if (character->isDead())
+		if (!isEnabled() || character->isDead())
 		{
 			return;
 		}

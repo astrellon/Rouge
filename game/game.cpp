@@ -83,7 +83,8 @@ namespace game {
 		mCamera->setFieldOfView(45.0f);
 		mCamera->getTransform().setUp(math::Vector4f(0, -1, 0));
         mCamera->getTransform().setPosition(0, 0, -255);
-		mCamera->getTransform().orbit(0.6f, 0.0f);
+		//mCamera->getTransform().orbit(0.6f, 0.0f);
+		setFreeCamera(true);
 
 		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}
@@ -658,6 +659,28 @@ namespace game {
 				iter->get()->update(dt);
 			}
 		}
+
+		if (isFreeCamera())
+		{
+			const bool *keys = ui::KeyboardManager::getManager()->getKeysDown();
+			if (keys[ui::Keyboard::KEY_w])
+			{
+				mCamera->getTransform().translate(0.0f, 32.0f, 0.0f);
+			}
+			else if (keys[ui::Keyboard::KEY_s])
+			{
+				mCamera->getTransform().translate(0.0f, -32.0f, 0.0f);
+			}
+			if (keys[ui::Keyboard::KEY_a])
+			{
+				mCamera->getTransform().translate(32.0f, 0.0f, 0.0f);
+			}
+			else if (keys[ui::Keyboard::KEY_d])
+			{
+				mCamera->getTransform().translate(-32.0f, 0.0f, 0.0f);
+			}
+		}
+
 		mCamera->update(dt);
 	}
 	void Game::onGameTick()
@@ -951,7 +974,10 @@ namespace game {
 
 	void Game::setFollowingObject(gfx::Renderable *object)
 	{
-		mCamera->followObject(object);
+		if (!mFreeCamera)
+		{
+			mCamera->followObject(object);
+		}
 		mCameraFollowing = object;
 	}
 	gfx::Renderable *Game::getFollowingObject() const
@@ -961,7 +987,18 @@ namespace game {
 
 	void Game::setFreeCamera(bool freeCamera)
 	{
+		if (!mFreeCamera && freeCamera)
+		{
+			addUIKeyboardFocus();
+			mCamera->followObject(nullptr);
+		}
+		else if (mFreeCamera && !freeCamera)
+		{
+			removeUIKeyboardFocus();
+			mCamera->followObject(mCameraFollowing);
+		}
 		mFreeCamera = freeCamera;
+
 	}
 	bool Game::isFreeCamera() const
 	{

@@ -20,11 +20,18 @@ namespace game {
 
 		virtual void detach() = 0;
 
+		// When true the controller is currently executing. This can happen over multiple
+		// game updates and game ticks potentially.
 		virtual void setActive(bool active);
 		virtual bool isActive() const;
 
+		// When true the controller is enabled, when not enabled it will be skipped completely.
+		virtual void setEnabled(bool enabled);
+		virtual bool isEnabled() const;
+
 	protected:
 		bool mActive;
+		bool mEnabled;
 
 	};
 

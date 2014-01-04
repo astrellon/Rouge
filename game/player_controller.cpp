@@ -30,7 +30,7 @@ namespace game {
 
 	void PlayerController::update(Character *character, float dt)
 	{
-		if (!mActive)
+		if (!isActive() || !isEnabled())
 		{
 			return;
 		}
@@ -120,8 +120,6 @@ namespace game {
 				mCharacter->release();
 				mCharacter = nullptr;
 			}
-			ui::KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_DOWN, this);
-			ui::KeyboardManager::getManager()->removeEventListener(ui::Keyboard::KEY_UP, this);
 		}
 	}
 

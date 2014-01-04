@@ -140,7 +140,7 @@ namespace gfx {
 		}
 		float locX = getLocationX();
 		float locY = getLocationY();
-		am::gfx::GfxEngine::getEngine()->setCameraLocation(locX, locY);
+		//am::gfx::GfxEngine::getEngine()->setCameraLocation(locX, locY);
 		am::sfx::SfxEngine::getEngine()->getListener().setPosition(locX, locY);
 	}
     void Camera::apply(int resolutionWidth, int resolutionHeight)

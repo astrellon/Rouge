@@ -221,7 +221,8 @@ namespace math {
 		preproc();
         return mWorldToObj.data();
 	}
-	void Transform::preproc() {
+	void Transform::preproc()
+	{
 		if (mDirty) {
 			calcMatrix();
 		}
@@ -236,7 +237,7 @@ namespace math {
 		mPosition.addTo(vec);
 		
 		mDirty = true;
-		calcMatrix();
+		//calcMatrix();
 	}
 	void Transform::translate(const float x, const float y, const float z) 
     {
@@ -248,14 +249,14 @@ namespace math {
 		mPosition.addTo(vec);
 		
 		mDirty = true;
-		calcMatrix();
+		//calcMatrix();
 	}
 
 	void Transform::translateWorld(const Vector4f &rhs) 
     {
 		mPosition.addTo(rhs);
 		
-		calcMatrix();
+		//calcMatrix();
 		mDirty = true;
 	}
 	void Transform::translateWorld(const float x, const float y, const float z) 
@@ -263,7 +264,7 @@ namespace math {
 		mPosition.addTo(x, y, z);
 		
 		mDirty = true;
-		calcMatrix();
+		//calcMatrix();
 	}
 	
 	void Transform::rotate(float dx, float dy) 
