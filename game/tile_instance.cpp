@@ -16,7 +16,8 @@ namespace game {
 	TileInstance::TileInstance() : 
 		mTile(nullptr),
 		mBaseVariation(0),
-		mTransitionVariation(0)
+		mTransitionVariation(0),
+		mOrder(-1)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -26,7 +27,8 @@ namespace game {
 	TileInstance::TileInstance(Tile *tile) : 
 		mTile(tile),
 		mBaseVariation(0),
-		mTransitionVariation(0)
+		mTransitionVariation(0),
+		mOrder(-1)
 	{
 		for (int i = 0; i < 8; i++)
 		{
@@ -215,6 +217,15 @@ namespace game {
 	const TileInstance::TileTypeList &TileInstance::getTileTypes() const
 	{
 		return mTileTypes;
+	}
+
+	void TileInstance::setOrder(uint32_t order)
+	{
+		mOrder = order;
+	}
+	uint32_t TileInstance::getOrder() const
+	{
+		return mOrder;
 	}
 
 }

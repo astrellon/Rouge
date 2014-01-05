@@ -134,6 +134,15 @@ namespace game {
 		void clear();
 		size_t findGameObject(GameObject *object) const;
 
+		typedef struct _TileOrder
+		{
+			int precedence;
+			int index;
+
+			_TileOrder();
+			_TileOrder(int precedence, int index);
+		} TileOrder;
+
 		bool _isValidGridLocation(int gridX, int gridY, const GameObject *forObject) const;
 	};
 

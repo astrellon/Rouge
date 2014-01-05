@@ -349,6 +349,37 @@ namespace game {
 			}
 			instance.setTileEdgeValue(7, flag);
 		}
+
+		
+		std::vector<TileOrder> order;
+		for (int i = 0; i < 8; i++)
+		{
+			uint8_t value = instance.getTileEdgeValue(i);
+			if (value != 0)
+			{
+				game::Tile *overlapTile = mTiles[index + offsets[i]].getTile();
+				order.push_back(TileOrder(overlapTile->getPrecedence(), i));
+			}
+		}
+
+		std::sort(order.begin(), order.end(), 
+			[](const TileOrder &a, const TileOrder &b) -> bool
+		{
+			return a.precedence < b.precedence; 
+		});
+
+		uint32_t orderValue = 0;
+		size_t oi = 0;
+		for (; oi < order.size(); oi++)
+		{
+			const TileOrder &o = order[oi];
+			orderValue |= (o.index & 0x0F) << (oi * 4);
+		}
+		if (oi < 8)
+		{
+			orderValue |= (0x0F) << (oi * 4);
+		}
+		instance.setOrder(orderValue);
 	}
 	
 	bool Map::canOverlap(int x, int y, Tile *overlapTile) const
@@ -945,6 +976,17 @@ namespace game {
 		ss << "\treturn map\nend\n";
 			
 		return base::SUCCESS;
+	}
+
+	Map::_TileOrder::_TileOrder() :
+		precedence(0),
+		index(0)
+	{
+	}
+	Map::_TileOrder::_TileOrder(int precedence, int index) :
+		precedence(precedence),
+		index(index)
+	{
 	}
 
 }

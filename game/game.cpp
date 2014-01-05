@@ -51,6 +51,7 @@ namespace game {
 		mGameTickPaused(true),
 		mEditorMode(false),
 		mFreeCamera(false),
+		mInUpdate(false),
         mUIKeyboardFocus(0)
 	{
 		if (engine == nullptr)
@@ -77,14 +78,15 @@ namespace game {
 		mGameLayer->addChild(mForeground.get());
 
         mCamera = new gfx::Camera();
-        mCamera->setPerspective(true);
+        mCamera->setPerspective(false);
 		mCamera->setNear(0.001f);
 		mCamera->setFar(10000.0f);
+		//mCamera->setOrthographicZoom(0.25f);
 		//mCamera->setFieldOfView(45.0f);
-		mCamera->getTransform().setUp(math::Vector4f(0, -1, 0));
-        mCamera->getTransform().setPosition(0, 0, 800);
+		//mCamera->getTransform().setUp(math::Vector4f(0, -1, 0));
+        mCamera->getTransform().setPosition(0, 0, -500);
 		//mCamera->getTransform().orbit(math::PI, 0.0f);
-		setFreeCamera(true);
+		//setFreeCamera(true);
 
 		ui::GameObjectEvent::getManager()->addEventListener("obj_click", this);
 	}
@@ -353,6 +355,11 @@ namespace game {
 	
 	void Game::setCurrentMap(Map *map, bool addMap)
 	{
+		/*if (mInUpdate)
+		{
+			mChangeToMap = map;
+			return;
+		}*/
 		if (mActiveObjects)
 		{
 			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
@@ -652,9 +659,11 @@ namespace game {
 	
 	void Game::update(float dt)
 	{
+		mInUpdate = true;
 		if (mActiveObjects)
 		{
-			for (auto iter = mActiveObjects->begin(); iter != mActiveObjects->end(); ++iter)
+			ObjectList objects = *mActiveObjects;
+			for (auto iter = objects.begin(); iter != objects.end(); ++iter)
 			{
 				iter->get()->update(dt);
 			}
@@ -700,6 +709,13 @@ namespace game {
 		}
 
 		mCamera->update(dt);
+		mInUpdate = false;
+
+		if (mChangeToMap)
+		{
+			setCurrentMap(mChangeToMap, false);
+			mChangeToMap = nullptr;
+		}
 	}
 	void Game::onGameTick()
 	{
@@ -707,6 +723,7 @@ namespace game {
 		{
 			return;
 		}
+		
 		if (mGameTickPosition >= mActiveObjects->size())
 		{
 			mGameTickPosition = 0;

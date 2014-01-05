@@ -157,8 +157,11 @@ namespace gfx {
 		float gridResp = game::Engine::getEngine()->getGridSizeResp();
 
 		GfxEngine *gfxEngine = GfxEngine::getEngine();
-		float cameraX = gfxEngine->getCameraX();
-		float cameraY = gfxEngine->getCameraY();
+		//float cameraX = gfxEngine->getCameraX();
+		//float cameraY = gfxEngine->getCameraY();
+		math::Vector4f pos = gfxEngine->getCamera()->getTransform().getPosition();
+		float cameraX = pos.x;
+		float cameraY = -pos.y;
 
 		float screenWidth = static_cast<float>(gfxEngine->getScreenWidth());
 		float screenHeight = static_cast<float>(gfxEngine->getScreenHeight());
@@ -193,7 +196,7 @@ namespace gfx {
 
 		float resetX = -(maxX - minX) * grid;
 		glTranslatef(minX * grid, minY * grid, 0.0f);
-		glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_DEPTH_TEST);
 
 		for (int y = minY; y < maxY; y++)
 		{
@@ -226,52 +229,56 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
-					for (int i = 0; i < 8; i++)
+					uint32_t orderValue = instance.getOrder();
+					int count = 0;
+					while (count < 8)
 					{
-						uint8_t value = instance.getTileEdgeValue(i);
-						if (value != 0)
+						int i = (orderValue >> (count * 4)) & 0x0F;
+						++count;
+						if (i < 0 || i >= 8)
 						{
-							game::Tile *overlapTile = tiles[t + offsets[i]].getTile();
-							const game::Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
+							break;
+						}
+						uint8_t value = instance.getTileEdgeValue(i);
+						if (value == 0)
+						{
+							continue;
+						}
+						game::Tile *overlapTile = tiles[t + offsets[i]].getTile();
+						//game::Tile *overlapTile = order[i].tile;
+						const game::Tile::TileAssetList *assets = overlapTile->getTransitionalAsset(instance.getTile());
+						if (!assets)
+						{
+							assets = overlapTile->getTransitionalAsset(nullptr);
 							if (!assets)
-							{
-								assets = overlapTile->getTransitionalAsset(nullptr);
-								if (!assets)
-								{
-									continue;
-								}
-							}
-							int variation = instance.getTransitionVariation();
-							if (variation >= assets->size())
-							{
-								variation = assets->size() - 1;
-							}
-							asset = assets->at(variation);
-
-							sprite = mAssetSprites[asset];
-							if (!sprite)
 							{
 								continue;
 							}
-							if (!asset->isSubWindowAnimation() || asset->getTotalTextures() == 1)
-							{
-								sprite->setSubWindowFrame(value);
-							}
-							else
-							{
-								sprite->setTextureFrame(value);
-							}
-
-							int precedence = -overlapTile->getPrecedence() * 10;
-							glTranslatef(0.0f, 0.0f, precedence);
-							sprite->renderSprite();
-							sprite->setTextureFrame(0);
-							glTranslatef(0.0f, 0.0f, -precedence);
-
 						}
+						int variation = instance.getTransitionVariation();
+						if (variation >= assets->size())
+						{
+							variation = assets->size() - 1;
+						}
+						asset = assets->at(variation);
+
+						sprite = mAssetSprites[asset];
+						if (!sprite)
+						{
+							continue;
+						}
+						if (!asset->isSubWindowAnimation() || asset->getTotalTextures() == 1)
+						{
+							sprite->setSubWindowFrame(value);
+						}
+						else
+						{
+							sprite->setTextureFrame(value);
+						}
+
+						sprite->renderSprite();
+						sprite->setTextureFrame(0);
 					}
-
-
 				}
 				t++;
 
@@ -280,7 +287,7 @@ namespace gfx {
 
 			glTranslatef(resetX, grid, 0.0f);
 		}
-		glDisable(GL_DEPTH_TEST);
+		//glDisable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 

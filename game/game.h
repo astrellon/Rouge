@@ -175,6 +175,9 @@ namespace game {
 		
 		base::Handle<Map> mCurrentMap;
 
+		// Post update
+		base::Handle<Map> mChangeToMap;
+
         // Engine should own the game.
 		Engine *mEngine;
 
@@ -183,6 +186,7 @@ namespace game {
 		bool mStarted;
 		bool mEditorMode;
 		bool mFreeCamera;
+		bool mInUpdate;
 		// Comes from the current screen.
 		ObjectList *mActiveObjects;
 

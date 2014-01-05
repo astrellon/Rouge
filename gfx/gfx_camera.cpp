@@ -162,12 +162,15 @@ namespace gfx {
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
 
+			resolutionWidth /= mZoom;
+			resolutionHeight /= mZoom;
+
             glOrtho(0, resolutionWidth, resolutionHeight, 0, mNear, mFar);
             glMatrixMode(GL_MODELVIEW);
 
         }
 
-        //glTranslatef(resolutionWidth / 2, resolutionHeight / 2, 0.0f);
+       // 
         if (mFollowing)
         {
             float x = mFollowing->getPositionX();
@@ -181,10 +184,20 @@ namespace gfx {
 			}
 			else
 			{
-				mTransform.setTarget(-x + halfWidth, -y + halfHeight, 0, true);
+				mTransform.setTarget(x, -y, 0, true);
+				math::Vector4f pos = mTransform.getPosition();
 			}
         }
-        glMultMatrixf(mTransform.data());
+        if (mPerspective)
+		{
+			glMultMatrixf(mTransform.data());
+		}
+		else
+		{
+			math::Vector4f pos = mTransform.getPosition();
+			glTranslatef(resolutionWidth / 2, resolutionHeight / 2, 0.0f);
+			glTranslatef(-pos.x, pos.y, pos.z);
+		}
     }
 
 }

@@ -807,6 +807,10 @@ namespace win {
 		}
 		if (key < VK_SLEEP)
 		{
+			if (key >= 'A' && key <= 'Z')
+			{
+				key += 32;
+			}
 			return ui::Keyboard::getKey(key);
 		}
 		switch (key)

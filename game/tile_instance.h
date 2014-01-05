@@ -50,6 +50,9 @@ namespace game {
 		TileTypeList &getTileTypes();
 		const TileTypeList &getTileTypes() const;
 
+		void setOrder(uint32_t order);
+		uint32_t getOrder() const;
+
 		static const int LUA_ID;
 		static const char *LUA_TABLENAME;
 
@@ -58,6 +61,7 @@ namespace game {
 		uint16_t mBaseVariation;
 		uint16_t mTransitionVariation;
 		uint8_t mTileEdgeValues[8];
+		uint32_t mOrder;
 		TileTypeList mTileTypes;
 	};
 
