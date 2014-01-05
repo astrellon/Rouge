@@ -193,8 +193,8 @@ namespace gfx {
 
 		float resetX = -(maxX - minX) * grid;
 		glTranslatef(minX * grid, minY * grid, 0.0f);
+		glEnable(GL_DEPTH_TEST);
 
-        //glEnable(GL_DEPTH_TEST);
 		for (int y = minY; y < maxY; y++)
 		{
 			t = y * mapWidth + minX;
@@ -226,8 +226,6 @@ namespace gfx {
 				sprite->renderSprite();
 				if (instance.hasEdgeValue())
 				{
-                    int precedence = -tile->getPrecedence() * 10;
-                    glTranslatef(0.0f, 0.0f, precedence);
 					for (int i = 0; i < 8; i++)
 					{
 						uint8_t value = instance.getTileEdgeValue(i);
@@ -249,35 +247,40 @@ namespace gfx {
 								variation = assets->size() - 1;
 							}
 							asset = assets->at(variation);
-							{
-								sprite = mAssetSprites[asset];
-								if (!sprite)
-								{
-									continue;
-								}
-								if (!asset->isSubWindowAnimation() || asset->getTotalTextures() == 1)
-								{
-									sprite->setSubWindowFrame(value);
-								}
-								else
-								{
-									sprite->setTextureFrame(value);
-								}
 
-								sprite->renderSprite();
-								sprite->setTextureFrame(0);
+							sprite = mAssetSprites[asset];
+							if (!sprite)
+							{
+								continue;
 							}
+							if (!asset->isSubWindowAnimation() || asset->getTotalTextures() == 1)
+							{
+								sprite->setSubWindowFrame(value);
+							}
+							else
+							{
+								sprite->setTextureFrame(value);
+							}
+
+							int precedence = -overlapTile->getPrecedence() * 10;
+							glTranslatef(0.0f, 0.0f, precedence);
+							sprite->renderSprite();
+							sprite->setTextureFrame(0);
+							glTranslatef(0.0f, 0.0f, -precedence);
+
 						}
 					}
-                    glTranslatef(0.0f, 0.0f, -precedence);
+
+
 				}
 				t++;
 
 				glTranslatef(grid, 0.0f, 0.0f);
 			}
+
 			glTranslatef(resetX, grid, 0.0f);
 		}
-        //glDisable(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
 		glPopMatrix();
 	}
 

@@ -235,6 +235,7 @@ namespace math {
 		vec.addTo(mUp.scale(rhs.y));
 		vec.addTo(mForward.scale(rhs.z));
 		mPosition.addTo(vec);
+		mTarget.addTo(vec);
 		
 		mDirty = true;
 		//calcMatrix();
@@ -247,6 +248,7 @@ namespace math {
 		vec.addTo(mForward.scale(z));
 		vec.y = -vec.y;
 		mPosition.addTo(vec);
+		mTarget.addTo(vec);
 		
 		mDirty = true;
 		//calcMatrix();
@@ -300,7 +302,7 @@ namespace math {
 		toPosition.scaleBy(1.0 / len);
 		Matrix4f m;
 		m.rotate(mRight, dy);
-		m.transformVectorConst(toPosition);
+		//m.transformVectorConst(toPosition);
 		
 		if (mForCamera)
 		{

@@ -466,7 +466,7 @@ namespace sys {
 		game::PlayerController *controller = new game::PlayerController();
 		mPlayer->setController(controller);
 
-		game->getCamera()->followObject(mPlayer.get());
+		game->setFollowingObject(mPlayer);
 
 		ui::GameHud *gameHud = game::Engine::getEngine()->getGameHud();
 		if (gameHud)

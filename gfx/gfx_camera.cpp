@@ -177,11 +177,11 @@ namespace gfx {
             
 			if (mPerspective)
 			{
-				mTransform.setTarget(-x , y , 0, true);
+				mTransform.setTarget(-x + resolutionWidth , y - halfHeight , 0, true);
 			}
 			else
 			{
-				mTransform.setTarget(-x + halfWidth, -y + halfHeight);
+				mTransform.setTarget(-x + halfWidth, -y + halfHeight, 0, true);
 			}
         }
         glMultMatrixf(mTransform.data());
