@@ -3,6 +3,8 @@
 namespace am {
 namespace gfx {
 
+	class Font;
+
 	class TextureWindow 
 	{
 	public:
@@ -28,7 +30,7 @@ namespace gfx {
 		void createSubWindow(TextureWindow &sub) const;
 
 		friend class IFont;
-		friend class Font;
+		friend class am::gfx::Font;
 		friend class Asset;
 
 	protected:

@@ -32,8 +32,6 @@ namespace gfx {
 	public:
 		virtual ~GfxEngine();
 
-		// TODO!
-		//int reloadAsset(const char *assetName);
 		AssetMap &getAssetMap();
 
 		void addAsset(Asset *asset);
@@ -42,7 +40,6 @@ namespace gfx {
 		Asset *getAsset(const char *name, bool reload=false);
 
 		base::ReturnCode getTexture(const char *textureName, Texture *&texture);
-		//int reloadTexture(const char *textureName);
 		TextureMap &getTextureMap();
 
 		Font *getFont(const char *fontName);
@@ -75,9 +72,6 @@ namespace gfx {
 		void setCursorHidden(bool hide);
 		bool isCursorHidden() const;
 
-		void setCameraLocation(float x, float y);
-		float getCameraX() const;
-		float getCameraY() const;
         void setCamera(Camera *camera);
         Camera *getCamera() const;
 
@@ -102,8 +96,6 @@ namespace gfx {
 		int mScreenWidth;
 		int mScreenHeight;
 
-		float mCameraX;
-		float mCameraY;
         base::Handle<Camera> mCamera;
 
 		base::Handle<Renderable> mCursor;
@@ -120,7 +112,6 @@ namespace gfx {
 		base::Handle<Layer> mUILayer;
 		base::Handle<Layer> mTooltipLayer;
 		base::Handle<Layer> mDebugLayer;
-
 
 		std::vector<util::Colour> mColourStack;
 

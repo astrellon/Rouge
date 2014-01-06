@@ -40,10 +40,8 @@ namespace gfx {
 
 	GfxEngine::GfxEngine() :
 		mHideCursor(false),
-		//mCameraX(0),
-		//mCameraY(0),
-		//mScreenWidth(-1),
-		//mScreenHeight(-1),
+		mScreenWidth(2),
+		mScreenHeight(2),
 		mForceReloadMode(false)
 	{
 		
@@ -208,29 +206,12 @@ namespace gfx {
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
-		//setOrthographic();
-
-        //float halfWidth = static_cast<float>(mScreenWidth / 2);
-        //float halfHeight = static_cast<float>(mScreenHeight / 2); 
-
-
-        //setPerspective();
-       
         mCamera->apply(mScreenWidth, mScreenHeight);
         mGameLayer->render(dt);
 
         glLoadIdentity();
         setOrthographic();
         mUILayer->render(dt);
-
-		//mGameLayer->setPosition(-mCameraX + halfWidth, -mCameraY + halfHeight);
-
-		//mRootLayer->render(dt);
-
-		/*if (mDebugLayer->isVisible())
-		{
-			mDebugLayer->render(dt);
-		}*/
 		
 		if (mCursor.get() && !mHideCursor && mCursor->isVisible())
 		{
@@ -248,11 +229,6 @@ namespace gfx {
 			mUILayer->setWidth(static_cast<float>(width));
 			mUILayer->setHeight(static_cast<float>(height));
 		}
-		/*if (mDebugLayer.get())
-		{
-			mDebugLayer->setWidth(static_cast<float>(width));
-			mDebugLayer->setHeight(static_cast<float>(height));
-		}*/
 		glViewport (0, 0, static_cast<GLsizei>(width), static_cast<GLsizei>(height));
 	}
 
@@ -329,26 +305,7 @@ namespace gfx {
 		
 		return result;
 	}
-	/*int GfxEngine::reloadTexture(const char *filename)
-	{
-		std::string fileStr = filename;
-		TextureMap::iterator iter = mTextureManager.find(fileStr);
-		if (iter == mTextureManager.end())
-		{
-			// Cannot reload if it was never loaded.
-			std::stringstream errss;
-			errss << "Unable to reload texture '" << fileStr << "' as it was never loaded.";
-			am_log("GFX", errss);
-			return 0;
-		}
 
-		Texture *texture = iter->second;
-		if (!texture->reload())
-		{
-			return -1;
-		}
-		return 1;
-	}*/
 	TextureMap &GfxEngine::getTextureMap()
 	{
 		return mTextureManager;
@@ -399,20 +356,6 @@ namespace gfx {
 	bool GfxEngine::isCursorHidden() const
 	{
 		return mHideCursor;
-	}
-
-	void GfxEngine::setCameraLocation(float x, float y)
-	{
-		mCameraX = x;
-		mCameraY = y;
-	}
-	float GfxEngine::getCameraX() const
-	{
-		return mCameraX;
-	}
-	float GfxEngine::getCameraY() const
-	{
-		return mCameraY;
 	}
 
     void GfxEngine::setCamera(Camera *camera)
