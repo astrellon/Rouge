@@ -69,9 +69,9 @@ namespace ui {
 		{
 			return;
 		}
-		if (e->isSystemKey())
+		int key = e->getKey();
+		if (e->isSystemKey() || key == 8)
 		{
-			int key = e->getKey();
 			bool ctrlDown = KeyboardManager::getManager()->isKeyDown(17);
 			// Backspace
 			if (key == 8)
