@@ -110,14 +110,14 @@ namespace math {
 	}
 	void Transform::setPosition(const float &x, const float &y, const float &z, bool keepDirection)
 	{
+        double toTarget = 0.0;
 		if (keepDirection)
 		{
-			double toTarget = mTarget.sub(mPosition).length();
+			toTarget = mTarget.sub(mPosition).length();
     		if (toTarget < 0.001)
     		{
     			toTarget = 1.0;
     		}
-			mTarget = mPosition.add(mForward.scale(toTarget));
 		}
 
 		mPosition.x = x;
@@ -140,6 +140,10 @@ namespace math {
         {
         	lookAtTarget();
         }
+        else
+        {
+			mTarget = mPosition.add(mForward.scale(toTarget));
+        }
 		mDirty = true;
 	}
 	
@@ -153,14 +157,14 @@ namespace math {
 	}
     void Transform::setTarget(const float &x, const float &y, const float &z, bool keepDirection)
     {
+        double toTarget = 0.0;
     	if (keepDirection)
     	{
-    		double toTarget = mTarget.sub(mPosition).length();
+    		toTarget = mTarget.sub(mPosition).length();
     		if (toTarget < 0.001)
     		{
     			toTarget = 1.0;
     		}
-    		mPosition = mTarget.sub(mForward.scale(toTarget));
     	}
 
 		mTarget.x = x;
@@ -171,6 +175,10 @@ namespace math {
 		{
 			lookAtTarget();
 		}
+        else
+        {
+    		mPosition = mTarget.sub(mForward.scale(toTarget));
+        }
 		mDirty = true;
     }
 	
