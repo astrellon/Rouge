@@ -1,7 +1,7 @@
 do
 	-- Grass
 	am.gfx_engine.asset(am.asset.new("grass")
-		:texture("data/textures/tiles/cartoonGrass.png")
+		:texture("data/textures/tiles/cartoonGrass2.png")
 		--:texture_window_pixel({bottom_y = 64})
 		:num_frames(4, 2))
 		
