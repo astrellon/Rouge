@@ -35,7 +35,7 @@ namespace tests {
 		rootLayer->addEventListener(ui::Mouse::MOUSE_DOWN, &layerListener);
 
 		ui::MouseManager *manager = ui::MouseManager::getManager();
-		manager->setRootLayer(rootLayer);
+		manager->setUILayer(rootLayer);
 
 		manager->onMouseDown(ui::Mouse::LEFT_BUTTON, 0, 0);
 		assert(nullptr == targetListener.lastEvent.get());

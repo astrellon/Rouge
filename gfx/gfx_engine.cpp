@@ -93,8 +93,6 @@ namespace gfx {
 		mRootLayer->setName("RootLayer");
 		mRootLayer->setInteractive(true);
 
-		MouseManager::getManager()->setRootLayer(mRootLayer);
-
 		mGameLayer = new Layer();
 		mGameLayer->setName("GameLayer");
 		mGameLayer->setInteractive(true);
@@ -120,6 +118,10 @@ namespace gfx {
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
         mUILayer->addChild(mDebugLayer);
+
+		MouseManager::getManager()->setGameLayer(mGameLayer);
+		MouseManager::getManager()->setUILayer(mUILayer);
+		MouseManager::getManager()->setGameCamera(mCamera);
 		
 		//Asset *cursorAsset = getAssetLua("cursor");
 		Asset *cursorAsset = getAsset("ui:cursor");

@@ -12,6 +12,7 @@ namespace am {
 namespace gfx {
 	class Renderable;
 	class Layer;
+	class Camera;
 }
 
 namespace ui {
@@ -24,6 +25,7 @@ namespace ui {
 		~MouseManager();
 
 		gfx::Renderable *checkForMouseEvent(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
+		gfx::Renderable *checkForMouseEventAdj(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y);
 		gfx::Renderable *getUnderMouse() const;
 		bool getButtonDown(Mouse::Button button);
 
@@ -39,8 +41,13 @@ namespace ui {
 
 		void fireMouseEvent(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
 
-		void setRootLayer(gfx::Layer *layer);
-		gfx::Layer *getRootLayer() const;
+		void setGameLayer(gfx::Layer *layer);
+		gfx::Layer *getGameLayer() const;
+		void setUILayer(gfx::Layer *layer);
+		gfx::Layer *getUILayer() const;
+
+		void setGameCamera(gfx::Camera *camera);
+		gfx::Camera *getGameCamera() const;
 
 		int getMouseX() const;
 		int getMouseY() const;
@@ -51,7 +58,10 @@ namespace ui {
 	protected:
 
 		base::Handle<gfx::Renderable> mUnderMouse;
-		base::Handle<gfx::Layer> mRootLayer;
+		//base::Handle<gfx::Layer> mRootLayer;
+		base::Handle<gfx::Camera> mGameCamera;
+		base::Handle<gfx::Layer> mUILayer;
+		base::Handle<gfx::Layer> mGameLayer;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;
