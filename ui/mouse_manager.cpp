@@ -19,7 +19,8 @@ namespace ui {
 		mDragOffsetX(0),
 		mDragOffsetY(0),
 		mMouseX(0),
-		mMouseY(0)
+		mMouseY(0),
+		mGfxEngine(nullptr)
 	{
 
 	}
@@ -34,10 +35,10 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mUILayer, ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
+		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEventAdj(mGameLayer, ui::Mouse::MOUSE_DOWN, mouseButton, x, y);
+			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_DOWN, mouseButton, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse down", getPath(hitTarget));
 		if (hitTarget == nullptr)
@@ -57,10 +58,10 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mUILayer, ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
+		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEventAdj(mGameLayer, ui::Mouse::MOUSE_MOVE, mouseButton, x, y);
+			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_MOVE, mouseButton, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse move", getPath(hitTarget));
 		if (hitTarget == nullptr)
@@ -83,10 +84,10 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mUILayer, ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
+		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
 		if (!hitTarget)
 		{
-			hitTarget = checkForMouseEventAdj(mGameLayer, ui::Mouse::MOUSE_UP, mouseButton, x, y);
+			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_UP, mouseButton, x, y);
 		}
 		DebugInspector::getInspector()->setValue("mouse up", getPath(hitTarget));
 		if (hitTarget == nullptr)
@@ -179,8 +180,8 @@ namespace ui {
 
 	gfx::Renderable *MouseManager::checkForMouseEventAdj(gfx::Renderable *target, ui::Mouse::EventType mouseType, ui::Mouse::Button mouseButton, int x, int y)
 	{
-		int localX = x;// mGameCamera->getLocationX();
-		int localY = y;// mGameCamera->getLocationY();
+		int localX = x + mGfxEngine->getScreenWidth() / 2;
+		int localY = y + mGfxEngine->getScreenHeight() / 2;
 		return checkForMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
 	}
 	gfx::Renderable *MouseManager::getUnderMouse() const
@@ -246,30 +247,13 @@ namespace ui {
 		return sMainManager;
 	}
 
-	void MouseManager::setUILayer( gfx::Layer *layer )
+	void MouseManager::setGfxEngine(gfx::GfxEngine *engine)
 	{
-		mUILayer = layer;
+		mGfxEngine = engine;
 	}
-	gfx::Layer *MouseManager::getUILayer() const
+	gfx::GfxEngine *MouseManager::getGfxEngine() const
 	{
-		return mUILayer;
-	}
-	void MouseManager::setGameLayer( gfx::Layer *layer )
-	{
-		mGameLayer = layer;
-	}
-	gfx::Layer *MouseManager::getGameLayer() const
-	{
-		return mGameLayer;
-	}
-
-	void MouseManager::setGameCamera( gfx::Camera *camera )
-	{
-		mGameCamera = camera;
-	}
-	gfx::Camera *MouseManager::getGameCamera() const
-	{
-		return mGameCamera;
+		return mGfxEngine;
 	}
 
 	std::string MouseManager::getPath(gfx::Renderable *target)

@@ -46,6 +46,7 @@ namespace am {
 
 		ui::MouseManager *mouseManager = new ui::MouseManager();
 		mouseManager->retain();
+		mouseManager->setGfxEngine(gfx::GfxEngine::getEngine());
 		ui::MouseManager::setManager(mouseManager);
 	
 		ui::KeyboardManager *keyboardManager = new ui::KeyboardManager();

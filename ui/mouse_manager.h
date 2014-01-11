@@ -11,8 +11,7 @@
 namespace am {
 namespace gfx {
 	class Renderable;
-	class Layer;
-	class Camera;
+	class GfxEngine;
 }
 
 namespace ui {
@@ -41,13 +40,8 @@ namespace ui {
 
 		void fireMouseEvent(gfx::Renderable *target, Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y, int localX, int localY);
 
-		void setGameLayer(gfx::Layer *layer);
-		gfx::Layer *getGameLayer() const;
-		void setUILayer(gfx::Layer *layer);
-		gfx::Layer *getUILayer() const;
-
-		void setGameCamera(gfx::Camera *camera);
-		gfx::Camera *getGameCamera() const;
+		void setGfxEngine(gfx::GfxEngine *engine);
+		gfx::GfxEngine *getGfxEngine() const;
 
 		int getMouseX() const;
 		int getMouseY() const;
@@ -58,10 +52,7 @@ namespace ui {
 	protected:
 
 		base::Handle<gfx::Renderable> mUnderMouse;
-		//base::Handle<gfx::Layer> mRootLayer;
-		base::Handle<gfx::Camera> mGameCamera;
-		base::Handle<gfx::Layer> mUILayer;
-		base::Handle<gfx::Layer> mGameLayer;
+		gfx::GfxEngine *mGfxEngine;
 
 		bool mStopCurrentEvents;
 		bool mFiredEvent;

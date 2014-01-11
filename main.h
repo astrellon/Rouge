@@ -23,7 +23,9 @@
 
 #include <sys/game_system.h>
 #include <sys/rouge_system.h>
-#include <sys/unit_test_system.h>
+#ifdef TESTING
+#	include <sys/tests/unit_test_system.h>
+#endif
 #include <sys/mem_test_system.h>
 #include <ui/mouse_manager.h>
 #include <ui/keyboard_manager.h>

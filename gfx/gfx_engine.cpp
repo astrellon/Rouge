@@ -119,10 +119,6 @@ namespace gfx {
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
         mUILayer->addChild(mDebugLayer);
 
-		MouseManager::getManager()->setGameLayer(mGameLayer);
-		MouseManager::getManager()->setUILayer(mUILayer);
-		MouseManager::getManager()->setGameCamera(mCamera);
-		
 		//Asset *cursorAsset = getAssetLua("cursor");
 		Asset *cursorAsset = getAsset("ui:cursor");
 		if (cursorAsset == nullptr)
