@@ -25,7 +25,12 @@ do
     -- Sand Transition
     am.gfx_engine.asset(am.asset.new("sand_transition")
         :texture("data/textures/tiles/cartoonSandTransition.png")
-        :num_frames(16,2))
+        :num_frames(16, 2))
+
+    -- Sand to Water Transition
+    am.gfx_engine.asset(am.asset.new("sand_water_transition")
+        :texture("data/textures/tiles/cartoonSandTransitionWater.png")
+        :num_frames(16, 2))
 		
 	-- Swamp
 	am.gfx_engine.asset(am.asset.new("swamp")
