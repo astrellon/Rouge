@@ -180,9 +180,9 @@ namespace ui {
 
 	gfx::Renderable *MouseManager::checkForMouseEventAdj(gfx::Renderable *target, ui::Mouse::EventType mouseType, ui::Mouse::Button mouseButton, int x, int y)
 	{
-		int localX = x + mGfxEngine->getScreenWidth() / 2;
-		int localY = y + mGfxEngine->getScreenHeight() / 2;
-		return checkForMouseEvent(target, mouseType, mouseButton, x, y, localX, localY);
+		x -= (mGfxEngine->getScreenWidth() / 2 - mGfxEngine->getCamera()->getLocationX());
+		y -= (mGfxEngine->getScreenHeight() / 2 - mGfxEngine->getCamera()->getLocationY());
+		return checkForMouseEvent(target, mouseType, mouseButton, x, y, x, y);
 	}
 	gfx::Renderable *MouseManager::getUnderMouse() const
 	{
