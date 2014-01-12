@@ -58,7 +58,6 @@ namespace game {
 				// Wait for 1 second.
 				am_log("PLYER", "Wait");
 				setGameTick(1.0f);
-				mActive = false;
 				return;
 			}
 		}
@@ -68,16 +67,6 @@ namespace game {
 		mCharacter = character;
 		Engine::getGame()->setGameTickPaused(true);
 		mActive = true;
-
-		//const bool *pressed = KeyboardManager::getManager()->getKeysPressed();
-		/*if (pressed[40])
-		{
-			move(0, -1);
-		}*/
-		/*if (mMoveX != 0 && mMoveY != 0)
-		{
-			performAction();
-		}*/
 	}
 
 	void PlayerController::move(int dx, int dy)
@@ -93,11 +82,10 @@ namespace game {
 		ss << "Wait time: " << waitTime << " (" << mCharacter->getSpeed() << ")";
 		//am_log("PLYR", ss);
 
+        mCharacter->clearDestination();
 		mCharacter->moveGrid(dx, dy);
 		Game *game = Engine::getGame();
 		mCharacter = nullptr;
-
-		mActive = false;
 
 		setGameTick(waitTime);
 	}
@@ -107,6 +95,7 @@ namespace game {
 		Game *game = Engine::getGame();
 		game->setCurrentGameTickLength(dt);
 		game->setGameTickPaused(false);
+	    mActive = false;
 	}
 
 	void PlayerController::detach()
