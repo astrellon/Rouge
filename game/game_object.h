@@ -145,6 +145,9 @@ namespace game {
 		virtual bool isInMapRegion(MapRegion *region) const;
 		virtual const MapRegion::MapRegionList &getMapRegions() const;
 
+        virtual void setInteractWithFunc(int funcRef);
+        virtual int getInteractWithFunc() const;
+
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);
 
@@ -181,6 +184,8 @@ namespace game {
 		base::Handle<sfx::ISource> mSoundSource;
 
 		MapRegion::MapRegionList mMapRegions;
+
+        int mInteractWithFunc;
 
 		void applyToSource();
 

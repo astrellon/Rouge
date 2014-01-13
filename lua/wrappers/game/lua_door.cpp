@@ -149,6 +149,7 @@ namespace game {
 			{ "game_id", Door_game_id },
 			{ "find", Door_find },
 			{ "dialogue_component", Door_dialogue_component },
+            { "interact_with", Door_interact_with },
 			// EventListener methods
 			{ "on", Door_add_event_listener },
 			{ "off", Door_remove_event_listener },
@@ -696,6 +697,31 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "id", "am.door");
 	}
+
+    /**
+     * Returns the interacting with function, returns nil if no Lua function
+     * was set.
+     *
+     * @returns function The interact with function.
+     */
+    /**
+     * Sets the interact with function. This can be used to override the 
+     * default interaction behaviour. If this function does not specify that
+     * it the game object was interacted with, then the default behaviour is
+     * executed.
+     *
+     * @param function func The new interact with functionality.
+     * @returns am.door This
+     */
+    int Door_interact_with(lua_State *lua)
+    {
+        Door *obj = castUData<Door>(lua, 1);
+        if (obj)
+        {
+            return GameObject_interact_with(lua, obj);
+        }
+        return LuaState::expectedContext(lua, "interact_with", "am.door");
+    }
 	
 	/**
 	 * Adds an event listener for an event fired on this door.

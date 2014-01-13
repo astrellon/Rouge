@@ -215,6 +215,7 @@ namespace game {
 			{ "add_level", Character_add_level },
 			{ "max_level", Character_max_level },
 			{ "ai_func", Character_ai_func },
+            { "interact_with", Character_interact_with },
 			// Attributes
 			{ "attrs", Character_attrs },
 			{ "debug", Character_debug },
@@ -1662,20 +1663,77 @@ namespace game {
 		return LuaState::expectedContext(lua, "attrs", "am.character");
 	}
 
+    /**
+     * Returns the function used by the AI to run.
+     * 
+     * @returns function The AI function, can be nil.
+     */
+    /**
+     * Sets the AI function, the function takes 2 parameters, the
+     * character currently being processed and the current delta time.
+     * The function can be set to nil for default behaviour.
+     *
+     * @param function func The new AI function.
+     * @returns am.character This
+     */
 	int Character_ai_func(lua_State *lua)
 	{
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			if (lua_isfunction(lua, -1))
-			{
-				int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
-				obj->setAIFunc(funcRef);
-				lua_first(lua);
-			}
-			return LuaState::expectedArgs(lua, "ai_func", "function function");
+            if (lua_gettop(lua) == 1)
+            {
+                int funcRef = obj->getAIFunc();
+                if (funcRef == LUA_REFNIL)
+                {
+                    lua_pushnil(lua);
+                    return 1;
+                }
+                lua_rawgeti(lua, LUA_REGISTRYINDEX, funcRef);
+                return 1;
+            }
+            else
+            {
+                if (lua_isnil(lua, 2))
+                {
+                    obj->setAIFunc(LUA_REFNIL);
+                    lua_first(lua);
+                }
+    			if (lua_isfunction(lua, -1))
+	    		{
+		    		int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+			    	obj->setAIFunc(funcRef);
+    				lua_first(lua);
+	    		}
+            }
+			return LuaState::expectedArgs(lua, "ai_func", 2, "function function, nil function");
 		}
 		return LuaState::expectedContext(lua, "ai_func", "am.character");
+	}
+    
+    /**
+     * Returns the interacting with function, returns nil if no Lua function
+     * was set.
+     *
+     * @returns function The interact with function.
+     */
+    /**
+     * Sets the interact with function. This can be used to override the 
+     * default interaction behaviour. If this function does not specify that
+     * it the game object was interacted with, then the default behaviour is
+     * executed.
+     *
+     * @param function func The new interact with functionality.
+     * @returns am.character This
+     */
+    int Character_interact_with(lua_State *lua)
+    {
+		Character *obj = castUData<Character>(lua, 1);
+		if (obj)
+		{
+            return GameObject_interact_with(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "interact_with", "am.character");
 	}
 
 	void charRelease(base::IManaged *obj)

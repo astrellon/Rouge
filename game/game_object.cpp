@@ -23,6 +23,7 @@
 #include <sfx/sfx_source_area.h>
 
 #include <lua/wrappers/lua_id_table.h>
+#include <lua/wrappers/game/lua_game.h>
 
 namespace am {
 namespace game {
@@ -43,7 +44,8 @@ namespace game {
 		mFixedToGrid(false),
 		mOnlyOnPassable(false),
 		mMap(nullptr),
-		mOriginalMap(nullptr)
+		mOriginalMap(nullptr),
+        mInteractWithFunc(LUA_REFNIL)
 	{
 		setName("GameObject");
 		Engine::getEngine()->registerGameObject(this);
@@ -62,7 +64,8 @@ namespace game {
 		mPassibleTypes(copy.mPassibleTypes),
 		mMap(nullptr),
 		mOriginalMap(nullptr),
-		mDescription(copy.mDescription)
+		mDescription(copy.mDescription),
+        mInteractWithFunc(copy.mInteractWithFunc)
 	{
 		if (copy.mMap)
 		{
@@ -268,6 +271,25 @@ namespace game {
     GameObject::InteractResult GameObject::interactWith(GameObject *interacter, bool byMovement)
 	{
 		// Do nothing
+        // Call lua function.
+        lua::LuaState &lua = Engine::getEngine()->getLua();
+        lua_rawgeti(lua, LUA_REGISTRYINDEX, getInteractWithFunc());
+        lua::game::wrapGameObject(lua, this);
+        lua::game::wrapGameObject(lua, interacter);
+        lua_pushboolean(lua, byMovement);
+        //lua::wrapRefObject<Character>(lua, character);
+        //lua_pushnumber(lua, dt);
+        lua_acall(lua, 3, 1);
+
+        int result = lua_tointeger(lua, -1);
+        if (result > 0) 
+        {
+            return DID_INTERACT;
+        }
+        else if (result < 0)
+        {
+            return DO_NOT_INTERACT;
+        }
 		return DID_NOT_INTERACT;
 	}
 
@@ -630,6 +652,15 @@ namespace game {
 		mSoundSource = source;
 		applyToSource();
 	}
+
+    void GameObject::setInteractWithFunc(int funcRef)
+    {
+        mInteractWithFunc = funcRef;
+    }
+    int GameObject::getInteractWithFunc() const
+    {
+        return mInteractWithFunc;
+    }
 
 	data::IData *GameObject::serialise()
 	{

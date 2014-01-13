@@ -721,6 +721,59 @@ namespace game {
 		return IAttributeData_attrs(lua, obj);
 	}
 
+    /**
+     * Returns the interacting with function, returns nil if no Lua function
+     * was set.
+     *
+     * @returns function The interact with function.
+     */
+    /**
+     * Sets the interact with function. This can be used to override the 
+     * default interaction behaviour. If this function does not specify that
+     * it the game object was interacted with, then the default behaviour is
+     * executed.
+     *
+     * @param function func The new interact with functionality.
+     * @returns am.game_object This
+     */
+
+
+    int GameObject_interact_with(lua_State *lua, GameObject *obj)
+    {
+        if (!obj)
+        {
+            return 0;
+        }
+
+        if (lua_gettop(lua) == 1)
+        {
+            int funcRef = obj->getInteractWithFunc();
+            if (funcRef == LUA_REFNIL)
+            {
+                lua_pushnil(lua);
+                return 1;
+            }
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, funcRef);
+            return 1;
+        }
+        else
+        {
+            if (lua_isnil(lua, 2))
+            {
+                obj->setInteractWithFunc(LUA_REFNIL);
+                lua_first(lua);
+            }
+            if (lua_isfunction(lua, -1))
+            {
+                int funcRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+                obj->setInteractWithFunc(funcRef);
+                lua_first(lua);
+            }
+        }
+        return LuaState::expectedArgs(lua, "interact_with", 2, "function function, nil function");
+
+    }
+
 }
 }
 }

@@ -39,6 +39,8 @@ namespace game {
 	int GameObject_dialogue_component(lua_State *lua, GameObject *obj);
 	int GameObject_game_id(lua_State *lua, GameObject *obj);
 
+    int GameObject_interact_with(lua_State *lua, GameObject *obj);
+
 	int GameObject_add_event_listener(lua_State *lua, GameObject *obj);
 	int GameObject_remove_event_listener(lua_State *lua, GameObject *obj);
 	int GameObject_has_event_listener(lua_State *lua, GameObject *obj);

@@ -172,6 +172,7 @@ namespace game {
 			{ "has_passible_type", nullptr },
 			{ "get_passible_types", nullptr },
 			{ "game_id", Item_game_id },
+            { "interact_with", Item_interact_with },
 			// EventListener methods
 			{ "on", Item_add_event_listener },
 			{ "off", Item_remove_event_listener },
@@ -1191,6 +1192,32 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "id", "am.item");
 	}
+
+    /**
+     * Returns the interacting with function, returns nil if no Lua function
+     * was set.
+     *
+     * @returns function The interact with function.
+     */
+    /**
+     * Sets the interact with function. This can be used to override the 
+     * default interaction behaviour. If this function does not specify that
+     * it the game object was interacted with, then the default behaviour is
+     * executed.
+     *
+     * @param function func The new interact with functionality.
+     * @returns am.item This
+     */
+    int Item_interact_with(lua_State *lua)
+    {
+        Item *obj = castUData<Item>(lua, 1);
+        if (obj)
+        {
+            return GameObject_interact_with(lua, obj);
+        }
+        return LuaState::expectedContext(lua, "interact_with", "am.item");
+    }
+
 	
 	/**
 	 * Adds an event listener for an event fired on this item.

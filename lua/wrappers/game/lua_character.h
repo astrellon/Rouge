@@ -92,6 +92,7 @@ namespace game {
 	int Character_max_level(lua_State *lua);
 
 	int Character_ai_func(lua_State *lua);
+    int Character_interact_with(lua_State *lua);
 
 	int Character_debug(lua_State *lua);
 
