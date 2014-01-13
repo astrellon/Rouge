@@ -108,7 +108,7 @@ namespace game {
 		virtual void pickedUp(Character *byCharacter);
 		virtual void dropped(Character *droppedByCharacter);
 
-		virtual bool interactWith(GameObject *interacter, bool byMovement);
+		virtual InteractResult interactWith(GameObject *interacter, bool byMovement);
 
 		virtual data::IData *serialise();
 		virtual int deserialise(LoadingState *state, data::IData *data);

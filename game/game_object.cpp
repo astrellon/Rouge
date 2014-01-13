@@ -265,10 +265,10 @@ namespace game {
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
 	}
 
-	bool GameObject::interactWith(GameObject *interacter, bool byMovement)
+    GameObject::InteractResult GameObject::interactWith(GameObject *interacter, bool byMovement)
 	{
 		// Do nothing
-		return false;
+		return DID_NOT_INTERACT;
 	}
 
 	bool GameObject::interactWithLayer() const
@@ -332,9 +332,13 @@ namespace game {
  		ObjectList objs;
 		if (mMap->getGameObjectsAt(newGridX, newGridY, objs))
 		{
-			if (objs.size() > 0 && objs[0]->interactWith(this, true))
+			if (objs.size() > 0)
 			{
-				return false;
+				GameObject::InteractResult interacted = objs[0]->interactWith(this, true);
+				if (interacted != GameObject::DID_NOT_INTERACT)
+				{
+					return false;
+				}
 			}
 		}
 		float dx = 0.0f;
@@ -373,9 +377,14 @@ namespace game {
 		ObjectList objs;
 		if (mMap->getGameObjectsAt(newGridX, newGridY, objs))
 		{
-			if (objs.size() > 0 && objs[0]->interactWith(this, true))
+			//if (objs.size() > 0 && objs[0]->interactWith(this, true))
+			if (objs.size() > 0)
 			{
-				return false;
+				GameObject::InteractResult interacted = objs[0]->interactWith(this, true);
+				if (interacted != GameObject::DID_NOT_INTERACT)
+				{
+					return false;
+				}
 			}
 		}
 		float dx = 0.0f;

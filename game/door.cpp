@@ -141,7 +141,7 @@ namespace game {
 		return mDoorRegion;
 	}
 	
-	bool Door::interactWith(GameObject *interacter, bool byMovement)
+    GameObject::InteractResult Door::interactWith(GameObject *interacter, bool byMovement)
 	{
 		if (isOpened() && !byMovement)
 		{
@@ -153,16 +153,12 @@ namespace game {
 			{
 				setOpened(true);
 			}
-			/*else
-			{
-				return true;
-			}*/
 		}
 		else
 		{
 			setOpened(true);
 		}
-		return false;
+		return DID_INTERACT;
 	}
 
 	void Door::update(float dt)

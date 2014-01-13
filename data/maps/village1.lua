@@ -76,8 +76,6 @@ do
 			local width, height = map:map_size()
 			local x = math.modf(math.random(0, width - 1))
 			local y = math.modf(math.random(0, height - 1))
-			x = 5
-			y = 5
 			char:grid_destination(x, y)
 		end
 	end)

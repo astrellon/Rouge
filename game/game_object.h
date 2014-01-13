@@ -46,6 +46,11 @@ namespace game {
 			UNKNOWN, ARROW, BLUNT, PIERCING, FALLING, FIRE, COLD, MAGICAL, ACID, MAX_DAMAGE_TYPE
 		};
 
+        enum InteractResult
+        {
+            DID_INTERACT, DID_NOT_INTERACT, DO_NOT_INTERACT
+        };
+
 		typedef std::vector< base::Handle<TileType> > PassibleTypeList;
 		typedef std::map<std::string, bool> SubjectMap;
 
@@ -130,7 +135,7 @@ namespace game {
 		// Returns true if the interaction prevents movement.
 		// If byMovement is true then the interaction is from the game object moving to
 		// interact with the game object. Otherwise it's from the UI (ie clicking).
-		virtual bool interactWith(GameObject *interacter, bool byMovement);
+		virtual InteractResult interactWith(GameObject *interacter, bool byMovement);
 
 		// Layer methods
 		virtual bool interactWithLayer() const;

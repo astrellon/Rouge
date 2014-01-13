@@ -123,7 +123,7 @@ namespace game {
 		virtual bool canReachGameObject(const GameObject *obj) const;
 		virtual bool canReachLocation(float x, float y) const;
 
-		virtual bool interactWith(GameObject *interacter, bool byMovement);
+		virtual InteractResult interactWith(GameObject *interacter, bool byMovement);
 
 		virtual base::ReturnCode attack(GameObject *enemy, Item *withItem);
 		virtual void receiveDamage(float damage);

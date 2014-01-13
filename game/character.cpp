@@ -770,23 +770,29 @@ namespace game {
 		return true;
 	}
 
-	bool Character::interactWith(GameObject *interacter, bool byMovement)
+    GameObject::InteractResult Character::interactWith(GameObject *interacter, bool byMovement)
 	{
+        InteractResult result = GameObject::interactWith(interacter, byMovement);
+        if (result != DID_NOT_INTERACT)
+        {
+            return result;
+        }
+
 		if (interacter->getGameObjectType() != CHARACTER)
 		{
-			return false;
+			return DID_NOT_INTERACT;
 		}
 		Character *obj = dynamic_cast<Character *>(interacter);
 		// Don't interact with yourself and currently only interact with the main character.
 		if (obj == this || obj != Engine::getGame()->getMainCharacter())
 		{
-			return false;
+			return DO_NOT_INTERACT;
 		}
 		if (obj->getDialogueComp() && getDialogueComp() && getDialogueComp()->getStartDialogue())
 		{
 			obj->getDialogueComp()->talkTo(this);
 		}
-		return true;
+		return DID_INTERACT;
 	}
 
 	const char *Character::getGameObjectTypeName() const

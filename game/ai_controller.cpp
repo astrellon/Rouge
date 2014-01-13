@@ -52,13 +52,6 @@ namespace game {
 		}
 		else
 		{
-			/*if (!character->hasDestination())
-			{
-				Map *map = Engine::getGame()->getCurrentMap();
-				float destX = Utils::randf() * static_cast<float>(map->getMapWidth()) * Engine::gridSize();
-				float destY = Utils::randf() * static_cast<float>(map->getMapHeight()) * Engine::gridSize();
-				character->setDestination(destX, destY);
-			}*/
 		}
 		mActive = false;
 	}
