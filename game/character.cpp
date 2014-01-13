@@ -153,6 +153,7 @@ namespace game {
 		if (mAIFuncRef != LUA_REFNIL)
 		{
 			luaL_unref(Engine::getEngine()->getLua(), LUA_REGISTRYINDEX, mAIFuncRef);
+            mAIFuncRef = LUA_REFNIL;
 		}
 	}
 

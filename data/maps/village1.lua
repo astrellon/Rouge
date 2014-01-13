@@ -114,6 +114,10 @@ do
 			:name("Johns Wooden Door")
 		map:add_game_object(john_door)
 	end
+    john_door:interact_with(function(door, interacter, by_movement)
+        am.debug.log("Interacted with!")
+        return 1;
+    end)
 
 	local fred_door, new_door = am.door.new(fred:name() .. "_door")
 	if (new_door) then

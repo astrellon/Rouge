@@ -536,6 +536,12 @@ namespace game {
 
     GameObject::InteractResult Item::interactWith(GameObject *interacter, bool byMovement)
 	{
+        InteractResult result = GameObject::interactWith(interacter, byMovement);
+        if (result != DID_NOT_INTERACT)
+        {
+            return result;
+        }
+
 		// Can only be interacted with by characters and only then when this item is on the ground.
 		if (interacter->getGameObjectType() != CHARACTER || mItemLocation != GROUND || byMovement)
 		{

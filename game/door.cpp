@@ -143,9 +143,25 @@ namespace game {
 	
     GameObject::InteractResult Door::interactWith(GameObject *interacter, bool byMovement)
 	{
-		if (isOpened() && !byMovement)
+        InteractResult result = GameObject::interactWith(interacter, byMovement);
+        if (result != DID_NOT_INTERACT)
+        {
+            return result;
+        }        if (result != DID_NOT_INTERACT)
+        {
+            return result;
+        }
+
+		if (isOpened())
 		{
-			setOpened(false);
+            if (!byMovement)
+            {
+    			setOpened(false);
+            }
+            else
+            {
+                return DID_NOT_INTERACT;
+            }
 		}
 		else if (interacter->getGameObjectType() == CHARACTER)
 		{

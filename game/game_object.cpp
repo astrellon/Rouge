@@ -101,6 +101,11 @@ namespace game {
 			mOriginalMap = nullptr;
 			map->release();
 		}
+        if (mInteractWithFunc != LUA_REFNIL)
+        {
+            luaL_unref(Engine::getEngine()->getLua(), LUA_REGISTRYINDEX, mInteractWithFunc);
+            mInteractWithFunc = LUA_REFNIL;
+        }
 	}
 
 	void GameObject::update(float dt)
@@ -270,25 +275,26 @@ namespace game {
 
     GameObject::InteractResult GameObject::interactWith(GameObject *interacter, bool byMovement)
 	{
-		// Do nothing
-        // Call lua function.
-        lua::LuaState &lua = Engine::getEngine()->getLua();
-        lua_rawgeti(lua, LUA_REGISTRYINDEX, getInteractWithFunc());
-        lua::game::wrapGameObject(lua, this);
-        lua::game::wrapGameObject(lua, interacter);
-        lua_pushboolean(lua, byMovement);
-        //lua::wrapRefObject<Character>(lua, character);
-        //lua_pushnumber(lua, dt);
-        lua_acall(lua, 3, 1);
+        int funcRef = getInteractWithFunc();
+        if (funcRef != LUA_REFNIL)
+        {
+            // Call lua function.
+            lua::LuaState &lua = Engine::getEngine()->getLua();
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, getInteractWithFunc());
+            lua::game::wrapGameObject(lua, this);
+            lua::game::wrapGameObject(lua, interacter);
+            lua_pushboolean(lua, byMovement);
+            lua_acall(lua, 3, 1);
 
-        int result = lua_tointeger(lua, -1);
-        if (result > 0) 
-        {
-            return DID_INTERACT;
-        }
-        else if (result < 0)
-        {
-            return DO_NOT_INTERACT;
+            int result = lua_tointeger(lua, -1);
+            if (result > 0) 
+            {
+                return DID_INTERACT;
+            }
+            else if (result < 0)
+            {
+                return DO_NOT_INTERACT;
+            }
         }
 		return DID_NOT_INTERACT;
 	}
