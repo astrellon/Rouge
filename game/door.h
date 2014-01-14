@@ -58,7 +58,7 @@ namespace game {
 
 		virtual MapRegion *getDoorRegion() const;
 
-		virtual InteractResult interactWith(GameObject *interacter, bool byMovement);
+		virtual base::ReturnCode interactWith(GameObject *interacter, bool byMovement);
 
 		virtual void onEvent(ui::MapRegionEvent *e);
 

@@ -150,6 +150,7 @@ namespace game {
 			{ "find", Door_find },
 			{ "dialogue_component", Door_dialogue_component },
             { "interact_with", Door_interact_with },
+            { "interact_dialogue", Door_interact_dialogue },
 			// EventListener methods
 			{ "on", Door_add_event_listener },
 			{ "off", Door_remove_event_listener },
@@ -722,7 +723,33 @@ namespace game {
         }
         return LuaState::expectedContext(lua, "interact_with", "am.door");
     }
-	
+
+    /**
+     * Executes dialogue interactions with the object.
+     * This can be used during an interact with function callback
+     * to start dialogue. This will work with any game object, unless it does
+     * not have a dialogue component.
+     *
+     * @param am.game_object interacter The game object that initiated the
+     * interaction.
+     * @param bool by_movement Flag that indicates if the interaction started
+     *  because of movement or because of other reasons, such as mouse input.
+     * @returns am.code Standard interaction results:
+     * <table class='return_codes'>
+     *  <tr><td>did_interact</td><td>Interaction occured, perform no further actions.</td></tr>
+     *  <tr><td>did_not_interact</td><td>Interaction did not occur, can perform further actions.</td></tr>
+     *  <tr><td>do_not_interact</td><td>Interaction did not occur, but do not perform any further actions.</td></tr>
+     * </table>
+     */
+    int Door_interact_dialogue(lua_State *lua)
+    {
+        Door *obj = castUData<Door>(lua, 1);
+        if (obj)
+        {
+            return GameObject_interact_dialogue(lua, obj);
+        }
+        return LuaState::expectedContext(lua, "interact_dialogue", "am.door");
+    }	
 	/**
 	 * Adds an event listener for an event fired on this door.
 	 * eg: <pre>

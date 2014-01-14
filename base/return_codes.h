@@ -14,6 +14,9 @@ namespace base {
 		// Character related.
 		ABLE_TO_EQUIP =				0x0100,
 		CAN_EQUIP =					0x0101,
+        DID_INTERACT =              0x0102,
+        DID_NOT_INTERACT =          0x0103,
+        DO_NOT_INTERACT =           0x0104,
 		BODY_PART_TYPE_MISMATCH =	-0x0100,
 		NOT_ENOUGH_BODY_PARTS =		-0x0101,
 		OUT_OF_RANGE =				-0x0102,

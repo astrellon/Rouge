@@ -141,13 +141,10 @@ namespace game {
 		return mDoorRegion;
 	}
 	
-    GameObject::InteractResult Door::interactWith(GameObject *interacter, bool byMovement)
+    base::ReturnCode Door::interactWith(GameObject *interacter, bool byMovement)
 	{
-        InteractResult result = GameObject::interactWith(interacter, byMovement);
-        if (result != DID_NOT_INTERACT)
-        {
-            return result;
-        }        if (result != DID_NOT_INTERACT)
+        base::ReturnCode result = GameObject::interactWith(interacter, byMovement);
+        if (result != base::DID_NOT_INTERACT)
         {
             return result;
         }
@@ -160,7 +157,7 @@ namespace game {
             }
             else
             {
-                return DID_NOT_INTERACT;
+                return base::DID_NOT_INTERACT;
             }
 		}
 		else if (interacter->getGameObjectType() == CHARACTER)
@@ -174,7 +171,7 @@ namespace game {
 		{
 			setOpened(true);
 		}
-		return DID_INTERACT;
+		return base::DID_INTERACT;
 	}
 
 	void Door::update(float dt)

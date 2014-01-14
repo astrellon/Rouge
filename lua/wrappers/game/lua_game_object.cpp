@@ -774,6 +774,40 @@ namespace game {
 
     }
 
+    /**
+     * Executes dialogue interactions with the object.
+     * This can be used during an interact with function callback
+     * to start dialogue. This will work with any game object, unless it does
+     * not have a dialogue component.
+     *
+     * @param am.game_object interacter The game object that initiated the
+     * interaction.
+     * @param bool by_movement Flag that indicates if the interaction started
+     *  because of movement or because of other reasons, such as mouse input.
+     * @returns am.code Standard interaction results:
+     * <table class='return_codes'>
+     *  <tr><td>did_interact</td><td>Interaction occured, perform no further actions.</td></tr>
+     *  <tr><td>did_not_interact</td><td>Interaction did not occur, can perform further actions.</td></tr>
+     *  <tr><td>do_not_interact</td><td>Interaction did not occur, but do not perform any further actions.</td></tr>
+     * </table>
+     */
+    int GameObject_interact_dialogue(lua_State *lua, GameObject *obj)
+    {
+        if (!obj)
+        {
+            return 0;
+        }
+
+        GameObject *interacter = getGameObject(lua, 2);
+        if (interacter && lua_isbool(lua, 3))
+        {
+            bool byMovement = lua_tobool(lua, 3);
+            lua_pushinteger(lua, obj->interactDialogue(interacter, byMovement));
+            return 1;
+        }
+        return LuaState::expectedArgs(lua, "interact_dialogue", "am.game_object interacter, bool by_movement");
+    }
+
 }
 }
 }

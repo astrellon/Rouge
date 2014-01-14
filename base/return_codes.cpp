@@ -21,6 +21,9 @@ namespace base {
 		case NO_WEAPON_PART:	return "no_weapon_part";
 		case OFF_THE_MAP:		return "off_the_map";
 		case INVALID_LOCATION:	return "invalid_location";
+        case DID_INTERACT:      return "did_interact";
+        case DID_NOT_INTERACT:  return "did_not_interact";
+        case DO_NOT_INTERACT:   return "do_not_interact";
 			// Body Parts
 		case BODY_PART_FOUND:		return "body_part_found";
 		case BODY_PART_NOT_FOUND:	return "body_part_not_found";
@@ -60,6 +63,9 @@ namespace base {
 		case NO_WEAPON_PART:	return "this character has no body parts that can attack.";
 		case OFF_THE_MAP:		return "given location is outside of the map bounds.";
 		case INVALID_LOCATION:	return "given location is invalid for the game object.";
+        case DID_INTERACT:      return "the interacter was interacted with, perform no more actions.";
+        case DID_NOT_INTERACT:  return "the interacter was not interacted with, further actions can be performed.";
+        case DO_NOT_INTERACT:   return "the interacter was not interacted with, but perform no more actions.";
 			// Body Parts
 		case BODY_PART_FOUND:		return "body part was already found in the parts list.";
 		case BODY_PART_NOT_FOUND:	return "unable to find the body part with the given part name.";

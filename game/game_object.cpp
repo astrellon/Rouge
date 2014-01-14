@@ -273,7 +273,7 @@ namespace game {
 		return sqrt(static_cast<float>(dx * dx + dy * dy));
 	}
 
-    GameObject::InteractResult GameObject::interactWith(GameObject *interacter, bool byMovement)
+    base::ReturnCode GameObject::interactWith(GameObject *interacter, bool byMovement)
 	{
         int funcRef = getInteractWithFunc();
         if (funcRef != LUA_REFNIL)
@@ -287,18 +287,31 @@ namespace game {
             lua_acall(lua, 3, 1);
 
             int result = lua_tointeger(lua, -1);
-            if (result > 0) 
+            if (result == base::DID_INTERACT || result == base::DO_NOT_INTERACT)
             {
-                return DID_INTERACT;
-            }
-            else if (result < 0)
-            {
-                return DO_NOT_INTERACT;
+                return static_cast<base::ReturnCode>(result);
             }
         }
-		return DID_NOT_INTERACT;
+		return base::DID_NOT_INTERACT;
 	}
-
+    base::ReturnCode GameObject::interactDialogue(GameObject *interacter, bool byMovement)
+    {
+        if (interacter->getGameObjectType() != CHARACTER)
+		{
+			return base::DID_NOT_INTERACT;
+		}
+		Character *obj = dynamic_cast<Character *>(interacter);
+		// Don't interact with yourself and currently only interact with the main character.
+		if (!obj || obj == this || obj != Engine::getGame()->getMainCharacter())
+		{
+			return base::DO_NOT_INTERACT;
+		}
+		if (obj->getDialogueComp() && getDialogueComp() && getDialogueComp()->getStartDialogue())
+		{
+			obj->getDialogueComp()->talkTo(this);
+		}
+		return base::DID_INTERACT;
+    }
 	bool GameObject::interactWithLayer() const
 	{
 		return true;
@@ -362,8 +375,8 @@ namespace game {
 		{
 			if (objs.size() > 0)
 			{
-				GameObject::InteractResult interacted = objs[0]->interactWith(this, true);
-				if (interacted != GameObject::DID_NOT_INTERACT)
+                base::ReturnCode interacted = objs[0]->interactWith(this, true);
+				if (interacted != base::DID_NOT_INTERACT)
 				{
 					return false;
 				}
@@ -408,8 +421,8 @@ namespace game {
 			//if (objs.size() > 0 && objs[0]->interactWith(this, true))
 			if (objs.size() > 0)
 			{
-				GameObject::InteractResult interacted = objs[0]->interactWith(this, true);
-				if (interacted != GameObject::DID_NOT_INTERACT)
+                base::ReturnCode interacted = objs[0]->interactWith(this, true);
+				if (interacted != base::DID_NOT_INTERACT)
 				{
 					return false;
 				}

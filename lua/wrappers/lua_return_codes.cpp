@@ -35,6 +35,9 @@ namespace lua {
 	 *  <li>no_weapon_part</li>
 	 *  <li>off_the_map</li>
 	 *  <li>invalid_location</li>
+     *  <li>did_interact</li>
+     *  <li>did_not_interact</li>
+     *  <li>do_not_interact</li>
 	 * </ul>
 	 * <h4>Body Parts</h4>
 	 * <ul>
@@ -91,6 +94,9 @@ namespace lua {
 		L.setTableValue("no_weapon_part", base::NO_WEAPON_PART);
 		L.setTableValue("off_the_map", base::OFF_THE_MAP);
 		L.setTableValue("invalid_location", base::INVALID_LOCATION);
+		L.setTableValue("did_interact", base::DID_INTERACT);
+		L.setTableValue("did_not_interact", base::DID_NOT_INTERACT);
+		L.setTableValue("do_not_interact", base::DO_NOT_INTERACT);
 		// Body Parts
 		L.setTableValue("body_part_found", base::BODY_PART_FOUND);
 		L.setTableValue("body_part_not_found", base::BODY_PART_NOT_FOUND);

@@ -53,6 +53,9 @@ do
 
 	diag = am.dialogue.new("fred_quest", "Oh, you've talked to me, how about that.")
 	am.dialogue.add_dialogue(diag)
+
+    diag = am.dialogue.new("john_door", "I'm a door!")
+    am.dialogue.add_dialogue(diag)
 	-- End Dialogue
 
 	-- Characters
@@ -112,11 +115,17 @@ do
 		john_door:graphic(am.sprite.new("wooden_door:main"))
 			:grid_location(5, 8)
 			:name("Johns Wooden Door")
+
+        local comp = am.dialogue_component.new(john_door)
+			:available("john_door", true)
+			:start_dialogue("john_door")
+		john_door:dialogue_component(comp)
+
 		map:add_game_object(john_door)
 	end
     john_door:interact_with(function(door, interacter, by_movement)
         am.debug.log("Interacted with!")
-        return 1;
+        return door:interact_dialogue(interacter, by_movement)
     end)
 
 	local fred_door, new_door = am.door.new(fred:name() .. "_door")

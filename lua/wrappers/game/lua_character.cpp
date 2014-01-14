@@ -216,6 +216,7 @@ namespace game {
 			{ "max_level", Character_max_level },
 			{ "ai_func", Character_ai_func },
             { "interact_with", Character_interact_with },
+            { "interact_dialogue", Character_interact_dialogue },
 			// Attributes
 			{ "attrs", Character_attrs },
 			{ "debug", Character_debug },
@@ -1735,6 +1736,33 @@ namespace game {
 		}
 		return LuaState::expectedContext(lua, "interact_with", "am.character");
 	}
+
+    /**
+     * Executes dialogue interactions with the object.
+     * This can be used during an interact with function callback
+     * to start dialogue. This will work with any game object, unless it does
+     * not have a dialogue component.
+     *
+     * @param am.game_object interacter The game object that initiated the
+     * interaction.
+     * @param bool by_movement Flag that indicates if the interaction started
+     *  because of movement or because of other reasons, such as mouse input.
+     * @returns am.code Standard interaction results:
+     * <table class='return_codes'>
+     *  <tr><td>did_interact</td><td>Interaction occured, perform no further actions.</td></tr>
+     *  <tr><td>did_not_interact</td><td>Interaction did not occur, can perform further actions.</td></tr>
+     *  <tr><td>do_not_interact</td><td>Interaction did not occur, but do not perform any further actions.</td></tr>
+     * </table>
+     */
+    int Character_interact_dialogue(lua_State *lua)
+    {
+        Character *obj = castUData<Character>(lua, 1);
+        if (obj)
+        {
+            return GameObject_interact_dialogue(lua, obj);
+        }
+        return LuaState::expectedContext(lua, "interact_dialogue", "am.character");
+    }
 
 	void charRelease(base::IManaged *obj)
 	{

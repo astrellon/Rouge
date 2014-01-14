@@ -68,6 +68,7 @@ namespace game {
 	int Item_dialogue_component(lua_State *lua);
 	int Item_game_id(lua_State *lua);
     int Item_interact_with(lua_State *lua);
+    int Item_interact_dialogue(lua_State *lua);
 
 	int Item_add_event_listener(lua_State *lua);
 	int Item_remove_event_listener(lua_State *lua);

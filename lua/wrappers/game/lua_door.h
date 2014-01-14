@@ -57,8 +57,9 @@ namespace game {
 	int Door_has_event_listener(lua_State *lua);
 
     int Door_interact_with(lua_State *lua);
+    int Door_interact_dialogue(lua_State *lua);
 
-	int Door_debug(lua_State *lua);
+    int Door_debug(lua_State *lua);
 
 	int Door_attrs(lua_State *lua);
 

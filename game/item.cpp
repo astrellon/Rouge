@@ -534,18 +534,18 @@ namespace game {
 		fireEvent<ui::ItemEvent>(e);
 	}
 
-    GameObject::InteractResult Item::interactWith(GameObject *interacter, bool byMovement)
+    base::ReturnCode Item::interactWith(GameObject *interacter, bool byMovement)
 	{
-        InteractResult result = GameObject::interactWith(interacter, byMovement);
-        if (result != DID_NOT_INTERACT)
-        {
+        base::ReturnCode result = GameObject::interactWith(interacter, byMovement);
+        if (result != base::DID_NOT_INTERACT)
+        { 
             return result;
         }
 
 		// Can only be interacted with by characters and only then when this item is on the ground.
 		if (interacter->getGameObjectType() != CHARACTER || mItemLocation != GROUND || byMovement)
 		{
-			return DO_NOT_INTERACT;
+			return base::DO_NOT_INTERACT;
 		}
 		
 		Character *obj = dynamic_cast<Character *>(interacter);
@@ -567,7 +567,7 @@ namespace game {
 				setItemLocation(Item::HAND);
 			}
 		}
-		return DID_INTERACT;
+		return base::DID_INTERACT;
 	}
 
 	void Item::getPrePostfix(short &prefix, short &postfix) const
