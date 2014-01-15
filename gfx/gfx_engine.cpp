@@ -110,14 +110,14 @@ namespace gfx {
 		mTooltipLayer->setInteractive(false);
 		mTooltipLayer->setWidth(static_cast<float>(mScreenWidth));
 		mTooltipLayer->setHeight(static_cast<float>(mScreenHeight));
-		mUILayer->addChild(mTooltipLayer);
+		mRootLayer->addChild(mTooltipLayer);
 
 		mDebugLayer = new Layer();
 		mDebugLayer->setName("DebugLayer");
 		mDebugLayer->setInteractive(true);
 		mDebugLayer->setWidth(static_cast<float>(mScreenWidth));
 		mDebugLayer->setHeight(static_cast<float>(mScreenHeight));
-        mUILayer->addChild(mDebugLayer);
+        mRootLayer->addChild(mDebugLayer);
 
 		//Asset *cursorAsset = getAssetLua("cursor");
 		Asset *cursorAsset = getAsset("ui:cursor");
@@ -210,6 +210,8 @@ namespace gfx {
         glLoadIdentity();
         setOrthographic();
         mUILayer->render(dt);
+        mTooltipLayer->render(dt);
+        mDebugLayer->render(dt);
 		
 		if (mCursor.get() && !mHideCursor && mCursor->isVisible())
 		{

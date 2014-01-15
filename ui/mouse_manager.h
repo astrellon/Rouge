@@ -66,6 +66,8 @@ namespace ui {
 		int mMouseX;
 		int mMouseY;
 
+        gfx::Renderable *checkAllLayers(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y);
+
 		static MouseManager *sMainManager;
 
 		static std::string getPath(gfx::Renderable *target);

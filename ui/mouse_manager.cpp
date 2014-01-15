@@ -35,11 +35,9 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = true;
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_DOWN, mouseButton, x, y, x, y));
-		if (!hitTarget)
-		{
-			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_DOWN, mouseButton, x, y);
-		}
+        
+        base::Handle<gfx::Renderable> hitTarget(
+            checkAllLayers(ui::Mouse::MOUSE_DOWN, mouseButton, x, y));
 		DebugInspector::getInspector()->setValue("mouse down", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
@@ -58,11 +56,8 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_MOVE, mouseButton, x, y, x, y));
-		if (!hitTarget)
-		{
-			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_MOVE, mouseButton, x, y);
-		}
+        base::Handle<gfx::Renderable> hitTarget(
+            checkAllLayers(ui::Mouse::MOUSE_MOVE, mouseButton, x, y));
 		DebugInspector::getInspector()->setValue("mouse move", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
@@ -84,11 +79,8 @@ namespace ui {
 		mMouseY = y;
 		mFiredEvent = false;
 		mMouseButtonsDown[mouseButton] = false;
-		base::Handle<gfx::Renderable> hitTarget(checkForMouseEvent(mGfxEngine->getUILayer(), ui::Mouse::MOUSE_UP, mouseButton, x, y, x, y));
-		if (!hitTarget)
-		{
-			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), ui::Mouse::MOUSE_UP, mouseButton, x, y);
-		}
+        base::Handle<gfx::Renderable> hitTarget(
+            checkAllLayers(ui::Mouse::MOUSE_UP, mouseButton, x, y));
 		DebugInspector::getInspector()->setValue("mouse up", getPath(hitTarget));
 		if (hitTarget == nullptr)
 		{
@@ -279,5 +271,19 @@ namespace ui {
 		}
 		return ss.str();
 	}
+
+    gfx::Renderable *MouseManager::checkAllLayers(Mouse::EventType mouseType, Mouse::Button mouseButton, int x, int y)
+    {
+        gfx::Renderable *hitTarget(checkForMouseEvent(mGfxEngine->getDebugLayer(), mouseType, mouseButton, x, y, x, y));
+		if (!hitTarget)
+		{
+			hitTarget = checkForMouseEvent(mGfxEngine->getUILayer(), mouseType, mouseButton, x, y, x, y);
+		}
+        if (!hitTarget)
+        {
+			hitTarget = checkForMouseEventAdj(mGfxEngine->getGameLayer(), mouseType, mouseButton, x, y);
+        }
+        return hitTarget;
+    }
 }
 }
