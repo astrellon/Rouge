@@ -19,6 +19,48 @@ namespace am {
 namespace lua {
 namespace ui {
 
+    int EventInterface_add_event_listener(lua_State *lua, am::ui::EventInterface *inter)
+    {
+        if (!inter)
+        {
+            return 0;
+        }
+
+        if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+        {
+            lua_pushboolean(lua, addEventListener(lua, inter));
+        }
+        return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
+    }
+    
+    int EventInterface_remove_event_listener(lua_State *lua, am::ui::EventInterface *inter)
+    {
+        if (!inter)
+        {
+            return 0;
+        }
+
+        if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
+        {
+            lua_pushboolean(lua, removeEventListener(lua, inter));
+        }
+        return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
+    }
+    
+    int EventInterface_has_event_listener(lua_State *lua, am::ui::EventInterface *inter)
+    {
+        if (!inter)
+        {
+            return 0;
+        }
+
+        if (lua_isstr(lua, 2))
+        {
+            lua_pushboolean(lua, inter->hasEventListener(lua_tostring(lua, 2)));
+        }
+        return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
+    }
+
 	bool addEventListener(lua_State *lua, am::ui::EventInterface *manager)
 	{
 		const char *eventType = lua_tostring(lua, 2);

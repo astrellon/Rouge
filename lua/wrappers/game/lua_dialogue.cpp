@@ -71,7 +71,7 @@ namespace game {
 			}
 			Dialogue *dialogue = new Dialogue(lua_tostring(lua, 1), lua_tostring(lua, 2),
 				title, subject, flag, action);
-			wrapObject<Dialogue>(lua, dialogue);
+			wrapRefObject<Dialogue>(lua, dialogue);
 			return 1;
 		}
 		return LuaState::expectedArgs(lua, "@new", "string dialogue_id, string text, string title [\"\"], string subject [\"\"], string unlock_flag [\"none\"], string action [\"none\"]");
@@ -380,7 +380,7 @@ namespace game {
 			Dialogue *diag = Engine::getGame()->getDialogue(lua_tostring(lua, 1));
 			if (diag)
 			{
-				wrapObject<Dialogue>(lua, diag);
+				wrapRefObject<Dialogue>(lua, diag);
 				return 1;
 			}
 			lua_pushnil(lua);

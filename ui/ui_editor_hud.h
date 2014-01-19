@@ -86,6 +86,9 @@ namespace ui {
 
 		Handle<Tile> mCurrentTile;
 
+        int mPrevMouseX;
+        int mPrevMouseY;
+
 		void updateStatus();
 		void setTile(float mouseX, float mouseY, Tile *tile);
 	};

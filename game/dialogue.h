@@ -1,5 +1,7 @@
 #pragma once
 
+#include <base/imanaged.h>
+
 #include <string>
 #include <map>
 #include <vector>
@@ -9,9 +11,7 @@ namespace game {
 
 	class GameObject;
 
-	// TODO!
-	// WHY ISN'T THIS MANAGED!?
-	class Dialogue 
+	class Dialogue : public base::IManaged 
 	{
 	public:
 

@@ -225,7 +225,7 @@ namespace game {
 		typedef std::map<std::string, base::Handle<GameObject> > GameObjectIdMap;
 		GameObjectIdMap mGameObjects;
 
-		typedef std::map<std::string, Dialogue *> DialogueMap;
+		typedef std::map<std::string, base::Handle<Dialogue> > DialogueMap;
 		DialogueMap mDialogueMap;
 
 		typedef std::map<std::string, base::Handle<Quest> > QuestMap;

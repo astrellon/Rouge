@@ -8,17 +8,14 @@ extern "C"
 }
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/engine.h>
 #include <game/dialogue_component.h>
 #include <game/map.h>
 #include <game/game.h>
 #include <game/door.h>
-using namespace am::game;
 
 #include <util/data_table.h>
-using namespace am::util;
 
 #include "lua_game_object.h"
 #include "lua_tile_type.h"
@@ -27,7 +24,8 @@ using namespace am::util;
 #include "../gfx/lua_sprite.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
-using namespace am::lua::gfx;
+
+#include <lua/wrappers/lua_event_manager.h>
 
 #include <sstream>
 
@@ -350,7 +348,7 @@ namespace game {
 			else
 			{
 				Sprite *sprite = nullptr;
-				if (getSprite(lua, 2, sprite))
+				if (gfx::getSprite(lua, 2, sprite))
 				{
 					door->setGraphic(sprite);
 					lua_first(lua);
@@ -768,7 +766,7 @@ namespace game {
 		Door *obj = castUData<Door>(lua, 1);
 		if (obj)
 		{
-			return GameObject_add_event_listener(lua, obj);
+			return ui::EventInterface_add_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "on", "am.door");
 	}
@@ -793,7 +791,7 @@ namespace game {
 		Door *obj = castUData<Door>(lua, 1);
 		if (obj)
 		{
-			return GameObject_remove_event_listener(lua, obj);
+			return ui::EventInterface_remove_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "off", "am.door");
 	}
@@ -808,7 +806,7 @@ namespace game {
 		Door *obj = castUData<Door>(lua, 1);
 		if (obj)
 		{
-			return GameObject_has_event_listener(lua, obj);
+			return ui::EventInterface_has_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "has_event_listener", "am.door");
 	}

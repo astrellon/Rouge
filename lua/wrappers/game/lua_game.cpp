@@ -819,7 +819,7 @@ namespace game {
 				Dialogue *diag = game->getDialogue(lua_tostring(lua, 2));
 				if (diag)
 				{
-					wrapObject<Dialogue>(lua, diag);
+					wrapRefObject<Dialogue>(lua, diag);
 					return 1;
 				}
 				lua_pushnil(lua);

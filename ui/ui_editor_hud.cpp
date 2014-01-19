@@ -28,7 +28,9 @@ namespace ui {
 	EditorHud::EditorHud() :
 		UIComponent(),
 		IEventListener(),
-		mMouseDown(false)
+		mMouseDown(false),
+        mPrevMouseX(0),
+        mPrevMouseY(0)
 	{
 		setName("EditorHud");
 		mSideSprite = new Sprite("editor:side_bar");
@@ -290,11 +292,13 @@ namespace ui {
 		MouseManager *manager = MouseManager::getManager();
 		if (e->getMouseEventType() == ui::Mouse::MOUSE_DOWN)
 		{
-			manager->setDragOffset(e->getMouseX(), e->getMouseY());
+			//manager->setDragOffset(e->getMouseX(), e->getMouseY());
+            mPrevMouseX = manager->getMouseX();
+            mPrevMouseY = manager->getMouseY();
 
 			if (manager->getButtonDown(ui::Mouse::LEFT_BUTTON))
 			{
-				setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
+				setTile(manager->getMouseX(), manager->getMouseY(), mCurrentTile);
 			}
 
 			mMouseDown = true;
@@ -308,19 +312,22 @@ namespace ui {
 			{
 				if (manager->getButtonDown(ui::Mouse::RIGHT_BUTTON))
 				{
-					float dx = static_cast<float>(e->getMouseX() - manager->getDragOffsetX());
-					float dy = static_cast<float>(e->getMouseY() - manager->getDragOffsetY());
+					float dx = static_cast<float>(manager->getMouseX() - mPrevMouseX);
+					float dy = static_cast<float>(manager->getMouseY() - mPrevMouseY);
 
                     gfx::Camera *camera = mGame->getCamera();
-					float posX = camera->getDestinationX() - dx;
-					float posY = camera->getDestinationY() - dy;
-					mGame->getCamera()->setDestination(posX, posY);
+                    math::Transform &trans = camera->getTransform();
+					float posX = trans.getTarget().x - dx;
+					float posY = trans.getTarget().y + dy;
+					trans.setTarget(posX, posY, 0, true);
 				}
 				else if (manager->getButtonDown(ui::Mouse::LEFT_BUTTON))
 				{
 					setTile(e->getMouseX(), e->getMouseY(), mCurrentTile);
 				}
-				manager->setDragOffset(e->getMouseX(), e->getMouseY());
+				//manager->setDragOffset(e->getMouseX(), e->getMouseY());
+                mPrevMouseX = manager->getMouseX();
+                mPrevMouseY = manager->getMouseY();
 			}
 		}
 		if (e->getMouseEventType() == ui::Mouse::MOUSE_UP)

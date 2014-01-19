@@ -558,7 +558,7 @@ namespace game {
 			DialogueComponent *comp = obj->getDialogueComp();
 			if (comp)
 			{
-				wrapObject<DialogueComponent>(lua, comp);
+				wrapRefObject<DialogueComponent>(lua, comp);
 				return 1;
 			}
 		}
@@ -619,84 +619,6 @@ namespace game {
 		return LuaState::expectedArgs(lua, "id", "string id");
 	}
 	
-	/**
-	 * Adds an event listener for an event fired on this GameObject.
-	 * eg: <pre>
-	 * GameObject:on("talkTo", function(event)
-	 *     am.debug.log("GameObject talked to")
-	 * end)
-	 * </pre>
-	 * @param string event_type The event type or name to trigger on
-	 * @param function listener The function to call when the event is fired.
-	 * @param table [nil] content An option context for the listener to be
-	 * called with.
-	 * @returns boolean True if the event was added successfully.
-	 */
-	int GameObject_add_event_listener(lua_State *lua, GameObject *obj)
-	{
-		if (!obj)
-		{
-			return 0;
-		}
-
-		if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
-		{
-			lua_pushboolean(lua, am::lua::ui::addEventListener(lua, obj));
-			return 1;
-		}
-		return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
-	}
-	/**
-	 * Removes an event listener from this GameObject.
-	 * eg: 
-	 * <pre>
-	 * function talkToOnce(event)
-	 *     am.debug.log("GameObject talked to once")
-	 *     GameObject:off("talkTo", talkToOnce)
-	 * end
-	 * GameObject:on("talkTo", talkToOnce)
-	 * </pre>
-	 * @param string event_type The event type the listener was listening for.
-	 * @param function listener The listener function to remove.
-	 * @param table [nil] context The context which the listener was going to 
-	 * be called with, this is only optional if the listener was added with no context.
-	 * @returns boolean True if the event listener was successfully removed.
-	 */
-	int GameObject_remove_event_listener(lua_State *lua, GameObject *obj)
-	{
-		if (!obj)
-		{
-			return 0;
-		}
-
-		if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
-		{
-			lua_pushboolean(lua, am::lua::ui::removeEventListener(lua, obj));
-			return 1;
-		}
-		return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
-	}
-	/**
-	 * Returns true when there is an event listener for the given event_type.
-	 * @param string event_type The event type to look up.
-	 * @returns boolean True if there is any event listener 
-	 * that will be trigged by this event type.
-	 */
-	int GameObject_has_event_listener(lua_State *lua, GameObject *obj)
-	{
-		if (!obj)
-		{
-			return 0;
-		}
-
-		if (lua_isstr(lua, 2))
-		{
-			lua_pushboolean(lua, obj->hasEventListener(lua_tostring(lua, 2)));
-			return 1;
-		}
-		return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
-	}
-
 	/**
 	 * Returns the GameObjects attribute data table.
 	 * By default if no attribute data table is present nil is returned unless true

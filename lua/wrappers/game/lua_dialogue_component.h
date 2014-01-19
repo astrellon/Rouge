@@ -26,6 +26,10 @@ namespace game {
 
 	int DialogueComponent_attached_to(lua_State *lua);
 
+    int DialogueComponent_add_event_listener(lua_State *lua);
+	int DialogueComponent_remove_event_listener(lua_State *lua);
+	int DialogueComponent_has_event_listener(lua_State *lua);
+
 }
 }
 }

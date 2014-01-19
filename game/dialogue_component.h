@@ -61,7 +61,7 @@ namespace game {
 
 		SubjectMap mUnlockedSubjects;
 		SubjectMap mDialoguesAvailable;
-		Dialogue *mStartDialogue;
+        base::Handle<Dialogue> mStartDialogue;
 		GameObject *mTalkingTo;
 		GameObject *mAttachedTo;
 

@@ -8,7 +8,6 @@ extern "C"
 }
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/character.h>
 #include <game/race.h>
@@ -16,10 +15,8 @@ using namespace am::lua;
 #include <game/dialogue_component.h>
 #include <game/map.h>
 #include <game/game.h>
-using namespace am::game;
 
 #include <util/data_table.h>
-using namespace am::util;
 
 #include "lua_stats.h"
 #include "lua_body_part.h"
@@ -34,7 +31,8 @@ using namespace am::util;
 #include "lua_game_object.h"
 
 #include <lua/wrappers/gfx/lua_sprite.h>
-using namespace am::lua::gfx;
+
+#include <lua/wrappers/lua_event_manager.h>
 
 #include <sstream>
 
@@ -1002,7 +1000,7 @@ namespace game {
 			else
 			{
 				Sprite *sprite = nullptr;
-				if (getSprite(lua, 2, sprite))
+				if (lua::gfx::getSprite(lua, 2, sprite))
 				{
 					obj->setGraphic(sprite);
 					lua_first(lua);
@@ -1450,7 +1448,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			return GameObject_add_event_listener(lua, obj);
+			return ui::EventInterface_add_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "on", "am.character");
 	}
@@ -1475,7 +1473,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			return GameObject_remove_event_listener(lua, obj);
+			return ui::EventInterface_remove_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "off", "am.character");
 	}
@@ -1490,7 +1488,7 @@ namespace game {
 		Character *obj = castUData<Character>(lua, 1);
 		if (obj)
 		{
-			return GameObject_has_event_listener(lua, obj);
+			return ui::EventInterface_has_event_listener(lua, obj);
 		}
 		return LuaState::expectedContext(lua, "has_event_listener", "am.character");
 	}
