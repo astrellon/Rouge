@@ -29,6 +29,10 @@ namespace game {
 	int Dialogue_remove_all_dialogue(lua_State *lua);
 	int Dialogue_get_dialogue(lua_State *lua);
 
+    int Dialogue_add_event_listener(lua_State *lua);
+    int Dialogue_remove_event_listener(lua_State *lua);
+    int Dialogue_has_event_listener(lua_State *lua);
+
 	Dialogue::UnlockFlag getUnlockFlag(lua_State *lua, int n);
 	Dialogue::DialogueAction getDialogueAction(lua_State *lua, int n);
 

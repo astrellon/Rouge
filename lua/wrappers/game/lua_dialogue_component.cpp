@@ -8,14 +8,14 @@ extern "C"
 }
 
 #include <lua/lua_state.h>
-using namespace am::lua;
 
 #include <game/game.h>
 #include <game/engine.h>
-using namespace am::game;
 
 #include "lua_dialogue.h"
 #include "lua_game.h"
+
+#include <lua/wrappers/lua_event_manager.h>
 
 namespace am {
 namespace lua {
@@ -95,6 +95,11 @@ namespace game {
 			{ "available", DialogueComponent_dialogue_available },
 			{ "dialogues_available", nullptr },
 			{ "attached_to", DialogueComponent_attached_to },
+            // EventInterface methods
+            { "on", DialogueComponent_add_event_listener },
+            { "off", DialogueComponent_remove_event_listener },
+            { "has_event_listener", DialogueComponent_has_event_listener },
+
 			{ nullptr, nullptr }
 		};
 
@@ -333,6 +338,68 @@ namespace game {
 		return LuaState::expectedContext(lua, "attached_to", "am.dialogue_component");
 	}
 	
+	/** Adds an event listener for an event fired on this dialogue component.
+	 * eg: <pre>
+	 * character:on("talkTo", function(event)
+	 *     am_log("Character talked to")
+	 * end)
+	 * </pre>
+	 * @param string event_type The event type or name to trigger on
+	 * @param function listener The function to call when the event is fired.
+	 * @param table [nil] content An option context for the listener to be
+	 * called with.
+	 * @returns boolean True if the event was added successfully.
+	 */
+	int DialogueComponent_add_event_listener(lua_State *lua)
+	{
+		DialogueComponent*obj = castUData<DialogueComponent>(lua, 1);
+		if (obj)
+		{
+			return ui::EventInterface_add_event_listener(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "on", "am.dialogue_component");
+	}
+	/**
+	 * Removes an event listener from this character.
+	 * eg: 
+	 * <pre>
+	 * function talkToOnce(event)
+	 *     am_log("Character talked to once")
+	 *     character:off("talkTo", talkToOnce)
+	 * end
+	 * character:on("talkTo", talkToOnce)
+	 * </pre>
+	 * @param string event_type The event type the listener was listening for.
+	 * @param function listener The listener function to remove.
+	 * @param table [nil] context The context which the listener was going to 
+	 * be called with, this is only optional if the listener was added with no context.
+	 * @returns boolean True if the event listener was successfully removed.
+	 */
+	int DialogueComponent_remove_event_listener(lua_State *lua)
+	{
+		DialogueComponent *obj = castUData<DialogueComponent>(lua, 1);
+		if (obj)
+		{
+			return ui::EventInterface_remove_event_listener(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "off", "am.dialogue_component");
+	}
+	/**
+	 * Returns true when there is an event listener for the given event_type.
+	 * @param string event_type The event type to look up.
+	 * @returns boolean True if there is any event listener 
+	 * that will be trigged by this event type.
+	 */
+	int DialogueComponent_has_event_listener(lua_State *lua)
+	{
+		DialogueComponent *obj = castUData<DialogueComponent>(lua, 1);
+		if (obj)
+		{
+			return ui::EventInterface_has_event_listener(lua, obj);
+		}
+		return LuaState::expectedContext(lua, "has_event_listener", "am.dialogue_component");
+	}
+
 }
 }
 }

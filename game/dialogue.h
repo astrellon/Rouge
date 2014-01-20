@@ -6,12 +6,14 @@
 #include <map>
 #include <vector>
 
+#include <ui/event_interface.h>
+
 namespace am {
 namespace game {
 
 	class GameObject;
 
-	class Dialogue : public base::IManaged 
+	class Dialogue : public ui::EventInterface
 	{
 	public:
 
@@ -73,3 +75,4 @@ namespace game {
 
 }
 }
+

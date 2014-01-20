@@ -21,6 +21,7 @@ namespace game {
 	const char *DialogueComponent::LUA_TABLENAME = LUA_TABLE_DIALOGUECOMP;
 
 	DialogueComponent::DialogueComponent(GameObject *attached) :
+        ui::EventInterface(),
 		mStartDialogue(nullptr),
 		mTalkingTo(nullptr),
 		mAttachedTo(nullptr)
@@ -28,6 +29,7 @@ namespace game {
 		setAttachedTo(attached);
 	}
 	DialogueComponent::DialogueComponent(const DialogueComponent &copy) :
+        ui::EventInterface(),
 		mStartDialogue(copy.mStartDialogue),
 		mTalkingTo(nullptr),
 		mAttachedTo(nullptr),
@@ -71,6 +73,8 @@ namespace game {
 		base::Handle<ui::DialogueEvent> e(new ui::DialogueEvent(diag, false));
 		mAttachedTo->fireEvent<ui::DialogueEvent>(e);
 		other->fireEvent<ui::DialogueEvent>(e);
+
+        fireEvent<ui::DialogueEvent>(e);
 
 		e = new ui::DialogueEvent(diag, true);
 		mAttachedTo->fireEvent<ui::DialogueEvent>(e);

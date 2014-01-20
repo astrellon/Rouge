@@ -7,6 +7,7 @@
 #include <string>
 
 #include <ui/ievent_manager.h>
+#include <ui/event_interface.h>
 
 #include <game/dialogue.h>
 
@@ -23,7 +24,7 @@ namespace game {
 	class GameObject;
 	class LoadingState;
 
-	class DialogueComponent : public base::IManaged 
+	class DialogueComponent : public ui::EventInterface
 	{
 	public:
 

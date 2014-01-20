@@ -585,31 +585,6 @@ namespace game {
 		return mPassibleTypes;
 	}
 
-	/*void GameObject::talkTo(GameObject *other)
-	{
-		if (mDialogueComp.get() != nullptr)
-		{
-			mDialogueComp->talkTo(other);
-		}
-		//mTalkingTo = other;
-		//base::Handle<DialogueEvent> e(new DialogueEvent(other->getStartDialogue()));
-		//fireEvent<DialogueEvent>(e);
-	}
-	void GameObject::talkTo(GameObject *other, Dialogue *diag)
-	{
-		if (mDialogueComp.get() != nullptr)
-		{
-			mDialogueComp->talkTo(other, diag);
-		}
-		//mTalkingTo = other;
-		//base::Handle<DialogueEvent> e(new DialogueEvent(diag));
-		//fireEvent<DialogueEvent>(e);
-	}*/
-	/*GameObject *GameObject::getTalkingTo() const
-	{
-		return mTalkingTo;
-	}*/
-
 	bool GameObject::setGameId(const char *id)
 	{
 		Game *game = Engine::getEngine()->getCurrentGame();
