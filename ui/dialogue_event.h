@@ -15,7 +15,7 @@ namespace ui {
 	class DialogueEvent : public Event
 	{
 	public:
-		DialogueEvent(game::Dialogue *dialogue, bool addIdToEvent);
+		DialogueEvent(game::Dialogue *dialogue, game::GameObject *talker, game::GameObject *talkedTo, bool addIdToEvent);
 		~DialogueEvent();
 
 		game::Dialogue *getDialogue() const;
@@ -25,6 +25,8 @@ namespace ui {
 	protected:
 
 		game::Dialogue *mDialogue;
+        game::GameObject *mTalker;
+        game::GameObject *mTalkedTo;
 
 	};
 
