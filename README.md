@@ -7,7 +7,8 @@ Very much a work in progress.
 Dependencies
 ------------
 
-Requires 
+Requires
+- g++
 - OpenGL
 - OpenAL
 - LibOGG
@@ -24,7 +25,7 @@ Linux
 
 Additional requires FreeGlut for Linux.
 
-    sudo apt-get install libopenal-dev libdevil-dev libogg-dev freeglut3-dev
+    sudo apt-get install g++ libopenal-dev libalut-dev libdevil-dev libogg-dev freeglut3-dev
     
 ### Build
 Defaults to building with debug symbols.
