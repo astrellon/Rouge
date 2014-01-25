@@ -40,37 +40,27 @@ namespace game {
 	{
 		if (lua_isstr(lua, 1) && lua_isstr(lua, 2))
 		{
-			int args = lua_gettop(lua);
-			const char *title = nullptr;
-			if (args >= 3 && lua_isstr(lua, 3))
-			{
-				title = lua_tostring(lua, 3);
-			}
-			const char *subject = nullptr;
-			if (args >= 4 && lua_isstr(lua, 4))
-			{
-				subject = lua_tostring(lua, 4);
-			}
-			Dialogue::UnlockFlag flag = Dialogue::UNLOCK_NONE;
-			if (args >= 5)
-			{
-				flag = getUnlockFlag(lua, 5);
-				if (flag == Dialogue::UNLOCK_UNKNOWN)
-				{
-					flag = Dialogue::UNLOCK_NONE;
-				}
-			}
-			Dialogue::DialogueAction action = Dialogue::ACTION_NONE;
-			if (args >= 6)
-			{
-				action = getDialogueAction(lua, 6);
-				if (action == Dialogue::ACTION_UNKNOWN)
-				{
-					action = Dialogue::ACTION_NONE;
-				}
-			}
+            std::string title;
+            std::string subject;
+            Dialogue::UnlockFlag flag = Dialogue::UNLOCK_NONE;
+            Dialogue::DialogueAction action = Dialogue::ACTION_NONE;
+            if (lua_istable(lua, 3))
+            {
+                LuaState L(lua);
+                L.getTableString("title", title, 3);
+                L.getTableString("subject", subject, 3);
+                std::string temp;
+                if (L.getTableString("unlock", temp, 3))
+                {
+			        flag = Dialogue::toUnlockFlag(temp.c_str());
+                }
+                if (L.getTableString("action", temp, 3))
+                {
+                    action = Dialogue::toDialogueAction(temp.c_str());
+                }
+            }
 			Dialogue *dialogue = new Dialogue(lua_tostring(lua, 1), lua_tostring(lua, 2),
-				title, subject, flag, action);
+				title.c_str(), subject.c_str(), flag, action);
 			wrapRefObject<Dialogue>(lua, dialogue);
 			return 1;
 		}
@@ -102,6 +92,38 @@ namespace game {
 		return 1;
 	}
 
+    int Dialogue_test(lua_State *lua)
+    {
+        Dialogue *diag = castUData<Dialogue>(lua, 1);
+        if (diag)
+        {
+            if (lua_istable(lua, 2))
+            {
+                lua::LuaState L(lua);
+                const char *str = L.getTableString("subject");
+                if (str)
+                {
+                    am_log("Subject", str);
+                }
+                else
+                {
+                    am_log("Subject", "nil");
+                }
+
+                str = L.getTableString("action");
+                if (str)
+                {
+                    am_log("Action", str);
+                }
+                else
+                {
+                    am_log("Action", "nil");
+                }
+            }
+        }
+        return 0;
+    }
+
 	int Dialogue_register(lua_State *lua)
 	{
 		luaL_Reg regs[] = 
@@ -125,6 +147,7 @@ namespace game {
             { "off", Dialogue_remove_event_listener },
             { "has_event_listener", Dialogue_has_event_listener },
 
+            { "test", Dialogue_test },
 			{ nullptr, nullptr }
 		};
 

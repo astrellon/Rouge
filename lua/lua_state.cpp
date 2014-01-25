@@ -213,18 +213,35 @@ namespace lua {
 		lua_settable(mLua, -3);
 	}
 
-	const char *LuaState::getTableString(const char *key)
+	const char *LuaState::getTableString(const char *key, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		const char *result = lua_tostring(mLua, -1);
 		lua_pop(mLua, 1);
 		return result;
 	}
-	bool LuaState::getTableInt(const char *key, int &value)
+    bool LuaState::getTableString(const char *key, std::string &value, int n)
+    {
+		lua_pushstring(mLua, key);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
+        const char *resultStr = lua_tostring(mLua, -1);
+        bool result = resultStr != nullptr;
+        if (result)
+        {
+        	value = resultStr;
+        }
+		lua_pop(mLua, 1);
+		return result;
+        
+    }
+	bool LuaState::getTableInt(const char *key, int &value, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			value = static_cast<int>(lua_tointeger(mLua, -1));
@@ -234,10 +251,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
-	bool LuaState::getTableDouble(const char *key, double &value)
+	bool LuaState::getTableDouble(const char *key, double &value, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			value = static_cast<double>(lua_tonumber(mLua, -1));
@@ -247,10 +265,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
-	bool LuaState::getTableBool(const char *key, bool &value)
+	bool LuaState::getTableBool(const char *key, bool &value, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TBOOLEAN)
 		{
 			value = lua_toboolean(mLua, -1) > 0;
@@ -261,10 +280,11 @@ namespace lua {
 		return false;
 	}
 
-	bool LuaState::isTableNumber(const char *key)
+	bool LuaState::isTableNumber(const char *key, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TNUMBER)
 		{
 			return true;
@@ -272,10 +292,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
-	bool LuaState::isTableString(const char *key)
+	bool LuaState::isTableString(const char *key, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TSTRING)
 		{
 			return true;
@@ -283,10 +304,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
-	bool LuaState::isTableTable(const char *key)
+	bool LuaState::isTableTable(const char *key, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_type(mLua, -1) == LUA_TTABLE)
 		{
 			return true;
@@ -294,10 +316,11 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
-	bool LuaState::isTableBool(const char *key)
+	bool LuaState::isTableBool(const char *key, int n)
 	{
 		lua_pushstring(mLua, key);
-		lua_gettable(mLua, -2);
+        if (n < 0) n--;
+		lua_gettable(mLua, n);
 		if (lua_isboolean(mLua, -1))
 		{
 			return true;

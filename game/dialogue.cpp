@@ -11,7 +11,7 @@ namespace game {
 	const char *Dialogue::LUA_TABLENAME = LUA_TABLE_DIALOGUE;
 
 	Dialogue::Dialogue(const char *id, const char *text, const char *title, 
-		const char *subject, UnlockFlag unlock, DialogueAction action) :
+		const char *subject, UnlockFlag unlock, DialogueAction action, const char *actionData) :
 		mId(id),
 		mText(text),
 		mUnlockFlag(unlock),
@@ -25,6 +25,10 @@ namespace game {
 		{
 			mSubject = subject;
 		}
+        if (actionData != nullptr)
+        {
+            mActionData = actionData;
+        }
 	}
 	Dialogue::~Dialogue()
 	{
@@ -73,6 +77,15 @@ namespace game {
 		}
 		return mId.c_str();
 	}
+
+    void Dialogue::setActionData(const char *data)
+    {
+        mActionData = data;
+    }
+    const char *Dialogue::getActionData() const
+    {
+        return mActionData.c_str();
+    }
 
 	void Dialogue::setUnlockFlag(Dialogue::UnlockFlag flag)
 	{

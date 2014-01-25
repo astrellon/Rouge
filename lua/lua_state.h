@@ -179,15 +179,16 @@ namespace lua {
 		void setTableValue(const char *key, double value);
 		void setTableValue(const char *key, bool value);
 
-		const char *getTableString(const char *key);
-		bool getTableInt(const char *key, int &value);
-		bool getTableDouble(const char *key, double &value);
-		bool getTableBool(const char *key, bool &value);
+		const char *getTableString(const char *key, int n = -1);
+        bool getTableString(const char *key, std::string &value, int n = -1);
+		bool getTableInt(const char *key, int &value, int n = -1);
+		bool getTableDouble(const char *key, double &value, int n = -1);
+		bool getTableBool(const char *key, bool &value, int n = -1);
 
-		bool isTableNumber(const char *key);
-		bool isTableString(const char *key);
-		bool isTableTable(const char *key);
-		bool isTableBool(const char *key);
+		bool isTableNumber(const char *key, int n = -1);
+		bool isTableString(const char *key, int n = -1);
+		bool isTableTable(const char *key, int n = -1);
+		bool isTableBool(const char *key, int n = -1);
 
 		int hasTableValue(const char *key);
 

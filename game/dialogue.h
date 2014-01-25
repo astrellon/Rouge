@@ -30,7 +30,8 @@ namespace game {
 		// Is a list of dialogue subjects
 		//typedef std::vector<string> DialogueChoices;
 
-		Dialogue(const char *id, const char *text, const char *title = nullptr, const char *subject = nullptr, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE);
+		Dialogue(const char *id, const char *text, const char *title = nullptr, const char *subject = nullptr, UnlockFlag unlock = UNLOCK_NONE, DialogueAction action = ACTION_NONE, const char *actionData = nullptr);
+
 		~Dialogue();
 
 		void setText(const char *text);
@@ -44,6 +45,9 @@ namespace game {
 
 		void setSubject(const char *subject);
 		const char *getSubject() const;
+
+        void setActionData(const char *data);
+        const char *getActionData() const;
 
 		void setUnlockFlag(UnlockFlag flag);
 		UnlockFlag getUnlockFlag() const;
@@ -68,6 +72,7 @@ namespace game {
 		std::string mId;
 		std::string mTitle;
 		std::string mSubject;
+        std::string mActionData;
 		DialogueAction mAction;
 		UnlockFlag mUnlockFlag;
 

@@ -28,24 +28,40 @@ do
 
 	-- Dialogue
 	local diag = am.dialogue.new("elder_intro",
-		"Why hello there young miss, welcome to our <? @='elder_village'>village</?>. My name is Frank and I'm <? @='elder_old'>old</?>.",
-		"Welcome")
+		"Why hello there young miss, welcome to our <? @='elder_village'>village</?>. My name is Frank and I'm <? @='elder_old'>old</?>.", {
+		title = "Welcome"
+    })
 	am.dialogue.add_dialogue(diag)
 
 	diag = am.dialogue.new("elder_old",
-		"Old? Yes I'm old! Really old!",
-		"Old!", "elder_old", "locked")
+		"Old? Yes I'm old! Really old!", {
+        title = "Old!",
+        subject = "elder_old", 
+        unlock = "locked"
+    })
 	am.dialogue.add_dialogue(diag)
 
-	diag = am.dialogue.new("elder_village", "This village is huge! And old! You should talk to the people who live here, besides me!", "Village", "village", "locked")
+	diag = am.dialogue.new("elder_village", "This village is huge! And old! You should talk to the people who live here, besides me!", {
+        title = "Village", 
+        subject = "village", 
+        unlock = "locked"
+    })
 	am.dialogue.add_dialogue(diag)
 
 	diag = am.dialogue.new("startQuest", 
-		"Fantastic! I would like you to talk to <? @='aboutFred'>Fred</?> over there for me?", "Talk to Fred", "startQuest", "locked")
+		"Fantastic! I would like you to talk to <? @='aboutFred'>Fred</?> over there for me?", {
+        title = "Talk to Fred", 
+        subject = "startQuest", 
+        unlock = "locked"
+    })
 	am.dialogue.add_dialogue(diag)
 
 	diag = am.dialogue.new("aboutFred",
-		"Oh Fred, he's a guy, who does stuff what not.", "About Fred", "aboutFred", "locked")
+		"Oh Fred, he's a guy, who does stuff what not.", {
+        title = "About Fred", 
+        subject = "aboutFred", 
+        unlock = "locked"
+    })
 	am.dialogue.add_dialogue(diag)
 
 	diag = am.dialogue.new("imFred", "Hi, my name is Fred")
@@ -54,7 +70,13 @@ do
 	diag = am.dialogue.new("fred_quest", "Oh, you've talked to me, how about that.")
 	am.dialogue.add_dialogue(diag)
 
-    diag = am.dialogue.new("john_door", "I'm a door!")
+    diag = am.dialogue.new("john_door", "I'm a <? @='john_door_2'>door!</?>")
+    am.dialogue.add_dialogue(diag)
+
+    diag = am.dialogue.new("john_door_2", "DOOOOOOOR!");
+    diag:on("dialogue", function(e)
+        am.debug.log("DOORED!")
+    end)
     am.dialogue.add_dialogue(diag)
 	-- End Dialogue
 

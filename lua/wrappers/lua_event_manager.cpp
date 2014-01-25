@@ -29,6 +29,7 @@ namespace ui {
         if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
         {
             lua_pushboolean(lua, addEventListener(lua, inter));
+            return 1;
         }
         return LuaState::expectedArgs(lua, "on", "string event_type, function listener");
     }
@@ -43,6 +44,7 @@ namespace ui {
         if (lua_isstr(lua, 2) && lua_isfunction(lua, 3))
         {
             lua_pushboolean(lua, removeEventListener(lua, inter));
+            return 1;
         }
         return LuaState::expectedArgs(lua, "off", "string event_type, function listener");
     }
@@ -57,6 +59,7 @@ namespace ui {
         if (lua_isstr(lua, 2))
         {
             lua_pushboolean(lua, inter->hasEventListener(lua_tostring(lua, 2)));
+            return 1;
         }
         return LuaState::expectedArgs(lua, "has_event_listener", "string event_type");
     }

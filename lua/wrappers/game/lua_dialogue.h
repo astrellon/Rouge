@@ -17,6 +17,8 @@ namespace game {
 	int Dialogue_eq(lua_State *lua);
 	int Dialogue_register(lua_State *lua);
 
+    int Dialogue_test(lua_State *lua);
+
 	int Dialogue_text(lua_State *lua);
 	int Dialogue_title(lua_State *lua);
 	int Dialogue_id(lua_State *lua);
