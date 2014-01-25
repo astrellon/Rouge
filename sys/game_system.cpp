@@ -212,6 +212,10 @@ namespace sys {
 	}
 	void GameSystem::onKeyPress(char key)
 	{
+        std::stringstream ss;
+        ss << "Key: " << (int)key << ", " << (int)ui::Keyboard::KEY_PAGEUP;
+        am_log("KEY", ss);
+
 		if (key == ui::Keyboard::KEY_BACKTICK)
 		{
 			mDebugConsole->setVisible(!mDebugConsole->isVisible());

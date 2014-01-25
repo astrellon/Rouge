@@ -279,6 +279,16 @@ namespace lua {
 		lua_pop(mLua, 1);
 		return false;
 	}
+/*    bool LuaState::getTableFunc(const char *key, int &refValue, int n)
+    {
+        lua_pushstring(mLua, key);
+        if (n < 0) n--;
+        lua_gettable(mLua, n);
+        if (lua_type(mLua, -1) == LUA_TFUNCTION)
+        {
+            refValue = refValue
+        }
+    }*/
 
 	bool LuaState::isTableNumber(const char *key, int n)
 	{
