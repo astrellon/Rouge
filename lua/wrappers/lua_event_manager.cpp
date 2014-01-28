@@ -75,11 +75,11 @@ namespace ui {
 		{
 			return false;
 		}
-        bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && !lua_istable(lua, contextn);
-		if (hasContext)
+        bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && lua_istable(lua, contextn);
+		/*if (hasContext)
 		{
 			return false;
-		}
+		}*/
 	
 		int contextRef = LUA_REFNIL;
 		if (hasContext)
@@ -104,11 +104,12 @@ namespace ui {
 		{
 			return false;
 		}
-        bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && !lua_istable(lua, contextn);
+        /*bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && !lua_istable(lua, contextn);
 		if (hasContext)
 		{
 			return false;
-		}
+		}*/
+		bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && lua_istable(lua, contextn);
 		
 		int contextRef = LUA_REFNIL;
 		if (hasContext)

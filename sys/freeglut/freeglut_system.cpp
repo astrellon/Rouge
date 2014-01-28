@@ -13,6 +13,7 @@
 #include <GL/freeglut.h>
 
 #include <util/path_tokeniser.h>
+#include <sstream>
 
 namespace am {
 namespace sys {

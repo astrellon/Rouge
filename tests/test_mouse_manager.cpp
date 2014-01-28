@@ -8,6 +8,7 @@
 
 #include <gfx/gfx_renderable.h>
 #include <gfx/gfx_layer.h>
+#include <gfx/gfx_engine.h>
 
 namespace am {
 namespace tests {
@@ -28,6 +29,8 @@ namespace tests {
 		target1->setSize(50, 50);
 		target1->setPosition(50, 50);
 
+		gfx::GfxEngine::getEngine()->getUILayer()->addChild(rootLayer);
+
 		TestListener targetListener;
 		target1->addEventListener(ui::Mouse::MOUSE_DOWN, &targetListener);
 
@@ -35,7 +38,6 @@ namespace tests {
 		rootLayer->addEventListener(ui::Mouse::MOUSE_DOWN, &layerListener);
 
 		ui::MouseManager *manager = ui::MouseManager::getManager();
-		//manager->setUILayer(rootLayer);
 
 		manager->onMouseDown(ui::Mouse::LEFT_BUTTON, 0, 0);
 		assert(nullptr == targetListener.lastEvent.get());
@@ -50,6 +52,8 @@ namespace tests {
 		assert(layerListener.lastEvent->getOriginalTarget() == target1);
 		am_equals(1, layerListener.lastEvent->getLocalMouseX());
 		am_equals(2, layerListener.lastEvent->getLocalMouseY());
+
+		gfx::GfxEngine::getEngine()->getUILayer()->removeChild(rootLayer);
 
 		return true;
 	}
