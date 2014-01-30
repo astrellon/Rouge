@@ -9,6 +9,7 @@
 #include <lua/wrappers/game/lua_dialogue.h>
 
 #include <game/dialogue.h>
+#include <game/dialogue_component.h>
 #include <game/engine.h>
 #include <game/game.h>
 
@@ -172,6 +173,47 @@ namespace tests {
 		
 		return true;
 	}
+	
+    bool TestLuaDialogue::testEvents()
+	{
+		lua::LuaState lua;
 
+		game::Game *game = new game::Game();
+		Engine::getEngine()->setCurrentGame(game);
+
+		int loadResult = lua.loadString(
+            "called = false\n"
+			"diag = am.dialogue.new(\"diag1\", \"Hello there\", {\n"
+            "   dialogue = function()\n"
+            "       called = true\n"
+            "   end\n"
+            "   }\n"
+            ")\n"
+			"am.dialogue.add_dialogue(diag)\n"
+			);
+		
+		if (!loadResult)
+		{
+			lua.logStack("LOAD ERR");
+		}
+		assert(loadResult);
+
+		game::Dialogue *diag1 = game->getDialogue("diag1");
+		assert(diag1 != nullptr);
+
+        base::Handle<game::Character> char1(new game::Character());
+        base::Handle<game::Character> char2(new game::Character());
+        base::Handle<game::DialogueComponent> comp1(new game::DialogueComponent(char1));
+        base::Handle<game::DialogueComponent> comp2(new game::DialogueComponent(char2));
+
+        bool called = lua.getGlobalBool("called");
+        assert(!called);
+
+        comp1->talkTo(char2, diag1);
+
+        called = lua.getGlobalBool("called");
+        assert(called);
+        return true;
+    }
 }
 }

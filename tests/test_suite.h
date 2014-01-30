@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include <log/logger.h>
+#include <exception>
 
 #define runSuite(s)	\
 	{	\
@@ -54,6 +55,7 @@ namespace tests {
 			am_log("SUITE", ss);
 			beforeSuite();
 			runCases();
+
 			ss.str("");
 			try
 			{

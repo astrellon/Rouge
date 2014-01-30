@@ -44,9 +44,10 @@ namespace game {
             std::string subject;
             Dialogue::UnlockFlag flag = Dialogue::UNLOCK_NONE;
             Dialogue::DialogueAction action = Dialogue::ACTION_NONE;
+            
+            LuaState L(lua);
             if (lua_istable(lua, 3))
             {
-                LuaState L(lua);
                 L.getTableString("title", title, 3);
                 L.getTableString("subject", subject, 3);
                 std::string temp;
@@ -61,6 +62,14 @@ namespace game {
             }
 			Dialogue *dialogue = new Dialogue(lua_tostring(lua, 1), lua_tostring(lua, 2),
 				title.c_str(), subject.c_str(), flag, action);
+            if (lua_istable(lua, 3))
+            {
+                int funcRef = LUA_REFNIL;
+                if (L.getTableFunc("dialogue", funcRef))
+                {
+                    lua::ui::addEventListener<Dialogue>(lua, dialogue, "dialogue", funcRef);
+                }
+            }
 			wrapRefObject<Dialogue>(lua, dialogue);
 			return 1;
 		}

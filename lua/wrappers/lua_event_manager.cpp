@@ -76,10 +76,6 @@ namespace ui {
 			return false;
 		}
         bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && lua_istable(lua, contextn);
-		/*if (hasContext)
-		{
-			return false;
-		}*/
 	
 		int contextRef = LUA_REFNIL;
 		if (hasContext)
@@ -93,6 +89,25 @@ namespace ui {
 		manager->addEventListener(eventType, listener);
 		return true;
 	}
+/*    bool addEventListener(lua_State *lua, am::ui::EventInterface *manager, const char *type, int funcRef, int contextn)
+    {
+        if (type == nullptr)
+        {
+            return false;
+        }
+
+        bool hasContext = contextn != 0 && !lua_isnil(lua, contextn) && lua_istable(lua, contextn);
+
+		int contextRef = LUA_REFNIL;
+		if (hasContext)
+		{
+            lua_pushvalue(lua, contextn);
+			contextRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+		}
+		am::ui::LuaEventListener *listener = new am::ui::LuaEventListener(lua, funcRef, contextRef);
+		manager->addEventListener(type, listener);
+		return true;
+    }*/
 	bool removeEventListener(lua_State *lua, am::ui::EventInterface *manager, int typen, int funcn, int contextn)
 	{
 		const char *eventType = lua_tostring(lua, 2);

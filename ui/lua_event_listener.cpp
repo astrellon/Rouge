@@ -23,7 +23,8 @@ namespace ui {
 	}
 	LuaEventListener::~LuaEventListener()
 	{
-
+        luaL_unref(mLua, LUA_REGISTRYINDEX, mFuncRef);
+        luaL_unref(mLua, LUA_REGISTRYINDEX, mContextRef);
 	}
 
 	lua::LuaState &LuaEventListener::getLua()

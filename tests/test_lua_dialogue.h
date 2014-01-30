@@ -22,6 +22,7 @@ namespace tests {
 		virtual void runCases()
 		{
 			runCase(testSimple);
+			runCase(testEvents);
 		}
 	
 		virtual const char *getSuiteName() const 
@@ -30,8 +31,9 @@ namespace tests {
 		}
 
 	protected:
-
-		bool testSimple();
+		
+        bool testSimple();
+        bool testEvents();
 
 	};
 

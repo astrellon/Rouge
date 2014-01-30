@@ -184,7 +184,7 @@ namespace lua {
 		bool getTableInt(const char *key, int &value, int n = -1);
 		bool getTableDouble(const char *key, double &value, int n = -1);
 		bool getTableBool(const char *key, bool &value, int n = -1);
-//        bool getTableFunc(const char *key, int &refValue, int n = -1);
+        bool getTableFunc(const char *key, int &valueRef, int n = -1);
 
 		bool isTableNumber(const char *key, int n = -1);
 		bool isTableString(const char *key, int n = -1);
