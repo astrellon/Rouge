@@ -141,7 +141,7 @@ namespace util {
 	bool Utils::fileExists(const char *filename)
 	{
 		std::ifstream stream(filename);
-		return stream;
+		return !stream.fail();
 	}
 
 }

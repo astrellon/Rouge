@@ -61,6 +61,9 @@
     <Filter Include="gfx\base\text">
       <UniqueIdentifier>{d2d19d70-7e8f-4c9c-a7ed-6b5fb9fc98b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sys\tests">
+      <UniqueIdentifier>{738982a0-ad00-41ea-8341-c2fa635da1f2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="tests">
       <UniqueIdentifier>{c892e353-bd3d-4061-a217-829d0e5be989}</UniqueIdentifier>
     </Filter>
@@ -162,9 +165,6 @@
     </Filter>
     <Filter Include="tests\math">
       <UniqueIdentifier>{abf0338e-b864-45ce-8a88-0999f7b6a04a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sys\tests">
-      <UniqueIdentifier>{f6b621d8-4ee8-4cc5-b96a-07be9f0bb809}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -946,11 +946,11 @@
     <ClCompile Include="lua\wrappers\game\lua_store.cpp">
       <Filter>lua\wrapper\game</Filter>
     </ClCompile>
+    <ClCompile Include="sys\unit_test_system.cpp">
+      <Filter>sys\tests</Filter>
+    </ClCompile>
     <ClCompile Include="tests\test_lua_store.cpp">
       <Filter>tests\game</Filter>
-    </ClCompile>
-    <ClCompile Include="sys\tests\unit_test_system.cpp">
-      <Filter>sys\tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1732,11 +1732,11 @@
     <ClInclude Include="lua\wrappers\game\lua_store.h">
       <Filter>lua\wrapper\game</Filter>
     </ClInclude>
+    <ClInclude Include="sys\unit_test_system.h">
+      <Filter>sys\tests</Filter>
+    </ClInclude>
     <ClInclude Include="tests\test_lua_store.h">
       <Filter>tests\game</Filter>
-    </ClInclude>
-    <ClInclude Include="sys\tests\unit_test_system.h">
-      <Filter>sys\tests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
