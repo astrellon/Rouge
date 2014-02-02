@@ -73,10 +73,11 @@ do
     diag = am.dialogue.new("john_door", "I'm a <? @='john_door_2'>door!</?>")
     am.dialogue.add_dialogue(diag)
 
-    diag = am.dialogue.new("john_door_2", "DOOOOOOOR!");
-    diag:on("dialogue", function(e)
-        am.debug.log("DOORED!")
-    end)
+    diag = am.dialogue.new("john_door_2", "DOOOOOOOR!", {
+        dialogue = function(e)
+            am.debug.log("DOORED");
+        end
+    })
     am.dialogue.add_dialogue(diag)
 	-- End Dialogue
 
