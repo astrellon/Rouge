@@ -28,10 +28,9 @@
 #   define STRCASECMP   _stricmp
 #else
 #   include <string.h>
-#   include <AL/al.h>
 #   define STRCASECMP  strcasecmp
 #endif
-#include <AL/alc.h>
+#include <sfx/openal/al.h>
 #include <cstring>
 
 /* 

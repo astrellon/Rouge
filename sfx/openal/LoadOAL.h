@@ -23,8 +23,7 @@
 #ifndef _LOADOAL_H_
 #define _LOADOAL_H_
 
-#  include <AL/al.h>
-#  include <AL/alc.h>
+#include <sfx/openal/al.h>
 
 #ifndef ALAPIENTRY
 #define ALAPIENTRY

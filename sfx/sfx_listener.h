@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-#include <AL/al.h>
+#include <sfx/openal/al.h>
 
 #include <base/imanaged.h>
 

@@ -1738,5 +1738,8 @@
     <ClInclude Include="sys\tests\unit_test_system.h">
       <Filter>sys\tests</Filter>
     </ClInclude>
+    <ClInclude Include="sfx\openal\al.h">
+      <Filter>sfx\openal</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

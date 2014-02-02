@@ -754,6 +754,7 @@ xcopy /s /y /i "$(ProjectDir)data" "$(OutputPath)data\"</Command>
     <ClInclude Include="math\transform_lite.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="math\vector.h" />
+    <ClInclude Include="sfx\openal\al.h" />
     <ClInclude Include="sfx\openal\aldlist.h" />
     <ClInclude Include="sfx\openal\LoadOAL.h" />
     <ClInclude Include="sfx\sfx_engine.h" />

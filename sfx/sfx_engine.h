@@ -5,7 +5,7 @@
 
 #include <base/handle.h>
 
-#include <AL/al.h>
+#include <sfx/openal/al.h>
 
 #ifdef _WIN32
 #   include <Windows.h>

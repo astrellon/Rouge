@@ -4,7 +4,7 @@
 #include <string>
 #include <stdexcept>
 
-#include <AL/al.h>
+#include <sfx/openal/al.h>
 
 #include <base/imanaged.h>
 

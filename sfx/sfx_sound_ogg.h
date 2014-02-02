@@ -5,7 +5,7 @@
 
 #include "sfx_isound.h"
 
-#include <AL/al.h>
+#include <sfx/openal/al.h>
 #include <sfx/ogg/Vorbis/vorbisfile.h>
 
 namespace am {
