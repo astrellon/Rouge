@@ -101,10 +101,6 @@ namespace game {
 		mGameLayer->deinit();
 		{
 			DialogueMap dialogue = mDialogueMap;
-			for (auto iter = dialogue.begin(); iter != dialogue.end(); ++iter)
-			{
-				delete iter->second;
-			}
 			mDialogueMap.clear();
 		}
 		{
