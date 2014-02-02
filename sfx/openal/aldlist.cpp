@@ -50,7 +50,7 @@ ALDeviceList::ALDeviceList()
 
 	defaultDeviceIndex = 0;
 	// grab function pointers for 1.0-API functions, and if successful proceed to enumerate all devices
-	//if (LoadOAL10Library(nullptr, &ALFunction) == true) {
+	if (LoadOAL10Library(nullptr, &ALFunction) == true) {
 		if (ALFunction.alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT")) {
 			devices = (char *)ALFunction.alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
 			defaultDeviceName = (char *)ALFunction.alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER);
@@ -123,7 +123,7 @@ ALDeviceList::ALDeviceList()
 				index += 1;
 			}
 		}
-	//}
+	}
 
 	ResetFilters();
 }
@@ -142,7 +142,7 @@ ALDeviceList::~ALDeviceList()
 
 	vDeviceInfo.empty();
 
-	//UnloadOAL10Library();
+	UnloadOAL10Library();
 }
 
 /*

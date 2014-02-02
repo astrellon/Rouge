@@ -154,7 +154,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WIN_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WIN_SYS;_ENABLE_OGG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -197,7 +198,7 @@ copy "$(ProjectDir)freeglut\bin\freeglut.dll" "$(OutputPath)"</Command>
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;TESTING;_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;TESTING;_FREEGLUT_SYS;_ENABLE_OGG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -263,7 +264,8 @@ copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <PreprocessorDefinitions>_WIN_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN_SYS;_ENABLE_OGG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -292,7 +294,7 @@ copy "$(ProjectDir)sfx\vorbisfile.dll" "$(OutputPath)"</Command>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <PreprocessorDefinitions>_FREEGLUT_SYS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_FREEGLUT_SYS;_ENABLE_OGG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
