@@ -13,6 +13,7 @@
 #include "game_object.h"
 #include "astar_node.h"
 #include "map_region.h"
+#include "unique_id.h"
 
 namespace am {
 namespace game {
@@ -21,7 +22,7 @@ namespace game {
 	class Tile;
 	class Game;
 
-	class Map : public base::IManaged 
+	class Map : public base::IManaged, public UniqueId
 	{
 	public:
 

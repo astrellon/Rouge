@@ -8,6 +8,7 @@
 #include <ui/event_interface.h>
 
 #include <game/iattribute_data.h>
+#include <game/unique_id.h>
 
 namespace am {
 namespace util {
@@ -22,7 +23,7 @@ namespace game {
 	class Character;
 	class LoadingState;
 
-	class Quest : public ui::EventInterface, public IAttributeData, public virtual base::IManaged 
+	class Quest : public ui::EventInterface, public IAttributeData, public virtual base::IManaged, public UniqueId
 	{
 	public:
 		

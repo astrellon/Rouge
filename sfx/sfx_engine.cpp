@@ -58,7 +58,9 @@ namespace sfx {
 		mSourcePoolPos(0),
 		// OGG
         mOggLoaded(false),
+#ifdef _WIN32
 		mOggHandle(nullptr),
+#endif
 		mOggClear(nullptr),
 		mOggRead(nullptr),
 		mOggPcmTotal(nullptr),

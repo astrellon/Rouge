@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "inventory.h"
+#include "unique_id.h"
 
 namespace am {
 namespace util {
@@ -24,7 +25,7 @@ namespace game {
 
     class Character;
 
-	class Store : public virtual base::IManaged, public ui::EventInterface, public ui::IEventListener 
+	class Store : public virtual base::IManaged, public ui::EventInterface, public ui::IEventListener, public UniqueId 
 	{
 	public:
 

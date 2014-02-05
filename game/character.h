@@ -168,6 +168,7 @@ namespace game {
 		virtual bool isDead() const;
 
         virtual base::ReturnCode addStore(Store *store);
+        virtual Store *getStore(const char *name) const;
         virtual Store *getStore(int index = 0) const;
         virtual bool hasStore(Store *store) const;
         virtual const StoreList &getStores() const;

@@ -978,6 +978,22 @@ namespace game {
         mOwnedStores.push_back(store);
         return base::SUCCESS;
     }
+    Store *Character::getStore(const char *name) const
+    {
+        if (!name || name[0] == '\0')
+        {
+            return nullptr;
+        }
+        for (size_t i = 0; i < mOwnedStores.size(); i++)
+        {
+            if (strcmp(mOwnedStores[i]->getStoreId(), name) == 0)
+            {
+                return mOwnedStores[i];
+            }
+        }
+        return nullptr;
+    }
+
     Store *Character::getStore(int index) const
     {
         if (index < 0 || index >= static_cast<int>(mOwnedStores.size()))

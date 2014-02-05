@@ -8,12 +8,14 @@
 
 #include <ui/event_interface.h>
 
+#include "unique_id.h"
+
 namespace am {
 namespace game {
 
 	class GameObject;
 
-	class Dialogue : public ui::EventInterface
+	class Dialogue : public ui::EventInterface, public UniqueId
 	{
 	public:
 

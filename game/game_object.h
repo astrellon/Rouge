@@ -13,6 +13,7 @@
 #include <game/dialogue_component.h>
 #include <game/iattribute_data.h>
 #include <game/map_region.h>
+#include <game/unique_id.h>
 
 #include <util/idefinition.h>
 
@@ -33,7 +34,7 @@ namespace game {
 	class LoadingState;
 
 	class GameObject : public gfx::Layer, public IAttributeData, 
-		public IDefinition, public ui::IEventListener 
+		public IDefinition, public ui::IEventListener, public UniqueId 
 	{
 	public:
 

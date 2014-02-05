@@ -12,13 +12,15 @@
 
 #include <lua/lua_state.h>
 
+#include "unique_id.h"
+
 namespace am {
 namespace game {
 
 	class TileSet;
 	class TileType;
 	
-	class Tile : public base::IManaged, public util::IDefinition 
+	class Tile : public base::IManaged, public util::IDefinition, public UniqueId
 	{
 	public:
 

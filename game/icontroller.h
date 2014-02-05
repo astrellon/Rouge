@@ -2,12 +2,14 @@
 
 #include <base/imanaged.h>
 
+#include "unique_id.h"
+
 namespace am {
 namespace game {
 
 	class Character;
 
-	class IController : public base::IManaged 
+	class IController : public base::IManaged, public UniqueId
 	{
 	public:
 

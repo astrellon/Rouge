@@ -9,6 +9,8 @@
 
 #include <math/vector.h>
 
+#include "unique_id.h"
+
 namespace am {
 namespace util {
 namespace data {
@@ -21,7 +23,7 @@ namespace game {
 
 	class GameObject;
 
-	class MapRegion : public ui::EventInterface 
+	class MapRegion : public ui::EventInterface, public UniqueId
 	{
 	public:
 

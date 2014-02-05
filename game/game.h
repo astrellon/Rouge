@@ -24,6 +24,7 @@
 #include "loading_state.h"
 #include "iattribute_data.h"
 #include "store.h"
+#include "unique_id.h"
 
 #include <log/logger.h>
 
@@ -45,7 +46,7 @@ namespace game {
 
 	class Engine;
 
-	class Game : public IDefinitionManager, public ui::IEventListener, public ui::EventInterface, public IAttributeData 
+	class Game : public IDefinitionManager, public ui::IEventListener, public ui::EventInterface, public IAttributeData, public UniqueId 
 	{
 	public:
 		Game(Engine *engine = nullptr);
@@ -112,7 +113,7 @@ namespace game {
 		void update(float dt);
 		void onGameTick();
 		void setCurrentGameTickLength(float dt);
-		//void nextObjectTurn();
+		///void nextObjectTurn();
 
 		// GameObject
 		GameObject *getGameObject(const char *id) const;
@@ -199,8 +200,8 @@ namespace game {
 		typedef std::map<std::string, base::Handle<Character> > CharacterMap;
 		CharacterMap mCharDefinitions;
 
-        typedef std::map< std::string, base::Handle<Store> > StoreMap;
-        StoreMap mStoreMap;
+        typedef std::map< UniqueId::Type, UniqueId *> UniqueIdMap;
+        UniqueIdMap mUniqueIdMap;
 
 		virtual const char *getBaseDefinitionPath(int id) const;
 

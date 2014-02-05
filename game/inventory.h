@@ -7,6 +7,7 @@
 
 #include "item.h"
 #include "inventory_spot.h"
+#include "unique_id.h"
 
 namespace am {
 namespace util {
@@ -20,7 +21,7 @@ namespace game {
 
 	class LoadingState;
 
-	class Inventory : public virtual base::IManaged, public ui::EventInterface 
+	class Inventory : public virtual base::IManaged, public ui::EventInterface, public UniqueId
 	{
 	public:
 
