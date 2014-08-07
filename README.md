@@ -88,11 +88,13 @@ Screenshots
 
 Here is an example of the game screen with current paths for the player and
 an NPC. Also showing the Inspector window which tells the player what is 
-currently on a given tile. ![Screenshot of the game](http://i.imgur.com/Ntkdf7n.png)
+currently on a given tile.
+![Screenshot of the game](http://i.imgur.com/Ntkdf7n.png)
 
 An example of the dialogue system. Words spoken by the NPCs are shown on the 
 left with keywords highlighted that can be clicked. Topics that have been 
-unlocked by clicking on keywords are shown on the right. ![Dialogue Screenshot](http://i.imgur.com/EYZO3OP.png)
+unlocked by clicking on keywords are shown on the right.
+![Dialogue Screenshot](http://i.imgur.com/EYZO3OP.png)
 
 An example of the in game editor. UI is all placeholder, but tiles can be 
 painted onto a map of a given size, tile overlapping updates in real time.
