@@ -1,0 +1,1041 @@
+<html>
+	<head>
+		<title>dialogue_component</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Dialogue Component</h2>
+			<div class='comment'> The dialogue component class stores all the data to do with the dialogue  that can be attached to a game object.
+  This includes the starting dialogue this component will open with, and all the currently  available dialogue options, and which dialogues this component has unlocked.
+  game objects do not have a dialogue component by default so one must be  created and attached.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_am.game_object_attach_to__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>attach_to</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.dialogue_component_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue_component</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talk_to_am.game_object_talkee_am.dialogue_with_dialogue__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>talk_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>talkee</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.dialogue</span>
+							<span class='name'>with_dialogue</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talking_to_Void__am.game_object'>
+					<div>
+						<code></code>
+						<span class='name'>talking_to</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game_object</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#start_dialogue_Void__am.dialogue'>
+					<div>
+						<code></code>
+						<span class='name'>start_dialogue</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#start_dialogue_string_dialogue_id__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>start_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>dialogue_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#start_dialogue_am.dialogue_dialogue__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>start_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue</span>
+							<span class='name'>dialogue</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#locked_string_subject__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>locked</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>subject</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#locked_string_subject_boolean_locked__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>locked</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>subject</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>locked</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#available_string_dialogue_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>available</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>dialogue_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#available_string_dialogue_id_boolean_available__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>available</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>dialogue_id</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>available</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attached_to_Void__am.game_object'>
+					<div>
+						<code></code>
+						<span class='name'>attached_to</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game_object</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attached_to_am.game_object_game_object__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>attached_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#on_string_event_type_function_listener_table_content__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>on</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>content</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#off_string_event_type_function_listener_table_context__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>off</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>context</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_event_listener_string_event_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_event_listener</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_am.game_object_attach_to__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>attach_to</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new dialogue component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>attach_to</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>Attaches this dialogue component to the given game object   if it is not null.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on this dialogue component.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.dialogue_component_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this dialogue component with another dialogue component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other dialogue component to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same dialogue component object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talk_to_am.game_object_talkee_am.dialogue_with_dialogue__am.dialogue_component' class='name'>talk_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>with_dialogue</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to start a dialogue with another game object.  The other game object must have a dialogue component attached to talk to.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to talk to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>with_dialogue</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>By default the talk to function will start a conversation   using the start_dialogue value, this allows for that to be overridden for this talk.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talking_to_Void__am.game_object' class='name'>talking_to</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game_object</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the game object that this dialogue component is currently talking to.  Will return nil if there is no dialogue.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game_object</span>
+								<span>:</span>
+								<span class='comment'>The game object being talked to or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='start_dialogue_Void__am.dialogue' class='name'>start_dialogue</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the openning dialogue this component will use when talked to, or nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue</span>
+								<span>:</span>
+								<span class='comment'>The starting dialogue, or nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='start_dialogue_string_dialogue_id__am.dialogue_component' class='name'>start_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the starting dialogue this component will use when talked to, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue id of the dialogue to open with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='start_dialogue_am.dialogue_dialogue__am.dialogue_component' class='name'>start_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the starting dialogue this component will use when talked to, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue to open with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='locked_string_subject__boolean' class='name'>locked</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>subject</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns if the given subject title is locked or unlocked.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>subject</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The subject to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the subject is locked, false if the subject is unlocked.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='locked_string_subject_boolean_locked__am.dialogue_component' class='name'>locked</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>subject</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>locked</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if a dialogue subject is locked or unlocked for this dialogue component.  Unlocked subjects will be available to use in dialogue.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>subject</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The subject to lock or unlock.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>locked</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Sets is the subject is locked or unlocked.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='available_string_dialogue_id__boolean' class='name'>available</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns if the given dialogue is available from this component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue id to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the dialogue is available.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='available_string_dialogue_id_boolean_available__am.dialogue_component' class='name'>available</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>available</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if the given dialogue will be available from this component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue id to set.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>available</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The availability of the given dialogue.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attached_to_Void__am.game_object' class='name'>attached_to</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game_object</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the game object this dialogue component is attached to, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game_object</span>
+								<span>:</span>
+								<span class='comment'>The game object this is attached to.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attached_to_am.game_object_game_object__am.dialogue_component' class='name'>attached_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attaches this dialogue component to a game object, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to attach to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='on_string_event_type_function_listener_table_content__boolean' class='name'>on</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Adds an event listener for an event fired on this dialogue component.  eg:
+							<pre>
+ character:on("talkTo", function(event)
+     am_log("Character talked to")
+ end)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type or name to trigger on</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The function to call when the event is fired.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>An option context for the listener to be  called with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event was added successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='off_string_event_type_function_listener_table_context__boolean' class='name'>off</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Removes an event listener from this character.  eg:
+							<pre>
+ function talkToOnce(event)
+     am_log("Character talked to once")
+     character:off("talkTo", talkToOnce)
+ end
+ character:on("talkTo", talkToOnce)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type the listener was listening for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The listener function to remove.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The context which the listener was going to  be called with, this is only optional if the listener was added with no context.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event listener was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_event_listener_string_event_type__boolean' class='name'>has_event_listener</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true when there is an event listener for the given event_type.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there is any event listener  that will be trigged by this event type.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

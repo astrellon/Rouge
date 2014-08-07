@@ -1,0 +1,5205 @@
+<html>
+	<head>
+		<title>character</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Character</h2>
+			<div class='comment'>
+				 Class for representing a Character.
+				<pre>
+ npc1 = am.character.new("npc1")
+ npc1:name("Fredrick Smith")
+ 
+ game = am.engine.get_game()
+ main = game:main()</pre>
+			</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_game_id__am.character_boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'>= ""</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#new_string_game_id_string_def_name__am.character_boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'>= ""</span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.character_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#from_def_string_def_name_string_game_id__am.character'>
+					<div>
+						<code>static</code>
+						<span class='name'>from_def</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'>= ""</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_string_name__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_string_description__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>description</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#pickup_reach_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>pickup_reach</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#pickup_reach_number_radius__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>pickup_reach</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>radius</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#stats_Void__am.stats'>
+					<div>
+						<code></code>
+						<span class='name'>stats</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stats</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_body_part_am.body_part_part__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.body_part</span>
+							<span class='name'>part</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_body_part_string_part_name_string_part_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_type</span>
+							<span class='optional'>= UNKNOWN_PART</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_body_part_am.body_part_part__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.body_part</span>
+							<span class='name'>part</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_body_part_string_part_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_body_part_am.body_part_part__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.body_part</span>
+							<span class='name'>part</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_body_part_string_part_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_body_part</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#body_parts_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>body_parts</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#equip_item_am.item_item_am.body_part_part__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>equip_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.body_part</span>
+							<span class='name'>part</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#equip_item_am.item_item_string_part_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>equip_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#unequip_item_am.body_part_part__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>unequip_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.body_part</span>
+							<span class='name'>part</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#unequip_item_string_part_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>unequip_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#equipped_string_part_name__am.item'>
+					<div>
+						<code></code>
+						<span class='name'>equipped</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>part_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.item</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#inventory_Void__am.inventory'>
+					<div>
+						<code></code>
+						<span class='name'>inventory</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.inventory</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#pickup_item_am.item_item__am.code'>
+					<div>
+						<code></code>
+						<span class='name'>pickup_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#drop_item_am.item_item__integer'>
+					<div>
+						<code></code>
+						<span class='name'>drop_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#drop_item_am.item_item_number_x_number_y__integer'>
+					<div>
+						<code></code>
+						<span class='name'>drop_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#age_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>age</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#age_number_age__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>age</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>age</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#race_Void__Race'>
+					<div>
+						<code></code>
+						<span class='name'>race</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>Race</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#race_string_race_name__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>race_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#race_Race_race__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>Race</span>
+							<span class='name'>race</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#gender_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>gender</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#gender_string_gender__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>gender</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>gender</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#coin_purse_Void__am.coin_purse'>
+					<div>
+						<code></code>
+						<span class='name'>coin_purse</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.coin_purse</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_Void__am.sprite'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.sprite</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_string_asset_name__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_am.sprite_sprite__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.sprite</span>
+							<span class='name'>sprite</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#destination_Void__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>destination</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#destination_number_x_number_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>destination</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_destination_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>grid_destination</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_destination_integer_x_integer_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>grid_destination</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#destination_length_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>destination_length</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_destination_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_destination</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#location_Void__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>location</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#location_number_x_number_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_location_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>grid_location</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_location_integer_x_integer_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>grid_location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_number_x_number_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>move</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_grid_integer_x_integer_y__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>move_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talk_to_string_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>talk_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talk_to_am.game_object_talkee__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>talk_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>talkee</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_to_grid_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_to_grid</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_to_grid_boolean_fixed__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_to_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>fixed</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_Void__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>map</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_am.map_map__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#original_map_Void__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>original_map</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#original_map_am.map_map__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>original_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_passible_type_am.tile_type_tile_type__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>add_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_passible_type_string_tile_type_name__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>add_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_passible_type_am.tile_type_tile_type__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>remove_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_passible_types_Void__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_passible_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_passible_type_am.tile_type_tile_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#get_passible_types_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>get_passible_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_id_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>game_id</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_id_string_game_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>game_id</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#find_string_game_id__am.character'>
+					<div>
+						<code>static</code>
+						<span class='name'>find</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#dialogue_component_Void__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>dialogue_component</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#dialogue_component_am.dialogue_component_comp_boolean_set_attached__Void'>
+					<div>
+						<code></code>
+						<span class='name'>dialogue_component</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue_component</span>
+							<span class='name'>comp</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>set_attached</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#on_string_event_type_function_listener_table_content__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>on</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>content</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#off_string_event_type_function_listener_table_context__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>off</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>context</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_event_listener_string_event_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_event_listener</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#experience_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>experience</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#experience_integer_experience__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>experience</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>experience</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_experience_integer_experience__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>add_experience</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>experience</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#level_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>level</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#level_integer_level__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>level</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>level</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_level_integer_levels__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>add_level</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>levels</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#max_level_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>max_level</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#max_level_integer_max_level__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>max_level</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>max_level</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#ai_func_Void__function'>
+					<div>
+						<code></code>
+						<span class='name'>ai_func</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>function</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#ai_func_function_func__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>ai_func</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>func</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_with_Void__function'>
+					<div>
+						<code></code>
+						<span class='name'>interact_with</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>function</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_with_function_func__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>interact_with</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>func</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_dialogue_am.game_object_interacter_bool_by_movement__am.code'>
+					<div>
+						<code></code>
+						<span class='name'>interact_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>interacter</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>bool</span>
+							<span class='name'>by_movement</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_boolean_create_table__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>create_table</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_am.data_table_attr_table__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.data_table</span>
+							<span class='name'>attr_table</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='new_string_game_id__am.character_boolean' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates or wraps a character instance.  For example, the first time a character is created (as in the case of a new game)  there should not be any existing character with the same game_id. In which case  a new character will be created.  If the character was not pre-existing then it will need all the specific values  set onto it. However if it was pre-existing then you are unlikely to want to set  it's current values back to what they were when the character was first created.  However event listeners are not maintained between saves, so they will have to be  added to an existing (loaded) character as well as a new one.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+								<span>:</span>
+								<span class='comment'>The game id to create the character with or the game id   of an existing character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The newly created character or returns an existing character   with the same game_id.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the character was newly created or false if it   already existed.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='new_string_game_id_string_def_name__am.character_boolean' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Behaves the same as the base constructor however the new character will be created  from the given character definition if it has to be created.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+								<span>:</span>
+								<span class='comment'>The game id to create the character with or the game id   of an existing character.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character definition name to look up when creating the   character if it one did not exist.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The newly created character or returns an existing character   with the same game_id.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the character was newly created or false if it   already existed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference of this character.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.character_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this character with another character reference.  Will not return true for equivalent characters.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other character to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the characters are the same entity.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='from_def_string_def_name_string_game_id__am.character' class='name'>from_def</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Creates a new character from the character definition.  Character definitions are automatically loaded if one with  the given name is not registered.
+							<p>Example (a test map Lua file):</p>
+							<pre>
+ npc = am.character.from_def("npcs:male1")
+ if (npc ~= nil)
+     npc:name("Fred")
+ end</pre>
+							<p>In "data/defs/npcs.lua":</p>
+							<pre>
+ game = am.engine.game()
+ 
+ npc = am.character.new()
+ npc:age(21):gender("male"):graphic(am.sprite.new("characters/npc/front"))
+ 
+ -- Here the npc is registered with the name "male1" and "npcs:" will 
+ -- automatically be prepended because of the filename.
+ game:char_def("male1", npc)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the character definition.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+								<span>:</span>
+								<span class='comment'>The game id to give to the newly created character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>A copy of the character from the given definition, or nil if no definition was found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the name of the character.  A nil return indicates that there was an error.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The name of the character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_string_name__am.character' class='name'>name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the name of the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name to set the character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_Void__string' class='name'>description</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the description of the character.  A nil return indicates that there was an error.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The description of the character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_string_description__am.character' class='name'>description</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the description of the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The description to set the character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='pickup_reach_Void__number' class='name'>pickup_reach</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the pickup reach of the character.  The pickup reach is the radius around the character in grid units  in which the character is able to pickup items and interact with objects.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The pickup reach radius.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='pickup_reach_number_radius__am.character' class='name'>pickup_reach</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>radius</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the pickup reach radius for the character.  The pickup reach is the radius around the character in grid units  in which the character is able to pickup items and interact with objects.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>radius</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The pickup reach radius.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='stats_Void__am.stats' class='name'>stats</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stats</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the stats container linked with this character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stats</span>
+								<span>:</span>
+								<span class='comment'>The stats container.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_body_part_am.body_part_part__boolean' class='name'>add_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to add a body part to the character.  Returns true if this was successful, false if there was  another body part with the same name attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to add</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>If part was added successfully.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_body_part_string_part_name_string_part_type__boolean' class='name'>add_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_type</span>
+								<span class='optional'>= UNKNOWN_PART</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to add a body part with the given name to the character.  Returns true if this was successful, false if there was  another body part with the same name attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the body part to create and add to the character.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_type</span>
+								<span class='optional'>= UNKNOWN_PART</span>
+								<span>:</span>
+								<span class='comment'>The type of the body part.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>If part was added successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_body_part_am.body_part_part__boolean' class='name'>remove_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a body part with the same name from the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the body part was removed.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_body_part_string_part_name__boolean' class='name'>remove_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a body part with the same name from the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the body part was removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_body_part_am.body_part_part__boolean' class='name'>has_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Tells if a body part with the same name is attached to the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to check for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the body part is attached.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_body_part_string_part_name__boolean' class='name'>has_body_part</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Tells if a body part with the same name is attached to the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to check for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the body part is attached.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='body_parts_Void__table' class='name'>body_parts</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table of all the body parts attached to this character.  Returns nil if there was an error.  Each table entry is a key/value pair with the key being the body parts name.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>A table of all the body parts.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='equip_item_am.item_item_am.body_part_part__boolean' class='name'>equip_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Equips an item to the character on the given body part.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to equip, it cannot be nil.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to equip the item to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was successfully equipped,  false can mean that there was already an item equipped, 'part'  was nil, or 'part' was not an attached body part.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='equip_item_am.item_item_string_part_name__boolean' class='name'>equip_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Equips an item to the character on the given body part.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to equip, it cannot be nil.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to equip the item to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was successfully equipped,  false can mean that there was already an item equipped,   or 'part_name' was not an attached body part.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='unequip_item_am.body_part_part__boolean' class='name'>unequip_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Unequips the item on the given body part for this character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.body_part</span>
+								<span class='name'>part</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to unequip the item from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was unequipped or if the body part  was already empty. False can mean 'part' was nil or that   'part' was not an attached body part.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='unequip_item_string_part_name__boolean' class='name'>unequip_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Unequips the item on the given body part for this character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to unequip the item from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was unequipped or if the body part  was already empty. False can mean that 'part_name' was not an attached body part.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='equipped_string_part_name__am.item' class='name'>equipped</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.item</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the item equipped at the given body part.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>part_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The body part to get the item from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.item</span>
+								<span>:</span>
+								<span class='comment'>The item equipped, nil if there was no item equipped  or if there was not body part with 'part_name' found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='inventory_Void__am.inventory' class='name'>inventory</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.inventory</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the inventory object attached to this character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.inventory</span>
+								<span>:</span>
+								<span class='comment'>The attached inventory, nil if there was an error.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='pickup_item_am.item_item__am.code' class='name'>pickup_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to pickup an item.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to attempt to pickup.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>
+									Return code for the pickup:
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The item was picked up.</td>
+										</tr>
+										<tr>
+											<td>nil_parameter</td>
+											<td>The item was nil.</td>
+										</tr>
+										<tr>
+											<td>out_of_range</td>
+											<td>The item was out of range of this characters pickup radius.</td>
+										</tr>
+										<tr>
+											<td>not_enough_inventory_space</td>
+											<td>There's not enough space for the item to be picked up.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_item_am.item_item__boolean' class='name'>add_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds an item to the characters inventory.  Returns true if it was successful, false there was not enough space.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True for successful add.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_item_am.item_item__boolean' class='name'>remove_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes an item from the characters inventory.  Returns true if the item was removed, false if the item was nil  or if the item could not be found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if removal was successful.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_item_am.item_item__boolean' class='name'>has_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if an item is in the characters inventory.  Returns false if the item was nil or not found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to search for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if found successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='drop_item_am.item_item__integer' class='name'>drop_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Drops an item at the characters feet.  Return codes:
+							<ul>
+								<li>1: Success.</li>
+								<li>0: Item was nil.</li>
+								<li>-1: Drop location was too far away (should not happen).</li>
+								<li>-2: Drop location was invalid for item.</li>
+								<li>-3: Error.</li>
+							</ul>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to drop</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Drop item return code:
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The item was dropped.</td>
+										</tr>
+										<tr>
+											<td>nil_parameter</td>
+											<td>The item was nil.</td>
+										</tr>
+										<tr>
+											<td>off_the_map</td>
+											<td>The drop location was off the map.</td>
+										</tr>
+										<tr>
+											<td>out_of_range</td>
+											<td>The item was out of range of this characters pickup radius to drop (should not happen).</td>
+										</tr>
+										<tr>
+											<td>invalid_location</td>
+											<td>The drop location was invalid for the item.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='drop_item_am.item_item_number_x_number_y__integer' class='name'>drop_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Drops an item at the given map coordinates.  Return codes:
+							<ul>
+								<li>1: Success.</li>
+								<li>0: Item was nil.</li>
+								<li>-1: Drop location was too far away.</li>
+								<li>-2: Drop location was invalid for item.</li>
+								<li>-3: Error.</li>
+							</ul>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to drop</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>X map location to drop at</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Y map location to drop at</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>Drop item return code.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='age_Void__number' class='name'>age</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the age of the character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The age of the character</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='age_number_age__am.character' class='name'>age</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>age</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the age of the character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>age</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new characters age</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='race_Void__Race' class='name'>race</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>Race</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters Race.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>Race</span>
+								<span>:</span>
+								<span class='comment'>The characters Race</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='race_string_race_name__am.character' class='name'>race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the race of the character.  If the race could not be found in the game engine,   the characters race is unchanged.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the race.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='race_Race_race__am.character' class='name'>race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>Race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the race of the character, nil will set to the unknown race.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>Race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The race to change to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='gender_Void__string' class='name'>gender</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the gender of the character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The characters gender</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='gender_string_gender__am.character' class='name'>gender</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>gender</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters gender.  Currently only supports "male" and "female", if it is not one of these  the characters gender is not changed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>gender</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The gender to change to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='coin_purse_Void__am.coin_purse' class='name'>coin_purse</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.coin_purse</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters coin purse.  This stores all the coin that the character currently holds.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.coin_purse</span>
+								<span>:</span>
+								<span class='comment'>The characters coin purse.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_Void__am.sprite' class='name'>graphic</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.sprite</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the graphic attached to this character, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.sprite</span>
+								<span>:</span>
+								<span class='comment'>The characters sprite.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_string_asset_name__am.character' class='name'>graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters asset graphic.  Sets the asset_name of the graphic for this character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset name to the graphic.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_am.sprite_sprite__am.character' class='name'>graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters graphic, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The graphic to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='destination_Void__number_number' class='name'>destination</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters current destination in world units.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The x world unit.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The y world unit.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='destination_number_x_number_y__am.character' class='name'>destination</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters destination in world units (not by grid coordinates).</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x world unit.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y world unit.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_destination_Void__integer_integer' class='name'>grid_destination</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters current destination in grid coordinates.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The x grid coordinate.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The y grid coordinate.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_destination_integer_x_integer_y__am.character' class='name'>grid_destination</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters destination in grid coordinates.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid coordinate.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid coordinate.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='destination_length_Void__number' class='name'>destination_length</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> If this character has a destination, this returns how long the path  is to the destination from the characters current location in world units.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The length of the characters current path.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_destination_Void__boolean' class='name'>has_destination</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if this character has a destination. This will be false if one  has not been set or if the character is at their destination.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the character has somewhere it wants to go.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='location_Void__number_number' class='name'>location</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters current map location.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The characters x map value</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The characters y map value</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='location_number_x_number_y__am.character' class='name'>location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters map location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x map value</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y map value</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_location_Void__integer_integer' class='name'>grid_location</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters currnet map grid location.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>x The x grid value</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>y The y grid value</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_location_integer_x_integer_y__am.character' class='name'>grid_location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters current map grid location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid value</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid value</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_number_x_number_y__am.character' class='name'>move</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a character by {x, y} amount.  If the new location isn't valid, the character isn't moved.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x amount to move by</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y amount to move by</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_grid_integer_x_integer_y__am.character' class='name'>move_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a character by {x, y} grid amounts.  If the new location isn't valid, the character isn't moved.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid amount to by move by</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid amount to by move by</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talk_to_string_id__boolean' class='name'>talk_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Initiates a conversation between this character  and the game object id passed in.  Returns true if the conversation was initiated.  False can mean that the game object id was invalid or that  either this character or the game object did not have a  dialog component attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the conversation was initiated.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talk_to_am.game_object_talkee__boolean' class='name'>talk_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Initiates a conversation between this character  and the game object passed in.  Returns true if the conversation was initiated.  False can mean that the game object was nil or that  either this character or the game object did not have a  dialog component attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to start a converstation with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the conversation was initiated.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_to_grid_Void__boolean' class='name'>fixed_to_grid</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if this character is fixed to the game grid  or false if the character is able to move freely about the map.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the character is fixed to the grid.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_to_grid_boolean_fixed__am.character' class='name'>fixed_to_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if the character is fixed to the grid or not.  If a character is fixed to the grid, they cannot move to positions  other than the center of each grid space.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Sets the fixed to grid value.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_Void__am.map' class='name'>map</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the current map that this character is on, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The map the character is on.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_am.map_map__am.character' class='name'>map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map that the character is on, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to put the character on.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='original_map_Void__am.map' class='name'>original_map</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the original map that this character was on, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The map the character was originally on.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='original_map_am.map_map__am.character' class='name'>original_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map that the character was originally on, can be nil.  This is usually set automatically the first time a character is  added to a map. This is primarily used for reloading the character  and knowing where to find likely find any event handlers and additional  information relating to the character that is not stored directly on the  character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map the character was originally was on.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_passible_type_am.tile_type_tile_type__am.character' class='name'>add_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types that this character  can move freely on. TileTypes can be added multiple times.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_passible_type_string_tile_type_name__am.character' class='name'>add_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types that this character  can move freely on. Tile types can be added multiple times.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_passible_type_am.tile_type_tile_type__am.character' class='name'>remove_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a tile type from the list of passible tiles.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_passible_types_Void__am.character' class='name'>remove_all_passible_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all tile types from this characters passible list.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_passible_type_am.tile_type_tile_type__boolean' class='name'>has_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given tile type is found on this characters  passible list.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to search for</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the tile type is found</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='get_passible_types_Void__table' class='name'>get_passible_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table of all the passible tile types for this character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>Table of all the tile types.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='game_id_Void__string' class='name'>game_id</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the game id for this character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The characters game id.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='game_id_string_game_id__boolean' class='name'>game_id</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters game id, this is used to refer to this  character from the game engine. Should be unique.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The characters unique game id.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game id change was successful or if  game id was the same as the given game_id. False indicates that  either there is no current game engine or there is another  game object with the same game id.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='find_string_game_id__am.character' class='name'>find</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks for a character with the given game id.  Nil is returned if it is not found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game id to look up</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The found character or nil</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='dialogue_component_Void__am.dialogue_component' class='name'>dialogue_component</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the dialogue component attached to this character, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>The attached dialogue component</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='dialogue_component_am.dialogue_component_comp_boolean_set_attached__Void' class='name'>dialogue_component</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>comp</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_attached</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets a dialogue component onto this character, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>comp</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue component to attach to this character, can be nil.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_attached</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>When true it also sets that this character  is the game object attached to the dialogue component.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='on_string_event_type_function_listener_table_content__boolean' class='name'>on</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Adds an event listener for an event fired on this character.  eg:
+							<pre>
+ character:on("talkTo", function(event)
+     am_log("Character talked to")
+ end)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type or name to trigger on</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The function to call when the event is fired.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>An option context for the listener to be  called with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event was added successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='off_string_event_type_function_listener_table_context__boolean' class='name'>off</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Removes an event listener from this character.  eg:
+							<pre>
+ function talkToOnce(event)
+     am_log("Character talked to once")
+     character:off("talkTo", talkToOnce)
+ end
+ character:on("talkTo", talkToOnce)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type the listener was listening for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The listener function to remove.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The context which the listener was going to  be called with, this is only optional if the listener was added with no context.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event listener was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_event_listener_string_event_type__boolean' class='name'>has_event_listener</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true when there is an event listener for the given event_type.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there is any event listener  that will be trigged by this event type.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='experience_Void__integer' class='name'>experience</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the amount of experience this character has.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The amount of experience this character has.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='experience_integer_experience__am.character' class='name'>experience</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>experience</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the amount of experience this character has.  If the amount of experience is enough to level up the character,  they will be leveled up to the appropriate level.  A characters level cannot go down again, even if their experience is  too low for their current level.  If the character has a max level and the experience is more than   the characters max level experience, it will be capped at that amount.  
+  It is generally recommended to simply add experience to a character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>experience</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of experience to set on this character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_experience_integer_experience__am.character' class='name'>add_experience</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>experience</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds the given amount of experience to the total amount of   experience this character has. The total will always be capped  at the characters max level if they have one.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>experience</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of experience to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='level_Void__integer' class='name'>level</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters current level.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The characters level</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='level_integer_level__am.character' class='name'>level</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>level</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters level.  If the new level is higher than the characters current level,  their experience is also set at the amount required to be that level.  However a characters level cannot be set lower than what it currently is.  The level cannot be set higher than a characters max level   if they have a max level set.  It is generally recommended to use add_level instead of setting it directly.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>level</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The characters new level.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_level_integer_levels__am.character' class='name'>add_level</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>levels</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds the given amount of levels to this character.  This new level will not go over a characters max level if they have one set.  The characters experience will also be set the appropriate amount  for them to be this level.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>levels</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The number of levels to add to this character</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='max_level_Void__integer' class='name'>max_level</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns this characters maximum level that they can achieve.  If max level is set to 0, their effective max level will be 2^15 (32768).</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The characters current max level.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='max_level_integer_max_level__am.character' class='name'>max_level</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>max_level</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the characters max level. If the max level is set to 0, then their  effective max level will be 2^15 (32768).</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>max_level</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The characters max level.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='ai_func_Void__function' class='name'>ai_func</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>function</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the function used by the AI to run.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>function</span>
+								<span>:</span>
+								<span class='comment'>The AI function, can be nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='ai_func_function_func__am.character' class='name'>ai_func</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the AI function, the function takes 2 parameters, the  character currently being processed and the current delta time.  The function can be set to nil for default behaviour.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new AI function.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_with_Void__function' class='name'>interact_with</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>function</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the interacting with function, returns nil if no Lua function  was set.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>function</span>
+								<span>:</span>
+								<span class='comment'>The interact with function.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_with_function_func__am.character' class='name'>interact_with</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the interact with function. This can be used to override the   default interaction behaviour. If this function does not specify that  it the game object was interacted with, then the default behaviour is  executed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new interact with functionality.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_dialogue_am.game_object_interacter_bool_by_movement__am.code' class='name'>interact_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>interacter</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>bool</span>
+								<span class='name'>by_movement</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Executes dialogue interactions with the object.  This can be used during an interact with function callback  to start dialogue. This will work with any game object, unless it does  not have a dialogue component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>interacter</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object that initiated the  interaction.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>bool</span>
+								<span class='name'>by_movement</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Flag that indicates if the interaction started   because of movement or because of other reasons, such as mouse input.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>
+									Standard interaction results:
+									<table class='return_codes'>
+										<tr>
+											<td>did_interact</td>
+											<td>Interaction occured, perform no further actions.</td>
+										</tr>
+										<tr>
+											<td>did_not_interact</td>
+											<td>Interaction did not occur, can perform further actions.</td>
+										</tr>
+										<tr>
+											<td>do_not_interact</td>
+											<td>Interaction did not occur, but do not perform any further actions.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_boolean_create_table__DataTable' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the characters attribute data table.  By default if no attribute data table is present nil is returned unless true  is passed as the first argument, then a data table is created if one is not present.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>Create a data table if one didn't exist.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>The data table on this character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_am.data_table_attr_table__am.character' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the data table on this character, can be set to nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The data table to set on the character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+			</div>
+		</div>
+	</body>
+</html>

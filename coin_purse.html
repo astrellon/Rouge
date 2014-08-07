@@ -1,0 +1,542 @@
+<html>
+	<head>
+		<title>coin_purse</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Coin Purse</h2>
+			<div class='comment'> The coin purse class is used for representing a coin purse.  The purse can hold any number of coin up to a max value if one is  defined. It also provides functions for checking if the coin purse has  enough coin for a given transaction (adding or removal) and reports  how many coins will not fit or how many coins short the purse is.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.coin_purse_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.coin_purse</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#coin_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>coin</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#coin_integer_coin__am.coin_purse'>
+					<div>
+						<code></code>
+						<span class='name'>coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.coin_purse</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#can_add_coin_integer_coin__integer'>
+					<div>
+						<code></code>
+						<span class='name'>can_add_coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#can_remove_coin_integer_coin__integer'>
+					<div>
+						<code></code>
+						<span class='name'>can_remove_coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_coin_integer_coin__am.coin_purse'>
+					<div>
+						<code></code>
+						<span class='name'>add_coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.coin_purse</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_coin_integer_coin__am.coin_purse'>
+					<div>
+						<code></code>
+						<span class='name'>remove_coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.coin_purse</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#max_coin_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>max_coin</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#max_coin_integer_max_coin__am.coin_purse'>
+					<div>
+						<code></code>
+						<span class='name'>max_coin</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>max_coin</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.coin_purse</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new empty coin purse.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Release the reference count on this coin purse.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.coin_purse_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.coin_purse</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this coin purse with another coin purse object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.coin_purse</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other coin purse to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same coin purse object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='coin_Void__integer' class='name'>coin</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the amount of coin in this coin purse.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The amount of coin.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='coin_integer_coin__am.coin_purse' class='name'>coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.coin_purse</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the amount of coin in this coin purse.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of coin to set in this coin purse.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.coin_purse</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='can_add_coin_integer_coin__integer' class='name'>can_add_coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns how many coins will not fit if the given amount were to be  added. A result of 0 means that all coins will fit.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of coin to test.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The amount of coins that won't fit, 0 if all coins will fit.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='can_remove_coin_integer_coin__integer' class='name'>can_remove_coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns how many coins cannot be taken out of the purse. A value of  of zero means that all requested coins can be removed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The number of coins to attempt to take out.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of coins short.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_coin_integer_coin__am.coin_purse' class='name'>add_coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.coin_purse</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds the given number of coins to the purse. If the amount of coin  won't fit they will be lost. Use can_add_coin to make sure this doesn't happen.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of coin to add to the purse.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.coin_purse</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_coin_integer_coin__am.coin_purse' class='name'>remove_coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.coin_purse</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes the given number of coins from the purse. If the purse does not  have the number of coins then the purse will not go into negative.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The amount of coin to remove from the purse.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.coin_purse</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='max_coin_Void__integer' class='name'>max_coin</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>   Returns the maximum number of coins that this purse can hold.  A value of 0 means this purse is unlimited.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of coin this purse can fit.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='max_coin_integer_max_coin__am.coin_purse' class='name'>max_coin</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>max_coin</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.coin_purse</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the max number of coin this purse can hold.  If the maximum is set to 0, then this purse will have unlimited space.  If the new maximum is lower than the current number of coin  then the additional coins will be lost.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>max_coin</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new max coin amount.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.coin_purse</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

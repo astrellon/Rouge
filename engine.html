@@ -1,0 +1,1204 @@
+<html>
+	<head>
+		<title>engine</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Engine</h2>
+			<div class='comment'> The engine class provides core functionality that has affects  across multiple game instances.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#game_Void__am.game'>
+					<div>
+						<code>static</code>
+						<span class='name'>game</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_am.game_game__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>game</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game</span>
+							<span class='name'>game</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_size_Void__number'>
+					<div>
+						<code>static</code>
+						<span class='name'>grid_size</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_size_number_size__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>grid_size</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>size</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#using_tile_set_string_tile_set_name__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>using_tile_set</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_set_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#clear_using_tile_set_Void__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>clear_using_tile_set</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_string_tile_name__am.tile'>
+					<div>
+						<code>static</code>
+						<span class='name'>tile</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_set_string_tile_set_name__am.tile_set'>
+					<div>
+						<code>static</code>
+						<span class='name'>tile_set</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_set_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_set</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_tile_set_am.tile_set_tile_set__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>add_tile_set</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_set</span>
+							<span class='name'>tile_set</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#top_level_tile_set_Void__am.tile_set'>
+					<div>
+						<code>static</code>
+						<span class='name'>top_level_tile_set</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_set</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_object_string_game_id__am.game_object'>
+					<div>
+						<code>static</code>
+						<span class='name'>game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game_object</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#register_game_object_am.game_object_game_object__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>register_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#deregister_game_object_string_game_id__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>deregister_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#deregister_game_object_am.game_object_game_object__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>deregister_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_race_am.race_race__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>add_race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.race</span>
+							<span class='name'>race</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_race_string_race_name__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>remove_race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>race_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_race_am.race_race__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>remove_race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.race</span>
+							<span class='name'>race</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#race_string_race_name__am.race'>
+					<div>
+						<code>static</code>
+						<span class='name'>race</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>race_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.race</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#unknown_race_Void__am.race'>
+					<div>
+						<code>static</code>
+						<span class='name'>unknown_race</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.race</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_tile_type_am.tile_type_tile_type__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>add_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_type_string_tile_type_name__am.tile_type'>
+					<div>
+						<code>static</code>
+						<span class='name'>tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_type</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#bgm_Void__am.sound'>
+					<div>
+						<code>static</code>
+						<span class='name'>bgm</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.sound</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#bgm_string_filename__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>bgm</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>filename</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#bgm_am.sound_bgm__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>bgm</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.sound</span>
+							<span class='name'>bgm</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#bgm_nil_turn_off__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>bgm</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>nil</span>
+							<span class='name'>turn_off</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='game_Void__am.game' class='name'>game</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the current game set on the engine, can be nil if  there is no game running.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>The current game.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='game_am.game_game__Void' class='name'>game</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game</span>
+								<span class='name'>game</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the current game.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game</span>
+								<span class='name'>game</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new current game</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='grid_size_Void__number' class='name'>grid_size</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the grid size in pixels for the tiles in the game.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>Grid size</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='grid_size_number_size__Void' class='name'>grid_size</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>size</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the grid size in pixels for the tiles in the game.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>size</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The grid size</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='using_tile_set_string_tile_set_name__Void' class='name'>using_tile_set</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_set_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile set name to look up when loading tiles.  This allows maps to defines the list of tiles without having  to specify the tile set each time.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_set_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile set name to use</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='clear_using_tile_set_Void__Void' class='name'>clear_using_tile_set</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Clears the current list of tile sets that are in use.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='tile_string_tile_name__am.tile' class='name'>tile</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a tile based on its name and the current list of tile sets in use.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile name to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>The found tile, or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='tile_set_string_tile_set_name__am.tile_set' class='name'>tile_set</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_set_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_set</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a tile set based on its name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_set_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Tile set name to look up</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_set</span>
+								<span>:</span>
+								<span class='comment'>The found tile set or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='add_tile_set_am.tile_set_tile_set__Void' class='name'>add_tile_set</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_set</span>
+								<span class='name'>tile_set</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile set to the game engines list of tile sets.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_set</span>
+								<span class='name'>tile_set</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile set to add.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='top_level_tile_set_Void__am.tile_set' class='name'>top_level_tile_set</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_set</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the top level tile set.  The top level tile set is the default tile set  which all tile look ups will look up if all others fail.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_set</span>
+								<span>:</span>
+								<span class='comment'>The top level tile set.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='game_object_string_game_id__am.game_object' class='name'>game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game_object</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a game object by gameId.  Returns a game object if found, nil otherwise.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game id to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game_object</span>
+								<span>:</span>
+								<span class='comment'>The found game object, nil if not found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='register_game_object_am.game_object_game_object__Void' class='name'>register_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Registers a game object with the current game so that it can be  looked up from anywhere. This is just shorthand for getting  the current game and registering the game object with that.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to register with the game engine.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='deregister_game_object_string_game_id__Void' class='name'>deregister_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a game object from the current game. This is just   shorthand for removing the game object from the current game.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game id of the game object to remove.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='deregister_game_object_am.game_object_game_object__Void' class='name'>deregister_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a game object from the game engine. This is just   shorthand for removing the game object from the current game.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to remove.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='add_race_am.race_race__boolean' class='name'>add_race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a race to the game engine.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The race to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the race was successfully added.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='remove_race_string_race_name__boolean' class='name'>remove_race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a race from the game engine.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the race to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the race was sucessfully removed.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='remove_race_am.race_race__boolean' class='name'>remove_race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a race from the game engine.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.race</span>
+								<span class='name'>race</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The race to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the race was sucessfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='race_string_race_name__am.race' class='name'>race</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.race</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a race in the game engine by name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>race_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The race name to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.race</span>
+								<span>:</span>
+								<span class='comment'>The found race or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='unknown_race_Void__am.race' class='name'>unknown_race</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.race</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the 'unknown' race.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.race</span>
+								<span>:</span>
+								<span class='comment'>The unknown race</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='add_tile_type_am.tile_type_tile_type__Void' class='name'>add_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the game engine.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The type to add.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='tile_type_string_tile_type_name__am.tile_type' class='name'>tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_type</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a tile tpye by name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type to lookup.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_type</span>
+								<span>:</span>
+								<span class='comment'>The found tile type or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='bgm_Void__am.sound' class='name'>bgm</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.sound</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the sound object of the currently playing background music.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.sound</span>
+								<span>:</span>
+								<span class='comment'>The current playing background music sound object.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='bgm_string_filename__boolean' class='name'>bgm</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the background music to stream from the given filename.  Unsupported files or unfound files will not change the music.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The filename of the file to stream as music.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the music was successfully changed.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='bgm_am.sound_bgm__Void' class='name'>bgm</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.sound</span>
+								<span class='name'>bgm</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the background music to the given sound object. The background  music source is always set to be looping, so this works best with  music designed for looping or with cue points.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.sound</span>
+								<span class='name'>bgm</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new sound object to use as background music.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='bgm_nil_turn_off__Void' class='name'>bgm</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>nil</span>
+								<span class='name'>turn_off</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Turns the background music off.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>nil</span>
+								<span class='name'>turn_off</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Turns music off.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

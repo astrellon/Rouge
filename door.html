@@ -1,0 +1,2801 @@
+<html>
+	<head>
+		<title>door</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Door</h2>
+			<div class='comment'>
+				 Class for representing a Door.
+				<pre>
+ wooden_door = am.door.new("map1_door")
+ wooden_door:name("Fantastic Wooden Door")</pre>
+			</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_game_id__am.character_boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'>= ""</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.character_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_type_Void__am.tile_type'>
+					<div>
+						<code></code>
+						<span class='name'>tile_type</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_type</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_type_am.tile_type_tile_type__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#can_open_by_am.character_character__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>can_open_by</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>character</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#opened_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>opened</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#opened_boolean_opened__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>opened</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>opened</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#lock_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>lock</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#lock_string_lock_name__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>lock</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>lock_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_Void__am.sprite'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.sprite</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_am.sprite_sprite__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.sprite</span>
+							<span class='name'>sprite</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#graphic_string_asset_name__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_string_name__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_string_description__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>description</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#location_Void__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>location</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#location_number_x_number_y__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_location_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>grid_location</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#grid_location_integer_x_integer_y__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>grid_location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_number_x_number_y__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>move</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_grid_integer_x_integer_y__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>move_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talk_to_string_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>talk_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#talk_to_am.game_object_talkee__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>talk_to</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>talkee</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_to_grid_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_to_grid</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_to_grid_boolean_fixed__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_to_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>fixed</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_Void__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>map</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_am.map_map__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#original_map_Void__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>original_map</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#original_map_am.map_map__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>original_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_passible_type_am.tile_type_tile_type__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>add_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_passible_type_string_tile_type_name__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>add_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_passible_type_am.tile_type_tile_type__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>remove_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_passible_types_Void__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_passible_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_passible_type_am.tile_type_tile_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_passible_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#get_passible_types_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>get_passible_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_id_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>game_id</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_id_string_game_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>game_id</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#find_string_game_id__am.door'>
+					<div>
+						<code>static</code>
+						<span class='name'>find</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>game_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#dialogue_component_Void__am.dialogue_component'>
+					<div>
+						<code></code>
+						<span class='name'>dialogue_component</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue_component</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#dialogue_component_am.dialogue_component_comp_boolean_set_attached__Void'>
+					<div>
+						<code></code>
+						<span class='name'>dialogue_component</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue_component</span>
+							<span class='name'>comp</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>set_attached</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_with_Void__function'>
+					<div>
+						<code></code>
+						<span class='name'>interact_with</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>function</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_with_function_func__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>interact_with</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>func</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#interact_dialogue_am.game_object_interacter_bool_by_movement__am.code'>
+					<div>
+						<code></code>
+						<span class='name'>interact_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>interacter</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>bool</span>
+							<span class='name'>by_movement</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#on_string_event_type_function_listener_table_content__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>on</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>content</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#off_string_event_type_function_listener_table_context__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>off</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>context</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_event_listener_string_event_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_event_listener</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_boolean_create_table__am.data_table'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>create_table</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.data_table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_am.data_table_attr_table__am.door'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.data_table</span>
+							<span class='name'>attr_table</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.door</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='new_string_game_id__am.character_boolean' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates or wraps a door instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'>= ""</span>
+								<span>:</span>
+								<span class='comment'>The game id to create the door with or the game id   of an existing door.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The newly created door or returns an existing door   with the same game_id.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the door was newly created or is just wrapped an existing one.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference of this door.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.character_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this character with another character reference.  Will not return true for equivalent characters.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other character to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the characters are the same entity.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_type_Void__am.tile_type' class='name'>tile_type</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_type</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tile type that's appied to the tile  when this door is closed. When the door is opened  the door does not affect the tile type.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_type</span>
+								<span>:</span>
+								<span class='comment'>The door tile type.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_type_am.tile_type_tile_type__am.door' class='name'>tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the door closed tile type.  When the is closed this tile type is applied to the   tile the door is over. When the door is opened the tile  type is unaffected.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='can_open_by_am.character_character__boolean' class='name'>can_open_by</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>character</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given character can open this door.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>character</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given character can open   this door.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='opened_Void__boolean' class='name'>opened</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if this door is opened.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the door is open.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='opened_boolean_opened__am.door' class='name'>opened</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>opened</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets is the door is opened.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>opened</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>If the door should be opened.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='lock_Void__string' class='name'>lock</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the lock type as a string.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The lock type.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='lock_string_lock_name__am.door' class='name'>lock</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>lock_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the lock type by lock name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>lock_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the lock type.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_Void__am.sprite' class='name'>graphic</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.sprite</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the graphic attached to this door, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.sprite</span>
+								<span>:</span>
+								<span class='comment'>The door sprite.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_am.sprite_sprite__am.door' class='name'>graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the door graphic, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The graphic to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='graphic_string_asset_name__am.door' class='name'>graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the door asset graphic.  Sets the asset_name of the graphic for this door.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset name to the graphic.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the name of the door.  A nil return indicates that there was an error.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The name of the door.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_string_name__am.door' class='name'>name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the name of the door.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name to set the door.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_Void__string' class='name'>description</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the description of the door.  A nil return indicates that there was an error.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The description of the door.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_string_description__am.door' class='name'>description</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the description of the door.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The description to set the door.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='location_Void__number_number' class='name'>location</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the doors current map location.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The doors x map value</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The doors y map value</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='location_number_x_number_y__am.door' class='name'>location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the doors map location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x map value</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y map value</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_location_Void__integer_integer' class='name'>grid_location</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the doors currnet map grid location.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>x The x grid value</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>y The y grid value</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='grid_location_integer_x_integer_y__am.door' class='name'>grid_location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the doors current map grid location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid value</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid value</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_number_x_number_y__am.door' class='name'>move</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a door by {x, y} amount.  If the new location isn't valid, the door isn't moved.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x amount to move by</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y amount to move by</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_grid_integer_x_integer_y__am.door' class='name'>move_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a door by {x, y} grid amounts.  If the new location isn't valid, the door isn't moved.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid amount to by move by</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid amount to by move by</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talk_to_string_id__boolean' class='name'>talk_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Initiates a conversation between this door  and the game object id passed in.  Returns true if the conversation was initiated.  False can mean that the game object id was invalid or that  either this door or the game object did not have a  dialog component attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the conversation was initiated.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='talk_to_am.game_object_talkee__boolean' class='name'>talk_to</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Initiates a conversation between this door  and the game object passed in.  Returns true if the conversation was initiated.  False can mean that the game object was nil or that  either this door or the game object did not have a  dialog component attached.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>talkee</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to start a converstation with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the conversation was initiated.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_to_grid_Void__boolean' class='name'>fixed_to_grid</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if this door is fixed to the game grid  or false if the door is able to move freely about the map.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the door is fixed to the grid.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_to_grid_boolean_fixed__am.door' class='name'>fixed_to_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if the door is fixed to the grid or not.  If a door is fixed to the grid, they cannot move to positions  other than the center of each grid space.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Sets the fixed to grid value.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_Void__am.map' class='name'>map</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the current map that this door is on, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The map the door is on.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_am.map_map__am.door' class='name'>map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map that the door is on, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to put the door on.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='original_map_Void__am.map' class='name'>original_map</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the original map that this door was on, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The map the door was originally on.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='original_map_am.map_map__am.door' class='name'>original_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map that the door was originally on, can be nil.  This is usually set automatically the first time a door is  added to a map. This is primarily used for reloading the door  and knowing where to find likely find any event handlers and additional  information relating to the door that is not stored directly on the  door.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map the door was originally was on.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_passible_type_am.tile_type_tile_type__am.door' class='name'>add_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types that this door  can move freely on. TileTypes can be added multiple times.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_passible_type_string_tile_type_name__am.door' class='name'>add_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types that this door  can move freely on. Tile types can be added multiple times.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_passible_type_am.tile_type_tile_type__am.door' class='name'>remove_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a tile type from the list of passible tiles.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_passible_types_Void__am.door' class='name'>remove_all_passible_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all tile types from this doors passible list.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_passible_type_am.tile_type_tile_type__boolean' class='name'>has_passible_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given tile type is found on this doors  passible list.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to search for</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the tile type is found</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='get_passible_types_Void__table' class='name'>get_passible_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table of all the passible tile types for this door.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>Table of all the tile types.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='game_id_Void__string' class='name'>game_id</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the game id for this door.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The doors game id.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='game_id_string_game_id__boolean' class='name'>game_id</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the doors game id, this is used to refer to this  door from the game engine. Should be unique.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The doors unique game id.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game id change was successful or if  game id was the same as the given game_id. False indicates that  either there is no current game engine or there is another  game object with the same game id.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='find_string_game_id__am.door' class='name'>find</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up an door in the current game engine with the given game id.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>game_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game id to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>The found door or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='dialogue_component_Void__am.dialogue_component' class='name'>dialogue_component</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue_component</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the dialogue component attached to this door, can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span>:</span>
+								<span class='comment'>The attached dialogue component</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='dialogue_component_am.dialogue_component_comp_boolean_set_attached__Void' class='name'>dialogue_component</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>comp</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_attached</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets a dialogue component onto this door, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue_component</span>
+								<span class='name'>comp</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue component to attach to this door, can be nil.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_attached</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>When true it also sets that this door  is the game object attached to the dialogue component.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_with_Void__function' class='name'>interact_with</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>function</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the interacting with function, returns nil if no Lua function  was set.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>function</span>
+								<span>:</span>
+								<span class='comment'>The interact with function.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_with_function_func__am.door' class='name'>interact_with</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the interact with function. This can be used to override the   default interaction behaviour. If this function does not specify that  it the game object was interacted with, then the default behaviour is  executed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>func</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new interact with functionality.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='interact_dialogue_am.game_object_interacter_bool_by_movement__am.code' class='name'>interact_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>interacter</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>bool</span>
+								<span class='name'>by_movement</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Executes dialogue interactions with the object.  This can be used during an interact with function callback  to start dialogue. This will work with any game object, unless it does  not have a dialogue component.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>interacter</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object that initiated the  interaction.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>bool</span>
+								<span class='name'>by_movement</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Flag that indicates if the interaction started   because of movement or because of other reasons, such as mouse input.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>
+									Standard interaction results:
+									<table class='return_codes'>
+										<tr>
+											<td>did_interact</td>
+											<td>Interaction occured, perform no further actions.</td>
+										</tr>
+										<tr>
+											<td>did_not_interact</td>
+											<td>Interaction did not occur, can perform further actions.</td>
+										</tr>
+										<tr>
+											<td>do_not_interact</td>
+											<td>Interaction did not occur, but do not perform any further actions.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='on_string_event_type_function_listener_table_content__boolean' class='name'>on</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Adds an event listener for an event fired on this door.  eg:
+							<pre>
+ door:on("talkTo", function(event)
+     am_log("Character talked to")
+ end)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type or name to trigger on</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The function to call when the event is fired.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>An option context for the listener to be  called with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event was added successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='off_string_event_type_function_listener_table_context__boolean' class='name'>off</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Removes an event listener from this door.  eg:
+							<pre>
+ function talkToOnce(event)
+     am_log("Character talked to once")
+     door:off("talkTo", talkToOnce)
+ end
+ door:on("talkTo", talkToOnce)</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type the listener was listening for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The listener function to remove.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The context which the listener was going to  be called with, this is only optional if the listener was added with no context.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event listener was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_event_listener_string_event_type__boolean' class='name'>has_event_listener</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true when there is an event listener for the given event_type.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there is any event listener  that will be trigged by this event type.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_boolean_create_table__am.data_table' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.data_table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the doors attribute data table.  By default if no attribute data table is present nil is returned unless true  is passed as the first argument, then a data table is created if one is not present.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>Create a data table if one didn't exist.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.data_table</span>
+								<span>:</span>
+								<span class='comment'>The data table on this character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_am.data_table_attr_table__am.door' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.door</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the data table on this door, can be set to nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The data table to set on the door.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.door</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

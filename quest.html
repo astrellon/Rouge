@@ -1,0 +1,1167 @@
+<html>
+	<head>
+		<title>quest</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Quest</h2>
+			<div class='comment'> Holds information relating to a single quest. This information  is very high level as it only contains information about if the quest  has been completed, the name of the quest and a description. As such  this means that it's up to each individual quest to store it's own information about  steps required, rewards and events to itself.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_quest_id__am.quest_boolean'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>quest_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.quest_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.quest</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#start_quest_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>start_quest</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#finish_quest_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>finish_quest</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#complete_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>complete</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#complete_boolean_completed__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>complete</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>completed</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#title_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>title</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#title_string_title__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>title</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>title</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_string_description__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>description</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#active_text_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>active_text</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#active_text_string_text__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>active_text</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>text</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#on_string_event_name_function_listener_table_content__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>on</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>content</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#off_string_event_name_function_listener_table_context__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>off</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>listener</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>context</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_event_listener_string_event_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_event_listener</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>event_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_quest_am.quest_quest__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>add_quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.quest</span>
+							<span class='name'>quest</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_quest_string_quest_id__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>remove_quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>quest_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#find_string_quest_id__am.quest'>
+					<div>
+						<code>static</code>
+						<span class='name'>find</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>quest_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_boolean_create_table__am.data_table'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>create_table</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.data_table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_am.data_table_attr_table__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.data_table</span>
+							<span class='name'>attr_table</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_quest_id__am.quest_boolean' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new quest with the given quest id unless an existing quest  with the same quest_id exists. If the quest was already existing  then the 2nd return values is true.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest id for this quest.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>The newly created quest or returns the quest that had the   same quest_id.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was newly created, false otherwise.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference on the internal quest.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.quest_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.quest</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares if this quest is the same as the given quest object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.quest</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other quest to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same quest object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='start_quest_Void__boolean' class='name'>start_quest</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the flag that this quest has been started, if the quest has already been  started this will return false.  If the quest is started then the "startQuest" event will be fired.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was started, false indicates the quest has already been started.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='finish_quest_Void__boolean' class='name'>finish_quest</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets that the quest has been finished, this will return false is the quest has already  been finished. If the quest is finished then the "finishQuest" event will be fired.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was finished, false indicates that the quest has alrady been finished.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='complete_Void__boolean' class='name'>complete</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the quest has been completed/finished.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest has been completed/finished.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='complete_boolean_completed__am.quest' class='name'>complete</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>completed</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Silently sets the quest completed/finished flag, this does not fire any events.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>completed</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Sets if the quest has been completed/finished.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='title_Void__string' class='name'>title</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the title of this quest.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The quest title.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='title_string_title__am.quest' class='name'>title</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>title</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the title of this quest.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>title</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new quest title.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_Void__string' class='name'>description</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the quest description.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The quest description.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_string_description__am.quest' class='name'>description</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the quest description.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new quest description.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='active_text_Void__string' class='name'>active_text</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the current active text for the quest. This can change over time as  the player progresses through the quest.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The current active text.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='active_text_string_text__am.quest' class='name'>active_text</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the active text, this should change to reflect how the player is progressing through the quest.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new active text.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='on_string_event_name_function_listener_table_content__boolean' class='name'>on</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Adds an event listener to this quest.
+							<pre>
+ quest = am.quest.new("testQuest")
+ quest:on("startQuest", function(event)
+     am.debug.log("Quest started")
+     quest:finish_quest()
+ end)
+ quest:on("finishQuest", function(event)
+     am.debug.log("Quest finished")
+ end)
+ quest:start_quest()</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type or name to trigger on</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The function to call when the event is fired.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>content</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>An option context for the listener to be  called with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event was added successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='off_string_event_name_function_listener_table_context__boolean' class='name'>off</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes an event listener from the quest.  Currently the quest only has events which should only fire once,   but if an event listener needs to changed before the event is fire it can be done.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type the listener was listening for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>listener</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The listener function to remove.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>context</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The context which the listener was going to  be called with, this is only optional if the listener was added with no context.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the event listener was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_event_listener_string_event_name__boolean' class='name'>has_event_listener</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true when there is an event listener for the given event name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>event_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The event type to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there is any event listener  that will be trigged by this event type.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='add_quest_am.quest_quest__boolean' class='name'>add_quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a quest to the game engine pool of quests. This allows for them to be  looked up from anywhere using their quest id.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest to add to the pool.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was successfully added.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='remove_quest_string_quest_id__boolean' class='name'>remove_quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a quest from the quest pool using its quest id.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest id for the quest to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='find_string_quest_id__am.quest' class='name'>find</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the found quest from the quest pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest id of the quest to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>The found quest or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_boolean_create_table__am.data_table' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.data_table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the quests attribute data table.  By default if no attribute data table is present nil is returned unless true  is passed as the first argument, then a data table is created if one is not present.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>Create a data table if one didn't exist.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.data_table</span>
+								<span>:</span>
+								<span class='comment'>The data table on this quest.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_am.data_table_attr_table__am.quest' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the data table on this quest, can be set to nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attr_table</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The data table to set on the quest.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,502 @@
+<html>
+	<head>
+		<title>stat_modifier</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Stat Modifier</h2>
+			<div class='comment'> The stat modifier object represents a single single stat modifier. Such as + 5 or + 10% or = 4.5.  The modifier is not linked to a stat until it is placed into a stat modifiers collection.  @see am.stat_modifiers</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#new_number_value_string_type_boolean_magical__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>magical</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.stat_modifier_modifiers__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.stat_modifier</span>
+							<span class='name'>modifiers</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#value_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>value</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#value_number_value__am.stat_modifier'>
+					<div>
+						<code></code>
+						<span class='name'>value</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stat_modifier</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#type_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>type</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#type_string_type__am.stat_modifier'>
+					<div>
+						<code></code>
+						<span class='name'>type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stat_modifier</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#magical_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>magical</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#magical_boolean_magical__am.stat_modifier'>
+					<div>
+						<code></code>
+						<span class='name'>magical</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>magical</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stat_modifier</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new empty stat modifier object.</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_number_value_string_type_boolean_magical__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Creates a new stat modifier object with the given parameters.  The value of this modifier is used in the context of the type of modification.  
+This is the list of each modifier type:
+							<ul>
+								<li>= : Sets the stat to the given value. This mod is applied first.</li>
+								<li>* : Multiplies the stat by the given value. This mod is applied second.</li>
+								<li>+ : Adds the given value directly onto the stat, this value can be negative. This mod is applied third.</li>
+							</ul>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The value of this modifier.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The stat modifier type.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>This currently does not change the behaviour of the modifier, however it does   allow the UI to show the origin of this mod better.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Deletes the stat modifier object.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.stat_modifier_modifiers__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>modifiers</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Compares this stat modifier with the given one.  Unlike many of the other Lua objects, this comparison will check  if the objects are equivalent.
+							<pre>
+ mod1 = am.stat_modifier.new(5, "+")
+ mod2 = am.stat_modifier.new(5, "+")
+ mod3 = am.stat_modifier.new(5, "*")
+ am_log("Mod 1 == Mod 2? " .. (mod1 == mod2)) -- Output "Mod 1 == Mod 2? true"
+ am_log("Mod 1 == Mod 3? " .. (mod1 == mod3)) -- Output "Mod 1 == Mod 3? false"
+ am_log("Mod 2 == Mod 3? " .. (mod2 == mod2)) -- Output "Mod 2 == Mod 3? false"</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>modifiers</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other stat modifiers object to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same stat modifiers object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='value_Void__number' class='name'>value</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the value of this stat modifier.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The stat modifier value.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='value_number_value__am.stat_modifier' class='name'>value</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stat_modifier</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the stat modifier value.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new value for this modifier.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='type_Void__string' class='name'>type</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the type of this stat modifier.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The stat modifier type.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='type_string_type__am.stat_modifier' class='name'>type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stat_modifier</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Sets the stat modifier type.  
+This is the list of each modifier type:
+							<ul>
+								<li>= : Sets the stat to the given value. This mod is applied first.</li>
+								<li>* : Multiplies the stat by the given value. This mod is applied second.</li>
+								<li>+ : Adds the given value directly onto the stat, this value can be negative. This mod is applied third.</li>
+							</ul>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new type for this modifier.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='magical_Void__boolean' class='name'>magical</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the magical nature of this stat modifier.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if this is a magical mod.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='magical_boolean_magical__am.stat_modifier' class='name'>magical</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stat_modifier</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if modifier is magical in nature.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new magical flag for this modifier.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

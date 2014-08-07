@@ -1,0 +1,1216 @@
+<html>
+	<head>
+		<title>font</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Font</h2>
+			<div class='comment'> Simple wrapper for the font class. Before a font can be used it must have process() called.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_font_name__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>font_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.font_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.font</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_string_asset_name__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_width_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_width</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#fixed_width_boolean_fixed_width__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>fixed_width</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>fixed_width</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#char_width_integer_char_code__number'>
+					<div>
+						<code></code>
+						<span class='name'>char_width</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>char_code</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#char_width_string_char__number'>
+					<div>
+						<code></code>
+						<span class='name'>char_width</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>char</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#char_height_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>char_height</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#kerning_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>kerning</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#kerning_number_kerning__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>kerning</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>kerning</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#leading_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>leading</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#leading_number_leading__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>leading</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>leading</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#space_width_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>space_width</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#space_width_number_space_width__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>space_width</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>space_width</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tab_width_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>tab_width</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tab_width_number_tab_width__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>tab_width</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>tab_width</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#measure_text_string_text_number_contain_width_string/integer_end_character__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>measure_text</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>text</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>contain_width</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string/integer</span>
+							<span class='name'>end_character</span>
+							<span class='optional'>= \0</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#measure_line_string_text_number_contain_width__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>measure_line</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>text</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>contain_width</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#measure_word_string_word__number_number'>
+					<div>
+						<code></code>
+						<span class='name'>measure_word</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>word</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#process_Void__am.font'>
+					<div>
+						<code></code>
+						<span class='name'>process</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.font</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='new_string_font_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>font_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new font using the given name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>font_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Name of the font.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on the font.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.font_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.font</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this font with another font object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.font</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other font to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_Void__string' class='name'>asset</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the asset name currently used by this font.  An empty string indicates that no asset has been set.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The asset name is use.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_string_asset_name__am.font' class='name'>asset</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the asset name for this sprite to use.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the asset to use.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the name of the font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The name of the font.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_width_Void__boolean' class='name'>fixed_width</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns if the font is a monospaced/fixed width font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if a fixed width font.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='fixed_width_boolean_fixed_width__am.font' class='name'>fixed_width</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed_width</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets if the font should be fixed width or variable width.  The width of each character is calculated based on the amount of transparent  pixels on either side of each character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>fixed_width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Weather the font is fixed width or not.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='char_width_integer_char_code__number' class='name'>char_width</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>char_code</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the pixel width of the given character. This will always be  the same for mono spaced fonts. The char_code should be an ASCII value.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>char_code</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The ASCII character to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width of the given character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='char_width_string_char__number' class='name'>char_width</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>char</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the pixel width of the first character in the given string. This will always be  the same for mono spaced fonts.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>char</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width of the given character.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='char_height_Void__number' class='name'>char_height</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the pixel height of each character.  Each character is considered to have the same height.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The character height.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='kerning_Void__number' class='name'>kerning</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the kerning of the font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The kerning.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='kerning_number_kerning__am.font' class='name'>kerning</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>kerning</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the kerning of the font.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>kerning</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The kerning to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='leading_Void__number' class='name'>leading</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the leading of the font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The leading.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='leading_number_leading__am.font' class='name'>leading</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>leading</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the leading of the font.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>leading</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The leading to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='space_width_Void__number' class='name'>space_width</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the space width of the font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The space width.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='space_width_number_space_width__am.font' class='name'>space_width</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>space_width</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the space width of the font.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>space_width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The space width to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tab_width_Void__number' class='name'>tab_width</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tab width of the font.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The tab_width.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tab_width_number_tab_width__am.font' class='name'>tab_width</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>tab_width</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the tab width of the font.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>tab_width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tab_width to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='measure_text_string_text_number_contain_width_string/integer_end_character__number_number' class='name'>measure_text</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>contain_width</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string/integer</span>
+								<span class='name'>end_character</span>
+								<span class='optional'>= \0</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Measures the space in pixels that the given block of text would take up when contained  to the given width.  The end_character is the final character to measure up to. Defaults to the null character  which indicates the end of the string. Can be changed to "\n"/13 (new line) or "."/46 (period) or even "A"/65 (A).</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The text to measure.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>contain_width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The width of the container.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string/integer</span>
+								<span class='name'>end_character</span>
+								<span class='optional'>= \0</span>
+								<span>:</span>
+								<span class='comment'>The ending character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width that would be taken up.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The height that would be taken up.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='measure_line_string_text_number_contain_width__number_number' class='name'>measure_line</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>contain_width</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Measures the space in pixels that the given line of text would take up when contained  to the given width. Essentially calls measure text with the end character being a new line.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>text</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The text to measure.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>contain_width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The width of the container.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width that would be taken up.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The height that would be taken up.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='measure_word_string_word__number_number' class='name'>measure_word</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>word</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Measures the space in pixels that the given word.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>word</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The word to measure.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width that would be taken up.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The height that would be taken up.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='process_Void__am.font' class='name'>process</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.font</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Processes the font based on it's current values. This must be done after any changes  are made to the font, including when the font is being created. This calculates all  the character sizes and creates all the texture windows for each character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.font</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

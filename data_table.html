@@ -1,0 +1,580 @@
+<html>
+	<head>
+		<title>data_table</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Data Table</h2>
+			<div class='comment'> Simple wrapper for the am::util::data::Table class. Allows for storing  and retrieving tables of primative data, including other tables, numbers, booleans and strings. 
+    While values like numbers, strings, booleans and nil remain essentially  unchanged when they are added to a data table, tables do change.  Tables are turned into DataTables, which being a custom class means that normal  table functions will not work. All values should remain the same however.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_DataTable_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>DataTable</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__len_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>__len</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#at_string_key__primative'>
+					<div>
+						<code></code>
+						<span class='name'>at</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>key</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>primative</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#at_string_key_primative_value__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>at</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>key</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>primative</span>
+							<span class='name'>value</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#push_primative..._values__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>push</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>primative...</span>
+							<span class='name'>values</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#pairs_function_handler__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>pairs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>handler</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#ipairs_function_handler__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>ipairs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>function</span>
+							<span class='name'>handler</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_string..._keys__DataTable'>
+					<div>
+						<code></code>
+						<span class='name'>remove</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string...</span>
+							<span class='name'>keys</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>DataTable</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new DataTable with no data.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on the DataTable.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_DataTable_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>DataTable</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this data table with another data table object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>DataTable</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other data table to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__len_Void__integer' class='name'>__len</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the number of key values in the data table.  This is an implementation of the __len metamethod as such the  Lua # operator can be used to get the size.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of key values in the data table.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='at_string_key__primative' class='name'>at</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>key</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>primative</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the value associated with the given key.    A primative is a number, string, boolean, nil or table of primatives.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>key</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The key to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>primative</span>
+								<span>:</span>
+								<span class='comment'>The value.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='at_string_key_primative_value__DataTable' class='name'>at</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>key</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>primative</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the value at the given key.    A primative is a number, string, boolean, nil or table of primatives.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>key</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The key to set.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>primative</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The value to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='push_primative..._values__DataTable' class='name'>push</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>primative...</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Pushes a value or list of primatives on to the end of this data table.    A primative is a number, string, boolean, nil or table of primatives.
+							<pre>
+ DataTable = import("DataTable")
+ array = DataTable.new()
+ array:push(5)
+ am_log("Size 1: " .. #array)		-- Outputs: Size 1: 1
+ 
+ array:push("String", true)
+ am_log("Size 2: " .. #array)		-- Outputs: Size 2: 3</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>primative...</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The list of values to push on to the end.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='pairs_function_handler__DataTable' class='name'>pairs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>handler</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 The pairs function provides similar functionality to that of the Lua pairs function.  The pairs function takes a function as it's argument and that function will be  called once per key/value in the data table. If that function returns false  then the loop is stopped.
+							<pre>
+ DataTable = import("DataTable")
+ table = DataTable.new()
+ table:at("num", 5)
+ table:at("str", "String")
+ table:at("bool", true)
+ table:at(1, "one")
+ table:at(2, "two")
+ table:pairs(function(key, value)\n
+     am_log(key .. " = ", value)
+ end)
+ -- The output order is not gurrantied
+ -- 1 = "one"
+ -- 2 = "two"
+ -- "num" = 5
+ -- "str" = "String"
+ -- "bool" = true</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>handler</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The each function handler.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='ipairs_function_handler__DataTable' class='name'>ipairs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>function</span>
+								<span class='name'>handler</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 The ipairs function provides similar functionality to that of the Lua ipairs function.  The ipairs function takes a function as it's argument and that function will be  called once per index/value in the data table. If that function returns false  then the loop is stopped.
+							<pre>
+ DataTable = import("DataTable")
+ table = DataTable.new()
+ table:push("one", "two", 3)
+ table:ipairs(function(index, value)\n
+     am_log(index .. " = ", value)
+ end)
+ -- The output order is not gurrantied
+ -- 1 = "one"
+ -- 2 = "two"
+ -- 3 = 3</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>function</span>
+								<span class='name'>handler</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The each function handler.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_string..._keys__DataTable' class='name'>remove</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string...</span>
+								<span class='name'>keys</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>DataTable</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Removes the keys given list of strings.  This takes a variable number of arguments which will be validated  as being strings before a key is removed.  It is not considered an error to remove a key that does not exist.
+							<pre>
+ DataTable = import("DataTable")
+ table = DataTable.new()
+ table:at("num", 5)
+ table:at("str", "String")
+ table:at("bool", true)
+ 
+ am_log("Size 1: " .. #table)	-- Outputs: Size 1: 3
+ table:remove("num", "bool")
+ 
+ am_log("Size 2: " .. #table)	-- Outputs: Size 2: 1</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string...</span>
+								<span class='name'>keys</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The keys to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>DataTable</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

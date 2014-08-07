@@ -1,0 +1,430 @@
+<html>
+	<head>
+		<title>tile_type</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Tile Type</h2>
+			<div class='comment'> The tile type class represents the type of tile, such as land, water, lava, etc.  These types can be added to tiles so that a tile can have multiple types.  Each game object also contains a list of tile types which it can  pass through.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_tile_type_name__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#new_string_tile_type_name_string_full_name__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.tile_type_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_string_full_name__am.tile_type'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_type</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_tile_type_am.tile_type_tile_type__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>add_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_type_string_tile_type_name__am.tile_type'>
+					<div>
+						<code>static</code>
+						<span class='name'>tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile_type</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_tile_type_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new tile type with the given name, this name should be unique  to all tile types.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_tile_type_name_string_full_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new tile type with the given name and full name. This name  should be unique to all tile types. The full name is used to display  the name of this tile type to the user.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The full name of this tile type.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on the tile type.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.tile_type_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this tile type against another tile type.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other tile type to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>Returns true if they are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the name of this tile type.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>This tile type's name.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_Void__string' class='name'>full_name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the full name of this tile type.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>This tile type's full name.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_string_full_name__am.tile_type' class='name'>full_name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_type</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the full name of the tile type.  This is used to display the name of the tile type to the user.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The full name of the tile type.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_type</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='add_tile_type_am.tile_type_tile_type__Void' class='name'>add_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Register a tile type with the game engine.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to register.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='tile_type_string_tile_type_name__am.tile_type' class='name'>tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile_type</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks up a tile type with the given name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile_type</span>
+								<span>:</span>
+								<span class='comment'>The found tile type or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

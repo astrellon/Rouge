@@ -1,0 +1,148 @@
+<html>
+	<head>
+		<title>gfx_engine</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Gfx Engine</h2>
+			<div class='comment'> Simple wrapper for the graphic engine class.  Provides functionality for loading and storing graphical assets.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#asset_string_full_asset_name__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_am.asset_asset__am.gfx_engine'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>asset</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.gfx_engine</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_string_full_asset_name__am.asset' class='name'>asset</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns the asset with the given full name.  The full asset name is made up of the file to load the asset from  and the individual name. For example
+							<code>general:cursor</code>
+							<span> If this  asset is not found then the</span>
+							<code>data/assets/general.lua</code>
+							<span> file  is loaded then the definition is looked for again.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The full asset name to load.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>The found asset or nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_am.asset_asset__am.gfx_engine' class='name'>asset</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.gfx_engine</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Registers an asset with the graphics engine.  The name are always namespaced to the file they were loaded from.  For example
+							<code>filename:assetname</code>
+							<span> This filename should be relative  to the</span>
+							<code>data/assets/</code>
+							<span> folder. If no filename is given then the current  file being loaded will be used.    The files under</span>
+							<code>data/assets/</code>
+							<span> will be automatically loaded  when an asset with their filename is used. Assets can also be  registered from outside of those files, however they will need to always  provide a filename. Assets can be overridden.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset to store.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.gfx_engine</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+			</div>
+		</div>
+	</body>
+</html>

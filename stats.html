@@ -1,0 +1,920 @@
+<html>
+	<head>
+		<title>stats</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Stats</h2>
+			<div class='comment'> The stats class stores all base values for each stat, as well as all the current  modifiers for each stat.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.stats_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.stats</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#base_stat_string_stat_name__number'>
+					<div>
+						<code></code>
+						<span class='name'>base_stat</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#base_stat_string_stat_name_number_base_value__am.stats'>
+					<div>
+						<code></code>
+						<span class='name'>base_stat</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>base_value</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stats</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#stat_string_stat_name__number'>
+					<div>
+						<code></code>
+						<span class='name'>stat</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_string_stat_name_number_value_string_type_Booleam_magical__integer'>
+					<div>
+						<code></code>
+						<span class='name'>add</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>Booleam</span>
+							<span class='name'>magical</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_am.stat_modifiers_mods__integer'>
+					<div>
+						<code></code>
+						<span class='name'>add</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.stat_modifiers</span>
+							<span class='name'>mods</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_string_stat_name_am.stat_modifier_mod__integer'>
+					<div>
+						<code></code>
+						<span class='name'>add</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.stat_modifier</span>
+							<span class='name'>mod</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_string_stat_name_number_value_string_modifier_type_boolean_magical__integer'>
+					<div>
+						<code></code>
+						<span class='name'>remove</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>modifier_type</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>magical</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_am.stat_modifiers_mods__integer'>
+					<div>
+						<code></code>
+						<span class='name'>remove</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.stat_modifiers</span>
+							<span class='name'>mods</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_string_stat_name_am.stat_modifier_mod__integer'>
+					<div>
+						<code></code>
+						<span class='name'>remove</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>stat_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.stat_modifier</span>
+							<span class='name'>mod</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#mods_Void__am.stat_modifiers'>
+					<div>
+						<code></code>
+						<span class='name'>mods</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.stat_modifiers</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new stats instance.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Deletes a stats instance. TODO Check if it should do this.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.stats_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.stats</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this stats object against another stats object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.stats</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other stats object to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same stats object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='base_stat_string_stat_name__number' class='name'>base_stat</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the base value for the given stat. This is the value of the stat before  any stat modifiers are applied.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to get the base value of.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The base value.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='base_stat_string_stat_name_number_base_value__am.stats' class='name'>base_stat</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>base_value</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stats</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the base value of the given stat with the given value.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to set the base value of.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>base_value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new base value for the stat.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stats</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='stat_string_stat_name__number' class='name'>stat</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the calculated stat value for the given stat.  This uses the base value of the stat and any modifiers applied to that stat  to return the value from this function.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to get the calculated value of.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The calculated stat value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_string_stat_name_number_value_string_type_Booleam_magical__integer' class='name'>add</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>Booleam</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Adds a modifier to the stat modifiers collection. This behaves the same  way as the stat modifiers class add function.
+							<pre>
+ stats = am.stats.new()
+ stats:add("strength", 6, "+")
+ stats:mods():add("strength", 4, "*")
+ 
+ mods = stats:mods():mods()
+ am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: + 6"
+ am_log("Mod 2: " .. mods["strength"][2].type .. " " .. mods["strength"][2].value) -- Outputs "Mod 2: * 4"
+ am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to add the modifier to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The value of the stat modifier.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The type of the modifier.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>Booleam</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>If the modifier is magical in nature.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes
+									<ul>
+										<li>1: The stat modifier was added successfully.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat name was invalid.</li>
+										<li>-2: The given value was not a number.</li>
+										<li>-3: The given stat modifier was invalid.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_am.stat_modifiers_mods__integer' class='name'>add</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.stat_modifiers</span>
+								<span class='name'>mods</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Merges another stat modifiers collection into the stat modifiers collection of this stats object.  This behaves as if all the modifiers were taken from the given collection  and added through the other add modifier function.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.stat_modifiers</span>
+								<span class='name'>mods</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The collection of stat modifiers to combine with this one.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return code
+									<ul>
+										<li>1: The stat modifiers were successfully merged.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat modifiers collection was not a stat modifier instance.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_string_stat_name_am.stat_modifier_mod__integer' class='name'>add</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>mod</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a stat modifier instance to this stats collection of modifiers.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat this modifier will affect.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>mod</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The stat modifier to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return code for success.
+									<ul>
+										<li>1: The stat modifier was added successfully.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat name was invalid.</li>
+										<li>-4: The given stat modifier was not a valid stat modifier instance.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_string_stat_name_number_value_string_modifier_type_boolean_magical__integer' class='name'>remove</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>modifier_type</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Removes a modifier from the stat modifiers collection. This behaves the same  way as the stat modifiers class remove function.
+							<pre>
+ stats = am.stats.new()
+ stats:add("strength", 6, "+")
+ stats:mods():add("strength", 4, "*")
+ 
+ mods = stats:mods():mods()
+ am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: + 6"
+ am_log("Mod 2: " .. mods["strength"][2].type .. " " .. mods["strength"][2].value) -- Outputs "Mod 2: * 4"
+ am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 26"
+ 
+ stats:remove("strength", 6, "+")
+ mods = stats:mods()
+ am_log("Mod 1: " .. mods["strength"][1].type .. " " .. mods["strength"][1].value) -- Outputs "Mod 1: * 4"
+ am_log("Strength: " .. stats:stat("strength", 5)) -- Outputs "Strength: 20"</pre>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to remove this modifier from.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The stat modifier value.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>modifier_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The modifier type name.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>magical</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>If the added modifier was magical, it has be removed as magical.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes
+									<ul>
+										<li>1: The stat modifier was removed.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat name was invalid.</li>
+										<li>-2: The given value was not a number.</li>
+										<li>-3: The given stat modifier was invalid.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_am.stat_modifiers_mods__integer' class='name'>remove</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.stat_modifiers</span>
+								<span class='name'>mods</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all the stat modifiers from the given collection from this stats modifiers collection.  This behaves as if all the modifiers were taken from the given collection  and removed through the other remove modifier function.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.stat_modifiers</span>
+								<span class='name'>mods</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The collection of stat modifiers to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes
+									<ul>
+										<li>1: The stat modifiers were successfully removed.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat modifiers collection was not a stat modifier instance.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_string_stat_name_am.stat_modifier_mod__integer' class='name'>remove</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>mod</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a stat modifier from this stats modifiers collection.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>stat_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the stat to remove this modifier from.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.stat_modifier</span>
+								<span class='name'>mod</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The modifier to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes
+									<ul>
+										<li>1: The stat modifier was removed.</li>
+										<li>0: The context object was not a stats object.</li>
+										<li>-1: The given stat name was invalid.</li>
+										<li>-4: The given stat modifier was not a valid stat modifier instance.</li>
+									</ul>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='mods_Void__am.stat_modifiers' class='name'>mods</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.stat_modifiers</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the internal stat modifiers object.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.stat_modifiers</span>
+								<span>:</span>
+								<span class='comment'>The internal stat modifiers object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

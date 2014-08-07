@@ -1,0 +1,1916 @@
+<html>
+	<head>
+		<title>tile</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Tile</h2>
+			<div class='comment'> The tile class represents a single tile and all the properties of that tile.  Tiles are added to maps via the TileInstance class. Each tile stores their graphic  tile type list, name, description and the tile set which this tile is apart of.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_name__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#new_string_name_string_full_name__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.tile_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_string_name_boolean_check_for_existing__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>check_for_existing</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_string_full_name__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#description_string_description__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>description</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>description</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_set_Void__TileSet'>
+					<div>
+						<code></code>
+						<span class='name'>tile_set</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>TileSet</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_set_TileSet_set_boolean_check_for_existing__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>tile_set</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>TileSet</span>
+							<span class='name'>set</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>check_for_existing</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_Void__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_string_asset_name__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#asset_am.asset_asset__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>asset</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>asset</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_tile_type_am.tile_type..._tile_type__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>add_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type...</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_tile_type_string..._tile_type_name__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>add_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string...</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_tile_type_am.tile_type..._tile_type__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>remove_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type...</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_tile_type_string..._tile_type_name__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>remove_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string...</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_tile_types_Void__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_tile_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_tile_type_am.tile_type_tile_type__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile_type</span>
+							<span class='name'>tile_type</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_tile_type_string_tile_type_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_tile_type</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>tile_type_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_types_Void__Array'>
+					<div>
+						<code></code>
+						<span class='name'>tile_types</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>Array</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#precedence_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>precedence</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#precedence_integer_precedence__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>precedence</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>precedence</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_transitional_am.asset_asset_am.tile_overlap_tile__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>add_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>asset</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_transitional_string_asset_name_am.tile_overlap_tile__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>add_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_transitional_am.asset_asset_am.tile_overlap_tile__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>remove_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>asset</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_transitional_string_asset_name_am.tile_overlap_tile__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>remove_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_transitional_am.asset_asset_am.tile_overlap_tile__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>asset</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_transitional_string_asset_name_am.tile_overlap_tile__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_transitional_am.tile_overlap_tile__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#transitional_am.tile_overlap_tile__table'>
+					<div>
+						<code></code>
+						<span class='name'>transitional</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.tile</span>
+							<span class='name'>overlap_tile</span>
+							<span class='optional'>= nil</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#all_transitional_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>all_transitional</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new tile object with the given name, the name need only be unique within its tile set.  Until a full name is specified, the tile full name is "No full name"</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_name_string_full_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new tile object with the given name and full name,   the name need only be unique within its tile set.  Full name differs in that it is the name that is presented to the user.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The full name of the tile.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Release the reference count on this tile.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.tile_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this tile against another tile object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other tile to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same tile object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tile name.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The name of the tile.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_string_name_boolean_check_for_existing__boolean' class='name'>name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>check_for_existing</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the name of the tile.  If there already exists a tile with the same name, it will be overridden  by this tile if the 'check_for_existing' argument is not true.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new name for this tile.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>check_for_existing</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>When true the name will be not changed if there   is already a tile with the same name in the tile's tile set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the tile's name was changed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_Void__string' class='name'>full_name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the full name of this tile, this is used to display the tile's name to the user.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The tiles full name.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_string_full_name__am.tile' class='name'>full_name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the tile's full name, this is used to display the tile's name to the user.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile's new full name.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_Void__string' class='name'>description</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the description for this tile.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The tiles description.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='description_string_description__am.tile' class='name'>description</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the tile's description.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>description</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile's description.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_set_Void__TileSet' class='name'>tile_set</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>TileSet</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tile set that this tile is apart of, nil will be return if it is not part of a tile set.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>TileSet</span>
+								<span>:</span>
+								<span class='comment'>The tile's tile set, or nil if it does not have one.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_set_TileSet_set_boolean_check_for_existing__boolean' class='name'>tile_set</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>TileSet</span>
+								<span class='name'>set</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>check_for_existing</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets and adds the tile to the given tile set.  Any tile with the same name in the tile set will be overridden by this tile.  Unless the 'check_for_existing' argument is set to true, then if the tileset already has  a tile with the same name then tile set is not changed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>TileSet</span>
+								<span class='name'>set</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile set to add to, can be nil.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>check_for_existing</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>When true the tile set will not be changed if it   already has a tile with the same name.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the tile set was changed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_Void__am.asset' class='name'>asset</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the graphical asset used by this tile. Can be nil.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>The asset.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_string_asset_name__am.tile' class='name'>asset</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the graphical asset of this tile by asset name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the asset to use.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='asset_am.asset_asset__am.tile' class='name'>asset</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the graphical asset.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset to use.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_tile_type_am.tile_type..._tile_type__am.tile' class='name'>add_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type...</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types.  If a type is already in the list, it will be ignored.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type...</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_tile_type_string..._tile_type_name__am.tile' class='name'>add_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string...</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a tile type to the list of tile types.  If a type is already in the list, it will be ignored.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string...</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type to add to the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_tile_type_am.tile_type..._tile_type__am.tile' class='name'>remove_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type...</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a tile type from the list of tile types.  If a type is not in the list, it will be ignored.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type...</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to remove from the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_tile_type_string..._tile_type_name__am.tile' class='name'>remove_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string...</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a tile type from the list of tile types.  If a type is not in the list, it will be ignored.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string...</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the tile type to remove from the list.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_tile_types_Void__am.tile' class='name'>remove_all_tile_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all tile types from this tiles list of tile types.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_tile_type_am.tile_type_tile_type__boolean' class='name'>has_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given tile type is in the list of tile types.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile_type</span>
+								<span class='name'>tile_type</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The tile type to check for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given tile type is in the list.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_tile_type_string_tile_type_name__boolean' class='name'>has_tile_type</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given tile type is in the list of tile types.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>tile_type_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of tile type to check for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given tile type is in the list.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_types_Void__Array' class='name'>tile_types</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>Array</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns an array of all the tile types in this tiles list of tile tpyes.
+							<pre>
+ tile = am.tile.new("swamp")
+ land = am.tile_type.new("land")
+ water = am.tile_type.new("water")
+ tile:add_tile_type(land)
+ tile:add_tile_type(water)
+ 
+ types = tile:tile_types()
+ am_log("Type 1: " .. types[1]:name()") -- Outputs "Type 1: land"
+ am_log("Type 2: " .. types[2]:name()") -- Outputs "Type 2: wayer"</pre>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>Array</span>
+								<span>:</span>
+								<span class='comment'>The array of all the tile types on this tile.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='precedence_Void__integer' class='name'>precedence</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the precedence of the tile.  Precedence determines which tiles overlaps which tile.  Tiles with a higher precedence will overlap tiles with lower precedence.  If two tiles have the same precedence then it is based on which tile has the lower lexigraphical value.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The precedence.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='precedence_integer_precedence__am.tile' class='name'>precedence</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>precedence</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the precedence of the tile.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>precedence</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The precedence to set to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_transitional_am.asset_asset_am.tile_overlap_tile__am.tile' class='name'>add_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a transitional tile graphic.  This tile graphic should have 32 texture windows to represent the different  edges and corner types.  Only texture level animation is supported, so the asset must have multiple textures  in order to be animated.  The optional overlap_tile defines if this transitional graphic should only be used  when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset to use for transitional overlapping.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>When not nil, this specifies that the asset is only to be used   when overlapping this tile. Otherwise it is used for all overlappings.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_transitional_string_asset_name_am.tile_overlap_tile__am.tile' class='name'>add_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a transitional tile graphic.  This tile graphic should have 32 texture windows to represent the different  edges and corner types.  Only texture level animation is supported, so the asset must have multiple textures  in order to be animated.  The optional overlap_tile defines if this transitional graphic should only be used  when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the asset to use for transitional overlapping.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>When not nil, this specifies that the asset is only to be used   when overlapping this tile. Otherwise it is used for all overlappings.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_transitional_am.asset_asset_am.tile_overlap_tile__am.tile' class='name'>remove_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a transitional tile graphic.  The optional overlap_tile defines if this transitional graphic should only be used  when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset to remove form transitional overlapping.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>When not nil, defines the specific tile to remove the asset from.   Otherwise it is removed from all overlappings.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_transitional_string_asset_name_am.tile_overlap_tile__am.tile' class='name'>remove_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a transitional tile graphic.  The optional overlap_tile defines if this transitional graphic should only be used  when overlapping the specific overlap_tile. An overlap tile of nil indicates default overlap.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the asset to remove form transitional overlapping.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>When not nil, defines the specific tile to remove the asset from.   Otherwise it is removed from all overlappings.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_transitional_am.asset_asset_am.tile_overlap_tile__boolean' class='name'>has_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given asset is being used to overlap the give overlap_tile.  If overlap_tile is nil then it is checked against the default list of overlapping assets.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>asset</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The asset to check for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The overlap tile the asset might be used for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if found.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_transitional_string_asset_name_am.tile_overlap_tile__boolean' class='name'>has_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given asset name is being used to overlap the give overlap_tile.  If overlap_tile is nil then it is checked against the default list of overlapping assets.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the asset to check for.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The overlap tile the asset might be used for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if found.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_transitional_am.tile_overlap_tile__boolean' class='name'>has_transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if any assets are in use for the overlapping the given tile.  If overlap_tile is nil then returns true if any assets are used to overlap tiles by default.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The overlap tile to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='transitional_am.tile_overlap_tile__table' class='name'>transitional</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table array of all the assets that can be used for transitional overlap when overlapping the given tile.  If no tile to check against if given then the default list is returned.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.tile</span>
+								<span class='name'>overlap_tile</span>
+								<span class='optional'>= nil</span>
+								<span>:</span>
+								<span class='comment'>The tile to get the list of assets that will be used to overlap it.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>An array of all the assets.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='all_transitional_Void__table' class='name'>all_transitional</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table that contains all the transitional assets that will be used.  Each key value is the name of the tile and each value is a table array that contains all the assets.  The key for the default list is "_default_".</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>A table that defines all the transitional assets.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

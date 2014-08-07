@@ -1,0 +1,1460 @@
+<html>
+	<head>
+		<title>map</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Map</h2>
+			<div class='comment'> The map class stores all the information relating to a single map.  This includes all game objects on the map and all the tile data for the map.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_map_name__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#new_string_map_name_integer_width_integer_height__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>width</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>height</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.map_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_string_map_name__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#full_name_string_full_name__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>full_name</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>full_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_integer_x_integer_y__am.tile'>
+					<div>
+						<code></code>
+						<span class='name'>tile</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.tile</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tile_instance_integer_x_integer_y__TileInstance'>
+					<div>
+						<code></code>
+						<span class='name'>tile_instance</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>TileInstance</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tiles_table_tiles__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>tiles</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>tiles</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#tiles_table_tiles_integer_width_integer_height__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>tiles</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>tiles</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>width</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>height</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_size_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>map_size</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_size_integer_width_integer_height__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>map_size</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>width</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>height</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_game_object_am.game_object_game_object__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_game_object_am.game_object_The__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>The</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_game_object_am.game_object_game_object__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#is_valid_location_am.game_object_game_object_number_position_x_number_position_y__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>is_valid_location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#is_valid_grid_location_am.game_object_game_object_integer_grid_x_integer_grid_y__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>is_valid_grid_location</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_map_region_am.map_region_region__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_map_region</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map_region</span>
+							<span class='name'>region</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_map_region_am.map_region_region__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_map_region</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map_region</span>
+							<span class='name'>region</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_map_region_am.map_region_region__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_map_region</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map_region</span>
+							<span class='name'>region</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_regions_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>map_regions</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_map_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new map instance.  The map size will have to be set before any tile data can be set.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_string_map_name_integer_width_integer_height__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new map instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The width of the map in tiles.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The height of the map in tiles.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on this map.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.map_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this map against another map object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other map to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same map object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the map name which is also used as the maps id.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The map name.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_string_map_name__am.map' class='name'>name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map name, which is used as the map id.  TODO Currently this doesn't update the map of Maps, so it'll still be  referred to by it's previous name if it's been registered with a Game instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new map name.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_Void__string' class='name'>full_name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the full name of the map. This is used when displaying the map to the user.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The map's full name.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='full_name_string_full_name__am.map' class='name'>full_name</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the map's full name. This is used when displaying the map to the user.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>full_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map's new full name.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_integer_x_integer_y__am.tile' class='name'>tile</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.tile</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tile object on the tile instance at the given grid location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x position of the tile.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y position of the tile.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.tile</span>
+								<span>:</span>
+								<span class='comment'>The found file, nil if out of bounds.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tile_instance_integer_x_integer_y__TileInstance' class='name'>tile_instance</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>TileInstance</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the tile instance at the given grid location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x position of the tile instance.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y position of the tile instance.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>TileInstance</span>
+								<span>:</span>
+								<span class='comment'>The found tile instance, nil if out of bounds.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tiles_table_tiles__am.map' class='name'>tiles</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>tiles</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Sets the tiles for this map from a table of tile names and frames.  The length of the table must equal the total number of tiles, which is
+							<code>map_width * map_height</code>
+							<pre>
+ am.engine.using_tile_set("nature")
+ map = am.map.new("testMap", 3, 2)
+ map:tiles({
+     "dirt", "dirt:1", "castle/dirt:1",
+     "grass:2", "water", "castle/water"
+ })</pre>
+							<span>Each tile name is in the following form.</span>
+							<pre>
+ [tileSetName/]tile_name[:frameNumber]</pre>
+							<span>
+								The tileSetName is optional and allows you to specify the tile set  which the tile is from. If none is provided then the top level tile set  or any tile sets specified with the
+								<code>Engine.using_tile_set</code>
+							</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>tiles</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>A table of tiles to set onto the map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='tiles_table_tiles_integer_width_integer_height__am.map' class='name'>tiles</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>tiles</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Sets the tiles for this map from a table of tile names and frames.  This function changes the size of the map to fit the parameters given.
+							<pre>
+ am.engine.using_tile_set("nature")
+ map = am.map.new("testMap")
+ map:tiles({
+     "dirt", "dirt:1", "castle/dirt:1",
+     "grass:2", "water", "castle/water"
+ }, 3, 2)</pre>
+							<span>Each tile name is in the following form.</span>
+							<pre>
+ [tileSetName/]tile_name[:frameNumber]</pre>
+							<span>
+								The tileSetName is optional and allows you to specify the tile set  which the tile is from. If none is provided then the top level tile set  or any tile sets specified with the
+								<code>Engine.using_tile_set</code>
+							</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>tiles</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>An table of tiles to set onto the map.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The width of the table given.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The height of the table given.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_size_Void__integer_integer' class='name'>map_size</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the size of the map.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The width of the map.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The height of the map.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_size_integer_width_integer_height__am.map' class='name'>map_size</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the size of the map. This destorys the old map data.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new width.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new height.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'></div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_game_object_am.game_object_game_object__boolean' class='name'>add_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a game object to this map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to add to the map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully added to this map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_game_object_am.game_object_The__boolean' class='name'>remove_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>The</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a game object from the map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>The</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>game object to remove from the map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully removed from the map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_game_object_am.game_object_game_object__boolean' class='name'>has_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given game object is on this map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given game object was found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='is_valid_location_am.game_object_game_object_number_position_x_number_position_y__boolean' class='name'>is_valid_location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Used to tell if the given game object can be placed at the given location.  This uses the game objects passibility table to tell if it can be at the given location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to test with.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x position to test at.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y position to test at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given position is valid for the given game object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='is_valid_grid_location_am.game_object_game_object_integer_grid_x_integer_grid_y__boolean' class='name'>is_valid_grid_location</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Used to tell if the given game object can be placed at the given grid location.  This uses the game objects passibility table to tell if it can be at the given grid location.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to test with.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid position to test at.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid position to test at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the given position is valid for the given game object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_map_region_am.map_region_region__boolean' class='name'>add_map_region</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a map region to this map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map region to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map region was successfully added to this map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_map_region_am.map_region_region__boolean' class='name'>remove_map_region</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a map region from this map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map region to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map region was successfully removed from this map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_map_region_am.map_region_region__boolean' class='name'>has_map_region</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given map region is on this map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map_region</span>
+								<span class='name'>region</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map region to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map region was found on this map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_regions_Void__table' class='name'>map_regions</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns an array table of all the map regions in the map.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>An array of all the map regions.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

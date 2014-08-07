@@ -1,0 +1,3360 @@
+<html>
+	<head>
+		<title>game</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Game</h2>
+			<div class='comment'> The game class keeps track of all current game objects, loaded maps,  dialogue and quests. There should only be one game instance in use  at a time and it should be registered with the main engine as being  the current game. There can be many game instances over the lifetime of  an engine however.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.game_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_map_am.map_map__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_map_string_map_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_map_am.map_map__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_maps_Void__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_maps</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#map_string_map_name__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#current_map_string_map_name__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>current_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#current_map_Void__am.map'>
+					<div>
+						<code></code>
+						<span class='name'>current_map</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.map</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#current_map_string_map_name__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>current_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#current_map_am.map_map__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>current_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_game_object_to_map_am.game_object_game_object__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_game_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_game_object_to_map_string_gameObjectId__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_game_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>gameObjectId</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_game_object_from_map_am.game_object_game_object__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_game_object_from_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_game_object_from_map_string_gameObjectId__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_game_object_from_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>gameObjectId</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_game_object_in_map_am.game_object_game_object__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_game_object_in_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_game_object_in_map_string_gameObjectId__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_game_object_in_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>gameObjectId</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_am.game_object_game_object_am.map_map__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_am.game_object_game_object_string_map_name__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_am.game_object_game_object_am.map_map_number_position_x_number_position_y_boolean_set_as_current__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_y</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>set_as_current</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_am.game_object_game_object_string_map_name_number_position_x_number_position_y_boolean_set_as_current__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>position_y</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>set_as_current</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_grid_am.game_object_game_object_am.map_map__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_grid_am.game_object_game_object_string_map_name__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_grid_am.game_object_game_object_am.map_map_integer_grid_x_integer_grid_y__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.map</span>
+							<span class='name'>map</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#move_object_to_map_grid_am.game_object_game_object_string_map_name_integer_grid_x_integer_grid_y__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>move_object_to_map_grid</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>map_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>grid_y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#main_Void__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>main</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#main_am.character_main_char__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>main</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>main_char</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#game_object_string_gameObjectId__am.game_object'>
+					<div>
+						<code></code>
+						<span class='name'>game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>gameObjectId</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game_object</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#register_game_object_am.game_object_game_object__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>register_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#deregister_game_object_am.game_object_game_object__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>deregister_game_object</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.game_object</span>
+							<span class='name'>game_object</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#char_def_string_def_name__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>char_def</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#char_def_string_def_name_am.character_def__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>char_def</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>def</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#item_def_string_def_name__am.item'>
+					<div>
+						<code></code>
+						<span class='name'>item_def</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.item</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#item_def_string_def_name_am.item_def__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>item_def</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>def_name</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>def</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_dialogue_am.dialogue_dialogue__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue</span>
+							<span class='name'>dialogue</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_dialogue_am.dialogue_dialogue__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.dialogue</span>
+							<span class='name'>dialogue</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_dialogue_string_dialogue_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>dialogue_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_dialogue_Void__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_dialogue</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#dialogue_string_dialogue_id__am.dialogue'>
+					<div>
+						<code></code>
+						<span class='name'>dialogue</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>dialogue_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.dialogue</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#available_dialogues_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>available_dialogues</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_quest_am.quest_quest__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.quest</span>
+							<span class='name'>quest</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_quest_am.quest_quest__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.quest</span>
+							<span class='name'>quest</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_quest_string_quest_id__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>quest_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#quest_string_quest_id__am.quest'>
+					<div>
+						<code></code>
+						<span class='name'>quest</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>quest_id</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.quest</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#start_game_Void__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>start_game</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_started_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_started</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#load_game_string_save_name__integer'>
+					<div>
+						<code></code>
+						<span class='name'>load_game</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>save_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scenario_name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>scenario_name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#generic_dead_graphic_Void__am.sprite'>
+					<div>
+						<code></code>
+						<span class='name'>generic_dead_graphic</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.sprite</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#generic_dead_graphic_string_asset_name__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>generic_dead_graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#generic_dead_graphic_am.sprite_sprite__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>generic_dead_graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.sprite</span>
+							<span class='name'>sprite</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#generic_dead_graphic_nil_grapic__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>generic_dead_graphic</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>nil</span>
+							<span class='name'>grapic</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_boolean_create_table__am.data_table'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>create_table</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.data_table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#attrs_am.data_table_attrTable__am.game'>
+					<div>
+						<code></code>
+						<span class='name'>attrs</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.data_table</span>
+							<span class='name'>attrTable</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.game</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new game instance.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Release the reference counter on the game.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.game_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this game against another game object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other game object to compare.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_map_am.map_map__boolean' class='name'>add_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Manually adds a new map to the map pool. Maps generally can be loaded from  file automatically via the
+							<code>map()</code>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to add to the map pool.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map was successfully added, false indicates the map was nil or had no name.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_map_string_map_name__boolean' class='name'>remove_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a map from the map pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map was successfully removed,   false indicates that map was not in the map pool.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_map_am.map_map__boolean' class='name'>remove_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a map from the map pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map was successfully removed,   false indicates that map was not in the map pool.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_maps_Void__am.game' class='name'>remove_all_maps</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all the maps from the map pool.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='map_string_map_name__am.map' class='name'>map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns a map from the map pool. If the map is not present  it will attempt to load the map from file under the data directory.
+							<p>
+								<code>data/maps/{map_name}.lua</code>
+							</p>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to load.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The found/loaded map, nil if it could not be found nor loaded.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='current_map_string_map_name__boolean' class='name'>current_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if a map with the given map name is found in the map pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map name to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the map was found.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='current_map_Void__am.map' class='name'>current_map</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.map</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the current active map, this will usually be the one that  the main character is on.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.map</span>
+								<span>:</span>
+								<span class='comment'>The current active map.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='current_map_string_map_name__am.game' class='name'>current_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the current active map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to set as the active map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='current_map_am.map_map__am.game' class='name'>current_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the current active map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to set as the active map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_game_object_to_map_am.game_object_game_object__boolean' class='name'>add_game_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a game object to the currently active map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully added.   False indicates that either the current map is nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_game_object_to_map_string_gameObjectId__boolean' class='name'>add_game_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a game object to the currently active map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id of the game object to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully added.   False indicates that either the current map is nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_game_object_from_map_am.game_object_game_object__boolean' class='name'>remove_game_object_from_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a game object from the current map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to remove from the current map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully removed.   False indicates that either the current map or game_object are nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_game_object_from_map_string_gameObjectId__boolean' class='name'>remove_game_object_from_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a game object from the current map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id of the game object to remove from the current map.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was successfully removed.   False indicates that either the current map or game_object are nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_game_object_in_map_am.game_object_game_object__boolean' class='name'>has_game_object_in_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the game object is on the current map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to look for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was found on the current map.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_game_object_in_map_string_gameObjectId__boolean' class='name'>has_game_object_in_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the game object is on the current map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id of the game object to look for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game object was found on the current map.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_am.game_object_game_object_am.map_map__am.game' class='name'>move_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to move to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_am.game_object_game_object_string_map_name__am.game' class='name'>move_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to move to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_am.game_object_game_object_am.map_map_number_position_x_number_position_y_boolean_set_as_current__am.game' class='name'>move_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_as_current</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map at a given position.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to move to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_as_current</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>When true, the new map will become the current map and the camera will   focus on the given game object.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_am.game_object_game_object_string_map_name_number_position_x_number_position_y_boolean_set_as_current__am.game' class='name'>move_object_to_map</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_as_current</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map at a given position.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to move to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>position_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>set_as_current</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>When true, the new map will become the current map and the camera will   focus on the given game object.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_grid_am.game_object_game_object_am.map_map__am.game' class='name'>move_object_to_map_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to move to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_grid_am.game_object_game_object_string_map_name__am.game' class='name'>move_object_to_map_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to move to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_grid_am.game_object_game_object_am.map_map_integer_grid_x_integer_grid_y__am.game' class='name'>move_object_to_map_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map at a given grid position.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.map</span>
+								<span class='name'>map</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The map to move to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid position to move the game object to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='move_object_to_map_grid_am.game_object_game_object_string_map_name_integer_grid_x_integer_grid_y__am.game' class='name'>move_object_to_map_grid</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Moves a game object from their current map to a new map at a given grid position.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to move.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>map_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the map to move to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x grid position to move the game object to.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>grid_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y grid position to move the game object to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='main_Void__am.character' class='name'>main</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the main character for this game.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The main character.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='main_am.character_main_char__am.game' class='name'>main</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>main_char</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the main character to the given character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>main_char</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new main character.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='game_object_string_gameObjectId__am.game_object' class='name'>game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game_object</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks for a game object with the given game object id, returns nil if a   game object could not be found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>gameObjectId</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object id to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game_object</span>
+								<span>:</span>
+								<span class='comment'>The found game object, or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='register_game_object_am.game_object_game_object__am.game' class='name'>register_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Registers a game object with the game instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to register with this game.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='deregister_game_object_am.game_object_game_object__am.game' class='name'>deregister_game_object</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Deregisters a game object with the game instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.game_object</span>
+								<span class='name'>game_object</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The game object to deregister.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='char_def_string_def_name__am.character' class='name'>char_def</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns the character definition with the given name.  The definition name is made up of the file to load the definition from  and the individual name. For example
+							<code>npcs:male1</code>
+							<span> If this  definition is not found then the</span>
+							<code>data/defs/npcs.lua</code>
+							<span> file  is loaded then the definition is looked for again.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The definition name of the character to load.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The found definition or nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='char_def_string_def_name_am.character_def__am.game' class='name'>char_def</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>def</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Registers a character with the given definition name.  Definition names are always namespaced to the file they were loaded from.  For example
+							<code>filename:defname</code>
+							<span> This filename should be relative  to the</span>
+							<code>data/defs/</code>
+							<span> folder. If no filename is given then the current  file being loaded will be used.    The files under</span>
+							<code>data/defs/</code>
+							<span> will be automatically loaded  when a definition with their filename is used. Definitions can also be  registered from outside of those files, however they will need to always  provide a filename. Definitions can be overridden.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name to store the character definition under.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>def</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character definition to store.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='item_def_string_def_name__am.item' class='name'>item_def</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.item</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns the item definition with the given name.  The definition name is made up of the file to load the definition from  and the individual name. For example
+							<code>human:sword</code>
+							<span> If this  definition is not found then the</span>
+							<code>data/defs/human.lua</code>
+							<span> file  is loaded then the definition is looked for again.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The definition name of the item to load.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.item</span>
+								<span>:</span>
+								<span class='comment'>The found definition or nil.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='item_def_string_def_name_am.item_def__am.game' class='name'>item_def</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>def</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Registers a character with the given definition name.  Definition names are always namespaced to the file they were loaded from.  For example
+							<code>filename:defname</code>
+							<span> This filename should be relative  to the</span>
+							<code>data/defs/</code>
+							<span> folder. If no filename is given then the current  file being loaded will be used.    The files under</span>
+							<code>data/defs/</code>
+							<span> will be automatically loaded  when a definition with their filename is used. Definitions can also be  registered from outside of those files, however they will need to always  provide a filename. Definitions can be overridden.</span>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>def_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name to store the item definition under.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>def</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item definition to store.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_dialogue_am.dialogue_dialogue__boolean' class='name'>add_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds the given dialogue to the dialogue pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue to add to the pool.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the dialogue was successfully added, false   indicates that dialogue was nil or was already in the pool.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_dialogue_am.dialogue_dialogue__boolean' class='name'>remove_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a dialogue from the dialogue pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.dialogue</span>
+								<span class='name'>dialogue</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the dialogue was successfully removed, false   indicates that the dialogue was nil or not found.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_dialogue_string_dialogue_id__boolean' class='name'>remove_dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a dialogue from the dialogue pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The dialogue id of the dialogue to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the dialogue was successfully removed, false   indicates that the dialogue was nil or not found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_dialogue_Void__am.game' class='name'>remove_all_dialogue</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all dialogue from the dialogue pool.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='dialogue_string_dialogue_id__am.dialogue' class='name'>dialogue</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.dialogue</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a dialogue with the given dialogue id, nil if no dialogue was found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>dialogue_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The id of the dialogue to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.dialogue</span>
+								<span>:</span>
+								<span class='comment'>The found dialogue or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='available_dialogues_Void__Void' class='name'>available_dialogues</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> TODO</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_quest_am.quest_quest__boolean' class='name'>add_quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a quest to the quest pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was successfully added.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_quest_am.quest_quest__boolean' class='name'>remove_quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a quest from the quest pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.quest</span>
+								<span class='name'>quest</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The quest to remove from the quest pool.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_quest_string_quest_id__boolean' class='name'>remove_quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes a quest from the quest pool.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The id of the quest to remove from the quest pool.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the quest was successfully removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='quest_string_quest_id__am.quest' class='name'>quest</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.quest</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a quest with the given quest id, nil if the quest could not be found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>quest_id</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The id of the quest to look up.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.quest</span>
+								<span>:</span>
+								<span class='comment'>The found quest, or nil.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='start_game_Void__am.game' class='name'>start_game</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Tells the game that it can start. This should be called  once it is ready to display the normal game HUD and have  the appropriate game input listeners installed.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_started_Void__boolean' class='name'>has_started</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the game has started.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the game has started.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='load_game_string_save_name__integer' class='name'>load_game</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>save_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attemps to load the game from a save file.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>save_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The name of the save file to load.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>A 1 for success, or 0 for error.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scenario_name_Void__string' class='name'>scenario_name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the scenario name which this game is based off.    The scenario name is set by the engine during a new game.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The games scenario name.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='generic_dead_graphic_Void__am.sprite' class='name'>generic_dead_graphic</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.sprite</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the generic dead graphic that is used when a specific dead graphic  is not set onto a character.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.sprite</span>
+								<span>:</span>
+								<span class='comment'>The generic dead graphic to use.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='generic_dead_graphic_string_asset_name__am.game' class='name'>generic_dead_graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the generic dead graphic asset name to use when one has not been set onto the  character itself.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The graphic asset name.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='generic_dead_graphic_am.sprite_sprite__am.game' class='name'>generic_dead_graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the generic dead graphic to use when one has not been set onto the  character itself.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.sprite</span>
+								<span class='name'>sprite</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The graphic to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='generic_dead_graphic_nil_grapic__am.game' class='name'>generic_dead_graphic</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>nil</span>
+								<span class='name'>grapic</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the generic dead graphic asset name to nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>nil</span>
+								<span class='name'>grapic</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Sets to nil.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_boolean_create_table__am.data_table' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.data_table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the game's attribute data table.  By default if no attribute data table is present nil is returned unless true  is passed as the first argument, then a data table is created if one is not present.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>create_table</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>Create a data table if one didn't exist.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.data_table</span>
+								<span>:</span>
+								<span class='comment'>The data table on this game.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='attrs_am.data_table_attrTable__am.game' class='name'>attrs</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attrTable</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.game</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the data table on this game, can be set to nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.data_table</span>
+								<span class='name'>attrTable</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The data table to set on the game.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.game</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

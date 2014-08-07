@@ -1,0 +1,909 @@
+<html>
+	<head>
+		<title>store</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Store</h2>
+			<div class='comment'> The store class represents a collection of inventories that are owned  by a character for the purpose of trade.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.store_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.store</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#owner_Void__am.character'>
+					<div>
+						<code></code>
+						<span class='name'>owner</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.character</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#owner_am.character_owner__am.store'>
+					<div>
+						<code></code>
+						<span class='name'>owner</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>owner</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.store</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#store_id_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>store_id</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#buy_am.character_buyer_am.item_item_number_value_factor__am.return_code'>
+					<div>
+						<code></code>
+						<span class='name'>buy</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>buyer</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value_factor</span>
+							<span class='optional'>= 1.0</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.return_code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#sell_am.character_seller_am.item_item_number_value_factor_boolean_make_new_inventory_boolean_allow_zero_coin__am.return_code'>
+					<div>
+						<code></code>
+						<span class='name'>sell</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.character</span>
+							<span class='name'>seller</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>value_factor</span>
+							<span class='optional'>= 1.0</span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>make_new_inventory</span>
+							<span class='optional'>= false</span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>allow_zero_coin</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.return_code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#create_inventory_Void__am.inventory'>
+					<div>
+						<code></code>
+						<span class='name'>create_inventory</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.inventory</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_inventory_am.inventory_inventory__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_inventory</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.inventory</span>
+							<span class='name'>inventory</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_inventory_am.inventory_inventory__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_inventory</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.inventory</span>
+							<span class='name'>inventory</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_inventories_Void__am.store'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_inventories</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.store</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#inventory_integer_index__am.inventory'>
+					<div>
+						<code></code>
+						<span class='name'>inventory</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>index</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.inventory</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#inventories_Void__array'>
+					<div>
+						<code></code>
+						<span class='name'>inventories</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>array</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#num_inventories_Void__array'>
+					<div>
+						<code></code>
+						<span class='name'>num_inventories</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>array</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#default_inventory_size_Void__array'>
+					<div>
+						<code></code>
+						<span class='name'>default_inventory_size</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>array</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_Void__Void' class='name'>new</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new store instance.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on this store.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.store_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.store</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this store with another store object.  Will not return true for equivalent stores.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.store</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other store to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the stores are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='owner_Void__am.character' class='name'>owner</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.character</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the stores owner.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.character</span>
+								<span>:</span>
+								<span class='comment'>The owner.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='owner_am.character_owner__am.store' class='name'>owner</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>owner</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.store</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the store owner, can be nil.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>owner</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The new owner.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.store</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='store_id_Void__string' class='name'>store_id</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the store's id. Used to uniquely identify the store.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The store's id.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='buy_am.character_buyer_am.item_item_number_value_factor__am.return_code' class='name'>buy</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>buyer</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value_factor</span>
+								<span class='optional'>= 1.0</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.return_code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to buy the item from the store using the purse from the buyer character.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>buyer</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character buying the item.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to buy.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value_factor</span>
+								<span class='optional'>= 1.0</span>
+								<span>:</span>
+								<span class='comment'>A multiplier that affects the cost of the item.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.return_code</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes for the purchase:
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The item was bought.</td>
+										</tr>
+										<tr>
+											<td>nil_parameter</td>
+											<td>The buyer or item was nil.</td>
+										</tr>
+										<tr>
+											<td>no_store_owner</td>
+											<td>Cannot buy the item with no store owner.</td>
+										</tr>
+										<tr>
+											<td>no_inventories</td>
+											<td>Could not find the item in the store because there are no inventories.</td>
+										</tr>
+										<tr>
+											<td>item_not_in_inventory</td>
+											<td>Could not find the item in the store inventories.</td>
+										</tr>
+										<tr>
+											<td>not_enough_coin</td>
+											<td>Buyer does not have enough coin to buy the item.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='sell_am.character_seller_am.item_item_number_value_factor_boolean_make_new_inventory_boolean_allow_zero_coin__am.return_code' class='name'>sell</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.character</span>
+								<span class='name'>seller</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>value_factor</span>
+								<span class='optional'>= 1.0</span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>make_new_inventory</span>
+								<span class='optional'>= false</span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>allow_zero_coin</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.return_code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to sell the item from the seller character.  Has options for allowing the store to automatically expand by making  new inventories if need be and allowing for the store owner to sell the item  without actually having the coin to pay for the item.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.character</span>
+								<span class='name'>seller</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The character selling the item.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to sell.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>value_factor</span>
+								<span class='optional'>= 1.0</span>
+								<span>:</span>
+								<span class='comment'>A multiplier that affects the cost of the item.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>make_new_inventory</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>If there is not enough space in the inventories then a new one is made.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>allow_zero_coin</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>As coin is taken from the store owner to give to the seller, this can force   the seller to receive the full amount even if the store owner doesn't have the available coin.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.return_code</span>
+								<span>:</span>
+								<span class='comment'>
+									Return codes for the sale:
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The item was sold.</td>
+										</tr>
+										<tr>
+											<td>nil_parameter</td>
+											<td>The seller or item was nil.</td>
+										</tr>
+										<tr>
+											<td>no_store_owner</td>
+											<td>Cannot sell the item with no store owner.</td>
+										</tr>
+										<tr>
+											<td>no_inventories</td>
+											<td>No inventories and make_new_inventory is false.</td>
+										</tr>
+										<tr>
+											<td>not_enough_inventory_space</td>
+											<td>Not enough space in the inventories to fit the item and make_new_inventory is false.</td>
+										</tr>
+										<tr>
+											<td>not_enough_coin</td>
+											<td>Store owner does not have enough coin to buy the item and allow_zero_coin is false.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='create_inventory_Void__am.inventory' class='name'>create_inventory</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.inventory</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new store inventory using the default inventory size.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.inventory</span>
+								<span>:</span>
+								<span class='comment'>The new store inventory.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_inventory_am.inventory_inventory__boolean' class='name'>add_inventory</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>inventory</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds the given inventory to the ones controlled by the store.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>inventory</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The inventory to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the inventory was successfully added, false if the inventory was nil or already part of the store.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_inventory_am.inventory_inventory__boolean' class='name'>remove_inventory</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>inventory</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes the given inventory from the store.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>inventory</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The inventory to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the inventory was successfully removed, false if the inventory was nil or not part of the store.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_inventories_Void__am.store' class='name'>remove_all_inventories</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.store</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all the inventories from the store.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.store</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='inventory_integer_index__am.inventory' class='name'>inventory</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.inventory</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the inventory at the given index, returns nil if outside of the number of inventories.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The index to get the inventory from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.inventory</span>
+								<span>:</span>
+								<span class='comment'>The inventory at the given index.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='inventories_Void__array' class='name'>inventories</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>array</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns an array of all the inventories in this store.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>array</span>
+								<span>:</span>
+								<span class='comment'>All the inventories.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='num_inventories_Void__array' class='name'>num_inventories</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>array</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns an array of all the inventories in this store.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>array</span>
+								<span>:</span>
+								<span class='comment'>All the inventories.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='default_inventory_size_Void__array' class='name'>default_inventory_size</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>array</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns an array of all the inventories in this store.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>array</span>
+								<span>:</span>
+								<span class='comment'>All the inventories.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

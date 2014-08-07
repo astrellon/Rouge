@@ -1,0 +1,125 @@
+<html>
+	<head>
+		<title>return_codes</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Return Codes</h2>
+			<div class='comment'>
+				 A helper class for debugging Lua code.  This class provides the follow return code constants.
+				<h4>General</h4>
+				<ul>
+					<li>success</li>
+					<li>nil_parameter</li>
+					<li>internal_error</li>
+					<li>file_not_found</li>
+				</ul>
+				<h4>Character</h4>
+				<ul>
+					<li>able_to_equip</li>
+					<li>can_equip</li>
+					<li>body_part_type_mismatch</li>
+					<li>not_enough_body_parts</li>
+					<li>out_of_range</li>
+					<li>no_weapon_part</li>
+					<li>off_the_map</li>
+					<li>invalid_location</li>
+					<li>did_interact</li>
+					<li>did_not_interact</li>
+					<li>do_not_interact</li>
+				</ul>
+				<h4>Body Parts</h4>
+				<ul>
+					<li>body_part_found</li>
+					<li>body_part_not_found</li>
+					<li>body_part_type_unknown</li>
+				</ul>
+				<h4>Texture</h4>
+				<ul>
+					<li>texture_load_failed</li>
+				</ul>
+				<h4>System</h4>
+				<ul>
+					<li>no_linked_System</li>
+				</ul>
+				<h4>Inventory</h4>
+				<ul>
+					<li>not_enough_inventory_space</li>
+					<li>item_not_in_inventory</li>
+				</ul>
+				<h4>Store</h4>
+				<ul>
+					<li>store_already_owned</li>
+					<li>not_enough_coin</li>
+					<li>no_store_owner</li>
+					<li>no_inventories</li>
+				</ul>
+			</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#message_am.code_return_code__string'>
+					<div>
+						<code>static</code>
+						<span class='name'>message</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.code</span>
+							<span class='name'>return_code</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='message_am.code_return_code__string' class='name'>message</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.code</span>
+								<span class='name'>return_code</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Accepts a return code value (represented by an integer) and returns  a more detailed message about that return code.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.code</span>
+								<span class='name'>return_code</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The return code to get the message for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The message associated with the given return code.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

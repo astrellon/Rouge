@@ -1,0 +1,331 @@
+<html>
+	<head>
+		<title>debug</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Debug</h2>
+			<div class='comment'> A helper class for debugging Lua code.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#log_..._args__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>log</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>...</span>
+							<span class='name'>args</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#equals_*_obj1_*_obj2__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>equals</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>*</span>
+							<span class='name'>obj1</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>*</span>
+							<span class='name'>obj2</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#not_equals_*_obj1_*_obj2__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>not_equals</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>*</span>
+							<span class='name'>obj1</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>*</span>
+							<span class='name'>obj2</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#print_stack_Void__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>print_stack</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#empty_table_input__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>empty</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>input</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#empty_string_input__boolean'>
+					<div>
+						<code>static</code>
+						<span class='name'>empty</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>input</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='log_..._args__Void' class='name'>log</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>...</span>
+								<span class='name'>args</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Takes a variable number of arguments and prints them to the logger.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>...</span>
+								<span class='name'>args</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>A variable number of Lua objects to log.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='equals_*_obj1_*_obj2__Void' class='name'>equals</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>*</span>
+								<span class='name'>obj1</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>*</span>
+								<span class='name'>obj2</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Does an assert for checking that the values are equal.  If they are not an exception is thrown in the internal game code.  This does not return a value as if there is an exception the Lua  code will stop executing.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>*</span>
+								<span class='name'>obj1</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The first object</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>*</span>
+								<span class='name'>obj2</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The second object</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='not_equals_*_obj1_*_obj2__Void' class='name'>not_equals</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>*</span>
+								<span class='name'>obj1</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>*</span>
+								<span class='name'>obj2</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Does an assert for checking that the values are not equal.  If they are not an exception is thrown in the internal game code.  This does not return a value as if there is an exception the Lua  code will stop executing.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>*</span>
+								<span class='name'>obj1</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The first object</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>*</span>
+								<span class='name'>obj2</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The second object</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='print_stack_Void__Void' class='name'>print_stack</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Prints to console the current Lua stack.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='empty_table_input__boolean' class='name'>empty</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>input</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given table is empty.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>input</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The table to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the table is empty.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='empty_string_input__boolean' class='name'>empty</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>input</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if the given string is empty.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>input</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The string to check.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the string is empty.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

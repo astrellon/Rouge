@@ -1,0 +1,2034 @@
+<html>
+	<head>
+		<title>asset</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Asset</h2>
+			<div class='comment'> Simple wrapper for the asset class.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_string_asset_name__Void'>
+					<div>
+						<code>static</code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>asset_name</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.asset_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.asset</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#name_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>name</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_integer_index__am.texture'>
+					<div>
+						<code></code>
+						<span class='name'>texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>index</span>
+							<span class='optional'>= 0</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.texture</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_am.texture_texture_integer_index__am.asset_am.code'>
+					<div>
+						<code></code>
+						<span class='name'>texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.texture</span>
+							<span class='name'>texture</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>index</span>
+							<span class='optional'>= 0</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_string_filename_integer_index__am.asset_am.code'>
+					<div>
+						<code></code>
+						<span class='name'>texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>filename</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>index</span>
+							<span class='optional'>= 0</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_texture_am.texture_texture__am.asset_am.code'>
+					<div>
+						<code></code>
+						<span class='name'>add_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.texture</span>
+							<span class='name'>texture</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_texture_string_filename__am.asset_am.code'>
+					<div>
+						<code></code>
+						<span class='name'>add_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>filename</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>am.code</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_texture_string_filename__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>remove_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>filename</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_texture_am.texture_texture__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>remove_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.texture</span>
+							<span class='name'>texture</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_texture_string_filename__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>filename</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_texture_am.texture_texture__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_texture</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.texture</span>
+							<span class='name'>texture</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_textures_Void__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all_textures</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#total_textures_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>total_textures</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#total_texture_windows_Void__integer'>
+					<div>
+						<code></code>
+						<span class='name'>total_texture_windows</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#total_texture_windows_integer_total_texture_windows__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>total_texture_windows</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>total_texture_windows</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_table_values__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>values</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_pixel_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window_pixel</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_pixel_table_values__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window_pixel</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>values</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#num_frames_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>num_frames</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#num_frames_integer_frame_x_integer_frame_y_boolean_calc_total_frames__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>num_frames</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>frame_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>frame_y</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>calc_total_frames</span>
+							<span class='optional'>= true</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#frame_rate_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>frame_rate</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#frame_rate_number_frame_rate__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>frame_rate</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>number</span>
+							<span class='name'>frame_rate</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#width_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>width</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#height_Void__number'>
+					<div>
+						<code></code>
+						<span class='name'>height</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>number</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#repeat_xy_Void__boolean_boolean'>
+					<div>
+						<code></code>
+						<span class='name'>repeat_xy</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#repeat_xy_boolean_repeat_x_boolean_repeat_y__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>repeat_xy</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>repeat_x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>repeat_y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scale_nine_Void__table'>
+					<div>
+						<code></code>
+						<span class='name'>scale_nine</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>table</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scale_nine_table_values_boolean_calc_state__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>scale_nine</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>values</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>calc_state</span>
+							<span class='optional'>= false</span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scale_nine_table_values_string_state__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>scale_nine</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>table</span>
+							<span class='name'>values</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>state</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scale_nine_state_Void__string'>
+					<div>
+						<code></code>
+						<span class='name'>scale_nine_state</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>string</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#scale_nine_state_string_state__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>scale_nine_state</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>string</span>
+							<span class='name'>state</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_animation_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window_animation</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#texture_window_animation_boolean_texture_window_animation__am.asset'>
+					<div>
+						<code></code>
+						<span class='name'>texture_window_animation</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>boolean</span>
+							<span class='name'>texture_window_animation</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.asset</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code>static</code>
+							<span id='new_string_asset_name__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new asset using the given asset name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>asset_name</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Name of the asset.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on the asset.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.asset_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.asset</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this asset with another asset object.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.asset</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other sprite to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if they are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='name_Void__string' class='name'>name</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>   Returns the name of this asset that was defined when the asset was created.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The name of this asset.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_integer_index__am.texture' class='name'>texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.texture</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the texture at the given index. Defaults to getting the first texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+								<span>:</span>
+								<span class='comment'>The index of the texture to get.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.texture</span>
+								<span>:</span>
+								<span class='comment'>The found texture or nil if there is no texture at that index.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_am.texture_texture_integer_index__am.asset_am.code' class='name'>texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the texture at the given index. Defaults to setting the first texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The texture to set.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+								<span>:</span>
+								<span class='comment'>The index to set the texture at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>Success.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_string_filename_integer_index__am.asset_am.code' class='name'>texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the texture by filename at the given index.   Defaults to setting the first texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The path to the texture.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>index</span>
+								<span class='optional'>= 0</span>
+								<span>:</span>
+								<span class='comment'>The index to set the texture at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>
+									Return code for loading the texture.
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The texture loaded the new file successfully.</td>
+										</tr>
+										<tr>
+											<td>file_not_found</td>
+											<td>Texture didn't load because the file could not be found.</td>
+										</tr>
+										<tr>
+											<td>texture_load_failed</td>
+											<td>Texture didn't load because there was an issue with the file.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_texture_am.texture_texture__am.asset_am.code' class='name'>add_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Adds a texture to the list of texture on this asset.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The texture to add.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>Success</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_texture_string_filename__am.asset_am.code' class='name'>add_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>am.code</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to add a texture to the list of textures on this asset by texture name.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The path to load the texture from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>am.code</span>
+								<span>:</span>
+								<span class='comment'>
+									Return code for loading the texture.
+									<table class='return_codes'>
+										<tr>
+											<td>success</td>
+											<td>The texture loaded the new file successfully.</td>
+										</tr>
+										<tr>
+											<td>file_not_found</td>
+											<td>Texture didn't load because the file could not be found.</td>
+										</tr>
+										<tr>
+											<td>texture_load_failed</td>
+											<td>Texture didn't load because there was an issue with the file.</td>
+										</tr>
+									</table>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_texture_string_filename__am.asset' class='name'>remove_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes the texture based off the filename used to load that texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The filename the texture was loaded from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_texture_am.texture_texture__am.asset' class='name'>remove_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes the given texture from the asset list.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The texture to remove.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_texture_string_filename__boolean' class='name'>has_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Check if the asset contains the texture based off the filename used to load that texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>filename</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The filename the texture was loaded from.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there was a texture found that used the given filename.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_texture_am.texture_texture__boolean' class='name'>has_texture</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Checks if the asset contains the given texture.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.texture</span>
+								<span class='name'>texture</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The texture to check for.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the texture was found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_textures_Void__am.asset' class='name'>remove_all_textures</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all the textures from the asset.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='total_textures_Void__integer' class='name'>total_textures</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the number of textures associated with this asset.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of textures.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='total_texture_windows_Void__integer' class='name'>total_texture_windows</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the number of texture windows this asset can use.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of texture windows.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='total_texture_windows_integer_total_texture_windows__am.asset' class='name'>total_texture_windows</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>total_texture_windows</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the number of texture windows this asset will use.  This is related to the number of frames set (see num_frames).  For example is the number of frames is set to 4, 4, then the maximum number of  frames the texture can be split up into is 16 and by default the total number of texture  windows is set to 16, however if the graphic is only made up of 14 frames but still in a 4x4 grid  then you will need to set this to 14.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>total_texture_windows</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The total number of texture windows to use.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_Void__table' class='name'>texture_window</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table with values that correspond with the UV coordinates that  defines the subwindow within the texture.  This subwindow allows a section of a texture to be used instead of the whole texture.  The table contains the following values: "left_x", "right_x", "top_y" and "bottom_y"</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>Table containing the UV coordinates.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_table_values__am.asset' class='name'>texture_window</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the texture window rectangle for this asset from a table.  Each value should be treated like a UV coordinate.  The table is expected to have the values for "left_x", "right_x", "top_y" and "bottom_y".  If these values are not defined, left_x and top_y default to 0 and right_x and bottom_y will default to 1.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>Table of values to set the UV coordinates to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_pixel_Void__table' class='name'>texture_window_pixel</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table of values that correspond with the pixel coordinates that  define the subwindow within the texture.  This subwindow allows a section of a texture to be used instead of the whole texture.  This function will fail if a texture has not been set onto the asset.  We may lift this restriction in future if it is required.  The table contains the following values: "left_x", "right_x", "top_y" and "bottom_y"</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>x The x position of the rectangle</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_pixel_table_values__am.asset' class='name'>texture_window_pixel</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the texture window rectangle for this asset from a table.  Each value should be treated like a pixel coordinate.  This function will fail if a texture has not been set onto the asset.  We may lift this restriction in future if it is required.  The table is expected to have the values for "left_x", "right_x", "top_y" and "bottom_y".  If these values are not defined, left_x and top_y default to 0 and right_x and bottom_y will default to the texture width.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>A table of values defining the texture window in pixel coordinates.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='num_frames_Void__integer_integer' class='name'>num_frames</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the number of frames the asset has in the x and y directions.  These frames are in relation to the assets texture window.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of x frames.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The number of y frames.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='num_frames_integer_frame_x_integer_frame_y_boolean_calc_total_frames__am.asset' class='name'>num_frames</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>frame_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>frame_y</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>calc_total_frames</span>
+								<span class='optional'>= true</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the number of frames the asset has in the x and y directions.  These frames are in relation to the assets texture window.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>frame_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The number of x frames.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>frame_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The number of y frames.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>calc_total_frames</span>
+								<span class='optional'>= true</span>
+								<span>:</span>
+								<span class='comment'>When true the total texture windows will   be calculated as frame_x * frame_y.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='frame_rate_Void__number' class='name'>frame_rate</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the frame rate of the asset graphic. The defines how  quickly the animation progresses. If the framerate is set to zero (or below)  it is assumed that this asset has no animation.  The frame rate is defined in frames per second.  See subwindow_animation for types of animation.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The frame rate.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='frame_rate_number_frame_rate__am.asset' class='name'>frame_rate</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>number</span>
+								<span class='name'>frame_rate</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the frame rate of the asset.  The frame rate is defined as how many frames per second.  See subwindow_animation for types of animation.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>number</span>
+								<span class='name'>frame_rate</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The frame rate.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='width_Void__number' class='name'>width</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the width of the asset in pixels. This takes into account the subwindow size and the number  of frames.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The width of the asset graphic.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='height_Void__number' class='name'>height</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>number</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the height of the asset in pixels. This takes into account the subwindow size and the number  of frames.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>number</span>
+								<span>:</span>
+								<span class='comment'>The height of the asset graphic.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='repeat_xy_Void__boolean_boolean' class='name'>repeat_xy</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the flags for how the asset textures are repeated in the x and y directions.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>If the texture will repeat along the x direction.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>If the texture will repeat along the y direction.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='repeat_xy_boolean_repeat_x_boolean_repeat_y__am.asset' class='name'>repeat_xy</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>repeat_x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>repeat_y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the flags for how the texture repreats.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>repeat_x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>If the texture will repeat along the x direction.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>repeat_y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>If the texture will repeat along the y direction.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scale_nine_Void__table' class='name'>scale_nine</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>table</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns a table with values that define the inner borders of a scale nine system.  Scale nine allows for an asset to be stretched only whilst keep the outer edge unstretched.  The table contains the following values: "left_x", "right_x", "top_y" and "bottom_y"</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>table</span>
+								<span>:</span>
+								<span class='comment'>A table that defines the inner borders of a scale nine system in pixels.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scale_nine_table_values_boolean_calc_state__am.asset' class='name'>scale_nine</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>calc_state</span>
+								<span class='optional'>= false</span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the inner borders of a scale nine system.  Scale nine allows for an asset to be stretched only whilst keep the outer edge unstretched.  The table is expected to have the values for "left_x", "right_x", "top_y" and "bottom_y".  If these values are not defined, the values are left unset.  These values are used in connection with the scale nine state, which defines if the scale nine  system is to be turned off or used in horizontal, verticle or both modes. When automatically  calculated the state it determined by which values are defined, if only left_x and right_x are set  then it's determined to be horizontal, same with top_y and bottom_y. If all are set then   it's set to both. And if none are set then scale nine is turned off.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>A table of values defining the scale nine inner borders in pixels.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>calc_state</span>
+								<span class='optional'>= false</span>
+								<span>:</span>
+								<span class='comment'>When true the scale nine state will be automatically calculated from the values given.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scale_nine_table_values_string_state__am.asset' class='name'>scale_nine</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>state</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets the inner borders of a scale nine system.  Scale nine allows for an asset to be stretched only whilst keep the outer edge unstretched.  The table is expected to have the values for "left_x", "right_x", "top_y" and "bottom_y".  If these values are not defined, the values are left unset.  These values are used in connection with the scale nine state, which defines if the scale nine  system is to be turned off or used in horizontal, verticle or both modes.  The valid values for setting the scale nine state are "none", "verticle", "horizontal" and "both".</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>table</span>
+								<span class='name'>values</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>A table of values defining the scale nine inner borders in pixels.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>state</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The scale nine state to set.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scale_nine_state_Void__string' class='name'>scale_nine_state</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>string</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the scale nine state. This state is used to determine how the scale nine inner borders are used.    Can return the following values: "none", "horizontal", "verticle" or "both"</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>string</span>
+								<span>:</span>
+								<span class='comment'>The scale nine state.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='scale_nine_state_string_state__am.asset' class='name'>scale_nine_state</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>string</span>
+								<span class='name'>state</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Sets the scale nine state by name. This state is used to determine how the scale nine inner borders are used.
+							<table class='return_codes'>
+								<tr>
+									<td>none</td>
+									<td>Scale nine is turned off.</td>
+								</tr>
+								<tr>
+									<td>horizontal</td>
+									<td>Only the left_x and right_x values are used and the asset is stretched horizontally.</td>
+								</tr>
+								<tr>
+									<td>vertical</td>
+									<td>Only the top_y and bottom_y values are used and the asset is stretched vertically.</td>
+								</tr>
+								<tr>
+									<td>both</td>
+									<td>All 4 values are used and the asset can be stretched both horizontally and vertically.</td>
+								</tr>
+							</table>
+						</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>string</span>
+								<span class='name'>state</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The state to set the scale nine system to.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_animation_Void__boolean' class='name'>texture_window_animation</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns if the animation for this asset is based on texture windows.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if this asset animates along the texture windows.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='texture_window_animation_boolean_texture_window_animation__am.asset' class='name'>texture_window_animation</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>boolean</span>
+								<span class='name'>texture_window_animation</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.asset</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Sets how the asset deals with animation. For assets that have a frame rate of zero this value is ignored.  When true, the current frame defines which texture window is used to display. So for an asset with  num_frames set to 4, 4, it will have a total of 16 sub texture windows to animate over.  When false the current frame defines which texture out of the list of all textures added to this asset  to use when animating.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>boolean</span>
+								<span class='name'>texture_window_animation</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The type of animation for this asset.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.asset</span>
+								<span>:</span>
+								<span class='comment'>This.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,750 @@
+<html>
+	<head>
+		<title>inventory</title>
+		<link href='../css/styles.css' type='text/css' rel='stylesheet'></link>
+	</head>
+	<body>
+		<div class='class_body'>
+			<h2>Inventory</h2>
+			<div class='comment'> The inventory class represents an inventory of items, it is not linked  to a specific game object however a game object can be linked to an inventory.  This allows for any character or item to hold an inventory.
+  An inventory has a size and as such the maximum number of items that can  be stored will be limited by the size of each item.</div>
+			<a href='index.html' class='index'>Return to Index</a>
+			<div class='table_of_contents rounded'>
+				<a href='#new_integer_width_integer_height__Void'>
+					<div>
+						<code></code>
+						<span class='name'>new</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>width</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>height</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__gc_Void__Void'>
+					<div>
+						<code></code>
+						<span class='name'>__gc</span>
+						<span>(</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#__eq_am.inventory_rhs__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>__eq</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.inventory</span>
+							<span class='name'>rhs</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#size_Void__integer_integer'>
+					<div>
+						<code></code>
+						<span class='name'>size</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<code>,</code>
+						<span class='returns_short'>
+							<span class='type'>integer</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_space_for_am.item_item_integer_x_integer_y__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_space_for</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#add_item_am.item_item_integer_x_integer_y__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>add_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>x</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>y</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#remove_all_Void__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>remove_all</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#has_item_am.item_item__boolean'>
+					<div>
+						<code></code>
+						<span class='name'>has_item</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>am.item</span>
+							<span class='name'>item</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>boolean</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#item_at_integer_locationX_integer_locationY__am.item'>
+					<div>
+						<code></code>
+						<span class='name'>item_at</span>
+						<span>(</span>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>locationX</span>
+							<span class='optional'></span>
+						</span>
+						<code>,</code>
+						<span class='param_short'>
+							<span class='type'>integer</span>
+							<span class='name'>locationY</span>
+							<span class='optional'></span>
+						</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>am.item</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+				<a href='#spots_Void__Array'>
+					<div>
+						<code></code>
+						<span class='name'>spots</span>
+						<span>(</span>
+						<span>)</span>
+						<code>-></code>
+						<span>(</span>
+						<span class='returns_short'>
+							<span class='type'>Array</span>
+						</span>
+						<span>)</span>
+					</div>
+				</a>
+			</div>
+			<div class='functions'>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='new_integer_width_integer_height__Void' class='name'>new</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Creates a new inventory instance.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>width</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The width of the inventory in item size units.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>height</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The height of the inventory in item size units.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__gc_Void__Void' class='name'>__gc</span>
+							<span>(</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Releases the reference counter on this inventory.</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='__eq_am.inventory_rhs__boolean' class='name'>__eq</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Compares this inventory with another inventory object.  Will not return true for equivalent inventories.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.inventory</span>
+								<span class='name'>rhs</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The other inventory to compare with.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the inventories are the same object.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='size_Void__integer_integer' class='name'>size</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<code>,</code>
+							<span class='returns_short'>
+								<span class='type'>integer</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the width and height of this inventory.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The width of the inventory.</span>
+							</div>
+							<div class='returns_full'>
+								<span class='type'>integer</span>
+								<span>:</span>
+								<span class='comment'>The height of the inventory.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_space_for_am.item_item_integer_x_integer_y__boolean' class='name'>has_space_for</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns true if there is enough space to place the given item at  the given location. False indicates that either the location will put   the item outside of the bounds of the inventory or that there is another  item blocking this items placement.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to place.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x location to check at</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y location to check at</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if there is space at the given location for the given item.   False otherwise if there isn't any space or the location is invalid.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_item_am.item_item__boolean' class='name'>add_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to add an item to the inventory, returns true if a spot was  found the item, false if the item was nil or if no spot could be found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to add to the inventory.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was added to the inventory successfully.</span>
+							</div>
+						</div>
+					</div>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='add_item_am.item_item_integer_x_integer_y__boolean' class='name'>add_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Attempts to add an item to the inventory at the given location, returns true  if the space required for the item was available.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to add to the inventory.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>x</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x location to add the item at.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>y</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y location to add the item at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was added to the inventory successfully.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_item_am.item_item__boolean' class='name'>remove_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes the given item from the inventory, returns true if the item was found in the inventory  and removed.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to remove from the inventory.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was removed.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='remove_all_Void__boolean' class='name'>remove_all</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Removes all items from the inventory.</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if all items were successfully removed, false is there was an error.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='has_item_am.item_item__boolean' class='name'>has_item</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>boolean</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Looks for the given item in the inventory. Returns true if the given item was found.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>am.item</span>
+								<span class='name'>item</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The item to look for in the inventory.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>boolean</span>
+								<span>:</span>
+								<span class='comment'>True if the item was found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='item_at_integer_locationX_integer_locationY__am.item' class='name'>item_at</span>
+							<span>(</span>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>locationX</span>
+								<span class='optional'></span>
+							</span>
+							<code>,</code>
+							<span class='param_short'>
+								<span class='type'>integer</span>
+								<span class='name'>locationY</span>
+								<span class='optional'></span>
+							</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>am.item</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'> Returns the item at the given location, nil if there is no item at that location.  Items do not overlap so there cannot be multiple items returned.</div>
+						<div class='parameters'>Parameters:</div>
+						<div class='type_list'>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>locationX</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The x location to look at.</span>
+							</div>
+							<div class='param_full'>
+								<span class='type'>integer</span>
+								<span class='name'>locationY</span>
+								<span class='optional'></span>
+								<span>:</span>
+								<span class='comment'>The y location to look at.</span>
+							</div>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>am.item</span>
+								<span>:</span>
+								<span class='comment'>The found item, or nil if it was nothing was found.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='function_instance rounded'>
+					<div class='function'>
+						<div>
+							<code></code>
+							<span id='spots_Void__Array' class='name'>spots</span>
+							<span>(</span>
+							<span>)</span>
+							<code>-></code>
+							<span>(</span>
+							<span class='returns_short'>
+								<span class='type'>Array</span>
+							</span>
+							<span>)</span>
+						</div>
+						<div class='comment'>
+							 Returns an array of tables which represent all the items in the inventory.  Each array element contains the item, and x and y locations.
+							<pre>
+ inv = am.inventory.new(3, 3)
+ scroll1 = am.item.new()
+ scroll1:inventory_size(2, 1)
+ scroll2 = scroll1:clone()
+ scroll1:name("Scroll 1")
+ scroll2:name("Scroll 2")
+ inv.add_item(scroll1)
+ inv.add_item(scroll2)
+ spots = inv:spots()
+ for key, value in pairs(spots) do
+     am_log(key .. ": " .. value.item:name() .. " at " .. value.x .. ", " .. value.y)
+ end
+ 
+ Outputs:
+ 2: Scroll 2 at 0, 1
+ 1: Scroll 1 at 0, 0</pre>
+						</div>
+						<div class='returns'>Returns:</div>
+						<div class='type_list'>
+							<div class='returns_full'>
+								<span class='type'>Array</span>
+								<span>:</span>
+								<span class='comment'>Array of all the items in the inventory and their locations.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
