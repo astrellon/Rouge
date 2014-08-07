@@ -1,6 +1,6 @@
 body {
 	font-family: Helvetica, Arial;
-	background: url("images/background.png");
+	background: url("../images/background.png");
 }
 h2 {
 	text-shadow: 0 2px 2px #bbb;

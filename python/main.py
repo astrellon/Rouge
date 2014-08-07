@@ -24,6 +24,7 @@ import luaDocs;
 import htmlOutput;
 import sys;
 import os;
+import shutil;
 
 usage = "Usage: " + sys.argv[0] + " filename";
 usage += "\n\nA script for parsing Lua documentation from the function comments in the \nC++ wrapper code.";
@@ -35,22 +36,43 @@ usage += "\n\nIf __basePath is used as the className, then the associated path i
 usage += "\nis appended to all the paths that come after that line. "
 usage += "\n__basePath can be set multiple times to set different base paths."
 if len(sys.argv) == 1:
-	print(usage);
+    print(usage);
 else:
-	docs = luaDocs.Documentation();
-	docs.parseList(sys.argv[1]);
-	
-	try:
-		os.makedirs("classes", 0o777);
-	except:
-		pass
-	
-	for classDocName, classDoc in docs.classes.items():
-		output = htmlOutput.HtmlOutput();
-		output.load(classDoc);
-		output.write("classes/" + classDocName + ".html");
-		
-	if len(luaDocs.warnings) > 0:
-		print("Warnings:");
-		print("- " + luaDocs.arrayJoin(luaDocs.warnings, "\n- "));
-		
+    docs = luaDocs.Documentation();
+    docs.parseList(sys.argv[1]);
+    
+    try:
+        shutil.rmtree("build");
+    except OSError as exc:
+        print("");
+
+    try:
+        os.makedirs("build", 0o777);
+    except:
+        pass
+    
+    for classDocName, classDoc in docs.classes.items():
+        output = htmlOutput.HtmlOutput();
+        output.load(classDoc);
+        output.write("build/" + classDocName + ".html");
+
+    outputIndex = htmlOutput.HtmlOutput();
+    outputIndex.createIndex(docs.classes, "Index File", "Index file for all the available classes with documentation for Rouge.");
+    outputIndex.write("build/index.html");
+
+
+    try:
+        shutil.copytree("css", "build/css");
+    except OSError as exc:
+        print("Unable to copy css to build.");
+
+    try:
+        shutil.copytree("images", "build/images");
+    except OSError as exc:
+        print("Unable to copy css to build.");
+
+        
+    if len(luaDocs.warnings) > 0:
+        print("Warnings:");
+        print("- " + luaDocs.arrayJoin(luaDocs.warnings, "\n- "));
+        
