@@ -1,6 +1,6 @@
 body {
 	font-family: Helvetica, Arial;
-	background: url("../images/background.png");
+	background: url("images/background.png");
 }
 h2 {
 	text-shadow: 0 2px 2px #bbb;
@@ -75,4 +75,10 @@ table.return_codes {
 table.return_codes tr td:first-child {
 	font-weight: bold;
 	padding-right: 1em;
+}
+
+a.index {
+    padding: 0.5em;
+    line-height: 2.5em;
+    text-decoration: underline;
 }
