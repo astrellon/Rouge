@@ -7,8 +7,8 @@ return {
 			game:current_map(map)
 		end
 		
-		player = am.character.from_def("races:human", "melli")
-		player:name("Melanie")
+		player = am.character.from_def("races:human", "player")
+		player:name("Player Name")
 			:graphic(am.sprite.new("characters/human:kaswe"))
 			:grid_location(8, 18)
 			:gender("female")

@@ -57,7 +57,7 @@
 ##==========================================================================
 
 # The pre-processor and compiler options.
-MY_CFLAGS = -D_FREEGLUT_SYS=1 
+MY_CFLAGS = -D_FREEGLUT_SYS=1 -fpermissive
 
 # The linker options.
 MY_LIBS   = -lGL -lGLU -lglut -lopenal -lalut -lIL -lILU -lILUT

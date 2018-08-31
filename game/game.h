@@ -232,6 +232,9 @@ namespace game {
 		typedef std::map<std::string, base::Handle<Quest> > QuestMap;
 		QuestMap mQuestMap;
 
+		typedef std::map<std::string, base::Handle<Store> > StoreMap;
+        StoreMap mStoreMap;
+
         int mUIKeyboardFocus;
 
 		void endGameTick();
